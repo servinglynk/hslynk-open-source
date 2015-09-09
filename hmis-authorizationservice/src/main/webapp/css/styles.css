@@ -1,0 +1,46 @@
+/* ---------------------------------------------------------------------------*/
+/* Elements                                                                   */
+/* ---------------------------------------------------------------------------*/
+*         {margin:0px; padding:0px; }
+a         {border:none; cursor:pointer; outline:none; }
+a:link    {text-decoration:none;}
+a:visited {color:#808080; text-decoration:none;}
+a:hover   {color:#C32026;}
+body      {color:#000000; font-family:Arial, Helvetica, sans-serif; margin:0; padding:0; }
+h1        {padding:0px 0px 10px 0px;}
+img       {border:none;}
+p         {padding:0px 0px 10px 0px;}
+h1,h3,h4,h5{color:#001B2D}
+input	  {width: 240px;border: 1px solid #B1C3C7;border-color: #B1C3C7;background: white;height:25px;padding: 2px 6px;margin:3px; font-size:12px}
+select	  {margin:3px}
+button    {	border-width: 4px 10px 7px 10px;
+			-webkit-border-image: url("../images/buttons/default.png") 4 10 7 10 stretch;
+			-moz-border-image: url("../images/buttons/default.png") 4 10 7 10 stretch;
+			-ms-border-image: url("../images/buttons/default.png") 4 10 7 10 stretch;
+			-o-border-image: url("../images/buttons/default.png") 4 10 7 10 stretch;
+			font-weight: normal;
+			font-size: 13px;
+			color: white;
+			height: 30px;
+			cursor:pointer;
+			background-color: transparent;
+			margin:10px 0 0 0;
+			}
+
+.clearBoth{clear:both}			
+#header-wrapper {background: url("../images/header-bg.png") repeat-x scroll center top;height:50px;}	
+#header-wrapper div.header-content {width:990px;margin:0 auto;height:50px;}
+#header-wrapper div.header-content div.header-logo{background: url("../images/connect-logo.png") no-repeat scroll left top;height:50px;width:250px;}
+
+#main-content-wrapper{background: #400040; background-repeat:repeat-x;}
+#main-content-wrapper #main-content{width:815px;margin:0 auto;padding:20px;background:#400040}
+
+#main-content h3{color:#001B2D}
+#main-content label{width:110px;display:inline-block;text-align:right;}
+#main-content #login-container{margin:0 auto; width:260px}
+#main-content #login-container button,#main-content #test-app-container button{float:right}
+#main-content li{list-style:none}
+#main-content.consent-content{text-align:center}
+#main-content #test-app-container{margin:0 auto; width:375px}
+
+#main-content #errorMsg{font-size:12px; color:red}

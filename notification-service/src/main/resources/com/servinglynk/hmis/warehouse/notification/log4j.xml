@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+  <!-- 
+    The logging levels are defined here 
+			http://logging.apache.org/log4j/docs/api/org/apache/log4j/Level.html
+    The root level is set to 'all', and more restricted levels are set 
+		to specific loggers if they are too verbose.
+  -->
+
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
+    <param name="Threshold" value="all" />
+    <param name="Target" value="System.out" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%-5p] %d{ABSOLUTE} %t: %m%n" />
+    </layout>
+  </appender>
+
+  <appender name="notification-project-log" class="org.apache.log4j.RollingFileAppender">
+
+    <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
+    <param name="threshold" value="all" />
+    <param name="file" value="${catalina.home}/logs/notification-project.log" />
+
+    <!--<param name="file" value="ns.log" />-->
+    <param name="append" value="true" />
+    <param name="MaxFileSize" value="10000KB"/>
+    <param name="MaxBackupIndex" value="20"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%-5p] %d{ABSOLUTE} %t: %m%n" />
+    </layout>
+
+  </appender>
+  
+  <!-- Set to 'all' to see sql in log -->
+  <logger name="java.sql">
+    <level value="warn" />
+  </logger>
+  
+  <logger name="com.servinglynk.hmis.warehouse">
+    <level value="error" />
+  </logger>
+	
+  <logger name="org.springframework">
+    <level value="error" />
+  </logger>
+	
+  <logger name="org.hibernate">
+    <level value="error" />
+  </logger>
+
+  <root>
+    <level value="error" />
+    <appender-ref ref="console" />
+    <appender-ref ref="notification-project-log" />
+  </root>
+
+</log4j:configuration>
+
+

@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Consent</title>
+<link type="text/css" rel="stylesheet" href="css/commen.css" ></link>
+<link type="text/css" rel="stylesheet" href="css/styles-web.css" ></link>
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="css/ie.css"/>
+<![endif]-->
+<style>
+.api-methods-container {display:none}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/oauth-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	resizeArea();
+	
+	$(window).resize(function() {
+		resizeArea()
+	});
+	
+	//set url params to hidden form field
+	setFormParams(true);	
+	$('#consent_decline').click(function () {
+		$('#authorize-form').submit();
+	});
+	
+	$('#consent_accept').click(function () {
+		$('#consented').val('true');
+		$('#authorize-form').submit();
+	});
+
+	//get app info
+	getAppInfo(getURLParameter("trustedApp_id"), getURLParameter("authentication_token"), function(data){
+		$('.app-name').html(data.trustedApp.friendlyname);
+		$('#app-company').html(data.trustedApp.service.developerCompany.name);
+		$('#app-descr').html(data.trustedApp.description);
+		$("#app-image").attr('src', data.trustedApp.logoUrl);
+
+		getConsentMsgs(data.trustedApp.trustedAppId, getURLParameter("authentication_token"),function(data){
+			var oAuthMessageGroups = data.oAuthMessageGroups;
+			var oAuthMessageGroup  = null;
+			var html = [];
+			alert(data.oAuthMessageGroups.oAuthMessageGroup.length)
+			if(oAuthMessageGroups.oAuthMessageGroup.length > 0){
+				var hasDetailed = false;
+				for(var i=0; i < oAuthMessageGroups.oAuthMessageGroup.length;i++){
+					oAuthMessageGroup = oAuthMessageGroups.oAuthMessageGroup[i];
+					if(!hasDetailed){
+						hasDetailed = oAuthMessageGroups.oAuthMessageGroup[i].detailedConsentMessageExists
+					}
+					//check for api method message dups
+					var msgList = []
+					for(var k=0;k < oAuthMessageGroup.oAuthMessageItems.length;k++){
+						if(!hasDetailed){
+							hasDetailed = oAuthMessageGroup.oAuthMessageItems[k].detailedConsentMessageExists
+						}
+
+						msgList = checkDuplicateApiMsg(msgList, oAuthMessageGroup.oAuthMessageItems[k].consentMessage)
+					}
+
+					//create the ul list
+					html.push('<li class="tree-api-group tree-close">'+oAuthMessageGroup.consentMessage);
+					html.push('<ul class="api-methods-container">'+createApiMethodList(msgList)+'</ul></li>')
+				}
+				if(hasDetailed){
+					$("#detailed-msg-link").show();
+				}
+				$("#api-group-title").show();
+				$('#app-api').html(html.join(''));
+				$('.tree-api-group').click(function(e){
+					if($(e.currentTarget).hasClass('tree-close')){
+						$(e.currentTarget).removeClass('tree-close').addClass('tree-open');
+					}else{
+						$(e.currentTarget).removeClass('tree-open').addClass('tree-close');
+					}
+					$(e.currentTarget).find('ul').toggle('fast')
+				});		
+			}else{
+				$("#api-group-default-msg").show();
+			}
+
+		})
+	})
+	$("#detailed-msg-link").click(function(){
+		window.open("/hmis-authorizationservice/detailed-consent.html?authentication_token="+getURLParameter("authentication_token")+"&trustedApp_id="+(getURLParameter("trustedApp_id")));
+	})
+});
+</script>
+</head>
+
+<body>
+
+<div id="header-wrapper">
+	<div class="header-content">
+		<div class="header-logo"></div>	
+	</div>
+</div>
+<div id="main-content-wrapper">
+	<div id="main-content" class="consent-content">
+		<div id="consent-container">
+			<div class="consent-content-left">
+				<h1>Authorize <span class="app-name"></span> to use your account?</h1>
+				<ul id="app-api"></ul>
+				<p style="text-align:center"><a id="detailed-msg-link" target="_blank">Click For Details</a></p>
+				<button id="consent_accept" >I Accept</button>
+				<button id="consent_decline" >I Do Not Accept</button>
+			</div>
+			<div class="consent-content-right">
+				<img id="app-image" width="50" height="50" />
+				<h3 class="app-name"></h3>
+				<p>By: <span id="app-company"></span></p>
+				<p id="app-descr"></p>
+			</div>
+			<div class="clearBoth"></div>
+		</div>
+
+	</div>
+</div>
+
+<form id="authorize-form" method="GET" action="/hmis-authorizationservice/rest/authorize">
+	<input type=hidden value="" name="response_type" id="response_type" />
+	<input type=hidden value="" name="trustedApp_id" id="trustedApp_id" />
+	<input type=hidden value="" name="redirect_uri" id="redirect_uri" />
+	<input type=hidden value="" name="state" id="state" />
+	<input type=hidden value="online" name="access_type" id="access_type" />
+	<input type=hidden value="force" name="approval_prompt" id="approval_prompt" />
+	<input type=hidden value="" name="consent_token" id="consent_token" />
+	<input type=hidden value="false" name="consented" id="consented"/>
+	<input type=hidden value="" name="authentication_token" id="authentication_token" />
+</form>
+
+</body>
+</html>

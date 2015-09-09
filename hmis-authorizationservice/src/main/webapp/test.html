@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Test Link</title>
+<link type="text/css" rel="stylesheet" href="css/commen.css" ></link>
+<link type="text/css" rel="stylesheet" href="css/styles-web.css" ></link>	
+<!--[if lt IE 9]>
+	<link rel="stylesheet" type="text/css" href="css/ie.css"/>
+<![endif]-->
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="js/oauth-ui.js" type="text/javascript"></script>
+<script type="application/javascript">
+$(document).ready(function() {
+	//resizeArea();
+	$('#submit-form').click(function () {
+		$("#test-app-form").submit();
+	});
+});	
+</script>
+</head>
+<body>
+<div id="header-wrapper">
+	<div class="header-content">
+		<div class="header-logo"></div>	
+	</div>
+</div>
+<div id="main-content-wrapper">
+	<div id="main-content">
+		<div id="test-app-container">
+			<h3>HMIS Developer's Profile Setup</h3>
+			<form method="GET" action="/hmis-authorizationservice/rest/authorize" id="test-app-form">
+				<ul>
+					<li><label>Response type:</label><input type=text value="code" name="response_type" /></li>
+					<li><label>TrustedApp ID:</label><input type=text value="" name="trustedApp_id" /></li>
+					<li><label>Redirect URI:</label><input type=text value="" name="redirect_uri" />
+					<li><label>State:</label><input type=text value="xyzvalue" name="state" /></li>
+					<li><label>Access Type:</label><select name="access_type"><option value="online">online</option><option value="offline">offline</option></select></li>
+					<li><label>Approval Type:</label><select name="approval_prompt"><option value="auto">auto</option><option value="force">force</option></select></li>
+				</ul>
+				<button id="submit-form">Submit</button>
+			</form>
+			 
+		</div>
+
+		<div>
+
+<hr style="clear:both">
+<table style="clear:both"><tbody>
+<tr>
+<th > Parameter Name </th>
+<th > Value </th>
+<th > Description </th>
+<th > Required? </th>
+</tr>
+<tr>
+<td > response_type </td>
+<td > <b>code</b> or <br class="atl-forced-newline">
+<b>token</b> </td>
+<td > The value must be one of <br class="atl-forced-newline">
+<b>code</b> for requesting an authorization code (authorization code grant flow)) <br class="atl-forced-newline">
+<b>token</b> for requesting an access token (implicit grant flow), </td>
+<td > Yes </td>
+</tr>
+<tr>
+<td > trustedApp_id </td>
+<td > a GUID  </td>
+<td > The client identifier issued to the client during the client registration process. Indicates the client that is making the request. </td>
+<td > Yes </td>
+</tr>
+<tr>
+<td > redirect_uri </td>
+<td > One of the redirect_uri values registered during the client registration process. </td>
+<td > Determines where the response is sent. The value of this parameter must exactly match one of the values registered during the client registration process (including the http or https schemes, case, and trailing '/'). </td>
+<td > Yes </td>
+</tr>
+<tr>
+<td > state </td>
+<td > any string </td>
+<td > An opaque value used by the client to maintain state between the request and callback. The authorization service includes this value when redirecting the user-agent back to the client. The parameter should be used for preventing cross-site request forgery as described in <a href="http://tools.ietf.org/html/draft-ietf-oauth-v2-25#section-10.12" class="external-link" rel="nofollow">OAuth Section 10.12</a> </td>
+<td > Yes </td>
+</tr>
+<tr>
+<td > access_type </td>
+<td > <b>online</b> or <br>
+<b>offline</b> </td>
+<td > Indicates if the client needs to access a HMIS API when the user is not present at the browser. <br class="atl-forced-newline">
+This parameter defaults to <b>online</b>. If a client needs to refresh access tokens when the user is not present at the browser, then use <b>offline</b>. This will result in client obtaining a refresh token the first time the client exchanges an authorization code for a user. The implicit grant flow does not support <b>offline</b> access. </td>
+<td > No </td>
+</tr>
+<tr>
+<td > approval_prompt </td>
+<td > <b>force</b> or <br >
+<b>auto</b> </td>
+<td > Indicates if the user should be re-prompted for consent. The default is <b>auto</b>, so a given user should only see the consent page the first time through the sequence. If the value is <b>force</b>, then the user sees a consent page even if they have previously given consent to the client. </td>
+<td > No </td>
+</tr>
+</tbody></table>
+</div>
+		<div class="clearBoth"></div>
+	</div>
+</div>
+</body>
+</html>

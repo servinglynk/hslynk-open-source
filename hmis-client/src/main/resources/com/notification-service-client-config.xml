@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+   
+    <bean id="notificationServiceHttpConnectionManager" class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
+		<property name="params">
+			<bean class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+				<property name="defaultMaxConnectionsPerHost" value="20"/>
+				<property name="maxTotalConnections" value="40"/>
+				<!-- Sets the default socket timeout (SO_TIMEOUT) in milliseconds which is the timeout for waiting for data. A timeout value of zero is interpreted as an infinite timeout. -->
+				<property name="soTimeout" value="60000"/>
+			</bean>
+		</property>	
+	</bean>	
+    
+    <bean id="notificationServiceHttpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
+		<!-- Sets the timeout in milliseconds used when retrieving an HTTP connection from the HTTP connection manager. -->
+		<property name="connectionManagerTimeout" value="60000"/>
+	</bean>
+
+	<bean id="notificationServiceHttpClient" class="org.apache.commons.httpclient.HttpClient">
+		<constructor-arg ref="notificationServiceHttpClientParams"/>
+		<constructor-arg ref="notificationServiceHttpConnectionManager"/>
+	</bean>
+	    
+<bean id="notificationServiceClient" class="com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient">
+		<property name="restTemplate">
+			<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+					
+			
+			</bean>
+		</property>
+
+	</bean>
+	
+		<bean id="reportServiceClient" class="com.servinglynk.hmis.warehouse.client.reportservice.ReportServiceClient">
+		<property name="restTemplate">
+			<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+					
+			
+			</bean>
+		</property>
+
+	</bean>
+
+</beans>

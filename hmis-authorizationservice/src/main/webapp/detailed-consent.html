@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, width=device-width" /> 
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>HMIS Login</title>	
+<link href="css/commen.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/styles-mobile.css" rel="stylesheet" type="text/css" media="all"/>
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="css/ie.css"/>
+<![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/localized/oauth-ui.js.localized" type="text/javascript"></script>
+<script src="js/oauth-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	getDetailedConsentMsgs(getURLParameter("trustedApp_id"), getURLParameter("authentication_token"),function(data){
+		var oAuthMessageGroups = data.oAuthMessageGroups;
+		var oAuthMessageGroup  = null;
+		var html = [];
+		if(oAuthMessageGroups.oAuthMessageGroup.length > 0){
+			var hasDetailed = false;
+			for(var i=0; i < oAuthMessageGroups.oAuthMessageGroup.length;i++){
+				oAuthMessageGroup = oAuthMessageGroups.oAuthMessageGroup[i];
+				html.push("<h2>"+oAuthMessageGroup.consentMessage+"</h2>");
+				if(oAuthMessageGroup.detailedConsentMessage){
+					html.push("<p>"+oAuthMessageGroup.detailedConsentMessage+"</p>");
+				}
+				var msgList = []
+				for(var k=0;k < oAuthMessageGroup.oAuthMessageItems.length;k++){
+					msgList.push("<p>"+oAuthMessageGroup.oAuthMessageItems[k].detailedConsentMessage+"</p>")
+				}
+				html.push(msgList.join(''));
+			}
+			$('#detailed-msg-container').html(html.join(''));
+		}			
+	})
+
+	var errorCode = getURLParameter("error");
+	var errorMsg = "";
+	var exceptionMsg = exceptionErrorStrings; 
+	
+	switch(errorCode){
+		case "ClientTypeNotFoundException":
+			errorMsg = exceptionMsg.errorMessage;
+			break;
+		case "InvalidRedirectUriException":
+			errorMsg = exceptionMsg.errorRedirectUri;
+			break;
+		default:
+			errorMsg = exceptionMsg.errorUnknown;
+	}
+	$("#error-msg").html(errorMsg);
+	applyAppSize();
+	$("#back-button").click(function(){
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.indexOf("windows phone") > -1){
+			window.history.back();
+		}else{
+			window.close();		
+		}
+
+	})
+});	
+</script>
+</head>
+
+<body id="detailed-consent-page">
+	<button id="back-button" >{{Back}}</button>
+	<div id="detailed-msg-container"></div>
+</body>
+</html>

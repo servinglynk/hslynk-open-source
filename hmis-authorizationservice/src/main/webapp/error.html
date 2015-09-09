@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Error Page</title>
+<link type="text/css" rel="stylesheet" href="css/commen.css" ></link>
+<link type="text/css" rel="stylesheet" href="css/styles-web.css" ></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/oauth-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var ua = navigator.userAgent.toLowerCase();
+	
+	if(ua.indexOf("android") > -1 || ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("kindle") > -1 || ua.indexOf("silk") > -1 || ua.indexOf("windows phone") > -1) {
+		//redirect to mobile
+		window.location ="error-mobile.html?error="+getURLParameter("error");
+	}else{
+		//redirect to web
+		window.location ="error-web.html?error="+getURLParameter("error");
+	}
+});
+</script></head>
+<body>
+</body>
+</html>

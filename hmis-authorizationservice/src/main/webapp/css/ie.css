@@ -1,0 +1,57 @@
+ button {
+    border: 1px solid #899ea4;
+    border-width:0;
+}
+ button {
+border-width:0;
+background-color: rgba(91, 94, 85, 0.5) !important;
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#6ecdef,endColorstr=#2b6b96);
+-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#6ecdef,endColorstr=#2b6b96)";
+}
+ button.hover,
+ button:hover {
+    border-width:0;
+    ms-linear-gradient('#e8f4f8', '#8db5c3', 0);
+}
+ button.active {
+    border-width:0;
+    ms-linear-gradient('#abc6ce', '#d0e3e8', 0);
+}
+ button.focus {
+    border-width:0;
+    ms-linear-gradient('#ecf6f9', '#8eb4c2', 0);
+}
+ button[disabled] {
+    border-width:0;
+    filter: unquote('progid:DXImageTransform.Microsoft.gradient(startColorstr=#a9a9a9, endColorstr=#474747,GradientType=0) progid:DXImageTransform.Microsoft.Alpha(opacity=50)') !important;
+}
+
+/* Control Button (blue) */
+ button.blue,
+{
+    ms-linear-gradient('#6ecdef', '#2b6b96', 0);
+    border: none;
+}
+ button.blue.hover,
+ button.blue:hover{ms-linear-gradient('#64ccec', '#337aab', 0);
+}
+ button.blue.active,
+ button.blue:active
+ {
+    ms-linear-gradient('#1e7ba2', '#0282ba', 0);
+}
+ button.blue.focus,
+ button.blue:focus
+{
+    ms-linear-gradient('#64ccec', '#337aab', 0);
+}
+ button.blue[disabled],
+ button.blue:disabled,
+ div.dialog div.dialog-buttons button[disabled],
+ div.dialog div.dialog-buttons button:disabled,
+ #applet-container > article > footer > button[disabled],
+ #applet-container > article > footer > button:disabled {
+    filter: unquote('progid:DXImageTransform.Microsoft.gradient(startColorstr=#a9a9a9, endColorstr=#474747,GradientType=0)  progid:DXImageTransform.Microsoft.Alpha(opacity=50)') !important;
+}
+
+#main-content-box{background:#ddeaf0 }

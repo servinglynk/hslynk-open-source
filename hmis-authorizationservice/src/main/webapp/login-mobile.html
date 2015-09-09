@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, width=device-width" /> 
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+  	<title>HMIS Login</title>
+    <link type="text/css" rel="stylesheet" href="css/commen.css" ></link>
+  	<link href="css/styles-mobile.css" rel="stylesheet" type="text/css" media="all"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="js/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/localized/oauth-ui.js.localized" type="text/javascript"></script>
+	<script src="js/oauth-ui.js" type="text/javascript"></script>
+	<script src="js/login-mobile.js" type="text/javascript"></script>
+	  <!--[if IE]>
+	  <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+	  <![endif]-->
+</head>
+<script>
+$(document).ready(function() {
+	applyAppSize();
+}); 
+
+</script>
+<body class="login-page">
+  	<div id="wrapper" class="mobile-web">
+  		<div id="main-content-box">
+  			<div class="main-content-box-header">
+  				<p id="main-content-box-header-text" >Login</p>
+				<div id="errorMsgContainer">
+					<img src="images/error-icon.gif">
+	  				<p class="errorMsg"></p>
+				</div>
+			</div>
+			<div id="login-input-container">
+				<!--<img class="logo" src="images/ccc-logo.gif">-->
+				<h2>HMIS Login</h2>
+				<ul>
+					<li><input type="email" autocomplete="off" autocapitalize="off" placeholder="loginEmail" id="username" maxlength="254" /></li>
+					<li><input type="password" autocomplete="off" auto-capitalization="off" placeholder="loginPassword" id="password" maxlength="128" /></li>
+				</ul>
+
+				<button id="submit-login" class="blue">Login</button>
+			</div>
+
+  		</div>
+  	</div>
+	<form id="authorize-form" method="GET" action="/authorization-service/oauth/authorize">
+		<input type=hidden value="" name="response_type" id="response_type" />
+		<input type=hidden value="" name="trustedApp_id" id="trustedApp_id" />
+		<input type=hidden value="" name="redirect_uri" id="redirect_uri" />
+		<input type=hidden value="" name="state" id="state" />
+		<input type=hidden value="online" name="access_type" id="access_type" />
+		<input type=hidden value="auto" name="approval_prompt" id="approval_prompt" />
+		<input type=hidden value="" name="authentication_token" id="authentication_token" />
+	</form>  
+</body>
+</html>

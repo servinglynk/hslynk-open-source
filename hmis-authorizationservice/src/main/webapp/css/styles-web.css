@@ -1,0 +1,35 @@
+#header-wrapper {background: url("../images/header-bg.png") repeat scroll center top;height:100px;}	
+#header-wrapper div.header-content {width:990px;margin:0 auto;height:100px;}
+#header-wrapper div.header-content div.header-logo{background: url("../images/logoSite.png") no-repeat scroll left top;height:100px;width:250px;}
+
+#main-content-wrapper{background: #001b2d url("../images/bg.png"); background-repeat:repeat-x;}
+#main-content-wrapper #main-content{width:815px;margin:0 auto;padding:20px;background:#e5edf1}
+
+#main-content h3{color:#001B2D}
+#main-content label{width:110px;display:inline-block;text-align:right;}
+#main-content #login-container{margin:0 auto; width:260px}
+#main-content #login-container button,#main-content #test-app-container button{float:right}
+#main-content li{list-style:none}
+#main-content.consent-content{text-align:center}
+#main-content #test-app-container{margin:0 auto; width:375px}
+
+#main-content #errorMsg{font-size:12px; color:red}
+
+#main-content-box button{width:160px}
+
+#consent-container{width:650px;padding:15px;margin:auto;-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;border-radius:6px;border:1px solid #ccc; background:#ffffff;}
+
+#main-content div.consent-content-left{border-right:1px solid #ccc; padding:0 0 0 10px;}
+#main-content div.consent-content-left,
+#main-content div.consent-content-right{float:left;width:430px;text-align:left;color:#808184}
+#main-content div.consent-content-right{float:left;width:190px; padding:0 0 0 18px;  margin:0 0 0 -1px; border-left:1px solid #ccc}
+#main-content div.consent-content-right p{font-size:14px}
+#main-content div.consent-content-right img {padding:0 0 10px 0}
+#main-content div.consent-content-left h1{font-size: 24px; font-weight:bold;}
+#main-content div.consent-content-left ul{font-size 12px; }
+#main-content div.consent-content-left .tree-api-group {color:#9a9c9f; clear:both;margin:0 0 10px 35px; font-size:14px; list-style-image:url('../images/tree-close.png')}
+#main-content div.consent-content-left .tree-api-group.tree-open{list-style-image:url('../images/tree-open.png')}
+#main-content div.consent-content-left .tree-api-group li{margin:5px 10px 0 20px;list-style:disc}
+#main-content div.consent-content-left button{width:190px}
+
+#detailed-msg-link{font-size:1em}

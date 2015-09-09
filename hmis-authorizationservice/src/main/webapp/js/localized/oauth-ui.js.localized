@@ -1,0 +1,24 @@
+var loginErrorStrings = {
+    unexpectedError: "loginUnexpectedError",
+    invalidCloudLogin: "loginInvalidCloudLogin ",
+    passwordNotValidated: " loginPasswordNotValidated ",
+    cloudUnavailable: " loginCloudUnavailable ",
+    accountNotFound: " loginAccountNotFound ",
+    accountDisabled: " loginAccountDisabled ",
+    captchaIncorrect: " loginCaptchaIncorrect ",
+    changePasswordTokenInvalid: " loginChangePasswordTokenInvalid ",
+    changePasswordTokenInvalidTitle: " loginChangePasswordTokenInvalidTitle ",
+	accountLockOut: " loginAccountLockOut "
+}
+
+var consentStrings = {
+	consentAuthorizeUserAccount: " consentAuthorizeUserAccount "
+}
+	
+var exceptionErrorStrings = {
+	errorMessage:" Error ", 
+	errorOccur:" ErrorOccur ",
+	errorClientTypeNotFound:" ErrorClientTypeNotFound ", 
+	errorRedirectUri:" ErrorRedirectUri ",
+	errorUnknown:" ErrorUnknown "
+}

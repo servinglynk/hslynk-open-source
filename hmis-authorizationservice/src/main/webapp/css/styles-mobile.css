@@ -1,0 +1,37 @@
+*{font-size:100%;font:inherit;vertical-align:baseline;}
+body#consent-page{
+	background: url("../images/mobile-bkground-consent.png") repeat 0 -2em;
+font-family: Arial, Helvetica, sans-serif;
+margin: 0;
+padding: 0;
+background-size: 100% 100%;
+height: 100%;
+}
+body{
+	background:#002946 url("../images/mobile-bkground-consent.png");background-repeat:repeat-x; font-family:Arial, Helvetica, sans-serif; margin:0; padding:0;
+}
+button{width:12em}
+hr{visibility:hidden;height:1px;margin:0 0.625em 0.188em 0.625em; background-color:#a6a7ab }
+li.place-holder input{width:15em;position:relative}
+#header{color:#FFF; font-size:1.5em; text-align:center;font-weight:bold;padding:0.938em}			
+
+#main-content-box.consent-page{ margin-top:0}
+#main-content-box.consent-page p{font-size:0.75em; padding:0.625em 1.25em 0.625em 1.25em}
+#main-content-box.consent-page #api-group-default-msg{font-size:0.875em}
+#main-content-box.consent-page h4{font-weight:bold;padding:0.938em 1.25em 0.313em 1.25em;color:#9A9C9F}
+#main-content-box.consent-page .main-content-box-header{background:#ffffff;border-radius:0.313em 0.313em 0 0; height:3.125em; border-bottom:1px solid #ccc}
+#main-content-box.consent-page .main-content-box-header img{float:left; width:3.125em;height:3.125em;margin:0px 0.375em 0 0;border:2px solid #ccc}
+#main-content-box.consent-page .main-content-box-header p,
+#main-content-box.consent-page .main-content-box-header h3{float:left;width:11.25em;padding:0}
+#main-content-box.consent-page .main-content-box-header p{font-size:0.75em}
+#main-content-box.consent-page .main-content-box-header h3{font-weight:bold}
+#main-content-box.consent-page .tree-api-group {color:#9a9c9f; clear:both;margin:0.313em 0.625em 0 2.188em; font-size:0.75em}
+#main-content-box.consent-page .tree-api-group li{margin:0.313em 0.625em 0 1.25em;}
+
+#main-content-box.consent-page button{margin:0 0 0.625em 1.625em;width: 17.75em; }
+#main-content-box.consent-page ul{margin:0 0 0.938em 0}
+#detailed-consent-page{background:#FFF;color:#878686;padding:15px}
+#detailed-consent-page h1{color:#878686}
+#detailed-consent-page  button{width:5em}
+#detailed-msg-container h2, #detailed-msg-container p{ font-size:0.8em}
+#detailed-msg-container h2{font-weight:bold}
