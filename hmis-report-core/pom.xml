@@ -3,10 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>report-core</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Report Core</name>
 	<description>Report Core</description>
-
+	<scm>	
+		  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+ 	</scm>
+	<properties>
+		<parent-version>0.0.1-SNAPSHOT</parent-version>
+	</properties>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -20,13 +25,13 @@
   <dependency>
   	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-core-serialize</artifactId>
-	<version>1.1.0</version>
+	<version>${parent-version}</version>
   </dependency>
  
 	<dependency>
 	  <groupId>com.servinglynk.hmis.warehouse</groupId>
  	 <artifactId>core-client</artifactId>
- 	 <version>1.0.0</version>
+ 	 <version>${parent-version}</version>
 	</dependency>
 
 

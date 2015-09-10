@@ -7,17 +7,11 @@
   </parent>
   <artifactId>hmis-authorizationservice</artifactId>
   <packaging>war</packaging>
-    <parent>
-    		<groupId>com.servinglynk.hmis.warehouse</groupId>
-    		<artifactId>servinglynk-hmis</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
-    		<relativePath>../pom.xml</relativePath>
-  	</parent>
     <scm>
     	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
  </scm>
   	<properties>
-
+		<parent-version>0.0.1-SNAPSHOT</parent-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
@@ -118,17 +112,17 @@
 			<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>1.1.0</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-service</artifactId>
-			<version>3.20.0</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>1.0.0</version>
+			<version>${parent-version}</version>
 		</dependency>
 <dependency>
 			<groupId>org.postgresql</groupId>

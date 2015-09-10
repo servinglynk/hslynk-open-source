@@ -7,7 +7,7 @@
 	<name>hmis-core-model</name>
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-		<scm>
+	<scm>
 		  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
  	</scm>
 	<properties>
@@ -188,7 +188,7 @@
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-core-common</artifactId>
-			  <version>0.0.1-SNAPSHOT</version>
+			  <version>${parent-version}</version>
 			</dependency>
 	</dependencies>
 	<build>

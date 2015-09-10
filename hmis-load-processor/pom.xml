@@ -3,13 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-load-processor</artifactId>
-	<version>${global.version}</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Load Processor</name>
 	<description>Load Processor</description>
 		<scm>
 		  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
  	</scm>
 	<properties>
+			<parent-version>0.0.1-SNAPSHOT</parent-version>
 			<java-version>1.8</java-version>
 	</properties>
 	<parent>
@@ -58,7 +59,7 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-model</artifactId>
-				<version>${global.version}</version>
+				<version>${parent-version}</version>
 		</dependency>
 
 		<dependency>
