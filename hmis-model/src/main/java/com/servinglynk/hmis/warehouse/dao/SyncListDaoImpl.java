@@ -2,6 +2,10 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.live.Sync;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
@@ -33,8 +37,17 @@ public class SyncListDaoImpl  extends ParentDaoImpl implements SyncListDao{
 	@Override
 	public void hydrateLive(Export export) {
 		// TODO Auto-generated method stub
-		
 	}
 	
+	@Override
+	public Sync findLastSync(String status) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Sync.class);
+		criteria.setProjection(Projections.max("dateCreated"));
+		criteria.add(Restrictions.eq("status",status));
+		if(criteria.getExecutableCriteria(getCurrentSession()).list() != null) {
+			return (Sync) criteria.getExecutableCriteria(getCurrentSession()).list().get(0);
+		}
+		return null;
+	}
 
 }

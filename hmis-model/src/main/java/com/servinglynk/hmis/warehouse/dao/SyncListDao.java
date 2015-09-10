@@ -8,5 +8,6 @@ public interface SyncListDao extends ParentDao {
 	    public void addSync(Sync sync);
 	    public Sync getSync(String id);
 	    public List<Sync> getSyncs();
+	    public Sync findLastSync(String status);
 
 }
