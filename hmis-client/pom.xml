@@ -3,11 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>core-client</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOPT</version>
 	<name>Core client </name>
 	<description>Core client for inter service calls (REST)</description>
+	  <parent>
+	    		<groupId>com.servinglynk.hmis.warehouse</groupId>
+	    		<artifactId>servinglynk-hmis</artifactId>
+	    		<version>${global.version}</version>
+	    		<relativePath>../pom.xml</relativePath>
+  	</parent>
 	<scm>
-	  	<connection>scm:https://github.com/servinglynk/hmis-core.git</connection>
+	  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
  	</scm>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

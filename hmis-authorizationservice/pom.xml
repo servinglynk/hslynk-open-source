@@ -3,11 +3,19 @@
   <parent>
     <groupId>com.servinglynk.hmis.warehouse</groupId>
     <artifactId>hmis-microservices</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>hmis-authorizationservice</artifactId>
   <packaging>war</packaging>
-  
+    <parent>
+    		<groupId>com.servinglynk.hmis.warehouse</groupId>
+    		<artifactId>servinglynk-hmis</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    		<relativePath>../pom.xml</relativePath>
+  	</parent>
+    <scm>
+    	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+ </scm>
   	<properties>
 
 		<org.aspectj-version>1.6.10</org.aspectj-version>

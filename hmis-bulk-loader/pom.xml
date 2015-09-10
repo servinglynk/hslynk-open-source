@@ -3,14 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-bulk-loader</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>hmis-bulk-loader</name>
 	<description>Hmis Bulk Loader</description>
+  <parent>
+    		<groupId>com.servinglynk.hmis.warehouse</groupId>
+    		<artifactId>servinglynk-hmis</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    		<relativePath>../pom.xml</relativePath>
+  	</parent>
 
-	<scm>
-	<connection>scm:https://github.com/servinglynk/bulk-loader.git</connection>
-	</scm>
+	  <scm>
+	  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+ 	</scm>
 	<properties>
 			<java-version>1.8</java-version>
 	</properties>

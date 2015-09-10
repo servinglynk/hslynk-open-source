@@ -9,7 +9,10 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>bulk loader </name>
-
+<properties>
+   <!-- Unique entry point for version number management --> 
+   <global.version>0.0.1-SNAPSHOT</global.version>
+</properties>
     <modules>
 	<module>hmis-service</module>
 	<module>hmis-model</module>

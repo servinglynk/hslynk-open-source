@@ -8,13 +8,13 @@
   <name>hmis-admin Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <parent>
-  		<groupId>com.servinglynk.hmis.warehouse</groupId>
-  		<artifactId>servinglynk-hmis</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  		<relativePath>../pom.xml</relativePath>
-	</parent>
+    		<groupId>com.servinglynk.hmis.warehouse</groupId>
+    		<artifactId>servinglynk-hmis</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    		<relativePath>../pom.xml</relativePath>
+  	</parent>
   <scm>
-  	<connection>scm:https://github.com/servinglynk/hmis-core.git</connection>
+  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
  </scm>
   <dependencies>
     <dependency>
