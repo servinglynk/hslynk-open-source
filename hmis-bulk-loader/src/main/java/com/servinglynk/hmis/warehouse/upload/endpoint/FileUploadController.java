@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.servinglynk.hmis.warehouse.sync.business.service.core.ParentServiceFactory;
+import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 
 
 @RestController
@@ -56,7 +56,7 @@ public class FileUploadController {
 					logger.info("Server File Location="
 							+ serverFile.getAbsolutePath());
 					
-					parentServiceFactory.getSyncService().createBulkUploadEntry( serverFile.getAbsolutePath());
+					parentServiceFactory.getBulkUploadService().createBulkUploadEntry( serverFile.getAbsolutePath());
 
 					return "You successfully uploaded file=" + name;
 				} catch (Exception e) {

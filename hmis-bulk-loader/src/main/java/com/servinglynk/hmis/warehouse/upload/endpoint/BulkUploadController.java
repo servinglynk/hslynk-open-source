@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.sync.business.service.core.ParentServiceFactory;
+import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 @RestController
 @RequestMapping("/bulkupload")
 public class BulkUploadController {
@@ -29,7 +29,7 @@ public class BulkUploadController {
 		List<BulkUpload> getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status) {
 
 	 		try {
-				return parentServiceFactory.getSyncService().getBulkUploads(status);
+				return parentServiceFactory.getBulkUploadService().getBulkUploads(status);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
