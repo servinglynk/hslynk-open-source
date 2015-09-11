@@ -22,7 +22,6 @@
 	</properties>
   
   	<dependencies>
-	
 		<!-- spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>

@@ -1,13 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-load-processor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Load Processor</name>
-	<description>Load Processor</description>
-		<scm>
-		  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+	<packaging>jar</packaging>
+
+	<name>hmis-load-processor</name>
+	<url>http://maven.apache.org</url>
+	<scm>	
+			  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
  	</scm>
 	<properties>
 			<parent-version>0.0.1-SNAPSHOT</parent-version>

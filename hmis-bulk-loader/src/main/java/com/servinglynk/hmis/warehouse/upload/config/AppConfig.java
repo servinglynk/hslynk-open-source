@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.upload.config;
 
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +13,12 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.upload.config.SpringConfig;
 
 
 @Configuration 
 @ComponentScan("com.servinglynk.hmis.warehouse.upload") 
-@Import({ com.servinglynk.hmis.warehouse.upload.config.SpringConfig.class,DatabaseConfig.class})
+@Import({ SpringConfig.class,DatabaseConfig.class})
 @EnableWebMvc   
 @EnableTransactionManagement
 @EnableScheduling
