@@ -11,6 +11,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 
 @RunWith(SpringJUnit4ClassRunner.class)

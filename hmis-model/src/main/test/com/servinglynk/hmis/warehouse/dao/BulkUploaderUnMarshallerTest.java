@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.Sources;
 
-public class JAXBExample {
+public class BulkUploaderUnMarshallerTest {
 
 	@Autowired
 	HmisUserDao dao;
@@ -18,9 +19,10 @@ public class JAXBExample {
 	public static void main(String[] args) {
 
 		try {
-			JAXBExample example = new JAXBExample();
+			BulkUploaderUnMarshallerTest example = new BulkUploaderUnMarshallerTest();
+			URL path = BulkUploaderUnMarshallerTest.class.getResource("hmismodel.xml");
 			File file = new File(
-					"hmismodel.xml");
+					path.getFile());
 			JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

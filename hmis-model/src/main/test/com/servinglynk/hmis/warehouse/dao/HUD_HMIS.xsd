@@ -1,0 +1,376 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.hudhdx.info/Resources/Vendors/4_0/HUD_HMIS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Sources">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Source">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="SourceID"/>
+              <xs:element type="xs:string" name="SoftwareVendor"/>
+              <xs:element type="xs:string" name="SoftwareVersion"/>
+              <xs:element type="xs:float" name="SourceName"/>
+              <xs:element name="Export">
+                <xs:complexType mixed="true">
+                  <xs:choice maxOccurs="unbounded" minOccurs="0">
+                    <xs:element type="xs:byte" name="ExportID"/>
+                    <xs:element type="xs:dateTime" name="ExportDate"/>
+                    <xs:element name="ExportPeriod">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:dateTime" name="StartDate"/>
+                          <xs:element type="xs:dateTime" name="EndDate"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Client" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="PersonalID"/>
+                          <xs:element type="xs:string" name="FirstName"/>
+                          <xs:element type="xs:string" name="MiddleName"/>
+                          <xs:element type="xs:string" name="LastName"/>
+                          <xs:element type="xs:string" name="NameSuffix"/>
+                          <xs:element type="xs:byte" name="NameDataQuality"/>
+                          <xs:element type="xs:int" name="SSN"/>
+                          <xs:element type="xs:byte" name="SSNDataQuality"/>
+                          <xs:element type="xs:date" name="DOB"/>
+                          <xs:element type="xs:byte" name="DOBDataQuality"/>
+                          <xs:element type="xs:byte" name="Gender"/>
+                          <xs:element type="xs:byte" name="Ethnicity"/>
+                          <xs:element type="xs:byte" name="Race"/>
+                          <xs:element type="xs:byte" name="VeteranStatus"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated" use="optional"/>
+                        <xs:attribute type="xs:string" name="userID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="MilitaryBranch">
+                      <xs:complexType mixed="true">
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="PersonalID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="FirstName" minOccurs="0"/>
+                          <xs:element type="xs:string" name="MiddleName" minOccurs="0"/>
+                          <xs:element type="xs:string" name="LastName" minOccurs="0"/>
+                          <xs:element type="xs:string" name="NameSuffix" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="NameDataQuality" minOccurs="0"/>
+                          <xs:element type="xs:int" name="SSN" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="SSNDataQuality" minOccurs="0"/>
+                          <xs:element type="xs:date" name="DOB" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="DOBDataQuality" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="Gender" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="Ethnicity" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="Race" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="VeteranStatus" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated" use="optional"/>
+                        <xs:attribute type="xs:string" name="userID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Enrollment">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:string" name="PersonalID"/>
+                          <xs:element type="xs:string" name="ProjectID"/>
+                          <xs:element type="xs:date" name="EntryDate"/>
+                          <xs:element type="xs:string" name="HouseholdID"/>
+                          <xs:element type="xs:byte" name="RelationshipToHoH"/>
+                          <xs:element type="xs:byte" name="ResidencePrior"/>
+                          <xs:element type="xs:byte" name="ResidencePriorLengthOfStay"/>
+                          <xs:element type="xs:byte" name="HousingStatus"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Disabilities">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="DisabilitiesID"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="DisabilityType"/>
+                          <xs:element type="xs:byte" name="DisabilityResponse"/>
+                          <xs:element type="xs:byte" name="IndefiniteAndImpairs"/>
+                          <xs:element type="xs:byte" name="DocumentationOnFile"/>
+                          <xs:element type="xs:byte" name="ReceivingServices"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage"/>
+                        <xs:attribute type="xs:date" name="informationDate"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Employment">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="EmploymentID"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="Employed"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage"/>
+                        <xs:attribute type="xs:date" name="informationDate"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="EnrollmentCoC">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="EnrollmentCoCID"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:string" name="ProjectCoCID"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage"/>
+                        <xs:attribute type="xs:date" name="informationDate"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="HealthInsurance">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="HealthInsuranceID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="InsuranceFromAnySource" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="Medicaid" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="Medicare" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="SCHIP" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="VAMedicalServices" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="EmployerProvided" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="COBRA" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="PrivatePay" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="StateHealthIns" minOccurs="0"/>
+                          <xs:element type="xs:string" name="PersonalID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectID" minOccurs="0"/>
+                          <xs:element type="xs:date" name="EntryDate" minOccurs="0"/>
+                          <xs:element type="xs:string" name="HouseholdID" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="RelationshipToHoH" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ResidencePrior" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ResidencePriorLengthOfStay" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="DisablingCondition" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="HousingStatus" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage" use="optional"/>
+                        <xs:attribute type="xs:date" name="informationDate" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated" use="optional"/>
+                        <xs:attribute type="xs:string" name="userID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DomesticViolence">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="DomesticViolenceID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="EmploymentID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="DomesticViolenceVictim" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="WhenOccurred" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="Employed" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage" use="optional"/>
+                        <xs:attribute type="xs:date" name="informationDate" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated" use="optional"/>
+                        <xs:attribute type="xs:string" name="userID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Services">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="ServicesID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:date" name="DateProvided" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="RecordType" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="TypeProvided" minOccurs="0"/>
+                          <xs:element type="xs:string" name="OtherTypeProvided" minOccurs="0"/>
+                          <xs:element type="xs:string" name="PersonalID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectID" minOccurs="0"/>
+                          <xs:element type="xs:date" name="EntryDate" minOccurs="0"/>
+                          <xs:element type="xs:string" name="HouseholdID" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="RelationshipToHoH" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ResidencePrior" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ResidencePriorLengthOfStay" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ContinuouslyHomelessOneYear" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="TimesHomelessPastThreeYears" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="MonthsHomelessThisTime" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="StatusDocumented" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="DisablingCondition" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated" use="optional"/>
+                        <xs:attribute type="xs:string" name="userID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="IncomeAndSources">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="IncomeAndSourcesID"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="IncomeFromAnySource"/>
+                          <xs:element type="xs:float" name="TotalMonthlyIncome"/>
+                          <xs:element type="xs:byte" name="Earned"/>
+                          <xs:element type="xs:float" name="EarnedAmount"/>
+                          <xs:element type="xs:byte" name="Unemployment"/>
+                          <xs:element type="xs:float" name="UnemploymentAmount"/>
+                          <xs:element type="xs:byte" name="SSI"/>
+                          <xs:element type="xs:float" name="SSIAmount"/>
+                          <xs:element type="xs:byte" name="SSDI"/>
+                          <xs:element type="xs:float" name="SSDIAmount"/>
+                          <xs:element type="xs:byte" name="VADisabilityService"/>
+                          <xs:element type="xs:float" name="VADisabilityServiceAmount"/>
+                          <xs:element type="xs:byte" name="VADisabilityNonService"/>
+                          <xs:element type="xs:float" name="VADisabilityNonServiceAmount"/>
+                          <xs:element type="xs:byte" name="PrivateDisability"/>
+                          <xs:element type="xs:float" name="PrivateDisabilityAmount"/>
+                          <xs:element type="xs:byte" name="WorkersComp"/>
+                          <xs:element type="xs:float" name="WorkersCompAmount"/>
+                          <xs:element type="xs:byte" name="TANF"/>
+                          <xs:element type="xs:float" name="TANFAmount"/>
+                          <xs:element type="xs:byte" name="GA"/>
+                          <xs:element type="xs:float" name="GAAmount"/>
+                          <xs:element type="xs:byte" name="SocSecRetirement"/>
+                          <xs:element type="xs:float" name="SocSecRetirementAmount"/>
+                          <xs:element type="xs:byte" name="Pension"/>
+                          <xs:element type="xs:float" name="PensionAmount"/>
+                          <xs:element type="xs:byte" name="ChildSupport"/>
+                          <xs:element type="xs:float" name="ChildSupportAmount"/>
+                          <xs:element type="xs:byte" name="Alimony"/>
+                          <xs:element type="xs:float" name="AlimonyAmount"/>
+                          <xs:element type="xs:byte" name="OtherSource"/>
+                          <xs:element type="xs:float" name="OtherSourceAmount"/>
+                          <xs:element type="xs:string" name="OtherSourceIdentify"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage"/>
+                        <xs:attribute type="xs:date" name="informationDate"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="NonCashBenefits">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="NonCashBenefitsID"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="BenefitsFromAnySource"/>
+                          <xs:element type="xs:byte" name="SNAP"/>
+                          <xs:element type="xs:byte" name="WIC"/>
+                          <xs:element type="xs:byte" name="TANFChildCare"/>
+                          <xs:element type="xs:byte" name="TANFTransportation"/>
+                          <xs:element type="xs:byte" name="OtherTANF"/>
+                          <xs:element type="xs:byte" name="RentalAssistanceOngoing"/>
+                          <xs:element type="xs:byte" name="RentalAssistanceTemp"/>
+                          <xs:element type="xs:byte" name="OtherSource"/>
+                          <xs:element type="xs:string" name="OtherSourceIdentify"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="dataCollectionStage"/>
+                        <xs:attribute type="xs:date" name="informationDate"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PercentAMI">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="LastGradeCompletedID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectEntryID"/>
+                          <xs:element type="xs:byte" name="PercentAMI" minOccurs="0"/>
+                          <xs:element type="xs:string" name="PersonalID" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ProjectID" minOccurs="0"/>
+                          <xs:element type="xs:date" name="EntryDate" minOccurs="0"/>
+                          <xs:element type="xs:string" name="HouseholdID" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="RelationshipToHoH" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ResidencePrior" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="ResidencePriorLengthOfStay" minOccurs="0"/>
+                          <xs:element type="xs:byte" name="HousingStatus" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated" use="optional"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated" use="optional"/>
+                        <xs:attribute type="xs:string" name="userID" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Organization">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="OrganizationID"/>
+                          <xs:element type="xs:string" name="OrganizationName"/>
+                          <xs:element type="xs:string" name="OrganizationCommonName"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Project">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="ProjectID"/>
+                          <xs:element type="xs:string" name="OrganizationID"/>
+                          <xs:element type="xs:string" name="ProjectName"/>
+                          <xs:element type="xs:byte" name="ContinuumProject"/>
+                          <xs:element type="xs:byte" name="ProjectType"/>
+                          <xs:element type="xs:byte" name="ResidentialAffiliation"/>
+                          <xs:element type="xs:byte" name="TrackingMethod"/>
+                          <xs:element type="xs:string" name="ProjectCommonName"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ProjectCoC">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="ProjectCoCID"/>
+                          <xs:element type="xs:string" name="CoCCode"/>
+                          <xs:element type="xs:string" name="ProjectID"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Funder">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="FunderID"/>
+                          <xs:element type="xs:string" name="ProjectID"/>
+                          <xs:element type="xs:byte" name="Funder"/>
+                          <xs:element type="xs:string" name="GrantID"/>
+                          <xs:element type="xs:date" name="StartDate"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Site">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="SiteID"/>
+                          <xs:element type="xs:string" name="ProjectCoCID"/>
+                          <xs:element type="xs:byte" name="PrincipalSite"/>
+                          <xs:element type="xs:string" name="Geocode"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

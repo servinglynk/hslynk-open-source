@@ -15,11 +15,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -43,8 +45,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
-	private static final String OPENEMPI_HOST = "http://localhost:8081/hmis-client-dedup/rest/api/v1/";
-
+	private static final String OPENEMPI_HOST = "http://localhost:8082/hmis-client-dedup/rest/api/v1/";
+	final static Logger logger = Logger.getLogger(ClientDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
@@ -101,7 +103,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
 				String dedupedId = getDedupedClient(clientModel);
-				clientModel.setDedupClientId(UUID.fromString(dedupedId));
+				if(dedupedId != null) {
+					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
+				}
 				insert(clientModel);
 				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
 			}
@@ -139,6 +143,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 	
 	private String getDedupedClient(com.servinglynk.hmis.warehouse.model.staging.Client client) {
+		try {
 		 	RestTemplate restTemplate = new RestTemplate();
 	        String url = OPENEMPI_HOST+"authenticate";       
 	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
@@ -167,13 +172,17 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	        	person.setCustom10(client.getSsnDataQuality().getValue() );	
 	        }
 	        java.util.Date dob = null;
-			try {
-				dob = new SimpleDateFormat("yyyy-MM-dd").parse(client.getDob().toString());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        person.setDateOfBirth(dob);
+			if(client.getDob() !=null) {
+	    		//dob.substring(0, 9);
+	            Date date;
+	            try {
+	            	java.util.Date d = new SimpleDateFormat("yyyy-MM-dd").parse(client.getDob().toString());
+	                person.setDateOfBirth(d);
+	            } catch (ParseException e) {
+	                e.printStackTrace();
+	            }
+	    	}
+	        
 	        if(client.getGender() !=null) {
 	        	Gender gender = new Gender();
 	        	 gender.setGenderCode(client.getGender().getValue());
@@ -195,34 +204,53 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	        	finalPersons.add(hydradePerson(abcPersons));
 	        }
 	        return finalPersons.get(0).getCustom20();
-	}
+		}
+		catch (ResourceAccessException e) {
+			logger.error("ResourceAccessException Check if the Dedup Microservice is down "+e.getMessage());
+			return null;
+			
+		}
+		catch(Exception ex) {
+			logger.error("Error Occured while calling the dedup logic"+ex.getMessage());
+			return null;
+		}
+		}
 	
     private Person hydradePerson(LinkedHashMap<Object, Object> linkedPersons) {
     	Person person = new Person();
-    	Long dob = (Long)linkedPersons.get("dateOfBirth");
-    	if(dob !=null && !"".equals(dob)) {
-    		//dob.substring(0, 9);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date date;
-            try {
-                date = (Date)((DateFormat) formatter).parse(String.valueOf(dob));
-                person.setDateOfBirth(date);
-                formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String s = formatter.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-    	}
+//    	Long dob = (Long)linkedPersons.get("dateOfBirth");
+//    	if(dob !=null && !"".equals(dob)) {
+//    		//dob.substring(0, 9);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+//            Date date;
+//            try {
+//                date = (Date)((DateFormat) formatter).parse(String.valueOf(dob));
+//                person.setDateOfBirth(date);
+//                formatter = new SimpleDateFormat("yyyy-MM-dd");
+//                String s = formatter.format(date);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//    	}
 		person.setSsn((String)linkedPersons.get("ssn"));
 		person.setGivenName((String)linkedPersons.get("givenName"));
 		person.setFamilyName((String)linkedPersons.get("familyName"));
 		person.setCustom20((String)linkedPersons.get("custom20"));
 		LinkedHashMap<Object, Object>  genderLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("gender");
-		Gender gender = new Gender();
-		Integer genderCd = Integer.parseInt((String)genderLinkedList.get("genderCd"));
-		gender.setGenderCd(genderCd);
-		gender.setGenderCode((String)genderLinkedList.get("genderCode"));
-		person.setGender(gender);
+		if(genderLinkedList !=null) {
+			Gender gender = new Gender();
+			String genderCd = (String)genderLinkedList.get("genderCd");
+			if(genderCd !=null && !"".equals(genderCd)) {
+				Integer genderCdInt = Integer.parseInt(genderCd);
+				gender.setGenderCd(genderCdInt);
+			}
+			String genderCode = (String)genderLinkedList.get("genderCode");
+			if(genderCode !=null && !"".equals(genderCode)) {
+				gender.setGenderCode(genderCode);
+			}
+			person.setGender(gender);
+		}
+		
     	return person;
     }
     
@@ -235,10 +263,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			requestBody = requestBody +"\"givenName\":  \""+person.getGivenName()+"\",";
 		}
 		if(person.getFamilyName() !=null && !"".equals(person.getFamilyName())) {
-			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName()+"\"";
+			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName()+"\",";
 		}
 		if(person.getDateOfBirth() !=null)  {
-			requestBody = requestBody+ " \"dateOfBirth\":  \""+ person.getDateOfBirth() + "\"";
+			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
+			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
 		requestBody = requestBody+"}}";
 		System.out.println("Request Body"+requestBody);

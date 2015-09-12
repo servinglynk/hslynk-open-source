@@ -2120,7 +2120,7 @@ WITH (
 CREATE TABLE "live".bulk_upload
 (
   id bigint NOT NULL,
-  inputPath character(100),
+  inputPath text,
   status character(10),
   insert_at date,
   update_at date,

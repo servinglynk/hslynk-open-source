@@ -1,4 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
+
+import java.net.URL;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
@@ -24,14 +27,17 @@ public class BulkUploaderTest {
 	public void test()
 	{
 		BulkUpload upload = new BulkUpload();
-		upload.setInputPath("C:\\HMISTEstDev\\XMLGen\\src\\New_HUD_Boman.xml");
+		URL path = BulkUploaderUnMarshallerTest.class.getResource("New_HUD_Boman.xml");
+		upload.setInputPath(path.getFile());
 		dao.performBulkUpload(upload);
 	}
 	@Test
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
-		upload.setInputPath("C:\\HMISTEstDev\\XMLGen\\src\\com\\servinglynk\\hmis\\warehouse\\jaxb\\outputhmis-model.xml");
+		URL path = BulkUploaderUnMarshallerTest.class.getResource("outputhmis-model.xml");
+		upload.setInputPath(path.getFile());
+		
 		dao.performBulkUpload(upload);
 	}
 	
