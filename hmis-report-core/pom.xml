@@ -30,7 +30,7 @@
  	<dependency>
 	  <groupId>com.servinglynk.hmis.warehouse</groupId>
  	 <artifactId>core-client</artifactId>
- 	 <version>0.0.1-SNAPSHOPT</version>
+ 	 <version>${parent-version}</version>
 	</dependency> 
 
 
