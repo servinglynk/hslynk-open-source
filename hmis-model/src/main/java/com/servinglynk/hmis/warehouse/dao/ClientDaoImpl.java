@@ -106,7 +106,19 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				if(dedupedId != null) {
 					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 				}
-				insert(clientModel);
+				com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, clientModel.getDedupClientId());
+				/**
+				 * This is where the deduping happens We check if a client with the same information exists and
+				 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
+				 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
+				 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
+				 */
+				if(dedupedClient !=null) {
+					clientUUID = dedupedClient.getId();
+				}else {
+					insert(clientModel);	
+				}
+				
 				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
 			}
 	}
