@@ -15,8 +15,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -45,7 +48,11 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
-	private static final String OPENEMPI_HOST = "http://localhost:8082/hmis-client-dedup/rest/api/v1/";
+	private static final String OPENEMPI_HOST = "openempi.host";
+    
+	@Resource
+	private Environment env;
+	
 	final static Logger logger = Logger.getLogger(ClientDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -157,7 +164,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	private String getDedupedClient(com.servinglynk.hmis.warehouse.model.staging.Client client) {
 		try {
 		 	RestTemplate restTemplate = new RestTemplate();
-	        String url = OPENEMPI_HOST+"authenticate";       
+	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";       
 	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");

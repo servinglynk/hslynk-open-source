@@ -230,4 +230,14 @@ notification-service/*.iml
 notification-service/target
 notification-service/bin
 
+sync-processor/target/*
+sync-processor/bin/*
+sync-processor/.settings/*
+sync-processor/.classpath
+sync-processor/.project
+sync-processor/.idea
+sync-processor/*.iml
+sync-processor/target
+sync-processor/bin
+
 hmis-report-core/.settings/org.eclipse.wst.common.project.facet.core.xml
