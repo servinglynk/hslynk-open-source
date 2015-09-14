@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.entity.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
 
 public interface ServiceApiMethodDao {
 

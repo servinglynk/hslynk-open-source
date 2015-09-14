@@ -1125,6 +1125,17 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 		this.sharingRuleDao = sharingRuleDao;
 	}
 	
+	@Autowired
+	public InformationReleasesDao informationReleasesDao;
+
+	public InformationReleasesDao getInformationReleasesDao() {
+		return informationReleasesDao;
+	}
+
+	public void setInformationReleasesDao(InformationReleasesDao informationReleasesDao) {
+		this.informationReleasesDao = informationReleasesDao;
+	}
+	
 	
 	
 }

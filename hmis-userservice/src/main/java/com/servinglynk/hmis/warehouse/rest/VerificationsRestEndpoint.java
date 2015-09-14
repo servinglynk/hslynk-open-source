@@ -26,7 +26,7 @@ public class VerificationsRestEndpoint extends RestEndpointBase {
 			HttpServletRequest request) throws Exception {
 		
 		verification.setToken(verificationToken);
-		Verification pVerification = serviceFactory.getVerificationService().updateVerificationStatus(verification, USER_SERVICE);
+		serviceFactory.getVerificationService().updateVerificationStatus(verification, USER_SERVICE);
 		
 		Verification returnVerification = new Verification();
 		returnVerification.setStatus(verification.getStatus());

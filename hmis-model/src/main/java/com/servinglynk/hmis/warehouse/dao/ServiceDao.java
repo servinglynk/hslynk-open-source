@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import com.servinglynk.hmis.warehouse.entity.ServiceEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceEntity;
 
 public interface ServiceDao {
 

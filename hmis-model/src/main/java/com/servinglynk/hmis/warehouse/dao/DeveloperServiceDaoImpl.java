@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.DeveloperServiceEntity;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
 
 public class DeveloperServiceDaoImpl extends QueryExecutorImpl implements DeveloperServiceDao {
 

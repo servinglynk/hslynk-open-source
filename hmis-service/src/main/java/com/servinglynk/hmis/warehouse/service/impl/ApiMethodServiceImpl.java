@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.DeveloperServiceEntity;
-import com.servinglynk.hmis.warehouse.entity.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
 import com.servinglynk.hmis.warehouse.service.ApiMethodService;
 
 public class ApiMethodServiceImpl extends ServiceBase implements ApiMethodService {

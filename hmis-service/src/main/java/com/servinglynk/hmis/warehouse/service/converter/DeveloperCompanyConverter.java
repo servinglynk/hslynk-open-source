@@ -7,11 +7,11 @@ import com.servinglynk.hmis.warehouse.core.model.DeveloperCompany;
 
 public class DeveloperCompanyConverter {
 	/**
-	 * Convert to {@link com.DeveloperCompanyEntity.hn.cs.core.model.DeveloperCompany}.
-	 * @param pDeveloperCompany {@link com.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany} to convert from
-	 * @return converted {@link com.DeveloperCompanyEntity.hn.cs.core.model.DeveloperCompany}
+	 * Convert to {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.core.model.DeveloperCompany}.
+	 * @param pDeveloperCompany {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany} to convert from
+	 * @return converted {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.core.model.DeveloperCompany}
 	 */
-	public static DeveloperCompany convertToDeveloperCompany(com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity pDeveloperCompany) {
+	public static DeveloperCompany convertToDeveloperCompany(com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany) {
 		DeveloperCompany developerCompany = new DeveloperCompany();
 		
 		developerCompany.setDeveloperCompanyId(pDeveloperCompany.getExternalId());
@@ -27,15 +27,15 @@ public class DeveloperCompanyConverter {
 	}
 	
 	/**
-	 * Convert to {@link com.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany}.
+	 * Convert to {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany}.
 	 * 
-	 * @param developerCompany {@link com.DeveloperCompanyEntity.hn.cs.core.model.DeveloperCompany} to convert from
-	 * @param pDeveloperCompany {@link com.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany} to convert to
-	 * @return converted {@link com.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany}
+	 * @param developerCompany {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.core.model.DeveloperCompany} to convert from
+	 * @param pDeveloperCompany {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany} to convert to
+	 * @return converted {@link com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity.hn.cs.persistence.model.DeveloperCompany}
 	 */
-	public static com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity convertToPersistentDeveloperCompany(DeveloperCompany developerCompany, com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity pDeveloperCompany) {		
+	public static com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity convertToPersistentDeveloperCompany(DeveloperCompany developerCompany, com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany) {		
 		if (pDeveloperCompany == null) {
-			pDeveloperCompany = new com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity();
+			pDeveloperCompany = new com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity();
 		}
 		if (ValidationUtil.isNotNull(developerCompany.getName())) {
 			pDeveloperCompany.setName(developerCompany.getName());
@@ -48,7 +48,7 @@ public class DeveloperCompanyConverter {
 		}				if (ValidationUtil.isNotNull(developerCompany.getAppPlatforms())) {			pDeveloperCompany.setAppPlatforms(developerCompany.getAppPlatforms());		}		if (ValidationUtil.isNotNull(developerCompany.getAppExperience())) {			pDeveloperCompany.setAppExperience(developerCompany.getAppExperience());		}				if (ValidationUtil.isNotNull(developerCompany.getCompanySize())) {			pDeveloperCompany.setCompanySize(developerCompany.getCompanySize());		}				if (ValidationUtil.isNotNull(developerCompany.getCompanySkillSet())) {			pDeveloperCompany.setCompanySkillSet(developerCompany.getCompanySkillSet());		}		if (ValidationUtil.isNotNull(developerCompany.getContactEmail())) {			pDeveloperCompany.setContactEmail(developerCompany.getContactEmail());		}		if (ValidationUtil.isNotNull(developerCompany.getExpectedAppFinishDate())) {			pDeveloperCompany.setExpectedAppFinishDate(developerCompany.getExpectedAppFinishDate());		}				return pDeveloperCompany;
 	}
 	
-	public static com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity convertSimpleToPersistentDeveloperCompany(DeveloperCompany developerCompany, com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity pDeveloperCompany) {
+	public static com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity convertSimpleToPersistentDeveloperCompany(DeveloperCompany developerCompany, com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany) {
 
 		if (ValidationUtil.isNotNull(developerCompany.getDomain())) {
 			pDeveloperCompany.setDomain(developerCompany.getDomain());

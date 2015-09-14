@@ -2,8 +2,8 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
 
-import com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity;
-import com.servinglynk.hmis.warehouse.entity.DeveloperCompanyStatus;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus;
 
 public interface DeveloperCompanyDao {
 

@@ -8,8 +8,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.SharingRuleEntity;
 import com.servinglynk.hmis.warehouse.model.live.Enrollment;
+import com.servinglynk.hmis.warehouse.model.live.SharingRuleEntity;
 
 public class SharingRuleDaoImpl extends QueryExecutorImpl implements SharingRuleDao {
 	

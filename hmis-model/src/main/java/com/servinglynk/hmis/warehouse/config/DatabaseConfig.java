@@ -414,4 +414,9 @@ public class DatabaseConfig {
 		return new SharingRuleDaoImpl();
 	}
 	
+	@Bean
+	public InformationReleasesDaoImpl informationReleasesDao(){
+		return new InformationReleasesDaoImpl();
+	}
+	
 }

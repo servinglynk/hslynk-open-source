@@ -44,7 +44,7 @@ public class PermissionSetRestEndpoint extends RestEndpointBase {
 		return serviceFactory.getPermissionSetService().getPermissionSetById(permissionSetId);
 	}
 	
-	@RequestMapping(value="/{username}/assignpermissionset",method=RequestMethod.POST)
+	@RequestMapping(value="/{username}/permissionsetassignments",method=RequestMethod.POST)
 	@APIMapping(value="ACL_ASSIGN_PRMISSION_SET",checkTrustedApp=true,checkSessionToken=true)
 	public PermissionSet assignPermissionSet(@PathVariable("username") String username ,@RequestBody PermissionSet permissionSet,HttpServletRequest request) throws Exception {
 		 serviceFactory.getPermissionSetService().assignPermissionSetTOUser(username, permissionSet,USER_SERVICE);

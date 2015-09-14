@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.SharingRule;
-import com.servinglynk.hmis.warehouse.entity.SharingRuleEntity;
+import com.servinglynk.hmis.warehouse.model.live.SharingRuleEntity;
 
 public class SharingRuleConverter {
 

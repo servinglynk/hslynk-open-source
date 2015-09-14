@@ -8,11 +8,11 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.PermissionSetAclEntity;
-import com.servinglynk.hmis.warehouse.entity.PermissionSetEntity;
-import com.servinglynk.hmis.warehouse.entity.ProfileEntity;
-import com.servinglynk.hmis.warehouse.entity.UserPermissionSetAclEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.PermissionSetAclEntity;
+import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
+import com.servinglynk.hmis.warehouse.model.live.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.live.UserPermissionSetAclEntity;
 
 public class PermissionSetDaoImpl extends QueryExecutorImpl implements PermissionSetDao {
 

@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Profile;
-import com.servinglynk.hmis.warehouse.entity.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.live.ProfileEntity;
 
 public class ProfileConverter {
 	

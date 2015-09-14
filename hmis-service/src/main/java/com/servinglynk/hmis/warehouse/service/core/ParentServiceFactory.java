@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.InformationReleasesService;
 import com.servinglynk.hmis.warehouse.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.service.ProfileService;
@@ -37,5 +38,6 @@ public interface ParentServiceFactory {
 	PermissionSetService getPermissionSetService();
 	SharingRuleService getSharingRuleService();
 	EnrollmentService getEnrollmentService();
+	InformationReleasesService getInformationReleasesService();
 	
 }

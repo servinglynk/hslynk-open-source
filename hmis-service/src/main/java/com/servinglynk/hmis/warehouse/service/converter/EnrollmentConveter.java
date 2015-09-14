@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
-import com.servinglynk.hmis.warehouse.core.model.ReleaseOfInfo;
-import com.servinglynk.hmis.warehouse.entity.ReleaseOfInfoEntity;
 
 public class EnrollmentConveter {
 	
@@ -16,12 +14,5 @@ public class EnrollmentConveter {
 		return null;
 	}
 	
-	public static ReleaseOfInfo entityToModel(ReleaseOfInfoEntity entity){
-		return null;
-	}
-
 	
-	public static ReleaseOfInfoEntity modelToEntity(ReleaseOfInfoEntity releaseOfInfoEntity,ReleaseOfInfo releaseOfInfo){
-		return null;
-	}
 }

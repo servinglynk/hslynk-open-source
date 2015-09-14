@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 
-import com.servinglynk.hmis.warehouse.entity.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.live.ProfileEntity;
 
 public class ProfileDaoImpl extends QueryExecutorImpl implements ProfileDao {
 

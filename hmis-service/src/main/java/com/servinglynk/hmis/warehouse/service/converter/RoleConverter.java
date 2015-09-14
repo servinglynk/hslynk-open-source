@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Role;
-import com.servinglynk.hmis.warehouse.entity.RoleEntity;
+import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
 
 public class RoleConverter {
 	

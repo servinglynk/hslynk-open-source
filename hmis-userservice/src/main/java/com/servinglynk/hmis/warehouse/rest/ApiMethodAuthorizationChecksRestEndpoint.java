@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
-import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
 @RequestMapping("/apimethodauthcheck")

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.entity.ReleaseOfInfoEntity;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
@@ -24,6 +23,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
+import com.servinglynk.hmis.warehouse.model.live.ReleaseOfInfoEntity;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -140,30 +140,5 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	return (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class,enrollmentId);
 	}
 
-	@Override
-	public ReleaseOfInfoEntity createReleaseOfInfo(ReleaseOfInfoEntity releaseOfInfoEntity) {
-		insert(releaseOfInfoEntity);
-		return releaseOfInfoEntity;
-	}
-
-	@Override
-	public ReleaseOfInfoEntity updateReleaseOfInfo(ReleaseOfInfoEntity releaseOfInfoEntity) {
-		update(releaseOfInfoEntity);
-		return releaseOfInfoEntity;
-	}
-
-	@Override
-	public void deleteReleaseOfInfo(ReleaseOfInfoEntity releaseOfInfoEntity) {
-			delete(releaseOfInfoEntity);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ReleaseOfInfoEntity> getreleaseOfInfoEntityByEnrollment(UUID enrollmentId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(ReleaseOfInfoEntity.class);
-		criteria.createAlias("enrollment","enrollment");		
-		criteria.add(Restrictions.eq("enrollment.id",enrollmentId));
-		return (List<ReleaseOfInfoEntity>) findByCriteria(criteria);
-	}
 }
 

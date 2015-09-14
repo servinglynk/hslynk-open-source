@@ -4,7 +4,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.entity.PasswordResetEntity;
+import com.servinglynk.hmis.warehouse.model.live.PasswordResetEntity;
 
 public interface PasswordResetDao {
 

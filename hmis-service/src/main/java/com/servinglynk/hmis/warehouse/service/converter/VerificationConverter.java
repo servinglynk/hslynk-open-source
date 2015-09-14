@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 
 
 import com.servinglynk.hmis.warehouse.core.model.Verification;
-import com.servinglynk.hmis.warehouse.entity.VerificationEntity;
+import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
 
 public class VerificationConverter {
 	

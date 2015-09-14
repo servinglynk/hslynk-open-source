@@ -55,13 +55,13 @@ public interface ParentDaoFactory {
 	YouthcriticalissuesDao getYouthcriticalissuesDao();
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	
-	public AccountDao getAccountDao();
-	public DeveloperCompanyDao getDeveloperCompanyDao() ;
-	public DeveloperServiceDao getDeveloperServiceDao() ;
-	public DeveloperCompanyAccountDao getDeveloperCompanyAccountDao();
-	public ServiceLicenseDao getServiceLicenseDao() ;
-	public ServiceApiMethodDao getServiceApiMethodDao();
-	public ServiceDao getServiceDao();
+	AccountDao getAccountDao();
+	DeveloperCompanyDao getDeveloperCompanyDao() ;
+	DeveloperServiceDao getDeveloperServiceDao() ;
+	DeveloperCompanyAccountDao getDeveloperCompanyAccountDao();
+	ServiceLicenseDao getServiceLicenseDao() ;
+	ServiceApiMethodDao getServiceApiMethodDao();
+	ServiceDao getServiceDao();
 	VerificationDao getVerificationDao();
 	AccountDataChangeDao getAccountDataChangeDao();
 	PasswordResetDao getPasswordResetDao();
@@ -71,5 +71,6 @@ public interface ParentDaoFactory {
 	ProfileAclDao getProfileAclDao();
 	PermissionSetDao getPermissionSetDao();
 	SharingRuleDao getSharingRuleDao();
+	InformationReleasesDao getInformationReleasesDao();
 
 }

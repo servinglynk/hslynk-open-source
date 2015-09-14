@@ -16,7 +16,6 @@ import com.servinglynk.hmis.warehouse.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SyncListDao;
 import com.servinglynk.hmis.warehouse.dao.SyncListDaoImpl;
-import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.core.HmisUserService;
 import com.servinglynk.hmis.warehouse.service.core.HmisUserServiceImpl;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
@@ -28,6 +27,8 @@ import com.servinglynk.hmis.warehouse.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AuthorizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DeveloperCompanyServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.InformationReleasesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProfileServiceImpl;
@@ -205,5 +206,10 @@ public class AppConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public EnrollmentServiceImpl enrollmentService(){
 		 return new EnrollmentServiceImpl();
+	 }
+	 
+	 @Bean
+	 public InformationReleasesServiceImpl informationReleasesService(){
+		 return new InformationReleasesServiceImpl();
 	 }
 }

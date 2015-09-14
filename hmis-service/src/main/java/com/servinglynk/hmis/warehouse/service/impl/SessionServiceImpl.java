@@ -14,9 +14,9 @@ import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
-import com.servinglynk.hmis.warehouse.entity.AccountLockoutEntity;
-import com.servinglynk.hmis.warehouse.entity.SessionEntity;
-import com.servinglynk.hmis.warehouse.entity.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.live.AccountLockoutEntity;
+import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
+import com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity;
 import com.servinglynk.hmis.warehouse.service.SessionService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountLockedoutException;
@@ -30,7 +30,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	@Transactional
 	public Session getSession(String userName){
 		
-	 	com.servinglynk.hmis.warehouse.entity.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(userName);
+	 	com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(userName);
 		if(pAccount== null) throw new InvalidSessionTokenException( userName +" is not a valid account username ");
 		Account account = AccountConverter.convertToAccount(pAccount);
 		Session session = new Session();
@@ -78,7 +78,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	@Transactional
 	public void createSession(Session session, String trustedAppId, String auditUser) {
 		SessionEntity sessionEntity = new SessionEntity();
-		com.servinglynk.hmis.warehouse.entity.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
+		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
 			if(pAccount== null) throw new InvalidSessionTokenException( session.getAccount().getUsername() +" is not a valid account username ");
 		
 			TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedAppId);

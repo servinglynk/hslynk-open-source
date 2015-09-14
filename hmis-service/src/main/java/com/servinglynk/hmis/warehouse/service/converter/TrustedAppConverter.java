@@ -5,7 +5,7 @@ import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompany;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperService;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
-import com.servinglynk.hmis.warehouse.entity.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity;
 
 
 public class TrustedAppConverter {
@@ -135,10 +135,10 @@ public class TrustedAppConverter {
 	}
 	
 
-	public static com.servinglynk.hmis.warehouse.entity.TrustedAppEntity convertToPersistentTrustedApp(TrustedApp trustedApp,TrustedAppEntity trustedAppEntity) {
+	public static com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity convertToPersistentTrustedApp(TrustedApp trustedApp,TrustedAppEntity trustedAppEntity) {
 		
 		if (trustedAppEntity == null) {
-			trustedAppEntity = new com.servinglynk.hmis.warehouse.entity.TrustedAppEntity();
+			trustedAppEntity = new com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity();
 		}
 		if (!ValidationUtil.isEmpty(trustedApp.getTrustedAppId())) {
 			trustedAppEntity.setExternalId(trustedApp.getTrustedAppId());

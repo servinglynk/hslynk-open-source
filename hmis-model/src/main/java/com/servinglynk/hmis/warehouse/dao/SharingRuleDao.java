@@ -3,8 +3,8 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.entity.SharingRuleEntity;
 import com.servinglynk.hmis.warehouse.model.live.Enrollment;
+import com.servinglynk.hmis.warehouse.model.live.SharingRuleEntity;
 
 public interface SharingRuleDao {
 

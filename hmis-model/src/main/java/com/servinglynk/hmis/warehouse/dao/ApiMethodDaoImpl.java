@@ -5,9 +5,9 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.ApiGroupEntity;
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
 
 public class ApiMethodDaoImpl extends QueryExecutorImpl implements
 		ApiMethodDao {

@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
 
 public class ApiMethodConverter {
 

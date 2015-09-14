@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.DeveloperCompanyAccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyAccountEntity;
 public class DeveloperCompanyAccountDaoImpl extends QueryExecutorImpl
 		implements DeveloperCompanyAccountDao {
 

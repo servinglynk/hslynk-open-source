@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import com.servinglynk.hmis.warehouse.entity.ServiceStatus;
+import com.servinglynk.hmis.warehouse.model.live.ServiceStatus;
 
 public class ServiceStatusDaoImpl extends QueryExecutorImpl implements
 		ServiceStatusDao {

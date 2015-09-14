@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.ServiceApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.ServiceLicenseEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceLicenseEntity;
 
 
 public class ServiceApiMethodDaoImpl extends QueryExecutorImpl

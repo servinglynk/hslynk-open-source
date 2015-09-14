@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
-import com.servinglynk.hmis.warehouse.entity.RoleEntity;
+
+import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
 
 public class RoleDaoImpl extends QueryExecutorImpl implements RoleDao {
 

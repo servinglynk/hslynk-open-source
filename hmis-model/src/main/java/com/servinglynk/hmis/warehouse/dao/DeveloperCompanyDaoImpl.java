@@ -5,8 +5,8 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.DeveloperCompanyEntity;
-import com.servinglynk.hmis.warehouse.entity.DeveloperCompanyStatus;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus;
 
 
  public class DeveloperCompanyDaoImpl extends QueryExecutorImpl implements DeveloperCompanyDao  {

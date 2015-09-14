@@ -30,16 +30,16 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenEx
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundException;
-import com.servinglynk.hmis.warehouse.entity.AccountConsentEntity;
-import com.servinglynk.hmis.warehouse.entity.AccountEntity;
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.DeveloperServiceEntity;
-import com.servinglynk.hmis.warehouse.entity.RedirectUriEntity;
-import com.servinglynk.hmis.warehouse.entity.RefreshToken;
-import com.servinglynk.hmis.warehouse.entity.ServiceApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.SessionEntity;
-import com.servinglynk.hmis.warehouse.entity.TrustedAppEntity;
-import com.servinglynk.hmis.warehouse.entity.TrustedAppStatusEntity;
+import com.servinglynk.hmis.warehouse.model.live.AccountConsentEntity;
+import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
+import com.servinglynk.hmis.warehouse.model.live.RedirectUriEntity;
+import com.servinglynk.hmis.warehouse.model.live.RefreshToken;
+import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
+import com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.live.TrustedAppStatusEntity;
 import com.servinglynk.hmis.warehouse.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.converter.TrustedAppConverter;
@@ -203,7 +203,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		//create a new trustedApp status entry also
 		
 		
-		TrustedAppStatusEntity trustedAppStatusEntity = new com.servinglynk.hmis.warehouse.entity.TrustedAppStatusEntity();
+		TrustedAppStatusEntity trustedAppStatusEntity = new com.servinglynk.hmis.warehouse.model.live.TrustedAppStatusEntity();
 		trustedAppStatusEntity.setTrustedApp(trustedAppEntity);
 		
 		

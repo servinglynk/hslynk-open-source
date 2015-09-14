@@ -1,8 +1,8 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import com.servinglynk.hmis.warehouse.entity.ApiGroupEntity;
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
 
 public interface ApiMethodDao {
 	

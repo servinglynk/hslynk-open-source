@@ -9,11 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
 import com.servinglynk.hmis.warehouse.core.model.PermissionSet;
-import com.servinglynk.hmis.warehouse.entity.AccountEntity;
-import com.servinglynk.hmis.warehouse.entity.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.entity.PermissionSetAclEntity;
-import com.servinglynk.hmis.warehouse.entity.PermissionSetEntity;
-import com.servinglynk.hmis.warehouse.entity.UserPermissionSetAclEntity;
+import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.PermissionSetAclEntity;
+import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
+import com.servinglynk.hmis.warehouse.model.live.UserPermissionSetAclEntity;
 import com.servinglynk.hmis.warehouse.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.service.converter.ApiMethodConverter;
 import com.servinglynk.hmis.warehouse.service.converter.PermissionSetConverter;

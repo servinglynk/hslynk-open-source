@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Roles;
-import com.servinglynk.hmis.warehouse.entity.RoleEntity;
+import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
 import com.servinglynk.hmis.warehouse.service.RoleService;
 import com.servinglynk.hmis.warehouse.service.converter.RoleConverter;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;

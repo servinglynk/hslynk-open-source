@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.entity.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity;
 
 public class TrustedAppDaoImpl extends QueryExecutorImpl implements TrustedAppDao {
 
