@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>core-client</artifactId>
-	<version>0.0.1-SNAPSHOPT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Core client </name>
 	<description>Core client for inter service calls (REST)</description>
 	

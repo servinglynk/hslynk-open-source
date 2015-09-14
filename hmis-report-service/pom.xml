@@ -2,11 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>report</groupId>
   <artifactId>report-service</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Report Service</name>
   <description>Report Service</description>
-  
+  	<properties>
+		<parent-version>0.0.1-SNAPSHOT</parent-version>
+	</properties>
   
   
 	<parent>
@@ -37,12 +39,12 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>report-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>core-client</artifactId>
-			<version>1.0.0</version>
+			<version>${parent-version}</version>
 		</dependency>
 			<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
