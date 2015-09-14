@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.net.URL;
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -12,7 +13,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
@@ -22,6 +22,9 @@ import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 public class BulkUploaderTest {
 	@Autowired
 	BulkUploaderDao dao;
+	
+	@Autowired
+	ParentDaoFactory factory;
 	
 	@Test
 	public void test()
@@ -53,9 +56,15 @@ public class BulkUploaderTest {
 	}
 	
 	@Test
-	public void moveToLive() {
+	public void moveToLive() throws Exception {
 		ExportDomain domain = new ExportDomain();
-		domain.setExportId(UUID.fromString("d8f77ef6-45e5-4813-9de5-2ccd4dabe951"));
-		dao.moveFromStagingToLive(domain);
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
+		for(BulkUpload upload : uploads) {
+			if(upload !=null && upload.getExport() !=null) {
+				domain.setExportId(upload.getExport().getId());
+				dao.moveFromStagingToLive(domain);		
+			}
+		}
+		
 	}
 }
