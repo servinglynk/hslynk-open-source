@@ -40,8 +40,8 @@ public class DemoClient {
     System.out.println("Thrift2 Demo");
     System.out.println("This demo assumes you have a table called \"example\" with a column family called \"family1\"");
     
-    String host = "54.149.8.196";
-    int port = 9090;
+    String host = "ec2-52-27-63-94.us-west-2.compute.amazonaws.com";
+    int port = 9095;
     int timeout = 10000;
     boolean framed = false;
 
@@ -56,7 +56,7 @@ public class DemoClient {
     // open the transport
     transport.open();
     
-    ByteBuffer table = ByteBuffer.wrap("example".getBytes());
+    ByteBuffer table = ByteBuffer.wrap("hbase_hmis_user".getBytes());
 
     TPut put = new TPut();
     put.setRow("row1".getBytes());

@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
@@ -94,6 +96,24 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	
 	public com.servinglynk.hmis.warehouse.model.live.Project getProjectById(UUID projectId){
 		return (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,projectId);
+	}
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

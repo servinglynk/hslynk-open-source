@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -93,6 +95,24 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			}
 		}
 		
+	}
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

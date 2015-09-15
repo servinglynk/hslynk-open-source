@@ -17,6 +17,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.env.Environment;
@@ -32,6 +33,7 @@ import com.servinglynk.hmis.warehouse.domain.Gender;
 import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
@@ -113,15 +115,17 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				if(dedupedId != null) {
 					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 				}
-				com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, clientModel.getDedupClientId());
-				/**
-				 * This is where the deduping happens We check if a client with the same information exists and
-				 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
-				 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
-				 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
-				 */
-				if(dedupedClient !=null) {
-					clientUUID = dedupedClient.getId();
+				if(clientModel.getDedupClientId() !=null) {
+					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, clientModel.getDedupClientId());
+					/**
+					 * This is where the deduping happens We check if a client with the same information exists and
+					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
+					 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
+					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
+					 */
+					if(dedupedClient !=null) {
+						clientUUID = dedupedClient.getId();
+					}
 				}else {
 					insert(clientModel);	
 				}
@@ -319,5 +323,26 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
     	String abc = impl.getDedupedClient(client);
     	System.out.println("Identifier "+abc);
     }
+
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

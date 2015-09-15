@@ -1,12 +1,14 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -156,6 +158,20 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void deleteLiveByExportId(UUID exportId) {
 		com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,exportId);
 		delete(exportEntity);
+	}
+
+
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

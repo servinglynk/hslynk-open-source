@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
@@ -62,6 +64,24 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
+	}
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

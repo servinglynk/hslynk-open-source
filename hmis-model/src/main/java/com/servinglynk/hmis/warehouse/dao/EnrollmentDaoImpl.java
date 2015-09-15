@@ -3,17 +3,26 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.lang.reflect.InvocationTargetException;
+import java.nio.ByteBuffer;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.apache.hadoop.hbase.thrift2.generated.TIOError;
+import org.apache.hadoop.hbase.thrift2.generated.TPut;
+import org.apache.thrift.TException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
@@ -23,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
-import com.servinglynk.hmis.warehouse.model.live.ReleaseOfInfoEntity;
+import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -138,6 +147,77 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	
 	public com.servinglynk.hmis.warehouse.model.live.Enrollment getEnrollmentById(UUID enrollmentId) {
 	return (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class,enrollmentId);
+	}
+
+	
+	
+	
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment = (com.servinglynk.hmis.warehouse.model.live.Enrollment) entity;
+		ByteBuffer table = ByteBuffer.wrap("hbase_hmis_user".getBytes());
+		String columnFamily = enrollment.getClass().getSimpleName();
+		TPut put = new TPut();
+		put.setRow(String.valueOf(enrollment.getId()).getBytes());
+		List<TColumnValue> columnValues = new ArrayList<TColumnValue>();
+			for (String column : getNonCollectionFieldsForObject(entity)) {
+				if(column !=null && !"serialVersionUID".equals(column) && !"SAVED_HASHES".equals(column) && !"hashCode".equals(column)) {
+				TColumnValue columnValue = new TColumnValue();
+				columnValue.setFamily(columnFamily.getBytes());
+				columnValue.setQualifier(column.getBytes());
+				Object value = null;
+				Object columnFamilyObject = null;
+				try {
+					try {
+						value = PropertyUtils.getProperty(enrollment,
+								column);
+//						if (columnFamilyObject != null) {
+//							value = PropertyUtils.getProperty(
+//									columnFamilyObject, column);
+//						}
+					} catch (IllegalAccessException | InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (value != null && !(value instanceof java.util.Set)) {
+					columnValue.setValue(String.valueOf(value).getBytes());
+					columnValue.setTimestamp(System.currentTimeMillis());
+					columnValues.add(columnValue);
+				}
+			 }
+			}
+		put.setColumnValues(columnValues);
+		try {
+			client.put(table, put);
+		} catch (TIOError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		com.servinglynk.hmis.warehouse.model.live.Enrollment entity = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
+		entity.setDateCreated(LocalDate.now());
+		entity.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.ONE);
+		entity.setHousingstatus(EnrollmentHousingstatusEnum.ONE);
+		entity.setYearshomeless(3);
+		entity.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.ONE);
+		performSave(geHBaseClient(), entity);
 	}
 
 }

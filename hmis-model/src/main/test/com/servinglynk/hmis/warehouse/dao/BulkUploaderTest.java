@@ -13,13 +13,18 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
+import com.servinglynk.hmis.warehouse.dao.BulkUploaderUnMarshallerTest;
+import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager") 
 public class BulkUploaderTest {
+	
 	@Autowired
 	BulkUploaderDao dao;
 	
@@ -29,6 +34,8 @@ public class BulkUploaderTest {
 	@Test
 	public void test()
 	{
+		SyncDomain domain = new SyncDomain();
+//		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
 		URL path = BulkUploaderUnMarshallerTest.class.getResource("New_HUD_Boman.xml");
 		upload.setInputPath(path.getFile());
