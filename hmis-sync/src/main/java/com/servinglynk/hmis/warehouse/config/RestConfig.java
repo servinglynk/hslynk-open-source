@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
+import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
@@ -62,6 +64,16 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return restTemplate;
 	}
 
+//	@Bean
+//	public AuthorizationsRestEndpoint authorizationsRestEndpoint() {
+//		return new AuthorizationsRestEndpoint();
+//	}
+//
+//	@Bean
+//	public ConsentMessageRestEndpoint consentMessageRestEndpoint(){
+//		return new ConsentMessageRestEndpoint();
+//	}
+	
 	@Resource
 	private Environment env;
 

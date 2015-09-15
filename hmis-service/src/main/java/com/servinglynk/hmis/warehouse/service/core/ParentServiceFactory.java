@@ -20,9 +20,8 @@ import com.servinglynk.hmis.warehouse.service.VerificationService;
 
 public interface ParentServiceFactory {
 	
-	/*EnrollmentService getEnrollmentService();
 	HmisUserService getHmisUserService();
-	SyncListService getSyncListService();*/
+	SyncListService getSyncListService();
 	DeveloperCompanyService getDeveloperCompanyService();
 	TrustedAppService getTrustedAppService();
 	AccountService getAccountService();

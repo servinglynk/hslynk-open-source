@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.hbase.service.impl;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
@@ -8,11 +7,9 @@ import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.servinglynk.hmis.warehouse.dao.SyncListDao;
-import com.servinglynk.hmis.warehouse.hbase.dao.SyncUserDao;
-import com.servinglynk.hmis.warehouse.hbase.model.HmisUser;
 import com.servinglynk.hmis.warehouse.hbase.service.SyncUserService;
-import com.servinglynk.hmis.warehouse.model.Sync;
+import com.servinglynk.hmis.warehouse.sync.dao.SyncUserDao;
+import com.servinglynk.hmis.warehouse.sync.hbase.model.HmisUser;
 
 @Service
 public class SyncUserServiceImpl implements SyncUserService {
@@ -52,7 +49,7 @@ public class SyncUserServiceImpl implements SyncUserService {
 		user.setId(rowKey);
 		try {
 			return syncUserDao.get(user);
-		} catch (TIOError | TException e) {
+		} catch (Exception  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

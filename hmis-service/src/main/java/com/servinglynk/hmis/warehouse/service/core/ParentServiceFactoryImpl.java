@@ -22,13 +22,12 @@ import com.servinglynk.hmis.warehouse.service.VerificationService;
 @Component
 public class ParentServiceFactoryImpl  implements ParentServiceFactory {
 	
-	/*@Autowired
-	private EnrollmentService enrollmentService;
 	@Autowired
 	private HmisUserService hmisUserService;
+	
 	@Autowired
 	private SyncListService syncListService;
-*/	
+
 	@Autowired
 	private DeveloperCompanyService developerCompanyService;
 	
@@ -73,15 +72,6 @@ public class ParentServiceFactoryImpl  implements ParentServiceFactory {
 	private EnrollmentService enrollmentService;
 	
 	
-	/*
-	public void setEnrollmentService(EnrollmentService enrollmentService) {
-		this.enrollmentService = enrollmentService;
-	}
-
-	public EnrollmentService getEnrollmentService() {
-		return enrollmentService;
-	}
-
 	public HmisUserService getHmisUserService() {
 		return hmisUserService;
 	}
@@ -96,7 +86,7 @@ public class ParentServiceFactoryImpl  implements ParentServiceFactory {
 
 	public void setSyncListService(SyncListService syncListService) {
 		this.syncListService = syncListService;
-	}*/
+	}
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
 		return developerCompanyService;
