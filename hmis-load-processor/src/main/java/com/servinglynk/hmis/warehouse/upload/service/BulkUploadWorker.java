@@ -42,7 +42,7 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 			
 			File[] files = new File("C:\\tomcat\\apache-tomcat-8.0.18\\tmpFiles").listFiles();
 			//If this pathname does not denote a directory, then listFiles() returns null. 
-
+			if(files !=null && files.length > 0 )
 			for (File file : files) {
 			    if (file.isFile()) {
 			        moveFile(file.getAbsolutePath(),"C:\\HMISTEstDev\\XMLGen\\src\\com\\servinglynk\\hmis\\warehouse\\jaxb\\" + file.getName());

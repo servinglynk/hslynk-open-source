@@ -25,7 +25,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	ParentDaoFactory parentDaoFactory;
 	
 	@Override
-	public void performBulkUpload(BulkUpload upload) {
+	public BulkUpload performBulkUpload(BulkUpload upload) {
 		try {
 			
 			File file = new File(upload.getInputPath());
@@ -97,6 +97,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+		return upload;
 	}
 	
 	

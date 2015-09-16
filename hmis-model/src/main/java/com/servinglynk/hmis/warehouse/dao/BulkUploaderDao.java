@@ -11,7 +11,7 @@ import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 @Transactional(propagation = Propagation.REQUIRED) 
 public interface BulkUploaderDao {
 
-	void performBulkUpload(BulkUpload upload);
+	BulkUpload performBulkUpload(BulkUpload upload);
 	public void deleteStagingByExportId(UUID exportId);
 	public void deleteLiveByExportId(UUID exportId);
 	public void moveFromStagingToLive(ExportDomain domain);

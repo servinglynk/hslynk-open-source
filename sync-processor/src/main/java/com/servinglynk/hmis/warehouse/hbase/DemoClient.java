@@ -56,14 +56,14 @@ public class DemoClient {
     // open the transport
     transport.open();
     
-    ByteBuffer table = ByteBuffer.wrap("hbase_hmis_user".getBytes());
+    ByteBuffer table = ByteBuffer.wrap("emp".getBytes());
 
     TPut put = new TPut();
     put.setRow("row1".getBytes());
 
     TColumnValue columnValue = new TColumnValue();
-    columnValue.setFamily("family1".getBytes());
-    columnValue.setQualifier("qualifier1".getBytes());
+    columnValue.setFamily("cf1".getBytes());
+    columnValue.setQualifier("name".getBytes());
     columnValue.setValue("value11".getBytes());
     columnValue.setTimestamp(System.currentTimeMillis());
     List<TColumnValue> columnValues = new ArrayList<TColumnValue>();

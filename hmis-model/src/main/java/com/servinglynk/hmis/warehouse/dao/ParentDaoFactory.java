@@ -54,6 +54,7 @@ public interface ParentDaoFactory {
 	WorsthousingsituationDao getWorsthousingsituationDao();
 	YouthcriticalissuesDao getYouthcriticalissuesDao();
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
+	ExportDao getExportDao();
 	
 	AccountDao getAccountDao();
 	DeveloperCompanyDao getDeveloperCompanyDao() ;

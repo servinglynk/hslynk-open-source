@@ -1,8 +1,14 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,12 +19,13 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderUnMarshallerTest;
-import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.Enrollment;
+import com.servinglynk.hmis.warehouse.model.live.Export;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
@@ -32,14 +39,28 @@ public class BulkUploaderTest {
 	ParentDaoFactory factory;
 	
 	@Test
-	public void test()
+	public void test() throws JAXBException
 	{
 		SyncDomain domain = new SyncDomain();
 //		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
 		URL path = BulkUploaderUnMarshallerTest.class.getResource("New_HUD_Boman.xml");
 		upload.setInputPath(path.getFile());
-		dao.performBulkUpload(upload);
+		BulkUpload  uploadResult =   dao.performBulkUpload(upload);
+		File file = new File(
+				path.getFile());
+		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
+
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
+		Source source = sources.getSource();
+		Export export = uploadResult.getExport();
+		Export stagingExport = (Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.staging.Export.class, export.getId());
+		Set<Enrollment> enrollments = stagingExport.getEnrollments();
+		
+	//	assertEqu
+		
+		
 	}
 	@Test
 	public void testOldFile()

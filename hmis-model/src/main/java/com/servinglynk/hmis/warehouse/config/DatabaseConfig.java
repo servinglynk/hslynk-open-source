@@ -418,5 +418,8 @@ public class DatabaseConfig {
 	public InformationReleasesDaoImpl informationReleasesDao(){
 		return new InformationReleasesDaoImpl();
 	}
-	
+	@Bean
+	public ExportDaoImpl exportDao(){
+		return new ExportDaoImpl();
+	}
 }

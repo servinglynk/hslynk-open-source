@@ -106,6 +106,8 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	private YouthcriticalissuesDao youthcriticalissuesDao;
 	@Autowired
 	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
+	@Autowired
+	private ExportDao exportDao;
 
 	/**
 	 * @return the hmisUserDao
@@ -1135,7 +1137,15 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	public void setInformationReleasesDao(InformationReleasesDao informationReleasesDao) {
 		this.informationReleasesDao = informationReleasesDao;
 	}
+
+	@Override
+	public ExportDao getExportDao() {
+		return exportDao;
+	}
 	
+	public void setExportDao(ExportDao exportDao) {
+		this.exportDao = exportDao;
+	}
 	
 	
 }
