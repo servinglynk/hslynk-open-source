@@ -34,12 +34,20 @@ import com.googlecode.jcsv.reader.internal.AnnotationEntryParser;
 import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
 import com.servinglynk.hmis.warehouse.csv.Client;
 import com.servinglynk.hmis.warehouse.csv.Disabilities;
+import com.servinglynk.hmis.warehouse.csv.EmployementEducation;
+import com.servinglynk.hmis.warehouse.csv.Enrollment;
+import com.servinglynk.hmis.warehouse.csv.EnrollmentCoC;
 import com.servinglynk.hmis.warehouse.domain.Sources;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 @Component
 public class BulkUploadHelper {
-	
+	/**
+	 * Gets the source object from the upload location.
+	 * @param upload
+	 * @return sources
+	 */
 	public Sources getSourcesFromFiles(BulkUpload upload) {
 		String inputPath = upload.getInputPath();
 		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputPath()))){
@@ -50,13 +58,11 @@ public class BulkUploadHelper {
 		}
 		return null;
 	}
-	
-	protected String getFileExtension(String fileName) {
-		if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-	        return fileName.substring(fileName.lastIndexOf(".")+1);
-	        else return "";
-	}
-	
+	/**
+	 * Gets the Sources XML object when the file to be bulk uploaded is an XML file.
+	 * @param upload
+	 * @return
+	 */
 	public Sources getSourcesForXml(BulkUpload upload) {
 		try {
 			File file = new File(upload.getInputPath());
@@ -70,10 +76,21 @@ public class BulkUploadHelper {
 				}
 		return null;
 	}
+	/**
+	 * Gets the Sources XML object when the file to be bulk uploaded is an Zip file 
+	 * containing csv files.
+	 * @param upload
+	 * @return
+	 */
 	public Sources getSourcesForZipFile(BulkUpload upload) {
 		Sources sources = new Sources();
+		Source source = sources.getSource();
+		if(source == null) {
+			Source newSource = new Source();
+			sources.setSource(newSource);
+			newSource.setExport(new Sources.Source.Export());
+		}
 		try {
-		      //ZipFile zf = new ZipFile("C:/HMIS/servinglynk-hmis/hmis-load-processor/src/main/java/com/servinglynk/hmis/warehouse/upload/csv/CSV_files.zip");
 			ZipFile zf = new ZipFile(upload.getInputPath());
 		      Enumeration entries = zf.entries();
 		      while (entries.hasMoreElements()) {
@@ -90,9 +107,11 @@ public class BulkUploadHelper {
 		            		hydradeDisabilities(csvFile, sources);
 		            		break;
 		            	case "EmploymentEducation.csv":
-		            		
+		            		hydradeEmployementEducation(csvFile,sources);
 		            	case "Enrollment.csv":
+		            		hydradeEnrollment(csvFile, sources);
 		            	case "EnrollmentCOC.csv":
+		            		hydradeEnrollmentCoC(csvFile, sources);
 		            	case "Exit.csv":
 		            	case "Export.csv":
 		            	case "Funder.csv":
@@ -116,7 +135,12 @@ public class BulkUploadHelper {
 		    }
 		return sources;
 	}
-	
+	/**
+	 * Hydrate Client with in Sources.Export.
+	 * @param csvFile
+	 * @param sources
+	 * @throws IOException
+	 */
 	  protected void hydradeClient(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -148,22 +172,70 @@ public class BulkUploadHelper {
 	    	  }
 	      }
 	  }
-	  
+	  /**
+	   * Hydrate Disabilities with in Sources Object from Disabilities CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws IOException
+	   */
 	  protected void hydradeDisabilities(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Disabilities> csvReader = new CSVReaderBuilder<Disabilities>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Disabilities>(Disabilities.class, vpp)).build();
 	      List<Disabilities> distbilities = csvReader.readAll(); 
-	      //System.out.println(persons.toString());
 	  }
+	  /**
+	   * Hydrate Disabilities with in Sources Object from Disabilities CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws IOException
+	   */
+	  protected void hydradeEmployementEducation(BufferedReader csvFile, Sources sources) throws IOException {
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<EmployementEducation> employementReader = new CSVReaderBuilder<EmployementEducation>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<EmployementEducation>(EmployementEducation.class, vpp)).build();
+	      List<EmployementEducation> employementEdu = employementReader.readAll(); 
+	  }
+	  /**
+	   * Hydrate Enrollment with in Sources Object from Enrollment CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws IOException
+	   */
+	  protected void hydradeEnrollment(BufferedReader csvFile,Sources sources) throws IOException {
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<Enrollment> enrollmentReader = new CSVReaderBuilder<Enrollment>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<Enrollment>(Enrollment.class, vpp)).build();
+	      List<Enrollment> enrollment = enrollmentReader.readAll(); 
+	  }
+	  /**
+	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws IOException
+	   */
+	  protected void hydradeEnrollmentCoC(BufferedReader csvFile, Sources sources) throws IOException {
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<EnrollmentCoC> enrollmentCocReader = new CSVReaderBuilder<EnrollmentCoC>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<EnrollmentCoC>(EnrollmentCoC.class, vpp)).build();
+	      List<EnrollmentCoC> enrollmentCoc = enrollmentCocReader.readAll(); 
+	  }
+	  
 	  protected byte getByte(String value) {
 		  if(value !=null && !"".equals(value)) {
 			  return Byte.valueOf(value);
 		  }
 		  return 0;
 	  }
-	  
+	  protected String getFileExtension(String fileName) {
+			if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+		        return fileName.substring(fileName.lastIndexOf(".")+1);
+		        else return "";
+	  }
 	  protected XMLGregorianCalendar getXMLGregorianCalendar(String date) {
 		  Date dob=null;
 		  DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
