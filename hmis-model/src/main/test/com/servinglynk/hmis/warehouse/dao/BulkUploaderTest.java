@@ -19,6 +19,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -57,10 +58,6 @@ public class BulkUploaderTest {
 		Export export = uploadResult.getExport();
 		Export stagingExport = (Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.staging.Export.class, export.getId());
 		Set<Enrollment> enrollments = stagingExport.getEnrollments();
-		
-	//	assertEqu
-		
-		
 	}
 	@Test
 	public void testOldFile()
@@ -71,7 +68,26 @@ public class BulkUploaderTest {
 		
 		dao.performBulkUpload(upload);
 	}
-	
+	@Test
+	public void testCSVZip() throws JAXBException
+	{
+		SyncDomain domain = new SyncDomain();
+//		factory.getEnrollmentDao().hydrateHBASE(domain);
+		BulkUpload upload = new BulkUpload();
+		URL path = BulkUploadHelperTest.class.getResource("CSV_files.zip");
+		upload.setInputPath(path.getFile());
+		BulkUpload  uploadResult =   dao.performBulkUpload(upload);
+		/*File file = new File(
+				path.getFile());
+		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
+
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
+		Source source = sources.getSource();
+		Export export = uploadResult.getExport();
+		Export stagingExport = (Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.staging.Export.class, export.getId());
+		Set<Enrollment> enrollments = stagingExport.getEnrollments(); */
+	}
 	@Test
 	public void deleteExportFromStaging() {
 		UUID id = UUID.fromString("fda97ba3-e737-4812-a03a-448212606fee");
