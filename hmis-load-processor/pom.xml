@@ -23,6 +23,11 @@
 	</parent>
 
 	<dependencies>
+	<dependency>
+        <groupId>com.googlecode.jcsv</groupId>
+        <artifactId>jcsv</artifactId>
+        <version>1.4.0</version>
+</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

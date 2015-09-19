@@ -70,7 +70,7 @@ public class DemoClient {
     columnValues.add(columnValue);
     put.setColumnValues(columnValues);
 
-    client.put(table, put);
+    client.put(table, put) ;
 
     TGet get = new TGet();
     get.setRow("row1".getBytes());

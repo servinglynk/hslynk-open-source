@@ -16,6 +16,7 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.servinglynk.hmis.warehouse.dao.*;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 
 @Configuration
 @EnableTransactionManagement
@@ -421,5 +422,10 @@ public class DatabaseConfig {
 	@Bean
 	public ExportDaoImpl exportDao(){
 		return new ExportDaoImpl();
+	}
+	
+	@Bean
+	public BulkUploadHelper bulkUploadHelper() {
+		return new BulkUploadHelper();
 	}
 }

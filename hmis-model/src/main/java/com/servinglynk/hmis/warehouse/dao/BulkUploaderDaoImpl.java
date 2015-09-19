@@ -1,17 +1,13 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.io.File;
 import java.util.List;
 import java.util.UUID;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -24,16 +20,16 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
 	
+	@Autowired
+	BulkUploadHelper bulkUploadHelper;
+	
 	@Override
 	public BulkUpload performBulkUpload(BulkUpload upload) {
 		try {
 			
-			File file = new File(upload.getInputPath());
-			JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
 			upload.setStatus("INPROGRESS");
 			parentDaoFactory.getBulkUploaderWorkerDao().insert(upload);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
+			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload);
 			Source source = sources.getSource();
 			Export export = source.getExport();
 			UUID exportId = UUID.randomUUID();
@@ -54,7 +50,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
-					
 			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);
@@ -94,12 +89,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, exportId);
 			upload.setExport(exportEntity);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-		} catch (JAXBException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return upload;
 	}
-	
 	
 	public void moveFromStagingToLive(ExportDomain domain) {
 		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
