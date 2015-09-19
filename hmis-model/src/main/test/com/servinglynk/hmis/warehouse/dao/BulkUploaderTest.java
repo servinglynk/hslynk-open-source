@@ -44,7 +44,7 @@ public class BulkUploaderTest {
 		SyncDomain domain = new SyncDomain();
 //		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploaderUnMarshallerTest.class.getResource("New_HUD_Boman.xml");
+		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
 		upload.setInputPath(path.getFile());
 		BulkUpload  uploadResult =   dao.performBulkUpload(upload);
 		File file = new File(
@@ -66,7 +66,7 @@ public class BulkUploaderTest {
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploaderUnMarshallerTest.class.getResource("outputhmis-model.xml");
+		URL path = BulkUploaderTest.class.getResource("outputhmis-model.xml");
 		upload.setInputPath(path.getFile());
 		
 		dao.performBulkUpload(upload);
