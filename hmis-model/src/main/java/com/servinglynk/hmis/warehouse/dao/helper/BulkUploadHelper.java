@@ -178,13 +178,13 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
+	 /* protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Export> exportReader = new CSVReaderBuilder<Export>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Export>(Export.class, vpp)).build();
 	      List<Export> export = exportReader.readAll(); 
-	  }
+	  }*/
 	/**
 	 * Hydrate Client with in Sources.Export.
 	 * @param csvFile
@@ -265,7 +265,14 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Enrollment> enrollmentReader = new CSVReaderBuilder<Enrollment>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Enrollment>(Enrollment.class, vpp)).build();
-	      List<Enrollment> enrollment = enrollmentReader.readAll(); 
+	      List<Enrollment> enrollment = enrollmentReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollmentList = new ArrayList<Sources.Source.Export.Enrollment>();
+	      for(Enrollment enroll : enrollment) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
+	    	  enrollmentList.add(enrollmentModel);
+	      }
+//	      sources.getSource().getExport()
+	      
 	  }
 	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
@@ -278,7 +285,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<EnrollmentCoC> enrollmentCocReader = new CSVReaderBuilder<EnrollmentCoC>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<EnrollmentCoC>(EnrollmentCoC.class, vpp)).build();
-	      List<EnrollmentCoC> enrollmentCoc = enrollmentCocReader.readAll(); 
+	      List<EnrollmentCoC> enrollmentCoc = enrollmentCocReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC> enrollmentCocList = new ArrayList<Sources.Source.Export.EnrollmentCoC>();
+	      for(EnrollmentCoC enrollCoC : enrollmentCoc) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC enrollmentCocModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC();
+	    	  enrollmentCocList.add(enrollmentCocModel);
+	      }
+//	      sources.getSource().getExport().set
 	  }
 	  
 	  /**
@@ -293,6 +306,36 @@ public class BulkUploadHelper {
 	      CSVReader<Exit> exitReader = new CSVReaderBuilder<Exit>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Exit>(Exit.class, vpp)).build();
 	      List<Exit> exit = exitReader.readAll(); 
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit> exitList = new ArrayList<Sources.Source.Export.Exit>();
+	      for(Exit ext : exit) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
+	    	  exitList.add(exitModel);
+	      }
+//	      sources.getSource().getExport().setExitPlansActions(exitList);
+	  
+	  }
+	  
+	  /**
+	   * Hydrate Export with in Sources Object from Export CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws IOException
+	   */
+	  protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<Export> exportReader = new CSVReaderBuilder<Export>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<Export>(Export.class, vpp)).build();
+	      List<Export> export = exportReader.readAll();
+	      com.servinglynk.hmis.warehouse.domain.Sources.Source.Export exportModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export();
+	      /***
+	       * Read the first element from the export List and hydrate the exportMode
+	       */
+	      if(export != null && export.size() >0 ) {
+	    	  Export exportCsv = export.get(0);
+	    	  exportModel.setExportID(getByte(exportCsv.getExportID()));
+	      }
+	      sources.getSource().setExport(exportModel);
 	  }
 	  
 
@@ -307,7 +350,14 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Funder> funderReader = new CSVReaderBuilder<Funder>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Funder>(Funder.class, vpp)).build();
-	      List<Funder> funder = funderReader.readAll(); 
+	      List<Funder> funder = funderReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder> funderList = new ArrayList<Sources.Source.Export.Funder>();
+	      for(Funder fund : funder) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder funderModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder();
+	    	  funderList.add(funderModel);
+	    	  sources.getSource().getExport().getFunder().add(funderModel);
+	      }
+	      
 	  }
 	  
 	  /**
@@ -321,7 +371,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<HealthAndDV> healthAndDVReader = new CSVReaderBuilder<HealthAndDV>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<HealthAndDV>(HealthAndDV.class, vpp)).build();
-	      List<HealthAndDV> healthAndDV = healthAndDVReader.readAll(); 
+	      List<HealthAndDV> healthAndDV = healthAndDVReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus> healthAndDVList = new ArrayList<Sources.Source.Export.HealthStatus>();
+	      for(HealthAndDV healthDV : healthAndDV) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus healthAndDVModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus();
+	    	  healthAndDVList.add(healthAndDVModel);
+	      }
+	      sources.getSource().getExport().setHealthStatus(healthAndDVList);
 	  }
 	  
 	  /**
@@ -336,6 +392,12 @@ public class BulkUploadHelper {
 	      CSVReader<IncomeBenefits> incomeBenefitsReader = new CSVReaderBuilder<IncomeBenefits>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<IncomeBenefits>(IncomeBenefits.class, vpp)).build();
 	      List<IncomeBenefits> incomeBenefits = incomeBenefitsReader.readAll(); 
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources> incomeBenefitsList = new ArrayList<Sources.Source.Export.IncomeAndSources>();
+	      for(IncomeBenefits incomeBnfts : incomeBenefits) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources incomeBenefitsModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources();
+	    	  incomeBenefitsList.add(incomeBenefitsModel);
+	      }
+	      sources.getSource().getExport().setIncomeAndSources(incomeBenefitsList);
 	  }
 	  
 	  /**
@@ -349,7 +411,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Inventory> inventoryReader = new CSVReaderBuilder<Inventory>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Inventory>(Inventory.class, vpp)).build();
-	      List<Inventory> inventory = inventoryReader.readAll(); 
+	      List<Inventory> inventory = inventoryReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory> inventoryList = new ArrayList<Sources.Source.Export.Inventory>();
+	      for(Inventory invntry : inventory) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory();
+	    	  inventoryList.add(inventoryModel);
+	      }
+	      sources.getSource().getExport().setInventory(inventoryList);
 	  }
 	  
 	  /**
@@ -363,7 +431,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Organization> organizationReader = new CSVReaderBuilder<Organization>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Organization>(Organization.class, vpp)).build();
-	      List<Organization> organization = organizationReader.readAll(); 
+	      List<Organization> organization = organizationReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization> organizationList = new ArrayList<Sources.Source.Export.Organization>();
+	      for(Organization orgtn : organization) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization organizationModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization();
+	    	  organizationList.add(organizationModel);
+	      }
+	      sources.getSource().getExport().setOrganization(organizationList);
 	  }
 	  
 	  /**
@@ -377,7 +451,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Project> projectReader = new CSVReaderBuilder<Project>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Project>(Project.class, vpp)).build();
-	      List<Project> project = projectReader.readAll(); 
+	      List<Project> project = projectReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project> projectList = new ArrayList<Sources.Source.Export.Project>();
+	      for(Project prjt : project) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project projectModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project();
+	    	  projectList.add(projectModel);
+	      }
+//	      sources.getSource().getExport().setProjectCompletionStatus(projectList);
 	  }
 	  
 	  /**
@@ -391,7 +471,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<ProjectCOC> projectCOCReader = new CSVReaderBuilder<ProjectCOC>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<ProjectCOC>(ProjectCOC.class, vpp)).build();
-	      List<ProjectCOC> projectCOC = projectCOCReader.readAll(); 
+	      List<ProjectCOC> projectCOC = projectCOCReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC> projectCoCList = new ArrayList<Sources.Source.Export.ProjectCoC>();
+	      for(ProjectCOC prjtCoC : projectCOC) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC projectCoCModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC();
+	    	  projectCoCList.add(projectCoCModel);
+	      }
+//	      sources.getSource().getExport().setProjectCompletionStatus(projectCoCList);
 	  }
 	  
 	  /**
@@ -406,7 +492,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Services> servicesReader = new CSVReaderBuilder<Services>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Services>(Services.class, vpp)).build();
-	      List<Services> services = servicesReader.readAll(); 
+	      List<Services> services = servicesReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services> servicesList = new ArrayList<Sources.Source.Export.Services>();
+	      for(Services srvcs : services) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services servicesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services();
+	    	  servicesList.add(servicesModel);
+	      }
+	      sources.getSource().getExport().setServices(servicesList);
 	  }
 	  
 	  /**
@@ -420,7 +512,13 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Site> siteReader = new CSVReaderBuilder<Site>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Site>(Site.class, vpp)).build();
-	      List<Site> site = siteReader.readAll(); 
+	      List<Site> site = siteReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site> siteList = new ArrayList<Sources.Source.Export.Site>();
+	      for(Site ste : site) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site siteModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site();
+	    	  siteList.add(siteModel);
+	      }
+	      sources.getSource().getExport().setSite(siteList);
 	  }
 	  protected byte getByte(String value) {
 		  if(value !=null && !"".equals(value)) {
