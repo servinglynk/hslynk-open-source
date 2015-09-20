@@ -34,5 +34,95 @@ public class EmployementEducation {
 	private String DateDeleted;
 	@MapToColumn(column=14)
 	private String ExportID;
+	public String getEmploymentEducationID() {
+		return EmploymentEducationID;
+	}
+	public void setEmploymentEducationID(String employmentEducationID) {
+		EmploymentEducationID = employmentEducationID;
+	}
+	public String getProjectEntryID() {
+		return ProjectEntryID;
+	}
+	public void setProjectEntryID(String projectEntryID) {
+		ProjectEntryID = projectEntryID;
+	}
+	public String getPersonalID() {
+		return PersonalID;
+	}
+	public void setPersonalID(String personalID) {
+		PersonalID = personalID;
+	}
+	public String getInformationDate() {
+		return InformationDate;
+	}
+	public void setInformationDate(String informationDate) {
+		InformationDate = informationDate;
+	}
+	public String getLastGradeCompleted() {
+		return LastGradeCompleted;
+	}
+	public void setLastGradeCompleted(String lastGradeCompleted) {
+		LastGradeCompleted = lastGradeCompleted;
+	}
+	public String getSchoolStatus() {
+		return SchoolStatus;
+	}
+	public void setSchoolStatus(String schoolStatus) {
+		SchoolStatus = schoolStatus;
+	}
+	public String getEmployed() {
+		return Employed;
+	}
+	public void setEmployed(String employed) {
+		Employed = employed;
+	}
+	public String getEmploymentType() {
+		return EmploymentType;
+	}
+	public void setEmploymentType(String employmentType) {
+		EmploymentType = employmentType;
+	}
+	public String getNotEmployedReason() {
+		return NotEmployedReason;
+	}
+	public void setNotEmployedReason(String notEmployedReason) {
+		NotEmployedReason = notEmployedReason;
+	}
+	public String getDataCollectionStage() {
+		return DataCollectionStage;
+	}
+	public void setDataCollectionStage(String dataCollectionStage) {
+		DataCollectionStage = dataCollectionStage;
+	}
+	public String getDateCreated() {
+		return DateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		DateCreated = dateCreated;
+	}
+	public String getDateUpdated() {
+		return DateUpdated;
+	}
+	public void setDateUpdated(String dateUpdated) {
+		DateUpdated = dateUpdated;
+	}
+	public String getUserID() {
+		return UserID;
+	}
+	public void setUserID(String userID) {
+		UserID = userID;
+	}
+	public String getDateDeleted() {
+		return DateDeleted;
+	}
+	public void setDateDeleted(String dateDeleted) {
+		DateDeleted = dateDeleted;
+	}
+	public String getExportID() {
+		return ExportID;
+	}
+	public void setExportID(String exportID) {
+		ExportID = exportID;
+	}
 
 }

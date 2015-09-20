@@ -29,5 +29,77 @@ public class EnrollmentCoC {
 	private String DateDeleted;
 	@MapToColumn(column=11)
 	private String ExportID;
+	public String getEmploymentEducationID() {
+		return EmploymentEducationID;
+	}
+	public void setEmploymentEducationID(String employmentEducationID) {
+		EmploymentEducationID = employmentEducationID;
+	}
+	public String getProjectEntryID() {
+		return ProjectEntryID;
+	}
+	public void setProjectEntryID(String projectEntryID) {
+		ProjectEntryID = projectEntryID;
+	}
+	public String getProjectID() {
+		return ProjectID;
+	}
+	public void setProjectID(String projectID) {
+		ProjectID = projectID;
+	}
+	public String getPersonalID() {
+		return PersonalID;
+	}
+	public void setPersonalID(String personalID) {
+		PersonalID = personalID;
+	}
+	public String getLastGradeCompleted() {
+		return LastGradeCompleted;
+	}
+	public void setLastGradeCompleted(String lastGradeCompleted) {
+		LastGradeCompleted = lastGradeCompleted;
+	}
+	public String getCoCCode() {
+		return CoCCode;
+	}
+	public void setCoCCode(String coCCode) {
+		CoCCode = coCCode;
+	}
+	public String getDataCollectionStage() {
+		return DataCollectionStage;
+	}
+	public void setDataCollectionStage(String dataCollectionStage) {
+		DataCollectionStage = dataCollectionStage;
+	}
+	public String getDateCreated() {
+		return DateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		DateCreated = dateCreated;
+	}
+	public String getDateUpdated() {
+		return DateUpdated;
+	}
+	public void setDateUpdated(String dateUpdated) {
+		DateUpdated = dateUpdated;
+	}
+	public String getUserID() {
+		return UserID;
+	}
+	public void setUserID(String userID) {
+		UserID = userID;
+	}
+	public String getDateDeleted() {
+		return DateDeleted;
+	}
+	public void setDateDeleted(String dateDeleted) {
+		DateDeleted = dateDeleted;
+	}
+	public String getExportID() {
+		return ExportID;
+	}
+	public void setExportID(String exportID) {
+		ExportID = exportID;
+	}
 	
 }

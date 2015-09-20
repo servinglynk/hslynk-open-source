@@ -33,4 +33,95 @@ public class Project {
 	private String DateDeleted;
 	@MapToColumn(column=14)
 	private String ExportID;
+	public String getProjectID() {
+		return ProjectID;
+	}
+	public void setProjectID(String projectID) {
+		ProjectID = projectID;
+	}
+	public String getOrganizationID() {
+		return OrganizationID;
+	}
+	public void setOrganizationID(String organizationID) {
+		OrganizationID = organizationID;
+	}
+	public String getProjectName() {
+		return ProjectName;
+	}
+	public void setProjectName(String projectName) {
+		ProjectName = projectName;
+	}
+	public String getProjectCommonName() {
+		return ProjectCommonName;
+	}
+	public void setProjectCommonName(String projectCommonName) {
+		ProjectCommonName = projectCommonName;
+	}
+	public String getContinuumProject() {
+		return ContinuumProject;
+	}
+	public void setContinuumProject(String continuumProject) {
+		ContinuumProject = continuumProject;
+	}
+	public String getProjectType() {
+		return ProjectType;
+	}
+	public void setProjectType(String projectType) {
+		ProjectType = projectType;
+	}
+	public String getResidentialAffiliation() {
+		return ResidentialAffiliation;
+	}
+	public void setResidentialAffiliation(String residentialAffiliation) {
+		ResidentialAffiliation = residentialAffiliation;
+	}
+	public String getTrackingMethod() {
+		return TrackingMethod;
+	}
+	public void setTrackingMethod(String trackingMethod) {
+		TrackingMethod = trackingMethod;
+	}
+	public String getTargetPopulation() {
+		return TargetPopulation;
+	}
+	public void setTargetPopulation(String targetPopulation) {
+		TargetPopulation = targetPopulation;
+	}
+	public String getPITCount() {
+		return PITCount;
+	}
+	public void setPITCount(String pITCount) {
+		PITCount = pITCount;
+	}
+	public String getDateCreated() {
+		return DateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		DateCreated = dateCreated;
+	}
+	public String getDateUpdated() {
+		return DateUpdated;
+	}
+	public void setDateUpdated(String dateUpdated) {
+		DateUpdated = dateUpdated;
+	}
+	public String getUserID() {
+		return UserID;
+	}
+	public void setUserID(String userID) {
+		UserID = userID;
+	}
+	public String getDateDeleted() {
+		return DateDeleted;
+	}
+	public void setDateDeleted(String dateDeleted) {
+		DateDeleted = dateDeleted;
+	}
+	public String getExportID() {
+		return ExportID;
+	}
+	public void setExportID(String exportID) {
+		ExportID = exportID;
+	}
+	
 }

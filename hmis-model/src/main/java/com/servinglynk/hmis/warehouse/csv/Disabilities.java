@@ -49,5 +49,143 @@ public class Disabilities {
 	private String DateDeleted;
 	@MapToColumn(column=22)
 	private String ExportID;
+	public String getDisabilitiesID() {
+		return DisabilitiesID;
+	}
+	public void setDisabilitiesID(String disabilitiesID) {
+		DisabilitiesID = disabilitiesID;
+	}
+	public String getProjectEntryID() {
+		return ProjectEntryID;
+	}
+	public void setProjectEntryID(String projectEntryID) {
+		ProjectEntryID = projectEntryID;
+	}
+	public String getPersonalID() {
+		return PersonalID;
+	}
+	public void setPersonalID(String personalID) {
+		PersonalID = personalID;
+	}
+	public String getInformationDate() {
+		return InformationDate;
+	}
+	public void setInformationDate(String informationDate) {
+		InformationDate = informationDate;
+	}
+	public String getDisabilityType() {
+		return DisabilityType;
+	}
+	public void setDisabilityType(String disabilityType) {
+		DisabilityType = disabilityType;
+	}
+	public String getDisabilityResponse() {
+		return DisabilityResponse;
+	}
+	public void setDisabilityResponse(String disabilityResponse) {
+		DisabilityResponse = disabilityResponse;
+	}
+	public String getIndefiniteAndImpairs() {
+		return IndefiniteAndImpairs;
+	}
+	public void setIndefiniteAndImpairs(String indefiniteAndImpairs) {
+		IndefiniteAndImpairs = indefiniteAndImpairs;
+	}
+	public String getDocumentationOnFile() {
+		return DocumentationOnFile;
+	}
+	public void setDocumentationOnFile(String documentationOnFile) {
+		DocumentationOnFile = documentationOnFile;
+	}
+	public String getReceivingServices() {
+		return ReceivingServices;
+	}
+	public void setReceivingServices(String receivingServices) {
+		ReceivingServices = receivingServices;
+	}
+	public String getPATHHowConfirmed() {
+		return PATHHowConfirmed;
+	}
+	public void setPATHHowConfirmed(String pATHHowConfirmed) {
+		PATHHowConfirmed = pATHHowConfirmed;
+	}
+	public String getPATHSMIInformation() {
+		return PATHSMIInformation;
+	}
+	public void setPATHSMIInformation(String pATHSMIInformation) {
+		PATHSMIInformation = pATHSMIInformation;
+	}
+	public String getTCellCountAvailable() {
+		return TCellCountAvailable;
+	}
+	public void setTCellCountAvailable(String tCellCountAvailable) {
+		TCellCountAvailable = tCellCountAvailable;
+	}
+	public String getTCellCount() {
+		return TCellCount;
+	}
+	public void setTCellCount(String tCellCount) {
+		TCellCount = tCellCount;
+	}
+	public String getTCellSource() {
+		return TCellSource;
+	}
+	public void setTCellSource(String tCellSource) {
+		TCellSource = tCellSource;
+	}
+	public String getViralLoadAvailable() {
+		return ViralLoadAvailable;
+	}
+	public void setViralLoadAvailable(String viralLoadAvailable) {
+		ViralLoadAvailable = viralLoadAvailable;
+	}
+	public String getViralLoad() {
+		return ViralLoad;
+	}
+	public void setViralLoad(String viralLoad) {
+		ViralLoad = viralLoad;
+	}
+	public String getViralLoadSource() {
+		return ViralLoadSource;
+	}
+	public void setViralLoadSource(String viralLoadSource) {
+		ViralLoadSource = viralLoadSource;
+	}
+	public String getDataCollectionStage() {
+		return DataCollectionStage;
+	}
+	public void setDataCollectionStage(String dataCollectionStage) {
+		DataCollectionStage = dataCollectionStage;
+	}
+	public String getDateCreated() {
+		return DateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		DateCreated = dateCreated;
+	}
+	public String getDateUpdated() {
+		return DateUpdated;
+	}
+	public void setDateUpdated(String dateUpdated) {
+		DateUpdated = dateUpdated;
+	}
+	public String getUserID() {
+		return UserID;
+	}
+	public void setUserID(String userID) {
+		UserID = userID;
+	}
+	public String getDateDeleted() {
+		return DateDeleted;
+	}
+	public void setDateDeleted(String dateDeleted) {
+		DateDeleted = dateDeleted;
+	}
+	public String getExportID() {
+		return ExportID;
+	}
+	public void setExportID(String exportID) {
+		ExportID = exportID;
+	}
 
 }

@@ -19,5 +19,53 @@ public class ProjectCOC {
 	private String DateDeleted;
 	@MapToColumn(column=7)
 	private String ExportID;
+	public String getProjectCocID() {
+		return ProjectCocID;
+	}
+	public void setProjectCocID(String projectCocID) {
+		ProjectCocID = projectCocID;
+	}
+	public String getProjectID() {
+		return ProjectID;
+	}
+	public void setProjectID(String projectID) {
+		ProjectID = projectID;
+	}
+	public String getCoCCode() {
+		return CoCCode;
+	}
+	public void setCoCCode(String coCCode) {
+		CoCCode = coCCode;
+	}
+	public String getDateCreated() {
+		return DateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		DateCreated = dateCreated;
+	}
+	public String getDateUpdated() {
+		return DateUpdated;
+	}
+	public void setDateUpdated(String dateUpdated) {
+		DateUpdated = dateUpdated;
+	}
+	public String getUserID() {
+		return UserID;
+	}
+	public void setUserID(String userID) {
+		UserID = userID;
+	}
+	public String getDateDeleted() {
+		return DateDeleted;
+	}
+	public void setDateDeleted(String dateDeleted) {
+		DateDeleted = dateDeleted;
+	}
+	public String getExportID() {
+		return ExportID;
+	}
+	public void setExportID(String exportID) {
+		ExportID = exportID;
+	}
 		
 }
