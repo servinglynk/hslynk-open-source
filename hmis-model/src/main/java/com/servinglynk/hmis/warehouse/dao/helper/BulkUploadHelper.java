@@ -50,6 +50,9 @@ import com.servinglynk.hmis.warehouse.csv.Services;
 import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 @Component
@@ -172,19 +175,6 @@ public class BulkUploadHelper {
 		return sources;
 	}
 	
-	  /**
-	   * Hydrate Export with in Sources Object from Export CSV Pojos.
-	   * @param csvFile
-	   * @param sources
-	   * @throws IOException
-	   */
-	 /* protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
-		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
-	      ValueProcessorProvider vpp = new ValueProcessorProvider();
-	      CSVReader<Export> exportReader = new CSVReaderBuilder<Export>(csvFile).strategy(strategy).entryParser(
-	                      new AnnotationEntryParser<Export>(Export.class, vpp)).build();
-	      List<Export> export = exportReader.readAll(); 
-	  }*/
 	/**
 	 * Hydrate Client with in Sources.Export.
 	 * @param csvFile
@@ -237,6 +227,9 @@ public class BulkUploadHelper {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities> disabilitiesList = new ArrayList<Sources.Source.Export.Disabilities>();
 	      for(Disabilities disability : disabilities) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities();
+	    	  disabilitiesModel.setDataCollectionStage(getByte(disability.getDataCollectionStage()));
+	    	  
+	    	  
 	    	  disabilitiesList.add(disabilitiesModel);
 	      }
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
@@ -252,7 +245,52 @@ public class BulkUploadHelper {
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<EmployementEducation> employementReader = new CSVReaderBuilder<EmployementEducation>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<EmployementEducation>(EmployementEducation.class, vpp)).build();
-	      List<EmployementEducation> employementEdu = employementReader.readAll(); 
+	      List<EmployementEducation> employementEdu = employementReader.readAll();
+	      List<Employment> employmentList = new ArrayList<Sources.Source.Export.Employment>();
+	      List<SchoolStatus> schoolStatusList = new ArrayList<Sources.Source.Export.SchoolStatus>();
+	      List<LastGradeCompleted> lastGradeCompletedList = new ArrayList<Sources.Source.Export.LastGradeCompleted>();
+	      if(employementEdu !=null && employementEdu.size() >0 ) {
+	    	  for(EmployementEducation  employementEducationCSV : employementEdu) {
+	    		  if(employementEducationCSV !=null) {
+	    			  Employment employmentModel = new Employment();
+	    			  employmentModel.setDataCollectionStage(getByte(employementEducationCSV.getDataCollectionStage()));
+	    			  employmentModel.setDateCreated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
+	    			  employmentModel.setDateUpdated(getXMLGregorianCalendar(employementEducationCSV.getDateUpdated()));
+	    			  employmentModel.setEmployed(getByte(employementEducationCSV.getEmployed()));
+	    			  employmentModel.setEmploymentID(employementEducationCSV.getEmploymentEducationID());
+	    			  employmentModel.setEmploymentType(getByte(employementEducationCSV.getEmploymentType()));
+	    			  employmentModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
+	    			  employmentModel.setNotEmployedReason(getByte(employementEducationCSV.getNotEmployedReason()));
+	    			  employmentModel.setProjectEntryID(employementEducationCSV.getProjectEntryID());
+	    			  employmentModel.setUserID(employementEducationCSV.getUserID());
+	    			  employmentList.add(employmentModel);
+	    			  
+	    			  SchoolStatus schoolStatusModel= new SchoolStatus();
+	    			  schoolStatusModel.setDataCollectionStage(getByte(employementEducationCSV.getDataCollectionStage()));
+	    			  schoolStatusModel.setDateCreated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
+	    			  schoolStatusModel.setDateUpdated(getXMLGregorianCalendar(employementEducationCSV.getDateUpdated()));
+	    			  schoolStatusModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
+	    			  schoolStatusModel.setProjectEntryID(employementEducationCSV.getProjectEntryID());
+	    			  schoolStatusModel.setUserID(employementEducationCSV.getUserID());
+	    			  schoolStatusModel.setSchoolStatus(getByte(employementEducationCSV.getSchoolStatus()));
+	    			  schoolStatusList.add(schoolStatusModel);
+	    			  
+	    			  LastGradeCompleted lastGradeCompletedModel = new LastGradeCompleted();
+	    			  lastGradeCompletedModel.setDataCollectionStage(getByte(employementEducationCSV.getDataCollectionStage()));
+	    			  lastGradeCompletedModel.setDateCreated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
+	    			  lastGradeCompletedModel.setDateUpdated(getXMLGregorianCalendar(employementEducationCSV.getDateUpdated()));
+	    			  lastGradeCompletedModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
+	    			  lastGradeCompletedModel.setProjectEntryID(employementEducationCSV.getProjectEntryID());
+	    			  lastGradeCompletedModel.setUserID(employementEducationCSV.getUserID());
+	    			  lastGradeCompletedModel.setLastGradeCompleted(getByte(employementEducationCSV.getLastGradeCompleted()));
+	    			  lastGradeCompletedList.add(lastGradeCompletedModel);
+	    			  
+	    		  }
+	    		  sources.getSource().getExport().setEmployment(employmentList);
+	    		  sources.getSource().getExport().setLastGradeCompleted(lastGradeCompletedList);
+	    		  sources.getSource().getExport().setSchoolStatus(schoolStatusList);
+	    	  }
+	      }
 	  }
 	  /**
 	   * Hydrate Enrollment with in Sources Object from Enrollment CSV Pojos.
@@ -266,12 +304,12 @@ public class BulkUploadHelper {
 	      CSVReader<Enrollment> enrollmentReader = new CSVReaderBuilder<Enrollment>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Enrollment>(Enrollment.class, vpp)).build();
 	      List<Enrollment> enrollment = enrollmentReader.readAll();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollmentList = new ArrayList<Sources.Source.Export.Enrollment>();
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
-	    	  enrollmentList.add(enrollmentModel);
+	    	  //enrollmentModel.set
+	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
-//	      sources.getSource().getExport()
+	      
 	      
 	  }
 	  /**
@@ -310,8 +348,9 @@ public class BulkUploadHelper {
 	      for(Exit ext : exit) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
 	    	  exitList.add(exitModel);
+	    	  sources.getSource().getExport().getExit().add(exitModel);
 	      }
-//	      sources.getSource().getExport().setExitPlansActions(exitList);
+	      
 	  
 	  }
 	  
@@ -456,8 +495,8 @@ public class BulkUploadHelper {
 	      for(Project prjt : project) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project projectModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project();
 	    	  projectList.add(projectModel);
+	    	  sources.getSource().getExport().getProject().add(projectModel);
 	      }
-//	      sources.getSource().getExport().setProjectCompletionStatus(projectList);
 	  }
 	  
 	  /**
@@ -476,8 +515,9 @@ public class BulkUploadHelper {
 	      for(ProjectCOC prjtCoC : projectCOC) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC projectCoCModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC();
 	    	  projectCoCList.add(projectCoCModel);
+	    	  sources.getSource().getExport().getProjectCoC().add(projectCoCModel);
 	      }
-//	      sources.getSource().getExport().setProjectCompletionStatus(projectCoCList);
+	      
 	  }
 	  
 	  /**
