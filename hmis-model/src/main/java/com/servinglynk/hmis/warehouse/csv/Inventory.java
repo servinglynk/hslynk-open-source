@@ -30,17 +30,35 @@ public class Inventory {
 	@MapToColumn(column=12)
 	private String YouthAgeGroup;
 	@MapToColumn(column=13)
-	private String HMISParticipatingBeds;
+	private String InventoryStartDate;
 	@MapToColumn(column=14)
-	private String DateCreated;
+	private String InventoryEndDate;
 	@MapToColumn(column=15)
-	private String DateUpdated;
+	private String HMISParticipatingBeds;
 	@MapToColumn(column=16)
-	private String UserID;
+	private String DateCreated;
 	@MapToColumn(column=17)
-	private String DateDeleted;
+	private String DateUpdated;
 	@MapToColumn(column=18)
+	private String UserID;
+	@MapToColumn(column=19)
+	private String DateDeleted;
+	@MapToColumn(column=20)
 	private String ExportID;
+	
+	
+	public String getInventoryStartDate() {
+		return InventoryStartDate;
+	}
+	public void setInventoryStartDate(String inventoryStartDate) {
+		InventoryStartDate = inventoryStartDate;
+	}
+	public String getInventoryEndDate() {
+		return InventoryEndDate;
+	}
+	public void setInventoryEndDate(String inventoryEndDate) {
+		InventoryEndDate = inventoryEndDate;
+	}
 	public String getInventoryID() {
 		return InventoryID;
 	}

@@ -51,6 +51,7 @@ import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
@@ -228,7 +229,19 @@ public class BulkUploadHelper {
 	      for(Disabilities disability : disabilities) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities();
 	    	  disabilitiesModel.setDataCollectionStage(getByte(disability.getDataCollectionStage()));
-	    	  
+	    	  disabilitiesModel.setDateCreated(getXMLGregorianCalendar(disability.getDateCreated()));
+	    	  disabilitiesModel.setDateUpdated(getXMLGregorianCalendar(disability.getDateUpdated()));
+	    	  disabilitiesModel.setDisabilitiesID(disability.getDisabilitiesID());
+	    	  disabilitiesModel.setDisabilityResponse(getByte(disability.getDisabilityResponse()));
+	    	  disabilitiesModel.setDisabilityType(getByte(disability.getDisabilityType()));
+	    	  disabilitiesModel.setDocumentationOnFile(getByte(disability.getDocumentationOnFile()));
+	    	  disabilitiesModel.setIndefiniteAndImpairs(getByte(disability.getIndefiniteAndImpairs()));
+	    	  disabilitiesModel.setInformationDate(getXMLGregorianCalendar(disability.getInformationDate()));
+	    	  disabilitiesModel.setPATHHowConfirmed(getByte(disability.getPATHHowConfirmed()));
+	    	  disabilitiesModel.setPATHSMIInformation(getByte(disability.getPATHSMIInformation()));
+	    	  disabilitiesModel.setProjectEntryID(disability.getProjectEntryID());
+	    	  disabilitiesModel.setReceivingServices(getByte(disability.getReceivingServices()));
+	    	  disabilitiesModel.setUserID(disability.getUserID());
 	    	  
 	    	  disabilitiesList.add(disabilitiesModel);
 	      }
@@ -306,7 +319,7 @@ public class BulkUploadHelper {
 	      List<Enrollment> enrollment = enrollmentReader.readAll();
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
-	    	  //enrollmentModel.set
+	    	  //enrollmentModel.setContinuouslyHomelessOneYear(enroll.get);
 	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
 	      
@@ -394,6 +407,16 @@ public class BulkUploadHelper {
 	      for(Funder fund : funder) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder funderModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder();
 	    	  funderList.add(funderModel);
+	    	  funderModel.setDateCreated(getXMLGregorianCalendar(fund.getDateCreated()));
+	    	  funderModel.setDateUpdated(getXMLGregorianCalendar(fund.getDateUpdated()));
+	    	  funderModel.setEndDate(getXMLGregorianCalendar(fund.getEndDate()));
+	    	  funderModel.setFunder(getByte(fund.getFunder()));
+	    	  funderModel.setFunderID(fund.getFunderID());
+	    	  funderModel.setGrantID(fund.getGrantID());
+	    	  funderModel.setProjectID(fund.getProjectID());
+	    	  funderModel.setStartDate(getXMLGregorianCalendar(fund.getStartDate()));
+	    	  funderModel.setUserID(fund.getUserID());
+	    	  
 	    	  sources.getSource().getExport().getFunder().add(funderModel);
 	      }
 	      
@@ -454,9 +477,43 @@ public class BulkUploadHelper {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory> inventoryList = new ArrayList<Sources.Source.Export.Inventory>();
 	      for(Inventory invntry : inventory) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory();
+	    	  inventoryModel.setAvailabilty(getByte(invntry.getAvailability()));
+	    	  inventoryModel.setBedType(getByte(invntry.getBedType()));
+	    	  inventoryModel.setDateCreated(getXMLGregorianCalendar(invntry.getDateCreated()));
+	    	  inventoryModel.setDateUpdated(getXMLGregorianCalendar(invntry.getDateUpdated()));
+	    	  inventoryModel.setHMISParticipatingBeds(Integer.parseInt(invntry.getHMISParticipatingBeds()));
+	    	  inventoryModel.setHouseholdType(getByte(invntry.getHouseholdType()));
+	    	  inventoryModel.setInformationDate(getXMLGregorianCalendar(invntry.getInformationDate()));
+	    	  inventoryModel.setInventoryEndDate(getXMLGregorianCalendar(invntry.getInventoryEndDate()));
+	    	  inventoryModel.setInventoryID(invntry.getInventoryID());
+	    	  inventoryModel.setInventoryStartDate(getXMLGregorianCalendar(invntry.getInventoryStartDate()));
+	    	  if(invntry.getProjectID() !=null && !"".equals(invntry.getProjectID()))
+	    		  inventoryModel.setProjectCoCID(Short.valueOf(invntry.getProjectID()));
+	    	  if(invntry.getUnitInventory() !=null && !"".equals(invntry.getUnitInventory()))
+	    		  inventoryModel.setUnitInventory(Integer.parseInt(invntry.getUnitInventory()));
+	    	  inventoryModel.setUserID(invntry.getUserID());
+	    	  
+	    	  BedInventory bedInventory = new BedInventory();
+	    	  if(invntry.getBedInventory() !=null && !"".equals(invntry.getBedInventory() )) {
+		    	  bedInventory.setBedInventory(Short.valueOf(invntry.getBedInventory()));  
+	    	  }
+	    	  bedInventory.setCHBedInventory(getByte(invntry.getCHBedInventory()));
+	    	  bedInventory.setVetBedInventory(getByte(invntry.getVetBedInventory()));
+	    	  bedInventory.setYouthAgeGroup(getByte(invntry.getYouthAgeGroup()));
+	    	  bedInventory.setYouthBedInventory(getByte(invntry.getYouthBedInventory()));
+	    	  
+	    	  inventoryModel.setBedInventory(bedInventory);
+	    	  /**
+	    	   *  Writing comments on missing fields here.
+	    	   *  Export_ID, Date_Deleted,CoCCode --> these fields are available in Inventory.java POJO which is created using CSV File but not availabel
+	    	   *  in Inventory.java POJO which is under Export package.
+	    	   *  
+	    	   */
+	    	  
 	    	  inventoryList.add(inventoryModel);
 	      }
 	      sources.getSource().getExport().setInventory(inventoryList);
+	      
 	  }
 	  
 	  /**
