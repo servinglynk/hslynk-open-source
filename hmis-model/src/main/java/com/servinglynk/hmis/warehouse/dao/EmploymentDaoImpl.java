@@ -44,10 +44,18 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
 				employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));
 				employmentModel.setInformationDate(BasicDataGenerator.getLocalDate(employment.getInformationDate()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(employment.getProjectEntryID()));
+				
+				if(employment.getProjectEntryID() !=null && !"".equals(employment.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((employment.getProjectEntryID()));
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						employmentModel.setEnrollmentid(enrollmentModel);
+					}
+						
+				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				employmentModel.setExport(exportEntity);
-				employmentModel.setEnrollmentid(enrollmentModel);
+				
 				exportEntity.addEmployment(employmentModel);
 				insertOrUpdate(employmentModel);				
 			}

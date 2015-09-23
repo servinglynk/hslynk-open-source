@@ -51,10 +51,14 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 						.getLocalDate(lastGradeCompleted.getDateCreated()));
 				lastGradeCompletedModel.setDateUpdated(BasicDataGenerator
 						.getLocalDate(lastGradeCompleted.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,
-						domain.getEnrollmentProjectEntryIDMap().get(lastGradeCompleted
-								.getProjectEntryID()));
-				lastGradeCompletedModel.setEnrollmentid(enrollmentModel);
+				if(lastGradeCompleted.getProjectEntryID() !=null && !"".equals(lastGradeCompleted.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((lastGradeCompleted.getProjectEntryID()));
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						lastGradeCompletedModel.setEnrollmentid(enrollmentModel);
+					}
+						
+				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				lastGradeCompletedModel.setExport(exportEntity);
 				exportEntity.addLastgradecompleted(lastGradeCompletedModel);

@@ -51,8 +51,10 @@ import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ReferralSource;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
@@ -317,10 +319,39 @@ public class BulkUploadHelper {
 	      CSVReader<Enrollment> enrollmentReader = new CSVReaderBuilder<Enrollment>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Enrollment>(Enrollment.class, vpp)).build();
 	      List<Enrollment> enrollment = enrollmentReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollmentList = new ArrayList<Sources.Source.Export.Enrollment>();
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
 	    	  //enrollmentModel.setContinuouslyHomelessOneYear(enroll.get);
-	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
+	    	  enrollmentModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  enrollmentModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  enrollmentModel.setDisablingCondition(getByte(enroll.getDisablingCondition()));
+	    	  enrollmentModel.setEntryDate(getXMLGregorianCalendar(enroll.getEntryDate()));
+	    	  enrollmentModel.setHouseholdID(enroll.getHouseholdID());
+	    	  enrollmentModel.setHousingStatus(getByte(enroll.getHousingStatus()));
+	    	  enrollmentModel.setMonthsHomelessPastThreeYears(getByte(enroll.getMonthsHomelessPastThreeYears()));
+//	    	  enrollmentModel.setMonthsHomelessThisTime(getByte(enroll.get));
+	    	  enrollmentModel.setOtherResidencePrior(enroll.getOtherResidencePrior());
+	    	  enrollmentModel.setPersonalID(enroll.getPersonalID());
+	    	  enrollmentModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  enrollmentModel.setProjectID(enroll.getProjectID());
+	    	  enrollmentModel.setRelationshipToHoH(getByte(enroll.getRelationshipToHoH()));
+	    	  enrollmentModel.setResidencePrior(getByte(enroll.getResidencePrior()));
+	    	  enrollmentModel.setResidencePriorLengthOfStay(getByte(enroll.getResidencePriorLengthOfStay()));
+//	    	  enrollmentModel.setStatusDocumented(getByte(enroll.get));
+	    	  enrollmentModel.setTimesHomelessPastThreeYears(getByte(enroll.getTimesHomelessPastThreeYears()));
+	    	  enrollmentModel.setUserID(enroll.getUserID());
+//	    	  enrollmentModel.setYearsHomeless(getByte(enroll.get));
+	    	  
+	    	  /*
+	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
+	    	   * 
+	    	   * there are more fields which are not available in Enrollment Pojo under Export package comparing with CSV Enrollment POJO.
+	    	   * 
+	    	   * 
+	    	   * */
+	    	  enrollmentList.add(enrollmentModel);
+//	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
 	      
 	      
@@ -340,6 +371,16 @@ public class BulkUploadHelper {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC> enrollmentCocList = new ArrayList<Sources.Source.Export.EnrollmentCoC>();
 	      for(EnrollmentCoC enrollCoC : enrollmentCoc) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC enrollmentCocModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC();
+	    	  
+	    	  enrollmentCocModel.setDataCollectionStage(getByte(enrollCoC.getDataCollectionStage()));
+	    	  enrollmentCocModel.setDateCreated(getXMLGregorianCalendar(enrollCoC.getDateCreated()));
+	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
+	    	  enrollmentCocModel.setEnrollmentCoCID(Integer.parseInt(enrollCoC.getEnrollmentCOCID()));
+	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
+	    	 // Sandeep TODO: Need to resolve this ProjectCocID issue It should be string and not short 
+	    	 // enrollmentCocModel.setProjectCoCID(Short.valueOf(enrollCoC.getCoCCode()));
+	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
+	    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
 	    	  enrollmentCocList.add(enrollmentCocModel);
 	      }
 //	      sources.getSource().getExport().set
@@ -360,6 +401,24 @@ public class BulkUploadHelper {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit> exitList = new ArrayList<Sources.Source.Export.Exit>();
 	      for(Exit ext : exit) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
+	    	  
+	    	  exitModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
+	    	  exitModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
+	    	  exitModel.setDestination(getByte(ext.getDestination()));
+	    	  exitModel.setExitDate(getXMLGregorianCalendar(ext.getExitDate()));
+	    	  exitModel.setExitID(ext.getExitID());
+	    	  exitModel.setOtherDestination(ext.getOtherDestination());
+	    	  exitModel.setProjectEntryID(ext.getProjectEntryID());
+	    	  exitModel.setUserID(ext.getUserID());
+	    	  
+	    	  /*
+	    	   * 
+	    	   * There are so many fields missing in Exit.java under Export Package when comparing with Exit.java under CSV..
+	    	   * 
+	    	   * 
+	    	   * */
+	    	  
+	    	  
 	    	  exitList.add(exitModel);
 	    	  sources.getSource().getExport().getExit().add(exitModel);
 	      }
@@ -379,15 +438,38 @@ public class BulkUploadHelper {
 	      CSVReader<Export> exportReader = new CSVReaderBuilder<Export>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Export>(Export.class, vpp)).build();
 	      List<Export> export = exportReader.readAll();
-	      com.servinglynk.hmis.warehouse.domain.Sources.Source.Export exportModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export> exportList = new ArrayList<Sources.Source.Export>();
+	      for(Export exp : export){
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export exportModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export();
+	    	  
+	    	  exportModel.setExportDate(getXMLGregorianCalendar(exp.getExportDate()));
+	    	  exportModel.setExportDirective(exp.getExportDirective());
+	    	  // Sandeep TODO: Need to change the ExportID to a String verses a byte
+	    	 // exportModel.setExportID(getByte(exp.getExportID()));
+	    	  
+	    	  ExportPeriod exportPeriod = new ExportPeriod();
+	    	  exportPeriod.setEndDate(getXMLGregorianCalendar(exp.getExportEndDate()));
+	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
+	    	  
+	    	  exportModel.setExportPeriodType(exp.getExportPeriodType());
+	    	  
+	    	 /*
+	    	  * ----------------------------------- To be Continued -----------
+	    	  * 
+	    	  * */
+	    	  
+	    	  
+	    	  exportList.add(exportModel);
+	      }
+	      
 	      /***
 	       * Read the first element from the export List and hydrate the exportMode
 	       */
-	      if(export != null && export.size() >0 ) {
+	     /* if(export != null && export.size() >0 ) {
 	    	  Export exportCsv = export.get(0);
-	    	  exportModel.setExportID(getByte(exportCsv.getExportID()));
-	      }
-	      sources.getSource().setExport(exportModel);
+	    	//  exportModel.setExportID(getByte(exportCsv.getExportID()));
+	      }*/
+//	      sources.getSource().setExport(exportModel);
 	  }
 	  
 
@@ -629,6 +711,9 @@ public class BulkUploadHelper {
 		        else return "";
 	  }
 	  protected XMLGregorianCalendar getXMLGregorianCalendar(String date) {
+		  if(date == null || "".equals(date)) {
+			  return null;
+		  }
 		  Date dob=null;
 		  DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		  try {

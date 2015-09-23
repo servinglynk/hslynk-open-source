@@ -88,8 +88,10 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
 				incomeAndSourcesModel.setDateCreated(BasicDataGenerator.getLocalDate(incomeAndSources.getDateCreated()));
 				incomeAndSourcesModel.setDateUpdated(BasicDataGenerator.getLocalDate(incomeAndSources.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(incomeAndSources.getProjectEntryID()));
-				incomeAndSourcesModel.setEnrollmentid(enrollmentModel);
+				if(incomeAndSources.getProjectEntryID()!=null && !"".equals(incomeAndSources.getProjectEntryID())) {
+					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(incomeAndSources.getProjectEntryID()));
+					incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
+				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				incomeAndSourcesModel.setExport(exportEntity);
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);

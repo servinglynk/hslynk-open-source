@@ -6,7 +6,7 @@ import com.googlecode.jcsv.annotations.MapToColumn;
 
 public class EnrollmentCoC {
 	@MapToColumn(column=0)
-	private String EmploymentEducationID;
+	private String EnrollmentCOCID;
 	@MapToColumn(column=1)
 	private String ProjectEntryID;
 	@MapToColumn(column=2)
@@ -14,7 +14,7 @@ public class EnrollmentCoC {
 	@MapToColumn(column=3)
 	private String PersonalID;
 	@MapToColumn(column=4)
-	private String LastGradeCompleted;
+	private String InformationDate;
 	@MapToColumn(column=5)
 	private String CoCCode;
 	@MapToColumn(column=6)
@@ -29,12 +29,10 @@ public class EnrollmentCoC {
 	private String DateDeleted;
 	@MapToColumn(column=11)
 	private String ExportID;
-	public String getEmploymentEducationID() {
-		return EmploymentEducationID;
-	}
-	public void setEmploymentEducationID(String employmentEducationID) {
-		EmploymentEducationID = employmentEducationID;
-	}
+		
+
+	
+	
 	public String getProjectEntryID() {
 		return ProjectEntryID;
 	}
@@ -53,11 +51,18 @@ public class EnrollmentCoC {
 	public void setPersonalID(String personalID) {
 		PersonalID = personalID;
 	}
-	public String getLastGradeCompleted() {
-		return LastGradeCompleted;
+	
+	public String getEnrollmentCOCID() {
+		return EnrollmentCOCID;
 	}
-	public void setLastGradeCompleted(String lastGradeCompleted) {
-		LastGradeCompleted = lastGradeCompleted;
+	public void setEnrollmentCOCID(String enrollmentCOCID) {
+		EnrollmentCOCID = enrollmentCOCID;
+	}
+	public String getInformationDate() {
+		return InformationDate;
+	}
+	public void setInformationDate(String informationDate) {
+		InformationDate = informationDate;
 	}
 	public String getCoCCode() {
 		return CoCCode;

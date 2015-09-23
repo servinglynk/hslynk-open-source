@@ -61,8 +61,15 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				exitModel.setDateCreated(BasicDataGenerator.getLocalDate(exit.getDateCreated()));
 				exitModel.setDateUpdated(BasicDataGenerator.getLocalDate(exit.getDateUpdated()));
 				exitModel.setExitdate(BasicDataGenerator.getLocalDate(exit.getExitDate()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(exit.getProjectEntryID()));
-				exitModel.setEnrollmentid(enrollmentModel);
+				if(exit.getProjectEntryID() !=null && !"".equals(exit.getProjectEntryID())) {
+				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((exit.getProjectEntryID()));
+				if(uuid !=null) {
+					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+					exitModel.setEnrollmentid(enrollmentModel);
+				}
+					
+			}
+			
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				exitModel.setExport(exportEntity);
 				exportEntity.addExit(exitModel);

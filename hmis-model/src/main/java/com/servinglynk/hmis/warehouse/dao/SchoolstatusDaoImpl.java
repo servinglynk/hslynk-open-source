@@ -42,8 +42,14 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			schoolstatusModel.setDateUpdated(BasicDataGenerator.getLocalDate(schoolStatus.getDateUpdated()));
 			schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDate(schoolStatus.getInformationDate()));
 			schoolstatusModel.setSchoolStatus(BasicDataGenerator.getIntegerValue(schoolStatus.getSchoolStatus()));
-			Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(schoolStatus.getProjectEntryID()));
-			schoolstatusModel.setEnrollmentid(enrollmentModel);
+			if(schoolStatus.getProjectEntryID() !=null && !"".equals(schoolStatus.getProjectEntryID())) {
+				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((schoolStatus.getProjectEntryID()));
+				if(uuid !=null) {
+					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+					schoolstatusModel.setEnrollmentid(enrollmentModel);
+				}
+					
+			}
 			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 			schoolstatusModel.setExport(exportEntity);
 			exportEntity.addSchoolstatus(schoolstatusModel);

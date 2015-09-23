@@ -50,10 +50,18 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 				disabilitiesModel.setDateCreated(BasicDataGenerator.getLocalDate(disabilities.getDateCreated()));
 				disabilitiesModel.setDateUpdated(BasicDataGenerator.getLocalDate(disabilities.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get((disabilities.getProjectEntryID())));
+				if(disabilities.getProjectEntryID() !=null && !"".equals(disabilities.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((disabilities.getProjectEntryID()));
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						disabilitiesModel.setEnrollmentid(enrollmentModel);
+					}
+						
+				}
+				
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				disabilitiesModel.setExport(exportEntity);
-				disabilitiesModel.setEnrollmentid(enrollmentModel);
+				
 				exportEntity.addDisabilities(disabilitiesModel);
 				insertOrUpdate(disabilitiesModel);
 			}

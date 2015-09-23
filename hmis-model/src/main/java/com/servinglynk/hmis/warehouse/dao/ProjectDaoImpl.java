@@ -61,8 +61,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
 				projectModel.setDateCreated(BasicDataGenerator.getLocalDate(project.getDateCreated()));
 				projectModel.setDateUpdated(BasicDataGenerator.getLocalDate(project.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID()));
-				projectModel.setEnrollmentid(enrollmentModel);
+				if(project.getProjectID() !=null && !"".equals(project.getProjectID())) {
+					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID()));
+					projectModel.setEnrollmentid(enrollmentModel);	
+				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
