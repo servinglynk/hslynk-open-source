@@ -112,7 +112,6 @@ hmis-developerservice/.idea
 hmis-developerservice/*.iml
 hmis-developerservice/target
 hmis-developerservice/bin
-hmis-developerservice
 hmis-developerservice/target/*
 hmis-developerservice/bin/*
 
