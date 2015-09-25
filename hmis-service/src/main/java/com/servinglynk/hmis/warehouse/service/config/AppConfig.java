@@ -26,12 +26,17 @@ import com.servinglynk.hmis.warehouse.service.core.security.LocalApiAuthChecker;
 import com.servinglynk.hmis.warehouse.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AuthorizationServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DeveloperCompanyServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.InformationReleasesServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProfileServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SessionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SharingRuleServiceImpl;
@@ -211,5 +216,30 @@ public class AppConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public InformationReleasesServiceImpl informationReleasesService(){
 		 return new InformationReleasesServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ClientServiceImpl clientService(){
+		 return new ClientServiceImpl();
+	 }
+	 
+	 @Bean
+	 public OrganizationServiceImpl organizationService(){
+		 return new OrganizationServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ProjectServiceImpl projectServiceImpl(){
+		 return new ProjectServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ExitServiceImpl exitService(){
+		 return new ExitServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EmploymentServiceImpl employmentService(){
+		 return new EmploymentServiceImpl();
 	 }
 }

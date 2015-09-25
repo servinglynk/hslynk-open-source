@@ -17,6 +17,8 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
 import org.apache.hadoop.hbase.thrift2.generated.TPut;
 import org.apache.thrift.TException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -220,5 +222,56 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		performSave(geHBaseClient(), entity);
 	}
 
+	@Override
+	public com.servinglynk.hmis.warehouse.model.live.Enrollment createEnrollment(
+			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+			insert(enrollment);
+		return enrollment;
+	}
+
+	@Override
+	public com.servinglynk.hmis.warehouse.model.live.Enrollment updateEnrollment(
+			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+			update(enrollment);
+		return enrollment;
+	}
+
+	@Override
+	public void deleteEnrollment(
+			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+		delete(enrollment);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public com.servinglynk.hmis.warehouse.model.live.Enrollment getEnrollmentByClientIdAndEnrollmentId(
+			UUID enrollmentId,UUID clientId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Enrollment.class);
+		criteria.createAlias("client","client");
+		criteria.add(Restrictions.eq("client.id",clientId));
+		criteria.add(Restrictions.eq("id",enrollmentId));
+
+		List<com.servinglynk.hmis.warehouse.model.live.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.live.Enrollment>) findByCriteria(criteria);
+		if(enrollments.size()>0) return enrollments.get(0); 
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.live.Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Enrollment.class);
+		criteria.createAlias("client","client");
+		criteria.add(Restrictions.eq("client.id",clientId));
+
+		return (List<com.servinglynk.hmis.warehouse.model.live.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
+	}
+	
+	public long getEnrollmentCount(UUID clientId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Enrollment.class);
+		criteria.createAlias("client","client");
+		criteria.add(Restrictions.eq("client.id",clientId));
+		return countRows(criteria);
+	}
+	
 }
 

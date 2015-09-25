@@ -12,8 +12,48 @@ public class CreateMasterData {
 
 	public Connection getConnection() throws Exception {
 		Class.forName("org.postgresql.Driver");
-		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "root");
+		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
 		
+	}
+	
+	public void createTrustedApp() throws Exception {
+		UUID id = UUID.randomUUID();
+		String query= "INSERT INTO live.hmis_trusted_app( id, friendly_name, external_id, description, status, created_at, created_by, expiration_time) " 
+			+	" VALUES ('"+id+"','MASTER_TRUSTED_APP', 'MASTER_TRUSTED_APP', 'MASTER_TRUSTED_APP','ACTIVE', current_date, 'MASTER DATA',  2000)";
+
+		Connection connection =getConnection();
+		Statement statement1= connection.createStatement();
+		statement1.execute(query);
+		if(!connection.isClosed()) connection.close();		
+	}
+    String[] methods = {"CLIENT_API_CREATE_EMPLOYMENT","CLIENT_API_UPDATE_EMPLOYMENT","CLIENT_API_DELETE_EMPLOYMENT","CLIENT_API_GET_EMPLOYMENT_BY_ID","CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS"};
+	
+	public UUID createApiMethod() throws Exception{
+		UUID id=UUID.fromString(getUUID());
+		String methodName="CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS";
+		String type = "GET";
+		UUID apiGroup =UUID.fromString("55269f08-273f-4f68-ae9b-f98467b4d091");
+		String query ="INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES "
+										+"('"+id+"', '"+methodName+"', '"+methodName+"', '"+methodName+"', '"+type+"',current_date, 'MASTER DATA', '"+apiGroup+"', 0, TRUE)";
+		
+		System.out.println(query+";");
+		Connection connection =getConnection();
+		Statement statement1= connection.createStatement();
+		statement1.execute(query);
+		if(!connection.isClosed()) connection.close();		
+		return id;
+	}
+	
+	public void assignToAdmonProfile(UUID methodId) throws Exception{
+		
+		UUID id=UUID.fromString(getUUID());
+		UUID profileId=UUID.fromString("2a0de2d3-ce1f-4cf1-9145-04aa70e3196c");
+		String insQuery ="INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) "
+				+ "VALUES ('"+profileId+"','"+methodId+"' , '"+id+"', current_date, 'MASTET DATA')";
+		Connection connection =getConnection();
+		Statement statement1= connection.createStatement();
+		statement1.execute(insQuery);
+		if(!connection.isClosed()) connection.close();		
 	}
 	
 
@@ -121,10 +161,11 @@ public class CreateMasterData {
 	public static void main(String args[]){
 		CreateMasterData data=new CreateMasterData();
 		try{
-			data.clearData();
-			String id= data.createSuperAdminProfile();
-			data.createSuperAdminACL(id);
-			data.createMasterUser(id);
+//			data.clearData();
+//			String id= data.createSuperAdminProfile();
+//			data.createSuperAdminACL(id);
+//			data.createMasterUser(id);
+//			data.createTrustedApp();
 			
 //			UUID orgId1 = data.createOrganizations("Organization 1");
 //			UUID projId = data.createProjects(orgId1);
@@ -136,6 +177,11 @@ public class CreateMasterData {
 //			UUID orgId2 = data.createOrganizations("Organization 2");
 //			data.createProjects(orgId2);
 //			data.createProjects(orgId2);
+			
+//			UUID methodId =	data.createApiMethod();
+//			data.assignToAdmonProfile(methodId);	
+	
+			System.out.println(UUID.randomUUID());
 			
 		}catch(Exception e){
 			e.printStackTrace();

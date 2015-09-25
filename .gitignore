@@ -240,4 +240,22 @@ sync-processor/*.iml
 sync-processor/target
 sync-processor/bin
 
-hmis-report-core/.settings/org.eclipse.wst.common.project.facet.core.xml
+hmis-clientapi/target/*
+hmis-clientapi/bin/*
+hmis-clientapi/.settings/*
+hmis-clientapi/.classpath
+hmis-clientapi/.project
+hmis-clientapi/.idea
+hmis-clientapi/*.iml
+hmis-clientapi/target
+hmis-clientapi/bin
+
+hmis-report-core/target/*
+hmis-report-core/bin/*
+hmis-report-core/.settings/*
+hmis-report-core/.classpath
+hmis-report-core/.project
+hmis-report-core/.idea
+hmis-report-core/*.iml
+hmis-report-core/target
+hmis-report-core/bin

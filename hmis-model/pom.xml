@@ -170,7 +170,6 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
      	<groupId>org.jadira.usertype</groupId>
@@ -224,8 +223,8 @@
 			  <version>${parent-version}</version>
 			</dependency>
 	</dependencies>
-	<build>
-		<plugins>
+	 <build>
+	 	<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
@@ -260,7 +259,7 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
-		</plugins>
+		</plugins> 
 	</build>
 <distributionManagement>
   <repository>

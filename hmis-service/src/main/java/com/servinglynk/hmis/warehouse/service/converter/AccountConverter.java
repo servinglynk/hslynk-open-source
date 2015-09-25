@@ -13,7 +13,8 @@ public class AccountConverter {
 		account.setUsername(pAccount.getUsername());
 		account.setStatus(pAccount.getStatus());
 //		account.setGender(pAccount.getGender());
-		account.setPassword(pAccount.getPassword());				return account;
+		account.setPassword(pAccount.getPassword());
+		account.setOrganizationId(pAccount.getOrganization().getId());				return account;
 	}
 	
 

@@ -82,7 +82,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = AccountConverter.convertToPersistentAccount(account, null);
 	
-		Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationByYd(account.getOrganizationId());
+		Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
 
 		if(pOrganization==null) throw new OrganizationNotFound();
 
@@ -243,6 +243,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				}
 				
 				pAccount.setProfileEntity(profileEntity);
+				
+/*				Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
+
+				if(pOrganization==null) throw new OrganizationNotFound();
+
+				pAccount.setOrganization(pOrganization);*/
+
+				
 				daoFactory.getAccountDao().createAccount(pAccount);
 				
 				account.setAccountId(pAccount.getId());

@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -91,4 +93,31 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	   public com.servinglynk.hmis.warehouse.model.live.Employment createEmployment(com.servinglynk.hmis.warehouse.model.live.Employment employment){
+	       employment.setId(UUID.randomUUID()); 
+	       insert(employment);
+	       return employment;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Employment updateEmployment(com.servinglynk.hmis.warehouse.model.live.Employment employment){
+	       update(employment);
+	       return employment;
+	   }
+	   public void deleteEmployment(com.servinglynk.hmis.warehouse.model.live.Employment employment){
+	       delete(employment);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Employment getEmploymentById(UUID employmentId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Employment) get(com.servinglynk.hmis.warehouse.model.live.Employment.class, employmentId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Employment.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Employment>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentEmploymentsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Employment.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

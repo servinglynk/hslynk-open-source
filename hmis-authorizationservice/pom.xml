@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
    <groupId>com.servinglynk.hmis.warehouse</groupId>
   <version>0.0.1-SNAPSHOT</version>
-  <artifactId>hmis-authorizationservice</artifactId>
+  <artifactId>hmis-authorization-service</artifactId>
   <packaging>war</packaging>
     <scm>
     	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>

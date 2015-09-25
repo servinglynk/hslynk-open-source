@@ -10,7 +10,7 @@ import com.servinglynk.hmis.warehouse.PaginatedModel;
 @JsonRootName("developerCompanyAccounts")
 public class DeveloperCompanyAccounts extends PaginatedModel{
 	
-//	@JsonProperty("developerCompanyAccount")
+	@JsonProperty("developerCompanyAccount")
 	public List<DeveloperCompanyAccount> developerCompanyAccounts=new ArrayList<DeveloperCompanyAccount>();
 
 	public List<DeveloperCompanyAccount> getDeveloperCompanyAccounts() {

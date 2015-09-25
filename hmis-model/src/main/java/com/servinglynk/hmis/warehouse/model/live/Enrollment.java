@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -297,7 +299,7 @@ public class Enrollment implements Cloneable, Serializable {
 	 * @return A Client object (this.client)
 	 */
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
+//	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@Basic( optional = true )
 	@JoinColumn(name = "client_id", nullable = true )
 	public Client getClient() {
@@ -762,7 +764,9 @@ public class Enrollment implements Cloneable, Serializable {
 	 */
     @Id 
 	@Basic( optional = false )
-	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+    @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid-gen")
+	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="pg-uuid")
 	public java.util.UUID getId() {
 		return this.id;
 		
@@ -1494,7 +1498,7 @@ public class Enrollment implements Cloneable, Serializable {
 	 * @return A HmisUser object (this.user)
 	 */
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
+//	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@Basic( optional = true )
 	@JoinColumn(name = "user_id", nullable = true )
 	public HmisUser getUser() {

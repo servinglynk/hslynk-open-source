@@ -17,16 +17,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.rest.AccountsRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.ApiMethodAuthorizationChecksRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.ApiMethodRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.ClientsRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.PermissionSetRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.ProfileRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.RolesRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.SessionsRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.SharingRuleRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.VerificationsRestEndpoint;
+import com.servinglynk.hmis.warehouse.rest.AccountsController;
+import com.servinglynk.hmis.warehouse.rest.ApiMethodAuthorizationChecksController;
+import com.servinglynk.hmis.warehouse.rest.ApiMethodController;
+import com.servinglynk.hmis.warehouse.rest.ClientsController;
+import com.servinglynk.hmis.warehouse.rest.PermissionSetsController;
+import com.servinglynk.hmis.warehouse.rest.ProfilesController;
+import com.servinglynk.hmis.warehouse.rest.RolesController;
+import com.servinglynk.hmis.warehouse.rest.SessionsController;
+import com.servinglynk.hmis.warehouse.rest.SharingRulesController;
+import com.servinglynk.hmis.warehouse.rest.VerificationsController;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
@@ -71,55 +71,55 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public AccountsRestEndpoint accountsRestEndpoint(){
-		return new AccountsRestEndpoint();
+	public AccountsController accountsController(){
+		return new AccountsController();
 	}
 	
 	@Bean
-	public ApiMethodAuthorizationChecksRestEndpoint apiMethodAuthorizationChecksRestEndpoint(){
-		return new ApiMethodAuthorizationChecksRestEndpoint();
+	public ApiMethodAuthorizationChecksController apiMethodAuthorizationChecksController(){
+		return new ApiMethodAuthorizationChecksController();
 	}
 
 	@Bean
-	public SessionsRestEndpoint sessionsRestEndpoint(){
-		return new SessionsRestEndpoint();
+	public SessionsController sessionsController(){
+		return new SessionsController();
 	}
 	
 	@Bean
-	public VerificationsRestEndpoint verificationsRestEndpoint(){
-		return new VerificationsRestEndpoint();
-	}
-
-	
-	@Bean
-	public ApiMethodRestEndpoint apiMethodRestEndpoint(){
-		return new ApiMethodRestEndpoint();
+	public VerificationsController verificationsController(){
+		return new VerificationsController();
 	}
 
 	
 	@Bean
-	public ClientsRestEndpoint clientsRestEndpoint(){
-		return new ClientsRestEndpoint();
+	public ApiMethodController apiMethodController(){
+		return new ApiMethodController();
+	}
+
+	
+	@Bean
+	public ClientsController clientsController(){
+		return new ClientsController();
 	}
 	
 	@Bean
-	public RolesRestEndpoint rolesRestEndpoint(){
-		return new RolesRestEndpoint();
+	public RolesController rolesController(){
+		return new RolesController();
 	}
 	
 	@Bean
-	public ProfileRestEndpoint profileRestEndpoint(){
-		return new ProfileRestEndpoint();
+	public ProfilesController profilesController(){
+		return new ProfilesController();
 	}
 	
 	@Bean
-	public PermissionSetRestEndpoint permissionSetRestEndpoint(){
-		return new PermissionSetRestEndpoint();
+	public PermissionSetsController permissionSetsController(){
+		return new PermissionSetsController();
 	}
 	
 	@Bean
-	public SharingRuleRestEndpoint sharingRuleRestEndpoint(){
-		return new SharingRuleRestEndpoint();
+	public SharingRulesController sharingRulesController(){
+		return new SharingRulesController();
 	}
 	
 }
