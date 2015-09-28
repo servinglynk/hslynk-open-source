@@ -59,9 +59,13 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				noncashbenefitsModel.setTanfchildcare(NoncashbenefitsTanfchildcareEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFChildCare())));
 				noncashbenefitsModel.setTanftransportation(NoncashbenefitsTanftransportationEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFTransportation())));
 				noncashbenefitsModel.setWic(NoncashbenefitsWicEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getWIC())));
-				
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(nonCashBenefits.getProjectEntryID()));
-				noncashbenefitsModel.setEnrollmentid(enrollmentModel);
+				if(nonCashBenefits.getProjectEntryID() !=null && !"".equals(nonCashBenefits.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(nonCashBenefits.getProjectEntryID());
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						noncashbenefitsModel.setEnrollmentid(enrollmentModel);
+					}
+				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				noncashbenefitsModel.setExport(exportEntity);
 				exportEntity.addNoncashbenefits(noncashbenefitsModel);

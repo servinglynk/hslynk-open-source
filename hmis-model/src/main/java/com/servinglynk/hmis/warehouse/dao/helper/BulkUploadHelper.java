@@ -52,17 +52,33 @@ import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPlansActions;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FamilyReunification;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardChildWelfare;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardJuvenileJustice;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastPermanentAddress;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.MedicalAssistance;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PercentAMI;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCompletionStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ReferralSource;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 @Component
@@ -198,6 +214,7 @@ public class BulkUploadHelper {
 	                      new AnnotationEntryParser<Client>(Client.class, vpp)).build();
 	      List<Client> clients = csvReader.readAll(); 
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client> clientList = new ArrayList<Sources.Source.Export.Client>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo> veteranInfoList = new ArrayList<Sources.Source.Export.VeteranInfo>();
 	      if(clients !=null && clients.size() > 0) {
 	    	  for(Client client : clients) {
 	    		   com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client clientModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client();
@@ -218,8 +235,33 @@ public class BulkUploadHelper {
 	    		   clientModel.setUserID(client.getUserID());
 	    		   clientModel.setVeteranStatus(getByte(client.getVeteranStatus()));
 	    		   clientList.add(clientModel);
-	    		   sources.getSource().getExport().setClient(clientList);
+	    		   
+	    		   VeteranInfo veteranInfoModel = new VeteranInfo();
+	    		   veteranInfoModel.setAfghanistanOEF(getByte(client.getAfghanistanOEF()));
+	    		   veteranInfoModel.setDateCreated(getXMLGregorianCalendar(client.getDateCreated()));
+	    		   veteranInfoModel.setDateUpdated(getXMLGregorianCalendar(client.getDateUpdated()));
+	    		   veteranInfoModel.setDesertStorm(getByte(client.getDesertStorm()));
+	    		   veteranInfoModel.setDischargeStatus(getByte(client.getDischargeStatus()));
+	    		   veteranInfoModel.setIraqOIF(getByte(client.getIraqOIF()));
+	    		   veteranInfoModel.setIraqOND(getByte(client.getIraqOND()));
+	    		   veteranInfoModel.setKoreanWar(getByte(client.getKoreanWar()));
+	    		   veteranInfoModel.setMilitaryBranch(getByte(client.getMilitaryBranch()));
+	    		   veteranInfoModel.setOtherTheater(getByte(client.getOtherTheater()));
+	    		   veteranInfoModel.setPersonalID(client.getPersonalID());
+	    		   veteranInfoModel.setUserID(client.getUserID());
+//	    		   veteranInfoModel.setVeteranInfoID(client.getv);
+	    		   veteranInfoModel.setVietnamWar(getByte(client.getVietnamWar()));
+	    		   veteranInfoModel.setWorldWarII(getByte(client.getWorldWarII()));
+	    		   if (client.getYearEnteredService()!=null && !"".equals(client.getYearEnteredService()) ) {
+	    			   veteranInfoModel.setYearEnteredService(Short.valueOf(client.getYearEnteredService()));
+	    		   }
+	    		   if (client.getYearSeparated()!=null && !"".equals(client.getYearSeparated()) ) {
+	    			   veteranInfoModel.setYearSeparated(Short.valueOf(client.getYearSeparated()));
+	    		   }
+	    		   veteranInfoList.add(veteranInfoModel);
 	    	  }
+	    	  sources.getSource().getExport().setClient(clientList);
+	    	  sources.getSource().getExport().setVeteranInfo(veteranInfoList);
 	      }
 	  }
 	  /**
@@ -257,7 +299,7 @@ public class BulkUploadHelper {
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
 	  }
 	  /**
-	   * Hydrate Disabilities with in Sources Object from Disabilities CSV Pojos.
+	   * Hydrate Employment Education with in Sources Object from Disabilities CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
@@ -326,6 +368,27 @@ public class BulkUploadHelper {
 	      CSVReader<Enrollment> enrollmentReader = new CSVReaderBuilder<Enrollment>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Enrollment>(Enrollment.class, vpp)).build();
 	      List<Enrollment> enrollment = enrollmentReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollmentList = new ArrayList<Sources.Source.Export.Enrollment>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement> dateOfEngagementList = new ArrayList<Sources.Source.Export.DateOfEngagement>();
+	      List<ResidentialMoveInDate> residentialmoveindateList = new ArrayList<ResidentialMoveInDate>();
+	      List<WorstHousingSituation> worsthousingsituationtList = new ArrayList<WorstHousingSituation>();
+	      List<PercentAMI> percentAMIList = new ArrayList<PercentAMI>();
+	      List<RHYBCPStatus> rhybcpStatusList = new ArrayList<RHYBCPStatus>();
+	      List<FormerWardChildWelfare> formerWardChildWelfareList = new ArrayList<FormerWardChildWelfare>();
+	      List<FormerWardJuvenileJustice> formerwardjuvenilejusticeList = new ArrayList<Sources.Source.Export.FormerWardJuvenileJustice>();
+	      List<LastGradeCompleted> lastgradecompletedList = new ArrayList<LastGradeCompleted>();
+	      List<PATHStatus> pathStatusList = new ArrayList<PATHStatus>();
+	      
+	      List<HealthInsurance> healthInsuranceList = new ArrayList<HealthInsurance>();
+	      List<HealthStatus> healthStatusList = new ArrayList<HealthStatus>();
+	      List<LastPermanentAddress> lastPermanentAddressList = new ArrayList<LastPermanentAddress>();
+	      List<MedicalAssistance> medicalAssistanceList = new ArrayList<MedicalAssistance>();
+	      List<NonCashBenefits> nonCashBenefitsList = new ArrayList<NonCashBenefits>();
+	      List<ReferralSource> referralSourceList = new ArrayList<Sources.Source.Export.ReferralSource>();
+	      List<SexualOrientation> sexualOrientationList = new ArrayList<SexualOrientation>();
+	      List<YouthCriticalIssues> youthCriticalIssuesList = new ArrayList<YouthCriticalIssues>();
+	      List<Services> servicesList = new ArrayList<Services>();
+	      
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
 	    	  //enrollmentModel.setContinuouslyHomelessOneYear(enroll.get);
@@ -348,6 +411,251 @@ public class BulkUploadHelper {
 	    	  enrollmentModel.setTimesHomelessPastThreeYears(getByte(enroll.getTimesHomelessPastThreeYears()));
 	    	  enrollmentModel.setUserID(enroll.getUserID());
 //	    	  enrollmentModel.setYearsHomeless(getByte(enroll.get));
+	    	  enrollmentList.add(enrollmentModel);
+	    	  
+	    	  
+	    	  DateOfEngagement dateOfEngagementModel = new DateOfEngagement();
+	    	  dateOfEngagementModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  dateOfEngagementModel.setDateOfEngagement(getXMLGregorianCalendar(enroll.getDateOfEngagement()));
+//	    	  dateOfEngagementModel.setDateOfEngagementID(enroll.getdat);
+	    	  dateOfEngagementModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  dateOfEngagementModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  dateOfEngagementModel.setUserID(enroll.getUserID());
+	    	  dateOfEngagementList.add(dateOfEngagementModel);
+	    	  
+	    	  ResidentialMoveInDate residentialmoveindateModel = new ResidentialMoveInDate();
+	    	  residentialmoveindateModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  residentialmoveindateModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  residentialmoveindateModel.setInPermanentHousing(getByte(enroll.getInPermanentHousing()));
+	    	  residentialmoveindateModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  residentialmoveindateModel.setResidentialMoveInDate(getXMLGregorianCalendar(enroll.getResidentialMoveInDate()));
+//	    	  residentialmoveindateModel.setResidentialMoveInDateID(enroll.getresi);
+	    	  residentialmoveindateModel.setUserID(enroll.getUserID());
+	    	  residentialmoveindateList.add(residentialmoveindateModel);
+	    	  
+	    	  WorstHousingSituation worsthousingsituationModel = new WorstHousingSituation();
+	    	  worsthousingsituationModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  worsthousingsituationModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  worsthousingsituationModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  worsthousingsituationModel.setUserID(enroll.getUserID());
+	    	  worsthousingsituationModel.setWorstHousingSituation(getByte(enroll.getWorstHousingSituation()));
+//	    	  worsthousingsituationModel.setWorstHousingSituationID(enroll.getwo);
+	    	  worsthousingsituationtList.add(worsthousingsituationModel);
+	    	  
+	    	  LastGradeCompleted lastgradecompletedModel = new LastGradeCompleted();
+//	    	  lastgradecompletedModel.setDataCollectionStage(getByte(enroll.getdataco));
+	    	  lastgradecompletedModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  lastgradecompletedModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  lastgradecompletedModel.setInformationDate(getXMLGregorianCalendar(enroll.getinfor));
+//	    	  lastgradecompletedModel.setLastGradeCompleted(getByte(enroll.getlas));
+//	    	  lastgradecompletedModel.setLastGradeCompletedID(enroll.getlaS);
+	    	  lastgradecompletedModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  lastgradecompletedModel.setUserID(enroll.getUserID());
+	    	  lastgradecompletedList.add(lastgradecompletedModel);
+	    	  
+	    	  PATHStatus pathstatusModel = new PATHStatus();;
+	    	  pathstatusModel.setClientEnrolledInPATH(getByte(enroll.getClientEnrolledInPATH()));
+	    	  pathstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  pathstatusModel.setDateOfStatus(getXMLGregorianCalendar(enroll.getDateOFPATHStatus()));
+	    	  pathstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  pathstatusModel.setPathStatusID(enroll.getpat);
+	    	  pathstatusModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  pathstatusModel.setReasonNotEnrolled(getByte(enroll.getReasonNotEnrolled()));
+	    	  pathstatusModel.setUserID(enroll.getUserID());
+	    	  pathStatusList.add(pathstatusModel);
+
+	    	  PercentAMI percentamiModel = new PercentAMI();
+	    	  percentamiModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  percentamiModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  percentamiModel.setPercentAMI(getByte(enroll.getPercentAMI()));
+//	    	  percentamiModel.setPercentAMIID(enroll.getperc);
+	    	  percentamiModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  percentamiModel.setUserID(enroll.getUserID());
+	    	  percentAMIList.add(percentamiModel);
+	    	  
+	    	  RHYBCPStatus rhybcpstatusModel = new RHYBCPStatus();
+	    	  rhybcpstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  rhybcpstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  rhybcpstatusModel.setFYSBYouth(getByte(enroll.getFYSBYouth()));
+	    	  rhybcpstatusModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
+//	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getrhy);
+//	    	  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
+	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
+	    	  rhybcpStatusList.add(rhybcpstatusModel);
+	    	  
+	    	  
+	    	  FormerWardChildWelfare formerwardchildwelfareModel = new FormerWardChildWelfare();
+	    	  formerwardchildwelfareModel.setChildWelfareMonths(getByte(enroll.getChildWelfareMonths()));
+	    	  formerwardchildwelfareModel.setChildWelfareYears(getByte(enroll.getChildWelfareYears()));
+//	    	  formerwardchildwelfareModel.setDataCollectionStage(getByte(enroll.getda));
+	    	  formerwardchildwelfareModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  formerwardchildwelfareModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  formerwardchildwelfareModel.setFormerWardChildWelfare(getByte(enroll.getFormerWardChildWelfare()));
+//	    	  formerwardchildwelfareModel.setFormerWardChildWelfareID(enroll.getFormerWardCh);
+//	    	  formerwardchildwelfareModel.setInformationDate(getXMLGregorianCalendar(enroll.getinf));
+	    	  formerwardchildwelfareModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  formerwardchildwelfareModel.setUserID(enroll.getUserID());
+	    	  formerWardChildWelfareList.add(formerwardchildwelfareModel);
+	    	  
+	    	  FormerWardJuvenileJustice formerwardjuvenilejusticeModel = new FormerWardJuvenileJustice();
+//	    	  formerwardjuvenilejusticeModel.setDataCollectionStage(getByte(enroll.getdata));
+	    	  formerwardjuvenilejusticeModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  formerwardjuvenilejusticeModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  formerwardjuvenilejusticeModel.setFormerWardJuvenileJustice(getByte(enroll.getFormer));
+//	    	  formerwardjuvenilejusticeModel.setFormerWardJuvenileJusticeID(enroll.getfor);
+//	    	  formerwardjuvenilejusticeModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
+	    	  formerwardjuvenilejusticeModel.setJuvenileJusticeMonths(getByte(enroll.getJuvenileJusticeMonths()));
+	    	  formerwardjuvenilejusticeModel.setJuvenileJusticeYears(getByte(enroll.getJuvenileJusticeYears()));
+	    	  formerwardjuvenilejusticeModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  formerwardjuvenilejusticeModel.setUserID(enroll.getUserID());
+	    	  formerwardjuvenilejusticeList.add(formerwardjuvenilejusticeModel);
+	    	  
+	    	  /*
+	    	   * HEALTHINSURANCE Table Fields are not related with Enrollment Table.. Need Clarification....
+	    	   * 
+	    	   *
+	    	   * */
+	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
+//	    	  healthinsuranceModel.setCOBRA(getByte(enroll.getco));
+//	    	  healthinsuranceModel.setDataCollectionStage(getByte(enroll.getdata));
+	    	  healthinsuranceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    //	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(enroll.getDateDeleted()));
+	    	  healthinsuranceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  healthinsuranceModel.setEmployerProvided(getByte(enroll.gete));
+//	    	  healthinsuranceModel.setHealthInsuranceID(enroll.gethea);
+//	    	  healthinsuranceModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
+//	    	  healthinsuranceModel.setInsuranceFromAnySource(getByte(enroll.geti));
+//	    	  healthinsuranceModel.setMedicaid(getByte(enroll.getme));
+	    	  // sources.getSource().getExport().getHealthInsurance().add(healthinsuranceModel);
+	    	  /*
+	    	   * HEALTHSTATUS Table Fields are not related with Enrollment Table.. Need Clarification....
+	    	   * 
+	    	   *
+	    	   * */
+	    	  HealthStatus healthStatusModel = new HealthStatus();
+//	    	  healthStatusModel.setDataCollectionStage(getByte(enroll.getdataco));
+	    	  healthStatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  healthStatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  healthStatusModel.setDueDate(getXMLGregorianCalendar(enroll.getd));
+//	    	  healthStatusModel.setHealthCategory(getByte(enroll.geth));
+	    	  healthStatusList.add(healthStatusModel);
+	    	  
+	    	  
+	    	  LastPermanentAddress lastpermanentaddressModel = new LastPermanentAddress();
+	    	  lastpermanentaddressModel.setAddressDataQuality(getByte(enroll.getAddressDataQuality()));
+	    	  lastpermanentaddressModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  lastpermanentaddressModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  lastpermanentaddressModel.setLastPermanentAddressID(enroll.getlast);
+	    	  lastpermanentaddressModel.setLastPermanentCity(enroll.getLastPermanentCity());
+	    	  lastpermanentaddressModel.setLastPermanentState(enroll.getLastPermanentState());
+	    	  lastpermanentaddressModel.setLastPermanentStreet(enroll.getLastPermanentStreet());
+	    	  if (enroll.getLastPermanentZIP() != null && !"".equals(enroll.getLastPermanentZIP())) {
+	    		  lastpermanentaddressModel.setLastPermanentZIP(Integer.parseInt(enroll.getLastPermanentZIP()));				
+	    	  }
+	    	  lastpermanentaddressModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  lastpermanentaddressModel.setUserID(enroll.getUserID());
+	    	  lastPermanentAddressList.add(lastpermanentaddressModel);
+	    	  
+	    	  /*
+	    	   * MedicalAssistance Table Fields are not related with Enrollment Table.. Need Clarification....
+	    	   * 
+	    	   *
+	    	   * */
+	    	  MedicalAssistance medicalassistanceModel = new MedicalAssistance();
+//	    	  medicalassistanceModel.setADAP(getByte(enroll.geta));
+//	    	  medicalassistanceModel.setDataCollectionStage(getByte(enroll.getdataco));
+	    	  medicalassistanceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  medicalassistanceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  medicalassistanceModel.setHIVAIDSAssistance(getByte(enroll.geth));
+//	    	  medicalassistanceModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
+//	    	  medicalassistanceModel.setMedicalAssistanceID(enroll.getmedic);
+//	    	  medicalassistanceModel.setNoADAPReason(getByte(enroll.getn));
+	    	  medicalAssistanceList.add(medicalassistanceModel);
+	    	  
+	    	  /*
+	    	   * NonCashBenefits Table Fields are not related with Enrollment Table.. Need Clarification....
+	    	   * 
+	    	   *
+	    	   * */
+	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();
+//	    	  noncashbenefitsModel.setBenefitsFromAnySource(getByte(enroll.getb));
+//	    	  noncashbenefitsModel.setDataCollectionStage(getByte(enroll.getdata));
+	    	  noncashbenefitsModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  noncashbenefitsModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(enroll.getinfo));
+//	    	  noncashbenefitsModel.setNonCashBenefitsID(enroll.getnonc);
+//	    	  noncashbenefitsModel.setOtherSource(getByte(enroll.getOther));
+	    	  nonCashBenefitsList.add(noncashbenefitsModel);
+	    	  
+	    	  ReferralSource referralsourceModel = new ReferralSource();
+	    	  referralsourceModel.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
+//	    	  referralsourceModel.setDataCollectionStage(getByte(enroll.getdataco));
+	    	  referralsourceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  referralsourceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  referralsourceModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  referralsourceModel.setReferralSource(getByte(enroll.getReferralSource()));
+//	    	  referralsourceModel.setReferralSourceID(enroll.getre);
+	    	  referralsourceModel.setUserID(enroll.getUserID());
+	    	  sources.getSource().getExport().setReferralSource(referralsourceModel);
+	    	  
+	    	  SexualOrientation sexualorientationModel = new SexualOrientation();
+//	    	  sexualorientationModel.setDataCollectionStage(getByte(enroll.getdata));
+	    	  sexualorientationModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  sexualorientationModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  sexualorientationModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  sexualorientationModel.setSexualOrientation(getByte(enroll.getSexualOrientation()));
+//	    	  sexualorientationModel.setSexualOrientationID(enroll.getse);
+	    	  sexualorientationModel.setUserID(enroll.getUserID());
+	    	  sexualOrientationList.add(sexualorientationModel);
+	    	  
+	    	  
+	    	  YouthCriticalIssues youthcriticalissuesModel = new YouthCriticalIssues();
+	    	  youthcriticalissuesModel.setAbuseAndNeglectFam(getByte(enroll.getAbuseAndNeglectFam()));
+	    	  youthcriticalissuesModel.setAbuseAndNeglectYouth(getByte(enroll.getAbuseAndNeglectYouth()));
+	    	  youthcriticalissuesModel.setActiveMilitaryParent(getByte(enroll.getActiveMilitaryParent()));
+	    	  youthcriticalissuesModel.setAlcoholDrugAbuseFam(getByte(enroll.getAlcoholDrugAbuseFam()));
+	    	  youthcriticalissuesModel.setAlcoholDrugAbuseYouth(getByte(enroll.getAlcoholDrugAbuseYouth()));
+//	    	  youthcriticalissuesModel.setDataCollectionStage(getByte(enroll.getdata));
+	    	  youthcriticalissuesModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  youthcriticalissuesModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  youthcriticalissuesModel.setHealthIssuesFam(getByte(enroll.getHealthIssuesFam()));
+	    	  youthcriticalissuesModel.setHealthIssuesYouth(getByte(enroll.getHealthIssuesYouth()));
+	    	  youthcriticalissuesModel.setHouseholdDynamics(getByte(enroll.getHouseholdDynamics()));
+	    	  youthcriticalissuesModel.setHousingIssuesFam(getByte(enroll.getHousingIssuesFam()));
+	    	  youthcriticalissuesModel.setHousingIssuesYouth(getByte(enroll.getHousingIssuesYouth()));
+	    	  youthcriticalissuesModel.setIncarceratedParent(getByte(enroll.getIncarceratedParent()));
+	    	  youthcriticalissuesModel.setIncarceratedParentStatus(getByte(enroll.getIncarceratedParentStatus()));
+	    	  youthcriticalissuesModel.setInsufficientIncome(getByte(enroll.getInsufficientIncome()));
+	    	  youthcriticalissuesModel.setMentalDisabilityFam(getByte(enroll.getMentalDisabilityFam()));
+	    	  youthcriticalissuesModel.setMentalDisabilityYouth(getByte(enroll.getMentalDisabilityYouth()));
+	    	  youthcriticalissuesModel.setMentalHealthIssuesFam(getByte(enroll.getMentalHealthIssuesFam()));
+	    	  youthcriticalissuesModel.setMentalHealthIssuesYouth(getByte(enroll.getMentalHealthIssuesYouth()));
+	    	  youthcriticalissuesModel.setPhysicalDisabilityFam(getByte(enroll.getPhysicalDisabilityFam()));
+	    	  youthcriticalissuesModel.setPhysicalDisabilityYouth(getByte(enroll.getPhysicalDisabilityYouth()));
+	    	  youthcriticalissuesModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  youthcriticalissuesModel.setSchoolEducationalIssuesFam(getByte(enroll.getSchoolEducationalIssuesFam()));
+	    	  youthcriticalissuesModel.setSchoolEducationalIssuesYouth(getByte(enroll.getSchoolEducationalIssuesYouth()));
+	    	  youthcriticalissuesModel.setSexualOrientationGenderIDFam(getByte(enroll.getSexualOrientationGenderIDFam()));
+	    	  youthcriticalissuesModel.setSexualOrientationGenderIDYouth(getByte(enroll.getSexualOrientationGenderIDYouth()));
+	    	  youthcriticalissuesModel.setUnemploymentFam(getByte(enroll.getUnemploymentFam()));
+	    	  youthcriticalissuesModel.setUnemploymentYouth(getByte(enroll.getUnemploymentYouth()));
+	    	  youthcriticalissuesModel.setUserID(enroll.getUserID());
+//	    	  youthcriticalissuesModel.setYouthCriticalIssuesID(enroll.getyou);
+	    	  youthCriticalIssuesList.add(youthcriticalissuesModel);
+	    	  
+	    	  
+	    	  /*
+	    	   * Services Table Fields are not related with Enrollment Table.. Need Clarification....
+	    	   * 
+	    	   *There is a separate function named as hydradeServices is available. whether it is required to write services table data here or not?
+	    	   * */
+	    	  Services servicesModel = new Services();
+//	    	  servicesModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+//	    	  servicesModel.setDateDeleted(getXMLGregorianCalendar(enroll.getDateDeleted()));
+//	    	  servicesModel.setDateProvided(getXMLGregorianCalendar(enroll.getdate));
+//	    	  servicesModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//	    	  servicesModel.setReferralOutcome(enroll.getre);
 	    	  
 	    	  /*
 	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
@@ -359,14 +667,28 @@ public class BulkUploadHelper {
 	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
 	      
-	      
+		  sources.getSource().getExport().setPATHStatus(pathStatusList);
+    	  sources.getSource().getExport().setLastGradeCompleted(lastgradecompletedList);
+    	  sources.getSource().getExport().setWorstHousingSituation(worsthousingsituationtList);
+    	  sources.getSource().getExport().setPercentAMI(percentAMIList);
+    	  sources.getSource().getExport().setRHYBCPStatus(rhybcpStatusList);
+    	  sources.getSource().getExport().setFormerWardChildWelfare(formerWardChildWelfareList);
+    	  sources.getSource().getExport().setFormerWardJuvenileJustice(formerwardjuvenilejusticeList);
+    	  sources.getSource().getExport().setHealthStatus(healthStatusList);
+    	  sources.getSource().getExport().setLastPermanentAddress(lastPermanentAddressList);
+    	  //sources.getSource().getExport().setMedicalAssistance(medicalAssistanceList);
+	      sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
+    	  sources.getSource().getExport().setDateOfEngagement(dateOfEngagementList);
+    	  sources.getSource().getExport().setNonCashBenefits(nonCashBenefitsList);
+    	  sources.getSource().getExport().setSexualOrientation(sexualOrientationList);
+    	  sources.getSource().getExport().setYouthCriticalIssues(youthCriticalIssuesList);
 	  }
 	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   */ 
 	  protected void hydradeEnrollmentCoC(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -420,6 +742,7 @@ public class BulkUploadHelper {
 	    	  exitModel.setProjectEntryID(ext.getProjectEntryID());
 	    	  exitModel.setUserID(ext.getUserID());
 	    	  exitList.add(exitModel);
+	    	  //sources.getSource().getExport().setExit
 	    	  
 	    	  HousingAssessmentDisposition housingAssessmentDispositionModel = new HousingAssessmentDisposition();
 	    	  housingAssessmentDispositionModel.setAssessmentDisposition(getByte(ext.getAssessmentDisposition()));
@@ -430,6 +753,7 @@ public class BulkUploadHelper {
 	    	  housingAssessmentDispositionModel.setOtherDisposition(ext.getOtherDisposition());
 	    	  housingAssessmentDispositionModel.setUserID(ext.getUserID());
 	    	  housingAssessmentDispositionList.add(housingAssessmentDispositionModel);
+	    	  sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
 	    	  
 	    	  FamilyReunification familyReunificationModel = new FamilyReunification();
 	    	  familyReunificationModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
@@ -439,6 +763,8 @@ public class BulkUploadHelper {
 //	    	  familyReunificationModel.setFamilyReunificationID(ext.get);
 	    	  familyReunificationModel.setUserID(ext.getUserID());
 	    	  familyReunificationList.add(familyReunificationModel);
+	    	  
+	    	 // sources.getSource().getExport().setF(exitPlansActionsList);
 	    	  
 	    	  ExitPlansActions exitPlansActionsModel = new ExitPlansActions();
 	    	  exitPlansActionsModel.setAssistanceMainstreamBenefits(getByte(ext.getAssistanceMainstreamBenefits()));
@@ -456,6 +782,8 @@ public class BulkUploadHelper {
 	    	  exitPlansActionsModel.setUserID(ext.getUserID());
 	    	  exitPlansActionsModel.setWrittenAftercarePlan(getByte(ext.getWrittenAftercarePlan()));
 	    	  exitPlansActionsList.add(exitPlansActionsModel);
+	    	  sources.getSource().getExport().setExitPlansActions(exitPlansActionsList);
+	    	  
 	    	  
 	    	  ConnectionWithSOAR connectionWithSOARModel = new ConnectionWithSOAR();
 	    	  connectionWithSOARModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
@@ -465,6 +793,7 @@ public class BulkUploadHelper {
 	    	  connectionWithSOARModel.setExitID(ext.getExitID());
 	    	  connectionWithSOARModel.setUserID(ext.getUserID());
 	    	  connectionWithSOARList.add(connectionWithSOARModel);
+	    	  sources.getSource().getExport().setConnectionWithSOAR(connectionWithSOARList);
 	    	  
 	    	  ExitHousingAssessment exitHousingAssessmentModel = new ExitHousingAssessment();
 	    	  exitHousingAssessmentModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
@@ -505,24 +834,22 @@ public class BulkUploadHelper {
 	                      new AnnotationEntryParser<Export>(Export.class, vpp)).build();
 	      List<Export> export = exportReader.readAll();
 	      for(Export exp : export){
-	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export exportModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export();
 	    	  
-	    	  exportModel.setExportDate(getXMLGregorianCalendar(exp.getExportDate()));
-	    	  exportModel.setExportDirective(exp.getExportDirective());
+	    	  sources.getSource().getExport().setExportDate(getXMLGregorianCalendar(exp.getExportDate()));
+	    	  sources.getSource().getExport().setExportDirective(exp.getExportDirective());
 	    	  // Sandeep TODO: Need to change the ExportID to a String verses a byte
 	    	 // exportModel.setExportID(getByte(exp.getExportID()));
 	    	  ExportPeriod exportPeriod = new ExportPeriod();
 	    	  exportPeriod.setEndDate(getXMLGregorianCalendar(exp.getExportEndDate()));
 	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
 	    	  
-	    	  exportModel.setExportPeriodType(exp.getExportPeriodType());
+	    	  sources.getSource().getExport().setExportPeriodType(exp.getExportPeriodType());
 	    	  
 	    	 /*
 	    	  * ----------------------------------- To be Continued -----------
 	    	  * 
 	    	  * */
 	    	  
-	    	  sources.getSource().setExport(exportModel);
 	      }
 	      
 	      /***
@@ -778,7 +1105,7 @@ public class BulkUploadHelper {
 	    	  organizationModel.setDateCreated(getXMLGregorianCalendar(orgtn.getDateCreated()));
 	    	  organizationModel.setDateUpdated(getXMLGregorianCalendar(orgtn.getDateUpdated()));
 	    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
-	    	  organizationModel.setOrganizationID(getByte(orgtn.getOrganizationID()));
+	    	//  organizationModel.setOrganizationID(getByte(orgtn.getOrganizationID()));
 	    	  organizationModel.setOrganizationName(orgtn.getOrganizationName());
 	    	  organizationModel.setUserID(orgtn.getUserID());
 	    	  
@@ -806,7 +1133,8 @@ public class BulkUploadHelper {
 	    	  projectModel.setContinuumProject(getByte(prjt.getContinuumProject()));
 	    	  projectModel.setDateCreated(getXMLGregorianCalendar(prjt.getDateCreated()));
 	    	  projectModel.setDateUpdated(getXMLGregorianCalendar(prjt.getDateUpdated()));
-	    	  projectModel.setOrganizationID(getByte(prjt.getOrganizationID()));
+	    	 // Sandeep Fix this.
+	    	 // projectModel.setOrganizationID(getByte(prjt.getOrganizationID()));
 	    	  projectModel.setProjectCommonName(prjt.getProjectCommonName());
 	    	  projectModel.setProjectID(prjt.getProjectID());
 	    	  projectModel.setProjectName(prjt.getProjectName());

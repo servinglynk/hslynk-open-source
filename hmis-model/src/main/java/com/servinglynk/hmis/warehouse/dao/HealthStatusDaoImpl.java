@@ -45,8 +45,12 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				healthStatusModel.setDateCreated(BasicDataGenerator.getLocalDate(healthStatus.getDateCreated()));
 				healthStatusModel.setDateUpdated(BasicDataGenerator.getLocalDate(healthStatus.getDateUpdated()));
 				if(healthStatus.getProjectEntryID()!=null && !"".equals(healthStatus.getProjectEntryID())) {
-					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(healthStatus.getProjectEntryID()));
-					healthStatusModel.setEnrollmentid(enrollmentModel);
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(healthStatus.getProjectEntryID());
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid );
+						healthStatusModel.setEnrollmentid(enrollmentModel);
+					}
+					
 				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				healthStatusModel.setExport(exportEntity);

@@ -45,9 +45,12 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			projectcocModel.setDateCreated(BasicDataGenerator.getLocalDate(projectCoc.getDateCreated()));
 			projectcocModel.setDateUpdated(BasicDataGenerator.getLocalDate(projectCoc.getDateUpdated()));
 			if(projectCoc.getProjectID()!=null && !"".equals(projectCoc.getProjectID())) {
-				Project projectModel = (Project) get(Project.class, domain.getEnrollmentProjectEntryIDMap().get(projectCoc.getProjectID()));
-				projectcocModel.setProjectid(projectModel);
-				domain.getProjectCocMap().put(String.valueOf(projectCoc.getProjectCoCID()), id);
+				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(projectCoc.getProjectID());
+				if(uuid !=null) {
+					Project projectModel = (Project) get(Project.class, uuid);
+					projectcocModel.setProjectid(projectModel);
+					domain.getProjectCocMap().put(String.valueOf(projectCoc.getProjectCoCID()), id);
+				}
 			}
 			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 			projectcocModel.setExport(exportEntity);
