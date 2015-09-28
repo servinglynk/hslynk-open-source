@@ -6,12 +6,17 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.warehouse.service.AccountService;
 import com.servinglynk.hmis.warehouse.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.InformationReleasesService;
+import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.service.ProfileService;
+import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.RoleService;
 import com.servinglynk.hmis.warehouse.service.SessionService;
 import com.servinglynk.hmis.warehouse.service.SharingRuleService;
@@ -213,4 +218,66 @@ public class ParentServiceFactoryImpl  implements ParentServiceFactory {
 	public void setInformationReleasesService(InformationReleasesService informationReleasesService) {
 		this.informationReleasesService = informationReleasesService;
 	}	
+	
+	
+	@Autowired
+	private ClientService clientService;
+
+	public ClientService getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
+	}	
+	
+
+	@Autowired
+	private OrganizationService organizationService;
+
+	public OrganizationService getOrganizationService() {
+		return organizationService;
+	}
+
+	public void setOrganizationService(OrganizationService organizationService) {
+		this.organizationService = organizationService;
+	}
+	
+	@Autowired
+	private ProjectService projectService;
+
+
+	public ProjectService getProjectService() {
+		return projectService;
+	}
+
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
+	
+	@Autowired
+	private ExitService exitService;
+
+
+	public ExitService getExitService() {
+		return exitService;
+	}
+
+	public void setExitService(ExitService exitService) {
+		this.exitService = exitService;
+	}
+	
+	@Autowired
+	private EmploymentService employmentService;
+
+
+	public EmploymentService getEmploymentService() {
+		return employmentService;
+	}
+
+	public void setEmploymentService(EmploymentService employmentService) {
+		this.employmentService = employmentService;
+	}
+	
+	
 }

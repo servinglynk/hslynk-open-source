@@ -20,8 +20,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.rest.AuthorizationsRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.ConsentMessageRestEndpoint;
+import com.servinglynk.hmis.warehouse.rest.AuthorizationsController;
+import com.servinglynk.hmis.warehouse.rest.ConsentMessagesController;
 
 
 @Configuration
@@ -67,13 +67,13 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public AuthorizationsRestEndpoint authorizationsRestEndpoint() {
-		return new AuthorizationsRestEndpoint();
+	public AuthorizationsController authorizationsController() {
+		return new AuthorizationsController();
 	}
 
 	@Bean
-	public ConsentMessageRestEndpoint consentMessageRestEndpoint(){
-		return new ConsentMessageRestEndpoint();
+	public ConsentMessagesController consentMessagesController(){
+		return new ConsentMessagesController();
 	}
 	
 	@Resource

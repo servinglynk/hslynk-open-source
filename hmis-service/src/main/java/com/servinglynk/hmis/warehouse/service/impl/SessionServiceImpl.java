@@ -96,6 +96,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			sessionEntity.setExpiresAt(new Date(System.currentTimeMillis() + (20000 * 1000)));
 		
 		 	daoFactory.getSessionDao().create(sessionEntity);
+		 	//session.getAccount().setOrganizationId(pAccount.getOrganization().getId());
 		 	session.setToken(sessionEntity.getSessionToken());
 			
 	}

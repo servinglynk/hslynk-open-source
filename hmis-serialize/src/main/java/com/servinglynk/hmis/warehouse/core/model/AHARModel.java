@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.apache.commons.lang.builder.ToStringBuilder;

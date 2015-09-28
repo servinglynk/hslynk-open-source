@@ -14,4 +14,5 @@ public interface HmisUserDao extends ParentDao {
 	    public void deleteHmisUser(String id);
 	    public List<HmisUser> getHmisUsers();
 	    public void addClient(Client client);
+		public HmisUser findByUsername(String userName);
 }

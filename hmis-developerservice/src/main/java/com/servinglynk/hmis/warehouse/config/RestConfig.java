@@ -17,9 +17,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.rest.DeveloperCompanysRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.DeveloperServicesRestEndpoint;
-import com.servinglynk.hmis.warehouse.rest.TrustedAppRestEndpoint;
+import com.servinglynk.hmis.warehouse.rest.DeveloperCompaniesController;
+import com.servinglynk.hmis.warehouse.rest.DeveloperServicesController;
+import com.servinglynk.hmis.warehouse.rest.TrustedAppsController;
 
 
 @Configuration 
@@ -70,20 +70,20 @@ public void configureMessageConverters(List<HttpMessageConverter<?>> messageConv
 	
 	
 	@Bean
-	public TrustedAppRestEndpoint trustedAppRestEndpoint(){
-		return new TrustedAppRestEndpoint();
+	public TrustedAppsController trustedAppsController(){
+		return new TrustedAppsController();
 		
 	}
 	
 
 	@Bean
-	public DeveloperCompanysRestEndpoint developerCompanysRestEndpoint(){
-		return new DeveloperCompanysRestEndpoint();
+	public DeveloperCompaniesController developerCompaniesController(){
+		return new DeveloperCompaniesController();
 	}
 	
 	@Bean
-	public DeveloperServicesRestEndpoint developerServicesRestEndpoint(){
-		return new DeveloperServicesRestEndpoint();
+	public DeveloperServicesController developerServicesController(){
+		return new DeveloperServicesController();
 	}
 	
 }

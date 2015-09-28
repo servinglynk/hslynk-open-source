@@ -11,9 +11,9 @@ import org.hibernate.engine.spi.SessionImplementor;
 
 import com.servinglynk.hmis.warehouse.util.GenericEnumType;
 
-public class EnrollmentMonthshomelesspastthreeyearsEnumType   extends GenericEnumType<String, EnrollmentHousingstatusEnum> {
+public class EnrollmentMonthshomelesspastthreeyearsEnumType   extends GenericEnumType<String, EnrollmentMonthshomelesspastthreeyearsEnum> {
 	public EnrollmentMonthshomelesspastthreeyearsEnumType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		super(EnrollmentHousingstatusEnum.class, EnrollmentHousingstatusEnum.values(), "getValue", Types.OTHER);
+		super(EnrollmentMonthshomelesspastthreeyearsEnum.class, EnrollmentMonthshomelesspastthreeyearsEnum.values(), "getValue", Types.OTHER);
 	}
 
 	@Override

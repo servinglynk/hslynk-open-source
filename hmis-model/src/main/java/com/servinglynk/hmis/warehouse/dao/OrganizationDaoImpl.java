@@ -67,9 +67,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	}
 	
 	
-	public com.servinglynk.hmis.warehouse.model.live.Organization getOrganizationByYd(UUID organizationId){
+/*	public com.servinglynk.hmis.warehouse.model.live.Organization getOrganizationByYd(UUID organizationId){
 		return (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class,organizationId);
-	}
+	}*/
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
@@ -88,5 +88,28 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Organization createOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+	       insert(organization);
+	       return organization;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+	       update(organization);
+	       return organization;
+	   }
+	   public void deleteOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+	       delete(organization);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Organization getOrganizationById(UUID organizationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class, organizationId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Organization> getAllOrganizations(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Organization.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Organization>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getOrganizationCount(){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Organization.class);
+	       return countRows(criteria);
+	   }
 
 }

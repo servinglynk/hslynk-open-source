@@ -95,7 +95,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		pDeveloperCompanyStatus.setDeveloperCompany(pDeveloperCompany);
 		pDeveloperCompanyStatus.setCreatedBy(requestingService);
-		daoFactory.getDeveloperCompanyDao().createDeveloperCompanyStatus(pDeveloperCompanyStatus);
+	//	daoFactory.getDeveloperCompanyDao().createDeveloperCompanyStatus(pDeveloperCompanyStatus);
 
 		DeveloperCompanyAccountEntity pDevAccount = new DeveloperCompanyAccountEntity();
 		pDevAccount.setAccount(account);

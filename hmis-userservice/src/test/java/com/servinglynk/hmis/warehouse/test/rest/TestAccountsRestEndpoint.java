@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import com.servinglynk.hmis.warehouse.core.model.PasswordReset;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.UsernameChange;
-import com.servinglynk.hmis.warehouse.test.core.TestData;
+import com.servinglynk.hmis.warehouse.test.core.TestData;;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RestConfig.class})
@@ -375,7 +374,6 @@ public class TestAccountsRestEndpoint  {
 		noSessiontExecutor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
 		noSessiontExecutor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+GeneralUtil.getUniqueToken(64));
 		
-		Account account =  TestData.getAccount();
 	
 		Errors errors =   noSessiontExecutor.executeGet("/accounts/self/emailaddress",  Errors.class);
 		

@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -324,9 +326,16 @@ public class Client implements Cloneable, Serializable {
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */
-    @Id 
+
+	/*@Id 
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	*/
+	@javax.persistence.Id
+	@GenericGenerator(name = "uuid-gen", strategy = "uuid2")
+	@GeneratedValue(generator = "uuid-gen")
+	@org.hibernate.annotations.Type(type="pg-uuid")
+	@Column(name = "id")
 	public java.util.UUID getId() {
 		return this.id;
 		
@@ -502,7 +511,7 @@ public class Client implements Cloneable, Serializable {
 	 * Return the value associated with the column: ssnDataQuality.
 	 * @return A ClientSsnDataQualityEnum object (this.ssnDataQuality)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnumType")
 	@Basic( optional = true )
 	@Column( name = "ssn_data_quality"  )
 	public ClientSsnDataQualityEnum getSsnDataQuality() {

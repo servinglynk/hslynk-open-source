@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -92,5 +93,28 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Project createProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+	       insert(project);
+	       return project;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Project updateProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+	       update(project);
+	       return project;
+	   }
+	   public void deleteProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+	       delete(project);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Project getProjectById(UUID projectId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class, projectId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Project> getAllProjects(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Project.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Project>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getProjectCount(){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Project.class);
+	       return countRows(criteria);
+	   }
 
 }

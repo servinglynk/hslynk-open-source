@@ -9,4 +9,5 @@ package com.servinglynk.hmis.warehouse.dao;
  */
 public interface ProjectcocDao extends ParentDao {
 
+
 }

@@ -122,4 +122,31 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Exit createExit(com.servinglynk.hmis.warehouse.model.live.Exit exit){
+		   exit.setId(UUID.randomUUID());
+		   insert(exit);
+	       return exit;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Exit updateExit(com.servinglynk.hmis.warehouse.model.live.Exit exit){
+	       update(exit);
+	       return exit;
+	   }
+	   public void deleteExit(com.servinglynk.hmis.warehouse.model.live.Exit exit){
+	       delete(exit);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Exit getExitById(UUID exitId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, exitId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Exit> getAllEnrollmentExits(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Exit.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Exit>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentExitsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Exit.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }
