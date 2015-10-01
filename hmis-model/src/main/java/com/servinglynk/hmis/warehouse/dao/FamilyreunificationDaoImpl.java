@@ -59,7 +59,12 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 				if(familyreunification != null) {
 					com.servinglynk.hmis.warehouse.model.live.Familyreunification target = new com.servinglynk.hmis.warehouse.model.live.Familyreunification();
 					BeanUtils.copyProperties(familyreunification, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, familyreunification.getExitid().getId());
+					target.setExitid(exitModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addFamilyreunification(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

@@ -59,7 +59,12 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 				if(referralsource != null) {
 					com.servinglynk.hmis.warehouse.model.live.Referralsource target = new com.servinglynk.hmis.warehouse.model.live.Referralsource();
 					BeanUtils.copyProperties(referralsource, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, referralsource.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addReferralsource(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

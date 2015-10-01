@@ -60,7 +60,12 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				if(worsthousingsituation !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation target = new com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation();
 					BeanUtils.copyProperties(worsthousingsituation, target, getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, worsthousingsituation.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addWorsthousingsituation(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

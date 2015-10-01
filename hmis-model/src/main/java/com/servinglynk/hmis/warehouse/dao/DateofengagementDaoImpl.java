@@ -58,7 +58,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addDateofengagement(target);
-				insert(target);
+				insertOrUpdate(target);
 			}
 		}
 	}

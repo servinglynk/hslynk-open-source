@@ -107,8 +107,13 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 			for(Youthcriticalissues youthcriticalissues : youthcriticalissueses) {
 				if(youthcriticalissues != null) {
 					com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues target = new com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues();
-					BeanUtils.copyProperties(youthcriticalissueses, target, getNonCollectionFields(target));
-					insert(target);
+					BeanUtils.copyProperties(youthcriticalissues, target, getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, youthcriticalissues.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addYouthcriticalissues(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

@@ -61,7 +61,12 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				if(projectcompletionstatus != null) {
 					com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus target = new com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus();
 					BeanUtils.copyProperties(projectcompletionstatus, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, projectcompletionstatus.getExitid().getId());
+					target.setExitid(exitModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addProjectcompletionstatus(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

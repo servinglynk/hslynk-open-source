@@ -75,7 +75,12 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				if(lastgradecompleted != null) {
 					com.servinglynk.hmis.warehouse.model.live.Lastgradecompleted target = new com.servinglynk.hmis.warehouse.model.live.Lastgradecompleted();
 					BeanUtils.copyProperties(lastgradecompleted, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, lastgradecompleted.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addLastgradecompleted(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

@@ -66,8 +66,13 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 			for(LastPermAddress lastPermAddress : lastPermAddresses) {
 				if(lastPermAddress != null) {
 					com.servinglynk.hmis.warehouse.model.live.LastPermAddress target = new com.servinglynk.hmis.warehouse.model.live.LastPermAddress();
-					BeanUtils.copyProperties(lastPermAddress, target);
-					insert(target);
+					BeanUtils.copyProperties(lastPermAddress, getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, lastPermAddress.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addLastPermAddress(target);
+					insertOrUpdate(target);
 				}
  			}
 		}

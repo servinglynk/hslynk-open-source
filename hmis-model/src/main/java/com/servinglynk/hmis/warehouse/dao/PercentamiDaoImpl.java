@@ -60,7 +60,12 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				if(percentami != null) {
 					com.servinglynk.hmis.warehouse.model.live.Percentami  target = new com.servinglynk.hmis.warehouse.model.live.Percentami();
 					BeanUtils.copyProperties(percentami, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, percentami.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addPercentami(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

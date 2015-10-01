@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,8 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	
 	final static Logger logger = Logger.getLogger(BulkUploadWorker.class);
 
+	@Autowired
+	Environment env;
 
 	@Autowired
 	private ParentDaoFactory factory;
@@ -40,14 +43,14 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 		
 		try {
 			
-			File[] files = new File("C:\\tomcat\\apache-tomcat-8.0.18\\tmpFiles").listFiles();
+			File[] files = new File(env.getProperty("upload.loc")).listFiles();
 			//If this pathname does not denote a directory, then listFiles() returns null. 
 			if(files !=null && files.length > 0 )
 			for (File file : files) {
 			    if (file.isFile()) {
-			        moveFile(file.getAbsolutePath(),"C:\\HMISTEstDev\\XMLGen\\src\\com\\servinglynk\\hmis\\warehouse\\jaxb\\" + file.getName());
+			        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
 			        BulkUpload upload = new BulkUpload();
-					upload.setInputPath("C:\\HMISTEstDev\\XMLGen\\src\\com\\servinglynk\\hmis\\warehouse\\jaxb\\"+file.getName());
+					upload.setInputPath(env.getProperty("upload.backup.loc")+file.getName());
 					upload.setStatus("INITIAL");
 					upload.setInsertAt(new Date());
 					upload.setUpdateAt(new Date());

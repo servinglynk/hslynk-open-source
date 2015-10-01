@@ -68,7 +68,12 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				if(healthStatus !=null) {
 					com.servinglynk.hmis.warehouse.model.live.HealthStatus target = new com.servinglynk.hmis.warehouse.model.live.HealthStatus();
 					BeanUtils.copyProperties(healthStatus, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, healthStatus.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addHealthStatus(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

@@ -77,7 +77,12 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				if(exitplansactions != null) {
 					com.servinglynk.hmis.warehouse.model.live.Exitplansactions target = new com.servinglynk.hmis.warehouse.model.live.Exitplansactions();
 					BeanUtils.copyProperties(exitplansactions, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, exitplansactions.getExitid().getId());
+					target.setExitid(exitModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addExitplansactions(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

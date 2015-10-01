@@ -57,7 +57,12 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 			for(Connectionwithsoar connectionwithsoar : connectionwithsoars) {
 				com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar target = new com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar();
 				BeanUtils.copyProperties(connectionwithsoar, target,getNonCollectionFields(target));
-				insert(target);
+				com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, connectionwithsoar.getExitid().getId());
+				target.setExitid(exitModel);
+				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+				target.setExport(exportEntity);
+				exportEntity.addConnectionwithsoar(target);
+				insertOrUpdate(target);
 			}
 		}
 		

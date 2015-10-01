@@ -111,7 +111,12 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				if(incomeandsources != null) {
 					com.servinglynk.hmis.warehouse.model.live.Incomeandsources target = new com.servinglynk.hmis.warehouse.model.live.Incomeandsources();
 					BeanUtils.copyProperties(incomeandsources, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, incomeandsources.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addIncomeandsources(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

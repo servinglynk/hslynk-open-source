@@ -90,14 +90,17 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				if(project != null) {
 					com.servinglynk.hmis.warehouse.model.live.Project target = new com.servinglynk.hmis.warehouse.model.live.Project();
 					BeanUtils.copyProperties(project, target,getNonCollectionFields(target));
-//					Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID()));
-//					projectModel.setEnrollmentid(enrollmentModel);
-//					com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
-//					projectModel.setExport(exportEntity);
-//					exportEntity.addProject(projectModel);
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, project.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addProject(target);
+					insertOrUpdate(target);
 				}
 			}
+			factory.getOrganizationDao().hydrateLive(export);
+			factory.getAffiliationDao().hydrateLive(export);
+			factory.getFunderDao().hydrateLive(export);
 		}
 	}
 	

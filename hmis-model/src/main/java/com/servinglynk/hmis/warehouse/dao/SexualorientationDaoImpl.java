@@ -61,8 +61,13 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 			for(Sexualorientation sexualorientation : sexualorientations) {
 				if(sexualorientation != null) {
 					com.servinglynk.hmis.warehouse.model.live.Sexualorientation target = new com.servinglynk.hmis.warehouse.model.live.Sexualorientation();
-					BeanUtils.copyProperties(sexualorientation, target);
-					insert(target);
+					BeanUtils.copyProperties(sexualorientation,target, getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, sexualorientation.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addSexualorientation(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

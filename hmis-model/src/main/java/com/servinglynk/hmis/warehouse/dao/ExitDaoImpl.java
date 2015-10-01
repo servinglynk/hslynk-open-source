@@ -83,9 +83,6 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			factory.getConnectionwithsoarDao().hydrateStaging(domain);
 			factory.getProjectcompletionstatusDao().hydrateStaging(domain);
 			}
-
-
-
 	}
 
 	@Override
@@ -97,10 +94,22 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				if(exit != null) {
 					com.servinglynk.hmis.warehouse.model.live.Exit target = new com.servinglynk.hmis.warehouse.model.live.Exit();
 					BeanUtils.copyProperties(exit, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, exit.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addExit(target);
+					insertOrUpdate(target);
 				}
 			}
 		}
+		factory.getFamilyreunificationDao().hydrateLive(export);
+		factory.getExithousingassessmentDao().hydrateLive(export);
+		factory.getHousingassessmentdispositionDao().hydrateLive(export);
+		factory.getExitplansactionsDao().hydrateLive(export);
+		factory.getConnectionwithsoarDao().hydrateLive(export);
+		factory.getProjectcompletionstatusDao().hydrateLive(export);
+
 		
 	}
 

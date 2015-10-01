@@ -64,7 +64,12 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				if(formerwardjuvenilejustice != null) {
 					Formerwardchildwelfare target = new Formerwardchildwelfare();
 					BeanUtils.copyProperties(formerwardjuvenilejustice, target, getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, formerwardjuvenilejustice.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addFormerwardchildwelfare(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

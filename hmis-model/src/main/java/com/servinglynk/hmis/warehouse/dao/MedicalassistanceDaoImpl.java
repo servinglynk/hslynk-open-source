@@ -67,7 +67,12 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				if(medicalassistance != null) {
 					com.servinglynk.hmis.warehouse.model.live.Medicalassistance target = new com.servinglynk.hmis.warehouse.model.live.Medicalassistance();
 					BeanUtils.copyProperties(medicalassistance, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, medicalassistance.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addMedicalassistance(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

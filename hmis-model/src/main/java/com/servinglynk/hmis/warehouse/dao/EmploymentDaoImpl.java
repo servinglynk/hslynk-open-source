@@ -71,7 +71,12 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			for(com.servinglynk.hmis.warehouse.model.staging.Employment employment : employments) {
 				com.servinglynk.hmis.warehouse.model.live.Employment target = new com.servinglynk.hmis.warehouse.model.live.Employment();
 				BeanUtils.copyProperties(employment, target,getNonCollectionFields(target));
-				insert(target);
+				com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, employment.getEnrollmentid().getId());
+				target.setEnrollmentid(enrollmentModel);
+				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+				target.setExport(exportEntity);
+				exportEntity.addEmployment(target);
+				insertOrUpdate(target);
 			}
 		}
 	}

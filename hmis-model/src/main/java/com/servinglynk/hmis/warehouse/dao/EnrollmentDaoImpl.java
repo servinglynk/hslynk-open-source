@@ -140,7 +140,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
-					insert(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

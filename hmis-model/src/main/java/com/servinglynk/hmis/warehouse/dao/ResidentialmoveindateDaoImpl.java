@@ -61,7 +61,12 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				if(residentialmoveindate != null) {
 					com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate target = new com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate();
 					BeanUtils.copyProperties(residentialmoveindate, target, getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, residentialmoveindate.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addResidentialmoveindate(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

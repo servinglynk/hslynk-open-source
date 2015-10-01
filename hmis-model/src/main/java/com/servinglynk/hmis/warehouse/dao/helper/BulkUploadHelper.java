@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.PrivilegedActionException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.ServiceMode;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
@@ -51,8 +51,11 @@ import com.servinglynk.hmis.warehouse.csv.Services;
 import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CommercialSexualExploitation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPlansActions;
@@ -195,7 +198,8 @@ public class BulkUploadHelper {
 		           
 		            csvFile.close();
 		      }
-		    } catch (IOException e) {
+		    }
+			catch (IOException e) {
 		      e.printStackTrace();
 		    }
 		return sources;
@@ -389,6 +393,10 @@ public class BulkUploadHelper {
 	      List<YouthCriticalIssues> youthCriticalIssuesList = new ArrayList<YouthCriticalIssues>();
 	      List<Services> servicesList = new ArrayList<Services>();
 	      
+	      List<CommercialSexualExploitation> commercialSexualExploitationList = new ArrayList<CommercialSexualExploitation>();
+	      List<DomesticViolence> domesticViolenceList = new ArrayList<DomesticViolence>();
+	      
+	      	      
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
 	    	  //enrollmentModel.setContinuouslyHomelessOneYear(enroll.get);
@@ -560,7 +568,9 @@ public class BulkUploadHelper {
 	    	  /*
 	    	   * MedicalAssistance Table Fields are not related with Enrollment Table.. Need Clarification....
 	    	   * 
-	    	   *
+	    	   *  NEED to See where will we get MedicalAssistance ,NonCashBenefits , HealthInsurance and HealthStatus, DomesticViolence and service. 
+	    	   *  Lets look into the files for these.
+	    	   *  
 	    	   * */
 	    	  MedicalAssistance medicalassistanceModel = new MedicalAssistance();
 //	    	  medicalassistanceModel.setADAP(getByte(enroll.geta));
@@ -644,6 +654,29 @@ public class BulkUploadHelper {
 //	    	  youthcriticalissuesModel.setYouthCriticalIssuesID(enroll.getyou);
 	    	  youthCriticalIssuesList.add(youthcriticalissuesModel);
 	    	  
+	    	  CommercialSexualExploitation commercialSexualExploitationModel = new CommercialSexualExploitation();
+	    	  commercialSexualExploitationModel.setAskedOrForcedToExchangeForSex(getByte(enroll.getAskedOrForcedToExchangeForSex()));
+//	    	  commercialSexualExploitationModel.setCommercialSexualExploitationID(enroll.getcomm);
+	    	  commercialSexualExploitationModel.setCountOfExchangeForSex(getByte(enroll.getCountOfExchangeForSex()));
+//	    	  commercialSexualExploitationModel.setDataCollectionStage(getByte(enroll.getdata));
+	    	  commercialSexualExploitationModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  commercialSexualExploitationModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  commercialSexualExploitationModel.setExchangeForSexPastThreeMonths(getByte(enroll.getExchangeForSexPastThreeMonths()));
+	    	  commercialSexualExploitationModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  commercialSexualExploitationModel.setUserID(enroll.getUserID());
+	    	  commercialSexualExploitationList.add(commercialSexualExploitationModel);
+	    	  
+		      DomesticViolence domesticViolenceModel = new DomesticViolence();
+//		      domesticViolenceModel.setDataCollectionStage(getByte(enroll.getdata));
+		      domesticViolenceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+		      domesticViolenceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+//		      domesticViolenceModel.setDomesticViolenceID(enroll.getdom);
+//		      domesticViolenceModel.setDomesticViolenceVictiem(getByte(enroll.getdom));
+//		      domesticViolenceModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
+		      domesticViolenceModel.setProjectEntryID(enroll.getProjectEntryID());
+		      domesticViolenceModel.setUserID(enroll.getUserID());
+//		      domesticViolenceModel.setWhenOccurred(getByte(enroll.get));
+		      domesticViolenceList.add(domesticViolenceModel);
 	    	  
 	    	  /*
 	    	   * Services Table Fields are not related with Enrollment Table.. Need Clarification....
@@ -682,6 +715,8 @@ public class BulkUploadHelper {
     	  sources.getSource().getExport().setNonCashBenefits(nonCashBenefitsList);
     	  sources.getSource().getExport().setSexualOrientation(sexualOrientationList);
     	  sources.getSource().getExport().setYouthCriticalIssues(youthCriticalIssuesList);
+    	  sources.getSource().getExport().setCommercialSexualExploitation(commercialSexualExploitationList);
+    	  sources.getSource().getExport().setDomesticViolence(domesticViolenceList);
 	  }
 	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
@@ -833,6 +868,7 @@ public class BulkUploadHelper {
 	      CSVReader<Export> exportReader = new CSVReaderBuilder<Export>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Export>(Export.class, vpp)).build();
 	      List<Export> export = exportReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export> exportList = new ArrayList<Sources.Source.Export>();
 	      for(Export exp : export){
 	    	  
 	    	  sources.getSource().getExport().setExportDate(getXMLGregorianCalendar(exp.getExportDate()));
@@ -842,14 +878,45 @@ public class BulkUploadHelper {
 	    	  ExportPeriod exportPeriod = new ExportPeriod();
 	    	  exportPeriod.setEndDate(getXMLGregorianCalendar(exp.getExportEndDate()));
 	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
-	    	  
 	    	  sources.getSource().getExport().setExportPeriodType(exp.getExportPeriodType());
 	    	  
-	    	 /*
-	    	  * ----------------------------------- To be Continued -----------
-	    	  * 
-	    	  * */
+	    	 
+//	    	 exportModel.	(value);  Need to find out where the data is for affiliation.
 	    	  
+	    	  
+//	    	 exportModel.setConnectionWithSOAR(value);
+//	    	 exportModel.setDateOfEngagement(value);
+//	    	 exportModel.setDisabilities(value);
+//	    	 exportModel.setDomesticViolence(value);
+//	    	 exportModel.setEmployment(value);
+//	    	 exportModel.setExitPlansActions(value);
+//	    	 exportModel.setExitPlansActions(value);
+//	    	 exportModel.setFormerWardChildWelfare(value);
+//	    	 exportModel.setFormerWardJuvenileJustice(value);
+//	    	 exportModel.setHealthStatus(value);
+//	    	 exportModel.setHousingAssessmentDisposition(value);
+//	    	 exportModel.setIncomeAndSources(value);
+//	    	 exportModel.setInventory(value);
+//	    	 exportModel.setLastGradeCompleted(value);
+//	    	 exportModel.setLastPermanentAddress(value);
+//	    	 exportModel.setMedicalAssistance(value);
+//	    	 exportModel.setNonCashBenefits(value);
+//	    	 exportModel.setOrganization(value);
+//	    	 exportModel.setPATHStatus(value);
+//	    	 exportModel.setPercentAMI(value);
+//	    	 exportModel.setProjectCompletionStatus(value);
+//	    	 exportModel.setReferralSource(value);
+//	    	 exportModel.setResidentialMoveInDate(value);
+//	    	 exportModel.setRHYBCPStatus(value);
+//	    	 exportModel.setSchoolStatus(value);
+//	    	 exportModel.setServices(value);
+//	    	 exportModel.setSexualOrientation(value);
+//	    	 exportModel.setSite(value);
+//	    	 exportModel.setVeteranInfo(value);
+//	    	 exportModel.setYouthCriticalIssues(value);
+//	    	 exportModel.setWorstHousingSituation(value);
+	    	 
+	    	 
 	      }
 	      
 	      /***
@@ -1127,6 +1194,7 @@ public class BulkUploadHelper {
 	                      new AnnotationEntryParser<Project>(Project.class, vpp)).build();
 	      List<Project> project = projectReader.readAll();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project> projectList = new ArrayList<Sources.Source.Export.Project>();
+	      List<Affiliation> affiliationList = new ArrayList<Sources.Source.Export.Affiliation>();
 	      for(Project prjt : project) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project projectModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project();
 	    	  
@@ -1145,8 +1213,19 @@ public class BulkUploadHelper {
 	    	  projectModel.setUserID(prjt.getUserID());
 	    	  
 	    	  projectList.add(projectModel);
+	    	  
+	    	  Affiliation affiliationModel = new Affiliation();
+	    	  affiliationModel.setAffiliationID(prjt.getResidentialAffiliation());
+	    	  affiliationModel.setDateCreated(getXMLGregorianCalendar(prjt.getDateCreated()));
+	    	  affiliationModel.setDateUpdated(getXMLGregorianCalendar(prjt.getDateUpdated()));
+	    	  affiliationModel.setProjectID(prjt.getProjectID());
+	    	  affiliationModel.setResProjectID(prjt.getResidentialAffiliation()); 
+	    	  affiliationModel.setUserID(prjt.getUserID());
+	    	  affiliationList.add(affiliationModel);
+	    	  
 	    	  sources.getSource().getExport().getProject().add(projectModel);
 	      }
+	      sources.getSource().getExport().setAffiliation(affiliationList);
 	  }
 	  
 	  /**

@@ -49,7 +49,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		if(source !=null) {
 			com.servinglynk.hmis.warehouse.model.live.Source target = new com.servinglynk.hmis.warehouse.model.live.Source();
 			BeanUtils.copyProperties(source, target, getNonCollectionFields(target));
-			insert(target);
+			insertOrUpdate(target);
 		}
 	}
 

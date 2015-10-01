@@ -64,7 +64,12 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				if(rhybcpstatus !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus target = new com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus();
 					BeanUtils.copyProperties(rhybcpstatus, target, getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, rhybcpstatus.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addRhybcpstatus(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

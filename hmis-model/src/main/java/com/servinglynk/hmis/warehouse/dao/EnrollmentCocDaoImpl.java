@@ -65,7 +65,12 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				if(enrollmentCoc != null) {
 					com.servinglynk.hmis.warehouse.model.live.EnrollmentCoc target = new com.servinglynk.hmis.warehouse.model.live.EnrollmentCoc();
 					BeanUtils.copyProperties(enrollmentCoc, target,getNonCollectionFields(target));
-					insert(target);
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, enrollmentCoc.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addEnrollmentCoc(target);
+					insertOrUpdate(target);
 				}
 			}
 		}

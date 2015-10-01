@@ -76,7 +76,12 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			for(com.servinglynk.hmis.warehouse.model.staging.Disabilities disabilities : disabilitieses) {
 				com.servinglynk.hmis.warehouse.model.live.Disabilities target = new com.servinglynk.hmis.warehouse.model.live.Disabilities();
 				BeanUtils.copyProperties(disabilities, target,getNonCollectionFields(target));
-				insert(target);
+				com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, disabilities.getEnrollmentid().getId());
+				 target.setEnrollmentid(enrollmentModel);
+				 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+				 target.setExport(exportEntity);
+				 exportEntity.addDisabilities(target);
+				 insertOrUpdate(target);
 			}
 		}
 		

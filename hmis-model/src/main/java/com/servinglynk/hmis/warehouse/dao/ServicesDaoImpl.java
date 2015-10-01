@@ -5,9 +5,11 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
@@ -16,6 +18,7 @@ import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
+import com.servinglynk.hmis.warehouse.model.staging.Projectcompletionstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -57,8 +60,21 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 
 	@Override
 	public void hydrateLive(Export export) {
-		// TODO Auto-generated method stub
-		
+		Set<com.servinglynk.hmis.warehouse.model.staging.Services> servicesStaging = export.getServiceses();
+		if(servicesStaging != null && !servicesStaging.isEmpty()) {
+			for(com.servinglynk.hmis.warehouse.model.staging.Services services : servicesStaging) {
+				if(services != null) {
+					com.servinglynk.hmis.warehouse.model.live.Services target = new com.servinglynk.hmis.warehouse.model.live.Services();
+					BeanUtils.copyProperties(services, target,getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, services.getEnrollmentid().getId());
+					target.setEnrollmentid(enrollmentModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					target.setExport(exportEntity);
+					exportEntity.addServices(target);
+					insertOrUpdate(target);
+				}
+			}
+		}		
 	}
 
 	@Override
