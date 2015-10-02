@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<scm>
-		  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
 		<parent-version>0.0.1-SNAPSHOT</parent-version>
@@ -223,8 +223,8 @@
 			  <version>${parent-version}</version>
 			</dependency>
 	</dependencies>
-	 <build>
-	 	<plugins>
+		<build>
+		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
@@ -239,7 +239,14 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
-			 <plugin>
+			    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml> 
+                </configuration>
+            </plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
@@ -251,16 +258,45 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
-				</configuration>
-			</plugin>
-		</plugins> 
+			
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>tomcat-maven-plugin</artifactId>
+    <configuration>
+        <url>http://ec2-52-27-63-94.us-west-2.compute.amazonaws.com:8080/manager/text</url>
+        <server>TomcatServer</server>
+        <path>/hmis-admin</path>
+    </configuration>
+</plugin>
+
+		</plugins>
 	</build>
+	<repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://52.11.107.101:8080/nexus/content/groups/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://52.11.107.101:8080/nexus/content/groups/public</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories> 
 <distributionManagement>
   <repository>
      <id>deployment</id>
@@ -273,5 +309,4 @@
      <url>http://52.11.107.101:8080/nexus/content/repositories/snapshots/</url>
   </snapshotRepository>
 </distributionManagement>
-	<description>abc</description>
 </project>

@@ -8,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.servinglynk.hmis.warehouse.hbase.service.SyncUserService;
-import com.servinglynk.hmis.warehouse.sync.dao.SyncUserDao;
 import com.servinglynk.hmis.warehouse.sync.hbase.model.HmisUser;
 
 @Service
 public class SyncUserServiceImpl implements SyncUserService {
 
-	@Autowired
-	private SyncUserDao syncUserDao;
+//	@Autowired
+//	private SyncUserDao syncUserDao;
 //	
 //	@Autowired
 //	private SyncListDao syncListDao;
@@ -27,28 +26,14 @@ public class SyncUserServiceImpl implements SyncUserService {
 //		sync.setDateCreated(LocalDate.now());
 //		sync.setDateUpdated(LocalDate.now());
 //		Sync insertedSync = null;
-		try {
-			//insertedSync = (Sync)syncListDao.insert(sync);
-			for (HmisUser user : hmisUsers) {
-				syncUserDao.save(user);
-			}
-//			insertedSync.setStatus("COMPLETE");
-//			insertedSync.setDateUpdated(LocalDate.now());
-//			syncListDao.merge(insertedSync);
-		} catch (TIOError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		return true;
 	}
 	public List<HmisUser> getHmisUser(String rowKey){
 		HmisUser user = new HmisUser();
 		user.setId(rowKey);
 		try {
-			return syncUserDao.get(user);
+//			return syncUserDao.get(user);
 		} catch (Exception  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

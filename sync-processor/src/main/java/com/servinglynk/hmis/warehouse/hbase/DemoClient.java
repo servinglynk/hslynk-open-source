@@ -18,22 +18,12 @@
  */
 package com.servinglynk.hmis.warehouse.hbase;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
-import org.apache.hadoop.hbase.thrift2.generated.TGet;
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.MasterNotRunningException;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
-import org.apache.hadoop.hbase.thrift2.generated.TPut;
-import org.apache.hadoop.hbase.thrift2.generated.TResult;
 import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
 
 public class DemoClient {
   public static void main(String[] args) throws TIOError, TException {
@@ -44,8 +34,33 @@ public class DemoClient {
     int port = 9095;
     int timeout = 10000;
     boolean framed = false;
+    System.out.println("Hbase Demo Application ");
 
-    TTransport transport = new TSocket(host, port, timeout);
+    // CONFIGURATION
+
+        // ENSURE RUNNING
+    try {
+        HBaseConfiguration config = new HBaseConfiguration();
+        config.clear();
+        config.set("hbase.zookeeper.quorum", host);
+        config.set("hbase.zookeeper.property.clientPort","2181");
+      //  config.set("hbase.master", "192.168.15.20:60000");
+        //HBaseConfiguration config = HBaseConfiguration.create();
+//config.set("hbase.zookeeper.quorum", "localhost");  // Here we are running zookeeper locally
+        HBaseAdmin.checkHBaseAvailable(config);
+
+
+        System.out.println("HBase is running!");
+    //  createTable(config);    
+        //creating a new table
+        HTable table = new HTable(config, "emp");
+        System.out.println("Table mytable obtained ");  
+       // addData(table);
+    } catch (MasterNotRunningException e) {
+        System.out.println("HBase is not running!");
+        System.exit(1);
+    }catch (Exception ce){ ce.printStackTrace();}
+   /* TTransport transport = new TSocket(host, port, timeout);
     if (framed) {
       transport = new TFramedTransport(transport);
     }
@@ -57,9 +72,9 @@ public class DemoClient {
     transport.open();
     
     ByteBuffer table = ByteBuffer.wrap("emp".getBytes());
-
+/*
     TPut put = new TPut();
-    put.setRow("row1".getBytes());
+    put.setRow("123".getBytes());
 
     TColumnValue columnValue = new TColumnValue();
     columnValue.setFamily("cf1".getBytes());
@@ -70,10 +85,10 @@ public class DemoClient {
     columnValues.add(columnValue);
     put.setColumnValues(columnValues);
 
-    client.put(table, put) ;
+    client.put(table, put) ; */
 
-    TGet get = new TGet();
-    get.setRow("row1".getBytes());
+  /*  TGet get = new TGet();
+    get.setRow("456".getBytes());
     get.setMaxVersions(5); 
     TResult result = client.get(table, get);
 
@@ -86,5 +101,6 @@ public class DemoClient {
     }
     
     transport.close();
+  } */
   }
 }

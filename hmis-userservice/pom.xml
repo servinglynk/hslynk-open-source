@@ -6,7 +6,7 @@
   <packaging>war</packaging>
   
   	<scm>	
-			  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
 		<parent-version>0.0.1-SNAPSHOT</parent-version>

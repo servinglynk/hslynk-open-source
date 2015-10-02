@@ -19,6 +19,8 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
+import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;

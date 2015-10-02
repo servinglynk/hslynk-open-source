@@ -16,7 +16,7 @@
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 	</properties>
 		  <scm>
-		  	<connection>scm:https://github.com/servinglynk/servinglynk-hmis.git</connection>
+		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<dependencies>
 	<!-- Apache Commons FileUpload --> 
