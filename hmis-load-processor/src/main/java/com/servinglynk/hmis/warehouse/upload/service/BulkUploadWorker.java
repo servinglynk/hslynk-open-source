@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -78,15 +79,33 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	
 	}
 	
-	private void moveFile(String inputPath,String outputPath)
+	private void moveFile(String inputPath,String outputPath) throws IOException
 	{
+		
+		if(inputPath.contains(".zip")) {
+			moveZipFile(inputPath, outputPath);
+		}
+		else{
+			moveXMLFile(inputPath, outputPath);
+		}
+	}
+	
+	private void moveZipFile(String inputPath, String outputPath) {
+		FileOutputStream foutOutput = null;
+        File f = new File(inputPath);
+        f.renameTo(new File(outputPath));
+	}
+	private void moveXMLFile(String inputPath, String outputPath) throws IOException {
+		File fin = null;
+		FileInputStream fis =null;
+		FileWriter fstream = null;
 	    	try{
 	 
-	    	    File fin = new File(inputPath);
-	    		FileInputStream fis = new FileInputStream(fin);
+	    	    fin = new File(inputPath);
+	    		fis = new FileInputStream(fin);
 	    		BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 	     
-	    		FileWriter fstream = new FileWriter(outputPath, true);
+	    		fstream = new FileWriter(outputPath, true);
 	    		BufferedWriter out = new BufferedWriter(fstream);
 	     
 	    		String aLine = null;
@@ -111,7 +130,12 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	    	}catch(IOException e){
 	    	    e.printStackTrace();
 	    	}
-	    }
+	    	finally {
+	    		 if (fis != null) fis.close();
+	    		 if (fstream !=null) fstream.close();
+	    	}
+
+	}
 //	@Transactional
 //	@Scheduled(initialDelay=20,fixedDelay=10000)
 //	public void processRollUp() throws ReportCreationException{

@@ -100,7 +100,18 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 	@Override
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.staging.Export export) {
-				throw new UnsupportedOperationException("This method is not supported");
+		Set<com.servinglynk.hmis.warehouse.model.staging.VeteranInfo> veteranInfos = export.getVeteranInfoes();
+		if(veteranInfos !=null && !veteranInfos.isEmpty()) {
+			for(com.servinglynk.hmis.warehouse.model.staging.VeteranInfo veteranInfo : veteranInfos) {
+				com.servinglynk.hmis.warehouse.model.live.VeteranInfo target = new com.servinglynk.hmis.warehouse.model.live.VeteranInfo();
+				BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
+				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, veteranInfo.getExport().getId());
+				target.setExport(exportEntity);
+				com.servinglynk.hmis.warehouse.model.live.Client clientModel = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, veteranInfo.getClient().getId());
+				target.setClient(clientModel);
+				insert(target);
+			}
+		}
 	}
 	
 	@Override

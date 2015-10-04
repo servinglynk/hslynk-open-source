@@ -109,8 +109,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			insert(target);	
 		}
 		
-		//parentDaoFactory.getClientDao().hydrateLive(export);
-		//parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
+		parentDaoFactory.getClientDao().hydrateLive(export);
+		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
 		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export);
 		parentDaoFactory.getDateofengagementDao().hydrateLive(export);

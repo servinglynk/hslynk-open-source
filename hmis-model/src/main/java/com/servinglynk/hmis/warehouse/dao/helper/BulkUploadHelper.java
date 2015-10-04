@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.PrivilegedActionException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,7 +63,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FamilyReunifi
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardChildWelfare;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardJuvenileJustice;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
@@ -352,7 +350,6 @@ public class BulkUploadHelper {
 	    			  lastGradeCompletedModel.setUserID(employementEducationCSV.getUserID());
 	    			  lastGradeCompletedModel.setLastGradeCompleted(getByte(employementEducationCSV.getLastGradeCompleted()));
 	    			  lastGradeCompletedList.add(lastGradeCompletedModel);
-	    			  
 	    		  }
 	    		  sources.getSource().getExport().setEmployment(employmentList);
 	    		  sources.getSource().getExport().setLastGradeCompleted(lastGradeCompletedList);
@@ -380,22 +377,15 @@ public class BulkUploadHelper {
 	      List<RHYBCPStatus> rhybcpStatusList = new ArrayList<RHYBCPStatus>();
 	      List<FormerWardChildWelfare> formerWardChildWelfareList = new ArrayList<FormerWardChildWelfare>();
 	      List<FormerWardJuvenileJustice> formerwardjuvenilejusticeList = new ArrayList<Sources.Source.Export.FormerWardJuvenileJustice>();
-	      List<LastGradeCompleted> lastgradecompletedList = new ArrayList<LastGradeCompleted>();
 	      List<PATHStatus> pathStatusList = new ArrayList<PATHStatus>();
 	      
-	      List<HealthInsurance> healthInsuranceList = new ArrayList<HealthInsurance>();
-	      List<HealthStatus> healthStatusList = new ArrayList<HealthStatus>();
 	      List<LastPermanentAddress> lastPermanentAddressList = new ArrayList<LastPermanentAddress>();
-	      List<MedicalAssistance> medicalAssistanceList = new ArrayList<MedicalAssistance>();
-	      List<NonCashBenefits> nonCashBenefitsList = new ArrayList<NonCashBenefits>();
 	      List<ReferralSource> referralSourceList = new ArrayList<Sources.Source.Export.ReferralSource>();
 	      List<SexualOrientation> sexualOrientationList = new ArrayList<SexualOrientation>();
 	      List<YouthCriticalIssues> youthCriticalIssuesList = new ArrayList<YouthCriticalIssues>();
 	      List<Services> servicesList = new ArrayList<Services>();
 	      
 	      List<CommercialSexualExploitation> commercialSexualExploitationList = new ArrayList<CommercialSexualExploitation>();
-	      List<DomesticViolence> domesticViolenceList = new ArrayList<DomesticViolence>();
-	      
 	      	      
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
@@ -449,17 +439,6 @@ public class BulkUploadHelper {
 	    	  worsthousingsituationModel.setWorstHousingSituation(getByte(enroll.getWorstHousingSituation()));
 //	    	  worsthousingsituationModel.setWorstHousingSituationID(enroll.getwo);
 	    	  worsthousingsituationtList.add(worsthousingsituationModel);
-	    	  
-	    	  LastGradeCompleted lastgradecompletedModel = new LastGradeCompleted();
-//	    	  lastgradecompletedModel.setDataCollectionStage(getByte(enroll.getdataco));
-	    	  lastgradecompletedModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  lastgradecompletedModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  lastgradecompletedModel.setInformationDate(getXMLGregorianCalendar(enroll.getinfor));
-//	    	  lastgradecompletedModel.setLastGradeCompleted(getByte(enroll.getlas));
-//	    	  lastgradecompletedModel.setLastGradeCompletedID(enroll.getlaS);
-	    	  lastgradecompletedModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  lastgradecompletedModel.setUserID(enroll.getUserID());
-	    	  lastgradecompletedList.add(lastgradecompletedModel);
 	    	  
 	    	  PATHStatus pathstatusModel = new PATHStatus();;
 	    	  pathstatusModel.setClientEnrolledInPATH(getByte(enroll.getClientEnrolledInPATH()));
@@ -519,37 +498,6 @@ public class BulkUploadHelper {
 	    	  formerwardjuvenilejusticeModel.setUserID(enroll.getUserID());
 	    	  formerwardjuvenilejusticeList.add(formerwardjuvenilejusticeModel);
 	    	  
-	    	  /*
-	    	   * HEALTHINSURANCE Table Fields are not related with Enrollment Table.. Need Clarification....
-	    	   * 
-	    	   *
-	    	   * */
-	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
-//	    	  healthinsuranceModel.setCOBRA(getByte(enroll.getco));
-//	    	  healthinsuranceModel.setDataCollectionStage(getByte(enroll.getdata));
-	    	  healthinsuranceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    //	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(enroll.getDateDeleted()));
-	    	  healthinsuranceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  healthinsuranceModel.setEmployerProvided(getByte(enroll.gete));
-//	    	  healthinsuranceModel.setHealthInsuranceID(enroll.gethea);
-//	    	  healthinsuranceModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
-//	    	  healthinsuranceModel.setInsuranceFromAnySource(getByte(enroll.geti));
-//	    	  healthinsuranceModel.setMedicaid(getByte(enroll.getme));
-	    	  // sources.getSource().getExport().getHealthInsurance().add(healthinsuranceModel);
-	    	  /*
-	    	   * HEALTHSTATUS Table Fields are not related with Enrollment Table.. Need Clarification....
-	    	   * 
-	    	   *
-	    	   * */
-	    	  HealthStatus healthStatusModel = new HealthStatus();
-//	    	  healthStatusModel.setDataCollectionStage(getByte(enroll.getdataco));
-	    	  healthStatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  healthStatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  healthStatusModel.setDueDate(getXMLGregorianCalendar(enroll.getd));
-//	    	  healthStatusModel.setHealthCategory(getByte(enroll.geth));
-	    	  healthStatusList.add(healthStatusModel);
-	    	  
-	    	  
 	    	  LastPermanentAddress lastpermanentaddressModel = new LastPermanentAddress();
 	    	  lastpermanentaddressModel.setAddressDataQuality(getByte(enroll.getAddressDataQuality()));
 	    	  lastpermanentaddressModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
@@ -565,38 +513,6 @@ public class BulkUploadHelper {
 	    	  lastpermanentaddressModel.setUserID(enroll.getUserID());
 	    	  lastPermanentAddressList.add(lastpermanentaddressModel);
 	    	  
-	    	  /*
-	    	   * MedicalAssistance Table Fields are not related with Enrollment Table.. Need Clarification....
-	    	   * 
-	    	   *  NEED to See where will we get MedicalAssistance ,NonCashBenefits , HealthInsurance and HealthStatus, DomesticViolence and service. 
-	    	   *  Lets look into the files for these.
-	    	   *  
-	    	   * */
-	    	  MedicalAssistance medicalassistanceModel = new MedicalAssistance();
-//	    	  medicalassistanceModel.setADAP(getByte(enroll.geta));
-//	    	  medicalassistanceModel.setDataCollectionStage(getByte(enroll.getdataco));
-	    	  medicalassistanceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  medicalassistanceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  medicalassistanceModel.setHIVAIDSAssistance(getByte(enroll.geth));
-//	    	  medicalassistanceModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
-//	    	  medicalassistanceModel.setMedicalAssistanceID(enroll.getmedic);
-//	    	  medicalassistanceModel.setNoADAPReason(getByte(enroll.getn));
-	    	  medicalAssistanceList.add(medicalassistanceModel);
-	    	  
-	    	  /*
-	    	   * NonCashBenefits Table Fields are not related with Enrollment Table.. Need Clarification....
-	    	   * 
-	    	   *
-	    	   * */
-	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();
-//	    	  noncashbenefitsModel.setBenefitsFromAnySource(getByte(enroll.getb));
-//	    	  noncashbenefitsModel.setDataCollectionStage(getByte(enroll.getdata));
-	    	  noncashbenefitsModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  noncashbenefitsModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(enroll.getinfo));
-//	    	  noncashbenefitsModel.setNonCashBenefitsID(enroll.getnonc);
-//	    	  noncashbenefitsModel.setOtherSource(getByte(enroll.getOther));
-	    	  nonCashBenefitsList.add(noncashbenefitsModel);
 	    	  
 	    	  ReferralSource referralsourceModel = new ReferralSource();
 	    	  referralsourceModel.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
@@ -610,7 +526,7 @@ public class BulkUploadHelper {
 	    	  sources.getSource().getExport().setReferralSource(referralsourceModel);
 	    	  
 	    	  SexualOrientation sexualorientationModel = new SexualOrientation();
-//	    	  sexualorientationModel.setDataCollectionStage(getByte(enroll.getdata));
+//	    	  sexualorientationModel.setDataCollectionStage(getByte(enroll.getC));
 	    	  sexualorientationModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  sexualorientationModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	  sexualorientationModel.setProjectEntryID(enroll.getProjectEntryID());
@@ -666,29 +582,6 @@ public class BulkUploadHelper {
 	    	  commercialSexualExploitationModel.setUserID(enroll.getUserID());
 	    	  commercialSexualExploitationList.add(commercialSexualExploitationModel);
 	    	  
-		      DomesticViolence domesticViolenceModel = new DomesticViolence();
-//		      domesticViolenceModel.setDataCollectionStage(getByte(enroll.getdata));
-		      domesticViolenceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-		      domesticViolenceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//		      domesticViolenceModel.setDomesticViolenceID(enroll.getdom);
-//		      domesticViolenceModel.setDomesticViolenceVictiem(getByte(enroll.getdom));
-//		      domesticViolenceModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
-		      domesticViolenceModel.setProjectEntryID(enroll.getProjectEntryID());
-		      domesticViolenceModel.setUserID(enroll.getUserID());
-//		      domesticViolenceModel.setWhenOccurred(getByte(enroll.get));
-		      domesticViolenceList.add(domesticViolenceModel);
-	    	  
-	    	  /*
-	    	   * Services Table Fields are not related with Enrollment Table.. Need Clarification....
-	    	   * 
-	    	   *There is a separate function named as hydradeServices is available. whether it is required to write services table data here or not?
-	    	   * */
-	    	  Services servicesModel = new Services();
-//	    	  servicesModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-//	    	  servicesModel.setDateDeleted(getXMLGregorianCalendar(enroll.getDateDeleted()));
-//	    	  servicesModel.setDateProvided(getXMLGregorianCalendar(enroll.getdate));
-//	    	  servicesModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  servicesModel.setReferralOutcome(enroll.getre);
 	    	  
 	    	  /*
 	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
@@ -699,24 +592,18 @@ public class BulkUploadHelper {
 	    	   * */
 	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
-	      
+	      	      
 		  sources.getSource().getExport().setPATHStatus(pathStatusList);
-    	  sources.getSource().getExport().setLastGradeCompleted(lastgradecompletedList);
     	  sources.getSource().getExport().setWorstHousingSituation(worsthousingsituationtList);
     	  sources.getSource().getExport().setPercentAMI(percentAMIList);
     	  sources.getSource().getExport().setRHYBCPStatus(rhybcpStatusList);
     	  sources.getSource().getExport().setFormerWardChildWelfare(formerWardChildWelfareList);
     	  sources.getSource().getExport().setFormerWardJuvenileJustice(formerwardjuvenilejusticeList);
-    	  sources.getSource().getExport().setHealthStatus(healthStatusList);
     	  sources.getSource().getExport().setLastPermanentAddress(lastPermanentAddressList);
-    	  //sources.getSource().getExport().setMedicalAssistance(medicalAssistanceList);
-	      sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
     	  sources.getSource().getExport().setDateOfEngagement(dateOfEngagementList);
-    	  sources.getSource().getExport().setNonCashBenefits(nonCashBenefitsList);
     	  sources.getSource().getExport().setSexualOrientation(sexualOrientationList);
     	  sources.getSource().getExport().setYouthCriticalIssues(youthCriticalIssuesList);
     	  sources.getSource().getExport().setCommercialSexualExploitation(commercialSexualExploitationList);
-    	  sources.getSource().getExport().setDomesticViolence(domesticViolenceList);
 	  }
 	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
@@ -870,7 +757,6 @@ public class BulkUploadHelper {
 	      List<Export> export = exportReader.readAll();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export> exportList = new ArrayList<Sources.Source.Export>();
 	      for(Export exp : export){
-	    	  
 	    	  sources.getSource().getExport().setExportDate(getXMLGregorianCalendar(exp.getExportDate()));
 	    	  sources.getSource().getExport().setExportDirective(exp.getExportDirective());
 	    	  // Sandeep TODO: Need to change the ExportID to a String verses a byte
@@ -879,44 +765,6 @@ public class BulkUploadHelper {
 	    	  exportPeriod.setEndDate(getXMLGregorianCalendar(exp.getExportEndDate()));
 	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
 	    	  sources.getSource().getExport().setExportPeriodType(exp.getExportPeriodType());
-	    	  
-	    	 
-//	    	 exportModel.	(value);  Need to find out where the data is for affiliation.
-	    	  
-	    	  
-//	    	 exportModel.setConnectionWithSOAR(value);
-//	    	 exportModel.setDateOfEngagement(value);
-//	    	 exportModel.setDisabilities(value);
-//	    	 exportModel.setDomesticViolence(value);
-//	    	 exportModel.setEmployment(value);
-//	    	 exportModel.setExitPlansActions(value);
-//	    	 exportModel.setExitPlansActions(value);
-//	    	 exportModel.setFormerWardChildWelfare(value);
-//	    	 exportModel.setFormerWardJuvenileJustice(value);
-//	    	 exportModel.setHealthStatus(value);
-//	    	 exportModel.setHousingAssessmentDisposition(value);
-//	    	 exportModel.setIncomeAndSources(value);
-//	    	 exportModel.setInventory(value);
-//	    	 exportModel.setLastGradeCompleted(value);
-//	    	 exportModel.setLastPermanentAddress(value);
-//	    	 exportModel.setMedicalAssistance(value);
-//	    	 exportModel.setNonCashBenefits(value);
-//	    	 exportModel.setOrganization(value);
-//	    	 exportModel.setPATHStatus(value);
-//	    	 exportModel.setPercentAMI(value);
-//	    	 exportModel.setProjectCompletionStatus(value);
-//	    	 exportModel.setReferralSource(value);
-//	    	 exportModel.setResidentialMoveInDate(value);
-//	    	 exportModel.setRHYBCPStatus(value);
-//	    	 exportModel.setSchoolStatus(value);
-//	    	 exportModel.setServices(value);
-//	    	 exportModel.setSexualOrientation(value);
-//	    	 exportModel.setSite(value);
-//	    	 exportModel.setVeteranInfo(value);
-//	    	 exportModel.setYouthCriticalIssues(value);
-//	    	 exportModel.setWorstHousingSituation(value);
-	    	 
-	    	 
 	      }
 	      
 	      /***
@@ -973,30 +821,45 @@ public class BulkUploadHelper {
 	      CSVReader<HealthAndDV> healthAndDVReader = new CSVReaderBuilder<HealthAndDV>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<HealthAndDV>(HealthAndDV.class, vpp)).build();
 	      List<HealthAndDV> healthAndDV = healthAndDVReader.readAll();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus> healthAndDVList = new ArrayList<Sources.Source.Export.HealthStatus>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus> healthStatusList = new ArrayList<Sources.Source.Export.HealthStatus>();
+	      List<DomesticViolence> domesticViolenceList = new ArrayList<DomesticViolence>();
 	      for(HealthAndDV healthDV : healthAndDV) {
-	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus healthAndDVModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus();
-	    	  healthAndDVModel.setDataCollectionStage(getByte(healthDV.getDataCollectionStage()));
-	    	  healthAndDVModel.setDateCreated(getXMLGregorianCalendar(healthDV.getDateCreated()));
-	    	  healthAndDVModel.setDateUpdated(getXMLGregorianCalendar(healthDV.getDateUpdated()));
-	    	  healthAndDVModel.setDueDate(getXMLGregorianCalendar(healthDV.getDueDate()));
-	    	  healthAndDVModel.setHealthStatus(getByte(healthDV.getGeneralHealthStatus()));
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus healthStatus = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus();
+	    	  healthStatus.setDataCollectionStage(getByte(healthDV.getDataCollectionStage()));
+	    	  healthStatus.setDateCreated(getXMLGregorianCalendar(healthDV.getDateCreated()));
+	    	  healthStatus.setDateUpdated(getXMLGregorianCalendar(healthDV.getDateUpdated()));
+	    	  healthStatus.setDueDate(getXMLGregorianCalendar(healthDV.getDueDate()));
+	    	  healthStatus.setHealthStatus(getByte(healthDV.getGeneralHealthStatus()));
 //	    	  healthAndDVModel.setHealthStatusID(healthDV.getHea);
 //	    	  healthAndDVModel.setHealthCategory(getByte(healthDV.get));
-	    	  healthAndDVModel.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
-	    	  healthAndDVModel.setProjectEntryID(healthDV.getProjectEntryID());
-	    	  healthAndDVModel.setUserID(healthDV.getUserID());
+	    	  healthStatus.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
+	    	  healthStatus.setProjectEntryID(healthDV.getProjectEntryID());
+	    	  healthStatus.setUserID(healthDV.getUserID());
+	    	  healthStatusList.add(healthStatus);
 	    	  
-	    	  
+	    	   DomesticViolence domesticViolenceModel = new DomesticViolence();
+			      domesticViolenceModel.setDataCollectionStage(getByte(healthDV.getDataCollectionStage()));
+			      domesticViolenceModel.setDateCreated(getXMLGregorianCalendar(healthDV.getDateCreated()));
+			      domesticViolenceModel.setDateUpdated(getXMLGregorianCalendar(healthDV.getDateUpdated()));
+			      domesticViolenceModel.setDomesticViolenceID(healthDV.getHealthAndDVID());
+			      domesticViolenceModel.setDomesticViolenceVictim(getByte(healthDV.getDomesticViolenceVictim()));
+			      domesticViolenceModel.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
+			      domesticViolenceModel.setProjectEntryID(healthDV.getProjectEntryID());
+			      domesticViolenceModel.setUserID(healthDV.getUserID());
+			      domesticViolenceModel.setWhenOccurred(getByte(healthDV.getWhenOccurred()));
+			      domesticViolenceList.add(domesticViolenceModel);
+		    	  
+			    
 	    	  /**
 	    	   * 
 	    	   * Fields to be compared between pojos in CSV and Export Package.
 	    	   * there are few fields missing in HealthStatus.java pojo in export package when compared with HealthAndDV.java under CSV package.
 	    	   *
 	    	   */
-	    	  healthAndDVList.add(healthAndDVModel);
+	    	  
 	      }
-	      sources.getSource().getExport().setHealthStatus(healthAndDVList);
+	      sources.getSource().getExport().setHealthStatus(healthStatusList);
+	      sources.getSource().getExport().setDomesticViolence(domesticViolenceList);
 	  }
 	  
 	  /**
@@ -1012,6 +875,8 @@ public class BulkUploadHelper {
 	                      new AnnotationEntryParser<IncomeBenefits>(IncomeBenefits.class, vpp)).build();
 	      List<IncomeBenefits> incomeBenefits = incomeBenefitsReader.readAll(); 
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources> incomeBenefitsList = new ArrayList<Sources.Source.Export.IncomeAndSources>();
+	      List<NonCashBenefits> nonCashBenefitsList = new ArrayList<NonCashBenefits>();
+	      List<MedicalAssistance> medicalAssistanceList = new ArrayList<MedicalAssistance>();
 	      for(IncomeBenefits incomeBnfts : incomeBenefits) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources incomeBenefitsModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources();
 	    	  
@@ -1089,6 +954,58 @@ public class BulkUploadHelper {
 	    		  incomeBenefitsModel.setWorkersCompAmount(Float.valueOf(incomeBnfts.getWorkersCompAmount()));
 	    	  }
 	    	  
+	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();
+	    	  noncashbenefitsModel.setBenefitsFromAnySource(getByte(incomeBnfts.getBenefitsFromAnySource()));
+	    	  noncashbenefitsModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  noncashbenefitsModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
+	    	  noncashbenefitsModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
+	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
+//	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getNon);
+	    	  noncashbenefitsModel.setOtherSource(getByte(incomeBnfts.getOtherBenefitsSource()));
+	    	  nonCashBenefitsList.add(noncashbenefitsModel);
+	    	  
+	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
+	    	  healthinsuranceModel.setCOBRA(getByte(incomeBnfts.getCOBRA()));
+	    	  healthinsuranceModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  healthinsuranceModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
+	    	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(incomeBnfts.getDateDeleted()));
+	    	  healthinsuranceModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
+	    	  healthinsuranceModel.setEmployerProvided(getByte(incomeBnfts.getEmployerProvided()));
+//	    	  healthinsuranceModel.setHealthInsuranceID(incomeBnfts.getH);
+	    	  healthinsuranceModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
+	    	  healthinsuranceModel.setInsuranceFromAnySource(getByte(incomeBnfts.getIncomeFromAnySource()));
+	    	  healthinsuranceModel.setMedicaid(getByte(incomeBnfts.getMedicaid()));
+	    	  healthinsuranceModel.setMedicare(getByte(incomeBnfts.getMedicare()));
+	    	  healthinsuranceModel.setNoCOBRAReason(getByte(incomeBnfts.getNoCOBRAReason()));
+	    	  healthinsuranceModel.setNoEmployerProvidedReason(getByte(incomeBnfts.getNoEmployerProvidedReason()));
+	    	  healthinsuranceModel.setNoMedicareReason(getByte(incomeBnfts.getNoMedicareReason()));
+	    	  healthinsuranceModel.setNoMedicaidReason(getByte(incomeBnfts.getNoMedicaidReason()));
+	    	  healthinsuranceModel.setNoPrivatePayReason(getByte(incomeBnfts.getNoPrivatePayReason()));
+	    	  healthinsuranceModel.setNoSCHIPReason(getByte(incomeBnfts.getNoSCHIPReason()));
+	    	  healthinsuranceModel.setNoStateHealthInsReason(getByte(incomeBnfts.getNoStateHealthInsReason()));
+	    	  healthinsuranceModel.setNoVAMedReason(getByte(incomeBnfts.getNoVAMedReason()));
+	    	  healthinsuranceModel.setPrivatePay(getByte(incomeBnfts.getPrivatePay()));
+	    	  healthinsuranceModel.setProjectEntryID(incomeBnfts.getProjectEntryID());
+	    	  healthinsuranceModel.setSCHIP(getByte(incomeBnfts.getSCHIP()));
+	    	  healthinsuranceModel.setStateHealthIns(getByte(incomeBnfts.getStateHealthIns()));
+	    	  healthinsuranceModel.setUserID(incomeBnfts.getUserID());
+	    	  healthinsuranceModel.setVAMedicalServices(getByte(incomeBnfts.getVAMedicalServices()));
+	    	  sources.getSource().getExport().getHealthInsurance().add(healthinsuranceModel);
+	    	  
+	    	  MedicalAssistance medicalassistanceModel = new MedicalAssistance();
+	    	  medicalassistanceModel.setADAP(getByte(incomeBnfts.getADAP()));
+	    	  medicalassistanceModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  medicalassistanceModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
+	    	  medicalassistanceModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
+	    	  medicalassistanceModel.setHIVAIDSAssistance(getByte(incomeBnfts.getHIVAIDSAssistance()));
+	    	  medicalassistanceModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
+//	    	  medicalassistanceModel.setMedicalAssistanceID(enroll.getmedic);
+	    	  medicalassistanceModel.setNoADAPReason(getByte(incomeBnfts.getNoADAPReason()));
+	    	  medicalassistanceModel.setNoHIVAIDSAssistanceReason(getByte(incomeBnfts.getNoHIVAIDSAssistanceReason()));
+	    	  medicalassistanceModel.setProjectEntryID(incomeBnfts.getProjectEntryID());
+	    	  medicalassistanceModel.setUserID(incomeBnfts.getUserID());
+	    	  medicalAssistanceList.add(medicalassistanceModel);
+	    	  
 	    	  /**
 	    	   * 
 	    	   * Fields to be compared between pojos in CSV and Export Package.
@@ -1098,6 +1015,8 @@ public class BulkUploadHelper {
 	    	  incomeBenefitsList.add(incomeBenefitsModel);
 	      }
 	      sources.getSource().getExport().setIncomeAndSources(incomeBenefitsList);
+	      sources.getSource().getExport().setNonCashBenefits(nonCashBenefitsList);
+	      sources.getSource().getExport().setMedicalAssistance(medicalAssistanceList);
 	  }
 	  
 	  /**
@@ -1365,6 +1284,31 @@ public class BulkUploadHelper {
 		  }
 		  Date dob=null;
 		  DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+		  try {
+			  dob=df.parse(date);  
+		  }catch(ParseException ex) {
+			  
+		  }
+		  
+		  GregorianCalendar cal = new GregorianCalendar();
+
+		  cal.setTime(dob);
+		  XMLGregorianCalendar xmlDate2=null;
+		try {
+			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return xmlDate2;
+		}
+	  
+	  protected XMLGregorianCalendar getXMLGregorianCalendarMMddyyyy(String date) {
+		  if(date == null || "".equals(date)) {
+			  return null;
+		  }
+		  Date dob=null;
+		  DateFormat df=new SimpleDateFormat("MM/dd/yyyy");
 		  try {
 			  dob=df.parse(date);  
 		  }catch(ParseException ex) {

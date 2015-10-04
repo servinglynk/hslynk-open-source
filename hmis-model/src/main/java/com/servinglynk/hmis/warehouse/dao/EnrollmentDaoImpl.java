@@ -136,11 +136,13 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				if(enrollment !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Enrollment target = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
 					BeanUtils.copyProperties(enrollment, target,getNonCollectionFields(target));
-					parentDaoFactory.getClientDao().hydrateLive(enrollment.getClient());
-					parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
+					com.servinglynk.hmis.warehouse.model.live.Client client = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, enrollment.getClient().getId());
+					target.setClient(client);
+				//	parentDaoFactory.getClientDao().hydrateLive(enrollment.getClient());
+				//	parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
-					insertOrUpdate(target);
+					insert(target);
 				}
 			}
 		}
