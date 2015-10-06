@@ -26,9 +26,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.live.Enrollment;
-import com.servinglynk.hmis.warehouse.model.live.Export;
+import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
+import com.servinglynk.hmis.warehouse.model.staging.Export;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
@@ -107,8 +107,7 @@ public class BulkUploaderTest {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExport() !=null) {
-				domain.setExportId(upload.getExport().getId());
-				dao.moveFromStagingToLive(domain);		
+				dao.moveFromStagingToLive(upload.getExport().getId());		
 			}
 		}
 		

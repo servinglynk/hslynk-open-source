@@ -80,7 +80,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrienta
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
 
 @Component
 public class BulkUploadHelper {

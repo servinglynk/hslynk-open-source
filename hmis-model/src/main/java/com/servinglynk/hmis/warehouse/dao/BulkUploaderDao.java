@@ -5,8 +5,7 @@ import java.util.UUID;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
 
 @Transactional(propagation = Propagation.REQUIRED) 
 public interface BulkUploaderDao {
@@ -14,5 +13,5 @@ public interface BulkUploaderDao {
 	BulkUpload performBulkUpload(BulkUpload upload);
 	public void deleteStagingByExportId(UUID exportId);
 	public void deleteLiveByExportId(UUID exportId);
-	public void moveFromStagingToLive(ExportDomain domain);
+	public void moveFromStagingToLive(UUID exportId);
 }

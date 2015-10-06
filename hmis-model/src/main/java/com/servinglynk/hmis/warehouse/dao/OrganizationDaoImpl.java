@@ -64,10 +64,10 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					target.setExport(exportEntity);
 					exportEntity.addOrganization(target);
 					insertOrUpdate(target);
-					for(Project project : organization.getProjects()) {
-						com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,project.getId());
-						projectModel.setOrganizationid(target);
-					}
+//					for(Project project : organization.getProjects()) {
+//						com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,project.getId());
+//						projectModel.setOrganizationid(target);
+//					}
 				}
 			}
 			

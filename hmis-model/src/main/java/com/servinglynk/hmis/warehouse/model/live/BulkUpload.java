@@ -51,7 +51,7 @@ public class BulkUpload  implements Cloneable, Serializable {
 	 * @return A Export object (this.export)
 	 */
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	//@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = true )
 	@JoinColumn(name = "export_id", nullable = true )
 	public Export getExport() {

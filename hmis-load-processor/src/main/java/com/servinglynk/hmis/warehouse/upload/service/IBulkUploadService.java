@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.upload.service;
 
 import java.util.List;
 
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.IParentService;
 
 

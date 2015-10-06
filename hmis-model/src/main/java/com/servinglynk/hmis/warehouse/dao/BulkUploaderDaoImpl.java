@@ -6,13 +6,14 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
@@ -24,6 +25,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	BulkUploadHelper bulkUploadHelper;
 	
 	@Override
+	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload) {
 		try {
 			
@@ -83,10 +85,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain);
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus("STAGING");
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			moveFromStagingToLive(domain);
-			upload.setStatus("LIVE");
-			com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, exportId);
+			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 			upload.setExport(exportEntity);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
@@ -95,8 +94,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		return upload;
 	}
 	
-	public void moveFromStagingToLive(ExportDomain domain) {
-		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+	@Override
+	@Transactional
+	public void moveFromStagingToLive(UUID exportId) {
+		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 		parentDaoFactory.getSourceDao().hydrateLive(export);
 		if(export!=null) {
 			com.servinglynk.hmis.warehouse.model.live.Export target = new com.servinglynk.hmis.warehouse.model.live.Export();

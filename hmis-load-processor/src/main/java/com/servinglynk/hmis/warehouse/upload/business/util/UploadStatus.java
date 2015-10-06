@@ -4,8 +4,9 @@ public enum UploadStatus {
 	
 	INITIAL("INITIAL"),
 	INPROGRESS("INPROGRESS"),
-	COMPLETE("COMPLETE");
-	
+	COMPLETE("COMPLETE"),
+	STAGING("STAGING"),
+	LIVE("LIVE");
 	private String status;
 	
 	private UploadStatus(String status) {
