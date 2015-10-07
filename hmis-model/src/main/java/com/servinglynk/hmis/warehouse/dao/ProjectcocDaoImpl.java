@@ -70,10 +70,16 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 				if(projectcoc != null) {
 					com.servinglynk.hmis.warehouse.model.live.Projectcoc target = new com.servinglynk.hmis.warehouse.model.live.Projectcoc();
 					BeanUtils.copyProperties(projectcoc, target,getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,projectcoc.getExport().getId());
+					target.setExport(exportEntity);
+					com.servinglynk.hmis.warehouse.model.live.Project projectEntity = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,projectcoc.getProjectid().getId());
+					target.setProjectid(projectEntity);
 					insert(target);
 				}
 			}
 		}
+		factory.getInventoryDao().hydrateLive(export);
+		factory.getSiteDao().hydrateLive(export);
 	}
 
 	@Override

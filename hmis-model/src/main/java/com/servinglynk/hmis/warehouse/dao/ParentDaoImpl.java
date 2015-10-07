@@ -13,6 +13,12 @@ import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.BeanUtils;
+
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.live.Sync;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
@@ -35,6 +41,17 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		transport.open();
 		performSave(client,entity);
 		transport.close();
+	}
+	
+	public List<T> recordsToSync(Class t, SyncDomain domain) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(t);
+		// criteria.add(Restrictions.("status",status)); Need to pass the date here .
+		criteria.add(Restrictions.gt("dateCreated", domain.getDateCreated()));
+		if(criteria.getExecutableCriteria(getCurrentSession()).list() != null) {
+			return criteria.getExecutableCriteria(getCurrentSession()).list();
+		}
+		return null;
+
 	}
 	
 	public List<T> getFromHBASE(Object entity) throws TIOError, TException {

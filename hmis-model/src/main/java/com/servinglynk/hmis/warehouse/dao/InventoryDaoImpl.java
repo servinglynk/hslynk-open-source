@@ -65,6 +65,13 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				if(inventory !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Inventory target = new com.servinglynk.hmis.warehouse.model.live.Inventory();
 					BeanUtils.copyProperties(inventory, target,getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Bedinventory bedInventory = (com.servinglynk.hmis.warehouse.model.live.Bedinventory) get(com.servinglynk.hmis.warehouse.model.live.Bedinventory.class, inventory.getId());
+					target.setBedinventory(bedInventory);
+					com.servinglynk.hmis.warehouse.model.live.Projectcoc projectCocModel = (com.servinglynk.hmis.warehouse.model.live.Projectcoc) get(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class,inventory.getProjectCoc().getId() );
+					target.setProjectCoc(projectCocModel);
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, inventory.getExport().getId());
+					target.setExport(exportEntity);
+					exportEntity.addInventory(target);
 					insert(target);
 				}
 			}

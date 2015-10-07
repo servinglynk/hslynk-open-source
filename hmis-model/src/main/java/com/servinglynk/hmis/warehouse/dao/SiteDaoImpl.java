@@ -55,6 +55,8 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 				if(site !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Site target = new com.servinglynk.hmis.warehouse.model.live.Site();
 					BeanUtils.copyProperties(site, target, getNonCollectionFields(target));
+					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, site.getExport().getId());
+					target.setExport(exportEntity);
 					insert(target);
 				}
 			}

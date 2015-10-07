@@ -299,7 +299,7 @@ public class Enrollment implements Cloneable, Serializable {
 	 * @return A Client object (this.client)
 	 */
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-//	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@Basic( optional = true )
 	@JoinColumn(name = "client_id", nullable = true )
 	public Client getClient() {

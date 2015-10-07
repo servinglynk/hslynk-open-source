@@ -30,16 +30,16 @@ public class DemoClient {
     System.out.println("Thrift2 Demo");
     System.out.println("This demo assumes you have a table called \"example\" with a column family called \"family1\"");
     
-    String host = "ec2-52-27-63-94.us-west-2.compute.amazonaws.com";
+    String host = "52.27.63.94";
     int port = 9095;
-    int timeout = 10000;
-    boolean framed = false;
+    int timeout = 200000;
+    boolean framed = true;
     System.out.println("Hbase Demo Application ");
 
     // CONFIGURATION
 
         // ENSURE RUNNING
-    try {
+   try {
         HBaseConfiguration config = new HBaseConfiguration();
         config.clear();
         config.set("hbase.zookeeper.quorum", host);
@@ -59,8 +59,9 @@ public class DemoClient {
     } catch (MasterNotRunningException e) {
         System.out.println("HBase is not running!");
         System.exit(1);
-    }catch (Exception ce){ ce.printStackTrace();}
-   /* TTransport transport = new TSocket(host, port, timeout);
+    }catch (Exception ce){ ce.printStackTrace();} 
+    
+    /*TTransport transport = new TSocket(host, port, timeout);
     if (framed) {
       transport = new TFramedTransport(transport);
     }
@@ -71,8 +72,8 @@ public class DemoClient {
     // open the transport
     transport.open();
     
-    ByteBuffer table = ByteBuffer.wrap("emp".getBytes());
-/*
+    ByteBuffer table = ByteBuffer.wrap("Sandeep_Test".getBytes());
+
     TPut put = new TPut();
     put.setRow("123".getBytes());
 
@@ -84,8 +85,7 @@ public class DemoClient {
     List<TColumnValue> columnValues = new ArrayList<TColumnValue>();
     columnValues.add(columnValue);
     put.setColumnValues(columnValues);
-
-    client.put(table, put) ; */
+    client.put(table, put) ; 
 
   /*  TGet get = new TGet();
     get.setRow("456".getBytes());
@@ -104,3 +104,6 @@ public class DemoClient {
   } */
   }
 }
+
+
+
