@@ -109,8 +109,40 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 			insert(target);	
 		}
-		
 		parentDaoFactory.getClientDao().hydrateLive(export);
+		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
+		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
+		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export);
+		//parentDaoFactory.getDateofengagementDao().hydrateLive(export);
+		//parentDaoFactory.getOrganizationDao().hydrateLive(export);
+		parentDaoFactory.getProjectDao().hydrateLive(export);
+		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);
+		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
+		parentDaoFactory.getServicesDao().hydrateLive(export);
+		parentDaoFactory.getDateofengagementDao().hydrateLive(export);
+		parentDaoFactory.getDisabilitiesDao().hydrateLive(export);
+		parentDaoFactory.getDomesticviolenceDao().hydrateLive(export);
+		parentDaoFactory.getEmploymentDao().hydrateLive(export);
+		parentDaoFactory.getExitDao().hydrateLive(export);
+		parentDaoFactory.getFormerwardchildwelfareDao().hydrateLive(export);
+		parentDaoFactory.getFormerwardjuvenilejusticeDao().hydrateLive(export);
+		parentDaoFactory.getHealthinsuranceDao().hydrateLive(export);
+		parentDaoFactory.getHealthStatusDao().hydrateLive(export);
+		parentDaoFactory.getIncomeandsourcesDao().hydrateLive(export);
+		parentDaoFactory.getLastgradecompletedDao().hydrateLive(export);
+	//	parentDaoFactory.getLastPermAddressDao().hydrateLive(export);
+		parentDaoFactory.getMedicalassistanceDao().hydrateLive(export);
+		parentDaoFactory.getNoncashbenefitsDao().hydrateLive(export);
+		parentDaoFactory.getPathstatusDao().hydrateLive(export);
+		parentDaoFactory.getPercentamiDao().hydrateLive(export);
+		parentDaoFactory.getReferralsourceDao().hydrateLive(export);
+		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
+		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export);
+		parentDaoFactory.getSchoolstatusDao().hydrateLive(export);
+		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
+		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
+		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);
+	/*	parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
 		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export);
@@ -141,7 +173,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getSchoolstatusDao().hydrateLive(export);
 		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
 		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
-		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);	
+		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);	 */
 	}
 	
 	@Override

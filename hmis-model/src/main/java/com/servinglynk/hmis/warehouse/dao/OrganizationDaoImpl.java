@@ -62,7 +62,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					BeanUtils.copyProperties(organization, target,getNonCollectionFields(target));
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
-					exportEntity.addOrganization(target);
+					//exportEntity.addOrganization(target);
 					insertOrUpdate(target);
 //					for(Project project : organization.getProjects()) {
 //						com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,project.getId());

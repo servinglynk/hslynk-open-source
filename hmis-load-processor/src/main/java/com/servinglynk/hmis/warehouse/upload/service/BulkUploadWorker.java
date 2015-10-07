@@ -80,12 +80,12 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 			if(stagingUploadEntities!=null && stagingUploadEntities.size() >0 ) {
 				for(BulkUpload bulkUpload : stagingUploadEntities) {
 					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload.getExport().getId());
-				/*	com.servinglynk.hmis.warehouse.model.live.BulkUpload target  = new com.servinglynk.hmis.warehouse.model.live.BulkUpload();
+					com.servinglynk.hmis.warehouse.model.live.BulkUpload target  = new com.servinglynk.hmis.warehouse.model.live.BulkUpload();
 					BeanUtils.copyProperties(bulkUpload, target,getNonCollectionFields(target));
 					target.setStatus(UploadStatus.LIVE.getStatus());
 					 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.live.Export.class, bulkUpload.getExport().getId());
 					target.setExport(exportEntity);
-					factory.getBulkUploaderWorkerDao().insertOrUpdate(target); */
+					factory.getBulkUploaderWorkerDao().insertOrUpdate(target); 
 				}
 			}
 			
