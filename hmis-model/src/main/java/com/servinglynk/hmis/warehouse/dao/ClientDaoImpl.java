@@ -118,7 +118,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 				}
 				if(clientModel.getDedupClientId() !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, clientModel.getDedupClientId());
+					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId());
 					/**
 					 * This is where the deduping happens We check if a client with the same information exists and
 					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
@@ -149,7 +149,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
-				insert(target);
+				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId());
+				if(clientByDedupCliendId ==null) {
+					insert(target);	
+				}
 			}
 		}
 	}
@@ -163,7 +166,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, client.getExport().getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
-				insert(target);
+				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId());
+				if(clientByDedupCliendId ==null) {
+					insert(target);	
+				}
 			}
 	}
 	
@@ -378,6 +384,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		criteria.add(Restrictions.eq("id", clientId));
 		List<com.servinglynk.hmis.warehouse.model.live.Client> clients = (List<com.servinglynk.hmis.warehouse.model.live.Client>) findByCriteria(criteria);
 		if(clients.size()>0) return clients.get(0);
+		return null;
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.live.Client getClientByDedupCliendId(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Client.class);
+		criteria.add(Restrictions.eq("dedupClientId", id));
+		List<com.servinglynk.hmis.warehouse.model.live.Client> clients = (List<com.servinglynk.hmis.warehouse.model.live.Client>) findByCriteria(criteria);
+		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;
 	}
 

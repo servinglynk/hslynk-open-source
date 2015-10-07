@@ -60,8 +60,12 @@ public class DemoClient {
         System.out.println("HBase is not running!");
         System.exit(1);
     }catch (Exception ce){ ce.printStackTrace();} 
+<<<<<<< HEAD
     
     /*TTransport transport = new TSocket(host, port, timeout);
+=======
+  /*  TTransport transport = new TSocket(host, port, timeout);
+>>>>>>> 497e4c1a0caa2c8d3c740b48b1b5dfd2ef27a0a6
     if (framed) {
       transport = new TFramedTransport(transport);
     }
@@ -73,7 +77,11 @@ public class DemoClient {
     transport.open();
     
     ByteBuffer table = ByteBuffer.wrap("Sandeep_Test".getBytes());
+<<<<<<< HEAD
 
+=======
+/*
+>>>>>>> 497e4c1a0caa2c8d3c740b48b1b5dfd2ef27a0a6
     TPut put = new TPut();
     put.setRow("123".getBytes());
 
@@ -99,8 +107,8 @@ public class DemoClient {
       System.out.print("value = " + new String(resultColumnValue.getValue()));
       System.out.print("timestamp = " + resultColumnValue.getTimestamp());
     }
-    
-    transport.close();
+    */
+  /*  transport.close(); 
   } */
   }
 }
