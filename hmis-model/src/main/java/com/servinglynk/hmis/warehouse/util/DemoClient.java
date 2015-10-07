@@ -19,12 +19,20 @@ package com.servinglynk.hmis.warehouse.util;
 * limitations under the License.
 */
 
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.MasterNotRunningException;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
-import org.apache.hadoop.hbase.client.HTable;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
+import org.apache.hadoop.hbase.thrift2.generated.TPut;
 import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
 
 public class DemoClient {
  public static void main(String[] args) throws TIOError, TException {
@@ -32,7 +40,7 @@ public class DemoClient {
    System.out.println("This demo assumes you have a table called \"example\" with a column family called \"family1\"");
    
    String host = "ec2-52-27-63-94.us-west-2.compute.amazonaws.com";
-   int port = 9095;
+   int port = 9090;
    int timeout = 10000;
    boolean framed = false;
    System.out.println("Hbase Demo Application ");
@@ -40,7 +48,7 @@ public class DemoClient {
    // CONFIGURATION
 
        // ENSURE RUNNING
-   try {
+ /*  try {
        HBaseConfiguration config = new HBaseConfiguration();
        config.clear();
        config.set("hbase.zookeeper.quorum", host);
@@ -61,7 +69,8 @@ public class DemoClient {
        System.out.println("HBase is not running!");
        System.exit(1);
    }catch (Exception ce){ ce.printStackTrace();} 
- /*  TTransport transport = new TSocket(host, port, timeout);
+   */
+   TTransport transport = new TSocket(host, port, timeout);
    if (framed) {
      transport = new TFramedTransport(transport);
    }
@@ -73,7 +82,7 @@ public class DemoClient {
    transport.open();
    
    ByteBuffer table = ByteBuffer.wrap("Sandeep_Test".getBytes());
-/*
+
    TPut put = new TPut();
    put.setRow("123".getBytes());
 
@@ -86,7 +95,7 @@ public class DemoClient {
    columnValues.add(columnValue);
    put.setColumnValues(columnValues);
 
-   client.put(table, put) ; */
+   client.put(table, put) ; 
 
  /*  TGet get = new TGet();
    get.setRow("456".getBytes());
@@ -101,7 +110,7 @@ public class DemoClient {
      System.out.print("timestamp = " + resultColumnValue.getTimestamp());
    }
    */
- /*  transport.close(); 
- } */
+   transport.close(); 
+ //} */
  }
 }

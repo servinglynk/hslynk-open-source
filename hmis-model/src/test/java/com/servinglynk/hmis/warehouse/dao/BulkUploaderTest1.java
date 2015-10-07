@@ -90,17 +90,17 @@ public class BulkUploaderTest1 {
 		Export stagingExport = (Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.staging.Export.class, export.getId());
 		Set<Enrollment> enrollments = stagingExport.getEnrollments(); */
 	}
-	@Test
-	public void deleteExportFromStaging() {
-		UUID id = UUID.fromString("fda97ba3-e737-4812-a03a-448212606fee");
-		dao.deleteStagingByExportId(id);
-	}
-	@Test
-	public void deleteExportFromLive() {
-		UUID id = UUID.fromString("4dc6383a-c305-45f0-a876-016bf247e4a2");
-		dao.deleteLiveByExportId(id);
-	}
-	
+//	@Test
+//	public void deleteExportFromStaging() {
+//		UUID id = UUID.fromString("fda97ba3-e737-4812-a03a-448212606fee");
+//		dao.deleteStagingByExportId(id);
+//	}
+//	@Test
+//	public void deleteExportFromLive() {
+//		UUID id = UUID.fromString("4dc6383a-c305-45f0-a876-016bf247e4a2");
+//		dao.deleteLiveByExportId(id);
+//	}
+//	
 	@Test
 	public void moveToLive() throws Exception {
 		ExportDomain domain = new ExportDomain();

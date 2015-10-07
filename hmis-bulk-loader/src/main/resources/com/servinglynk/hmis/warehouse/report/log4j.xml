@@ -21,7 +21,7 @@
 
     <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
     <param name="threshold" value="all" />
-    <param name="file" value="${catalina.home}/logs/report-service.log" />
+    <param name="file" value="${catalina.home}/logs/bulkloader.log" />
 
     <!--<param name="file" value="ns.log" />-->
     <param name="append" value="true" />
