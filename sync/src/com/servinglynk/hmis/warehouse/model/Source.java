@@ -1,5 +1,9 @@
 package com.servinglynk.hmis.warehouse.model;
 
-public class Source {
+import javax.persistence.Entity;
+
+@Entity
+public class Source extends BaseModel {
+	
 
 }
