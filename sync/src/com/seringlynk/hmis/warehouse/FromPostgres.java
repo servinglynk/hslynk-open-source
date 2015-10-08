@@ -1,112 +1,106 @@
 package com.seringlynk.hmis.warehouse;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+import com.servinglynk.hmis.warehouse.model.Affiliation;
+import com.servinglynk.hmis.warehouse.model.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.Client;
+import com.servinglynk.hmis.warehouse.model.Commercialsexualexploitation;
+import com.servinglynk.hmis.warehouse.model.Connectionwithsoar;
+import com.servinglynk.hmis.warehouse.model.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.Disabilities;
+import com.servinglynk.hmis.warehouse.model.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.Employment;
+import com.servinglynk.hmis.warehouse.model.Enrollment;
+import com.servinglynk.hmis.warehouse.model.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.Exit;
+import com.servinglynk.hmis.warehouse.model.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.Exitplansactions;
+import com.servinglynk.hmis.warehouse.model.Export;
+import com.servinglynk.hmis.warehouse.model.Familyreunification;
+import com.servinglynk.hmis.warehouse.model.Formerwardchildwelfare;
+import com.servinglynk.hmis.warehouse.model.Formerwardjuvenilejustice;
+import com.servinglynk.hmis.warehouse.model.Funder;
+import com.servinglynk.hmis.warehouse.model.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.Inventory;
 
 public class FromPostgres {
+
 	public static void main(String args[]) {
 		
 	//	syncClient(date,Client.class);
 	System.out.println("-------- PostgreSQL "
 			+ "JDBC Connection Testing ------------");
+	// 
+	BaseProcessor<Affiliation> aff = new BaseProcessor<>();
+	aff.getResult(Affiliation.class);
+	
+	BaseProcessor<Client> db = new BaseProcessor<>();
+	db.getResult(Client.class);
+	
+	BaseProcessor<Bedinventory> bedInventory = new BaseProcessor<>();
+	bedInventory.getResult(Bedinventory.class);
+	
+	BaseProcessor<Commercialsexualexploitation> commercialsexualexploitation = new BaseProcessor<>();
+	commercialsexualexploitation.getResult(Commercialsexualexploitation.class);
+	
+	BaseProcessor<Connectionwithsoar> connectionwithsoar = new BaseProcessor<>();
+	connectionwithsoar.getResult(Connectionwithsoar.class);
+	
+	BaseProcessor<Dateofengagement> dateofengagement = new BaseProcessor<>();
+	dateofengagement.getResult(Dateofengagement.class);
+	
+	BaseProcessor<Disabilities> disabilities = new BaseProcessor<>();
+	disabilities.getResult(Disabilities.class);
+	
+	BaseProcessor<Domesticviolence> domesticviolence = new BaseProcessor<>();
+	domesticviolence.getResult(Domesticviolence.class);
+	
+	BaseProcessor<Employment> employment = new BaseProcessor<>();
+	employment.getResult(Employment.class);
+	
+	BaseProcessor<Enrollment> enrollment = new BaseProcessor<>();
+	enrollment.getResult(Enrollment.class);
+	
+	BaseProcessor<EnrollmentCoc> enrollmentCoc = new BaseProcessor<>();
+	enrollmentCoc.getResult(EnrollmentCoc.class);
+	
+	BaseProcessor<Exit> exit = new BaseProcessor<>();
+	exit.getResult(Exit.class);
 
-	try {
+	BaseProcessor<Exithousingassessment> exithousingassessment = new BaseProcessor<>();
+	exithousingassessment.getResult(Exithousingassessment.class);
+	
+	BaseProcessor<Exitplansactions> exitplansactions = new BaseProcessor<>();
+	exitplansactions.getResult(Exitplansactions.class);
+	
+	BaseProcessor<Export> export = new BaseProcessor<>();
+	export.getResult(Export.class);
+	
+	BaseProcessor<Familyreunification> familyreunification = new BaseProcessor<>();
+	familyreunification.getResult(Familyreunification.class);
+	
+	BaseProcessor<Formerwardchildwelfare> formerwardchildwelfare = new BaseProcessor<>();
+	formerwardchildwelfare.getResult(Formerwardchildwelfare.class);
+	
+	BaseProcessor<Formerwardjuvenilejustice> formerwardjuvenilejustice = new BaseProcessor<>();
+	formerwardjuvenilejustice.getResult(Formerwardjuvenilejustice.class);
+	
+	BaseProcessor<Funder> funder = new BaseProcessor<>();
+	funder.getResult(Funder.class);
+	
+	BaseProcessor<HealthStatus> healthStatus = new BaseProcessor<>();
+	healthStatus.getResult(HealthStatus.class);
 
-		Class.forName("org.postgresql.Driver");
-
-	} catch (ClassNotFoundException e) {
-
-		System.out.println("Where is your PostgreSQL JDBC Driver? "
-				+ "Include in your library path!");
-		e.printStackTrace();
-
-	}
-
-	System.out.println("PostgreSQL JDBC Driver Registered!");
-
-	Connection connection = null;
-	ResultSetMapper<Client> resultSetMapper = new ResultSetMapper<Client>();
-	ResultSet resultSet = null;
-
-	try {
-
-		connection = DriverManager.getConnection(
-				"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
-				"hmisdb1234");
-		
-		PreparedStatement statement = connection.prepareStatement("SELECT * FROM staging.Client");
-		resultSet = statement.executeQuery();
-		// simple JDBC code to run SQL query and populate resultSet - END
-		List<Client> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, Client.class);
-		// print out the list retrieved from database
-		if(pojoList != null){
-			for(Client pojo : pojoList){
-				HBaseImport hbaseImpot = new HBaseImport();
-				UUID  rowkey = pojo.getId();
-				// Insert data into an HBASE table  with in a column Family called Client
-		//TOOD: Need to verify Exception Handling
-		try {
-			Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(pojo);
-			// Call HBaseImport Insert
-				HBaseImport baseImport = new HBaseImport();
-				baseImport.insert("hmis", "client", rowkey.toString(), getNonCollectionFields(pojo), data);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				System.out.println(pojo);
-			}
-		}else{
-			System.out.println("ResultSet is empty. Please check if database table is empty");
-		}
-		connection.close();
-
-	} catch (SQLException e) {
-
-		System.out.println("Connection Failed! Check output console");
-		e.printStackTrace();
-
-	}
-
-	if (connection != null) {
-		System.out.println("You made it, take control your database now!");
-	} else {
-		System.out.println("Failed to make connection!");
-	}
+	BaseProcessor<Housingassessmentdisposition> housingassessmentdisposition = new BaseProcessor<>();
+	housingassessmentdisposition.getResult(Housingassessmentdisposition.class);
+	
+	BaseProcessor<Incomeandsources> incomeandsources = new BaseProcessor<>();
+	incomeandsources.getResult(Incomeandsources.class);
+	
+	BaseProcessor<Inventory> inventory = new BaseProcessor<>();
+	inventory.getResult(Inventory.class);
+	
  }
 	
-	
-	public static String[] getNonCollectionFields(Object obj) {
-		Field[] declaredFields = obj.getClass().getFields();
-		//System.out.println(declaredFields[0].getName() + " type of the field "+declaredFields[0].getGenericType() );
-		String[] fieldsArray = new String[100];
-		List<String> fieldList = new ArrayList<>();
-		
-		int i=0;
-		for(Field field : declaredFields) {
-			Type genericType = field.getGenericType();
-			if(genericType != null ){
-				fieldList.add(field.getName());
-			}
-		}
-		return fieldList.toArray(new String[fieldList.size()]);
-	}
 }

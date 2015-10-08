@@ -3,7 +3,8 @@ package com.servinglynk.hmis.warehouse.model;
 import java.util.UUID;
 
 import javax.persistence.Column;
-
+import javax.persistence.Entity;
+@Entity
 public class Domesticviolence extends BaseModel {
 	@Column(name="domesticviolencevictim")
 	private String domesticviolencevictim;
