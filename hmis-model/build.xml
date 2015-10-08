@@ -4,14 +4,15 @@
    <property name="sql.url" value="jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis"/>
    <property name="sql.user" value="hmisdb1"/>
    <property name="sql.pass" value="hmisdb1234"/>
-	 -->
+-->
 	<property name="sql.user" value="postgres"/>
    <property name="sql.pass" value="postgres"/>
 	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
+	
    <target name="setupDB">
       <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}" >
            <classpath>
-            <pathelement location="C:/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
+            <pathelement location="C:/Users/Sandeep/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
            </classpath>   
            <transaction src="HMISModel.sql"/>
       </sql>
@@ -19,7 +20,7 @@
 	   <target name="setupDB-staging">
 	      <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}">
 	           <classpath>
-	            <pathelement location="C:/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
+	            <pathelement location="C:/Users/Sandeep/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
 	           </classpath>   
 	           <transaction src="HMISModel_Staging.sql"/>
 	      </sql>

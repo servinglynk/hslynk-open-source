@@ -1011,9 +1011,9 @@ public class Export implements Cloneable, Serializable {
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */
-    @Id 
-	@Basic( optional = false )
-	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="pg-uuid")
+	   @Id
+		@Basic( optional = false )
+		@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
 		

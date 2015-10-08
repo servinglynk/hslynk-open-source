@@ -46,7 +46,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			projectcocModel.setDateCreated(BasicDataGenerator.getLocalDate(projectCoc.getDateCreated()));
 			projectcocModel.setDateUpdated(BasicDataGenerator.getLocalDate(projectCoc.getDateUpdated()));
 			if(projectCoc.getProjectID()!=null && !"".equals(projectCoc.getProjectID())) {
-				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(projectCoc.getProjectID());
+				UUID uuid = domain.getProjectCocMap().get(projectCoc.getProjectID());
 				if(uuid !=null) {
 					Project projectModel = (Project) get(Project.class, uuid);
 					projectcocModel.setProjectid(projectModel);

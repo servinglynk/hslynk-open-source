@@ -76,7 +76,6 @@ public class BulkUploaderTest1 {
 		dao.performBulkUpload(upload);
 	} */
 	@Test
-	@Ignore
 	public void testCSVZip() throws JAXBException
 	{
 		SyncDomain domain = new SyncDomain();
@@ -107,7 +106,7 @@ public class BulkUploaderTest1 {
 //		dao.deleteLiveByExportId(id);
 //	}
 //	
-/*	@Test
+	@Test
 	public void moveToLive() throws Exception {
 		ExportDomain domain = new ExportDomain();
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
@@ -118,5 +117,5 @@ public class BulkUploaderTest1 {
 			}
 		}
 		
-	} */
+	} 
 }

@@ -762,11 +762,9 @@ public class Enrollment implements Cloneable, Serializable {
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */
-    @Id 
+    @Id
 	@Basic( optional = false )
-    @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
-    @GeneratedValue(generator = "uuid-gen")
-	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="pg-uuid")
+	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
 		

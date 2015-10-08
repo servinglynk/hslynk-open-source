@@ -513,7 +513,6 @@ public class BulkUploadHelper {
 	    	  lastpermanentaddressModel.setUserID(enroll.getUserID());
 	    	  lastPermanentAddressList.add(lastpermanentaddressModel);
 	    	  
-	    	  
 	    	  ReferralSource referralsourceModel = new ReferralSource();
 	    	  referralsourceModel.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
 //	    	  referralsourceModel.setDataCollectionStage(getByte(enroll.getdataco));
@@ -726,7 +725,7 @@ public class BulkUploadHelper {
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
-	    	  sources.getSource().getExport().setProjectCompletionStatus(projectCompletionStatusList);
+	    	  sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
 	    	  
 	    	  ProjectCompletionStatus projectCompletionStatusModel = new ProjectCompletionStatus();
 	    	  projectCompletionStatusModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));

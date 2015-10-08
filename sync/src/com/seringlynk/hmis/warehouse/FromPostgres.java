@@ -1,5 +1,7 @@
 package com.seringlynk.hmis.warehouse;
 
+import java.util.HashMap;
+
 import com.servinglynk.hmis.warehouse.model.Affiliation;
 import com.servinglynk.hmis.warehouse.model.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.Client;
@@ -23,6 +25,26 @@ import com.servinglynk.hmis.warehouse.model.HealthStatus;
 import com.servinglynk.hmis.warehouse.model.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.model.Incomeandsources;
 import com.servinglynk.hmis.warehouse.model.Inventory;
+import com.servinglynk.hmis.warehouse.model.Lastgradecompleted;
+import com.servinglynk.hmis.warehouse.model.Lastpermanentaddress;
+import com.servinglynk.hmis.warehouse.model.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.Organization;
+import com.servinglynk.hmis.warehouse.model.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.Percentami;
+import com.servinglynk.hmis.warehouse.model.Project;
+import com.servinglynk.hmis.warehouse.model.Projectcoc;
+import com.servinglynk.hmis.warehouse.model.Projectcompletionstatus;
+import com.servinglynk.hmis.warehouse.model.Referralsource;
+import com.servinglynk.hmis.warehouse.model.Residentialmoveindate;
+import com.servinglynk.hmis.warehouse.model.Rhybcpstatus;
+import com.servinglynk.hmis.warehouse.model.Schoolstatus;
+import com.servinglynk.hmis.warehouse.model.Services;
+import com.servinglynk.hmis.warehouse.model.Sexualorientation;
+import com.servinglynk.hmis.warehouse.model.Site;
+import com.servinglynk.hmis.warehouse.model.VeteranInfo;
+import com.servinglynk.hmis.warehouse.model.Worsthousingsituation;
+import com.servinglynk.hmis.warehouse.model.Youthcriticalissues;
 
 public class FromPostgres {
 
@@ -31,75 +53,142 @@ public class FromPostgres {
 	//	syncClient(date,Client.class);
 	System.out.println("-------- PostgreSQL "
 			+ "JDBC Connection Testing ------------");
+	
+	java.util.Map<String, Integer> tableSyncList = new HashMap<>();
 	// 
 	BaseProcessor<Affiliation> aff = new BaseProcessor<>();
-	aff.getResult(Affiliation.class);
+	aff.syncToHBASE(Affiliation.class,"Affiliation",tableSyncList);
 	
 	BaseProcessor<Client> db = new BaseProcessor<>();
-	db.getResult(Client.class);
+	db.syncToHBASE(Client.class,"Client",tableSyncList);
 	
 	BaseProcessor<Bedinventory> bedInventory = new BaseProcessor<>();
-	bedInventory.getResult(Bedinventory.class);
+	bedInventory.syncToHBASE(Bedinventory.class,"Bedinventory",tableSyncList);
 	
 	BaseProcessor<Commercialsexualexploitation> commercialsexualexploitation = new BaseProcessor<>();
-	commercialsexualexploitation.getResult(Commercialsexualexploitation.class);
+	commercialsexualexploitation.syncToHBASE(Commercialsexualexploitation.class,"Commercialsexualexploitation",tableSyncList);
 	
 	BaseProcessor<Connectionwithsoar> connectionwithsoar = new BaseProcessor<>();
-	connectionwithsoar.getResult(Connectionwithsoar.class);
+	connectionwithsoar.syncToHBASE(Connectionwithsoar.class,"Connectionwithsoar",tableSyncList);
 	
 	BaseProcessor<Dateofengagement> dateofengagement = new BaseProcessor<>();
-	dateofengagement.getResult(Dateofengagement.class);
+	dateofengagement.syncToHBASE(Dateofengagement.class,"Dateofengagement",tableSyncList);
 	
 	BaseProcessor<Disabilities> disabilities = new BaseProcessor<>();
-	disabilities.getResult(Disabilities.class);
+	disabilities.syncToHBASE(Disabilities.class,"Disabilities",tableSyncList);
 	
 	BaseProcessor<Domesticviolence> domesticviolence = new BaseProcessor<>();
-	domesticviolence.getResult(Domesticviolence.class);
+	domesticviolence.syncToHBASE(Domesticviolence.class,"Domesticviolence",tableSyncList);
 	
 	BaseProcessor<Employment> employment = new BaseProcessor<>();
-	employment.getResult(Employment.class);
+	employment.syncToHBASE(Employment.class,"Employment",tableSyncList);
 	
 	BaseProcessor<Enrollment> enrollment = new BaseProcessor<>();
-	enrollment.getResult(Enrollment.class);
+	enrollment.syncToHBASE(Enrollment.class,"Enrollment",tableSyncList);
 	
 	BaseProcessor<EnrollmentCoc> enrollmentCoc = new BaseProcessor<>();
-	enrollmentCoc.getResult(EnrollmentCoc.class);
+	enrollmentCoc.syncToHBASE(EnrollmentCoc.class,"Enrollment_coc",tableSyncList);
 	
 	BaseProcessor<Exit> exit = new BaseProcessor<>();
-	exit.getResult(Exit.class);
+	exit.syncToHBASE(Exit.class,"Exit",tableSyncList);
 
 	BaseProcessor<Exithousingassessment> exithousingassessment = new BaseProcessor<>();
-	exithousingassessment.getResult(Exithousingassessment.class);
+	exithousingassessment.syncToHBASE(Exithousingassessment.class,"Exithousingassessment",tableSyncList);
 	
 	BaseProcessor<Exitplansactions> exitplansactions = new BaseProcessor<>();
-	exitplansactions.getResult(Exitplansactions.class);
+	exitplansactions.syncToHBASE(Exitplansactions.class,"Exitplansactions",tableSyncList);
 	
 	BaseProcessor<Export> export = new BaseProcessor<>();
-	export.getResult(Export.class);
+	export.syncToHBASE(Export.class,"Export",tableSyncList);
 	
 	BaseProcessor<Familyreunification> familyreunification = new BaseProcessor<>();
-	familyreunification.getResult(Familyreunification.class);
+	familyreunification.syncToHBASE(Familyreunification.class,"Familyreunification",tableSyncList);
 	
 	BaseProcessor<Formerwardchildwelfare> formerwardchildwelfare = new BaseProcessor<>();
-	formerwardchildwelfare.getResult(Formerwardchildwelfare.class);
+	formerwardchildwelfare.syncToHBASE(Formerwardchildwelfare.class,"Formerwardchildwelfare",tableSyncList);
 	
 	BaseProcessor<Formerwardjuvenilejustice> formerwardjuvenilejustice = new BaseProcessor<>();
-	formerwardjuvenilejustice.getResult(Formerwardjuvenilejustice.class);
+	formerwardjuvenilejustice.syncToHBASE(Formerwardjuvenilejustice.class,"Formerwardjuvenilejustice",tableSyncList);
 	
 	BaseProcessor<Funder> funder = new BaseProcessor<>();
-	funder.getResult(Funder.class);
+	funder.syncToHBASE(Funder.class,"Funder",tableSyncList);
 	
 	BaseProcessor<HealthStatus> healthStatus = new BaseProcessor<>();
-	healthStatus.getResult(HealthStatus.class);
+	healthStatus.syncToHBASE(HealthStatus.class,"Health_Status",tableSyncList);
 
 	BaseProcessor<Housingassessmentdisposition> housingassessmentdisposition = new BaseProcessor<>();
-	housingassessmentdisposition.getResult(Housingassessmentdisposition.class);
+	housingassessmentdisposition.syncToHBASE(Housingassessmentdisposition.class,"Housingassessmentdisposition",tableSyncList);
 	
 	BaseProcessor<Incomeandsources> incomeandsources = new BaseProcessor<>();
-	incomeandsources.getResult(Incomeandsources.class);
+	incomeandsources.syncToHBASE(Incomeandsources.class,"Incomeandsources",tableSyncList);
 	
 	BaseProcessor<Inventory> inventory = new BaseProcessor<>();
-	inventory.getResult(Inventory.class);
+	inventory.syncToHBASE(Inventory.class,"Inventory",tableSyncList);
+	
+	BaseProcessor<Lastgradecompleted> lastgradecompleted = new BaseProcessor<>();
+	lastgradecompleted.syncToHBASE(Lastgradecompleted.class,"Lastgradecompleted",tableSyncList);
+	
+	BaseProcessor<Lastpermanentaddress> Lastpermanentaddress = new BaseProcessor<>();
+	Lastpermanentaddress.syncToHBASE(Lastpermanentaddress.class,"Lastpermanentaddress",tableSyncList);
+	
+	BaseProcessor<Medicalassistance> Medicalassistance = new BaseProcessor<>();
+	Medicalassistance.syncToHBASE(Medicalassistance.class,"Medicalassistance",tableSyncList);
+	
+	BaseProcessor<Noncashbenefits> Noncashbenefits = new BaseProcessor<>();
+	Noncashbenefits.syncToHBASE(Noncashbenefits.class,"Noncashbenefits",tableSyncList);
+	
+	BaseProcessor<Organization> Organization = new BaseProcessor<>();
+	Organization.syncToHBASE(Organization.class,"Organization",tableSyncList);
+	
+	BaseProcessor<Pathstatus> Pathstatus = new BaseProcessor<>();
+	Pathstatus.syncToHBASE(Pathstatus.class,"Path_status",tableSyncList);
+	
+	BaseProcessor<Percentami> Percentami = new BaseProcessor<>();
+	Percentami.syncToHBASE(Percentami.class,"Percent_ami",tableSyncList);
+	
+	BaseProcessor<Project> Project = new BaseProcessor<>();
+	Project.syncToHBASE(Project.class,"Project",tableSyncList);
+	
+	BaseProcessor<Projectcoc> Projectcoc = new BaseProcessor<>();
+	Projectcoc.syncToHBASE(Projectcoc.class,"Projectcoc",tableSyncList);
+	
+	BaseProcessor<Projectcompletionstatus> Projectcompletionstatus = new BaseProcessor<>();
+	Projectcompletionstatus.syncToHBASE(Projectcompletionstatus.class,"Projectcompletionstatus",tableSyncList);
+	
+	BaseProcessor<Referralsource> Referralsource = new BaseProcessor<>();
+	Referralsource.syncToHBASE(Referralsource.class,"Referralsource",tableSyncList);
+	
+	BaseProcessor<Residentialmoveindate> Residentialmoveindate = new BaseProcessor<>();
+	Residentialmoveindate.syncToHBASE(Residentialmoveindate.class,"residentialmoveindate",tableSyncList);
+	
+	BaseProcessor<Rhybcpstatus> Rhybcpstatus = new BaseProcessor<>();
+	Rhybcpstatus.syncToHBASE(Rhybcpstatus.class,"Rhybcp_status",tableSyncList);
+	
+	BaseProcessor<Schoolstatus> Schoolstatus = new BaseProcessor<>();
+	Schoolstatus.syncToHBASE(Schoolstatus.class,"Schoolstatus",tableSyncList);
+	
+	BaseProcessor<Services> Services = new BaseProcessor<>();
+	Services.syncToHBASE(Services.class,"Services",tableSyncList);
+	
+	BaseProcessor<Sexualorientation> Sexualorientation = new BaseProcessor<>();
+	Sexualorientation.syncToHBASE(Sexualorientation.class,"Sexualorientation",tableSyncList);
+	
+	BaseProcessor<Site> Site = new BaseProcessor<>();
+	Site.syncToHBASE(Site.class,"Site",tableSyncList);
+	
+//	BaseProcessor<Source> Source = new BaseProcessor<>();
+//	Source.getResult(Source.class);
+//	
+	BaseProcessor<VeteranInfo> VeteranInfo = new BaseProcessor<>();
+	VeteranInfo.syncToHBASE(VeteranInfo.class,"Veteran_Info",tableSyncList);
+	
+	BaseProcessor<Worsthousingsituation> Worsthousingsituation = new BaseProcessor<>();
+	Worsthousingsituation.syncToHBASE(Worsthousingsituation.class,"Worsthousingsituation",tableSyncList);
+	
+	BaseProcessor<Youthcriticalissues> Youthcriticalissues = new BaseProcessor<>();
+	Youthcriticalissues.syncToHBASE(Youthcriticalissues.class,"Youthcriticalissues",tableSyncList);
+	
+	System.out.println("Tables::"+tableSyncList.toString());
 	
  }
 	

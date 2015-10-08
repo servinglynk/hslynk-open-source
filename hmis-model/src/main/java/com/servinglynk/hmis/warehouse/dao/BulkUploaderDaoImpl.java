@@ -117,6 +117,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		//parentDaoFactory.getOrganizationDao().hydrateLive(export);
 		parentDaoFactory.getProjectDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);
+		parentDaoFactory.getProjectcocDao().hydrateLive(export);
 		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
 		parentDaoFactory.getServicesDao().hydrateLive(export);
 		parentDaoFactory.getDateofengagementDao().hydrateLive(export);
@@ -130,7 +131,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getHealthStatusDao().hydrateLive(export);
 		parentDaoFactory.getIncomeandsourcesDao().hydrateLive(export);
 		parentDaoFactory.getLastgradecompletedDao().hydrateLive(export);
-	//	parentDaoFactory.getLastPermAddressDao().hydrateLive(export);
+		parentDaoFactory.getLastPermAddressDao().hydrateLive(export);
 		parentDaoFactory.getMedicalassistanceDao().hydrateLive(export);
 		parentDaoFactory.getNoncashbenefitsDao().hydrateLive(export);
 		parentDaoFactory.getPathstatusDao().hydrateLive(export);

@@ -54,6 +54,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				//projectModel.setFunders(funder);
 				domain.getOrganizationProjectMap().put(BasicDataGenerator.getStringValue(project.getOrganizationID()),id);
 				domain.getAffiliationProjectMap().put(project.getProjectID(), id);
+				domain.getProjectCocMap().put(project.getProjectID(), id);
 				//projectModel.setProjectcocs(projectcoc);
 				projectModel.setProjectname(project.getProjectName());
 				projectModel.setProjectcommonname(project.getProjectCommonName());

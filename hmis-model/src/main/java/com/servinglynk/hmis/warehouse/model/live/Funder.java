@@ -211,8 +211,9 @@ public class Funder implements Cloneable, Serializable {
 	 * Return the value associated with the column: grantid.
 	 * @return A java.util.UUID object (this.grantid)
 	 */
-	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
+	   @Id
+		@Basic( optional = false )
+		@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getGrantid() {
 		return this.grantid;
 

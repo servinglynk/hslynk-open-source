@@ -100,7 +100,7 @@ public class SpringConfig {
 		LocalSessionFactoryBean sessionFactory= new LocalSessionFactoryBean();
 		
 		sessionFactory.setDataSource(relationalDataSource());
-		sessionFactory.setPackagesToScan("com.servinglynk.hmis.warehouse.model,com.servinglynk.hmis.warehouse.dao,com.servinglynk.hmis.warehouse.upload");
+		sessionFactory.setPackagesToScan("com.servinglynk.hmis.warehouse.staging,com.servinglynk.hmis.warehouse.live");
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		
 		

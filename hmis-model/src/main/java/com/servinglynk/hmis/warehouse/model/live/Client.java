@@ -331,11 +331,9 @@ public class Client implements Cloneable, Serializable {
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	*/
-	@javax.persistence.Id
-	@GenericGenerator(name = "uuid-gen", strategy = "uuid2")
-	@GeneratedValue(generator = "uuid-gen")
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	@Column(name = "id")
+	   @Id
+		@Basic( optional = false )
+		@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
 		

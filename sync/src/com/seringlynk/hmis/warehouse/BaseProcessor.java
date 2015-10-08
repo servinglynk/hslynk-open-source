@@ -20,15 +20,16 @@ public class BaseProcessor<T> {
 	Connection connection = null;
 	ResultSet resultSet = null;
 
-	public void getResult(Class<T> class1) {
+	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList) {
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
+		int index = 0;
+		tableSyncList.put(tableName, index);
 		try {
-
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
 					"hmisdb1234");
 			
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM staging."+class1.getSimpleName());
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM live."+tableName);
 			resultSet = statement.executeQuery();
 			// simple JDBC code to run SQL query and populate resultSet - END
 			List<T> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, class1);
@@ -49,9 +50,10 @@ public class BaseProcessor<T> {
 					rowKey = UUID.randomUUID().toString();
 				}
 				// Call HBaseImport Insert
+				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
-				// baseImport.insert("hmis", class1.getSimpleName(), rowKey, getNonCollectionFields(pojo), data);
+		//		 baseImport.insert("hmis", class1.getSimpleName(), rowKey, getNonCollectionFields(pojo), data);
 				}
 			
 			
@@ -70,7 +72,7 @@ public class BaseProcessor<T> {
 					
 				}
 			}else{
-				System.out.println("ResultSet is empty. Please check if database table is empty");
+				System.out.println("ResultSet is empty. Please check if database table is empty for Table ::"+tableName);
 			}
 			connection.close();
 
