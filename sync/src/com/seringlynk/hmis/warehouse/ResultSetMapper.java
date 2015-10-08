@@ -25,7 +25,7 @@ public class ResultSetMapper<T> {
 					// get the resultset metadata
 					ResultSetMetaData rsmd = rs.getMetaData();
 					// get all the attributes of outputClass
-					Field[] fields = outputClass.getDeclaredFields();
+					Field[] fields = outputClass.getFields();
 					while (rs.next()) {
 						T bean = (T) outputClass.newInstance();
 						for (int _iterator = 0; _iterator < rsmd
