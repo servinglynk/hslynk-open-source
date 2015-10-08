@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.model.Client;
+
 public class FromPostgres {
 	public static void main(String args[]) {
 		
@@ -93,7 +95,7 @@ public class FromPostgres {
 	
 	
 	public static String[] getNonCollectionFields(Object obj) {
-		Field[] declaredFields = obj.getClass().getDeclaredFields();
+		Field[] declaredFields = obj.getClass().getFields();
 		//System.out.println(declaredFields[0].getName() + " type of the field "+declaredFields[0].getGenericType() );
 		String[] fieldsArray = new String[100];
 		List<String> fieldList = new ArrayList<>();

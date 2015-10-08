@@ -1,4 +1,4 @@
-package com.seringlynk.hmis.warehouse;
+package com.servinglynk.hmis.warehouse.model;
 
 import java.sql.Date;
 import java.util.UUID;
@@ -7,9 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class Client {
-	@Column(name="id")
-	public UUID id;
+public class Client extends BaseModel {
 	@Column(name="dedup_client_id")
 	public UUID dedup_client_id;
 	@Column(name="first_name")
@@ -40,20 +38,7 @@ public class Client {
 	public String race;
 	@Column(name="veteran_status")
 	public String veteran_status;
-	@Column(name="date_created")
-	public Date date_created;
-	@Column(name="date_updated")
-	public Date date_updated;
-	@Column(name="user_id")	
-	public String user_id;
-	@Column(name="export_id")
-	public UUID export_id;
-	public UUID getId() {
-		return id;
-	}
-	public void setId(UUID id) {
-		this.id = id;
-	}
+
 	public UUID getDedup_client_id() {
 		return dedup_client_id;
 	}
@@ -144,29 +129,4 @@ public class Client {
 	public void setVeteran_status(String veteran_status) {
 		this.veteran_status = veteran_status;
 	}
-	public Date getDate_created() {
-		return date_created;
-	}
-	public void setDate_created(Date date_created) {
-		this.date_created = date_created;
-	}
-	public Date getDate_updated() {
-		return date_updated;
-	}
-	public void setDate_updated(Date date_updated) {
-		this.date_updated = date_updated;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	public UUID getExport_id() {
-		return export_id;
-	}
-	public void setExport_id(UUID export_id) {
-		this.export_id = export_id;
-	}
-	
 }
