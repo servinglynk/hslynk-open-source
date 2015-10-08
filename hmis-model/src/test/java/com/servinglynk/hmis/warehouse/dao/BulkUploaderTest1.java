@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,10 @@ public class BulkUploaderTest1 {
 	@Autowired
 	ParentDaoFactory factory;
 	
+	public static void main(String args[]) {
+		
+	}
+	/*
 	@Test
 	public void test() throws JAXBException
 	{
@@ -69,8 +74,9 @@ public class BulkUploaderTest1 {
 		upload.setInputPath(path.getFile());
 		
 		dao.performBulkUpload(upload);
-	}
+	} */
 	@Test
+	@Ignore
 	public void testCSVZip() throws JAXBException
 	{
 		SyncDomain domain = new SyncDomain();
@@ -101,7 +107,7 @@ public class BulkUploaderTest1 {
 //		dao.deleteLiveByExportId(id);
 //	}
 //	
-	@Test
+/*	@Test
 	public void moveToLive() throws Exception {
 		ExportDomain domain = new ExportDomain();
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
@@ -112,5 +118,5 @@ public class BulkUploaderTest1 {
 			}
 		}
 		
-	}
+	} */
 }
