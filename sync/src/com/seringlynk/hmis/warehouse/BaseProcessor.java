@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class BaseProcessor<T> {
 	Connection connection = null;
 	ResultSet resultSet = null;
 
-	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList) {
+	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList,Date lastSyncDate) {
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 		int index = 0;
 		tableSyncList.put(tableName, index);

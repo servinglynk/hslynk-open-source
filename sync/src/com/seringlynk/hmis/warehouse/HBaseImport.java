@@ -68,7 +68,7 @@ public class HBaseImport {
 			table.put(p);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 		return table;
 	}
 
