@@ -22,7 +22,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest1;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -81,7 +81,7 @@ public class BulkUploaderTest1 {
 		SyncDomain domain = new SyncDomain();
 //		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploadHelperTest.class.getResource("CSV_files.zip");
+		URL path = BulkUploadHelperTest1.class.getResource("CSV_files.zip");
 		upload.setInputPath(path.getFile());
 		BulkUpload  uploadResult =   dao.performBulkUpload(upload);
 		/*File file = new File(

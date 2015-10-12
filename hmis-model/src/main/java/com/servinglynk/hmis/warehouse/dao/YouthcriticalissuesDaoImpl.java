@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -63,8 +64,8 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				Youthcriticalissues youthcriticalissuesModel = new Youthcriticalissues();
 				UUID id = UUID.randomUUID();
 				youthcriticalissuesModel.setId(id);
-				youthcriticalissuesModel.setDateCreated(BasicDataGenerator.getLocalDate(youthCriticalIssues.getDateCreated()));
-				youthcriticalissuesModel.setDateUpdated(BasicDataGenerator.getLocalDate(youthCriticalIssues.getDateUpdated()));
+				youthcriticalissuesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getDateCreated()));
+				youthcriticalissuesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getDateUpdated()));
 				youthcriticalissuesModel.setAbuseandneglectfam(YouthcriticalissuesAbuseandneglectfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getAbuseAndNeglectFam())));
 				youthcriticalissuesModel.setAbuseandneglectyouth(YouthcriticalissuesAbuseandneglectyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getAbuseAndNeglectYouth())));
 				youthcriticalissuesModel.setActivemilitaryparent(YouthcriticalissuesActivemilitaryparentEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getActiveMilitaryParent())));
@@ -113,6 +114,8 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addYouthcriticalissues(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

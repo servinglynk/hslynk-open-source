@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -38,9 +39,9 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			Schoolstatus schoolstatusModel = new Schoolstatus();
 			UUID id = UUID.randomUUID();
 			schoolstatusModel.setId(id);
-			schoolstatusModel.setDateCreated(BasicDataGenerator.getLocalDate(schoolStatus.getDateCreated()));
-			schoolstatusModel.setDateUpdated(BasicDataGenerator.getLocalDate(schoolStatus.getDateUpdated()));
-			schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDate(schoolStatus.getInformationDate()));
+			schoolstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
+			schoolstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
+			schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
 			schoolstatusModel.setSchoolStatus(BasicDataGenerator.getIntegerValue(schoolStatus.getSchoolStatus()));
 			if(schoolStatus.getProjectEntryID() !=null && !"".equals(schoolStatus.getProjectEntryID())) {
 				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((schoolStatus.getProjectEntryID()));
@@ -72,6 +73,8 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addSchoolstatus(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

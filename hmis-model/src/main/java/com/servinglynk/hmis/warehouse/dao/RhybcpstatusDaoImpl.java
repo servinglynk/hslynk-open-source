@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -40,11 +41,11 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				Rhybcpstatus rhybcpstatusModel = new Rhybcpstatus();
 				UUID id = UUID.randomUUID();
 				rhybcpstatusModel.setId(id);
-				rhybcpstatusModel.setDateCreated(BasicDataGenerator.getLocalDate(rhybcpStatus.getDateCreated()));
-				rhybcpstatusModel.setDateUpdated(BasicDataGenerator.getLocalDate(rhybcpStatus.getDateUpdated()));
+				rhybcpstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
+				rhybcpstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
 				rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
 				rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
-				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDate(rhybcpStatus.getStatusDate()));
+				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(rhybcpStatus.getProjectEntryID()));
 				rhybcpstatusModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -69,6 +70,8 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addRhybcpstatus(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

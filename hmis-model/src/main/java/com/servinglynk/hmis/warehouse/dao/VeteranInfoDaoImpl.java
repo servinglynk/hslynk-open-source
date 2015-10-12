@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -86,6 +87,8 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setYearSeperated(new Integer(veteranInfo
 						.getYearSeparated()));
 				vInfo.setId(UUID.randomUUID());
+				vInfo.setDateCreated(LocalDateTime.now());
+				vInfo.setDateUpdated(LocalDateTime.now());
 				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
 				com.servinglynk.hmis.warehouse.model.staging.Client client = (com.servinglynk.hmis.warehouse.model.staging.Client) get(com.servinglynk.hmis.warehouse.model.staging.Client.class, clientId);
 				vInfo.setClient(client);
@@ -109,6 +112,8 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				target.setExport(exportEntity);
 				com.servinglynk.hmis.warehouse.model.live.Client clientModel = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, veteranInfo.getClient().getId());
 				target.setClient(clientModel);
+				target.setDateCreated(LocalDateTime.now());
+				target.setDateUpdated(LocalDateTime.now());
 				insert(target);
 			}
 		}
@@ -126,6 +131,8 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 					target.setExport(exportEntity);
 					com.servinglynk.hmis.warehouse.model.live.Client clientModel = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, client.getId());
 					target.setClient(clientModel);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insert(target);
 				}
 			}

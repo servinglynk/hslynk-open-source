@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -50,9 +50,9 @@ public class Lastpermanentaddress implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Integer addressdataquality;
 	/** Field mapping. */
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 	/** Field mapping. */
-	private LocalDate dateUpdated;
+	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
@@ -141,12 +141,12 @@ public class Lastpermanentaddress implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDate object (this.dateCreated)
+	 * @return A LocalDateTime object (this.dateCreated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_created"  )
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return this.dateCreated;
 
 	}
@@ -157,18 +157,18 @@ public class Lastpermanentaddress implements Cloneable, Serializable {
 	 * Set the value related to the column: dateCreated.
 	 * @param dateCreated the dateCreated value you wish to set
 	 */
-	public void setDateCreated(final LocalDate dateCreated) {
+	public void setDateCreated(final LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
 	 /**
 	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDate object (this.dateUpdated)
+	 * @return A LocalDateTime object (this.dateUpdated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_updated"  )
-	public LocalDate getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return this.dateUpdated;
 
 	}
@@ -179,7 +179,7 @@ public class Lastpermanentaddress implements Cloneable, Serializable {
 	 * Set the value related to the column: dateUpdated.
 	 * @param dateUpdated the dateUpdated value you wish to set
 	 */
-	public void setDateUpdated(final LocalDate dateUpdated) {
+	public void setDateUpdated(final LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 

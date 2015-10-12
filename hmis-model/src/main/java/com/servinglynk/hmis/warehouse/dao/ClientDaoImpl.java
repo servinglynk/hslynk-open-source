@@ -7,7 +7,7 @@ import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -71,8 +71,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.staging.Client clientModel = new com.servinglynk.hmis.warehouse.model.staging.Client();
 				clientModel.setFirstName(client.getFirstName());
 				clientModel.setDateCreated(BasicDataGenerator
-						.getLocalDate(client.getDateCreated()));
-				clientModel.setDob(BasicDataGenerator.getLocalDate(client
+						.getLocalDateTime(client.getDateCreated()));
+				clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
 						.getDOB()));
 				clientModel
 						.setDobDataQuality(ClientDobDataQualityEnum
@@ -117,6 +117,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				if(dedupedId != null) {
 					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 				}
+				clientModel.setDateCreated(LocalDateTime.now());
+				clientModel.setDateUpdated(LocalDateTime.now());
 				if(clientModel.getDedupClientId() !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId());
 					/**
@@ -324,7 +326,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
     	com.servinglynk.hmis.warehouse.model.staging.Client client = new com.servinglynk.hmis.warehouse.model.staging.Client();
     	client.setFirstName("John");
     	client.setLastName("Anderson");
-    	client.setDob(LocalDate.of(1980, 01, 01));
+    	client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
     	client.setGender(ClientGenderEnum.ONE);
     	client.setSsn("111111111");
     	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -44,8 +45,8 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				//enrollmentCocModel.setCocCode(enrollmentCoc.get;
 				//enrollmentCocModel.setProjectCoId(projectCoId);
 				//enrollmentCocModel.setProjectCoId(projectCoId);
-				enrollmentCocModel.setDateCreated(BasicDataGenerator.getLocalDate(enrollmentCoc.getDateCreated()));
-				enrollmentCocModel.setDateUpdated(BasicDataGenerator.getLocalDate(enrollmentCoc.getDateUpdated()));
+				enrollmentCocModel.setDateCreated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
+				enrollmentCocModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(enrollmentCoc.getProjectEntryID()));
 				enrollmentCocModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -70,6 +71,8 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addEnrollmentCoc(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

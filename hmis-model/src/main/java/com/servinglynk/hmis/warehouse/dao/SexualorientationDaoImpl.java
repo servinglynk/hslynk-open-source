@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -39,8 +40,8 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				Sexualorientation sexualorientationModel = new Sexualorientation();
 				UUID id = UUID.randomUUID();
 				sexualorientationModel.setId(id);
-				sexualorientationModel.setDateCreated(BasicDataGenerator.getLocalDate(sexualOrientation.getDateCreated()));
-				sexualorientationModel.setDateUpdated(BasicDataGenerator.getLocalDate(sexualOrientation.getDateUpdated()));
+				sexualorientationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
+				sexualorientationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
 				sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID()));
@@ -67,6 +68,8 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addSexualorientation(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

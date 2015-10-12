@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -40,9 +41,9 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				Residentialmoveindate residentialmoveindateModel = new Residentialmoveindate();
 				residentialmoveindateModel.setId(id);
 				residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
-				residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDate(residentialMoveInDate.getResidentialMoveInDate()));
-				residentialmoveindateModel.setDateCreated(BasicDataGenerator.getLocalDate(residentialMoveInDate.getDateCreated()));
-				residentialmoveindateModel.setDateUpdated(BasicDataGenerator.getLocalDate(residentialMoveInDate.getDateUpdated()));
+				residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
+				residentialmoveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
+				residentialmoveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(residentialMoveInDate.getProjectEntryID()));
 				residentialmoveindateModel.setEnrollmentid(enrollment);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -66,6 +67,8 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addResidentialmoveindate(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -48,9 +49,9 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 										.getStringValue(lastGradeCompleted
 												.getLastGradeCompleted())));
 				lastGradeCompletedModel.setDateCreated(BasicDataGenerator
-						.getLocalDate(lastGradeCompleted.getDateCreated()));
+						.getLocalDateTime(lastGradeCompleted.getDateCreated()));
 				lastGradeCompletedModel.setDateUpdated(BasicDataGenerator
-						.getLocalDate(lastGradeCompleted.getDateUpdated()));
+						.getLocalDateTime(lastGradeCompleted.getDateUpdated()));
 				if(lastGradeCompleted.getProjectEntryID() !=null && !"".equals(lastGradeCompleted.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((lastGradeCompleted.getProjectEntryID()));
 					if(uuid !=null) {
@@ -80,6 +81,8 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addLastgradecompleted(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

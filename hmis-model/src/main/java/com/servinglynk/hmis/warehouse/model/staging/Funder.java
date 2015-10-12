@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.model.staging;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -49,11 +49,11 @@ public class Funder implements Cloneable, Serializable {
 	
 
 	/** Field mapping. */
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 	/** Field mapping. */
-	private LocalDate dateUpdated;
+	private LocalDateTime dateUpdated;
 	/** Field mapping. */
-	private LocalDate enddate;
+	private LocalDateTime enddate;
 	/** Field mapping. */
 	private FunderFunderEnum funder;
 	/** Field mapping. */
@@ -63,7 +63,7 @@ public class Funder implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Project projectid;
 	/** Field mapping. */
-	private LocalDate startdate;
+	private LocalDateTime startdate;
 	/** Field mapping. */
 	private HmisUser user;
 	/**
@@ -121,12 +121,12 @@ public class Funder implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDate object (this.dateCreated)
+	 * @return A LocalDateTime object (this.dateCreated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_created"  )
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return this.dateCreated;
 		
 	}
@@ -137,18 +137,18 @@ public class Funder implements Cloneable, Serializable {
 	 * Set the value related to the column: dateCreated.
 	 * @param dateCreated the dateCreated value you wish to set
 	 */
-	public void setDateCreated(final LocalDate dateCreated) {
+	public void setDateCreated(final LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
 	 /**
 	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDate object (this.dateUpdated)
+	 * @return A LocalDateTime object (this.dateUpdated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_updated"  )
-	public LocalDate getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return this.dateUpdated;
 		
 	}
@@ -159,18 +159,18 @@ public class Funder implements Cloneable, Serializable {
 	 * Set the value related to the column: dateUpdated.
 	 * @param dateUpdated the dateUpdated value you wish to set
 	 */
-	public void setDateUpdated(final LocalDate dateUpdated) {
+	public void setDateUpdated(final LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 
 	 /**
 	 * Return the value associated with the column: enddate.
-	 * @return A LocalDate object (this.enddate)
+	 * @return A LocalDateTime object (this.enddate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
-	public LocalDate getEnddate() {
+	public LocalDateTime getEnddate() {
 		return this.enddate;
 		
 	}
@@ -181,7 +181,7 @@ public class Funder implements Cloneable, Serializable {
 	 * Set the value related to the column: enddate.
 	 * @param enddate the enddate value you wish to set
 	 */
-	public void setEnddate(final LocalDate enddate) {
+	public void setEnddate(final LocalDateTime enddate) {
 		this.enddate = enddate;
 	}
 
@@ -283,12 +283,12 @@ public class Funder implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: startdate.
-	 * @return A LocalDate object (this.startdate)
+	 * @return A LocalDateTime object (this.startdate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
-	public LocalDate getStartdate() {
+	public LocalDateTime getStartdate() {
 		return this.startdate;
 		
 	}
@@ -299,7 +299,7 @@ public class Funder implements Cloneable, Serializable {
 	 * Set the value related to the column: startdate.
 	 * @param startdate the startdate value you wish to set
 	 */
-	public void setStartdate(final LocalDate startdate) {
+	public void setStartdate(final LocalDateTime startdate) {
 		this.startdate = startdate;
 	}
 

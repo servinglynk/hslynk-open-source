@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -37,8 +38,8 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				Percentami percentamoModel = new Percentami();
 				UUID id = UUID.randomUUID();
 				percentamoModel.setId(id);
-				percentamoModel.setDateCreated(BasicDataGenerator.getLocalDate(percentAMI.getDateCreated()));
-				percentamoModel.setDateUpdated(BasicDataGenerator.getLocalDate(percentAMI.getDateUpdated()));
+				percentamoModel.setDateCreated(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
+				percentamoModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
 				percentamoModel.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(percentAMI.getProjectEntryID()));
@@ -65,6 +66,8 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addPercentami(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

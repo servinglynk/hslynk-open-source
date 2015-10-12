@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -40,15 +41,15 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				UUID id = UUID.randomUUID();
 				com.servinglynk.hmis.warehouse.model.staging.Services servicesModel = new com.servinglynk.hmis.warehouse.model.staging.Services();
 				servicesModel.setId(id);
-				servicesModel.setDateprovided(BasicDataGenerator.getLocalDate(services.getDateProvided()));
+				servicesModel.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
 				servicesModel.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
 				servicesModel.setOthertypeprovided(services.getOtherTypeProvided());
 				servicesModel.setRecordtype(ServicesRecordtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getRecordType())));
 				servicesModel.setReferraloutcome(ServicesReferraloutcomeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getReferralOutcome())));
 				servicesModel.setSubtypeprovided(BasicDataGenerator.getIntegerValue(services.getSubTypeProvided()));
 				servicesModel.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
-				servicesModel.setDateCreated(BasicDataGenerator.getLocalDate(services.getDateCreated()));
-				servicesModel.setDateUpdated(BasicDataGenerator.getLocalDate(services.getDateUpdated()));
+				servicesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
+				servicesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(services.getProjectEntryID()));
 				servicesModel.setEnrollmentid(enrollment);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -71,6 +72,8 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addServices(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

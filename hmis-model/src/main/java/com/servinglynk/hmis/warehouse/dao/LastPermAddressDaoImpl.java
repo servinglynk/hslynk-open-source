@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -41,8 +42,8 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				UUID id = UUID.randomUUID();
 				lastPermAddressModel.setId(id);
 				lastPermAddressModel.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(lastPermanentAddress.getAddressDataQuality())));
-				lastPermAddressModel.setDateCreated(BasicDataGenerator.getLocalDate(lastPermanentAddress.getDateCreated()));
-				lastPermAddressModel.setDateUpdated(BasicDataGenerator.getLocalDate(lastPermanentAddress.getDateUpdated()));
+				lastPermAddressModel.setDateCreated(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateCreated()));
+				lastPermAddressModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateUpdated()));
 				lastPermAddressModel.setCity(lastPermanentAddress.getLastPermanentCity());
 				lastPermAddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
 				lastPermAddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());
@@ -71,6 +72,8 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 					target.setEnrollmentid(enrollmentModel);
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					exportEntity.addLastPermAddress(target);
 					insertOrUpdate(target);
 				}

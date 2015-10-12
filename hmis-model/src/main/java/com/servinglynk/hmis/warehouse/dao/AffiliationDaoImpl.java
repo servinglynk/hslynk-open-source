@@ -32,12 +32,12 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					com.servinglynk.hmis.warehouse.model.staging.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.staging.Affiliation();
 					affiliationModel.setId(UUID.randomUUID());
 					affiliationModel.setResprojectid(affiliation.getResProjectID());
-					affiliationModel.setDateCreated(BasicDataGenerator.getLocalDate(affiliation.getDateCreated()));
-					affiliationModel.setDateUpdated(BasicDataGenerator.getLocalDate(affiliation.getDateUpdated()));
-					//Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(affiliation.getProjectID()));
-					//affiliationModel.setProjectid(project);
+					affiliationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
+					affiliationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
+					Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(affiliation.getProjectID()));
 					com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 					affiliationModel.setExport(exportEntity);
+					affiliationModel.setProjectid(project);
 					exportEntity.addAffiliation(affiliationModel);
 					insertOrUpdate(affiliationModel);
 				}
@@ -52,6 +52,10 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 				for(com.servinglynk.hmis.warehouse.model.staging.Affiliation affiliation : affiliations ) {
 					 com.servinglynk.hmis.warehouse.model.live.Affiliation target = new com.servinglynk.hmis.warehouse.model.live.Affiliation();
 					 BeanUtils.copyProperties(affiliation, target,getNonCollectionFields(target));
+					 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					 target.setExport(exportEntity);
+					 com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,affiliation.getProjectid().getId());
+					 target.setProjectid(projectModel);
 					 insert(target);
 				}
 			}

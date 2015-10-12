@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,10 +44,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if(export != null)
 			{
 				com.servinglynk.hmis.warehouse.model.staging.Export exportModel  = new com.servinglynk.hmis.warehouse.model.staging.Export();
-				exportModel.setExportDate(BasicDataGenerator.getLocalDate(export.getExportDate()));
+				exportModel.setExportDate(BasicDataGenerator.getLocalDateTime(export.getExportDate()));
 				exportModel.setExportdirective(export.getExportDirective());
 				exportModel.setExportperiodtype(export.getExportPeriodType());
 				exportModel.setId(exportId);
+				exportModel.setDateCreated(LocalDateTime.now());
+				exportModel.setDateUpdated(LocalDateTime.now());
+				//exportModel.setUser(user);
 				com.servinglynk.hmis.warehouse.model.staging.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.staging.Source) get(com.servinglynk.hmis.warehouse.model.staging.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
 				//export.getExportPeriod()
@@ -78,7 +82,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getPathstatusDao().hydrateStaging(domain);
 			parentDaoFactory.getPercentamiDao().hydrateStaging(domain);
 			parentDaoFactory.getReferralsourceDao().hydrateStaging(domain);
-			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
+		//	parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
 			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain);
 			parentDaoFactory.getSchoolstatusDao().hydrateStaging(domain);
 			parentDaoFactory.getSexualorientationDao().hydrateStaging(domain);
@@ -115,6 +119,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export);
 		//parentDaoFactory.getDateofengagementDao().hydrateLive(export);
 		//parentDaoFactory.getOrganizationDao().hydrateLive(export);
+		parentDaoFactory.getOrganizationDao().hydrateLive(export);
 		parentDaoFactory.getProjectDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);
 		parentDaoFactory.getProjectcocDao().hydrateLive(export);
@@ -137,7 +142,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getPathstatusDao().hydrateLive(export);
 		parentDaoFactory.getPercentamiDao().hydrateLive(export);
 		parentDaoFactory.getReferralsourceDao().hydrateLive(export);
-		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
+		//parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
 		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export);
 		parentDaoFactory.getSchoolstatusDao().hydrateLive(export);
 		parentDaoFactory.getSexualorientationDao().hydrateLive(export);

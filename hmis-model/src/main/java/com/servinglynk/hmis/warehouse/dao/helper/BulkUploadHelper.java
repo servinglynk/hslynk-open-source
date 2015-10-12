@@ -602,6 +602,7 @@ public class BulkUploadHelper {
     	  sources.getSource().getExport().setDateOfEngagement(dateOfEngagementList);
     	  sources.getSource().getExport().setSexualOrientation(sexualOrientationList);
     	  sources.getSource().getExport().setYouthCriticalIssues(youthCriticalIssuesList);
+    	  sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
     	  sources.getSource().getExport().setCommercialSexualExploitation(commercialSexualExploitationList);
 	  }
 	  /**
@@ -663,7 +664,7 @@ public class BulkUploadHelper {
 	    	  exitModel.setProjectEntryID(ext.getProjectEntryID());
 	    	  exitModel.setUserID(ext.getUserID());
 	    	  exitList.add(exitModel);
-	    	  //sources.getSource().getExport().setExit
+	    	  sources.getSource().getExport().getExit().add(exitModel);
 	    	  
 	    	  HousingAssessmentDisposition housingAssessmentDispositionModel = new HousingAssessmentDisposition();
 	    	  housingAssessmentDispositionModel.setAssessmentDisposition(getByte(ext.getAssessmentDisposition()));
@@ -674,7 +675,6 @@ public class BulkUploadHelper {
 	    	  housingAssessmentDispositionModel.setOtherDisposition(ext.getOtherDisposition());
 	    	  housingAssessmentDispositionModel.setUserID(ext.getUserID());
 	    	  housingAssessmentDispositionList.add(housingAssessmentDispositionModel);
-	    	  sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
 	    	  
 	    	  FamilyReunification familyReunificationModel = new FamilyReunification();
 	    	  familyReunificationModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
@@ -683,9 +683,7 @@ public class BulkUploadHelper {
 	    	  familyReunificationModel.setFamilyReunificationAchieved(getByte(ext.getFamilyReunificationAchieved()));
 //	    	  familyReunificationModel.setFamilyReunificationID(ext.get);
 	    	  familyReunificationModel.setUserID(ext.getUserID());
-	    	  familyReunificationList.add(familyReunificationModel);
-	    	  
-	    	 // sources.getSource().getExport().setF(exitPlansActionsList);
+	    	  sources.getSource().getExport().getFamilyReunification().add(familyReunificationModel);
 	    	  
 	    	  ExitPlansActions exitPlansActionsModel = new ExitPlansActions();
 	    	  exitPlansActionsModel.setAssistanceMainstreamBenefits(getByte(ext.getAssistanceMainstreamBenefits()));
@@ -703,8 +701,6 @@ public class BulkUploadHelper {
 	    	  exitPlansActionsModel.setUserID(ext.getUserID());
 	    	  exitPlansActionsModel.setWrittenAftercarePlan(getByte(ext.getWrittenAftercarePlan()));
 	    	  exitPlansActionsList.add(exitPlansActionsModel);
-	    	  sources.getSource().getExport().setExitPlansActions(exitPlansActionsList);
-	    	  
 	    	  
 	    	  ConnectionWithSOAR connectionWithSOARModel = new ConnectionWithSOAR();
 	    	  connectionWithSOARModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
@@ -714,7 +710,6 @@ public class BulkUploadHelper {
 	    	  connectionWithSOARModel.setExitID(ext.getExitID());
 	    	  connectionWithSOARModel.setUserID(ext.getUserID());
 	    	  connectionWithSOARList.add(connectionWithSOARModel);
-	    	  sources.getSource().getExport().setConnectionWithSOAR(connectionWithSOARList);
 	    	  
 	    	  ExitHousingAssessment exitHousingAssessmentModel = new ExitHousingAssessment();
 	    	  exitHousingAssessmentModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
@@ -725,7 +720,7 @@ public class BulkUploadHelper {
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
-	    	  sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
+	    	  
 	    	  
 	    	  ProjectCompletionStatus projectCompletionStatusModel = new ProjectCompletionStatus();
 	    	  projectCompletionStatusModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
@@ -736,10 +731,13 @@ public class BulkUploadHelper {
 //	    	  projectCompletionStatusModel.setProjectCompletionStatusID(ext.getpr);
 	    	  projectCompletionStatusModel.setUserID(ext.getUserID());
 	    	  projectCompletionStatusList.add(projectCompletionStatusModel);
-	    	  sources.getSource().getExport().setProjectCompletionStatus(projectCompletionStatusList);
 	    	  
-	    	  sources.getSource().getExport().getExit().add(exitModel);
 	      }
+	      sources.getSource().getExport().setProjectCompletionStatus(projectCompletionStatusList);
+	      sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
+	      sources.getSource().getExport().setConnectionWithSOAR(connectionWithSOARList);
+	      sources.getSource().getExport().setExitPlansActions(exitPlansActionsList);
+	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
 	  }
 	  
 	  /**

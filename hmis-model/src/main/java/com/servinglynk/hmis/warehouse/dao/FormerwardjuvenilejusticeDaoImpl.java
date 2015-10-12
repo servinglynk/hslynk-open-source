@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -43,8 +44,8 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				formerWardJuvenileJusticeModel.setJuvenilejusticemonths(BasicDataGenerator.getIntegerValue(formerWardJuvenileJustice.getJuvenileJusticeMonths()));
 				formerWardJuvenileJusticeModel.setJuvenilejusticeyears(FormerwardjuvenilejusticeJuvenilejusticeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getJuvenileJusticeYears())));
 				formerWardJuvenileJusticeModel.setId(UUID.randomUUID());
-				formerWardJuvenileJusticeModel.setDateCreated(BasicDataGenerator.getLocalDate(formerWardJuvenileJustice.getDateCreated()));
-				formerWardJuvenileJusticeModel.setDateUpdated(BasicDataGenerator.getLocalDate(formerWardJuvenileJustice.getDateUpdated()));
+				formerWardJuvenileJusticeModel.setDateCreated(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateCreated()));
+				formerWardJuvenileJusticeModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardJuvenileJustice.getProjectEntryID()));
 				formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -62,13 +63,15 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		if(formerwardjuvenilejustices != null && !formerwardjuvenilejustices.isEmpty()) {
 			for(Formerwardjuvenilejustice formerwardjuvenilejustice : formerwardjuvenilejustices) {
 				if(formerwardjuvenilejustice != null) {
-					Formerwardchildwelfare target = new Formerwardchildwelfare();
+					com.servinglynk.hmis.warehouse.model.live.Formerwardjuvenilejustice target = new com.servinglynk.hmis.warehouse.model.live.Formerwardjuvenilejustice();
 					BeanUtils.copyProperties(formerwardjuvenilejustice, target, getNonCollectionFields(target));
 					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, formerwardjuvenilejustice.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
-					exportEntity.addFormerwardchildwelfare(target);
+					exportEntity.addFormerwardjuvenilejustice(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

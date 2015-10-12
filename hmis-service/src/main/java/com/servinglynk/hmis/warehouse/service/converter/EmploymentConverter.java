@@ -14,7 +14,7 @@ public class EmploymentConverter {
        entity.setEmployed(EmploymentEmployedEnum.valueOf(model.getEmployed()));
        entity.setEmploymentType(EmploymentEmploymentTypeEnum.valueOf(model.getEmploymentType()));
        entity.setNotEmployedReason(EmploymentNotEmployedReasonEnum.valueOf(model.getNotEmployedReason()));
-       entity.setInformationDate(model.getInformationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+       entity.setInformationDate(model.getInformationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        return entity;    
    }
 

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -42,8 +43,8 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				Medicalassistance medicalassistanceModel = new Medicalassistance();
 				UUID id = UUID.randomUUID();
 				medicalassistanceModel.setId(id);
-				medicalassistanceModel.setDateCreated(BasicDataGenerator.getLocalDate(medicalAssistance.getDateCreated()));
-				medicalassistanceModel.setDateUpdated(BasicDataGenerator.getLocalDate(medicalAssistance.getDateUpdated()));
+				medicalassistanceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
+				medicalassistanceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
 				medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getADAP())));
 				medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
 				medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
@@ -72,6 +73,8 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addMedicalassistance(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

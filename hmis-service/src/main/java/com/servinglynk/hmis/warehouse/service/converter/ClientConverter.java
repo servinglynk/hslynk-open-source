@@ -17,7 +17,7 @@ public class ClientConverter {
 		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.live.Client(); 
 
 
-		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		pClient.setDobDataQuality(ClientDobDataQualityEnum.valueOf(client.getDobDataQuality()));
 		pClient.setEthnicity(ClientEthnicityEnum.valueOf(client.getEthnicity()+""));
 		pClient.setFirstName(client.getFirstName());

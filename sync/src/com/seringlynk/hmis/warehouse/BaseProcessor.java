@@ -29,7 +29,10 @@ public class BaseProcessor<T> {
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
 					"hmisdb1234");
-			
+	/*		connection = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/hmis", "postgres",
+					"postgres");
+			*/
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM live."+tableName);
 			resultSet = statement.executeQuery();
 			// simple JDBC code to run SQL query and populate resultSet - END
@@ -54,7 +57,7 @@ public class BaseProcessor<T> {
 				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
-		//		 baseImport.insert("hmis", class1.getSimpleName(), rowKey, getNonCollectionFields(pojo), data);
+				 baseImport.insert("hmis", class1.getSimpleName(), rowKey, getNonCollectionFields(pojo), data);
 				}
 			
 			

@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -68,9 +68,9 @@ public class Enrollment implements Cloneable, Serializable {
 	private Set<Dateofengagement> dateofengagements = new HashSet<Dateofengagement>();
 
 	/** Field mapping. */
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 	/** Field mapping. */
-	private LocalDate dateUpdated;
+	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Set<Disabilities> disabilitieses = new HashSet<Disabilities>();
 
@@ -86,7 +86,7 @@ public class Enrollment implements Cloneable, Serializable {
 	private Set<EnrollmentCoc> enrollmentCocs = new HashSet<EnrollmentCoc>();
 
 	/** Field mapping. */
-	private LocalDate entrydate;
+	private LocalDateTime entrydate;
 	/** Field mapping. */
 	private Set<Exit> exits = new HashSet<Exit>();
 
@@ -348,12 +348,12 @@ public class Enrollment implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDate object (this.dateCreated)
+	 * @return A LocalDateTime object (this.dateCreated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_created"  )
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return this.dateCreated;
 		
 	}
@@ -364,18 +364,18 @@ public class Enrollment implements Cloneable, Serializable {
 	 * Set the value related to the column: dateCreated.
 	 * @param dateCreated the dateCreated value you wish to set
 	 */
-	public void setDateCreated(final LocalDate dateCreated) {
+	public void setDateCreated(final LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
 	 /**
 	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDate object (this.dateUpdated)
+	 * @return A LocalDateTime object (this.dateUpdated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_updated"  )
-	public LocalDate getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return this.dateUpdated;
 		
 	}
@@ -386,7 +386,7 @@ public class Enrollment implements Cloneable, Serializable {
 	 * Set the value related to the column: dateUpdated.
 	 * @param dateUpdated the dateUpdated value you wish to set
 	 */
-	public void setDateUpdated(final LocalDate dateUpdated) {
+	public void setDateUpdated(final LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 
@@ -538,12 +538,12 @@ public class Enrollment implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: entrydate.
-	 * @return A LocalDate object (this.entrydate)
+	 * @return A LocalDateTime object (this.entrydate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
-	public LocalDate getEntrydate() {
+	public LocalDateTime getEntrydate() {
 		return this.entrydate;
 		
 	}
@@ -554,7 +554,7 @@ public class Enrollment implements Cloneable, Serializable {
 	 * Set the value related to the column: entrydate.
 	 * @param entrydate the entrydate value you wish to set
 	 */
-	public void setEntrydate(final LocalDate entrydate) {
+	public void setEntrydate(final LocalDateTime entrydate) {
 		this.entrydate = entrydate;
 	}
 

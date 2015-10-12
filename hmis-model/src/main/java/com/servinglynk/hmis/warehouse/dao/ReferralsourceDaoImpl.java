@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -37,8 +38,8 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 			Referralsource referralsourceModel = new Referralsource();
 			UUID id = UUID.randomUUID();
 			referralsourceModel.setId(id);
-			referralsourceModel.setDateCreated(BasicDataGenerator.getLocalDate(referralSource.getDateCreated()));
-			referralsourceModel.setDateUpdated(BasicDataGenerator.getLocalDate(referralSource.getDateUpdated()));
+			referralsourceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
+			referralsourceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
 			referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
 			referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
 			
@@ -64,6 +65,8 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addReferralsource(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

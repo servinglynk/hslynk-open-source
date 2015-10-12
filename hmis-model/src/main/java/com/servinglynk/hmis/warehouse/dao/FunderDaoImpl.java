@@ -39,10 +39,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				funderModel.setId(id);
 				funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
 				//funderModel.setGrantid(under.getGrantID());
-				funderModel.setStartdate(BasicDataGenerator.getLocalDate(funder.getStartDate()));
-				funderModel.setEnddate(BasicDataGenerator.getLocalDate(funder.getEndDate()));
-				funderModel.setDateCreated(BasicDataGenerator.getLocalDate(funder.getDateCreated()));
-				funderModel.setDateUpdated(BasicDataGenerator.getLocalDate(funder.getDateUpdated()));
+				funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
+				funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
+				funderModel.setDateCreated(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
+				funderModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
 				Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(funder.getProjectID()));
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				funderModel.setExport(exportEntity);
@@ -62,6 +62,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				if(funder != null) {
 					com.servinglynk.hmis.warehouse.model.live.Funder target = new com.servinglynk.hmis.warehouse.model.live.Funder();
 					BeanUtils.copyProperties(funder, target,getNonCollectionFields(target));
+					 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					 target.setExport(exportEntity);
+					 com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,funder.getProjectid().getId());
+					 target.setProjectid(projectModel);
 					insert(target);
 				}
 			}

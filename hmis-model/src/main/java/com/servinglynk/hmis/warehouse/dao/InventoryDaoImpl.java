@@ -43,8 +43,8 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);
 				com.servinglynk.hmis.warehouse.model.staging.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.staging.Inventory();
 				inventoryModel.setId(id);
-				inventoryModel.setDateCreated(BasicDataGenerator.getLocalDate(inventory.getDateCreated()));
-				inventoryModel.setDateUpdated(BasicDataGenerator.getLocalDate(inventory.getDateUpdated()));
+				inventoryModel.setDateCreated(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
+				inventoryModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailabilty())));
 				Bedinventory bedInventory = (Bedinventory) get(Bedinventory.class, domain.getBedInventoryMap().get(String.valueOf(inventory.getBedInventory().getBedInventory())));
 				inventoryModel.setBedinventory(bedInventory);

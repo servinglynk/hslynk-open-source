@@ -4,7 +4,7 @@ import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -50,9 +50,9 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 	
 
 	/** Field mapping. */
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 	/** Field mapping. */
-	private LocalDate dateUpdated;
+	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
@@ -62,7 +62,7 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 	/** Field mapping. */
 	private RhybcpStatusReasonNoServicesEnum reasonNoServices;
 	/** Field mapping. */
-	private LocalDate statusDate;
+	private LocalDateTime statusDate;
 	/** Field mapping. */
 	private HmisUser user;
 	/**
@@ -120,12 +120,12 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDate object (this.dateCreated)
+	 * @return A LocalDateTime object (this.dateCreated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_created"  )
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return this.dateCreated;
 		
 	}
@@ -136,18 +136,18 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 	 * Set the value related to the column: dateCreated.
 	 * @param dateCreated the dateCreated value you wish to set
 	 */
-	public void setDateCreated(final LocalDate dateCreated) {
+	public void setDateCreated(final LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
 	 /**
 	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDate object (this.dateUpdated)
+	 * @return A LocalDateTime object (this.dateUpdated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_updated"  )
-	public LocalDate getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return this.dateUpdated;
 		
 	}
@@ -158,7 +158,7 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 	 * Set the value related to the column: dateUpdated.
 	 * @param dateUpdated the dateUpdated value you wish to set
 	 */
-	public void setDateUpdated(final LocalDate dateUpdated) {
+	public void setDateUpdated(final LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 
@@ -261,12 +261,12 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 
 	 /**
 	 * Return the value associated with the column: statusDate.
-	 * @return A LocalDate object (this.statusDate)
+	 * @return A LocalDateTime object (this.statusDate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "status_date"  )
-	public LocalDate getStatusDate() {
+	public LocalDateTime getStatusDate() {
 		return this.statusDate;
 		
 	}
@@ -277,7 +277,7 @@ public class Rhybcpstatus implements Cloneable, Serializable {
 	 * Set the value related to the column: statusDate.
 	 * @param statusDate the statusDate value you wish to set
 	 */
-	public void setStatusDate(final LocalDate statusDate) {
+	public void setStatusDate(final LocalDateTime statusDate) {
 		this.statusDate = statusDate;
 	}
 

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -69,8 +70,8 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				healthinsuranceModel.setSchip(HealthinsuranceSchipEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getSCHIP())));
 				healthinsuranceModel.setStatehealthins(HealthinsuranceStatehealthinsEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getStateHealthIns())));
 				healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
-				healthinsuranceModel.setDateCreated(BasicDataGenerator.getLocalDate(healthInsurance.getDateCreated()));
-				healthinsuranceModel.setDateUpdated(BasicDataGenerator.getLocalDate(healthInsurance.getDateUpdated()));
+				healthinsuranceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
+				healthinsuranceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(healthInsurance.getProjectEntryID()));
 				healthinsuranceModel.setEnrollmentid(enrollmentModel);
@@ -94,6 +95,8 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addHealthinsurance(target);
+				target.setDateCreated(LocalDateTime.now());
+				target.setDateUpdated(LocalDateTime.now());
 				insertOrUpdate(target);
 			}
 		}

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -42,8 +43,8 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 				formerwardchildwelfareModel.setChildwelfaremonths(BasicDataGenerator.getIntegerValue(formerWardChildWelfare.getChildWelfareMonths()));
 				formerwardchildwelfareModel.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getChildWelfareYears())));
 				formerwardchildwelfareModel.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
-				formerwardchildwelfareModel.setDateCreated(BasicDataGenerator.getLocalDate(formerWardChildWelfare.getDateCreated()));
-				formerwardchildwelfareModel.setDateUpdated(BasicDataGenerator.getLocalDate(formerWardChildWelfare.getDateUpdated()));
+				formerwardchildwelfareModel.setDateCreated(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
+				formerwardchildwelfareModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardChildWelfare.getProjectEntryID()));
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				formerwardchildwelfareModel.setExport(exportEntity);
@@ -67,6 +68,8 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addFormerwardchildwelfare(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

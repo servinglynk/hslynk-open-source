@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.util;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -807,11 +807,11 @@ public class BasicDataGenerator {
 		}
 		return null;
 	}
-	public static LocalDate getLocalDate(XMLGregorianCalendar value)
+	public static LocalDateTime getLocalDateTime(XMLGregorianCalendar value)
 	{
 		if(value!=null)
 		{
-			return value.toGregorianCalendar().toZonedDateTime().toLocalDate();
+			return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
 		}
 		return null;
 		

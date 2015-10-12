@@ -39,8 +39,8 @@ public class LastpermanentaddressDaoImpl extends ParentDaoImpl implements
 //			UUID id = UUID.randomUUID();
 //			lastpermanentaddressModel.setId(id);
 //			lastpermanentaddressModel.set(LastPermAddressAddressDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(lastPermanentAddress.getAddressDataQuality())));
-//			lastpermanentaddressModel.setDateCreated(BasicDataGenerator.getLocalDate(lastPermanentAddress.getDateCreated()));
-//			lastpermanentaddressModel.setDateUpdated(BasicDataGenerator.getLocalDate(lastPermanentAddress.getDateUpdated()));
+//			lastpermanentaddressModel.setDateCreated(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateCreated()));
+//			lastpermanentaddressModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateUpdated()));
 //			lastpermanentaddressModel.setCity(lastPermanentAddress.getLastPermanentCity());
 //			lastpermanentaddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
 //			lastpermanentaddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());

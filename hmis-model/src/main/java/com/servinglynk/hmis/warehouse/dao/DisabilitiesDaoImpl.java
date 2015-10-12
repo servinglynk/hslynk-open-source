@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -48,8 +49,8 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
 				disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
 				disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
-				disabilitiesModel.setDateCreated(BasicDataGenerator.getLocalDate(disabilities.getDateCreated()));
-				disabilitiesModel.setDateUpdated(BasicDataGenerator.getLocalDate(disabilities.getDateUpdated()));
+				disabilitiesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
+				disabilitiesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 				if(disabilities.getProjectEntryID() !=null && !"".equals(disabilities.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((disabilities.getProjectEntryID()));
 					if(uuid !=null) {
@@ -81,6 +82,8 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				 target.setExport(exportEntity);
 				 exportEntity.addDisabilities(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 				 insertOrUpdate(target);
 			}
 		}

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -38,12 +39,12 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 			{
 				com.servinglynk.hmis.warehouse.model.staging.HealthStatus healthStatusModel = new com.servinglynk.hmis.warehouse.model.staging.HealthStatus();
 				healthStatusModel.setId(UUID.randomUUID());
-				healthStatusModel.setDueDate(BasicDataGenerator.getLocalDate(healthStatus.getDueDate()));
+				healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
 				healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthCategory())));
 				healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthStatus())));
-				healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDate(healthStatus.getInformationDate()));
-				healthStatusModel.setDateCreated(BasicDataGenerator.getLocalDate(healthStatus.getDateCreated()));
-				healthStatusModel.setDateUpdated(BasicDataGenerator.getLocalDate(healthStatus.getDateUpdated()));
+				healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
+				healthStatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
+				healthStatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
 				if(healthStatus.getProjectEntryID()!=null && !"".equals(healthStatus.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(healthStatus.getProjectEntryID());
 					if(uuid !=null) {
@@ -73,6 +74,8 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addHealthStatus(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

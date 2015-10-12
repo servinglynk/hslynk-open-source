@@ -5,7 +5,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.ByteBuffer;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -102,11 +102,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 								.getStringValue(enrollment
 										.getRelationshipToHoH())));
 				enrollmentModel.setDateCreated(BasicDataGenerator
-						.getLocalDate(enrollment.getDateCreated()));
+						.getLocalDateTime(enrollment.getDateCreated()));
 				enrollmentModel.setDateUpdated(BasicDataGenerator
-						.getLocalDate(enrollment.getDateUpdated()));
+						.getLocalDateTime(enrollment.getDateUpdated()));
 				enrollmentModel.setEntrydate(BasicDataGenerator
-						.getLocalDate(enrollment.getEntryDate()));
+						.getLocalDateTime(enrollment.getEntryDate()));
 				enrollmentModel
 						.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 								.getMonthsHomelessPastThreeYears())));
@@ -144,6 +144,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				//	parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insert(target);
 				}
 			}
@@ -245,7 +247,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		}
 		// TODO Auto-generated method stub
 		com.servinglynk.hmis.warehouse.model.live.Enrollment entity = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
-		entity.setDateCreated(LocalDate.now());
+		entity.setDateCreated(LocalDateTime.now());
 		entity.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.ONE);
 		entity.setHousingstatus(EnrollmentHousingstatusEnum.ONE);
 		entity.setYearshomeless(3);

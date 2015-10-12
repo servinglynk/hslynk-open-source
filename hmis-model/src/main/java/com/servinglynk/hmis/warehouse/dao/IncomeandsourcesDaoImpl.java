@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -86,8 +87,8 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setVadisabilityserviceamount(new BigDecimal(incomeAndSources.getVADisabilityServiceAmount()));
 				incomeAndSourcesModel.setWorkerscomp(IncomeandsourcesWorkerscompEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getWorkersComp())));
 				incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
-				incomeAndSourcesModel.setDateCreated(BasicDataGenerator.getLocalDate(incomeAndSources.getDateCreated()));
-				incomeAndSourcesModel.setDateUpdated(BasicDataGenerator.getLocalDate(incomeAndSources.getDateUpdated()));
+				incomeAndSourcesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
+				incomeAndSourcesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
 				if(incomeAndSources.getProjectEntryID()!=null && !"".equals(incomeAndSources.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(incomeAndSources.getProjectEntryID());
 					if(uuid !=null) {
@@ -116,6 +117,8 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addIncomeandsources(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

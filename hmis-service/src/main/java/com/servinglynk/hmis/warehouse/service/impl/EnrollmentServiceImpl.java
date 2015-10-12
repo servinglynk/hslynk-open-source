@@ -26,7 +26,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
-		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
 
 		enrollment.setEnrollmentId(pEnrollment.getId());
@@ -46,7 +46,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		EnrollmentConveter.modelToEntity(enrollment, pEnrollment);
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
-		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
 
 		return enrollment;

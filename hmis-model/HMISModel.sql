@@ -527,10 +527,10 @@ CREATE TABLE live.hmis_user
   last_name character(50),
   name_suffix character(50),
   ssn character(9),
-  dob date,
+  dob timestamp,
   gender live.gender,
-  date_created date,
-  date_updated date,
+  date_created timestamp,
+  date_updated timestamp,
   CONSTRAINT hmis_user_pk PRIMARY KEY (id)
 )
 WITH (
@@ -546,9 +546,9 @@ CREATE TABLE "live".hmis_type
   "value" character(50) NOT NULL,
   "description" character(50),
   "status" character(10),
-  "expiration_date" date,
-  "date_created" date,
-  "date_updated" date,
+  "expiration_date" timestamp,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   CONSTRAINT hmis_type_pk PRIMARY KEY ("id"),
    CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
@@ -628,8 +628,8 @@ id uuid not null,
   sourceContactPhone	character varying(12),
   sourceID	character varying(32),
   sourceName	character varying(50),
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   constraint "source_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
@@ -643,14 +643,14 @@ with (
 create table "live".export
 (
   id uuid not null,
-  export_date  date,
-  start_date  date,
-  end_date  date,
+  export_date  timestamp,
+  start_date  timestamp,
+  end_date  timestamp,
   exportPeriodType text,
   exportDirective text,
   source_id uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   constraint "export_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
@@ -676,15 +676,15 @@ CREATE TABLE "live".client
   "name_data_quality" "live".name_data_quality,
    "ssn" character(9),
   "ssn_data_quality" "live".ssn_data_quality,
-  "dob" date,
+  "dob" timestamp,
   "dob_data_quality" "live".dob_data_quality,
   "gender" "live".gender,
   "other_gender" character(10),
   "ethnicity" "live".ethnicity,
   "race"  "live".race,
   "veteran_status" "live".veteran_status,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
    export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -716,8 +716,8 @@ CREATE TABLE "live".veteran_info
   "other_theater" "live".five_val_dk_refused,
   "military_branch" "live".military_branch,
   "discharge_status" "live".discharge_status,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   "client_id" uuid,
   export_id uuid,
@@ -740,7 +740,7 @@ CREATE TABLE "live".enrollment
   id uuid NOT NULL,
  continuouslyHomelessOneYear "live".youth_age_group,
 disablingCondition "live".five_val_dk_refused,
-entrydate date,
+entrydate timestamp,
 householdid uuid,
 housingstatus "live".housing_status,
 monthsHomelessPastThreeYears "live".months_homeless_past_3_years,
@@ -756,8 +756,8 @@ statusDocumented "live".no_yes,
 timesHomelesspastthreeyears "live".times_homeless_past_3_years,
 yearshomeless integer,
 client_id uuid,
-date_created date,
-date_updated date,
+date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -778,12 +778,12 @@ WITH (
 CREATE TABLE "live".path_status
 (
   "id" uuid NOT NULL,
-  "date_of_status" date,
+  "date_of_status" timestamp,
   "client_enrolled_in_path" bigint,
   "reason_not_enrolled" bigint,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -806,12 +806,12 @@ WITH (
 CREATE TABLE "live".rhybcp_status
 (
   "id" uuid NOT NULL,
-  "status_date" date,
+  "status_date" timestamp,
   "fysb_youth" "live".no_yes,
   "reason_no_services" "live".fysb_rsn_not_providing_srvcs,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -842,8 +842,8 @@ CREATE TABLE "live".last_perm_address
   "zip" character(10),
   "address_data_quality" "live".address_data_quality,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -870,8 +870,8 @@ CREATE TABLE "live".percent_ami
  "id" uuid NOT NULL,
   "percentage" integer,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -893,11 +893,11 @@ WITH (
 CREATE TABLE "live".schoolstatus
 (
   "id" uuid NOT NULL,
-  "information_date" date,
+  "information_date" timestamp,
   "school_status" integer,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -919,13 +919,13 @@ WITH (
 CREATE TABLE "live".employment
 (
   "id" uuid NOT NULL,
-  "information_date" date,
+  "information_date" timestamp,
   "employed" "live".five_val_dk_refused,
   "employment_type" "live".employment_type,
   "not_employed_reason" "live".not_employed_reason,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -948,12 +948,12 @@ CREATE TABLE "live".health_status
 (
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
-  "information_date" date,
+  "information_date" timestamp,
   "health_category" "live".health_category,
   "health_status" "live".health_status_type,
-  "due_date" date,
-  "date_created" date,
-  "date_updated" date,
+  "due_date" timestamp,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -976,8 +976,8 @@ create table "live".organization
   organizationcommonname character varying(32),
   id uuid not null,
   organizationname character varying(32),
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1005,8 +1005,8 @@ CREATE TABLE  "live".project
   residentialaffiliation "live".no_yes,
   targetpopulation "live".target_population_type,
   trackingmethod "live".tracking_method,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1037,8 +1037,8 @@ CREATE TABLE "live".affiliation
   id uuid NOT NULL,
   projectid uuid,
   resprojectid character varying(32),
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1066,8 +1066,8 @@ CREATE TABLE "live".bedinventory
   vet_bed_inventory integer,
   youth_age_group "live".youth_age_group,
   youth_bed_inventory bigint,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1091,8 +1091,8 @@ create table "live".projectcoc
   id uuid not null,
   coccode character varying(32),
   projectid uuid,
-   date_created date,
-date_updated date,
+   date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1114,8 +1114,8 @@ CREATE TABLE "live".enrollment_coc
   project_co_id uuid,
   enrollmentid uuid,
   coc_code character(20),
-  date_created date,
-date_updated date,
+  date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1147,8 +1147,8 @@ principal_site "live".no_yes,
 project_coc_id uuid,
 state "live".state, 
 zip text,
-date_created date,
-date_updated date,
+date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1176,12 +1176,12 @@ create table "live".inventory
   bedtype "live".bed_type,
   hmisparticipatingbeds integer,
   householdtype "live".house_hold_type,
-  inventoryenddate date,
-  inventorystartdate date,
+  inventoryenddate timestamp,
+  inventorystartdate timestamp,
   project_coc_id uuid,
   unitinventory integer,
-  date_created date,
-date_updated date,
+  date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1210,13 +1210,13 @@ with (
 create table  "live".funder
 (
 "id"  uuid not null,
-  "enddate" date,
+  "enddate" timestamp,
   "funder" "live".federal_partner_components,
   "grantid" uuid,
   "projectid" uuid,
-  "startdate" date,
-  date_created date,
-date_updated date,
+  "startdate" timestamp,
+  date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1242,12 +1242,12 @@ with (
 create table "live".pathstatus
 (
   clientenrolledinpath "live".no_yes,
-  dateofstatus date,
+  dateofstatus timestamp,
   id uuid not null,
   enrollmentid uuid,
   reasonnotenrolled "live".reason_not_enrolled,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1272,9 +1272,9 @@ create table "live".rhybcpstatus
   fysbyouth integer,
   enrollmentid uuid,
   reasonnoservices integer,
-  statusdate date,
-     "date_created" date,
-  "date_updated" date,
+  statusdate timestamp,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1302,8 +1302,8 @@ create table "live".sexualorientation
   id uuid not null,
   enrollmentid uuid,
   sexualorientation "live".sexual_orientation,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1328,8 +1328,8 @@ create table "live".formerwardjuvenilejustice
   "juvenilejusticemonths" integer,
   "juvenilejusticeyears"  "live".issues_number_of_years,
   "enrollmentid" uuid,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1356,8 +1356,8 @@ create table "live".lastpermanentaddress
   lastpermanentstreet character varying(100),
   lastpermanentzip character varying(32),
   enrollmentid uuid,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1380,8 +1380,8 @@ create table "live".percentami
   percentami integer,
   id uuid not null,
   enrollmentid uuid,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1411,8 +1411,8 @@ create table "live".medicalassistance
   noadapreason "live".no_medical_assistance_reason,
   nohivaidsassistancereason "live".no_medical_assistance_reason,
    enrollmentid uuid,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1462,8 +1462,8 @@ create table "live".youthcriticalissues
   unemploymentfam "live".no_yes,
   unemploymentyouth "live".no_yes,
   id uuid not null,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1490,8 +1490,8 @@ create table  "live".worsthousingsituation
   enrollmentid uuid,
   worsthousingsituation "live".five_val_dk_refused,
   id uuid not null,
-      "date_created" date,
-  "date_updated" date,
+      "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1516,8 +1516,8 @@ create table "live".formerwardchildwelfare
   "formerwardchildwelfare" "live".five_val_dk_refused,
   "id" uuid not null,
   "enrollmentid" uuid,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1543,8 +1543,8 @@ create table "live".lastgradecompleted
   lastgradecompleted "live".last_grade_completed,
   id uuid not null,
   enrollmentid uuid,
-       "date_created" date,
-  "date_updated" date,
+       "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1569,8 +1569,8 @@ create table "live".referralsource
   enrollmentid uuid,
   referralsource "live".referral_source,
   id uuid not null,
-       "date_created" date,
-  "date_updated" date,
+       "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1596,8 +1596,8 @@ create table "live".commercialsexualexploitation
   "countofexchangeforsex" "live".count_of_exchange_sex,
   "exchangeforsexpastthreemonths" "live".five_val_dk_refused,
    enrollmentid uuid,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1625,8 +1625,8 @@ create table "live".domesticviolence
   "domesticviolencevictim" "live".five_val_dk_refused,
   "enrollmentid" uuid,
   "whenoccurred" "live".when_dom_violence_occurred,
-       "date_created" date,
-  "date_updated" date,
+       "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1659,8 +1659,8 @@ create table "live".disabilities
   "pathsmiinformation" "live".path_smi_info_how_confirmed,
    "enrollmentid" uuid,
   "receivingservices" "live".five_val_dk_refused,
-         "date_created" date,
-  "date_updated" date,
+         "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1685,10 +1685,10 @@ create table  "live".residentialmoveindate
 (
   inpermanenthousing "live".no_yes,
   enrollmentid uuid,
-  residentialmoveindate date,
+  residentialmoveindate timestamp,
   id uuid not null,       
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1711,11 +1711,11 @@ with (
 
 create table  "live".dateofengagement
 (
-  "dateofengagement" date,
+  "dateofengagement" timestamp,
   "id" uuid not null,
   "enrollmentid" uuid,
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1736,7 +1736,7 @@ with (
 
 create table "live".services
 (
-  dateprovided date,
+  dateprovided timestamp,
   faamount numeric(15,3),
   othertypeprovided character varying(50),
   enrollmentid uuid,
@@ -1745,8 +1745,8 @@ create table "live".services
   id uuid not null,
   subtypeprovided integer,
   typeprovided integer,
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1804,8 +1804,8 @@ create table "live".incomeandsources
   vadisabilityserviceamount numeric(15,3),
   workerscomp "live".no_yes,
   workerscompamount numeric(15,3),
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1841,8 +1841,8 @@ create table "live".noncashbenefits
   tanfchildcare "live".no_yes,
   tanftransportation "live".no_yes,
   wic "live".no_yes,
-             "date_created" date,
-  "date_updated" date,
+             "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1885,8 +1885,8 @@ create table "live".healthinsurance
   "schip" "live".no_yes,
   "statehealthins" "live".no_yes,
   "vamedicalservices" "live".no_yes,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1907,12 +1907,12 @@ with (
 create table "live".exit
 (
   "destination" "live".destination,
-  "exitdate" date,
+  "exitdate" timestamp,
   "id" uuid not null,
   "otherdestination" character varying(32),
   "enrollmentid" uuid,
-                 "date_created" date,
-  "date_updated" date,
+                 "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1937,8 +1937,8 @@ create table  "live".exithousingassessment
   "exitid" uuid,
   "housingassessment" "live".housing_assmnt_exit,
   "subsidyinformation" "live".subsidy_information,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1973,8 +1973,8 @@ create table  "live".exitplansactions
   "scheduledfollowupcontacts" "live".no_yes_refused,
   "temporaryshelterplacement" "live".no_yes_refused,
   "writtenaftercareplan" "live".no_yes_refused,
-                    "date_created" date,
-  "date_updated" date,
+                    "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2003,8 +2003,8 @@ create table "live".housingassessmentdisposition
   "exitid" uuid,
   "id" uuid not null,
   "otherdisposition" character varying(32),
-              "date_created" date,
-  "date_updated" date,
+              "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2028,8 +2028,8 @@ create table "live".familyreunification
   "exitid" uuid,
   "familyreunificationachieved" "live".five_val_dk_refused,
   "id" uuid not null,
-              "date_created" date,
-  "date_updated" date,
+              "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2054,8 +2054,8 @@ create table "live".connectionwithsoar
   "connectionwithsoar" integer,
   "id" uuid,
   "exitid" uuid,
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2082,8 +2082,8 @@ create table "live".projectcompletionstatus
   exitid uuid,
   projectcompletionstatus "live".project_completion_status,
   id uuid not null,
-          "date_created" date,
-  "date_updated" date,
+          "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2109,8 +2109,8 @@ CREATE TABLE "live".sync
   sync_table character(100),
   status character(10),
   json text,
-  date_created date,
-  date_updated date,
+  date_created timestamp,
+  date_updated timestamp,
   CONSTRAINT sync_pk PRIMARY KEY (id)
 )
 WITH (
@@ -2122,8 +2122,8 @@ CREATE TABLE "live".bulk_upload
   id bigint NOT NULL,
   inputPath text,
   status character(10),
-  insert_at date,
-  update_at date,
+  insert_at timestamp,
+  update_at timestamp,
   insert_by character(100),
   update_by character(100),
    export_id uuid,
@@ -2180,10 +2180,10 @@ CREATE TABLE live.hmis_consent_message
   external_id character varying(256) NOT NULL,
   message character varying(512) NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_CONSENT_MESSAGE" PRIMARY KEY (id)
 )
 WITH (
@@ -2197,7 +2197,7 @@ CREATE TABLE live.hmis_verification
   verification_type character varying(256),
   status character varying(256),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   CONSTRAINT "PK_VERIFICATION" PRIMARY KEY (id)
@@ -2218,10 +2218,10 @@ CREATE TABLE live.hmis_service
   developer_company_id uuid NOT NULL,
   external_product_id character varying(128),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   status character varying(20),
   CONSTRAINT "PK_SERVICE" PRIMARY KEY (id)
 )
@@ -2239,10 +2239,10 @@ CREATE TABLE live.hmis_trusted_app
   description character varying(1024),
   status character varying(256) NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   expiration_time bigint DEFAULT 86400,
   trustedapp_secret character varying(32),
   trustedapp_family_type character varying(32),
@@ -2255,7 +2255,7 @@ CREATE TABLE live.hmis_trusted_app
   publish_status character varying(256),
   version character varying(128),
   download_url character varying(1024),
-  last_released_at date,
+  last_released_at timestamp,
   container_access_token_allowed boolean,
   is_internal boolean,
   api_method_check_required boolean,
@@ -2277,10 +2277,10 @@ CREATE TABLE live.hmis_account_consent
   id uuid NOT NULL,
   trustedapp_id uuid,
   consented boolean,
-  consented_at date,
-  created_at date,
+  consented_at timestamp,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   consent_token character varying(256),
   user_id uuid,
@@ -2303,8 +2303,8 @@ CREATE TABLE live.hmis_account_data_change
   old_user_name character varying(256),
   new_user_name character varying(256),
   verification_id uuid,
-  created_at date,
-  modified_at date,
+  created_at timestamp,
+  modified_at timestamp,
   created_by character varying(256),
   modified_by character varying(256),
   user_id uuid,
@@ -2325,10 +2325,10 @@ CREATE TABLE live.hmis_account_lockout
 (
   id uuid NOT NULL,
   last_attempt_status integer,
-  last_attempt_at date,
+  last_attempt_at timestamp,
   failure_attempt_count integer,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   user_id uuid,
@@ -2350,7 +2350,7 @@ CREATE TABLE live.hmis_account_preference
   iso_country_code character varying(120),
   newsletter_opt_in integer,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   user_id uuid,
@@ -2374,10 +2374,10 @@ CREATE TABLE live.hmis_api_group
   authorization_msg character varying(512),
   group_sequence bigint,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   consent_message_id uuid,
   detailed_consent_message_id uuid,
   CONSTRAINT "PK_API_GROUP" PRIMARY KEY (id),
@@ -2394,11 +2394,11 @@ WITH (
 
 
 INSERT INTO live.hmis_api_group(id, external_id, friendly_name, description, authorization_msg, created_at,  created_by)
-    VALUES ('084ab7d7de7e-1138-4f74-b50e-d9ebbc10', 'DEVELOPER_SERVICES','DEVELOPER SERVICES', 'DEVELOPER SERVICES', 'DEVELOPER SERVICES', current_date,  'MASTER DATA'),
-	       ('13e91f4220ae-96ef-4a61-95a1-e71607df', 'USER_SERVICES','USER SERVICES', 'USER SERVICES', 'USER SERVICES', current_date,  'MASTER DATA'),
-	       ('38c0c9b6e73c-6de8-4c69-b0d0-e7a454be', 'ACL_SERVICES','ACL SERVICES', 'ACL SERVICES', 'ACL SERVICES', current_date,  'MASTER DATA'),
-	       ('bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7', 'AUTH_SERVICES','AUTH SERVICES', 'AUTH SERVICES', 'AUTH SERVICES', current_date,  'MASTER DATA'),
-	       ('55269f08-273f-4f68-ae9b-f98467b4d091', 'CLIENT_API','CLIENT_API', 'CLIENT_API', 'CLIENT_API', current_date,  'MASTER DATA');
+    VALUES ('084ab7d7de7e-1138-4f74-b50e-d9ebbc10', 'DEVELOPER_SERVICES','DEVELOPER SERVICES', 'DEVELOPER SERVICES', 'DEVELOPER SERVICES', current_timestamp,  'MASTER DATA'),
+	       ('13e91f4220ae-96ef-4a61-95a1-e71607df', 'USER_SERVICES','USER SERVICES', 'USER SERVICES', 'USER SERVICES', current_timestamp,  'MASTER DATA'),
+	       ('38c0c9b6e73c-6de8-4c69-b0d0-e7a454be', 'ACL_SERVICES','ACL SERVICES', 'ACL SERVICES', 'ACL SERVICES', current_timestamp,  'MASTER DATA'),
+	       ('bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7', 'AUTH_SERVICES','AUTH SERVICES', 'AUTH SERVICES', 'AUTH SERVICES', current_timestamp,  'MASTER DATA'),
+	       ('55269f08-273f-4f68-ae9b-f98467b4d091', 'CLIENT_API','CLIENT_API', 'CLIENT_API', 'CLIENT_API', current_timestamp,  'MASTER DATA');
 
 
 CREATE SEQUENCE "live".seq_api_method START 1;
@@ -2413,10 +2413,10 @@ CREATE TABLE live.hmis_api_method
   account_consent_msg character varying(512),
   account_consent_msg_order bigint,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   api_group_id uuid,
   deprecated bigint DEFAULT 0,
   consent_message_id uuid,
@@ -2439,105 +2439,105 @@ WITH (
 );
 
 
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4561a939-edea-4b8a-974c-fab36201613d','ACL_CREATE_ROLE','ACL_CREATE_ROLE','ACL_CREATE_ROLE','POST',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8c17c5e4-85ff-4abc-bcfa-77746cae15c1','ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','PUT',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c3e1e197-0e7a-41b0-ab68-1d9365f9f948','ACL_DELETE_ROLE','ACL_DELETE_ROLE','ACL_DELETE_ROLE','DELETE',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e0dee727-31d1-4a36-acc4-78ddd177ed88','ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','GET',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('76adcdd5-f6e2-4587-bfbc-40f52b2d0a5b','ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','POST',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('cfe095c8-5316-4c37-bcfb-65757eb30a64','ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','PUT',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5389777e-4bd7-440c-9cc0-ed3069df463d','ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','DELETE',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('55269f08-273f-4f68-ae9a-f98467b4d091','ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','POST',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('604b8afb-782a-4576-9146-c6b8f1cce560','ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','PUT',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6f77f4c7-8708-4eb1-b663-12f8a11dfc3e','ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','DELETE',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('3500719b-c2dd-4c1d-8ab6-f9059a141c6a','ACL_GET_PROFILE','ACL_GET_PROFILE','ACL_GET_PROFILE','GET',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('23a43f92-1f75-4b70-aac6-23dcbeb33ba5','ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','GET',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('2192f57b-fa89-41b4-8680-e78f0b3c4c3e','ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','POST',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('2be134e2-6723-414f-a2eb-7d325f607fc2','ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','PUT',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('680d4f6e-645d-469b-a8d1-9ce0ebaeb70f','ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','DELETE',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5cf162dc-9497-4e20-8109-32cf47c8241b','ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','GET',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('659ebd34-999a-4611-ab9f-966ef8822a29','ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','PUT',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b04e67bf-9729-443a-aa27-6fa228c7be6b','ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','POST',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('d61b2d9e-bfd4-4b02-9a6f-d6884f502539','ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','PUT',CURRENT_DATE,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('1264d1d4-0fe4-4f29-a3bc-62102f420a11','USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','POST',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c1befc78-01b0-4de9-8ac9-eb34a9c78bb0','USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('0e17ff09-8ab1-4913-9dde-0552193fcbf6','USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e0ca45cc-33e3-4e9d-b5f9-537d4b88c459','USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e63574d1-1d4b-4e01-a3db-060915f3295d','USR_GET_ACCOUNT','USR_GET_ACCOUNT','USR_GET_ACCOUNT','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e832df6f-c238-456b-b03e-c60b917f508a','USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','PUT',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('29d8611c-bf90-427d-b18a-1fe2473c9ffd','USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e63156ff-e93a-447e-9080-b8c164992b97','USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('30bee259-fc5e-4667-854f-98c7fd81f3e2','USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','PUT',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('72df4ae1-3659-49cb-a221-84cee475a58e','USR_PASSWORD_RESET','USR_PASSWORD_RESET','USR_PASSWORD_RESET','PUT',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b02a288d-85f2-4a5e-95d1-a43db8383e05','USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','PUT',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('75900937-5126-44b6-937f-6494b0722657','USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','PUT',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('17ec1d67-d1a0-4aee-94bb-a686c0f25a41','USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('2a54536b-f208-41d7-a2e3-f7f1c0953c1a','USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','POST',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('18ac92c9-7cba-43df-aa00-f5c4a2c802c3','USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','GET',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('60935f25-fec5-4e4d-b0c3-452d21d1848f','USR_CREATE_SESSION','USR_CREATE_SESSION','USR_CREATE_SESSION','POST',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('600df1a9-b9e4-4953-b90e-8d55d67233ac','USR_END_SESSION','USR_END_SESSION','USR_END_SESSION','DELETE',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('3336586d-5034-41fc-a32c-9aab26873dd3','USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','PUT',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('039c55be-bf44-4e22-8a79-5ba861756c45','USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','POST',CURRENT_DATE,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b0b768dd-ebb8-4ab4-8124-8d84bec4cdd6','DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6bcdc400-1ddc-43c7-b8ab-192811119710','DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','PUT',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('fdb04b89-8962-44ec-ae66-3b5508109925','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('ed2f4926-bf7c-4103-a0cc-623c7f409bf2','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DELETE',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('16a154ba-e95f-4514-89e6-c11e6f4a43f7','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('0c41fe4d-c0bc-4514-bd64-13fb8b79ce65','DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DELETE',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('cd8407c6-b926-4311-8f74-3c22f8523aef','DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9aacbe33-b5b3-4e82-bfa8-7de2c94fee8c','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8dec892c-3dec-4b35-92c6-e133e3d502cd','DCS_GET_SERVICES','DCS_GET_SERVICES','DCS_GET_SERVICES','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('7549ee25-e8ec-4461-ac9d-97134be54563','DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('156d7669-0240-4fbd-8600-c1ebb75d366b','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('efd1e4b6-7d4e-4565-b005-3df75dc75d75','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('75381266-2797-4a38-bf28-404079017428','DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','PUT',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5256353f-b254-44fe-af66-d57d63312f62','DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DELETE',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('795778b9-ba24-4434-b140-192db2fa745b','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e8ce14b5-b732-4235-bb4d-cfca8e333c2a','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('3b6c1791-3d69-4abc-8716-0cecf831357d','DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('66729788-94cb-493a-9b3d-16cac138f609','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('82f91a18-27c5-4a6e-bf24-7d93053f499e','DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','PUT',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('761a583b-5c1b-4be6-a364-9adafcaaf3b0','DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DELETE',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c4400a71-cf49-48aa-bc09-a1a0a7ad2fc1','DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','PUT',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5a63dc2b-d28d-4b5c-bfdf-f8ce372338ad','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('aa424f3c-8743-430a-bb4f-51f2f7930570','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b75217f9-d6c3-4c9d-8566-1f2065817740','DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('50965196-a164-45fc-8ca2-52fd5de04710','DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','POST',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6ac3e289-b885-4e1c-901c-382c1e12d415','DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','GET',CURRENT_DATE,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('84ccf81d-35f1-44d6-a8fd-8fd67cde958d','AUTH_AUTHORIZE','AUTH_AUTHORIZE','AUTH_AUTHORIZE','GET',CURRENT_DATE,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c7261bb4-4c5a-4c42-9837-6215fa63fdc3','AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','GET',CURRENT_DATE,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9cec44bb-ecc5-4020-a81b-1d1f43bc397a','AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','GET',CURRENT_DATE,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6a29e5d5-2342-4cf2-b40a-45a37d522b83','AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','POST',CURRENT_DATE,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('31636bef-4d68-4eb0-9343-0a86c9be2f4c','AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','POST',CURRENT_DATE,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e004e7f9-c898-4842-bbb3-8d12d511b475', 'CLIENT_API_CREATE_CLIENT', 'CLIENT_API_CREATE_CLIENT', 'CLIENT_API_CREATE_CLIENT', 'POST',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c95c271c-60b5-4aa9-abed-605e2223e1f4', 'CLIENT_API_UPDATE_CLIENT', 'CLIENT_API_UPDATE_CLIENT', 'CLIENT_API_UPDATE_CLIENT', 'PUT',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0,  TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('7af80b93-35ef-463c-87fc-a3239deb07dd', 'CLIENT_API_DELETE_CLIENT', 'CLIENT_API_DELETE_CLIENT', 'CLIENT_API_DELETE_CLIENT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8f04c22e-4ae7-4a58-86af-76bd2cf309c5', 'CLIENT_API_GET_CLIENT_BY_ID', 'CLIENT_API_GET_CLIENT_BY_ID', 'CLIENT_API_GET_CLIENT_BY_ID', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('63384328-39d3-4258-9b6c-68139d59e9aa', 'CLIENT_API_GET_ALL_CLIENTS', 'CLIENT_API_GET_ALL_CLIENTS', 'CLIENT_API_GET_ALL_CLIENTS', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('57419432-9792-400c-9a2b-37c3c70057f5', 'CLIENT_API_CREATE_ENROLLMENT', 'CLIENT_API_CREATE_ENROLLMENT', 'CLIENT_API_CREATE_ENROLLMENT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('20b29446-3b0e-4a39-a7bc-c564395097ec', 'CLIENT_API_UPDATE_ENROLLMENT', 'CLIENT_API_UPDATE_ENROLLMENT', 'CLIENT_API_UPDATE_ENROLLMENT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9f73b8e8-c36f-4338-b82f-8c13c85779a3', 'CLIENT_API_DELETE_ENROLLMENT', 'CLIENT_API_DELETE_ENROLLMENT', 'CLIENT_API_DELETE_ENROLLMENT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4f5554ba-ec19-428a-a7f0-827fc74bb1e8', 'CLIENT_API_GET_ENROLLMENT_BY_ID', 'CLIENT_API_GET_ENROLLMENT_BY_ID', 'CLIENT_API_GET_ENROLLMENT_BY_ID', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9593ca58-78f6-4794-9d39-9412216c2f97', 'CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS', 'CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS', 'CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('bdfbf444-7c38-4f6d-834e-5ec9fd96ea45', 'CLIENT_API_CREATE_ORGANIZATION', 'CLIENT_API_CREATE_ORGANIZATION', 'CLIENT_API_CREATE_ORGANIZATION', 'POST',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('571b5e1d-a604-40f5-b1a5-4c5cca3ecfe9', 'CLIENT_API_UPDATE_ORGANIZATION', 'CLIENT_API_UPDATE_ORGANIZATION', 'CLIENT_API_UPDATE_ORGANIZATION', 'PUT',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('bd0613c8-4e0c-4b1c-8fd0-4124c3c05614', 'CLIENT_API_DELETE_ORGANIZATION', 'CLIENT_API_DELETE_ORGANIZATION', 'CLIENT_API_DELETE_ORGANIZATION', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('0d8fa06e-0b11-45ba-8fc5-454f8756b793', 'CLIENT_API_GET_ORGANIZATION_BY_ID', 'CLIENT_API_GET_ORGANIZATION_BY_ID', 'CLIENT_API_GET_ORGANIZATION_BY_ID', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('de62bf18-9f06-4189-b164-60d59ab48e98', 'CLIENT_API_GET_ALL_ORGANIZATIONS', 'CLIENT_API_GET_ALL_ORGANIZATIONS', 'CLIENT_API_GET_ALL_ORGANIZATIONS', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('dd2a641d-cbca-4840-9024-9cbf5c279aeb', 'CLIENT_API_CREATE_PROJECT', 'CLIENT_API_CREATE_PROJECT', 'CLIENT_API_CREATE_PROJECT', 'POST',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b9f44583-b7e7-415b-9b2b-9f981ba30574', 'CLIENT_API_UPDATE_PROJECT', 'CLIENT_API_UPDATE_PROJECT', 'CLIENT_API_UPDATE_PROJECT', 'PUT',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('198a60e1-8ef9-4c2a-96cd-8e15e49f774a', 'CLIENT_API_DELETE_PROJECT', 'CLIENT_API_DELETE_PROJECT', 'CLIENT_API_DELETE_PROJECT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('f4f0f4d5-0eef-4cf1-8226-eb1343975c4f', 'CLIENT_API_GET_PROJECT_BY_ID', 'CLIENT_API_GET_PROJECT_BY_ID', 'CLIENT_API_GET_PROJECT_BY_ID', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('cd448336-1791-4b7e-96f9-34fc2cb20a62', 'CLIENT_API_GET_ALL_PROJECTS', 'CLIENT_API_GET_ALL_PROJECTS', 'CLIENT_API_GET_ALL_PROJECTS', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('60dc7f8b-72cd-43b8-8b22-56d35929302e', 'CLIENT_API_CREATE_EXIT', 'CLIENT_API_CREATE_EXIT', 'CLIENT_API_CREATE_EXIT', 'POST',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6f72857a-f541-4727-9bb7-fc960ce6dfb5', 'CLIENT_API_UPDATE_EXIT', 'CLIENT_API_UPDATE_EXIT', 'CLIENT_API_UPDATE_EXIT', 'PUT',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('f68ce487-2bbf-4a36-b4e8-e693ab7194de', 'CLIENT_API_DELETE_EXIT', 'CLIENT_API_DELETE_EXIT', 'CLIENT_API_DELETE_EXIT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('63967a85-6ebb-47d0-a6f7-2f9655e24003', 'CLIENT_API_GET_EXIT_BY_ID', 'CLIENT_API_GET_EXIT_BY_ID', 'CLIENT_API_GET_EXIT_BY_ID', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8e765380-7904-4956-8b10-1f1f020cb941', 'CLIENT_API_GET_ALL_ENROLLMENT_EXITS', 'CLIENT_API_GET_ALL_ENROLLMENT_EXITS', 'CLIENT_API_GET_ALL_ENROLLMENT_EXITS', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('355091a6-3cf4-4ebb-b2d4-978150d8642a', 'CLIENT_API_CREATE_EMPLOYMENT', 'CLIENT_API_CREATE_EMPLOYMENT', 'CLIENT_API_CREATE_EMPLOYMENT', 'POST',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9e4d1e1f-d745-4b08-8897-0f9f3bd169c4', 'CLIENT_API_UPDATE_EMPLOYMENT', 'CLIENT_API_UPDATE_EMPLOYMENT', 'CLIENT_API_UPDATE_EMPLOYMENT', 'PUT',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('d911b5d4-4ebf-49b4-b9af-5c1a55bab3ec', 'CLIENT_API_DELETE_EMPLOYMENT', 'CLIENT_API_DELETE_EMPLOYMENT', 'CLIENT_API_DELETE_EMPLOYMENT', 'DELETE',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4888faa8-c77c-4616-8b1b-35b1f3580b58', 'CLIENT_API_GET_EMPLOYMENT_BY_ID', 'CLIENT_API_GET_EMPLOYMENT_BY_ID', 'CLIENT_API_GET_EMPLOYMENT_BY_ID', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('7f75f7a1-2417-4451-aa94-7ec6117c4457', 'CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS', 'CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS', 'CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS', 'GET',current_date, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4561a939-edea-4b8a-974c-fab36201613d','ACL_CREATE_ROLE','ACL_CREATE_ROLE','ACL_CREATE_ROLE','POST',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8c17c5e4-85ff-4abc-bcfa-77746cae15c1','ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','PUT',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c3e1e197-0e7a-41b0-ab68-1d9365f9f948','ACL_DELETE_ROLE','ACL_DELETE_ROLE','ACL_DELETE_ROLE','DELETE',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e0dee727-31d1-4a36-acc4-78ddd177ed88','ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','GET',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('76adcdd5-f6e2-4587-bfbc-40f52b2d0a5b','ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','POST',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('cfe095c8-5316-4c37-bcfb-65757eb30a64','ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','PUT',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5389777e-4bd7-440c-9cc0-ed3069df463d','ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','DELETE',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('55269f08-273f-4f68-ae9a-f98467b4d091','ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','POST',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('604b8afb-782a-4576-9146-c6b8f1cce560','ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','PUT',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6f77f4c7-8708-4eb1-b663-12f8a11dfc3e','ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','DELETE',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('3500719b-c2dd-4c1d-8ab6-f9059a141c6a','ACL_GET_PROFILE','ACL_GET_PROFILE','ACL_GET_PROFILE','GET',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('23a43f92-1f75-4b70-aac6-23dcbeb33ba5','ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','GET',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('2192f57b-fa89-41b4-8680-e78f0b3c4c3e','ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','POST',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('2be134e2-6723-414f-a2eb-7d325f607fc2','ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','PUT',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('680d4f6e-645d-469b-a8d1-9ce0ebaeb70f','ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','DELETE',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5cf162dc-9497-4e20-8109-32cf47c8241b','ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','GET',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('659ebd34-999a-4611-ab9f-966ef8822a29','ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','PUT',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b04e67bf-9729-443a-aa27-6fa228c7be6b','ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','POST',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('d61b2d9e-bfd4-4b02-9a6f-d6884f502539','ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','PUT',CURRENT_timestamp,'MASTER DATA','38c0c9b6e73c-6de8-4c69-b0d0-e7a454be',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('1264d1d4-0fe4-4f29-a3bc-62102f420a11','USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','POST',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c1befc78-01b0-4de9-8ac9-eb34a9c78bb0','USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('0e17ff09-8ab1-4913-9dde-0552193fcbf6','USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e0ca45cc-33e3-4e9d-b5f9-537d4b88c459','USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e63574d1-1d4b-4e01-a3db-060915f3295d','USR_GET_ACCOUNT','USR_GET_ACCOUNT','USR_GET_ACCOUNT','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e832df6f-c238-456b-b03e-c60b917f508a','USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','PUT',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('29d8611c-bf90-427d-b18a-1fe2473c9ffd','USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e63156ff-e93a-447e-9080-b8c164992b97','USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('30bee259-fc5e-4667-854f-98c7fd81f3e2','USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','PUT',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('72df4ae1-3659-49cb-a221-84cee475a58e','USR_PASSWORD_RESET','USR_PASSWORD_RESET','USR_PASSWORD_RESET','PUT',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b02a288d-85f2-4a5e-95d1-a43db8383e05','USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','PUT',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('75900937-5126-44b6-937f-6494b0722657','USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','PUT',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('17ec1d67-d1a0-4aee-94bb-a686c0f25a41','USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('2a54536b-f208-41d7-a2e3-f7f1c0953c1a','USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','POST',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('18ac92c9-7cba-43df-aa00-f5c4a2c802c3','USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','GET',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('60935f25-fec5-4e4d-b0c3-452d21d1848f','USR_CREATE_SESSION','USR_CREATE_SESSION','USR_CREATE_SESSION','POST',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('600df1a9-b9e4-4953-b90e-8d55d67233ac','USR_END_SESSION','USR_END_SESSION','USR_END_SESSION','DELETE',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('3336586d-5034-41fc-a32c-9aab26873dd3','USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','PUT',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('039c55be-bf44-4e22-8a79-5ba861756c45','USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','POST',CURRENT_timestamp,'MASTER DATA','13e91f4220ae-96ef-4a61-95a1-e71607df',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b0b768dd-ebb8-4ab4-8124-8d84bec4cdd6','DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6bcdc400-1ddc-43c7-b8ab-192811119710','DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','PUT',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('fdb04b89-8962-44ec-ae66-3b5508109925','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('ed2f4926-bf7c-4103-a0cc-623c7f409bf2','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DELETE',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('16a154ba-e95f-4514-89e6-c11e6f4a43f7','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('0c41fe4d-c0bc-4514-bd64-13fb8b79ce65','DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DELETE',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('cd8407c6-b926-4311-8f74-3c22f8523aef','DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9aacbe33-b5b3-4e82-bfa8-7de2c94fee8c','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8dec892c-3dec-4b35-92c6-e133e3d502cd','DCS_GET_SERVICES','DCS_GET_SERVICES','DCS_GET_SERVICES','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('7549ee25-e8ec-4461-ac9d-97134be54563','DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('156d7669-0240-4fbd-8600-c1ebb75d366b','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('efd1e4b6-7d4e-4565-b005-3df75dc75d75','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('75381266-2797-4a38-bf28-404079017428','DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','PUT',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5256353f-b254-44fe-af66-d57d63312f62','DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DELETE',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('795778b9-ba24-4434-b140-192db2fa745b','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e8ce14b5-b732-4235-bb4d-cfca8e333c2a','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('3b6c1791-3d69-4abc-8716-0cecf831357d','DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('66729788-94cb-493a-9b3d-16cac138f609','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('82f91a18-27c5-4a6e-bf24-7d93053f499e','DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','PUT',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('761a583b-5c1b-4be6-a364-9adafcaaf3b0','DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DELETE',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c4400a71-cf49-48aa-bc09-a1a0a7ad2fc1','DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','PUT',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('5a63dc2b-d28d-4b5c-bfdf-f8ce372338ad','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('aa424f3c-8743-430a-bb4f-51f2f7930570','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b75217f9-d6c3-4c9d-8566-1f2065817740','DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('50965196-a164-45fc-8ca2-52fd5de04710','DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','POST',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6ac3e289-b885-4e1c-901c-382c1e12d415','DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('84ccf81d-35f1-44d6-a8fd-8fd67cde958d','AUTH_AUTHORIZE','AUTH_AUTHORIZE','AUTH_AUTHORIZE','GET',CURRENT_timestamp,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c7261bb4-4c5a-4c42-9837-6215fa63fdc3','AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','GET',CURRENT_timestamp,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9cec44bb-ecc5-4020-a81b-1d1f43bc397a','AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','GET',CURRENT_timestamp,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6a29e5d5-2342-4cf2-b40a-45a37d522b83','AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','POST',CURRENT_timestamp,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('31636bef-4d68-4eb0-9343-0a86c9be2f4c','AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','POST',CURRENT_timestamp,'MASTER DATA','bf1fcd6abb4e-4c6f-4e54-b3d8-fbe73fb7',0,TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('e004e7f9-c898-4842-bbb3-8d12d511b475', 'CLIENT_API_CREATE_CLIENT', 'CLIENT_API_CREATE_CLIENT', 'CLIENT_API_CREATE_CLIENT', 'POST',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c95c271c-60b5-4aa9-abed-605e2223e1f4', 'CLIENT_API_UPDATE_CLIENT', 'CLIENT_API_UPDATE_CLIENT', 'CLIENT_API_UPDATE_CLIENT', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0,  TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('7af80b93-35ef-463c-87fc-a3239deb07dd', 'CLIENT_API_DELETE_CLIENT', 'CLIENT_API_DELETE_CLIENT', 'CLIENT_API_DELETE_CLIENT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8f04c22e-4ae7-4a58-86af-76bd2cf309c5', 'CLIENT_API_GET_CLIENT_BY_ID', 'CLIENT_API_GET_CLIENT_BY_ID', 'CLIENT_API_GET_CLIENT_BY_ID', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('63384328-39d3-4258-9b6c-68139d59e9aa', 'CLIENT_API_GET_ALL_CLIENTS', 'CLIENT_API_GET_ALL_CLIENTS', 'CLIENT_API_GET_ALL_CLIENTS', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('57419432-9792-400c-9a2b-37c3c70057f5', 'CLIENT_API_CREATE_ENROLLMENT', 'CLIENT_API_CREATE_ENROLLMENT', 'CLIENT_API_CREATE_ENROLLMENT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('20b29446-3b0e-4a39-a7bc-c564395097ec', 'CLIENT_API_UPDATE_ENROLLMENT', 'CLIENT_API_UPDATE_ENROLLMENT', 'CLIENT_API_UPDATE_ENROLLMENT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9f73b8e8-c36f-4338-b82f-8c13c85779a3', 'CLIENT_API_DELETE_ENROLLMENT', 'CLIENT_API_DELETE_ENROLLMENT', 'CLIENT_API_DELETE_ENROLLMENT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4f5554ba-ec19-428a-a7f0-827fc74bb1e8', 'CLIENT_API_GET_ENROLLMENT_BY_ID', 'CLIENT_API_GET_ENROLLMENT_BY_ID', 'CLIENT_API_GET_ENROLLMENT_BY_ID', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9593ca58-78f6-4794-9d39-9412216c2f97', 'CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS', 'CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS', 'CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('bdfbf444-7c38-4f6d-834e-5ec9fd96ea45', 'CLIENT_API_CREATE_ORGANIZATION', 'CLIENT_API_CREATE_ORGANIZATION', 'CLIENT_API_CREATE_ORGANIZATION', 'POST',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('571b5e1d-a604-40f5-b1a5-4c5cca3ecfe9', 'CLIENT_API_UPDATE_ORGANIZATION', 'CLIENT_API_UPDATE_ORGANIZATION', 'CLIENT_API_UPDATE_ORGANIZATION', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('bd0613c8-4e0c-4b1c-8fd0-4124c3c05614', 'CLIENT_API_DELETE_ORGANIZATION', 'CLIENT_API_DELETE_ORGANIZATION', 'CLIENT_API_DELETE_ORGANIZATION', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('0d8fa06e-0b11-45ba-8fc5-454f8756b793', 'CLIENT_API_GET_ORGANIZATION_BY_ID', 'CLIENT_API_GET_ORGANIZATION_BY_ID', 'CLIENT_API_GET_ORGANIZATION_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('de62bf18-9f06-4189-b164-60d59ab48e98', 'CLIENT_API_GET_ALL_ORGANIZATIONS', 'CLIENT_API_GET_ALL_ORGANIZATIONS', 'CLIENT_API_GET_ALL_ORGANIZATIONS', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('dd2a641d-cbca-4840-9024-9cbf5c279aeb', 'CLIENT_API_CREATE_PROJECT', 'CLIENT_API_CREATE_PROJECT', 'CLIENT_API_CREATE_PROJECT', 'POST',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('b9f44583-b7e7-415b-9b2b-9f981ba30574', 'CLIENT_API_UPDATE_PROJECT', 'CLIENT_API_UPDATE_PROJECT', 'CLIENT_API_UPDATE_PROJECT', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('198a60e1-8ef9-4c2a-96cd-8e15e49f774a', 'CLIENT_API_DELETE_PROJECT', 'CLIENT_API_DELETE_PROJECT', 'CLIENT_API_DELETE_PROJECT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('f4f0f4d5-0eef-4cf1-8226-eb1343975c4f', 'CLIENT_API_GET_PROJECT_BY_ID', 'CLIENT_API_GET_PROJECT_BY_ID', 'CLIENT_API_GET_PROJECT_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('cd448336-1791-4b7e-96f9-34fc2cb20a62', 'CLIENT_API_GET_ALL_PROJECTS', 'CLIENT_API_GET_ALL_PROJECTS', 'CLIENT_API_GET_ALL_PROJECTS', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('60dc7f8b-72cd-43b8-8b22-56d35929302e', 'CLIENT_API_CREATE_EXIT', 'CLIENT_API_CREATE_EXIT', 'CLIENT_API_CREATE_EXIT', 'POST',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6f72857a-f541-4727-9bb7-fc960ce6dfb5', 'CLIENT_API_UPDATE_EXIT', 'CLIENT_API_UPDATE_EXIT', 'CLIENT_API_UPDATE_EXIT', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('f68ce487-2bbf-4a36-b4e8-e693ab7194de', 'CLIENT_API_DELETE_EXIT', 'CLIENT_API_DELETE_EXIT', 'CLIENT_API_DELETE_EXIT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('63967a85-6ebb-47d0-a6f7-2f9655e24003', 'CLIENT_API_GET_EXIT_BY_ID', 'CLIENT_API_GET_EXIT_BY_ID', 'CLIENT_API_GET_EXIT_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('8e765380-7904-4956-8b10-1f1f020cb941', 'CLIENT_API_GET_ALL_ENROLLMENT_EXITS', 'CLIENT_API_GET_ALL_ENROLLMENT_EXITS', 'CLIENT_API_GET_ALL_ENROLLMENT_EXITS', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('355091a6-3cf4-4ebb-b2d4-978150d8642a', 'CLIENT_API_CREATE_EMPLOYMENT', 'CLIENT_API_CREATE_EMPLOYMENT', 'CLIENT_API_CREATE_EMPLOYMENT', 'POST',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('9e4d1e1f-d745-4b08-8897-0f9f3bd169c4', 'CLIENT_API_UPDATE_EMPLOYMENT', 'CLIENT_API_UPDATE_EMPLOYMENT', 'CLIENT_API_UPDATE_EMPLOYMENT', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('d911b5d4-4ebf-49b4-b9af-5c1a55bab3ec', 'CLIENT_API_DELETE_EMPLOYMENT', 'CLIENT_API_DELETE_EMPLOYMENT', 'CLIENT_API_DELETE_EMPLOYMENT', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4888faa8-c77c-4616-8b1b-35b1f3580b58', 'CLIENT_API_GET_EMPLOYMENT_BY_ID', 'CLIENT_API_GET_EMPLOYMENT_BY_ID', 'CLIENT_API_GET_EMPLOYMENT_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('7f75f7a1-2417-4451-aa94-7ec6117c4457', 'CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS', 'CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS', 'CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 
 
 CREATE SEQUENCE "live".seq_developer_company START 1;
@@ -2550,15 +2550,15 @@ CREATE TABLE live.hmis_developer_company
   domain character varying(256),
   logo_url character varying(1048),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   company_size bigint DEFAULT 1,
   app_experience character varying(1024),
   company_skill_set character varying(1024),
   app_platforms character varying(1024),
-  expected_app_finish_date date,
+  expected_app_finish_date timestamp,
   contact_email character varying(256),
   status character varying(10),
   owner_user_id uuid,
@@ -2579,10 +2579,10 @@ CREATE TABLE live.hmis_developer_company_account
   developer_company_id uuid NOT NULL,
   role character varying(32),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   user_id uuid,
   CONSTRAINT "PK_DEVELOPER_COMPANY_ACCOUNT" PRIMARY KEY (id),
   CONSTRAINT "FK_DCA_USERID" FOREIGN KEY (user_id)
@@ -2602,10 +2602,10 @@ CREATE TABLE live.hmis_developer_company_status
   status character varying(20),
   comments character varying(512),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_DEVELOPER_COMPANY_STATUS" PRIMARY KEY (id),
   CONSTRAINT "FK_DCS_DEVELOPER_COMPANY_ID" FOREIGN KEY (developer_company_id)
       REFERENCES live.hmis_developer_company_status (id) MATCH SIMPLE
@@ -2622,8 +2622,8 @@ CREATE TABLE live.hmis_password_reset
   new_password character varying(256),
   verification_id uuid,
   status character varying(256),
-  created_at date,
-  modified_at date,
+  created_at timestamp,
+  modified_at timestamp,
   created_by character varying(256),
   modified_by character varying(256),
   user_id uuid,
@@ -2644,9 +2644,9 @@ CREATE TABLE live.hmis_permission_set
   id uuid NOT NULL,
   permission_set_name character varying(256),
   permission_set_description character varying(256),
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PERMISSION_SET" PRIMARY KEY (id)
 )
@@ -2659,9 +2659,9 @@ CREATE TABLE live.hmis_permission_set_acl
   id uuid NOT NULL,
   permission_set_id uuid,
   api_method_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PERMISSION_SET_ACL" PRIMARY KEY (id),
   CONSTRAINT "FK_PSA_API_METHOD_ID" FOREIGN KEY (api_method_id)
@@ -2681,9 +2681,9 @@ CREATE TABLE live.hmis_profile
   id uuid NOT NULL,
   profile_name character varying(256),
   profile_description character varying(256),
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PROFILE" PRIMARY KEY (id)
 )
@@ -2696,9 +2696,9 @@ CREATE TABLE live.hmis_profile_acl
   profile_id uuid,
   api_method_id uuid,
   id uuid NOT NULL,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PROFILE_ACL" PRIMARY KEY (id),
   CONSTRAINT "FK_PACL_API_METHOD_ID" FOREIGN KEY (api_method_id)
@@ -2720,10 +2720,10 @@ CREATE TABLE live.hmis_redirect_uri
   uri character varying(1048) NOT NULL,
   trustedapp_id uuid NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_REDIRECT_URI" PRIMARY KEY (id),
   CONSTRAINT "FK_RU_TRUSTEDAPP_ID" FOREIGN KEY (trustedapp_id)
       REFERENCES live.hmis_trusted_app (id) MATCH SIMPLE
@@ -2742,10 +2742,10 @@ CREATE TABLE live.hmis_refresh_token
   auth_code character varying(128),
   trustedapp_id uuid NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   user_id uuid,
   CONSTRAINT "PK_REFRESH_TOKEN" PRIMARY KEY (id),
   CONSTRAINT "FK_RT_TRUSTEDAPP_ID" FOREIGN KEY (trustedapp_id)
@@ -2770,10 +2770,10 @@ CREATE TABLE live.hmis_request_token
   used bigint NOT NULL,
   expires_at date NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   max_use bigint DEFAULT 1,
   CONSTRAINT "PK_REQUEST_TOKEN" PRIMARY KEY (id)
 )
@@ -2787,9 +2787,9 @@ CREATE TABLE live.hmis_role
   role_name character varying(256),
   role_description character varying(256),
   parent_role_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_ROLE" PRIMARY KEY (id),
   CONSTRAINT "FK_PARENT_ROLE_ID" FOREIGN KEY (parent_role_id)
@@ -2809,10 +2809,10 @@ CREATE TABLE live.hmis_service_api_method
   service_id uuid NOT NULL,
   api_method_id uuid NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_SERVICE_API_METHOD" PRIMARY KEY (id),
   CONSTRAINT "FK_SAM_API_METHOD_ID" FOREIGN KEY (api_method_id)
       REFERENCES live.hmis_api_method (id) MATCH SIMPLE
@@ -2834,10 +2834,10 @@ CREATE TABLE live.hmis_service_status
   status character varying(20),
   comments character varying(512),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_SERVICE_STATUS" PRIMARY KEY (id),
   CONSTRAINT "FK_SS_SERVICE_ID" FOREIGN KEY (service_id)
       REFERENCES live.hmis_service (id) MATCH SIMPLE
@@ -2858,8 +2858,8 @@ CREATE TABLE live.hmis_session
   auth_code_expires_at timestamp without time zone,
   redirect_uri character varying(256),
   refresh_token_id uuid,
-  created_at date,
-  modified_at date,
+  created_at timestamp,
+  modified_at timestamp,
   created_by character varying(256),
   modified_by character varying(256),
   user_id uuid,
@@ -2886,11 +2886,11 @@ CREATE TABLE live.hmis_sharing_rule
   role_id uuid,
   to_organization_id uuid,
   project_id uuid,
-  active_from date,
-  active_to date,
-  created_at date,
+  active_from timestamp,
+  active_to timestamp,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_SHARING_RULE" PRIMARY KEY (id),
   CONSTRAINT "FK_SR_ENROLLMENT_ID" FOREIGN KEY (enrollment_id)
@@ -2922,10 +2922,10 @@ CREATE TABLE live.hmis_trusted_app_status
   status character varying(20),
   comments character varying(512),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_TRUSTED_APP_STATUS" PRIMARY KEY (id),
   CONSTRAINT "FK_TAPPS_TRUSTED_APP_ID" FOREIGN KEY (trustedapp_id)
       REFERENCES live.hmis_trusted_app (id) MATCH SIMPLE
@@ -2942,9 +2942,9 @@ CREATE TABLE live.hmis_user_permission_set_acl
   permission_set_id uuid,
   profile_id uuid,
   role_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_USER_PERMISSION_SET_ACL" PRIMARY KEY (id),
   CONSTRAINT "FK_UPSA_PERMISSION_SET_ID" FOREIGN KEY (permission_set_id)
@@ -2969,9 +2969,9 @@ CREATE TABLE live.hmis_user_project
   id uuid NOT NULL,
   user_id uuid,
   project_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_USER_PROJECT" PRIMARY KEY (id),
   CONSTRAINT "FK_UP_PROJECT_ID" FOREIGN KEY (project_id)
@@ -2990,9 +2990,9 @@ CREATE TABLE live.hmis_user_role_map
   id uuid NOT NULL,
   user_id uuid,
   role_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_USER_ROLE_MAP" PRIMARY KEY (id),
   CONSTRAINT "FK_UR_ROLE_ID" FOREIGN KEY (role_id)
@@ -3013,9 +3013,9 @@ CREATE TABLE live.hmis_release_of_info
   enrollment_id uuid,
   is_consented boolean,
   project_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_ROI_ID" PRIMARY KEY (id),
   CONSTRAINT "FK_ROI_ENROLLMENT_ID" FOREIGN KEY (enrollment_id)

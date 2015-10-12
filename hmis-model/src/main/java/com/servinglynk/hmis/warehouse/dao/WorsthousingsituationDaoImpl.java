@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -39,8 +40,8 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				Worsthousingsituation worsthousingsituationModel= new Worsthousingsituation();
 				UUID id = UUID.randomUUID();
 				worsthousingsituationModel.setId(id);
-				worsthousingsituationModel.setDateCreated(BasicDataGenerator.getLocalDate(worstHousingSituation.getDateCreated()));
-				worsthousingsituationModel.setDateUpdated(BasicDataGenerator.getLocalDate(worstHousingSituation.getDateUpdated()));
+				worsthousingsituationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
+				worsthousingsituationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
 				worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				worsthousingsituationModel.setExport(exportEntity);
@@ -65,6 +66,8 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addWorsthousingsituation(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

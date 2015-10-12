@@ -9,7 +9,7 @@ import com.servinglynk.hmis.warehouse.model.staging.Housingassessmentdisposition
 import com.servinglynk.hmis.warehouse.model.staging.Projectcompletionstatus;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -61,15 +61,15 @@ public class Exit implements Cloneable, Serializable{
 	private Set<Connectionwithsoar> connectionwithsoars = new HashSet<Connectionwithsoar>();
 
 	/** Field mapping. */
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 	/** Field mapping. */
-	private LocalDate dateUpdated;
+	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private ExitDestinationEnum destination;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
-	private LocalDate exitdate;
+	private LocalDateTime exitdate;
 	/** Field mapping. */
 	private Set<Exithousingassessment> exithousingassessments = new HashSet<Exithousingassessment>();
 
@@ -177,12 +177,12 @@ public class Exit implements Cloneable, Serializable{
 
 	 /**
 	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDate object (this.dateCreated)
+	 * @return A LocalDateTime object (this.dateCreated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_created"  )
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return this.dateCreated;
 		
 	}
@@ -193,18 +193,18 @@ public class Exit implements Cloneable, Serializable{
 	 * Set the value related to the column: dateCreated.
 	 * @param dateCreated the dateCreated value you wish to set
 	 */
-	public void setDateCreated(final LocalDate dateCreated) {
+	public void setDateCreated(final LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
 	 /**
 	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDate object (this.dateUpdated)
+	 * @return A LocalDateTime object (this.dateUpdated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_updated"  )
-	public LocalDate getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return this.dateUpdated;
 		
 	}
@@ -215,7 +215,7 @@ public class Exit implements Cloneable, Serializable{
 	 * Set the value related to the column: dateUpdated.
 	 * @param dateUpdated the dateUpdated value you wish to set
 	 */
-	public void setDateUpdated(final LocalDate dateUpdated) {
+	public void setDateUpdated(final LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 
@@ -266,12 +266,12 @@ public class Exit implements Cloneable, Serializable{
 
 	 /**
 	 * Return the value associated with the column: exitdate.
-	 * @return A LocalDate object (this.exitdate)
+	 * @return A LocalDateTime object (this.exitdate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
-	public LocalDate getExitdate() {
+	public LocalDateTime getExitdate() {
 		return this.exitdate;
 		
 	}
@@ -282,7 +282,7 @@ public class Exit implements Cloneable, Serializable{
 	 * Set the value related to the column: exitdate.
 	 * @param exitdate the exitdate value you wish to set
 	 */
-	public void setExitdate(final LocalDate exitdate) {
+	public void setExitdate(final LocalDateTime exitdate) {
 		this.exitdate = exitdate;
 	}
 

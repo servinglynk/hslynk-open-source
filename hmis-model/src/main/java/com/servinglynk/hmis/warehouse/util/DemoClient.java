@@ -39,8 +39,8 @@ public class DemoClient {
    System.out.println("Thrift2 Demo");
    System.out.println("This demo assumes you have a table called \"example\" with a column family called \"family1\"");
    
-   String host = "ec2-52-27-63-94.us-west-2.compute.amazonaws.com";
-   int port = 9090;
+   String host = "ec2-54-149-174-17.us-west-2.compute.amazonaws.com";
+   int port = 9095;
    int timeout = 10000;
    boolean framed = false;
    System.out.println("Hbase Demo Application ");

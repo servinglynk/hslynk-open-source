@@ -13,7 +13,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
 import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
 
-public class BulkUploadHelperTest {
+public class BulkUploadHelperTest1 {
 
 	public BulkUploadHelper helper = new BulkUploadHelper();
 	

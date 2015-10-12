@@ -1,8 +1,6 @@
 package com.seringlynk.hmis.warehouse;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.model.Affiliation;
 import com.servinglynk.hmis.warehouse.model.Bedinventory;
@@ -67,7 +65,7 @@ public class FromPostgres {
 	java.util.Map<String, Integer> tableSyncList = new HashMap<>();
 	// 
 	BaseProcessor<Affiliation> aff = new BaseProcessor<>();
-	aff.syncToHBASE(Affiliation.class,"Affiliation",tableSyncList, lastSyncDate);
+	aff.syncToHBASE(Affiliation.class,"affiliation",tableSyncList, lastSyncDate);
 	
 	BaseProcessor<Client> db = new BaseProcessor<>();
 	db.syncToHBASE(Client.class,"Client",tableSyncList, lastSyncDate);
@@ -112,7 +110,7 @@ public class FromPostgres {
 	export.syncToHBASE(Export.class,"Export",tableSyncList, lastSyncDate);
 	
 	BaseProcessor<Familyreunification> familyreunification = new BaseProcessor<>();
-	familyreunification.syncToHBASE(Familyreunification.class,"Familyreunification",tableSyncList, lastSyncDate);
+	familyreunification.syncToHBASE(Familyreunification.class,"familyreunification",tableSyncList, lastSyncDate);
 	
 	BaseProcessor<Formerwardchildwelfare> formerwardchildwelfare = new BaseProcessor<>();
 	formerwardchildwelfare.syncToHBASE(Formerwardchildwelfare.class,"Formerwardchildwelfare",tableSyncList, lastSyncDate);
@@ -139,7 +137,7 @@ public class FromPostgres {
 	lastgradecompleted.syncToHBASE(Lastgradecompleted.class,"Lastgradecompleted",tableSyncList, lastSyncDate);
 	
 	BaseProcessor<Lastpermanentaddress> Lastpermanentaddress = new BaseProcessor<>();
-	Lastpermanentaddress.syncToHBASE(Lastpermanentaddress.class,"Lastpermanentaddress",tableSyncList, lastSyncDate);
+	Lastpermanentaddress.syncToHBASE(Lastpermanentaddress.class,"last_perm_address",tableSyncList, lastSyncDate);
 	
 	BaseProcessor<Medicalassistance> Medicalassistance = new BaseProcessor<>();
 	Medicalassistance.syncToHBASE(Medicalassistance.class,"Medicalassistance",tableSyncList, lastSyncDate);

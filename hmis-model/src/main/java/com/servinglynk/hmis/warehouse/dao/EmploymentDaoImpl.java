@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -40,12 +41,12 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			{
 				com.servinglynk.hmis.warehouse.model.staging.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.staging.Employment();
 				employmentModel.setId(UUID.randomUUID());
-				employmentModel.setDateCreated(BasicDataGenerator.getLocalDate(employment.getDateCreated()));
-				employmentModel.setDateUpdated(BasicDataGenerator.getLocalDate(employment.getDateUpdated()));
+				employmentModel.setDateCreated(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
+				employmentModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 				employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmployed())));
 				employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
 				employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));
-				employmentModel.setInformationDate(BasicDataGenerator.getLocalDate(employment.getInformationDate()));
+				employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
 				
 				if(employment.getProjectEntryID() !=null && !"".equals(employment.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((employment.getProjectEntryID()));
@@ -76,6 +77,8 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addEmployment(target);
+				target.setDateCreated(LocalDateTime.now());
+				target.setDateUpdated(LocalDateTime.now());
 				insertOrUpdate(target);
 			}
 		}

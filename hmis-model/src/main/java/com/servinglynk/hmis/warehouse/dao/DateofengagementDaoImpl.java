@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -32,10 +33,10 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
 			{
 				Dateofengagement dateOfEngagementModel = new Dateofengagement();
-				dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDate(dateOfEngagement.getDateOfEngagement()));
+				dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
 				dateOfEngagementModel.setId(UUID.randomUUID());
-				dateOfEngagementModel.setDateCreated(BasicDataGenerator.getLocalDate(dateOfEngagement.getDateCreated()));
-				dateOfEngagementModel.setDateUpdated(BasicDataGenerator.getLocalDate(dateOfEngagement.getDateUpdated()));
+				dateOfEngagementModel.setDateCreated(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
+				dateOfEngagementModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
 				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -58,6 +59,8 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addDateofengagement(target);
+				target.setDateCreated(LocalDateTime.now());
+				target.setDateUpdated(LocalDateTime.now());
 				insertOrUpdate(target);
 			}
 		}

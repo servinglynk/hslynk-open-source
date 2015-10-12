@@ -25,7 +25,7 @@ public class EnrollmentConveter {
 
 		pEnrollment.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.valueOf(enrollment.getContinuouslyhomelessoneyear()));
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.valueOf(enrollment.getDisablingcondition()));
-		pEnrollment.setEntrydate(enrollment.getEntrydate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		pEnrollment.setEntrydate(enrollment.getEntrydate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
 		pEnrollment.setHousingstatus(EnrollmentHousingstatusEnum.valueOf(enrollment.getHousingstatus()));
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.valueOf(enrollment.getMonthshomelesspastthreeyears()));

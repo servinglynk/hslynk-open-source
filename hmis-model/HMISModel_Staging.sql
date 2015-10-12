@@ -540,10 +540,10 @@ CREATE TABLE staging.hmis_user
   last_name character(50),
   name_suffix character(50),
   ssn character(9),
-  dob date,
+  dob timestamp,
   gender staging.gender,
-  date_created date,
-  date_updated date,
+  date_created timestamp,
+  date_updated timestamp,
   CONSTRAINT hmis_user_pk PRIMARY KEY (id)
 )
 WITH (
@@ -559,9 +559,9 @@ CREATE TABLE "staging".hmis_type
   "value" character(50) NOT NULL,
   "description" character(50),
   "status" character(10),
-  "expiration_date" date,
-  "date_created" date,
-  "date_updated" date,
+  "expiration_date" timestamp,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   CONSTRAINT hmis_type_pk PRIMARY KEY ("id"),
    CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
@@ -641,8 +641,8 @@ id uuid not null,
   sourceContactPhone	character varying(12),
   sourceID	character varying(32),
   sourceName	character varying(50),
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   constraint "source_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
@@ -656,14 +656,14 @@ with (
 create table "staging".export
 (
   id uuid not null,
-  export_date  date,
-  start_date  date,
-  end_date  date,
+  export_date  timestamp,
+  start_date  timestamp,
+  end_date  timestamp,
   exportPeriodType text,
   exportDirective text,
   source_id uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   constraint "export_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
@@ -689,15 +689,15 @@ CREATE TABLE "staging".client
   "name_data_quality" "staging".name_data_quality,
    "ssn" character(9),
   "ssn_data_quality" "staging".ssn_data_quality,
-  "dob" date,
+  "dob" timestamp,
   "dob_data_quality" "staging".dob_data_quality,
   "gender" "staging".gender,
   "other_gender" character(10),
   "ethnicity" "staging".ethnicity,
   "race"  "staging".race,
   "veteran_status" "staging".veteran_status,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
    export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -729,8 +729,8 @@ CREATE TABLE "staging".veteran_info
   "other_theater" "staging".five_val_dk_refused,
   "military_branch" "staging".military_branch,
   "discharge_status" "staging".discharge_status,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   "client_id" uuid,
   export_id uuid,
@@ -753,7 +753,7 @@ CREATE TABLE "staging".enrollment
   id uuid NOT NULL,
  continuouslyHomelessOneYear "staging".youth_age_group,
 disablingCondition "staging".five_val_dk_refused,
-entrydate date,
+entrydate timestamp,
 householdid uuid,
 housingstatus "staging".housing_status,
 monthsHomelessPastThreeYears "staging".months_homeless_past_3_years,
@@ -769,8 +769,8 @@ statusDocumented "staging".no_yes,
 timesHomelesspastthreeyears "staging".times_homeless_past_3_years,
 yearshomeless integer,
 client_id uuid,
-date_created date,
-date_updated date,
+date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -791,12 +791,12 @@ WITH (
 CREATE TABLE "staging".path_status
 (
   "id" uuid NOT NULL,
-  "date_of_status" date,
+  "date_of_status" timestamp,
   "client_enrolled_in_path" bigint,
   "reason_not_enrolled" bigint,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -819,12 +819,12 @@ WITH (
 CREATE TABLE "staging".rhybcp_status
 (
   "id" uuid NOT NULL,
-  "status_date" date,
+  "status_date" timestamp,
   "fysb_youth" "staging".no_yes,
   "reason_no_services" "staging".fysb_rsn_not_providing_srvcs,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -855,8 +855,8 @@ CREATE TABLE "staging".last_perm_address
   "zip" character(10),
   "address_data_quality" "staging".address_data_quality,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -883,8 +883,8 @@ CREATE TABLE "staging".percent_ami
  "id" uuid NOT NULL,
   "percentage" integer,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -906,11 +906,11 @@ WITH (
 CREATE TABLE "staging".schoolstatus
 (
   "id" uuid NOT NULL,
-  "information_date" date,
+  "information_date" timestamp,
   "school_status" integer,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -932,13 +932,13 @@ WITH (
 CREATE TABLE "staging".employment
 (
   "id" uuid NOT NULL,
-  "information_date" date,
+  "information_date" timestamp,
   "employed" "staging".five_val_dk_refused,
   "employment_type" "staging".employment_type,
   "not_employed_reason" "staging".not_employed_reason,
   "enrollmentid" uuid,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -961,12 +961,12 @@ CREATE TABLE "staging".health_status
 (
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
-  "information_date" date,
+  "information_date" timestamp,
   "health_category" "staging".health_category,
   "health_status" "staging".health_status_type,
-  "due_date" date,
-  "date_created" date,
-  "date_updated" date,
+  "due_date" timestamp,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -989,8 +989,8 @@ create table "staging".organization
   organizationcommonname character varying(32),
   id uuid not null,
   organizationname character varying(32),
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1018,8 +1018,8 @@ CREATE TABLE  "staging".project
   residentialaffiliation "staging".no_yes,
   targetpopulation "staging".target_population_type,
   trackingmethod "staging".tracking_method,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1050,8 +1050,8 @@ CREATE TABLE "staging".affiliation
   id uuid NOT NULL,
   projectid uuid,
   resprojectid character varying(32),
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1079,8 +1079,8 @@ CREATE TABLE "staging".bedinventory
   vet_bed_inventory integer,
   youth_age_group "staging".youth_age_group,
   youth_bed_inventory bigint,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1104,8 +1104,8 @@ create table "staging".projectcoc
   id uuid not null,
   coccode character varying(32),
   projectid uuid,
-   date_created date,
-date_updated date,
+   date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1127,8 +1127,8 @@ CREATE TABLE "staging".enrollment_coc
   project_co_id uuid,
   enrollmentid uuid,
   coc_code character(20),
-  date_created date,
-date_updated date,
+  date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1160,8 +1160,8 @@ principal_site "staging".no_yes,
 project_coc_id uuid,
 state "staging".state, 
 zip text,
-date_created date,
-date_updated date,
+date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1189,12 +1189,12 @@ create table "staging".inventory
   bedtype "staging".bed_type,
   hmisparticipatingbeds integer,
   householdtype "staging".house_hold_type,
-  inventoryenddate date,
-  inventorystartdate date,
+  inventoryenddate timestamp,
+  inventorystartdate timestamp,
   project_coc_id uuid,
   unitinventory integer,
-  date_created date,
-date_updated date,
+  date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1223,13 +1223,13 @@ with (
 create table  "staging".funder
 (
 "id"  uuid not null,
-  "enddate" date,
+  "enddate" timestamp,
   "funder" "staging".federal_partner_components,
   "grantid" uuid,
   "projectid" uuid,
-  "startdate" date,
-  date_created date,
-date_updated date,
+  "startdate" timestamp,
+  date_created timestamp,
+date_updated timestamp,
 user_id uuid,
 export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1255,12 +1255,12 @@ with (
 create table "staging".pathstatus
 (
   clientenrolledinpath "staging".no_yes,
-  dateofstatus date,
+  dateofstatus timestamp,
   id uuid not null,
   enrollmentid uuid,
   reasonnotenrolled "staging".reason_not_enrolled,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1285,9 +1285,9 @@ create table "staging".rhybcpstatus
   fysbyouth integer,
   enrollmentid uuid,
   reasonnoservices integer,
-  statusdate date,
-     "date_created" date,
-  "date_updated" date,
+  statusdate timestamp,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1315,8 +1315,8 @@ create table "staging".sexualorientation
   id uuid not null,
   enrollmentid uuid,
   sexualorientation "staging".sexual_orientation,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1341,8 +1341,8 @@ create table "staging".formerwardjuvenilejustice
   "juvenilejusticemonths" integer,
   "juvenilejusticeyears"  "staging".issues_number_of_years,
   "enrollmentid" uuid,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1369,8 +1369,8 @@ create table "staging".lastpermanentaddress
   lastpermanentstreet character varying(100),
   lastpermanentzip character varying(32),
   enrollmentid uuid,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1393,8 +1393,8 @@ create table "staging".percentami
   percentami integer,
   id uuid not null,
   enrollmentid uuid,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1424,8 +1424,8 @@ create table "staging".medicalassistance
   noadapreason "staging".no_medical_assistance_reason,
   nohivaidsassistancereason "staging".no_medical_assistance_reason,
    enrollmentid uuid,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1475,8 +1475,8 @@ create table "staging".youthcriticalissues
   unemploymentfam "staging".no_yes,
   unemploymentyouth "staging".no_yes,
   id uuid not null,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1503,8 +1503,8 @@ create table  "staging".worsthousingsituation
   enrollmentid uuid,
   worsthousingsituation "staging".five_val_dk_refused,
   id uuid not null,
-      "date_created" date,
-  "date_updated" date,
+      "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1529,8 +1529,8 @@ create table "staging".formerwardchildwelfare
   "formerwardchildwelfare" "staging".five_val_dk_refused,
   "id" uuid not null,
   "enrollmentid" uuid,
-     "date_created" date,
-  "date_updated" date,
+     "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1556,8 +1556,8 @@ create table "staging".lastgradecompleted
   lastgradecompleted "staging".last_grade_completed,
   id uuid not null,
   enrollmentid uuid,
-       "date_created" date,
-  "date_updated" date,
+       "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1582,8 +1582,8 @@ create table "staging".referralsource
   enrollmentid uuid,
   referralsource "staging".referral_source,
   id uuid not null,
-       "date_created" date,
-  "date_updated" date,
+       "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1609,8 +1609,8 @@ create table "staging".commercialsexualexploitation
   "countofexchangeforsex" "staging".count_of_exchange_sex,
   "exchangeforsexpastthreemonths" "staging".five_val_dk_refused,
    enrollmentid uuid,
-   "date_created" date,
-  "date_updated" date,
+   "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1638,8 +1638,8 @@ create table "staging".domesticviolence
   "domesticviolencevictim" "staging".five_val_dk_refused,
   "enrollmentid" uuid,
   "whenoccurred" "staging".when_dom_violence_occurred,
-       "date_created" date,
-  "date_updated" date,
+       "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1672,8 +1672,8 @@ create table "staging".disabilities
   "pathsmiinformation" "staging".path_smi_info_how_confirmed,
    "enrollmentid" uuid,
   "receivingservices" "staging".five_val_dk_refused,
-         "date_created" date,
-  "date_updated" date,
+         "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1698,10 +1698,10 @@ create table  "staging".residentialmoveindate
 (
   inpermanenthousing "staging".no_yes,
   enrollmentid uuid,
-  residentialmoveindate date,
+  residentialmoveindate timestamp,
   id uuid not null,       
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1724,11 +1724,11 @@ with (
 
 create table  "staging".dateofengagement
 (
-  "dateofengagement" date,
+  "dateofengagement" timestamp,
   "id" uuid not null,
   "enrollmentid" uuid,
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1749,7 +1749,7 @@ with (
 
 create table "staging".services
 (
-  dateprovided date,
+  dateprovided timestamp,
   faamount numeric(15,3),
   othertypeprovided character varying(50),
   enrollmentid uuid,
@@ -1758,8 +1758,8 @@ create table "staging".services
   id uuid not null,
   subtypeprovided integer,
   typeprovided integer,
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1817,8 +1817,8 @@ create table "staging".incomeandsources
   vadisabilityserviceamount numeric(15,3),
   workerscomp "staging".no_yes,
   workerscompamount numeric(15,3),
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1854,8 +1854,8 @@ create table "staging".noncashbenefits
   tanfchildcare "staging".no_yes,
   tanftransportation "staging".no_yes,
   wic "staging".no_yes,
-             "date_created" date,
-  "date_updated" date,
+             "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1898,8 +1898,8 @@ create table "staging".healthinsurance
   "schip" "staging".no_yes,
   "statehealthins" "staging".no_yes,
   "vamedicalservices" "staging".no_yes,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1920,12 +1920,12 @@ with (
 create table "staging".exit
 (
   "destination" "staging".destination,
-  "exitdate" date,
+  "exitdate" timestamp,
   "id" uuid not null,
   "otherdestination" character varying(32),
   "enrollmentid" uuid,
-                 "date_created" date,
-  "date_updated" date,
+                 "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1950,8 +1950,8 @@ create table  "staging".exithousingassessment
   "exitid" uuid,
   "housingassessment" "staging".housing_assmnt_exit,
   "subsidyinformation" "staging".subsidy_information,
-  "date_created" date,
-  "date_updated" date,
+  "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1986,8 +1986,8 @@ create table  "staging".exitplansactions
   "scheduledfollowupcontacts" "staging".no_yes_refused,
   "temporaryshelterplacement" "staging".no_yes_refused,
   "writtenaftercareplan" "staging".no_yes_refused,
-                    "date_created" date,
-  "date_updated" date,
+                    "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2016,8 +2016,8 @@ create table "staging".housingassessmentdisposition
   "exitid" uuid,
   "id" uuid not null,
   "otherdisposition" character varying(32),
-              "date_created" date,
-  "date_updated" date,
+              "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2041,8 +2041,8 @@ create table "staging".familyreunification
   "exitid" uuid,
   "familyreunificationachieved" "staging".five_val_dk_refused,
   "id" uuid not null,
-              "date_created" date,
-  "date_updated" date,
+              "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2067,8 +2067,8 @@ create table "staging".connectionwithsoar
   "connectionwithsoar" integer,
   "id" uuid,
   "exitid" uuid,
-           "date_created" date,
-  "date_updated" date,
+           "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2095,8 +2095,8 @@ create table "staging".projectcompletionstatus
   exitid uuid,
   projectcompletionstatus "staging".project_completion_status,
   id uuid not null,
-          "date_created" date,
-  "date_updated" date,
+          "date_created" timestamp,
+  "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2122,8 +2122,8 @@ CREATE TABLE "staging".sync
   sync_table character(100),
   status character(10),
   json text,
-  date_created date,
-  date_updated date,
+  date_created timestamp,
+  date_updated timestamp,
   CONSTRAINT sync_pk PRIMARY KEY (id)
 )
 WITH (
@@ -2135,8 +2135,8 @@ CREATE TABLE "staging".bulk_upload
   id bigint NOT NULL,
   inputPath text,
   status character(10),
-  insert_at date,
-  update_at date,
+  insert_at timestamp,
+  update_at timestamp,
   insert_by character(100),
   update_by character(100),
    export_id uuid,
@@ -2193,10 +2193,10 @@ CREATE TABLE staging.hmis_consent_message
   external_id character varying(256) NOT NULL,
   message character varying(512) NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_CONSENT_MESSAGE" PRIMARY KEY (id)
 )
 WITH (
@@ -2212,7 +2212,7 @@ CREATE TABLE staging.hmis_verification
   verification_type character varying(256),
   status character varying(256),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   CONSTRAINT "PK_VERIFICATION" PRIMARY KEY (id)
@@ -2233,10 +2233,10 @@ CREATE TABLE staging.hmis_service
   developer_company_id bigint NOT NULL,
   external_product_id character varying(128),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   status character varying(20),
   CONSTRAINT "PK_SERVICE" PRIMARY KEY (id)
 )
@@ -2254,10 +2254,10 @@ CREATE TABLE staging.hmis_trusted_app
   description character varying(1024),
   status character varying(256) NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   expiration_time bigint DEFAULT 86400,
   trustedapp_secret character varying(32),
   trustedapp_family_type character varying(32),
@@ -2270,7 +2270,7 @@ CREATE TABLE staging.hmis_trusted_app
   publish_status character varying(256),
   version character varying(128),
   download_url character varying(1024),
-  last_released_at date,
+  last_released_at timestamp,
   container_access_token_allowed boolean,
   is_internal boolean,
   api_method_check_required boolean,
@@ -2293,10 +2293,10 @@ CREATE TABLE staging.hmis_account_consent
   id bigint NOT NULL,
   trustedapp_id bigint,
   consented boolean,
-  consented_at date,
-  created_at date,
+  consented_at timestamp,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   consent_token character varying(256),
   user_id uuid,
@@ -2320,8 +2320,8 @@ CREATE TABLE staging.hmis_account_data_change
   old_user_name character varying(256),
   new_user_name character varying(256),
   verification_id integer,
-  created_at date,
-  modified_at date,
+  created_at timestamp,
+  modified_at timestamp,
   created_by character varying(256),
   modified_by character varying(256),
   user_id uuid,
@@ -2343,10 +2343,10 @@ CREATE TABLE staging.hmis_account_lockout
 (
   id integer NOT NULL,
   last_attempt_status integer,
-  last_attempt_at date,
+  last_attempt_at timestamp,
   failure_attempt_count integer,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   user_id uuid,
@@ -2368,7 +2368,7 @@ CREATE TABLE staging.hmis_account_preference
   iso_country_code character varying(120),
   newsletter_opt_in integer,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   user_id uuid,
@@ -2392,10 +2392,10 @@ CREATE TABLE staging.hmis_api_group
   authorization_msg character varying(512),
   group_sequence bigint,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   consent_message_id bigint,
   detailed_consent_message_id bigint,
   CONSTRAINT "PK_API_GROUP" PRIMARY KEY (id),
@@ -2411,10 +2411,10 @@ WITH (
 );
 
 INSERT INTO staging.hmis_api_group(id, external_id, friendly_name, description, authorization_msg, created_at,  created_by)
-    VALUES (1, 'DEVELOPER_SERVICES','DEVELOPER SERVICES', 'DEVELOPER SERVICES', 'DEVELOPER SERVICES', current_date,  'MASTER DATA'),
-	       (2, 'USER_SERVICES','USER SERVICES', 'USER SERVICES', 'USER SERVICES', current_date,  'MASTER DATA'),
-	       (3, 'ACL_SERVICES','ACL SERVICES', 'ACL SERVICES', 'ACL SERVICES', current_date,  'MASTER DATA'),
-	       (4, 'AUTH_SERVICES','AUTH SERVICES', 'AUTH SERVICES', 'AUTH SERVICES', current_date,  'MASTER DATA');
+    VALUES (1, 'DEVELOPER_SERVICES','DEVELOPER SERVICES', 'DEVELOPER SERVICES', 'DEVELOPER SERVICES', current_timestamp,  'MASTER DATA'),
+	       (2, 'USER_SERVICES','USER SERVICES', 'USER SERVICES', 'USER SERVICES', current_timestamp,  'MASTER DATA'),
+	       (3, 'ACL_SERVICES','ACL SERVICES', 'ACL SERVICES', 'ACL SERVICES', current_timestamp,  'MASTER DATA'),
+	       (4, 'AUTH_SERVICES','AUTH SERVICES', 'AUTH SERVICES', 'AUTH SERVICES', current_timestamp,  'MASTER DATA');
 
 
 CREATE SEQUENCE "staging".seq_api_method START 1;
@@ -2429,10 +2429,10 @@ CREATE TABLE staging.hmis_api_method
   account_consent_msg character varying(512),
   account_consent_msg_order bigint,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   api_group_id bigint,
   deprecated bigint DEFAULT 0,
   consent_message_id bigint,
@@ -2455,75 +2455,75 @@ WITH (
 );
 
 
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (1,'ACL_CREATE_ROLE','ACL_CREATE_ROLE','ACL_CREATE_ROLE','POST',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (2,'ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','PUT',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (3,'ACL_DELETE_ROLE','ACL_DELETE_ROLE','ACL_DELETE_ROLE','DELETE',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (4,'ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','GET',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (5,'ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','POST',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (6,'ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','PUT',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (7,'ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','DELETE',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (8,'ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','POST',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (9,'ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','PUT',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (10,'ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','DELETE',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (11,'ACL_GET_PROFILE','ACL_GET_PROFILE','ACL_GET_PROFILE','GET',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (12,'ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','GET',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (13,'ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','POST',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (14,'ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','PUT',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (15,'ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','DELETE',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (16,'ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','GET',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (17,'ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','PUT',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (18,'ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','POST',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (19,'ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','PUT',CURRENT_DATE,'MASTER DATA',3,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (20,'USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','POST',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (21,'USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (22,'USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (23,'USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (24,'USR_GET_ACCOUNT','USR_GET_ACCOUNT','USR_GET_ACCOUNT','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (25,'USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','PUT',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (26,'USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (27,'USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (28,'USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','PUT',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (29,'USR_PASSWORD_RESET','USR_PASSWORD_RESET','USR_PASSWORD_RESET','PUT',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (30,'USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','PUT',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (31,'USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','PUT',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (32,'USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (33,'USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','POST',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (34,'USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','GET',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (35,'USR_CREATE_SESSION','USR_CREATE_SESSION','USR_CREATE_SESSION','POST',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (36,'USR_END_SESSION','USR_END_SESSION','USR_END_SESSION','DELETE',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (37,'USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','PUT',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (38,'USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','POST',CURRENT_DATE,'MASTER DATA',2,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (39,'DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (40,'DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','PUT',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (41,'DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (42,'DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DELETE',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (43,'DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (44,'DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DELETE',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (45,'DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (46,'DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (47,'DCS_GET_SERVICES','DCS_GET_SERVICES','DCS_GET_SERVICES','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (48,'DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (49,'DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (50,'DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (51,'DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','PUT',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (52,'DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DELETE',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (53,'DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (54,'DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (55,'DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (56,'DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (57,'DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','PUT',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (58,'DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DELETE',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (59,'DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','PUT',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (60,'DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (61,'DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (62,'DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (63,'DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','POST',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (64,'DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','GET',CURRENT_DATE,'MASTER DATA',1,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (65,'AUTH_AUTHORIZE','AUTH_AUTHORIZE','AUTH_AUTHORIZE','GET',CURRENT_DATE,'MASTER DATA',4,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (66,'AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','GET',CURRENT_DATE,'MASTER DATA',4,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (67,'AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','GET',CURRENT_DATE,'MASTER DATA',4,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (68,'AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','POST',CURRENT_DATE,'MASTER DATA',4,0,TRUE);
-INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (69,'AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','POST',CURRENT_DATE,'MASTER DATA',4,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (1,'ACL_CREATE_ROLE','ACL_CREATE_ROLE','ACL_CREATE_ROLE','POST',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (2,'ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','ACL_UPDATE_ROLE','PUT',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (3,'ACL_DELETE_ROLE','ACL_DELETE_ROLE','ACL_DELETE_ROLE','DELETE',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (4,'ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','ACL_GET_ALL_ROLES','GET',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (5,'ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','ACL_CREATE_SHARING_RULE','POST',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (6,'ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','ACL_UPDATE_SHARING_RULE','PUT',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (7,'ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','ACL_DELETE_SHARING_RULE','DELETE',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (8,'ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','ACL_CREATE_PROFILE','POST',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (9,'ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','ACL_UPDATE_PROFILE','PUT',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (10,'ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','ACL_DELETE_PROFILE','DELETE',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (11,'ACL_GET_PROFILE','ACL_GET_PROFILE','ACL_GET_PROFILE','GET',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (12,'ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','ACL_GET_ALL_PROFILES','GET',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (13,'ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','ACL_CREATE_PRMISSION_SET','POST',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (14,'ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','ACL_UPDATE_PRMISSION_SET','PUT',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (15,'ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','ACL_DELETE_PRMISSION_SET','DELETE',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (16,'ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','ACL_GET_PRMISSION_SET','GET',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (17,'ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','ACL_ASSIGN_PRMISSION_SET','PUT',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (18,'ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','ACL_CREATE_USER_ROLE','POST',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (19,'ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','ACL_UPDATE_USER_ROLE','PUT',CURRENT_timestamp,'MASTER DATA',3,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (20,'USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','USR_CREATE_ACCOUNT','POST',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (21,'USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','USR_GET_ACCOUNT_EMAIL_ADDRESS','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (22,'USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','USR_GET_ACCOUNT_BASIC_INFO','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (23,'USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','USR_GET_AUTHORIZED_TRUSTEDAPPS','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (24,'USR_GET_ACCOUNT','USR_GET_ACCOUNT','USR_GET_ACCOUNT','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (25,'USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','USR_UPDATE_ACCOUNT','PUT',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (26,'USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','USR_GET_ACCOUNT_STATUS','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (27,'USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','USR_GET_ACCOUNT_PREFERENCES','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (28,'USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','USR_UPDATE_ACCOUNT_PREFERENCES','PUT',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (29,'USR_PASSWORD_RESET','USR_PASSWORD_RESET','USR_PASSWORD_RESET','PUT',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (30,'USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','USR_PASSWORD_UPDATE','PUT',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (31,'USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','USR_USERNAME_CHANGE','PUT',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (32,'USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','USR_GET_ORGANIZATION_USERS','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (33,'USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','USR_CHECK_API_AUTHORIZATION','POST',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (34,'USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','USR_GET_BASIC_TRUSTEDAPP_INFO','GET',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (35,'USR_CREATE_SESSION','USR_CREATE_SESSION','USR_CREATE_SESSION','POST',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (36,'USR_END_SESSION','USR_END_SESSION','USR_END_SESSION','DELETE',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (37,'USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','USR_UPDATE_VERIFICATION_STATUS','PUT',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (38,'USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','USR_CREATE_VERIFICATION','POST',CURRENT_timestamp,'MASTER DATA',2,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (39,'DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','DCS_CREATE_DEVELOPER_COMPANY','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (40,'DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','DCS_UPDATE_DEVELOPER_COMPANY','PUT',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (41,'DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','DCS_ASSOCIATE_DEVELOPER_ACCOUNT','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (42,'DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DCS_DISASSOCIATE_DEVELOPER_ACCOUNT','DELETE',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (43,'DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (44,'DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DCS_DELETE_DEVELOPER_COMPANY','DELETE',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (45,'DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','DCS_GET_DEVELOPER_COMPANY','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (46,'DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','DCS_GET_DEVELOPER_COMPANY_ACCOUNTS','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (47,'DCS_GET_SERVICES','DCS_GET_SERVICES','DCS_GET_SERVICES','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (48,'DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','DCS_GET_ALL_DEVELOPER_COMPANY','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (49,'DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','DCS_CREATE_DEVELOPER_APPROVAL_DECISION','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (50,'DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','DCS_CREATE_SERVICE','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (51,'DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','DCS_UPDATE_SERVICE','PUT',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (52,'DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DCS_DELETE_SERVICE','DELETE',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (53,'DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','DCS_CREATE_TRUSTEDAPP_FOR_SERVICE','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (54,'DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','DCS_CREATE_SERVICE_APPROVAL_SUBMISSION','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (55,'DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','DCS_CREATE_SERVICE_APPROVAL_DECISION','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (56,'DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','DCS_GET_TRUSTEDAPPS_FOR_SERVICE','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (57,'DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','DCS_UPDATE_TRUSTEDAPP','PUT',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (58,'DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DCS_DELETE_TRUSTEDAPP','DELETE',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (59,'DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','DCS_REGENERATE_TRUSTEDAPP_SECRETE','PUT',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (60,'DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (61,'DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (62,'DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','DCS_GET_TRUSTEDAPP','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (63,'DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','DCS_REGISTER_REDIRECT_URI','POST',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (64,'DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','DCS_GET_REDIRECT_URIS','GET',CURRENT_timestamp,'MASTER DATA',1,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (65,'AUTH_AUTHORIZE','AUTH_AUTHORIZE','AUTH_AUTHORIZE','GET',CURRENT_timestamp,'MASTER DATA',4,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (66,'AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','AUTH_GET_CONSENT_MESSAGES','GET',CURRENT_timestamp,'MASTER DATA',4,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (67,'AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','AUTH_GET_DETAILED_CONSENT_MESSAGES','GET',CURRENT_timestamp,'MASTER DATA',4,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (68,'AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','AUTH_AUTHORIZE_TOKEN','POST',CURRENT_timestamp,'MASTER DATA',4,0,TRUE);
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES (69,'AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','AUTH_REVOKE_TOKEN','POST',CURRENT_timestamp,'MASTER DATA',4,0,TRUE);
 
 
 CREATE SEQUENCE "staging".seq_developer_company START 1;
@@ -2536,15 +2536,15 @@ CREATE TABLE staging.hmis_developer_company
   domain character varying(256),
   logo_url character varying(1048),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   company_size bigint DEFAULT 1,
   app_experience character varying(1024),
   company_skill_set character varying(1024),
   app_platforms character varying(1024),
-  expected_app_finish_date date,
+  expected_app_finish_date timestamp,
   contact_email character varying(256),
   status character varying(10),
   owner_user_id uuid,
@@ -2565,10 +2565,10 @@ CREATE TABLE staging.hmis_developer_company_account
   developer_company_id bigint NOT NULL,
   role character varying(32),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   user_id uuid,
   CONSTRAINT "PK_DEVELOPER_COMPANY_ACCOUNT" PRIMARY KEY (id),
   CONSTRAINT "FK_DCA_USERID" FOREIGN KEY (user_id)
@@ -2588,10 +2588,10 @@ CREATE TABLE staging.hmis_developer_company_status
   status character varying(20),
   comments character varying(512),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_DEVELOPER_COMPANY_STATUS" PRIMARY KEY (id),
   CONSTRAINT "FK_DCS_DEVELOPER_COMPANY_ID" FOREIGN KEY (developer_company_id)
       REFERENCES staging.hmis_developer_company_status (id) MATCH SIMPLE
@@ -2609,8 +2609,8 @@ CREATE TABLE staging.hmis_password_reset
   new_password character varying(256),
   verification_id integer,
   status character varying(256),
-  created_at date,
-  modified_at date,
+  created_at timestamp,
+  modified_at timestamp,
   created_by character varying(256),
   modified_by character varying(256),
   user_id uuid,
@@ -2631,9 +2631,9 @@ CREATE TABLE staging.hmis_permission_set
   id uuid NOT NULL,
   permission_set_name character varying(256),
   permission_set_description character varying(256),
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PERMISSION_SET" PRIMARY KEY (id)
 )
@@ -2646,9 +2646,9 @@ CREATE TABLE staging.hmis_permission_set_acl
   id uuid NOT NULL,
   permission_set_id uuid,
   api_method_id bigint,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PERMISSION_SET_ACL" PRIMARY KEY (id),
   CONSTRAINT "FK_PSA_API_METHOD_ID" FOREIGN KEY (api_method_id)
@@ -2668,9 +2668,9 @@ CREATE TABLE staging.hmis_profile
   id uuid NOT NULL,
   profile_name character varying(256),
   profile_description character varying(256),
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PROFILE" PRIMARY KEY (id)
 )
@@ -2683,9 +2683,9 @@ CREATE TABLE staging.hmis_profile_acl
   profile_id uuid,
   api_method_id bigint,
   id uuid NOT NULL,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_PROFILE_ACL" PRIMARY KEY (id),
   CONSTRAINT "FK_PACL_API_METHOD_ID" FOREIGN KEY (api_method_id)
@@ -2707,10 +2707,10 @@ CREATE TABLE staging.hmis_redirect_uri
   uri character varying(1048) NOT NULL,
   trustedapp_id bigint NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_REDIRECT_URI" PRIMARY KEY (id),
   CONSTRAINT "FK_RU_TRUSTEDAPP_ID" FOREIGN KEY (trustedapp_id)
       REFERENCES staging.hmis_trusted_app (id) MATCH SIMPLE
@@ -2729,10 +2729,10 @@ CREATE TABLE staging.hmis_refresh_token
   auth_code character varying(128),
   trustedapp_id bigint NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   user_id uuid,
   CONSTRAINT "PK_REFRESH_TOKEN" PRIMARY KEY (id),
   CONSTRAINT "FK_RT_TRUSTEDAPP_ID" FOREIGN KEY (trustedapp_id)
@@ -2757,10 +2757,10 @@ CREATE TABLE staging.hmis_request_token
   used bigint NOT NULL,
   expires_at date NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   max_use bigint DEFAULT 1,
   CONSTRAINT "PK_REQUEST_TOKEN" PRIMARY KEY (id)
 )
@@ -2774,9 +2774,9 @@ CREATE TABLE staging.hmis_role
   role_name character varying(256),
   role_description character varying(256),
   parent_role_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_ROLE" PRIMARY KEY (id),
   CONSTRAINT "FK_PARENT_ROLE_ID" FOREIGN KEY (parent_role_id)
@@ -2796,10 +2796,10 @@ CREATE TABLE staging.hmis_service_api_method
   service_id bigint NOT NULL,
   api_method_id bigint NOT NULL,
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_SERVICE_API_METHOD" PRIMARY KEY (id),
   CONSTRAINT "FK_SAM_API_METHOD_ID" FOREIGN KEY (api_method_id)
       REFERENCES staging.hmis_api_method (id) MATCH SIMPLE
@@ -2821,10 +2821,10 @@ CREATE TABLE staging.hmis_service_status
   status character varying(20),
   comments character varying(512),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_SERVICE_STATUS" PRIMARY KEY (id),
   CONSTRAINT "FK_SS_SERVICE_ID" FOREIGN KEY (service_id)
       REFERENCES staging.hmis_service (id) MATCH SIMPLE
@@ -2846,8 +2846,8 @@ CREATE TABLE staging.hmis_session
   auth_code_expires_at timestamp without time zone,
   redirect_uri character varying(256),
   refresh_token_id integer,
-  created_at date,
-  modified_at date,
+  created_at timestamp,
+  modified_at timestamp,
   created_by character varying(256),
   modified_by character varying(256),
   user_id uuid,
@@ -2874,9 +2874,9 @@ CREATE TABLE staging.hmis_sharing_rule
   role_id uuid,
   to_organization_id uuid,
   project_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_SHARING_RULE" PRIMARY KEY (id),
   CONSTRAINT "FK_SR_ENROLLMENT_ID" FOREIGN KEY (enrollment_id)
@@ -2908,10 +2908,10 @@ CREATE TABLE staging.hmis_trusted_app_status
   status character varying(20),
   comments character varying(512),
   created_at date NOT NULL,
-  modified_at date,
+  modified_at timestamp,
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
-  deleted date,
+  deleted timestamp,
   CONSTRAINT "PK_TRUSTED_APP_STATUS" PRIMARY KEY (id),
   CONSTRAINT "FK_TAPPS_TRUSTED_APP_ID" FOREIGN KEY (trustedapp_id)
       REFERENCES staging.hmis_trusted_app (id) MATCH SIMPLE
@@ -2928,9 +2928,9 @@ CREATE TABLE staging.hmis_user_permission_set_acl
   permission_set_id uuid,
   profile_id uuid,
   role_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_USER_PERMISSION_SET_ACL" PRIMARY KEY (id),
   CONSTRAINT "FK_UPSA_PERMISSION_SET_ID" FOREIGN KEY (permission_set_id)
@@ -2955,9 +2955,9 @@ CREATE TABLE staging.hmis_user_project
   id uuid NOT NULL,
   user_id uuid,
   project_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_USER_PROJECT" PRIMARY KEY (id),
   CONSTRAINT "FK_UP_PROJECT_ID" FOREIGN KEY (project_id)
@@ -2976,9 +2976,9 @@ CREATE TABLE staging.hmis_user_role_map
   id uuid NOT NULL,
   user_id uuid,
   role_id uuid,
-  created_at date,
+  created_at timestamp,
   created_by character varying(256),
-  modified_at date,
+  modified_at timestamp,
   modified_by character varying(256),
   CONSTRAINT "PK_USER_ROLE_MAP" PRIMARY KEY (id),
   CONSTRAINT "FK_UR_ROLE_ID" FOREIGN KEY (role_id)

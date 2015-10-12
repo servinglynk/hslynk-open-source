@@ -24,7 +24,7 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
        com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEmployment.setEnrollmentid(pEnrollment); 
-       pEmployment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+       pEmployment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pEmployment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getEmploymentDao().createEmployment(pEmployment);
        employment.setEmploymentId(pEmployment.getId());
@@ -41,7 +41,7 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
 
        EmploymentConverter.modelToEntity(employment, pEmployment);
        pEmployment.setEnrollmentid(pEnrollment); 
-       pEmployment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+       pEmployment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pEmployment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getEmploymentDao().updateEmployment(pEmployment);
        employment.setEmploymentId(pEmployment.getId());

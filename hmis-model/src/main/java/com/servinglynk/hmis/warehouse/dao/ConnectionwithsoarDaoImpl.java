@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -38,8 +39,8 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				Connectionwithsoar connectionwithsoarModel = new Connectionwithsoar();
 				connectionwithsoarModel.setId(UUID.randomUUID());
 				connectionwithsoarModel.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionWithSOAR()));
-				connectionwithsoarModel.setDateCreated(BasicDataGenerator.getLocalDate(connectionWithSOAR.getDateCreated()));
-				connectionwithsoarModel.setDateUpdated(BasicDataGenerator.getLocalDate(connectionWithSOAR.getDateUpdated()));
+				connectionwithsoarModel.setDateCreated(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
+				connectionwithsoarModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(connectionWithSOAR.getExitID()));
 				connectionwithsoarModel.setExitid(exit);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
@@ -62,6 +63,8 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addConnectionwithsoar(target);
+				target.setDateCreated(LocalDateTime.now());
+				target.setDateUpdated(LocalDateTime.now());
 				insertOrUpdate(target);
 			}
 		}

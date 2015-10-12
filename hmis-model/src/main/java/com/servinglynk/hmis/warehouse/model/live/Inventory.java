@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -54,9 +54,9 @@ public class Inventory implements Cloneable, Serializable{
 	/** Field mapping. */
 	private InventoryBedtypeEnum bedtype;
 	/** Field mapping. */
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 	/** Field mapping. */
-	private LocalDate dateUpdated;
+	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Integer hmisparticipatingbeds;
 	/** Field mapping. */
@@ -64,9 +64,9 @@ public class Inventory implements Cloneable, Serializable{
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private LocalDate inventoryenddate;
+	private LocalDateTime inventoryenddate;
 	/** Field mapping. */
-	private LocalDate inventorystartdate;
+	private LocalDateTime inventorystartdate;
 	/** Field mapping. */
 	private Projectcoc projectCoc;
 	/** Field mapping. */
@@ -195,12 +195,12 @@ public class Inventory implements Cloneable, Serializable{
 
 	 /**
 	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDate object (this.dateCreated)
+	 * @return A LocalDateTime object (this.dateCreated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_created"  )
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return this.dateCreated;
 
 	}
@@ -211,18 +211,18 @@ public class Inventory implements Cloneable, Serializable{
 	 * Set the value related to the column: dateCreated.
 	 * @param dateCreated the dateCreated value you wish to set
 	 */
-	public void setDateCreated(final LocalDate dateCreated) {
+	public void setDateCreated(final LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
 	 /**
 	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDate object (this.dateUpdated)
+	 * @return A LocalDateTime object (this.dateUpdated)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column( name = "date_updated"  )
-	public LocalDate getDateUpdated() {
+	public LocalDateTime getDateUpdated() {
 		return this.dateUpdated;
 
 	}
@@ -233,7 +233,7 @@ public class Inventory implements Cloneable, Serializable{
 	 * Set the value related to the column: dateUpdated.
 	 * @param dateUpdated the dateUpdated value you wish to set
 	 */
-	public void setDateUpdated(final LocalDate dateUpdated) {
+	public void setDateUpdated(final LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 
@@ -310,12 +310,12 @@ public class Inventory implements Cloneable, Serializable{
 
 	 /**
 	 * Return the value associated with the column: inventoryenddate.
-	 * @return A LocalDate object (this.inventoryenddate)
+	 * @return A LocalDateTime object (this.inventoryenddate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
-	public LocalDate getInventoryenddate() {
+	public LocalDateTime getInventoryenddate() {
 		return this.inventoryenddate;
 
 	}
@@ -326,18 +326,18 @@ public class Inventory implements Cloneable, Serializable{
 	 * Set the value related to the column: inventoryenddate.
 	 * @param inventoryenddate the inventoryenddate value you wish to set
 	 */
-	public void setInventoryenddate(final LocalDate inventoryenddate) {
+	public void setInventoryenddate(final LocalDateTime inventoryenddate) {
 		this.inventoryenddate = inventoryenddate;
 	}
 
 	 /**
 	 * Return the value associated with the column: inventorystartdate.
-	 * @return A LocalDate object (this.inventorystartdate)
+	 * @return A LocalDateTime object (this.inventorystartdate)
 	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
-	public LocalDate getInventorystartdate() {
+	public LocalDateTime getInventorystartdate() {
 		return this.inventorystartdate;
 
 	}
@@ -348,7 +348,7 @@ public class Inventory implements Cloneable, Serializable{
 	 * Set the value related to the column: inventorystartdate.
 	 * @param inventorystartdate the inventorystartdate value you wish to set
 	 */
-	public void setInventorystartdate(final LocalDate inventorystartdate) {
+	public void setInventorystartdate(final LocalDateTime inventorystartdate) {
 		this.inventorystartdate = inventorystartdate;
 	}
 

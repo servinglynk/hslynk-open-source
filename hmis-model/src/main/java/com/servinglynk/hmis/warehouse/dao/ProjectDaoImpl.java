@@ -62,8 +62,8 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
 				projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
 				projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
-				projectModel.setDateCreated(BasicDataGenerator.getLocalDate(project.getDateCreated()));
-				projectModel.setDateUpdated(BasicDataGenerator.getLocalDate(project.getDateUpdated()));
+				projectModel.setDateCreated(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
+				projectModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 				if(project.getProjectID() !=null && !"".equals(project.getProjectID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID());
 					if(uuid !=null) {
@@ -95,11 +95,11 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					target.setEnrollmentid(enrollmentModel);
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
-					//exportEntity.addProject(target);
+					com.servinglynk.hmis.warehouse.model.live.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class, project.getOrganizationid().getId());
+					target.setOrganizationid(orgEntity);
 					insert(target);
 				}
 			}
-			factory.getOrganizationDao().hydrateLive(export);
 			factory.getAffiliationDao().hydrateLive(export);
 			factory.getFunderDao().hydrateLive(export);
 		}

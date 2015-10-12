@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -38,8 +39,8 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 			{
 				Familyreunification familyreunificationModel = new Familyreunification();
 				familyreunificationModel.setId(UUID.randomUUID());
-				familyreunificationModel.setDateCreated(BasicDataGenerator.getLocalDate(familyReunification.getDateCreated()));
-				familyreunificationModel.setDateUpdated(BasicDataGenerator.getLocalDate(familyReunification.getDateUpdated()));
+				familyreunificationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
+				familyreunificationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
 				familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(familyReunification.getExitID()));
 				familyreunificationModel.setExitid(exit);
@@ -64,6 +65,8 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addFamilyreunification(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

@@ -1,15 +1,15 @@
 package com.servinglynk.hmis.warehouse.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class SyncDomain {
-	private LocalDate dateCreated;
+	private LocalDateTime dateCreated;
 
-	public LocalDate getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(LocalDate dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 	

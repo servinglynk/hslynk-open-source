@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -42,8 +43,8 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 organizationModel.setOrganizationname(organization.getOrganizationName());
 				  com.servinglynk.hmis.warehouse.model.staging.Project project =  (com.servinglynk.hmis.warehouse.model.staging.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
 				  organizationModel.addProject(project);
-				 organizationModel.setDateCreated(BasicDataGenerator.getLocalDate(organization.getDateCreated()));
-				 organizationModel.setDateUpdated(BasicDataGenerator.getLocalDate(organization.getDateUpdated()));
+				 organizationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
+				 organizationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 				 com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				 organizationModel.setExport(exportEntity);
 				 exportEntity.addOrganization(organizationModel);
@@ -62,12 +63,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					BeanUtils.copyProperties(organization, target,getNonCollectionFields(target));
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
-					//exportEntity.addOrganization(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
-//					for(Project project : organization.getProjects()) {
-//						com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,project.getId());
-//						projectModel.setOrganizationid(target);
-//					}
 				}
 			}
 			

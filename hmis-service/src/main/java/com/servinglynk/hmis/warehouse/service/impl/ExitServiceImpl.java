@@ -24,7 +24,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
        com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pExit.setEnrollmentid(pEnrollment);
-       pExit.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+       pExit.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pExit.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getExitDao().createExit(pExit);
        exit.setExitId(pExit.getId());
@@ -42,7 +42,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
        
        ExitConverter.modelToEntity(exit, pExit);
        pExit.setEnrollmentid(pEnrollment);       
-       pExit.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+       pExit.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pExit.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getExitDao().updateExit(pExit);
        exit.setExitId(pExit.getId());

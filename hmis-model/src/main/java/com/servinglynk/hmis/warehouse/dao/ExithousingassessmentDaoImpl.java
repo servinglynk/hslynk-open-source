@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,8 +41,8 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 				{
 					Exithousingassessment exithousingassessmentModel = new Exithousingassessment();
 					exithousingassessmentModel.setId(UUID.randomUUID());
-					exithousingassessmentModel.setDateCreated(BasicDataGenerator.getLocalDate(exitHousingAssessment.getDateCreated()));
-					exithousingassessmentModel.setDateUpdated(BasicDataGenerator.getLocalDate(exitHousingAssessment.getDateUpdated()));
+					exithousingassessmentModel.setDateCreated(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
+					exithousingassessmentModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
 					exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
 					exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
 					Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitHousingAssessment.getExitID()));
@@ -68,6 +69,8 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addExithousingassessment(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

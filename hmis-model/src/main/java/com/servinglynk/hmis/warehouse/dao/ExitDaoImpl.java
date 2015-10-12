@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,9 +59,9 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				domain.getExitMap().put(exit.getExitID(), id);
 				exitModel.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
 				exitModel.setOtherdestination(exit.getOtherDestination());
-				exitModel.setDateCreated(BasicDataGenerator.getLocalDate(exit.getDateCreated()));
-				exitModel.setDateUpdated(BasicDataGenerator.getLocalDate(exit.getDateUpdated()));
-				exitModel.setExitdate(BasicDataGenerator.getLocalDate(exit.getExitDate()));
+				exitModel.setDateCreated(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
+				exitModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
+				exitModel.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
 				if(exit.getProjectEntryID() !=null && !"".equals(exit.getProjectEntryID())) {
 				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((exit.getProjectEntryID()));
 				if(uuid !=null) {
@@ -99,6 +100,8 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addExit(target);
+					target.setDateCreated(LocalDateTime.now());
+					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

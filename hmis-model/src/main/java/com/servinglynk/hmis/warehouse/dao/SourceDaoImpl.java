@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.rmi.server.ExportException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +50,8 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		if(source !=null) {
 			com.servinglynk.hmis.warehouse.model.live.Source target = new com.servinglynk.hmis.warehouse.model.live.Source();
 			BeanUtils.copyProperties(source, target, getNonCollectionFields(target));
+			target.setDateCreated(LocalDateTime.now());
+			target.setDateUpdated(LocalDateTime.now());
 			insertOrUpdate(target);
 		}
 	}

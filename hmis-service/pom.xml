@@ -173,7 +173,7 @@
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-model</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.2</version>
 		</dependency> 
 				 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>

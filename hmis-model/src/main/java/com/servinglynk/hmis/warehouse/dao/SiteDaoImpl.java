@@ -27,8 +27,8 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					com.servinglynk.hmis.warehouse.model.staging.Site siteModel = new com.servinglynk.hmis.warehouse.model.staging.Site();
 					siteModel.setAddress(site.getAddress());
 					siteModel.setCity(site.getCity());
-					siteModel.setDateCreated(BasicDataGenerator.getLocalDate(site.getDateCreated()));
-					siteModel.setDateUpdated(BasicDataGenerator.getLocalDate(site.getDateUpdated()));
+					siteModel.setDateCreated(BasicDataGenerator.getLocalDateTime(site.getDateCreated()));
+					siteModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 					siteModel.setGeocode(site.getGeocode());
 					siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
 //					Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,domain.getProjectCocMap().get(site.getProjectCoCID()));
