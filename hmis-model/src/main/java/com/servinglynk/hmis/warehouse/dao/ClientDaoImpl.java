@@ -130,8 +130,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					if(dedupedClient !=null) {
 						clientUUID = dedupedClient.getId();
 					}
-				}else {
-					insert(clientModel);	
+					else {
+						insert(clientModel);	
+					}	
+				}else{
+					insert(clientModel);
 				}
 				
 				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
@@ -195,8 +198,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	        LinkedHashMap<String, String> responseBody = (LinkedHashMap<String, String>) response.getBody();        
 	        //String sessionKey = (String) responseBody.entrySet().iterator().next();
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
-	        headers.set("OPENEMPI_SESSION_KEY", "A053E4E2D5D11E7F5BD969D1719D3A60");
-	        url = OPENEMPI_HOST+"dedup";
+	        headers.set("OPENEMPI_SESSION_KEY", responseBody.get("String"));
+	        url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
@@ -393,6 +396,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Client.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		List<com.servinglynk.hmis.warehouse.model.live.Client> clients = (List<com.servinglynk.hmis.warehouse.model.live.Client>) findByCriteria(criteria);
+		if(clients !=null && clients.size()>0) return clients.get(0);
+		return null;
+	}
+	public com.servinglynk.hmis.warehouse.model.staging.Client getClientByDedupCliendIdFromStaging(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.staging.Client.class);
+		criteria.add(Restrictions.eq("dedupClientId", id));
+		List<com.servinglynk.hmis.warehouse.model.staging.Client> clients = (List<com.servinglynk.hmis.warehouse.model.staging.Client>) findByCriteria(criteria);
 		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;
 	}

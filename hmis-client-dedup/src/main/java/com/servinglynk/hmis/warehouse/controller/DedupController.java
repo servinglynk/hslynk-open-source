@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.AuthenticationException;
 import com.servinglynk.hmis.warehouse.domain.Person;
-import com.servinglynk.hmis.warehouse.restful.model.AuthenticationRequest;
+import com.servinglynk.hmis.warehouse.AuthenticationRequest;
 import com.servinglynk.hmis.warehouse.service.DedupService;
 
 

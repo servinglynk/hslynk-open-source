@@ -86,12 +86,12 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>${parent-version}</version>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>${parent-version}</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 	<groupId>org.springframework</groupId>
@@ -134,7 +134,7 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-<build>
+  	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -150,7 +150,14 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
-			 <plugin>
+			    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml> 
+                </configuration>
+            </plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
@@ -162,16 +169,45 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
-				</configuration>
-			</plugin>
+			
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>tomcat-maven-plugin</artifactId>
+    <configuration>
+        <url>http://ec2-54-149-120-14.us-west-2.compute.amazonaws.com:8080/manager/text</url>
+        <server>TomcatServer</server>
+        <path>/hmis-client-dedup</path>
+    </configuration>
+</plugin>
+
 		</plugins>
 	</build>
+	<repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://52.11.107.101:8080/nexus/content/groups/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://52.11.107.101:8080/nexus/content/groups/public</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories> 
 <distributionManagement>
   <repository>
      <id>deployment</id>

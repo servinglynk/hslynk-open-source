@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.service.DedupService;
 import com.servinglynk.hmis.warehouse.service.DedupServiceImpl;
 

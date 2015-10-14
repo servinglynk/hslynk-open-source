@@ -24,10 +24,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.servinglynk.hmis.warehouse.AuthenticationRequest;
 import com.servinglynk.hmis.warehouse.domain.Gender;
 import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.PersonIdentifier;
-import com.servinglynk.hmis.warehouse.restful.model.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
 	private static final String OPENEMPI_SESSION_KEY_HEADER = "OPENEMPI_SESSION_KEY";
