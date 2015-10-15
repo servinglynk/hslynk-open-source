@@ -4,24 +4,17 @@
 
   <groupId>com.servinglynk.hmis.warehouse</groupId>
   <artifactId>hmis-core-common</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
 
   <name>hmis-core-common</name>
   <url>http://maven.apache.org</url>
-   <parent>
-    <groupId>com.servinglynk.hmis.warehouse</groupId>
-    <artifactId>servinglynk-hmis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
 	<scm>
 	  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  </scm>
    <properties>   
  	 <java-version>1.8</java-version>
  	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
- 	 <parent-version>0.0.1-SNAPSHOT</parent-version>
  	 	<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
   </properties>
 

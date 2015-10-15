@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.model.live.Export;
-import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
@@ -76,20 +76,6 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 					new File(bullkUpload.getInputPath()).delete();
 				}
 			}
-			
-			List<BulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
-			if(stagingUploadEntities!=null && stagingUploadEntities.size() >0 ) {
-				for(BulkUpload bulkUpload : stagingUploadEntities) {
-					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload.getExport().getId());
-					com.servinglynk.hmis.warehouse.model.live.BulkUpload target  = new com.servinglynk.hmis.warehouse.model.live.BulkUpload();
-					BeanUtils.copyProperties(bulkUpload, target,getNonCollectionFields(target));
-					target.setStatus(UploadStatus.LIVE.getStatus());
-					 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.live.Export.class, bulkUpload.getExport().getId());
-					target.setExport(exportEntity);
-					factory.getBulkUploaderWorkerDao().insertOrUpdate(target); 
-				}
-			}
-			
 			
 			logger.info("Sandeep Testing");
 		} catch (Exception e) {

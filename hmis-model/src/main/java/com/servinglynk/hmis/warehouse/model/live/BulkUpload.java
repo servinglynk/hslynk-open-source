@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -19,7 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Entity
+@Entity (name = "bulk_upload")
 @Table(name = "bulk_upload", catalog = "hmis", schema = "live")
 public class BulkUpload  implements Cloneable, Serializable {
 

@@ -1,11 +1,12 @@
 package com.servinglynk.hmis.warehouse.upload.service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.exception.WorkerNotFoundException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;

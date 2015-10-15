@@ -154,10 +154,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId());
-				if(clientByDedupCliendId ==null) {
+				//com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId());
+				//if(clientByDedupCliendId ==null) {
 					insert(target);	
-				}
+				//}
 			}
 		}
 	}

@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadService;
@@ -86,12 +85,12 @@ public class SpringConfig {
 	public BasicDataSource relationalDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
     	dataSource.setDriverClassName("org.postgresql.Driver");
-//    	dataSource.setUrl("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis");
-//    	dataSource.setUsername("hmisdb1");
-//    	dataSource.setPassword("hmisdb1234");
-    	 dataSource.setUrl("jdbc:postgresql://localhost:5432/hmis");
-    	dataSource.setUsername("postgres");
-    	dataSource.setPassword("postgres");
+    	dataSource.setUrl("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis");
+    	dataSource.setUsername("hmisdb1");
+    	dataSource.setPassword("hmisdb1234");
+//    	 dataSource.setUrl("jdbc:postgresql://localhost:5432/hmis");
+//    	dataSource.setUsername("postgres");
+//    	dataSource.setPassword("postgres");
     	
 		return dataSource;
 	}
@@ -104,7 +103,7 @@ public class SpringConfig {
 		LocalSessionFactoryBean sessionFactory= new LocalSessionFactoryBean();
 		
 		sessionFactory.setDataSource(relationalDataSource());
-		sessionFactory.setPackagesToScan("com.servinglynk.hmis.warehouse.staging,com.servinglynk.hmis.warehouse.live");
+		sessionFactory.setPackagesToScan("com.servinglynk.hmis.warehouse");
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		
 		

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
-import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 public class BulkUploadHelperTest1 {
 

@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 @Transactional(propagation = Propagation.REQUIRED) 
 public interface BulkUploaderDao {

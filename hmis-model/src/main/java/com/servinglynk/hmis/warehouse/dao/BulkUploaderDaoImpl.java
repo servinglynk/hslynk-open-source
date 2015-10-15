@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.model.staging.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
@@ -29,9 +30,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload) {
 		try {
-			
+			//upload.setId(UUID.randomUUID());
 			upload.setStatus("INPROGRESS");
-			parentDaoFactory.getBulkUploaderWorkerDao().insert(upload);
+			upload.setInsertAt(new Date());
+			upload.setUpdateAt(new Date());
+			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload);
 			Source source = sources.getSource();
 			Export export = source.getExport();
@@ -90,7 +93,16 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus("STAGING");
 			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
-			upload.setExport(exportEntity);
+			parentDaoFactory.getSourceDao().hydrateLive(exportEntity);
+			if(exportEntity!=null) {
+				com.servinglynk.hmis.warehouse.model.live.Export target = new com.servinglynk.hmis.warehouse.model.live.Export();
+				BeanUtils.copyProperties(exportEntity, target,getNonCollectionFields(target));
+				com.servinglynk.hmis.warehouse.model.live.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.live.Source) get(com.servinglynk.hmis.warehouse.model.live.Source.class, domain.getSourceId());
+				target.setSource(sourceEntity);
+				insert(target);	
+			}
+			com.servinglynk.hmis.warehouse.model.live.Export exportLive = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, exportId);
+			upload.setExport(exportLive);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,17 +114,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Transactional
 	public void moveFromStagingToLive(UUID exportId) {
 		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
-		parentDaoFactory.getSourceDao().hydrateLive(export);
-		if(export!=null) {
-			com.servinglynk.hmis.warehouse.model.live.Export target = new com.servinglynk.hmis.warehouse.model.live.Export();
-			BeanUtils.copyProperties(export, target,getNonCollectionFields(target));
-			com.servinglynk.hmis.warehouse.model.live.Source source = target.getSource();
-			if(source != null && source.getId() != null) {
-				com.servinglynk.hmis.warehouse.model.live.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.live.Source) get(com.servinglynk.hmis.warehouse.model.live.Source.class, source.getId());
-				target.setSource(sourceEntity);
-			}
-			insert(target);	
-		}
 		parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
@@ -148,40 +149,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
 		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
 		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);
-	/*	parentDaoFactory.getClientDao().hydrateLive(export);
-		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
-		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
-		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export);
-		parentDaoFactory.getDateofengagementDao().hydrateLive(export);
->>>>>>> 497e4c1a0caa2c8d3c740b48b1b5dfd2ef27a0a6
-		parentDaoFactory.getProjectDao().hydrateLive(export);
-	//	parentDaoFactory.getDateofengagementDao().hydrateLive(export);
-		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);
-		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
-		parentDaoFactory.getServicesDao().hydrateLive(export);
-		//parentDaoFactory.getDateofengagementDao().hydrateLive(export);
-		parentDaoFactory.getDisabilitiesDao().hydrateLive(export);
-		parentDaoFactory.getDomesticviolenceDao().hydrateLive(export);
-		parentDaoFactory.getEmploymentDao().hydrateLive(export);
-		parentDaoFactory.getExitDao().hydrateLive(export);
-		parentDaoFactory.getFormerwardchildwelfareDao().hydrateLive(export);
-		parentDaoFactory.getFormerwardjuvenilejusticeDao().hydrateLive(export);
-		parentDaoFactory.getHealthinsuranceDao().hydrateLive(export);
-		parentDaoFactory.getHealthStatusDao().hydrateLive(export);
-		parentDaoFactory.getIncomeandsourcesDao().hydrateLive(export);
-		parentDaoFactory.getLastgradecompletedDao().hydrateLive(export);
-		//parentDaoFactory.getLastPermAddressDao().hydrateLive(export);
-		parentDaoFactory.getMedicalassistanceDao().hydrateLive(export);
-		parentDaoFactory.getNoncashbenefitsDao().hydrateLive(export);
-		parentDaoFactory.getPathstatusDao().hydrateLive(export);
-		parentDaoFactory.getPercentamiDao().hydrateLive(export);
-		parentDaoFactory.getReferralsourceDao().hydrateLive(export);
-//		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
-		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export);
-		parentDaoFactory.getSchoolstatusDao().hydrateLive(export);
-		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
-		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
-		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);	 */
 	}
 	
 	@Override

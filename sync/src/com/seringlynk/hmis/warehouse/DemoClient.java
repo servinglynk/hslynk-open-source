@@ -1,13 +1,12 @@
 package com.seringlynk.hmis.warehouse;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
+import org.apache.hadoop.hbase.thrift2.generated.TGet;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
-import org.apache.hadoop.hbase.thrift2.generated.TPut;
+import org.apache.hadoop.hbase.thrift2.generated.TResult;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -21,7 +20,7 @@ public class DemoClient {
    System.out.println("This demo assumes you have a table called \"example\" with a column family called \"family1\"");
    
    String host = "ec2-54-149-174-17.us-west-2.compute.amazonaws.com";
-   int port = 9095;
+   int port = 9090;
    int timeout = 10000;
    boolean framed = false;
    System.out.println("Hbase Demo Application ");
@@ -70,8 +69,9 @@ public class DemoClient {
    // open the transport
    transport.open();
    
-   ByteBuffer table = ByteBuffer.wrap("Sandeep_Test".getBytes());
-
+   
+   ByteBuffer table = ByteBuffer.wrap("emp".getBytes());
+/*
    TPut put = new TPut();
    put.setRow("123".getBytes());
 
@@ -85,9 +85,10 @@ public class DemoClient {
    put.setColumnValues(columnValues);
 
    client.put(table, put) ; 
+   */
 
- /*  TGet get = new TGet();
-   get.setRow("456".getBytes());
+   TGet get = new TGet();
+   get.setRow("123".getBytes());
    get.setMaxVersions(5); 
    TResult result = client.get(table, get);
 
