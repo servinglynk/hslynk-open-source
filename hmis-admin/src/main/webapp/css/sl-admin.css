@@ -217,3 +217,11 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+.center
+{
+	text-align:center;
+}
+h4
+{
+	text-align:center;
+}

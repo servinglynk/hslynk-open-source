@@ -1,0 +1,33 @@
+
+<div class="container-fluid header">
+  <div class="container">
+    <div class="col-md-6">
+      <div class="logo"><a href="index.html"><img src="images/logoSite.png" alt="ServingLynk" /></a></div>
+    </div>
+    <div class="col-md-6">
+      <div class="whitehead">Welcome to Admin area</div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid middle-part">
+  <div class="container">
+    <div class="row">
+      <div class="login-box">
+       <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+        <form class="form-signin" ng-controller="validateLoginCtrl" 
+name="formLogin" novalidate>
+          <h2 class="form-signin-heading">Admin login</h2>
+          <label for="inputEmail" class="sr-only">Username</label>
+          <input type="email" name="email"  placeholder="Username"  ng-model="email" class="form-control"   required>
+          <span style="color:red" ng-show="formLogin.email.$dirty && formLogin.email.$invalid"> <span ng-show="formLogin.email.$error.required">Email is required.</span> <span ng-show="formLogin.email.$error.email">Invalid email address.</span> </span>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" name="password"  class="form-control" placeholder="Password" ng-model="password" required>
+          <span style="color:red" ng-show="formLogin.password.$dirty && formLogin.password.$invalid"> <span ng-show="formLogin.password.$error.required">Password is required.</span> </span>
+          <input ng-click="SubmitLogin()" class="btn btn-lg btn-primary btn-block" value="LOGIN" type="submit"
+ng-disabled="formLogin.password.$dirty && formLogin.password.$invalid ||  
+formLogin.email.$dirty && formLogin.email.$invalid">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

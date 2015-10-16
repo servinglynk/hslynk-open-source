@@ -1,70 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" ng-app="app">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-
-<title>ServingLynk</title>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<title>Welcome to Serving Lynk</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link href="css/sl-admin.css" rel="stylesheet">
 <link rel="stylesheet" href="css/cw-theme.css">
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
 <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+<!--<script src="http://vp:8080/servinglynkv2/demo/angularcode_grid/js/ui-bootstrap-tpls-0.10.0.min.js"></script>-->
 </head>
-
 <body>
-
-<div class="container-fluid header">
-<div class="container">
-
-<div class="col-md-6">
-<div class="logo"><a href="index.html"><img src="images/logoSite.png" alt="ServingLynk" /></a></div>
+<div class="ng-cloak" >
+  <div class="anim" app-view-segment="0"></div>
 </div>
-
-<div class="col-md-6">
-<div class="whitehead">Welcome to Admin area</div>
-</div>
-
-</div>
-</div>
-
-<div class="container-fluid middle-part">
-
-<div class="container">
-<div class="row">
-
-<div class="login-box">
-
-<form class="form-signin" action="grid.html">
-        <h2 class="form-signin-heading">Admin login</h2>
-        <label for="inputEmail" class="sr-only">Username</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
-      </form>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-<div class="container-fluid footer">
-<div class="copy">Copyright 2015 All rights reserved. ServingLynk.</div>
-</div>
+<!--<div class="container-fluid footer">
+  <div class="copy">Copyright 2015 All rights reserved. ServingLynk.</div>
+</div>-->
+<div id=loading class=alert ng-show="loader.show">Loading...</div>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+<script src="script/ui-bootstrap-tpls-0.10.0.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
+<script src="script/angular-route-segment.js"></script>
+<script src="script/app.js"></script>
+<!-- controller and service -->
+<script src="services/commonService.js"></script>
+<script src="controller/login.controller.js"></script>
+<script src="controller/managefiles.controller.js"></script>
 
 </body>
 </html>
