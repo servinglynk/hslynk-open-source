@@ -6,7 +6,7 @@
 	<artifactId>hmis-core-model</artifactId>
 	<name>hmis-core-model</name>
 	<packaging>jar</packaging>
-	<version>0.0.9</version>
+	<version>0.1.0</version>
 	<scm>
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>

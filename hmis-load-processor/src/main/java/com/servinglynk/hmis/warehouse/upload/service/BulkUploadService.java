@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.Sync;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.exception.WorkerNotFoundException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
@@ -42,6 +43,10 @@ public class BulkUploadService extends ParentService implements IBulkUploadServi
 		}catch(ReportCreationException e){
 			throw new ReportCreationException("Error in creating Report"+ e.getMessage());
 		}
+	}
+	
+	public List<Sync> getSyncs() {
+		return daoFactory.getSyncListDao().getSyncs();
 	}
 
 }

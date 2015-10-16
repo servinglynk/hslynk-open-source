@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +19,16 @@ import com.servinglynk.hmis.warehouse.model.Client;
 
 public class BaseProcessor<T> {
 	
-	Connection connection = null;
-	ResultSet resultSet = null;
+	
 
 	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList,Date lastSyncDate) {
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 		int index = 0;
+		ResultSet resultSet = null;
 		tableSyncList.put(tableName, index);
+		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
-					"hmisdb1234");
+			connection = getConnection();
 	/*		connection = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/hmis", "postgres",
 					"postgres");
@@ -87,6 +87,13 @@ public class BaseProcessor<T> {
 
 		}
 	}
+
+	private Connection getConnection() throws SQLException {
+		Connection connection = DriverManager.getConnection(
+				"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
+				"hmisdb1234");
+		return connection;
+	}
 	
 	public static String[] getNonCollectionFields(Object obj) {
 		Field[] declaredFields = obj.getClass().getFields();
@@ -102,5 +109,20 @@ public class BaseProcessor<T> {
 			}
 		}
 		return fieldList.toArray(new String[fieldList.size()]);
+	}
+
+	public Timestamp getLastSyncTime() {
+		ResultSet resultSet = null;
+		try {
+			Connection connection = getConnection();
+			PreparedStatement statement = connection.prepareStatement("SELECT max(insert_at) FROM live.bulk_upload where status='LIVE'");
+			resultSet = statement.executeQuery();
+			Timestamp timestamp =  resultSet.getTimestamp(1);
+			return timestamp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

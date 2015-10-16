@@ -1,6 +1,8 @@
 package com.seringlynk.hmis.warehouse;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.model.Affiliation;
 import com.servinglynk.hmis.warehouse.model.Bedinventory;
@@ -56,10 +58,15 @@ public class FromPostgres {
 	
 	// Sync Table Start
 	BaseProcessor baseProcessor = new BaseProcessor();
-	//java.sql.Date lastSyncDate = baseProcessor.getLastSyncDate(); 
-//	if (lastSyncDate != null) {
-	//UUID syncID =	baseProcessor.insertSyncStartDate(); 		
-	// For now I want it to sync everything.
+	// Lets use timestamp instead of date.
+	Timestamp lastSyncTime = baseProcessor.getLastSyncTime();
+	UUID syncID = UUID.randomUUID();
+//	if (lastSyncTime != null) {
+//		syncID =	baseProcessor.updateSyncStartTime();
+//	} else {
+//		syncID =	baseProcessor.insertSyncStartTime();		
+//	}
+	
 	java.sql.Date lastSyncDate = null;
 	//End
 	java.util.Map<String, Integer> tableSyncList = new HashMap<>();
