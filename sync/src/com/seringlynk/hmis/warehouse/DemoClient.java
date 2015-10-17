@@ -1,25 +1,38 @@
 package com.seringlynk.hmis.warehouse;
 
-import java.nio.ByteBuffer;
+/**
+*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
-import org.apache.hadoop.hbase.thrift2.generated.TGet;
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.MasterNotRunningException;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
-import org.apache.hadoop.hbase.thrift2.generated.TResult;
 import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
 
 public class DemoClient {
  public static void main(String[] args) throws TIOError, TException {
    System.out.println("Thrift2 Demo");
    System.out.println("This demo assumes you have a table called \"example\" with a column family called \"family1\"");
    
-   String host = "ec2-54-149-174-17.us-west-2.compute.amazonaws.com";
+   String host = "192.81.217.133";
    int port = 9090;
    int timeout = 10000;
    boolean framed = false;
@@ -28,13 +41,13 @@ public class DemoClient {
    // CONFIGURATION
 
        // ENSURE RUNNING
-  /* try {
+   try {
 	   Configuration conf =  HBaseConfiguration.create();
-	//   conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
-	   conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
-	   conf.set("hbase.zookeeper.quorum", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com");
+	  // conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
+	   //conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
+	   conf.set("hbase.zookeeper.quorum", host);
 	   conf.set("hbase.zookeeper.property.clientPort", "2181");
-	   */
+	   
      /*  HBaseConfiguration config = new HBaseConfiguration();
        config.clear();
        config.set("hbase.zookeeper.quorum", host);
@@ -42,22 +55,21 @@ public class DemoClient {
      //  config.set("hbase.master", "192.168.15.20:60000"); */
        //HBaseConfiguration config = HBaseConfiguration.create();
 //config.set("hbase.zookeeper.quorum", "localhost");  // Here we are running zookeeper locally
-   /*    HBaseAdmin.checkHBaseAvailable(conf);
+       HBaseAdmin.checkHBaseAvailable(conf);
 
 
        System.out.println("HBase is running!");
    //  createTable(config);    
        //creating a new table
-       HTable table = new HTable(conf, "emp");
+   //    HTable table = new HTable(conf, "emp");
        System.out.println("Table mytable obtained ");  
       // addData(table);
    } catch (MasterNotRunningException e) {
+	   e.printStackTrace();
        System.out.println("HBase is not running!");
-       e.printStackTrace();
        System.exit(1);
    }catch (Exception ce){ ce.printStackTrace();} 
-   */
-  
+  /*
    TTransport transport = new TSocket(host, port, timeout);
    if (framed) {
      transport = new TFramedTransport(transport);
@@ -69,9 +81,8 @@ public class DemoClient {
    // open the transport
    transport.open();
    
-   
-   ByteBuffer table = ByteBuffer.wrap("emp".getBytes());
-/*
+   ByteBuffer table = ByteBuffer.wrap("Sandeep_Test".getBytes());
+
    TPut put = new TPut();
    put.setRow("123".getBytes());
 
@@ -85,10 +96,9 @@ public class DemoClient {
    put.setColumnValues(columnValues);
 
    client.put(table, put) ; 
-   */
 
-   TGet get = new TGet();
-   get.setRow("123".getBytes());
+ /*  TGet get = new TGet();
+   get.setRow("456".getBytes());
    get.setMaxVersions(5); 
    TResult result = client.get(table, get);
 
@@ -102,7 +112,5 @@ public class DemoClient {
 
    transport.close(); 
  //} */
-   transport.close(); 
  }
 }
-

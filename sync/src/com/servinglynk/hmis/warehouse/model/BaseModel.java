@@ -1,5 +1,5 @@
 package com.servinglynk.hmis.warehouse.model;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -7,13 +7,15 @@ public class BaseModel {
 	@Column(name="id")			
 	public UUID id;
 	@Column(name="date_created")
-	public Date date_created;
+	public Timestamp date_created;
 	@Column(name="date_updated")
-	public Date date_updated;
+	public Timestamp date_updated;
 	@Column(name="user_id")			
 	public UUID user_id;
 	@Column(name="export_id")
 	public UUID export_id;
+
+	
 	/**
 	 * @return the id
 	 */
@@ -26,28 +28,17 @@ public class BaseModel {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	/**
-	 * @return the date_created
-	 */
-	public Date getDate_created() {
+	
+	public Timestamp getDate_created() {
 		return date_created;
 	}
-	/**
-	 * @param date_created the date_created to set
-	 */
-	public void setDate_created(Date date_created) {
+	public void setDate_created(Timestamp date_created) {
 		this.date_created = date_created;
 	}
-	/**
-	 * @return the date_updated
-	 */
-	public Date getDate_updated() {
+	public Timestamp getDate_updated() {
 		return date_updated;
 	}
-	/**
-	 * @param date_updated the date_updated to set
-	 */
-	public void setDate_updated(Date date_updated) {
+	public void setDate_updated(Timestamp date_updated) {
 		this.date_updated = date_updated;
 	}
 	/**

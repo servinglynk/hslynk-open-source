@@ -43,9 +43,9 @@ public class DemoClient {
        // ENSURE RUNNING
    try {
 	   Configuration conf =  HBaseConfiguration.create();
-	   conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
-	   conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
-	   conf.set("hbase.zookeeper.quorum", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com");
+	  // conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
+	   //conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
+	   conf.set("hbase.zookeeper.quorum", "192.81.217.133");
 	   conf.set("hbase.zookeeper.property.clientPort", "2181");
 	   
      /*  HBaseConfiguration config = new HBaseConfiguration();

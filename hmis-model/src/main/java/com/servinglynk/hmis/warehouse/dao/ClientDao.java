@@ -14,4 +14,5 @@ public interface ClientDao extends ParentDao {
 	Client getClientById(UUID clientId);
 	List<Client> getAllClients(Integer startIndex, Integer maxItems);
 	long getClientsCount();
+	public com.servinglynk.hmis.warehouse.model.live.Client getClientByDedupCliendId(UUID id);
 }

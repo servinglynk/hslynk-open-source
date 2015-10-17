@@ -138,8 +138,13 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				if(enrollment !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Enrollment target = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
 					BeanUtils.copyProperties(enrollment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Client client = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, enrollment.getClient().getId());
-					target.setClient(client);
+					com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId());
+					if(clientByDedupCliendId == null) {
+						com.servinglynk.hmis.warehouse.model.live.Client client = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, enrollment.getClient().getId());
+						target.setClient(client);	
+					}else{
+						target.setClient(clientByDedupCliendId);
+					}
 				//	parentDaoFactory.getClientDao().hydrateLive(enrollment.getClient());
 				//	parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
