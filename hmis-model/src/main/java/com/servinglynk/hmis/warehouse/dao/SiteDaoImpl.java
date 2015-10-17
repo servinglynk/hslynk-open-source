@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -57,6 +58,8 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					BeanUtils.copyProperties(site, target, getNonCollectionFields(target));
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, site.getExport().getId());
 					target.setExport(exportEntity);
+					 target.setDateCreated(LocalDateTime.now());
+					 target.setDateUpdated(LocalDateTime.now());
 					insert(target);
 				}
 			}

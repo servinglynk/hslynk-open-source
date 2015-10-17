@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -74,6 +75,8 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 					target.setExport(exportEntity);
 					com.servinglynk.hmis.warehouse.model.live.Project projectEntity = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,projectcoc.getProjectid().getId());
 					target.setProjectid(projectEntity);
+					 target.setDateCreated(LocalDateTime.now());
+					 target.setDateUpdated(LocalDateTime.now());
 					insert(target);
 				}
 			}

@@ -6,12 +6,13 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.Sync;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
-
+@Transactional
 public class SyncListDaoImpl  extends ParentDaoImpl implements SyncListDao{
 
 	@Override

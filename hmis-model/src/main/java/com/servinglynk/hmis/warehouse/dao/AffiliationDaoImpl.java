@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -56,6 +57,8 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					 target.setExport(exportEntity);
 					 com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,affiliation.getProjectid().getId());
 					 target.setProjectid(projectModel);
+					 target.setDateCreated(LocalDateTime.now());
+					 target.setDateUpdated(LocalDateTime.now());
 					 insert(target);
 				}
 			}

@@ -27,7 +27,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		 .within()
 		
          .segment('dashborad', {
-                templateUrl: 'templates/partial/dashborad.html'})   
+                templateUrl: 'templates/partial/dashborad.html', controller: 'dashboradCtrl'})   
 		  .segment('managefiles', {
                 templateUrl: 'templates/partial/managefiles.html', controller: 'managefilesCtrl'})   
 		  .segment('bulkupload', {

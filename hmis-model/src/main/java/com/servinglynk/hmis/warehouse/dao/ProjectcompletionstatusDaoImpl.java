@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -66,6 +67,8 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addProjectcompletionstatus(target);
+					 target.setDateCreated(LocalDateTime.now());
+					 target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
 				}
 			}

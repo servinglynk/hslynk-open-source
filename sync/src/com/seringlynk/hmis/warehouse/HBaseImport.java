@@ -18,12 +18,10 @@ import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 
-import com.google.protobuf.ServiceException;
-
 public class HBaseImport {
 
 	HBaseAdmin admin = null;
-    public static String host = "192.81.217.133";
+    String host = "ec2-54-149-174-17.us-west-2.compute.amazonaws.com";
 	public HBaseImport() {
 
 	}
@@ -32,8 +30,9 @@ public class HBaseImport {
 		HTable table = null;
 		try {
 			Configuration conf = HBaseConfiguration.create();
+			/*.clear();
 			   conf.set("hbase.zookeeper.quorum", host);
-			   conf.set("hbase.zookeeper.property.clientPort","2181"); 
+			   conf.set("hbase.zookeeper.property.clientPort","2181"); */
 			HBaseAdmin admin = new HBaseAdmin(conf); 
 			//if (!admin.isTableAvailable(tableName)) {
 				HTableDescriptor tableDescriptor = new HTableDescriptor(
@@ -100,23 +99,10 @@ public class HBaseImport {
 		return table;
 	}
 
-	public static void checkIfRunning() throws ServiceException, IOException {
+	public static void checkIfRunning() throws MasterNotRunningException,
+			ZooKeeperConnectionException {
 		// Create the required configuration.
-		//Configuration conf = HBaseConfiguration.create();
-		   Configuration conf =  HBaseConfiguration.create();
-			  // conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
-			   //conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
-			   conf.set("hbase.zookeeper.quorum", host);
-			   conf.set("hbase.zookeeper.property.clientPort", "2181");
-			   
-		     /*  HBaseConfiguration config = new HBaseConfiguration();
-		       config.clear();
-		       config.set("hbase.zookeeper.quorum", host);
-		       config.set("hbase.zookeeper.property.clientPort","2181");
-		     //  config.set("hbase.master", "192.168.15.20:60000"); */
-		       //HBaseConfiguration config = HBaseConfiguration.create();
-		//config.set("hbase.zookeeper.quorum", "localhost");  // Here we are running zookeeper locally
-		       HBaseAdmin.checkHBaseAvailable(conf);
+		Configuration conf = HBaseConfiguration.create();
 		// Check if Hbase is running
 		try {
 			System.out.println("Start checkIfRunning");
@@ -131,28 +117,20 @@ public class HBaseImport {
 	}
 
 	public void isTableAvailable(String tablename) throws IOException {
-		   Configuration conf =  HBaseConfiguration.create();
-			  // conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
-			   //conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
-			   conf.set("hbase.zookeeper.quorum", host);
-			   conf.set("hbase.zookeeper.property.clientPort", "2181");
-			   
+		Configuration conf = HBaseConfiguration.create();
+		HBaseAdmin admin = new HBaseAdmin(conf);
 		boolean result = admin.isTableAvailable(tablename);
 		System.out.println("Table " + tablename + " available ?" + result);
 	}
 
 	public void tableExists(String tablename) throws IOException {
-		   Configuration conf =  HBaseConfiguration.create();
-			  // conf.set("fs.default.name", "hdfs://ec2-54-149-174-17.us-west-2.compute.amazonaws.com:8020");
-			   //conf.set("hbase.master", "ec2-54-149-174-17.us-west-2.compute.amazonaws.com:60000");
-			   conf.set("hbase.zookeeper.quorum", host);
-			   conf.set("hbase.zookeeper.property.clientPort", "2181");
-			   
+		Configuration conf = HBaseConfiguration.create();
+		HBaseAdmin admin = new HBaseAdmin(conf);
 		boolean result = admin.tableExists(tablename);
 		System.out.println("Table " + tablename + " exists ?" + result);
 	}
 
-	public static void main(String[] args) throws IOException, ServiceException {
+	public static void main(String[] args) throws IOException {
 
 		// Prints out the given arguments
 		for (int i = 0; i < args.length; i++) {
@@ -172,9 +150,9 @@ public class HBaseImport {
 
 		List<List<String>> list = getTestDataForCF1(columns);
 
-		//admin.createTable(tableName, familyName);
+		admin.createTable(tableName, familyName);
 		System.out.println("***********************");
-	//	admin.isTableAvailable(familyName);
+		admin.isTableAvailable(familyName);
 		System.out.println("***********************");
 		String rowKey = RandomStringUtils.randomAlphanumeric(10);
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
@@ -196,7 +174,6 @@ public class HBaseImport {
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 			List<String> data = (List<String>) iterator.next();
 			admin.insert(tableName, familyName, rowKey, columns, data);
-			break;
 		}
 
 		System.out.println("***********************");

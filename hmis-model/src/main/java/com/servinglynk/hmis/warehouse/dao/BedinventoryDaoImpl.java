@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -46,6 +47,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 				for(Bedinventory bedInventory : bedinventories) {
 					com.servinglynk.hmis.warehouse.model.live.Bedinventory target = new com.servinglynk.hmis.warehouse.model.live.Bedinventory();
 					BeanUtils.copyProperties(bedInventory, target,getNonCollectionFields(target));
+					 target.setDateCreated(LocalDateTime.now());
+					 target.setDateUpdated(LocalDateTime.now());
 					insert(target);
 				}
 			}

@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -97,6 +98,8 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					target.setExport(exportEntity);
 					com.servinglynk.hmis.warehouse.model.live.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class, project.getOrganizationid().getId());
 					target.setOrganizationid(orgEntity);
+					target.setDateCreated(LocalDateTime.now());
+					 target.setDateUpdated(LocalDateTime.now());
 					insert(target);
 				}
 			}
