@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 @Entity
 public class Domesticviolence extends BaseModel {
 	@Column(name="domesticviolencevictim")
-	private String domesticviolencevictim;
+	public String domesticviolencevictim;
 	@Column(name="enrollmentid")		
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name="whenoccurred")
-	private String whenoccurred;
+	public String whenoccurred;
 	/**
 	 * @return the domesticviolencevictim
 	 */

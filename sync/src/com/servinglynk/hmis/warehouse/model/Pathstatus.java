@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 @Entity
 public class Pathstatus extends BaseModel {
 	@Column(name = "date_of_status")
-	private Date date_of_status;
+	public Date date_of_status;
 	@Column(name = "client_enrolled_in_path")
-	private String client_enrolled_in_path;
+	public String client_enrolled_in_path;
 	@Column(name = "reason_not_enrolled")	
-	private String reason_not_enrolled;
+	public String reason_not_enrolled;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	/**
 	 * @return the date_of_status
 	 */

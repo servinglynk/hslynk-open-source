@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 public class Lastgradecompleted extends BaseModel {
 
 	@Column(name = "lastgradecompleted")
-	private String lastgradecompleted;
+	public String lastgradecompleted;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	public String getLastgradecompleted() {
 		return lastgradecompleted;
 	}

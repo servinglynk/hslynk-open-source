@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 public class Formerwardjuvenilejustice extends BaseModel {
 
 	@Column(name = "formerwardjuvenilejustice")
-	private String formerwardjuvenilejustice;
+	public String formerwardjuvenilejustice;
 	@Column(name = "juvenilejusticemonths")
-	private String juvenilejusticemonths;
+	public String juvenilejusticemonths;
 	@Column(name = "juvenilejusticeyears")
-	private String juvenilejusticeyears;
+	public String juvenilejusticeyears;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 
 	/**
 	 * @return the formerwardjuvenilejustice

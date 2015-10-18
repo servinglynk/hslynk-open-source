@@ -9,73 +9,73 @@ import javax.persistence.Entity;
 public class Incomeandsources extends BaseModel {
 
 	@Column(name = "alimony")
-	private String alimony;
+	public String alimony;
 	@Column(name = "alimonyamount")
-	private String alimonyamount;
+	public String alimonyamount;
 	@Column(name = "childsupport")
-	private String childsupport;
+	public String childsupport;
 	@Column(name = "childsupportamount")
-	private String childsupportamount;
+	public String childsupportamount;
 	@Column(name = "earned")
-	private String earned;
+	public String earned;
 	@Column(name = "earnedamount")
-	private String earnedamount;
+	public String earnedamount;
 	@Column(name = "ga")
-	private String ga;
+	public String ga;
 	@Column(name = "gaamount")
-	private String gaamount;
+	public String gaamount;
 	@Column(name = "incomefromanysource")
-	private String incomefromanysource;
+	public String incomefromanysource;
 	@Column(name = "othersource")
-	private String othersource;
+	public String othersource;
 	@Column(name = "othersourceamount")
-	private String othersourceamount;
+	public String othersourceamount;
 	@Column(name = "othersourceidentify")
-	private String othersourceidentify;
+	public String othersourceidentify;
 	@Column(name = "pension")
-	private String pension;
+	public String pension;
 	@Column(name = "pensionamount")
-	private String pensionamount;
+	public String pensionamount;
 	@Column(name = "privatedisability")
-	private String privatedisability;
+	public String privatedisability;
 	@Column(name = "privatedisabilityamount")
-	private String privatedisabilityamount;
+	public String privatedisabilityamount;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "socsecretirement")
-	private String socsecretirement;
+	public String socsecretirement;
 	@Column(name = "socsecretirementamount")
-	private String socsecretirementamount;
+	public String socsecretirementamount;
 	@Column(name = "ssdi")
-	private String ssdi;
+	public String ssdi;
 	@Column(name = "ssdiamount")
-	private String ssdiamount;
+	public String ssdiamount;
 	@Column(name = "ssi")
-	private String ssi;
+	public String ssi;
 	@Column(name = "ssiamount")
-	private String ssiamount;
+	public String ssiamount;
 	@Column(name = "tanf")
-	private String tanf;
+	public String tanf;
 	@Column(name = "tanfamount")
-	private String tanfamount;
+	public String tanfamount;
 	@Column(name = "totalmonthlyincome")
-	private String totalmonthlyincome;
+	public String totalmonthlyincome;
 	@Column(name = "unemployment")
-	private String unemployment;
+	public String unemployment;
 	@Column(name = "unemploymentamount")
-	private String unemploymentamount;
+	public String unemploymentamount;
 	@Column(name = "vadisabilitynonservice")
-	private String vadisabilitynonservice;
+	public String vadisabilitynonservice;
 	@Column(name = "vadisabilitynonserviceamount")
-	private String vadisabilitynonserviceamount;
+	public String vadisabilitynonserviceamount;
 	@Column(name = "vadisabilityservice")
-	private String vadisabilityservice;
+	public String vadisabilityservice;
 	@Column(name = "vadisabilityserviceamount")
-	private String vadisabilityserviceamount;
+	public String vadisabilityserviceamount;
 	@Column(name = "workerscomp")
-	private String workerscomp;
+	public String workerscomp;
 	@Column(name = "workerscompamount")
-	private String workerscompamount;
+	public String workerscompamount;
 
 	/**
 	 * @return the alimony

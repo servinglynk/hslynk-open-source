@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 @Entity
 public class Dateofengagement extends BaseModel{
 	@Column(name="dateofengagement")
-	private String dateofengagement;
+	public String dateofengagement;
 	@Column(name="enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	/**
 	 * @return the dateofengagement
 	 */

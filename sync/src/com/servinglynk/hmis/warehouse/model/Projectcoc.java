@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 @Entity
 public class Projectcoc extends BaseModel{
 	@Column(name = "coccode")	
-	private String coccode;
+	public String coccode;
 	@Column(name = "projectid")
-	private UUID projectid;
+	public UUID projectid;
 	/**
 	 * @return the coccode
 	 */

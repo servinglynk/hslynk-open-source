@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,15 +10,15 @@ import javax.persistence.Entity;
 public class HealthStatus extends BaseModel {
 
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "information_date")
-	private Date information_date;
+	public Timestamp information_date;
 	@Column(name = "health_category")
-	private String health_category;
+	public String health_category;
 	@Column(name = "health_status")
-	private String health_status;
+	public String health_status;
 	@Column(name = "due_date")
-	private Date due_date;
+	public Timestamp due_date;
 
 	/**
 	 * @return the enrollmentid
@@ -38,7 +38,7 @@ public class HealthStatus extends BaseModel {
 	/**
 	 * @return the information_date
 	 */
-	public Date getInformation_date() {
+	public Timestamp getInformation_date() {
 		return information_date;
 	}
 
@@ -46,7 +46,7 @@ public class HealthStatus extends BaseModel {
 	 * @param information_date
 	 *            the information_date to set
 	 */
-	public void setInformation_date(Date information_date) {
+	public void setInformation_date(Timestamp information_date) {
 		this.information_date = information_date;
 	}
 
@@ -83,7 +83,7 @@ public class HealthStatus extends BaseModel {
 	/**
 	 * @return the due_date
 	 */
-	public Date getDue_date() {
+	public Timestamp getDue_date() {
 		return due_date;
 	}
 
@@ -91,7 +91,7 @@ public class HealthStatus extends BaseModel {
 	 * @param due_date
 	 *            the due_date to set
 	 */
-	public void setDue_date(Date due_date) {
+	public void setDue_date(Timestamp due_date) {
 		this.due_date = due_date;
 	}
 

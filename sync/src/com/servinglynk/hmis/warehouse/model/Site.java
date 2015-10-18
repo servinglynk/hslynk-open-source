@@ -8,19 +8,19 @@ import javax.persistence.Entity;
 @Entity
 public class Site extends BaseModel {
 	@Column(name = "address")	
-	private String address;
+	public String address;
 	@Column(name = "city")
-	private String city;
+	public String city;
 	@Column(name = "geocode")
-	private String geocode;
+	public String geocode;
 	@Column(name = "principal_site")
-	private String principal_site;
+	public String principal_site;
 	@Column(name = "project_coc_id")
-	private UUID project_coc_id;
+	public UUID project_coc_id;
 	@Column(name = "state")
-	private String state;
+	public String state;
 	@Column(name = "zip")
-	private String zip;
+	public String zip;
 	/**
 	 * @return the address
 	 */

@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 public class Sexualorientation extends BaseModel{
 
 	@Column(name = "enrollmentid")		
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "sexualorientation")
-	private String sexualorientation;
+	public String sexualorientation;
 	/**
 	 * @return the enrollmentid
 	 */

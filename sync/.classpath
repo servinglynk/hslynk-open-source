@@ -116,5 +116,7 @@
 	<classpathentry kind="lib" path="jasperreports-3.7.6.jar"/>
 	<classpathentry kind="lib" path="groovy-all-1.7.0.jar"/>
 	<classpathentry kind="lib" path="itext-2.1.7.jar"/>
+	
+	<classpathentry kind="lib" path="java-mail-1.4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

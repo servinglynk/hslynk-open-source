@@ -9,15 +9,15 @@ import javax.persistence.Entity;
 public class Medicalassistance extends BaseModel {
 
 	@Column(name = "adap")			
-	private String  adap;
+	public String  adap;
 	@Column(name = "hivaidsassistance")
-	private String  hivaidsassistance;
+	public String  hivaidsassistance;
 	@Column(name = "noadapreason")
-	private String  noadapreason;
+	public String  noadapreason;
 	@Column(name = "nohivaidsassistancereason")
-	private String  nohivaidsassistancereason;
+	public String  nohivaidsassistancereason;
 	@Column(name = "enrollmentid")
-	private UUID  enrollmentid;
+	public UUID  enrollmentid;
 	/**
 	 * @return the adap
 	 */

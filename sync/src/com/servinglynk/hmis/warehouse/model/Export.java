@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,22 +10,22 @@ import javax.persistence.Entity;
 public class Export extends BaseModel {
 
 	@Column(name = "export_date")
-	private Date export_date;
+	public Timestamp export_date;
 	@Column(name = "start_date")
-	private Date start_date;
+	public Timestamp start_date;
 	@Column(name = "end_date")
-	private Date end_date;
+	public Timestamp end_date;
 	@Column(name = "exportperiodtype")
-	private String exportperiodtype;
+	public String exportperiodtype;
 	@Column(name = "exportdirective")
-	private String exportdirective;
+	public String exportdirective;
 	@Column(name = "source_id")
-	private String source_id;
+	public UUID source_id;
 
 	/**
 	 * @return the export_date
 	 */
-	public Date getExport_date() {
+	public Timestamp getExport_date() {
 		return export_date;
 	}
 
@@ -32,14 +33,14 @@ public class Export extends BaseModel {
 	 * @param export_date
 	 *            the export_date to set
 	 */
-	public void setExport_date(Date export_date) {
+	public void setExport_date(Timestamp export_date) {
 		this.export_date = export_date;
 	}
 
 	/**
 	 * @return the start_date
 	 */
-	public Date getStart_date() {
+	public Timestamp getStart_date() {
 		return start_date;
 	}
 
@@ -47,14 +48,14 @@ public class Export extends BaseModel {
 	 * @param start_date
 	 *            the start_date to set
 	 */
-	public void setStart_date(Date start_date) {
+	public void setStart_date(Timestamp start_date) {
 		this.start_date = start_date;
 	}
 
 	/**
 	 * @return the end_date
 	 */
-	public Date getEnd_date() {
+	public Timestamp getEnd_date() {
 		return end_date;
 	}
 
@@ -62,7 +63,7 @@ public class Export extends BaseModel {
 	 * @param end_date
 	 *            the end_date to set
 	 */
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(Timestamp end_date) {
 		this.end_date = end_date;
 	}
 
@@ -99,7 +100,7 @@ public class Export extends BaseModel {
 	/**
 	 * @return the source_id
 	 */
-	public String getSource_id() {
+	public UUID getSource_id() {
 		return source_id;
 	}
 
@@ -107,7 +108,7 @@ public class Export extends BaseModel {
 	 * @param source_id
 	 *            the source_id to set
 	 */
-	public void setSource_id(String source_id) {
+	public void setSource_id(UUID source_id) {
 		this.source_id = source_id;
 	}
 

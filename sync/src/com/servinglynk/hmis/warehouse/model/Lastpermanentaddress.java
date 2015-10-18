@@ -7,17 +7,17 @@ import javax.persistence.Entity;
 @Entity
 public class Lastpermanentaddress extends BaseModel{
 	@Column(name = "addressdataquality")		
-	private String addressdataquality;
+	public String addressdataquality;
 	@Column(name = "lastpermanentcity")
-	private String lastpermanentcity;
+	public String lastpermanentcity;
 	@Column(name = "lastpermanentstate")
-	private String lastpermanentstate;
+	public String lastpermanentstate;
 	@Column(name = "lastpermanentstreet")
-	private String lastpermanentstreet;
+	public String lastpermanentstreet;
 	@Column(name = "lastpermanentzip")
-	private String lastpermanentzip;
+	public String lastpermanentzip;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	public String getAddressdataquality() {
 		return addressdataquality;
 	}

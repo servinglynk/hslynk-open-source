@@ -9,15 +9,15 @@ import javax.persistence.Entity;
 @Entity
 public class Funder extends BaseModel {
 	@Column(name = "enddate")
-	private Date enddate;
+	public Date enddate;
 	@Column(name = "funder")
-	private String funder;
+	public String funder;
 	@Column(name = "grantid")
-	private UUID grantid;
+	public UUID grantid;
 	@Column(name = "projectid")
-	private UUID projectid;
+	public UUID projectid;
 	@Column(name = "startdate")
-	private Date startdate;
+	public Date startdate;
 
 	/**
 	 * @return the enddate

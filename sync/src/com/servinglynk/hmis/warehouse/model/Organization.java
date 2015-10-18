@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 @Entity
 public class Organization extends BaseModel{
 	@Column(name = "organizationcommonname")
-	private String organizationcommonname;
+	public String organizationcommonname;
 	@Column(name = "organizationname")
-	private String organizationname;
+	public String organizationname;
 	/**
 	 * @return the organizationcommonname
 	 */

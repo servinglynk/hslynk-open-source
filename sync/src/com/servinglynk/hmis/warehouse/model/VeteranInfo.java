@@ -8,31 +8,31 @@ import javax.persistence.Entity;
 @Entity
 public class VeteranInfo extends BaseModel {
 	@Column(name = "year_entrd_service")	
-	private String year_entrd_service;
+	public String year_entrd_service;
 	@Column(name = "year_seperated")
-	private String year_seperated;
+	public String year_seperated;
 	@Column(name = "world_war_2")	
-	private String world_war_2;
+	public String world_war_2;
 	@Column(name = "korean_war")	
-	private String korean_war;
+	public String korean_war;
 	@Column(name = "vietnam_war")	
-	private String vietnam_war;
+	public String vietnam_war;
 	@Column(name = "desert_storm")	
-	private String desert_storm;
+	public String desert_storm;
 	@Column(name = "afghanistan_oef")	
-	private String afghanistan_oef;
+	public String afghanistan_oef;
 	@Column(name = "iraq_oif")	
-	private String iraq_oif;
+	public String iraq_oif;
 	@Column(name = "iraq_ond")	
-	private String iraq_ond;
+	public String iraq_ond;
 	@Column(name = "other_theater")		
-	private String other_theater;
+	public String other_theater;
 	@Column(name = "military_branch")	
-	private String military_branch;	
+	public String military_branch;	
 	@Column(name = "discharge_status")
-	private String discharge_status;
+	public String discharge_status;
 	@Column(name = "cliend_id")
-	private UUID cliend_id;
+	public UUID cliend_id;
 	/**
 	 * @return the year_entrd_service
 	 */

@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 @Entity
 public class Worsthousingsituation extends BaseModel {
 	@Column(name = "enrollmentid")			
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "worsthousingsituation")
-	private String worsthousingsituation;
+	public String worsthousingsituation;
 	/**
 	 * @return the enrollmentid
 	 */

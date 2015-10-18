@@ -8,11 +8,11 @@ import javax.persistence.Entity;
 @Entity
 public class Referralsource extends BaseModel {
 	@Column(name = "countoutreachreferralapproaches")
-	private String countoutreachreferralapproaches;
+	public String countoutreachreferralapproaches;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "referralsource")
-	private String referralsource;
+	public String referralsource;
 	/**
 	 * @return the countoutreachreferralapproaches
 	 */

@@ -8,27 +8,27 @@ import javax.persistence.Entity;
 @Entity
 public class Noncashbenefits extends BaseModel {
 	@Column(name = "benefitsfromanysource")
-	private String benefitsfromanysource;
+	public String benefitsfromanysource;
 	@Column(name = "othersource")
-	private String othersource;
+	public String othersource;
 	@Column(name = "othersourceidentify")
-	private String othersourceidentify;
+	public String othersourceidentify;
 	@Column(name = "othertanf")			
-	private String othertanf;
+	public String othertanf;
 	@Column(name = "enrollmentid")		
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "rentalassistanceongoing")
-	private String rentalassistanceongoing;
+	public String rentalassistanceongoing;
 	@Column(name = "rentalassistancetemp")
-	private String rentalassistancetemp;
+	public String rentalassistancetemp;
 	@Column(name = "snap")			
-	private String snap;
+	public String snap;
 	@Column(name = "tanfchildcare")		
-	private String tanfchildcare;
+	public String tanfchildcare;
 	@Column(name = "tanftransportation")
-	private String tanftransportation;
+	public String tanftransportation;
 	@Column(name = "wic")
-	private String wic;
+	public String wic;
 	/**
 	 * @return the benefitsfromanysource
 	 */

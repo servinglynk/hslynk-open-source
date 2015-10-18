@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 public class Familyreunification extends BaseModel {
 
 	@Column(name = "exitid")
-	private UUID exitid;
+	public UUID exitid;
 	@Column(name = "familyreunificationachieved")
-	private String familyreunificationachieved;
+	public String familyreunificationachieved;
 
 	/**
 	 * @return the exitid

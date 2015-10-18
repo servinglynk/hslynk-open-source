@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 @Entity
 public class Rhybcpstatus extends BaseModel{
 	@Column(name = "status_date")			
-	private Date status_date;
+	public Date status_date;
 	@Column(name = "fysb_youth")
-	private String fysb_youth;
+	public String fysb_youth;
 	@Column(name = "reason_no_services")
-	private String reason_no_services;
+	public String reason_no_services;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	/**
 	 * @return the status_date
 	 */

@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +11,13 @@ import javax.persistence.Entity;
 public class Exit extends BaseModel {
 
 	@Column(name = "destination")
-	private String destination;
+	public String destination;
 	@Column(name = "exitdate")
-	private Date exitdate;
+	public Timestamp exitdate;
 	@Column(name = "otherdestination")
-	private String otherdestination;
+	public String otherdestination;
 	@Column(name = "enrollmentid")
-	private String enrollmentid;
+	public UUID enrollmentid;
 
 	/**
 	 * @return the destination
@@ -35,7 +37,7 @@ public class Exit extends BaseModel {
 	/**
 	 * @return the exitdate
 	 */
-	public Date getExitdate() {
+	public Timestamp getExitdate() {
 		return exitdate;
 	}
 
@@ -43,7 +45,7 @@ public class Exit extends BaseModel {
 	 * @param exitdate
 	 *            the exitdate to set
 	 */
-	public void setExitdate(Date exitdate) {
+	public void setExitdate(Timestamp exitdate) {
 		this.exitdate = exitdate;
 	}
 
@@ -65,7 +67,7 @@ public class Exit extends BaseModel {
 	/**
 	 * @return the enrollmentid
 	 */
-	public String getEnrollmentid() {
+	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
 
@@ -73,7 +75,7 @@ public class Exit extends BaseModel {
 	 * @param enrollmentid
 	 *            the enrollmentid to set
 	 */
-	public void setEnrollmentid(String enrollmentid) {
+	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
 

@@ -9,21 +9,21 @@ import javax.persistence.Entity;
 @Entity
 public class Services extends BaseModel{
 	@Column(name = "dateprovided")		
-	private Date dateprovided;
+	public Date dateprovided;
 	@Column(name = "faamount")		
-	private double faamount;
+	public double faamount;
 	@Column(name = "othertypeprovided")
-	private String othertypeprovided;
+	public String othertypeprovided;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "recordtype")		
-	private String recordtype;
+	public String recordtype;
 	@Column(name = "referraloutcome")
-	private String referraloutcome;
+	public String referraloutcome;
 	@Column(name = "subtypeprovided")
-	private String subtypeprovided;
+	public String subtypeprovided;
 	@Column(name = "typeprovided")
-	private String typeprovided;
+	public String typeprovided;
 	/**
 	 * @return the dateprovided
 	 */

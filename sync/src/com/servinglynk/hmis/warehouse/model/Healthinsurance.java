@@ -9,41 +9,41 @@ import javax.persistence.Entity;
 public class Healthinsurance extends BaseModel {
 
 	@Column(name = "cobra")
-	private String cobra;
+	public String cobra;
 	@Column(name = "employerprovidedemployerprovided")
-	private String employerprovided;
+	public String employerprovided;
 	@Column(name = "insurancefromanysource")
-	private String insurancefromanysource;
+	public String insurancefromanysource;
 	@Column(name = "medicaid")
-	private String medicaid;
+	public String medicaid;
 	@Column(name = "medicare")
-	private String medicare;
+	public String medicare;
 	@Column(name = "nocobrareason")
-	private String nocobrareason;
+	public String nocobrareason;
 	@Column(name = "noemployerprovidedreason")
-	private String noemployerprovidedreason;
+	public String noemployerprovidedreason;
 	@Column(name = "nomedicaidreason")
-	private String nomedicaidreason;
+	public String nomedicaidreason;
 	@Column(name = "nomedicarereason")
-	private String nomedicarereason;
+	public String nomedicarereason;
 	@Column(name = "noprivatepayreason")
-	private String noprivatepayreason;
+	public String noprivatepayreason;
 	@Column(name = "noschipreason")
-	private String noschipreason;
+	public String noschipreason;
 	@Column(name = "nostatehealthinsreason")
-	private String nostatehealthinsreason;
+	public String nostatehealthinsreason;
 	@Column(name = "novamedreason")
-	private String novamedreason;
+	public String novamedreason;
 	@Column(name = "privatepay")
-	private String privatepay;
+	public String privatepay;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "schip")
-	private String schip;
+	public String schip;
 	@Column(name = "statehealthins")
-	private String statehealthins;
+	public String statehealthins;
 	@Column(name = "vamedicalservices")
-	private String vamedicalservices;
+	public String vamedicalservices;
 
 	/**
 	 * @return the cobra

@@ -10,23 +10,23 @@ import javax.persistence.Entity;
 public class Inventory extends BaseModel {
 
 	@Column(name = "availabilty")
-	private String availabilty;
+	public String availabilty;
 	@Column(name = "bedinventory")
-	private String bedinventory;
+	public String bedinventory;
 	@Column(name = "bedtype")
-	private String bedtype;
+	public String bedtype;
 	@Column(name = "hmisparticipatingbeds")
-	private String hmisparticipatingbeds;
+	public String hmisparticipatingbeds;
 	@Column(name = "householdtype")
-	private String householdtype;
+	public String householdtype;
 	@Column(name = "inventoryenddate")
-	private Date inventoryenddate;
+	public Date inventoryenddate;
 	@Column(name = "inventorystartdate")
-	private Date inventorystartdate;
+	public Date inventorystartdate;
 	@Column(name = "project_coc_id")
-	private UUID project_coc_id;
+	public UUID project_coc_id;
 	@Column(name = "unitinventory")
-	private String unitinventory;
+	public String unitinventory;
 
 	/**
 	 * @return the availabilty

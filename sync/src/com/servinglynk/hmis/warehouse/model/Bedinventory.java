@@ -2,18 +2,17 @@ package com.servinglynk.hmis.warehouse.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity
 public class Bedinventory extends BaseModel{
 	@Column(name="bed_inventory")		
-	private String bed_inventory;
+	public String bed_inventory;
 	@Column(name="ch_bed_inventory")
-	private String ch_bed_inventory;
+	public String ch_bed_inventory;
 	@Column(name="vet_bed_inventory")
-	private String vet_bed_inventory;
+	public String vet_bed_inventory;
 	@Column(name="youth_age_group")
-	private String youth_age_group;
+	public String youth_age_group;
 	@Column(name="youth_bed_inventory")
-	private String youth_bed_inventory;
+	public String youth_bed_inventory;
 	/**
 	 * @return the bed_inventory
 	 */

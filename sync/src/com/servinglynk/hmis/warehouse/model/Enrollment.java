@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,41 +11,41 @@ import javax.persistence.Entity;
 public class Enrollment extends BaseModel{
 	
 	@Column(name="continuouslyhomelessoneyear")
-	private String continuouslyhomelessoneyear;
+	public String continuouslyhomelessoneyear;
 	@Column(name="disablingcondition")
-	private String disablingcondition;
+	public String disablingcondition;
 	@Column(name="entrydate")
-	private Date entrydate;
+	public Timestamp entrydate;
 	@Column(name="householdid")
-	private UUID householdid;
+	public UUID householdid;
 	@Column(name="housingstatus")
-	private String housingstatus;
+	public String housingstatus;
 	@Column(name="monthshomelesspastthreeyears")
-	private String monthshomelesspastthreeyears;
+	public String monthshomelesspastthreeyears;
 	@Column(name="monthshomelessthistime")
-	private String monthshomelessthistime;
+	public String monthshomelessthistime;
 	@Column(name="otherresidenceprior")
-	private String otherresidenceprior;
+	public String otherresidenceprior;
 	@Column(name="personalid")			
-	private UUID personalid;
+	public UUID personalid;
 	@Column(name="projectentryid")		
-	private UUID projectentryid;
+	public UUID projectentryid;
 	@Column(name="projectid")			
-	private UUID projectid;
+	public UUID projectid;
 	@Column(name="relationshiptohoh")
-	private String relationshiptohoh;
+	public String relationshiptohoh;
 	@Column(name="residenceprior")		
-	private String residenceprior;
+	public String residenceprior;
 	@Column(name="residencepriorlengthofstay")
-	private String residencepriorlengthofstay;
+	public String residencepriorlengthofstay;
 	@Column(name="statusdocumented")	
-	private String statusdocumented;
+	public String statusdocumented;
 	@Column(name="timeshomelesspastthreeyears")
-	private String timeshomelesspastthreeyears;
+	public String timeshomelesspastthreeyears;
 	@Column(name="yearshomeless")		
-	private String yearshomeless;
+	public String yearshomeless;
 	@Column(name="client_id")
-	private UUID client_id;
+	public UUID client_id;
 	/**
 	 * @return the continuouslyhomelessoneyear
 	 */
@@ -72,13 +73,13 @@ public class Enrollment extends BaseModel{
 	/**
 	 * @return the entrydate
 	 */
-	public Date getEntrydate() {
+	public Timestamp getEntrydate() {
 		return entrydate;
 	}
 	/**
 	 * @param entrydate the entrydate to set
 	 */
-	public void setEntrydate(Date entrydate) {
+	public void setEntrydate(Timestamp entrydate) {
 		this.entrydate = entrydate;
 	}
 	/**

@@ -6,23 +6,26 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.servinglynk.hmis.warehouse.model.BaseModel;
+import com.servinglynk.hmis.warehouse.model.Project;
+
 public class DataBeanMaker {
-        public ArrayList<DataBean> getDataBeanList() {
+        public ArrayList<DataBean> getDataBeanList(BaseModel model) {
                 ArrayList<DataBean> dataBeanList = new ArrayList<DataBean>();
                 dataBeanList.add(produce("1/1/2015",
                 		" ",
-                		"APR - Services Only",
+                		((Project)model).getProjectname(),
                 		"Everyone",
                 		"all grants",
                 		"Aggregate / summary",
                 		BigInteger.valueOf(0),
-                		BigInteger.valueOf(6),
+                		BigInteger.valueOf(new Integer(((Project)model).getProjecttype())),
                 		BigInteger.valueOf(0),
                 		BigInteger.valueOf(0),
                 		"APR",
                 		"All Practical Reporting, Inc.",
                 		BigInteger.valueOf(240),
-                		"APR - Services Only",
+                		((Project)model).getProjectname(),
                 		BigInteger.valueOf(0),
                 		BigInteger.valueOf(0),
                 		BigInteger.valueOf(0),

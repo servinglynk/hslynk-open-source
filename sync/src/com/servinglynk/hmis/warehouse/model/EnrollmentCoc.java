@@ -9,11 +9,11 @@ import javax.persistence.Entity;
 public class EnrollmentCoc extends BaseModel {
 
 	@Column(name = "project_co_id")
-	private UUID project_co_id;
+	public UUID project_co_id;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "coc_code")
-	private String coc_code;
+	public String coc_code;
 
 	/**
 	 * @return the project_co_id

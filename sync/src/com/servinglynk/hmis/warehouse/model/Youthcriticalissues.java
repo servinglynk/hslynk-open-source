@@ -8,57 +8,57 @@ import javax.persistence.Entity;
 @Entity
 public class Youthcriticalissues extends BaseModel{
 	@Column(name = "abuseandneglectfam")	
-	private String abuseandneglectfam;
+	public String abuseandneglectfam;
 	@Column(name = "abuseandneglectyouth")
-	private String abuseandneglectyouth;
+	public String abuseandneglectyouth;
 	@Column(name = "activemilitaryparent")
-	private String activemilitaryparent;
+	public String activemilitaryparent;
 	@Column(name = "alcoholdrugabusefam")
-	private String alcoholdrugabusefam;
+	public String alcoholdrugabusefam;
 	@Column(name = "alcoholdrugabuseyouth")
-	private String alcoholdrugabuseyouth;
+	public String alcoholdrugabuseyouth;
 	@Column(name = "healthissuesfam")
-	private String healthissuesfam;
+	public String healthissuesfam;
 	@Column(name = "healthissuesyouth")
-	private String healthissuesyouth;
+	public String healthissuesyouth;
 	@Column(name = "householddynamics")
-	private String householddynamics;
+	public String householddynamics;
 	@Column(name = "housingissuesfam")
-	private String housingissuesfam;
+	public String housingissuesfam;
 	@Column(name = "housingissuesyouth")
-	private String housingissuesyouth;
+	public String housingissuesyouth;
 	@Column(name = "incarceratedparent")
-	private String incarceratedparent;
+	public String incarceratedparent;
 	@Column(name = "incarceratedparentstatus")
-	private String incarceratedparentstatus;
+	public String incarceratedparentstatus;
 	@Column(name = "insufficientincome")
-	private String insufficientincome;
+	public String insufficientincome;
 	@Column(name = "mentaldisabilityfam")
-	private String mentaldisabilityfam;
+	public String mentaldisabilityfam;
 	@Column(name = "mentaldisabilityyouth")
-	private String mentaldisabilityyouth;
+	public String mentaldisabilityyouth;
 	@Column(name = "mentalhealthissuesfam")
-	private String mentalhealthissuesfam;
+	public String mentalhealthissuesfam;
 	@Column(name = "mentalhealthissuesyouth")
-	private String mentalhealthissuesyouth;
+	public String mentalhealthissuesyouth;
 	@Column(name = "physicaldisabilityfam")
-	private String physicaldisabilityfam;
+	public String physicaldisabilityfam;
 	@Column(name = "physicaldisabilityyouth")
-	private String physicaldisabilityyouth;
+	public String physicaldisabilityyouth;
 	@Column(name = "enrollmentid")	
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "schooleducationalissuesfam")
-	private String schooleducationalissuesfam;
+	public String schooleducationalissuesfam;
 	@Column(name = "schooleducationalissuesyouth")
-	private String schooleducationalissuesyouth;
+	public String schooleducationalissuesyouth;
 	@Column(name = "sexualorientationgenderidfam")
-	private String sexualorientationgenderidfam;
+	public String sexualorientationgenderidfam;
 	@Column(name = "sexualorientationgenderidyouth")
-	private String sexualorientationgenderidyouth;
+	public String sexualorientationgenderidyouth;
 	@Column(name = "unemploymentfam")
-	private String unemploymentfam;
+	public String unemploymentfam;
 	@Column(name = "unemploymentyouth")
-	private String unemploymentyouth;
+	public String unemploymentyouth;
 	/**
 	 * @return the abuseandneglectfam
 	 */

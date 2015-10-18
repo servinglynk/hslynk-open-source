@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 public class Connectionwithsoar extends BaseModel{
 	
 	@Column(name="connectionwithsoar")
-	private String connectionwithsoar;
+	public String connectionwithsoar;
 	@Column(name="exitid")			
-	private UUID exitid;
+	public UUID exitid;
 	/**
 	 * @return the connectionwithsoar
 	 */

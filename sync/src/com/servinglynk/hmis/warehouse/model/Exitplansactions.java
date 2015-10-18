@@ -9,25 +9,25 @@ import javax.persistence.Entity;
 public class Exitplansactions extends BaseModel {
 
 	@Column(name = "assistancemainstreambenefits")
-	private String assistancemainstreambenefits;
+	public String assistancemainstreambenefits;
 	@Column(name = "exitcounseling")
-	private String exitcounseling;
+	public String exitcounseling;
 	@Column(name = "exitid")
-	private UUID exitid;
+	public UUID exitid;
 	@Column(name = "furtherfollowupservices")
-	private String furtherfollowupservices;
+	public String furtherfollowupservices;
 	@Column(name = "otheraftercareplanoraction")
-	private String otheraftercareplanoraction;
+	public String otheraftercareplanoraction;
 	@Column(name = "permanenthousingplacement")
-	private String permanenthousingplacement;
+	public String permanenthousingplacement;
 	@Column(name = "resourcepackage")
-	private String resourcepackage;
+	public String resourcepackage;
 	@Column(name = "scheduledfollowupcontacts")
-	private String scheduledfollowupcontacts;
+	public String scheduledfollowupcontacts;
 	@Column(name = "temporaryshelterplacement")
-	private String temporaryshelterplacement;
+	public String temporaryshelterplacement;
 	@Column(name = "writtenaftercareplan")
-	private String writtenaftercareplan;
+	public String writtenaftercareplan;
 
 	/**
 	 * @return the assistancemainstreambenefits

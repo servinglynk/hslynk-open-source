@@ -8,23 +8,23 @@ import javax.persistence.Entity;
 @Entity
 public class Project extends BaseModel{
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name = "continuumproject")
-	private String continuumproject;
+	public String continuumproject;
 	@Column(name = "organizationid")
-	private UUID organizationid;
+	public UUID organizationid;
 	@Column(name = "projectcommonname")	
-	private String projectcommonname;
+	public String projectcommonname;
 	@Column(name = "projectname")	
-	private String projectname;
+	public String projectname;
 	@Column(name = "projecttype")	
-	private String projecttype;
+	public String projecttype;
 	@Column(name = "residentialaffiliation")
-	private String residentialaffiliation;
+	public String residentialaffiliation;
 	@Column(name = "targetpopulation")
-	private String targetpopulation;
+	public String targetpopulation;
 	@Column(name = "trackingmethod")
-	private String trackingmethod;
+	public String trackingmethod;
 	/**
 	 * @return the enrollmentid
 	 */

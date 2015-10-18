@@ -8,21 +8,21 @@ import javax.persistence.Entity;
 public class Disabilities extends BaseModel {
 	
 	@Column(name="disabilityresponse")
-	private String disabilityresponse;
+	public String disabilityresponse;
 	@Column(name="disabilitytype")
-	private String disabilitytype;
+	public String disabilitytype;
 	@Column(name="documentationonfile")
-	private String documentationonfile;
+	public String documentationonfile;
 	@Column(name="indefiniteandimpairs")
-	private String indefiniteandimpairs;
+	public String indefiniteandimpairs;
 	@Column(name="pathhowconfirmed")
-	private String pathhowconfirmed;
+	public String pathhowconfirmed;
 	@Column(name="pathsmiinformation")
-	private String pathsmiinformation;
+	public String pathsmiinformation;
 	@Column(name="enrollmentid")		
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	@Column(name="receivingservices")
-	private String receivingservices;
+	public String receivingservices;
 	/**
 	 * @return the disabilityresponse
 	 */

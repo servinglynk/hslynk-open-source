@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 @Entity
 public class Percentami extends BaseModel{
 	@Column(name = "percentage")	
-	private String percentage;
+	public String percentage;
 	@Column(name = "enrollmentid")
-	private UUID enrollmentid;
+	public UUID enrollmentid;
 	/**
 	 * @return the percentage
 	 */

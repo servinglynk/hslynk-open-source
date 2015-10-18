@@ -9,11 +9,11 @@ import javax.persistence.Entity;
 public class Housingassessmentdisposition extends BaseModel {
 
 	@Column(name = "assessmentdisposition")
-	private String assessmentdisposition;
+	public String assessmentdisposition;
 	@Column(name = "exitid")
-	private UUID exitid;
+	public UUID exitid;
 	@Column(name = "otherdisposition")
-	private String otherdisposition;
+	public String otherdisposition;
 
 	/**
 	 * @return the assessmentdisposition
