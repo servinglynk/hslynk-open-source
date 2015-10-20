@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.report.business.util;
 
 public enum ReportType {
-	AHAR_REPORT("AHAR");
+	AHAR_REPORT("AHAR_REPORT");
  
 	private String reportType;
  

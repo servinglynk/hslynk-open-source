@@ -31,18 +31,12 @@ public class WorkerService extends ParentService implements IWorkerService{
 		workerLineEntity.setStatus(Constants.JOB_CREATED);
 		workerLineEntity.setLineInput(workerLine.getInput());
 		workerLineEntity.setInsertAt(new Date());
+		workerLineEntity.setInsertBy(Constants.REPORT_SERVICE);
 		daoFactory.getWorkerLineDao().insert(workerLineEntity);
-		
 		workerLine.setWorkerLineId(workerLineEntity.getExternalId());
 	}
 	
-	
 
-	public void processWorkerLine() throws WorkerNotFoundException
-	{		
-		
-	}
-	
 	private WorkerHeaderEntity loadWorkerHeader(WorkerLine workerLine) throws WorkerNotFoundException{
 		List<WorkerHeaderEntity> workerHeaderEntityList = daoFactory.getWorkerHeaderDao().findByExternalId(workerLine.getWorkerHeaderId());
 		if( workerHeaderEntityList.isEmpty())	throw new WorkerNotFoundException();

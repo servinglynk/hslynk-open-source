@@ -111,7 +111,7 @@ public class ReportLineEntity  extends ParentEntity {
 	public void setStatus(ReportStatus status) {
 		this.status = status.toString();
 	}
-
+	
 	@Column(name = "STATUS_MESSAGE")
 	public String getStatusMessage() {
 		return statusMessage;
@@ -121,10 +121,7 @@ public class ReportLineEntity  extends ParentEntity {
 	public void setStatusMessage(String statusMessage) {
 		this.statusMessage = statusMessage;
 	}
-	
 
-	
-	
 
 	
 }

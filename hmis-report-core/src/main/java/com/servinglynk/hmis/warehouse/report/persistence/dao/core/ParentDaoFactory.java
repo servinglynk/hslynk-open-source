@@ -2,7 +2,6 @@ package com.servinglynk.hmis.warehouse.report.persistence.dao.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.servinglynk.hmis.warehouse.report.dao.IAHARDao;
 import com.servinglynk.hmis.warehouse.report.dao.IReportLineDao;
 import com.servinglynk.hmis.warehouse.report.dao.IReportRecipientDao;
 import com.servinglynk.hmis.warehouse.report.scheduler.dao.IWorkerHeaderDao;
@@ -47,20 +46,6 @@ public class ParentDaoFactory implements IParentDaoFactory {
 		this.reportLineDao = reportLineDao;
 	}
 	
-
-	@Autowired
-	private IAHARDao demandForecastDao;
-
-	public IAHARDao getDemandForecastDao() {
-		return demandForecastDao;
-	}
-
-	public void setDemandForecastDao(IAHARDao demandForecastDao) {
-		this.demandForecastDao = demandForecastDao;
-	}
-	
-	
-
 	@Autowired
 	private IReportRecipientDao reportRecipientDao;
 

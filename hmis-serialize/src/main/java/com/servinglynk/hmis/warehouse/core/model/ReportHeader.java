@@ -32,6 +32,13 @@ public class ReportHeader extends ClientModel {
 	
 	@XmlElement(name = "version")
 	private Integer version;
+	
+	
+	private String tempLocation;
+	
+	private String macroTemplate;
+	
+	private String outputType;
 
 	public String getExternalId() {
 		return externalId;
@@ -88,6 +95,30 @@ public class ReportHeader extends ClientModel {
 
 	public void setReportNamePrefix(String reportNamePrefix) {
 		this.reportNamePrefix = reportNamePrefix;
+	}
+
+	public String getTempLocation() {
+		return tempLocation;
+	}
+
+	public void setTempLocation(String tempLocation) {
+		this.tempLocation = tempLocation;
+	}
+
+	public String getMacroTemplate() {
+		return macroTemplate;
+	}
+
+	public void setMacroTemplate(String macroTemplate) {
+		this.macroTemplate = macroTemplate;
+	}
+
+	public String getOutputType() {
+		return outputType;
+	}
+
+	public void setOutputType(String outputType) {
+		this.outputType = outputType;
 	}
 
 

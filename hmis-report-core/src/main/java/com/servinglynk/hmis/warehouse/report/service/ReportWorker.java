@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.report.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -15,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.reportservice.ReportServiceClient;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
-import com.servinglynk.hmis.warehouse.core.model.Parameter;
-import com.servinglynk.hmis.warehouse.core.model.Parameters;
+import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.ReportHeader;
 import com.servinglynk.hmis.warehouse.core.model.ReportRequest;
 import com.servinglynk.hmis.warehouse.core.model.ReportResult;
@@ -29,12 +27,13 @@ import com.servinglynk.hmis.warehouse.report.business.util.CoreUtil;
 import com.servinglynk.hmis.warehouse.report.business.util.ReportType;
 import com.servinglynk.hmis.warehouse.report.business.util.Workers;
 import com.servinglynk.hmis.warehouse.report.common.Constants;
+import com.servinglynk.hmis.warehouse.report.common.Constants.NotificationOriginatorType;
+import com.servinglynk.hmis.warehouse.report.config.ReportConfig;
 import com.servinglynk.hmis.warehouse.report.persistence.entity.ReportHeaderEntity;
 import com.servinglynk.hmis.warehouse.report.persistence.entity.ReportLineEntity;
 import com.servinglynk.hmis.warehouse.report.persistence.entity.ReportRecipientEntity;
 import com.servinglynk.hmis.warehouse.report.persistence.entity.WorkerLineEntity;
 import com.servinglynk.hmis.warehouse.report.request.handler.ReportRequestHandlerFactory;
-
 
 @Component
 @Service
@@ -56,17 +55,27 @@ public class ReportWorker  extends ParentService implements IReportWorker  {
 	@Autowired
 	ReportServiceClient reportServiceClient;
 	
+	@Autowired
+	ReportConfig reportConfig;
+	
 	@Transactional
 	@Scheduled(initialDelay=20,fixedDelay=10000)
-	public void processWorkerLine() throws ReportCreationException{
+	public void processReportWorkerLine() throws ReportCreationException{
 		
 		List<WorkerLineEntity> workerLineEntities=  daoFactory.getWorkerLineDao().findUnprocessedByExternalId(Workers.REPORT_WORKER.getWorker());
 		Iterator<WorkerLineEntity> wleIterator = workerLineEntities.iterator();
 		
+		
 		while(wleIterator.hasNext()){
+			ReportResult reportResult   = null;
 			try{
 			WorkerLineEntity wle = wleIterator.next();
 			  WorkerLine workerLine = WorkerLineConverter.convertEntityToModel(wle);
+			  
+			  	wle.setStatus(Constants.JOB_PROCESSING);
+				 wle.setUpdateAt(new Date());
+				 wle.setCurrRetry(wle.getCurrRetry()+1);
+				 daoFactory.getWorkerLineDao().update(wle);
 			  
 			  //When you create a worker line request, you create a request that has the Input matches with NotificationVO header
 			  ReportRequest reportRequest = CoreUtil.convertJSONtoJava(workerLine.getInput(), ReportRequest.class);
@@ -81,49 +90,48 @@ public class ReportWorker  extends ParentService implements IReportWorker  {
 					reportLineEntity.setReportHeaderEntity(reportHeaderEntity);
 					reportLineEntity.setRequestTime(new Date());
 					reportLineEntity.setStatus(Constants.JOB_CREATED);
+					reportLineEntity.setInsertAt(new Date());
+				
 					reportLineEntity.setExternalId(CoreUtil.createUniqueID(false));
 					daoFactory.getReportLineDao().insert(reportLineEntity);
-					reportRequest.setTempLocation(reportHeaderEntity.getTempLocation());
+					
 					try{
-						ReportResult reportResult  =	reportRequestHandlerFactory.getReportRequestHandler(reportType).createReport(reportRequest, reportHeader);
-						
+						reportResult  =	reportRequestHandlerFactory.getReportRequestHandler(reportType).createReport(reportRequest, reportHeader);
+						reportResult.setReportType(reportType.getReportType());
 						 wle.setStatus(Constants.JOB_SUCCEEDED);
 						
 						 reportLineEntity.setCompletedTime(new Date());
 						 reportLineEntity.setReportLocation(reportResult.getReportName());
 						 reportLineEntity.setStatus(Constants.JOB_SUCCEEDED);
 						 
-						 List<ReportRecipientEntity> reportRecipients=  daoFactory.getReportRecipientDao().findRecipientsByExternalId(reportType.getReportType().toString());	 
-						 List<String> recipients = new  ArrayList<String>();
-						 for(ReportRecipientEntity rre : reportRecipients){
-							 recipients.add(rre.getRecipentEmail());
+						 
+						 Notification notification = new Notification();
+						 notification.setMethod("EMAIL");
+						 notification.setType(reportType.getReportType());
+						 notification.setAttachment(reportResult.getReportName());
+						 
+						 Recipients recipients = new Recipients();
+						 
+						 for(ReportRecipientEntity recipientEntity : reportHeaderEntity.getReportReceipients()){
+							 recipients.getToRecipients().add(recipientEntity.getRecipentEmail());
 						 }
+						 notification.setRecipients(recipients);
 						 
-						 // Once the report is complete, invoke Notification Service Client to send the notification.
-						Notification notificationVO = new Notification();
-						notificationVO.setRecipients(recipients);
-						notificationVO.setAttachment(reportResult.getReportName());
-						 notificationVO.setMethod("EMAIL");
-						 notificationVO.setType("REPORT_NOTIFICATION");
-						notificationServiceClient.createNotification(notificationVO);
+						 notificationServiceClient.createNotification(notification);
 						 
-		
-	
-
-						
-						
 					}catch(Exception e){
+						 logger.info("Report Creation failed ::::" + e.getMessage());
 						 e.printStackTrace();
-						 logger.debug("Report Creation failed ::::" + e.getMessage());
 						 wle.setStatus(Constants.JOB_FAILED);
-						 
 						 reportLineEntity.setCompletedTime(new Date());
 						 reportLineEntity.setStatus(Constants.JOB_FAILED);
 						 reportLineEntity.setStatusMessage(e.getMessage());
 						
+						
 					}finally{
-						wle.setUpdateAt(new Date());
-						reportLineEntity.setUpdateAt(new Date());
+						 wle.setUpdateAt(new Date());
+						 wle.setCurrRetry(wle.getCurrRetry()+1);
+						 reportLineEntity.setUpdateAt(new Date());
 						 daoFactory.getWorkerLineDao().update(wle);
 						 daoFactory.getWorkerLineDao().update(reportLineEntity);
 					}

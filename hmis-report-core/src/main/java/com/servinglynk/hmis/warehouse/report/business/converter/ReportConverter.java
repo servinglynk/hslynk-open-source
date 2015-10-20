@@ -16,6 +16,8 @@ public class ReportConverter {
 		reportHeader.setFriendlyName(reportHeaderEntity.getFriendlyName());
 		reportHeader.setName(reportHeaderEntity.getName());
 		reportHeader.setVersion(reportHeaderEntity.getVersion());
+		reportHeader.setTempLocation(reportHeaderEntity.getTempLocation());
+		reportHeader.setOutputType(reportHeaderEntity.getOutputType());
 		reportHeader.setExternalId(reportHeaderEntity.getExternalId());
 		return reportHeader;
 	}

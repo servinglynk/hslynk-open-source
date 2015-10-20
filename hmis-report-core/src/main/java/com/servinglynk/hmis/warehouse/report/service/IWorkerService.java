@@ -7,6 +7,6 @@ import com.servinglynk.hmis.warehouse.report.business.service.core.IParentServic
 public interface IWorkerService extends IParentService{
 	
 	public void createWorkerLine(WorkerLine workerLine) throws WorkerNotFoundException;
-	public void processWorkerLine() throws WorkerNotFoundException;
+	//public void processWorkerLine() throws WorkerNotFoundException;
 
 }

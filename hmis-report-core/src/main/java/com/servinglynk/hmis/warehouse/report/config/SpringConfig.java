@@ -2,6 +2,9 @@ package com.servinglynk.hmis.warehouse.report.config;
 
 import java.util.Properties;
 
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +12,11 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,8 +24,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.servinglynk.hmis.warehouse.report.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.report.business.service.core.ParentServiceFactory;
-import com.servinglynk.hmis.warehouse.report.core.ReportGenerator;
-import com.servinglynk.hmis.warehouse.report.dao.AHARDao;
+import com.servinglynk.hmis.warehouse.report.core.ExcelReportGenerator;
+import com.servinglynk.hmis.warehouse.report.core.PdfReportGenerator;
+import com.servinglynk.hmis.warehouse.report.core.ReportGeneratorFactory;
 import com.servinglynk.hmis.warehouse.report.dao.ReportLineDao;
 import com.servinglynk.hmis.warehouse.report.dao.ReportRecipientDao;
 import com.servinglynk.hmis.warehouse.report.persistence.dao.core.ParentDaoFactory;
@@ -74,9 +78,21 @@ public class SpringConfig {
 	}
 	
 	
+	
+	
 	@Bean
-	public ReportGenerator reportGenerator(){
-		return new ReportGenerator();
+	public ReportGeneratorFactory reportGeneratorFactory(){
+		return new ReportGeneratorFactory();
+	}
+	
+	@Bean
+	public ExcelReportGenerator excelReportGenerator(){
+		return new ExcelReportGenerator();
+	}
+	
+	@Bean
+	public PdfReportGenerator pdfIReportGenerator(){
+		return new PdfReportGenerator();
 	}
 	
 	@Bean
@@ -92,7 +108,7 @@ public class SpringConfig {
 	}
 	
 	@Bean
-	public AHARReportHandler demandForecastReportHandler(){
+	public AHARReportHandler aharReportHandler(){
 		return new AHARReportHandler();
 	}
 	
@@ -188,10 +204,6 @@ public class SpringConfig {
 		return new ReportRecipientDao();
 	}
 	
-	@Bean
-	public AHARDao getDemandForecastDao(){
-		return new AHARDao();
-	}
 	
 	@Bean
 	public WorkerLineDao getWorkerLineDao(){

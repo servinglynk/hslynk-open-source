@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class ReportConfig {
 	
-  
 	  @Value("${db.driverClassName}")
 	  private String dbDriverClassName;
 	  
@@ -17,13 +16,19 @@ public class ReportConfig {
 	  @Value("${db.password}")
 	  private String dbPassword;
 
-	  @Value("${hibernate.dialect}")
+	@Value("${hibernate.dialect}")
 	  private String hibernateDialect;
 	  
+//	  @Value("${wafer.level.macro.name}")
+	  private String macroName;
 	  
-	  @Value("${report.temp.loc}")
-	  private String reportTempLocation;
-	  
+	  public String getMacroName() {
+		return macroName;
+	}
+
+	public void setMacroName(String macroName) {
+		this.macroName = macroName;
+	}
 	  
 	public String getDbDriverClassName() {
 		return dbDriverClassName;
@@ -64,17 +69,5 @@ public class ReportConfig {
 	public void setHibernateDialect(String hibernateDialect) {
 		this.hibernateDialect = hibernateDialect;
 	}
-
-	public String getReportTempLocation() {
-		return reportTempLocation;
-	}
-
-	public void setReportTempLocation(String reportTempLocation) {
-		this.reportTempLocation = reportTempLocation;
-	}
-	  
-	  
-	  
-	  
 
 }

@@ -7,7 +7,8 @@ public interface IReportWorker  extends IParentService  {
 	
 	
 	
-	public void processWorkerLine() throws Exception;
+	public void processReportWorkerLine() throws Exception;
+	//public void processMacroWorkerLine() throws Exception;
 	
 
 }

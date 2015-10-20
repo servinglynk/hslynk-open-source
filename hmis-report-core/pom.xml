@@ -9,7 +9,7 @@
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>0.0.1-SNAPSHOT</parent-version>
+		<parent-version>0.0.1</parent-version>
 	</properties>
 
 	<parent>
@@ -30,7 +30,7 @@
  	<dependency>
 	  <groupId>com.servinglynk.hmis.warehouse</groupId>
  	 <artifactId>core-client</artifactId>
- 	 <version>${parent-version}</version>
+ 	 <version>0.0.1-SNAPSHOT</version>
 	</dependency> 
 
 
@@ -150,4 +150,21 @@
   <version>8.3-603.jdbc4</version> 
   </dependency>
 		</dependencies>
+		
+		<build>
+			<plugins>
+					<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			</plugins>
+		</build>
 </project>

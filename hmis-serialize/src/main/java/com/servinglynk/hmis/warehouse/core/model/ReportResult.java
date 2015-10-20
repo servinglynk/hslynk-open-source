@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReportResult {
 	
@@ -9,7 +11,8 @@ public class ReportResult {
 	 String  reportTemplate;
 	 String  reportLocation;
 	 String  tempLocation;
-	 
+	 String reportType;
+	 Map<String,Object> parameters = new HashMap<String, Object>();
 	 
 	public List<?> getReportData() {
 		return reportData;
@@ -40,6 +43,18 @@ public class ReportResult {
 	}
 	public void setTempLocation(String tempLocation) {
 		this.tempLocation = tempLocation;
+	}
+	public Map<String, Object> getParameters() {
+		return parameters;
+	}
+	public void setParameters(Map<String, Object> parameters) {
+		this.parameters = parameters;
+	}
+	public String getReportType() {
+		return reportType;
+	}
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
 	}
 	 
 	 

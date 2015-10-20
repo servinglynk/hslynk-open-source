@@ -8,10 +8,6 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 
-/**
- * @author Surya Yadavalli 
- * 
- */
 public interface IQueryExecutor  {
 
 	public void load(Object entity,Serializable id);

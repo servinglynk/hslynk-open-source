@@ -29,6 +29,9 @@ public class Constants {
 	public static final String JOB_SUCCEEDED = "SUCCESS";
 	public static final String JOB_CREATED = "CREATED";
 	public static final String JOB_PROCESSING = "PROCESSING";
+	
+	public static final String REPORT_SERVICE ="REPORT_SERVICE";
+	public static final String REPORT_WORKER ="REPORT_WORKER";
 
 
 }
