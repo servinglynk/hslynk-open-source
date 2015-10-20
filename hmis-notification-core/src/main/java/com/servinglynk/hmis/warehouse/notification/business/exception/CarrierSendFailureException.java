@@ -1,26 +1,26 @@
 package com.servinglynk.hmis.warehouse.notification.business.exception;
 
-public class NotifcationException  extends RuntimeException{
+public class CarrierSendFailureException  extends RuntimeException{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String DEFAULT_MESSAGE = "Notification Exception";
+	public static final String DEFAULT_MESSAGE = "Carrier Send Failure Exception";
 	
-	public NotifcationException() {
+	public CarrierSendFailureException() {
 		super(DEFAULT_MESSAGE);
 	}
 	
-	public NotifcationException(String message) {
+	public CarrierSendFailureException(String message) {
 		super(message);
 	}
 	
-	public NotifcationException(Throwable cause) {
+	public CarrierSendFailureException(Throwable cause) {
 		super(DEFAULT_MESSAGE, cause);
 	}
 
-	public NotifcationException(String message, Throwable cause) {
+	public CarrierSendFailureException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	

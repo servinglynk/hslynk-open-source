@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,11 +28,17 @@ public class Notification extends ClientModel {
 	@JsonProperty("method")
 	private String method;
 	
+/*	@JsonProperty("recipients")
+	private List<String> recipients;*/
+	
 	@JsonProperty("recipients")
-	private List<String> recipients;
+	private Recipients recipients;
+	
 	
 	@JsonProperty("parameters")
 	Parameters parameters;
+	
+	private Integer priority;
 
 	
 	public Parameters getParameters() {
@@ -61,14 +68,25 @@ public class Notification extends ClientModel {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public List<String> getRecipients() {
+/*	public List<String> getRecipients() {
 		return recipients;
 	}
 	public void setRecipients(List<String> recipients) {
 		this.recipients = recipients;
-	}
+	}*/
+	
+	
+	
+	
+	
 	public String getMethod() {
 		return method;
+	}
+	public Recipients getRecipients() {
+		return recipients;
+	}
+	public void setRecipients(Recipients recipients) {
+		this.recipients = recipients;
 	}
 	public void setMethod(String method) {
 		this.method = method;
@@ -78,6 +96,12 @@ public class Notification extends ClientModel {
 	}
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+	public Integer getPriority() {
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 	

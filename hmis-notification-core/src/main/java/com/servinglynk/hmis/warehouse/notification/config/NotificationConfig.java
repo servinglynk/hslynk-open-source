@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationConfig {
 	
+	  @Value("${app.jndi.name}")
+	   private String jndiName;
+	
 	  @Value("${mail.host}")
 	   private String mailHost;
 	  
@@ -21,6 +24,9 @@ public class NotificationConfig {
 	  
 	  @Value("${db.password}")
 	  private String dbPassword;
+	  
+	  @Value("${notification.template.location}")
+	  private String vmLocation;
 	  
 	  
 	  @Value("${hibernate.dialect}")
@@ -142,10 +148,20 @@ public class NotificationConfig {
 		this.mailTemplateUrl = mailTemplateUrl;
 	}
 
-	  
-	
-	
-	  
-	  
+	public String getJndiName() {
+		return jndiName;
+	}
+
+	public void setJndiName(String jndiName) {
+		this.jndiName = jndiName;
+	}
+
+	public String getVmLocation() {
+		return vmLocation;
+	}
+
+	public void setVmLocation(String vmLocation) {
+		this.vmLocation = vmLocation;
+	}
 
 }

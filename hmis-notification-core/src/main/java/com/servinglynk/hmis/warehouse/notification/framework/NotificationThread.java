@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.notification.framework;
 
+import com.servinglynk.hmis.warehouse.notification.business.exception.CarrierSendFailureException;
 import com.servinglynk.hmis.warehouse.notification.carrier.CarrierNotification;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.NotificationLineEntity;
 
@@ -43,7 +44,8 @@ public class NotificationThread {
 	public void run() {
 		MergedNotificationContent notificationContent = getNotificationEngineContext().getTemplateService().merge(notificationWork);
 		CarrierNotification carrierNotification = createCarrierNotification(notificationWork,notificationContent);
-		getNotificationEngineContext().getCarrierService().send(carrierNotification,notificationWork.getNotificationLineEntity());	
+		getNotificationEngineContext().getCarrierService().send(carrierNotification,notificationWork.getNotificationLineEntity());
+		
 	}
 	
 	
@@ -55,7 +57,7 @@ public class NotificationThread {
 		carrierNotification.setRecipient(notificationLineEntity.getDeliverTo());  //recipient information
 		carrierNotification.setRecipient(notificationLineEntity.getDeliverTo());  //recipient information
 		carrierNotification.setId(notificationLineEntity.getId().toString());  //recipient information
-	
+		carrierNotification.setPriority(notificationWork.getPriority());
 		
 		carrierNotification.setSenderFriendly(notificationWork.getSenderFriendly()); // sender information
 		carrierNotification.setSender(notificationWork.getSender());  // sender information

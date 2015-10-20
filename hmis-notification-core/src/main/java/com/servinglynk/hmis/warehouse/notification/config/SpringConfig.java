@@ -6,16 +6,17 @@ import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -52,7 +53,6 @@ import com.servinglynk.hmis.warehouse.notification.scheduler.dao.WorkerLineDao;
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.notification.business.service","com.servinglynk.hmis.warehouse.notification.framework","com.servinglynk.hmis.warehouse.notification.rest.endpoint"})
 @EnableScheduling
 @EnableTransactionManagement
-@ImportResource("classpath:com/servinglynk/hmis/warehouse/notification/common/property-config.xml")
 @PropertySource("classpath:com/servinglynk/hmis/warehouse/notification/common/notification.properties")
 public class SpringConfig  {
 	
@@ -199,8 +199,8 @@ public class SpringConfig  {
 		 properties.put("mail.smtp.starttls.enable","true");
 		 properties.put("mail.transport.protocol","smtp");
 		 properties.put("mail.debug","true");
-		 properties.put("mail.smtp.EnableSSL.enable","true");
-
+		 
+		 properties.put("mail.smtp.ssl.enable","true");
 		 	
 		 return properties;
 	 }
@@ -208,7 +208,7 @@ public class SpringConfig  {
 	 @Bean
 	 public SimpleMailMessage templateMessage(){
 		 SimpleMailMessage templateMessage = new SimpleMailMessage();
-		 templateMessage.setFrom("surya.yadavalli@broadcom.com");
+		 templateMessage.setFrom("surya.yadavalli@gmail.com");
 		 return templateMessage;
 	 }
 	 
@@ -216,13 +216,29 @@ public class SpringConfig  {
 	 @Bean
 	 public VelocityEngineFactoryBean velocityEngine(){
 		 VelocityEngineFactoryBean velocityEngine= new VelocityEngineFactoryBean();
-		 velocityEngine.setResourceLoaderPath("classpath:/com/servinglynk/hmis/warehouse/notification/velocity");
+		 velocityEngine.setPreferFileSystemAccess(true);
+		 velocityEngine.setResourceLoaderPath( notificationConfig().getVmLocation());
+		// velocityEngine.setResourceLoader();
+/*		 Properties props = new Properties();
+		 props.put("resource.loader", "class");
+		 props.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+		
+		 
+		 velocityEngine.setVelocityProperties(props);*/
+		
+		 Properties properties = new Properties();
+		 
+		 
+		 properties.put("resource.loader","file");            
+		 properties.put("file.resource.loader.class","org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+		 properties.put("file.resource.loader.path", notificationConfig().getVmLocation());
+		 velocityEngine.setVelocityProperties(properties);
+		 
 		 return velocityEngine;
 	 }
 	 
 	 
     @Bean
-    
     public NotificationWorker notificationWorker(){
     	NotificationWorker notificationWorker = new NotificationWorker();
     	return notificationWorker;
@@ -255,12 +271,14 @@ public class SpringConfig  {
     	return notificationParams;
     }
     
+   
     @Bean
     public ReportCreationNotificationUtil reportCreationNotificationUtil(){
     	ReportCreationNotificationUtil reportCreationNotificationUtil = new ReportCreationNotificationUtil();
     	return reportCreationNotificationUtil;
     }
     
+    // not used . this information is being fetched from DB
     @Bean
 	public HashMap notificationParams(){
 		Map map=new HashMap();
@@ -268,8 +286,8 @@ public class SpringConfig  {
 		
 		return new HashMap(map);
 	}
-    /*
-	@Bean(destroyMethod="")
+ 
+	/*@Bean(destroyMethod="")
 	public DataSource relationalDataSource()  {
 	
 		JndiObjectFactoryBean jndi=new JndiObjectFactoryBean();
@@ -283,8 +301,7 @@ public class SpringConfig  {
 			throw new RuntimeException(e);
 		}
 		return (DataSource)jndi.getObject();
-	}
-*/
+	}*/
 
     @Bean
     public BasicDataSource relationalDataSource(){
@@ -311,7 +328,7 @@ public class SpringConfig  {
     	Properties properties=new Properties();
     	properties.put("hibernate.show_sql", "false");
     	properties.put("hibernate.format_sql", "false");
-    	properties.put("hibernate.dialect", notificationConfig().getHibernateDialect());
+    	properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
     	properties.put("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
     	properties.put("hibernate.cache.use_query_cache", "false");
     	properties.put("hibernate.cache.use_second_level_cache", "true");

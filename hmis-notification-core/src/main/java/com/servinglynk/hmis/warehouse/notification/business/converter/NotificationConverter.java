@@ -40,9 +40,9 @@ public class NotificationConverter {
 		notificationLineEntity.setDeliverTo(recipient.getDeliverTo());
 		notificationLineEntity.setDeliveryMethod(recipient.getDeliveryMethod());
 		
-		if ((recipient.getTemplateId() == null))	{
+	/*	if ((recipient.getTemplateId() == null))	{
 			throw new IllegalArgumentException("Template info is missing for recipient " + recipient.getDeliverTo());
-		}
+		}*/
 		
 		notificationLineEntity.setUsername(recipient.getUsername());
 		return notificationLineEntity;

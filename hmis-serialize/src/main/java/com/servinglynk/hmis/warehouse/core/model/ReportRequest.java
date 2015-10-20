@@ -12,6 +12,8 @@ public class ReportRequest extends ClientModel {
 	
 	String tempLocation;
 	
+
+	
 	@JsonProperty("parameters")
 	Parameters parameters;
 

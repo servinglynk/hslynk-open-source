@@ -1,12 +1,15 @@
 package com.servinglynk.hmis.warehouse.notification.business.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.ParameterVO;
 import com.servinglynk.hmis.warehouse.core.model.Parameters;
 import com.servinglynk.hmis.warehouse.notification.business.service.core.ParentService;
@@ -44,15 +47,18 @@ public class TemplateService extends ParentService implements ITemplateService{
 			if(!templateLines.isEmpty()){
 				TemplateLineEntity templateLine = (TemplateLineEntity) templateLines.get(0);
 				if(templateLine!=null){
+					 System.out.println(velocityEngine.getProperty("file.resource.loader.path"));				
 					 String mergedContent = VelocityEngineUtils.mergeTemplateIntoString(
 							velocityEngine,
 							templateLine.getLocation(),
 							params.getMap());
+					 
+
+					 StringBuffer mergedSubject = StringUtils.stringSubstitution(templateLine.getSubject(), params.getMap());
 					 notificationContent.setBody(mergedContent);
-					 notificationContent.setSubject(templateLine.getSubject());
+					 notificationContent.setSubject(mergedSubject.toString());
 				}
 			}
-			
 			
 			return notificationContent;
 				

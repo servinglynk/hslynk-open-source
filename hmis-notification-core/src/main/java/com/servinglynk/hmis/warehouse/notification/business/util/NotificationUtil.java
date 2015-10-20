@@ -9,13 +9,12 @@ import com.servinglynk.hmis.warehouse.core.model.Originator;
 import com.servinglynk.hmis.warehouse.core.model.Recipient;
 import com.servinglynk.hmis.warehouse.core.model.Template;
 import com.servinglynk.hmis.warehouse.core.model.WorkerLine;
+import com.servinglynk.hmis.warehouse.notification.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.notification.business.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.notification.carrier.Workers;
-import com.servinglynk.hmis.warehouse.notification.common.Constants.NotificationMethod;
-import com.servinglynk.hmis.warehouse.notification.common.Constants.NotificationOriginatorType;
 
 
-public abstract class NotificationUtil implements INotificationUtil {
+public abstract class NotificationUtil  extends ParentService  implements INotificationUtil {
 	
 	@Autowired
     protected HashMap<String,NotificationParams> notificationParams;

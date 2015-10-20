@@ -1,26 +1,24 @@
 package com.servinglynk.hmis.warehouse.notification.business.exception;
 
-public class NotifcationException  extends RuntimeException{
+public class CarrierNotFoundException  extends RuntimeException{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	public static final String DEFAULT_MESSAGE = "Notification Exception";
+	public static final String DEFAULT_MESSAGE = "Carrier Not Found Exception";
 	
-	public NotifcationException() {
+	public CarrierNotFoundException() {
 		super(DEFAULT_MESSAGE);
 	}
 	
-	public NotifcationException(String message) {
+	public CarrierNotFoundException(String message) {
 		super(message);
 	}
 	
-	public NotifcationException(Throwable cause) {
+	public CarrierNotFoundException(Throwable cause) {
 		super(DEFAULT_MESSAGE, cause);
 	}
 
-	public NotifcationException(String message, Throwable cause) {
+	public CarrierNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	

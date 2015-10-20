@@ -20,6 +20,8 @@ public class ReportService extends ParentService implements IReportService {
 				wl.setWorkerHeaderId(Workers.REPORT_WORKER.toString());
 				wl.setInput(reportRequest.toString());
 				serviceFactory.getWorkerService().createWorkerLine(wl);
+				// send notification as report requested
+				
 				
 		}catch(WorkerNotFoundException e){
 				throw new WorkerNotFoundException("Worker Not Found"+ e.getMessage());

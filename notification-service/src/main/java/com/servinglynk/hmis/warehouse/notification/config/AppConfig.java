@@ -28,7 +28,6 @@ import com.servinglynk.hmis.warehouse.notification.endpoint.NotificationWebservi
 @EnableWebMvc   
 @EnableTransactionManagement
 @EnableScheduling
-@EnableAutoConfiguration
 public class AppConfig extends WebMvcConfigurerAdapter{  
 	
 

@@ -42,6 +42,8 @@ public class ReportCreationNotificationUtilTest {
 		System.out.println(reportCreationNotificationUtil.getNotificationParams());
 	}
 	
+/*	
+	
 	@Test
 	public void testSendNotification()  {
 		try{
@@ -290,6 +292,6 @@ public class ReportCreationNotificationUtilTest {
 		
 	}
 	
-	
+	*/
 
 }

@@ -3,9 +3,10 @@ package com.servinglynk.hmis.warehouse.notification.business.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.core.model.WorkerLine;
 import com.servinglynk.hmis.warehouse.notification.business.exception.WorkerNotFoundException;

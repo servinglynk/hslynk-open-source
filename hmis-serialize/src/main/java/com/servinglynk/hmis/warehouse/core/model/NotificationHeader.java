@@ -21,6 +21,10 @@ public class NotificationHeader extends ClientModel {
 	
 	private String notificationSubject;
 	
+	private Recipient recipient;
+	
+	private Integer priority;
+	
 
 	
 	private String attachment;
@@ -81,6 +85,18 @@ public class NotificationHeader extends ClientModel {
 	}
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+	public Recipient getRecipient() {
+		return recipient;
+	}
+	public void setRecipient(Recipient recipient) {
+		this.recipient = recipient;
+	}
+	public Integer getPriority() {
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 	

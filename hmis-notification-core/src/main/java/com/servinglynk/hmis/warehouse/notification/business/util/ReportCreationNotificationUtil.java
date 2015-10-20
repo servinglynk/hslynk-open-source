@@ -14,7 +14,7 @@ import com.servinglynk.hmis.warehouse.notification.common.Constants.Notification
 public class ReportCreationNotificationUtil extends NotificationUtil {
 
 
-	public void sendnotification(Notification notification) {
+	public void sendnotification(Notification notification) throws Exception{
 		
 		NotificationEnum type = NotificationEnum.valueOf(notification.getType());
 		//To Do - throw exception if wrong value is passed.
@@ -25,15 +25,13 @@ public class ReportCreationNotificationUtil extends NotificationUtil {
 				nps.getSenderFriendlyName(), NotificationOriginatorType.USER.toString());
 
 		NotificationMethod method = NotificationMethod.valueOf(notification.getMethod());
-				
-		ArrayList<Recipient> recipents = new ArrayList<Recipient>();
-		for(String recipient : notification.getRecipients()){
-				Recipient recipent = createRecipient(recipient,
-						recipient, nps.getTemplateId(),
-						method.toString());
-				recipents.add(recipent);
-		}
 		
+		Recipient recipent = createRecipient(notification.getRecipients().toJSONString(),
+				notification.getRecipients().toJSONString(), nps.getTemplateId(),
+				method.toString());
+
+				
+
 		Parameters data = new Parameters();
 		/*
 		NotificationData data = new NotificationData();
@@ -42,7 +40,7 @@ public class ReportCreationNotificationUtil extends NotificationUtil {
 		
 		header.setOriginator(originator);
 		// there could be multiple recipients - if we have more subscribers for the report.
-		header.setRecipients(recipents);
+		header.setRecipient(recipent);
 		header.setNotificationData(data);
 		header.setAttachment(notification.getAttachment());
 

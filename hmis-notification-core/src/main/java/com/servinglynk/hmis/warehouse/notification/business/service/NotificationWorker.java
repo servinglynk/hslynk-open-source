@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.servinglynk.hmis.warehouse.core.model.NotificationHeader;
@@ -25,6 +26,7 @@ import com.servinglynk.hmis.warehouse.notification.persistence.entity.Notificati
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.TemplateHeaderEntity;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.WorkerLineEntity;
 
+@Component
 @Service
 public class NotificationWorker  extends ParentService implements INotificationWorker  {
 	
@@ -45,7 +47,6 @@ public class NotificationWorker  extends ParentService implements INotificationW
 		while(wleIterator.hasNext()){
 			WorkerLineEntity wle = wleIterator.next();
 			  WorkerLine workerLine = WorkerLineConverter.convertEntityToModel(wle);
-			  
 			  //When you create a worker line request, you create a request that has the Input matches with Notification header
 			  NotificationHeader headerModel = CoreUtil.convertJSONtoJava(workerLine.getInput(), NotificationHeader.class);
 			  
@@ -53,23 +54,22 @@ public class NotificationWorker  extends ParentService implements INotificationW
 			  NotificationHeaderEntity notifcationHeaderEntity = NotificationConverter.convertModelToEntity(headerModel, new NotificationHeaderEntity());
 			  
 			  notifcationHeaderEntity.setStatus(NotificationStatus.INIT.toString());
-	
 			  notifcationHeaderEntity.setInsertAt(new Date());
 			  	daoFactory.getNotificationHeaderDao().create(notifcationHeaderEntity);
 				
 			//	ArrayList<NotificationWork> workList = new ArrayList<NotificationWork>();
 				// This is individual recipient 
-				for(Recipient recipient : headerModel.getRecipients())	{
+			  		Recipient recipient = headerModel.getRecipient();
 					NotificationLineEntity notificationLineEntity= NotificationConverter.toNotificationLineEntity(recipient);
 					notificationLineEntity.setNotificationHeaderEntity(notifcationHeaderEntity);
 					notificationLineEntity.setCarrierAttempts(0);
 					notificationLineEntity.setAttempts(0);
 					notificationLineEntity.setExternalId(CoreUtil.createUniqueID(false));
 					notificationLineEntity.setStatusMessage(CoreUtil.emptyString());
-										
+					
 					// If we have any templates set here.
-					TemplateHeaderEntity thEntity = daoFactory.getTemplateLineDao().findTemplateHeader(recipient.getTemplateId());
-					if(thEntity!=null)  notificationLineEntity.setTemplate(thEntity);
+					TemplateHeaderEntity thEntity = daoFactory.getTemplateLineDao().findTemplateHeader(recipient.getTemplateId()); //REPORT_NOTIFICATION_TEMPLATE
+					if(thEntity!=null)  notificationLineEntity.setTemplate(thEntity); //this is exactly where its setting the value to 1
 					
 					notificationLineEntity.setStatus(NotificationStatus.INIT);
 					notificationLineEntity.setInsertAt(new Date());
@@ -82,13 +82,14 @@ public class NotificationWorker  extends ParentService implements INotificationW
 					worker.setSenderFriendly(headerModel.getOriginator().getSenderFriendly());
 					worker.setNotificationData(headerModel.getNotificationData());
 					worker.setAttachment(headerModel.getAttachment());
+					worker.setPriority(headerModel.getPriority());
+					//to-do - move it to Thread pool executor
 					notificationEngine.processNotificationWork(worker);
-						
-						wle.setStatus(Constants.JOB_SUCCEEDED);
-						wle.setUpdateAt(new Date());
-						daoFactory.getWorkerLineDao().update(wle);
+					
+					wle.setStatus(Constants.JOB_SUCCEEDED);
+					wle.setUpdateAt(new Date());
+					daoFactory.getWorkerLineDao().update(wle);
 
-				}
 			
 		}
 	}

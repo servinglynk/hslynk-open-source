@@ -9,6 +9,7 @@ public class CarrierNotification {
 	private String sender;
 	private String senderFriendly;
 	private String attachment;
+	private Integer priority;
 	
 	public String getId() {
 		return id;
@@ -51,6 +52,12 @@ public class CarrierNotification {
 	}
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+	public Integer getPriority() {
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 	

@@ -12,7 +12,7 @@ public class NotificationWork {
 	private String senderFriendly;
 	private String sender;
 	private String attachment;
-	
+	private Integer priority;
 	
 
 	public NotificationLineEntity getNotificationLineEntity() {
@@ -49,6 +49,12 @@ public class NotificationWork {
 	}
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+	public Integer getPriority() {
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 	
