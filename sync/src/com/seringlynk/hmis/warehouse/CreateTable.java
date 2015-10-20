@@ -13,8 +13,7 @@ import org.apache.hadoop.hbase.client.HTable;
 public class CreateTable {
 	public static void main(String args[]) {
 		CreateTable table = new CreateTable();
-		System.out.println("Creating table "+args[0]);
-		table.createTable(args[0]);
+		table.createTable("good");
 	}
 
 	public HTable createTable(String tableName) {
@@ -73,14 +72,17 @@ public class CreateTable {
 			   conf.set("hbase.zookeeper.property.clientPort");"2181"); */
 			HBaseAdmin admin = new HBaseAdmin(conf); 
 			//if (!admin.isTableAvailable(tableName)) {
-				HTableDescriptor tableDescriptor = new HTableDescriptor(
-						tableName);
+				
 				
 				for(String familyname : tablesList) {
-					tableDescriptor.addFamily(new HColumnDescriptor(familyname));
+					HTableDescriptor tableDescriptor = new HTableDescriptor(
+							familyname);
+					tableDescriptor.addFamily(new HColumnDescriptor("CF"));
+					admin.createTable(tableDescriptor);
+					System.out.println("Table ::"+familyname +"created.");
 				}
-				admin.createTable(tableDescriptor);
-				System.out.println("Table ::"+tableName +"created.");
+				
+				
 //			} else {
 //				System.out.println("Table already existing");
 //			}

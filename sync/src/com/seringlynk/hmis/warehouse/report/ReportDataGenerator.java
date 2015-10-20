@@ -5,21 +5,53 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.filter.CompareFilter;
+import org.apache.hadoop.hbase.filter.CompareFilter.CompareOp;
+import org.apache.hadoop.hbase.filter.SingleColumnValueFilter;
+import org.apache.hadoop.hbase.filter.SubstringComparator;
+import org.apache.hadoop.hbase.util.Bytes;
 
-import com.servinglynk.hmis.warehouse.model.Project;
+import com.servinglynk.hmis.warehouse.model.Client;
 
 public class ReportDataGenerator<T> {
 	
-	public T getResult(String rowKey,String tableName,String familyName, T t) {
+	public void getAllResults(String tableName) {
 		HTable table = null;
+		try {
+			Configuration conf = HBaseConfiguration.create();
+			table = new HTable(conf, tableName);
+		  Scan s = new Scan();
+          ResultScanner ss = table.getScanner(s);
+          for(Result r:ss){
+              for(KeyValue kv : r.raw()){
+                 System.out.print(new String(kv.getRow()) + " ");
+                 System.out.print(new String(kv.getFamily()) + ":");
+                 System.out.print(new String(kv.getQualifier()) + " ");
+                 System.out.print(kv.getTimestamp() + " ");
+                 System.out.println(new String(kv.getValue()));
+              }
+          }
+		}catch(Exception ex) {
+			
+		}
+	}
+	
+	public List<T> getResult(String rowKey,String tableName,String familyName, Class<T> tClass) {
+		HTable table = null;
+		List<T> tList = new ArrayList<T>();
 		try {
 			Configuration conf = HBaseConfiguration.create();
 			table = new HTable(conf, tableName);
@@ -27,127 +59,127 @@ public class ReportDataGenerator<T> {
 			    Result resultWithKey = table.get(get);
 			    get.addFamily(familyName.getBytes());
 			    Result rs = table.get(get);
-			  //  T t = new T();
-		    	Field[] fields = Project.class.getFields();
-		    	for(Field field : fields) {
-			 		System.out.println("Field is hydrated :"+field.getName()+" type"+field.getType());
-			 		byte[] value = rs.getValue("Project".getBytes(), field.getName().getBytes());
-			 		if(value !=null) {
-			 			if(field.getType().isAssignableFrom(java.util.UUID.class)) {
-			 				field.set(t,getGuidFromByteArray(value));
-				 		}else{
-				 			if(field.getType().isAssignableFrom(java.sql.Timestamp.class)) {
-				 				//field.set(project,getValue(value.toString()));
-				 				
-				 			} else{
-				 				field.set(t,new String(value));
-				 			}
-				 			
-				 		}
-			 		}
-		    	}
-			 	System.out.println("Project is hydrated :"+t.toString());
-			 	return t;
-			 	/*
-			    for (KeyValue keyVal : rs.raw()) {
-			    	String key = new String(keyVal.getQualifier());
-			        String holdvalue = new String(keyVal.getValue());
-			        System.out.println("Key is :"+key+" Value: "+holdvalue);
-			        // populate the pojo for the report here..
-			     // print a report
-					// email the report
-			    }
-			    */
-		/* SingleColumnValueFilter filter = new SingleColumnValueFilter(
-			      Bytes.toBytes("Project"),
-			      Bytes.toBytes("projectname"),
-			      CompareFilter.CompareOp.EQUAL,
-			      new SubstringComparator("APR - Services Only"));
-			    filter.setFilterIfMissing(true);
-
-			    Scan scan = new Scan();
-			    scan.setFilter(filter);
-			    ResultScanner scanner = table.getScanner(scan);
-			    for (Result result : scanner) {
-			      for (KeyValue kv : result.raw()) {
-			        System.out.println("KV: " + kv + ", Value: " +
-			          Bytes.toString(kv.getValue()));
-			       
-			      }
-			    }
-			    scanner.close();
-			    */
+			    String previousKey = "";
+			    T t = tClass.newInstance();
+			    boolean isFirstRecord = true;
+		    	 for (KeyValue kv : rs.list()) {
+		    		 byte[] row = kv.getRow();
+		    		 //System.out.println("ROW Key::"+new String(row));	
+		    		 String currentKey = new String(row);
+		    	       //System.out.println("Key is " + ". kv: " +currentKey +" Value ::"+kv.getValue().toString());
+		    	       
+		    	       if(!currentKey.equals(previousKey) && !isFirstRecord) {
+		    	    	   System.out.println("New instance created...."+previousKey+" Current key"+kv.toString());
+		    	    	   tList.add(t);
+		    	    	   t = tClass.newInstance();
+		    	       }
+		    	       Field[] fields = tClass.getFields();
+				    	for(Field field : fields) {
+					 	//	System.out.println("Field is hydrated :"+field.getName()+" type"+field.getType());
+					 		byte[] resultValue = rs.getValue(familyName.getBytes(), field.getName().getBytes());
+					 		if(resultValue !=null) {
+					 			if(field.getType().isAssignableFrom(java.util.UUID.class)) {
+					 				field.set(t,getGuidFromByteArray(resultValue));
+						 		}else{
+						 			if(field.getType().isAssignableFrom(java.sql.Timestamp.class)) {
+						 				//field.set(project,getValue(value.toString()));
+						 			} else{
+						 				field.set(t,new String(resultValue));
+						 			}
+						 			
+						 		}
+					 		}
+		    	      }
+				    	previousKey = currentKey;
+				    	isFirstRecord = false;
+		      }
+		    	 tList.add(t);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return t;
-		
+		return tList;
 	}
 	
-	public static void main(String args[]) {
-		//Read Data from HBASE
+	public List<T> findScannedResult(String tableName,String columnFamily,String qualifier,String value,CompareOp compareOp, Class<T> tClass) {
 		HTable table = null;
+		List<T> tList = new ArrayList<T>();
 		try {
 			Configuration conf = HBaseConfiguration.create();
-			table = new HTable(conf, "hmis");
-			 Get get = new Get("cd2733e2-7fc1-4e33-a61e-8eb97718cbb0".getBytes());
-			    Result resultWithKey = table.get(get);
-			    get.addFamily("Project".getBytes());
-			    Result rs = table.get(get);
-			    Project project = new Project();
-		    	Field[] fields = Project.class.getFields();
-		    	
-			 	for(Field field : fields) {
-			 		System.out.println("Field is hydrated :"+field.getName()+" type"+field.getType());
-			 		byte[] value = rs.getValue("Project".getBytes(), field.getName().getBytes());
-			 		if(value !=null) {
-			 			if(field.getType().isAssignableFrom(java.util.UUID.class)) {
-			 				field.set(project,getGuidFromByteArray(value));
-				 		}else{
-				 			if(field.getType().isAssignableFrom(java.sql.Timestamp.class)) {
-				 				//field.set(project,getValue(value.toString()));
-				 				
-				 			} else{
-				 				field.set(project,new String(value));
-				 			}
-				 			
-				 		}
-			 		}
-			 		
-		    	}
-			 	System.out.println("Project is hydrated :"+project.getProjectname());
-			 	/*
-			    for (KeyValue keyVal : rs.raw()) {
-			    	String key = new String(keyVal.getQualifier());
-			        String holdvalue = new String(keyVal.getValue());
-			        System.out.println("Key is :"+key+" Value: "+holdvalue);
-			        // populate the pojo for the report here..
-			     // print a report
-					// email the report
-			    }
-			    */
-		/* SingleColumnValueFilter filter = new SingleColumnValueFilter(
-			      Bytes.toBytes("Project"),
-			      Bytes.toBytes("projectname"),
-			      CompareFilter.CompareOp.EQUAL,
-			      new SubstringComparator("APR - Services Only"));
-			    filter.setFilterIfMissing(true);
+			table = new HTable(conf, tableName);
+			SingleColumnValueFilter filter = new SingleColumnValueFilter(
+			      Bytes.toBytes(columnFamily),
+			      Bytes.toBytes(qualifier),
+			      compareOp,
+			      new SubstringComparator(value));
+					filter.setFilterIfMissing(true);
 
 			    Scan scan = new Scan();
 			    scan.setFilter(filter);
+			    scan.addFamily(Bytes.toBytes(columnFamily));
 			    ResultScanner scanner = table.getScanner(scan);
+			    System.out.println("Starting the scan.....");
+			    String previousKey = "";
+			    T t = null;
+			    boolean isFirstRecord = true;
 			    for (Result result : scanner) {
-			      for (KeyValue kv : result.raw()) {
-			        System.out.println("KV: " + kv + ", Value: " +
-			          Bytes.toString(kv.getValue()));
-			       
+			    	 for (      KeyValue kv : result.list()) {
+			    		 if(isFirstRecord) {
+			    			 t = tClass.newInstance();
+			    		 }
+			    		 byte[] row = kv.getRow();
+			    		 String currentKey = new String(row);
+			    	       if(!currentKey.equals(previousKey) && !isFirstRecord) {
+			    	    	   System.out.println("New instance created...."+previousKey+" Current key"+kv.toString());
+			    	    	   tList.add(t);
+			    	    	   t = tClass.newInstance();
+			    	       }
+			    	       Field[] fields = tClass.getFields();
+					    	for(Field field : fields) {
+						 	//	System.out.println("Field is hydrated :"+field.getName()+" type"+field.getType());
+						 		byte[] resultValue = result.getValue(columnFamily.getBytes(), field.getName().getBytes());
+						 		if(resultValue !=null) {
+						 			if(field.getType().isAssignableFrom(java.util.UUID.class)) {
+						 				field.set(t,getGuidFromByteArray(resultValue));
+							 		}else{
+							 			if(field.getType().isAssignableFrom(java.sql.Timestamp.class)) {
+							 				//field.set(project,getValue(value.toString()));
+							 			} else{
+							 				field.set(t,new String(resultValue));
+							 			}
+							 			
+							 		}
+						 		}
+			    	      }
+					    	previousKey = currentKey;
+					    	isFirstRecord = false;
 			      }
+			    		 tList.add(t);
+			    	 
 			    }
 			    scanner.close();
-			    */
-			  
-		}catch(Exception e) {
-			e.printStackTrace();
+			    table.close();
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+		return tList;
+	}
+	public static void main(String args[]) {
+		ReportDataGenerator<Client> clientGenerator = new ReportDataGenerator<Client>();
+		//clientGenerator.getResult("ce116a3de-36a5-4c3a-a6c3-4e0abb9562cc", "Client", "CF", client);
+		List<Client> clients = clientGenerator.findScannedResult("Client", "CF", "dob_data_quality", "9",CompareFilter.CompareOp.EQUAL,Client.class);
+		System.out.println("Size::"+clients.size());
+		for(Client client : clients) {
+			System.out.println("Name DAta Quality"+client.getDob_data_quality());
+			System.out.println("Name ID "+client.getId());
+		}
+		
+		List<Client> clientsZero = clientGenerator.findScannedResult("Client", "CF", "name_data_quality", "232",CompareFilter.CompareOp.EQUAL,Client.class);
+		System.out.println("Size::"+clientsZero.size());
+		if(clientsZero !=null) {
+			for(Client client : clientsZero) {
+				System.out.println("Name DAta Quality"+client.getName_data_quality());
+				System.out.println("Name SSN "+client.getSsn());
+			}
 		}
 		
 	}

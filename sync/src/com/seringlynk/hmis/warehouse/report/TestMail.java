@@ -1,22 +1,30 @@
-package com.servinglynk.hmis.warehouse.notification.carrier;
+package com.seringlynk.hmis.warehouse.report;
 
+import java.util.Calendar;
+import java.util.Properties;
 import java.util.Properties;
 
-import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
  
 /**
  * @author Crunchify.com
  * 
  */
  
-public class TestEmail {
+public class TestMail {
  
 	static Properties mailServerProperties;
 	static Session getMailSession;
@@ -28,7 +36,7 @@ public class TestEmail {
 	}
  
 	public static void generateAndSendEmail() throws AddressException, MessagingException {
- 
+		String filename = "/home/ubuntu/Project_Identifiers.pdf";
 		// Step1
 		System.out.println("\n 1st ===> setup Mail Server Properties..");
 		mailServerProperties = System.getProperties();
@@ -43,9 +51,28 @@ public class TestEmail {
 		generateMailMessage = new MimeMessage(getMailSession);
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("sandeep.dolia@gmail.com"));
 		generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("logicsandeep@yahoo.com"));
-		generateMailMessage.setSubject("Greetings from Crunchify..");
-		String emailBody = "Test email by Crunchify.com JavaMail API example. " + "<br><br> Regards, <br>Crunchify Admin";
-		generateMailMessage.setContent(emailBody, "text/html");
+		generateMailMessage.setSubject("Greetings from ServingLynk LLC");
+		String emailBody = "Please find your APR report for 2015 attached. " + "<br><br> Regards, <br>ServingLynk Admin";
+		 BodyPart messageBodyPart = new MimeBodyPart();
+
+	        messageBodyPart.setText(emailBody);
+
+	        Multipart multipart = new MimeMultipart();
+
+	        multipart.addBodyPart(messageBodyPart);
+
+	        messageBodyPart = new MimeBodyPart();
+
+	        DataSource source = new FileDataSource(filename);
+
+	        messageBodyPart.setDataHandler(new DataHandler(source));
+
+	        messageBodyPart.setFileName("APR_Report_"+Calendar.getInstance().getTime()+".pdf");
+
+	        multipart.addBodyPart(messageBodyPart);
+
+	        generateMailMessage.setContent(multipart);
+		//generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("Mail Session has been created successfully..");
  
 		// Step3
@@ -54,7 +81,7 @@ public class TestEmail {
  
 		// Enter your correct gmail UserID and Password
 		// if you have 2FA enabled then provide App Specific Password
-		transport.connect("smtp.gmail.com", "<----- Your GMAIL ID ----->", "<----- Your GMAIL PASSWORD ----->");
+		transport.connect("smtp.gmail.com", "sdoliaric8@gmail.com", "Tomcat#2020");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();
 	}

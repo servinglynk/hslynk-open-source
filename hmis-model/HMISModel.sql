@@ -106,7 +106,7 @@ DROP TABLE IF EXISTS  live.hmis_user_project;
 DROP TABLE IF EXISTS  live.hmis_user_role_map;
 DROP TABLE IF EXISTS  live.hmis_verification;
 DROP TABLE IF EXISTS  live.hmis_release_of_info;
-
+DROP TABLE IF EXISTS  live.report_master;
 
 -- Table: "live"."client"
 
@@ -3029,7 +3029,23 @@ WITH (
   OIDS=FALSE
 );
 
-
+CREATE TABLE live.report_master
+(
+  id serial NOT NULL,
+  email text,
+  emailsent boolean,
+  project_id uuid,
+  report text,
+  year int,
+  created_at timestamp,
+  created_by character varying(256),
+  modified_at timestamp,
+  modified_by character varying(256),
+  CONSTRAINT "REPORT_MASTER_ID" PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
 ALTER TABLE live.hmis_user ADD COLUMN created_by character varying(256);
 ALTER TABLE live.hmis_user ADD COLUMN modified_by character varying(256);
 ALTER TABLE live.hmis_user ADD COLUMN organization_id uuid;

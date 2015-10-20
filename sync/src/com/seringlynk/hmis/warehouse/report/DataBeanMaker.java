@@ -5,27 +5,37 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import com.servinglynk.hmis.warehouse.model.BaseModel;
+import org.apache.hadoop.hbase.filter.CompareFilter;
+
+import com.servinglynk.hmis.warehouse.model.Client;
+import com.servinglynk.hmis.warehouse.model.Organization;
 import com.servinglynk.hmis.warehouse.model.Project;
+import com.servinglynk.hmis.warehouse.model.ReportMaster;
 
 public class DataBeanMaker {
-        public ArrayList<DataBean> getDataBeanList(BaseModel model) {
+        public ArrayList<DataBean> getDataBeanList(ReportMaster master) {
+        	 ReportDataGenerator<Project> reportDataProject = new ReportDataGenerator<Project>();
+             List<Project> projects = reportDataProject.findScannedResult("Project", "CF", "export_id",master.getProject_id().toString(), CompareFilter.CompareOp.EQUAL, Project.class);
+             Project project = projects.get(0);
+             Organization org = new ReportDataGenerator<Organization>().findScannedResult("Organization", "CF", "export_id",master.getProject_id().toString(), CompareFilter.CompareOp.EQUAL, Organization.class).get(0);
+             
                 ArrayList<DataBean> dataBeanList = new ArrayList<DataBean>();
                 dataBeanList.add(produce("1/1/2015",
                 		" ",
-                		((Project)model).getProjectname(),
+                		project.getProjectname(),
                 		"Everyone",
                 		"all grants",
                 		"Aggregate / summary",
                 		BigInteger.valueOf(0),
-                		BigInteger.valueOf(new Integer(((Project)model).getProjecttype())),
+                		BigInteger.valueOf(new Integer(project.getProjecttype())),
                 		BigInteger.valueOf(0),
                 		BigInteger.valueOf(0),
                 		"APR",
-                		"All Practical Reporting, Inc.",
+                		org.getOrganizationname(),
                 		BigInteger.valueOf(240),
-                		((Project)model).getProjectname(),
+                		project.getProjectname(),
                 		BigInteger.valueOf(0),
                 		BigInteger.valueOf(0),
                 		BigInteger.valueOf(0),
@@ -270,12 +280,12 @@ public class DataBeanMaker {
                 dataBean.setCountOctWoc(countOctWoc);
                 dataBean.setDestination(destination);
                 dataBean.setDisablingCond(disablingCond);
-                dataBean.setDob(dob);
+                dataBean.setDob(getClientSize("dob_data_quality","23"));
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
                 dataBean.setEndDate(dateFormat.format(date));
                 dataBean.setEthnicity(ethnicity);
-                dataBean.setFirstName(firstName);
+                dataBean.setFirstName(getClientSize("name_data_quality","99"));
                 dataBean.setGender(gender);
                 dataBean.setGrants(grants);
                 dataBean.setHmisProjectIdService(hmisProjectIdService);
@@ -284,12 +294,12 @@ public class DataBeanMaker {
                 dataBean.setIdentityProjectId(identityProjectId);
                 dataBean.setJanTotal(janTotal);
                 dataBean.setJulyTotal(julyTotal);
-                dataBean.setLastName(lastName);
+                dataBean.setLastName(getClientSize("name_data_quality","99")); 
                 dataBean.setLtsInEs(ltsInEs);
                 dataBean.setMdClientlocationForPe(mdClientlocationForPe);
                 dataBean.setMdDestination(mdDestination);
                 dataBean.setMdDisablingCond(mdDisablingCond);
-                dataBean.setMdDob(mdDob);
+                dataBean.setMdDob(getClientSize("dob_data_quality","99"));
                 dataBean.setMdEthnicity(mdEthnicity);
                 dataBean.setMdFirstName(mdFirstName);
                 dataBean.setMdGender(mdGender);
@@ -364,5 +374,10 @@ public class DataBeanMaker {
                 dataBean.setView(view);
 
                 return dataBean;
+        }
+        
+        private BigInteger getClientSize(String qualifier,String value)
+        {
+        	return BigInteger.valueOf(new ReportDataGenerator<Client>().findScannedResult("Client", "CF", qualifier,value, CompareFilter.CompareOp.EQUAL, Client.class).size());
         }
 }

@@ -26,7 +26,7 @@ public class BulkUploadHelperTest1 {
 	public void testCVSUpload() {
 		URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
-		upload.setInputPath("C:\\Tomcat\\backup\\CSV_files.zip");
+		upload.setInputPath(path.getPath());
 		Sources sources = helper.getSourcesFromFiles(upload);
 		assertNotNull(sources);
 		List<Client> clients = sources.getSource().getExport().getClient();

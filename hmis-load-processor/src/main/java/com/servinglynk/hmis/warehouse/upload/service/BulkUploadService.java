@@ -46,7 +46,7 @@ public class BulkUploadService extends ParentService implements IBulkUploadServi
 	}
 	
 	public List<Sync> getSyncs() {
-		return daoFactory.getBulkUploaderWorkerDao().getSyncs();
+		return null;
 	}
 
 }
