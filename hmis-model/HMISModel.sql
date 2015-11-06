@@ -3036,7 +3036,7 @@ CREATE TABLE live.report_master
   emailsent boolean,
   project_id uuid,
   report text,
-  year int,
+  year text,
   created_at timestamp,
   created_by character varying(256),
   modified_at timestamp,

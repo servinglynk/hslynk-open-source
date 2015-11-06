@@ -335,6 +335,7 @@ mod.provider( '$routeSegment',
                     if(!angular.equals($routeSegment.$routeParams[name], $routeParams[name]))
                         result = true;
                 });
+				$("#butTopMenu").click();
             return result;
         }
 

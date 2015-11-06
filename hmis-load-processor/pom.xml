@@ -133,12 +133,12 @@
   <repository>
      <id>deployment</id>
      <name>Internal Releases</name>
-     <url>http://52.11.107.101:8080/nexus/content/repositories/releases/</url>
+     <url>http://52.32.191.18:8080/nexus/content/repositories/releases/</url>
   </repository>
   <snapshotRepository>
      <id>deployment</id>
      <name>Internal Releases</name>
-     <url>http://52.11.107.101:8080/nexus/content/repositories/snapshots/</url>
+     <url>http://52.32.191.18:8080/nexus/content/repositories/snapshots/</url>
   </snapshotRepository>
 </distributionManagement>
 </project>

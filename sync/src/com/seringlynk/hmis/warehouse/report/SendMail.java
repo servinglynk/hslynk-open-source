@@ -43,7 +43,7 @@ public class SendMail {
 		System.out.println("\n\n 2nd ===> get Mail Session..");
 		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 		generateMailMessage = new MimeMessage(getMailSession);
-		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("sandeep.dolia@gmail.com"));
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
 		generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("logicsandeep@yahoo.com"));
 		generateMailMessage.setSubject("Greetings from ServingLynk LLC");
 		String emailBody = "Please find your APR report for 2015 attached. " + " Regards, <br>ServingLynk Admin";

@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.upload.controller;
+package com.servinglynk.hmis.warehouse.upload.endpoint;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/mapper")
@@ -66,6 +67,14 @@ public class ReportMasterController {
 	}
 	
 	
+public static void main (String args[])
+{
+	
+ReportMasterController controller = new ReportMasterController();
+List<ReportMasterDTO> reportMaster = controller.getReportMaster();
+System.out.println("Report Master"+reportMaster.size());
+	
+}
 	@RequestMapping(value = "/getReportMaster", method = RequestMethod.GET)
 	public @ResponseBody
 	List<ReportMasterDTO> getReportMaster() {
@@ -75,13 +84,13 @@ public class ReportMasterController {
 			try {
 				connection = getConnection();
 
-				String queryString = "SELECT * FROM live.report_master" ;
+				String queryString = "SELECT * FROM live.report_master order by created_at desc" ;
 				PreparedStatement statement = connection.prepareStatement(queryString);
 				resultSet = statement.executeQuery();
 				
 				 while (resultSet.next()) {
 					 ReportMasterDTO reportMaster = new ReportMasterDTO();
-					 reportMaster.setProject_id(resultSet.getObject("export_id").toString());
+					 reportMaster.setProject_id(resultSet.getObject("project_id").toString());
 					 reportMaster.setReport(resultSet.getString("report"));
 					 reportMaster.setEmail(resultSet.getString("email"));
 					 reportMaster.setEmailsent(resultSet.getBoolean("emailsent"));

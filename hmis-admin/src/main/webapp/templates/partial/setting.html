@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"> Setting </h1>
+      <ol class="breadcrumb">
+        <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashborad">Dashboard</a> </li>
+        <li class="active"> <i class="fa fa-table"></i> Setting </li>
+      </ol>
+    </div>
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-12">
+      <form id="form" ng-submit="submitForm()" ng-controller="settingCtrl" enctype="multipart/form-data">
+        <div class="alert alert-success" ng-show="showSuccessAlert">
+          <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >X</button>
+         {{successTextAlert}} </div>
+         <div class="alert alert-warning" ng-show="showErrorAlert">
+          <button type="button" class="close" data-ng-click="switchBool('showErrorAlert')" >X</button>
+         {{errorTextAlert}} </div>
+        <ul>
+          <li>
+            <label> Sync Enable :</label>
+            <input style="height:20px;" ng-model="form.checkSyncEnable" type="checkbox" name="checkSyncEnable">
+          </li>
+          <li>
+            <label> </label>
+            <input type="submit" value="Save" ngClick="Submit" class="btn btn-lg btn-upload">
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>

@@ -1,0 +1,64 @@
+
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"> Manage Reports </h1>
+      <ol class="breadcrumb">
+        <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashborad">Dashboard</a> </li>
+        <li class="active"> <i class="fa fa-table"></i> Manage Reports </li>
+      </ol>
+    </div>
+  </div>
+  <!-- /.row  -->
+  <div class="row">
+    <div class="col-md-12 add">
+	
+    </div>
+    <div class="col-lg-12">
+         <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Reports</h3>
+        </div>
+        <div class="panel-body">
+      <div class="table-responsive" ng-show="filteredItems > 0">
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Email </th>
+              <th>Date</th>
+              <th>Year </th>
+           	  <th>Project  </th>
+              <th>Report  </th>
+              <th class="center">Is email sent</th>
+          
+            </tr>
+          </thead>
+     <tbody>
+            <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+              <td>{{data.email}}</td>
+              <td>{{data.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.project}}</td>
+              <td>{{data.report}}</td>
+              <td  class="center">{{data.emailsent}}</td>
+           
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="col-md-12" ng-show="filteredItems == 0">
+        <div class="col-md-12">
+          <h4>No file(s) found</h4>
+        </div>
+      </div>
+      <div class="col-md-12" ng-show="filteredItems > 0">
+        <div pagination="" page="currentPage" on-select-page="setPage(page)" boundary-links="true" total-items="filteredItems" items-per-page="entryLimit" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+      </div>
+      </div></div>
+    </div>
+  </div>
+
+
+</div>

@@ -160,12 +160,21 @@ ul li {
 	width:200px;
 }
 #form input {
-	max-width: 471px;
+	min-width: 200px;
 	height: 45px;
 	margin: 0 6px 15px;
 	border: 0;
 	border: 1px solid #CCC;
 	padding: 5px;
+}
+#form select {
+    /* background-color: #7c7c7c; */
+   min-width: 200px;
+    height: 45px;
+    margin: 0 6px 15px 6px;
+    border: 0px;
+    border: 1px solid #CCC;
+    padding: 5px;
 }
 input[type=file] {
 	display:inline-block;
@@ -209,4 +218,14 @@ input[type=file] {
 .badge {
 	background-color: #FFF;
 	color:grey;
+}
+#divBulkUpload,#divUploadFile,#divAuthenticate
+{
+	/*float:right;*/
+	margin:10px;
+}
+.required
+{
+	color:red;
+	padding-right:2px;
 }

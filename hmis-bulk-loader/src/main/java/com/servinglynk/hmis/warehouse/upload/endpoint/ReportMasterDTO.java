@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.upload.controller;
+package com.servinglynk.hmis.warehouse.upload.endpoint;
 
 import java.sql.Timestamp;
 

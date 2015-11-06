@@ -7,8 +7,17 @@
         <li class="active"> <i class="fa fa-dashboard"></i> Dashboard </li>
       </ol>
       <div class="floatright">
-        <button class="button-success pure-button">Service Success </button>
-        <button class="button-error pure-button">Service Error</button>
+        <div id="divBulkUpload"> Bulk Upload &nbsp;&nbsp;
+          <button class="button-success pure-button">Service Success</button>
+          <button class="button-error pure-button">Service Error</button></div>
+       
+        <div id="divUploadFile"> Dedup Service
+          <button class="button-success pure-button">Service Success</button>
+          <button class="button-error pure-button">Service Error</button></div>
+        
+        <div id="divAuthenticate"> Report Service
+          <button class="button-success pure-button">Service Success</button>
+          <button class="button-error pure-button">Service Error</button></div>
       </div>
     </div>
   </div>
@@ -20,7 +29,9 @@
           <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>Statistics Overview</h3>
         </div>
         <div class="panel-body">
-          <div ng-repeat="managefile in managefiles | orderBy:'-updateAt' | limitTo: 3" class="list-group"> <div class="list-group-item"> <span class="badge">{{managefile.updateAt | date:'yyyy-MM-dd HH:mm:ss'}}</span> <i class="fa fa-fw fa-calendar"></i>  {{managefile.status}} -  {{managefile.inputPath}}</div> </div>
+          <div ng-repeat="managefile in managefiles | orderBy:'-updateAt' | limitTo: 3" class="list-group">
+            <div class="list-group-item"> <span class="badge">{{managefile.updateAt | date:'yyyy-MM-dd HH:mm:ss'}}</span> <i class="fa fa-fw fa-calendar"></i> {{managefile.status}} -  {{managefile.inputPath}}</div>
+          </div>
         </div>
       </div>
     </div>
