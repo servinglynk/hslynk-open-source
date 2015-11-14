@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -93,4 +95,33 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition createHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition housingAssessmentDisposition){
+	       housingAssessmentDisposition.setId(UUID.randomUUID()); 
+	       insert(housingAssessmentDisposition);
+	       return housingAssessmentDisposition;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition updateHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition housingAssessmentDisposition){
+	       update(housingAssessmentDisposition);
+	       return housingAssessmentDisposition;
+	   }
+	   public void deleteHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition housingAssessmentDisposition){
+	       delete(housingAssessmentDisposition);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition) get(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition.class, housingAssessmentDispositionId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition> getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitHousingAssessmentDispositionsCount(UUID exitId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       return countRows(criteria);
+	   }
 }

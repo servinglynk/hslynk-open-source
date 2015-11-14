@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -14,7 +16,6 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
@@ -83,5 +84,33 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Site createSite(com.servinglynk.hmis.warehouse.model.live.Site site){
+	       site.setId(UUID.randomUUID()); 
+	       insert(site);
+	       return site;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Site updateSite(com.servinglynk.hmis.warehouse.model.live.Site site){
+	       update(site);
+	       return site;
+	   }
+	   public void deleteSite(com.servinglynk.hmis.warehouse.model.live.Site site){
+	       delete(site);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Site getSiteById(UUID siteId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Site) get(com.servinglynk.hmis.warehouse.model.live.Site.class, siteId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Site> getAllProjectCOCSites(UUID projectCocId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Site.class);
+	       criteria.createAlias("projectCoc", "projectCoc");
+	       criteria.add(Restrictions.eq("projectCoc.id", projectCocId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Site>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getProjectCOCSitesCount(UUID projectCocId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Site.class);
+	       criteria.createAlias("projectCoc", "projectCoc");
+	       criteria.add(Restrictions.eq("projectCoc.id", projectCocId));
+	       return countRows(criteria);
+	   }
 
 }

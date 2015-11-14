@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.Client;
 import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
@@ -55,9 +55,9 @@ public class HmisUserDaoImpl extends ParentDaoImpl implements HmisUserDao {
 	}
 	
 	public HmisUser findByUsername(String userName){
-		DetachedCriteria criteria= DetachedCriteria.forClass(AccountEntity.class);
+		DetachedCriteria criteria= DetachedCriteria.forClass(HmisUser.class);
 		criteria.add(Restrictions.eq("username",userName));
-		List<AccountEntity> accountEntities = (List<AccountEntity>)findByCriteria(criteria);
+		List<HmisUser> accountEntities = (List<HmisUser>)findByCriteria(criteria);
 		if(accountEntities.size()>0){
 			return getHmisUser(accountEntities.get(0).getId());
 		}

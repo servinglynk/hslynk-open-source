@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -116,5 +118,34 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits noncashbenefits){
+	       noncashbenefits.setId(UUID.randomUUID()); 
+	       insert(noncashbenefits);
+	       return noncashbenefits;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Noncashbenefits updateNoncashbenefits(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits noncashbenefits){
+	       update(noncashbenefits);
+	       return noncashbenefits;
+	   }
+	   public void deleteNoncashbenefits(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits noncashbenefits){
+	       delete(noncashbenefits);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Noncashbenefits getNoncashbenefitsById(UUID noncashbenefitsId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Noncashbenefits) get(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits.class, noncashbenefitsId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Noncashbenefits> getAllEnrollmentNoncashbenefits(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Noncashbenefits>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentNoncashbenefitsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

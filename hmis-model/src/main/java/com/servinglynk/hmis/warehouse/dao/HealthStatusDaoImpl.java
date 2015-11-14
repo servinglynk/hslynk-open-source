@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -99,4 +101,32 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.live.HealthStatus HealthStatus){
+	       HealthStatus.setId(UUID.randomUUID()); 
+	       insert(HealthStatus);
+	       return HealthStatus;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.HealthStatus updateHealthStatus(com.servinglynk.hmis.warehouse.model.live.HealthStatus HealthStatus){
+	       update(HealthStatus);
+	       return HealthStatus;
+	   }
+	   public void deleteHealthStatus(com.servinglynk.hmis.warehouse.model.live.HealthStatus HealthStatus){
+	       delete(HealthStatus);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.HealthStatus getHealthStatusById(UUID HealthStatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.HealthStatus) get(com.servinglynk.hmis.warehouse.model.live.HealthStatus.class, HealthStatusId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.HealthStatus> getAllEnrollmentHealthStatuses(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.HealthStatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.HealthStatus>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentHealthStatusesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.HealthStatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

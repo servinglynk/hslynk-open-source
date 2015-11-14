@@ -8,7 +8,7 @@
     	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  </scm>
   	<properties>
-		<parent-version>0.0.1-SNAPSHOT</parent-version>
+		<parent-version>0.0.1</parent-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
@@ -119,7 +119,7 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.2</version>
 		</dependency>
 <dependency>
 			<groupId>org.postgresql</groupId>

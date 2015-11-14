@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -93,4 +95,31 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		return null;
 	}
 
+	 public com.servinglynk.hmis.warehouse.model.live.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami){
+	       percentami.setId(UUID.randomUUID()); 
+	       insert(percentami);
+	       return percentami;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Percentami updatePercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami){
+	       update(percentami);
+	       return percentami;
+	   }
+	   public void deletePercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami){
+	       delete(percentami);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Percentami getPercentamiById(UUID percentamiId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Percentami) get(com.servinglynk.hmis.warehouse.model.live.Percentami.class, percentamiId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Percentami> getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Percentami.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Percentami>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentPercentamisCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Percentami.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

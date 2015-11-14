@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -81,5 +83,34 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		   public com.servinglynk.hmis.warehouse.model.live.Affiliation createAffiliation(com.servinglynk.hmis.warehouse.model.live.Affiliation affiliation){
+		       affiliation.setId(UUID.randomUUID()); 
+		       insert(affiliation);
+		       return affiliation;
+		   }
+		   public com.servinglynk.hmis.warehouse.model.live.Affiliation updateAffiliation(com.servinglynk.hmis.warehouse.model.live.Affiliation affiliation){
+		       update(affiliation);
+		       return affiliation;
+		   }
+		   public void deleteAffiliation(com.servinglynk.hmis.warehouse.model.live.Affiliation affiliation){
+		       delete(affiliation);
+		   }
+		   public com.servinglynk.hmis.warehouse.model.live.Affiliation getAffiliationById(UUID affiliationId){ 
+		       return (com.servinglynk.hmis.warehouse.model.live.Affiliation) get(com.servinglynk.hmis.warehouse.model.live.Affiliation.class, affiliationId);
+		   }
+		   public List<com.servinglynk.hmis.warehouse.model.live.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems){
+		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Affiliation.class);
+		       criteria.createAlias("projectId", "projectId");
+		       criteria.add(Restrictions.eq("projectId.id", projectId));
+		       return (List<com.servinglynk.hmis.warehouse.model.live.Affiliation>) findByCriteria(criteria,startIndex,maxItems);
+		   }
+		   public long getProjectAffiliationsCount(UUID projectId){
+		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Affiliation.class);
+		       criteria.createAlias("projectId", "projectId");
+		       criteria.add(Restrictions.eq("projectId.id", projectId));
+		       return countRows(criteria);
+		   }
+		
 }
 

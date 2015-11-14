@@ -26,7 +26,7 @@ public class UserProjectEntity extends BaseModel{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")
@@ -40,11 +40,11 @@ public class UserProjectEntity extends BaseModel{
 		this.id = id;
 	}
 
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
 
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 

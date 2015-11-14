@@ -36,12 +36,12 @@ public class AccountPreferenceEntity extends BaseModel{
 	
 	@OneToOne(fetch = FetchType.LAZY, optional=false)
 	@JoinColumn(name = "user_id", nullable=false, referencedColumnName="id")
-	private AccountEntity account;
-	public AccountEntity getAccount() {
+	private HmisUser account;
+	public HmisUser getAccount() {
 		return this.account;
 	}
  
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 

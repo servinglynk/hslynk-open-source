@@ -26,7 +26,7 @@ public class UserRoleMapEntity extends BaseModel{
 	 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = true)
-	private AccountEntity accountEntity;
+	private HmisUser accountEntity;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", nullable = true)
@@ -39,10 +39,10 @@ public class UserRoleMapEntity extends BaseModel{
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	public AccountEntity getAccountEntity() {
+	public HmisUser getAccountEntity() {
 		return accountEntity;
 	}
-	public void setAccountEntity(AccountEntity accountEntity) {
+	public void setAccountEntity(HmisUser accountEntity) {
 		this.accountEntity = accountEntity;
 	}
 	public RoleEntity getRoleEntity() {

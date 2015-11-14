@@ -22,7 +22,7 @@ public abstract class ClientModel {
 	}
 	
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	protected String getJsonFriendlyClassName(Class cls) {
 		String name = "";
 		XmlRootElement annotation = (XmlRootElement) cls.getAnnotation(XmlRootElement.class);

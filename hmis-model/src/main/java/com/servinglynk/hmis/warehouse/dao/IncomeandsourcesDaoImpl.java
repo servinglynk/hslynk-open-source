@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -143,4 +145,35 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.live.Incomeandsources incomeAndSource){
+	       incomeAndSource.setId(UUID.randomUUID()); 
+	       insert(incomeAndSource);
+	       return incomeAndSource;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Incomeandsources updateIncomeAndSource(com.servinglynk.hmis.warehouse.model.live.Incomeandsources incomeAndSource){
+	       update(incomeAndSource);
+	       return incomeAndSource;
+	   }
+	   public void deleteIncomeAndSource(com.servinglynk.hmis.warehouse.model.live.Incomeandsources incomeAndSource){
+	       delete(incomeAndSource);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Incomeandsources getIncomeAndSourceById(UUID incomeAndSourceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Incomeandsources) get(com.servinglynk.hmis.warehouse.model.live.Incomeandsources.class, incomeAndSourceId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Incomeandsources> getAllEnrollmentIncomeAndSources(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Incomeandsources.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Incomeandsources>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentIncomeAndSourcesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Incomeandsources.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

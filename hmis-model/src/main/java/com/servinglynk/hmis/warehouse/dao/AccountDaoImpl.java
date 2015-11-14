@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.ProfileACLEntity;
 import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
 
@@ -16,52 +16,52 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 
 	
 	@SuppressWarnings("unchecked")
-	public AccountEntity findByUsername(String userName){
-		DetachedCriteria criteria= DetachedCriteria.forClass(AccountEntity.class);
+	public HmisUser findByUsername(String userName){
+		DetachedCriteria criteria= DetachedCriteria.forClass(HmisUser.class);
 		criteria.add(Restrictions.eq("username",userName));
-		List<AccountEntity> accounts = (List<AccountEntity>) findByCriteria(criteria);
+		List<HmisUser> accounts = (List<HmisUser>) findByCriteria(criteria);
 		if(accounts.size()>0) return accounts.get(0);
 		return null;
 	}
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<AccountEntity> findByExternalIds(List<String> externalIds, int startIndex, int maxItems) {
-		DetachedCriteria criteria= DetachedCriteria.forClass(AccountEntity.class);
+	public List<HmisUser> findByExternalIds(List<String> externalIds, int startIndex, int maxItems) {
+		DetachedCriteria criteria= DetachedCriteria.forClass(HmisUser.class);
 		criteria.add(Restrictions.eq("externalIds",externalIds));
 		
-		return (List<AccountEntity>)findByCriteria(criteria,startIndex,maxItems);
+		return (List<HmisUser>)findByCriteria(criteria,startIndex,maxItems);
 	}
 	
-	public AccountEntity findByUserId(UUID userId){
-		return (AccountEntity) get(AccountEntity.class,userId);
+	public HmisUser findByUserId(UUID userId){
+		return (HmisUser) get(HmisUser.class,userId);
 	}
 	
 	
 	
-	public AccountEntity createAccount(AccountEntity account){
+	public HmisUser createAccount(HmisUser account){
 		insert(account);
 		return account;
 	}
 	
 	
-	public AccountEntity updateAccount(AccountEntity account){
+	public HmisUser updateAccount(HmisUser account){
 		update(account);
 		return account;
 	}
 
 
-	public void deleteAccount(AccountEntity account){
+	public void deleteAccount(HmisUser account){
 		delete(account);
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public AccountEntity findByVerificationId(UUID id) {
-	DetachedCriteria criteria = DetachedCriteria.forClass(AccountEntity.class);
+	public HmisUser findByVerificationId(UUID id) {
+	DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 	criteria.createAlias("verification", "verification");
 	criteria.add(Restrictions.eq("verification.id",id));
-	List<AccountEntity> accounts = (List<AccountEntity>) findByCriteria(criteria);
+	List<HmisUser> accounts = (List<HmisUser>) findByCriteria(criteria);
 	if(accounts.size()>0) return accounts.get(0);
 	return null;
 	}
@@ -108,13 +108,13 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<AccountEntity> getAllUsersByOranization(UUID organizationId){
-		DetachedCriteria criteria = DetachedCriteria.forClass(AccountEntity.class);
+	public List<HmisUser> getAllUsersByOranization(UUID organizationId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 		criteria.createAlias("organization","organization");
 		
 		criteria.add(Restrictions.eq("organization.id", organizationId));
 		
-		return (List<AccountEntity>) findByCriteria(criteria);
+		return (List<HmisUser>) findByCriteria(criteria);
 	}
 
 }

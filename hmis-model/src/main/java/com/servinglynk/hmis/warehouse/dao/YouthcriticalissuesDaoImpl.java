@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -139,5 +141,34 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues){
+	       youthCriticalIssues.setId(UUID.randomUUID()); 
+	       insert(youthCriticalIssues);
+	       return youthCriticalIssues;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues updateYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues){
+	       update(youthCriticalIssues);
+	       return youthCriticalIssues;
+	   }
+	   public void deleteYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues){
+	       delete(youthCriticalIssues);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues getYouthCriticalIssuesById(UUID youthCriticalIssuesId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues) get(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues.class, youthCriticalIssuesId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues> getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentYouthCriticalIssuessCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

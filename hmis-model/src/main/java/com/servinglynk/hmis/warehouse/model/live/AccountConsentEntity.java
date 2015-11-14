@@ -27,7 +27,7 @@ public class AccountConsentEntity extends BaseModel {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable=false, referencedColumnName="id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@ManyToOne
 	@JoinColumn(name = "trustedApp_id", nullable=false, referencedColumnName="id")
@@ -48,10 +48,10 @@ public class AccountConsentEntity extends BaseModel {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 	public TrustedAppEntity getTrustedApp() {

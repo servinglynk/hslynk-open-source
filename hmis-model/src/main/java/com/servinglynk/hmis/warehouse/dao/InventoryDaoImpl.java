@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -95,5 +97,33 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Inventory createInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory){
+	       inventory.setId(UUID.randomUUID()); 
+	       insert(inventory);
+	       return inventory;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory){
+	       update(inventory);
+	       return inventory;
+	   }
+	   public void deleteInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory){
+	       delete(inventory);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Inventory getInventoryById(UUID inventoryId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Inventory) get(com.servinglynk.hmis.warehouse.model.live.Inventory.class, inventoryId);
+	   }																
+	   public List<com.servinglynk.hmis.warehouse.model.live.Inventory> getAllProjectCocInventories(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Inventory.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Inventory>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getProjectCocInventoriesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Inventory.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -84,4 +86,31 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.live.Dateofengagement dateofengagement){
+	       dateofengagement.setId(UUID.randomUUID()); 
+	       insert(dateofengagement);
+	       return dateofengagement;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Dateofengagement updateDateofengagement(com.servinglynk.hmis.warehouse.model.live.Dateofengagement dateofengagement){
+	       update(dateofengagement);
+	       return dateofengagement;
+	   }
+	   public void deleteDateofengagement(com.servinglynk.hmis.warehouse.model.live.Dateofengagement dateofengagement){
+	       delete(dateofengagement);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Dateofengagement getDateofengagementById(UUID dateofengagementId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Dateofengagement) get(com.servinglynk.hmis.warehouse.model.live.Dateofengagement.class, dateofengagementId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Dateofengagement> getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Dateofengagement.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Dateofengagement>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentDateofengagementsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Dateofengagement.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

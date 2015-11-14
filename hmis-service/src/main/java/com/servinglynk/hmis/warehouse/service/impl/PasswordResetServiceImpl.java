@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.PasswordResetEntity;
 import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
 import com.servinglynk.hmis.warehouse.service.PasswordResetService;
@@ -30,7 +30,7 @@ public class PasswordResetServiceImpl extends ServiceBase implements PasswordRes
 		}
 		
 		// get user account
-		AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 
 		if (pAccount.getStatus().equalsIgnoreCase(ACCOUNT_STATUS_PENDING)) {
 			throw new AccountPendingException();

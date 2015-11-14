@@ -104,7 +104,7 @@ public class DeveloperCompanyEntity extends BaseModel {
 	}
 	@ManyToOne
 	@JoinColumn(name = "owner_user_id", nullable=false, referencedColumnName="id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@OneToMany(mappedBy = "developerCompany")
 	private List<DeveloperServiceEntity> services;
@@ -140,10 +140,10 @@ public class DeveloperCompanyEntity extends BaseModel {
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 	}
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 	public List<DeveloperServiceEntity> getServices() {

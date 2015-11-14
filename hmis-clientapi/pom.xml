@@ -164,22 +164,22 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-service</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.1</version>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-model</artifactId>
 			<version>${parent-version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>

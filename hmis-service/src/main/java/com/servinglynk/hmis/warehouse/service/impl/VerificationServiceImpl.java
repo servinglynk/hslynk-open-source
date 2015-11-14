@@ -49,7 +49,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 	 
 	public Account getAccountByVerfication(Verification verification) {
 		VerificationEntity pVerification = daoFactory.getVerificationDao().findByToken(verification.getToken());
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByVerificationId(pVerification.getId());
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByVerificationId(pVerification.getId());
 		return AccountConverter.convertToAccount(pAccount);
 	}
 
@@ -86,7 +86,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 		
 		if (pVerification.isStatusAccepted()) {
 			if (pVerification.getType().equalsIgnoreCase(VERIFICATION_TYPE_ACCOUNT_CREATION)) {
-				com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByVerificationId(pVerification.getId());
+				com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByVerificationId(pVerification.getId());
 				pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 				pAccount.setModifiedAt(new Date());
 				pAccount.setModifiedBy(auditServiceName);
@@ -126,7 +126,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 				pPasswordReset.setModifiedBy(auditServiceName);
 				daoFactory.getPasswordResetDao().updatePasswordReset(pPasswordReset);
 
-				com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = pPasswordReset.getAccount();
+				com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = pPasswordReset.getAccount();
 				pAccount.setPassword(HMISCryptographer.Encrypt(password));
 				pAccount.setModifiedAt(new Date());
 				pAccount.setModifiedBy(auditServiceName);
@@ -163,7 +163,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 				//get new username
 				String newUsername = accountDataChange.getNewUsername();
 				//get account	
-				com.servinglynk.hmis.warehouse.model.live.AccountEntity account = accountDataChange.getAccount();
+				com.servinglynk.hmis.warehouse.model.live.HmisUser account = accountDataChange.getAccount();
 				//change username
 				account.setUsername(newUsername);
 				//change account status
@@ -201,7 +201,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 			if (username == null)
 				throw new MissingParameterException("username is required");
 
-			com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+			com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 			if (pAccount == null)
 				throw new VerificationTargetNotFoundException("Verification Target  not found with user name "+username);
 

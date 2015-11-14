@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.service; 
 
 import java.util.UUID;
-import java.util.List;
 
 import com.servinglynk.hmis.warehouse.core.model.Organization;
 import com.servinglynk.hmis.warehouse.core.model.Organizations;

@@ -25,7 +25,7 @@ public class EmploymentConverter {
        employment.setEmployed(entity.getEmployed().name());
        employment.setEmploymentId(entity.getId());
        employment.setEmploymentType(entity.getEmploymentType().name());
-       employment.setInformationDate(Date.from(entity.getInformationDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+       employment.setInformationDate(Date.from(entity.getInformationDate().atZone(ZoneId.systemDefault()).toInstant()));
        employment.setNotEmployedReason(entity.getNotEmployedReason().name());
        return employment;
    }

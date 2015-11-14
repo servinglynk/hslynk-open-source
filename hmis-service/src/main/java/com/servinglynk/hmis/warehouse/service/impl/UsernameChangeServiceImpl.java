@@ -14,7 +14,7 @@ import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.UsernameChange;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.model.live.AccountDataChangeEntity;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
 import com.servinglynk.hmis.warehouse.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.service.exception.AccountAlreadyExistsException;
@@ -48,7 +48,7 @@ public class UsernameChangeServiceImpl extends ServiceBase implements UsernameCh
 			throw new InvalidParameterException("Invalid new username: " + usernameChange.getNewUsername());
 		}
 
-		AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(accountUserName);
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(accountUserName);
 		if (pAccount == null) {
 			throw new InvalidParameterException("There is no account for the username you want to change: " + accountUserName);
 		}
@@ -61,7 +61,7 @@ public class UsernameChangeServiceImpl extends ServiceBase implements UsernameCh
 		}
 
 		// is the future username already in use?
-		AccountEntity existingAccount = daoFactory.getAccountDao().findByUsername(usernameChange.getNewUsername());
+		HmisUser existingAccount = daoFactory.getAccountDao().findByUsername(usernameChange.getNewUsername());
 		if (existingAccount != null) {
 			throw new AccountAlreadyExistsException("Username already in use: " + usernameChange.getNewUsername());
 		}

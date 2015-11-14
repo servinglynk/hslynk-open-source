@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -93,5 +95,33 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.live.Sexualorientation sexualorientation){
+	       sexualorientation.setId(UUID.randomUUID()); 
+	       insert(sexualorientation);
+	       return sexualorientation;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Sexualorientation updateSexualorientation(com.servinglynk.hmis.warehouse.model.live.Sexualorientation sexualorientation){
+	       update(sexualorientation);
+	       return sexualorientation;
+	   }
+	   public void deleteSexualorientation(com.servinglynk.hmis.warehouse.model.live.Sexualorientation sexualorientation){
+	       delete(sexualorientation);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Sexualorientation getSexualorientationById(UUID sexualorientationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Sexualorientation) get(com.servinglynk.hmis.warehouse.model.live.Sexualorientation.class, sexualorientationId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Sexualorientation> getAllEnrollmentSexualorientations(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Sexualorientation.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Sexualorientation>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentSexualorientationsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Sexualorientation.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -109,4 +111,33 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions){
+	       exitPlansActions.setId(UUID.randomUUID()); 
+	       insert(exitPlansActions);
+	       return exitPlansActions;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Exitplansactions updateExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions){
+	       update(exitPlansActions);
+	       return exitPlansActions;
+	   }
+	   public void deleteExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions){
+	       delete(exitPlansActions);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Exitplansactions getExitPlansActionsById(UUID exitPlansActionsId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Exitplansactions) get(com.servinglynk.hmis.warehouse.model.live.Exitplansactions.class, exitPlansActionsId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Exitplansactions> getAllExitExitPlansActionss(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Exitplansactions.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Exitplansactions>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitExitPlansActionssCount(UUID exitId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Exitplansactions.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return countRows(criteria);
+	   }
 }

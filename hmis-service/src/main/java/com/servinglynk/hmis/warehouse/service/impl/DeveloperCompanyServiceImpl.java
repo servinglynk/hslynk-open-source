@@ -68,7 +68,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 	@Transactional
 	public DeveloperCompany createDeveloperCompany(DeveloperCompany developerCompany, String requestingService) {
 
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity account = daoFactory.getAccountDao()
+		com.servinglynk.hmis.warehouse.model.live.HmisUser account = daoFactory.getAccountDao()
 				.findByUsername(developerCompany.getOwner().getUsername());
 
 		if (account == null) {
@@ -157,7 +157,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 					"DeveloperCompany " + externalDeveloperCompanyId + " not found");
 		}
 
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao()
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao()
 				.findByUsername(developerAccount.getAccount().getUsername());
 
 		if (pAccount == null) {
@@ -204,7 +204,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 					"DeveloperCompany " + externalDeveloperCompanyId + " not found");
 		}
 
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao()
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao()
 				.findByUsername(username);
 
 		if (pAccount == null) {

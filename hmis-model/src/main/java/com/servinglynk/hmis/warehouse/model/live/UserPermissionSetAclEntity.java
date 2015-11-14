@@ -26,7 +26,7 @@ public class UserPermissionSetAclEntity extends BaseModel{
     
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="profile_id")
@@ -46,10 +46,10 @@ public class UserPermissionSetAclEntity extends BaseModel{
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 	public PermissionSetEntity getPermissionSet() {

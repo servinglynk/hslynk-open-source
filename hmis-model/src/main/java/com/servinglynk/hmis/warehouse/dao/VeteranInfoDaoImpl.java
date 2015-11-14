@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -156,4 +158,35 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	   public com.servinglynk.hmis.warehouse.model.live.VeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.live.VeteranInfo veteranInfo){
+	       veteranInfo.setId(UUID.randomUUID()); 
+	       insert(veteranInfo);
+	       return veteranInfo;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.VeteranInfo updateVeteranInfo(com.servinglynk.hmis.warehouse.model.live.VeteranInfo veteranInfo){
+	       update(veteranInfo);
+	       return veteranInfo;
+	   }
+	   public void deleteVeteranInfo(com.servinglynk.hmis.warehouse.model.live.VeteranInfo veteranInfo){
+	       delete(veteranInfo);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.VeteranInfo getVeteranInfoById(UUID veteranInfoId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.VeteranInfo) get(com.servinglynk.hmis.warehouse.model.live.VeteranInfo.class, veteranInfoId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.VeteranInfo> getAllClientVeteranInfos(UUID clientId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.VeteranInfo.class);
+	       criteria.createAlias("client", "client");
+	       criteria.add(Restrictions.eq("client.id", clientId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.VeteranInfo>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getClientVeteranInfosCount(UUID clientId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.VeteranInfo.class);
+	       criteria.createAlias("client", "client");
+	       criteria.add(Restrictions.eq("client.id", clientId));
+	       return countRows(criteria);
+	   }
 }

@@ -9,11 +9,13 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
 import com.servinglynk.hmis.warehouse.model.staging.Project;
@@ -94,5 +96,33 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		 * Then fetch data between last sync date time and between the time Sync Began.
 		 */
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Funder createFunder(com.servinglynk.hmis.warehouse.model.live.Funder funder){
+	       funder.setId(UUID.randomUUID()); 
+	       insert(funder);
+	       return funder;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Funder updateFunder(com.servinglynk.hmis.warehouse.model.live.Funder funder){
+	       update(funder);
+	       return funder;
+	   }
+	   public void deleteFunder(com.servinglynk.hmis.warehouse.model.live.Funder funder){
+	       delete(funder);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Funder getFunderById(UUID funderId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Funder) get(com.servinglynk.hmis.warehouse.model.live.Funder.class, funderId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Funder> getAllProjectFunders(UUID projectId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Funder.class);
+	       criteria.createAlias("projectid", "projectid");
+	       criteria.add(Restrictions.eq("projectid.id", projectId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Funder>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getProjectFundersCount(UUID projectId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Funder.class);
+	       criteria.createAlias("projectid", "projectid");
+	       criteria.add(Restrictions.eq("projectid.id", projectId));
+	       return countRows(criteria);
+	   }
 
 }

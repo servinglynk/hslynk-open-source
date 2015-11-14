@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -126,4 +127,32 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	       return countRows(criteria);
 	   }
 
+	   
+	   public com.servinglynk.hmis.warehouse.model.live.Projectcoc createProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc){
+	       projectcoc.setId(UUID.randomUUID()); 
+	       insert(projectcoc);
+	       return projectcoc;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Projectcoc updateProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc){
+	       update(projectcoc);
+	       return projectcoc;
+	   }
+	   public void deleteProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc){
+	       delete(projectcoc);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Projectcoc getProjectcocById(UUID projectcocId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Projectcoc) get(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class, projectcocId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Projectcoc> getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class);
+	       criteria.createAlias("projectid", "projectid");
+	       criteria.add(Restrictions.eq("projectid.id", projectId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Projectcoc>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getProjectProjectcocsCount(UUID projectId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class);
+	       criteria.createAlias("projectid", "projectid");
+	       criteria.add(Restrictions.eq("projectid.id", projectId));
+	       return countRows(criteria);
+	   }
 }

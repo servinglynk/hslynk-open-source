@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppExce
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundException;
 import com.servinglynk.hmis.warehouse.model.live.AccountConsentEntity;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyAccountEntity;
@@ -127,7 +127,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		
 		//validateGrantType(trustedAppEntity, grantType, accessType);
 		
-		AccountEntity pAccount = authenticateUser(authenticationToken);
+		HmisUser pAccount = authenticateUser(authenticationToken);
 		
 		if (!trustedAppEntity.getStatus().equalsIgnoreCase(TRUSTEDAPP_STATUS_ACTIVE)) {
 			logger.debug("trustedApp {} is not DISABLED, nor ACTIVE so in between. It should be accessible only by developers", trustedAppId);
@@ -329,7 +329,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 	}
 	
 	
-	private AccountConsentEntity createConsent(AccountEntity pAccount, TrustedAppEntity trustedAppEntity, String caller)	{
+	private AccountConsentEntity createConsent(HmisUser pAccount, TrustedAppEntity trustedAppEntity, String caller)	{
 		AccountConsentEntity consent = new AccountConsentEntity();
 		consent.setAccount(pAccount);
 		consent.setTrustedApp(trustedAppEntity);
@@ -379,7 +379,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 	
 	
 
-	private AccountEntity authenticateUser(String authenticationToken)	{
+	private HmisUser authenticateUser(String authenticationToken)	{
 		
 		if (authenticationToken == null)	{
 			throw new UserAuthenticationFailedException();
@@ -402,7 +402,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		}
 		logger.debug("user associated to token {} is valid also", authenticationToken);
 		
-		AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
 		if (pAccount == null)	{
 			logger.error("account {} not found", session.getAccount().getUsername());
 			throw new AccountNotFoundException("AccountEntity not found");
@@ -412,7 +412,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 	}
 	
 	
-	private boolean developerCalling(AccountEntity accountCalling, TrustedAppEntity trustedAppEntity)	{
+	private boolean developerCalling(HmisUser accountCalling, TrustedAppEntity trustedAppEntity)	{
 		
 		if (trustedAppEntity.getService() == null)	{
 			logger.debug("trustedApp {} has no service attached", trustedAppEntity.getId());

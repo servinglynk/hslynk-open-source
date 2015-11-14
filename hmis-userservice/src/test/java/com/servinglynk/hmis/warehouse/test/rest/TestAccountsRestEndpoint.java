@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.test.rest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.UUID;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
@@ -22,8 +24,12 @@ import com.servinglynk.hmis.warehouse.core.model.Locale;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.PasswordReset;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
+import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
+import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.UsernameChange;
+import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.test.core.TestData;;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,6 +41,8 @@ public class TestAccountsRestEndpoint  {
 	protected final Log LOG = LogFactory.getLog(getClass());
 	
 	@Autowired WebApplicationContext wac;
+	
+	@Autowired ParentServiceFactory serviceFactory;
 	
 	
 	public Session createSession(String username,String pwd) throws Exception {
@@ -75,10 +83,27 @@ public class TestAccountsRestEndpoint  {
 		
 		
 		Account account = TestData.getAccount();
+		
+		account.setOrganizationId(UUID.fromString("fdeb1314-92e1-4336-9c4f-97696868e1c0"));
+		
+		Role role = new Role();
+		role.setId(UUID.fromString("33f2a166-4316-4e98-8a0a-7130eabce13e"));
+		
+		ProjectGroup projectGroup = new ProjectGroup();
+		projectGroup.setProjectGroupName("Project Group 1");
+		projectGroup.setProjectGroupDesc("Project Group 1 Desc");
+		Project project = new Project();
+		project.setProjectId(UUID.fromString("5b89157c-1f00-4948-ab9b-f02215ea3320"));
+		projectGroup.addProject(project);
+		projectGroup = serviceFactory.getProjectGroupService().createProjectGroup(projectGroup, "JUNIT Testing");
+		
+		account.setRole(role);
+		account.setProjectGroup(projectGroup);
 		System.out.println(account.toJSONString());
 
 		Account newAccount = executor.executePost("/accounts", account, Account.class);
-		System.out.println(account.toJSONString());
+	//	Errors newAccount = executor.executePost("/accounts", account, Errors.class);
+		System.out.println(newAccount.toJSONString());
 		assertNotNull(newAccount.getAccountId());
 	}
 	

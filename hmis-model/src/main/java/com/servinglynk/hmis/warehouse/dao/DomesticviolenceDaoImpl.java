@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -84,4 +86,32 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Domesticviolence createDomesticViolence(com.servinglynk.hmis.warehouse.model.live.Domesticviolence domesticViolence){
+	       domesticViolence.setId(UUID.randomUUID()); 
+	       insert(domesticViolence);
+	       return domesticViolence;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Domesticviolence updateDomesticViolence(com.servinglynk.hmis.warehouse.model.live.Domesticviolence domesticViolence){
+	       update(domesticViolence);
+	       return domesticViolence;
+	   }
+	   public void deleteDomesticViolence(com.servinglynk.hmis.warehouse.model.live.Domesticviolence domesticViolence){
+	       delete(domesticViolence);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Domesticviolence getDomesticViolenceById(UUID domesticViolenceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Domesticviolence) get(com.servinglynk.hmis.warehouse.model.live.Domesticviolence.class, domesticViolenceId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Domesticviolence> getAllEnrollmentDomesticViolences(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Domesticviolence.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Domesticviolence>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentDomesticViolencesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Domesticviolence.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
+	
 }

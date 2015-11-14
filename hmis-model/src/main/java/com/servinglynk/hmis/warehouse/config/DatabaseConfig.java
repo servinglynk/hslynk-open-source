@@ -428,4 +428,9 @@ public class DatabaseConfig {
 	public BulkUploadHelper bulkUploadHelper() {
 		return new BulkUploadHelper();
 	}
+	
+	@Bean
+	public ProjectGroupDaoImpl projectGroupDao(){
+		return new ProjectGroupDaoImpl();
+	}
 }

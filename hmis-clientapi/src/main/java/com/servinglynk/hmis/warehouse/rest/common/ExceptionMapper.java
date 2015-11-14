@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EmploymentNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ExitNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 
 
 public class ExceptionMapper {
@@ -36,7 +37,7 @@ public class ExceptionMapper {
 	public static final String ERR_CODE_ENROLLMENT_NOT_FOUND						= "ENROLLMENT_NOT_FOUND";
 	public static final String ERR_CODE_EXIT_NOT_FOUND								= "EXIT_NOT_FOUND";
 	public static final String ERR_CODE_EMPLOYMENT_NOT_FOUND						= "EMPLOYMENT_NOT_FOUND";
-	
+	public static final String ERR_CODE_PROJECT_NOT_FOUND						    = "PROJECT_NOT_FOUND";	
 	
 	// error messages
 	public static final String ERR_MSG_UNKNOWN = "unexpected error occurred";
@@ -101,6 +102,11 @@ public class ExceptionMapper {
 			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
 			r.setErrorCode(ERR_CODE_EMPLOYMENT_NOT_FOUND);
 			r.setErrorMessage(ex.getMessage());			
+		}catch(ProjectNotFoundException ex){
+			logger.info("ProjectNotFoundException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode(ERR_CODE_PROJECT_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());		
 		}
 		catch (Throwable t) {
         	

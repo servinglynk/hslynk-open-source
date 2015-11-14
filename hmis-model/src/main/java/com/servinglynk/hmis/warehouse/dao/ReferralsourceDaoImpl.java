@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -90,5 +92,33 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public com.servinglynk.hmis.warehouse.model.live.Referralsource createReferralsource(com.servinglynk.hmis.warehouse.model.live.Referralsource referralsource){
+	       referralsource.setId(UUID.randomUUID()); 
+	       insert(referralsource);
+	       return referralsource;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Referralsource updateReferralsource(com.servinglynk.hmis.warehouse.model.live.Referralsource referralsource){
+	       update(referralsource);
+	       return referralsource;
+	   }
+	   public void deleteReferralsource(com.servinglynk.hmis.warehouse.model.live.Referralsource referralsource){
+	       delete(referralsource);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Referralsource getReferralsourceById(UUID referralsourceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Referralsource) get(com.servinglynk.hmis.warehouse.model.live.Referralsource.class, referralsourceId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Referralsource> getAllEnrollmentReferralsources(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Referralsource.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Referralsource>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentReferralsourcesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Referralsource.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

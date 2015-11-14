@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -93,4 +95,31 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus){
+	       projectCompletionStatus.setId(UUID.randomUUID()); 
+	       insert(projectCompletionStatus);
+	       return projectCompletionStatus;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus updateProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus){
+	       update(projectCompletionStatus);
+	       return projectCompletionStatus;
+	   }
+	   public void deleteProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus){
+	       delete(projectCompletionStatus);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus getProjectCompletionStatusById(UUID projectCompletionStatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus) get(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus.class, projectCompletionStatusId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus> getAllExitProjectCompletionStatuses(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitProjectCompletionStatusesCount(UUID exitId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       return countRows(criteria);
+	   }
 }

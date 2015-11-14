@@ -32,7 +32,7 @@ public class RefreshToken extends BaseModel {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable=false, referencedColumnName="id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@ManyToOne
 	@JoinColumn(name = "trustedApp_id", nullable=false, referencedColumnName="id")
@@ -58,10 +58,10 @@ public class RefreshToken extends BaseModel {
 	public void setAuthCode(String authCode) {
 		this.authCode = authCode;
 	}
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 	public TrustedAppEntity getTrustedApp() {

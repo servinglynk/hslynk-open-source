@@ -3,22 +3,22 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
 
 public interface AccountDao {
 
-	public AccountEntity findByUsername(String userName);
-	public List<AccountEntity> findByExternalIds(List<String> externalIds, int startIndex, int maxItems);
-	public AccountEntity createAccount(AccountEntity account);
-	public AccountEntity updateAccount(AccountEntity account);
-	public void deleteAccount(AccountEntity account);
-	public AccountEntity findByVerificationId(UUID id);
-	AccountEntity findByUserId(UUID userId);
+	public HmisUser findByUsername(String userName);
+	public List<HmisUser> findByExternalIds(List<String> externalIds, int startIndex, int maxItems);
+	public HmisUser createAccount(HmisUser account);
+	public HmisUser updateAccount(HmisUser account);
+	public void deleteAccount(HmisUser account);
+	public HmisUser findByVerificationId(UUID id);
+	HmisUser findByUserId(UUID userId);
 	
 	public boolean checkApiMethodAccess(UUID profileId,UUID methodId);
 	public UserRoleMapEntity createUserRole(UserRoleMapEntity userRoleMapEntity);
 	public void daeleteUserRole(UserRoleMapEntity userRoleMapEntity);
 	public List<UserRoleMapEntity> getUserMapByUserId(UUID userId);
-	List<AccountEntity> getAllUsersByOranization(UUID organizationId);
+	List<HmisUser> getAllUsersByOranization(UUID organizationId);
 }

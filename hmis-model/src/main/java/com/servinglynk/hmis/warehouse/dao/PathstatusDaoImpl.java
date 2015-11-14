@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -90,5 +92,34 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
+	   public com.servinglynk.hmis.warehouse.model.live.Pathstatus createPathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus){
+	       pathstatus.setId(UUID.randomUUID()); 
+	       insert(pathstatus);
+	       return pathstatus;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Pathstatus updatePathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus){
+	       update(pathstatus);
+	       return pathstatus;
+	   }
+	   public void deletePathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus){
+	       delete(pathstatus);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Pathstatus getPathstatusById(UUID pathstatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Pathstatus) get(com.servinglynk.hmis.warehouse.model.live.Pathstatus.class, pathstatusId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Pathstatus> getAllEnrollmentPathstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Pathstatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Pathstatus>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentPathstatussCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Pathstatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

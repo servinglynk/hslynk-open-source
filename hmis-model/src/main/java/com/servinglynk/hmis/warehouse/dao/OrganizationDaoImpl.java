@@ -97,6 +97,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	}
 	
 	   public com.servinglynk.hmis.warehouse.model.live.Organization createOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+		   organization.setId(UUID.randomUUID());
 	       insert(organization);
 	       return organization;
 	   }

@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.rest.ApiMethodController;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.PermissionSetsController;
 import com.servinglynk.hmis.warehouse.rest.ProfilesController;
+import com.servinglynk.hmis.warehouse.rest.ProjectGroupController;
 import com.servinglynk.hmis.warehouse.rest.RolesController;
 import com.servinglynk.hmis.warehouse.rest.SessionsController;
 import com.servinglynk.hmis.warehouse.rest.SharingRulesController;
@@ -122,4 +123,8 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return new SharingRulesController();
 	}
 	
+	@Bean
+	public ProjectGroupController projectGroupController(){
+		return new ProjectGroupController();
+	}
 }

@@ -24,14 +24,24 @@ public class CreateMasterData {
 		Connection connection =getConnection();
 		Statement statement1= connection.createStatement();
 		statement1.execute(query);
+		System.out.println(query);
 		if(!connection.isClosed()) connection.close();		
 	}
-    String[] methods = {"CLIENT_API_CREATE_EMPLOYMENT","CLIENT_API_UPDATE_EMPLOYMENT","CLIENT_API_DELETE_EMPLOYMENT","CLIENT_API_GET_EMPLOYMENT_BY_ID","CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS"};
+    String[] methods = {"CLIENT_API_CREATE_VETERANINFO","CLIENT_API_UPDATE_VETERANINFO","CLIENT_API_DELETE_VETERANINFO","CLIENT_API_GET_VETERANINFO_BY_ID","CLIENT_API_GET_ALL_CLIENT_VETERANINFOS"};
+
+    String[] methodTypes = {"POST","PUT","DELETE","GET","GET"};
+    
+    
+    
+    
 	
 	public UUID createApiMethod() throws Exception{
+		System.out.println(methods.length);
+		int i=0;
+		while(i< methods.length){
 		UUID id=UUID.fromString(getUUID());
-		String methodName="CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS";
-		String type = "GET";
+		String methodName=methods[i];
+		String type = methodTypes[i];
 		UUID apiGroup =UUID.fromString("55269f08-273f-4f68-ae9b-f98467b4d091");
 		String query ="INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES "
 										+"('"+id+"', '"+methodName+"', '"+methodName+"', '"+methodName+"', '"+type+"',current_date, 'MASTER DATA', '"+apiGroup+"', 0, TRUE)";
@@ -41,7 +51,10 @@ public class CreateMasterData {
 		Statement statement1= connection.createStatement();
 		statement1.execute(query);
 		if(!connection.isClosed()) connection.close();		
+		i++;
 		return id;
+		}
+		return null;
 	}
 	
 	public void assignToAdmonProfile(UUID methodId) throws Exception{
@@ -97,10 +110,11 @@ public class CreateMasterData {
 	}
 	
 	public void createMasterUser(String profileId) throws Exception{
+		UUID orgId1 =createOrganizations("Organization 1");
 		UUID id=UUID.fromString(getUUID());
 		String password =HMISCryptographer.Encrypt("password");
-		String userQuery="INSERT INTO hmis_user( id, first_name, middle_name, last_name, name_suffix, ssn, dob,  date_created,  created_by, password, profile_id, status, username)"
-									+" VALUES ('"+id+"', 'Super Admin','Super Admin', 'Super Admin', 'Super Admin', '', current_date,current_date , 'MASTER DATA',  '"+password+"', '"+profileId+"', 'ACTIVE', 'superadmin@hmis.com')";
+		String userQuery="INSERT INTO hmis_user( id, first_name, middle_name, last_name, name_suffix, ssn, dob,  date_created,  created_by, password, profile_id, status, username,organization_id)"
+									+" VALUES ('"+id+"', 'Super Admin','Super Admin', 'Super Admin', 'Super Admin', '', current_date,current_date , 'MASTER DATA',  '"+password+"', '"+profileId+"', 'ACTIVE', 'superadmin@hmis.com','"+orgId1+"')";
 		Connection connection =getConnection();
 		Statement statement= connection.createStatement();
 		statement.execute(userQuery);
@@ -181,6 +195,23 @@ public class CreateMasterData {
 //			UUID methodId =	data.createApiMethod();
 //			data.assignToAdmonProfile(methodId);	
 	
+		    String[] methods = {"USR_CREATE_PROJECTGROUP","USR_UPDATE_ROJECTGROUP","USR_DELTEE_PROJECTGROUP","USR_GET_PROJECTGROUP_ID"};
+
+		    String[] methodTypes = {"POST","PUT","DELETE","GET"};
+
+			int i=0;
+			while(i< methods.length){
+			UUID pk=UUID.randomUUID();
+			String methodName=methods[i];
+			String type = methodTypes[i];
+			UUID apiGroup =UUID.fromString("55269f08-273f-4f68-ae9b-f98467b4d091");
+			String query ="INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES "
+											+"('"+pk+"', '"+methodName+"', '"+methodName+"', '"+methodName+"', '"+type+"',current_timestamp, 'MASTER DATA', '"+apiGroup+"', 0, TRUE)";
+			System.out.println(query+";");
+			i++;
+			}
+
+			
 			System.out.println(UUID.randomUUID());
 			
 		}catch(Exception e){

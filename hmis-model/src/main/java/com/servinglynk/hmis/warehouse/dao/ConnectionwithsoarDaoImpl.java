@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -90,4 +92,33 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar createConnectionwithsoar(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar connectionwithsoar){
+	       connectionwithsoar.setId(UUID.randomUUID()); 
+	       insert(connectionwithsoar);
+	       return connectionwithsoar;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar updateConnectionwithsoar(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar connectionwithsoar){
+	       update(connectionwithsoar);
+	       return connectionwithsoar;
+	   }
+	   public void deleteConnectionwithsoar(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar connectionwithsoar){
+	       delete(connectionwithsoar);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar getConnectionwithsoarById(UUID connectionwithsoarId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar) get(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar.class, connectionwithsoarId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar> getAllExitConnectionwithsoars(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitConnectionwithsoarsCount(UUID exitId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return countRows(criteria);
+	   }
 }

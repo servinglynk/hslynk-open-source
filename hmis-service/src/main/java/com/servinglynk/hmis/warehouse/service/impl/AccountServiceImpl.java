@@ -5,11 +5,11 @@ import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_ACT
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PENDING;
 import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_ACCOUNT_CREATION;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.hadoop.hbase.generated.thrift.thrift_jsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +22,20 @@ import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.Locale;
-import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
 import com.servinglynk.hmis.warehouse.model.live.AccountLockoutEntity;
 import com.servinglynk.hmis.warehouse.model.live.AccountPreferenceEntity;
 import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.Organization;
 import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
@@ -49,6 +49,7 @@ import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundExcepti
 import com.servinglynk.hmis.warehouse.service.exception.InvalidCurrentPasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.OrganizationNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 
@@ -80,7 +81,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		}
 		
 		
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = AccountConverter.convertToPersistentAccount(account, null);
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = AccountConverter.convertToPersistentAccount(account, null);
 	
 		Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
 
@@ -97,7 +98,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 	@Transactional
 	public Account findAccountByUsername(String username) {
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 
 		Account account = null;
 		if (pAccount != null) {
@@ -110,7 +111,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 	@Transactional
 	public Account loadAccountBasicInfoByUsername(String username) {
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 		if (pAccount == null) {
 			throw new AccountNotFoundException();
 		}
@@ -123,7 +124,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (!ValidationUtil.isValidEmail(username)) {
 			throw new InvalidParameterException("invalid username: " + username);
 		}
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 		if (pAccount == null) {
 			throw new AccountNotFoundException();
 		}
@@ -154,6 +155,10 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				if (!ValidationUtil.isValidEmail(username)) {
 					throw new InvalidParameterException("invalid username: " + username);
 				}
+				
+				if(!ValidationUtil.isValidEmail(account.getEmailAddress())){
+					throw new InvalidParameterException("invalid emailaddress: " + account.getEmailAddress());
+				}
 
 				// validate the password
 				String password = account.getPassword();
@@ -172,6 +177,15 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				if (ValidationUtil.isEmpty(lastName)) {
 					throw new MissingParameterException("last name is required.");
 				}
+				
+				if(ValidationUtil.isNull(account.getOrganizationId())){
+					throw new MissingParameterException("Organization details is required.");
+				}
+				
+				if(account.getRole() == null || ValidationUtil.isNull(account.getRole().getId())) {
+					throw new MissingParameterException("Role details is required");
+				}
+				
 
 				validateAccount(account);
 
@@ -209,7 +223,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				}
 
 				/* Create AccountEntity Preference for the AccountEntity */
-				com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = AccountConverter.convertToPersistentAccount(account, null);
+				com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = AccountConverter.convertToPersistentAccount(account, null);
 				pAccount.setStatus(ACCOUNT_STATUS_PENDING);
 				
 				pAccount.setPassword(HMISCryptographer.Encrypt(account.getPassword()));
@@ -244,14 +258,28 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				
 				pAccount.setProfileEntity(profileEntity);
 				
-/*				Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
+				Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
 
 				if(pOrganization==null) throw new OrganizationNotFound();
 
-				pAccount.setOrganization(pOrganization);*/
-
+				pAccount.setOrganization(pOrganization);
+				
+				
+				RoleEntity pRole = daoFactory.getRoleDao().getRoleByid(account.getRole().getId());
+				if(pRole ==  null) throw new RoleNotFoundException();
+				
+				UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
+				userRoleMapEntity.setAccountEntity(pAccount);
+				userRoleMapEntity.setRoleEntity(pRole);
+				
+				
+				ProjectGroupEntity pProjectGroup = daoFactory.getProjectGroupDao().getProjectGroupById(account.getProjectGroup().getProjectGroupId());
+				if(pProjectGroup == null) throw new ProjectGroupNotFound();
+				
+				pAccount.setProjectGroupEntity(pProjectGroup);
 				
 				daoFactory.getAccountDao().createAccount(pAccount);
+				daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
 				
 				account.setAccountId(pAccount.getId());
 				account.setStatus(pAccount.getStatus());
@@ -259,17 +287,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				account.setProfile(ProfileConverter.entityToModel(profileEntity));
 				// send the account creation notification
 				
-				Notification notification = new Notification();
-				ArrayList<String> recipients = new ArrayList<String>();
-					recipients.add("hmis.projects@broadcom.com");
-				
-					notification.setRecipients(recipients);
-					notification.setType("REPORT_NOTIFICATION");
-					notification.setMethod("EMAIL");
-					notification.setAttachment("D:\\text.txt");
-
-					//	restTemplate.postForObject(notificationurl+"/notifications",notification, Notification.class, new Object[]{}); 
-		
+			
 		return account;
 	}
 
@@ -280,7 +298,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 		if(profileEntity==null) throw new ProfileNotFoundException();
 		
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(account.getUsername());
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(account.getUsername());
 
 		if (!ValidationUtil.isValidMaxLen(account.getFirstName(), new Integer(validationBean.getFnMaxLength()))) {
 			throw new InvalidParameterException("First Name cannot be greater than 128 characters");
@@ -324,13 +342,13 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		pAccount.setModifiedBy(auditUser);
 		pAccount.setModifiedAt(new Date());
 		pAccount.setProfileEntity(profileEntity);
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity upAccount= daoFactory.getAccountDao().updateAccount(pAccount);
+		com.servinglynk.hmis.warehouse.model.live.HmisUser upAccount= daoFactory.getAccountDao().updateAccount(pAccount);
 		return (Account) AccountConverter.convertToAccount(upAccount);
 	}
 
 	@Transactional
 	public Preferences updatePreferences(Account account, String auditUser) {
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(account.getUsername());
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(account.getUsername());
 		AccountPreferenceEntity pAccountPreference = pAccount.getAccountPreference();
 
 		if (account.getPreferences() != null) {
@@ -368,7 +386,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	public Account updatePassword(String username, PasswordChange passwordChange,
 			String userService) {
 
-		com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 
 		// validate current password
 		if (!pAccount.getPassword().equalsIgnoreCase(HMISCryptographer.Encrypt(passwordChange.getcurrentPassword()))) {
@@ -431,7 +449,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	@Transactional
 	public void createUserRole(String username, Role role) {
 		
-		AccountEntity accountEntity= daoFactory.getAccountDao().findByUsername(username);
+		HmisUser accountEntity= daoFactory.getAccountDao().findByUsername(username);
 		if(accountEntity==null) throw new AccountNotFoundException("Account with "+username+" user name not found");
 		
 		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
@@ -446,7 +464,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 	@Transactional
 	public void updateUserRole(String username, Role role) {
-		AccountEntity accountEntity= daoFactory.getAccountDao().findByUsername(username);
+		HmisUser accountEntity= daoFactory.getAccountDao().findByUsername(username);
 		if(accountEntity==null) throw new AccountNotFoundException("Account with "+username+" user name not found");
 		
 		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
@@ -469,9 +487,9 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	@Transactional
 	public Accounts getUsersByOrganization(UUID organizationId){
 		Accounts accounts = new Accounts(); 
-		List<AccountEntity> accountEntities = daoFactory.getAccountDao().getAllUsersByOranization(organizationId);
+		List<HmisUser> accountEntities = daoFactory.getAccountDao().getAllUsersByOranization(organizationId);
 		
-		for(AccountEntity accountEntity : accountEntities){
+		for(HmisUser accountEntity : accountEntities){
 			accounts.addAccount(AccountConverter.convertToAccount(accountEntity));
 		}
 		

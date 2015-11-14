@@ -218,6 +218,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.live.Client createClient(
 			com.servinglynk.hmis.warehouse.model.live.Client client) {
+			client.setId(UUID.randomUUID());
 			insert(client);
 		return client;
 	}

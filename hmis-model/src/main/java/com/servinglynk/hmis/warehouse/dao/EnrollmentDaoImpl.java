@@ -263,6 +263,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.live.Enrollment createEnrollment(
 			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+			enrollment.setId(UUID.randomUUID());
 			insert(enrollment);
 		return enrollment;
 	}

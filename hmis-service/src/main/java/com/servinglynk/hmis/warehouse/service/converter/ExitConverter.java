@@ -18,7 +18,7 @@ public class ExitConverter {
    public static Exit entityToModel (com.servinglynk.hmis.warehouse.model.live.Exit entity) {
        Exit exit= new Exit();
        exit.setExitId(entity.getId());
-       exit.setExitDate(Date.from(entity.getExitdate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+       exit.setExitDate(Date.from(entity.getExitdate().atZone(ZoneId.systemDefault()).toInstant()));
        exit.setOtherDestination(entity.getOtherdestination());
        return exit;
    }

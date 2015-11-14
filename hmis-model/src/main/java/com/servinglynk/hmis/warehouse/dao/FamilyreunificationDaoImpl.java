@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -92,4 +94,34 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Familyreunification createFamilyReunification(com.servinglynk.hmis.warehouse.model.live.Familyreunification familyReunification){
+	       familyReunification.setId(UUID.randomUUID()); 
+	       insert(familyReunification);
+	       return familyReunification;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Familyreunification updateFamilyReunification(com.servinglynk.hmis.warehouse.model.live.Familyreunification familyReunification){
+	       update(familyReunification);
+	       return familyReunification;
+	   }
+	   public void deleteFamilyReunification(com.servinglynk.hmis.warehouse.model.live.Familyreunification familyReunification){
+	       delete(familyReunification);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Familyreunification getFamilyReunificationById(UUID familyReunificationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Familyreunification) get(com.servinglynk.hmis.warehouse.model.live.Familyreunification.class, familyReunificationId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Familyreunification> getAllExitFamilyReunifications(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Familyreunification.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Familyreunification>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitFamilyReunificationsCount(UUID exitId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Familyreunification.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       return countRows(criteria);
+	   }
 }

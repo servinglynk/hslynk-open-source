@@ -74,6 +74,10 @@ public class InformationReleasesServiceImpl extends ServiceBase implements Infor
 
 		if (ValidationUtil.isNull(enrollmentId))
 			throw new MissingParameterException("Enrollment Id required");
+		
+		Enrollment enrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+		
+		if(enrollment == null) throw new EnrollmentNotFound();
 
 		List<ReleaseOfInfoEntity> entities = daoFactory.getInformationReleasesDao().getreleaseOfInfoEntityByEnrollment(enrollmentId);
 

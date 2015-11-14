@@ -33,7 +33,7 @@ public class SessionEntity extends BaseModel {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@Column(name = "session_token")
 	private String sessionToken;
@@ -67,11 +67,11 @@ public class SessionEntity extends BaseModel {
 		this.id = id;
 	}
 
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return this.account;
 	}
 
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 

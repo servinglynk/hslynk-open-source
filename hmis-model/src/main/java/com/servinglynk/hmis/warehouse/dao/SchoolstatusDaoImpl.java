@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -99,4 +101,31 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus){
+	       schoolstatus.setId(UUID.randomUUID()); 
+	       insert(schoolstatus);
+	       return schoolstatus;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Schoolstatus updateSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus){
+	       update(schoolstatus);
+	       return schoolstatus;
+	   }
+	   public void deleteSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus){
+	       delete(schoolstatus);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Schoolstatus getSchoolstatusById(UUID schoolstatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Schoolstatus) get(com.servinglynk.hmis.warehouse.model.live.Schoolstatus.class, schoolstatusId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Schoolstatus> getAllEnrollmentSchoolstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Schoolstatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Schoolstatus>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentSchoolstatussCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Schoolstatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

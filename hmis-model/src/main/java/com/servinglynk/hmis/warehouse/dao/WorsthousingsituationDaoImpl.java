@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -91,5 +93,34 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation createWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation){
+	       worsthousingsituation.setId(UUID.randomUUID()); 
+	       insert(worsthousingsituation);
+	       return worsthousingsituation;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation updateWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation){
+	       update(worsthousingsituation);
+	       return worsthousingsituation;
+	   }
+	   public void deleteWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation){
+	       delete(worsthousingsituation);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation getWorsthousingsituationById(UUID worsthousingsituationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation) get(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation.class, worsthousingsituationId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation> getAllEnrollmentWorsthousingsituations(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentWorsthousingsituationsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

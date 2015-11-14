@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -97,4 +99,31 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus){
+	       rhybcpstatus.setId(UUID.randomUUID()); 
+	       insert(rhybcpstatus);
+	       return rhybcpstatus;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus updateRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus){
+	       update(rhybcpstatus);
+	       return rhybcpstatus;
+	   }
+	   public void deleteRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus){
+	       delete(rhybcpstatus);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus getRhybcpstatusById(UUID rhybcpstatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus) get(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus.class, rhybcpstatusId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus> getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentRhybcpstatussCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

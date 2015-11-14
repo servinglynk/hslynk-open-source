@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -98,5 +100,33 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Medicalassistance createMedicalassistance(com.servinglynk.hmis.warehouse.model.live.Medicalassistance medicalassistance){
+	       medicalassistance.setId(UUID.randomUUID()); 
+	       insert(medicalassistance);
+	       return medicalassistance;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Medicalassistance updateMedicalassistance(com.servinglynk.hmis.warehouse.model.live.Medicalassistance medicalassistance){
+	       update(medicalassistance);
+	       return medicalassistance;
+	   }
+	   public void deleteMedicalassistance(com.servinglynk.hmis.warehouse.model.live.Medicalassistance medicalassistance){
+	       delete(medicalassistance);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Medicalassistance) get(com.servinglynk.hmis.warehouse.model.live.Medicalassistance.class, medicalassistanceId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Medicalassistance> getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Medicalassistance.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Medicalassistance>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentMedicalassistancesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Medicalassistance.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

@@ -108,6 +108,9 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
 	@Autowired
 	private ExportDao exportDao;
+	
+	@Autowired
+	private ProjectGroupDao projectGroupDao;
 
 	/**
 	 * @return the hmisUserDao
@@ -1145,6 +1148,14 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	
 	public void setExportDao(ExportDao exportDao) {
 		this.exportDao = exportDao;
+	}
+
+	public ProjectGroupDao getProjectGroupDao() {
+		return projectGroupDao;
+	}
+
+	public void setProjectGroupDao(ProjectGroupDao projectGroupDao) {
+		this.projectGroupDao = projectGroupDao;
 	}
 	
 	

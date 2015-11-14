@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -93,4 +95,31 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate){
+	       residentialmoveindate.setId(UUID.randomUUID()); 
+	       insert(residentialmoveindate);
+	       return residentialmoveindate;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate updateResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate){
+	       update(residentialmoveindate);
+	       return residentialmoveindate;
+	   }
+	   public void deleteResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate){
+	       delete(residentialmoveindate);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate) get(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate.class, residentialmoveindateId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentResidentialmoveindatesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

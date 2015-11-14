@@ -37,7 +37,7 @@ public class PasswordResetEntity extends BaseModel{
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
-    private AccountEntity account;
+    private HmisUser account;
 
     @Column(name = "status")
     private String status;
@@ -68,11 +68,11 @@ public class PasswordResetEntity extends BaseModel{
         this.verification = verification;
     }
 
-    public AccountEntity getAccount() {
+    public HmisUser getAccount() {
         return this.account;
     }
 
-    public void setAccount(AccountEntity account) {
+    public void setAccount(HmisUser account) {
         this.account = account;
     }
     

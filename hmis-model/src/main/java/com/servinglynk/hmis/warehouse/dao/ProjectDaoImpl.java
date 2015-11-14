@@ -126,6 +126,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		return null;
 	}
 	   public com.servinglynk.hmis.warehouse.model.live.Project createProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+		   project.setId(UUID.randomUUID());
 	       insert(project);
 	       return project;
 	   }

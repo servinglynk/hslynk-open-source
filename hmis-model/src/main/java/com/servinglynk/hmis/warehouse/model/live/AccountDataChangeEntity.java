@@ -25,7 +25,7 @@ public class AccountDataChangeEntity extends BaseModel {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable=false, referencedColumnName="id")
-	private AccountEntity account;
+	private HmisUser account;
 	
 	@Column(name = "old_user_name", nullable=false)
 	private String oldUsername;
@@ -45,7 +45,7 @@ public class AccountDataChangeEntity extends BaseModel {
 		this.id = id;
 	}
 
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 	
@@ -61,7 +61,7 @@ public class AccountDataChangeEntity extends BaseModel {
 		this.newUsername = newUsername;
 	}
 
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
 

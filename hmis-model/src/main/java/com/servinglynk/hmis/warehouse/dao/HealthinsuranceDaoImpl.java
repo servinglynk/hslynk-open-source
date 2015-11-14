@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -121,4 +123,35 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Healthinsurance createHealthInsurance(com.servinglynk.hmis.warehouse.model.live.Healthinsurance healthInsurance){
+	       healthInsurance.setId(UUID.randomUUID()); 
+	       insert(healthInsurance);
+	       return healthInsurance;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Healthinsurance updateHealthInsurance(com.servinglynk.hmis.warehouse.model.live.Healthinsurance healthInsurance){
+	       update(healthInsurance);
+	       return healthInsurance;
+	   }
+	   public void deleteHealthInsurance(com.servinglynk.hmis.warehouse.model.live.Healthinsurance healthInsurance){
+	       delete(healthInsurance);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Healthinsurance getHealthInsuranceById(UUID healthInsuranceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Healthinsurance) get(com.servinglynk.hmis.warehouse.model.live.Healthinsurance.class, healthInsuranceId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Healthinsurance> getAllEnrollmentHealthInsurances(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Healthinsurance.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Healthinsurance>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentHealthInsurancesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Healthinsurance.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
+	
 }

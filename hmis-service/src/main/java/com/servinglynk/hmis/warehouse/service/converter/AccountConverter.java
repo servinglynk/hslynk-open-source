@@ -7,7 +7,7 @@ import com.servinglynk.hmis.warehouse.core.model.Account;
 public class AccountConverter {
 
 	
-	public static com.servinglynk.hmis.warehouse.core.model.Account convertToAccount(com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount) {
+	public static com.servinglynk.hmis.warehouse.core.model.Account convertToAccount(com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount) {
 		com.servinglynk.hmis.warehouse.core.model.Account account = convertToBasicAccount(pAccount);
 		
 		account.setUsername(pAccount.getUsername());
@@ -18,7 +18,7 @@ public class AccountConverter {
 	}
 	
 
-	public static com.servinglynk.hmis.warehouse.core.model.Account convertToBasicAccount(com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount) {
+	public static com.servinglynk.hmis.warehouse.core.model.Account convertToBasicAccount(com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount) {
 		com.servinglynk.hmis.warehouse.core.model.Account account = new com.servinglynk.hmis.warehouse.core.model.Account();
 		account.setAccountId(pAccount.getId());
 		account.setFirstName(pAccount.getFirstName());
@@ -30,9 +30,9 @@ public class AccountConverter {
 	}
 	
 
-	public static com.servinglynk.hmis.warehouse.model.live.AccountEntity convertToPersistentAccount(Account account, com.servinglynk.hmis.warehouse.model.live.AccountEntity pAccount) {		
+	public static com.servinglynk.hmis.warehouse.model.live.HmisUser convertToPersistentAccount(Account account, com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount) {		
 		if (pAccount == null) {
-			pAccount = new com.servinglynk.hmis.warehouse.model.live.AccountEntity();
+			pAccount = new com.servinglynk.hmis.warehouse.model.live.HmisUser();
 		}
 		if (ValidationUtil.isNotNull(account.getUsername())) {
 			pAccount.setUsername(account.getUsername());
@@ -51,6 +51,10 @@ public class AccountConverter {
 		}
 		if(ValidationUtil.isNotNull(account.getGender())){
 //			pAccount.setGender(account.getGender());
-		}				return pAccount;
+		}				if(ValidationUtil.isNotNull(account.getEmailAddress())){
+			pAccount.setEmailAddress(account.getEmailAddress());
+		}
+		
+		return pAccount;
 	}
 }

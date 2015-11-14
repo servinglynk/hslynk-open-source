@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -94,5 +96,33 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare createFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare formerWardChildWelfare){
+	       formerWardChildWelfare.setId(UUID.randomUUID()); 
+	       insert(formerWardChildWelfare);
+	       return formerWardChildWelfare;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare updateFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare formerWardChildWelfare){
+	       update(formerWardChildWelfare);
+	       return formerWardChildWelfare;
+	   }
+	   public void deleteFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare formerWardChildWelfare){
+	       delete(formerWardChildWelfare);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare getFormerWardChildWelfareById(UUID formerWardChildWelfareId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare) get(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare.class, formerWardChildWelfareId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare> getAllEnrollmentFormerWardChildWelfares(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentFormerWardChildWelfaresCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
 import com.servinglynk.hmis.warehouse.core.model.PermissionSet;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.live.PermissionSetAclEntity;
 import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
@@ -98,7 +98,7 @@ public class PermissionSetServiceImpl extends ServiceBase implements PermissionS
 	
 	@Transactional
 	public void assignPermissionSetTOUser(String userName,PermissionSet permissionSet,String caller){
-		AccountEntity accountEntity =  daoFactory.getAccountDao().findByUsername(userName);
+		HmisUser accountEntity =  daoFactory.getAccountDao().findByUsername(userName);
 
 		if(accountEntity==null) throw new UsernameNotFoundException(" User not found with user name "+userName);
 		

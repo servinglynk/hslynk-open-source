@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppExce
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundException;
 import com.servinglynk.hmis.warehouse.model.live.AccountConsentEntity;
-import com.servinglynk.hmis.warehouse.model.live.AccountEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
 import com.servinglynk.hmis.warehouse.model.live.RedirectUriEntity;
@@ -552,7 +552,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 			String caller) {
 
 		// check if account exists
-		AccountEntity pAccount = daoFactory.getAccountDao().findByUsername(username);
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 		if (pAccount == null)	{
 			throw new AccountNotFoundException("account " + username + " not found");
 		}

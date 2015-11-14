@@ -30,7 +30,7 @@ public class DeveloperCompanyAccount extends BaseModel {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable=false, referencedColumnName="id")
-	private AccountEntity account;
+	private HmisUser account;
 
 	@Column(name = "role", nullable=false)
 	private String role;
@@ -47,10 +47,10 @@ public class DeveloperCompanyAccount extends BaseModel {
 	public void setDeveloperCompany(DeveloperCompanyEntity developerCompany) {
 		this.developerCompany = developerCompany;
 	}
-	public AccountEntity getAccount() {
+	public HmisUser getAccount() {
 		return account;
 	}
-	public void setAccount(AccountEntity account) {
+	public void setAccount(HmisUser account) {
 		this.account = account;
 	}
 	public String getRole() {

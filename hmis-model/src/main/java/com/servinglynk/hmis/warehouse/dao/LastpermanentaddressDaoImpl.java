@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -76,5 +78,33 @@ public class LastpermanentaddressDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress createLastPermanentAddress(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress lastPermanentAddress){
+	       lastPermanentAddress.setId(UUID.randomUUID()); 
+	       insert(lastPermanentAddress);
+	       return lastPermanentAddress;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress updateLastPermanentAddress(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress lastPermanentAddress){
+	       update(lastPermanentAddress);
+	       return lastPermanentAddress;
+	   }
+	   public void deleteLastPermanentAddress(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress lastPermanentAddress){
+	       delete(lastPermanentAddress);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress getLastPermanentAddressById(UUID lastPermanentAddressId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress) get(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress.class, lastPermanentAddressId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress> getAllEnrollmentLastPermanentAddresss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentLastPermanentAddresssCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

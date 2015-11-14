@@ -36,8 +36,8 @@ public class ClientConverter {
 	
 	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.live.Client pClient){
 		Client client = new Client();
-	
-		client.setDob(Date.from(pClient.getDob().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+
+		client.setDob(Date.from(pClient.getDob().atZone(ZoneId.systemDefault()).toInstant()));
 		client.setDobDataQuality(pClient.getDobDataQuality().getValue());
 		client.setEthnicity(pClient.getEthnicity().getValue());
 		client.setFirstName(pClient.getFirstName());

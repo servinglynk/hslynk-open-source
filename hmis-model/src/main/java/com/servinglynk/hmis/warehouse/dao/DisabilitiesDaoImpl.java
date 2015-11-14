@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -107,4 +109,34 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	   public com.servinglynk.hmis.warehouse.model.live.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.live.Disabilities disabilities){
+	       disabilities.setId(UUID.randomUUID()); 
+	       insert(disabilities);
+	       return disabilities;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Disabilities updateDisabilities(com.servinglynk.hmis.warehouse.model.live.Disabilities disabilities){
+	       update(disabilities);
+	       return disabilities;
+	   }
+	   public void deleteDisabilities(com.servinglynk.hmis.warehouse.model.live.Disabilities disabilities){
+	       delete(disabilities);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.live.Disabilities getDisabilitiesById(UUID disabilitiesId){ 
+	       return (com.servinglynk.hmis.warehouse.model.live.Disabilities) get(com.servinglynk.hmis.warehouse.model.live.Disabilities.class, disabilitiesId);
+	   }
+	   
+	   @SuppressWarnings("unchecked")
+	   public List<com.servinglynk.hmis.warehouse.model.live.Disabilities> getAllEnrollmentDisabilitiess(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Disabilities.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.live.Disabilities>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentDisabilitiessCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Disabilities.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 }

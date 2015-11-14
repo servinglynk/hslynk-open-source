@@ -73,5 +73,6 @@ public interface ParentDaoFactory {
 	PermissionSetDao getPermissionSetDao();
 	SharingRuleDao getSharingRuleDao();
 	InformationReleasesDao getInformationReleasesDao();
+	ProjectGroupDao getProjectGroupDao();
 
 }
