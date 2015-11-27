@@ -71,8 +71,12 @@ import java.util.List;
 	        String colName = rs.getString(4);
 	        String dataType = rs.getString(6);
 	        System.out.println("Column :::" + colName.trim().toLowerCase()+" for table :"+tableName +" with datatype ::"+dataType );
-	        script= script + colName.trim().toLowerCase() +" string ,";
-	        hbaseScript= hbaseScript +"cf:"+ colName.trim().toLowerCase()+","; 
+	        if("timestamp".equals(dataType)) {
+	        	script= script + colName.trim().toLowerCase() +" timestamp ,";
+	        }else{
+	        	script= script + colName.trim().toLowerCase() +" string ,";	
+	        }
+	        hbaseScript= hbaseScript +"CF:"+ colName.trim().toLowerCase()+","; 
 	        if (colName.trim().toLowerCase().equals(colNameToSearchFor)){
 	          System.out.println("found '" + colNameToSearchFor + "' in " + tableName );
 	        }
