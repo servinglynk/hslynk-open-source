@@ -86,7 +86,7 @@ import java.util.List;
 	      finalQuery= finalQuery +" STORED BY \'org.apache.hadoop.hive.hbase.HBaseStorageHandler\' WITH SERDEPROPERTIES ";
 	      hbaseScript = hbaseScript.substring(0, hbaseScript.length() - 1) + "\")";
 	      finalQuery = finalQuery + hbaseScript ;
-	      finalQuery = finalQuery + " TBLPROPERTIES (\"hbase.table.name\" = \""+tableName+"\");";
+	      finalQuery = finalQuery + " TBLPROPERTIES (\"hbase.table.name\" = \""+capitalizeFirstLetter(tableName)+"\");";
 	      System.out.println("Final Query::"+finalQuery);
 	      writeToFile(finalQuery);
 	    }
@@ -132,5 +132,12 @@ import java.util.List;
 
 			System.out.println("Done");
 
+	    }
+	    
+	    public static String capitalizeFirstLetter(String original) {
+	        if (original == null || original.length() == 0) {
+	            return original;
+	        }
+	        return original.substring(0, 1).toUpperCase() + original.substring(1);
 	    }
 }

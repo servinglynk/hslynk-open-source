@@ -117,6 +117,13 @@
 	<classpathentry kind="lib" path="groovy-all-1.7.0.jar"/>
 	<classpathentry kind="lib" path="itext-2.1.7.jar"/>
 	
+	<classpathentry kind="lib" path="apache-log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="hive-exec-0.8.0.jar"/>
+	<classpathentry kind="lib" path="hive-jdbc-0.10.0.jar"/>
+	<classpathentry kind="lib" path="hive-metastore-0.5.0.jar"/>
+	<classpathentry kind="lib" path="hive-service-0.10.0.jar"/>
+	<classpathentry kind="lib" path="libfb303-0.9.0.jar"/>
+	
 	<classpathentry kind="lib" path="java-mail-1.4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
