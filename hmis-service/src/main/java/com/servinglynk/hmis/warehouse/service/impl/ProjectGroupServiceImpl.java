@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +19,13 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 
 	@Transactional
 	public ProjectGroup createProjectGroup(ProjectGroup projectGroup, String caller){
+		
+		long pgCount = daoFactory.getProjectGroupDao().getProjectGroupCount();
+		
 		ProjectGroupEntity projectGroupEntity = ProjectGroupConverter.modelToEntity(projectGroup,null);
-	//	projectGroupEntity.setInsertAt(new Date());
-	//	projectGroupEntity.setInsertBy(caller);
+		projectGroupEntity.setProjectGroupCode(generateProjectGroupCode(projectGroup.getProjectGroupName(),pgCount));
+		//projectGroupEntity.setInsertAt(new Date());
+		//projectGroupEntity.setInsertBy(caller);
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
 		
 		
@@ -93,5 +98,23 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		projectGroup = ProjectGroupConverter.entityToModel(projectGroupEntity);
 		
 		return projectGroup;
+	}
+	
+	public String generateProjectGroupCode(String projectName,long count){
+		String projectCode="";
+		count++;
+		String[] splited = projectName.split("\\s+");
+		if(splited.length >1){
+			projectCode = splited[0].substring(0,1) + splited[1].substring(0, 1);
+		}else{
+			projectCode = projectName.substring(0, 2);
+		}
+
+		if(count<=999){
+			projectCode += String.format("%04d", count);
+		}else{
+			projectCode += count;
+		}
+		return projectCode.toUpperCase();
 	}
 }

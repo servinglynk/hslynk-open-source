@@ -16,43 +16,52 @@ import org.hibernate.annotations.GenericGenerator;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="hmis_project_group")
-public class ProjectGroupEntity {
+public class ProjectGroupEntity  {
 
+
+	private UUID id;
+    
+
+	private String projectGroupName;
+
+
+    private String projectGroupDesc;
+    
+
+    private String projectGroupCode;
+    
+
+    List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
+    
     @javax.persistence.Id
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")
     @org.hibernate.annotations.Type(type="pg-uuid")
 	@Column(name = "id")
-	private UUID id;
-    
-    @Column(name="project_group_name")
-	private String projectGroupName;
-
-    @Column(name="project_group_desc")
-    private String projectGroupDesc;
-    
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="projectGroupEntity")
-    List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
-    
-    
     public UUID getId() {
 		return id;
 	}
 	public void setId(UUID id) {
 		this.id = id;
 	}
+	
+    @Column(name="project_group_name")
 	public String getProjectGroupName() {
 		return projectGroupName;
 	}
 	public void setProjectGroupName(String projectGroupName) {
 		this.projectGroupName = projectGroupName;
 	}
+	
+    @Column(name="project_group_desc")
 	public String getProjectGroupDesc() {
 		return projectGroupDesc;
 	}
 	public void setProjectGroupDesc(String projectGroupDesc) {
 		this.projectGroupDesc = projectGroupDesc;
 	}
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="projectGroupEntity")
 	public List<ProjectProjectGroupMapEntity> getProjectGroupMapEntities() {
 		return projectGroupMapEntities;
 	}
@@ -60,5 +69,11 @@ public class ProjectGroupEntity {
 		this.projectGroupMapEntities = projectGroupMapEntities;
 	}
 	
-	
+    @Column(name="project_group_code")
+	public String getProjectGroupCode() {
+		return projectGroupCode;
+	}
+	public void setProjectGroupCode(String projectGroupCode) {
+		this.projectGroupCode = projectGroupCode;
+	}
 }

@@ -2,6 +2,8 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.UUID;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
 
@@ -48,5 +50,12 @@ public class ProjectGroupDaoImpl extends QueryExecutorImpl implements ProjectGro
 	public void deleteProjectGroupMap(ProjectProjectGroupMapEntity entity){
 		delete(entity);
 	}
+	
+
+	   public long getProjectGroupCount(){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity.class);
+	       return countRows(criteria);
+	   }
+	   
 
 }

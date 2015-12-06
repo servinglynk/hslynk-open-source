@@ -15,4 +15,5 @@ public interface ProjectGroupDao {
 	com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity addProjectToProjectGroup( com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity projectGroupMapEntity);
 	com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity deleteProjectToProjectGroup( com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity projectGroupMapEntity);
 	void deleteProjectGroupMap(ProjectProjectGroupMapEntity entity);
+	long getProjectGroupCount();;
 }

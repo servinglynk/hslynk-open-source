@@ -3181,7 +3181,8 @@ CREATE TABLE live.hmis_project_group
 (
    id uuid, 
    project_group_name character varying(32), 
-   project_group_desc character varying(256), 
+   project_group_desc character varying(256),
+   project_group_code character varying(8),
    "INSERT_AT" timestamp without time zone, 
    "INSERT_BY" character varying(32), 
    "UPDATE_AT" timestamp without time zone, 
