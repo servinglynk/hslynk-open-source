@@ -1,8 +1,10 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.awt.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
@@ -28,7 +30,12 @@ public class ProjectGroupDaoImpl extends QueryExecutorImpl implements ProjectGro
 	
 	
 	public ProjectGroupEntity getProjectGroupById(UUID projectGroupId){
-		 return  (ProjectGroupEntity) get(ProjectGroupEntity.class, projectGroupId);
+		DetachedCriteria criteria = DetachedCriteria.forClass(ProjectGroupEntity.class);
+		criteria.add(Restrictions.eq("id",projectGroupId));
+		java.util.List<ProjectGroupEntity> projectGroupEntities = (java.util.List<ProjectGroupEntity>) findByCriteria(criteria);
+		if(projectGroupEntities.size()>0) return projectGroupEntities.get(0);
+		return null;
+		
 	}
 	
 	

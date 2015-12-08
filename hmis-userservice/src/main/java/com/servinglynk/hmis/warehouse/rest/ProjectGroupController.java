@@ -26,7 +26,7 @@ public class ProjectGroupController extends ControllerBase {
 	}
 	
 	@RequestMapping(value="/{projectgroupid}",method=RequestMethod.PUT)
-	@APIMapping(value="USR_UPDATE_ROJECTGROUP",checkSessionToken=true, checkTrustedApp=true)
+	@APIMapping(value="USR_UPDATE_PROJECTGROUP",checkSessionToken=true, checkTrustedApp=true)
 	public ProjectGroup updateProjectGroup(@PathVariable("projectgroupid") UUID projectgroupid  ,@RequestBody ProjectGroup projectGroup,HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getProjectGroupService().updateProjectGroup(projectgroupid,projectGroup, session.getAccount().getUsername());

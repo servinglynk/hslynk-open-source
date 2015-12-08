@@ -7,7 +7,12 @@ public class ProjectGroupConverter {
 
 	
 	public static ProjectGroup entityToModel(ProjectGroupEntity projectGroupEntity){
-		return null;
+		ProjectGroup projectGroup = new ProjectGroup();
+		projectGroup.setProjectGroupDesc(projectGroupEntity.getProjectGroupDesc());
+		projectGroup.setProjectGroupName(projectGroupEntity.getProjectGroupName());
+		projectGroup.setProjectGroupId(projectGroupEntity.getId());
+		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
+		return projectGroup;
 	}
 	
 	

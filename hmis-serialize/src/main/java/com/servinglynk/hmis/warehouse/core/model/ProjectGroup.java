@@ -13,6 +13,7 @@ public class ProjectGroup extends ClientModel {
 	private String projectGroupName;
 	private String projectGroupDesc;
 	private UUID projectGroupId;
+	private String projectGroupCode;
 	
 	@JsonProperty("projects")
 	List<Project> projects = new ArrayList<Project>();
@@ -51,5 +52,13 @@ public class ProjectGroup extends ClientModel {
 	
 	public void addProject(Project project){
 		this.projects.add(project);
+	}
+
+	public String getProjectGroupCode() {
+		return projectGroupCode;
+	}
+
+	public void setProjectGroupCode(String projectGroupCode) {
+		this.projectGroupCode = projectGroupCode;
 	}
 }

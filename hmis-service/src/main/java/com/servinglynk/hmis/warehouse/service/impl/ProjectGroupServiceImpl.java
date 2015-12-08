@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.service.converter.ProjectGroupConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
@@ -39,12 +40,12 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 			entity.setInsertBy(caller);
 			daoFactory.getProjectGroupDao().addProjectToProjectGroup(entity);
 		}
-		
+		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;
 	}
 	
-	
+	@Transactional
 	public ProjectGroup updateProjectGroup(UUID projectgroupid ,ProjectGroup projectGroup, String caller){
 		
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectgroupid);
@@ -75,7 +76,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 	}
 	
 	
-	
+	@Transactional
 	public ProjectGroup deleteProjectGroup(UUID projectGroupId){
 		
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectGroupId);
@@ -90,12 +91,15 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		return new ProjectGroup();
 	}
 	
-	
+	@Transactional
 	public ProjectGroup getProjectGroupById(UUID projectgroupid){
 		ProjectGroup projectGroup = new ProjectGroup();
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectgroupid);
 		if(projectGroupEntity == null) throw new ProjectGroupNotFound();	
 		projectGroup = ProjectGroupConverter.entityToModel(projectGroupEntity);
+		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
+			projectGroup.addProject(ProjectConverter.entityToModel(entity.getProject()));
+		}
 		
 		return projectGroup;
 	}
