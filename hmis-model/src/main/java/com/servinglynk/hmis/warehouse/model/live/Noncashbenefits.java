@@ -42,7 +42,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "noncashbenefits")
 @Table(name = "noncashbenefits", catalog = "hmis", schema = "live")
-public class Noncashbenefits implements Cloneable, Serializable {
+public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6493511274453583782L;

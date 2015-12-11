@@ -35,7 +35,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "domesticviolence")
 @Table(name = "domesticviolence", catalog = "hmis", schema = "live")
-public class Domesticviolence implements Cloneable, Serializable {
+public class Domesticviolence extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1553980337126312406L;

@@ -10,6 +10,7 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "veteran_info_staging")
 @Table(name = "veteran_info", catalog = "hmis", schema = "staging")
-public class VeteranInfo implements Cloneable, Serializable {
+public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6287250433537253318L;

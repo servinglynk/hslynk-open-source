@@ -30,6 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 
 /** 
@@ -40,7 +41,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
  */
 @Entity (name = "client_staging")
 @Table(name = "client", catalog = "hmis", schema = "staging")
-public class Client implements Cloneable, Serializable {
+public class Client extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6304318647555713317L;

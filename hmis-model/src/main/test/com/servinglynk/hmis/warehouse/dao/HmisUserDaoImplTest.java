@@ -25,7 +25,7 @@ public class HmisUserDaoImplTest {
 	public void test()
 	{
 		HmisUser user = new HmisUser();
-		user.setId(UUID.randomUUID());
+		//user.setId(UUID.randomUUID());
 		user.setFirstName("TEst");
 		dao.addHmisUser(user);
 		System.out.println(dao.getHmisUsers().size());

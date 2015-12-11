@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.staging.Affiliation;
 import com.servinglynk.hmis.warehouse.model.staging.Funder;
 import com.servinglynk.hmis.warehouse.model.staging.Projectcoc;
@@ -44,7 +45,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "project_staging")
 @Table(name = "project", catalog = "hmis", schema = "staging")
-public class Project implements Cloneable, Serializable {
+public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -7029415480218844556L;

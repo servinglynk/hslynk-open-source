@@ -36,6 +36,7 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesUnemploymentEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 
 /** 
@@ -46,7 +47,7 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
  */
 @Entity(name = "incomeandsources_staging")
 @Table(name = "incomeandsources", catalog = "hmis", schema = "staging")
-public class Incomeandsources implements Cloneable, Serializable {
+public class Incomeandsources extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -4984883027361158713L;

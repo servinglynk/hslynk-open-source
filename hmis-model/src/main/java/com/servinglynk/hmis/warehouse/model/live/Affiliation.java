@@ -30,7 +30,7 @@ import org.hibernate.proxy.HibernateProxy;
 		
 @Entity
 @Table(name = "affiliation", catalog = "hmis", schema = "live")
-public class Affiliation implements Cloneable, Serializable {
+public class Affiliation  extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -4677579144054660425L;

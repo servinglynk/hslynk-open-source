@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "funder_staging")
 @Table(name = "funder", catalog = "hmis", schema = "staging")
-public class Funder implements Cloneable, Serializable {
+public class Funder extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 3130486567455571039L;

@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "rhybcp_status_staging")
 @Table(name = "rhybcp_status", catalog = "hmis", schema = "staging")
-public class Rhybcpstatus implements Cloneable, Serializable {
+public class Rhybcpstatus extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -2991336675134814158L;

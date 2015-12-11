@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "site_staging")
 @Table(name = "site", catalog = "hmis", schema = "staging")
-public class Site implements Cloneable, Serializable {
+public class Site extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6352811751941522574L;

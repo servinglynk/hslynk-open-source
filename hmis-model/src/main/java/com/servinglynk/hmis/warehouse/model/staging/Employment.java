@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.model.staging;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "employment_staging")
 @Table(name = "employment", catalog = "hmis", schema = "staging")
-public class Employment implements Cloneable, Serializable {
+public class Employment extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6654649692481756031L;

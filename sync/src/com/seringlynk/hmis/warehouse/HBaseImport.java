@@ -21,7 +21,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 public class HBaseImport {
 
 	HBaseAdmin admin = null;
-    String host = "ec2-54-149-174-17.us-west-2.compute.amazonaws.com";
+    String host = "ec2-52-34-38-188.us-west-2.compute.amazonaws.com";
 	public HBaseImport() {
 
 	}
@@ -30,9 +30,9 @@ public class HBaseImport {
 		HTable table = null;
 		try {
 			Configuration conf = HBaseConfiguration.create();
-			/*.clear();
+			//.clear();
 			   conf.set("hbase.zookeeper.quorum", host);
-			   conf.set("hbase.zookeeper.property.clientPort","2181"); */
+			   conf.set("hbase.zookeeper.property.clientPort","2181"); 
 			HBaseAdmin admin = new HBaseAdmin(conf); 
 			//if (!admin.isTableAvailable(tableName)) {
 				HTableDescriptor tableDescriptor = new HTableDescriptor(

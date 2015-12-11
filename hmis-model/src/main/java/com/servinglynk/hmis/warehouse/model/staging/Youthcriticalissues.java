@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientationgenderidyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -58,7 +59,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "youthcriticalissues_staging")
 @Table(name = "youthcriticalissues", catalog = "hmis", schema = "staging")
-public class Youthcriticalissues implements Cloneable, Serializable {
+public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 4114356379054175522L;

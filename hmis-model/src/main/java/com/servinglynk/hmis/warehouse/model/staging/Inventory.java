@@ -23,6 +23,7 @@ import org.hibernate.proxy.HibernateProxy;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 
 /** 
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
  */
 @Entity(name = "inventory_staging")
 @Table(name = "inventory", catalog = "hmis", schema = "staging")
-public class Inventory implements Cloneable, Serializable{
+public class Inventory extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 5575541932820010068L;

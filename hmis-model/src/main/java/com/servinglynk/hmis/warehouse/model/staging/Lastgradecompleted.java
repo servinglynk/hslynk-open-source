@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "lastgradecompleted_staging")
 @Table(name = "lastgradecompleted", catalog = "hmis", schema = "staging")
-public class Lastgradecompleted implements Cloneable, Serializable {
+public class Lastgradecompleted extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8986397568918058625L;

@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.StateEnum;
  */
 @Entity(name = "last_perm_address")
 @Table(name = "last_perm_address", catalog = "hmis", schema = "live")
-public class LastPermAddress implements Cloneable, Serializable {
+public class LastPermAddress extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 1955232390265692952L;

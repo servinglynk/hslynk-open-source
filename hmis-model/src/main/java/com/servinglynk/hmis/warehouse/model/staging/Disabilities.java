@@ -6,6 +6,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "disabilities_staging")
 @Table(name = "disabilities", catalog = "hmis", schema = "staging")
-public class Disabilities implements Cloneable, Serializable {
+public class Disabilities extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6492609509614588571L;

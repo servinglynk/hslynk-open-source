@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.FormerwardchildwelfareChildwelfareyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardchildwelfareFormerwardchildwelfareEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "formerwardchildwelfare_staging")
 @Table(name = "formerwardchildwelfare", catalog = "hmis", schema = "staging")
-public class Formerwardchildwelfare implements Cloneable, Serializable{
+public class Formerwardchildwelfare extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3928627256475146486L;

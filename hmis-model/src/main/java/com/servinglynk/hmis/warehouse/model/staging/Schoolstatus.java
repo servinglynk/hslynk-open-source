@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+
 
 /** 
  * Object mapping for hibernate-handled table: schoolstatus.
@@ -31,7 +33,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "schoolstatus_staging")
 @Table(name = "schoolstatus", catalog = "hmis", schema = "staging")
-public class Schoolstatus implements Cloneable, Serializable{
+public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1396005946857287067L;

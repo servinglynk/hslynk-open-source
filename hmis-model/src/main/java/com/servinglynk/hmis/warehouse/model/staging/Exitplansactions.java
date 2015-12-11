@@ -9,6 +9,7 @@ import com.servinglynk.hmis.warehouse.enums.ExitplansactionsResourcepackageEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsScheduledfollowupcontactsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsTemporaryshelterplacementEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsWrittenaftercareplanEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -42,7 +43,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "exitplansactions_staging")
 @Table(name = "exitplansactions", catalog = "hmis", schema = "staging")
-public class Exitplansactions implements Cloneable, Serializable {
+public class Exitplansactions  extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 1785915543624160768L;

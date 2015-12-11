@@ -23,6 +23,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+
 
 /** 
  * Object mapping for hibernate-handled table: export.
@@ -34,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "export_staging")
 @Table(name = "export", catalog = "hmis", schema = "staging")
-public class Export implements Cloneable, Serializable {
+public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 42126664696688958L;

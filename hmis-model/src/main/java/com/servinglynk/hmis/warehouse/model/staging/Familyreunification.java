@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.FamilyreunificationFamilyreunificationachievedEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "familyreunification_staging")
 @Table(name = "familyreunification", catalog = "hmis", schema = "staging")
-public class Familyreunification implements Cloneable, Serializable {
+public class Familyreunification extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 1240739840639519491L;

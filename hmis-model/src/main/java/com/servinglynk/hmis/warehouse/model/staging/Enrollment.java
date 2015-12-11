@@ -33,6 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 
 /** 
@@ -43,7 +44,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyear
  */
 @Entity(name = "enrollment_staging")
 @Table(name = "enrollment", catalog = "hmis", schema = "staging")
-public class Enrollment implements Cloneable, Serializable {
+public class Enrollment extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6048419471750369756L;

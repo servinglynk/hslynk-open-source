@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+
 
 /** 
  * Object mapping for hibernate-handled table: connectionwithsoar.
@@ -31,7 +33,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "connectionwithsoar_staging")
 @Table(name = "connectionwithsoar", catalog = "hmis", schema = "staging")
-public class Connectionwithsoar implements Cloneable, Serializable{
+public class Connectionwithsoar extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1004181330688157855L;

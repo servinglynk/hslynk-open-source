@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
  */
 @Entity(name = "services")
 @Table(name = "services", catalog = "hmis", schema = "live")
-public class Services implements Cloneable, Serializable{
+public class Services extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -7410093721624490210L;

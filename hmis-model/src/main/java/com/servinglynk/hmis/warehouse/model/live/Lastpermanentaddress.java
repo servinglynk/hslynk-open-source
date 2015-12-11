@@ -33,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.StateEnum;
 
 @Entity(name = "lastpermanentaddress")
 @Table(name = "lastpermanentaddress", catalog = "hmis", schema = "live")
-public class Lastpermanentaddress implements Cloneable, Serializable {
+public class Lastpermanentaddress extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3143666687530889406L;

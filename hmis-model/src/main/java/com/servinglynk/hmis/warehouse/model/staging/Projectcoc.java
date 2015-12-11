@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.staging.Inventory;
 import com.servinglynk.hmis.warehouse.model.staging.Site;
 
@@ -37,7 +38,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "projectcoc_staging")
 @Table(name = "projectcoc", catalog = "hmis", schema = "staging")
-public class Projectcoc implements Cloneable, Serializable {
+public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6488195069713059339L;

@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.staging.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.model.staging.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.staging.Exitplansactions;
@@ -43,7 +44,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "exit_staging")
 @Table(name = "exit", catalog = "hmis", schema = "staging")
-public class Exit implements Cloneable, Serializable{
+public class Exit extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -75314002207556153L;

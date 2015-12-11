@@ -42,7 +42,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
  */
 @Entity (name = "client")
 @Table(name = "client", catalog = "hmis", schema = "live")
-public class Client implements Cloneable, Serializable {
+public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6304318647555713317L;

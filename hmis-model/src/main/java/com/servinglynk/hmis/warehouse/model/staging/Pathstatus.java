@@ -21,6 +21,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+
 
 /** 
  * Object mapping for hibernate-handled table: path_status.
@@ -30,7 +32,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "path_status_staging")
 @Table(name = "path_status", catalog = "hmis", schema = "staging")
-public class Pathstatus implements Cloneable, Serializable {
+public class Pathstatus  extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3511147204684378597L;

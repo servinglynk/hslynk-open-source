@@ -30,7 +30,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "path_status")
 @Table(name = "path_status", catalog = "hmis", schema = "live")
-public class Pathstatus implements Cloneable, Serializable {
+public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3511147204684378597L;

@@ -46,7 +46,7 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
  */
 @Entity(name = "incomeandsources")
 @Table(name = "incomeandsources", catalog = "hmis", schema = "live")
-public class Incomeandsources implements Cloneable, Serializable {
+public class Incomeandsources extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -4984883027361158713L;

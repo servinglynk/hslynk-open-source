@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.model.staging;
 
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "domesticviolence_staging")
 @Table(name = "domesticviolence", catalog = "hmis", schema = "staging")
-public class Domesticviolence implements Cloneable, Serializable {
+public class Domesticviolence extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1553980337126312406L;
