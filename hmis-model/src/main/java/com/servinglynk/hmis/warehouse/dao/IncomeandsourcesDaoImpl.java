@@ -101,6 +101,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				incomeAndSourcesModel.setExport(exportEntity);
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
+				hydrateCommonFields(incomeAndSourcesModel, exportEntity.getUser());
 				insertOrUpdate(incomeAndSourcesModel);
 			}
 		}

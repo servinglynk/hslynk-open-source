@@ -123,7 +123,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setClient(client);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
+				enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
+				hydrateCommonFields(enrollmentModel, exportEntity.getUser());
 				insert(enrollmentModel);
 			}
 		}

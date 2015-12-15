@@ -23,16 +23,15 @@ public class HBaseImport {
 	HBaseAdmin admin = null;
     String host = "ec2-52-34-38-188.us-west-2.compute.amazonaws.com";
 	public HBaseImport() {
-
+		  conf = HBaseConfiguration.create();
+		  conf.set("hbase.master", host);
+		  conf.set("hbase.zookeeper.quorum", host);
+		  conf.set("hbase.zookeeper.property.clientPort","2181");
 	}
-
+	Configuration conf = null;
 	public HTable createTable(String tableName, String familyname) {
 		HTable table = null;
 		try {
-			Configuration conf = HBaseConfiguration.create();
-			//.clear();
-			   conf.set("hbase.zookeeper.quorum", host);
-			   conf.set("hbase.zookeeper.property.clientPort","2181"); 
 			HBaseAdmin admin = new HBaseAdmin(conf); 
 			//if (!admin.isTableAvailable(tableName)) {
 				HTableDescriptor tableDescriptor = new HTableDescriptor(
@@ -52,7 +51,6 @@ public class HBaseImport {
 			List<String> columns, List<String> data) {
 		HTable table = null;
 		try {
-			Configuration conf = HBaseConfiguration.create();
 
 			table = new HTable(conf, tableName);
 
@@ -77,8 +75,6 @@ public class HBaseImport {
 			String[] columns, Map<String, Object> data) {
 		HTable table = null;
 		try {
-			Configuration conf = HBaseConfiguration.create();
-
 			table = new HTable(conf, tableName);
 
 			Put p = new Put(Bytes.toBytes(rowkey));
@@ -99,10 +95,9 @@ public class HBaseImport {
 		return table;
 	}
 
-	public static void checkIfRunning() throws MasterNotRunningException,
+	public void checkIfRunning() throws MasterNotRunningException,
 			ZooKeeperConnectionException {
 		// Create the required configuration.
-		Configuration conf = HBaseConfiguration.create();
 		// Check if Hbase is running
 		try {
 			System.out.println("Start checkIfRunning");
@@ -117,14 +112,12 @@ public class HBaseImport {
 	}
 
 	public void isTableAvailable(String tablename) throws IOException {
-		Configuration conf = HBaseConfiguration.create();
 		HBaseAdmin admin = new HBaseAdmin(conf);
 		boolean result = admin.isTableAvailable(tablename);
 		System.out.println("Table " + tablename + " available ?" + result);
 	}
 
 	public void tableExists(String tablename) throws IOException {
-		Configuration conf = HBaseConfiguration.create();
 		HBaseAdmin admin = new HBaseAdmin(conf);
 		boolean result = admin.tableExists(tablename);
 		System.out.println("Table " + tablename + " exists ?" + result);
@@ -138,7 +131,7 @@ public class HBaseImport {
 		}
 
 		HBaseImport admin = new HBaseImport();
-		HBaseImport.checkIfRunning();
+		//HBaseImport.checkIfRunning();
 		String tableName = "Test_table";
 		String familyName = "CF1";
 

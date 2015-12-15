@@ -14,7 +14,8 @@ public class BaseModel {
 	public UUID user_id;
 	@Column(name="export_id")
 	public UUID export_id;
-
+	@Column(name="project_group_code")
+	public String project_group_code;
 	
 	/**
 	 * @return the id
@@ -65,5 +66,13 @@ public class BaseModel {
 	public void setExport_id(UUID export_id) {
 		this.export_id = export_id;
 	}
+	public String getProject_group_code() {
+		return project_group_code;
+	}
+	public void setProject_group_code(String project_group_code) {
+		this.project_group_code = project_group_code;
+	}
+	
+	
 	
 }

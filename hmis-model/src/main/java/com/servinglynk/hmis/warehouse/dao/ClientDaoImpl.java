@@ -45,6 +45,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.restful.model.AppRequest;
 import com.servinglynk.hmis.warehouse.restful.model.AuthenticationRequest;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -111,14 +112,18 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				UUID exportId = domain.getExportId();
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 				exportEntity.addClient(clientModel);
+				clientModel.setUser(exportEntity.getUser());
+				hydrateCommonFields(clientModel, exportEntity.getUser());
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
 				String dedupedId = dedupHelper.getDedupedClient(clientModel);
 				if(dedupedId != null) {
 					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 				}
+				//clientModel.setProjectGroupCode(clientModel.getUser());
 				clientModel.setDateCreated(LocalDateTime.now());
 				clientModel.setDateUpdated(LocalDateTime.now());
+				
 				if(clientModel.getDedupClientId() !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId());
 					/**

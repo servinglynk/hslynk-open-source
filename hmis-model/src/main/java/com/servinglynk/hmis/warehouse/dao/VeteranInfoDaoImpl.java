@@ -96,7 +96,9 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setClient(client);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				vInfo.setExport(exportEntity);
+				vInfo.setUser(exportEntity.getUser());
 				exportEntity.addVeteranInfo(vInfo);
+				hydrateCommonFields(vInfo, exportEntity.getUser());
 				insert(vInfo);
 			}
 		}

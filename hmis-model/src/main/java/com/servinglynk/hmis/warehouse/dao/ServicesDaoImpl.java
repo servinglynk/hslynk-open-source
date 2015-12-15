@@ -56,6 +56,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				servicesModel.setEnrollmentid(enrollment);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				servicesModel.setExport(exportEntity);
+				hydrateCommonFields(servicesModel, exportEntity.getUser());
 				insertOrUpdate(servicesModel);
 			}
 		}

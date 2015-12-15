@@ -18,7 +18,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.Sync;
+import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
@@ -41,6 +44,11 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		transport.open();
 		performSave(client,entity);
 		transport.close();
+	}
+	
+	public void hydrateCommonFields(HmisBaseModel baseModel,HmisUser user) {
+		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
 	}
 	
 	public List<T> recordsToSync(Class t, SyncDomain domain) {

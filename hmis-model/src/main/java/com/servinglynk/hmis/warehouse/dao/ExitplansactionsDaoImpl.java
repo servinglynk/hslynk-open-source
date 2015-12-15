@@ -66,6 +66,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				exitplansactionsModel.setExport(exportEntity);
 				exportEntity.addExitplansactions(exitplansactionsModel);
+				hydrateCommonFields(exitplansactionsModel, exportEntity.getUser());
 				insertOrUpdate(exitplansactionsModel);
 			}
 		}

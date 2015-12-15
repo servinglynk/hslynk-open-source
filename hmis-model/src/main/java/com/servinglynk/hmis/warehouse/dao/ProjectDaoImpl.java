@@ -75,6 +75,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
+				hydrateCommonFields(projectModel, exportEntity.getUser());
 				insertOrUpdate(projectModel);
 			}
 			factory.getOrganizationDao().hydrateStaging(domain);

@@ -51,6 +51,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				formerWardJuvenileJusticeModel.setExport(exportEntity);
 				exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
+				hydrateCommonFields(formerWardJuvenileJusticeModel, exportEntity.getUser());
 				insertOrUpdate(formerWardJuvenileJusticeModel);
 				
 			}

@@ -80,6 +80,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				healthinsuranceModel.setExport(exportEntity);
 				exportEntity.addHealthinsurance(healthinsuranceModel);
+				hydrateCommonFields(healthinsuranceModel, exportEntity.getUser());
 				insertOrUpdate(healthinsuranceModel);
 			}
 		}

@@ -11,6 +11,15 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
 
 public class CreateTable {
+	 HBaseAdmin admin = null;
+	 Configuration conf = null;
+	    String host = "ec2-52-34-38-188.us-west-2.compute.amazonaws.com";
+	 public CreateTable() {
+	  conf = HBaseConfiguration.create();
+	  conf.set("hbase.master", host);
+	  conf.set("hbase.zookeeper.quorum", host);
+	  conf.set("hbase.zookeeper.property.clientPort","2181");
+	 }
 	public static void main(String args[]) {
 		CreateTable table = new CreateTable();
 		table.createTable("good");
@@ -64,16 +73,11 @@ public class CreateTable {
 		tablesList.add("VeteranInfo");
 		tablesList.add("Worsthousingsituation");
 		tablesList.add("Youthcriticalissues");
-		HTable table = null;
-		try {
-			Configuration conf = HBaseConfiguration.create();
-			/*.clear();
-			   conf.set("hbase.zookeeper.quorum"); host);
-			   conf.set("hbase.zookeeper.property.clientPort");"2181"); */
-			HBaseAdmin admin = new HBaseAdmin(conf); 
-			//if (!admin.isTableAvailable(tableName)) {
-				
-				
+		
+			  HTable table = null;
+			  try {
+			   HBaseAdmin admin = new HBaseAdmin(conf);
+			   //if (!admin.isTableAvailable(tableName)) {
 				for(String familyname : tablesList) {
 					HTableDescriptor tableDescriptor = new HTableDescriptor(
 							familyname);

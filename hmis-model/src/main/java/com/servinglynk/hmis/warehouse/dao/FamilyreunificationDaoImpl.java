@@ -49,6 +49,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				familyreunificationModel.setExport(exportEntity);
 				exportEntity.addFamilyreunification(familyreunificationModel);
+				hydrateCommonFields(familyreunificationModel, exportEntity.getUser());
 				insertOrUpdate(familyreunificationModel);
 			}
 		}

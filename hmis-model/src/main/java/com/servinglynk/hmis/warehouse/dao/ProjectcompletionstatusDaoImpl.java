@@ -51,6 +51,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				projectcompletionstatusModel.setExport(exportEntity);
 				exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
+				hydrateCommonFields(projectcompletionstatusModel, exportEntity.getUser());
 				insertOrUpdate(projectcompletionstatusModel);
 			}
 		}

@@ -53,6 +53,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				rhybcpstatusModel.setExport(exportEntity);
 				exportEntity.addRhybcpstatus(rhybcpstatusModel);
+				hydrateCommonFields(rhybcpstatusModel, exportEntity.getUser());
 				insertOrUpdate(rhybcpstatusModel);
 			}
 		}

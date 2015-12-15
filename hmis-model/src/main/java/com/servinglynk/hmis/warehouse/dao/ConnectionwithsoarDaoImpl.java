@@ -48,6 +48,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				connectionwithsoarModel.setExport(exportEntity);
 				exportEntity.addConnectionwithsoar(connectionwithsoarModel);
+				hydrateCommonFields(connectionwithsoarModel, exportEntity.getUser());
 				insertOrUpdate(connectionwithsoarModel);
 			}
 		}

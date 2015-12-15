@@ -42,6 +42,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				domesticviolenceModel.setExport(exportEntity);
 				domesticviolenceModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addDomesticviolence(domesticviolenceModel);
+				hydrateCommonFields(domesticviolenceModel, exportEntity.getUser());
 				insertOrUpdate(domesticviolenceModel);
 			}
 		}

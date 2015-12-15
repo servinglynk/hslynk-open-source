@@ -11,12 +11,33 @@ import org.hibernate.annotations.Type;
 @SuppressWarnings("serial")
 @MappedSuperclass
 public abstract class HmisBaseModel implements Entity{
-	/** Field mapping. */
-//	private LocalDateTime dateCreated;
 //	/** Field mapping. */
-//	private LocalDateTime dateUpdated;
-	private String projectGroupCode;
+//	protected LocalDateTime dateCreated;
+//	/** Field mapping. */
+//	protected String createdBy;
+//	protected String modifiedBy;
 	
+//	protected LocalDateTime dateUpdated;
+	protected String projectGroupCode;
+
+
+//	@Column(name = "created_by")
+//	public String getCreatedBy() {
+//		return createdBy;
+//	}
+//	public void setCreatedBy(String createdBy) {
+//		this.createdBy = createdBy;
+//	}
+//	
+//	@Column(name = "modified_by")
+//	public String getModifiedBy() {
+//		return modifiedBy;
+//	}
+//	
+//	public void setModifiedBy(String modifiedBy) {
+//		this.modifiedBy = modifiedBy;
+//	}
+//	
 //	 /**
 //		 * Return the value associated with the column: dateCreated.
 //		 * @return A LocalDateTime object (this.dateCreated)
@@ -50,13 +71,11 @@ public abstract class HmisBaseModel implements Entity{
 //			return this.dateUpdated;
 //			
 //		}
-//		
-
-	  
-		 /**  
-		 * Set the value related to the column: dateUpdated.
-		 * @param dateUpdated the dateUpdated value you wish to set
-		 */
+//	  
+//		 /**  
+//		 * Set the value related to the column: dateUpdated.
+//		 * @param dateUpdated the dateUpdated value you wish to set
+//		 */
 //		public void setDateUpdated(final LocalDateTime dateUpdated) {
 //			this.dateUpdated = dateUpdated;
 //		}

@@ -74,6 +74,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				exitModel.setExport(exportEntity);
 				exportEntity.addExit(exitModel);
+				hydrateCommonFields(exitModel, exportEntity.getUser());
 				insertOrUpdate(exitModel);
 			}
 			

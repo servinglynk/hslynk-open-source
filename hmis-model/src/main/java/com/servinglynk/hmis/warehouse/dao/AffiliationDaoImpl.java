@@ -42,6 +42,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					affiliationModel.setExport(exportEntity);
 					affiliationModel.setProjectid(project);
 					exportEntity.addAffiliation(affiliationModel);
+					hydrateCommonFields(affiliationModel, exportEntity.getUser());
 					insertOrUpdate(affiliationModel);
 				}
 			}

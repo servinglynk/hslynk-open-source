@@ -101,8 +101,10 @@ public class BaseProcessor<T> {
 
 	private Connection getConnection() throws SQLException {
 		Connection connection = DriverManager.getConnection(
-				"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
-				"hmisdb1234");
+//				"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
+//				"hmisdb1234");
+				"jdbc:postgresql://localhost:5432/hmis", "postgres",
+				"postgres");
 		return connection;
 	}
 	

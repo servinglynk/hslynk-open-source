@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 
 public class ExportDomain {
 	
@@ -47,6 +48,7 @@ public class ExportDomain {
 	private Map<String, UUID> organizationProjectMap = new HashMap<>();
 	private Map<String, UUID> affiliationProjectMap = new HashMap<>();
 	private Map<String,UUID> bedInventoryMap = new HashMap<>();
+	private BulkUpload upload;
 	
 	public Export getExport() {
 		return export;
@@ -123,4 +125,13 @@ public class ExportDomain {
 	public void setBedInventoryMap(Map<String, UUID> bedInventoryMap) {
 		this.bedInventoryMap = bedInventoryMap;
 	}
+
+	public BulkUpload getUpload() {
+		return upload;
+	}
+
+	public void setUpload(BulkUpload upload) {
+		this.upload = upload;
+	}
+	
 }

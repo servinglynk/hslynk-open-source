@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -23,6 +25,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.HmisUserGenderEnum;
 import com.servinglynk.hmis.warehouse.enums.HmisUserOrganizationEnum;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 
 
 /** 
@@ -217,7 +220,18 @@ public class HmisUser implements Cloneable, Serializable {
 		this.id = id;
 	}
 	
- 
+
+	private ProjectGroupEntity projectGroupEntity;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="project_group_id")
+	public ProjectGroupEntity getProjectGroupEntity() {
+		return projectGroupEntity;
+	}
+
+	public void setProjectGroupEntity(ProjectGroupEntity projectGroupEntity) {
+		this.projectGroupEntity = projectGroupEntity;
+	}
 
 
  
