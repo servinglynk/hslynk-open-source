@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!DOCTYPE log4j:configuration PUBLIC
+  "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
   <!-- 
     The logging levels are defined here 
@@ -39,7 +40,7 @@
   </logger>
   
   <logger name="com.servinglynk.hmis.warehouse">
-    <level value="error" />
+    <level value="all" />
   </logger>
 	
   <logger name="org.springframework">
@@ -52,7 +53,7 @@
 
   <root>
     <level value="error" />
-    <appender-ref ref="console" />
+<!--     <appender-ref ref="console" /> -->
     <appender-ref ref="notification-project-log" />
   </root>
 

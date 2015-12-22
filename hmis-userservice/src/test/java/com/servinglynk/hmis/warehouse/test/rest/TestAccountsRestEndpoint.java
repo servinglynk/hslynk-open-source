@@ -73,13 +73,13 @@ public class TestAccountsRestEndpoint  {
 	
 	@Test
 	public void testCreateAccount() throws Exception {
-		Session session = createSession("superadmin@hmis.com","password");
+	//	Session session = createSession("superadmin@hmis.com","password");
 		
 		WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
 		executor.setAcceptHeaderAsJson();
 		executor.setContentTypeHeaderAsJson();
 		executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-		executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+		executor.setHeaderValue("Authorization","HMISHNUserAuth session_token=9DB4F46517B849EE8B0B42132E969485E5B80260369B4704AE48CE0576CD2730");
 		
 		
 		Account account = TestData.getAccount();

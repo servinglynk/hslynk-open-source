@@ -357,12 +357,12 @@ public class DatabaseConfig {
 	
 	@Bean
 	public String loginUri(){
-		return new String("/hmis-authorizationservice/login.html");
+		return new String("/hmis-authorization-service/login.html");
 	}
 	
 	@Bean
 	public String consentUri(){
-		return new String("/hmis-authorizationservice/consent.html");
+		return new String("/hmis-authorization-service/consent.html");
 	}
 	
 	
@@ -433,4 +433,9 @@ public class DatabaseConfig {
 	public ProjectGroupDaoImpl projectGroupDao(){
 		return new ProjectGroupDaoImpl();
 	}
+	
+	
+	
+	
+	
 }

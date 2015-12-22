@@ -10,9 +10,11 @@ public class Session extends ClientModel {
 	private Account account;
 	private Long requestedTimeToLive;
 	private String token;
+	private String authCode;
 	private Date createdAt;
 	private Date modifiedAt;
 	private Date expiresAt;
+	private int nextAction;
 	
 	private String passwordEncrypted;
 	
@@ -71,5 +73,19 @@ public class Session extends ClientModel {
 		this.passwordEncrypted = isEncrypted;
 	}
 
+	public int getNextAction() {
+		return nextAction;
+	}
 
+	public void setNextAction(int nextAction) {
+		this.nextAction = nextAction;
+	}
+
+	public String getAuthCode() {
+		return authCode;
+	}
+
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
+	}
 }

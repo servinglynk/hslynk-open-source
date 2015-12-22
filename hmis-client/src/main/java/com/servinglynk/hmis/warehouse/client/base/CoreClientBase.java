@@ -29,9 +29,9 @@ public class CoreClientBase {
 	 */
 	protected HttpHeaders getHttpHeaders() {
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", "application/xml");
+		headers.add("Accept", "application/json");
 		// Surya 04/17/2015 - You can add any headers here like user session, Authorization token etc
-		headers.add("Content-Type", "application/xml; charset=UTF-8");
+		headers.add("Content-Type", "application/json; charset=UTF-8");
 		
 		return headers;
 	}

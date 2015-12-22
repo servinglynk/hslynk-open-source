@@ -127,6 +127,8 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		
 		//validateGrantType(trustedAppEntity, grantType, accessType);
 		
+		
+		
 		HmisUser pAccount = authenticateUser(authenticationToken);
 		
 		if (!trustedAppEntity.getStatus().equalsIgnoreCase(TRUSTEDAPP_STATUS_ACTIVE)) {
@@ -352,6 +354,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 	
 	
 
+	@SuppressWarnings("unused")
 	private void validateGrantType(TrustedAppEntity trustedAppEntity, String grantType, String accessType)	{
 
 		// if grant flow is authorization code, check if the trustedApp is authorized for that flow

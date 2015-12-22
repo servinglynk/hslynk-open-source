@@ -31,7 +31,8 @@ import com.servinglynk.hmis.warehouse.rest.VerificationsController;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
-		com.servinglynk.hmis.warehouse.service.config.AppConfig.class})
+		com.servinglynk.hmis.warehouse.service.config.AppConfig.class,
+		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling

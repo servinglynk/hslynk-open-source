@@ -27,7 +27,7 @@ public interface IQueryExecutor  {
 
 	
 	public List<?> findByNamedQueryAndNamedParam(String query,String[] params, Object[] values);
-	public List<?> findByNativeSQL(String query, Class className);
+	public List<?> findByNativeSQL(String query, Class<?> className);
 
 	public List<?> findByNamedQuery(String query);
 

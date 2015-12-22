@@ -6,12 +6,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Core client </name>
 	<description>Core client for inter service calls (REST)</description>
-	
+
 	<scm>
-	  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
- 	</scm>
- 	<properties>
-			<parent-version>0.0.1-SNAPSHOT</parent-version>
+		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
+	</scm>
+	<properties>
+		<parent-version>0.0.1</parent-version>
+		<java-version>1.8</java-version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -60,13 +61,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.0.5.RELEASE</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			<version>4.0.5.RELEASE</version>
 		</dependency>
 
 
@@ -80,18 +79,6 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>4.3.8.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.3.8.Final</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -103,19 +90,11 @@
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.35</version>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -124,7 +103,28 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
-
-
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

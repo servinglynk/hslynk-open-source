@@ -26,7 +26,7 @@ function getAppInfo(clientId, token, callback){
         },
 		
 		type: "GET",
-		url: "/hmis-userservice/rest/clients/"+clientId+"/basicinfo",
+		url: "/hmis-user-service/rest/clients/"+clientId+"/basicinfo",
 		dataType: "json",
 		success: callback,
 		error: function (res) {
@@ -117,37 +117,41 @@ function getDetailedConsentMsgs(clientId, token, callback){
 	
 	});	
 }
-function submitLogin(userName, password){
+
+$('#submit-otp').click(function (){
 	var date = new Date();
 	date.setTime(date.getTime() + (10 * 60 * 1000));	
-	
-	if(Captcha.hasCaptcha){
 		$.ajax({
 			headers: {
 					  "Content-Type": "application/json;charset=UTF-8",
 					  "Accept-Language": "en-us,en;q=0.5",  
 					  "Accept":"application/json",
-					  "X-HMIS-TrustedApp-Id": "631D1191-9AC5-4F3F-836A-8DB0DBAE3CD3"
-				},
+					  "X-HMIS-TrustedApp-Id" : getURLParameter("trustedApp_id")
+			},
 			
 			type: "POST",
-			url: "/hmis-userservice/rest/sessions",
-			data: JSON.stringify({ session: { account: { username: userName, password: password}} }),
+			url: "/hmis-authorization-service/rest/authorize/validateotp?otp="+$.trim($('#otp').val())+"&authKey="+jQuery("#authKey").val(),
 			dataType: "json",
 			success: function(data){
 				//set cookie here
-				$.cookie('session_token', data.session.token, { expires: date, path: '/' });
+				$.cookie('authentication_token', data.session.token, { expires: date, path: '/' });
 				$("#authentication_token").val(data.session.token)
 				//GET authorization
 				$('#authorize-form').submit();
 			},
 			error: function (res) {
-				loginErrorHandler(res, "errorMsg")
+				loginErrorHandler(res, "errorMsg", userName)
 			}
 		
-		});
-			
-	}else{
+		});		
+	
+
+});
+
+
+function submitLogin(userName, password){
+	var date = new Date();
+	date.setTime(date.getTime() + (10 * 60 * 1000));	
 		$.ajax({
 			headers: {
 					  "Content-Type": "application/json;charset=UTF-8",
@@ -156,7 +160,7 @@ function submitLogin(userName, password){
 			},
 			
 			type: "POST",
-			url: "/hmis-userservice/rest/sessions?trustedApp_id="+getURLParameter("trustedApp_id"),
+			url: "/hmis-user-service/rest/sessions?trustedApp_id="+getURLParameter("trustedApp_id"),
 			data: JSON.stringify({ session: { account: { username: userName, password: password}} }),
 			dataType: "json",
 			success: function(data){
@@ -171,7 +175,7 @@ function submitLogin(userName, password){
 			}
 		
 		});		
-	}
+	
 }
 
 function setFormParams(isConsentPage){

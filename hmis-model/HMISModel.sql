@@ -3232,10 +3232,10 @@ CREATE TABLE live.hmis_project_group
    project_group_name character varying(32), 
    project_group_desc character varying(256),
    project_group_code character varying(8),
-   "INSERT_AT" timestamp without time zone, 
-   "INSERT_BY" character varying(32), 
-   "UPDATE_AT" timestamp without time zone, 
-   "UPDATE_BY" character varying(32), 
+   INSERT_AT timestamp without time zone, 
+   INSERT_BY character varying(32), 
+   UPDATE_AT timestamp without time zone, 
+   UPDATE_BY character varying(32), 
    CONSTRAINT pk_hmis_project_group PRIMARY KEY (id)
 ) 
 WITH (
@@ -3248,10 +3248,10 @@ CREATE TABLE live.hmis_project_projectgroup_map
    id uuid, 
    project_id uuid, 
    project_group_id uuid, 
-   "INSERT_BY" character varying(32), 
-   "UPDATE_AT" timestamp without time zone, 
-   "INSERT_AT" timestamp without time zone, 
-   "UPDATE_BY" character varying(32), 
+   INSERT_BY character varying(32), 
+   UPDATE_AT timestamp without time zone, 
+   INSERT_AT timestamp without time zone, 
+   UPDATE_BY character varying(32), 
    CONSTRAINT pk_project_projectgroup_map PRIMARY KEY (id), 
    CONSTRAINT fk_project_group_id FOREIGN KEY (project_group_id) REFERENCES live.hmis_project_group (id) ON UPDATE NO ACTION ON DELETE NO ACTION, 
    CONSTRAINT fk_project_id FOREIGN KEY (project_id) REFERENCES live.project (id) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -3272,6 +3272,8 @@ ALTER TABLE live.hmis_user ADD COLUMN status character varying(266);
 ALTER TABLE live.hmis_user ADD COLUMN username character varying(256);
 ALTER TABLE live.hmis_user ADD COLUMN verification_id uuid;
 ALTER TABLE live.hmis_user ADD COLUMN project_group_id uuid;
+ALTER TABLE live.hmis_user ADD COLUMN authenticator_secret character varying(16);
+ALTER TABLE live.hmis_user ADD COLUMN two_factor_authentication boolean;
 
 
 ALTER TABLE  live.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES live.organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;

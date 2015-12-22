@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.servinglynk.hmis.warehouse.notification.model.ClientModel;
+import com.servinglynk.hmis.warehouse.ClientModel;
 
 @XmlType(name = "NotificationData")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -27,6 +27,7 @@ public class NotificationData extends ClientModel {
 		return data.get(key);
 	}
 	
+	@SuppressWarnings("unused")
 	private Set<String> dataElementNames(){
 		return (Set<String>)data.keySet();
 	}

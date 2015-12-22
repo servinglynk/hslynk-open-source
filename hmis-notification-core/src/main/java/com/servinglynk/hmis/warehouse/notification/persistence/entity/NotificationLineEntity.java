@@ -1,7 +1,5 @@
 package com.servinglynk.hmis.warehouse.notification.persistence.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
 
 import javax.persistence.Column;

@@ -13,6 +13,10 @@ public interface SessionService {
 
 	public void createSession(Session session, String trustedAppId,
 			String userService);
+	
+	public void validateUserCredentials(Session session, String trustedAppId, String auditUser );
+	
+	public void createSession(Session session,String auditUser) throws Exception;
 
 
 }

@@ -1,7 +1,5 @@
 package com.servinglynk.hmis.warehouse.notification.business.test;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +9,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.notification.business.service.NotificationWorker;
 import com.servinglynk.hmis.warehouse.notification.business.service.core.ParentServiceFactory;
-import com.servinglynk.hmis.warehouse.notification.business.util.ReportCreationNotificationUtil;
-import com.servinglynk.hmis.warehouse.notification.config.SpringConfig;
+import com.servinglynk.hmis.warehouse.notification.config.NotificationConfig;
 
-@ContextConfiguration(classes=SpringConfig.class, loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes=NotificationConfig.class, loader=AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public class ReportCreationNotificationUtilTest {
@@ -26,8 +22,6 @@ public class ReportCreationNotificationUtilTest {
 	@Autowired
 	ParentServiceFactory serviceFactory;
 	
-	@Autowired
-	ReportCreationNotificationUtil reportCreationNotificationUtil;
 	
 	@Autowired
 	NotificationWorker notificationWorker;
@@ -39,7 +33,7 @@ public class ReportCreationNotificationUtilTest {
 
 	@Test
 	public void testNotificationWorker() throws Exception {
-		System.out.println(reportCreationNotificationUtil.getNotificationParams());
+		//System.out.println(reportCreationNotificationUtil.getNotificationParams());
 	}
 	
 /*	

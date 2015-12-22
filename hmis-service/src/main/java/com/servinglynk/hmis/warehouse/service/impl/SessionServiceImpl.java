@@ -1,25 +1,38 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 
+import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_DISABLED;
+import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PENDING;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
+import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.common.util.DateUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
+import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.model.live.AccountLockoutEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity;
 import com.servinglynk.hmis.warehouse.service.SessionService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
+import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticator;
+import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountLockedoutException;
+import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.AccountPendingException;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidAccountCredentialsException;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidOnetimePasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.SessionNotFoundException;
 
 public class SessionServiceImpl extends ServiceBase implements SessionService  {
@@ -140,4 +153,88 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		return true;
 	}
 	
+	@Transactional
+	public void validateUserCredentials(Session session, String trustedAppId, String auditUser ){
+		
+		TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedAppId);
+		if (trustedAppEntity == null || trustedAppEntity.getId() == null)
+			throw new InvalidTrustedAppException("invalid trustedAppId: " + trustedAppId);
+		
+		String username = session.getAccount().getUsername();
+		if (ValidationUtil.isEmpty(username)) {
+			throw new MissingParameterException("username is required.");
+		}
+		if (!ValidationUtil.isValidEmail(username)) {
+			throw new InvalidParameterException("invalid username: " + username);
+		}
+		// validate the password
+		String password = session.getAccount().getPassword();
+		if (ValidationUtil.isEmpty(password)) {
+			throw new MissingParameterException("password is required.");
+		}
+		
+		//check if passwordEncrypted
+		if(session.getPasswordEncrypted() != null){
+			if(!Boolean.parseBoolean(session.getPasswordEncrypted())){
+				//need to encrypt password
+				password = HMISCryptographer.Encrypt(password);
+			}
+		}else{
+			password = HMISCryptographer.Encrypt(password);
+		}
+		
+		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
+		if (pAccount == null ) {
+			throw new AccountNotFoundException();
+		}
+
+		AccountLockoutEntity pLockout  = null;
+		pLockout = pAccount.getAccountLockout();
+		if(pLockout!=null) 	validateAccountLockout(pLockout,trustedAppId);
+		
+		if(!pAccount.getPassword().equals(password)){
+			throw new InvalidAccountCredentialsException();
+		} else if (pAccount.getStatus().equals(ACCOUNT_STATUS_DISABLED)) {
+			throw new AccountDisabledException();
+		} else if (pAccount.getStatus().equals(ACCOUNT_STATUS_PENDING)) {
+			throw new AccountPendingException();
+		} 
+		
+
+		if(!pAccount.isTwoFactorAuthentication()){
+			this.createSession(session, trustedAppId, auditUser);
+		}else{
+			SessionEntity sessionEntity = new SessionEntity();
+			sessionEntity.setTrustedApp(trustedAppEntity);
+			sessionEntity.setAccount(pAccount);
+			sessionEntity.setCreatedBy(auditUser);
+			sessionEntity.setCreatedAt(new Date());
+			sessionEntity.setAuthCode(SessionEntity.generateSessionToken());
+			sessionEntity.setAuthCodeExpiresAt(new Date(System.currentTimeMillis() + (20000 * 1000)));
+		
+		 	daoFactory.getSessionDao().create(sessionEntity);
+		 	session.setAuthCode(sessionEntity.getAuthCode());
+			session.setNextAction(Constants.TWO_FACTOR_AUTH_FLOW_OPT);
+		}
+	}
+	
+	
+	@Transactional
+	public void createSession(Session session,String auditUser) throws Exception {
+		GoogleAuthenticator auth = new GoogleAuthenticator();
+		
+		SessionEntity sessionEntity = daoFactory.getSessionDao().findByAuthCode(session.getAuthCode());
+		if(sessionEntity == null) throw new InvalidSessionTokenException();
+		
+		HmisUser hmisUser = sessionEntity.getAccount();
+		boolean authenticated = auth.authorize(hmisUser.getAuthenticatorSecret(), Integer.parseInt(session.getAccount().getOtp()));
+		if(!authenticated){
+			throw new InvalidOnetimePasswordException();
+		}
+		sessionEntity.setSessionToken(SessionEntity.generateSessionToken());
+		sessionEntity.setExpiresAt(new Date(System.currentTimeMillis() + (20000 * 1000)));
+		
+		daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
+		session.setToken(sessionEntity.getSessionToken());
+	}
 }

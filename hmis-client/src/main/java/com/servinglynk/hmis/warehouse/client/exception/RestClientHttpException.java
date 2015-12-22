@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.client.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpServerErrorException;
 
+@SuppressWarnings("serial")
 public class RestClientHttpException extends HttpServerErrorException	{
 	
 	private Object error;

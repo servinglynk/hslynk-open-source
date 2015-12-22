@@ -26,21 +26,21 @@ public class PermissionSetsController extends ControllerBase {
 	
 	@RequestMapping(value="/{permissionsetid}",method=RequestMethod.PUT)
 	@APIMapping(value="ACL_UPDATE_PRMISSION_SET",checkTrustedApp=true,checkSessionToken=true)
-	public PermissionSet updatePermissionSet(@PathVariable("permissionSetId") UUID permissionSetId ,@RequestBody PermissionSet permissionSet,HttpServletRequest request) throws Exception {
+	public PermissionSet updatePermissionSet(@PathVariable("permissionsetid") UUID permissionSetId ,@RequestBody PermissionSet permissionSet,HttpServletRequest request) throws Exception {
 		return serviceFactory.getPermissionSetService().updatePermissionSet(permissionSet,USER_SERVICE);
 	}
 	
 	
 	@RequestMapping(value="/{permissionsetid}",method=RequestMethod.DELETE)
 	@APIMapping(value="ACL_DELETE_PRMISSION_SET",checkTrustedApp=true,checkSessionToken=true)
-	public PermissionSet deletePermissionSet(@PathVariable("permissionSetId") UUID permissionSetId ,HttpServletRequest request) throws Exception {
+	public PermissionSet deletePermissionSet(@PathVariable("permissionsetid") UUID permissionSetId ,HttpServletRequest request) throws Exception {
 		return serviceFactory.getPermissionSetService().deletePermissionSet(permissionSetId,USER_SERVICE);
 	}
 	
 	
 	@RequestMapping(value="/{permissionsetid}",method=RequestMethod.GET)
 	@APIMapping(value="ACL_GET_PRMISSION_SET",checkTrustedApp=true,checkSessionToken=true)
-	public PermissionSet getPermissionSet(@PathVariable("permissionSetId") UUID permissionSetId ,HttpServletRequest request) throws Exception {
+	public PermissionSet getPermissionSet(@PathVariable("permissionsetid") UUID permissionSetId ,HttpServletRequest request) throws Exception {
 		return serviceFactory.getPermissionSetService().getPermissionSetById(permissionSetId);
 	}
 	

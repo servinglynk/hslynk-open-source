@@ -1,11 +1,11 @@
 package com.servinglynk.hmis.warehouse.notification.persistence.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -20,7 +20,8 @@ public class NotificationParamEntity extends ParentEntity {
 	private String externalId;
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@SequenceGenerator(name="pk_sequence",sequenceName="hmis_notification_param_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
 	@Column(name = "ID", unique = true, nullable = false)
 	public Long getId() {
 		return id;

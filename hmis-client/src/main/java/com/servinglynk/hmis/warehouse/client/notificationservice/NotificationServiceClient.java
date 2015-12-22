@@ -13,7 +13,6 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
-import com.servinglynk.hmis.warehouse.client.exception.RestClientHttpException;
 import com.servinglynk.hmis.warehouse.core.model.JSONHttpMessageConverter;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
@@ -29,21 +28,31 @@ public class NotificationServiceClient extends CoreClientBase implements INotifi
 	@Autowired
 	CoreClientConfig coreClientConfig;
 
-	public Notification createNotification(Notification notification) throws RestClientHttpException {
+	@SuppressWarnings("unused")
+	public Notification createNotification(Notification notification) {
 		
 		HttpHeaders headers = getHttpHeaders();
 	
 		logger.debug(notification.toString());
+		
+		try {
+			System.out.println(notification.toJSONString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		JSONHttpMessageConverter jhmc = new JSONHttpMessageConverter();
 		jhmc.setObjectMapper(new JSONObjectMapper());
 
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 		messageConverters.add(createXmlHttpMessageConverter());
+		messageConverters.add(jhmc);
+
 		restTemplate.setMessageConverters(messageConverters);
 		
-      		HttpEntity<Notification> requestEntity = new HttpEntity<Notification>(notification, headers);
-		Notification responseEntity = restTemplate.postForObject(coreClientConfig.getNotificationServiceUrl() + "/notifications", requestEntity, Notification.class);
+      	HttpEntity<Notification> requestEntity = new HttpEntity<Notification>(notification, headers);
+		Notification responseEntity = restTemplate.postForObject(coreClientConfig.getNotificationServiceUrl() + "/notifications", notification, Notification.class);
 		
 		
 

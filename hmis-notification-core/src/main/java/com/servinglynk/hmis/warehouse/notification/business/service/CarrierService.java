@@ -8,7 +8,6 @@ import com.servinglynk.hmis.warehouse.notification.business.service.core.ParentS
 import com.servinglynk.hmis.warehouse.notification.carrier.CarrierFactory;
 import com.servinglynk.hmis.warehouse.notification.carrier.CarrierNotification;
 import com.servinglynk.hmis.warehouse.notification.carrier.ICarrier;
-import com.servinglynk.hmis.warehouse.notification.common.Constants;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.NotificationLineEntity;
 
 @Service

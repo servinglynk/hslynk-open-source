@@ -1,7 +1,5 @@
 package com.servinglynk.hmis.warehouse.notification.persistence.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "HMIS_WORKER_LINE" )
 public class WorkerLineEntity extends ParentEntity {
