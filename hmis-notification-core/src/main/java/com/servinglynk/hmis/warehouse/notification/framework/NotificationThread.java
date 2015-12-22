@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.notification.framework;
 
-import com.servinglynk.hmis.warehouse.notification.business.exception.CarrierSendFailureException;
 import com.servinglynk.hmis.warehouse.notification.carrier.CarrierNotification;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.NotificationLineEntity;
 

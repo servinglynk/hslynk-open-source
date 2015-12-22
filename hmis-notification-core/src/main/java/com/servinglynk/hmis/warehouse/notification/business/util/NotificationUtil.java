@@ -1,7 +1,5 @@
 package com.servinglynk.hmis.warehouse.notification.business.util;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.core.model.NotificationHeader;
@@ -15,19 +13,6 @@ import com.servinglynk.hmis.warehouse.notification.carrier.Workers;
 
 
 public abstract class NotificationUtil  extends ParentService  implements INotificationUtil {
-	
-	@Autowired
-    protected HashMap<String,NotificationParams> notificationParams;
-	
-
- 
-	 public HashMap<String,NotificationParams> getNotificationParams() {
-		return notificationParams;
-	}
-
-	public void setNotificationParams(HashMap<String,NotificationParams> notificationParams) {
-		this.notificationParams = notificationParams;
-	}
 
 	public ParentServiceFactory getServiceFactory() {
 		return serviceFactory;

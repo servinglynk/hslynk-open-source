@@ -32,6 +32,7 @@ import com.servinglynk.hmis.warehouse.core.model.Organization;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.PermissionSet;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
+import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.Verification;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
@@ -88,6 +89,12 @@ public class TestExitAPIMethods {
 	public Account createAccount() throws Exception {
 		Session session = createSession("superadmin@hmis.com","password");
 		
+		Role role = new Role();
+		role.setRoleDescription("Role Desc");
+		role.setRoleName("Role Name");
+		
+		role = serviceFactory.getRoleService().createRole(role, Constants.AUDIT_USER_UNIT_TEST);
+		
 		WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
 		executor.setAcceptHeaderAsJson();
 		executor.setContentTypeHeaderAsJson();
@@ -98,8 +105,9 @@ public class TestExitAPIMethods {
 		standardProfile = serviceFactory.getProfileService().createProfile(standardProfile, Constants.AUDIT_USER_UNIT_TEST);
 		Account account = TestData.getAccountWithoutProfile();
 		account.setProfile(standardProfile);
+		account.setRole(role);
 		account.setOrganizationId(createOrganization());
-		account = serviceFactory.getAccountService().createAccount(account, Constants.AUDIT_USER_UNIT_TEST,null);
+		account = serviceFactory.getAccountService().createAccount(account, session.getAccount().getUsername(),null);
 		
 		Parameter parameter=new Parameter();
 		parameter.setKey("username");

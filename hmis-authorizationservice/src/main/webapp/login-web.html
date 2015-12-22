@@ -35,12 +35,23 @@
 			<div id="login-input-container">
 				<!--<img class="logo" src="images/ccc-logo.gif">-->
 				<h2>ServingLynk Login</h2>
-				<ul>
+				<form id="authorize-form" method="POST" action="/hmis-authorization-service/rest/authorize/session">
+					<input type=hidden value="" name="response_type" id="response_type" />
+					<input type=hidden value="" name="trustedApp_id" id="trustedApp_id" />
+					<input type=hidden value="" name="redirect_uri" id="redirect_uri" />
+					<input type=hidden value="" name="state" id="state" />
+					<input type=hidden value="online" name="access_type" id="access_type" />
+					<input type=hidden value="auto" name="approval_prompt" id="approval_prompt" />
+					<input type="text" placeholder="Enter Username" id="username" name="username" maxlength="254" />
+					<input type="password" autocomplete="off" placeholder="Enter Password" id="password" name="password" maxlength="128" />
+					<input type="submit" value="Login" />
+				</form>
+<!-- 				<ul>
 					<li><input type="text" placeholder="Enter Username" id="username" maxlength="254" /></li>
 					<li><input type="password" autocomplete="off" placeholder="Enter Password" id="password" maxlength="128" /></li>
-				</ul>
+				</ul> -->
 
-				<button id="submit-login" class="blue">Login</button>
+			<!-- 	<button id="submit-login" class="blue">Login</button> -->
 
 
 			</div>
@@ -48,7 +59,7 @@
   		</div>
 	</div>
 </div>
-<form id="authorize-form" method="GET" action="/hmis-authorizationservice/rest/authorize">
+<!-- <form id="authorize-form" method="GET" action="/hmis-authorization-service/rest/authorize">
 	<input type=hidden value="" name="response_type" id="response_type" />
 	<input type=hidden value="" name="trustedApp_id" id="trustedApp_id" />
 	<input type=hidden value="" name="redirect_uri" id="redirect_uri" />
@@ -56,6 +67,6 @@
 	<input type=hidden value="online" name="access_type" id="access_type" />
 	<input type=hidden value="auto" name="approval_prompt" id="approval_prompt" />
 	<input type=hidden value="" name="authentication_token" id="authentication_token" />
-</form>
+</form> -->
 </body>
 </html>

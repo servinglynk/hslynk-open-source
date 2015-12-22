@@ -50,7 +50,27 @@ public class HmisUser  {
 
 	private String ssn;
 	
+	private boolean twoFactorAuthentication;
+	private String authenticatorSecret;
+	
+	@Column(name="authenticator_secret")
+	public String getAuthenticatorSecret() {
+		return authenticatorSecret;
+	}
 
+	public void setAuthenticatorSecret(String authenticatorSecret) {
+		this.authenticatorSecret = authenticatorSecret;
+	}
+
+	@Column(name="two_factor_authentication")
+	public boolean isTwoFactorAuthentication() {
+		return twoFactorAuthentication;
+	}
+
+	public void setTwoFactorAuthentication(boolean twoFactorAuthentication) {
+		this.twoFactorAuthentication = twoFactorAuthentication;
+	}
+	
 	private String emailAddress;
 
 	@Column(name="status")

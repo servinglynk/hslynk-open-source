@@ -7,6 +7,7 @@ DROP SEQUENCE IF EXISTS hmis_template_header_id_seq;
 DROP SEQUENCE IF EXISTS hmis_template_line_id_seq;
 DROP SEQUENCE IF EXISTS hmis_worker_header_id_seq;
 DROP SEQUENCE IF EXISTS hmis_worker_line_id_seq;
+DROP SEQUENCE IF EXISTS hmis_notification_param_seq;
 
 
 DROP TABLE IF EXISTS hmis_notification_header;
@@ -30,6 +31,7 @@ CREATE SEQUENCE hmis_template_header_id_seq;
 CREATE SEQUENCE hmis_template_line_id_seq;
 CREATE SEQUENCE hmis_worker_header_id_seq;
 CREATE SEQUENCE hmis_worker_line_id_seq;
+CREATE SEQUENCE hmis_notification_param_seq;
 
 
 CREATE TABLE hmis_notification_header
@@ -233,9 +235,9 @@ CREATE TABLE hmis_worker_line
   max_retry integer,
   curr_retry integer,
   retry_interval integer,
+  worker_header_id integer,
   insert_at date,
   update_at date,
-  worker_header_id integer,
   insert_by character varying(256),
   update_by character varying(256),
   id integer NOT NULL,
@@ -249,4 +251,18 @@ WITH (
 );
 
 
-
+CREATE TABLE "HMIS_PROPERTY"
+(
+   id integer, 
+   SERVICE character varying(16), 
+   KEY_NAME character varying(52), 
+   KEY_VALUE character varying(56),
+   insert_at date,
+   update_at date,
+   insert_by character varying(256),
+   update_by character varying(256),
+   CONSTRAINT "HMIS_PROPERTY_PK" PRIMARY KEY (id)
+) 
+WITH (
+  OIDS = FALSE
+);

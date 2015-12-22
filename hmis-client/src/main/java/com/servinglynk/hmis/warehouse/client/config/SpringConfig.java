@@ -21,7 +21,7 @@ import com.servinglynk.hmis.warehouse.client.reportservice.ReportServiceClient;
 @Configuration
 @EnableScheduling
 @EnableTransactionManagement
-@ImportResource({"classpath:com/notification-service-client-config.xml" ,"classpath:com/property-config.xml"})
+@ImportResource({"classpath:com/notification-service-client-config.xml"})
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.client.notificationservice","com.servinglynk.hmis.warehouse.client.reportservice"})
 @PropertySource("classpath:com/core-client.properties")
 public class SpringConfig {
@@ -39,8 +39,7 @@ public class SpringConfig {
 
 	@Autowired
 	Environment env;
-	
-	
+		
 	@Bean
 	public INotificationServiceClient notificationServiceClient(){
 		return new NotificationServiceClient();

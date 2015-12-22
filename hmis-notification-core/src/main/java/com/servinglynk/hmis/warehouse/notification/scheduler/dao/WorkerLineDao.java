@@ -18,6 +18,7 @@ public class WorkerLineDao extends QueryExecutor implements IWorkerLineDao{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<WorkerLineEntity> findUnprocessedByExternalId(String externalId) {
 		DetachedCriteria query = DetachedCriteria.forClass(WorkerLineEntity.class);
 		query.add(Property.forName("status").eq(Constants.JOB_CREATED));

@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.rest;
 
+import static com.servinglynk.hmis.warehouse.common.Constants.USER_SERVICE;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.common.Constants;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.OAuthAuthorization;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.service.exception.UserAuthenticationFailedException;
 
 
@@ -78,6 +82,7 @@ public class AuthorizationsController extends ControllerBase {
 		// effective redirect uri defaults redirect uri
 		String effectiveRedirectUri = redirectUri;
 
+		
 		switch(nextAction)	{
 			case Constants.OAUTH_FLOW_REQUEST_CONSENT :
 				effectiveRedirectUri = this.consentUri + "?response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri)+"&consent_token="+authorization.getConsentToken();
@@ -154,6 +159,114 @@ public class AuthorizationsController extends ControllerBase {
 		
 		return authenticationToken;
 		
+	}	
+	
+	@RequestMapping(method = RequestMethod.POST,value="/session")
+	@APIMapping(value="USR_CREATE_SESSION",checkSessionToken=false, checkTrustedApp=false)
+	public Session createSession(@RequestParam(value="username" , required=true) String username,
+								 @RequestParam(value="password",  required=true) String password, 
+								 @RequestParam(value="trustedApp_id", required=false) String trustedAppId,
+								 @RequestParam(value="response_type", required=false) String responseType,
+				                  @RequestParam(value="redirect_uri", required=false) String redirectUri,
+				                  @RequestParam(value="state", required=false) String state,
+				                  @RequestParam(value="access_type", required=false) String accessType,
+				                  @RequestParam(value="approval_prompt", required=false) String approvalPrompt,
+				                  @RequestParam(value="consent_token", required=false) String consentToken,
+				                  @RequestParam(value="consented", required=false) String consented,
+								 HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		
+		Account account = new Account();
+		account.setUsername(username);
+		account.setPassword(password);
+		Session session= new Session();
+		session.setAccount(account);
+		
+		 serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
+		 
+		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
+			 String otpUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+		
+			 
+			 if (state != null)	{
+				 otpUri = otpUri + "&state=" + urlEncode(state);
+					logger.debug("state is provided {}, append it to the redirect uri", state);
+				}
+				
+				// append access_type if provided
+				if (accessType != null)	{
+					otpUri = otpUri + "&access_type=" + accessType;
+					logger.debug("accessType is provided {}, append it to the redirect uri", accessType);
+				}
+				
+				// append approval_prompt if provided
+				if (approvalPrompt != null)	{
+					otpUri = otpUri + "&approval_prompt=" + approvalPrompt;
+					logger.debug("approvalPrompt is provided {}, append it to the redirect uri", approvalPrompt);
+				}
+				
+			 
+			 response.sendRedirect(otpUri);
+		 }
+		// return a session containing the token field to indicate the
+		// successful creation.
+		Session returnSession = new Session();
+		returnSession.setToken(session.getToken());
+		return returnSession;
 	}
 	
+	
+	
+	@RequestMapping(method = RequestMethod.POST,value="/validateotp")
+	@APIMapping(value="USR_VALIDATE_OTP",checkSessionToken=false, checkTrustedApp=false)
+	public Session validateOtp(@RequestParam(value="authKey", required=true) String authKey,
+							   @RequestParam(value="otp", required=true) String otp,
+							   @RequestParam(value="trustedApp_id", required=false) String trustedAppId,
+							   @RequestParam(value="response_type", required=false) String responseType,
+			                   @RequestParam(value="redirect_uri", required=false) String redirectUri,
+			                   @RequestParam(value="state", required=false) String state,
+			                   @RequestParam(value="access_type", required=false) String accessType,
+			                   @RequestParam(value="approval_prompt", required=false) String approvalPrompt,
+			                   @RequestParam(value="consent_token", required=false) String consentToken,
+			                   @RequestParam(value="consented", required=false) String consented,
+							   HttpServletRequest request,
+							   HttpServletResponse response
+							   ) throws Exception {
+		Session session = new Session();
+		session.setAuthCode(authKey);
+		Account account = new Account();
+		account.setOtp(otp);
+		session.setAccount(account);
+		
+		
+		serviceFactory.getSessionService().createSession(session, USER_SERVICE);
+		
+		
+		
+		
+		String effectiveRedirectUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+		
+		 if (state != null)	{
+			 effectiveRedirectUri = effectiveRedirectUri + "&state=" + urlEncode(state);
+				logger.debug("state is provided {}, append it to the redirect uri", state);
+			}
+			
+			// append access_type if provided
+			if (accessType != null)	{
+				effectiveRedirectUri = effectiveRedirectUri + "&access_type=" + accessType;
+				logger.debug("accessType is provided {}, append it to the redirect uri", accessType);
+			}
+			
+			// append approval_prompt if provided
+			if (approvalPrompt != null)	{
+				effectiveRedirectUri = effectiveRedirectUri + "&approval_prompt=" + approvalPrompt;
+				logger.debug("approvalPrompt is provided {}, append it to the redirect uri", approvalPrompt);
+			}
+			response.addCookie(new Cookie("authentication_token",session.getToken()));
+			response.sendRedirect(effectiveRedirectUri);
+		
+		Session returnSession = new Session();
+		returnSession.setToken(session.getToken());
+		return returnSession;
+	}
 }

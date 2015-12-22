@@ -18,6 +18,7 @@ public class TemplateLineDao extends ParentDao implements ITemplateLineDao{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public TemplateHeaderEntity findTemplateHeader(String externalId){
 		DetachedCriteria query = DetachedCriteria.forClass(TemplateHeaderEntity.class);
 		query.add(Restrictions.eq("externalId",externalId));
@@ -27,6 +28,7 @@ public class TemplateLineDao extends ParentDao implements ITemplateLineDao{
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	public List<TemplateLineEntity> findTemplate(String externalId, Integer version) {
 		DetachedCriteria query = DetachedCriteria.forClass(TemplateLineEntity.class);
 		query.createAlias("templateHeader", "templateHeader");

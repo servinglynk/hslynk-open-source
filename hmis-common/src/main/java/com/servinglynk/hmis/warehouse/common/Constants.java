@@ -49,6 +49,8 @@ public interface Constants {
 	public static final String OAUTH_AUTHENTICATION_COOKIE = "authentication_token";
 	public static final String OAUTH_ACCOUNT_CONSENT_NEVER = "NEVER";
 	public static final String OAUTH_ACCOUNT_CONSENT_ONCE = "ONCE";
+	public static final int TWO_FACTOR_AUTH_FLOW_OPT= 1;
+	
 	
 	// developer company account roles
 	public static final String DEVELOPER_ACCOUNT_ROLE_ADMIN = "ADMIN";

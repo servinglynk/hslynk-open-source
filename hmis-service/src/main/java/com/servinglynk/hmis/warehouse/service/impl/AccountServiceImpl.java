@@ -5,15 +5,17 @@ import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_ACT
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PENDING;
 import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_ACCOUNT_CREATION;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.generated.thrift.thrift_jsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
@@ -22,8 +24,12 @@ import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.Locale;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
+import com.servinglynk.hmis.warehouse.core.model.Parameters;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
+import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
@@ -43,13 +49,15 @@ import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
 import com.servinglynk.hmis.warehouse.service.AccountService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.converter.ProfileConverter;
+import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticator;
+import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticatorKey;
 import com.servinglynk.hmis.warehouse.service.exception.AccountAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidCurrentPasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.OrganizationNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFound;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 
@@ -62,6 +70,9 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	@Qualifier("notificationurl")
 	protected String notificationurl; 
 	
+
+	@Autowired
+	NotificationServiceClient notificationServiceClient;
 
 	
 	
@@ -241,6 +252,11 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				pAccountLockout.setLastLoginStatus(1);
 				pAccountLockout.setAccount(pAccount);
 				pAccount.setAccountLockout(pAccountLockout);
+				GoogleAuthenticator authenticator = new GoogleAuthenticator();
+				GoogleAuthenticatorKey key = authenticator.createCredentials();
+				pAccount.setAuthenticatorSecret(key.getKey());
+				
+				System.out.println("QRCode URL "+key.getQRBarcodeURL("", "", key.getKey()));
 
 				
 				ProfileEntity profileEntity=null;
@@ -272,11 +288,18 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				userRoleMapEntity.setAccountEntity(pAccount);
 				userRoleMapEntity.setRoleEntity(pRole);
 				
+				if(account.getProjectGroup() != null){
 				
 				ProjectGroupEntity pProjectGroup = daoFactory.getProjectGroupDao().getProjectGroupById(account.getProjectGroup().getProjectGroupId());
-				if(pProjectGroup == null) throw new ProjectGroupNotFound();
+				if(pProjectGroup == null) throw new ProjectGroupNotFoundException();
 				
 				pAccount.setProjectGroupEntity(pProjectGroup);
+				}else{
+					HmisUser loginUser = daoFactory.getAccountDao().findByUsername(auditUser);
+					if(loginUser.getProjectGroupEntity() != null){
+						pAccount.setProjectGroupEntity(loginUser.getProjectGroupEntity());
+					}
+				}
 				
 				daoFactory.getAccountDao().createAccount(pAccount);
 				daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
@@ -287,6 +310,41 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				account.setProfile(ProfileConverter.entityToModel(profileEntity));
 				// send the account creation notification
 				
+				
+				Notification notification = new Notification();
+				notification.setMethod("EMAIL");
+				notification.setType("HMIS_RESOURCE_CREATION");
+				Recipients recipients = new Recipients();
+				List<String> emails = new ArrayList<String>();
+				emails.add(pAccount.getEmailAddress());
+				recipients.setToRecipients(emails);
+				notification.setRecipients(recipients);
+				
+				Parameters parameters = new Parameters();
+				Parameter usernameParameter = new Parameter();
+				usernameParameter.setKey("username");
+				usernameParameter.setValue(pAccount.getEmailAddress());
+				
+				Parameter passwordParameter = new Parameter();
+				passwordParameter.setKey("password");
+				passwordParameter.setValue(account.getPassword());
+				
+				Parameter googleKeyParameter = new Parameter();
+				googleKeyParameter.setKey("authenticatorSecret");
+				googleKeyParameter.setValue(pAccount.getAuthenticatorSecret());
+				
+				Parameter qrCodeParameter = new Parameter();
+				qrCodeParameter.setKey("qrcode");
+				qrCodeParameter.setValue(key.getQRBarcodeURL("", "", key.getKey()));
+
+				parameters.addParameter(usernameParameter);
+				parameters.addParameter(passwordParameter);
+				parameters.addParameter(googleKeyParameter);
+				parameters.addParameter(qrCodeParameter);
+				
+				notification.setParameters(parameters);
+				
+	//			notificationServiceClient.createNotification(notification);				
 			
 		return account;
 	}

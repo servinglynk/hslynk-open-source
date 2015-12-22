@@ -10,10 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import static javax.persistence.GenerationType.IDENTITY;
 
 
-
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "HMIS_TEMPLATE_LINE" )
 public class TemplateLineEntity extends ParentEntity {

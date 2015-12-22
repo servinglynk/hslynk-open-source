@@ -12,6 +12,7 @@ public class CreateMasterData {
 
 	public Connection getConnection() throws Exception {
 		Class.forName("org.postgresql.Driver");
+//		return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
 		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
 		
 	}
@@ -27,6 +28,33 @@ public class CreateMasterData {
 		System.out.println(query);
 		if(!connection.isClosed()) connection.close();		
 	}
+	
+	
+	public UUID createProjectGroup() throws Exception{
+		
+		UUID orgid = this.createOrganizations("Project Group Organization");
+		UUID projId1 = this.createProjects(orgid);
+		UUID projId2 = this.createProjects(orgid);
+		UUID projeGroupId = UUID.randomUUID();
+		String query1 = "INSERT INTO live.hmis_project_group( id, project_group_name, project_group_desc, project_group_code, INSERT_AT, INSERT_BY) values "
+				+ "		 ( '"+projeGroupId+"','PROJECT_GROUP_NAME','PROJECT_GROUP_DESCRIPTION','PG0001', current_date,'MASTER_DATA')" ;
+		
+		String query2 = "INSERT INTO live.hmis_project_projectgroup_map( id, project_id, project_group_id, insert_at, insert_by) values "
+						+ " ( '"+UUID.randomUUID()+"','"+projId1+"','"+projeGroupId+"', current_date,'MASTER_DATA')";
+		
+		String query3 = "INSERT INTO live.hmis_project_projectgroup_map( id, project_id, project_group_id, insert_at, insert_by) values "
+				+ " ( '"+UUID.randomUUID()+"','"+projId2+"','"+projeGroupId+"', current_date,'MASTER_DATA')";
+		
+		Connection connection = getConnection();
+		Statement statement = connection.createStatement();
+		statement.execute(query1);
+		statement.execute(query2);
+		statement.execute(query3);
+		if(!connection.isClosed()) connection.close();
+		return projeGroupId;
+	}
+	
+	
     String[] methods = {"CLIENT_API_CREATE_VETERANINFO","CLIENT_API_UPDATE_VETERANINFO","CLIENT_API_DELETE_VETERANINFO","CLIENT_API_GET_VETERANINFO_BY_ID","CLIENT_API_GET_ALL_CLIENT_VETERANINFOS"};
 
     String[] methodTypes = {"POST","PUT","DELETE","GET","GET"};
@@ -109,12 +137,12 @@ public class CreateMasterData {
 		
 	}
 	
-	public void createMasterUser(String profileId) throws Exception{
+	public void createMasterUser(String profileId,UUID projectGroupId) throws Exception{
 		UUID orgId1 =createOrganizations("Organization 1");
 		UUID id=UUID.fromString(getUUID());
 		String password =HMISCryptographer.Encrypt("password");
-		String userQuery="INSERT INTO hmis_user( id, first_name, middle_name, last_name, name_suffix, ssn, dob,  date_created,  created_by, password, profile_id, status, username,organization_id)"
-									+" VALUES ('"+id+"', 'Super Admin','Super Admin', 'Super Admin', 'Super Admin', '', current_date,current_date , 'MASTER DATA',  '"+password+"', '"+profileId+"', 'ACTIVE', 'superadmin@hmis.com','"+orgId1+"')";
+		String userQuery="INSERT INTO hmis_user( id, first_name, middle_name, last_name, name_suffix, ssn, dob,  date_created,  created_by, password, profile_id, status, username,organization_id,project_group_id)"
+									+" VALUES ('"+id+"', 'Super Admin','Super Admin', 'Super Admin', 'Super Admin', '', current_date,current_date , 'MASTER DATA',  '"+password+"', '"+profileId+"', 'ACTIVE', 'superadmin@hmis.com','"+orgId1+"','"+projectGroupId+"')";
 		Connection connection =getConnection();
 		Statement statement= connection.createStatement();
 		statement.execute(userQuery);
@@ -150,12 +178,16 @@ public class CreateMasterData {
 		String truncateProfileACL="truncate hmis_profile_acl cascade";
 		String truncateProfile="truncate hmis_profile cascade";
 		String truncateOrg="truncate organization cascade";
+		String truncateProjectGroup ="truncate hmis_project_group cascade";
+		String truncatePojGroupMap = "truncate hmis_project_projectgroup_map cascade";
 		Connection connection =getConnection();
 		Statement statement= connection.createStatement();
 		statement.execute(truncateuser);
 		statement.execute(truncateProfile);
 		statement.execute(truncateProfileACL);
 		statement.execute(truncateOrg);
+		statement.execute(truncateProjectGroup);
+		statement.execute(truncatePojGroupMap);
 		if(!connection.isClosed()) connection.close();
 		
 		
@@ -175,27 +207,28 @@ public class CreateMasterData {
 	public static void main(String args[]){
 		CreateMasterData data=new CreateMasterData();
 		try{
-//			data.clearData();
-//			String id= data.createSuperAdminProfile();
-//			data.createSuperAdminACL(id);
-//			data.createMasterUser(id);
-//			data.createTrustedApp();
+			data.clearData();
+			String id= data.createSuperAdminProfile();
+			UUID projectgroupid = data.createProjectGroup();
+			data.createSuperAdminACL(id);
+			data.createMasterUser(id,projectgroupid);
+			data.createTrustedApp();
 			
-//			UUID orgId1 = data.createOrganizations("Organization 1");
-//			UUID projId = data.createProjects(orgId1);
-//			data.createEnrollment(projId);
-//			data.createEnrollment(projId);
-//			data.createEnrollment(projId);
-//			data.createEnrollment(projId);
-//			data.createProjects(orgId1);
-//			UUID orgId2 = data.createOrganizations("Organization 2");
-//			data.createProjects(orgId2);
-//			data.createProjects(orgId2);
+			UUID orgId1 = data.createOrganizations("Organization 1");
+			UUID projId = data.createProjects(orgId1);
+			data.createEnrollment(projId);
+			data.createEnrollment(projId);
+			data.createEnrollment(projId);
+			data.createEnrollment(projId);
+			data.createProjects(orgId1);
+			UUID orgId2 = data.createOrganizations("Organization 2");
+			data.createProjects(orgId2);
+			data.createProjects(orgId2);
 			
 //			UUID methodId =	data.createApiMethod();
 //			data.assignToAdmonProfile(methodId);	
 	
-		    String[] methods = {"USR_CREATE_PROJECTGROUP","USR_UPDATE_ROJECTGROUP","USR_DELTEE_PROJECTGROUP","USR_GET_PROJECTGROUP_ID"};
+		  /*  String[] methods = {"USR_CREATE_PROJECTGROUP","USR_UPDATE_ROJECTGROUP","USR_DELTEE_PROJECTGROUP","USR_GET_PROJECTGROUP_ID"};
 
 		    String[] methodTypes = {"POST","PUT","DELETE","GET"};
 
@@ -212,7 +245,7 @@ public class CreateMasterData {
 			}
 
 			
-			System.out.println(UUID.randomUUID());
+			System.out.println(UUID.randomUUID()); */
 			
 		}catch(Exception e){
 			e.printStackTrace();

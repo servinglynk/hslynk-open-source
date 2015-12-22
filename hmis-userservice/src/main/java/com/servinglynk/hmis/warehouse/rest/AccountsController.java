@@ -35,7 +35,7 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 @RequestMapping("/accounts")
 public class AccountsController extends ControllerBase {
 
-	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=false, checkTrustedApp=false)
+	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 	@RequestMapping(method = RequestMethod.POST)
 	public Account createAccount(@RequestBody Account account, @RequestParam(value="purpose",required= false,defaultValue="" ) String purpose, HttpServletRequest request) throws Exception {
 		return createAccount(account, request, purpose);
@@ -44,6 +44,8 @@ public class AccountsController extends ControllerBase {
 			
 	private Account createAccount(Account account, HttpServletRequest request, String purpose) throws Exception{
 				// checks for existing account
+		
+		Session session = sessionHelper.getSession(request);
 				if (account.getUsername() != null) {
 					Account existingAccount = serviceFactory.getAccountService().findAccountByUsername(account.getUsername());
 					if (existingAccount != null) {
@@ -53,7 +55,7 @@ public class AccountsController extends ControllerBase {
 				}
 				
 		
-			return serviceFactory.getAccountService().createAccount(account, USER_SERVICE, purpose);
+			return serviceFactory.getAccountService().createAccount(account, session.getAccount().getUsername(), purpose);
 	 }
 	
 

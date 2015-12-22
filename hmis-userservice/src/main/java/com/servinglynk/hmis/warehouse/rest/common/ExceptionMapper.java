@@ -39,10 +39,12 @@ import com.servinglynk.hmis.warehouse.service.exception.DuplicateDataException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidApiMethodException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidCurrentPasswordException;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidOnetimePasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidRedirectUriException;
 import com.servinglynk.hmis.warehouse.service.exception.OrganizationNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.PermissionSetNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ReleaseOfInfoNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ServiceAlreadyExistsException;
@@ -266,6 +268,16 @@ public class ExceptionMapper {
 			logger.info("ReleaseOfInfoNotFoundException "+ex.getMessage());
 			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
 			r.setErrorCode(ERR_CODE_RELEASE_OF_INFO_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());
+		} catch(ProjectGroupNotFoundException ex){
+			logger.info("ProjectGroupNotFoundException "+ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("ERR_CODE_PROJECT_GROUP_NOT_FOUND");
+			r.setErrorMessage(ex.getMessage());
+		} catch (InvalidOnetimePasswordException ex) {
+			logger.info("InvalidOnetimePasswordException "+ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
+			r.setErrorCode("ERR_CODE_INVALID_ONETIME_PASSWORD");
 			r.setErrorMessage(ex.getMessage());
 		}
 		catch (Throwable t) {

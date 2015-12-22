@@ -7,7 +7,7 @@ public class AccountNotFoundException extends RuntimeException {
 	/**
 	 * Default exception message
 	 */
-	public static final String DEFAULT_MESSAGE = "account not found";
+	public static final String DEFAULT_MESSAGE = "user not found";
 
 	public AccountNotFoundException() {
 		super(DEFAULT_MESSAGE);
