@@ -33,7 +33,7 @@ import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 @Entity(name = "schoolstatus_staging")
 @Table(name = "schoolstatus", catalog = "hmis", schema = "staging")
-public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializable{
+public class Schoolstatus extends HmisBaseStagingModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1396005946857287067L;
@@ -48,10 +48,6 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 	
 
 	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
-	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
@@ -59,8 +55,6 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 	private LocalDateTime informationDate;
 	/** Field mapping. */
 	private Integer schoolStatus;
-	/** Field mapping. */
-	private HmisUser user;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -113,50 +107,6 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 		return Schoolstatus.class;
 	}
  
-
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
 
 	 /**
 	 * Return the value associated with the column: enrollmentid.
@@ -254,28 +204,6 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 		this.schoolStatus = schoolStatus;
 	}
 
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
 
 
    /**

@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.Sync;
+import com.servinglynk.hmis.warehouse.model.staging.HmisBaseStagingModel;
 import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
 
 
@@ -50,7 +51,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
 	}
-	
+	public void hydrateCommonFields(HmisBaseStagingModel baseModel,HmisUser user) {
+		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
+	}
 	public List<T> recordsToSync(Class t, SyncDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(t);
 		// criteria.add(Restrictions.("status",status)); Need to pass the date here .

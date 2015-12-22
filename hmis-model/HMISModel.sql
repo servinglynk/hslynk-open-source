@@ -3232,6 +3232,7 @@ CREATE TABLE live.hmis_project_group
    project_group_name character varying(32), 
    project_group_desc character varying(256),
    project_group_code character varying(8),
+   is_project_group_in_hive boolean,
    "INSERT_AT" timestamp without time zone, 
    "INSERT_BY" character varying(32), 
    "UPDATE_AT" timestamp without time zone, 
@@ -3280,3 +3281,17 @@ ALTER TABLE  live.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY
 ALTER TABLE  live.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES live.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
+--INSERT INTO live.hmis_user(
+--            id, first_name, middle_name, last_name, name_suffix, ssn, dob, 
+--            gender, date_created, date_updated, created_by, modified_by, 
+--            organization_id, password, profile_id, email_address, status, 
+--            username, verification_id, project_group_id)
+--    VALUES 
+--("2be4334a-ba97-4e12-a695-991752ca0391","Super Admin                                       ","Super Admin                                       ","Super Admin                                       ","Super Admin                                       ","         ","2015-12-10 00:00:00","","2015-12-10 00:00:00","","MASTER DATA","","","XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=","","","ACTIVE","superadmin@hmis.com","","ed938948-b73e-4868-940d-371c5bd2d3f8");
+--
+--INSERT INTO live.hmis_project_group(
+--            id, project_group_name, project_group_desc, project_group_code,is_project_group_in_hive,
+--            "INSERT_AT", "INSERT_BY", "UPDATE_AT", "UPDATE_BY")
+--    VALUES (
+--"ed938948-b73e-4868-940d-371c5bd2d3f8","PROJECT_GROUP_NAME","PROJECT_GROUP_DESCRIPTION","PG0001",false,"2015-12-10 00:00:00","MASTER_DATA","","");
+--

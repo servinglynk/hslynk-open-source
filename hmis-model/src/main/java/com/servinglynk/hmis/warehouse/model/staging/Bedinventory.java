@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
  */
 @Entity(name = "bedinventory_staging")
 @Table(name = "bedinventory", catalog = "hmis", schema = "staging")
-public class Bedinventory extends HmisBaseModel  implements Cloneable, Serializable {
+public class Bedinventory extends HmisBaseStagingModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -5659967634977461140L;
@@ -45,19 +45,12 @@ public class Bedinventory extends HmisBaseModel  implements Cloneable, Serializa
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
 	
-
 	/** Field mapping. */
 	private Integer bedInventory;
 	/** Field mapping. */
 	private Integer chBedInventory;
 	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
-	/** Field mapping. */
 	private java.util.UUID id;
-	/** Field mapping. */
-	private HmisUser user;
 	/** Field mapping. */
 	private Integer vetBedInventory;
 	/** Field mapping. */
@@ -145,58 +138,12 @@ public class Bedinventory extends HmisBaseModel  implements Cloneable, Serializa
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: chBedInventory.
 	 * @param chBedInventory the chBedInventory value you wish to set
 	 */
 	public void setChBedInventory(final Integer chBedInventory) {
 		this.chBedInventory = chBedInventory;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
 	}
 
 	 /**
@@ -230,29 +177,6 @@ public class Bedinventory extends HmisBaseModel  implements Cloneable, Serializa
 	}
 
 	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
-
-	 /**
 	 * Return the value associated with the column: vetBedInventory.
 	 * @return A Integer object (this.vetBedInventory)
 	 */
@@ -262,8 +186,6 @@ public class Bedinventory extends HmisBaseModel  implements Cloneable, Serializa
 		return this.vetBedInventory;
 		
 	}
-	
-
   
 	 /**  
 	 * Set the value related to the column: vetBedInventory.

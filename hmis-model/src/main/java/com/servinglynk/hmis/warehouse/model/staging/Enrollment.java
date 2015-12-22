@@ -44,7 +44,7 @@ import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
  */
 @Entity(name = "enrollment_staging")
 @Table(name = "enrollment", catalog = "hmis", schema = "staging")
-public class Enrollment extends HmisBaseModel  implements Cloneable, Serializable {
+public class Enrollment extends HmisBaseStagingModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6048419471750369756L;
@@ -68,10 +68,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	/** Field mapping. */
 	private Set<Dateofengagement> dateofengagements = new HashSet<Dateofengagement>();
 
-	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Set<Disabilities> disabilitieses = new HashSet<Disabilities>();
 
@@ -117,9 +113,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 
 	/** Field mapping. */
 	private Set<LastPermAddress> lastPermAddresses = new HashSet<LastPermAddress>();
-
-	/** Field mapping. */
-	private Set<Lastpermanentaddress> lastpermanentaddresses = new HashSet<Lastpermanentaddress>();
 
 	/** Field mapping. */
 	private Set<Medicalassistance> medicalassistances = new HashSet<Medicalassistance>();
@@ -176,8 +169,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private EnrollmentStatusdocumentedEnum statusdocumented;
 	/** Field mapping. */
 	private EnrollmentTimeshomelesspastthreeyearsEnum timeshomelesspastthreeyears;
-	/** Field mapping. */
-	private HmisUser user;
 	/** Field mapping. */
 	private Set<Worsthousingsituation> worsthousingsituations = new HashSet<Worsthousingsituation>();
 
@@ -345,50 +336,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	 */
 	public void setDateofengagements(final Set<Dateofengagement> dateofengagement) {
 		this.dateofengagements = dateofengagement;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
 	}
 
 	 /**
@@ -878,37 +825,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	 */
 	public void setLastPermAddresses(final Set<LastPermAddress> lastPermAddress) {
 		this.lastPermAddresses = lastPermAddress;
-	}
-
-	 /**
-	 * Return the value associated with the column: lastpermanentaddress.
-	 * @return A Set&lt;Lastpermanentaddress&gt; object (this.lastpermanentaddress)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Lastpermanentaddress> getLastpermanentaddresses() {
-		return this.lastpermanentaddresses;
-		
-	}
-	
-	/**
-	 * Adds a bi-directional link of type Lastpermanentaddress to the lastpermanentaddresses set.
-	 * @param lastpermanentaddress item to add
-	 */
-	public void addLastpermanentaddress(Lastpermanentaddress lastpermanentaddress) {
-		lastpermanentaddress.setEnrollmentid(this);
-		this.lastpermanentaddresses.add(lastpermanentaddress);
-	}
-
-  
-	 /**  
-	 * Set the value related to the column: lastpermanentaddress.
-	 * @param lastpermanentaddress the lastpermanentaddress value you wish to set
-	 */
-	public void setLastpermanentaddresses(final Set<Lastpermanentaddress> lastpermanentaddress) {
-		this.lastpermanentaddresses = lastpermanentaddress;
 	}
 
 	 /**
@@ -1491,29 +1407,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	}
 
 	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
-
-	 /**
 	 * Return the value associated with the column: worsthousingsituation.
 	 * @return A Set&lt;Worsthousingsituation&gt; object (this.worsthousingsituation)
 	 */
@@ -1535,7 +1428,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		this.worsthousingsituations.add(worsthousingsituation);
 	}
 
-  
 	 /**  
 	 * Set the value related to the column: worsthousingsituation.
 	 * @param worsthousingsituation the worsthousingsituation value you wish to set
@@ -1654,9 +1546,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		}
 		if (this.getLastPermAddresses() != null) {
 			copy.getLastPermAddresses().addAll(this.getLastPermAddresses());
-		}
-		if (this.getLastpermanentaddresses() != null) {
-			copy.getLastpermanentaddresses().addAll(this.getLastpermanentaddresses());
 		}
 		if (this.getMedicalassistances() != null) {
 			copy.getMedicalassistances().addAll(this.getMedicalassistances());

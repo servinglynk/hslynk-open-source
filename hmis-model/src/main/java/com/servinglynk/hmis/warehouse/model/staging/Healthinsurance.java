@@ -49,7 +49,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "healthinsurance_staging")
 @Table(name = "healthinsurance", catalog = "hmis", schema = "staging")
-public class Healthinsurance extends HmisBaseModel  implements Cloneable, Serializable{
+public class Healthinsurance extends HmisBaseStagingModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 1945597065165620993L;
@@ -179,49 +179,6 @@ public class Healthinsurance extends HmisBaseModel  implements Cloneable, Serial
 		this.cobra = cobra;
 	}
 
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
 
 	 /**
 	 * Return the value associated with the column: employerprovided.
@@ -255,8 +212,6 @@ public class Healthinsurance extends HmisBaseModel  implements Cloneable, Serial
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: enrollmentid.
 	 * @param enrollmentid the enrollmentid value you wish to set
@@ -602,29 +557,6 @@ public class Healthinsurance extends HmisBaseModel  implements Cloneable, Serial
 	}
 
 	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
-
-	 /**
 	 * Return the value associated with the column: vamedicalservices.
 	 * @return A HealthinsuranceVamedicalservicesEnum object (this.vamedicalservices)
 	 */
@@ -636,8 +568,6 @@ public class Healthinsurance extends HmisBaseModel  implements Cloneable, Serial
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: vamedicalservices.
 	 * @param vamedicalservices the vamedicalservices value you wish to set

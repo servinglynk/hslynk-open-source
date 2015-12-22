@@ -38,7 +38,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "projectcoc_staging")
 @Table(name = "projectcoc", catalog = "hmis", schema = "staging")
-public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializable {
+public class Projectcoc extends HmisBaseStagingModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6488195069713059339L;
@@ -55,10 +55,6 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 	/** Field mapping. */
 	private String coccode;
 	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
-	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private Set<Inventory> inventories = new HashSet<Inventory>();
@@ -68,8 +64,6 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 	/** Field mapping. */
 	private Set<Site> sites = new HashSet<Site>();
 
-	/** Field mapping. */
-	private HmisUser user;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -144,49 +138,6 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		this.coccode = coccode;
 	}
 
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -303,28 +254,6 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		this.sites = site;
 	}
 
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
 
 
    /**
@@ -352,7 +281,6 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		return copy;
 	}
 	
-
 
 	/** Provides toString implementation.
 	 * @see java.lang.Object#toString()

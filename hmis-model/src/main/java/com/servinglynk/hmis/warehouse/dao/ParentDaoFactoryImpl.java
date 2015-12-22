@@ -64,8 +64,6 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	@Autowired
 	private LastPermAddressDao lastPermAddressDao;
 	@Autowired
-	private LastpermanentaddressDao lastpermanentaddressDao;
-	@Autowired
 	private MedicalassistanceDao medicalassistanceDao;
 	@Autowired
 	private NoncashbenefitsDao noncashbenefitsDao;
@@ -540,21 +538,21 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 		this.lastPermAddressDao = lastPermAddressDao;
 	}
 
-	/**
-	 * @return the lastpermanentaddressDao
-	 */
-	public LastpermanentaddressDao getLastpermanentaddressDao() {
-		return lastpermanentaddressDao;
-	}
-
-	/**
-	 * @param lastpermanentaddressDao
-	 *            the lastpermanentaddressDao to set
-	 */
-	public void setLastpermanentaddressDao(
-			LastpermanentaddressDao lastpermanentaddressDao) {
-		this.lastpermanentaddressDao = lastpermanentaddressDao;
-	}
+//	/**
+//	 * @return the lastpermanentaddressDao
+//	 */
+//	public LastpermanentaddressDao getLastpermanentaddressDao() {
+//		return lastpermanentaddressDao;
+//	}
+//
+//	/**
+//	 * @param lastpermanentaddressDao
+//	 *            the lastpermanentaddressDao to set
+//	 */
+//	public void setLastpermanentaddressDao(
+//			LastpermanentaddressDao lastpermanentaddressDao) {
+//		this.lastpermanentaddressDao = lastpermanentaddressDao;
+//	}
 
 	/**
 	 * @return the medicalassistanceDao

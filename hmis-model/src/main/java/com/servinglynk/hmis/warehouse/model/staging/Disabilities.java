@@ -40,7 +40,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "disabilities_staging")
 @Table(name = "disabilities", catalog = "hmis", schema = "staging")
-public class Disabilities extends HmisBaseModel  implements Cloneable, Serializable {
+public class Disabilities extends HmisBaseStagingModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6492609509614588571L;
@@ -52,12 +52,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 	
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
-	
 
-	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Integer disabilityresponse;
 	/** Field mapping. */
@@ -76,8 +71,6 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 	private DisabilitiesPathsmiinformationEnum pathsmiinformation;
 	/** Field mapping. */
 	private DisabilitiesReceivingservicesEnum receivingservices;
-	/** Field mapping. */
-	private HmisUser user;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -128,51 +121,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 		return Disabilities.class;
 	}
  
-
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
   
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
-
 	 /**
 	 * Return the value associated with the column: disabilityresponse.
 	 * @return A Integer object (this.disabilityresponse)
@@ -376,30 +325,6 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 	public void setReceivingservices(final DisabilitiesReceivingservicesEnum receivingservices) {
 		this.receivingservices = receivingservices;
 	}
-
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
-
 
    /**
     * Deep copy.

@@ -36,7 +36,7 @@ import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 @Entity(name = "export_staging")
 @Table(name = "export", catalog = "hmis", schema = "staging")
-public class Export extends HmisBaseModel  implements Cloneable, Serializable {
+public class Export extends HmisBaseStagingModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 42126664696688958L;
@@ -138,9 +138,6 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Field mapping. */
 	private Set<LastPermAddress> lastPermAddresses = new HashSet<LastPermAddress>();
-
-	/** Field mapping. */
-	private Set<Lastpermanentaddress> lastpermanentaddresses = new HashSet<Lastpermanentaddress>();
 
 	/** Field mapping. */
 	private Set<Medicalassistance> medicalassistances = new HashSet<Medicalassistance>();
@@ -415,49 +412,6 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		this.dateofengagements = dateofengagement;
 	}
 
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
 
 	 /**
 	 * Return the value associated with the column: disabilities.
@@ -1165,37 +1119,6 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 	}
 
 	 /**
-	 * Return the value associated with the column: lastpermanentaddress.
-	 * @return A Set&lt;Lastpermanentaddress&gt; object (this.lastpermanentaddress)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Lastpermanentaddress> getLastpermanentaddresses() {
-		return this.lastpermanentaddresses;
-		
-	}
-	
-	/**
-	 * Adds a bi-directional link of type Lastpermanentaddress to the lastpermanentaddresses set.
-	 * @param lastpermanentaddress item to add
-	 */
-	public void addLastpermanentaddress(Lastpermanentaddress lastpermanentaddress) {
-		lastpermanentaddress.setExport(this);
-		this.lastpermanentaddresses.add(lastpermanentaddress);
-	}
-
-  
-	 /**  
-	 * Set the value related to the column: lastpermanentaddress.
-	 * @param lastpermanentaddress the lastpermanentaddress value you wish to set
-	 */
-	public void setLastpermanentaddresses(final Set<Lastpermanentaddress> lastpermanentaddress) {
-		this.lastpermanentaddresses = lastpermanentaddress;
-	}
-
-	 /**
 	 * Return the value associated with the column: medicalassistance.
 	 * @return A Set&lt;Medicalassistance&gt; object (this.medicalassistance)
 	 */
@@ -1706,29 +1629,6 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 	}
 
 	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
-
-	 /**
 	 * Return the value associated with the column: veteranInfo.
 	 * @return A Set&lt;VeteranInfo&gt; object (this.veteranInfo)
 	 */
@@ -1913,9 +1813,6 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		}
 		if (this.getLastPermAddresses() != null) {
 			copy.getLastPermAddresses().addAll(this.getLastPermAddresses());
-		}
-		if (this.getLastpermanentaddresses() != null) {
-			copy.getLastpermanentaddresses().addAll(this.getLastpermanentaddresses());
 		}
 		if (this.getMedicalassistances() != null) {
 			copy.getMedicalassistances().addAll(this.getMedicalassistances());

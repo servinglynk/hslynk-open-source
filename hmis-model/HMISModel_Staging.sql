@@ -1,3 +1,6 @@
+drop schema "staging";
+create schema "staging";
+
 DROP SEQUENCE IF EXISTS "staging".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "staging".seq_account_preference;
 DROP SEQUENCE IF EXISTS "staging".seq_api_group;
@@ -3232,6 +3235,7 @@ CREATE TABLE staging.hmis_project_group
    project_group_name character varying(32), 
    project_group_desc character varying(256),
    project_group_code character varying(8),
+   is_project_group_in_hive boolean,
    "INSERT_AT" timestamp without time zone, 
    "INSERT_BY" character varying(32), 
    "UPDATE_AT" timestamp without time zone, 
@@ -3278,5 +3282,4 @@ ALTER TABLE  staging.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (profile_id) REFERENCES staging.hmis_profile (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES staging.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES staging.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-
 

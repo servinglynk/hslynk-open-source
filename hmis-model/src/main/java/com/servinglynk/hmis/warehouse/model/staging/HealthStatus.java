@@ -36,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "health_status_staging")
 @Table(name = "health_status", catalog = "hmis", schema = "staging")
-public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializable {
+public class HealthStatus extends HmisBaseStagingModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 903091481736147622L;
@@ -121,49 +121,6 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 	}
  
 
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
 
 	 /**
 	 * Return the value associated with the column: dueDate.
@@ -200,8 +157,6 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: enrollmentid.
 	 * @param enrollmentid the enrollmentid value you wish to set
@@ -306,28 +261,6 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		this.informationDate = informationDate;
 	}
 
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
 
 
    /**
@@ -352,8 +285,6 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		return copy;
 	}
 	
-
-
 	/** Provides toString implementation.
 	 * @see java.lang.Object#toString()
 	 * @return String representation of this class.

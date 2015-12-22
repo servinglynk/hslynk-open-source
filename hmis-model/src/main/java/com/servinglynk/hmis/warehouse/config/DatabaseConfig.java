@@ -203,10 +203,6 @@ public class DatabaseConfig {
 		return new LastPermAddressDaoImpl();
 	}
 	@Bean
-	public LastpermanentaddressDao lastpermanentaddressDao() { 
-		return new LastpermanentaddressDaoImpl();
-	}
-	@Bean
 	public MedicalassistanceDao medicalassistanceDao() { 
 		return new MedicalassistanceDaoImpl();
 	}

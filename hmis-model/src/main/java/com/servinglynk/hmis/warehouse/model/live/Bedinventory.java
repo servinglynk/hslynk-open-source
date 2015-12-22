@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
@@ -411,6 +412,4 @@ public class Bedinventory  extends HmisBaseModel implements Cloneable, Serializa
 		result = result && (((getYouthBedInventory() == null) && (that.getYouthBedInventory() == null)) || (getYouthBedInventory() != null && getYouthBedInventory().equals(that.getYouthBedInventory())));
 		return result;
 	}
-
-	
 }

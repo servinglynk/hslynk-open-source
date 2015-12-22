@@ -34,7 +34,6 @@ public interface ParentDaoFactory {
 	InventoryDao getInventoryDao();
 	LastgradecompletedDao getLastgradecompletedDao();
 	LastPermAddressDao getLastPermAddressDao();
-	LastpermanentaddressDao getLastpermanentaddressDao();
 	MedicalassistanceDao getMedicalassistanceDao();
 	NoncashbenefitsDao getNoncashbenefitsDao();
 	OrganizationDao getOrganizationDao();
