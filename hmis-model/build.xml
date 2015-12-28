@@ -8,7 +8,7 @@
 	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
 	   <property name="sql.user" value="postgres"/>
 	   <property name="sql.pass" value="postgres"/>
-	 
+
    <target name="setupDB">
       <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}" >
            <classpath>

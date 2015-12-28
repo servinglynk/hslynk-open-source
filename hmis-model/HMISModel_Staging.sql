@@ -1,6 +1,5 @@
-drop schema "staging";
+drop schema "staging" cascade;
 create schema "staging";
-
 DROP SEQUENCE IF EXISTS "staging".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "staging".seq_account_preference;
 DROP SEQUENCE IF EXISTS "staging".seq_api_group;
@@ -3236,10 +3235,10 @@ CREATE TABLE staging.hmis_project_group
    project_group_desc character varying(256),
    project_group_code character varying(8),
    is_project_group_in_hive boolean,
-   "INSERT_AT" timestamp without time zone, 
-   "INSERT_BY" character varying(32), 
-   "UPDATE_AT" timestamp without time zone, 
-   "UPDATE_BY" character varying(32), 
+   INSERT_AT timestamp without time zone, 
+   INSERT_BY character varying(32), 
+   UPDATE_AT timestamp without time zone, 
+   UPDATE_BY character varying(32), 
    CONSTRAINT pk_hmis_project_group PRIMARY KEY (id)
 ) 
 WITH (
@@ -3252,10 +3251,10 @@ CREATE TABLE staging.hmis_project_projectgroup_map
    id uuid, 
    project_id uuid, 
    project_group_id uuid, 
-   "INSERT_BY" character varying(32), 
-   "UPDATE_AT" timestamp without time zone, 
-   "INSERT_AT" timestamp without time zone, 
-   "UPDATE_BY" character varying(32), 
+   INSERT_BY character varying(32), 
+   UPDATE_AT timestamp without time zone, 
+   INSERT_AT timestamp without time zone, 
+   UPDATE_BY character varying(32), 
    CONSTRAINT pk_project_projectgroup_map PRIMARY KEY (id), 
    CONSTRAINT fk_project_group_id FOREIGN KEY (project_group_id) REFERENCES staging.hmis_project_group (id) ON UPDATE NO ACTION ON DELETE NO ACTION, 
    CONSTRAINT fk_project_id FOREIGN KEY (project_id) REFERENCES staging.project (id) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -3276,10 +3275,29 @@ ALTER TABLE staging.hmis_user ADD COLUMN status character varying(266);
 ALTER TABLE staging.hmis_user ADD COLUMN username character varying(256);
 ALTER TABLE staging.hmis_user ADD COLUMN verification_id uuid;
 ALTER TABLE staging.hmis_user ADD COLUMN project_group_id uuid;
+ALTER TABLE staging.hmis_user ADD COLUMN authenticator_secret character varying(16);
+ALTER TABLE staging.hmis_user ADD COLUMN two_factor_authentication boolean;
 
 
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES staging.organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (profile_id) REFERENCES staging.hmis_profile (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES staging.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES staging.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+update staging.hmis_user set two_factor_authentication =false;
+
+INSERT INTO staging.hmis_project_group(
+            id, project_group_name, project_group_desc, project_group_code,is_project_group_in_hive,
+            INSERT_AT, INSERT_BY, UPDATE_AT, UPDATE_BY)
+    VALUES (
+'ed938948-b73e-4868-940d-371c5bd2d3f8','PROJECT_GROUP_NAME','PROJECT_GROUP_DESCRIPTION','PG0001',false,'2015-12-10 00:00:00','MASTER_DATA','2015-12-10 00:00:00','MASTER_DATA');
+
+INSERT INTO staging.hmis_user(
+            id, first_name, middle_name, last_name, name_suffix, ssn, dob, 
+            gender, date_created, date_updated, created_by, modified_by, 
+             password, email_address, status, 
+            username, project_group_id)
+    VALUES 
+('2be4334a-ba97-4e12-a695-991752ca0391','Super Admin','Super Admin','Super Admin','Super Admin','','2015-12-10 00:00:00',
+'1','2015-12-10 00:00:00','2015-12-10 00:00:00','MASTER DATA','MASTER DATA',
+'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=','superadmin@hmis.com','ACTIVE','admin','ed938948-b73e-4868-940d-371c5bd2d3f8');
 

@@ -444,7 +444,7 @@ public class Client extends HmisBaseStagingModel  implements Cloneable, Serializ
 	 * Return the value associated with the column: ssnDataQuality.
 	 * @return A ClientSsnDataQualityEnum object (this.ssnDataQuality)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnumType")
 	@Basic( optional = true )
 	@Column( name = "ssn_data_quality"  )
 	public ClientSsnDataQualityEnum getSsnDataQuality() {
