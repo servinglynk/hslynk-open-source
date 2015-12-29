@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.restful.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -12,7 +13,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @JsonRootName("AuthenticationRequest")
 public class AuthenticationRequest
 {
+	@XmlElement
 	private String username;
+	@XmlElement
 	private String password;
 	
 	public AuthenticationRequest() {

@@ -523,9 +523,6 @@ public class HmisUser  {
 		private Set<LastPermAddress> lastPermAddresses = new HashSet<LastPermAddress>();
 
 		/** Field mapping. */
-		private Set<Lastpermanentaddress> lastpermanentaddresses = new HashSet<Lastpermanentaddress>();
-		
-		/** Field mapping. */
 		private Set<Medicalassistance> medicalassistances = new HashSet<Medicalassistance>();
 		
 			/** Field mapping. */
@@ -1386,36 +1383,6 @@ public class HmisUser  {
 			this.lastPermAddresses = lastPermAddress;
 		}
 
-		 /**
-		 * Return the value associated with the column: lastpermanentaddress.
-		 * @return A Set&lt;Lastpermanentaddress&gt; object (this.lastpermanentaddress)
-		 */
-	 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "user"  )
-	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = false )
-		@Column( nullable = false  )
-		public Set<Lastpermanentaddress> getLastpermanentaddresses() {
-			return this.lastpermanentaddresses;
-			
-		}
-		
-		/**
-		 * Adds a bi-directional link of type Lastpermanentaddress to the lastpermanentaddresses set.
-		 * @param lastpermanentaddress item to add
-		 */
-		public void addLastpermanentaddress(Lastpermanentaddress lastpermanentaddress) {
-			lastpermanentaddress.setUser(this);
-			this.lastpermanentaddresses.add(lastpermanentaddress);
-		}
-
-	  
-		 /**  
-		 * Set the value related to the column: lastpermanentaddress.
-		 * @param lastpermanentaddress the lastpermanentaddress value you wish to set
-		 */
-		public void setLastpermanentaddresses(final Set<Lastpermanentaddress> lastpermanentaddress) {
-			this.lastpermanentaddresses = lastpermanentaddress;
-		}
 
 		 /**
 		 * Return the value associated with the column: medicalassistance.
@@ -1447,8 +1414,6 @@ public class HmisUser  {
 		public void setMedicalassistances(final Set<Medicalassistance> medicalassistance) {
 			this.medicalassistances = medicalassistance;
 		}
-
-
 		 /**
 		 * Return the value associated with the column: noncashbenefits.
 		 * @return A Set&lt;Noncashbenefits&gt; object (this.noncashbenefits)

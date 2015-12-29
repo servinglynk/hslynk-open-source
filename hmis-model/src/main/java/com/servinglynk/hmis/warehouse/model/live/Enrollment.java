@@ -120,9 +120,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private Set<LastPermAddress> lastPermAddresses = new HashSet<LastPermAddress>();
 
 	/** Field mapping. */
-	private Set<Lastpermanentaddress> lastpermanentaddresses = new HashSet<Lastpermanentaddress>();
-
-	/** Field mapping. */
 	private Set<Medicalassistance> medicalassistances = new HashSet<Medicalassistance>();
 
 	/** Field mapping. */
@@ -882,37 +879,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	}
 
 	 /**
-	 * Return the value associated with the column: lastpermanentaddress.
-	 * @return A Set&lt;Lastpermanentaddress&gt; object (this.lastpermanentaddress)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Lastpermanentaddress> getLastpermanentaddresses() {
-		return this.lastpermanentaddresses;
-		
-	}
-	
-	/**
-	 * Adds a bi-directional link of type Lastpermanentaddress to the lastpermanentaddresses set.
-	 * @param lastpermanentaddress item to add
-	 */
-	public void addLastpermanentaddress(Lastpermanentaddress lastpermanentaddress) {
-		lastpermanentaddress.setEnrollmentid(this);
-		this.lastpermanentaddresses.add(lastpermanentaddress);
-	}
-
-  
-	 /**  
-	 * Set the value related to the column: lastpermanentaddress.
-	 * @param lastpermanentaddress the lastpermanentaddress value you wish to set
-	 */
-	public void setLastpermanentaddresses(final Set<Lastpermanentaddress> lastpermanentaddress) {
-		this.lastpermanentaddresses = lastpermanentaddress;
-	}
-
-	 /**
 	 * Return the value associated with the column: medicalassistance.
 	 * @return A Set&lt;Medicalassistance&gt; object (this.medicalassistance)
 	 */
@@ -1655,9 +1621,6 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		}
 		if (this.getLastPermAddresses() != null) {
 			copy.getLastPermAddresses().addAll(this.getLastPermAddresses());
-		}
-		if (this.getLastpermanentaddresses() != null) {
-			copy.getLastpermanentaddresses().addAll(this.getLastpermanentaddresses());
 		}
 		if (this.getMedicalassistances() != null) {
 			copy.getMedicalassistances().addAll(this.getMedicalassistances());

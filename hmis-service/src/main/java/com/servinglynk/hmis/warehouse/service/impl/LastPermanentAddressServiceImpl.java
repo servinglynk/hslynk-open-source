@@ -19,13 +19,13 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
 
    @Transactional
    public LastPermanentAddress createLastPermanentAddress(LastPermanentAddress lastPermanentAddress,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress pLastPermanentAddress = LastPermanentAddressConverter.modelToEntity(lastPermanentAddress, null);
+       com.servinglynk.hmis.warehouse.model.live.LastPermAddress pLastPermanentAddress = LastPermanentAddressConverter.modelToEntity(lastPermanentAddress, null);
        com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pLastPermanentAddress.setEnrollmentid(pEnrollment); 
        pLastPermanentAddress.setDateCreated(LocalDateTime.now());
        pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
-       daoFactory.getLastpermanentaddressDao().createLastPermanentAddress(pLastPermanentAddress);
+       daoFactory.getLastPermAddressDao().createLastPermanentAddress(pLastPermanentAddress);
        lastPermanentAddress.setLastPermanentAddressId(pLastPermanentAddress.getId());
        return lastPermanentAddress;
    }
@@ -35,14 +35,14 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
    public LastPermanentAddress updateLastPermanentAddress(LastPermanentAddress lastPermanentAddress,UUID enrollmentId,String caller){
        com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress pLastPermanentAddress = daoFactory.getLastpermanentaddressDao().getLastPermanentAddressById(lastPermanentAddress.getLastPermanentAddressId());
+       com.servinglynk.hmis.warehouse.model.live.LastPermAddress pLastPermanentAddress = daoFactory.getLastPermAddressDao().getLastPermanentAddressById(lastPermanentAddress.getLastPermanentAddressId());
        if(pLastPermanentAddress==null) throw new LastPermanentAddressNotFoundException();
 
        LastPermanentAddressConverter.modelToEntity(lastPermanentAddress, pLastPermanentAddress);
        pLastPermanentAddress.setEnrollmentid(pEnrollment); 
        pLastPermanentAddress.setDateUpdated(LocalDateTime.now());
        pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
-       daoFactory.getLastpermanentaddressDao().updateLastPermanentAddress(pLastPermanentAddress);
+       daoFactory.getLastPermAddressDao().updateLastPermanentAddress(pLastPermanentAddress);
        lastPermanentAddress.setLastPermanentAddressId(pLastPermanentAddress.getId());
        return lastPermanentAddress;
    }
@@ -50,17 +50,17 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
 
    @Transactional
    public LastPermanentAddress deleteLastPermanentAddress(UUID lastPermanentAddressId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress pLastPermanentAddress = daoFactory.getLastpermanentaddressDao().getLastPermanentAddressById(lastPermanentAddressId);
+       com.servinglynk.hmis.warehouse.model.live.LastPermAddress pLastPermanentAddress = daoFactory.getLastPermAddressDao().getLastPermanentAddressById(lastPermanentAddressId);
        if(pLastPermanentAddress==null) throw new LastPermanentAddressNotFoundException();
 
-       daoFactory.getLastpermanentaddressDao().deleteLastPermanentAddress(pLastPermanentAddress);
+       daoFactory.getLastPermAddressDao().deleteLastPermanentAddress(pLastPermanentAddress);
        return new LastPermanentAddress();
    }
 
 
    @Transactional
    public LastPermanentAddress getLastPermanentAddressById(UUID lastPermanentAddressId){
-       com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress pLastPermanentAddress = daoFactory.getLastpermanentaddressDao().getLastPermanentAddressById(lastPermanentAddressId);
+       com.servinglynk.hmis.warehouse.model.live.LastPermAddress pLastPermanentAddress = daoFactory.getLastPermAddressDao().getLastPermanentAddressById(lastPermanentAddressId);
        if(pLastPermanentAddress==null) throw new LastPermanentAddressNotFoundException();
 
        return LastPermanentAddressConverter.entityToModel( pLastPermanentAddress );
@@ -70,11 +70,11 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
    @Transactional
    public LastPermanentAddresses getAllEnrollmentLastPermanentAddresss(UUID enrollmentId,Integer startIndex, Integer maxItems){
        LastPermanentAddresses lastPermanentAddresss = new LastPermanentAddresses();
-        List<com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress> entities = daoFactory.getLastpermanentaddressDao().getAllEnrollmentLastPermanentAddresss(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Lastpermanentaddress entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.live.LastPermAddress> entities = daoFactory.getLastPermAddressDao().getAllEnrollmentLastPermanentAddresss(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.live.LastPermAddress entity : entities){
            lastPermanentAddresss.addLastPermanentAddress(LastPermanentAddressConverter.entityToModel(entity));
         }
-        long count = daoFactory.getLastpermanentaddressDao().getEnrollmentLastPermanentAddresssCount(enrollmentId);
+        long count = daoFactory.getLastPermAddressDao().getEnrollmentLastPermanentAddresssCount(enrollmentId);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);
