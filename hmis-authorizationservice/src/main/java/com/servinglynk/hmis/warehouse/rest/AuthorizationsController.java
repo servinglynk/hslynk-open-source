@@ -62,7 +62,7 @@ public class AuthorizationsController extends ControllerBase {
 		try	{
 			// request authorization
 			authorization = serviceFactory.getAuthorizationService().requestAuthorization(trustedAppId, 
-																						  redirectUri, 
+					redirectUri, 
 																						  responseType, 
 																						  accessType, 
 																						  approvalPrompt, 

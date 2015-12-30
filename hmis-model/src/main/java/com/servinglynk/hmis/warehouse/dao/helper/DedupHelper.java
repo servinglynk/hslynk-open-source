@@ -39,9 +39,9 @@ public class DedupHelper {
 		try {
 		 	RestTemplate restTemplate = new RestTemplate();
 		 	
-		 	String url = "http://ec2-54-149-120-14.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
-	        //String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";       
-	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
+		 	//String url = "http://ec2-54-149-120-14.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
+	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";       
+	        String requestBody = "{ \"AuthenticationReq+uest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");
 	        AuthenticationRequest.setUsername("admin");
@@ -49,7 +49,7 @@ public class DedupHelper {
 	        request.setAuthenticationRequest(AuthenticationRequest);
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
-	        HttpEntity<AppRequest> entity = new HttpEntity<AppRequest>(request, headers); 
+	        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
 	        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
 	        // check the response, e.g. Location header,  Status, and body
 	        response.getHeaders().getLocation();
