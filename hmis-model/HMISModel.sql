@@ -630,10 +630,10 @@ id uuid not null,
   sourceContactPhone	character varying(12),
   sourceID	character varying(32),
   sourceName	character varying(50),
-  "project_group_code" character varying(8),
-  "date_created" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
+  project_group_code character varying(8),
+  date_created timestamp,
+  date_updated timestamp,
+  user_id uuid,
   constraint "source_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
       REFERENCES live.hmis_user (id) MATCH SIMPLE
@@ -1011,7 +1011,7 @@ with (
 CREATE TABLE  "live".project
 (
   id uuid NOT NULL,
-  "enrollmentid" uuid,
+  enrollmentid uuid,
   continuumproject "live".no_yes,
   organizationid uuid,
   projectcommonname character varying(32),
@@ -1020,10 +1020,10 @@ CREATE TABLE  "live".project
   residentialaffiliation "live".no_yes,
   targetpopulation "live".target_population_type,
   trackingmethod "live".tracking_method,
-  "project_group_code" character varying(8),
-   "date_created" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
+  project_group_code character varying(8),
+  date_created timestamp,
+  date_updated timestamp,
+  user_id uuid,
   export_id uuid,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
@@ -3263,6 +3263,22 @@ WITH (
   OIDS = FALSE
 );
 
+CREATE TABLE live.hmis_service_license
+(
+   id uuid, 
+   external_id character varying(256), 
+   service_id uuid, 
+   created_at timestamp without time zone, 
+   created_by character varying(256), 
+   modified_at timestamp without time zone, 
+   modified_by character varying(256), 
+   CONSTRAINT "PK_HMIS_SERVICE_LICENSE" PRIMARY KEY (id), 
+   CONSTRAINT "FK_HMIS_SERVICE_LICENCE_SERVICE_ID" FOREIGN KEY (service_id) REFERENCES live.hmis_service (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+) 
+WITH (
+  OIDS = FALSE
+)
+;
 
 
 ALTER TABLE live.hmis_user ADD COLUMN created_by character varying(256);
