@@ -26,7 +26,6 @@
 	<module>hmis-authorizationservice</module>
 	<module>hmis-client-dedup</module>
 	<module>hmis-developerservice</module>
-	<module>hmis-enrollment</module>
 	<module>hmis-report-core</module>
 	<module>hmis-sync</module>
 	<module>hmis-userservice</module>
