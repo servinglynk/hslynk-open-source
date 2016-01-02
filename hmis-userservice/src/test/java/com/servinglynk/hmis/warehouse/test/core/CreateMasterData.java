@@ -12,8 +12,8 @@ public class CreateMasterData {
 
 	public Connection getConnection() throws Exception {
 		Class.forName("org.postgresql.Driver");
-//		return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
-		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
+		return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
+		//return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
 		
 	}
 	
@@ -234,7 +234,7 @@ public class CreateMasterData {
 			UUID orgId2 = data.createOrganizations("Organization 2");
 			data.createProjects(orgId2);
 			data.createProjects(orgId2);
-			data.createHmisRedirectUri();
+			//data.createHmisRedirectUri();
 //			UUID methodId =	data.createApiMethod();
 //			data.assignToAdmonProfile(methodId);	
 	
