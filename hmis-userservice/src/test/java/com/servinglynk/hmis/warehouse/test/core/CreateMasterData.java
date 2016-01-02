@@ -216,8 +216,7 @@ public class CreateMasterData {
 	public static void main(String args[]){
 		CreateMasterData data=new CreateMasterData();
 		try{
-			data.createHmisRedirectUri();
-			/*
+			
 			data.clearData();
 			String id= data.createSuperAdminProfile();
 			UUID projectgroupid = data.createProjectGroup();
@@ -235,8 +234,7 @@ public class CreateMasterData {
 			UUID orgId2 = data.createOrganizations("Organization 2");
 			data.createProjects(orgId2);
 			data.createProjects(orgId2);
-			*/
-			
+			data.createHmisRedirectUri();
 //			UUID methodId =	data.createApiMethod();
 //			data.assignToAdmonProfile(methodId);	
 	
