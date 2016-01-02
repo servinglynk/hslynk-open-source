@@ -98,7 +98,16 @@ public class CreateMasterData {
 	}
 	
 
-			
+	public void createHmisRedirectUri() throws Exception {
+		UUID id=UUID.fromString(getUUID());
+		//UUID profileId=UUID.fromString("2a0de2d3-ce1f-4cf1-9145-04aa70e3196c");
+		String insQuery ="INSERT INTO live.hmis_redirect_uri(id, uri, trustedapp_id, created_at, created_by ) "
+				+ "VALUES ('"+id+"','/login-web.html' , '84846c9d-9afc-4fb2-b22d-ae57f1fd14a3', current_date, 'MASTET DATA')";
+		Connection connection =getConnection();
+		Statement statement1= connection.createStatement();
+		statement1.execute(insQuery);
+		if(!connection.isClosed()) connection.close();	
+	}	
 	
 	public void createApiGroups() throws Exception {
 		
@@ -207,6 +216,8 @@ public class CreateMasterData {
 	public static void main(String args[]){
 		CreateMasterData data=new CreateMasterData();
 		try{
+			data.createHmisRedirectUri();
+			/*
 			data.clearData();
 			String id= data.createSuperAdminProfile();
 			UUID projectgroupid = data.createProjectGroup();
@@ -224,6 +235,7 @@ public class CreateMasterData {
 			UUID orgId2 = data.createOrganizations("Organization 2");
 			data.createProjects(orgId2);
 			data.createProjects(orgId2);
+			*/
 			
 //			UUID methodId =	data.createApiMethod();
 //			data.assignToAdmonProfile(methodId);	

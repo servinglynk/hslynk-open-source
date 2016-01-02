@@ -1,4 +1,4 @@
-DROP schema "live" cascade;
+--DROP schema "live" cascade;
 create schema "live";
 DROP SEQUENCE IF EXISTS "live".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "live".seq_account_preference;
