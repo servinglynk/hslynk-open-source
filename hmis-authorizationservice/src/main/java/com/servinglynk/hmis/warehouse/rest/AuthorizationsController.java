@@ -62,7 +62,7 @@ public class AuthorizationsController extends ControllerBase {
 		try	{
 			// request authorization
 			authorization = serviceFactory.getAuthorizationService().requestAuthorization(trustedAppId, 
-					redirectUri, 
+																						  redirectUri, 
 																						  responseType, 
 																						  accessType, 
 																						  approvalPrompt, 
@@ -183,10 +183,14 @@ public class AuthorizationsController extends ControllerBase {
 		session.setAccount(account);
 		
 		 serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
-		 
+		 String otpUri="";
 		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
-			 String otpUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
-		
+			  otpUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+			 
+		 }else{
+			 otpUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+			 response.addCookie(new Cookie("authentication_token",session.getToken()));
+		 }
 			 
 			 if (state != null)	{
 				 otpUri = otpUri + "&state=" + urlEncode(state);
@@ -207,7 +211,7 @@ public class AuthorizationsController extends ControllerBase {
 				
 			 
 			 response.sendRedirect(otpUri);
-		 }
+		 
 		// return a session containing the token field to indicate the
 		// successful creation.
 		Session returnSession = new Session();

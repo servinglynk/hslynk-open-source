@@ -79,7 +79,7 @@ function getConsentMsgs(clientId, token, callback){
          },
 		
 		type: "GET",
-		url: "/hmis-authorizationservice/rest/clients/"+clientId+"/consentmessages",
+		url: "/hmis-authorization-service/rest/clients/"+clientId+"/consentmessages",
 		dataType: "json",
 		success: callback,
 		error: function (res) {
@@ -104,7 +104,7 @@ function getDetailedConsentMsgs(clientId, token, callback){
 		},
 		
 		type: "GET",
-		url: "/hmis-authorizationservice/rest/clients/"+clientId+"/detailedconsentmessages",
+		url: "/hmis-authorization-service/rest/clients/"+clientId+"/detailedconsentmessages",
 		dataType: "json",
 		success: callback,
 		error: function (res) {
