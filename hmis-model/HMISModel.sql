@@ -1,5 +1,5 @@
---DROP schema "live" cascade;
-create schema "live";
+DROP SCHEMA IF EXISTS "live" cascade;
+CREATE SCHEMA "live";
 DROP SEQUENCE IF EXISTS "live".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "live".seq_account_preference;
 DROP SEQUENCE IF EXISTS "live".seq_api_group;
@@ -3300,20 +3300,3 @@ ALTER TABLE  live.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (pro
 ALTER TABLE  live.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES live.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  live.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES live.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 update live.hmis_user set two_factor_authentication =false;
-
-INSERT INTO live.hmis_project_group(
-            id, project_group_name, project_group_desc, project_group_code,is_project_group_in_hive,
-            INSERT_AT, INSERT_BY, UPDATE_AT, UPDATE_BY)
-    VALUES (
-'ed938948-b73e-4868-940d-371c5bd2d3f8','PROJECT_GROUP_NAME','PROJECT_GROUP_DESCRIPTION','PG0001',false,'2015-12-10 00:00:00','MASTER_DATA','2015-12-10 00:00:00','MASTER_DATA');
-
-INSERT INTO live.hmis_user(
-            id, first_name, middle_name, last_name, name_suffix, ssn, dob, 
-            gender, date_created, date_updated, created_by, modified_by, 
-             password, email_address, status, 
-            username, project_group_id)
-    VALUES 
-('2be4334a-ba97-4e12-a695-991752ca0391','Super Admin','Super Admin','Super Admin','Super Admin','','2015-12-10 00:00:00',
-'1','2015-12-10 00:00:00','2015-12-10 00:00:00','MASTER DATA','MASTER DATA',
-'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=','superadmin@hmis.com','ACTIVE','admin','ed938948-b73e-4868-940d-371c5bd2d3f8');
-

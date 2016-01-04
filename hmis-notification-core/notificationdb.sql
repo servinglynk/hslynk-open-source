@@ -1,40 +1,19 @@
-DROP SEQUENCE IF EXISTS hmis_notification_header_id_seq;
-DROP SEQUENCE IF EXISTS hmis_notification_line_id_seq;
-DROP SEQUENCE IF EXISTS hmis_report_header_id_seq;
-DROP SEQUENCE IF EXISTS hmis_report_line_id_seq;
-DROP SEQUENCE IF EXISTS hmis_report_recipient_id_seq;
-DROP SEQUENCE IF EXISTS hmis_template_header_id_seq;
-DROP SEQUENCE IF EXISTS hmis_template_line_id_seq;
-DROP SEQUENCE IF EXISTS hmis_worker_header_id_seq;
-DROP SEQUENCE IF EXISTS hmis_worker_line_id_seq;
-DROP SEQUENCE IF EXISTS hmis_notification_param_seq;
+DROP SCHEMA IF EXISTS "notificationdb" cascade;
+CREATE SCHEMA "notificationdb";
+
+DROP TABLE IF EXISTS "notificationdb".hmis_notification_header;
+DROP TABLE IF EXISTS "notificationdb".hmis_notification_line;
+DROP TABLE IF EXISTS "notificationdb".hmis_notification_param;
+DROP TABLE IF EXISTS "notificationdb".hmis_report_header;
+DROP TABLE IF EXISTS "notificationdb".hmis_report_line;
+DROP TABLE IF EXISTS "notificationdb".hmis_report_recipient;
+DROP TABLE IF EXISTS "notificationdb".hmis_template_header;
+DROP TABLE IF EXISTS "notificationdb".hmis_template_line;
+DROP TABLE IF EXISTS "notificationdb".hmis_worker_header;
+DROP TABLE IF EXISTS "notificationdb".hmis_worker_line;
 
 
-DROP TABLE IF EXISTS hmis_notification_header;
-DROP TABLE IF EXISTS hmis_notification_line;
-DROP TABLE IF EXISTS hmis_notification_param;
-DROP TABLE IF EXISTS hmis_report_header;
-DROP TABLE IF EXISTS hmis_report_line;
-DROP TABLE IF EXISTS hmis_report_recipient;
-DROP TABLE IF EXISTS hmis_template_header;
-DROP TABLE IF EXISTS hmis_template_line;
-DROP TABLE IF EXISTS hmis_worker_header;
-DROP TABLE IF EXISTS hmis_worker_line;
-
-
-CREATE SEQUENCE hmis_notification_header_id_seq;
-CREATE SEQUENCE hmis_notification_line_id_seq;
-CREATE SEQUENCE hmis_report_header_id_seq;
-CREATE SEQUENCE hmis_report_line_id_seq;
-CREATE SEQUENCE hmis_report_recipient_id_seq;
-CREATE SEQUENCE hmis_template_header_id_seq;
-CREATE SEQUENCE hmis_template_line_id_seq;
-CREATE SEQUENCE hmis_worker_header_id_seq;
-CREATE SEQUENCE hmis_worker_line_id_seq;
-CREATE SEQUENCE hmis_notification_param_seq;
-
-
-CREATE TABLE hmis_notification_header
+CREATE TABLE "notificationdb".hmis_notification_header
 (
   id bigint NOT NULL,
   status_message character varying(256),
@@ -56,7 +35,7 @@ WITH (
 );
 
 
-CREATE TABLE hmis_notification_line
+CREATE TABLE "notificationdb".hmis_notification_line
 (
   id bigint NOT NULL,
   attempts integer,
@@ -79,7 +58,7 @@ CREATE TABLE hmis_notification_line
   template_version integer,
   CONSTRAINT hmis_notification_line_pk PRIMARY KEY (id),
   CONSTRAINT hmis_notification_line_fk FOREIGN KEY (notification_header_id)
-      REFERENCES hmis_notification_header (id) MATCH SIMPLE
+      REFERENCES "notificationdb".hmis_notification_header (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
@@ -87,7 +66,7 @@ WITH (
 );
 
 
-CREATE TABLE hmis_notification_param
+CREATE TABLE "notificationdb".hmis_notification_param
 (
   id integer NOT NULL,
   sender_email_address character varying(250) DEFAULT NULL::character varying,
@@ -105,7 +84,7 @@ WITH (
 );
 
 
-CREATE TABLE hmis_report_header
+CREATE TABLE "notificationdb".hmis_report_header
 (
   id bigint NOT NULL,
   friendly_name character varying(150) DEFAULT NULL::character varying,
@@ -128,7 +107,7 @@ WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE hmis_report_line
+CREATE TABLE "notificationdb".hmis_report_line
 (
   id bigint NOT NULL,
   report_header_id bigint,
@@ -144,14 +123,14 @@ CREATE TABLE hmis_report_line
   status_message character varying(200),
   CONSTRAINT hmis_report_line_pk PRIMARY KEY (id),
   CONSTRAINT hmis_report_line_fk FOREIGN KEY (report_header_id)
-      REFERENCES hmis_report_header (id) MATCH SIMPLE
+      REFERENCES "notificationdb".hmis_report_header (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE hmis_report_recipient
+CREATE TABLE "notificationdb".hmis_report_recipient
 (
   id bigint NOT NULL,
   report_header_id bigint,
@@ -163,14 +142,14 @@ CREATE TABLE hmis_report_recipient
   update_by character varying(50) DEFAULT NULL::character varying,
   CONSTRAINT hmis_report_recipient_pk PRIMARY KEY (id),
   CONSTRAINT hmis_report_recipient_fk FOREIGN KEY (report_header_id)
-      REFERENCES hmis_report_header (id) MATCH SIMPLE
+      REFERENCES "notificationdb".hmis_report_header (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE hmis_template_header
+CREATE TABLE "notificationdb".hmis_template_header
 (
   id bigint NOT NULL,
   friendly_name character varying(256),
@@ -185,7 +164,7 @@ WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE hmis_template_line
+CREATE TABLE "notificationdb".hmis_template_line
 (
   id bigint NOT NULL,
   template_header_id bigint,
@@ -199,7 +178,7 @@ CREATE TABLE hmis_template_line
   subject character varying(256),
   CONSTRAINT hmis_template_line_pk PRIMARY KEY (id),
   CONSTRAINT template_header_id_fk FOREIGN KEY (template_header_id)
-      REFERENCES hmis_template_header (id) MATCH SIMPLE
+      REFERENCES "notificationdb".hmis_template_header (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
@@ -207,7 +186,7 @@ WITH (
 );
 
 
-CREATE TABLE hmis_worker_header
+CREATE TABLE "notificationdb".hmis_worker_header
 (
   external_id character varying(256),
   description character varying(256),
@@ -226,7 +205,7 @@ WITH (
 );
 
 
-CREATE TABLE hmis_worker_line
+CREATE TABLE "notificationdb".hmis_worker_line
 (
   external_id character varying(256),
   line_input character varying(2000),
@@ -243,7 +222,7 @@ CREATE TABLE hmis_worker_line
   id integer NOT NULL,
   CONSTRAINT "HMIS_WORKER_LINE_PK" PRIMARY KEY (id),
   CONSTRAINT worker_header_id_fk FOREIGN KEY (worker_header_id)
-      REFERENCES hmis_worker_header (id) MATCH SIMPLE
+      REFERENCES "notificationdb".hmis_worker_header (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
@@ -251,7 +230,7 @@ WITH (
 );
 
 
-CREATE TABLE "HMIS_PROPERTY"
+CREATE TABLE "notificationdb".HMIS_PROPERTY
 (
    id integer, 
    SERVICE character varying(16), 
@@ -266,3 +245,33 @@ CREATE TABLE "HMIS_PROPERTY"
 WITH (
   OIDS = FALSE
 );
+
+
+INSERT INTO "notificationdb".hmis_notification_param (id, sender_email_address, sender_friendly_name, external_id, insert_at, insert_by, update_at, update_by, template_id) VALUES (1, 'hmsiprojects@gmail.com', 'HMIS_RESOURCE_CREATION', 'HMIS_RESOURCE_CREATION', NULL, NULL, NULL, NULL, 'HMIS_RESOURCE_CREATION');
+INSERT INTO "notificationdb".hmis_notification_param (id, sender_email_address, sender_friendly_name, external_id, insert_at, insert_by, update_at, update_by, template_id) VALUES (2, 'hmisprojects@gmail.com', 'HMIS_DEVELOPER_COMPANY_CREATION', 'HMIS_DEVELOPER_COMPANY_CREATION', NULL, NULL, NULL, NULL, 'HMIS_DEVELOPER_COMPANY_CREATION');
+INSERT INTO "notificationdb".hmis_notification_param (id, sender_email_address, sender_friendly_name, external_id, insert_at, insert_by, update_at, update_by, template_id) VALUES (3, 'hmisprojects@gmail.com', 'HMIS_TRUSTEDAPP_CREATION', 'HMIS_TRUSTEDAPP_CREATION', NULL, NULL, NULL, NULL, 'HMIS_TRUSTEDAPP_CREATION');
+INSERT INTO "notificationdb".hmis_notification_param (id, sender_email_address, sender_friendly_name, external_id, insert_at, insert_by, update_at, update_by, template_id) VALUES (4, 'hmisprojects@gmail.com', 'HMIS_DEVELOPER_SERVICE_CREATION', 'HMIS_DEVELOPER_SERVICE_CREATION', NULL, NULL, NULL, NULL, 'HMIS_DEVELOPER_SERVICE_CREATION');
+INSERT INTO "notificationdb".hmis_notification_param (id, sender_email_address, sender_friendly_name, external_id, insert_at, insert_by, update_at, update_by, template_id) VALUES (5, 'hmisprojects@gmail.com', 'DEV_COMPANY_SETUP_RESOURCE_CREATION', 'DEV_COMPANY_SETUP_RESOURCE_CREATION', NULL, NULL, NULL, NULL, 'DEV_COMPANY_SETUP_RESOURCE_CREATION');
+
+INSERT INTO "notificationdb".hmis_property (id, service, key_name, key_value, insert_at, update_at, insert_by, update_by) VALUES (6, 'common', 'notification.template.location', 'D:\\\\notification-templates', '2015-11-24', '2015-12-14', NULL, NULL);
+INSERT INTO "notificationdb".hmis_property (id, service, key_name, key_value, insert_at, update_at, insert_by, update_by) VALUES (3, 'common', 'notification.mail.username', 'hmis.projects@gmail.com', '2015-11-24', '2015-12-14', NULL, NULL);
+INSERT INTO "notificationdb".hmis_property (id, service, key_name, key_value, insert_at, update_at, insert_by, update_by) VALUES (4, 'common', 'notification.mail.password', 'satyaX0109', '2015-11-25', '2015-12-14', NULL, NULL);
+INSERT INTO "notificationdb".hmis_property (id, service, key_name, key_value, insert_at, update_at, insert_by, update_by) VALUES (1, 'common', 'notification.mail.host', 'smtp.gmail.com', '2015-12-14', '2015-12-14', NULL, NULL);
+INSERT INTO "notificationdb".hmis_property (id, service, key_name, key_value, insert_at, update_at, insert_by, update_by) VALUES (2, 'common', 'notification.mail.port', '587', '2015-11-25', '2015-12-14', NULL, NULL);
+INSERT INTO "notificationdb".hmis_property (id, service, key_name, key_value, insert_at, update_at, insert_by, update_by) VALUES (5, 'common', 'notification.mail.sender', 'hmis.projects@gmail.com', '2015-11-25', '2015-12-14', NULL, NULL);
+
+
+INSERT INTO "notificationdb".hmis_template_header (id, friendly_name, external_id, insert_by, update_by, update_at, insert_at) VALUES (1, 'HMIS_DEVELOPER_COMPANY_CREATION', 'HMIS_DEVELOPER_COMPANY_CREATION', NULL, NULL, NULL, NULL);
+INSERT INTO "notificationdb".hmis_template_header (id, friendly_name, external_id, insert_by, update_by, update_at, insert_at) VALUES (2, 'HMIS_TRUSTEDAPP_CREATION', 'HMIS_TRUSTEDAPP_CREATION', NULL, NULL, NULL, NULL);
+INSERT INTO "notificationdb".hmis_template_header (id, friendly_name, external_id, insert_by, update_by, update_at, insert_at) VALUES (3, 'HMIS_DEVELOPER_SERVICE_CREATION', 'HMIS_DEVELOPER_SERVICE_CREATION', NULL, NULL, NULL, NULL);
+INSERT INTO "notificationdb".hmis_template_header (id, friendly_name, external_id, insert_by, update_by, update_at, insert_at) VALUES (4, 'DEV_COMPANY_SETUP_RESOURCE_CREATION', 'DEV_COMPANY_SETUP_RESOURCE_CREATION', NULL, NULL, NULL, NULL);
+INSERT INTO "notificationdb".hmis_template_header (id, friendly_name, external_id, insert_by, update_by, update_at, insert_at) VALUES (5, 'HMIS_RESOURCE_CREATION', 'HMIS_RESOURCE_CREATION', NULL, NULL, NULL, NULL);
+
+INSERT INTO "notificationdb".hmis_template_line (id, template_header_id, version, body_location, insert_by, update_by, update_at, insert_at, external_id, subject) VALUES (1, 1, '1', 'developerCompanyCreation.vm', NULL, NULL, NULL, NULL, 'HMIS_DEVELOPER_COMPANY_CREATION', 'New Developer Company Created.');
+INSERT INTO "notificationdb".hmis_template_line (id, template_header_id, version, body_location, insert_by, update_by, update_at, insert_at, external_id, subject) VALUES (2, 2, '1', 'trustedAppCreation.vm', NULL, NULL, NULL, NULL, 'HMIS_TRUSTEDAPP_CREATION', 'New Trusted App Created.');
+INSERT INTO "notificationdb".hmis_template_line (id, template_header_id, version, body_location, insert_by, update_by, update_at, insert_at, external_id, subject) VALUES (3, 3, '1', 'developerServiceCreation.vm', NULL, NULL, NULL, NULL, 'HMIS_DEVELOPER_SERVICE_CREATION', 'New Developer Service Created.');
+INSERT INTO "notificationdb".hmis_template_line (id, template_header_id, version, body_location, insert_by, update_by, update_at, insert_at, external_id, subject) VALUES (4, 4, '1', 'vt.hmis_dev_company_resource_creation.vm', NULL, NULL, NULL, NULL, 'DEV_COMPANY_SETUP_RESOURCE_CREATION', 'Welcome to HMIS Developer Platform !');
+INSERT INTO "notificationdb".hmis_template_line (id, template_header_id, version, body_location, insert_by, update_by, update_at, insert_at, external_id, subject) VALUES (5, 5, '1', 'vt.hmis_resource_creation.vm', NULL, NULL, NULL, NULL, 'HMIS_RESOURCE_CREATION', 'Welcome to HMIS Platform !');
+
+INSERT INTO "notificationdb".hmis_worker_header (external_id, description, max_retry, retry_interval, status, insert_at, insert_by, update_at, update_by, id) VALUES ('NOTIFICATION_WORKER', 'NOTIFICATION_WORKER', 5, 5, 'ACTIVE', NULL, NULL, NULL, NULL, 1);
+INSERT INTO "notificationdb".hmis_worker_header (external_id, description, max_retry, retry_interval, status, insert_at, insert_by, update_at, update_by, id) VALUES ('REPORT_WORKER', 'REPORT_WORKER', 5, 5, 'ACTIVE', NULL, NULL, NULL, NULL, 2);
