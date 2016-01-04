@@ -12,8 +12,8 @@ public class CreateMasterData {
 
 	public Connection getConnection() throws Exception {
 		Class.forName("org.postgresql.Driver");
-		return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
-		//return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
+		//return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
+		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
 		
 	}
 	
@@ -26,7 +26,9 @@ public class CreateMasterData {
 		Statement statement1= connection.createStatement();
 		statement1.execute(query);
 		System.out.println(query);
-		if(!connection.isClosed()) connection.close();		
+		createHmisRedirectUri(id);
+		if(!connection.isClosed()) connection.close();	
+		
 	}
 	
 	
@@ -98,11 +100,12 @@ public class CreateMasterData {
 	}
 	
 
-	public void createHmisRedirectUri() throws Exception {
+	public void createHmisRedirectUri(UUID externalTrustedAppId) throws Exception {
 		UUID id=UUID.fromString(getUUID());
 		//UUID profileId=UUID.fromString("2a0de2d3-ce1f-4cf1-9145-04aa70e3196c");
 		String insQuery ="INSERT INTO live.hmis_redirect_uri(id, uri, trustedapp_id, created_at, created_by ) "
-				+ "VALUES ('"+id+"','/login-web.html' , '84846c9d-9afc-4fb2-b22d-ae57f1fd14a3', current_date, 'MASTET DATA')";
+				+ "VALUES ('"+id+"','/login-web.html' , '"+externalTrustedAppId+"', current_date, 'MASTET DATA')";
+		System.out.println(insQuery+";");
 		Connection connection =getConnection();
 		Statement statement1= connection.createStatement();
 		statement1.execute(insQuery);
