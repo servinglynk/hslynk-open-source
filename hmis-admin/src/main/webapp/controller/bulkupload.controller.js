@@ -11,14 +11,16 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
  //success
             function () {
                 $scope.switchBool("showInfoAlert");
-                $scope.successTextAlert = "Your Requset has been sent successfully.";
+                $scope.successTextAlert = "File has been uploaded successfully.";
                 $scope.showSuccessAlert = true;
+				$location.path("/admin/managesync");
             },
 //error
        function () {
-           $scope.switchBool("showInfoAlert");
-           $scope.errorTextAlert = "Error, Something gone wrong.";
-           $scope.showErrorAlert = true;
+			   $location.path("/admin/managesync");
+          // $scope.switchBool("showInfoAlert");
+           //$scope.errorTextAlert = "Error, Something gone wrong.";
+          // $scope.showErrorAlert = true;
            
        })
 
