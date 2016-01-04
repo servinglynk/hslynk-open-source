@@ -235,7 +235,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 				/* Create AccountEntity Preference for the AccountEntity */
 				com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = AccountConverter.convertToPersistentAccount(account, null);
-				pAccount.setStatus(ACCOUNT_STATUS_PENDING);
+				
 				
 				pAccount.setPassword(HMISCryptographer.Encrypt(account.getPassword()));
 				pAccount.setVerification(pVerification);
@@ -252,11 +252,18 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				pAccountLockout.setLastLoginStatus(1);
 				pAccountLockout.setAccount(pAccount);
 				pAccount.setAccountLockout(pAccountLockout);
+				
 				GoogleAuthenticator authenticator = new GoogleAuthenticator();
 				GoogleAuthenticatorKey key = authenticator.createCredentials();
-				pAccount.setAuthenticatorSecret(key.getKey());
+				if(purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")){
+					pAccount.setTwoFactorAuthentication(false);
+					pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
+				}else{	
+					pAccount.setStatus(ACCOUNT_STATUS_PENDING);
+					pAccount.setAuthenticatorSecret(key.getKey());
+					pAccount.setTwoFactorAuthentication(true);
+				}
 				
-				System.out.println("QRCode URL "+key.getQRBarcodeURL("", "", key.getKey()));
 
 				
 				ProfileEntity profileEntity=null;
@@ -313,7 +320,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				
 				Notification notification = new Notification();
 				notification.setMethod("EMAIL");
-				notification.setType("HMIS_RESOURCE_CREATION");
+				
 				Recipients recipients = new Recipients();
 				List<String> emails = new ArrayList<String>();
 				emails.add(pAccount.getEmailAddress());
@@ -329,22 +336,30 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				passwordParameter.setKey("password");
 				passwordParameter.setValue(account.getPassword());
 				
-				Parameter googleKeyParameter = new Parameter();
-				googleKeyParameter.setKey("authenticatorSecret");
-				googleKeyParameter.setValue(pAccount.getAuthenticatorSecret());
 				
-				Parameter qrCodeParameter = new Parameter();
-				qrCodeParameter.setKey("qrcode");
-				qrCodeParameter.setValue(key.getQRBarcodeURL("", "", key.getKey()));
-
 				parameters.addParameter(usernameParameter);
 				parameters.addParameter(passwordParameter);
-				parameters.addParameter(googleKeyParameter);
-				parameters.addParameter(qrCodeParameter);
 				
+				
+				if(purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")){
+					notification.setType("DEV_COMPANY_SETUP_RESOURCE_CREATION");
+					
+				}else{
+					notification.setType("HMIS_RESOURCE_CREATION");
+					Parameter googleKeyParameter = new Parameter();
+					googleKeyParameter.setKey("authenticatorSecret");
+					googleKeyParameter.setValue(pAccount.getAuthenticatorSecret());
+					
+					Parameter qrCodeParameter = new Parameter();
+					qrCodeParameter.setKey("qrcode");
+					qrCodeParameter.setValue(key.getQRBarcodeURL("", "", key.getKey()));
+
+					parameters.addParameter(googleKeyParameter);
+					parameters.addParameter(qrCodeParameter);
+				}
 				notification.setParameters(parameters);
 				
-	//			notificationServiceClient.createNotification(notification);				
+				notificationServiceClient.createNotification(notification);				
 			
 		return account;
 	}
