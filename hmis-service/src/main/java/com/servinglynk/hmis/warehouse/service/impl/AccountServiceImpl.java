@@ -5,7 +5,6 @@ import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_ACT
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PENDING;
 import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_ACCOUNT_CREATION;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +12,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.common.Constants;
@@ -256,15 +254,18 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				GoogleAuthenticator authenticator = new GoogleAuthenticator();
 				GoogleAuthenticatorKey key = authenticator.createCredentials();
 				if(purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")){
-					pAccount.setTwoFactorAuthentication(false);
 					pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 				}else{	
 					pAccount.setStatus(ACCOUNT_STATUS_PENDING);
-					pAccount.setAuthenticatorSecret(key.getKey());
-					pAccount.setTwoFactorAuthentication(true);
+					
 				}
 				
-
+				if(account.isTwoFactorAuthentication()){
+					pAccount.setAuthenticatorSecret(key.getKey());
+					pAccount.setTwoFactorAuthentication(true);
+				}else{
+					pAccount.setTwoFactorAuthentication(false);
+				}
 				
 				ProfileEntity profileEntity=null;
 				
@@ -322,40 +323,24 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				notification.setMethod("EMAIL");
 				
 				Recipients recipients = new Recipients();
-				List<String> emails = new ArrayList<String>();
-				emails.add(pAccount.getEmailAddress());
-				recipients.setToRecipients(emails);
+				recipients.addToRecipient(pAccount.getEmailAddress());
 				notification.setRecipients(recipients);
 				
 				Parameters parameters = new Parameters();
-				Parameter usernameParameter = new Parameter();
-				usernameParameter.setKey("username");
-				usernameParameter.setValue(pAccount.getEmailAddress());
 				
-				Parameter passwordParameter = new Parameter();
-				passwordParameter.setKey("password");
-				passwordParameter.setValue(account.getPassword());
-				
-				
-				parameters.addParameter(usernameParameter);
-				parameters.addParameter(passwordParameter);
-				
-				
+				parameters.addParameter(new Parameter("username",pAccount.getEmailAddress()));
+				parameters.addParameter(new Parameter("password",account.getPassword()));
+								
 				if(purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")){
 					notification.setType("DEV_COMPANY_SETUP_RESOURCE_CREATION");
 					
 				}else{
 					notification.setType("HMIS_RESOURCE_CREATION");
-					Parameter googleKeyParameter = new Parameter();
-					googleKeyParameter.setKey("authenticatorSecret");
-					googleKeyParameter.setValue(pAccount.getAuthenticatorSecret());
 					
-					Parameter qrCodeParameter = new Parameter();
-					qrCodeParameter.setKey("qrcode");
-					qrCodeParameter.setValue(key.getQRBarcodeURL("", "", key.getKey()));
-
-					parameters.addParameter(googleKeyParameter);
-					parameters.addParameter(qrCodeParameter);
+				}
+				if(account.isTwoFactorAuthentication()){
+					parameters.addParameter(new Parameter("authenticatorSecret",pAccount.getAuthenticatorSecret()));
+					parameters.addParameter(new Parameter("qrcode",GoogleAuthenticatorKey.getQRBarcodeURL("", "", key.getKey())));
 				}
 				notification.setParameters(parameters);
 				

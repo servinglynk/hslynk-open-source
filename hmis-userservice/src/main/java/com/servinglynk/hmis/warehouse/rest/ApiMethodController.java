@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.rest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethodGroups;
 
 
 @RestController
@@ -31,6 +34,12 @@ public class ApiMethodController extends ControllerBase {
 	@APIMapping(value="USR_MAP_SERVICE_APIMETHOD",checkSessionToken=true,checkTrustedApp=true)
 	public void mapServiceWithApiMethod(@PathVariable("serviceId") String serviceId,@PathVariable("apiMethodId") String apiMethodId) throws Exception {
 		serviceFactory.getApiMethodService().mapServiceWithApiMethod(serviceId, apiMethodId);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	@APIMapping(value="USR_GET_APIMETHODS",checkSessionToken=true,checkTrustedApp=true)
+	public ApiMethodGroups getApiGroups(HttpServletRequest request) throws Exception {
+		return serviceFactory.getApiMethodService().getApiMethods();
 	}
 
 }

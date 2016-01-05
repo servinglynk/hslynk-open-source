@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("apiMethods")
 public class ApiMethods	{
 
-	@JsonProperty("apiMethod")
+	@JsonProperty("apiMethods")
 	private List<ApiMethod> apiMethods =  new ArrayList<ApiMethod>();
 
 	public List<ApiMethod> getApiMethods() {
@@ -19,8 +19,7 @@ public class ApiMethods	{
 	}
 	
 	public void addApiMethod(ApiMethod apiMehtod) {
-		if (apiMethods == null) this.apiMethods = new ArrayList<ApiMethod>();
-		apiMethods.add(apiMehtod);
+		this.apiMethods.add(apiMehtod);
 	}
 	
 	public void setApiMethods(List<ApiMethod> apiMethods) {

@@ -40,5 +40,13 @@ public class ApiMethodDaoImpl extends QueryExecutorImpl implements
 		insert(serviceApiMethodEntity);
 		return serviceApiMethodEntity;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<ApiGroupEntity> getApiMethods(){
+		DetachedCriteria criteria =DetachedCriteria.forClass(ApiGroupEntity.class);
+		
+		return (List<ApiGroupEntity>) findByCriteria(criteria);
+	}
 
 }

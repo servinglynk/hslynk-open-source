@@ -30,7 +30,13 @@ public class Recipients extends ClientModel {
 		this.ccRecipients = ccRecipients;
 	}
 	
-	
-	
-
+	public void addToRecipient(String toRecipient){
+		this.toRecipients.add(toRecipient);
+	}
+	public void addBccRecipient(String bccRecipient){
+		this.bccRecipients.add(bccRecipient);
+	}
+	public void addCcRecipient(String ccRecipient){
+		this.ccRecipients.add(ccRecipient);
+	}
 }

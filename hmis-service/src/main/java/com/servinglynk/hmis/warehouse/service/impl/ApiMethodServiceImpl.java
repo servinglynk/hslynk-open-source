@@ -1,15 +1,19 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethodGroups;
+import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
 import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
 import com.servinglynk.hmis.warehouse.service.ApiMethodService;
+import com.servinglynk.hmis.warehouse.service.converter.ApiMethodConverter;
 
 public class ApiMethodServiceImpl extends ServiceBase implements ApiMethodService {
 
@@ -53,5 +57,19 @@ public class ApiMethodServiceImpl extends ServiceBase implements ApiMethodServic
 		
 		
 		
+	}
+	
+	@Transactional
+	public ApiMethodGroups getApiMethods() {
+	
+		List<ApiGroupEntity> apiGroupEntities = daoFactory.getApiMethodDao().getApiMethods();
+		
+		ApiMethodGroups apiMethodGroups = new ApiMethodGroups();
+		
+		for(ApiGroupEntity apiGroupEntity : apiGroupEntities){
+			apiMethodGroups.add(ApiMethodConverter.entityToModelFull(apiGroupEntity));
+		}
+		
+		return apiMethodGroups;
 	}
 }

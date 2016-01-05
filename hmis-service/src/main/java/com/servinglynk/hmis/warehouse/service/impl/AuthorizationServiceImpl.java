@@ -474,6 +474,8 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		
 		List<ServiceApiMethodEntity> pApiMethods = pService.getServiceApiMethods();
 		
+		logger.debug("service has {} api methods assigned", pApiMethods.size());
+		
 		Map<UUID, OAuthMessageGroup> oAuthMessageGroupsMap = new HashMap<UUID, OAuthMessageGroup>();
 		Map<UUID, Map<UUID,OAuthMessageItem>> oAuthMessageItemsGroupMap = new HashMap<UUID, Map<UUID,OAuthMessageItem>>();
 
@@ -497,6 +499,7 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 				if (!oAuthMessageGroupsMap.containsKey(pApiGroup.getId())){
 					OAuthMessageGroup oAuthMessageGroup = new OAuthMessageGroup();
 					if(pApiGroup.getConsentMessage() != null){
+						logger.debug(pApiGroup.getConsentMessage().getMessage());
 						oAuthMessageGroup.setConsentMessage(pApiGroup.getConsentMessage().getMessage());
 					}
 					if(isDetailed){

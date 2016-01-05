@@ -57,7 +57,7 @@ public class ProfilesController extends ControllerBase {
 		}
 
 		if (maxItems == null)	{
-			maxItems = 2;
+			maxItems = 30;
 		}
 		
 		return serviceFactory.getProfileService().getAllProfiles(startIndex,maxItems);

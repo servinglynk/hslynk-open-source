@@ -1,6 +1,9 @@
 package com.servinglynk.hmis.warehouse.service;
 
+import java.util.List;
+
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.ApiGroup;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethods;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanies;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompany;
@@ -58,4 +61,8 @@ public interface DeveloperCompanyService {
 	
 	public DeveloperCompanyStatus processDCApprovalDecision(String developerCompanyId,DeveloperCompanyStatus developerCompanyStatus,  Account requestingAccount, String requestingService);
 	
+	
+	public DeveloperCompanies getOwnedDeveloperCompanies(String username,Account requestingAccount,String requestingService);
+	
+	public List<ApiGroup> getApiGroupsForService(String externalServiceId, Account requestingAccount, String requestingService);
 }

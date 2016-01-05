@@ -30,6 +30,7 @@ import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyAccountA
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyAccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyOwnerDissociationNotAllowedException;
+import com.servinglynk.hmis.warehouse.service.exception.DeveloperServiceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DuplicateDataException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidApiMethodException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidRedirectUriException;
@@ -188,7 +189,13 @@ public class ExceptionMapper {
 			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
 			r.setErrorCode(ERR_CODE_INVALID_TRUSTEDAPP_TYPE);
 			r.setErrorMessage(ex.getMessage());
-		} catch (Throwable t) {
+		}catch (DeveloperServiceNotFoundException e) {
+			logger.info("DeveloperServiceNotFoundException: " + e.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("DEVELOPER_SERVICE_NOT_FOUND");
+			r.setErrorMessage(e.getMessage());
+		} 
+		catch (Throwable t) {
         	
 			logger.error(t.getMessage(), t);
 

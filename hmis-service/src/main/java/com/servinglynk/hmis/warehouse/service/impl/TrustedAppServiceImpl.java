@@ -13,12 +13,17 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
+import com.servinglynk.hmis.warehouse.core.model.Parameters;
+import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.RedirectUri;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
@@ -45,6 +50,8 @@ import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.converter.TrustedAppConverter;
 import com.servinglynk.hmis.warehouse.service.converter.TrustedAppStatusConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.DeveloperServiceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DuplicateDataException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidRedirectUriException;
 
@@ -59,21 +66,25 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 	private String awsS3UploadsPath;
 	private String awsS3UploadsDownloadDomain;
 	
+	@Autowired
+	NotificationServiceClient notificationServiceClient;
+	
+	
 	private void setFlags(TrustedApp trustedApp, TrustedAppEntity trustedAppEntity)	{
 	
 		trustedAppEntity.setApiMethodCheckRequired(true);
 		
-		if (Constants.TRUSTEDAPP_PROFILE_TYPE_NATIVE.equals(trustedApp.getTrustedAppProfileType()))	{
+		if (Constants.TRUSTEDAPP_PROFILE_TYPE_NATIVE.equalsIgnoreCase(trustedApp.getTrustedAppProfileType()))	{
 			trustedAppEntity.setAuthCodeGrantSupported(true);
 			trustedAppEntity.setRefreshTokenSupported(true);
 			trustedAppEntity.setImplicitGrantSupported(false);
 		}
-		else if (Constants.TRUSTEDAPP_PROFILE_TYPE_SERVER_SIDE_WEB_APP.equals(trustedApp.getTrustedAppProfileType()))	{
+		else if (Constants.TRUSTEDAPP_PROFILE_TYPE_SERVER_SIDE_WEB_APP.equalsIgnoreCase(trustedApp.getTrustedAppProfileType()))	{
 			trustedAppEntity.setAuthCodeGrantSupported(true);
 			trustedAppEntity.setRefreshTokenSupported(true);
 			trustedAppEntity.setImplicitGrantSupported(true);
 		}
-		else if (Constants.TRUSTEDAPP_PROFILE_TYPE_TRUSTEDAPP_SIDE_WEB_APP.equals(trustedApp.getTrustedAppProfileType()))	{
+		else if (Constants.TRUSTEDAPP_PROFILE_TYPE_TRUSTEDAPP_SIDE_WEB_APP.equalsIgnoreCase(trustedApp.getTrustedAppProfileType()))	{
 			trustedAppEntity.setAuthCodeGrantSupported(false);
 			trustedAppEntity.setRefreshTokenSupported(false);
 			trustedAppEntity.setImplicitGrantSupported(true);
@@ -163,6 +174,8 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 	// Check Permissions
 
 		// session tokens, refresh tokens, consents need to be deleted too
+		daoFactory.getRedirectUriDao().deleteByTrustedApp(trustedAppEntity.getRedirectUris());
+
 		daoFactory.getTrustedAppDao().deleteTrustedApp(trustedAppEntity);
 	}
 	
@@ -222,7 +235,21 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		trustedAppEntity.setModifiedAt(new Date());
 		daoFactory.getTrustedAppDao().updateTrustedApp(trustedAppEntity);
 		
-		//notify owner of the developer company
+		HmisUser superAdminUser = daoFactory.getAccountDao().findByUsername("superadmin@hmis.com");
+		
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_TRUSTEDAPP_CREATION");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(superAdminUser.getEmailAddress());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("trustedApp",trustedAppEntity.getFriendlyname()));
+		notification.setParameters(parameters);
+		
+		notificationServiceClient.createNotification(notification);
+
 	
 		TrustedAppStatusConverter.convertToPersistentTrustedAppStatus(trustedAppStatus, trustedAppStatusEntity);
 		return trustedAppStatus;
@@ -281,6 +308,8 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 
 		DeveloperServiceEntity developerServiceEntity = daoFactory.getDeveloperServiceDao().findByExternalId(serviceExternalId);
 		
+		if(developerServiceEntity==null) throw new DeveloperServiceNotFoundException();
+		
 		// Check Permissions
 
 		// create the Trusted App
@@ -313,6 +342,8 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 	public List<TrustedApp> getTrustedAppsUsingService(String externalServiceId, String requestingUsername, String caller) {
 
 		DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao().findByExternalId(externalServiceId);
+		
+		if(pService==null) throw new DeveloperCompanyNotFoundException();
 		
 		List<TrustedAppEntity> trustedApps = pService.getTrustedApps();
 		List<TrustedApp> trustedApps2 = new ArrayList<TrustedApp>();

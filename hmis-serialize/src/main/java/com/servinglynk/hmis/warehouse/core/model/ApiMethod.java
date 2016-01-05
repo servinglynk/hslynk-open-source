@@ -12,6 +12,7 @@ public class ApiMethod	extends ClientModel {
 	private String type;
 	private String authorizationMsg;
 	private Long methodSequence;
+	private String apiMethodId;
 
 	public String getExternalId() {
 		return externalId;
@@ -49,4 +50,11 @@ public class ApiMethod	extends ClientModel {
 	public void setMethodSequence(Long methodSequence) {
 		this.methodSequence = methodSequence;
 	}
+	public String getApiMethodId() {
+		return apiMethodId;
+	}
+	public void setApiMethodId(String apiMethodId) {
+		this.apiMethodId = apiMethodId;
+	}
+	
 }

@@ -106,6 +106,7 @@ public class TrustedAppsController extends ControllerBase {
 
 		serviceFactory.getTrustedAppService().registerRedirectUris(trustedAppId, redirectUris.getRedirectUris(), session.getAccount().getUsername(),Constants.DEVELOPER_CONSOLE_SERVICE);
 
+	
 		return redirectUris;
 	}
 	
@@ -119,6 +120,7 @@ public class TrustedAppsController extends ControllerBase {
 		List<RedirectUri> redirectUris = serviceFactory.getTrustedAppService().getRedirectUris(trustedAppId, session.getAccount().getUsername(),Constants.DEVELOPER_CONSOLE_SERVICE);
 
 		RedirectUris redirectUrisObj = new RedirectUris();
+		
 		redirectUrisObj.setRedirectUris(redirectUris);
 		return redirectUrisObj;
 	}

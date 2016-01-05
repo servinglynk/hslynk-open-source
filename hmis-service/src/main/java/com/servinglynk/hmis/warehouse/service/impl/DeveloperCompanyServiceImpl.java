@@ -1,42 +1,54 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
-import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_ACTIVE;
-
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
-import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.ApiGroup;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethods;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanies;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompany;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyAccounts;
+import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyStatus;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperService;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperServices;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
+import com.servinglynk.hmis.warehouse.core.model.Parameters;
+import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.ServiceStatus;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.IllegalBusinessStateException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
+import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyAccountEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
-import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyStatus;
+import com.servinglynk.hmis.warehouse.model.live.ServiceEntity;
 import com.servinglynk.hmis.warehouse.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
+import com.servinglynk.hmis.warehouse.service.converter.ApiGroupConverter;
+import com.servinglynk.hmis.warehouse.service.converter.ApiMethodConverter;
 import com.servinglynk.hmis.warehouse.service.converter.DeveloperCompanyConverter;
 import com.servinglynk.hmis.warehouse.service.converter.DeveloperServiceConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -61,6 +73,9 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 	public void setDcPassword(String dcPassword) {
 		this.dcPassword = dcPassword;
 	}
+	
+	@Autowired
+	NotificationServiceClient notificationServiceClient;
 
 	@Autowired
 	protected ValidationBean validationBean;
@@ -72,12 +87,14 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 				.findByUsername(developerCompany.getOwner().getUsername());
 
 		if (account == null) {
-			account = AccountConverter.convertToPersistentAccount(developerCompany.getOwner(), null);
+			/*account = AccountConverter.convertToPersistentAccount(developerCompany.getOwner(), null);
 			account.setStatus(ACCOUNT_STATUS_ACTIVE);
 			account.setPassword(HMISCryptographer.Encrypt(developerCompany.getOwner().getPassword()));
 			account.setCreatedBy(requestingService);
 
-			daoFactory.getAccountDao().createAccount(account);
+			daoFactory.getAccountDao().createAccount(account);*/
+			
+			throw new AccountNotFoundException();
 		}
 
 		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = DeveloperCompanyConverter
@@ -111,6 +128,22 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		developerCompany.setDeveloperCompanyId(pDeveloperCompany.getExternalId());
 		developerCompany.setStatus(pDeveloperCompany.getStatus());
+		
+		HmisUser superAdminUser = daoFactory.getAccountDao().findByUsername("superadmin@hmis.com");
+		
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_DEVELOPER_COMPANY_CREATION");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(superAdminUser.getEmailAddress());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("developerCompany",developerCompany.getName() ));
+		notification.setParameters(parameters);
+		
+		notificationServiceClient.createNotification(notification);
+		
 		return developerCompany;
 	}
 
@@ -179,7 +212,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		pDeveloperAccount.setAccount(pAccount);
 		pDeveloperAccount.setDeveloperCompany(pDeveloperCompany);
 		
-		if(developerAccount.isOwner()) {
+		if( !developerAccount.isOwner()) {
 			pDeveloperAccount.setRole(Constants.DEVELOPER_ACCOUNT_ROLE_BASIC);
 		}else{
 			pDeveloperAccount.setRole(Constants.DEVELOPER_ACCOUNT_ROLE_ADMIN);
@@ -390,7 +423,10 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		}
 
 		// delete api mappings
-		// daoFactory.getServiceApiMethodDao().deleteByServiceId(pService.getId());
+		 daoFactory.getServiceApiMethodDao().deleteByServiceId(pService.getId());
+		 
+			int deletedCount = daoFactory.getServiceApiMethodDao().deleteApiMethodsByServiceId(pService.getId());
+			logger.debug("{} service api methods wiped out from service {}", deletedCount, externalServiceId);
 
 		// finally delete the service itself
 		daoFactory.getDeveloperServiceDao().deleteService(pService);
@@ -432,7 +468,21 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		pService.setModifiedAt(new Date());
 		daoFactory.getDeveloperServiceDao().updateService(pService);
 
-		// notify owner of the developer company
+		HmisUser superAdminUser = daoFactory.getAccountDao().findByUsername("superadmin@hmis.com");
+		
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_DEVELOPER_SERVICE_CREATION");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(superAdminUser.getEmailAddress());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("developerService",pService.getFriendlyName() ));
+		notification.setParameters(parameters);
+		
+		notificationServiceClient.createNotification(notification);
+
 
 		return DeveloperServiceConverter.convertToService(pServiceStatus);
 	}
@@ -515,9 +565,9 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		// Check for apimethods duplicates
 		List<String> apiMethodList = new ArrayList<String>();
 		for (com.servinglynk.hmis.warehouse.core.model.ApiMethod apiMethod : apiBundle.getApiMethods()) {
-			if (!ValidationUtil.isEmpty(apiMethod.getExternalId())) {
-				if (!apiMethodList.contains(apiMethod.getExternalId())) {
-					apiMethodList.add(apiMethod.getExternalId());
+			if (!ValidationUtil.isEmpty(apiMethod.getApiMethodId())) {
+				if (!apiMethodList.contains(apiMethod.getApiMethodId())) {
+					apiMethodList.add(apiMethod.getApiMethodId());
 				} else {
 					throw new DuplicateDataException("duplicate apimethod submitted");
 				}
@@ -547,6 +597,87 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		logger.debug("{} service api methods added to service {}", apiBundle.getApiMethods().size(), externalServiceId);
 	}
+	
+	
+	@Transactional
+	public List<ApiGroup> getApiGroupsForService(String externalServiceId, Account requestingAccount, String requestingService)	{
+
+		ServiceEntity pService = daoFactory.getServiceDao().findByExternalId(externalServiceId);
+		if (pService == null)	{
+			throw new ServiceNotFoundException("Service " + externalServiceId + " not found");
+		}
+			 		
+		if ((pService.getServiceApiMethods() == null) || pService.getServiceApiMethods().isEmpty())	{
+			logger.debug("service {} has no api methods assigned, return empty api groups", externalServiceId);
+			return new ArrayList<ApiGroup>();
+		}
+		
+		return groupServiceApiMethods(pService.getServiceApiMethods(), requestingAccount, requestingService);
+	}
+
+	private List<ApiGroup> groupServiceApiMethods(List<?> apiMethods, Account requestingAccount, String requestingService)	{
+		
+		if ((apiMethods == null) || apiMethods.isEmpty())	{
+			logger.debug("no api methods provided, return empty api groups");
+			return new ArrayList<ApiGroup>();
+		}
+		
+		Map<UUID, ApiGroup> apiGroupsMap = new HashMap<UUID, ApiGroup>();
+		Map<UUID, Map<UUID, ApiMethod>> apiMethodsGroupMap = 
+				new HashMap<UUID, Map<UUID,ApiMethod>>();
+		
+		// go over the list of api methods and group them under their own apiGroups in maps
+		for(Object apiMethodObj : apiMethods)	{ 
+			ApiMethodEntity pApiMethod = null;
+			
+			// The list of methods passed might be of type ApiMethods directly or ServiceApiMethods
+			if (apiMethodObj instanceof ServiceApiMethodEntity)	{
+				pApiMethod = ((ServiceApiMethodEntity) apiMethodObj).getApiMethod();
+			}
+			else if (apiMethodObj instanceof ApiMethodEntity)	{
+				pApiMethod = (ApiMethodEntity) apiMethodObj; 
+			}
+			
+			ApiGroupEntity pApiGroup = pApiMethod.getApiGroup();
+			if (pApiGroup == null)	{
+				logger.warn("api-method {}'s api-group is null, shouldn't be", pApiMethod.getId());
+			}
+			else	{
+				if (!apiGroupsMap.containsKey(pApiGroup.getId()))	{
+					ApiGroup apiGroup = ApiGroupConverter.convertToApiGroup(pApiGroup);
+					apiGroupsMap.put(pApiGroup.getId(), apiGroup);
+				}
+				
+				Map<UUID,ApiMethod> apiMethodsMap = apiMethodsGroupMap.get(pApiGroup.getId());
+				if (apiMethodsMap == null)	{
+					apiMethodsMap = new HashMap<UUID,ApiMethod>();
+					apiMethodsGroupMap.put(pApiGroup.getId(), apiMethodsMap);
+				}
+				
+				if (!apiMethodsMap.containsKey(pApiMethod.getId()))	{
+					ApiMethod apiMethod = ApiMethodConverter.convertToApiMethod(pApiMethod);
+					apiMethodsMap.put(pApiMethod.getId(), apiMethod);
+				}
+			}
+		}
+		
+		List<ApiGroup> apiGroups = new ArrayList<ApiGroup>();
+		
+		// build List<ApiGroup> from the maps
+		for(Map.Entry<UUID, ApiGroup> entry : apiGroupsMap.entrySet())	{
+			ApiGroup apiGroup = entry.getValue();
+			apiGroup.setApiMethods(new ArrayList<ApiMethod>());
+			
+			Map<UUID, ApiMethod> apiMethodsMap = apiMethodsGroupMap.get(entry.getKey());
+
+			apiGroup.setApiMethods(new ArrayList<ApiMethod>(apiMethodsMap.values()));
+			
+			apiGroups.add(apiGroup);
+		}
+		
+		return apiGroups; 
+	}
+	
 
 	@Transactional
 	public DeveloperCompanyAccounts getDeveloperCompanyAccounts(String externalDeveloperCompanyId,
@@ -714,6 +845,25 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		pDeveloperCompany.setModifiedAt(new Date());
 		daoFactory.getDeveloperCompanyDao().updateDeveloperCompany(pDeveloperCompany);
 		return null;
+	}
+
+	@Transactional
+	public DeveloperCompanies getOwnedDeveloperCompanies(String username, Account requestingAccount, String requestingService) {
+		
+		HmisUser hmisUser = daoFactory.getHmisUserDao().findByUsername(username);
+		
+		if(hmisUser ==null) throw new AccountNotFoundException(username + " not found");
+		
+		
+		List<DeveloperCompanyEntity> developerCompanyEntities= 	daoFactory.getDeveloperCompanyDao().findByOwnerId(hmisUser.getId());
+		
+		DeveloperCompanies developerCompanies = new DeveloperCompanies();
+		
+		for(DeveloperCompanyEntity entity : developerCompanyEntities){
+			developerCompanies.addDeveloperCompany(DeveloperCompanyConverter.convertToDeveloperCompany(entity));
+		}
+		
+		return developerCompanies;
 	}
 
 }

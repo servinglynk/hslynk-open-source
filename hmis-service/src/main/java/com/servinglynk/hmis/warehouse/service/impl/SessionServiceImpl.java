@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.service.impl;
 
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_DISABLED;
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PENDING;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -121,11 +122,9 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		pLockout.setLastAttemptAt(Calendar.getInstance().getTime());
 		pLockout.setModifiedAt(Calendar.getInstance().getTime());
 		return pLockout;
-}
+	}	
 	
-	
-	
-	@SuppressWarnings("unused")
+
 	private void validateAccountLockout(AccountLockoutEntity pLockout,String trustedAppId) {
 		int failureCount =0;
 		if(pLockout.getLastLoginStatus()==0){

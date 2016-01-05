@@ -31,7 +31,7 @@ public class TrustedAppStatusEntity extends BaseModel {
 	private String comments;
 
 	@ManyToOne
-	@JoinColumn(name = "client_id", nullable = false, referencedColumnName = "id")
+	@JoinColumn(name = "trustedapp_id", nullable = false, referencedColumnName = "id")
 	private TrustedAppEntity trustedApp;
 
 	public UUID getId() {

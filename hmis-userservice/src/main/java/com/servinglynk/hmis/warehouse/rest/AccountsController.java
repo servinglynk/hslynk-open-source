@@ -21,12 +21,15 @@ import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.PasswordReset;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
+import com.servinglynk.hmis.warehouse.core.model.Profile;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApps;
 import com.servinglynk.hmis.warehouse.core.model.UsernameChange;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
+import com.servinglynk.hmis.warehouse.enums.HmisUserGenderEnum;
 import com.servinglynk.hmis.warehouse.service.exception.AccountAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -38,14 +41,16 @@ public class AccountsController extends ControllerBase {
 	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 	@RequestMapping(method = RequestMethod.POST)
 	public Account createAccount(@RequestBody Account account, @RequestParam(value="purpose",required= false,defaultValue="" ) String purpose, HttpServletRequest request) throws Exception {
-		return createAccount(account, request, purpose);
+	
+		Session session = sessionHelper.getSession(request);
+		return createAccount(account, request,session ,purpose);
 	}
 	
 			
-	private Account createAccount(Account account, HttpServletRequest request, String purpose) throws Exception{
+	private Account createAccount(Account account, HttpServletRequest request,Session session ,String purpose) throws Exception{
 				// checks for existing account
 		
-		Session session = sessionHelper.getSession(request);
+
 				if (account.getUsername() != null) {
 					Account existingAccount = serviceFactory.getAccountService().findAccountByUsername(account.getUsername());
 					if (existingAccount != null) {
@@ -57,6 +62,25 @@ public class AccountsController extends ControllerBase {
 		
 			return serviceFactory.getAccountService().createAccount(account, session.getAccount().getUsername(), purpose);
 	 }
+	
+	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=false, checkTrustedApp=false)
+	@RequestMapping(method = RequestMethod.POST,value="/developeraccount")
+	public Account createDeveloperAccount(@RequestBody Account account, @RequestParam(value="purpose",required= false,defaultValue="" ) String purpose, HttpServletRequest request) throws Exception {
+		Session session = new Session();
+		session.setAccount(account);
+		account.setOrganizationId(UUID.fromString("b5598c6c-d021-4f5f-9695-77f7f4685ed2"));
+		Profile profile = new Profile();
+		profile.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		account.setProfile(profile);
+		Role role =new Role();
+		role.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		account.setRole(role);	
+		account.setGender(HmisUserGenderEnum.valueOf("ONE").name());
+		ProjectGroup projectGroup=new ProjectGroup();
+		projectGroup.setProjectGroupId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		account.setProjectGroup(projectGroup);
+		return createAccount(account, request,session ,purpose);
+	}
 	
 
 
@@ -91,7 +115,7 @@ public class AccountsController extends ControllerBase {
 	}
 
 
-	@RequestMapping(value = "/{username}/trustedApps", method = RequestMethod.GET)
+	@RequestMapping(value = "/{username}/trustedapps", method = RequestMethod.GET)
 	@APIMapping(value="USR_GET_AUTHORIZED_TRUSTEDAPPS",checkSessionToken=true, checkTrustedApp=true)
 	public TrustedApps getAuthorizedTrustedApps(@PathVariable("username") String usernamePathVar, HttpServletRequest request) throws Exception {
 		if (!usernamePathVar.equalsIgnoreCase("self")) {

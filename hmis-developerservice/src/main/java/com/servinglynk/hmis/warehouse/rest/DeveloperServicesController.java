@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.common.Constants;
+import com.servinglynk.hmis.warehouse.core.model.ApiGroup;
+import com.servinglynk.hmis.warehouse.core.model.ApiGroups;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethods;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperService;
 import com.servinglynk.hmis.warehouse.core.model.ServiceStatus;
 import com.servinglynk.hmis.warehouse.core.model.Session;
@@ -25,7 +29,7 @@ import com.servinglynk.hmis.warehouse.core.model.TrustedApps;
 public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceId}", method = RequestMethod.GET)
-	@APIMapping(value="DCS_GET_SERVICE",checkSessionToken=true, checkTrustedApp=true)
+	@APIMapping(value="DCS_GET_SERVICES",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperService getService(@PathVariable("serviceId") String externalServiceId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
@@ -99,5 +103,37 @@ public class DeveloperServicesController extends ControllerBase {
 		trustedAppsObj.setTrustedApps(trustedApps);
 		return trustedAppsObj;
 	}
+	
+	@RequestMapping(value = "/{serviceId}/apimethods", method = RequestMethod.POST)
+	@APIMapping(value="DCS_GET_TRUSTEDAPPS_FOR_SERVICE",checkSessionToken=true, checkTrustedApp=true)
+	public ApiMethods createApiBundle(@PathVariable("serviceId") String externalServiceId, @RequestBody ApiMethods apiBundle, HttpServletRequest request) throws Exception {
+
+		Session session = sessionHelper.getSession(request);
+
+		serviceFactory.getDeveloperCompanyService().createApiBundleForService(externalServiceId, apiBundle, session.getAccount(), Constants.DEVELOPER_CONSOLE_SERVICE);
+		
+		ApiMethods apimethods = new ApiMethods();
+		return apimethods;
+	}
+	
+	@RequestMapping(value = "/{serviceId}/apigroups", method = RequestMethod.GET)
+	public ApiGroups getApiGroups(@PathVariable("serviceId") String externalServiceId, HttpServletRequest request) throws Exception {
+
+		Session session = sessionHelper.getSession(request);
+		//String clientTypeId = clientTypeHelper.getClientType(request).getClientTypeId();
+
+		List<ApiGroup> apiGroupsList = serviceFactory.getDeveloperCompanyService().getApiGroupsForService(externalServiceId,
+																										  session.getAccount(),
+																										  Constants.DEVELOPER_CONSOLE_SERVICE);
+
+		ApiGroups apiGroups = new ApiGroups();
+		apiGroups.setApiGroups(apiGroupsList);
+
+		logger.debug("There are {} api groups", apiGroupsList.size());
+
+		return apiGroups;
+	}
+	
+
 	
 }

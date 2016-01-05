@@ -57,6 +57,12 @@ public class Parameter extends ClientModel {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	
-
+	public Parameter(String key, Object value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
+	public Parameter() {
+		super();
+	}
 }
