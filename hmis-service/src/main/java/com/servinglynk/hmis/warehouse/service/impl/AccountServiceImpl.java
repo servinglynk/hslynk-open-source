@@ -344,7 +344,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				}
 				notification.setParameters(parameters);
 				
-				notificationServiceClient.createNotification(notification);				
+			//	notificationServiceClient.createNotification(notification);				
 			
 		return account;
 	}
