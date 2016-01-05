@@ -222,7 +222,7 @@ public class NotificationConfig  {
 		 properties.put("mail.smtp.starttls.enable","true");
 		 properties.put("mail.transport.protocol","smtp");
 		 properties.put("mail.debug","true");
-		 
+		 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		 properties.put("mail.smtp.ssl.enable","true");
 		 	
 		 return properties;
@@ -289,6 +289,7 @@ public class NotificationConfig  {
     	properties.put("hibernate.cache.use_second_level_cache", "true");
     	properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 		properties.put("hibernate.default_schema","notificationdb");
+		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
     	return properties;
     }
     
