@@ -57,6 +57,7 @@ public class DatabaseConfig {
 		properties.put("hibernate.default_catalog.null", "");
 		properties.put("databasePlatform", "PostgreSQLDialectUuid");
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
+		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		return properties;	
 	}
 	
