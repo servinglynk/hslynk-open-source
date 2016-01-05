@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity;
 import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus;
@@ -26,4 +27,6 @@ public interface DeveloperCompanyDao {
 			Integer iMaxItems);
 	public int findAllDeveloperCompaniesCount(String serviceStatus,
 			String trustedAppStatus);
+	
+	public List<DeveloperCompanyEntity> findByOwnerId(UUID ownerId);
 }

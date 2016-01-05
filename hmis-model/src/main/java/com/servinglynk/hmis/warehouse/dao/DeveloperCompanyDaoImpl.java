@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -71,6 +72,16 @@ public DeveloperCompanyStatus createDeveloperCompanyStatus(DeveloperCompanyStatu
 			criteria.createAlias("services","services");
 			criteria.add(Restrictions.eq("services.status",serviceStatus));
 		return (int) countRows(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DeveloperCompanyEntity> findByOwnerId(UUID ownerId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(DeveloperCompanyEntity.class);
+		criteria.createAlias("account", "account");
+		criteria.add(Restrictions.eq("account.id",ownerId));
+		
+		return (List<DeveloperCompanyEntity>) findByCriteria(criteria);
 	}
 
 	
