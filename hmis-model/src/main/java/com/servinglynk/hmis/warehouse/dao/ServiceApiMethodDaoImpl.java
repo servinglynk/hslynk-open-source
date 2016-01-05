@@ -28,6 +28,18 @@ public class ServiceApiMethodDaoImpl extends QueryExecutorImpl
 		}
 		return serviceLicenses.size();
 	}
+	
+	public int deleteApiMethodsByServiceId(UUID serviceId) {
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(ServiceApiMethodEntity.class);
+		criteria.createAlias("service","service");
+		criteria.add(Restrictions.eq("service.id",serviceId));
+		List<ServiceApiMethodEntity> serviceApiMethods =(List<ServiceApiMethodEntity>) findByCriteria(criteria);
+		for(ServiceApiMethodEntity serviceApiMethod : serviceApiMethods){
+			delete(serviceApiMethod);
+		}
+		return serviceApiMethods.size();
+	}
 
 
 	public ServiceApiMethodEntity create(ServiceApiMethodEntity serviceApiMethod) {

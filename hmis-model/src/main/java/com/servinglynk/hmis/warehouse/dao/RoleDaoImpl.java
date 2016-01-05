@@ -37,7 +37,7 @@ public class RoleDaoImpl extends QueryExecutorImpl implements RoleDao {
 		return (List<RoleEntity>) findByCriteria(criteria);
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<RoleEntity> getRoles(Integer startIndex, Integer maxItems) {
 		DetachedCriteria criteria=DetachedCriteria.forClass(RoleEntity.class);
 		return (List<RoleEntity>) findByCriteria(criteria,startIndex,maxItems);
@@ -48,7 +48,4 @@ public class RoleDaoImpl extends QueryExecutorImpl implements RoleDao {
 		DetachedCriteria criteria=DetachedCriteria.forClass(RoleEntity.class);
 		return countRows(criteria);
 	}
-
-	
-
 }

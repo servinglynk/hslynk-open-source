@@ -10,5 +10,6 @@ public interface ServiceApiMethodDao {
 	public int deleteByServiceId(UUID serviceId);
 	ServiceApiMethodEntity create(ServiceApiMethodEntity serviceApiMethod);
 	public ServiceApiMethodEntity findByServiceIdAndApiMethodId(UUID serviceId, UUID apiMethodId);
+	public int deleteApiMethodsByServiceId(UUID serviceId);
 	
 }
