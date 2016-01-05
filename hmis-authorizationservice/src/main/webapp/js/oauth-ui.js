@@ -147,7 +147,33 @@ $('#submit-otp').click(function (){
 	
 
 });
-
+function submitLoginForWeb(userName, password){
+	var date = new Date();
+	date.setTime(date.getTime() + (10 * 60 * 1000));	
+		$.ajax({
+			headers: {
+					  "Content-Type": "application/json;charset=UTF-8",
+					  "Accept-Language": "en-us,en;q=0.5",  
+					  "Accept":"application/json"
+			},
+			
+			type: "POST",
+			url: "/hmis-authorization-service/rest/authorize/session?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt"),
+			dataType: "json",
+			success: function(data){
+				//set cookie here
+				$.cookie('authentication_token', data.session.token, { expires: date, path: '/' });
+				$("#authentication_token").val(data.session.token)
+				//GET authorization
+				$('#authorize-form').submit();
+			},
+			error: function (res) {
+				loginError(res, "errorMsg", userName)
+			}
+		
+		});		
+	
+}
 
 function submitLogin(userName, password){
 	var date = new Date();
@@ -222,7 +248,21 @@ function getCaptcha(){
 		}
 	});	
 }
-
+function loginError(jqXHR, errorElement, userName) {
+	var msg="Account error";
+	switch (jqXHR.status) {
+	case 404:
+		toastr.error('User not found');
+		break;
+	case 403:
+		toastr.error('Some other error');
+		break;
+	}
+    	
+//	$(".errorMsg").html(msg);
+//	$("#main-content-box-header-text").hide();
+//	$("#errorMsgContainer").show();
+}
 function loginErrorHandler(jqXHR, errorElement, userName) {
 	var msg;
 	var code = null;
@@ -277,7 +317,6 @@ function loginErrorHandler(jqXHR, errorElement, userName) {
 	                msg = (s.accountNotFound).replace("{username}", userName);
 	                break;
 	        }
-	                         
 	}
 	
 	$(".errorMsg").html(msg);

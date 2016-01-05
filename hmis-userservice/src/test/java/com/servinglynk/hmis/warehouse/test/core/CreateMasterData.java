@@ -104,7 +104,7 @@ public class CreateMasterData {
 		UUID id=UUID.fromString(getUUID());
 		//UUID profileId=UUID.fromString("2a0de2d3-ce1f-4cf1-9145-04aa70e3196c");
 		String insQuery ="INSERT INTO live.hmis_redirect_uri(id, uri, trustedapp_id, created_at, created_by ) "
-				+ "VALUES ('"+id+"','/login-web.html' , '"+externalTrustedAppId+"', current_date, 'MASTET DATA')";
+				+ "VALUES ('"+id+"','http://localhost:8081/hmis-admin/#/admin/dashborad' , '"+externalTrustedAppId+"', current_date, 'MASTET DATA')";
 		System.out.println(insQuery+";");
 		Connection connection =getConnection();
 		Statement statement1= connection.createStatement();

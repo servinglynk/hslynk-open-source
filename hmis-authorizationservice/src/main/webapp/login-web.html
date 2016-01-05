@@ -9,13 +9,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="js/jquery.cookie.js" type="text/javascript"></script>
 	<script src="js/localized/oauth-ui.js.localized" type="text/javascript"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	<script src="js/oauth-ui.js" type="text/javascript"></script>
 	<script src="js/login.js" type="text/javascript"></script>
 	  <!--[if IE]>
 	  <link rel="stylesheet" type="text/css" href="css/ie.css"/>
 	  <![endif]-->
 </head>
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    toastr.options.timeOut = 1500; // 1.5s
+  });
+  </script>
 <body>
 <div id="header-wrapper">
 	<div class="header-content">
@@ -35,6 +41,7 @@
 			<div id="login-input-container">
 				<!--<img class="logo" src="images/ccc-logo.gif">-->
 				<h2>ServingLynk Login</h2>
+				<!-- 
 				<form id="login-authorize-form" method="POST" action="/hmis-authorization-service/rest/authorize/session">
 					<input type=hidden value="" name="response_type" id="response_type" />
 					<input type=hidden value="" name="trustedApp_id" id="trustedApp_id" />
@@ -45,13 +52,14 @@
 					<input type="text" placeholder="Enter Username" id="username" name="username" maxlength="254" />
 					<input type="password" autocomplete="off" placeholder="Enter Password" id="password" name="password" maxlength="128" />
 					<input type="submit" value="Login" />
-				</form>
-<!-- 				<ul>
+				</form> 
+				-->
+ 				<ul>
 					<li><input type="text" placeholder="Enter Username" id="username" maxlength="254" /></li>
 					<li><input type="password" autocomplete="off" placeholder="Enter Password" id="password" maxlength="128" /></li>
-				</ul> -->
+				</ul>
 
-			<!-- 	<button id="submit-login" class="blue">Login</button> -->
+			<button id="submit-login" class="blue">Login</button>
 
 
 			</div>

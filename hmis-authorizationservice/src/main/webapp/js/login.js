@@ -14,6 +14,6 @@ $(document).ready(function() {
 	$('#submit-login').click(function () {
 		var userName = $.trim($('#username').val()),
 			password = $.trim($('#password').val());
-		submitLogin(userName, password)
+		submitLoginForWeb(userName, password)
 	});
 });
