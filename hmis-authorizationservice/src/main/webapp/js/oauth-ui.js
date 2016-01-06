@@ -156,22 +156,21 @@ function submitLoginForWeb(userName, password){
 					  "Accept-Language": "en-us,en;q=0.5",  
 					  "Accept":"application/json"
 			},
-			
+			cache :false,
 			type: "POST",
 			url: "/hmis-authorization-service/rest/authorize/session?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt"),
 			dataType: "json",
-			success: function(data){
+			success: function(res){
 				//set cookie here
-				$.cookie('authentication_token', data.session.token, { expires: date, path: '/' });
-				$("#authentication_token").val(data.session.token)
-				//GET authorization
-				$('#authorize-form').submit();
+				console.log('Looking good.');
 			},
-			error: function (res) {
-				loginError(res, "errorMsg", userName)
+			error: function (e) {
+				loginError(e, "errorMsg", userName);
 			}
 		
-		});		
+		}).done(function () {
+	        window.location.href = getURLParameter("redirect_uri");
+	    });		
 	
 }
 
@@ -189,12 +188,13 @@ function submitLogin(userName, password){
 			url: "/hmis-user-service/rest/sessions?trustedApp_id="+getURLParameter("trustedApp_id"),
 			data: JSON.stringify({ session: { account: { username: userName, password: password}} }),
 			dataType: "json",
-			success: function(data){
+			success: function(res){
 				//set cookie here
 				$.cookie('authentication_token', data.session.token, { expires: date, path: '/' });
 				$("#authentication_token").val(data.session.token)
 				//GET authorization
 				$('#authorize-form').submit();
+
 			},
 			error: function (res) {
 				loginErrorHandler(res, "errorMsg", userName)
@@ -252,11 +252,15 @@ function loginError(jqXHR, errorElement, userName) {
 	var msg="Account error";
 	switch (jqXHR.status) {
 	case 404:
-		toastr.error('User not found');
+		//toastr.error('User not found');
+		window.location.href ="/hmis-authorization-service/login-web.html?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
 		break;
 	case 403:
 		toastr.error('Some other error');
 		break;
+	default:
+		 toastr.info('success');
+		 break;
 	}
     	
 //	$(".errorMsg").html(msg);

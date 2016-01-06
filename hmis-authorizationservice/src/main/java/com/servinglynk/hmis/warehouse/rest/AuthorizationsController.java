@@ -20,6 +20,10 @@ import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.OAuthAuthorization;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
+import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
+import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
+import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.UserAuthenticationFailedException;
 
 
@@ -175,14 +179,32 @@ public class AuthorizationsController extends ControllerBase {
 				                  @RequestParam(value="consented", required=false) String consented,
 								 HttpServletRequest request,
 								 HttpServletResponse response) throws Exception {
-		
 		Account account = new Account();
 		account.setUsername(username);
 		account.setPassword(password);
 		Session session= new Session();
 		session.setAccount(account);
 		
-		 serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
+		
+		try {
+			serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
+		}catch(InvalidTrustedAppException invldException) {
+			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			return session;
+		}catch(MissingParameterException missingParamException) {
+			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+missingParamException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			return session;
+		}catch(InvalidParameterException invalidException) {
+			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+invalidException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			return session;
+		}catch(AccountNotFoundException acctNotFoundException) {
+			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+acctNotFoundException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			return session;
+		}catch(Exception exception) {
+			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+exception.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			return session;
+		}
+		 
 		 String otpUri="";
 		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
 			  otpUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);

@@ -14,10 +14,10 @@ $(document).ready(function() {
 	var ua = navigator.userAgent.toLowerCase(); 
 	if(ua.indexOf("android") > -1 || ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("kindle") > -1 || ua.indexOf("silk") > -1 || ua.indexOf("windows phone") > -1) {
 		//redirect to mobile
-		window.location = "login-mobile.html?response_type="+getURLParameter("response_type")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
+		window.location = "login-mobile.html?response_type="+getURLParameter("response_type")+"&errorMessage="+getURLParameter("errorMessage")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
 	}else{
 		//redirect to web
-		window.location ="login-web.html?response_type="+getURLParameter("response_type")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
+		window.location ="login-web.html?response_type="+getURLParameter("response_type")+"&errorMessage="+getURLParameter("errorMessage")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
 	}
 });
 

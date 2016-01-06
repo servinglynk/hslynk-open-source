@@ -11,7 +11,7 @@ $(document).ready(function() {
 		getCaptcha();
 	});
 	
-	$('#submit-login').click(function () {
+	$('#login-submit').click(function () {
 		var userName = $.trim($('#username').val()),
 			password = $.trim($('#password').val());
 		submitLoginForWeb(userName, password)

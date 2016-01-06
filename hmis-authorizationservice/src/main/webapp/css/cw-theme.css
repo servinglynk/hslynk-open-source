@@ -1,0 +1,231 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+body {
+}
+img {
+	max-width:100%;
+	height:auto;
+}
+h1 {
+	font-family: 'Coustard', serif, Helvetica, sans-serif;
+	font-size:40px;
+	color:#315c75;
+	text-decoration:none;
+	font-weight:bold;
+	margin:0px;
+	font-style:italic;
+}
+.row {
+	margin:40px 0;
+}
+.container-fluid {
+	padding:0 0 0 0;
+}
+.container {
+	max-width:1170px;
+	padding:0;
+}
+h1.page-header {
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	font-size:50px;
+	color:#3089a8;
+	text-decoration:none;
+	font-weight:700;
+	margin:45px 0 0 0;
+	font-style:italic;
+}
+.header {
+	background:#222;
+	text-align:center;
+}
+.logo {
+	padding:10px;
+}
+.middle-part {
+	margin:0 auto;
+}
+.login-box {
+	max-width:450px;
+	border:1px solid #b5c3c6;
+	background-color:#FFF;
+	border-radius:5px;
+	padding:50px;
+	margin:50px auto;
+	text-align:left;
+}
+h2 {
+	font-size:25px;
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	font-size:25px;
+	color:#043f55;
+	text-decoration:none;
+	font-weight:700;
+	margin-top:0;
+}
+.form-control {
+	height:50px;
+	border: 1px solid #e5e5e5;
+	margin-bottom:6px;
+	margin-top:9px;
+	font-style:italic;
+	color:#000;
+	font-size:16px;
+}
+.btn {
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	font-size:18px;
+	color:#FFF;
+}
+.btn-primary, .btn-primary:hover {
+	color: #fff;
+	background-color: #e88f24;
+	border-color: #e88f24;
+	height:50px;
+}
+.btn-add, .btn-add:hover {
+	color: #fff;
+	background-color: #e88f24;
+	font-size:14px;
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	border-color: #e88f24;
+	width: auto;
+	height:30px;
+	padding:3px 20px;
+}
+.add {
+	text-align:right;
+	margin:0 0 10px 0;
+}
+.btn-upload, .btn-upload:hover {
+	color: #fff;
+	background-color: #e88f24;
+	font-size:18px;
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	border-color: #e88f24;
+	width: 150px;
+	height:40px;
+	padding:3px 20px;
+}
+.fa-times {
+	color:#F00;
+}
+.whitehead {
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	font-size:25px;
+	color:#FFF;
+	text-decoration:none;
+	font-weight:300;
+	margin:45px 0 0 0;
+	font-style:italic;
+}
+.form-signin-heading {
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	font-size:25px;
+	color:#3089a8;
+	text-decoration:none;
+	font-weight:400;
+	margin:0 0 20px 0;
+}
+.footer {
+	padding:10px 0;
+	position:fixed;
+	left:46%;
+	bottom:10px;
+}
+.copy {
+	font-family: 'Lato', serif, Helvetica, sans-serif;
+	font-size:12px;
+	color:#999;
+	text-decoration:none;
+	text-align:center;
+}
+ @media screen and (min-width:1000px) and (max-width:1200px) {
+}
+ @media screen and (min-width:768px) and (max-width:1000px) {
+}
+@media screen and (min-width:400px) and (max-width:768px) {
+}
+@media screen and (min-width:300px) and (max-width:400px) {
+}
+#form li {
+	margin: auto;
+	text-align: left;/* padding-left: 27%; */
+}
+ul li {
+	list-style-type: none;
+}
+#form label {
+	font-weight: 400;
+	width:200px;
+}
+#form input {
+	min-width: 200px;
+	height: 45px;
+	margin: 0 6px 15px;
+	border: 0;
+	border: 1px solid #CCC;
+	padding: 5px;
+}
+#form select {
+    /* background-color: #7c7c7c; */
+   min-width: 200px;
+    height: 45px;
+    margin: 0 6px 15px 6px;
+    border: 0px;
+    border: 1px solid #CCC;
+    padding: 5px;
+}
+input[type=file] {
+	display:inline-block;
+	border:none!important;
+}
+.button-success,  .button-error {
+	color: white!important;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	display:none;
+	cursor:none;
+}
+.button-success {
+	background: rgb(28, 184, 65)!important; /* this is a green */
+}
+.button-error {
+	background: rgb(202, 60, 60)!important; /* this is a maroon */
+}
+.pure-button {
+	font-family: inherit;
+	font-size: 100%;
+	padding: .5em 1em;
+	color: #444;
+	color: rgba(0, 0, 0, .8);
+	border: 1px solid #999;
+	border: 0 rgba(0, 0, 0, 0);
+	background-color: #E6E6E6;
+	text-decoration: none;
+	border-radius: 2px;
+}
+.floatright {
+	float:right;
+}
+.list-group-item:last-child {
+	background-color:green!important;
+	color:#FFF;
+}
+.list-group-item:last-child:hover {
+	color:#FFF;
+}
+.badge {
+	background-color: #FFF;
+	color:grey;
+}
+#divBulkUpload,#divUploadFile,#divAuthenticate
+{
+	/*float:right;*/
+	margin:10px;
+}
+.required
+{
+	color:red;
+	padding-right:2px;
+}
