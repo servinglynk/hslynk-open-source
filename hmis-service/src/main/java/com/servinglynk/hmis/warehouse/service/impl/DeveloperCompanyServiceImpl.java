@@ -142,7 +142,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		parameters.addParameter(new Parameter("developerCompany",developerCompany.getName() ));
 		notification.setParameters(parameters);
 		
-	// notificationServiceClient.createNotification(notification);
+	    notificationServiceClient.createNotification(notification);
 		
 		return developerCompany;
 	}
@@ -481,7 +481,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		parameters.addParameter(new Parameter("developerService",pService.getFriendlyName() ));
 		notification.setParameters(parameters);
 		
-	//	notificationServiceClient.createNotification(notification);
+		notificationServiceClient.createNotification(notification);
 
 
 		return DeveloperServiceConverter.convertToService(pServiceStatus);

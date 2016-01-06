@@ -40,7 +40,7 @@ public class TokensController extends ControllerBase {
 			throw new MissingParameterException("grant type is missing");
 		}
 		
-		checkGrantTypeSupported(grantType);
+		// checkGrantTypeSupported(grantType);
 		
 		TrustedApp trustedApp = authenticateTrustedApp(request.getHeader("authorization"));
 		
