@@ -21,7 +21,7 @@ public class PropertyReader {
 	@Autowired
     private DataSource dataSource;
 	
-	private String table="hmis_property";
+	private String table="notificationdb.hmis_property";
 	private String nameColumn="";
 	private String keyColumn="KEY_NAME";
 	private String valueColumn="KEY_VALUE";

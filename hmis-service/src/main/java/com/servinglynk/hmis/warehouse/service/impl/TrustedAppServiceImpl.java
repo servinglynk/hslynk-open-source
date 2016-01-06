@@ -248,7 +248,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		parameters.addParameter(new Parameter("trustedApp",trustedAppEntity.getFriendlyname()));
 		notification.setParameters(parameters);
 		
-		//notificationServiceClient.createNotification(notification);
+		notificationServiceClient.createNotification(notification);
 
 	
 		TrustedAppStatusConverter.convertToPersistentTrustedAppStatus(trustedAppStatus, trustedAppStatusEntity);
