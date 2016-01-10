@@ -1,47 +1,46 @@
-
 <div class="container-fluid header">
   <div class="container">
     <div class="col-md-6">
       <div class="logo"><a href="index.html"><img src="images/logoSite.png" alt="ServingLynk" /></a></div>
     </div>
     <div class="col-md-6">
-      <div class="whitehead">Welcome to Admin area</div>
+      <div class="whitehead">Welcome to HMIS Lynk</div>
     </div>
   </div>
 </div>
-<div class="container-fluid middle-part">
-  <div class="container">
-    <div class="row">
-      <div class="login-box">
-       <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
-       <form method="GET" action="/hmis-authorization-service/rest/authorize" id="test-app-form">
-				<ul>
-					<input type="hidden" value="code" name="response_type" value="code"/>
-					<input type="hidden"  name="trustedApp_id" value="MASTER_TRUSTED_APP"/>
-					<input type="hidden"  name="redirect_uri" value="http://localhost:8081/hmis-admin/#/admin/dashborad"/>
-					<input type="hidden" value="xyzvalue" name="state" />
-					<input type="hidden" name="access_type" value="online"/>
-					<input type="hidden"  name="approval_prompt" value="auto"/>
-				</ul>
-				<button  class="btn btn-lg btn-primary btn-block" value="LOGIN">Login</button>
-			</form>
-			 
-<!-- 			 
-        <form class="form-signin" ng-controller="validateLoginCtrl" 
-name="formLogin" novalidate>
-          <h2 class="form-signin-heading">Admin login</h2>
-          <label for="inputEmail" class="sr-only">Username</label>
-          <input type="email" name="email"  placeholder="Username"  ng-model="email" class="form-control"   required>
-          <span style="color:red" ng-show="formLogin.email.$dirty && formLogin.email.$invalid"> <span ng-show="formLogin.email.$error.required">Email is required.</span> <span ng-show="formLogin.email.$error.email">Invalid email address.</span> </span>
-          <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" name="password"  class="form-control" placeholder="Password" ng-model="password" required>
-          <span style="color:red" ng-show="formLogin.password.$dirty && formLogin.password.$invalid"> <span ng-show="formLogin.password.$error.required">Password is required.</span> </span>
-          <input ng-click="SubmitLogin()" class="btn btn-lg btn-primary btn-block" value="LOGIN" type="submit"
-ng-disabled="formLogin.password.$dirty && formLogin.password.$invalid ||  
-formLogin.email.$dirty && formLogin.email.$invalid">
-        </form>
-         -->
-      </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"> Create User </h1>
     </div>
   </div>
-</div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-12">
+      <form ng-submit="submitForm()" ng-controller="requestreportCtrl" name="formRequestReport" id="form" enctype="multipart/form-data">
+        <div class="alert alert-success" ng-show="showSuccessAlert">
+          <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >X</button>
+         {{successTextAlert}} </div>
+         <div class="alert alert-warning" ng-show="showErrorAlert">
+          <button type="button" class="close" data-ng-click="switchBool('showErrorAlert')" >X</button>
+         {{errorTextAlert}} </div>
+        <ul>
+          <li>
+            <label><span class="required">*</span>Email: </label>
+            <input required ng-model="form.email" type="email" name="email">
+          </li>
+          <li>
+            <label><span class="required">*</span>Password: </label>
+            <input required ng-model="form.email" type="email" name="email">
+          </li>
+           <li>
+            <label><span class="required">*</span>Confirm Password: </label>
+            <input required ng-model="form.email" type="email" name="email">
+          </li>
+          <li>
+            <label> </label>
+            <input type="submit" ngClick="Submit"  value="Sign Up" class="btn btn-lg btn-upload">
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>

@@ -21,6 +21,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		      .when('/admin/managereport',      's2.managereport')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
+			   .when('/admin/createprojgrp',      's2.createprojgrp')
+			   .when('/admin/manageprojgrp',      's2.manageprojgrp')
         .segment('s1', {
             templateUrl: 'templates/login.html'})
         
@@ -41,7 +43,11 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		    .segment('setting', {
                 templateUrl: 'templates/partial/setting.html', controller: 'settingCtrl'})   
 			 .segment('requestreport', {
-                templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'})   
+                templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
+                .segment('createprojgrp', {
+                templateUrl: 'templates/partial/createprojgrp.html', controller: 'createprojgrpCtrl'})  
+                .segment('manageprojgrp', {
+                templateUrl: 'templates/partial/manageprojgrp.html', controller: 'manageprojgrpCtrl'})
         .up()
         
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect

@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-DROP schema "live" cascade;
-create schema "live";
-=======
 DROP SCHEMA IF EXISTS "live" cascade;
 CREATE SCHEMA "live";
->>>>>>> 881c179959fca46b8098f0ca4cc2f5f4d11579d4
 DROP SEQUENCE IF EXISTS "live".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "live".seq_account_preference;
 DROP SEQUENCE IF EXISTS "live".seq_api_group;

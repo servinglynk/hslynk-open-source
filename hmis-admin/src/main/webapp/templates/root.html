@@ -23,6 +23,12 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
           <li ng-class="{active: ('s2.dashborad' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.dashborad' | routeSegmentUrl }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> </li>
+         <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Project Group <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo" class="collapse" style="height: 0px;">
+               <li ng-class="{active: ('s2.createprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Group</a> </li>
+               <li ng-class="{active: ('s2.manageprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Group</a> </li>
+            </ul>
+          </li> 
           <li ng-class="{active: ('s2.managefiles' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managefiles' | routeSegmentUrl }}"><i class="fa fa-fw fa-table"></i> Manage Files</a> </li>
           <li ng-class="{active: ('s2.bulkupload' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.bulkupload' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Bulk Upload</a> </li>
           <li ng-class="{active: ('s2.managesync' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managesync' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Sync</a> </li>
