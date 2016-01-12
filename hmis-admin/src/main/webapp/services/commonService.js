@@ -91,32 +91,6 @@ bulkupload: function ($http, $scope, success, error) {
      var formData = new FormData();
      formData.append("file", $scope.form.inputfile.files[0]);
      formData.append("name", $scope.form.inputfilename);
-     
-
-     //$http({
-     //    method: 'POST',
-     //    url: apiurl,
-     //    headers: {
-     //        'Content-Type': 'multipart/form-data'
-     //    },
-     //    data: {
-     //        file: $scope.form.inputfile.files[0],
-     //        name: $scope.form.inputfilename
-     //    },
-     //    transformRequest: function (data, headersGetter) {
-     //        var formData = new FormData();
-     //        angular.forEach(data, function (value, key) {
-     //            formData.append(key, value);
-     //        });
-
-     //        var headers = headersGetter();
-     //        delete headers['Content-Type'];
-
-     //        return formData;
-     //    }
-     //})
-     //   .success(success)
-     //   .error(error);
 
     $http.post(apiurl, formData, {
          transformRequest: angular.identity,
@@ -124,9 +98,80 @@ bulkupload: function ($http, $scope, success, error) {
      }).success(function () { success() }).error(error);
   		
     },
+    createUser : function ($http, $scope, success, error) {
+        var apiurl = "/hmis-user-service/rest/accounts";
+        console.log('Session Token..'+$scope.sessionToken);
+        
+        data = $scope.form;
+        $http({
+            method: 'POST',
+            url: apiurl,
+            data : 
+            	{ "account":{
+                    "username": data.emailAddress,
+                    "emailAddress":data.emailAddress,
+                    "password":data.password,
+                    "firstName":data.firstName,
+                    "middleName":data.middleName,
+                    "lastName":data.lastName,
+                    "gender":data.gender,
+                 }
+           },
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data)
+        }).error(error);
+        },
+    createRole : function ($http, $scope, success, error) {
+        var apiurl = "/hmis-user-service/rest/roles";
+        console.log('Session Token..'+$scope.sessionToken);
+        
+        data = $scope.form;
+        $http({
+            method: 'POST',
+            url: apiurl,
+            data : 
+            {
+            	  "role":{
+            	    "roleName":data.name,
+            	    "roleDescription":data.desc
+            	  }
+           },
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data)
+        }).error(error);
+        },
+    createProjectGroup: function ($http, $scope, success, error) {
+        var apiurl = "/hmis-user-service/rest/projectgroups";
+        console.log('Session Token..'+$scope.sessionToken);
+        
+        data = $scope.form;
+        $http({
+            method: 'POST',
+            url: apiurl,
+            data : {
+              "projectGroup" : {
+                "projectGroupName" : data.name,
+                "projectGroupDesc" : data.desc
+              }
+            },
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data)
+        }).error(error);
+        },
     getToken: function ($http, $scope, success, error) {
         var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=abc";
-//        $http.post(apiurl, config).success(function () { success() }).error(error);
         $http({
             method: 'POST',
             url: apiurl,

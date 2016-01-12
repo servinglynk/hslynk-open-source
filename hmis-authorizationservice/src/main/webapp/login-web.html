@@ -25,7 +25,11 @@
 <script type="text/javascript">
   $(document).ready(function() {
     toastr.options.timeOut = 1500; // 1.5s
-    toastr.error(getURLParameter("errorMessage"));
+    var errorMessage = getURLParameter("errorMessage");
+    if(errorMessage !== undefined && 'null' !== errorMessage) {
+    	toastr.error(errorMessage);	
+    }
+    
   });
   </script>
 <body>

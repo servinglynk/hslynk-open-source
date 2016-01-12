@@ -1,10 +1,13 @@
 
-app.controller('dashboradCtrl', function($scope,$location,$routeSegment,$http, $timeout) {
+app.controller('dashboradCtrl', function($scope,$location,$routeSegment,$http, $timeout,$window) {
 	$scope.authToken = ($location.search()).code;
-	console.log('TEsting....'+$scope.authToken);
+	$window.localStorage.setItem('authToken',$scope.authToken);
 	if(!$scope.sessionToken) {
 		Service.getToken($http,$scope,  //success
 			    function(data){ 
+					$window.localStorage.setItem('sessionToken',data.oAuthAuthorization.accessToken);
+					$window.localStorage.setItem('expiresIn',data.oAuthAuthorization.expiresIn);
+					$window.localStorage.setItem('tokenType',data.oAuthAuthorization.tokenType);
 					$scope.sessionToken=data.oAuthAuthorization.accessToken;
 					$scope.expiresIn = data.oAuthAuthorization.expiresIn;
 					$scope.tokenType = data.oAuthAuthorization.tokenType;

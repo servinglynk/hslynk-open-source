@@ -151,7 +151,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				String username = account.getUsername();
 				
 				if (ValidationUtil.isEmpty(gender)) {
-					throw new MissingParameterException("Invalid account information.");
+					throw new MissingParameterException("Gender is required.");
 				}
 				
 				

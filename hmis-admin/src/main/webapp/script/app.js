@@ -1,5 +1,22 @@
 var app = angular.module('app', ['ngRoute', 'ngAnimate', 'route-segment', 'view-segment','ui.bootstrap']);
 
+var header = { sessionToken : '' };
+app.factory("LS", function($window, $rootScope) {
+	  angular.element($window).on('storage', function(event) {
+	    if (event.key === 'my-storage') {
+	      $rootScope.$apply();
+	    }
+	  });
+	  return {
+	    setData: function(val) {
+	      $window.localStorage && $window.localStorage.setItem('my-storage', val);
+	      return this;
+	    },
+	    getData: function() {
+	      return $window.localStorage && $window.localStorage.getItem('my-storage');
+	    }
+	  };
+	});
 app.config(function($routeSegmentProvider, $routeProvider) {
     
     // Configuring provider options
@@ -21,8 +38,22 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		      .when('/admin/managereport',      's2.managereport')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
+			   
 			   .when('/admin/createprojgrp',      's2.createprojgrp')
 			   .when('/admin/manageprojgrp',      's2.manageprojgrp')
+			   
+			   .when('/admin/createorg',      's2.createorg')
+			   .when('/admin/manageorg',      's2.manageorg')
+			   
+			   .when('/admin/createprofile',      's2.createprofile')
+			   .when('/admin/manageprofile',      's2.manageprofile')
+			   
+			   .when('/admin/createrole',      's2.createrole')
+			   .when('/admin/managerole',      's2.managerole')
+			   
+			    .when('/admin/createuser',      's2.createuser')
+			   .when('/admin/manageuser',      's2.manageuser')
+			   
         .segment('s1', {
             templateUrl: 'templates/login.html'})
         
@@ -44,10 +75,34 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 templateUrl: 'templates/partial/setting.html', controller: 'settingCtrl'})   
 			 .segment('requestreport', {
                 templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
-                .segment('createprojgrp', {
+               
+                .segment('createorg', {
+                templateUrl: 'templates/partial/createorg.html', controller: 'createorgCtrl'})  
+                .segment('manageorg', {
+                templateUrl: 'templates/partial/manageorg.html', controller: 'manageorgCtrl'})
+                
+                 .segment('createprofile', {
+                templateUrl: 'templates/partial/createprofile.html', controller: 'createprofileCtrl'})  
+                .segment('manageprofile', {
+                templateUrl: 'templates/partial/manageprofile.html', controller: 'manageprofileCtrl'})
+                
+                  .segment('createrole', {
+                templateUrl: 'templates/partial/createrole.html', controller: 'createroleCtrl'})  
+                .segment('manageprofile', {
+                templateUrl: 'templates/partial/managerole.html', controller: 'manageroleCtrl'})
+                
+                 .segment('createprojgrp', {
                 templateUrl: 'templates/partial/createprojgrp.html', controller: 'createprojgrpCtrl'})  
                 .segment('manageprojgrp', {
                 templateUrl: 'templates/partial/manageprojgrp.html', controller: 'manageprojgrpCtrl'})
+
+                  .segment('createuser', {
+                templateUrl: 'templates/partial/createuser.html', controller: 'createuserCtrl'})  
+                .segment('manageuser', {
+                templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})
+                
+                
+                
         .up()
         
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect
