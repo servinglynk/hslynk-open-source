@@ -344,11 +344,27 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		pService.setExternalId(GeneralUtil.getNewGuid());
 		pService.setCreatedBy(requestingService);
 		pService.setDeveloperCompany(pDeveloperCompany);
-		pService.setStatus(Constants.SERVICE_STATUS_IN_DEVELOPMENT);
+		pService.setStatus(Constants.SERVICE_STATUS_SUBMITTED);
 
 		daoFactory.getDeveloperServiceDao().create(pService);
 
 		service.setServiceId(pService.getExternalId());
+		
+		HmisUser superAdminUser = daoFactory.getAccountDao().findByUsername("superadmin@hmis.com");
+		
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_DEVELOPER_SERVICE_CREATION");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(superAdminUser.getEmailAddress());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("developerCompany",pService.getFriendlyName()));
+		notification.setParameters(parameters);
+		
+	    notificationServiceClient.createNotification(notification);
+		
 		return service;
 	}
 
@@ -526,7 +542,19 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		pService.setModifiedAt(new Date());
 		daoFactory.getDeveloperServiceDao().updateService(pService);
 
-		// notify owner of the developer company
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_DEVELOPER_SERVICE_STATUS_UPDATE");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(pService.getDeveloperCompany().getContactEmail());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("developerService",pService.getFriendlyName() ));
+		parameters.addParameter(new Parameter("status",pServiceStatus.getStatus()));		
+		notification.setParameters(parameters);
+		
+	    notificationServiceClient.createNotification(notification);
 
 		serviceStatus.setStatus(pServiceStatus.getStatus());
 
@@ -844,6 +872,22 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		pDeveloperCompany.setModifiedBy(requestingService);
 		pDeveloperCompany.setModifiedAt(new Date());
 		daoFactory.getDeveloperCompanyDao().updateDeveloperCompany(pDeveloperCompany);
+		
+		
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_DEVELOPER_COMPANY_STATUS_UPDATE");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(pDeveloperCompany.getContactEmail());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("developerCompany",pDeveloperCompany.getName()));
+		parameters.addParameter(new Parameter("status",pDeveloperCompanyStatus.getStatus()));
+		notification.setParameters(parameters);
+		
+		notificationServiceClient.createNotification(notification);
+		
 		return null;
 	}
 

@@ -155,11 +155,11 @@ public class ClientsController extends ControllerBase {
 	public Enrollments getAllClientEnrollments(@PathVariable("clientid") UUID clientId,
 			@RequestParam(value="startIndex", required=false) Integer startIndex, 
             @RequestParam(value="maxItems", required=false) Integer maxItems ,HttpServletRequest request) throws Exception {
-
+		Session session = sessionHelper.getSession(request);
 		if (startIndex == null) startIndex =0;
          if (maxItems == null) maxItems =30;
 
-		return serviceFactory.getEnrollmentService().getEnrollmentsByClientId(clientId,startIndex,maxItems);
+		return serviceFactory.getEnrollmentService().getEnrollmentsByClientId(clientId,session.getAccount().getUsername(),startIndex,maxItems);
 	}
 	
 	

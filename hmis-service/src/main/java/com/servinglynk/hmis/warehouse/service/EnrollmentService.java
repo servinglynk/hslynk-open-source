@@ -11,5 +11,5 @@ public interface EnrollmentService {
 	Enrollment updateEnrollment(Enrollment enrollment,UUID clientId,String caller);
 	Enrollment deleteEnrollment(UUID enrollmentId,UUID clientId,String caller);
 	Enrollment getEnrollmentByClientIdAndEnrollmentId(UUID enrollmentId,UUID clientId);
-	Enrollments getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems);
+	Enrollments getEnrollmentsByClientId(UUID clientId,String loginUser,Integer startIndex, Integer maxItems);
 }

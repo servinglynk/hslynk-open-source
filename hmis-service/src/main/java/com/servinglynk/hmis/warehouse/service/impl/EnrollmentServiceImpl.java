@@ -1,16 +1,21 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.hadoop.hbase.generated.thrift.thrift_jsp;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
+import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
+import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 
@@ -76,15 +81,24 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 
 	@Override
 	@Transactional
-	public Enrollments getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems) {
-		
-		List<com.servinglynk.hmis.warehouse.model.live.Enrollment> pEnrollments = daoFactory.getEnrollmentDao().getEnrollmentsByClientId(clientId,startIndex,maxItems);
+	public Enrollments getEnrollmentsByClientId(UUID clientId,String loginUser,Integer startIndex, Integer maxItems) {
 
+		HmisUser hmisUser = daoFactory.getAccountDao().findByUsername(loginUser);
+		if(hmisUser==null) throw new AccountNotFoundException();
+				
+		List<com.servinglynk.hmis.warehouse.model.live.Enrollment> pEnrollments = daoFactory.getEnrollmentDao().getEnrollmentsByClientId(clientId,startIndex,maxItems);
+		List<com.servinglynk.hmis.warehouse.model.live.Enrollment> sharingEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(hmisUser.getId(),hmisUser.getOrganization().getId());
+		if(sharingEnrollments.size()>0){
+			pEnrollments.addAll(sharingEnrollments);
+		}
+		
 		Enrollments enrollments = new Enrollments();
 		
 		for(com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment : pEnrollments ){
 			enrollments.addEnrollment(EnrollmentConveter.entityToModel(pEnrollment));
 		}
+		
+				
 		
 		
         long count = daoFactory.getEnrollmentDao().getEnrollmentCount(clientId);

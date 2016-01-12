@@ -691,7 +691,11 @@ CREATE TABLE "live".client
   "date_created" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
-   export_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -727,6 +731,10 @@ CREATE TABLE "live".veteran_info
   "user_id" uuid,
   "client_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -762,11 +770,15 @@ statusDocumented "live".no_yes,
 timesHomelesspastthreeyears "live".times_homeless_past_3_years,
 yearshomeless integer,
 client_id uuid,
-"project_group_code" character varying(8),
+project_group_code character varying(8),
 date_created timestamp,
 date_updated timestamp,
 user_id uuid,
 export_id uuid,
+parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,
+sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -794,6 +806,10 @@ CREATE TABLE "live".path_status
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -823,6 +839,10 @@ CREATE TABLE "live".rhybcp_status
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -856,6 +876,10 @@ CREATE TABLE "live".last_perm_address
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -885,6 +909,10 @@ CREATE TABLE "live".percent_ami
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -912,6 +940,10 @@ CREATE TABLE "live".schoolstatus
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -941,6 +973,10 @@ CREATE TABLE "live".employment
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -970,6 +1006,10 @@ CREATE TABLE "live".health_status
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -995,6 +1035,10 @@ create table "live".organization
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,
+sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1025,6 +1069,10 @@ CREATE TABLE  "live".project
   date_updated timestamp,
   user_id uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1058,6 +1106,10 @@ CREATE TABLE "live".affiliation
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1088,6 +1140,10 @@ CREATE TABLE "live".bedinventory
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1111,9 +1167,13 @@ create table "live".projectcoc
   projectid uuid,
   "project_group_code" character varying(8),
    date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+   date_updated timestamp,
+   user_id uuid,
+   export_id uuid,
+   parent_id uuid,
+   version integer,
+   deleted boolean DEFAULT false,
+   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1133,11 +1193,15 @@ CREATE TABLE "live".enrollment_coc
   project_co_id uuid,
   enrollmentid uuid,
   coc_code character(20),
-  "project_group_code" character varying(8),
+  project_group_code character varying(8),
   date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+  date_updated timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1172,6 +1236,10 @@ date_created timestamp,
 date_updated timestamp,
 user_id uuid,
 export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1203,9 +1271,13 @@ create table "live".inventory
   unitinventory integer,
   "project_group_code" character varying(8),
   date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+  date_updated timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1239,9 +1311,13 @@ create table  "live".funder
   "startdate" timestamp,
   "project_group_code" character varying(8),
   date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+  date_updated timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1274,6 +1350,10 @@ create table "live".pathstatus
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1302,6 +1382,10 @@ create table "live".rhybcpstatus
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1332,6 +1416,10 @@ create table "live".sexualorientation
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1359,6 +1447,10 @@ create table "live".formerwardjuvenilejustice
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1374,6 +1466,8 @@ with (
   oids=false
 );
 
+
+
 create table "live".lastpermanentaddress
 (
   id uuid not null,
@@ -1388,6 +1482,10 @@ create table "live".lastpermanentaddress
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1413,6 +1511,10 @@ create table "live".percentami
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1445,6 +1547,10 @@ create table "live".medicalassistance
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1497,6 +1603,10 @@ create table "live".youthcriticalissues
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1526,6 +1636,10 @@ create table  "live".worsthousingsituation
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1553,6 +1667,10 @@ create table "live".formerwardchildwelfare
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1581,6 +1699,10 @@ create table "live".lastgradecompleted
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1608,6 +1730,10 @@ create table "live".referralsource
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1636,6 +1762,10 @@ create table "live".commercialsexualexploitation
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,
+sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1666,6 +1796,10 @@ create table "live".domesticviolence
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1701,6 +1835,10 @@ create table "live".disabilities
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1730,6 +1868,10 @@ create table  "live".residentialmoveindate
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1758,6 +1900,10 @@ create table  "live".dateofengagement
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1790,6 +1936,10 @@ create table "live".services
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1850,6 +2000,10 @@ create table "live".incomeandsources
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false, 
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1888,6 +2042,10 @@ create table "live".noncashbenefits
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1933,6 +2091,10 @@ create table "live".healthinsurance
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1960,6 +2122,10 @@ create table "live".exit
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1987,6 +2153,10 @@ create table  "live".exithousingassessment
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2024,6 +2194,10 @@ create table  "live".exitplansactions
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2055,6 +2229,10 @@ create table "live".housingassessmentdisposition
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2081,6 +2259,10 @@ create table "live".familyreunification
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2108,6 +2290,10 @@ create table "live".connectionwithsoar
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2137,6 +2323,10 @@ create table "live".projectcompletionstatus
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,

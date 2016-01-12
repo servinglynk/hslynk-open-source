@@ -12,5 +12,5 @@ public interface SharingRuleDao {
 	SharingRuleEntity updateSharingRule(SharingRuleEntity sharingRuleEntity);
 	SharingRuleEntity getSharingRuleId(UUID sharingRuleId);
 	void deleteSharingRule(SharingRuleEntity sharingRuleEntity);
-	List<Enrollment> getSharedEnrollments(UUID roleId,UUID projectId,UUID organizationId);
+	List<Enrollment> getSharedEnrollments(UUID userId,UUID organizationId);
 }

@@ -31,8 +31,10 @@ import com.servinglynk.hmis.warehouse.core.model.Organization;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.PermissionSet;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.Verification;
+import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.test.core.TestData;
 import com.servinglynk.hmis.warehouse.test.core.WebserviceTestExecutor;
@@ -84,18 +86,28 @@ public class TestEmploymentAPIMethods {
 		executor.setAcceptHeaderAsJson();
 		executor.setContentTypeHeaderAsJson();
 		executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-		executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+		executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 		
 		Profile standardProfile = TestData.getProfile();
 		standardProfile = serviceFactory.getProfileService().createProfile(standardProfile, Constants.AUDIT_USER_UNIT_TEST);
 		Account account = TestData.getAccountWithoutProfile();
 		account.setProfile(standardProfile);
 		account.setOrganizationId(createOrganization());
-		account = serviceFactory.getAccountService().createAccount(account, Constants.AUDIT_USER_UNIT_TEST,null);
+		Role role = new Role();
+		role.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		account.setRole(role);
+		ProjectGroup projectGroup = new ProjectGroup();
+		projectGroup.setProjectGroupId(UUID.fromString("9b9792ca-8730-4d21-9a39-6902229fd4b9"));
+		
+		account.setProjectGroup(projectGroup);
+	
+		account = serviceFactory.getAccountService().createAccount(account, Constants.AUDIT_USER_UNIT_TEST,"DEV_COMPANY_SETUP");
 		
 		Parameter parameter=new Parameter();
 		parameter.setKey("username");
 		parameter.setValue(account.getUsername().toLowerCase());
+		
+		
 		
 		Verification verification = new Verification();
 		verification.setType(VERIFICATION_TYPE_ACCOUNT_CREATION);
@@ -119,7 +131,7 @@ public class TestEmploymentAPIMethods {
 	       executor.setAcceptHeaderAsJson();
 	       executor.setContentTypeHeaderAsJson();
 	       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-	       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+	       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 	       
 	       Client client = TestData.getClient();
 	       client = executor.executePost("/clients", client, Client.class);
@@ -139,7 +151,7 @@ public class TestEmploymentAPIMethods {
 	       executor.setAcceptHeaderAsJson();
 	       executor.setContentTypeHeaderAsJson();
 	       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-	       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+	       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 	       
 	       Enrollment enrollment = TestData.getEnrollment(clientId);
 	       enrollment = executor.executePost("/clients/"+clientId+"/enrollments", enrollment, Enrollment.class);
@@ -180,7 +192,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -190,8 +202,10 @@ public class TestEmploymentAPIMethods {
        Assert.assertNotNull(employment.getEmploymentId()); 
    }
 
+    
+
     @Test
-    public void TestEmploymentAPIMethods_2_update_Employment_testcase() throws Exception {
+    public void TestEmploymentAPIMethods_2_update_Employment_testcase() throws Exception {    
        Account account = createAccount();
        String[] methods = {"CLIENT_API_CREATE_EMPLOYMENT","CLIENT_API_UPDATE_EMPLOYMENT","CLIENT_API_DELETE_EMPLOYMENT","CLIENT_API_GET_EMPLOYMENT_BY_ID","CLIENT_API_GET_ALL_ENROLLMENT_EMPLOYMENTS"};
        addingMethodAccessUsingPermissionSet(methods, account.getUsername());
@@ -201,14 +215,17 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
        Employment employment = TestData.getEmployment();
-
+      
        employment= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments",employment,Employment.class);
        Assert.assertNotNull(employment.getEmploymentId()); 
+       System.out.println("insert json "+employment.toJSONString());
+       employment.setEmployed("EIGHT");
+       System.out.println("/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+employment.getEmploymentId());
        // set new values for update the data
        employment= executor.executePut("/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+employment.getEmploymentId(),employment,Employment.class);
    }
@@ -224,7 +241,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -248,7 +265,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -272,7 +289,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -304,7 +321,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -327,7 +344,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -353,7 +370,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -379,7 +396,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -405,7 +422,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -437,7 +454,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -460,7 +477,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -486,7 +503,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -512,7 +529,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 
@@ -538,7 +555,7 @@ public class TestEmploymentAPIMethods {
        executor.setAcceptHeaderAsJson();
        executor.setContentTypeHeaderAsJson();
        executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
-       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 
        UUID clientId = createClient(); 
        UUID enrollmentId = createEnrollment(clientId); 

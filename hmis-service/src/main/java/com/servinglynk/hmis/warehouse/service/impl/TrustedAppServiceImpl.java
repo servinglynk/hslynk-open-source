@@ -287,7 +287,19 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		trustedAppEntity.setModifiedAt(new Date());
 		daoFactory.getTrustedAppDao().updateTrustedApp(trustedAppEntity);
 		
-		//notify owner of the developer company
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_TRUSTEDAPP_STATUS_UPDATION");
+		Recipients recipients = new Recipients();
+		recipients.addToRecipient(trustedAppEntity.getService().getDeveloperCompany().getContactEmail());
+		notification.setRecipients(recipients);
+		
+		Parameters parameters = new Parameters();
+		parameters.addParameter(new Parameter("trustedApp",trustedAppEntity.getFriendlyname()));
+		parameters.addParameter(new Parameter("tustedAppStatus",trustedAppStatus.getStatus()));
+		notification.setParameters(parameters);
+		
+	    notificationServiceClient.createNotification(notification);
 
 		return new TrustedAppStatus();
 	}

@@ -12,9 +12,14 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -23,6 +28,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -58,9 +65,43 @@ public class QueryExecutorImpl  implements QueryExecutor{
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public Object update(Object entity) {
-		getCurrentSession().update(entity);
+		 try {
+			 // Looking for parentId field.
+			 // If field is available, existed record will be clone and then update action perform on existed record.
+			 // If field is not available, only update action perform on existed record.
+			 Field parentIdField = entity.getClass().getSuperclass().getDeclaredField("parentId");
+			 getCurrentSession().evict(entity);
+			 Method method = entity.getClass().getDeclaredMethod("getId");
+			 cloneRecord(entity.getClass().getName(), UUID.fromString(method.invoke(entity).toString()));
+		  	 getCurrentSession().update(entity); 
+		}catch(NoSuchFieldException ex){
+			getCurrentSession().update(entity);
+		}
+		 catch (Exception e) {
+			e.printStackTrace();
+		} 
 		return null;
+	}
+	
+
+	public void cloneRecord(String className,UUID id) throws Exception {
+		Class<?> clz = Class.forName(className);
+		 Object obj = getCurrentSession().get(clz, id);	
+			Object cloneObj = Class.forName(className).newInstance();
+			BeanUtils.copyProperties(cloneObj, obj);
+			BeanUtils.setProperty(cloneObj, "parentId", id );
+			BeanUtils.setProperty(cloneObj, "id", UUID.randomUUID());
+			BeanUtils.setProperty(cloneObj, "version", getVersion(className,id)+1);
+			getCurrentSession().save(cloneObj);
+ 		    getCurrentSession().evict(obj);
+	}
+	
+	public long getVersion(String className,UUID parentId) throws Exception {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Class.forName(className));
+		criteria.add(Restrictions.eq("parentId", parentId));
+		return criteria.getExecutableCriteria(getCurrentSession()).list().size();
 	}
 
 	public Object merge(Object entity) {
@@ -68,8 +109,23 @@ public class QueryExecutorImpl  implements QueryExecutor{
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	public void delete(Object entity) {
-		getCurrentSession().delete(entity);
+          try
+          {
+        	  // looking for deleted field in entity class. 
+        	  // If field is available deleted field will be updated to true.
+        	  // If field is not available catch block will be executed then regular delete operation will be performed.  
+        	  Field deletedField = entity.getClass().getSuperclass().getDeclaredField("deleted");
+              BeanUtils.setProperty(entity, "deleted",true);
+              BeanUtils.setProperty(entity, "dateUpdated",LocalDateTime.now());
+              getCurrentSession().update(entity);
+          } catch(Exception  e){
+        	  getCurrentSession().delete(entity);  
+        	  e.printStackTrace();
+          }
+		
+	
 	}
 	
 	
@@ -175,15 +231,32 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	
 
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria){
-		return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
+		addingConditionsToCriteria(detachedCriteria);
+				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
 	}
 	
 
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria,Integer firstResult,Integer maxResults){
+		addingConditionsToCriteria(detachedCriteria);
 		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
 		criteria.setFirstResult(firstResult);
 		criteria.setMaxResults(maxResults);		
 		return criteria.list();
+		
+	}
+	
+	@SuppressWarnings("unused")
+	public DetachedCriteria addingConditionsToCriteria(DetachedCriteria detachedCriteria) {
+		try{
+		CriteriaImpl criteriaImpl =(CriteriaImpl)detachedCriteria.getExecutableCriteria(getCurrentSession());
+		Class<?> clz = Class.forName(criteriaImpl.getEntityOrClassName());
+		Field deletedField = clz.getSuperclass().getDeclaredField("deleted");
+		detachedCriteria.add(Restrictions.eq("deleted", false));
+		detachedCriteria.add(Restrictions.isNull("parentId"));
+		return detachedCriteria;
+		}catch(Exception e){
+			return detachedCriteria;
+		}
 		
 	}
 	
@@ -194,6 +267,7 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	
 
 	public long countRows(DetachedCriteria dCriteria){
+		addingConditionsToCriteria(dCriteria);
 		return dCriteria.getExecutableCriteria(getCurrentSession()).list().size();
 		 //TBD
 	}

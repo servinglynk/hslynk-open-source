@@ -5,7 +5,7 @@
   <artifactId>hmis-authorization-service</artifactId>
   <packaging>war</packaging>
   <version>0.0.1</version>
-  <name>hmis-authorization-service Maven Webapp</name>
+  <name>hmis-authorization-service</name>
 	<description>Hmis Bulk Loader</description>
 	<scm>
 	  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>

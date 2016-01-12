@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,6 +66,55 @@ public abstract class HmisBaseModel implements Entity{
 			public void setProjectGroupCode(String projectGroupCode) {
 				this.projectGroupCode = projectGroupCode;
 			}
+			
+			
+			
+			private boolean deleted;
+			private boolean sync;
+			
+			
+			@Column(name="sync")
+			public boolean isSync() {
+				return sync;
+			}
+			public void setSync(boolean sync) {
+				this.sync = sync;
+			}
+			@Column(name="deleted")
+			public boolean isDeleted() {
+				return deleted;
+			}
+
+			public void setDeleted(boolean deleted) {
+				this.deleted = deleted;
+			}
+
+			private UUID parentId;
+			
+			@Basic( optional = false )
+			@Column( name = "parent_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+			public UUID getParentId() {
+				return parentId;
+			}
+
+			public void setParentId(UUID parentId) {
+				this.parentId = parentId;
+			}
+			
+			private long version;
+			
+			@Column( name = "version", nullable = false  )
+			public long getVersion() {
+				return version;
+			}
+
+			public void setVersion(long version) {
+				this.version = version;
+			}
+			
+			
+			
+
 			
 			
 //

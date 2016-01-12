@@ -6,10 +6,13 @@ import java.util.UUID;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.model.live.Enrollment;
+import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.live.SharingRuleEntity;
+import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
 
 public class SharingRuleDaoImpl extends QueryExecutorImpl implements SharingRuleDao {
 	
@@ -36,26 +39,23 @@ public class SharingRuleDaoImpl extends QueryExecutorImpl implements SharingRule
 		delete(sharingRuleEntity);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Enrollment> getSharedEnrollments(UUID roleId,UUID projectId,UUID organizationId){
-		DetachedCriteria criteria = DetachedCriteria.forClass(SharingRuleEntity.class);
+	@SuppressWarnings({ "unchecked" })
+	public List<Enrollment> getSharedEnrollments(UUID userId,UUID organizationId){
 		
-		criteria.createAlias("role", "role");
+		DetachedCriteria roleCriteria = DetachedCriteria.forClass(UserRoleMapEntity.class);
+		roleCriteria.createAlias("accountEntity", "user");
+		roleCriteria.add(Restrictions.eq("user.id", userId));
+		List<RoleEntity> roles = (List<RoleEntity>) findByCriteria(roleCriteria);
+		
+	
+		DetachedCriteria criteria = DetachedCriteria.forClass(SharingRuleEntity.class);
 		criteria.createAlias("toOrganization", "toOrganization");
 		criteria.createAlias("project", "project");
+		criteria.add(Restrictions.in("role", roles));
 		
-		Criterion roleCriterion = Restrictions.eq("role.id", roleId);
+
 		Criterion orgCriterion = Restrictions.eq("toOrganization.id", organizationId);
-		Criterion projectCriterion = Restrictions.eq("project.id", projectId);
-		
-		if(projectId!=null){
-			criteria.add(Restrictions.or(projectCriterion));
-		}
-		
-		if(roleId!=null){
-			criteria.add(Restrictions.or(roleCriterion));
-		}
-		
+				
 		if(organizationId!=null){
 			criteria.add(Restrictions.or(orgCriterion));
 		}
