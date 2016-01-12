@@ -236,4 +236,13 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
 		session.setToken(sessionEntity.getSessionToken());
 	}
+
+	@Transactional
+	public Session validateSession(String sessionToken) {
+		SessionEntity sessionEntity = daoFactory.getSessionDao().findBySessionToken(sessionToken);
+		if(sessionEntity == null) throw new SessionNotFoundException();
+		Session session = new Session();
+		session.setExpiresAt(sessionEntity.getExpiresAt());
+		return session;
+	}
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.hadoop.hbase.generated.thrift.thrift_jsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.Errors;
+import com.servinglynk.hmis.warehouse.core.model.Error;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
@@ -32,6 +35,7 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.AccountPendingException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidAccountCredentialsException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidOnetimePasswordException;
+import com.servinglynk.hmis.warehouse.service.exception.SessionNotFoundException;
 
 
 @RestController
@@ -104,9 +108,21 @@ public class SessionsController {
 		return returnSession;
 	}
 	
-	@ExceptionHandler(Throwable.class)
-	private ModelAndView handleException(Throwable t, HttpServletRequest request, HttpServletResponse response) {
+	
+	@RequestMapping(method = RequestMethod.GET)
+	@APIMapping(value="USR_END_SESSION",checkSessionToken=false, checkTrustedApp=true)
+	public Session validateSession(HttpServletRequest request) throws Exception {
 		
+		String sessionToken = sessionHelper.retrieveSessionToken(request);
+		if(sessionToken == null) throw new SessionNotFoundException();
+		Session session = serviceFactory.getSessionService().validateSession(sessionToken);
+		return session;
+	}
+	
+	@ExceptionHandler(Throwable.class)
+	private Errors handleException(Throwable t, HttpServletRequest request, HttpServletResponse response) {
+		
+		Errors errors = new Errors();
 		String uri = "/hmis-user-service";
 		
 		try{
@@ -129,8 +145,14 @@ public class SessionsController {
 			uri += "/twofactorauth.html?authKey="+request.getParameter("authKey")+"&error="+e.getMessage();			
 		} catch (InvalidSessionTokenException e) {
 			uri += "/login.html?error="+e.getMessage();
+		}catch (SessionNotFoundException e) {
+				Error error = new Error();
+				error.setMessage(e.getMessage());
+				error.setCode("SESSION_NOT_FOUND");;
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				errors.addError(error);
+				return errors;
 		}
-		
 		catch (Throwable e) {
 
 			e.printStackTrace();
@@ -142,6 +164,6 @@ public class SessionsController {
 			e.printStackTrace();
 		}
 	
-		return null;
+		return errors;
 	}
 }

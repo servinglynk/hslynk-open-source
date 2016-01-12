@@ -18,5 +18,7 @@ public interface SessionService {
 	
 	public void createSession(Session session,String auditUser) throws Exception;
 
+	public Session validateSession(String sessionToken);
+
 
 }
