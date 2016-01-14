@@ -8,10 +8,10 @@ app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, 
 //		 function(data){$scope.organizations =data;  }),
     Service.GetProfiles($http,$scope,
 		    //success
-		 function(data){$scope.profiles =data;  }),
+		 function(data){$scope.profiles =data.profiles.profile;  }),
 	Service.GetRoles($http,$scope,
 			//success
-	 function(data){$scope.roles =data;  }),
+	 function(data){$scope.roles =data.roles.role;  }),
 		    
 //	Service.GetProjectGroups($http,$scope,
 //    //success
@@ -19,7 +19,8 @@ app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, 
 											   
 											   
   $scope.submitForm = function() {
-	  
+    	$scope.errorTextAlert= "";
+    	$scope.showErrorAlert = false;
        Service.createUser($http,$scope,
     //success
     function(data){
@@ -35,8 +36,10 @@ app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, 
 
 },
 	//error
-	function(){$scope.errorTextAlert = "Error, Something gone wrong.";
-$scope.showErrorAlert = true;})
+	function(errors){
+	$scope.errorTextAlert = errors.errors.error[0].message;
+	$scope.showErrorAlert = true;
+})
 	
        
     };

@@ -24,8 +24,16 @@
                 <li>
             <label><span class="required">*</span>Profile: </label>
             
-            <select  required ng-model="form.profile" name="drpProject" ng-options="profile.profileName for profile in profiles track by profile.id">
+            <select  required ng-model="form.profile" name="drpProfile" ng-options="profile.profileName for profile in profiles track by profile.id">
                 <option value="">Select Profile</option>
+            </select>
+          </li>
+          
+          <li>
+            <label><span class="required">*</span>Role: </label>
+            
+            <select  required ng-model="form.role" name="drpRole" ng-options="role.roleName for role in roles track by role.id">
+                <option value="">Select Role</option>
             </select>
           </li>
           <li>
