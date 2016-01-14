@@ -3155,6 +3155,7 @@ CREATE TABLE live.hmis_role
   id uuid NOT NULL,
   role_name character varying(256),
   role_description character varying(256),
+  role_code character varying(256),
   parent_role_id uuid,
   created_at timestamp,
   created_by character varying(256),

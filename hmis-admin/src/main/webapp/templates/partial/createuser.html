@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"> Create User </h1>
+      <ol class="breadcrumb">
+        <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashborad">Dashboard</a> </li>
+        <li class="active"> <i class="fa fa-table"></i> Create User </li>
+      </ol>
+    </div>
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-12">
+      <form ng-submit="submitForm()" ng-controller="createuserCtrl" name="formRequestReport" id="form" enctype="multipart/form-data">
+        <div class="alert alert-success" ng-show="showSuccessAlert">
+          <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >X</button>
+         {{successTextAlert}} </div>
+         <div class="alert alert-warning" ng-show="showErrorAlert">
+          <button type="button" class="close" data-ng-click="switchBool('showErrorAlert')" >X</button>
+         {{errorTextAlert}} </div>
+        <ul>
+        
+                <li>
+            <label><span class="required">*</span>Profile: </label>
+            
+            <select  required ng-model="form.profile" name="drpProject" ng-options="profile.profileName for profile in profiles track by profile.id">
+                <option value="">Select Profile</option>
+            </select>
+          </li>
+          <li>
+            <label><span class="required">*</span>Email Address: </label>
+            <input required ng-model="form.emailAddress" type="email" name="emailAddress">
+          </li>
+            <li>
+            <label><span class="required">*</span>Username: </label>
+            <input required ng-model="form.username" type="name" name="username">
+          </li>
+          <li>
+            <label><span class="required">*</span>Password: </label>
+            <input required ng-model="form.password" type="password" name="password">
+          </li>
+            <li>
+            <label><span class="required">*</span>First Name: </label>
+            <input required ng-model="form.firstName" type="name" name="firstName">
+          </li>
+                 <li>
+            <label><span class="required">*</span>Last Name: </label>
+            <input required ng-model="form.lastName" type="name" name="lastName">
+          </li>
+                           <li>
+            <label><span class="required">*</span>Gender: </label>
+            <input required ng-model="form.gender" type="name" name="gender">
+          </li>
+          
+          <li>
+            <label> </label>
+            <input type="submit" ngClick="Submit"  value="Send Request" class="btn btn-lg btn-upload">
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>

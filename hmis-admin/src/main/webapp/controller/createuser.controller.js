@@ -1,23 +1,37 @@
 
-app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout,$window) {
-	$rootScope.sessionToken = $window.localStorage.getItem('sessionToken');
-	console.log('Session Token..'+$rootScope.sessionToken);	
+app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, $timeout,$window) {
+	$scope.sessionToken = $window.localStorage.getItem('sessionToken');
 	
-	Service.GetProjectList($http,
-    //success
-    function(data){$scope.projects =data;  }),
+	
+//	Service.GetOrganizations($http,
+//		    //success
+//		 function(data){$scope.organizations =data;  }),
+    Service.GetProfiles($http,$scope,
+		    //success
+		 function(data){$scope.profiles =data;  }),
+	Service.GetRoles($http,$scope,
+			//success
+	 function(data){$scope.roles =data;  }),
+		    
+//	Service.GetProjectGroups($http,$scope,
+//    //success
+//    function(data){$scope.projectGroups =data;  }),
 											   
 											   
   $scope.submitForm = function() {
 	  
-       Service.createProjectGroup($http,$scope,
+       Service.createUser($http,$scope,
     //success
     function(data){
 	
 		$scope.successTextAlert = "Your Requset has been sent successfully.";
 		$scope.showSuccessAlert = true;
-		$scope.form.name='';
-		$scope.form.desc='';
+		$scope.form.firstName='';
+		$scope.form.lastName ='';
+		$scope.form.username ='';
+		$scope.form.password ='';
+		$scope.form.emailAddress ='';
+		$scope.form.gender ='';
 
 },
 	//error

@@ -727,10 +727,10 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		logger.debug("auth code {} has not expired yet", authCode);
 		
 		// check if redirect uri is the same as the one used when auth code was created
-		if (!redirectUri.equalsIgnoreCase(pToken.getRedirectUri()))	{
-			logger.warn("TrustedApp " + trustedAppId + " calling with redirect uri " + redirectUri + " that is not the one use to get auth code " + authCode);
-			throw new InvalidRedirectUriException("Redirect uri " + redirectUri + " does not match for auth code " + authCode);
-		}
+//		if (!redirectUri.equalsIgnoreCase(pToken.getRedirectUri()))	{
+//			logger.warn("TrustedApp " + trustedAppId + " calling with redirect uri " + redirectUri + " that is not the one use to get auth code " + authCode);
+//			throw new InvalidRedirectUriException("Redirect uri " + redirectUri + " does not match for auth code " + authCode);
+//		}
 		
 		logger.debug("redirect uri {} of auth code {} matches", redirectUri, authCode);
 		

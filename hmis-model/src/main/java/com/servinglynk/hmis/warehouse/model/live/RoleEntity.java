@@ -29,6 +29,9 @@ public class RoleEntity  extends BaseModel {
 	@Column(name="role_description")
 	protected String roleDescription;
 	
+	@Column(name="role_code")
+	protected String roleCode;
+	
 	@ManyToOne
 	@JoinColumn(name = "parent_role_id", referencedColumnName="id")
 	private RoleEntity parentRoleEntity;
@@ -63,7 +66,13 @@ public class RoleEntity  extends BaseModel {
 
 	public void setParentRoleEntity(RoleEntity parentRoleEntity) {
 		this.parentRoleEntity = parentRoleEntity;
+	}
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
 	}	
-	
-	
 }

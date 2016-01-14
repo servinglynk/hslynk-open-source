@@ -98,6 +98,53 @@ bulkupload: function ($http, $scope, success, error) {
      }).success(function () { success() }).error(error);
   		
     },
+    
+//	GetOrganizations: function ($http, success) {
+//        $http.get('/hmis-user-service/rest/accounts').success(function (data) {
+//				if(success)success(data)
+//			});
+//    },
+	GetRoles: function ($http,$scope, success) {
+		  var apiurl = "/hmis-user-service/rest/roles?maxItems=10";
+		 console.log('Session Token..'+$scope.sessionToken);
+	        $http({
+	            method: 'GET',
+	            url: apiurl,
+	            headers: {
+	              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+	                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+	                'Accept': 'application/json;odata=verbose'}
+	        }).success(function (data) {
+	            if(success)success(data)
+	        });
+  },
+	GetProfiles: function ($http,$scope, success) {
+		  var apiurl = "/hmis-user-service/rest/profiles?maxItems=10";
+		 console.log('Session Token..'+$scope.sessionToken);
+		 $http.get(apiurl,{
+	            headers: {
+	              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+	                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+	                'Accept': 'application/json;odata=verbose'}
+	        }).success(function (data) {
+	            if(success)success(data)
+	        });
+}, 
+GetProjectGroups: function ($http,$scope, success) {
+	  var apiurl = "/hmis-user-service/rest/projectgroups?maxItems=10";
+	 console.log('Session Token..'+$scope.sessionToken);
+      $http({
+          method: 'GET',
+          url: apiurl,
+          headers: {
+            'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+              'Accept': 'application/json;odata=verbose'}
+      }).success(function (data) {
+          if(success)success(data)
+      });
+},
+    
     createUser : function ($http, $scope, success, error) {
         var apiurl = "/hmis-user-service/rest/accounts";
         console.log('Session Token..'+$scope.sessionToken);
@@ -108,13 +155,20 @@ bulkupload: function ($http, $scope, success, error) {
             url: apiurl,
             data : 
             	{ "account":{
-                    "username": data.emailAddress,
+                    "username": data.username,
                     "emailAddress":data.emailAddress,
                     "password":data.password,
                     "firstName":data.firstName,
                     "middleName":data.middleName,
                     "lastName":data.lastName,
                     "gender":data.gender,
+                    "organizationId":"b5598c6c-d021-4f5f-9695-77f7f4685ed2",
+                    "role" : {
+                    	"id":"b67c38a1-2762-4393-b69b-41a0a11e6efd"
+                    },
+                    "profile" : {
+                    	"id" : "1ebd9476-600c-463f-8c3d-bf8accad472b"
+                    }
                  }
            },
             headers: {
