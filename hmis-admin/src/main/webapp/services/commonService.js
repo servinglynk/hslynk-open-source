@@ -6,7 +6,7 @@ var Service= ({
 			});
     },
     GetUserInfo: function ($http,$scope, success, error) {
-  	  var apiurl = "/hmis-user-service/rest/self/basicinfo";
+  	  var apiurl = "/hmis-user-service/rest/accounts/self/basicinfo";
   	 console.log('Session Token..'+$scope.sessionToken);
         $http({
             method: 'GET',
@@ -85,6 +85,20 @@ LoadStatistics: function ($http, success) {
 			  })
 			  
   	  });
+},
+logout: function ($http,$scope, success,error) {
+	// need to change url for services
+	console.log('Session Token..'+$scope.sessionToken);
+    $http({
+        method: 'DELETE',
+        url: '/hmis-user-service/rest/sessions/'+$scope.sessionToken,
+        headers: {
+          'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+            'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+            'Accept': 'application/json;odata=verbose'}
+    }).success(function (data) {
+        if(success)success(data)
+    });
 },
 /*
 SaveSetting: function ($http,$scope, success,error) {

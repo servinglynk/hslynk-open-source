@@ -1,7 +1,6 @@
 
-app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, $timeout,$window) {
-	$scope.sessionToken = $window.localStorage.getItem('sessionToken');
-	
+app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+	$scope.sessionToken = $sessionStorage.sessionToken;
 	
 //	Service.GetOrganizations($http,
 //		    //success

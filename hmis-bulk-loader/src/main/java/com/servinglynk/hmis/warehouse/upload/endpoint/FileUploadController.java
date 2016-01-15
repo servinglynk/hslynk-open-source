@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 
 
@@ -31,6 +32,7 @@ public class FileUploadController {
 		 * Upload single file using Spring Controller
 		 */
 	 	@RequestMapping(method = RequestMethod.POST)
+	 	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
 		String uploadFileHandler(@RequestParam(value ="name", required = false) String name,
 				@RequestParam("file") MultipartFile file) {

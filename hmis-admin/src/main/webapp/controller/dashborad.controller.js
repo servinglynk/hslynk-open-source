@@ -1,16 +1,30 @@
 
-app.controller('dashboradCtrl', function($scope,$location,$routeSegment,$http, $timeout,$window) {
+app.controller('dashboradCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
 	$scope.authToken = ($location.search()).code;
-	$window.localStorage.setItem('authToken',$scope.authToken);
-	if(!$scope.sessionToken) {
+	//$scope.sessionToken= $window.localStorage.getItem('sessionToken');
+	//$window.localStorage.setItem('authToken',$scope.authToken);
+	$sessionStorage.authToken = $scope.authToken;
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	var sessionToken = $sessionStorage.sessionToken;
+	if(!sessionToken) {
 		Service.getToken($http,$scope,  //success
 			    function(data){ 
-					$window.localStorage.setItem('sessionToken',data.oAuthAuthorization.accessToken);
-					$window.localStorage.setItem('expiresIn',data.oAuthAuthorization.expiresIn);
-					$window.localStorage.setItem('tokenType',data.oAuthAuthorization.tokenType);
+					$sessionStorage.sessionToken =data.oAuthAuthorization.accessToken;
+					$sessionStorage.expiresIn =data.oAuthAuthorization.expiresIn;
+					$sessionStorage.tokenType = data.oAuthAuthorization.tokenType;
+					$sessionStorage.isLoggedIn = true;
 					$scope.sessionToken=data.oAuthAuthorization.accessToken;
 					$scope.expiresIn = data.oAuthAuthorization.expiresIn;
 					$scope.tokenType = data.oAuthAuthorization.tokenType;
+					
+					Service.GetUserInfo($http,$scope,function(data){ 
+						//$window.localStorage.setItem('account',data.account);
+						$sessionStorage.account = data.account;
+						$("#userDetails").html(data.account.emailAddress);
+						},
+					function() {})
 			},
 				//error
 				function(){})

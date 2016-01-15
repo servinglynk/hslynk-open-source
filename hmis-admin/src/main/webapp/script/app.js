@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngAnimate', 'route-segment', 'view-segment','ui.bootstrap']);
+var app = angular.module('app', ['ngRoute','ngStorage','ngAnimate', 'route-segment', 'view-segment','ui.bootstrap']);
 
 var header = { sessionToken : '' };
 app.factory("LS", function($window, $rootScope) {
@@ -30,6 +30,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
     $routeSegmentProvider
     
         .when('/login',          's1') // this is for login
+        .when('/login',          's4') // this is for login
         .when('/admin',          's2.dashborad')
         .when('/admin/dashborad',      's2.dashborad')
 		 .when('/admin/managefiles',      's2.managefiles')
@@ -56,7 +57,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			   
         .segment('s1', {
             templateUrl: 'templates/login.html'})
-        
+        .segment('s4', {
+            templateUrl: 'templates/login.html', controller: 'logoutCtrl'})
         .segment('s2', {
             templateUrl: 'templates/root.html'})
 		 .within()

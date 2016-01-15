@@ -1,6 +1,6 @@
 
-app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout,$window) {
-	$scope.sessionToken = $window.localStorage.getItem('sessionToken');
+app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+	$scope.sessionToken = $sessionStorage.sessionToken;
 	console.log('Session Token..'+$scope.sessionToken);	
 	
 	Service.GetProjectList($http,	
