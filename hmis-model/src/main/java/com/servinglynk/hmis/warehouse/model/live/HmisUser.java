@@ -52,6 +52,9 @@ public class HmisUser  {
 	
 	private boolean twoFactorAuthentication;
 	private String authenticatorSecret;
+	private boolean isUserInHive;
+	private String hiveUsername;
+	private String hivePassword;
 	
 	@Column(name="authenticator_secret")
 	public String getAuthenticatorSecret() {
@@ -69,6 +72,15 @@ public class HmisUser  {
 
 	public void setTwoFactorAuthentication(boolean twoFactorAuthentication) {
 		this.twoFactorAuthentication = twoFactorAuthentication;
+	}
+	
+	@Column(name="is_user_in_hive")
+	public boolean isUserInHive() {
+		return isUserInHive;
+	}
+
+	public void setUserInHive(boolean isUserInHive) {
+		this.isUserInHive = isUserInHive;
 	}
 	
 	private String emailAddress;
@@ -153,7 +165,24 @@ public class HmisUser  {
 		this.lastName = lastName;
 	}
 	
+	@Column(name = "hive_password")
+	public String getHivePassword() {
+		return hivePassword;
+	}
 
+	public void setHivePassword(String hivePassword) {
+		this.hivePassword = hivePassword;
+	}
+
+	@Column(name = "hive_username")
+	public String getHiveUsername() {
+		return hiveUsername;
+	}
+
+	public void setHiveUsername(String hiveUsername) {
+		this.hiveUsername = hiveUsername;
+	}
+	
 	private AccountPreferenceEntity accountPreference;
 
 	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL,optional=true)

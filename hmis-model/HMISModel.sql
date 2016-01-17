@@ -531,6 +531,9 @@ CREATE TABLE live.hmis_user
   ssn character(9),
   dob timestamp,
   gender live.gender,
+  is_user_in_hive boolean DEFAULT false,
+  hive_password character(100),
+  hive_username character(100),
   date_created timestamp,
   date_updated timestamp,
   CONSTRAINT hmis_user_pk PRIMARY KEY (id)

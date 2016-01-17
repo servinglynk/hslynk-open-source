@@ -19,6 +19,21 @@ var Service= ({
             if(success)success(data)
         }).error(error);
   },
+  GetUserByOrganization:function ($http,$scope, success, error) {
+	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
+  	  var apiurl = "/hmis-user-service/rest/accounts/"+$scope.organizationId+"/users";
+   	 console.log('Session Token..'+$scope.sessionToken);
+         $http({
+             method: 'GET',
+             url: apiurl,
+             headers: {
+               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                 'Accept': 'application/json;odata=verbose'}
+         }).success(function (data) {
+             if(success)success(data.accounts)
+         }).error(error);
+   },
     GetReports: function ($http, success) {
 	
         $http.get('/hmis-bulk-loader/mapper/getReportMaster').success(function (data) {
