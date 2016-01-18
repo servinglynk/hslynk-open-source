@@ -31,7 +31,13 @@ public class ProjectGroupController extends ControllerBase {
 	@APIMapping(value="USR_GET_ALL_PROJECTGROUP",checkSessionToken=false, checkTrustedApp=false)
 	public ProjectGroups getAllProjectGroups(HttpServletRequest request,@RequestParam(value="startIndex", required=false) Integer startIndex,
 				@RequestParam(value="maxItems", required=false) Integer maxItems) throws Exception {
-		Session session = sessionHelper.getSession(request);
+		if (startIndex == null)	{
+			startIndex = 0;
+		}
+
+		if (maxItems == null)	{
+			maxItems = 30;
+		}
 		return serviceFactory.getProjectGroupService().getAllProjectGroups(startIndex, maxItems);
 	}
 	

@@ -29,6 +29,7 @@ import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
 import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.Role;
+import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
@@ -47,6 +48,7 @@ import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
 import com.servinglynk.hmis.warehouse.service.AccountService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.converter.ProfileConverter;
+import com.servinglynk.hmis.warehouse.service.converter.RoleConverter;
 import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticator;
 import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticatorKey;
 import com.servinglynk.hmis.warehouse.service.exception.AccountAlreadyExistsException;
@@ -124,8 +126,16 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (pAccount == null) {
 			throw new AccountNotFoundException();
 		}
-
-		return (Account) AccountConverter.convertToBasicAccount(pAccount);
+		
+		List<UserRoleMapEntity> userRoles = daoFactory.getAccountDao().getUserMapByUserId(pAccount.getId());
+		
+		Roles roles = new Roles();
+		for(UserRoleMapEntity userRoleMapEntity : userRoles){
+			roles.addRole(RoleConverter.entityToModel(userRoleMapEntity.getRoleEntity()));
+		}
+		Account account = AccountConverter.convertToBasicAccount(pAccount);
+		account.setRoles(roles);
+		return account;
 	}
 
 	@Transactional
