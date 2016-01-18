@@ -1,13 +1,15 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.ProjectGroupService;
@@ -44,6 +46,32 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;
 	}
+	
+	
+
+	   @Transactional
+	   public ProjectGroups getAllProjectGroups(Integer startIndex, Integer maxItems){
+	       ProjectGroups projects = new ProjectGroups();
+	       ProjectGroup projectGroup = new ProjectGroup();
+	        List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity> entities = daoFactory.getProjectGroupDao().getAllProjectGroups(startIndex,maxItems);
+	        for(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity entity : entities){
+	        	projectGroup = ProjectGroupConverter.entityToModel(entity);
+	        	
+	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
+	    			projectGroup.addProject(ProjectConverter.entityToModel(ppgme.getProject()));
+	    		}
+	        	projects.addProjectGroup(projectGroup);
+	        }
+	        long count = daoFactory.getProjectGroupDao().getProjectGroupCount();
+	        SortedPagination pagination = new SortedPagination();
+	 
+	        pagination.setFrom(startIndex);
+	        pagination.setReturned(projects.getProjectGroups().size());
+	        pagination.setTotal((int)count);
+	        projects.setPagination(pagination);
+	        return projects; 
+	   }
+	   
 	
 	@Transactional
 	public ProjectGroup updateProjectGroup(UUID projectgroupid ,ProjectGroup projectGroup, String caller){

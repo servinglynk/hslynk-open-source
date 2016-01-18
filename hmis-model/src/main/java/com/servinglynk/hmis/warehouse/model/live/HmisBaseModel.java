@@ -101,14 +101,14 @@ public abstract class HmisBaseModel implements Entity{
 				this.parentId = parentId;
 			}
 			
-			private long version;
+			private Long version;
 			
 			@Column( name = "version", nullable = false  )
-			public long getVersion() {
+			public Long getVersion() {
 				return version;
 			}
 
-			public void setVersion(long version) {
+			public void setVersion(Long version) {
 				this.version = version;
 			}
 			

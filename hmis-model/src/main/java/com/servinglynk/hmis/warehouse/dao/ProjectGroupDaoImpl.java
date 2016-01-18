@@ -1,15 +1,20 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.awt.List;
+
+import java.util.List;
 import java.util.UUID;
 
+import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
+import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
+import com.servinglynk.hmis.warehouse.model.staging.Export;
 
-public class ProjectGroupDaoImpl extends QueryExecutorImpl implements ProjectGroupDao {
+public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDao {
 
 	@Override
 	public ProjectGroupEntity createProjectGroup(ProjectGroupEntity projectGroupEntity) {
@@ -63,6 +68,42 @@ public class ProjectGroupDaoImpl extends QueryExecutorImpl implements ProjectGro
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity.class);
 	       return countRows(criteria);
 	   }
+	   
+	   public List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity> getAllProjectGroups(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+
+	@Override
+	public void hydrateStaging(ExportDomain domain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hydrateLive(Export export) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void performSave(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected List performGet(Iface client, Object entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	   
 	   
 
 }

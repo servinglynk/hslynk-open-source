@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
@@ -23,6 +25,14 @@ public class ProjectGroupController extends ControllerBase {
 	public ProjectGroup createProjectGroup(@RequestBody ProjectGroup projectGroup,HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getProjectGroupService().createProjectGroup(projectGroup, session.getAccount().getUsername());
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	@APIMapping(value="USR_GET_ALL_PROJECTGROUP",checkSessionToken=false, checkTrustedApp=false)
+	public ProjectGroups getAllProjectGroups(HttpServletRequest request,@RequestParam(value="startIndex", required=false) Integer startIndex,
+				@RequestParam(value="maxItems", required=false) Integer maxItems) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getProjectGroupService().getAllProjectGroups(startIndex, maxItems);
 	}
 	
 	@RequestMapping(value="/{projectgroupid}",method=RequestMethod.PUT)

@@ -24,14 +24,20 @@ public class ProjectConverter {
 
    public static Project entityToModel (com.servinglynk.hmis.warehouse.model.live.Project entity) {
        Project project= new Project();
-       
+       if(entity.getContinuumproject()!=null)
        project.setContinuumProject(entity.getContinuumproject().name());
        project.setProjectCommonName(entity.getProjectcommonname());
        project.setProjectId(entity.getId());
        project.setProjectName(entity.getProjectname());
+       if(entity.getProjecttype()!=null)
        project.setProjectType(entity.getProjecttype().name());
+       if(entity.getResidentialaffiliation()!=null)
        project.setResidentialAffiliation(entity.getResidentialaffiliation().name());
+       
+       if(entity.getTargetpopulation()!=null)
        project.setTargetPopulation(entity.getTargetpopulation().name());
+       
+       if(entity.getTrackingmethod()!=null)
        project.setTrackingMethod(entity.getTrackingmethod().name());
        
        return project;
