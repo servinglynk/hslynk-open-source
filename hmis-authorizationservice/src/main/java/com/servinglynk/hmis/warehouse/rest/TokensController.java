@@ -42,7 +42,7 @@ public class TokensController extends ControllerBase {
 		
 		// checkGrantTypeSupported(grantType);
 		
-		TrustedApp trustedApp = authenticateTrustedApp(sessionHelper.retrieveSessionToken(request));
+		TrustedApp trustedApp = authenticateTrustedApp(request.getHeader("Authorization"));
 		
 		OAuthAuthorization authorization = null;
 		
