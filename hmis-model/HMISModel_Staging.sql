@@ -1,4 +1,4 @@
---drop schema "staging" cascade;
+drop schema "staging" cascade;
 create schema "staging";
 DROP SEQUENCE IF EXISTS "staging".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "staging".seq_account_preference;

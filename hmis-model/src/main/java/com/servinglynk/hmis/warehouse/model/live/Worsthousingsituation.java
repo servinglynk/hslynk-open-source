@@ -1,9 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
-import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -19,11 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
 
 
 /**
@@ -49,15 +45,9 @@ public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, 
 
 
 	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
-	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
-	/** Field mapping. */
-	private HmisUser user;
 	/** Field mapping. */
 	private WorsthousingsituationWorsthousingsituationEnum worsthousingsituation;
 	/**
@@ -114,50 +104,6 @@ public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, 
 
 
 	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
-
-	 /**
 	 * Return the value associated with the column: enrollmentid.
 	 * @return A Enrollment object (this.enrollmentid)
 	 */
@@ -210,28 +156,6 @@ public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, 
 		this.id = id;
 	}
 
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
 
 	 /**
 	 * Return the value associated with the column: worsthousingsituation.
@@ -244,8 +168,6 @@ public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, 
 		return this.worsthousingsituation;
 
 	}
-
-
 
 	 /**
 	 * Set the value related to the column: worsthousingsituation.

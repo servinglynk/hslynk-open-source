@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 @Entity (name = "bulk_upload")
 @Table(name = "bulk_upload", catalog = "hmis", schema = "live")
-public class BulkUpload  implements Cloneable, Serializable {
+public class BulkUpload implements Cloneable, Serializable {
 
 
 	/** Serial Version UID. */

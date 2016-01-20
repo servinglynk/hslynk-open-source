@@ -1,5 +1,24 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.proxy.HibernateProxy;
+
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesActivemilitaryparentEnum;
@@ -25,29 +44,6 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientationgenderidyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Map;
-import java.util.WeakHashMap;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
-import org.hibernate.proxy.HibernateProxy;
 
 
 /**
@@ -82,10 +78,6 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 	private YouthcriticalissuesAlcoholdrugabusefamEnum alcoholdrugabusefam;
 	/** Field mapping. */
 	private YouthcriticalissuesAlcoholdrugabuseyouthEnum alcoholdrugabuseyouth;
-	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
@@ -130,8 +122,6 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 	private YouthcriticalissuesUnemploymentfamEnum unemploymentfam;
 	/** Field mapping. */
 	private YouthcriticalissuesUnemploymentyouthEnum unemploymentyouth;
-	/** Field mapping. */
-	private HmisUser user;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -296,50 +286,6 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 	}
 
 	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
-
-	 /**
 	 * Return the value associated with the column: enrollmentid.
 	 * @return A Enrollment object (this.enrollmentid)
 	 */
@@ -373,8 +319,6 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 		return this.healthissuesfam;
 
 	}
-
-
 
 	 /**
 	 * Set the value related to the column: healthissuesfam.
@@ -830,29 +774,6 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 	 */
 	public void setUnemploymentyouth(final YouthcriticalissuesUnemploymentyouthEnum unemploymentyouth) {
 		this.unemploymentyouth = unemploymentyouth;
-	}
-
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
 	}
 
 

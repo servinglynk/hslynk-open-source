@@ -44,7 +44,7 @@ public class BulkUploadHelperTest1 {
 		assertEquals(client.getSSNDataQuality(), helper.getByte("1"));
 		assertEquals(client.getDOB(), helper.getXMLGregorianCalendar("1981-01-01"));
 		assertEquals(client.getDOBDataQuality(), helper.getByte("1"));
-		
+		assertEquals(16, clients.size());
 		
 	}
 	@Test

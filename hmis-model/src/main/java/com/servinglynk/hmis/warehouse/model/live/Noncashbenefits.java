@@ -59,10 +59,6 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 	/** Field mapping. */
 	private NoncashbenefitsBenefitsfromanysourceEnum benefitsfromanysource;
 	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
-	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
@@ -82,8 +78,6 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 	private NoncashbenefitsTanfchildcareEnum tanfchildcare;
 	/** Field mapping. */
 	private NoncashbenefitsTanftransportationEnum tanftransportation;
-	/** Field mapping. */
-	private HmisUser user;
 	/** Field mapping. */
 	private NoncashbenefitsWicEnum wic;
 	/**
@@ -161,49 +155,6 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 		this.benefitsfromanysource = benefitsfromanysource;
 	}
 
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
 
 	 /**
 	 * Return the value associated with the column: enrollmentid.
@@ -239,8 +190,6 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 		return this.id;
 
 	}
-
-
 
 	 /**
 	 * Set the value related to the column: id.
@@ -427,29 +376,6 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 	 */
 	public void setTanftransportation(final NoncashbenefitsTanftransportationEnum tanftransportation) {
 		this.tanftransportation = tanftransportation;
-	}
-
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
 	}
 
 	 /**

@@ -1,18 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoAfghanistanOefEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoDesertStormEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoDischargeStatusEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoIraqOifEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoIraqOndEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoKoreanWarEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
-import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -28,11 +16,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoAfghanistanOefEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoDesertStormEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoDischargeStatusEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoIraqOifEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoIraqOndEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoKoreanWarEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
+import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
 
 
 /**
@@ -62,10 +58,6 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 	/** Field mapping. */
 	private Client client;
 	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
-	/** Field mapping. */
 	private VeteranInfoDesertStormEnum desertStorm;
 	/** Field mapping. */
 	private VeteranInfoDischargeStatusEnum dischargeStatus;
@@ -81,8 +73,6 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 	private VeteranInfoMilitaryBranchEnum militaryBranch;
 	/** Field mapping. */
 	private VeteranInfoOtherTheaterEnum otherTheater;
-	/** Field mapping. */
-	private HmisUser user;
 	/** Field mapping. */
 	private VeteranInfoVietnamWarEnum vietnamWar;
 	/** Field mapping. */
@@ -187,50 +177,6 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 	 */
 	public void setClient(final Client client) {
 		this.client = client;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
 	}
 
 	 /**
@@ -417,28 +363,6 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 		this.otherTheater = otherTheater;
 	}
 
-	 /**
-	 * Return the value associated with the column: user.
-	 * @return A HmisUser object (this.user)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "user_id", nullable = true )
-	public HmisUser getUser() {
-		return this.user;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: user.
-	 * @param user the user value you wish to set
-	 */
-	public void setUser(final HmisUser user) {
-		this.user = user;
-	}
 
 	 /**
 	 * Return the value associated with the column: vietnamWar.
@@ -451,7 +375,6 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 		return this.vietnamWar;
 
 	}
-
 
 
 	 /**

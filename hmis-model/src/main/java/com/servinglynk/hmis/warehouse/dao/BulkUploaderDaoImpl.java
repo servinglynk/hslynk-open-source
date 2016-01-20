@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
@@ -112,6 +115,20 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		return upload;
 	}
+	
+	public HmisUser getHmisUser(String id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
+		criteria.createAlias("projectGroupEntity","projectGroupEntity");
+		
+		criteria.add(Restrictions.eq("id", id));
+		
+		List<HmisUser> users = (List<HmisUser>) findByCriteria(criteria);
+		if(users!=null ) {
+			return users.get(0);
+		}
+		return null;
+	}
+	
 	
 	@Override
 	@Transactional
