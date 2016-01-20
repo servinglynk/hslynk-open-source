@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.Parameters;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Preferences;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Roles;
@@ -41,6 +42,7 @@ import com.servinglynk.hmis.warehouse.model.live.Organization;
 import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProfileEntity;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
@@ -48,6 +50,8 @@ import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
 import com.servinglynk.hmis.warehouse.service.AccountService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.converter.ProfileConverter;
+import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
+import com.servinglynk.hmis.warehouse.service.converter.ProjectGroupConverter;
 import com.servinglynk.hmis.warehouse.service.converter.RoleConverter;
 import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticator;
 import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticatorKey;
@@ -126,15 +130,25 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (pAccount == null) {
 			throw new AccountNotFoundException();
 		}
-		
+		return convertUserBasicInfo(pAccount);
+	}
+	public Account convertUserBasicInfo(HmisUser pAccount) {
 		List<UserRoleMapEntity> userRoles = daoFactory.getAccountDao().getUserMapByUserId(pAccount.getId());
 		
 		Roles roles = new Roles();
 		for(UserRoleMapEntity userRoleMapEntity : userRoles){
 			roles.addRole(RoleConverter.entityToModel(userRoleMapEntity.getRoleEntity()));
 		}
+		
 		Account account = AccountConverter.convertToBasicAccount(pAccount);
 		account.setRoles(roles);
+		account.setProfile(ProfileConverter.entityToModel(pAccount.getProfileEntity()));
+		ProjectGroup projectGroup =	ProjectGroupConverter.entityToModel(pAccount.getProjectGroupEntity());
+		for(ProjectProjectGroupMapEntity projectGroupMapEntity : pAccount.getProjectGroupEntity().getProjectGroupMapEntities()){
+			projectGroup.addProject(ProjectConverter.entityToModel(projectGroupMapEntity.getProject()));
+		}
+		
+		account.setProjectGroup(projectGroup);
 		return account;
 	}
 
@@ -558,7 +572,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		List<HmisUser> accountEntities = daoFactory.getAccountDao().getAllUsersByOranization(organizationId);
 		
 		for(HmisUser accountEntity : accountEntities){
-			accounts.addAccount(AccountConverter.convertToAccount(accountEntity));
+			accounts.addAccount(convertUserBasicInfo(accountEntity));
 		}
 		
 		return accounts;

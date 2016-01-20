@@ -25,7 +25,7 @@ public class AccountConverter {
 		account.setMiddleName(pAccount.getMiddleName());
 		account.setLastName(pAccount.getLastName());
 		account.setEmailAddress(pAccount.getUsername());
-		
+		account.setStatus(pAccount.getStatus());
 		return account;
 	}
 	
