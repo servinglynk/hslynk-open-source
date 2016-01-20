@@ -39,8 +39,7 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 	
 	
 	public boolean checkApiAuthForUser(String accessToken, String apiMethodId){
-	return true;
-//		return serviceFactory.getAccountService().checkApiAuthorizationForUser(accessToken, apiMethodId);
+		return serviceFactory.getAccountService().checkApiAuthorizationForUser(accessToken, apiMethodId);
 	}
 	
 	

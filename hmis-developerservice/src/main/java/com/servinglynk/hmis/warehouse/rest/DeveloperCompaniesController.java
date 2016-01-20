@@ -34,7 +34,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 
 	
 
-	@RequestMapping(value = "/{developerCompanyId:.*}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{developercompanyid:.*}", method = RequestMethod.PUT)
 	@APIMapping(value="DCS_UPDATE_DEVELOPER_COMPANY",checkSessionToken=false, checkTrustedApp=false)
 	public DeveloperCompany updateDeveloperCompany(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, @RequestBody DeveloperCompany developerCompany, HttpServletRequest request) throws Exception {
 	
@@ -45,7 +45,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	}
 	
 
-	@RequestMapping(value = "/{developerCompanyId}/accounts", method = RequestMethod.POST)
+	@RequestMapping(value = "/{developercompanyid}/accounts", method = RequestMethod.POST)
 	@APIMapping(value="DCS_ASSOCIATE_DEVELOPER_ACCOUNT",checkSessionToken=false, checkTrustedApp=false)
 	public DeveloperCompanyAccount associateDeveloperAccount(@PathVariable("developerCompanyId") String externalDeveloperCompanyId,
 															  @RequestBody DeveloperCompanyAccount developerAccount,
@@ -56,7 +56,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	}
 	
 	
-	@RequestMapping(value = "/{developerCompanyId}/accounts/{username:.*}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{developercompanyid}/accounts/{username:.*}", method = RequestMethod.DELETE)
 	@APIMapping(value="DCS_DISASSOCIATE_DEVELOPER_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperCompanyAccount dissociateDeveloperAccount(@PathVariable("developerCompanyId") String externalDeveloperCompanyId,
 															  @PathVariable("username") String username,
@@ -69,7 +69,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	}
 	
 	
-	@RequestMapping(value = "/{developerCompanyId}/services", method = RequestMethod.POST)
+	@RequestMapping(value = "/{developercompanyid}/services", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_SERVICE",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperService createService(@PathVariable("developerCompanyId") String externalDeveloperCompanyId,
 							     @RequestBody DeveloperService service,
@@ -83,7 +83,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	/* Developer company >  HMIS Service - upload API , register API > 1. HMIS Androiod Trusted App 2. HMIS IOS Trusted App */
 	
 	
-	@RequestMapping(value = "/{developerCompanyId:.*}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{developercompanyid:.*}", method = RequestMethod.DELETE)
 	@APIMapping(value="DCS_DELETE_DEVELOPER_COMPANY",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperCompany deleteDeveloperCompany(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
 
@@ -94,7 +94,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	}
 	
 	
-	@RequestMapping(value = "/{developerCompanyId:.*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{developercompanyid:.*}", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_DEVELOPER_COMPANY",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperCompany getDeveloperCompany(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
 
@@ -105,7 +105,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	
 	
-	@RequestMapping(value = "/{developerCompanyId}/accounts", method = RequestMethod.GET)
+	@RequestMapping(value = "/{developercompanyid}/accounts", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_DEVELOPER_COMPANY_ACCOUNTS",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperCompanyAccounts getDeveloperCompanyAccounts(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
 
@@ -115,7 +115,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	}
 	
 	
-	@RequestMapping(value = "/{developerCompanyId}/services", method = RequestMethod.GET)
+	@RequestMapping(value = "/{developercompanyid}/services", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_SERVICES",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperServices getServices(HttpServletRequest request,
 							       @PathVariable("developerCompanyId") String externalDeveloperCompanyId,
@@ -158,7 +158,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 		
 	}
 	
-	@RequestMapping(value = "/{developerCompanyId}/approvaldecision", method = RequestMethod.POST)
+	@RequestMapping(value = "/{developercompanyid}/approvaldecision", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_DEVELOPER_APPROVAL_DECISION",checkSessionToken=false, checkTrustedApp=false)
 	public DeveloperCompanyStatus createApprovalDecision(@PathVariable("developerCompanyId") String developerCompanyId, @RequestBody DeveloperCompanyStatus developerCompanyStatus,
 			HttpServletRequest request) throws Exception {
