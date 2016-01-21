@@ -23,19 +23,19 @@ INSERT INTO live.hmis_user( id, first_name, middle_name, last_name, name_suffix,
 INSERT INTO live.hmis_user( id, first_name, middle_name, last_name, name_suffix, ssn, dob,  date_created,  created_by, password, profile_id, status, username,organization_id,project_group_id,two_factor_authentication,email_address) VALUES ('8b6c6ef2-87c7-47f0-8874-4cca6f09367c', 'Developer Admin','Developer Admin', 'Developer Admin', 'Developer Admin', '', current_date,current_date , 'MASTER DATA',  'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=', 'b67c38a1-2762-4393-b69b-41a0a11e6efc', 'ACTIVE', 'developeradmin@hmis.com','ad1dba89-7ed1-4f16-a81a-d1ed4446fe07','9b9792ca-8730-4d21-9a39-6902229fd4b9',false,'hmisprojects@gmail.com');
 
 INSERT INTO live.hmis_redirect_uri(id, uri, trustedapp_id, created_at, created_by ) 
-				VALUES ('2a0de2d3-ce1f-4cf1-9145-04aa70e3196c','http://localhost:8081/hmis-admin/#/admin/dashborad' , 'f9091e61-d617-4923-b50a-9e9bd405e313', current_date, 'MASTET DATA')
+				VALUES ('2a0de2d3-ce1f-4cf1-9145-04aa70e3196c','http://localhost:8081/hmis-admin/#/admin/dashborad' , 'f9091e61-d617-4923-b50a-9e9bd405e313', current_date, 'MASTER DATA');
 
 				
-INSERT INTO hmis_profile( id, profile_name, profile_description, created_at, created_by)  VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac', 'Standard Profile', 'Standard Profile', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','039c55be-bf44-4e22-8a79-5ba861756c45' , '54b2ce51-acd8-4afc-9c8f-50c37a843f8b', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','3336586d-5034-41fc-a32c-9aab26873dd3' , '5fd85889-aa2e-4c2a-a4e2-9dc927485230', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','29d8611c-bf90-427d-b18a-1fe2473c9ffd' , 'a6941afd-695d-4aa3-a846-786ee0e105bd', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','72df4ae1-3659-49cb-a221-84cee475a58e' , 'ba399214-8a93-4c88-86aa-4a11beb252cd', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','b02a288d-85f2-4a5e-95d1-a43db8383e05' , 'a4673349-f258-4588-9d92-c3d74eff58e8', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','60935f25-fec5-4e4d-b0c3-452d21d1848f' , 'aee9f6a9-feb3-48e7-bcbc-273515988c52', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','600df1a9-b9e4-4953-b90e-8d55d67233ac' , '43dcac43-9886-47ed-847f-d4cec2a2941e', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','3336586d-5034-41fc-a32c-9aab26873dd3' , '6a39596d-32f1-4ec3-94e4-7ba364960386', current_date, 'MASTER DATA');
-INSERT INTO hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','9593ca58-78f6-4794-9d39-9412216c2f97' , '98e7215a-d544-40da-a9b7-d23b52545ff9', current_date, 'MASTER DATA');				
+INSERT INTO live.hmis_profile( id, profile_name, profile_description, created_at, created_by)  VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac', 'Standard Profile', 'Standard Profile', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','039c55be-bf44-4e22-8a79-5ba861756c45' , '54b2ce51-acd8-4afc-9c8f-50c37a843f8b', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','3336586d-5034-41fc-a32c-9aab26873dd3' , '5fd85889-aa2e-4c2a-a4e2-9dc927485230', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','29d8611c-bf90-427d-b18a-1fe2473c9ffd' , 'a6941afd-695d-4aa3-a846-786ee0e105bd', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','72df4ae1-3659-49cb-a221-84cee475a58e' , 'ba399214-8a93-4c88-86aa-4a11beb252cd', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','b02a288d-85f2-4a5e-95d1-a43db8383e05' , 'a4673349-f258-4588-9d92-c3d74eff58e8', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','60935f25-fec5-4e4d-b0c3-452d21d1848f' , 'aee9f6a9-feb3-48e7-bcbc-273515988c52', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','600df1a9-b9e4-4953-b90e-8d55d67233ac' , '43dcac43-9886-47ed-847f-d4cec2a2941e', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','3336586d-5034-41fc-a32c-9aab26873dd3' , '6a39596d-32f1-4ec3-94e4-7ba364960386', current_date, 'MASTER DATA');
+INSERT INTO live.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','9593ca58-78f6-4794-9d39-9412216c2f97' , '98e7215a-d544-40da-a9b7-d23b52545ff9', current_date, 'MASTER DATA');				
 				
 --CREATE OR REPLACE FUNCTION live.createSuperAdminProfileAcl() RETURNS SETOF live.hmis_api_method AS
 --$BODY$
