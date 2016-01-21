@@ -86,16 +86,8 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		com.servinglynk.hmis.warehouse.model.live.HmisUser account = daoFactory.getAccountDao()
 				.findByUsername(developerCompany.getOwner().getUsername());
 
-		if (account == null) {
-			/*account = AccountConverter.convertToPersistentAccount(developerCompany.getOwner(), null);
-			account.setStatus(ACCOUNT_STATUS_ACTIVE);
-			account.setPassword(HMISCryptographer.Encrypt(developerCompany.getOwner().getPassword()));
-			account.setCreatedBy(requestingService);
-
-			daoFactory.getAccountDao().createAccount(account);*/
-			
-			throw new AccountNotFoundException();
-		}
+		if (account == null) throw new AccountNotFoundException();
+		
 
 		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = DeveloperCompanyConverter
 				.convertToPersistentDeveloperCompany(developerCompany, null);

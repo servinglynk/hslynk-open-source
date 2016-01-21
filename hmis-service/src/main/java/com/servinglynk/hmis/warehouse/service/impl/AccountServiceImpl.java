@@ -120,7 +120,6 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 			account = AccountConverter.convertToAccount(pAccount);
 			account.setProfile(ProfileConverter.entityToModel(pAccount.getProfileEntity()));
 		}
-		
 		return account;
 	}
 
@@ -277,6 +276,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				
 				GoogleAuthenticator authenticator = new GoogleAuthenticator();
 				GoogleAuthenticatorKey key = authenticator.createCredentials();
+				pAccount.setAuthenticatorSecret(key.getKey());
 				if(purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")){
 					pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 				}else{	
@@ -284,17 +284,13 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 					
 				}
 				
-				if(account.isTwoFactorAuthentication()){
-					pAccount.setAuthenticatorSecret(key.getKey());
-					pAccount.setTwoFactorAuthentication(true);
-				}else{
-					pAccount.setTwoFactorAuthentication(false);
-				}
+				pAccount.setTwoFactorAuthentication(account.isTwoFactorAuthentication());
 				
 				ProfileEntity profileEntity=null;
 				
 				if(account.getProfile()==null){
-						// Get Standard Profile and assign that profile the user
+					// If Profile details are not available system will assign standard Profile 
+					profileEntity = daoFactory.getProfileDao().getProfileById(UUID.fromString("004aed07-b4d4-4696-b8f6-1607f6f49bac"));	
 					
 				}else{
 				 profileEntity = daoFactory.getProfileDao().getProfileById(account.getProfile().getId());
@@ -421,10 +417,29 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		//	pAccount.setGender(account.getGender());
 		}
 
+		boolean twoFactorEnabled = pAccount.isTwoFactorAuthentication();
 		pAccount.setModifiedBy(auditUser);
 		pAccount.setModifiedAt(new Date());
 		pAccount.setProfileEntity(profileEntity);
+		pAccount.setTwoFactorAuthentication(account.isTwoFactorAuthentication());
 		com.servinglynk.hmis.warehouse.model.live.HmisUser upAccount= daoFactory.getAccountDao().updateAccount(pAccount);
+		if(account.isTwoFactorAuthentication()){
+			if(!twoFactorEnabled){
+				Notification notification = new Notification();
+				notification.setMethod("EMAIL");
+				notification.setType("HMIS_ACCOUNT_TWO_FACTOR_AUTH_ENABLED");
+				Recipients recipients = new Recipients();
+				recipients.addToRecipient(pAccount.getEmailAddress());
+				notification.setRecipients(recipients);
+				
+				Parameters parameters = new Parameters();
+				parameters.addParameter(new Parameter("authenticatorSecret",pAccount.getAuthenticatorSecret()));
+				parameters.addParameter(new Parameter("qrcode",GoogleAuthenticatorKey.getQRBarcodeURL("", "",pAccount.getAuthenticatorSecret())));
+				notification.setParameters(parameters);
+				
+			    notificationServiceClient.createNotification(notification);
+			}
+		}
 		return (Account) AccountConverter.convertToAccount(upAccount);
 	}
 
@@ -612,4 +627,5 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 		return true;
 	}
+	
 }

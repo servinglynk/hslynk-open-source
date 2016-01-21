@@ -143,7 +143,7 @@ public class AccountsController extends ControllerBase {
 			throw new AccessDeniedException("only self is allowed as the username in the URI");
 		}
 		Session session = sessionHelper.getSession(request);
-		return serviceFactory.getAccountService().findAccountByUsername(session.getAccount().getUsername());
+		return serviceFactory.getAccountService().loadAccountBasicInfoByUsername(session.getAccount().getUsername());
 	}
 
 	/**

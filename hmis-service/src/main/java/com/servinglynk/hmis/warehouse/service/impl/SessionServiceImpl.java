@@ -85,6 +85,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		}
 		
 		pSession.setExpiresAt(new Date());
+		pSession.setAuthCodeExpiresAt(new Date());
 		daoFactory.getSessionDao().updateSessionEntity(pSession);
 		
 	}
