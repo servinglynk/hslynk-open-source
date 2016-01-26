@@ -4,8 +4,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class WebAppInitializer implements WebApplicationInitializer {
@@ -19,13 +24,4 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	        dynamic.setLoadOnStartup(1);  
 
 	}
-	
-//	 @Bean @Scope(value = WebApplicationContext.SCOPE_SESSION,
-//	           proxyMode = ScopedProxyMode.TARGET_CLASS)
-//	    public CommonsMultipartResolver getMultipartResolver() {
-//	        CommonsMultipartResolver mr = new CommonsMultipartResolver();
-//	            mr.setMaxUploadSize(10000);
-//	        return mr;
-//	    }
-
 }

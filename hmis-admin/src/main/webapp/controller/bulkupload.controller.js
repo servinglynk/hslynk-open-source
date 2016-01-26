@@ -1,6 +1,7 @@
 
 
-app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $http, $timeout) {
+app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $http, $timeout,$sessionStorage){
+	$scope.sessionToken = $sessionStorage.sessionToken;
 
     $scope.submitForm = function () {
 

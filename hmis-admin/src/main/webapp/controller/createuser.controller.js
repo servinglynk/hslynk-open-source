@@ -12,9 +12,9 @@ app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, 
 			//success
 	 function(data){$scope.roles =data.roles.role;  }),
 		    
-//	Service.GetProjectGroups($http,$scope,
-//    //success
-//    function(data){$scope.projectGroups =data;  }),
+	Service.GetProjectGroups($http,$scope,
+    //success
+    function(data){$scope.projectgroups =data.projectgroups.projectGroups;  }),
 											   
 											   
   $scope.submitForm = function() {

@@ -12,7 +12,7 @@ public class CreateMasterData {
 
 	public Connection getConnection() throws Exception {
 		Class.forName("org.postgresql.Driver");
-		//return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
+	//return DriverManager.getConnection("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis?currentSchema=live", "hmisdb1", "hmisdb1234");
 		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hmis?currentSchema=live", "postgres", "postgres");
 		
 	}

@@ -18,6 +18,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
@@ -50,7 +51,13 @@ public class SpringConfig {
         return ppc;
     }
 	
-
+	 @Bean
+	 public CommonsMultipartResolver commonsMultipartResolver(){
+	     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+	     commonsMultipartResolver.setDefaultEncoding("utf-8");
+	     commonsMultipartResolver.setMaxUploadSize(50000000);
+	     return commonsMultipartResolver;
+	 }
 
 	
 	@Bean

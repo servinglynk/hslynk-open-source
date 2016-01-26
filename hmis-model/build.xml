@@ -15,7 +15,7 @@
             <pathelement location="C:/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
            </classpath>   
            <transaction src="HMISModel.sql"/>
-      	    <transaction src="MasterData.sql"/>
+      	   <transaction src="MasterData.sql"/> 
       </sql>
    </target>
 	   <target name="setupDB-staging">

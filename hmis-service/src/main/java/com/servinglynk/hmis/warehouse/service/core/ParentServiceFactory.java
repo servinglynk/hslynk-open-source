@@ -4,6 +4,7 @@ import com.servinglynk.hmis.warehouse.service.AccountService;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
@@ -112,4 +113,5 @@ public interface ParentServiceFactory {
 	NonCashBenefitService getNonCashBenefitService();
 	SiteService getSiteService();
 	InventoryService getInventoryService();
+	BulkUploadService getBulkUploadService();
 }

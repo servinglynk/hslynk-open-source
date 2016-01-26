@@ -28,7 +28,13 @@
                 <option value="">Select Profile</option>
             </select>
           </li>
-          
+             <li>
+            <label><span class="required">*</span>Project Group: </label>
+            
+            <select  required ng-model="form.projectgroup" name="drpprojectgroup" ng-options="projectgroup.projectGroupName for projectgroup in projectgroups track by projectgroup.projectGroupId">
+                <option value="">Select Project Group</option>
+            </select>
+          </li>
           <li>
             <label><span class="required">*</span>Role: </label>
             

@@ -130,14 +130,17 @@ SendRequestReport: function ($http,$scope, success,error) {
 },
 
 bulkupload: function ($http, $scope, success, error) {
-    var apiurl = "/hmis-bulk-loader-service/uploadFile";
+    var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();
      formData.append("file", $scope.form.inputfile.files[0]);
      formData.append("name", $scope.form.inputfilename);
 
     $http.post(apiurl, formData, {
          transformRequest: angular.identity,
-         headers: { 'Content-Type': undefined }
+    headers: {
+        'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+          'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+          'Accept': 'application/json;odata=verbose'} //TODO change accept to multipart.
      }).success(function () { success() }).error(error);
   		
     },

@@ -7,6 +7,7 @@ import com.servinglynk.hmis.warehouse.service.AccountService;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
@@ -108,7 +109,18 @@ public class ParentServiceFactoryImpl  implements ParentServiceFactory {
 	@Autowired				  
 	private EnrollmentService enrollmentService;
 	
+	@Autowired
+	private BulkUploadService bulkUploadService;
 	
+	
+	public BulkUploadService getBulkUploadService() {
+		return bulkUploadService;
+	}
+
+	public void setBulkUploadService(BulkUploadService bulkUploadService) {
+		this.bulkUploadService = bulkUploadService;
+	}
+
 	public HmisUserService getHmisUserService() {
 		return hmisUserService;
 	}
