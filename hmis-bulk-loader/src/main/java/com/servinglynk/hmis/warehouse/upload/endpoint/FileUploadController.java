@@ -32,7 +32,7 @@ public class FileUploadController {
 		 * Upload single file using Spring Controller
 		 */
 	 	@RequestMapping(method = RequestMethod.POST)
-	 	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
+	 	//@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
 		String uploadFileHandler(@RequestParam(value ="name", required = false) String name,
 				@RequestParam("file") MultipartFile file) {

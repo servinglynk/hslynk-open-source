@@ -225,3 +225,29 @@ h4
 {
 	text-align:center;
 }
+.footerlogin
+{
+	font-size:14px;
+	background-color:#000;
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	padding:20px!important;
+	color:#FFF;
+}
+.login ol, ul
+{
+	padding:0px;
+}
+.featureLine {
+    background-color: #e5e5e5;
+    padding: 10px 20px;
+    margin-top: 1px;
+    font-size: 12px;
+    color: #777777;
+    text-align: center;
+}
+.navbar-fixed-top
+{
+	padding-bottom: 20px;
+}

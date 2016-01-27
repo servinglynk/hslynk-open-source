@@ -8,39 +8,36 @@
     </div>
   </div>
 </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header"> Create User </h1>
+<div class="container-fluid ">
+  <div class="container">
+    
+    <!-- /.row -->
+    <div class="row login">
+      <div class="row bottomSpacer">
+			<div class="col-md-6 text-center">
+				<h3 class="noBottomMargin">HMISLynk is:</h3>
+				<div class="featureLine">A Cloud based open source data warehouse</div>
+				<div class="featureLine">A vendor neutral data warehouse</div>
+				<div class="featureLine">A "big" data warehouse</div>
+				<div class="featureLine">Able to receive data from any user program</div>
+				<div class="featureLine">Secured with the highest level of data security in the industry</div>
+			</div>
+			<div class="col-md-6 text-center">
+				<h3 class="noBottomMargin">With HMISLynk a HMIS Provider can</h3>
+				<div class="featureLine">Collect and report data across organizations, regions, cities and states</div>
+				<div class="featureLine">Get free standard reports and optional customized reports</div>
+				<div class="featureLine">Leverage our Master Patient Index to partner with medical providers in Homeless care</div>
+				<div class="featureLine">Obtain near time reporting</div>
+				<div class="featureLine">And more!</div>
+			</div>
+		</div>
     </div>
   </div>
-  <!-- /.row -->
-  <div class="row">
-    <div class="col-lg-12">
-      <form ng-submit="submitForm()" ng-controller="requestreportCtrl" name="formRequestReport" id="form" enctype="multipart/form-data">
-        <div class="alert alert-success" ng-show="showSuccessAlert">
-          <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >X</button>
-         {{successTextAlert}} </div>
-         <div class="alert alert-warning" ng-show="showErrorAlert">
-          <button type="button" class="close" data-ng-click="switchBool('showErrorAlert')" >X</button>
-         {{errorTextAlert}} </div>
-        <ul>
-          <li>
-            <label><span class="required">*</span>Email: </label>
-            <input required ng-model="form.email" type="email" name="email">
-          </li>
-          <li>
-            <label><span class="required">*</span>Password: </label>
-            <input required ng-model="form.email" type="email" name="email">
-          </li>
-           <li>
-            <label><span class="required">*</span>Confirm Password: </label>
-            <input required ng-model="form.email" type="email" name="email">
-          </li>
-          <li>
-            <label> </label>
-            <input type="submit" ngClick="Submit"  value="Sign Up" class="btn btn-lg btn-upload">
-          </li>
-        </ul>
-      </form>
-    </div>
+</div>
+<div class="container-fluid footerlogin ng-scope">
+  <div class="container">
+    <center>
+      Copyright &copy; 2016 All rights reserved. HMIS Lynk
+    </center>
   </div>
+</div>
