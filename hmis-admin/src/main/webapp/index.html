@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" ng-app="app">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>Welcome to Serving Lynk</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -16,13 +16,19 @@
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 <!--<script src="http://vp:8080/servinglynkv2/demo/angularcode_grid/js/ui-bootstrap-tpls-0.10.0.min.js"></script>-->
 </head>
+<style>
+body
+{
+margin:0px;
+}
+</style>
 <body>
 
 
-<div style="float: right">
+<div style="float: right;padding:10px;">
        <form method="get" action="/hmis-authorization-service/rest/authorize" id="test-app-form">
 				<ul>
-					<input type="hidden" value="code" name="response_type" value="code"/>
+					<input type="hidden" value="code" name="response_type" />
 					<input type="hidden"  name="trustedApp_id" value="MASTER_TRUSTED_APP"/>
 					<input type="hidden"  name="redirect_uri" value="http://localhost:8081/hmis-admin/#/admin/dashborad"/>
 					<input type="hidden" value="xyzvalue" name="state" />

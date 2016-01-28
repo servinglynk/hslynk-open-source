@@ -51,7 +51,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				residentialmoveindateModel.setExport(exportEntity);
 				exportEntity.addResidentialmoveindate(residentialmoveindateModel);
-				hydrateCommonFields(residentialmoveindateModel, exportEntity.getUser());
+				hydrateCommonFields(residentialmoveindateModel, domain);
 				insertOrUpdate(residentialmoveindateModel);
 			}
 		}

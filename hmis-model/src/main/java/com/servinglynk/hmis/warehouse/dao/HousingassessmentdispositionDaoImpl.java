@@ -50,7 +50,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				housingassessmentdispositionModel.setExport(exportEntity);
 				exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
-				hydrateCommonFields(housingassessmentdispositionModel, exportEntity.getUser());
+				hydrateCommonFields(housingassessmentdispositionModel, domain);
 				insertOrUpdate(housingassessmentdispositionModel);
 			}
 		}

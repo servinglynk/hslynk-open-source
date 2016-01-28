@@ -1,27 +1,31 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 
 @Service
 public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadService  {
 	
 	@Transactional
-	public void createBulkUploadEntry(String filPath) throws Exception {
+	public void createBulkUploadEntry(com.servinglynk.hmis.warehouse.core.model.BulkUpload uploadModel) throws Exception {
 		try{
-			
 			BulkUpload upload = new BulkUpload();
-			upload.setInputPath(filPath);
+			upload.setInputPath(uploadModel.getInputPath());
 			upload.setStatus("INITIAL");
-			upload.setInsertAt(new Date());
-			upload.setUpdateAt(new Date());
-			upload.setInsertBy("ADMIN");
-			upload.setUpdateBy("ADMIN");
+			upload.setDateCreated(LocalDateTime.now());
+			upload.setDateUpdated(LocalDateTime.now());
+			upload.setSync(false);
+			HmisUser user = daoFactory.getAccountDao().findByUsername(uploadModel.getUsername());
+			ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+			upload.setUser(user);
+			upload.setProjectGroupCode(projectGroupEntity.getProjectGroupCode() !=null ? projectGroupEntity.getProjectGroupCode() : uploadModel.getProjectGroupCode());
 			daoFactory.getBulkUploaderWorkerDao().insert(upload);
 		}catch(Exception e){
 				throw new Exception("Worker Not Found"+ e.getMessage());

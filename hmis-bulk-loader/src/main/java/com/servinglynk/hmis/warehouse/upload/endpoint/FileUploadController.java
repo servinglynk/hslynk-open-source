@@ -17,22 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 
-
 @RestController
 @RequestMapping("/upload")
-public class FileUploadController {
-	
+public class FileUploadController   {
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(FileUploadController.class);
-	 @Autowired
-		protected ParentServiceFactory parentServiceFactory;
 	 
-
+	@Autowired
+	private ParentServiceFactory serviceFactory;
 		/**
 		 * Upload single file using Spring Controller
 		 */
-	 	@RequestMapping(method = RequestMethod.POST)
-	 	@APIMapping(value="USR_CREATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
+	 	@RequestMapping(method = RequestMethod.POST,headers = "content-type=multipart/*")
+	 	@APIMapping(value="USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
 		String uploadFileHandler(@RequestParam(value ="name", required = false) String name,
 				@RequestParam("file") MultipartFile file) {
@@ -58,7 +56,7 @@ public class FileUploadController {
 					logger.info("Server File Location="
 							+ serverFile.getAbsolutePath());
 					
-					parentServiceFactory.getBulkUploadService().createBulkUploadEntry( serverFile.getAbsolutePath());
+//					serviceFactory.getBulkUploadService().createBulkUploadEntry( serverFile.getAbsolutePath());
 
 					return "You successfully uploaded file=" + name;
 				} catch (Exception e) {
@@ -69,4 +67,4 @@ public class FileUploadController {
 						+ " because the file was empty.";
 			}
 		}
-	}
+}

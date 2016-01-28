@@ -129,10 +129,10 @@ SendRequestReport: function ($http,$scope, success,error) {
   		
 },
 
-bulkupload: function ($http, $scope, success, error) {
+bulkupload: function ($http, $scope,file, success, error) {
     var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();
-     formData.append("file", $scope.form.inputfile.files[0]);
+     formData.append("file", $scope.form.inputfile);
      formData.append("name", $scope.form.inputfilename);
 
     $http.post(apiurl, formData, {
@@ -140,7 +140,8 @@ bulkupload: function ($http, $scope, success, error) {
     headers: {
         'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
           'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-          'Accept': 'application/json;odata=verbose'} //TODO change accept to multipart.
+           'Content-Type': undefined
+      } //TODO change accept to multipart.
      }).success(function () { success() }).error(error);
   		
     },
@@ -211,6 +212,9 @@ GetProjectGroups: function ($http,$scope, success) {
                     "organizationId":"b5598c6c-d021-4f5f-9695-77f7f4685ed2",
                     "role" : {
                     	"id": data.role.id
+                    },
+                    "projectGroup" : {
+                    	projectGroupId : data.projectgroup.projectGroupId
                     },
                     "profile" : {
                     	"id" : data.profile.id

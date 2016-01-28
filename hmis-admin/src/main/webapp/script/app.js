@@ -1,6 +1,22 @@
 var app = angular.module('app', ['ngRoute','ngStorage','ngAnimate', 'route-segment', 'view-segment','ui.bootstrap']);
 
 var header = { sessionToken : '' };
+
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+          
+          element.bind('change', function(){
+             scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+ }]);
 app.factory("LS", function($window, $rootScope) {
 	  angular.element($window).on('storage', function(event) {
 	    if (event.key === 'my-storage') {

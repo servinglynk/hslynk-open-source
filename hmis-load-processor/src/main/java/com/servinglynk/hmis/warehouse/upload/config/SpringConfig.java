@@ -92,12 +92,12 @@ public class SpringConfig {
 	public BasicDataSource relationalDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
     	dataSource.setDriverClassName("org.postgresql.Driver");
-    	dataSource.setUrl("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis");
-    	dataSource.setUsername("hmisdb1");
-    	dataSource.setPassword("hmisdb1234");
-//    	 dataSource.setUrl("jdbc:postgresql://localhost:5432/hmis");
-//    	dataSource.setUsername("postgres");
-//    	dataSource.setPassword("postgres");
+//    	dataSource.setUrl("jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis");
+//    	dataSource.setUsername("hmisdb1");
+//    	dataSource.setPassword("hmisdb1234");
+    	 dataSource.setUrl("jdbc:postgresql://localhost:5432/hmis");
+    	dataSource.setUsername("postgres");
+    	dataSource.setPassword("postgres");
     	
 		return dataSource;
 	}

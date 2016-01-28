@@ -49,7 +49,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				pathstatusModel.setExport(exportEntity);
 				exportEntity.addPathstatus(pathstatusModel);
-				hydrateCommonFields(pathstatusModel, exportEntity.getUser());
+				hydrateCommonFields(pathstatusModel, domain);
 				insertOrUpdate(pathstatusModel);
 			}
 		}

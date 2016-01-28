@@ -35,9 +35,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		try {
 			//upload.setId(UUID.randomUUID());
 			upload.setStatus("INPROGRESS");
-			upload.setInsertAt(new Date());
-			upload.setUpdateAt(new Date());
-			upload.setInsertBy("2be4334a-ba97-4e12-a695-991752ca0391");
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload);
 			Source source = sources.getSource();
@@ -58,10 +55,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				exportModel.setId(exportId);
 				exportModel.setDateCreated(LocalDateTime.now());
 				exportModel.setDateUpdated(LocalDateTime.now());
-				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, UUID.fromString(upload.getInsertBy()));
+				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
 				exportModel.setUser(user);
 				com.servinglynk.hmis.warehouse.model.staging.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.staging.Source) get(com.servinglynk.hmis.warehouse.model.staging.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
+				exportModel.setProjectGroupCode(upload.getProjectGroupCode());
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
@@ -132,7 +130,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public void moveFromStagingToLive(UUID exportId) {
+	public void moveFromStagingToLive(BulkUpload bulkUpload) {
+		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 		parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
@@ -169,6 +168,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
 		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
 		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);
+		bulkUpload.setStatus("LIVE");
+		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload); 
 	}
 	
 	@Override

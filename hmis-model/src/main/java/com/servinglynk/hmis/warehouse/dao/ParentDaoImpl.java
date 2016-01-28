@@ -17,6 +17,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
+import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
@@ -26,67 +27,15 @@ import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
-
-	public void saveHBase(Object entity) throws TIOError, TException {
-		String host = "54.149.8.196";
-		int port = 9095;
-		int timeout = 10000;
-		boolean framed = false;
-
-		TTransport transport = new TSocket(host, port, timeout);
-		if (framed) {
-			transport = new TFramedTransport(transport);
-		}
-		TProtocol protocol = new TBinaryProtocol(transport);
-		// This is our thrift client.
-		THBaseService.Iface client = new THBaseService.Client(protocol);
-
-		// open the transport
-		transport.open();
-		performSave(client,entity);
-		transport.close();
-	}
 	
-	public void hydrateCommonFields(HmisBaseModel baseModel,HmisUser user) {
+	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.live.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
 	}
-	public void hydrateCommonFields(HmisBaseStagingModel baseModel,HmisUser user) {
-		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
-		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
+	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain) {
+		String projectGroupCode = domain.getUpload().getProjectGroupCode();
+		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "default");
 	}
-	public List<T> recordsToSync(Class t, SyncDomain domain) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(t);
-		// criteria.add(Restrictions.("status",status)); Need to pass the date here .
-		criteria.add(Restrictions.gt("dateCreated", domain.getDateCreated()));
-		if(criteria.getExecutableCriteria(getCurrentSession()).list() != null) {
-			return criteria.getExecutableCriteria(getCurrentSession()).list();
-		}
-		return null;
-
-	}
-	
-	public List<T> getFromHBASE(Object entity) throws TIOError, TException {
-		String host = "54.149.8.196";
-		int port = 9090;
-		int timeout = 10000;
-		boolean framed = false;
-
-		TTransport transport = new TSocket(host, port, timeout);
-		if (framed) {
-			transport = new TFramedTransport(transport);
-		}
-		TProtocol protocol = new TBinaryProtocol(transport);
-		// This is our thrift client.
-		THBaseService.Iface client = new THBaseService.Client(protocol);
-
-		// open the transport
-		transport.open();
-		List<T> t =  performGet(client,entity);
-		transport.close();
-		return t;
-	}
-
 	protected abstract void performSave(THBaseService.Iface client, Object entity);
 	protected abstract List<T> performGet(THBaseService.Iface client, Object entity);
 	
@@ -131,28 +80,5 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			}
 		}
 		return fieldsArray;
-	}
-	protected THBaseService.Iface geHBaseClient() {
-		String host = "52.27.63.94";
-		int port = 9095;
-		int timeout = 10000;
-		boolean framed = false;
-
-		TTransport transport = new TSocket(host, port, timeout);
-		if (framed) {
-			transport = new TFramedTransport(transport);
-		}
-		TProtocol protocol = new TBinaryProtocol(transport);
-		// This is our thrift client.
-		THBaseService.Iface client = new THBaseService.Client(protocol);
-
-		// open the transport
-		try {
-			transport.open();
-		} catch (TTransportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return client;
 	}
 }

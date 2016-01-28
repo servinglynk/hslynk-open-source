@@ -1,9 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -22,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity (name = "bulk_upload")
 @Table(name = "bulk_upload", catalog = "hmis", schema = "live")
-public class BulkUpload implements Cloneable, Serializable {
+public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	/** Serial Version UID. */
@@ -36,16 +34,10 @@ public class BulkUpload implements Cloneable, Serializable {
 	private Long id;
 	private String inputPath;
 	private String status;
-	private Date insertAt ;
-	private String insertBy;
-	private Date updateAt;
-	private String updateBy;
+	private Long size;
 	/** Field mapping. */
 	private Export export;
-
-//	protected abstract void setId(Long id);
-
-//	public abstract Long getId();
+	private String description;
 
 	 /**
 	 * Return the value associated with the column: export.
@@ -70,44 +62,6 @@ public class BulkUpload implements Cloneable, Serializable {
 		this.export = export;
 	}
 	
-	
-	
-	@Column(name = "insert_at")
-	public Date getInsertAt() {
-		return insertAt;
-	}
-
-	public void setInsertAt(Date insertAt) {
-		this.insertAt = insertAt;
-	}
-
-	@Column(name = "insert_by")
-	public String getInsertBy() {
-		return insertBy;
-	}
-
-	public void setInsertBy(String insertBy) {
-		this.insertBy = insertBy;
-	}
-
-	@Column(name = "update_at")
-	public Date getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
-	}
-
-	@Column(name = "update_by")
-	public String getUpdateBy() {
-		return updateBy;
-	}
-
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
-	
 	@Id
 	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="bulk_upload_id_seq", name="bulk_upload_id_seq" , catalog = "hmis", schema = "live")
 	@GeneratedValue(generator="bulk_upload_id_seq", strategy=GenerationType.SEQUENCE )
@@ -118,6 +72,19 @@ public class BulkUpload implements Cloneable, Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	@Column(name = "size")
+	public Long getSize() {
+		return size;
+	}
+
+
+
+	public void setSize(Long size) {
+		this.size = size;
+	}
+
+
 
 	@Column(name = "status")
 	public String getStatus() {
@@ -135,6 +102,18 @@ public class BulkUpload implements Cloneable, Serializable {
 
 	public void setInputPath(String inputPath) {
 		this.inputPath = inputPath;
+	}
+
+
+	@Column(name = "description")
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 

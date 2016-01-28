@@ -56,7 +56,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 			schoolstatusModel.setExport(exportEntity);
 			exportEntity.addSchoolstatus(schoolstatusModel);
-			hydrateCommonFields(schoolstatusModel, exportEntity.getUser());
+			hydrateCommonFields(schoolstatusModel, domain);
 			insertOrUpdate(schoolstatusModel);
 			}
 		}

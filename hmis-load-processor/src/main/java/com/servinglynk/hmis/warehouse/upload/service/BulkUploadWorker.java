@@ -46,38 +46,19 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	@Transactional
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
-		
 		try {
-			
-			File[] files = new File(env.getProperty("upload.loc")).listFiles();
-			//If this pathname does not denote a directory, then listFiles() returns null. 
-			if(files !=null && files.length > 0 )
-			for (File file : files) {
-			    if (file.isFile()) {
-			        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
-			        BulkUpload upload = new BulkUpload();
-					upload.setInputPath(env.getProperty("upload.backup.loc")+file.getName());
-					upload.setStatus("INITIAL");
-					upload.setInsertAt(new Date());
-					upload.setUpdateAt(new Date());
-					upload.setInsertBy("ADMIN");
-					upload.setUpdateBy("ADMIN");
-					daoFactory.getBulkUploaderWorkerDao().insert(upload);
-			    }
-			}
-			
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
-			
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload bullkUpload : uploadEntities) {
+					File file = new File(bullkUpload.getInputPath());
 					factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
-					//bullkUpload.setStatus("COMPLETE");
-				//	factory.getBulkUploaderWorkerDao().update(bullkUpload);
-					new File(bullkUpload.getInputPath()).delete();
+					if (file.isFile()) {
+				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
+				        new File(bullkUpload.getInputPath()).delete();
+					}
 				}
 			}
-			
-			logger.info("Sandeep Testing");
+			logger.info("========Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,27 +145,5 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 		}
 		return fieldsArray;
 	}
-//	@Transactional
-//	@Scheduled(initialDelay=20,fixedDelay=10000)
-//	public void movetoLive() throws ReportCreationException{
-//		
-//		try {
-//			
-//			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findUnProcessedUploads(UploadStatus.STAGING.getStatus());
-//			
-//			if(uploadEntities!=null && uploadEntities.size() >0 ) {
-//				for(BulkUpload bullkUpload : uploadEntities) {
-//					//factory.getBulkUploaderDao().performBulkUpload();
-//					bullkUpload.setStatus("COMPLETE");
-//					factory.getBulkUploaderWorkerDao().update(bullkUpload);
-//				}
-//			}
-//			logger.info("Sandeep Testing");
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
-//	}
 
 }

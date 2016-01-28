@@ -50,7 +50,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 			referralsourceModel.setExport(exportEntity);
 			exportEntity.addReferralsource(referralsourceModel);
-			hydrateCommonFields(referralsourceModel, exportEntity.getUser());
+			hydrateCommonFields(referralsourceModel, domain);
 			insertOrUpdate(referralsourceModel);
 		}
 	}

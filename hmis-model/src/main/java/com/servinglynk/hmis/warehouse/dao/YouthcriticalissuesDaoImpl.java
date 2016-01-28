@@ -98,7 +98,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(youthCriticalIssues.getProjectEntryID()));
 				youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
-				hydrateCommonFields(youthcriticalissuesModel, exportEntity.getUser());
+				hydrateCommonFields(youthcriticalissuesModel, domain);
 				insertOrUpdate(youthcriticalissuesModel);
 			}
 		}

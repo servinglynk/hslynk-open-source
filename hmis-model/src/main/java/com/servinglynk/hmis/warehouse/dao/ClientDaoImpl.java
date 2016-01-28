@@ -113,7 +113,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 				exportEntity.addClient(clientModel);
 				clientModel.setUser(exportEntity.getUser());
-				hydrateCommonFields(clientModel, exportEntity.getUser());
+				hydrateCommonFields(clientModel, domain);
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
 				String dedupedId = dedupHelper.getDedupedClient(clientModel);

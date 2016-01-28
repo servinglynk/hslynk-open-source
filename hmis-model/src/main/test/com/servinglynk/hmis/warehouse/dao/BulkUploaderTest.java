@@ -19,7 +19,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest1;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -39,7 +38,7 @@ public class BulkUploaderTest {
 	@Autowired
 	ParentDaoFactory factory;
 	
-	@Test
+	@Test 
 	public void test() throws JAXBException
 	{
 		SyncDomain domain = new SyncDomain();
@@ -69,24 +68,15 @@ public class BulkUploaderTest {
 		dao.performBulkUpload(upload);
 	}
 	@Test
-	public void testCSVZip() throws JAXBException
+	public void testCSVZip() throws Exception
 	{
-		SyncDomain domain = new SyncDomain();
-//		factory.getEnrollmentDao().hydrateHBASE(domain);
-		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploadHelperTest1.class.getResource("CSV_files.zip");
-		upload.setInputPath(path.getFile());
-		BulkUpload  uploadResult =   dao.performBulkUpload(upload);
-		/*File file = new File(
-				path.getFile());
-		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
-
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
-		Source source = sources.getSource();
-		Export export = uploadResult.getExport();
-		Export stagingExport = (Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.staging.Export.class, export.getId());
-		Set<Enrollment> enrollments = stagingExport.getEnrollments(); */
+		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
+		if(uploadEntities!=null && uploadEntities.size() >0 ) {
+			for(BulkUpload bullkUpload : uploadEntities) {
+				factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
+			}
+		}
+		//logger.info("========Bulk Uploader processed ======");
 	}
 	@Test
 	public void deleteExportFromStaging() {
@@ -101,11 +91,10 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void moveToLive() throws Exception {
-		ExportDomain domain = new ExportDomain();
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExport() !=null) {
-				dao.moveFromStagingToLive(upload.getExport().getId());		
+				dao.moveFromStagingToLive(upload);		
 			}
 		}
 		

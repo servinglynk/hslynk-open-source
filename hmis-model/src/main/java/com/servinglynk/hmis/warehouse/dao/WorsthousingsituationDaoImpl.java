@@ -50,7 +50,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID()));
 				worsthousingsituationModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addWorsthousingsituation(worsthousingsituationModel);
-				hydrateCommonFields(worsthousingsituationModel, exportEntity.getUser());
+				hydrateCommonFields(worsthousingsituationModel, domain);
 				insertOrUpdate(worsthousingsituationModel);
 			}
 		}
