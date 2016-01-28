@@ -56,7 +56,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				lastPermAddressModel.setExport(exportEntity);
 				exportEntity.addLastPermAddress(lastPermAddressModel);
-				hydrateCommonFields(lastPermAddressModel, exportEntity.getUser());
+				hydrateCommonFields(lastPermAddressModel, domain);
 				insertOrUpdate(lastPermAddressModel);
 			}
 		}

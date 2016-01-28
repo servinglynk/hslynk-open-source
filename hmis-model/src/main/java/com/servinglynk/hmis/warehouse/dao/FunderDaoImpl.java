@@ -50,7 +50,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				funderModel.setExport(exportEntity);
 				funderModel.setProjectid(project);
-				hydrateCommonFields(funderModel, exportEntity.getUser());
+				hydrateCommonFields(funderModel, domain);
 				exportEntity.addFunder(funderModel);
 				insertOrUpdate(funderModel);
 			}

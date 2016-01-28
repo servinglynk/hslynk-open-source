@@ -52,7 +52,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 				formerwardchildwelfareModel.setExport(exportEntity);
 				formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addFormerwardchildwelfare(formerwardchildwelfareModel);
-				hydrateCommonFields(formerwardchildwelfareModel, exportEntity.getUser());
+				hydrateCommonFields(formerwardchildwelfareModel, domain);
 				insertOrUpdate(formerwardchildwelfareModel);
 			}
 		}

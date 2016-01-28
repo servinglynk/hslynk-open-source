@@ -49,7 +49,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				percentamoModel.setExport(exportEntity);
 				exportEntity.addPercentami(percentamoModel);
-				hydrateCommonFields(percentamoModel, exportEntity.getUser());
+				hydrateCommonFields(percentamoModel, domain);
 				insertOrUpdate(percentamoModel);
 			}
 		}

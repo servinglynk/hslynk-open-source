@@ -17,6 +17,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
+import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
@@ -27,13 +28,13 @@ import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	
-	public void hydrateCommonFields(HmisBaseModel baseModel,HmisUser user) {
+	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.live.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
 	}
-	public void hydrateCommonFields(HmisBaseStagingModel baseModel,HmisUser user) {
-		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
-		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
+	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain) {
+		String projectGroupCode = domain.getUpload().getProjectGroupCode();
+		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "default");
 	}
 	protected abstract void performSave(THBaseService.Iface client, Object entity);
 	protected abstract List<T> performGet(THBaseService.Iface client, Object entity);

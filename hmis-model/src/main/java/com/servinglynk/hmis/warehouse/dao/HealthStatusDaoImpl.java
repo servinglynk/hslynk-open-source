@@ -58,7 +58,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				healthStatusModel.setExport(exportEntity);
 				exportEntity.addHealthStatus(healthStatusModel);
-				hydrateCommonFields(healthStatusModel, exportEntity.getUser());
+				hydrateCommonFields(healthStatusModel, domain);
 				insertOrUpdate(healthStatusModel);
 			}
       	  }

@@ -98,7 +98,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setExport(exportEntity);
 				vInfo.setUser(exportEntity.getUser());
 				exportEntity.addVeteranInfo(vInfo);
-				hydrateCommonFields(vInfo, exportEntity.getUser());
+				hydrateCommonFields(vInfo, domain);
 				insert(vInfo);
 			}
 		}

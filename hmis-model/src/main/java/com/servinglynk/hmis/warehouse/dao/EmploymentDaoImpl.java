@@ -58,7 +58,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				}
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				employmentModel.setExport(exportEntity);
-				hydrateCommonFields(employmentModel, exportEntity.getUser());
+				hydrateCommonFields(employmentModel, domain);
 				exportEntity.addEmployment(employmentModel);
 				insertOrUpdate(employmentModel);				
 			}

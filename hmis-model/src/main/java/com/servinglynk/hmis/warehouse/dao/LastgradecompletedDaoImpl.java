@@ -63,7 +63,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				lastGradeCompletedModel.setExport(exportEntity);
 				exportEntity.addLastgradecompleted(lastGradeCompletedModel);
-				hydrateCommonFields(lastGradeCompletedModel, exportEntity.getUser());
+				hydrateCommonFields(lastGradeCompletedModel, domain);
 				insertOrUpdate(lastGradeCompletedModel);
 			}
 		}

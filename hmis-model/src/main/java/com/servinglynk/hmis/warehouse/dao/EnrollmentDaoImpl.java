@@ -125,7 +125,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setExport(exportEntity);
 				enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
-				hydrateCommonFields(enrollmentModel, exportEntity.getUser());
+				hydrateCommonFields(enrollmentModel, domain);
 				insert(enrollmentModel);
 			}
 		}
