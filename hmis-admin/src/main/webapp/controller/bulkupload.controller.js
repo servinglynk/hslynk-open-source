@@ -4,7 +4,7 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
 	$scope.sessionToken = $sessionStorage.sessionToken;
 
     $scope.submitForm = function (file) {
-
+    	$scope.projectGroupCode = $sessionStorage.account.projectGroup.projectGroupCode;
         $scope.infoTextAlert = "Please wait uploading....";
         $scope.showInfoAlert = true;
         Service.bulkupload($http, $scope,file,
@@ -13,14 +13,14 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
                 $scope.switchBool("showInfoAlert");
                 $scope.successTextAlert = "File has been uploaded successfully.";
                 $scope.showSuccessAlert = true;
-				$location.path("/admin/managesync");
+				$location.path("/admin/managefiles");
             },
 //error
        function () {
-			   $location.path("/admin/managesync");
-          // $scope.switchBool("showInfoAlert");
-           //$scope.errorTextAlert = "Error, Something gone wrong.";
-          // $scope.showErrorAlert = true;
+		//	   $location.path("/admin/managefiles");
+           $scope.switchBool("showInfoAlert");
+           $scope.errorTextAlert = "Error, Something gone wrong.";
+           $scope.showErrorAlert = true;
            
        })
 

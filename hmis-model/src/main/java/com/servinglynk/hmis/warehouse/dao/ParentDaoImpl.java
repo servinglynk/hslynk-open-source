@@ -32,8 +32,9 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
 	}
 	public void hydrateCommonFields(HmisBaseStagingModel baseModel,HmisUser user) {
-		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+		/*ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "default");
+		*/
 	}
 	protected abstract void performSave(THBaseService.Iface client, Object entity);
 	protected abstract List<T> performGet(THBaseService.Iface client, Object entity);

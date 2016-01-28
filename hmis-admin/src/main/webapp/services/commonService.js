@@ -213,6 +213,9 @@ GetProjectGroups: function ($http,$scope, success) {
                     "role" : {
                     	"id": data.role.id
                     },
+                    "projectGroup" : {
+                    	projectGroupId : data.projectgroup.projectGroupId
+                    },
                     "profile" : {
                     	"id" : data.profile.id
                     }

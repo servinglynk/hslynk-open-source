@@ -42,11 +42,9 @@ public class LiveWorker  extends ParentService implements ILiveWorker  {
 			List<BulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
 			if(stagingUploadEntities!=null && stagingUploadEntities.size() >0 ) {
 				for(BulkUpload bulkUpload : stagingUploadEntities) {
-					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload.getExport().getId());
-					bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
-					factory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload); 
+					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload);
 				}
-			logger.info("Sandeep Testing");
+			logger.info("Bulk Uploader completed Live processing==============");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -34,6 +34,7 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 	private Long id;
 	private String inputPath;
 	private String status;
+	private Long size;
 	/** Field mapping. */
 	private Export export;
 	private String description;
@@ -71,6 +72,19 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	@Column(name = "size")
+	public Long getSize() {
+		return size;
+	}
+
+
+
+	public void setSize(Long size) {
+		this.size = size;
+	}
+
+
 
 	@Column(name = "status")
 	public String getStatus() {

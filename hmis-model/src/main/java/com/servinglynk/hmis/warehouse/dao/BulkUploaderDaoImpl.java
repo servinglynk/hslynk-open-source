@@ -130,7 +130,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public void moveFromStagingToLive(UUID exportId) {
+	public void moveFromStagingToLive(BulkUpload bulkUpload) {
+		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 		parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
@@ -167,6 +168,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
 		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
 		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);
+		bulkUpload.setStatus("LIVE");
+		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload); 
 	}
 	
 	@Override

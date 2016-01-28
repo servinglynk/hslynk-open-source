@@ -92,8 +92,8 @@ public abstract class HmisBaseModel implements Entity{
 
 			private UUID parentId;
 			
-			@Basic( optional = false )
-			@Column( name = "parent_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+			@Basic( optional = true )
+			@Column( name = "parent_id", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 			public UUID getParentId() {
 				return parentId;
 			}
@@ -103,8 +103,8 @@ public abstract class HmisBaseModel implements Entity{
 			}
 			
 			private Long version;
-			
-			@Column( name = "version", nullable = false  )
+			@Basic( optional = true )
+			@Column( name = "version", nullable = true  )
 			public Long getVersion() {
 				return version;
 			}
