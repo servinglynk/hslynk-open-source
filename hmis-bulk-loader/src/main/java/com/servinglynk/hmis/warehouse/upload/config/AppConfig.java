@@ -24,7 +24,7 @@ import com.servinglynk.hmis.warehouse.upload.config.SpringConfig;
 @EnableScheduling
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
-	 @Bean
+	 @Bean(name="multipartResolver")
 	 public CommonsMultipartResolver commonsMultipartResolver(){
 	     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 	     commonsMultipartResolver.setDefaultEncoding("utf-8");

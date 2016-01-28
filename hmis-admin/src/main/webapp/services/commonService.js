@@ -140,7 +140,8 @@ bulkupload: function ($http, $scope,file, success, error) {
     headers: {
         'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
           'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-          'Accept': 'application/json;odata=verbose'} //TODO change accept to multipart.
+           'Content-Type': undefined
+      } //TODO change accept to multipart.
      }).success(function () { success() }).error(error);
   		
     },

@@ -224,45 +224,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	}
 
 	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		
-		List<com.servinglynk.hmis.warehouse.model.live.Enrollment> enrollments = recordsToSync(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, syncDomain);
-		// insert into HBASE
-		if(!CollectionUtils.isEmpty(enrollments)) {
-			for(com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment : enrollments) {
-					String[] nonCollectionFields = getNonCollectionFields(enrollment);
-					UUID  rowkey = enrollment.getId();
-							// Insert data into an HBASE table  with in a column Family called Client
-					//TOOD: Need to verify Exception Handling
-					try {
-						Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(enrollment);
-						// Call HBaseImport Insert
-						//	HBaseImport baseImport = new HBaseImport();
-						//	baseImport.insert("", "enrollment", rowkey.toString(), nonCollectionFields, data);
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-			}	
-		}
-		// TODO Auto-generated method stub
-		com.servinglynk.hmis.warehouse.model.live.Enrollment entity = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
-		entity.setDateCreated(LocalDateTime.now());
-		entity.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.ONE);
-		entity.setHousingstatus(EnrollmentHousingstatusEnum.ONE);
-		entity.setYearshomeless(3);
-		entity.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.ONE);
-		performSave(geHBaseClient(), entity);
-	}
-
-	@Override
 	public com.servinglynk.hmis.warehouse.model.live.Enrollment createEnrollment(
 			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
 			enrollment.setId(UUID.randomUUID());
@@ -312,6 +273,12 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		return countRows(criteria);
+	}
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

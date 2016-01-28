@@ -2366,11 +2366,19 @@ CREATE TABLE "live".bulk_upload
   id bigint NOT NULL,
   inputPath text,
   status character(10),
-  insert_at timestamp,
-  update_at timestamp,
-  insert_by character(100),
-  update_by character(100),
-   export_id uuid,
+  description text,
+  export_id uuid,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+   CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
+      REFERENCES live.hmis_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES live.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2463,6 +2471,7 @@ CREATE TABLE live.hmis_service
   external_product_id character varying(128),
   created_at date NOT NULL,
   modified_at timestamp,
+  
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   deleted timestamp,
@@ -2909,7 +2918,7 @@ INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('27aa0372-0299-4661-a519-ef5557bda8a1', 'USR_UPDATE_PROJECTGROUP', 'USR_UPDATE_ROJECTGROUP', 'USR_UPDATE_ROJECTGROUP', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4876e8ea-967e-4dc5-9679-091e033e6433', 'USR_DELTEE_PROJECTGROUP', 'USR_DELTEE_PROJECTGROUP', 'USR_DELTEE_PROJECTGROUP', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0820b', 'USR_GET_PROJECTGROUP_ID', 'USR_GET_PROJECTGROUP_ID', 'USR_GET_PROJECTGROUP_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850c', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
 
 
 CREATE SEQUENCE "live".seq_developer_company START 1;

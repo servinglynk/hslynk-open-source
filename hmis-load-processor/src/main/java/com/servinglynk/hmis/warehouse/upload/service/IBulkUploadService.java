@@ -9,7 +9,6 @@ import com.servinglynk.hmis.warehouse.upload.business.service.core.IParentServic
 
 public interface IBulkUploadService extends IParentService {
 
-	public void createBulkUploadEntry(String filPath);
 	public List<BulkUpload> getBulkUploads(String status) throws Exception;
 	public List<Sync> getSyncs();
 }
