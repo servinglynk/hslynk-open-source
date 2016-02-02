@@ -49,7 +49,7 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private FunderFunderEnum funder;
 	/** Field mapping. */
-	private java.util.UUID grantid;
+	private String grantid;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
@@ -157,10 +157,9 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: grantid.
 	 * @return A java.util.UUID object (this.grantid)
 	 */
-	   @Id
-		@Basic( optional = false )
-		@Column( name = "grantid", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-	public java.util.UUID getGrantid() {
+	@Basic( optional = true )
+	@Column( name = "grantid", length = 400  )
+	public String getGrantid() {
 		return this.grantid;
 
 	}
@@ -171,7 +170,7 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: grantid.
 	 * @param grantid the grantid value you wish to set
 	 */
-	public void setGrantid(final java.util.UUID grantid) {
+	public void setGrantid(final String grantid) {
 		this.grantid = grantid;
 	}
 

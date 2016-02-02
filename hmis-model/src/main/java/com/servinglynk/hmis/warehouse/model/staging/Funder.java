@@ -1,8 +1,5 @@
 package com.servinglynk.hmis.warehouse.model.staging;
 
-import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
-import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -20,11 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
 
 
 /** 
@@ -48,25 +44,18 @@ public class Funder extends HmisBaseStagingModel  implements Cloneable, Serializ
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
 	
-
-	/** Field mapping. */
-	private LocalDateTime dateCreated;
-	/** Field mapping. */
-	private LocalDateTime dateUpdated;
 	/** Field mapping. */
 	private LocalDateTime enddate;
 	/** Field mapping. */
 	private FunderFunderEnum funder;
 	/** Field mapping. */
-	private java.util.UUID grantid;
+	private String grantid;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private Project projectid;
 	/** Field mapping. */
 	private LocalDateTime startdate;
-	/** Field mapping. */
-	private HmisUser user;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -168,19 +157,16 @@ public class Funder extends HmisBaseStagingModel  implements Cloneable, Serializ
 	 * @return A java.util.UUID object (this.grantid)
 	 */
 	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getGrantid() {
+	@Column( name = "grantid", length = 400  )
+	public String getGrantid() {
 		return this.grantid;
-		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: grantid.
 	 * @param grantid the grantid value you wish to set
 	 */
-	public void setGrantid(final java.util.UUID grantid) {
+	public void setGrantid(final String grantid) {
 		this.grantid = grantid;
 	}
 

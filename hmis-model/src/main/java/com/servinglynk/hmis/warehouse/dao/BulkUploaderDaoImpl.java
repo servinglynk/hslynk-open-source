@@ -109,6 +109,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setExport(exportLive);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
+			upload.setStatus("ERROR");
+			upload.setDescription(e.getMessage());
+			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			e.printStackTrace();
 		}
 		return upload;

@@ -1234,7 +1234,7 @@ create table  "staging".funder
 "id"  uuid not null,
   "enddate" timestamp,
   "funder" "staging".federal_partner_components,
-  "grantid" uuid,
+  "grantid" text,
   "projectid" uuid,
   "startdate" timestamp,
   "project_group_code" character varying(8),
