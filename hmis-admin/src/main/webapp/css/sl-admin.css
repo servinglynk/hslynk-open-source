@@ -251,3 +251,57 @@ h4
 {
 	padding-bottom: 20px;
 }
+.tile p {
+	display:table-cell;
+	vertical-align:middle;
+	font-size:22px;
+}
+.tile:hover {
+	opacity:0.6;
+}
+.tile a:hover {
+	text-decoration:none;
+}
+.tile {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	text-align: center;
+	display: table;
+	padding: 0 1em;
+ -webkit-transition: all .3s ease;
+ transition: all .3s ease;
+	padding-bottom:20px;
+}
+.onBoardDev
+{
+	background-color:#3EC7F3;height:100px;
+}
+
+.onBoardUser
+{
+background-color:#FCC120;color:#FFF;height:100px;
+}
+.onBoardFellow
+{
+background-color:#56D9C9;color:#FFF;height:100px;
+}
+.OnBoardApp
+{
+	background-color:#F0514A;color:#FFF;height:100px;
+}
+.dashboard a
+{
+	color:#FFF;font-size:24px;
+}
+
+/* numbered buttons */
+#status-buttons a               {  display:inline-block; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a:hover         { text-decoration:none; }
+#status-buttons span            { background:#d6d7d9; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
+    border-radius:50%; }
+
+/* active buttons */
+#status-buttons a.active span   { background:#3089a8; color:#FFF;}

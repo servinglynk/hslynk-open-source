@@ -1319,7 +1319,7 @@ create table  "live".funder
 "id"  uuid not null,
   "enddate" timestamp,
   "funder" "live".federal_partner_components,
-  "grantid" uuid,
+  "grantid" text,
   "projectid" uuid,
   "startdate" timestamp,
   "project_group_code" character varying(8),

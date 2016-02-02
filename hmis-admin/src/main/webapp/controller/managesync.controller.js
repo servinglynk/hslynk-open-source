@@ -1,8 +1,11 @@
 app.controller('ModalInstanceCtrl', function($scope,$location,$routeSegment,$http, $timeout,datajson) {
 	 $scope.datajson =datajson;
 });
-app.controller('managesyncCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal) {
-    
+app.controller('managesyncCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
     Service.GetSyncFilesList($http,
     //success
     function(data){

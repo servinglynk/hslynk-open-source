@@ -8,8 +8,11 @@ app.filter('startFrom', function() {
         return [];
     }
 });
-app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout) {
-    
+app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
     Service.GetFilesListSTAGING($http,
     //success
     function(data){

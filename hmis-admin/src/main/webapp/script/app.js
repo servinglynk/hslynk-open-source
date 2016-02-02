@@ -70,7 +70,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			   
 			    .when('/admin/createuser',      's2.createuser')
 			   .when('/admin/manageuser',      's2.manageuser')
-			   
+			     .when('/admin/onboarddevelopmentcompany',      's2.onboarddevelopmentcompany')
         .segment('s1', {
             templateUrl: 'templates/login.html'})
         .segment('s4', {
@@ -121,13 +121,26 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 .segment('manageuser', {
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})
                 
-                
+                 .segment('onboarddevelopmentcompany', {
+                templateUrl: 'templates/partial/onboarddevelopmentcompany.html', controller: 'onboarddevelopmentcompanyCtrl'})
+           
                 
         .up()
         
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect
 }) ;
-
+app.run(['$rootScope', '$location', '$sessionStorage', '$http',
+         function ($rootScope, $location, $sessionStorage, $http) {
+             // keep user logged in after page refresh
+     	
+	
+     		// here we have to check why keep out(isLoggedIn is undefined  when dashbaorad load)
+     		//$sessionStorage.isLoggedIn=true;
+     		 if ($location.path() !== '/login' && $sessionStorage.isLoggedIn==undefined) {
+                  // $location.path('/login');
+     	       }
+       
+         }]);
 app.value('loader', { show: false });
 
 app.directive('appFilereader', function ($q) {

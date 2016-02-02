@@ -1,6 +1,9 @@
 
-app.controller('managereportCtrl', function($scope,$location,$routeSegment,$http, $timeout) {
-    
+app.controller('managereportCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
     Service.GetReports($http,
     //success
     function(data){

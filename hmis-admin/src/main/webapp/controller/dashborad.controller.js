@@ -6,7 +6,9 @@ app.controller('dashboradCtrl', function($scope,$location,$routeSegment,$http, $
 	$sessionStorage.authToken = $scope.authToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
+		
 	}
+	
 	var sessionToken = $sessionStorage.sessionToken;
 	if(!sessionToken) {
 		Service.getToken($http,$scope,  //success

@@ -1,5 +1,9 @@
 
-app.controller('settingCtrl', function($scope,$location,$routeSegment,$http, $timeout) {
+app.controller('settingCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
   $scope.submitForm = function() {
        Service.SaveSetting($http,$scope,
     //success

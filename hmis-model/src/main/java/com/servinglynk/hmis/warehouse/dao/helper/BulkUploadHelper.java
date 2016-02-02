@@ -24,6 +24,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -107,9 +108,29 @@ public class BulkUploadHelper {
 	public Sources getSourcesForXml(BulkUpload upload) {
 		try {
 			File file = new File(upload.getInputPath());
+		    File tempFile = new File(file.getPath()+System.currentTimeMillis()+"temp.xml");
+			try {
+			     String content = FileUtils.readFileToString(file, "UTF-8");
+			     content = content.replaceAll("hmis:", "");
+			     FileUtils.writeStringToFile(tempFile, content, "UTF-8");
+			  } catch (IOException e) {
+			     //Simple exception handling, replace with what's necessary for your use case!
+			     throw new RuntimeException("Generating file failed", e);
+			  }
+//			   String stylesheetPathname = "";
+//			    String inputPathname ="";
+//			    String outputPathname = "";
+//
+//		    TransformerFactory factory = TransformerFactory.newInstance();
+//		    Source stylesheetSource = new StreamSource(new File(stylesheetPathname).getAbsoluteFile());
+//		    Transformer transformer = factory.newTransformer(stylesheetSource);
+//		    Source inputSource = new StreamSource(new File(inputPathname).getAbsoluteFile());
+//		    Result outputResult = new StreamResult(new File(outputPathname).getAbsoluteFile());
+//		    transformer.transform(inputSource, outputResult);
+		    
 			JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
+			Sources sources = (Sources) jaxbUnmarshaller.unmarshal(tempFile);
 			return sources;
 			}
 			 catch (JAXBException e) {

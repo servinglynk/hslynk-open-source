@@ -1,7 +1,5 @@
 package com.servinglynk.hmis.warehouse.model.live;
 
-import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -19,11 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
 
 
 /**
@@ -162,7 +159,7 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	   @Id
 		@Basic( optional = false )
-		@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+		@Column( name = "grantid", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getGrantid() {
 		return this.grantid;
 

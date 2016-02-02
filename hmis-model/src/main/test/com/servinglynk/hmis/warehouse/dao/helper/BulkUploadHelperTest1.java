@@ -291,4 +291,13 @@ public class BulkUploadHelperTest1 {
 		Sources sources = helper.getSourcesFromFiles(upload);
 		assertNotNull(sources);
 	}
+	
+	@Test
+	public void testXMLUploadWithOriginalFile() {
+		URL path = BulkUploadHelper.class.getResource("HUD_4_0__6.xml");
+		BulkUpload upload = new BulkUpload();
+		upload.setInputPath(path.getFile());
+		Sources sources = helper.getSourcesFromFiles(upload);
+		assertNotNull(sources);
+	}
 }

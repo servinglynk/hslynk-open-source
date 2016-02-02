@@ -19,6 +19,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -62,7 +63,7 @@ public class BulkUploaderTest {
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploaderTest.class.getResource("outputhmis-model.xml");
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		upload.setInputPath(path.getFile());
 		
 		dao.performBulkUpload(upload);

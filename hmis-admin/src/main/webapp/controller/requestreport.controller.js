@@ -1,6 +1,9 @@
 
-app.controller('requestreportCtrl', function($scope,$location,$routeSegment,$http, $timeout) {
-											 
+app.controller('requestreportCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+										 
 	Service.GetProjectList($http,
     //success
     function(data){$scope.projects =data;  })

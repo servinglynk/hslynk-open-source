@@ -2,7 +2,10 @@
 
 app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $http, $timeout,$sessionStorage){
 	$scope.sessionToken = $sessionStorage.sessionToken;
-
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
     $scope.submitForm = function (file) {
     	$scope.projectGroupCode = $sessionStorage.account.projectGroup.projectGroupCode;
         $scope.infoTextAlert = "Please wait uploading....";

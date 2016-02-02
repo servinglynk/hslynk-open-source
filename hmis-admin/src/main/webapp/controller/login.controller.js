@@ -1,5 +1,6 @@
 ﻿/* Login */
 app.controller('validateLoginCtrl', function($scope,$location,$routeSegment) {
+	
   $scope.SubmitLogin = function() {
 
 	if($scope.email=="admin@servinglynk.com" && $scope.password=="admin")

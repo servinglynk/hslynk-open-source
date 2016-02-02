@@ -2,6 +2,9 @@
 app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	console.log('Session Token..'+$scope.sessionToken);	
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
 	
 	Service.GetProjectList($http,	
     //success

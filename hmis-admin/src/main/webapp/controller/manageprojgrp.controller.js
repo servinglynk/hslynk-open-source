@@ -1,5 +1,9 @@
 
 app.controller('manageprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
 	$scope.sessionToken = $sessionStorage.sessionToken;
     Service.GetProjectGroups($http,$scope,
     //success

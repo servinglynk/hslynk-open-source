@@ -3,6 +3,10 @@ app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$htt
 	//$rootScope.sessionToken = $window.localStorage.getItem('sessionToken');
 	console.log('Session Token..'+$sessionStorage.sessionToken);	
 	$scope.sessionToken = $sessionStorage.sessionToken;
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
 	Service.GetProjectList($http,
     //success
     function(data){$scope.projects =data;  }),

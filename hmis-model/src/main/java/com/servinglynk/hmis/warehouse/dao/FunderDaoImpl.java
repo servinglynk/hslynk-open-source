@@ -41,7 +41,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				UUID id = UUID.randomUUID();
 				funderModel.setId(id);
 				funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
-				//funderModel.setGrantid(under.getGrantID());
+				//funderModel.setGrantid(funder.getGrantID());
 				funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
 				funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
 				funderModel.setDateCreated(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
