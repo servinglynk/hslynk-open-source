@@ -431,8 +431,10 @@ public class DatabaseConfig {
 		return new ProjectGroupDaoImpl();
 	}
 	
-	
-	
+	@Bean
+	public PropertyDaoImpl propertyDao(){
+		return new PropertyDaoImpl();
+	}
 	
 	
 }

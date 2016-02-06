@@ -20,20 +20,20 @@
 	<module>hmis-admin</module>
 	<module>hmis-client</module>
 	<module>hmis-serialize</module>
-	<module>hmis-bulk-loader-service</module>
+<!-- 	<module>hmis-bulk-loader-service</module>
 	<module>hmis-load-processor</module>
-	<module>hmis-bulk-loader</module>
+	<module>hmis-bulk-loader</module> -->
 	<module>hmis-authorizationservice</module>
-	<module>hmis-client-dedup</module>
+<!-- 	<module>hmis-client-dedup</module> -->
 	<module>hmis-developerservice</module>
 	<module>hmis-report-core</module>
-	<module>hmis-sync</module>
+	<!-- <module>hmis-sync</module> -->
 	<module>hmis-userservice</module>
 	<module>hmis-notification-core</module>
 	<module>notification-service</module>
 	<module>hmis-report-service</module>
 	<module>hmis-clientapi</module>
-	<module>sync-processor</module>
+<!-- 	<module>sync-processor</module> -->
     </modules>
 	<build>
 		<pluginManagement>

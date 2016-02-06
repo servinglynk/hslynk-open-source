@@ -3,8 +3,10 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.AuthorizationsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentMessagesController;
+import com.servinglynk.hmis.warehouse.rest.PropertyController;
+import com.servinglynk.hmis.warehouse.service.core.PropertyReaderServiceImpl;
 
 
 @Configuration
@@ -76,7 +80,22 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return new ConsentMessagesController();
 	}
 	
-	@Resource
-	private Environment env;
+	@Autowired
+	Environment env;
+	
+	@Bean
+	PropertyReaderServiceImpl propertyReaderService(){
+		return new PropertyReaderServiceImpl();
+	}
+	
+	@Bean
+	PropertyController propertyController(){
+		return new PropertyController();
+	}
+	
+	 @PostConstruct
+	 public void initializeDatabasePropertySourceUsage() {
+		 propertyReaderService().loadProperties("HMIS_AUTHORIZATION_SERVICE");
+	 }
 
 }
