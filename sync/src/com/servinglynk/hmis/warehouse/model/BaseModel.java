@@ -14,6 +14,8 @@ public class BaseModel {
 	public UUID user_id;
 	@Column(name="export_id")
 	public UUID export_id;
+	@Column(name="deleted")
+	public boolean deleted;
 	@Column(name="project_group_code")
 	public String project_group_code;
 	

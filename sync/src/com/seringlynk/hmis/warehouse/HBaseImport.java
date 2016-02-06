@@ -2,20 +2,20 @@ package com.seringlynk.hmis.warehouse;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
+import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 
 public class HBaseImport {
@@ -94,6 +94,30 @@ public class HBaseImport {
 		}
 		return table;
 	}
+	 	
+	public void updateData(String tableName,String rowKey) {
+		HTable table = null;
+		try {
+			table = new HTable(conf, tableName);
+		      //accepts a row name
+		      Put p = new Put(Bytes.toBytes(rowKey));
+		      // Updating a cell value
+		  //    p.add(Bytes.toBytes("CF"),
+		   //  Bytes.toBytes("date_updated"),Bytes.toBytes();
+		      p.add(Bytes.toBytes("CF"),
+		 		     Bytes.toBytes("deleted"),Bytes.toBytes("true"));
+		      // Saving the put Instance to the HTable.
+		      table.put(p);
+		      System.out.println("data Updated"+tableName);
+		      // closing HTable
+		      table.close();
+//			}
+	      // closing the HTable object
+																																																																																																																																																																																																																																																																																																																																																																																																									
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void checkIfRunning() throws MasterNotRunningException,
 			ZooKeeperConnectionException {
@@ -116,7 +140,22 @@ public class HBaseImport {
 		boolean result = admin.isTableAvailable(tablename);
 		System.out.println("Table " + tablename + " available ?" + result);
 	}
-
+	public boolean isDataExist(String tableName,String rowKey){
+		HTable table = null;
+		try {
+			table = new HTable(conf, tableName);
+		// Instantiating Get class
+	      Get g = new Get(Bytes.toBytes(rowKey));
+	      // Reading the data
+	      Result result = table.get(g);
+	      if(result !=null) {
+	    	  return true;
+	      }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	public void tableExists(String tablename) throws IOException {
 		HBaseAdmin admin = new HBaseAdmin(conf);
 		boolean result = admin.tableExists(tablename);
@@ -135,40 +174,40 @@ public class HBaseImport {
 		String tableName = "Test_table";
 		String familyName = "CF1";
 
-		List<String> columns = new ArrayList<String>(10);
-		columns.add("name");
-		columns.add("age");
-		columns.add("dob");
-		columns.add("gender");
-
-		List<List<String>> list = getTestDataForCF1(columns);
-
-		admin.createTable(tableName, familyName);
-		System.out.println("***********************");
-		admin.isTableAvailable(familyName);
-		System.out.println("***********************");
-		String rowKey = RandomStringUtils.randomAlphanumeric(10);
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			List<String> data = (List<String>) iterator.next();
-			admin.insert(tableName, familyName, rowKey, columns, data);
-		}
-
-		familyName = "CF2";
-
-		columns = new ArrayList<String>(10);
-		columns.add("name1");
-		columns.add("age1");
-		columns.add("dob1");
-		columns.add("gender1");
-		list = getTestDataForCF2(columns);
-
-		rowKey = RandomStringUtils.randomAlphanumeric(10);
-
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			List<String> data = (List<String>) iterator.next();
-			admin.insert(tableName, familyName, rowKey, columns, data);
-		}
-
+//		List<String> columns = new ArrayList<String>(10);
+//		columns.add("name");
+//		columns.add("age");
+//		columns.add("dob");
+//		columns.add("gender");
+//
+//		List<List<String>> list = getTestDataForCF1(columns);
+//
+//		admin.createTable(tableName, familyName);
+//		System.out.println("***********************");
+//		admin.isTableAvailable(familyName);
+//		System.out.println("***********************");
+//		String rowKey = RandomStringUtils.randomAlphanumeric(10);
+//		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+//			List<String> data = (List<String>) iterator.next();
+//			admin.insert(tableName, familyName, rowKey, columns, data);
+//		}
+//
+//		familyName = "CF2";
+//
+//		columns = new ArrayList<String>(10);
+//		columns.add("name1");
+//		columns.add("age1");
+//		columns.add("dob1");
+//		columns.add("gender1");
+//		list = getTestDataForCF2(columns);
+//
+//		rowKey = RandomStringUtils.randomAlphanumeric(10);
+//
+//		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+//			List<String> data = (List<String>) iterator.next();
+//			admin.insert(tableName, familyName, rowKey, columns, data);
+//		}
+		admin.updateData("Affiliation", "3791a0ca-6eef-4419-a7a7-352ddeca7e79");
 		System.out.println("***********************");
 	}
 

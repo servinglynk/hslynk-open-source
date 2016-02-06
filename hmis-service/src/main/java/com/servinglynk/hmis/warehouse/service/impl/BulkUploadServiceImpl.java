@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +17,19 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 	@Transactional
 	public void createBulkUploadEntry(com.servinglynk.hmis.warehouse.core.model.BulkUpload uploadModel) throws Exception {
 		try{
+			
 			BulkUpload upload = new BulkUpload();
 			upload.setInputPath(uploadModel.getInputPath());
 			upload.setStatus("INITIAL");
 			upload.setDateCreated(LocalDateTime.now());
 			upload.setDateUpdated(LocalDateTime.now());
 			upload.setSync(false);
+			upload.setSize(uploadModel.getFileSize());
 			HmisUser user = daoFactory.getAccountDao().findByUsername(uploadModel.getUsername());
 			ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 			upload.setUser(user);
-			upload.setProjectGroupCode(projectGroupEntity.getProjectGroupCode() !=null ? projectGroupEntity.getProjectGroupCode() : uploadModel.getProjectGroupCode());
+			String projectGroupCode = projectGroupEntity.getProjectGroupCode();
+			upload.setProjectGroupCode(projectGroupCode !=null ? projectGroupCode : uploadModel.getProjectGroupCode());
 			daoFactory.getBulkUploaderWorkerDao().insert(upload);
 		}catch(Exception e){
 				throw new Exception("Worker Not Found"+ e.getMessage());

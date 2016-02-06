@@ -13,5 +13,6 @@ public interface BulkUploaderDao {
 	BulkUpload performBulkUpload(BulkUpload upload);
 	public void deleteStagingByExportId(UUID exportId);
 	public void deleteLiveByExportId(UUID exportId);
+	public void deleteLiveByProjectGroupCode(String projectGroupCode);
 	public void moveFromStagingToLive(BulkUpload upload);
 }

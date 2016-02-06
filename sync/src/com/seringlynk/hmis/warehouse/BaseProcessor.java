@@ -32,9 +32,10 @@ public class BaseProcessor<T> {
 
 			String queryString = "SELECT * FROM live."+tableName ;
 			if (lastSyncDate != null) {
-				queryString =  queryString + " where date_created > ?" ;
+				queryString =  queryString + " where sync = ?" ;
 				PreparedStatement statement = connection.prepareStatement(queryString);
-				statement.setTimestamp(1, lastSyncDate);
+				//statement.setTimestamp(1, lastSyncDate);
+				statement.setBoolean(1, false);
 				resultSet = statement.executeQuery();
 			}else{
 				PreparedStatement statement = connection.prepareStatement(queryString);
@@ -56,6 +57,7 @@ public class BaseProcessor<T> {
 				Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(pojo);
 				String id =(String) data.get("id");
 				if(id !=null) {
+					// Update the sync to true;
 				String rowKey =(String) data.get("export_id");
 				if(rowKey ==null) {
 					rowKey = UUID.randomUUID().toString();
@@ -64,11 +66,16 @@ public class BaseProcessor<T> {
 				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
-	//			 baseImport.insert("hmis", class1.getSimpleName(), rowKey, getNonCollectionFields(pojo), data);
-				 baseImport.insert(class1.getSimpleName(),"CF" ,id , getNonCollectionFields(pojo), data);
+				data.remove("tableName");
+				// Check if the record exist in the table
+				if(baseImport.isDataExist(tableName, id)) {
+					 baseImport.updateData(class1.getSimpleName(), id);	
+				}else{
+					baseImport.insert(class1.getSimpleName(),"CF" ,id , getNonCollectionFields(pojo), data);	
 				}
-			
-			
+				//update the Sync flag to true in Postgres.
+				
+				}
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

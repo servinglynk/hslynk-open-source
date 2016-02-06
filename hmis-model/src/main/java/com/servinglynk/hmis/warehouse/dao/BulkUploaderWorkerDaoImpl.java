@@ -30,6 +30,14 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 		return list;
 	}
 	
+	public List<BulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		query.add(Restrictions.eq("status","LIVE"));
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		return list;
+	}
+	
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		// TODO Auto-generated method stub
@@ -56,5 +64,4 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

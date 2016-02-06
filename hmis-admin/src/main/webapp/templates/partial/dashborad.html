@@ -8,21 +8,22 @@
       </ol>
       <div class="floatleft">
       <div class="row dashboard ">
-    <div class="col-lg-6 col-sm-6 col-xs-12 tile">
+    <div class="col-lg-6 col-sm-6 col-xs-12 tile"  ng-show="roleName === 'SUPERADMIN'">
       <p class="onBoardDev"><a href="#"><i class="fa fa-tachometer"></i> On Board Developer Company</a></p>
     </div>
-    <div class="col-lg-6 col-sm-6  col-xs-12 tile">
+    <div class="col-lg-6 col-sm-6  col-xs-12 tile"  ng-show="roleName === 'SUPERADMIN'">
       <p class="onBoardUser"><a   href="#"><i class="fa fa-user"></i> On Board User</a> </p>
     </div>
-    <div class="col-lg-6  col-sm-6 col-xs-12 tile">
-      <p  class="onBoardFellow"><a  href="#/admin/onboarddevelopmentcompany"><i class="fa fa-user"></i> On Board Fellow</a> </p>
+    <div class="col-lg-6  col-sm-6 col-xs-12 tile"  ng-show="roleName === 'SUPERADMIN'">
+      <p  class="onBoardFellow"><a  href="#/admin/onboardfellowgroup"><i class="fa fa-user"></i>  On Board Fellow</a> </p>
     </div>
-    <div class="col-lg-6  col-sm-6 col-xs-12 tile">
+    <div class="col-lg-6  col-sm-6 col-xs-12 tile"  ng-show="roleName === 'SUPERADMIN'">
       <p class="OnBoardApp"><a href="#"><i class="fa fa-sign-out"></i> On Board Trusted App</a> </p>
     </div>
   </div>
       </div>
       <div class="floatright">
+         
         <div id="divBulkUpload"> Bulk Upload &nbsp;&nbsp;
           <button class="button-success pure-button">Service Success</button>
           <button class="button-error pure-button">Service Error</button></div>

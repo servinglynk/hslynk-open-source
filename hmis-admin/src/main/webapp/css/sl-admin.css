@@ -298,10 +298,14 @@ background-color:#56D9C9;color:#FFF;height:100px;
 }
 
 /* numbered buttons */
-#status-buttons a               {  display:inline-block; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a               {  display:inline-block; margin-right:10px; text-align:center; text-decoration:none; }
 #status-buttons a:hover         { text-decoration:none; }
 #status-buttons span            { background:#d6d7d9; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
     border-radius:50%; }
 
 /* active buttons */
 #status-buttons a.active span   { background:#3089a8; color:#FFF;}
+#status-buttons
+{
+	border-bottom:solid 1px #d6d7d9;margin-top:10px;
+}

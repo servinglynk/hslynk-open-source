@@ -19,31 +19,32 @@
           </ul>
         </li>
       </ul>
+
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-          <li ng-class="{active: ('s2.dashborad' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.dashborad' | routeSegmentUrl }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> </li>
-               <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Organization <i class="fa fa-fw fa-caret-down"></i></a>
+          <li ng-show="roleName === 'SUPERADMIN'" ng-class="{active: ('s2.dashborad' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.dashborad' | routeSegmentUrl }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> </li>
+               <li ng-show="roleName === 'SUPERADMIN'" > <a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Organization <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse" style="height: 0px;">
                <li ng-class="{active: ('s2.createorg' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createorg' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Org</a> </li>
                <li ng-class="{active: ('s2.manageorg' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageorg' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Org</a> </li>
 
             </ul>
           </li> 
-     
-               <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo1" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Profile <i class="fa fa-fw fa-caret-down"></i></a>
+
+               <li ng-show="roleName === 'SUPERADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo1" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Profile <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo1" class="collapse" style="height: 0px;">
                <li ng-class="{active: ('s2.createprofile' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createprofile' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Profile</a> </li>
                <li ng-class="{active: ('s2.manageprofile' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageprofile' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Profile</a> </li>
             </ul>
           </li> 
-                  <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo2" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Role <i class="fa fa-fw fa-caret-down"></i></a>
+                  <li ng-show="roleName === 'SUPERADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo2" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Role <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo2" class="collapse" style="height: 0px;">
                <li ng-class="{active: ('s2.createrole' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createrole' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Role</a> </li>
                <li ng-class="{active: ('s2.managerole' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managerole' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Role</a> </li>
             </ul>
           </li>
-         <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo3" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Project Group <i class="fa fa-fw fa-caret-down"></i></a>
+         <li  ng-show="roleName === 'SUPERADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo3" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Project Group <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo3" class="collapse" style="height: 0px;">
                <li ng-class="{active: ('s2.createprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Group</a> </li>
                <li ng-class="{active: ('s2.manageprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Group</a> </li>

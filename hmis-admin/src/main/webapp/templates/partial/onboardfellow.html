@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"> On Board Fellow</h1>
+      <ol class="breadcrumb">
+        <li> <i class="fa fa-dashboard"></i> <a  href="#/admin/dashborad">Dashboard</a> </li>
+        <li class="active"> <i class="fa fa-table"></i>  On Board Fellow</li>
+      </ol>
+    </div>
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <!-- <div class="col-md-12 add">
+      <button class="btn btn-lg btn-add" type="submit">+ ADD FILES</button>
+    </div>-->
+    <div class="col-lg-12">
+      <div >
+        <!-- the links to our nested states using relative paths -->
+        <!-- add the active class if the state matches our ui-sref -->
+        <div id="status-buttons"> 
+        
+        <a id="createGroup" ng-href="#{{ 's2.onboardfellow.onboardfellowgroup' | routeSegmentUrl }}"><span>1</span> Create Group</a> 
+        
+        <a  id="createUser"  ng-href="#{{ 's2.onboardfellow.onboardfellowuser' | routeSegmentUrl }}"><span>2</span> Create User</a> </div>
+        <br />
+      </div>
+      <!-- use ng-submit to catch the form submission and use our Angular function -->
+   
+        <!-- our nested state views will be injected here -->
+        <div app-view-segment="2" id="form-views" ui-view></div>
+    
+    </div>
+  </div>
+</div>
+

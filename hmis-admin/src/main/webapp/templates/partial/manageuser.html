@@ -26,21 +26,21 @@
           <thead>
             <tr>
               <th>Email </th>
-              <th>Date</th>
+              <th>Project Group</th>
               <th>First Name </th>
            	  <th>Last Name </th>
-              <th>First Name </th>
-              <th class="center">Username</th>
+              <th>Role </th>
+              <th class="center">Status</th>
             </tr>
           </thead>
      <tbody>
             <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
               <td>{{data.emailAddress}}</td>
-              <td>{{data.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{data.projectGroup.projectGroupCode}}</td>
               <td>{{data.firstName}}</td>
               <td>{{data.lastName}}</td>
-              <td>{{data.firstName}}</td>
-              <td  class="center">{{data.username}}</td>
+              <td>{{data.roles.role[0].roleDescription}}</td>
+              <td  class="center">{{data.status}}</td>
               </tr>
           </tbody>
         </table>

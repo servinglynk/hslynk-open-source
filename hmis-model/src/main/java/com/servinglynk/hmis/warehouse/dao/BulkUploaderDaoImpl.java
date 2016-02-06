@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,51 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.model.live.Affiliation;
+import com.servinglynk.hmis.warehouse.model.live.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.Client;
+import com.servinglynk.hmis.warehouse.model.live.Commercialsexualexploitation;
+import com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar;
+import com.servinglynk.hmis.warehouse.model.live.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.live.Disabilities;
+import com.servinglynk.hmis.warehouse.model.live.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.live.Employment;
+import com.servinglynk.hmis.warehouse.model.live.Enrollment;
+import com.servinglynk.hmis.warehouse.model.live.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.live.Exit;
+import com.servinglynk.hmis.warehouse.model.live.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.live.Exitplansactions;
+import com.servinglynk.hmis.warehouse.model.live.Familyreunification;
+import com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare;
+import com.servinglynk.hmis.warehouse.model.live.Formerwardjuvenilejustice;
+import com.servinglynk.hmis.warehouse.model.live.Funder;
+import com.servinglynk.hmis.warehouse.model.live.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.live.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.live.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.live.Inventory;
+import com.servinglynk.hmis.warehouse.model.live.LastPermAddress;
+import com.servinglynk.hmis.warehouse.model.live.Lastgradecompleted;
+import com.servinglynk.hmis.warehouse.model.live.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.live.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.live.Organization;
+import com.servinglynk.hmis.warehouse.model.live.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.live.Percentami;
+import com.servinglynk.hmis.warehouse.model.live.Project;
+import com.servinglynk.hmis.warehouse.model.live.Projectcoc;
+import com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus;
+import com.servinglynk.hmis.warehouse.model.live.Referralsource;
+import com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate;
+import com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus;
+import com.servinglynk.hmis.warehouse.model.live.Schoolstatus;
+import com.servinglynk.hmis.warehouse.model.live.ServiceStatus;
+import com.servinglynk.hmis.warehouse.model.live.Services;
+import com.servinglynk.hmis.warehouse.model.live.Sexualorientation;
+import com.servinglynk.hmis.warehouse.model.live.Site;
+import com.servinglynk.hmis.warehouse.model.live.VeteranInfo;
+import com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation;
+import com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues;
 import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -175,10 +218,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload); 
 	}
 	
+	
+	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
 		com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class,exportId);
-		delete(exportEntity);
+		deleteFromDB(exportEntity);
 	}
 
 	@Override
@@ -199,6 +244,55 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	protected List performGet(Iface client, Object entity) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void deleteLiveByProjectGroupCode(String projectGroupCode) {
+		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Client.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Commercialsexualexploitation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Connectionwithsoar.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Domesticviolence.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Employment.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Enrollment.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(EnrollmentCoc.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Exit.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Exithousingassessment.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Exitplansactions.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Export.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Familyreunification.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Formerwardchildwelfare.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Formerwardjuvenilejustice.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Funder.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Healthinsurance.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(HealthStatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Housingassessmentdisposition.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Incomeandsources.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Inventory.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Lastgradecompleted.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(LastPermAddress.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Medicalassistance.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Noncashbenefits.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Organization.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Pathstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Percentami.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Project.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Projectcoc.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Projectcompletionstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Referralsource.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Residentialmoveindate.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Rhybcpstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Schoolstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Services.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Sexualorientation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(VeteranInfo.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Worsthousingsituation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Youthcriticalissues.class.getName(), projectGroupCode);
 	}
 	
 }

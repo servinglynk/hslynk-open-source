@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
@@ -26,6 +27,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.live.Export;
+import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -60,13 +62,18 @@ public class BulkUploaderTest {
 		Set<Enrollment> enrollments = stagingExport.getEnrollments();
 	}
 	@Test
+	@Transactional
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
 		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		upload.setInputPath(path.getFile());
-		
-		dao.performBulkUpload(upload);
+		upload.setProjectGroupCode("PG0001");
+		upload.setStatus("INITIAL");
+		HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().get(HmisUser.class,UUID.fromString("8b6c6ef2-87c7-47f0-8874-4cca6f09365c"));
+		upload.setUser(hmisUser);
+		factory.getBulkUploaderWorkerDao().insert(upload);
+		//dao.performBulkUpload(upload);
 	}
 	@Test
 	public void testCSVZip() throws Exception
@@ -81,13 +88,24 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void deleteExportFromStaging() {
-		UUID id = UUID.fromString("fda97ba3-e737-4812-a03a-448212606fee");
+		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
 		dao.deleteStagingByExportId(id);
 	}
 	@Test
 	public void deleteExportFromLive() {
-		UUID id = UUID.fromString("4dc6383a-c305-45f0-a876-016bf247e4a2");
+		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
 		dao.deleteLiveByExportId(id);
+	}
+	
+	@Test
+	public void softDeleteProjectGroup() throws Exception {
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
+		for(BulkUpload upload : uploads) {
+			if(upload !=null && upload.getExport() !=null) {
+				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode());		
+			}
+		}
+		
 	}
 	
 	@Test

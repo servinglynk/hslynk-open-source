@@ -148,5 +148,4 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);
 	   }
-
 }

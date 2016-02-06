@@ -43,8 +43,8 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: export.
 	 * @return A Export object (this.export)
 	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	//@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
+//	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.REMOVE})
 	@Basic( optional = true )
 	@JoinColumn(name = "export_id", nullable = true )
 	public Export getExport() {

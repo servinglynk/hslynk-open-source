@@ -70,7 +70,11 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			   
 			    .when('/admin/createuser',      's2.createuser')
 			   .when('/admin/manageuser',      's2.manageuser')
-			     .when('/admin/onboarddevelopmentcompany',      's2.onboarddevelopmentcompany')
+			     .when('/admin/onboardfellow',      's2.onboardfellow')
+				 
+				  .when('/admin/onboardfellowgroup',      's2.onboardfellow.onboardfellowgroup')
+   			    .when('/admin/onboardfellowuser',      's2.onboardfellow.onboardfellowuser')
+
         .segment('s1', {
             templateUrl: 'templates/login.html'})
         .segment('s4', {
@@ -121,9 +125,19 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 .segment('manageuser', {
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})
                 
-                 .segment('onboarddevelopmentcompany', {
-                templateUrl: 'templates/partial/onboarddevelopmentcompany.html', controller: 'onboarddevelopmentcompanyCtrl'})
-           
+                 .segment('onboardfellow', {
+                templateUrl: 'templates/partial/onboardfellow.html', controller: 'onboardfellowCtrl'})
+			
+           .within()
+			 // nested states 
+			// each of these sections will have their own view
+			// url will be nested (/form/profile)
+			.segment('onboardfellowgroup', {
+				templateUrl: 'templates/partial/onboardfellowgroup.html', controller: 'onboardfellowgroupCtrl'
+			})
+				.segment('onboardfellowuser', {
+				templateUrl: 'templates/partial/onboardfellowuser.html', controller: 'onboardfellowuserCtrl'
+			})
                 
         .up()
         
@@ -131,14 +145,20 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 }) ;
 app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          function ($rootScope, $location, $sessionStorage, $http) {
-             // keep user logged in after page refresh
-     	
-	
+			 
+			if($sessionStorage.account!=undefined && $sessionStorage.account.roles !=undefined)
+			{
+				$rootScope.roleName=$sessionStorage.account.roles.role[0].roleName;// data.account.roles.role[0].roleName;
+			}
      		// here we have to check why keep out(isLoggedIn is undefined  when dashbaorad load)
      		//$sessionStorage.isLoggedIn=true;
-     		 if ($location.path() !== '/login' && $sessionStorage.isLoggedIn==undefined) {
-                  // $location.path('/login');
+			if($location.path() != '/admin/dashborad' && $location.path() != '/login' )
+			{
+     			 if ($sessionStorage.isLoggedIn==undefined) {
+     			
+                   $location.path('/login');
      	       }
+			}
        
          }]);
 app.value('loader', { show: false });

@@ -7,6 +7,6 @@ import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 public interface BulkUploaderWorkerDao extends ParentDao{
 	public List<BulkUpload> findUnProcessedUploads(String status) throws Exception;
 	public List<BulkUpload> findBulkUploadByStatus(String status) throws Exception;
-	
+	public List<BulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception;
 	
 	}

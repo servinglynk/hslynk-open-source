@@ -14,7 +14,7 @@ public class Funder extends ClientModel{
 
     private String funder;
 
-    private UUID grantid;
+    private String grantid;
 
     private LocalDateTime startdate;
 
@@ -38,10 +38,10 @@ public class Funder extends ClientModel{
     public void setFunder(String funder){
         this.funder = funder;
     }
-    public UUID getGrantid(){
+    public String getGrantid(){
         return grantid;
     }
-    public void setGrantid(UUID grantid){
+    public void setGrantid(String grantid){
         this.grantid = grantid;
     }
     public LocalDateTime getStartdate(){

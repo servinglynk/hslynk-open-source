@@ -1,5 +1,6 @@
 
 app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+										
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	

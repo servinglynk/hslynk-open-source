@@ -189,6 +189,8 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Field mapping. */
 	private Set<Youthcriticalissues> youthcriticalissueses = new HashSet<Youthcriticalissues>();
+	
+	private Set<BulkUpload> bulkUploads = new HashSet<BulkUpload>();
 
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -1707,10 +1709,40 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 	 * Set the value related to the column: youthcriticalissues.
 	 * @param youthcriticalissues the youthcriticalissues value you wish to set
 	 */
+	public void setBulkUploads(final Set<BulkUpload> uploads) {
+		this.bulkUploads = uploads;
+	}
+
+	 /**
+	 * Return the value associated with the column: youthcriticalissues.
+	 * @return A Set&lt;Youthcriticalissues&gt; object (this.youthcriticalissues)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<BulkUpload> getBulkUploads() {
+		return this.bulkUploads;
+		
+	}
+	
+	/**
+	 * Adds a bi-directional link of type Youthcriticalissues to the youthcriticalissueses set.
+	 * @param youthcriticalissues item to add
+	 */
+	public void addYouthcriticalissues(BulkUpload upload) {
+		upload.setExport(this);
+		this.bulkUploads.add(upload);
+	}
+
+ 
+	 /**  
+	 * Set the value related to the column: youthcriticalissues.
+	 * @param youthcriticalissues the youthcriticalissues value you wish to set
+	 */
 	public void setYouthcriticalissueses(final Set<Youthcriticalissues> youthcriticalissues) {
 		this.youthcriticalissueses = youthcriticalissues;
 	}
-
 
    /**
     * Deep copy.

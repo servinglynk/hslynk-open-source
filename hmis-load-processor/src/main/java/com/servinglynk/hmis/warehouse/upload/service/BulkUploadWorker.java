@@ -50,6 +50,16 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload bullkUpload : uploadEntities) {
+					/** Perform full refresh base on Project group */
+					if(bullkUpload.getProjectGroupCode() !=null) {
+						List<BulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(bullkUpload.getProjectGroupCode());
+						for(BulkUpload  bulkUpload : uploads) {
+							daoFactory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExport().getId());
+							daoFactory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
+							bulkUpload.setStatus("DELETED");
+							daoFactory.getBulkUploaderWorkerDao().delete(bulkUpload);
+						}
+					}
 					File file = new File(bullkUpload.getInputPath());
 					factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
 					if (file.isFile()) {

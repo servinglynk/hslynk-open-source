@@ -33,6 +33,8 @@ import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+
 @Component
 public class QueryExecutorImpl  implements QueryExecutor{
 	@Autowired
@@ -116,18 +118,51 @@ public class QueryExecutorImpl  implements QueryExecutor{
         	  // looking for deleted field in entity class. 
         	  // If field is available deleted field will be updated to true.
         	  // If field is not available catch block will be executed then regular delete operation will be performed.  
-        	  Field deletedField = entity.getClass().getSuperclass().getDeclaredField("deleted");
-              BeanUtils.setProperty(entity, "deleted",true);
-              BeanUtils.setProperty(entity, "dateUpdated",LocalDateTime.now());
-              getCurrentSession().update(entity);
+        	  if(entity instanceof HmisBaseModel) {
+                  BeanUtils.setProperty(entity, "deleted",true);
+                  BeanUtils.setProperty(entity, "sync",false);
+                  BeanUtils.setProperty(entity, "dateUpdated",LocalDateTime.now());
+                  getCurrentSession().update(entity);
+        	  }else{
+        		  getCurrentSession().delete(entity);
+        	  }
+        	 
           } catch(Exception  e){
         	  getCurrentSession().delete(entity);  
+        	  e.printStackTrace();
+          }
+	}
+	@SuppressWarnings("unused")
+	public void softDeleteByProjectGroupCode(String className,String projectGroupCode) {
+		DetachedCriteria criteria = null;
+		try {
+			criteria = DetachedCriteria.forClass(Class.forName(className));
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+		criteria.add(Restrictions.eq("deleted", false));
+		List<Object> objects = criteria.getExecutableCriteria(getCurrentSession()).list();
+		if(objects !=null) {
+			for(Object entity : objects) {
+				 if(entity instanceof HmisBaseModel) {
+					 delete(entity);
+				 }
+			}
+		}
+	}
+	@SuppressWarnings("unused")
+	public void deleteFromDB(Object entity) {
+          try
+          {
+        	  getCurrentSession().delete(entity);
+          } catch(Exception  e){
         	  e.printStackTrace();
           }
 		
 	
 	}
-	
 	
 
 	public Object insertOrUpdate(Object entity) {

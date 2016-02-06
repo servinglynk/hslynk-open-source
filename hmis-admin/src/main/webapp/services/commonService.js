@@ -178,10 +178,11 @@ bulkupload: function ($http, $scope,file, success, error) {
 	        });
 }, 
 GetProjectGroups: function ($http,$scope, success) {
-	  var apiurl = "/hmis-user-service/rest/projectgroups?maxItems=10";
+	  var apiurl = "/hmis-user-service/rest/projectgroups?maxItems=100";
 	 console.log('Session Token..'+$scope.sessionToken);
       $http({
           method: 'GET',
+          cache:false,
           url: apiurl,
           headers: {
             'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
@@ -253,10 +254,12 @@ GetProjectGroups: function ($http,$scope, success) {
         }).error(error);
         },
     createProjectGroup: function ($http, $scope, success, error) {
+    	console.warn($scope,2);
         var apiurl = "/hmis-user-service/rest/projectgroups";
         console.log('Session Token..'+$scope.sessionToken);
         
         data = $scope.form;
+       
         $http({
             method: 'POST',
             url: apiurl,
@@ -271,7 +274,7 @@ GetProjectGroups: function ($http,$scope, success) {
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
-            if(success)success(data)
+           if(success)success(data)
         }).error(error);
         },
     getToken: function ($http, $scope, success, error) {
