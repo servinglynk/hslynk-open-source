@@ -3491,8 +3491,23 @@ CREATE TABLE live.hmis_service_license
 ) 
 WITH (
   OIDS = FALSE
+);
+
+CREATE TABLE live.hmis_property
+(
+  id uuid NOT NULL,
+  service character varying(64),
+  key_name character varying(256),
+  value character varying(256),
+  created_at timestamp without time zone,
+  modified_at timestamp without time zone,
+  created_by character varying(256),
+  modified_by character varying(256),
+  CONSTRAINT "PK_HMIS_PROPERTY" PRIMARY KEY (id)
 )
-;
+WITH (
+  OIDS=FALSE
+);
 
 
 ALTER TABLE live.hmis_user ADD COLUMN created_by character varying(256);

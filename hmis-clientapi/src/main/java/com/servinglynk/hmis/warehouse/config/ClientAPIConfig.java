@@ -2,9 +2,13 @@ package com.servinglynk.hmis.warehouse.config;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
@@ -18,6 +22,8 @@ import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
+import com.servinglynk.hmis.warehouse.rest.PropertyController;
+import com.servinglynk.hmis.warehouse.service.core.PropertyReaderServiceImpl;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
@@ -62,4 +68,21 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 		return new ProjectsController();
 	}
 	
+	@Autowired
+	Environment env;
+	
+	@Bean
+	PropertyReaderServiceImpl propertyReaderService(){
+		return new PropertyReaderServiceImpl();
+	}
+	
+	@Bean
+	PropertyController propertyController(){
+		return new PropertyController();
+	}
+	
+	 @PostConstruct
+	 public void initializeDatabasePropertySourceUsage() {
+		 propertyReaderService().loadProperties("HMIS_CLIENTAPI");
+	 }
 }
