@@ -149,7 +149,7 @@ public class HBaseImport {
 	      Get g = new Get(Bytes.toBytes(rowKey));
 	      // Reading the data
 	      Result result = table.get(g);
-	      if(result !=null) {
+	      if(result !=null && !result.isEmpty()) {
 	    	  return true;
 	      }
 		}catch(Exception e) {
