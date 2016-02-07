@@ -111,19 +111,17 @@
 	<classpathentry kind="lib" path="xmlenc-0.52.jar"/>
 	<classpathentry kind="lib" path="xz-1.0.jar"/>
 	<classpathentry kind="lib" path="zookeeper-3.4.5-cdh5.4.3.jar"/>
-	<classpathentry kind="lib" path="postgresql-9.3-1101-jdbc41.jar"/>
+	<classpathentry kind="lib" path="postgresql-9.3-1101-jdbc41.jar" sourcepath="C:/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41-sources.jar"/>
 	<classpathentry kind="lib" path="hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="jasperreports-3.7.6.jar"/>
 	<classpathentry kind="lib" path="groovy-all-1.7.0.jar"/>
 	<classpathentry kind="lib" path="itext-2.1.7.jar"/>
-	
 	<classpathentry kind="lib" path="apache-log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="hive-exec-0.8.0.jar"/>
 	<classpathentry kind="lib" path="hive-jdbc-0.10.0.jar"/>
 	<classpathentry kind="lib" path="hive-metastore-0.5.0.jar"/>
 	<classpathentry kind="lib" path="hive-service-0.10.0.jar"/>
 	<classpathentry kind="lib" path="libfb303-0.9.0.jar"/>
-	
 	<classpathentry kind="lib" path="java-mail-1.4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -74,6 +74,12 @@ public class BaseModel {
 	public void setProject_group_code(String project_group_code) {
 		this.project_group_code = project_group_code;
 	}
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 	
 	

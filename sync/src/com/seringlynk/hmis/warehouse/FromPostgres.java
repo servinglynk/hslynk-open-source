@@ -172,7 +172,7 @@ public class FromPostgres {
 	
 	BaseProcessor<Rhybcpstatus> Rhybcpstatus = new BaseProcessor<>();
 	Rhybcpstatus.syncToHBASE(Rhybcpstatus.class,"Rhybcp_status",tableSyncList, lastSyncTime);
-	
+
 	BaseProcessor<Schoolstatus> Schoolstatus = new BaseProcessor<>();
 	Schoolstatus.syncToHBASE(Schoolstatus.class,"Schoolstatus",tableSyncList, lastSyncTime);
 	

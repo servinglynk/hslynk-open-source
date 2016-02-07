@@ -95,7 +95,7 @@ public class HBaseImport {
 		return table;
 	}
 	 	
-	public void updateData(String tableName,String rowKey) {
+	public void updateData(String tableName,String rowKey, Map<String, Object> data) {
 		HTable table = null;
 		try {
 			table = new HTable(conf, tableName);
@@ -104,8 +104,9 @@ public class HBaseImport {
 		      // Updating a cell value
 		  //    p.add(Bytes.toBytes("CF"),
 		   //  Bytes.toBytes("date_updated"),Bytes.toBytes();
+		      String deleted =(String) data.get("deleted");
 		      p.add(Bytes.toBytes("CF"),
-		 		     Bytes.toBytes("deleted"),Bytes.toBytes("true"));
+		 		     Bytes.toBytes("deleted"),Bytes.toBytes(deleted !=null? deleted:"false"));
 		      // Saving the put Instance to the HTable.
 		      table.put(p);
 		      System.out.println("data Updated"+tableName);
@@ -207,7 +208,7 @@ public class HBaseImport {
 //			List<String> data = (List<String>) iterator.next();
 //			admin.insert(tableName, familyName, rowKey, columns, data);
 //		}
-		admin.updateData("Affiliation", "3791a0ca-6eef-4419-a7a7-352ddeca7e79");
+		//admin.updateData("Affiliation", "3791a0ca-6eef-4419-a7a7-352ddeca7e79");
 		System.out.println("***********************");
 	}
 

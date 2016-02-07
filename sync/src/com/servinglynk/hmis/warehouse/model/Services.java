@@ -1,15 +1,16 @@
 package com.servinglynk.hmis.warehouse.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+
 @Entity
 public class Services extends BaseModel{
 	@Column(name = "dateprovided")		
-	public Date dateprovided;
+	public Timestamp dateprovided;
 	@Column(name = "faamount")		
 	public double faamount;
 	@Column(name = "othertypeprovided")
@@ -27,13 +28,13 @@ public class Services extends BaseModel{
 	/**
 	 * @return the dateprovided
 	 */
-	public Date getDateprovided() {
+	public Timestamp getDateprovided() {
 		return dateprovided;
 	}
 	/**
 	 * @param dateprovided the dateprovided to set
 	 */
-	public void setDateprovided(Date dateprovided) {
+	public void setDateprovided(Timestamp dateprovided) {
 		this.dateprovided = dateprovided;
 	}
 	/**

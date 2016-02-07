@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
@@ -9,20 +10,20 @@ import javax.persistence.Entity;
 @Entity
 public class Funder extends BaseModel {
 	@Column(name = "enddate")
-	public Date enddate;
+	public Timestamp enddate;
 	@Column(name = "funder")
 	public String funder;
 	@Column(name = "grantid")
-	public UUID grantid;
+	public String grantid;
 	@Column(name = "projectid")
 	public UUID projectid;
 	@Column(name = "startdate")
-	public Date startdate;
+	public Timestamp startdate;
 
 	/**
 	 * @return the enddate
 	 */
-	public Date getEnddate() {
+	public Timestamp getEnddate() {
 		return enddate;
 	}
 
@@ -30,7 +31,7 @@ public class Funder extends BaseModel {
 	 * @param enddate
 	 *            the enddate to set
 	 */
-	public void setEnddate(Date enddate) {
+	public void setEnddate(Timestamp enddate) {
 		this.enddate = enddate;
 	}
 
@@ -52,7 +53,7 @@ public class Funder extends BaseModel {
 	/**
 	 * @return the grantid
 	 */
-	public UUID getGrantid() {
+	public String getGrantid() {
 		return grantid;
 	}
 
@@ -60,7 +61,7 @@ public class Funder extends BaseModel {
 	 * @param grantid
 	 *            the grantid to set
 	 */
-	public void setGrantid(UUID grantid) {
+	public void setGrantid(String grantid) {
 		this.grantid = grantid;
 	}
 
@@ -82,7 +83,7 @@ public class Funder extends BaseModel {
 	/**
 	 * @return the startdate
 	 */
-	public Date getStartdate() {
+	public Timestamp getStartdate() {
 		return startdate;
 	}
 
@@ -90,7 +91,7 @@ public class Funder extends BaseModel {
 	 * @param startdate
 	 *            the startdate to set
 	 */
-	public void setStartdate(Date startdate) {
+	public void setStartdate(Timestamp startdate) {
 		this.startdate = startdate;
 	}
 

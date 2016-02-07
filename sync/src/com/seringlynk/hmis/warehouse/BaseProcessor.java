@@ -13,14 +13,13 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class BaseProcessor<T> {
 	
-	
-
 	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList,Timestamp lastSyncDate) {
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 		int index = 0;
@@ -66,15 +65,14 @@ public class BaseProcessor<T> {
 				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
-				data.remove("tableName");
 				// Check if the record exist in the table
-				if(baseImport.isDataExist(tableName, id)) {
-					 baseImport.updateData(class1.getSimpleName(), id);	
+				if(baseImport.isDataExist(class1.getSimpleName(), id)) {
+					 baseImport.updateData(class1.getSimpleName(), id, data );	
 				}else{
 					baseImport.insert(class1.getSimpleName(),"CF" ,id , getNonCollectionFields(pojo), data);	
 				}
 				//update the Sync flag to true in Postgres.
-				
+				updateSyncFlag(getTableName(pojo.getClass().getSimpleName()),UUID.fromString(id));
 				}
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
@@ -250,5 +248,82 @@ public class BaseProcessor<T> {
 				}
 			}
 		}
+	}
+	public void updateSyncFlag(String tableName,UUID id) {
+		PreparedStatement statement = null; 
+		try {
+			Connection connection = getConnection(); 
+			statement = connection.prepareStatement("UPDATE live."+tableName+" SET date_updated=?, sync=? where id=?");
+			Timestamp currentTimestamp = getCUrrentTimestamp();
+			statement.setTimestamp(1, currentTimestamp);
+			statement.setBoolean(2,true );
+			statement.setObject(3, id);
+			int status = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	public String getTableName(String className) {
+		Map<String,String> tables = new HashMap<String, String>();
+		tables.put("Affiliation","affiliation");
+		tables.put("Bedinventory","bedinventory");
+		tables.put("Client","client");
+		tables.put("Commercialsexualexploitation","commercialsexualexploitation");
+		tables.put("Connectionwithsoar","connectionwithsoar");
+		tables.put("Dateofengagement","dateofengagement");
+		tables.put("Disabilities","disabilities");
+		tables.put("Domesticviolence","domesticviolence");
+		tables.put("Employment","employment");
+		tables.put("Enrollment","enrollment");
+		tables.put("EnrollmentCoc","enrollment_coc");
+		tables.put("Exit","exit");     
+		tables.put("Exithousingassessment","exithousingassessment");
+		tables.put("Exitplansactions","exitplansactions");
+		tables.put("Export","export");
+		tables.put("Familyreunification","familyreunification");
+		tables.put("Formerwardchildwelfare","formerwardchildwelfare");
+		tables.put("Formerwardjuvenilejustice","formerwardjuvenilejustice");
+		tables.put("Funder","funder");
+		tables.put("Healthinsurance","healthinsurance");
+		tables.put("HealthStatus","health_status");
+		tables.put("Housingassessmentdisposition","housingassessmentdisposition");
+		tables.put("Incomeandsources","incomeandsources");
+		tables.put("Inventory","inventory");
+		tables.put("Lastgradecompleted","lastgradecompleted");
+		tables.put("Lastpermanentaddress","last_perm_address");
+		tables.put("Medicalassistance","medicalassistance");
+		tables.put("Noncashbenefits","noncashbenefits");
+		tables.put("Organization","organization");
+		tables.put("Pathstatus","pathstatus");
+		tables.put("Percentami","percent_ami");
+		tables.put("Project","project");
+		tables.put("Projectcoc","projectcoc");
+		tables.put("Projectcompletionstatus","projectcompletionstatus");
+		tables.put("Referralsource","referralsource");
+		tables.put("Residentialmoveindate","residentialmoveindate");
+		tables.put("Rhybcpstatus","rhybcp_status");
+		tables.put("Schoolstatus","schoolstatus");
+		tables.put("Services","services");
+		tables.put("Sexualorientation","sexualorientation");
+		tables.put("Site","site");
+		tables.put("Source","source");
+		tables.put("VeteranInfo","veteran_info");
+		tables.put("Worsthousingsituation","worsthousingsituation");
+		tables.put("Youthcriticalissues","youthcriticalissues");
+		
+		return tables.get(className);
+				
+
+		
 	}
 }
