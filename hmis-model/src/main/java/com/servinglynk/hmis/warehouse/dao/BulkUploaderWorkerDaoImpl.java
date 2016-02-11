@@ -30,6 +30,28 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 		return list;
 	}
 	
+	public List<BulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+		query.add(Restrictions.eq("status",status));
+		query.createAlias("user", "user");
+		query.add(Restrictions.eq("user.id", userId));
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		return list;
+	}
+	public List<BulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+		query.add(Restrictions.eq("status",status));
+		query.createAlias("user", "user");
+		query.add(Restrictions.eq("user.id", userId));
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		return list;
+	}
+	public List<BulkUpload> findBulkUploadFoSuperAdmin(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+		query.add(Restrictions.eq("status",status));
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		return list;
+	}
 	public List<BulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));

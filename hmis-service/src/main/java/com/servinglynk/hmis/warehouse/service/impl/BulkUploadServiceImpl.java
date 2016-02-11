@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.live.HmisUser;
 import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
@@ -34,5 +35,9 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		}catch(Exception e){
 				throw new Exception("Worker Not Found"+ e.getMessage());
 		}
+	}
+	
+	public List<com.servinglynk.hmis.warehouse.core.model.BulkUpload> getBulkUploadsByStatus(String status, Account account) {
+		return null;
 	}
 }

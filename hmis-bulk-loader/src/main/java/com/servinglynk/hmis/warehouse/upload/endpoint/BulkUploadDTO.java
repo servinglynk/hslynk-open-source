@@ -2,8 +2,6 @@ package com.servinglynk.hmis.warehouse.upload.endpoint;
 
 import java.util.Date;
 
-import com.servinglynk.hmis.warehouse.model.live.Export;
-
 public class BulkUploadDTO {
 	private Long id;
 	private String inputPath;
