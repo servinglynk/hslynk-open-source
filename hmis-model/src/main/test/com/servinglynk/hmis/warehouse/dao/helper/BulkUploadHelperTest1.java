@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.servinglynk.hmis.warehouse.dao.HmisCTAFileGenerator;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -294,7 +295,7 @@ public class BulkUploadHelperTest1 {
 	
 	@Test
 	public void testXMLUploadWithOriginalFile() {
-		URL path = BulkUploadHelper.class.getResource("HUD_4_0__6.xml");
+		URL path = HmisCTAFileGenerator.class.getResource("HUD_4_0__6_Output.xml");
 		BulkUpload upload = new BulkUpload();
 		upload.setInputPath(path.getFile());
 		Sources sources = helper.getSourcesFromFiles(upload);

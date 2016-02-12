@@ -22,7 +22,6 @@ import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
-import com.servinglynk.hmis.warehouse.rest.PropertyController;
 import com.servinglynk.hmis.warehouse.service.core.PropertyReaderServiceImpl;
 
 @Configuration
@@ -76,11 +75,11 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 		return new PropertyReaderServiceImpl();
 	}
 	
-	@Bean
-	PropertyController propertyController(){
-		return new PropertyController();
-	}
-	
+//	@Bean
+//	PropertyController propertyController(){
+//		return new PropertyController();
+//	}
+//	
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_CLIENTAPI");

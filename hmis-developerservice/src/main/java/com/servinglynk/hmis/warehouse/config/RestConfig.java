@@ -23,7 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.DeveloperCompaniesController;
 import com.servinglynk.hmis.warehouse.rest.DeveloperServicesController;
-import com.servinglynk.hmis.warehouse.rest.PropertyController;
 import com.servinglynk.hmis.warehouse.rest.TrustedAppsController;
 import com.servinglynk.hmis.warehouse.service.core.PropertyReaderServiceImpl;
 
@@ -100,10 +99,10 @@ public void configureMessageConverters(List<HttpMessageConverter<?>> messageConv
 		return new PropertyReaderServiceImpl();
 	}
 	
-	@Bean
-	PropertyController propertyController(){
-		return new PropertyController();
-	}
+//	@Bean
+//	PropertyController propertyController(){
+//		return new PropertyController();
+//	}
 	
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
