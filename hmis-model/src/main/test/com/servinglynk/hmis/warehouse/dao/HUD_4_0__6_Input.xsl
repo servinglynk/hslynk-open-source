@@ -3,7 +3,7 @@
 				xmlns:hmis="http://www.hudhdx.info/Resources/Vendors/4_0/HUD_HMIS.xsd" 
 				xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning">
 
-<xsl:output omit-xml-declaration="yes" indent="yes"/>
+<xsl:output method="xml" indent="yes" omit-xml-declaration="no" />
 
 <xsl:variable name='newline'><xsl:text>
 </xsl:text></xsl:variable>

@@ -1,4 +1,4 @@
-<hmis:Sources xmlns:hmis="http://www.hudhdx.info/Resources/Vendors/4_0/HUD_HMIS.xsd" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?><hmis:Sources xmlns:hmis="http://www.hudhdx.info/Resources/Vendors/4_0/HUD_HMIS.xsd" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <hmis:Source>
 <hmis:SourceID>SAMPLE DATA </hmis:SourceID>
 <hmis:SoftwareVendor>Bowman Systems L.L.C.</hmis:SoftwareVendor>
