@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
+
 public class BaseProcessor<T> {
 	
 	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList,Timestamp lastSyncDate) {
@@ -30,16 +32,10 @@ public class BaseProcessor<T> {
 			connection = getConnection();
 
 			String queryString = "SELECT * FROM live."+tableName ;
-			if (lastSyncDate != null) {
-				queryString =  queryString + " where sync = ?" ;
-				PreparedStatement statement = connection.prepareStatement(queryString);
-				//statement.setTimestamp(1, lastSyncDate);
-				statement.setBoolean(1, false);
-				resultSet = statement.executeQuery();
-			}else{
-				PreparedStatement statement = connection.prepareStatement(queryString);
-				resultSet = statement.executeQuery();
-			}
+			queryString =  queryString + " where sync = ?" ;
+			PreparedStatement statement = connection.prepareStatement(queryString);
+			statement.setBoolean(1, true);
+			resultSet = statement.executeQuery();
 			
 			// simple JDBC code to run SQL query and populate resultSet - END
 			if(resultSet !=null) {
@@ -65,6 +61,7 @@ public class BaseProcessor<T> {
 				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
+				populateHmisType(data);
 				// Check if the record exist in the table
 				if(baseImport.isDataExist(class1.getSimpleName(), id)) {
 					 baseImport.updateData(class1.getSimpleName(), id, data );	
@@ -129,36 +126,6 @@ public class BaseProcessor<T> {
 		return fieldList.toArray(new String[fieldList.size()]);
 	}
 
-	public Timestamp getLastSyncTime() {
-		ResultSet resultSet = null;
-		Timestamp timestamp = null;
-		PreparedStatement statement = null;
-		try {
-			Connection connection = getConnection();
-//			PreparedStatement statement = connection.prepareStatement("SELECT max(insert_at) FROM live.bulk_upload where status='LIVE'");
-			statement = connection.prepareStatement("SELECT max(date_created) FROM live.sync where status='COMPLETE'");
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				timestamp =  resultSet.getTimestamp(1);
-			}
-			return timestamp;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return null;
-	}
-
 	public Timestamp updateSyncStartTime(Timestamp dateCreated) {
 		PreparedStatement statement = null;
 		try {
@@ -186,7 +153,51 @@ public class BaseProcessor<T> {
 
 		return null;
 	}
+	
+	private void populateHmisType(Map<String, Object> data) {
+		for(String key :data.keySet()) {
+			String hmisType = getHmisType(key,(String)data.get(key));
+			if(StringUtils.isNotEmpty(hmisType)) {
+				data.put(key, hmisType.trim());	
+			}
+		}
+	}
+	
+	/***
+	 * Gets the type from hmis_type table so we can store readable values in HBASE.
+	 * @param key
+	 * @return
+	 */
+	public String getHmisType(String key,String value) {
+		ResultSet resultSet = null;
+		String desc = null;
+		PreparedStatement statement = null;
+		try {
+			Connection connection = getConnection();
+			statement = connection.prepareStatement("SELECT description FROM live.hmis_type where status='ACTIVE' and name = ? and value= ?");
+			statement.setString(1, key);
+			statement.setString(2, value);
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				desc =  resultSet.getString(1);
+			}
+			return desc;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
+		return null;
+	}
 	private Timestamp getCUrrentTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());

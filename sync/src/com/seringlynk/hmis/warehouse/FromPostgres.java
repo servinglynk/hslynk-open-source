@@ -59,18 +59,18 @@ public class FromPostgres {
 	// Sync Table Start
 	BaseProcessor baseProcessor = new BaseProcessor();
 	// Lets use timestamp instead of date.
-	Timestamp lastSyncTime = baseProcessor.getLastSyncTime();
+	Timestamp lastSyncTime = null;
 	UUID syncUid = baseProcessor.insertSyncStartTime();		
 	
 	System.out.println(lastSyncTime);
 	java.util.Map<String, Integer> tableSyncList = new HashMap<>();
-
+/*
 	BaseProcessor<Affiliation> aff = new BaseProcessor<>();
 	aff.syncToHBASE(Affiliation.class,"affiliation",tableSyncList, lastSyncTime);
-	
+	*/
 	BaseProcessor<Client> db = new BaseProcessor<>();
 	db.syncToHBASE(Client.class,"Client",tableSyncList, lastSyncTime);
-	
+	/*
 	BaseProcessor<Bedinventory> bedInventory = new BaseProcessor<>();
 	bedInventory.syncToHBASE(Bedinventory.class,"Bedinventory",tableSyncList, lastSyncTime);
 	
@@ -190,13 +190,13 @@ public class FromPostgres {
 //	
 	BaseProcessor<VeteranInfo> VeteranInfo = new BaseProcessor<>();
 	VeteranInfo.syncToHBASE(VeteranInfo.class,"Veteran_Info",tableSyncList, lastSyncTime);
-	
+
 	BaseProcessor<Worsthousingsituation> Worsthousingsituation = new BaseProcessor<>();
 	Worsthousingsituation.syncToHBASE(Worsthousingsituation.class,"Worsthousingsituation",tableSyncList, lastSyncTime);
 	
 	BaseProcessor<Youthcriticalissues> Youthcriticalissues = new BaseProcessor<>();
 	Youthcriticalissues.syncToHBASE(Youthcriticalissues.class,"Youthcriticalissues",tableSyncList, lastSyncTime);
-	
+	*/
 	System.out.println("Tables::"+tableSyncList.toString());
 
 	baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid); 
