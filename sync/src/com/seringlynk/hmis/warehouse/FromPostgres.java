@@ -64,13 +64,13 @@ public class FromPostgres {
 	
 	System.out.println(lastSyncTime);
 	java.util.Map<String, Integer> tableSyncList = new HashMap<>();
-/*
+
 	BaseProcessor<Affiliation> aff = new BaseProcessor<>();
 	aff.syncToHBASE(Affiliation.class,"affiliation",tableSyncList, lastSyncTime);
-	*/
+	
 	BaseProcessor<Client> db = new BaseProcessor<>();
 	db.syncToHBASE(Client.class,"Client",tableSyncList, lastSyncTime);
-	/*
+	
 	BaseProcessor<Bedinventory> bedInventory = new BaseProcessor<>();
 	bedInventory.syncToHBASE(Bedinventory.class,"Bedinventory",tableSyncList, lastSyncTime);
 	
@@ -196,7 +196,7 @@ public class FromPostgres {
 	
 	BaseProcessor<Youthcriticalissues> Youthcriticalissues = new BaseProcessor<>();
 	Youthcriticalissues.syncToHBASE(Youthcriticalissues.class,"Youthcriticalissues",tableSyncList, lastSyncTime);
-	*/
+	
 	System.out.println("Tables::"+tableSyncList.toString());
 
 	baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid); 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -79,15 +80,22 @@ public class HBaseImport {
 
 			Put p = new Put(Bytes.toBytes(rowkey));
 
-			for (int i = 0; i < columns.length; i++) {
+			for(String key :data.keySet()) {
+				String value = (String)data.get(key);
+				if(StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value)) {
+					p.addColumn(Bytes.toBytes(familyname),
+							Bytes.toBytes(key),
+							Bytes.toBytes(value));
+				  }
+				}
+		/*	for (int i = 0; i < columns.length; i++) {
 				if(data.get(columns[i]) !=null) {
 					p.addColumn(Bytes.toBytes(familyname),
 							Bytes.toBytes(columns[i]),
 							Bytes.toBytes(data.get(columns[i]).toString()));
 					
 				}
-
-			}
+			} */
 			table.put(p);
 		} catch (Exception e) {
 			e.printStackTrace();

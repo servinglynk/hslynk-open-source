@@ -277,13 +277,17 @@ public class BulkUploadHelperTest1 {
 		assertEquals(site.getState(), "OH");
 		assertEquals(site.getUserID(),"mhawthorne");
 		assertEquals(site.getZIP(), 45202);
-		
-		
-				
-		
-		
 	
 	}
+	
+	@Test
+	public void testXMLUploadFromBowman() {
+		BulkUpload upload = new BulkUpload();
+		upload.setInputPath("C:/Users/sdolia/Desktop/Help Docs/ServigLynk/HUD_4_0_3101_4.xml");
+		Sources sources = helper.getSourcesFromFiles(upload);
+		assertNotNull(sources);
+	}
+	
 	@Test
 	public void testXMLUpload() {
 		URL path = BulkUploadHelper.class.getResource("New_HUD_Boman.xml");

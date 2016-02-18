@@ -1,5 +1,5 @@
-drop schema "staging" cascade;
-create schema "staging";
+DROP SCHEMA IF EXISTS "staging" cascade;
+CREATE SCHEMA "staging";
 DROP SEQUENCE IF EXISTS "staging".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "staging".seq_account_preference;
 DROP SEQUENCE IF EXISTS "staging".seq_api_group;
@@ -531,6 +531,9 @@ CREATE TABLE staging.hmis_user
   ssn character(9),
   dob timestamp,
   gender staging.gender,
+  is_user_in_hive boolean DEFAULT false,
+  hive_password character(100),
+  hive_username character(100),
   date_created timestamp,
   date_updated timestamp,
   CONSTRAINT hmis_user_pk PRIMARY KEY (id)
@@ -630,10 +633,17 @@ id uuid not null,
   sourceContactPhone	character varying(12),
   sourceID	character varying(32),
   sourceName	character varying(50),
-  "project_group_code" character varying(8),
+ "project_group_code" character varying(8),
   "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
   constraint "source_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
       REFERENCES staging.hmis_user (id) MATCH SIMPLE
@@ -652,10 +662,17 @@ create table "staging".export
   exportPeriodType text,
   exportDirective text,
   source_id uuid,
-  "project_group_code" character varying(8),
+"project_group_code" character varying(8),
   "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
   constraint "export_pkey" primary key (id),
          CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
       REFERENCES staging.hmis_user (id) MATCH SIMPLE
@@ -689,9 +706,15 @@ CREATE TABLE "staging".client
   "veteran_status" "staging".veteran_status,
   "project_group_code" character varying(8),
   "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
-   export_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -723,10 +746,16 @@ CREATE TABLE "staging".veteran_info
   "discharge_status" "staging".discharge_status,
   "project_group_code" character varying(8),
   "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   "client_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -762,11 +791,17 @@ statusDocumented "staging".no_yes,
 timesHomelesspastthreeyears "staging".times_homeless_past_3_years,
 yearshomeless integer,
 client_id uuid,
-"project_group_code" character varying(8),
+project_group_code character varying(8),
 date_created timestamp,
 date_updated timestamp,
+ "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
 user_id uuid,
 export_id uuid,
+parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,
+sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -790,10 +825,14 @@ CREATE TABLE "staging".path_status
   "reason_not_enrolled" bigint,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -819,10 +858,14 @@ CREATE TABLE "staging".rhybcp_status
   "reason_no_services" "staging".fysb_rsn_not_providing_srvcs,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -852,10 +895,14 @@ CREATE TABLE "staging".last_perm_address
   "address_data_quality" "staging".address_data_quality,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -881,10 +928,14 @@ CREATE TABLE "staging".percent_ami
   "percentage" integer,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -908,10 +959,14 @@ CREATE TABLE "staging".schoolstatus
   "school_status" integer,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -937,10 +992,14 @@ CREATE TABLE "staging".employment
   "not_employed_reason" "staging".not_employed_reason,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -966,10 +1025,14 @@ CREATE TABLE "staging".health_status
   "health_status" "staging".health_status_type,
   "due_date" timestamp,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -991,10 +1054,14 @@ create table "staging".organization
   id uuid not null,
   organizationname character varying(32),
   "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,
+sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1011,7 +1078,7 @@ with (
 CREATE TABLE  "staging".project
 (
   id uuid NOT NULL,
-  "enrollmentid" uuid,
+  enrollmentid uuid,
   continuumproject "staging".no_yes,
   organizationid uuid,
   projectcommonname character varying(32),
@@ -1020,11 +1087,17 @@ CREATE TABLE  "staging".project
   residentialaffiliation "staging".no_yes,
   targetpopulation "staging".target_population_type,
   trackingmethod "staging".tracking_method,
-  "project_group_code" character varying(8),
-   "date_created" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
+  project_group_code character varying(8),
+  date_created timestamp,
+  date_updated timestamp,
+   "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  user_id uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1054,10 +1127,14 @@ CREATE TABLE "staging".affiliation
   projectid uuid,
   resprojectid character varying(32),
   "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1084,10 +1161,14 @@ CREATE TABLE "staging".bedinventory
   youth_age_group "staging".youth_age_group,
   youth_bed_inventory bigint,
   "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1111,9 +1192,15 @@ create table "staging".projectcoc
   projectid uuid,
   "project_group_code" character varying(8),
    date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+   date_updated timestamp,
+    "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+   user_id uuid,
+   export_id uuid,
+   parent_id uuid,
+   version integer,
+   deleted boolean DEFAULT false,
+   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1133,11 +1220,17 @@ CREATE TABLE "staging".enrollment_coc
   project_co_id uuid,
   enrollmentid uuid,
   coc_code character(20),
-  "project_group_code" character varying(8),
+  project_group_code character varying(8),
   date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+  date_updated timestamp,
+   "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1170,8 +1263,14 @@ zip text,
 "project_group_code" character varying(8),
 date_created timestamp,
 date_updated timestamp,
+ "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
 user_id uuid,
 export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1203,9 +1302,15 @@ create table "staging".inventory
   unitinventory integer,
   "project_group_code" character varying(8),
   date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+  date_updated timestamp,
+   "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1239,9 +1344,15 @@ create table  "staging".funder
   "startdate" timestamp,
   "project_group_code" character varying(8),
   date_created timestamp,
-date_updated timestamp,
-user_id uuid,
-export_id uuid,
+  date_updated timestamp,
+   "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1270,10 +1381,14 @@ create table "staging".pathstatus
   enrollmentid uuid,
   reasonnotenrolled "staging".reason_not_enrolled,
   "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1298,10 +1413,14 @@ create table "staging".rhybcpstatus
   reasonnoservices integer,
   statusdate timestamp,
   "project_group_code" character varying(8),
-     "date_created" timestamp,
+     "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1328,10 +1447,14 @@ create table "staging".sexualorientation
   enrollmentid uuid,
   sexualorientation "staging".sexual_orientation,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1355,10 +1478,14 @@ create table "staging".formerwardjuvenilejustice
   "juvenilejusticeyears"  "staging".issues_number_of_years,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1374,6 +1501,8 @@ with (
   oids=false
 );
 
+
+
 create table "staging".lastpermanentaddress
 (
   id uuid not null,
@@ -1384,10 +1513,14 @@ create table "staging".lastpermanentaddress
   lastpermanentzip character varying(32),
   enrollmentid uuid,
   "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1409,10 +1542,14 @@ create table "staging".percentami
   id uuid not null,
   enrollmentid uuid,
   "project_group_code" character varying(8),
-     "date_created" timestamp,
+     "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1441,10 +1578,14 @@ create table "staging".medicalassistance
   nohivaidsassistancereason "staging".no_medical_assistance_reason,
    enrollmentid uuid,
    "project_group_code" character varying(8),
-     "date_created" timestamp,
+     "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1493,10 +1634,14 @@ create table "staging".youthcriticalissues
   unemploymentyouth "staging".no_yes,
   id uuid not null,
   "project_group_code" character varying(8),
-     "date_created" timestamp,
+     "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1522,10 +1667,14 @@ create table  "staging".worsthousingsituation
   worsthousingsituation "staging".five_val_dk_refused,
   id uuid not null,
   "project_group_code" character varying(8),
-      "date_created" timestamp,
+      "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1549,10 +1698,14 @@ create table "staging".formerwardchildwelfare
   "id" uuid not null,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-     "date_created" timestamp,
+     "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1577,10 +1730,14 @@ create table "staging".lastgradecompleted
   id uuid not null,
   enrollmentid uuid,
   "project_group_code" character varying(8),
-       "date_created" timestamp,
+       "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1604,10 +1761,14 @@ create table "staging".referralsource
   referralsource "staging".referral_source,
   id uuid not null,
   "project_group_code" character varying(8),
-       "date_created" timestamp,
+       "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1632,10 +1793,14 @@ create table "staging".commercialsexualexploitation
   "exchangeforsexpastthreemonths" "staging".five_val_dk_refused,
    enrollmentid uuid,
    "project_group_code" character varying(8),
-   "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,
+sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1662,10 +1827,14 @@ create table "staging".domesticviolence
   "enrollmentid" uuid,
   "whenoccurred" "staging".when_dom_violence_occurred,
   "project_group_code" character varying(8),
-       "date_created" timestamp,
+       "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1697,10 +1866,14 @@ create table "staging".disabilities
    "enrollmentid" uuid,
   "receivingservices" "staging".five_val_dk_refused,
   "project_group_code" character varying(8),
-         "date_created" timestamp,
+         "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1726,10 +1899,14 @@ create table  "staging".residentialmoveindate
   residentialmoveindate timestamp,
   id uuid not null,      
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1754,10 +1931,14 @@ create table  "staging".dateofengagement
   "id" uuid not null,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-           "date_created" timestamp,
+           "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1786,10 +1967,14 @@ create table "staging".services
   subtypeprovided integer,
   typeprovided integer,
   "project_group_code" character varying(8),
-           "date_created" timestamp,
+           "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1846,10 +2031,14 @@ create table "staging".incomeandsources
   workerscomp "staging".no_yes,
   workerscompamount numeric(15,3),
   "project_group_code" character varying(8),
-           "date_created" timestamp,
+           "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false, 
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1884,10 +2073,14 @@ create table "staging".noncashbenefits
   tanftransportation "staging".no_yes,
   wic "staging".no_yes,
   "project_group_code" character varying(8),
-             "date_created" timestamp,
+             "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1929,10 +2122,14 @@ create table "staging".healthinsurance
   "statehealthins" "staging".no_yes,
   "vamedicalservices" "staging".no_yes,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1956,10 +2153,14 @@ create table "staging".exit
   "otherdestination" character varying(32),
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
-                 "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1983,10 +2184,14 @@ create table  "staging".exithousingassessment
   "housingassessment" "staging".housing_assmnt_exit,
   "subsidyinformation" "staging".subsidy_information,
   "project_group_code" character varying(8),
-  "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2020,10 +2225,14 @@ create table  "staging".exitplansactions
   "temporaryshelterplacement" "staging".no_yes_refused,
   "writtenaftercareplan" "staging".no_yes_refused,
   "project_group_code" character varying(8),
-                    "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2051,10 +2260,14 @@ create table "staging".housingassessmentdisposition
   "id" uuid not null,
   "otherdisposition" character varying(32),
   "project_group_code" character varying(8),
-              "date_created" timestamp,
+  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2077,10 +2290,14 @@ create table "staging".familyreunification
   "familyreunificationachieved" "staging".five_val_dk_refused,
   "id" uuid not null,
   "project_group_code" character varying(8),
-              "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2104,10 +2321,14 @@ create table "staging".connectionwithsoar
   "id" uuid,
   "exitid" uuid,
   "project_group_code" character varying(8),
-           "date_created" timestamp,
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2133,10 +2354,16 @@ create table "staging".projectcompletionstatus
   projectcompletionstatus "staging".project_completion_status,
   id uuid not null,
   "project_group_code" character varying(8),
-          "date_created" timestamp,
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2173,11 +2400,22 @@ CREATE TABLE "staging".bulk_upload
   id bigint NOT NULL,
   inputPath text,
   status character(10),
-  insert_at timestamp,
-  update_at timestamp,
-  insert_by character(100),
-  update_by character(100),
-   export_id uuid,
+  description text,
+  size bigint,
+  export_id uuid,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+   CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
+      REFERENCES staging.hmis_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES staging.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2270,6 +2508,7 @@ CREATE TABLE staging.hmis_service
   external_product_id character varying(128),
   created_at date NOT NULL,
   modified_at timestamp,
+  
   created_by character varying(256) NOT NULL,
   modified_by character varying(256),
   deleted timestamp,
@@ -2716,7 +2955,7 @@ INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,ty
 INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('27aa0372-0299-4661-a519-ef5557bda8a1', 'USR_UPDATE_PROJECTGROUP', 'USR_UPDATE_ROJECTGROUP', 'USR_UPDATE_ROJECTGROUP', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4876e8ea-967e-4dc5-9679-091e033e6433', 'USR_DELTEE_PROJECTGROUP', 'USR_DELTEE_PROJECTGROUP', 'USR_DELTEE_PROJECTGROUP', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0820b', 'USR_GET_PROJECTGROUP_ID', 'USR_GET_PROJECTGROUP_ID', 'USR_GET_PROJECTGROUP_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-
+INSERT INTO staging.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850c', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
 
 
 CREATE SEQUENCE "staging".seq_developer_company START 1;
@@ -2965,6 +3204,7 @@ CREATE TABLE staging.hmis_role
   id uuid NOT NULL,
   role_name character varying(256),
   role_description character varying(256),
+  role_code character varying(256),
   parent_role_id uuid,
   created_at timestamp,
   created_by character varying(256),
@@ -3263,6 +3503,37 @@ WITH (
   OIDS = FALSE
 );
 
+CREATE TABLE staging.hmis_service_license
+(
+   id uuid, 
+   external_id character varying(256), 
+   service_id uuid, 
+   created_at timestamp without time zone, 
+   created_by character varying(256), 
+   modified_at timestamp without time zone, 
+   modified_by character varying(256), 
+   CONSTRAINT "PK_HMIS_SERVICE_LICENSE" PRIMARY KEY (id), 
+   CONSTRAINT "FK_HMIS_SERVICE_LICENCE_SERVICE_ID" FOREIGN KEY (service_id) REFERENCES staging.hmis_service (id) ON UPDATE NO ACTION ON DELETE NO ACTION
+) 
+WITH (
+  OIDS = FALSE
+);
+
+CREATE TABLE staging.hmis_property
+(
+  id uuid NOT NULL,
+  service character varying(64),
+  key_name character varying(256),
+  value character varying(256),
+  created_at timestamp without time zone,
+  modified_at timestamp without time zone,
+  created_by character varying(256),
+  modified_by character varying(256),
+  CONSTRAINT "PK_HMIS_PROPERTY" PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
 
 
 ALTER TABLE staging.hmis_user ADD COLUMN created_by character varying(256);
@@ -3282,7 +3553,7 @@ ALTER TABLE staging.hmis_user ADD COLUMN two_factor_authentication boolean;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES staging.organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (profile_id) REFERENCES staging.hmis_profile (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES staging.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES staging.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE  staging.hmis_user ADD CONSTRAINT "FK_USER_PROJECT_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES staging.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 update staging.hmis_user set two_factor_authentication =false;
 
 INSERT INTO staging.hmis_project_group(
@@ -3295,9 +3566,9 @@ INSERT INTO staging.hmis_user(
             id, first_name, middle_name, last_name, name_suffix, ssn, dob, 
             gender, date_created, date_updated, created_by, modified_by, 
              password, email_address, status, 
-            username, project_group_id)
+            username, project_group_id,two_factor_authentication)
     VALUES 
 ('2be4334a-ba97-4e12-a695-991752ca0391','Super Admin','Super Admin','Super Admin','Super Admin','','2015-12-10 00:00:00',
 '1','2015-12-10 00:00:00','2015-12-10 00:00:00','MASTER DATA','MASTER DATA',
-'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=','superadmin@hmis.com','ACTIVE','admin','ed938948-b73e-4868-940d-371c5bd2d3f8');
+'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=','superadmin@hmis.com','ACTIVE','admin','ed938948-b73e-4868-940d-371c5bd2d3f8',false);
 

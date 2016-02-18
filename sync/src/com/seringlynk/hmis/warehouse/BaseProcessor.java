@@ -97,7 +97,6 @@ public class BaseProcessor<T> {
 
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
-
 		} 
 	}
 
@@ -155,12 +154,19 @@ public class BaseProcessor<T> {
 	}
 	
 	private void populateHmisType(Map<String, Object> data) {
+		Map<String, Object> descMap = new HashMap<String, Object>();
 		for(String key :data.keySet()) {
 			String hmisType = getHmisType(key,(String)data.get(key));
 			if(StringUtils.isNotEmpty(hmisType)) {
-				data.put(key, hmisType.trim());	
+				descMap.put(key+"_desc", hmisType.trim());	
 			}
 		}
+		if(descMap.size() >0 ) {
+			for(String key :descMap.keySet()) {
+				data.put(key, (String)descMap.get(key));
+			}
+		}
+		
 	}
 	
 	/***

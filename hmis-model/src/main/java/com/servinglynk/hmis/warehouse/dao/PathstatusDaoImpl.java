@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
 import com.servinglynk.hmis.warehouse.model.staging.Pathstatus;
@@ -41,7 +42,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				UUID id = UUID.randomUUID();
 				pathstatusModel.setId(id);
 				pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
-				pathstatusModel.setReasonNotEnrolled(new Long(BasicDataGenerator.getStringValue(pathStatus.getReasonNotEnrolled())));
+				pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
 				pathstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 				pathstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(pathStatus.getProjectEntryID()));

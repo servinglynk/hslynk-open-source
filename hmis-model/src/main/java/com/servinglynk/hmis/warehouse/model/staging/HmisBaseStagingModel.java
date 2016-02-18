@@ -21,6 +21,10 @@ public abstract class HmisBaseStagingModel implements Entity{
 	/** Field mapping. */
 	protected LocalDateTime dateUpdated;
 	/** Field mapping. */
+	protected LocalDateTime dateCreatedFromSource;
+	/** Field mapping. */
+	protected LocalDateTime dateUpdatedFromSource;
+	/** Field mapping. */
 	protected String projectGroupCode;
 	/** Field mapping. */
 	private HmisUser user;
@@ -58,6 +62,25 @@ public abstract class HmisBaseStagingModel implements Entity{
 		 */
 		public void setDateUpdated(final LocalDateTime dateUpdated) {
 			this.dateUpdated = dateUpdated;
+		}
+		
+		@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+		@Basic( optional = true )
+		@Column( name = "date_created_from_source"  )
+		  public LocalDateTime getDateCreatedFromSource() {
+			return dateCreatedFromSource;
+		}
+		public void setDateCreatedFromSource(LocalDateTime dateCreatedFromSource) {
+			this.dateCreatedFromSource = dateCreatedFromSource;
+		}
+		@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+		@Basic( optional = true )
+		@Column( name = "date_updated_from_source"  )
+		public LocalDateTime getDateUpdatedFromSource() {
+			return dateUpdatedFromSource;
+		}
+		public void setDateUpdatedFromSource(LocalDateTime dateUpdatedFromSource) {
+			this.dateUpdatedFromSource = dateUpdatedFromSource;
 		}
 	
 		  @Column(name="project_group_code")

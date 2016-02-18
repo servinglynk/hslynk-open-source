@@ -34,7 +34,6 @@ DROP TABLE IF EXISTS "live".inventory;
 DROP TABLE IF EXISTS "live".funder;	
 DROP TABLE IF EXISTS "live".enrollment_coc;
 
-DROP TABLE IF EXISTS "live".pathstatus;
 DROP TABLE IF EXISTS "live".rhybcpstatus;
 DROP TABLE IF EXISTS "live".sexualorientation;
 DROP TABLE IF EXISTS "live".formerwardjuvenilejustice;
@@ -532,6 +531,7 @@ CREATE TABLE live.hmis_user
   dob timestamp,
   gender live.gender,
   is_user_in_hive boolean DEFAULT false,
+  is_user_hive_password_updated boolean DEFAULT false,
   hive_password character(100),
   hive_username character(100),
   date_created timestamp,
@@ -549,10 +549,11 @@ CREATE TABLE "live".hmis_type
   "id" serial NOT NULL ,
   "name" character(50) NOT NULL,
   "value" character(50) NOT NULL,
-  "description" character(50),
+  "description" text,
+  "year" bigint,
   "status" character(10),
   "expiration_date" timestamp,
-  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
+  "date_created" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   CONSTRAINT hmis_type_pk PRIMARY KEY ("id"),
@@ -634,7 +635,9 @@ id uuid not null,
   sourceID	character varying(32),
   sourceName	character varying(50),
  "project_group_code" character varying(8),
-  "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
   "date_updated" timestamp,
   "user_id" uuid,
   export_id uuid,
@@ -820,7 +823,7 @@ CREATE TABLE "live".path_status
   "id" uuid NOT NULL,
   "date_of_status" timestamp,
   "client_enrolled_in_path" bigint,
-  "reason_not_enrolled" bigint,
+  "reason_not_enrolled"  "live".reason_not_enrolled,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
@@ -954,7 +957,7 @@ CREATE TABLE "live".schoolstatus
 (
   "id" uuid NOT NULL,
   "information_date" timestamp,
-  "school_status" integer,
+  "school_status" "live".school_status,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
@@ -1367,42 +1370,6 @@ with (
 );
 
 
--- table: "pathstatus"
-
--- drop table "pathstatus";
-
-create table "live".pathstatus
-(
-  clientenrolledinpath "live".no_yes,
-  dateofstatus timestamp,
-  id uuid not null,
-  enrollmentid uuid,
-  reasonnotenrolled "live".reason_not_enrolled,
-  "project_group_code" character varying(8),
-   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
-  export_id uuid,
-  parent_id uuid,
-  version integer,
-  deleted boolean DEFAULT false,
-  sync boolean DEFAULT false,  
-      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES live.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  constraint "pathstatus_pkey" primary key (id),
-  constraint "pathstatus_enrollmentid_fkey" foreign key (enrollmentid)
-      references live.enrollment ("id") match simple
-      on update no action on delete no action,
-            CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
-      REFERENCES live.hmis_user (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-with (
-  oids=false
-);
-
-
 create table "live".rhybcpstatus
 (
   id uuid not null,
@@ -1433,7 +1400,6 @@ create table "live".rhybcpstatus
 with (
   oids=false
 );
-
 
 -- table: "sexualorientation"
 
@@ -1572,7 +1538,7 @@ create table "live".medicalassistance
   adap "live".five_val_dk_refused,
   hivaidsassistance "live".five_val_dk_refused,
   id uuid not null,
-  noadapreason "live".no_medical_assistance_reason,
+  noadapreason "live".no_adap_reason,
   nohivaidsassistancereason "live".no_medical_assistance_reason,
    enrollmentid uuid,
    "project_group_code" character varying(8),
@@ -2424,6 +2390,57 @@ WITH (
 );
 
 CREATE SEQUENCE "live".bulk_upload_id_seq START 1;
+
+create table "live".bulk_upload_mapping
+(id uuid not null,
+ source_id character(35) not null,
+ destin_id uuid,
+ bulk_upload_id bigint,
+ table_name character varying(100),
+ "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+     CONSTRAINT export_fkey FOREIGN KEY (export_id)
+      REFERENCES live.export (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT bulk_upload_mapping_pk PRIMARY KEY ("id"),
+   CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
+      REFERENCES live.hmis_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+create table "live".bulk_upload_activity
+(
+ id bigint not null,
+ bulk_upload_id bigint not null,
+ table_name character varying(100),
+ records_processed bigint,
+ description text,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+     CONSTRAINT export_fkey FOREIGN KEY (export_id)
+      REFERENCES live.export (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT bulk_upload_activity_pk PRIMARY KEY ("id"),
+   CONSTRAINT hmis_user_fkey FOREIGN KEY (user_id)
+      REFERENCES live.hmis_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE SEQUENCE "live".bulk_upload_activity_id_seq START 1;
 
 CREATE TABLE "live".hud_coc_report_question_7(
 id bigint primary key NOT NULL,
@@ -3473,6 +3490,7 @@ CREATE TABLE live.hmis_project_group
    project_group_desc character varying(256),
    project_group_code character varying(8),
    is_project_group_in_hive boolean,
+   skip_user_identifers boolean default false,
    INSERT_AT timestamp without time zone, 
    INSERT_BY character varying(32), 
    UPDATE_AT timestamp without time zone, 

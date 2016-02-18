@@ -66,11 +66,13 @@ public class BulkUploaderTest {
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
-		upload.setInputPath(path.getFile());
+	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+//		path.setURLStreamHandlerFactory(fac);
+		//upload.setInputPath(path.getFile());
+		upload.setInputPath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
-		HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().get(HmisUser.class,UUID.fromString("8b6c6ef2-87c7-47f0-8874-4cca6f09365c"));
+		HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
 		upload.setUser(hmisUser);
 		factory.getBulkUploaderWorkerDao().insert(upload);
 		//dao.performBulkUpload(upload);

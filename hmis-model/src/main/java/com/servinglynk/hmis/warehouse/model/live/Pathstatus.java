@@ -18,8 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 
 
 /**
@@ -53,7 +54,7 @@ public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializabl
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private Long reasonNotEnrolled;
+	private PathstatusReasonnotenrolledEnum reasonNotEnrolled;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -205,28 +206,28 @@ public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializabl
 		this.id = id;
 	}
 
+
 	 /**
-	 * Return the value associated with the column: reasonNotEnrolled.
-	 * @return A Long object (this.reasonNotEnrolled)
+	 * Return the value associated with the column: dobDataQuality.
+	 * @return A ClientDobDataQualityEnum object (this.dobDataQuality)
 	 */
+	@Type(type="com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnumType")
 	@Basic( optional = true )
 	@Column( name = "reason_not_enrolled"  )
-	public Long getReasonNotEnrolled() {
+	public PathstatusReasonnotenrolledEnum getReasonNotEnrolled() {
 		return this.reasonNotEnrolled;
-
+		
 	}
+	
 
-
-
-	 /**
-	 * Set the value related to the column: reasonNotEnrolled.
-	 * @param reasonNotEnrolled the reasonNotEnrolled value you wish to set
+ 
+	 /**  
+	 * Set the value related to the column: dobDataQuality.
+	 * @param dobDataQuality the dobDataQuality value you wish to set
 	 */
-	public void setReasonNotEnrolled(final Long reasonNotEnrolled) {
+	public void setReasonNotEnrolled(final PathstatusReasonnotenrolledEnum reasonNotEnrolled) {
 		this.reasonNotEnrolled = reasonNotEnrolled;
 	}
-
-
    /**
     * Deep copy.
 	* @return cloned object
