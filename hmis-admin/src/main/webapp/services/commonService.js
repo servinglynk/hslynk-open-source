@@ -41,17 +41,17 @@ var Service= ({
 			});
     },
     GetFilesListSTAGING: function ($http, success) {
-        $http.get('/hmis-bulk-loader/bulkupload?status=STAGING').success(function (data) {
+        $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING').success(function (data) {
 				if(success)success(data)
 			});
     },
     GetFilesListLIVE: function ($http, success) {
-        $http.get('/hmis-bulk-loader/bulkupload?status=LIVE').success(function (data) {
+        $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE').success(function (data) {
             if(success)success(data)
         });
     },
     GetFilesListERROR: function ($http, success) {
-        $http.get('/hmis-bulk-loader/bulkupload?status=ERROR').success(function (data) {
+        $http.get('/hmis-upload-service/rest/bulkupload?status=ERROR').success(function (data) {
         if(success)success(data)
     });
 },
@@ -61,13 +61,13 @@ var Service= ({
 			});
     },
     CheckServiceAvailableBulkUpload: function ($http, success,error) {
-        $http.get('/hmis-bulk-loader/bulkupload?status=STAGING').success(function (data) {
+        $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING').success(function (data) {
         if(success)success(data)
     }).error(error);
 		
 },
 CheckServiceAvailableUploadFile: function ($http, success,error) {
-        $http.post('/hmis-bulk-loader-service/uploadFile').success(function (data) {
+        $http.post('/hmis-upload-service/uploadFile').success(function (data) {
         if(success)success(data)
     }).error(error);
 		
@@ -79,18 +79,18 @@ CheckServiceAvailableAuthenticate: function ($http, success,error) {
 		
 },
 LoadStatistics: function ($http, success) {
-        $http.get('/hmis-bulk-loader/bulkupload?status=STAGING').success(
+        $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING').success(
 		function (data) 
 		{
 			 filesCollection =data;
 	    	// success(data)
-			  $http.get('/hmis-bulk-loader/bulkupload?status=LIVE').success(
+			  $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE').success(
 				function (data) 
 				{
 					Array.prototype.push.apply(filesCollection, data);
 				// success(data)
 					
-					$http.get('/hmis-bulk-loader/bulkupload?status=ERROR').success(
+					$http.get('/hmis-upload-service/rest/bulkupload?status=ERROR').success(
 					function (data) 
 					{
 						Array.prototype.push.apply(filesCollection, data);

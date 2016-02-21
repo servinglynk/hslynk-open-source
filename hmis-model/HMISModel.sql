@@ -566,12 +566,350 @@ WITH (
 );
 
 
-INSERT INTO "live".hmis_type (name,value,description,status) values ('dobdataquality','1','Full DOB reported','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values   ('dobdataquality','2','Approximate or partial DOB reported','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values    ('dobdataquality','8','Client does not know','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values  ('dobdataquality','9','Client refused','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values ('dobdataquality','99','Data not collected','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('address_data_quality','1','Full address reported','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('address_data_quality','2','Incomplete or estimated address reported','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('address_data_quality','8','Client doesn''t know','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('address_data_quality','9','Client refused','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('address_data_quality','99','Data not collected','ACTIVE');
 
+INSERT INTO "live".hmis_type (name,value,description,status) values ('askedorforcedtoexchangeforsex','0','No','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('askedorforcedtoexchangeforsex','1','Yes','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('askedorforcedtoexchangeforsex','8','Client doesn''t know','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('askedorforcedtoexchangeforsex','9','Client refused','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('askedorforcedtoexchangeforsex','99','Data not collected','ACTIVE');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','1',  'Referred to emergency shelter/safe haven');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','2', 'Referred to transitional housing');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','3', 'Referred to rapid re-housing');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','4', 'Referred to permanent supportive housing');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','5', 'Referred to homelessness prevention');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','6', 'Referred to street outreach');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','7', 'Referred to other continuum project type');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','8', 'Referred to a homelessness diversion program');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','9', 'Unable to refer/accept within continuum; ineligible for continuum projects');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','10','Unable to refer/accept within continuum; continuum services unavailable');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','11','Referred to other community project (non-continuum)');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','12','Applicant declined referral/acceptance');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','13','Applicant terminated assessment prior to completion');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','14','Other/specify');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('availabilty','ACTIVE','1','Year-round');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('availabilty','ACTIVE','2','Seasonal');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('availabilty','ACTIVE','3','Overflow');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('bedtype','ACTIVE','1','Facility-based');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('bedtype','ACTIVE','2','Voucher');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('bedtype','ACTIVE','3','Other');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('countofexchangeforsex','ACTIVE','1','1-3');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('countofexchangeforsex','ACTIVE','2','4-7');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('countofexchangeforsex','ACTIVE','3','8-30');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('countofexchangeforsex','ACTIVE','4','More than 30');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('countofexchangeforsex','8','Client doesn''t know','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('countofexchangeforsex','9','Client refused','ACTIVE');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('disabilitytype','ACTIVE','5','Physical Disability');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('disabilitytype','ACTIVE','6','Developmental Disability');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('disabilitytype','ACTIVE','7','Chronic Health Condition');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('disabilitytype','ACTIVE','8','HIV/AIDS');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('disabilitytype','ACTIVE','9','Mental Health Problem');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('disabilitytype','ACTIVE','10','Substance Abuse');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('discharge_status','ACTIVE','1','Honorable');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('discharge_status','ACTIVE','2','General under honorable conditions');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('discharge_status','ACTIVE','4','Bad conduct');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('discharge_status','ACTIVE','5','Dishonorable');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('discharge_status','ACTIVE','6','Under other than honorable conditions (OTH)');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('discharge_status','ACTIVE','7','Uncharacterized');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('discharge_status','8','Client doesn''t know','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('discharge_status','9','Client refused','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('discharge_status','99','Data not collected','ACTIVE');
+
+INSERT INTO "live".hmis_type (name,value,description,status) values ('dob_data_quality','1','Full DOB reported','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('dob_data_quality','2','Approximate or partial DOB reported','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('dob_data_quality','8','Client doesn''t know','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('dob_data_quality','9','Client refused','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('dob_data_quality','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('earlyexitreason','ACTIVE','1','Left for other opportunities – Independent living');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('earlyexitreason','ACTIVE','2','Left for other opportunities - Education');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('earlyexitreason','ACTIVE','3','Left for other opportunities - Military');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('earlyexitreason','ACTIVE','4','Left for other opportunities - Other');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('earlyexitreason','ACTIVE','5','Needs could not be met by project');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('earlyexitreason','ACTIVE','99','Data not collected');
+
+ 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('employment_type','ACTIVE','1','Full-time');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('employment_type','ACTIVE','2','Part-time');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('employment_type','ACTIVE','3','Seasonal / sporadic (including day labor)');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('employment_type','ACTIVE','99','Data not collected');
+ 
+ INSERT INTO "live".hmis_type (name,value,description,status) values ('ethnicity','0','Non-Hispanic/Non-Latino','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status) values ('ethnicity','1','Hispanic/Latino','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status) values    ('ethnicity','8','Client does not know','ACTIVE');
+ INSERT INTO "live".hmis_type  (name,value,description,status) values  ('ethnicity','9','Client refused','ACTIVE');
+ INSERT INTO "live".hmis_type  (name,value,description,status) values ('ethnicity','99','Data not collected','ACTIVE');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','24','Deceased');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','1','Emergency shelter, including hotel or motel paid for with emergency shelter voucher');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','15','Foster care home or foster care group home');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','6','Hospital or other residential non-psychiatric medical facility');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','7','Jail, prison or juvenile detention facility');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','25','Long-term care facility or nursing home');	
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','26','Moved from one HOPWA funded project to HOPWA PH ');   
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','27','Moved from one HOPWA funded project to HOPWA TH');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','11','Owned by client, no ongoing housing subsidy');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','21','Owned by client, with ongoing housing subsidy');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','3','Permanent housing for formerly homeless persons (such as: CoC project; or HUD legacy programs; or HOPWA PH)');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','16','Place not meant for habitation (e.g., a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','4','Psychiatric hospital or other psychiatric facility');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','10','Rental by client, no ongoing housing subsidy');	
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','19','Rental by client, with VASH housing subsidy');  
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','28','Rental by client, with GPD TIP housing subsidy');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','20','Rental by client, with other ongoing housing subsidy');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','29','Residential project or halfway house with no homeless criteria');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','18','Safe Haven');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','22','Staying or living with family, permanent tenure');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','12','Staying or living with family, temporary tenure (e.g., room, apartment or house)');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','23','Staying or living with friends, permanent tenure');	
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','13','Staying or living with friends, temporary tenure (e.g., room apartment or house)');  
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','5','Substance abuse treatment facility or detox center ');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','2','Transitional housing for homeless persons (including homeless youth)');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','17','Other');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('destination','ACTIVE','30','No exit interview completed');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('destination','8','Client doesn''t know','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status) values ('destination','9','Client refused','ACTIVE');   											    
+INSERT INTO "live".hmis_type (name,value,description,status) values ('destination','99','Data not collected','ACTIVE'); 
+
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','1','HUD:CoC – Homelessness Prevention (High Performing Comm. Only)'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','2','HUD:CoC – Permanent Supportive Housing');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','3','HUD:CoC – Rapid Re-Housing');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','4','HUD:CoC – Supportive Services Only');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','5','HUD:CoC – Transitional Housing');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','6','HUD:CoC – Safe Haven');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','7','HUD:CoC – Single Room Occupancy (SRO)');   
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','8','HUD:ESG – Emergency Shelter (operating and/or essential services)');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','9','HUD:ESG – Homelessness Prevention'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','10','HUD:ESG – Rapid Rehousing');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','11','HUD:ESG – Street Outreach');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','12','HUD:Rural Housing Stability Assistance Program');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','13','HUD:HOPWA – Hotel/Motel Vouchers');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','14','HUD:HOPWA – Housing Information');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','15','HUD:HOPWA – Permanent Housing (facility based or TBRA)');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','16','HUD:HOPWA – Permanent Housing Placement');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','17','HUD:HOPWA – Short-Term Rent, Mortgage, Utility assistance'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','18','HUD:HOPWA – Short-Term Supportive Facility');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','19','HUD:HOPWA – Transitional Housing (facility based or TBRA)'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','20','HUD:HUD/VASH');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','21','HHS:PATH – Street Outreach and Supportive Services Only');   
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','22','HHS:RHY – Basic Center Program (prevention and shelter)');   
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','23','HHS:RHY – Maternity Group Home for Pregnant and Parenting Youth');   
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','24','HHS:RHY – Transitional Living Program');  
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','25','HHS:RHY – Street Outreach Project');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','26','HHS:RHY – Demonstration Project');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','27','VA: Community Contract Emergency Housing');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','28','VA: Community Contract Residential Treatment Program');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','29','VA:Domiciliary Care');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','30','VA:Community Contract Safe Haven Program');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','31','VA:Grant and Per Diem Program');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','32','VA:Compensated Work Therapy Transitional Residence');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','33','VA:Supportive Services for Veteran Families');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('funder','ACTIVE','34','N/A');
+
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','1','Out of age range');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','2','Ward of the State – Immediate Reunification');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','4','Other');
+ INSERT INTO "live".hmis_type (name,value,description,status) values ('reason_no_services','99','Data not collected','ACTIVE'); 
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','1','Male','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','2','Transgender male to female','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','3','Transgender female to male','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','4','Other','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','8','Client does not know','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','9','Client refused','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','99','Data not collected','ACTIVE');
+ 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('health_category','ACTIVE','27','General Health Status');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('health_category','ACTIVE','28','Dental Health Status');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('health_category','ACTIVE','29','Mental Health Status');
+  
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('health_status','ACTIVE','1','Excellent');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('health_status','ACTIVE','2','Very good');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('health_status','ACTIVE','3','Good');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('health_status','ACTIVE','4','Fair'); 
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('health_status','ACTIVE','5','Poor');	
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('health_status','8','Client does not know','ACTIVE');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('health_status','9','Client refused','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('health_status','99','Data not collected','ACTIVE');	
+	
+	
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('householdtype','ACTIVE','1','Households without children'); 
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('householdtype','ACTIVE','3','Households with at least one adult and one child'); 
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('householdtype','ACTIVE','4','Households with only children');
+
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','1','Able to maintain the housing they had at project entry');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','2','Moved to new housing unit');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','3','Moved in with family/friends on a temporary basis');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','4','Moved in with family/friends on a permanent basis ');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','5','Moved to a transitional or temporary housing facility or program');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','6','Client became homeless – moving to a shelter or other place unfit for human habitation');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','7','Client went to jail/prison');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('housingassessment','ACTIVE','10','Client died ');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('housingassessment','8','Client does not know','ACTIVE');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('housingassessment','9','Client refused','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('housingassessment','99','Data not collected','ACTIVE');	
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('incarceratedparentstatus','ACTIVE','1','One parent / legal guardian is incarcerated');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('incarceratedparentstatus','ACTIVE','2','One parent / legal guardian is incarcerated');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('incarceratedparentstatus','ACTIVE','3','The only parent / legal guardian is incarcerated');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('incarceratedparentstatus','99','Data not collected','ACTIVE');	
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('juvenilejusticeyears','ACTIVE','1','Less than one year');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('juvenilejusticeyears','ACTIVE','2','1 to 2 years');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('juvenilejusticeyears','ACTIVE','3','3 to 5 or more years');
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('childwelfareyears','ACTIVE','1','Less than one year');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('childwelfareyears','ACTIVE','2','1 to 2 years');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('childwelfareyears','ACTIVE','3','3 to 5 or more years');
+
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','1','Less than Grade 5');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','2','Grades 5-6');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','3','Grades 7-8');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','4','Grades 9-11');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','5','rade 12');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','6','School program does not have grade levels');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','7','GED');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('lastgradecompleted','ACTIVE','10','Some college');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('lastgradecompleted','8','Client does not know','ACTIVE');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('lastgradecompleted','9','Client refused','ACTIVE');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('lastgradecompleted','99','Data not collected','ACTIVE');	
+ 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('military_branch','ACTIVE','1','Army');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('military_branch','ACTIVE','2','Air Force');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('military_branch','ACTIVE','3','Navy'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('military_branch','ACTIVE','4','Marines'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('military_branch','ACTIVE','6','Coast Guard');
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('military_branch','8','Client does not know','ACTIVE');
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('military_branch','9','Client refused','ACTIVE');
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('military_branch','99','Data not collected','ACTIVE');
+  
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','100','0 to 12 months (with a leading 1)');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','7','More than 12 months');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','8','Client does not know','ACTIVE');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','9','Client refused','ACTIVE');
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','99','Data not collected','ACTIVE');
+  
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','1','Full name reported'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','2','Partial, street name, or code name reported');  
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('name_data_quality','8','Client does not know','ACTIVE');  
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('name_data_quality','9','Client refused','ACTIVE');  
+    INSERT INTO "live".hmis_type (name,value,description,status)  values ('name_data_quality','99','Data not collected','ACTIVE');  
+    
+      INSERT INTO "live".hmis_type (name,status,value,description) values ('noadapreason','ACTIVE','1','Applied; decision pending');
+      INSERT INTO "live".hmis_type (name,status,value,description) values ('noadapreason','ACTIVE','2','Applied; client not eligible');
+      INSERT INTO "live".hmis_type (name,status,value,description) values ('noadapreason','ACTIVE','3','Client did not apply');
+      INSERT INTO "live".hmis_type (name,status,value,description) values ('noadapreason','ACTIVE','4','Insurance type N/A for this client');
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('noadapreason','8','Client does not know','ACTIVE');  
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('noadapreason','9','Client refused','ACTIVE');  
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('noadapreason','99','Data not collected','ACTIVE');  
+    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nocobrareason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nocobrareason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nocobrareason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nocobrareason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nocobrareason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nocobrareason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nocobrareason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noemployerprovidedreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noemployerprovidedreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noemployerprovidedreason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noemployerprovidedreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noemployerprovidedreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noemployerprovidedreason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noemployerprovidedreason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicaidreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicaidreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicaidreason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicaidreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nomedicaidreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nomedicaidreason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nomedicaidreason','99','Data not collected','ACTIVE');  
+
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicarereason','ACTIVE','1','Applied; decision pending');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicarereason','ACTIVE','2','Applied; client not eligible');    
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicarereason','ACTIVE','3','Client did not apply');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('nomedicarereason','ACTIVE','4','Insurance type N/A for this client');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('nomedicarereason','8','Client does not know','ACTIVE'); 
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('nomedicarereason','9','Client refused','ACTIVE');  
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('nomedicarereason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noprivatepayreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noprivatepayreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noprivatepayreason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noprivatepayreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noprivatepayreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noprivatepayreason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noprivatepayreason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noschipreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noschipreason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('noschipreason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nostatehealthinsreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nostatehealthinsreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nostatehealthinsreason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nostatehealthinsreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nostatehealthinsreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nostatehealthinsreason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nostatehealthinsreason','99','Data not collected','ACTIVE');  
+
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('novamedreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('novamedreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "live".hmis_type (name,status,value,description) values ('novamedreason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('novamedreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('novamedreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('novamedreason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('novamedreason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nohivaidsassistancereason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nohivaidsassistancereason','ACTIVE','2','Applied; client not eligible');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nohivaidsassistancereason','ACTIVE','3','Client did not apply');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('nohivaidsassistancereason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nohivaidsassistancereason','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nohivaidsassistancereason','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('nohivaidsassistancereason','99','Data not collected','ACTIVE');  
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('not_employed_reason','ACTIVE','1','Looking for work');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('not_employed_reason','ACTIVE','2','Unable to work');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('not_employed_reason','ACTIVE','3','Not looking for work');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('not_employed_reason','99','Data not collected','ACTIVE');  
+
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('pathhowconfirmed','ACTIVE','1','Unconfirmed; presumptive or self-report');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('pathhowconfirmed','ACTIVE','2','Confirmed through assessment and clinical evaluation'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('pathhowconfirmed','ACTIVE','3','Confirmed by prior evaluation or clinical records');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('pathhowconfirmed','99','Data not collected','ACTIVE');   
+
+INSERT INTO "live".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','0','No');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','1','Unconfirmed; presumptive or self-report');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','2','Confirmed through assessment and clinical evaluation'); 
+INSERT INTO "live".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','3','Confirmed by prior evaluation or clinical records');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('pathsmiinformation','8','Client does not know','ACTIVE'); 
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('pathsmiinformation','9','Client refused','ACTIVE');  
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('pathsmiinformation','99','Data not collected','ACTIVE');  
+ 
+INSERT INTO "live".hmis_type (name,status,value,description) values ('projectcompletionstatus','ACTIVE','1','Completed project');
+INSERT INTO "live".hmis_type (name,status,value,description) values ('projectcompletionstatus','ACTIVE','2','Youth voluntarily left early'); 
+INSERT INTO "live".hmis_type (name,status,value,description) values ('projectcompletionstatus','ACTIVE','3','Youth was expelled or otherwise involuntarily discharged from project');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('projectcompletionstatus','99','Data not collected','ACTIVE');  
 
 INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','1','American Indian or Alaska Native','ACTIVE');
 INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','2','Asian','ACTIVE');
@@ -580,40 +918,879 @@ INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','4'
 INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','5','White','ACTIVE');
 INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','8','Client does not know','ACTIVE');
 INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','9','Client refused','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','99','Data not collected','ACTIVE');
+INSERT INTO "live".hmis_type (name,value,description,status)  values ('race','99','Data not collected','ACTIVE');	
 
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','1','Male','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','2','Transgender male to female','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','3','Transgender female to male','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','4','Other','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','8','Client does not know','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','9','Client refused','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status)  values ('gender','99','Data not collected','ACTIVE');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','1','Emergency Shelter'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','2','Transitional Housing'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','3','PH - Permanent Supportive Housing (disability required for entry)');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','4','Street Outreach'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','6','Services Only');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','7','Other'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','8','Safe Haven'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','9','PH – Housing Only');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','10','PH – Housing with Services (no disability required for entry)');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','11','Day Shelter');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','12','Homelessness Prevention'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','13','PH - Rapid Re-Housing');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','14','Coordinated Assessment');
+ 
 
-INSERT INTO "live".hmis_type (name,value,description,status) values ('namedataquality','1','Full name reported','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values   ('namedataquality','2','Partial, street name, or code name reported','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values    ('namedataquality','8','Client does not know','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values  ('namedataquality','9','Client refused','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values ('namedataquality','99','Data not collected','ACTIVE');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('reason_not_enrolled','ACTIVE','1','Client was found ineligible for PATH');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('reason_not_enrolled','ACTIVE','2','Client was not enrolled for other reason(s)');
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('reason_not_enrolled','99','Data not collected','ACTIVE'); 
 
-INSERT INTO "live".hmis_type (name,value,description,status) values ('ssndataquality','1','Full SSN reported','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values   ('ssndataquality','2','Approximate or partial SSN reported','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values    ('ssndataquality','8','Client does not know','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values  ('ssndataquality','9','Client refused','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values ('ssndataquality','99','Data not collected','ACTIVE');
 
-INSERT INTO "live".hmis_type (name,value,description,status) values ('ethnicity','0','Non-Hispanic/Non-Latino','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values ('ethnicity','1','Hispanic/Latino','ACTIVE');
-INSERT INTO "live".hmis_type (name,value,description,status) values    ('ethnicity','8','Client does not know','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values  ('ethnicity','9','Client refused','ACTIVE');
-INSERT INTO "live".hmis_type  (name,value,description,status) values ('ethnicity','99','Data not collected','ACTIVE');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','12','Contact');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','14','Services Provided');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','15','Financial Assistance');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','16','Referrals Provided');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','141','PATH service');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','142','RHY service');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','143','HOPWA service');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','144','SSVF service');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','151','HOPWA financial assistance');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','152','SSVF financial assistance');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','161','PATH referral');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','162','RHY referral');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','200','Bed night');
+  
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','1','Attained');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','2','Not Attained');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','3','Unkown');
+ 
+ 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','1','Self-Referral');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','2','Individual: Parent/Guardian');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','3','Individual: Relative or Friend');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','4','Individual: Other Adult or Youth'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','5','Individual: Partner/Spouse');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','6','Individual: Foster Parent');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','7','Outreach Project: FYSB');  	
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','10','Outreach Project: Other');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','11','Temporary Shelter: FYSB Basic Center Project');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','12','Temporary Shelter: Other Youth Only Emergency Shelter');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','13','Temporary Shelter: Emergency Shelter for Families');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','14','Temporary Shelter: Emergency Shelter for Individuals');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','15','Temporary Shelter: Domestic Violence Shelter');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','16','Temporary Shelter: Safe Place');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','17','Temporary Shelter: Other');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','18','Residential Project: FYSB Transitional Living Project'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','19','Residential Project: Other Transitional Living Project');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','20','Residential Project: Group Home'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','21','Residential Project: Independent Living Project'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','22','Residential Project: Job Corps'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','23','Residential Project: Drug Treatment Center');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','24','Residential Project: Treatment Center');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','25','Residential Project: Educational Institute'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','26','Residential Project: Other Agency project'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','27','Residential Project: Other Project'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','28','Hotline: National Runaway Switchboard'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','29','Hotline: Other'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','30','Other Agency: Child Welfare/CPS'); 
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','31','Other Agency: Non-Residential Independent Living Project');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','32','Other Project Operated by your Agency');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','33','Other Youth Services Agency');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','34','Juvenile Justice');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','35','Law Enforcement/ Police');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','36','Religious Organization');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','37','Mental Hospital');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','38','School');
+ INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','39','Other Organization');
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('referralsource','8','Client does not know','ACTIVE'); 
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('referralsource','9','Client refused','ACTIVE');  
+ INSERT INTO "live".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');  
+ 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','1','Self (head of household)'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','2','Head of household’s child'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','3','Head of household’s spouse or partner');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','4','Head of household’s other relation member (other relation to head of household)');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','5','Other: non-relation member');
+  
+  
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','1','Emergency shelter, including hotel or motel paid for with emergency shelter voucher');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','2','Transitional housing for homeless persons (including homeless youth)');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','3','Permanent housing for formerly homeless persons (such as: CoC project; HUD legacy programs; or HOPWA PH)'); 
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','4','Psychiatric hospital or other psychiatric facility');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','5','Substance abuse treatment facility or detox center');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','6','Hospital or other residential non-psychiatric medical facility');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','7','Jail, prison or juvenile detention facility'); 
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','8','Client does not know');
+   INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','9','Client refused'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','13','Staying or living in a friend’s room, apartment or house');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','15','Foster care home or foster care group home');                         
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','16','Place not meant for habitation (e.g. a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','17','Other');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','18','Safe Haven');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','19','Rental by client, with VASH subsidy');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','20','Rental by client, with other ongoing housing subsidy');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','21','Owned by client, with ongoing housing subsidy'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','22','Rental by client, no ongoing housing subsidy');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','23','Owned by client, no ongoing housing subsidy'); 
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','24','Long-term care facility or nursing home');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','25','Rental by client, with GPD TIP subsidy');
+  INSERT INTO "live".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','26','Residential project or halfway house with no homeless criteria');
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');
+  
+  
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','2','More than one week, but less than one month'); 
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','3','One to three months'); 
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','4','More than three months, but less than one year');  
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','5','One year or longer'); 
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','8','Client doesn''t know'); 
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','9','Client refused');
+    INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','10','One day or less');
+    INSERT INTO "live".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','11','Two days to one week'); 
+   INSERT INTO "live".hmis_type (name,value,description,status)  values ('residencePriorlengthofstay','99','Data not collected','ACTIVE'); 
+  
+  
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('sexualorientation','ACTIVE','1','Heterosexual');
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('sexualorientation','ACTIVE','2','Gay');
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('sexualorientation','ACTIVE','3','Lesbian');
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('sexualorientation','ACTIVE','4','Bisexual');
+     INSERT INTO "live".hmis_type (name,status,value,description) values ('sexualorientation','ACTIVE','5','Questioning / Unsure'); 
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('sexualorientation','8','Client does not know','ACTIVE'); 
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('sexualorientation','9','Client refused','ACTIVE');  
+  INSERT INTO "live".hmis_type (name,value,description,status)  values ('sexualorientation','99','Data not collected','ACTIVE');  	
+
+ 
+          
+        INSERT INTO "live".hmis_type (name,value,description,status) values ('ssndataquality','1','Full SSN reported','ACTIVE');
+        INSERT INTO "live".hmis_type (name,value,description,status) values   ('ssndataquality','2','Approximate or partial SSN reported','ACTIVE');
+        INSERT INTO "live".hmis_type (name,value,description,status) values    ('ssndataquality','8','Client does not know','ACTIVE');
+        INSERT INTO "live".hmis_type  (name,value,description,status) values  ('ssndataquality','9','Client refused','ACTIVE');
+        INSERT INTO "live".hmis_type  (name,value,description,status) values ('ssndataquality','99','Data not collected','ACTIVE');
+        
+        
+        INSERT INTO "live".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','1','Without a subsidy');
+        INSERT INTO "live".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','2','With the subsidy they had at project entry');
+   	INSERT INTO "live".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','3','With an on-going subsidy acquired since project entry');
+   	INSERT INTO "live".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','4','Only with financial assistance other than a subsidy'); 
+   	
+   	INSERT INTO "live".hmis_type (name,status,value,description) values ('targetpopulation','ACTIVE','1','DV Domestic Violence victims');
+   	INSERT INTO "live".hmis_type (name,status,value,description) values ('targetpopulation','ACTIVE','3','HIV Persons with HIV/AIDS');
+   	INSERT INTO "live".hmis_type (name,status,value,description) values ('targetpopulation','ACTIVE','4','NA Not Applicable');
+   	
+	
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','0','0 (not homeless - Prevention only)','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','1','1 (homeless only this time)','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','2','2','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','3','3','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','4','4 or more','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values  ('timesHomelesspastthreeyears','8','Client does not know','ACTIVE');
+	INSERT INTO "live".hmis_type  (name,value,description,status) values  ('timesHomelesspastthreeyears','9','Client refused','ACTIVE');
+	INSERT INTO "live".hmis_type  (name,value,description,status) values ('timesHomelesspastthreeyears','99','Data not collected','ACTIVE');
+		       
+	
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('trackingmethod','0','Entry/Exit Date','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('trackingmethod','3','Night-by-Night','ACTIVE');
+	
+	
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('whenoccurred','1','Within the past three months','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('whenoccurred','2','Three to six months ago (excluding six months exactly)','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('whenoccurred','3','Six months to one year ago (excluding one year exactly)','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('whenoccurred','4','One year ago or more','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values  ('whenoccurred','8','Client does not know','ACTIVE');
+	INSERT INTO "live".hmis_type  (name,value,description,status) values  ('whenoccurred','9','Client refused','ACTIVE');
+	INSERT INTO "live".hmis_type  (name,value,description,status) values ('whenoccurred','99','Data not collected','ACTIVE');
+	
+	
+	
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('housingstatus','1','Category 1 - Homeless','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('housingstatus','2','Category 2 - At imminent risk of losing housing','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('housingstatus','3','At-risk of homelessness','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('housingstatus','4','Stably Housed','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('housingstatus','5','Category 3 - Homeless only under other federal statutes','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('housingstatus','6','Category 4 - Fleeing domestic violence','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values  ('housingstatus','8','Client does not know','ACTIVE');
+	INSERT INTO "live".hmis_type  (name,value,description,status) values  ('housingstatus','9','Client refused','ACTIVE');
+	INSERT INTO "live".hmis_type  (name,value,description,status) values ('housingstatus','99','Data not collected','ACTIVE');
+	
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('youth_age_group','1','Only under age 18','ACTIVE');
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('youth_age_group','2','Only ages 18 to 24','ACTIVE'); 
+	INSERT INTO "live".hmis_type (name,value,description,status) values ('youth_age_group','3','Only youth under age 24 (both of the above)','ACTIVE');
+	
+	
+	
+	
+			     		     
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+   
+   
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										
+  											
+  											
+  											
+  											
+  											
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO "live".hmis_type (name,value,description,status) values ('veteran_status','0','No','ACTIVE');
 INSERT INTO "live".hmis_type (name,value,description,status) values ('veteran_status','1','Yes','ACTIVE');
 INSERT INTO "live".hmis_type (name,value,description,status) values    ('veteran_status','8','Client does not know','ACTIVE');
 INSERT INTO "live".hmis_type  (name,value,description,status) values  ('veteran_status','9','Client refused','ACTIVE');
 INSERT INTO "live".hmis_type  (name,value,description,status) values ('veteran_status','99','Data not collected','ACTIVE');
-
 
 INSERT INTO "live".hmis_type (name,value,description,status) values ('afghanistanoef','0','No','ACTIVE');
 INSERT INTO "live".hmis_type (name,value,description,status) values ('afghanistanoef','1','Yes','ACTIVE');
@@ -2971,6 +4148,8 @@ INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('4876e8ea-967e-4dc5-9679-091e033e6433', 'USR_DELTEE_PROJECTGROUP', 'USR_DELTEE_PROJECTGROUP', 'USR_DELTEE_PROJECTGROUP', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0820b', 'USR_GET_PROJECTGROUP_ID', 'USR_GET_PROJECTGROUP_ID', 'USR_GET_PROJECTGROUP_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850c', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('754ee226-2f0f-9691-d164-fd0499832bc6', 'GET_USR_BULK_UPLOAD', 'GET_USR_BULK_UPLOAD', 'GET_USR_BULK_UPLOAD', 'GET',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
+
 
 
 CREATE SEQUENCE "live".seq_developer_company START 1;
