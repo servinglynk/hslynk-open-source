@@ -67,7 +67,7 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	 public CommonsMultipartResolver commonsMultipartResolver(){
 	     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 	     commonsMultipartResolver.setDefaultEncoding("utf-8");
-	     commonsMultipartResolver.setMaxUploadSize(50000000);
+	     commonsMultipartResolver.setMaxUploadSize(403006744);
 	     return commonsMultipartResolver;
 	 }
 	 

@@ -12,7 +12,7 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-	
+	$scope.sessionToken = $sessionStorage.sessionToken;
     Service.GetFilesListSTAGING($http,
     //success
     function(data){
@@ -21,7 +21,7 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
         $scope.entryLimitSTAGING = 10; //max no of items to display in a page
         $scope.filteredItemsSTAGING = $scope.listSTAGING.length; //Initially for no filter  
         $scope.totalItemsSTAGING = $scope.listSTAGING.length;
-    })
+    },$scope)
   
     $scope.setPageSTAGING = function (pageNo) {
         $scope.currentPageSTAGING = pageNo;
@@ -35,7 +35,7 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
        $scope.entryLimitLIVE = 10; //max no of items to display in a page
        $scope.filteredItemsLIVE = $scope.listLIVE.length; //Initially for no filter  
        $scope.totalItemsLIVE = $scope.listLIVE.length;
-   })
+   },$scope)
 
     $scope.setPageLIVE = function (pageNo) {
         $scope.currentPageLIVE = pageNo;
@@ -49,7 +49,7 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
       $scope.entryLimitERROR = 10; //max no of items to display in a page
       $scope.filteredItemsERROR = $scope.listERROR.length; //Initially for no filter  
       $scope.totalItemsERROR = $scope.listERROR.length;
-  })
+  },$scope)
 
     $scope.setPageERROR = function (pageNo) {
         $scope.currentPageERROR = pageNo;

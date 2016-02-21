@@ -26,7 +26,7 @@ public class BulkUploadController extends ControllerBase{
 	 /**
 		 * Upload single file using Spring Controller
 		 */
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.GET)
  	@APIMapping(value="GET_USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
 		List<BulkUpload> getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status,HttpServletRequest request) {

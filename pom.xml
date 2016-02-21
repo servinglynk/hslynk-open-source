@@ -25,6 +25,7 @@
 	<module>hmis-bulk-loader</module> -->
 	<module>hmis-authorizationservice</module>
 <!-- 	<module>hmis-client-dedup</module> -->
+	<module>hmis-upload-service</module>
 	<module>hmis-developerservice</module>
 	<module>hmis-report-core</module>
 	<!-- <module>hmis-sync</module> -->

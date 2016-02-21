@@ -38,20 +38,21 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				throw new Exception("Worker Not Found"+ e.getMessage());
 		}
 	}
-	
+	@Transactional
 	public List<com.servinglynk.hmis.warehouse.core.model.BulkUpload> getBulkUploadsByStatus(String status, Account account) {
 		List<com.servinglynk.hmis.warehouse.core.model.BulkUpload>  bulkUploads = new ArrayList<com.servinglynk.hmis.warehouse.core.model.BulkUpload>();
 		HmisUser user = daoFactory.getAccountDao().findByUsername(account.getUsername());
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
-		 Role role = account.getRoles().getRoles().get(0);
+		 Role role = account.getRoles()!=null ? account.getRoles().getRoles().get(0):null;
 			List<BulkUpload> uploads = null; 
 			try {
-		 if("CUSTADMIN".equals(role.getRoleName())) 
-			 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForCustAdmin(status, user.getId(), projectGroupCode);
-		 else if ("SUPERADMIN".equals(role.getRoleName()))
-			 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadFoSuperAdmin(status);
-		 else
+		if(role != null) {
+			 if("CUSTADMIN".equals(role.getRoleName())) 
+				 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForCustAdmin(status, user.getId(), projectGroupCode);
+			 else if ("SUPERADMIN".equals(role.getRoleName()))
+				 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadFoSuperAdmin(status);
+		}else
 			 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForDevelopers(status, user.getId(), projectGroupCode);
 			}catch(Exception e) {
 				logger.error("Some issues trying to get project groups"+e.getMessage());

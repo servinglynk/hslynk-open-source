@@ -40,32 +40,67 @@ var Service= ({
 				if(success)success(data)
 			});
     },
-    GetFilesListSTAGING: function ($http, success) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING').success(function (data) {
-				if(success)success(data)
-			});
-    },
-    GetFilesListLIVE: function ($http, success) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE').success(function (data) {
-            if(success)success(data)
-        });
-    },
-    GetFilesListERROR: function ($http, success) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=ERROR').success(function (data) {
-        if(success)success(data)
-    });
-},
+    GetFilesListSTAGING: function ($http, success, $scope) {
+        var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
+      	 console.log('Session Token..'+$scope.sessionToken);
+            $http({
+                method: 'GET',
+                url: apiurl,
+                headers: {
+                  'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                    'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                    'Accept': 'application/json;odata=verbose'}
+            }).success(function (data) {
+                if(success)success(data.accounts)
+            });
+      },        
+    GetFilesListLIVE: function ($http, success,$scope) {
+    var apiurl = "/hmis-upload-service/rest/bulkupload?status=LIVE";
+ 	 console.log('Session Token..'+$scope.sessionToken);
+       $http({
+           method: 'GET',
+           url: apiurl,
+           headers: {
+             'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+               'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+               'Accept': 'application/json;odata=verbose'}
+       }).success(function (data) {
+           if(success)success(data.accounts)
+       });
+ },        
+    GetFilesListERROR: function ($http, success,$scope) {
+    	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
+       	 console.log('Session Token..'+$scope.sessionToken);
+             $http({
+                 method: 'GET',
+                 url: apiurl,
+                 headers: {
+                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                     'Accept': 'application/json;odata=verbose'}
+             }).success(function (data) {
+                 if(success)success(data.accounts)
+             });
+       },        
  GetSyncFilesList: function ($http, success) {
         $http.get('/hmis-bulk-loader/sync').success(function (data) {
 				if(success)success(data)
 			});
     },
-    CheckServiceAvailableBulkUpload: function ($http, success,error) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING').success(function (data) {
-        if(success)success(data)
-    }).error(error);
-		
-},
+    CheckServiceAvailableBulkUpload: function ($http,$scope, success,error) {
+    	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
+       	 console.log('Session Token..'+$scope.sessionToken);
+             $http({
+                 method: 'GET',
+                 url: apiurl,
+                 headers: {
+                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                     'Accept': 'application/json;odata=verbose'}
+             }).success(function (data) {
+                 if(success)success(data.accounts)
+             }).error(error);
+       },        
 CheckServiceAvailableUploadFile: function ($http, success,error) {
         $http.post('/hmis-upload-service/uploadFile').success(function (data) {
         if(success)success(data)

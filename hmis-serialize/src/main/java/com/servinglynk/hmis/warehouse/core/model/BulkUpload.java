@@ -1,6 +1,9 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-public class BulkUpload {
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("bulkupload")
+public class BulkUpload extends ClientModel{
 	private String inputPath;
 	private Long fileSize;
 	private String username;
