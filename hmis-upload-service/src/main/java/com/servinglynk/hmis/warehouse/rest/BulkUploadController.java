@@ -1,13 +1,9 @@
 package com.servinglynk.hmis.warehouse.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.core.model.BulkUpload;
+import com.servinglynk.hmis.warehouse.core.model.BulkUploads;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 @RestController
 @RequestMapping("/bulkupload")
@@ -29,11 +25,15 @@ public class BulkUploadController extends ControllerBase{
 	@RequestMapping(method = RequestMethod.GET)
  	@APIMapping(value="GET_USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
-		List<BulkUpload> getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status,HttpServletRequest request) {
-
+		BulkUploads  getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status,
+			    @RequestParam(value="startIndex", required=false) Integer startIndex, 
+                @RequestParam(value="maxItems", required=false) Integer maxItems,
+				HttpServletRequest request) {
+		  if (startIndex == null) startIndex =0;
+          if (maxItems == null) maxItems =30;
 	 		try {
 	 			Session session = sessionHelper.getSession(request);
-	 			List<BulkUpload> uploads = serviceFactory.getBulkUploadService().getBulkUploadsByStatus(status, session.getAccount());
+	 			BulkUploads uploads = serviceFactory.getBulkUploadService().getBulkUploadsByStatus(status, session.getAccount(),startIndex, maxItems);
 	 			return uploads;
 			} catch (Exception e) {
 				logger.error("Problems with getting the Bulk uploads"+e.getMessage());

@@ -51,7 +51,7 @@ var Service= ({
                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                     'Accept': 'application/json;odata=verbose'}
             }).success(function (data) {
-                if(success)success(data.accounts)
+                if(success)success(data.BulkUploads.bulkUploads)
             });
       },        
     GetFilesListLIVE: function ($http, success,$scope) {
@@ -65,7 +65,7 @@ var Service= ({
                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                'Accept': 'application/json;odata=verbose'}
        }).success(function (data) {
-           if(success)success(data.accounts)
+           if(success)success(data.BulkUploads.bulkUploads)
        });
  },        
     GetFilesListERROR: function ($http, success,$scope) {
@@ -79,7 +79,7 @@ var Service= ({
                      'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                      'Accept': 'application/json;odata=verbose'}
              }).success(function (data) {
-                 if(success)success(data.accounts)
+                 if(success)success(data.BulkUploads.bulkUploads)
              });
        },        
  GetSyncFilesList: function ($http, success) {
@@ -98,7 +98,7 @@ var Service= ({
                      'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                      'Accept': 'application/json;odata=verbose'}
              }).success(function (data) {
-                 if(success)success(data.accounts)
+                 if(success)success(data.BulkUploads.bulkUploads)
              }).error(error);
        },        
 CheckServiceAvailableUploadFile: function ($http, success,error) {
