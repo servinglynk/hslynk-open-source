@@ -32,9 +32,9 @@ public class BaseProcessor<T> {
 			connection = getConnection();
 
 			String queryString = "SELECT * FROM live."+tableName ;
-			queryString =  queryString + " where sync = ?" ;
+		//	queryString =  queryString + " where sync = ?" ;
 			PreparedStatement statement = connection.prepareStatement(queryString);
-			statement.setBoolean(1, true);
+		//	statement.setBoolean(1, false);
 			resultSet = statement.executeQuery();
 			
 			// simple JDBC code to run SQL query and populate resultSet - END
@@ -61,6 +61,7 @@ public class BaseProcessor<T> {
 				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
+				System.out.println("Table Name ::"+getTableName(pojo.getClass().getSimpleName()));
 				populateHmisType(data);
 				// Check if the record exist in the table
 				if(baseImport.isDataExist(class1.getSimpleName(), id)) {
@@ -127,8 +128,9 @@ public class BaseProcessor<T> {
 
 	public Timestamp updateSyncStartTime(Timestamp dateCreated) {
 		PreparedStatement statement = null;
+		Connection connection = null;
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			statement = connection.prepareStatement("UPDATE live.sync SET date_created=?, status=? where date_created=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
@@ -143,13 +145,14 @@ public class BaseProcessor<T> {
 			if (statement != null) {
 				try {
 					statement.close();
+					connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-
+		
 		return null;
 	}
 	
@@ -158,6 +161,7 @@ public class BaseProcessor<T> {
 		for(String key :data.keySet()) {
 			String hmisType = getHmisType(key,(String)data.get(key));
 			if(StringUtils.isNotEmpty(hmisType)) {
+				System.out.println("Desc Field::"+key+"_desc");
 				descMap.put(key+"_desc", hmisType.trim());	
 			}
 		}
@@ -178,8 +182,9 @@ public class BaseProcessor<T> {
 		ResultSet resultSet = null;
 		String desc = null;
 		PreparedStatement statement = null;
+		Connection connection = null;
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			statement = connection.prepareStatement("SELECT description FROM live.hmis_type where status='ACTIVE' and name = ? and value= ?");
 			statement.setString(1, key);
 			statement.setString(2, value);
@@ -195,6 +200,7 @@ public class BaseProcessor<T> {
 			if (statement != null) {
 				try {
 					statement.close();
+					connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -213,9 +219,10 @@ public class BaseProcessor<T> {
 
 	public UUID insertSyncStartTime() {
 		PreparedStatement statement = null;
+		Connection connection = null;
 		try {
 			UUID syncID = UUID.randomUUID();
-			Connection connection = getConnection();
+			connection = getConnection();
 			statement = connection.prepareStatement("INSERT INTO live.sync (id, date_created, status) VALUES (?, ?, ?)");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setObject(1, syncID);
@@ -230,6 +237,7 @@ public class BaseProcessor<T> {
 			if (statement != null) {
 				try {
 					statement.close();
+					connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -243,8 +251,9 @@ public class BaseProcessor<T> {
 
 	public void updateSyncEndDate(String jsonString, UUID id) {
 		PreparedStatement statement = null; 
+		Connection connection = null;
 		try {
-			Connection connection = getConnection(); 
+			connection = getConnection(); 
 			statement = connection.prepareStatement("UPDATE live.sync SET date_updated=?, status=?, json=? where id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
@@ -259,6 +268,7 @@ public class BaseProcessor<T> {
 			if (statement != null) {
 				try {
 					statement.close();
+					connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -267,9 +277,10 @@ public class BaseProcessor<T> {
 		}
 	}
 	public void updateSyncFlag(String tableName,UUID id) {
-		PreparedStatement statement = null; 
+		PreparedStatement statement = null;
+		Connection connection = null;
 		try {
-			Connection connection = getConnection(); 
+			connection = getConnection(); 
 			statement = connection.prepareStatement("UPDATE live."+tableName+" SET date_updated=?, sync=? where id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
@@ -283,6 +294,7 @@ public class BaseProcessor<T> {
 			if (statement != null) {
 				try {
 					statement.close();
+					connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
