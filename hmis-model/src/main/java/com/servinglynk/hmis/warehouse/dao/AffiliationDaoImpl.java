@@ -35,13 +35,15 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					com.servinglynk.hmis.warehouse.model.staging.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.staging.Affiliation();
 					affiliationModel.setId(UUID.randomUUID());
 					affiliationModel.setResprojectid(affiliation.getResProjectID());
-					affiliationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
-					affiliationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
+					affiliationModel.setDateCreated(LocalDateTime.now());
+					affiliationModel.setDateUpdated(LocalDateTime.now());
 					Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(affiliation.getProjectID()));
 					com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 					affiliationModel.setExport(exportEntity);
 					affiliationModel.setProjectid(project);
 					exportEntity.addAffiliation(affiliationModel);
+					affiliationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
+					affiliationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
 					hydrateCommonFields(affiliationModel, domain);
 					insertOrUpdate(affiliationModel);
 				}

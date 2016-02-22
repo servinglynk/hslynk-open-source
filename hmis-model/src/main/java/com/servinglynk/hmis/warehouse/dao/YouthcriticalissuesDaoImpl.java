@@ -66,8 +66,10 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				Youthcriticalissues youthcriticalissuesModel = new Youthcriticalissues();
 				UUID id = UUID.randomUUID();
 				youthcriticalissuesModel.setId(id);
-				youthcriticalissuesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getDateCreated()));
-				youthcriticalissuesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getDateUpdated()));
+				youthcriticalissuesModel.setDateCreated(LocalDateTime.now());
+				youthcriticalissuesModel.setDateUpdated(LocalDateTime.now());
+				youthcriticalissuesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getDateCreated()));
+				youthcriticalissuesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getDateUpdated()));
 				youthcriticalissuesModel.setAbuseandneglectfam(YouthcriticalissuesAbuseandneglectfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getAbuseAndNeglectFam())));
 				youthcriticalissuesModel.setAbuseandneglectyouth(YouthcriticalissuesAbuseandneglectyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getAbuseAndNeglectYouth())));
 				youthcriticalissuesModel.setActivemilitaryparent(YouthcriticalissuesActivemilitaryparentEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getActiveMilitaryParent())));

@@ -63,8 +63,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
 				projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
 				projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
-				projectModel.setDateCreated(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
-				projectModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
+				projectModel.setDateCreated(LocalDateTime.now());
+				projectModel.setDateUpdated(LocalDateTime.now());
+				projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
+				projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 				if(project.getProjectID() !=null && !"".equals(project.getProjectID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID());
 					if(uuid !=null) {

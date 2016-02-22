@@ -37,13 +37,15 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				Dateofengagement dateOfEngagementModel = new Dateofengagement();
 				dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
 				dateOfEngagementModel.setId(UUID.randomUUID());
-				dateOfEngagementModel.setDateCreated(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
-				dateOfEngagementModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
+				dateOfEngagementModel.setDateCreated(LocalDateTime.now());
+				dateOfEngagementModel.setDateUpdated(LocalDateTime.now());
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
 				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				dateOfEngagementModel.setExport(exportEntity);
 				exportEntity.addDateofengagement(dateOfEngagementModel);
+				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
+				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
 				hydrateCommonFields(dateOfEngagementModel, domain);
 				insertOrUpdate(dateOfEngagementModel);
 			}

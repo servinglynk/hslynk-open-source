@@ -43,8 +43,10 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 organizationModel.setOrganizationname(organization.getOrganizationName());
 				  com.servinglynk.hmis.warehouse.model.staging.Project project =  (com.servinglynk.hmis.warehouse.model.staging.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
 				  organizationModel.addProject(project);
-				 organizationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
-				 organizationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
+				  organizationModel.setDateCreated(LocalDateTime.now());
+				  organizationModel.setDateUpdated(LocalDateTime.now());
+				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
+				 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 				 com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				 organizationModel.setExport(exportEntity);
 				 exportEntity.addOrganization(organizationModel);

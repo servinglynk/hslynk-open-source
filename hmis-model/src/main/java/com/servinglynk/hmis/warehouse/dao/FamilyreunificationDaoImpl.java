@@ -41,8 +41,11 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 			{
 				Familyreunification familyreunificationModel = new Familyreunification();
 				familyreunificationModel.setId(UUID.randomUUID());
-				familyreunificationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
-				familyreunificationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
+
+				familyreunificationModel.setDateCreated(LocalDateTime.now());
+				familyreunificationModel.setDateUpdated(LocalDateTime.now());
+				familyreunificationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
+				familyreunificationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
 				familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(familyReunification.getExitID()));
 				familyreunificationModel.setExitid(exit);

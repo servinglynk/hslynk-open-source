@@ -35,8 +35,10 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				domesticviolenceModel.setId(UUID.randomUUID());
 				domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
 				domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
-				domesticviolenceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
-				domesticviolenceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
+				domesticviolenceModel.setDateCreated(LocalDateTime.now());
+				domesticviolenceModel.setDateUpdated(LocalDateTime.now());
+				domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
+				domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(domesticViolence.getProjectEntryID()));
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				domesticviolenceModel.setExport(exportEntity);

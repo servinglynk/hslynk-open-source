@@ -43,8 +43,10 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				Rhybcpstatus rhybcpstatusModel = new Rhybcpstatus();
 				UUID id = UUID.randomUUID();
 				rhybcpstatusModel.setId(id);
-				rhybcpstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
-				rhybcpstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
+				rhybcpstatusModel.setDateCreated(LocalDateTime.now());
+				rhybcpstatusModel.setDateUpdated(LocalDateTime.now());
+				rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
+				rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
 				rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
 				rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
 				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));

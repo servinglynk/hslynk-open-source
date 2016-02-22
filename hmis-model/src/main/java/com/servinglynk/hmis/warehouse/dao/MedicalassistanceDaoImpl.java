@@ -45,8 +45,10 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				Medicalassistance medicalassistanceModel = new Medicalassistance();
 				UUID id = UUID.randomUUID();
 				medicalassistanceModel.setId(id);
-				medicalassistanceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
-				medicalassistanceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
+				medicalassistanceModel.setDateCreated(LocalDateTime.now());
+				medicalassistanceModel.setDateUpdated(LocalDateTime.now());
+				medicalassistanceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
+				medicalassistanceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
 				medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getADAP())));
 				medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
 				medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));

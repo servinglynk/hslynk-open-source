@@ -44,8 +44,10 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				residentialmoveindateModel.setId(id);
 				residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
 				residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
-				residentialmoveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
-				residentialmoveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
+				residentialmoveindateModel.setDateCreated(LocalDateTime.now());
+				residentialmoveindateModel.setDateUpdated(LocalDateTime.now());
+				residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
+				residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(residentialMoveInDate.getProjectEntryID()));
 				residentialmoveindateModel.setEnrollmentid(enrollment);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());

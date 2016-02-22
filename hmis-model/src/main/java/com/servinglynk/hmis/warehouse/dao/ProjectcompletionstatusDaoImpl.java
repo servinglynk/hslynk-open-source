@@ -44,8 +44,10 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				projectcompletionstatusModel.setId(UUID.randomUUID());
 				projectcompletionstatusModel.setEarlyexitreason(ProjectcompletionstatusEarlyexitreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getEarlyExitReason())));
 				projectcompletionstatusModel.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
-				projectcompletionstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
-				projectcompletionstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
+				projectcompletionstatusModel.setDateCreated(LocalDateTime.now());
+				projectcompletionstatusModel.setDateUpdated(LocalDateTime.now());
+				projectcompletionstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
+				projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(projectCompletionStatus.getExitID()));
 				projectcompletionstatusModel.setExitid(exit);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());

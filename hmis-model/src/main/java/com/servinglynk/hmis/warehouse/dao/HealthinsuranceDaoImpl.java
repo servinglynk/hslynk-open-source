@@ -72,8 +72,10 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				healthinsuranceModel.setSchip(HealthinsuranceSchipEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getSCHIP())));
 				healthinsuranceModel.setStatehealthins(HealthinsuranceStatehealthinsEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getStateHealthIns())));
 				healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
-				healthinsuranceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
-				healthinsuranceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
+				healthinsuranceModel.setDateCreated(LocalDateTime.now());
+				healthinsuranceModel.setDateUpdated(LocalDateTime.now());
+				healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
+				healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(healthInsurance.getProjectEntryID()));
 				healthinsuranceModel.setEnrollmentid(enrollmentModel);

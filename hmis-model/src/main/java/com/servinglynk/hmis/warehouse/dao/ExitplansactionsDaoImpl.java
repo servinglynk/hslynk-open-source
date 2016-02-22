@@ -50,8 +50,11 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 			{
 				Exitplansactions exitplansactionsModel = new Exitplansactions();
 				exitplansactionsModel.setId(UUID.randomUUID());
-				exitplansactionsModel.setDateCreated(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateCreated()));
-				exitplansactionsModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateUpdated()));
+				exitplansactionsModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateCreated()));
+				exitplansactionsModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateUpdated()));
+
+				exitplansactionsModel.setDateCreated(LocalDateTime.now());
+				exitplansactionsModel.setDateUpdated(LocalDateTime.now());
 				exitplansactionsModel.setAssistancemainstreambenefits(ExitplansactionsAssistancemainstreambenefitsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getAssistanceMainstreamBenefits())));
 				exitplansactionsModel.setExitcounseling(ExitplansactionsExitcounselingEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getExitCounseling())));
 				exitplansactionsModel.setFurtherfollowupservices(ExitplansactionsFurtherfollowupservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getFurtherFollowUpServices())));

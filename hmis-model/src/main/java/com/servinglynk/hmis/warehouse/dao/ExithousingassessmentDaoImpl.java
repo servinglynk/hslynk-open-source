@@ -41,8 +41,10 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 				{
 					Exithousingassessment exithousingassessmentModel = new Exithousingassessment();
 					exithousingassessmentModel.setId(UUID.randomUUID());
-					exithousingassessmentModel.setDateCreated(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
-					exithousingassessmentModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
+					exithousingassessmentModel.setDateCreated(LocalDateTime.now());
+					exithousingassessmentModel.setDateUpdated(LocalDateTime.now());
+					exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
+					exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
 					exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
 					exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
 					Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitHousingAssessment.getExitID()));

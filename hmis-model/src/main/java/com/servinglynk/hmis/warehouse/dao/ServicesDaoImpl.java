@@ -50,8 +50,10 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				servicesModel.setReferraloutcome(ServicesReferraloutcomeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getReferralOutcome())));
 				servicesModel.setSubtypeprovided(BasicDataGenerator.getIntegerValue(services.getSubTypeProvided()));
 				servicesModel.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
-				servicesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
-				servicesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
+				servicesModel.setDateCreated(LocalDateTime.now());
+				servicesModel.setDateUpdated(LocalDateTime.now());
+				servicesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
+				servicesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(services.getProjectEntryID()));
 				servicesModel.setEnrollmentid(enrollment);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());

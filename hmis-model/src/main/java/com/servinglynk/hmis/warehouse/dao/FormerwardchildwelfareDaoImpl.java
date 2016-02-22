@@ -45,8 +45,10 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 				formerwardchildwelfareModel.setChildwelfaremonths(BasicDataGenerator.getIntegerValue(formerWardChildWelfare.getChildWelfareMonths()));
 				formerwardchildwelfareModel.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getChildWelfareYears())));
 				formerwardchildwelfareModel.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
-				formerwardchildwelfareModel.setDateCreated(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
-				formerwardchildwelfareModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
+				formerwardchildwelfareModel.setDateCreated(LocalDateTime.now());
+				formerwardchildwelfareModel.setDateUpdated(LocalDateTime.now());
+				formerwardchildwelfareModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
+				formerwardchildwelfareModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardChildWelfare.getProjectEntryID()));
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				formerwardchildwelfareModel.setExport(exportEntity);

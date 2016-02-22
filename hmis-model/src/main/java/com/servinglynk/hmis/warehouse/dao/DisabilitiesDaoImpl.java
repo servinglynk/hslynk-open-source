@@ -51,8 +51,10 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
 				disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
 				disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
-				disabilitiesModel.setDateCreated(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
-				disabilitiesModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+				disabilitiesModel.setDateCreated(LocalDateTime.now());
+				disabilitiesModel.setDateUpdated(LocalDateTime.now());
+				disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
+				disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 				if(disabilities.getProjectEntryID() !=null && !"".equals(disabilities.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((disabilities.getProjectEntryID()));
 					if(uuid !=null) {

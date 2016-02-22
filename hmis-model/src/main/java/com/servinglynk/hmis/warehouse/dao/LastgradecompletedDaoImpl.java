@@ -48,9 +48,12 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(lastGradeCompleted
 												.getLastGradeCompleted())));
-				lastGradeCompletedModel.setDateCreated(BasicDataGenerator
+
+				lastGradeCompletedModel.setDateCreated(LocalDateTime.now());
+				lastGradeCompletedModel.setDateUpdated(LocalDateTime.now());
+				lastGradeCompletedModel.setDateCreatedFromSource(BasicDataGenerator
 						.getLocalDateTime(lastGradeCompleted.getDateCreated()));
-				lastGradeCompletedModel.setDateUpdated(BasicDataGenerator
+				lastGradeCompletedModel.setDateUpdatedFromSource(BasicDataGenerator
 						.getLocalDateTime(lastGradeCompleted.getDateUpdated()));
 				if(lastGradeCompleted.getProjectEntryID() !=null && !"".equals(lastGradeCompleted.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((lastGradeCompleted.getProjectEntryID()));

@@ -45,8 +45,10 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthCategory())));
 				healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthStatus())));
 				healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
-				healthStatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
-				healthStatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
+				healthStatusModel.setDateCreated(LocalDateTime.now());
+				healthStatusModel.setDateUpdated(LocalDateTime.now());
+				healthStatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
+				healthStatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
 				if(healthStatus.getProjectEntryID()!=null && !"".equals(healthStatus.getProjectEntryID())) {
 					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(healthStatus.getProjectEntryID());
 					if(uuid !=null) {

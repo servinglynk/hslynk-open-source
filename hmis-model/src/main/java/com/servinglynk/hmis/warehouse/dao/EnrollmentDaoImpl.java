@@ -101,9 +101,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 						.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
 								.getStringValue(enrollment
 										.getRelationshipToHoH())));
-				enrollmentModel.setDateCreated(BasicDataGenerator
+				enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
 						.getLocalDateTime(enrollment.getDateCreated()));
-				enrollmentModel.setDateUpdated(BasicDataGenerator
+				enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator
 						.getLocalDateTime(enrollment.getDateUpdated()));
 				enrollmentModel.setEntrydate(BasicDataGenerator
 						.getLocalDateTime(enrollment.getEntryDate()));
@@ -123,6 +123,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setClient(client);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
+
+				enrollmentModel.setDateCreated(LocalDateTime.now());
+				enrollmentModel.setDateUpdated(LocalDateTime.now());
 				enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
 				hydrateCommonFields(enrollmentModel, domain);

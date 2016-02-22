@@ -91,6 +91,8 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setId(UUID.randomUUID());
 				vInfo.setDateCreated(LocalDateTime.now());
 				vInfo.setDateUpdated(LocalDateTime.now());
+				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
+				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
 				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
 				com.servinglynk.hmis.warehouse.model.staging.Client client = (com.servinglynk.hmis.warehouse.model.staging.Client) get(com.servinglynk.hmis.warehouse.model.staging.Client.class, clientId);
 				vInfo.setClient(client);

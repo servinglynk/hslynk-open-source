@@ -40,8 +40,11 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				Percentami percentamoModel = new Percentami();
 				UUID id = UUID.randomUUID();
 				percentamoModel.setId(id);
-				percentamoModel.setDateCreated(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
-				percentamoModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
+
+				percentamoModel.setDateCreated(LocalDateTime.now());
+				percentamoModel.setDateUpdated(LocalDateTime.now());
+				percentamoModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
+				percentamoModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
 				percentamoModel.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(percentAMI.getProjectEntryID()));

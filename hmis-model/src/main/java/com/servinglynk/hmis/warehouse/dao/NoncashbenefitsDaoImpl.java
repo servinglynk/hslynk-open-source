@@ -50,8 +50,10 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				Noncashbenefits noncashbenefitsModel = new Noncashbenefits();
 				UUID id = UUID.randomUUID();
 				noncashbenefitsModel.setId(id);
-				noncashbenefitsModel.setDateCreated(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getDateCreated()));
-				noncashbenefitsModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getDateUpdated()));
+				noncashbenefitsModel.setDateCreated(LocalDateTime.now());
+				noncashbenefitsModel.setDateUpdated(LocalDateTime.now());
+				noncashbenefitsModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getDateCreated()));
+				noncashbenefitsModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getDateUpdated()));
 				noncashbenefitsModel.setBenefitsfromanysource(NoncashbenefitsBenefitsfromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getBenefitsFromAnySource())));
 				noncashbenefitsModel.setOthersource(NoncashbenefitsOthersourceEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getOtherSource())));
 				noncashbenefitsModel.setOthersourceidentify(nonCashBenefits.getOtherSourceIdentify());

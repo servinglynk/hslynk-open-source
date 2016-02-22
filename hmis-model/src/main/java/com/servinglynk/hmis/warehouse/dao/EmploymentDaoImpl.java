@@ -41,8 +41,11 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			{
 				com.servinglynk.hmis.warehouse.model.staging.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.staging.Employment();
 				employmentModel.setId(UUID.randomUUID());
-				employmentModel.setDateCreated(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
-				employmentModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
+
+				employmentModel.setDateCreated(LocalDateTime.now());
+				employmentModel.setDateUpdated(LocalDateTime.now());
+				employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
+				employmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 				employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmployed())));
 				employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
 				employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));

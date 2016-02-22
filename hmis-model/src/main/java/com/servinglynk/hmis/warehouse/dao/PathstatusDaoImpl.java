@@ -43,8 +43,10 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				pathstatusModel.setId(id);
 				pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
 				pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
-				pathstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
-				pathstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
+				pathstatusModel.setDateCreated(LocalDateTime.now());
+				pathstatusModel.setDateUpdated(LocalDateTime.now());
+				pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
+				pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(pathStatus.getProjectEntryID()));
 				pathstatusModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());

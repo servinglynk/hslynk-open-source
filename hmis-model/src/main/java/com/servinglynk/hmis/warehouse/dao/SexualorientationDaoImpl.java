@@ -42,8 +42,10 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				Sexualorientation sexualorientationModel = new Sexualorientation();
 				UUID id = UUID.randomUUID();
 				sexualorientationModel.setId(id);
-				sexualorientationModel.setDateCreated(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
-				sexualorientationModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
+				sexualorientationModel.setDateCreated(LocalDateTime.now());
+				sexualorientationModel.setDateUpdated(LocalDateTime.now());
+				sexualorientationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
+				sexualorientationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
 				sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID()));

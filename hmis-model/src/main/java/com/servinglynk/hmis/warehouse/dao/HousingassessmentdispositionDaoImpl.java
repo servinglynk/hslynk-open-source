@@ -41,8 +41,10 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 			{
 				Housingassessmentdisposition housingassessmentdispositionModel = new Housingassessmentdisposition();
 				housingassessmentdispositionModel.setId(UUID.randomUUID());
-				housingassessmentdispositionModel.setDateCreated(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
-				housingassessmentdispositionModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
+				housingassessmentdispositionModel.setDateCreated(LocalDateTime.now());
+				housingassessmentdispositionModel.setDateUpdated(LocalDateTime.now());
+				housingassessmentdispositionModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
+				housingassessmentdispositionModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
 				housingassessmentdispositionModel.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
 				housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(housingAssessmentDisposition.getExitID()));

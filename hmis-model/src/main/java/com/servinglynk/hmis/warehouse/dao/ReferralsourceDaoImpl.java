@@ -40,8 +40,10 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 			Referralsource referralsourceModel = new Referralsource();
 			UUID id = UUID.randomUUID();
 			referralsourceModel.setId(id);
-			referralsourceModel.setDateCreated(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
-			referralsourceModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
+			referralsourceModel.setDateCreated(LocalDateTime.now());
+			referralsourceModel.setDateUpdated(LocalDateTime.now());
+			referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
+			referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
 			referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
 			referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
 			

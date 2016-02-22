@@ -41,13 +41,15 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				Connectionwithsoar connectionwithsoarModel = new Connectionwithsoar();
 				connectionwithsoarModel.setId(UUID.randomUUID());
 				connectionwithsoarModel.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionWithSOAR()));
-				connectionwithsoarModel.setDateCreated(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
-				connectionwithsoarModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
+				connectionwithsoarModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
+				connectionwithsoarModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(connectionWithSOAR.getExitID()));
 				connectionwithsoarModel.setExitid(exit);
 				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
 				connectionwithsoarModel.setExport(exportEntity);
 				exportEntity.addConnectionwithsoar(connectionwithsoarModel);
+				connectionwithsoarModel.setDateCreated(LocalDateTime.now());
+				connectionwithsoarModel.setDateUpdated(LocalDateTime.now());
 				hydrateCommonFields(connectionwithsoarModel, domain);
 				insertOrUpdate(connectionwithsoarModel);
 			}

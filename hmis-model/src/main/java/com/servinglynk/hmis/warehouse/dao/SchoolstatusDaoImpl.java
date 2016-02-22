@@ -41,8 +41,10 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			Schoolstatus schoolstatusModel = new Schoolstatus();
 			UUID id = UUID.randomUUID();
 			schoolstatusModel.setId(id);
-			schoolstatusModel.setDateCreated(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
-			schoolstatusModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
+			schoolstatusModel.setDateCreated(LocalDateTime.now());
+			schoolstatusModel.setDateUpdated(LocalDateTime.now());
+			schoolstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
+			schoolstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
 			schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
 			schoolstatusModel.setSchoolStatus(BasicDataGenerator.getIntegerValue(schoolStatus.getSchoolStatus()));
 			if(schoolStatus.getProjectEntryID() !=null && !"".equals(schoolStatus.getProjectEntryID())) {
