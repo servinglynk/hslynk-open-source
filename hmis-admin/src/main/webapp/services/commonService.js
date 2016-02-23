@@ -12,7 +12,7 @@ var Service= ({
             method: 'GET',
             url: apiurl,
             headers: {
-              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
@@ -27,7 +27,7 @@ var Service= ({
              method: 'GET',
              url: apiurl,
              headers: {
-               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+               'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                  'Accept': 'application/json;odata=verbose'}
          }).success(function (data) {
@@ -47,7 +47,7 @@ var Service= ({
                 method: 'GET',
                 url: apiurl,
                 headers: {
-                  'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                  'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                     'Accept': 'application/json;odata=verbose'}
             }).success(function (data) {
@@ -61,7 +61,7 @@ var Service= ({
            method: 'GET',
            url: apiurl,
            headers: {
-             'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                'Accept': 'application/json;odata=verbose'}
        }).success(function (data) {
@@ -75,7 +75,7 @@ var Service= ({
                  method: 'GET',
                  url: apiurl,
                  headers: {
-                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                   'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                      'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                      'Accept': 'application/json;odata=verbose'}
              }).success(function (data) {
@@ -94,7 +94,7 @@ var Service= ({
                  method: 'GET',
                  url: apiurl,
                  headers: {
-                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                   'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                      'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                      'Accept': 'application/json;odata=verbose'}
              }).success(function (data) {
@@ -143,7 +143,7 @@ logout: function ($http,$scope, success,error) {
         method: 'DELETE',
         url: '/hmis-user-service/rest/sessions/'+$scope.sessionToken,
         headers: {
-          'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+          'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
             'Accept': 'application/json;odata=verbose'}
     }).success(function (data) {
@@ -173,7 +173,7 @@ bulkupload: function ($http, $scope,file, success, error) {
     $http.post(apiurl, formData, {
          transformRequest: angular.identity,
     headers: {
-        'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+        'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
           'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
            'Content-Type': undefined
       } //TODO change accept to multipart.
@@ -193,7 +193,7 @@ bulkupload: function ($http, $scope,file, success, error) {
 	            method: 'GET',
 	            url: apiurl,
 	            headers: {
-	              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+	              'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
 	                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
 	                'Accept': 'application/json;odata=verbose'}
 	        }).success(function (data) {
@@ -205,7 +205,7 @@ bulkupload: function ($http, $scope,file, success, error) {
 		 console.log('Session Token..'+$scope.sessionToken);
 		 $http.get(apiurl,{
 	            headers: {
-	              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+	              'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
 	                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
 	                'Accept': 'application/json;odata=verbose'}
 	        }).success(function (data) {
@@ -220,7 +220,7 @@ GetProjectGroups: function ($http,$scope, success) {
           cache:false,
           url: apiurl,
           headers: {
-            'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+            'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
               'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
               'Accept': 'application/json;odata=verbose'}
       }).success(function (data) {
@@ -258,7 +258,7 @@ GetProjectGroups: function ($http,$scope, success) {
                  }
            },
             headers: {
-              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
@@ -281,7 +281,7 @@ GetProjectGroups: function ($http,$scope, success) {
             	  }
            },
             headers: {
-              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
@@ -305,7 +305,7 @@ GetProjectGroups: function ($http,$scope, success) {
               }
             },
             headers: {
-              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
