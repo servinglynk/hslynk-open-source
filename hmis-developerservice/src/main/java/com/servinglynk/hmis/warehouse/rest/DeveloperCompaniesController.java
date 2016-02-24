@@ -36,7 +36,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 
 	@RequestMapping(value = "/{developercompanyid:.*}", method = RequestMethod.PUT)
 	@APIMapping(value="DCS_UPDATE_DEVELOPER_COMPANY",checkSessionToken=false, checkTrustedApp=false)
-	public DeveloperCompany updateDeveloperCompany(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, @RequestBody DeveloperCompany developerCompany, HttpServletRequest request) throws Exception {
+	public DeveloperCompany updateDeveloperCompany(@PathVariable("developercompanyid") String externalDeveloperCompanyId, @RequestBody DeveloperCompany developerCompany, HttpServletRequest request) throws Exception {
 	
 		
 		serviceFactory.getDeveloperCompanyService().updateDeveloperCompany(externalDeveloperCompanyId, developerCompany, developerCompany.getOwner(), Constants.DEVELOPER_CONSOLE_SERVICE);
@@ -47,7 +47,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 
 	@RequestMapping(value = "/{developercompanyid}/accounts", method = RequestMethod.POST)
 	@APIMapping(value="DCS_ASSOCIATE_DEVELOPER_ACCOUNT",checkSessionToken=false, checkTrustedApp=false)
-	public DeveloperCompanyAccount associateDeveloperAccount(@PathVariable("developerCompanyId") String externalDeveloperCompanyId,
+	public DeveloperCompanyAccount associateDeveloperAccount(@PathVariable("developercompanyid") String externalDeveloperCompanyId,
 															  @RequestBody DeveloperCompanyAccount developerAccount,
 															  HttpServletRequest request) throws Exception {
 		
@@ -58,7 +58,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{developercompanyid}/accounts/{username:.*}", method = RequestMethod.DELETE)
 	@APIMapping(value="DCS_DISASSOCIATE_DEVELOPER_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperCompanyAccount dissociateDeveloperAccount(@PathVariable("developerCompanyId") String externalDeveloperCompanyId,
+	public DeveloperCompanyAccount dissociateDeveloperAccount(@PathVariable("developercompanyid") String externalDeveloperCompanyId,
 															  @PathVariable("username") String username,
 															  HttpServletRequest request) throws Exception {
 		
@@ -71,7 +71,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{developercompanyid}/services", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_SERVICE",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperService createService(@PathVariable("developerCompanyId") String externalDeveloperCompanyId,
+	public DeveloperService createService(@PathVariable("developercompanyid") String externalDeveloperCompanyId,
 							     @RequestBody DeveloperService service,
 								 HttpServletRequest request) throws Exception {
 		
@@ -85,7 +85,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{developercompanyid:.*}", method = RequestMethod.DELETE)
 	@APIMapping(value="DCS_DELETE_DEVELOPER_COMPANY",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperCompany deleteDeveloperCompany(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
+	public DeveloperCompany deleteDeveloperCompany(@PathVariable("developercompanyid") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 		
@@ -96,7 +96,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{developercompanyid:.*}", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_DEVELOPER_COMPANY",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperCompany getDeveloperCompany(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
+	public DeveloperCompany getDeveloperCompany(@PathVariable("developercompanyid") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
 
 	Session session=sessionHelper.getSession(request);
 		
@@ -107,7 +107,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{developercompanyid}/accounts", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_DEVELOPER_COMPANY_ACCOUNTS",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperCompanyAccounts getDeveloperCompanyAccounts(@PathVariable("developerCompanyId") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
+	public DeveloperCompanyAccounts getDeveloperCompanyAccounts(@PathVariable("developercompanyid") String externalDeveloperCompanyId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 		
@@ -118,7 +118,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	@RequestMapping(value = "/{developercompanyid}/services", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_SERVICES",checkSessionToken=true, checkTrustedApp=true)
 	public DeveloperServices getServices(HttpServletRequest request,
-							       @PathVariable("developerCompanyId") String externalDeveloperCompanyId,
+							       @PathVariable("developercompanyid") String externalDeveloperCompanyId,
 					               @RequestParam(value="startIndex", required=false) Integer startIndex,
 					               @RequestParam(value="maxItems", required=false) Integer maxItems) throws Exception {
 
@@ -160,7 +160,7 @@ public class DeveloperCompaniesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{developercompanyid}/approvaldecision", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_DEVELOPER_APPROVAL_DECISION",checkSessionToken=false, checkTrustedApp=false)
-	public DeveloperCompanyStatus createApprovalDecision(@PathVariable("developerCompanyId") String developerCompanyId, @RequestBody DeveloperCompanyStatus developerCompanyStatus,
+	public DeveloperCompanyStatus createApprovalDecision(@PathVariable("developercompanyid") String developerCompanyId, @RequestBody DeveloperCompanyStatus developerCompanyStatus,
 			HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getDeveloperCompanyService().processDCApprovalDecision(developerCompanyId, developerCompanyStatus, session.getAccount(), Constants.DEVELOPER_CONSOLE_SERVICE);

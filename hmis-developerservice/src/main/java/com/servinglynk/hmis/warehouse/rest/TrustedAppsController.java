@@ -26,7 +26,7 @@ public class TrustedAppsController extends ControllerBase {
 
 	@RequestMapping(value = "/{trustedappid}", method = RequestMethod.PUT)
 	@APIMapping(value="DCS_UPDATE_TRUSTEDAPP",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedApp updateTrustedApp(@PathVariable("trustedAppId") String trustedAppId, @RequestBody TrustedApp trustedApp, HttpServletRequest request) throws Exception {
+	public TrustedApp updateTrustedApp(@PathVariable("trustedappid") String trustedAppId, @RequestBody TrustedApp trustedApp, HttpServletRequest request) throws Exception {
 
 		Session session=sessionHelper.getSession(request);
 		trustedApp.setTrustedAppId(trustedAppId);
@@ -38,7 +38,7 @@ public class TrustedAppsController extends ControllerBase {
 
 	@RequestMapping(value = "/{trustedappid}", method = RequestMethod.DELETE)
 	@APIMapping(value="DCS_DELETE_TRUSTEDAPP",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedApp deleteTrustedApp(@PathVariable("trustedAppId") String trustedAppId, HttpServletRequest request) throws Exception {
+	public TrustedApp deleteTrustedApp(@PathVariable("trustedappid") String trustedAppId, HttpServletRequest request) throws Exception {
 		Session session=sessionHelper.getSession(request);
 	
 		serviceFactory.getTrustedAppService().deleteTrustedAppForDevelopers(trustedAppId, session.getAccount().getUsername(),
@@ -51,7 +51,7 @@ public class TrustedAppsController extends ControllerBase {
 
 	@RequestMapping(value = "/{trustedappid}/trustedappsecret", method = RequestMethod.PUT)
 	@APIMapping(value="DCS_REGENERATE_TRUSTEDAPP_SECRETE",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedApp regenerateTrustedAppSecret(@PathVariable("trustedAppId") String trustedAppId, HttpServletRequest request) throws Exception {
+	public TrustedApp regenerateTrustedAppSecret(@PathVariable("trustedappid") String trustedAppId, HttpServletRequest request) throws Exception {
 		Session session=sessionHelper.getSession(request);
 	
 		String newTrustedAppSecret = serviceFactory.getTrustedAppService().regenerateTrustedAppSecret(trustedAppId, session.getAccount().getUsername(),
@@ -66,7 +66,7 @@ public class TrustedAppsController extends ControllerBase {
 
 	@RequestMapping(value = "/{trustedappid}/approvalsubmission", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_APPROVAL_SUBMISSION_FOR_TRUSTEDAPP",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedAppStatus createApprovalSubmission(@PathVariable("trustedAppId") String trustedAppId, @RequestBody TrustedAppStatus trustedAppStatus,
+	public TrustedAppStatus createApprovalSubmission(@PathVariable("trustedappid") String trustedAppId, @RequestBody TrustedAppStatus trustedAppStatus,
 			HttpServletRequest request) throws Exception {
 
 		Session session=sessionHelper.getSession(request);
@@ -79,7 +79,7 @@ public class TrustedAppsController extends ControllerBase {
 	
 	@RequestMapping(value = "/{trustedappid}/approvaldecision", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_APPROVAL_DECISION_FOR_TRUSTEDAPP",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedAppStatus createApprovalDecision(@PathVariable("trustedAppId") String trustedAppId, @RequestBody TrustedAppStatus trustedAppStatus,
+	public TrustedAppStatus createApprovalDecision(@PathVariable("trustedappid") String trustedAppId, @RequestBody TrustedAppStatus trustedAppStatus,
 			HttpServletRequest request) throws Exception {
 	
 		Session session=sessionHelper.getSession(request);
@@ -90,7 +90,7 @@ public class TrustedAppsController extends ControllerBase {
 
 	@RequestMapping(value = "/{trustedappid}", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_TRUSTEDAPP",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedApp getTrustedApp(@PathVariable("trustedAppId") String trustedAppId, HttpServletRequest request) throws Exception {
+	public TrustedApp getTrustedApp(@PathVariable("trustedappid") String trustedAppId, HttpServletRequest request) throws Exception {
 
 		Session session=sessionHelper.getSession(request);
 		return serviceFactory.getTrustedAppService().getTrustedAppInfoForDevelopers(trustedAppId, session.getAccount().getUsername(),Constants.DEVELOPER_CONSOLE_SERVICE);
@@ -99,7 +99,7 @@ public class TrustedAppsController extends ControllerBase {
 
 	@RequestMapping(value = "/{trustedappid}/redirecturis", method = RequestMethod.POST)
 	@APIMapping(value="DCS_REGISTER_REDIRECT_URI",checkSessionToken=true, checkTrustedApp=true)
-	public RedirectUris registerRedirectUris(@PathVariable("trustedAppId") String trustedAppId, @RequestBody RedirectUris redirectUris, HttpServletRequest request)
+	public RedirectUris registerRedirectUris(@PathVariable("trustedappid") String trustedAppId, @RequestBody RedirectUris redirectUris, HttpServletRequest request)
 			throws Exception {
 
 		Session session=sessionHelper.getSession(request);
@@ -113,7 +113,7 @@ public class TrustedAppsController extends ControllerBase {
 	
 	@RequestMapping(value = "/{trustedappid}/redirecturis", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_REDIRECT_URIS",checkSessionToken=true, checkTrustedApp=true)
-	public RedirectUris getRedirectUris(@PathVariable("trustedAppId") String trustedAppId, HttpServletRequest request) throws Exception {
+	public RedirectUris getRedirectUris(@PathVariable("trustedappid") String trustedAppId, HttpServletRequest request) throws Exception {
 
 		Session session=sessionHelper.getSession(request);
 
