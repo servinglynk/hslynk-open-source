@@ -25,10 +25,13 @@ public class DemoWithXML {
     public static void main(String args[]) {
         RestTemplate restTemplate = new RestTemplate();
         String url = OPENEMPI_HOST+"openempi-ws-rest/security-resource/authenticate";       
-        String requestBody = "{\"username\":\"admin\",\"password\":\"admin\"}";
+        //String requestBody = "{\"username\":\"admin\",\"password\":\"admin\"}";
+        AuthenticationRequest requestBody = new AuthenticationRequest();
+        requestBody.setUsername("admin");
+        requestBody.setPassword("admin");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); 
-        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
+        HttpEntity<AuthenticationRequest> entity = new HttpEntity<AuthenticationRequest>(requestBody, headers); 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
         // check the response, e.g. Location header,  Status, and body
         response.getHeaders().getLocation();
@@ -39,12 +42,17 @@ public class DemoWithXML {
         headers.set("OPENEMPI_SESSION_KEY", responseBody);
         url = OPENEMPI_HOST+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
         //requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
-        requestBody = "<person><familyName>Anderson</familyName><givenName>John</givenName><ssn>111111111</ssn></person>";
+       // requestBody = "<person><familyName>Anderson</familyName><givenName>John</givenName><ssn>111111111</ssn></person>";
+        Person person = new Person();
+        person.setFamilyName("Anderson");
+        person.setGivenName("John");
+        person.setSsn("111111111");
+        
        // requestBody = "<person><ssn>111111111</ssn></person>";
 //        Person person = new Person();
 //        person.setGivenName("John");
 //        person.setGivenName("Anderson");
-        HttpEntity<Object> entityHttp = new HttpEntity<Object>(requestBody, headers); 
+        HttpEntity<Person> entityHttp = new HttpEntity<Person>(person, headers); 
         ResponseEntity<Object> responseObject = restTemplate.exchange(url, HttpMethod.POST, entityHttp, Object.class);
         LinkedHashMap<Object, Object> persons = (LinkedHashMap<Object, Object>) responseObject.getBody();
         List<Person> finalPersons = new ArrayList<Person>();

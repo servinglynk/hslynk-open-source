@@ -282,9 +282,9 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		logger.debug("redirect uri {} provided", redirectUri);
 		
 		// is redirect uri not malformed
-		//if (!ValidationUtil.isUriValid(redirectUri))	{
-		//	throw new InvalidRedirectUriException("redirect uri is invalid");
-		//}
+		if (!ValidationUtil.isUriValid(redirectUri))	{
+			throw new InvalidRedirectUriException("redirect uri is invalid");
+		}
 		logger.debug("redirect uri {} is valid", redirectUri);
 
 		// redirect uri is registered to this trustedApp?

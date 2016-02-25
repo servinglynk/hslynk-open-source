@@ -1,14 +1,6 @@
 package com.servinglynk.hmis.warehouse;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
-@XStreamAlias("AuthenticationRequest")
 @JsonRootName("AuthenticationRequest")
 public class AuthenticationRequest
 {

@@ -2,6 +2,11 @@ package com.servinglynk.hmis.warehouse.domain;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.servinglynk.hmis.warehouse.JSONObjectMapper;
 
 /**
  * Base class for Model objects. Child objects should implement toString(),
@@ -10,25 +15,30 @@ import java.io.Serializable;
  */
 public abstract class BaseObject implements Serializable {    
 
-    /**
-     * Returns a multi-line String with key=value pairs.
-     * @return a String representation of this class.
-     */
-    public abstract String toString();
+	
+	@Override
+	public String toString() {
+		try{
+			return toJSONString();
+		}catch(Exception e){ return ToStringBuilder.reflectionToString(this);}
+	}
 
-    /**
-     * Compares object equality. When using Hibernate, the primary key should
-     * not be a part of this comparison.
-     * @param o object to compare to
-     * @return true/false based on equality tests
-     */
-    public abstract boolean equals(Object o);
-
-    /**
-     * When you override equals, you should override hashCode. See "Why are
-     * equals() and hashCode() importation" for more information:
-     * http://www.hibernate.org/109.html
-     * @return hashCode
-     */
-    public abstract int hashCode();
+	
+	public String toJSONString() throws Exception {
+		JSONObjectMapper objectMapper = new JSONObjectMapper();
+		String jsonString = objectMapper.writeValueAsString(this);
+		return jsonString;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	protected String getJsonFriendlyClassName(Class cls) {
+		String name = "";
+		XmlRootElement annotation = (XmlRootElement) cls.getAnnotation(XmlRootElement.class);
+		if (annotation != null) {
+			name = annotation.name();
+		}
+		return name;
+	}
+	
 }
