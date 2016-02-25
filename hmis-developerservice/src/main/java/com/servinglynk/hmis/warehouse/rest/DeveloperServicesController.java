@@ -29,7 +29,7 @@ public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceid}", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_SERVICES",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperService getService(@PathVariable("serviceId") String externalServiceId, HttpServletRequest request) throws Exception {
+	public DeveloperService getService(@PathVariable("serviceid") String externalServiceId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 		
@@ -38,7 +38,7 @@ public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceid:.*}", method = RequestMethod.PUT)
 	@APIMapping(value="DCS_UPDATE_SERVICE",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperService updateService(@PathVariable("serviceId") String externalServiceId, @RequestBody DeveloperService service, HttpServletRequest request) throws Exception {
+	public DeveloperService updateService(@PathVariable("serviceid") String externalServiceId, @RequestBody DeveloperService service, HttpServletRequest request) throws Exception {
 		
 		Session session =sessionHelper.getSession(request);
 		
@@ -49,7 +49,7 @@ public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceid:.*}", method = RequestMethod.DELETE)
 	@APIMapping(value="DCS_DELETE_SERVICE",checkSessionToken=true, checkTrustedApp=true)
-	public DeveloperService deleteService(@PathVariable("serviceId") String externalServiceId, HttpServletRequest request) throws Exception {
+	public DeveloperService deleteService(@PathVariable("serviceid") String externalServiceId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getDeveloperCompanyService().deleteService(externalServiceId, session.getAccount(), Constants.DEVELOPER_CONSOLE_SERVICE);
@@ -61,7 +61,7 @@ public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceid}/trustedapps", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_TRUSTEDAPP_FOR_SERVICE",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedApp createTrustedAppForService(@PathVariable("serviceId") String externalServiceId,
+	public TrustedApp createTrustedAppForService(@PathVariable("serviceid") String externalServiceId,
 											  @RequestBody TrustedApp trustedApp,
 											  HttpServletRequest request) throws Exception {
 
@@ -73,7 +73,7 @@ public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceid}/approvalsubmission", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_SERVICE_APPROVAL_SUBMISSION",checkSessionToken=true, checkTrustedApp=true)
-	public ServiceStatus createApprovalSubmission(@PathVariable("serviceId") String externalServiceId,@RequestBody ServiceStatus serviceStatus,HttpServletRequest request) throws Exception {
+	public ServiceStatus createApprovalSubmission(@PathVariable("serviceid") String externalServiceId,@RequestBody ServiceStatus serviceStatus,HttpServletRequest request) throws Exception {
 		
 	
 		Session session=sessionHelper.getSession(request);
@@ -82,7 +82,7 @@ public class DeveloperServicesController extends ControllerBase {
 
 	@RequestMapping(value = "/{serviceid}/approvaldecision", method = RequestMethod.POST)
 	@APIMapping(value="DCS_CREATE_SERVICE_APPROVAL_DECISION",checkSessionToken=true, checkTrustedApp=true)
-	public ServiceStatus createApprovalDecision(@PathVariable("serviceId") String externalServiceId,@RequestBody ServiceStatus serviceStatus,HttpServletRequest request) throws Exception {
+	public ServiceStatus createApprovalDecision(@PathVariable("serviceid") String externalServiceId,@RequestBody ServiceStatus serviceStatus,HttpServletRequest request) throws Exception {
 		
 		Session session=sessionHelper.getSession(request);
 		
@@ -92,7 +92,7 @@ public class DeveloperServicesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{serviceid}/trustedapps", method = RequestMethod.GET)
 	@APIMapping(value="DCS_GET_TRUSTEDAPPS_FOR_SERVICE",checkSessionToken=true, checkTrustedApp=true)
-	public TrustedApps getTrustedAppsForService(@PathVariable("serviceId") String externalServiceId, HttpServletRequest request) throws Exception {
+	public TrustedApps getTrustedAppsForService(@PathVariable("serviceid") String externalServiceId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 
@@ -105,7 +105,7 @@ public class DeveloperServicesController extends ControllerBase {
 	
 	@RequestMapping(value = "/{serviceid}/apimethods", method = RequestMethod.POST)
 	@APIMapping(value="DCS_GET_TRUSTEDAPPS_FOR_SERVICE",checkSessionToken=true, checkTrustedApp=true)
-	public ApiMethods createApiBundle(@PathVariable("serviceId") String externalServiceId, @RequestBody ApiMethods apiBundle, HttpServletRequest request) throws Exception {
+	public ApiMethods createApiBundle(@PathVariable("serviceid") String externalServiceId, @RequestBody ApiMethods apiBundle, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 
@@ -116,7 +116,8 @@ public class DeveloperServicesController extends ControllerBase {
 	}
 	
 	@RequestMapping(value = "/{serviceid}/apigroups", method = RequestMethod.GET)
-	public ApiGroups getApiGroups(@PathVariable("serviceId") String externalServiceId, HttpServletRequest request) throws Exception {
+	@APIMapping(value="DCS_GET_TRUSTEDAPPS_FOR_SERVICE",checkSessionToken=true, checkTrustedApp=true)
+	public ApiGroups getApiGroups(@PathVariable("serviceid") String externalServiceId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 		//String clientTypeId = clientTypeHelper.getClientType(request).getClientTypeId();
