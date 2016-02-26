@@ -118,5 +118,10 @@ public class TokensController extends ControllerBase {
 		
 		return serviceFactory.getTrustedAppService().authenticateTrustedAppId(trustedAppId, trustedAppSecret);
 	}
+	
+	public static void main(String args[]) throws Exception {
+		String test = "MASTER_TRUSTED_APP:HMIS";
+		System.out.println(new String(Base64.encodeBase64(test.getBytes())));
+	}
 		
 }

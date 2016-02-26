@@ -245,6 +245,8 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 					
 					authorization.setRefreshToken(refreshToken.getToken());
 				}
+				serviceFactory.getSessionService().endSession(authenticationToken);
+				
 			}
 			else if (Constants.OAUTH_IMPLICIT.equals(grantType)) 	{
 				logger.debug("implicit grant is requested");
@@ -261,9 +263,10 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 				authorization.setAccessToken(accessToken.getSessionToken());
 				authorization.setExpiresIn(trustedAppEntity.getExpirationTime());
 				authorization.setNextAction(Constants.OAUTH_FLOW_REDIRECT_ACCESS_TOKEN_TO_TRUSTEDAPP);
+				serviceFactory.getSessionService().endSession(authenticationToken);
 			}
 		}
-		
+
 		authorization.setRedirectUri(redirectUri);
 		authorization.setTokenType("Bearer");
 		authorization.setState(state);
