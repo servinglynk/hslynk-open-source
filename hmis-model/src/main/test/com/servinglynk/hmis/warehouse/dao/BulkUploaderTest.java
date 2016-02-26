@@ -80,7 +80,7 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception
 	{
-		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
+		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("ERROR");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
 			for(BulkUpload bullkUpload : uploadEntities) {
 				factory.getBulkUploaderDao().performBulkUpload(bullkUpload);

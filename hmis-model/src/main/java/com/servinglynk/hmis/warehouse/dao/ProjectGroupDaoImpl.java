@@ -33,7 +33,7 @@ public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDa
 		delete(projectGroupEntity);
 	}
 	
-	
+	@Override
 	public ProjectGroupEntity getProjectGroupById(UUID projectGroupId){
 		DetachedCriteria criteria = DetachedCriteria.forClass(ProjectGroupEntity.class);
 		criteria.add(Restrictions.eq("id",projectGroupId));
@@ -44,7 +44,15 @@ public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDa
 	}
 	
 	
-
+	@Override
+	public ProjectGroupEntity getProjectGroupByGroupCode(String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ProjectGroupEntity.class);
+		criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		java.util.List<ProjectGroupEntity> projectGroupEntities = (java.util.List<ProjectGroupEntity>) findByCriteria(criteria);
+		if(projectGroupEntities.size()>0) return projectGroupEntities.get(0);
+		return null;
+	}
+	
 	@Override
 	public ProjectProjectGroupMapEntity addProjectToProjectGroup(ProjectProjectGroupMapEntity projectGroupMapEntity) {
 				insert(projectGroupMapEntity);

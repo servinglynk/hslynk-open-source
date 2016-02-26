@@ -14,7 +14,7 @@
 
 
 	<properties>
-		<parent-version>0.0.1</parent-version>
+		<parent-version>0.0.1-SNAPSHOT</parent-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -158,12 +158,12 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-service</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 <!-- 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
@@ -173,7 +173,7 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>

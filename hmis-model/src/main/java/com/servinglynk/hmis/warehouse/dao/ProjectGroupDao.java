@@ -12,7 +12,7 @@ public interface ProjectGroupDao extends ParentDao {
 	com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity updateProjectGroup(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity projectGroupEntity);	
 	void deleteProjectGroup(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity projectGroupEntity);
 	ProjectGroupEntity getProjectGroupById(UUID projectGroupId);
-	
+	ProjectGroupEntity getProjectGroupByGroupCode(String projectGroupCode);
 	com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity addProjectToProjectGroup( com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity projectGroupMapEntity);
 	com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity deleteProjectToProjectGroup( com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity projectGroupMapEntity);
 	void deleteProjectGroupMap(ProjectProjectGroupMapEntity entity);

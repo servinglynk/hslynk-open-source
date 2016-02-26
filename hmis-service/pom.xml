@@ -6,12 +6,12 @@
 	<artifactId>hmis-core-service</artifactId>
 	<name>HMISService</name>
 	<packaging>jar</packaging>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<scm>	
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>0.0.1</parent-version>
+		<version>0.0.1-SNAPSHOT</version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
@@ -179,7 +179,7 @@
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-model</artifactId>
-			<version>0.1.2</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency> 
 				<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
@@ -189,12 +189,12 @@
 				 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency> 
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 				<dependency>
 			<groupId>commons-codec</groupId>

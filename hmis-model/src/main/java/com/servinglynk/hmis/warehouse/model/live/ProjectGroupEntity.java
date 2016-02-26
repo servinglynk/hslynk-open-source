@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="hmis_project_group")
+@Entity (name = "hmis_project_group")
+@Table(name = "hmis_project_group", catalog = "hmis", schema = "live")
 public class ProjectGroupEntity  {
 
 
@@ -29,6 +29,8 @@ public class ProjectGroupEntity  {
     
 
     private String projectGroupCode;
+    
+    private boolean skipuseridentifers;
     
 
     List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
@@ -76,4 +78,12 @@ public class ProjectGroupEntity  {
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
 	}
+	@Column(name="skip_user_identifers")
+	public boolean isSkipuseridentifers() {
+		return skipuseridentifers;
+	}
+	public void setSkipuseridentifers(boolean skipuseridentifers) {
+		this.skipuseridentifers = skipuseridentifers;
+	}
+	
 }

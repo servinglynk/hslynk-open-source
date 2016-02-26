@@ -4,7 +4,7 @@
 
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-load-processor</artifactId>
-	<version>0.1.6</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>hmis-load-processor</name>
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-model</artifactId>
-				<version>0.1.2</version>
+				<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

@@ -31,6 +31,7 @@ import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
@@ -55,6 +56,7 @@ import com.servinglynk.hmis.warehouse.csv.Project;
 import com.servinglynk.hmis.warehouse.csv.ProjectCOC;
 import com.servinglynk.hmis.warehouse.csv.Services;
 import com.servinglynk.hmis.warehouse.csv.Site;
+import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
@@ -88,9 +90,14 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 
 @Component
 public class BulkUploadHelper {
+	
+	@Autowired
+	ParentDaoFactory parentDaoFactory;
+	
 	/**
 	 * Gets the source object from the upload location.
 	 * @param upload
@@ -114,12 +121,18 @@ public class BulkUploadHelper {
 	public Sources getSourcesForXml(BulkUpload upload) {
 		try {
 			File file = new File(upload.getInputPath());
-			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
-				System.out.println("XML is valid");
-			}else{
-				System.out.println("XML is NOT valid");
+//			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
+//				System.out.println("XML is valid");
+//			}else{
+//				System.out.println("XML is NOT valid");
+//			}
+			String identifierFile = upload.getInputPath()+System.currentTimeMillis()+"temp.xml";
+			ProjectGroupEntity projectGroupEntity = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+			if(projectGroupEntity.isSkipuseridentifers()) {
+				ClientIdentifierExtractor.xmlXSLTransorm(upload.getInputPath(),identifierFile );	
+				file = new File(identifierFile);
 			}
-		    File tempFile = new File(file.getPath()+System.currentTimeMillis()+"temp.xml");
+		    File tempFile = new File(upload.getInputPath()+System.currentTimeMillis()+"temp.xml");
 			try {
 			     String content = FileUtils.readFileToString(file, "UTF-8");
 			     content = content.replaceAll("hmis:", "");

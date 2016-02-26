@@ -14,7 +14,7 @@
     	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  </scm>
   	 	<properties>
-		<parent-version>0.0.1</parent-version>
+		<parent-version>0.0.1-SNAPSHOT</parent-version>
 
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 	 <slf4j-api-version>1.7.2</slf4j-api-version>
@@ -117,17 +117,17 @@
 			<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-service</artifactId>
-			<version>${parent-version}</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 <dependency>
 			<groupId>org.postgresql</groupId>

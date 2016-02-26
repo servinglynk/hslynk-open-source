@@ -9,15 +9,33 @@
 </xsl:text></xsl:variable>
 <xsl:strip-space elements="*"/>
  <xsl:template match="node()|@*">
+     <xsl:copy>
+       <xsl:apply-templates select="node()|@*"/>
+     </xsl:copy>
+ </xsl:template>
+
+  <xsl:template match="node()|@*" mode="mPass2">
+     <xsl:copy>
+       <xsl:apply-templates select="node()|@*" mode="mPass2"/>
+     </xsl:copy>
+ </xsl:template>
+   <xsl:template match="/*" mode="mPass2">
   <xsl:copy>
-   <xsl:apply-templates select="node()|@*"/>
+    <xsl:copy-of select="@*"/>
+    <xsl:apply-templates mode="mPass2"/>
   </xsl:copy>
  </xsl:template>
  
+   <xsl:template match="//hmis:DOB" mode="mPass2">
+       <!--  <xsl:value-of select="concat(substring(., 1, 4), '-', substring(., 6, 2), '-','01')"/> -->
+       <xsl:value-of select="2"/>
+    </xsl:template>
+    
   <xsl:template match="Column[@SourceColumn='hmis:FirstName']|hmis:FirstName" />
   <xsl:template match="Column[@SourceColumn='hmis:MiddleName']|hmis:MiddleName" />
   <xsl:template match="Column[@SourceColumn='hmis:LastName']|hmis:LastName" />
   <xsl:template match="Column[@SourceColumn='hmis:SSN']|hmis:SSN" />
   
+
  
 </xsl:stylesheet>
