@@ -201,6 +201,12 @@
 			<artifactId>jstl</artifactId>
 			<version>${jstl-version}</version>
 		</dependency>
+		
+		<dependency>
+    <groupId>org.opengis.cite.xerces</groupId>
+    <artifactId>xercesImpl-xsd11</artifactId>
+    <version>2.12-beta-r1667115</version>
+</dependency>
 
 		<!-- UNIT TESTING -->
 		<dependency>

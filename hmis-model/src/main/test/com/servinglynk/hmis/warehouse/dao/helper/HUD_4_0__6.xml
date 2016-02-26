@@ -45,7 +45,7 @@
             <hmis:SSNDataQuality>1</hmis:SSNDataQuality>
             <hmis:DOB>1947-03-24</hmis:DOB>
             <hmis:DOBDataQuality>1</hmis:DOBDataQuality>
-            <hmis:Gender>0</hmis:Gender>
+            <hmis:Gender>1</hmis:Gender>
             <hmis:Ethnicity>9</hmis:Ethnicity>
             <hmis:Race>2</hmis:Race>
             <hmis:VeteranStatus>1</hmis:VeteranStatus>
@@ -99,7 +99,7 @@
             <hmis:SSNDataQuality>1</hmis:SSNDataQuality>
             <hmis:DOB>1967-06-30</hmis:DOB>
             <hmis:DOBDataQuality>99</hmis:DOBDataQuality>
-            <hmis:Gender>0</hmis:Gender>
+            <hmis:Gender>1</hmis:Gender>
             <hmis:Ethnicity>0</hmis:Ethnicity>
             <hmis:Race>5</hmis:Race>
             <hmis:VeteranStatus>99</hmis:VeteranStatus>
@@ -169,7 +169,7 @@
             <hmis:SSNDataQuality>99</hmis:SSNDataQuality>
             <hmis:DOB>2000-01-01</hmis:DOB>
             <hmis:DOBDataQuality>1</hmis:DOBDataQuality>
-            <hmis:Gender>0</hmis:Gender>
+            <hmis:Gender>1</hmis:Gender>
             <hmis:Ethnicity>1</hmis:Ethnicity>
             <hmis:Race>3</hmis:Race>
             <hmis:Race>5</hmis:Race>
@@ -188,7 +188,7 @@
             <hmis:SSNDataQuality>99</hmis:SSNDataQuality>
             <hmis:DOB>1982-01-01</hmis:DOB>
             <hmis:DOBDataQuality>1</hmis:DOBDataQuality>
-            <hmis:Gender>0</hmis:Gender>
+            <hmis:Gender>1</hmis:Gender>
             <hmis:Ethnicity>1</hmis:Ethnicity>
             <hmis:Race>5</hmis:Race>
             <hmis:VeteranStatus>99</hmis:VeteranStatus>

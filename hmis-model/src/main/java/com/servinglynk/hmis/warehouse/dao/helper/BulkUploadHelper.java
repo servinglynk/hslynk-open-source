@@ -16,17 +16,23 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.Validator;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
+import org.xml.sax.SAXException;
 
 import com.googlecode.jcsv.CSVStrategy;
 import com.googlecode.jcsv.annotations.internal.ValueProcessorProvider;
@@ -108,6 +114,11 @@ public class BulkUploadHelper {
 	public Sources getSourcesForXml(BulkUpload upload) {
 		try {
 			File file = new File(upload.getInputPath());
+			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
+				System.out.println("XML is valid");
+			}else{
+				System.out.println("XML is NOT valid");
+			}
 		    File tempFile = new File(file.getPath()+System.currentTimeMillis()+"temp.xml");
 			try {
 			     String content = FileUtils.readFileToString(file, "UTF-8");
@@ -138,6 +149,20 @@ public class BulkUploadHelper {
 				}
 		return null;
 	}
+	 private boolean validateXMLSchema(String xsdPath, String xmlPath){
+         
+	        try {
+	            SchemaFactory factory = 
+	                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+	            Schema schema = factory.newSchema(new File(xsdPath));
+	            Validator validator = (Validator) schema.newValidator();
+					validator.validate(new StreamSource(new File(xmlPath)));
+	        } catch ( SAXException |JAXBException e) {
+	            System.out.println("Exception: "+e.getMessage());
+	            return false;
+	        }
+	        return true;
+	    }
 	/**
 	 * Gets the Sources XML object when the file to be bulk uploaded is an Zip file 
 	 * containing csv files.

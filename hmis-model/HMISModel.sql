@@ -3476,7 +3476,8 @@ INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850c', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'USR_BULK_UPLOAD', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('754ee226-2f0f-9691-d164-fd0499832bc6', 'GET_USR_BULK_UPLOAD', 'GET_USR_BULK_UPLOAD', 'GET_USR_BULK_UPLOAD', 'GET',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
 INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('89103d70-6b5b-471b-9d79-9bd0b8bc7932','DCS_GET_SERVICE_API_GROUPS','DCS_GET_SERVICE_API_GROUPS','DCS_GET_SERVICE_API_GROUPS','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
-
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850a', 'CLIENT_DEDUP_AUTHENTICATE', 'CLIENT_DEDUP_AUTHENTICATE', 'CLIENT_DEDUP_AUTHENTICATE', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
+INSERT INTO live.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850b', 'CLIENT_DEDUP_SERVICE', 'CLIENT_DEDUP_SERVICE', 'CLIENT_DEDUP_SERVICE', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
 
 CREATE SEQUENCE "live".seq_developer_company START 1;
 

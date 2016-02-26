@@ -121,7 +121,8 @@
             <hmis:Ethnicity>0</hmis:Ethnicity>
             <hmis:Race>5</hmis:Race>
             <hmis:VeteranStatus>1</hmis:VeteranStatus>
-         </hmis:Client>00001000<hmis:MilitaryBranch>1</hmis:MilitaryBranch>2<hmis:Client hmis:dateCreated="2014-05-31T19:08:31-05:00"
+         </hmis:Client>
+         <hmis:Client hmis:dateCreated="2014-05-31T19:08:31-05:00"
                       hmis:dateUpdated="2014-05-31T19:08:31-05:00"
                       hmis:userID="p_0_user">
             <hmis:PersonalID>client_11</hmis:PersonalID>
@@ -156,7 +157,8 @@
             <hmis:Ethnicity>1</hmis:Ethnicity>
             <hmis:Race>3</hmis:Race>
             <hmis:VeteranStatus>99</hmis:VeteranStatus>
-         </hmis:Client>00010001<hmis:MilitaryBranch>4</hmis:MilitaryBranch>2<hmis:Client hmis:dateCreated="2015-06-02T08:44:23-05:00"
+         </hmis:Client>
+         <hmis:Client hmis:dateCreated="2015-06-02T08:44:23-05:00"
                       hmis:dateUpdated="2015-06-02T08:44:23-05:00"
                       hmis:userID="p_0_user">
             <hmis:PersonalID>client_15</hmis:PersonalID>
@@ -413,13 +415,15 @@
             <hmis:OtherSource>0</hmis:OtherSource>
             <hmis:OtherSourceIdentify/>
          </hmis:NonCashBenefits>
+        <!-- 
          <hmis:PercentAMI hmis:dateCreated="2015-03-01T08:35:55-06:00"
                           hmis:dateUpdated="2015-03-01T08:35:55-06:00"
                           hmis:userID="p_0_user">
             <hmis:LastGradeCompletedID>ee_7_pami</hmis:LastGradeCompletedID>
             <hmis:ProjectEntryID>ee_7</hmis:ProjectEntryID>
-            <hmis:PercentAMI>1</hmis:PercentAMI>
+            <hmis:PercentAMIID>1</hmis:PercentAMIID>
          </hmis:PercentAMI>
+          -->
          <hmis:Enrollment hmis:dateCreated="2014-05-31T18:45:32-05:00"
                           hmis:dateUpdated="2014-05-31T18:45:32-05:00"
                           hmis:userID="p_0_user">
@@ -736,6 +740,7 @@
             <hmis:OtherSource>0</hmis:OtherSource>
             <hmis:OtherSourceIdentify/>
          </hmis:NonCashBenefits>
+         <!--  
          <hmis:PercentAMI hmis:dateCreated="2015-06-02T08:45:32-05:00"
                           hmis:dateUpdated="2015-06-02T08:45:32-05:00"
                           hmis:userID="p_0_user">
@@ -743,6 +748,7 @@
             <hmis:ProjectEntryID>ee_8</hmis:ProjectEntryID>
             <hmis:PercentAMI>1</hmis:PercentAMI>
          </hmis:PercentAMI>
+         -->
          <hmis:Services hmis:dateCreated="2015-06-02T08:54:30-05:00"
                         hmis:dateUpdated="2015-06-02T08:55:53-05:00"
                         hmis:userID="service_7_user">
@@ -851,6 +857,7 @@
             <hmis:OtherSource>0</hmis:OtherSource>
             <hmis:OtherSourceIdentify/>
          </hmis:NonCashBenefits>
+         <!--  
          <hmis:PercentAMI hmis:dateCreated="2015-06-02T08:45:32-05:00"
                           hmis:dateUpdated="2015-06-02T08:45:32-05:00"
                           hmis:userID="p_0_user">
@@ -858,6 +865,7 @@
             <hmis:ProjectEntryID>ee_9</hmis:ProjectEntryID>
             <hmis:PercentAMI>2</hmis:PercentAMI>
          </hmis:PercentAMI>
+         -->
          <hmis:Services hmis:dateCreated="2015-06-02T08:54:30-05:00"
                         hmis:dateUpdated="2015-06-02T08:55:53-05:00"
                         hmis:userID="service_8_user">
@@ -966,6 +974,7 @@
             <hmis:OtherSource>0</hmis:OtherSource>
             <hmis:OtherSourceIdentify/>
          </hmis:NonCashBenefits>
+         <!-- 
          <hmis:PercentAMI hmis:dateCreated="2015-06-02T08:45:32-05:00"
                           hmis:dateUpdated="2015-06-02T08:45:32-05:00"
                           hmis:userID="p_0_user">
@@ -973,6 +982,7 @@
             <hmis:ProjectEntryID>ee_10</hmis:ProjectEntryID>
             <hmis:PercentAMI>2</hmis:PercentAMI>
          </hmis:PercentAMI>
+         -->
          <hmis:Services hmis:dateCreated="2015-06-02T08:54:30-05:00"
                         hmis:dateUpdated="2015-06-02T08:55:53-05:00"
                         hmis:userID="service_9_user">
@@ -1024,7 +1034,6 @@
             <hmis:SiteID>p_0</hmis:SiteID>
             <hmis:ProjectCoCID>p_0pcoc_1</hmis:ProjectCoCID>
             <hmis:PrincipalSite>1</hmis:PrincipalSite>
-            <hmis:Geocode/>
          </hmis:Site>
       </hmis:Export>
    </hmis:Source>
