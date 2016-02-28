@@ -3,7 +3,18 @@ app.controller('settingCtrl', function($scope,$location,$routeSegment,$http, $ti
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-	
+	 Service.GetUserInfo($http, $scope, function(data) {
+                    
+                     // here setup edit mode
+                    },
+                    function() {
+                        if ($sessionStorage.isLoggedIn) {
+                            $("#userDetails").html($sessionStorage.account.emailAddress);
+                        } else {
+                          //  $location.path('/login');
+                        }
+                    });
+	 
   $scope.submitForm = function() {
        Service.SaveSetting($http,$scope,
     //success

@@ -46,7 +46,7 @@ public class XSDValidator {
     }
     
     public static void main(String args[]) throws SAXException, IOException {
-    	URL path = BulkUploadHelper.class.getResource("HUD_4_0__6_XSD_Fix.xml");
+    	URL path = XSDValidator.class.getResource("HUD_4_0__6.xml");
     	validateFile(new File(path.getPath()), new File("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd"));
     }
     

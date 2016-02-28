@@ -80,9 +80,10 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception
 	{
-		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("ERROR");
+		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
 			for(BulkUpload bullkUpload : uploadEntities) {
+				bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
 				factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
 			}
 		}

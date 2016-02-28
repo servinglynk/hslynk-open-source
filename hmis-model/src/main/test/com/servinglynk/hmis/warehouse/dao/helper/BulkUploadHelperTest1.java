@@ -30,8 +30,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.staging.Noncashbenefits;
-
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 public class BulkUploadHelperTest1 {
 
 	public BulkUploadHelper helper = new BulkUploadHelper();
@@ -49,7 +48,9 @@ public class BulkUploadHelperTest1 {
 		URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
 		upload.setInputPath(path.getPath());
-		sources = helper.getSourcesFromFiles(upload);
+		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
+		projectGrp.setSkipuseridentifers(true);
+		sources = helper.getSourcesFromFiles(upload,projectGrp);
 		assertNotNull(sources);
 		
 		List<Client> clients = sources.getSource().getExport().getClient();
@@ -288,11 +289,14 @@ public class BulkUploadHelperTest1 {
 	
 	@Test
 	public void testXMLUpload() {
-		URL path = BulkUploadHelper.class.getResource("HUD_4_0__6.xml");
+		URL path = BulkUploadHelperTest1.class.getResource("HUD_4_0__6.xml");
 //		System.out.println(path);
 		BulkUpload upload = new BulkUpload();
-		upload.setInputPath(path.getFile());
-		sources = helper.getSourcesFromFiles(upload);
+		upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
+		upload.setProjectGroupCode("PG0001");
+		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
+		projectGrp.setSkipuseridentifers(true);
+		sources = helper.getSourcesFromFiles(upload,projectGrp);
 		assertNotNull(sources);
 		
 		List<Client> clients = sources.getSource().getExport().getClient();

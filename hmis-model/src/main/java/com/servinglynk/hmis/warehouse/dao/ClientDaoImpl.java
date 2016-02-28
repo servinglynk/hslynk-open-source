@@ -62,6 +62,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	@Autowired
 	DedupHelper dedupHelper;
 	
+	@Autowired
+	ParentDaoFactory daoFactory;
+	
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 	
@@ -118,9 +121,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				hydrateCommonFields(clientModel, domain);
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
-				String dedupedId = dedupHelper.getDedupedClient(clientModel);
-				if(dedupedId != null) {
-					clientModel.setDedupClientId(UUID.fromString(dedupedId));	
+				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
+				if(!projectGroupEntity.isSkipuseridentifers()) {
+					String dedupedId = dedupHelper.getDedupedClient(clientModel);
+					if(dedupedId != null) {
+						clientModel.setDedupClientId(UUID.fromString(dedupedId));	
+					}
 				}
 				//clientModel.setProjectGroupCode(clientModel.getUser());
 				clientModel.setDateCreated(LocalDateTime.now());

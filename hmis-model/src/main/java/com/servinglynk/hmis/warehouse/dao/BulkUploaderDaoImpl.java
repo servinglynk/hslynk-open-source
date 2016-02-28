@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.live.Affiliation;
 import com.servinglynk.hmis.warehouse.model.live.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
@@ -48,13 +49,13 @@ import com.servinglynk.hmis.warehouse.model.live.Organization;
 import com.servinglynk.hmis.warehouse.model.live.Pathstatus;
 import com.servinglynk.hmis.warehouse.model.live.Percentami;
 import com.servinglynk.hmis.warehouse.model.live.Project;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.live.Projectcoc;
 import com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus;
 import com.servinglynk.hmis.warehouse.model.live.Referralsource;
 import com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus;
 import com.servinglynk.hmis.warehouse.model.live.Schoolstatus;
-import com.servinglynk.hmis.warehouse.model.live.ServiceStatus;
 import com.servinglynk.hmis.warehouse.model.live.Services;
 import com.servinglynk.hmis.warehouse.model.live.Sexualorientation;
 import com.servinglynk.hmis.warehouse.model.live.Site;
@@ -66,6 +67,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
+	
+	
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
 	
@@ -77,9 +80,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public BulkUpload performBulkUpload(BulkUpload upload) {
 		try {
 			//upload.setId(UUID.randomUUID());
-			upload.setStatus("INPROGRESS");
+			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload);
+			ProjectGroupEntity projectGroupEntity = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupEntity);
 			Source source = sources.getSource();
 			Export export = source.getExport();
 			UUID exportId = UUID.randomUUID();
@@ -177,6 +181,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Override
 	@Transactional
 	public void moveFromStagingToLive(BulkUpload bulkUpload) {
+		try {
 		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 		parentDaoFactory.getClientDao().hydrateLive(export);
@@ -214,8 +219,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getSexualorientationDao().hydrateLive(export);
 		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export);
 		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export);
-		bulkUpload.setStatus("LIVE");
-		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload); 
+		bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
+		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
+		}
+		catch (Exception e) {
+			bulkUpload.setStatus(UploadStatus.ERROR.getStatus());
+			bulkUpload.setDescription(e.getMessage());
+			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
+		}
 	}
 	
 	

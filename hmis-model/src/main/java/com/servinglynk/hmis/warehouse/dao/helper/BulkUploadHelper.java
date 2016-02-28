@@ -1,7 +1,10 @@
 package com.servinglynk.hmis.warehouse.dao.helper;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -29,10 +32,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
 import com.googlecode.jcsv.CSVStrategy;
@@ -103,13 +106,13 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return sources
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload) {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		String inputPath = upload.getInputPath();
 		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputPath()))){
 			return getSourcesForZipFile(upload);
 		}
 		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputPath()))){
-			return getSourcesForXml(upload);
+			return getSourcesForXml(upload,projectGroupEntity);
 		}
 		return null;
 	}
@@ -118,7 +121,8 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	public Sources getSourcesForXml(BulkUpload upload) {
+	@Transactional
+	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		try {
 			File file = new File(upload.getInputPath());
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
@@ -126,32 +130,55 @@ public class BulkUploadHelper {
 //			}else{
 //				System.out.println("XML is NOT valid");
 //			}
-			String identifierFile = upload.getInputPath()+System.currentTimeMillis()+"temp.xml";
-			ProjectGroupEntity projectGroupEntity = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-			if(projectGroupEntity.isSkipuseridentifers()) {
-				ClientIdentifierExtractor.xmlXSLTransorm(upload.getInputPath(),identifierFile );	
-				file = new File(identifierFile);
-			}
+			
 		    File tempFile = new File(upload.getInputPath()+System.currentTimeMillis()+"temp.xml");
 			try {
-			     String content = FileUtils.readFileToString(file, "UTF-8");
-			     content = content.replaceAll("hmis:", "");
-			     FileUtils.writeStringToFile(tempFile, content, "UTF-8");
-			  } catch (IOException e) {
-			     //Simple exception handling, replace with what's necessary for your use case!
-			     throw new RuntimeException("Generating file failed", e);
-			  }
-//			   String stylesheetPathname = "";
-//			    String inputPathname ="";
-//			    String outputPathname = "";
-//
-//		    TransformerFactory factory = TransformerFactory.newInstance();
-//		    Source stylesheetSource = new StreamSource(new File(stylesheetPathname).getAbsoluteFile());
-//		    Transformer transformer = factory.newTransformer(stylesheetSource);
-//		    Source inputSource = new StreamSource(new File(inputPathname).getAbsoluteFile());
-//		    Result outputResult = new StreamResult(new File(outputPathname).getAbsoluteFile());
-//		    transformer.transform(inputSource, outputResult);
-		    
+				
+				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
+				FileInputStream fis = new FileInputStream(file);
+				BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+				FileWriter fstream = new FileWriter(tempFile, false);
+				BufferedWriter out = new BufferedWriter(fstream);
+				String aLine = null;
+				while ((aLine = in.readLine()) != null) {
+				  if(skipUserIdentities) {
+				      //Process each line and add output to Dest.txt file
+				      if(aLine.indexOf("<hmis:FirstName>") != -1)  {
+				    	  aLine = aLine.replaceAll("(?s)<hmis:FirstName[^>]*>.*?</hmis:FirstName>",
+                                  "");
+				      }
+				      if(aLine.indexOf("<hmis:LastName>") != -1)  {
+				    	  aLine = aLine.replaceAll("(?s)<hmis:LastName[^>]*>.*?</hmis:LastName>",
+				                                    "");
+				      }
+				      if(aLine.indexOf("<hmis:SSN>") != -1)  {
+				    	  aLine = aLine.replaceAll("(?s)<hmis:SSN[^>]*>.*?</hmis:SSN>",
+				                                    "");
+				      }
+				      if(aLine.indexOf("<hmis:DOB>") != -1)  {
+				    	  String dob = aLine;
+				    	  try {
+				    	  aLine = aLine.substring(aLine.indexOf(":DOB>")+5,aLine.indexOf("</hmis:DOB>"));
+				    	  aLine = "<hmis:DOB>"+aLine.substring(0, 8)+"01</hmis:DOB>";
+				    	  }catch(IllegalArgumentException e) {
+				    		  aLine = dob;
+				    	  }
+				      }
+				    }
+				      if(StringUtils.isNotEmpty(aLine.trim())) {
+				    	  aLine = aLine.replaceAll("hmis:", "");
+				    	  out.write(aLine);
+				    	  out.newLine();
+				      }
+				     }
+				     // do not forget to close the buffer reader
+				     in.close();
+				     // close buffer writer
+				     out.close();
+			}catch (IOException e) {
+				        //Simple exception handling, replace with what's necessary for your use case!
+				        throw new RuntimeException("Generating file failed", e);
+				     }
 			JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Sources sources = (Sources) jaxbUnmarshaller.unmarshal(tempFile);
@@ -162,6 +189,7 @@ public class BulkUploadHelper {
 				}
 		return null;
 	}
+	
 	 private boolean validateXMLSchema(String xsdPath, String xmlPath){
          
 	        try {

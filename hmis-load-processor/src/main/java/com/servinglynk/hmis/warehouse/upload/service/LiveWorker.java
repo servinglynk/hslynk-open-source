@@ -42,19 +42,18 @@ public class LiveWorker  extends ParentService implements ILiveWorker  {
 			List<BulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
 			if(stagingUploadEntities!=null && stagingUploadEntities.size() >0 ) {
 				for(BulkUpload bulkUpload : stagingUploadEntities) {
+					daoFactory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
 					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload);
 				}
 			logger.info("Bulk Uploader completed Live processing==============");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Error while processing Live Batch Job"+e.getMessage());
 		}
 	
 	}
 	protected String[] getNonCollectionFields(Object obj) {
 		Field[] declaredFields = obj.getClass().getDeclaredFields();
-		//System.out.println(declaredFields[0].getName() + " type of the field "+declaredFields[0].getGenericType() );
 		String[] fieldsArray = new String[100];
 		
 		int i=0;

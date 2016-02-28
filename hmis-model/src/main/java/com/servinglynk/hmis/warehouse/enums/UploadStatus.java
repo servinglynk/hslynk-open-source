@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.upload.business.util;
+package com.servinglynk.hmis.warehouse.enums;
 
 public enum UploadStatus {
 	
@@ -6,6 +6,7 @@ public enum UploadStatus {
 	INPROGRESS("INPROGRESS"),
 	COMPLETE("COMPLETE"),
 	STAGING("STAGING"),
+	ERROR("ERROR"),
 	LIVE("LIVE"),
 	DELETED("DELETED");
 	private String status;

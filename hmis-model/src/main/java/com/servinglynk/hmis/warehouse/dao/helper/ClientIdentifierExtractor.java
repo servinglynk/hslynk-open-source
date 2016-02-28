@@ -11,16 +11,21 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.springframework.util.StringUtils;
+
 public class ClientIdentifierExtractor {
 	static URL xslpath = ClientIdentifierExtractor.class.getResource("HUD_4_0__6_Input.xsl");
 	public static void xmlXSLTransorm(String inputFileUrl,String outputFileUrl) {
 		try{
+					String xslPath = "/proj/xsl/HUD_4_0__6_Input.xsl";
 	                Source xmlInput = new StreamSource(inputFileUrl);
-	                Source xsl = new StreamSource(new File(xslpath.getPath()));
+	                if(xslpath != null && !StringUtils.isEmpty(xslpath.getPath())) {
+	                	xslPath = xslpath.getPath();
+	                }
+	                Source xsl = new StreamSource(new File(xslPath));
 	                Result xmlOutput = new StreamResult(new File(outputFileUrl));
 	                Transformer transformer = TransformerFactory.newInstance().newTransformer(xsl);
 	                transformer.transform(xmlInput, xmlOutput);
-	                System.out.println("Successfully Updated in Output.XML " );
 		}catch (TransformerException e) {
 	         e.printStackTrace();
 		}

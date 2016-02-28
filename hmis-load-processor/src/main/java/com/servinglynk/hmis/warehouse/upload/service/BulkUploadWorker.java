@@ -44,7 +44,7 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	private ParentDaoFactory factory;
 	
 	@Transactional
-	@Scheduled(initialDelay=20,fixedDelay=10000)
+	@Scheduled(initialDelay=80,fixedDelay=15000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
@@ -55,7 +55,6 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 						List<BulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(bullkUpload.getProjectGroupCode());
 						for(BulkUpload  bulkUpload : uploads) {
 							daoFactory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExport().getId());
-							daoFactory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
 							bulkUpload.setStatus("DELETED");
 							daoFactory.getBulkUploaderWorkerDao().delete(bulkUpload);
 						}
@@ -64,7 +63,7 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 					factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
 					if (file.isFile()) {
 				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
-				        new File(bullkUpload.getInputPath()).delete();
+				      //  new File(bullkUpload.getInputPath()).delete();
 					}
 				}
 			}
@@ -108,7 +107,6 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	    		String aLine = null;
 	    		while ((aLine = in.readLine()) != null) {
 	    			//Process each line and add output to Dest.txt file
-	    			aLine = aLine.replaceAll("hmis:", "");
 	    			out.write(aLine);
 	    			out.newLine();
 	    		}
@@ -120,9 +118,7 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	    		out.close();
 
 	    	    //delete the original file
-	    		fin.delete();
-	    	    //output.renameTo(new File("C:\\HMISTEstDev\\XMLGen\\src\\com\\servinglynk\\hmis\\warehouse\\jaxb\\output\\" + output.getName()));
-	    	    System.out.println("File is copied successful!");
+	    	//	fin.delete();
 	 
 	    	}catch(IOException e){
 	    	    e.printStackTrace();
