@@ -11,7 +11,7 @@
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<version>0.0.1-SNAPSHOT</version>
+		<parent-version>0.0.1-SNAPSHOT</parent-version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
