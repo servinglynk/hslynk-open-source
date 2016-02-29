@@ -33,7 +33,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.live.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "PG0001");
-		BulkUploadActivity activity = new BulkUploadActivity();
+	/*	BulkUploadActivity activity = new BulkUploadActivity();
 	//	activity.setBulkUpload(domain.getUpload());
 		activity.setDateCreated(LocalDateTime.now());
 		activity.setDateUpdated(LocalDateTime.now());
@@ -45,11 +45,12 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		activity.setRecordsProcessed(1L);
 		activity.setDescription("Saving "+baseModel.getClass().getSimpleName() +" to staging" );
 		insertOrUpdate(activity);
+		*/
 	}
 	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
-		BulkUploadActivity activity = new BulkUploadActivity();
+	/*	BulkUploadActivity activity = new BulkUploadActivity();
 		activity.setBulkUpload(domain.getUpload());
 		activity.setDateCreated(LocalDateTime.now());
 		activity.setDateUpdated(LocalDateTime.now());
@@ -61,6 +62,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		activity.setRecordsProcessed(1L);
 		activity.setDescription("Saving "+baseModel.getClass().getSimpleName() +" to staging" );
 		insertOrUpdate(activity);
+		*/
 	}
 	protected abstract void performSave(THBaseService.Iface client, Object entity);
 	protected abstract List<T> performGet(THBaseService.Iface client, Object entity);

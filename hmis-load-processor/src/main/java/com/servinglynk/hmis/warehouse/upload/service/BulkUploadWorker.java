@@ -10,12 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,8 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.live.Export;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
@@ -44,23 +41,24 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	private ParentDaoFactory factory;
 	
 	@Transactional
-	@Scheduled(initialDelay=80,fixedDelay=15000)
+	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
-				for(BulkUpload bullkUpload : uploadEntities) {
+				for(BulkUpload upload : uploadEntities) {
 					/** Perform full refresh base on Project group */
-					if(bullkUpload.getProjectGroupCode() !=null) {
-						List<BulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(bullkUpload.getProjectGroupCode());
+					if(upload.getProjectGroupCode() !=null) {
+						List<BulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(upload.getProjectGroupCode());
 						for(BulkUpload  bulkUpload : uploads) {
 							daoFactory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExport().getId());
 							bulkUpload.setStatus("DELETED");
 							daoFactory.getBulkUploaderWorkerDao().delete(bulkUpload);
 						}
 					}
-					File file = new File(bullkUpload.getInputPath());
-					factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
+					File file = new File(upload.getInputPath());
+					ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity);
 					if (file.isFile()) {
 				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
 				      //  new File(bullkUpload.getInputPath()).delete();

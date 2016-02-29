@@ -10,6 +10,10 @@ public class BaseModel {
 	public Timestamp date_created;
 	@Column(name="date_updated")
 	public Timestamp date_updated;
+	@Column(name="date_created_from_source")
+	public Timestamp date_created_from_source;
+	@Column(name="date_updated_from_source")
+	public Timestamp date_updated_from_source;
 	@Column(name="user_id")			
 	public UUID user_id;
 	@Column(name="export_id")
@@ -80,7 +84,17 @@ public class BaseModel {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
-	
-	
+	public Timestamp getDate_created_from_source() {
+		return date_created_from_source;
+	}
+	public void setDate_created_from_source(Timestamp date_created_from_source) {
+		this.date_created_from_source = date_created_from_source;
+	}
+	public Timestamp getDate_updated_from_source() {
+		return date_updated_from_source;
+	}
+	public void setDate_updated_from_source(Timestamp date_updated_from_source) {
+		this.date_updated_from_source = date_updated_from_source;
+	}
 	
 }

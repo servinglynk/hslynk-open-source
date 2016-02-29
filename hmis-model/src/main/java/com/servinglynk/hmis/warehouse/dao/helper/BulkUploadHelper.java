@@ -98,9 +98,6 @@ import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 @Component
 public class BulkUploadHelper {
 	
-	@Autowired
-	ParentDaoFactory parentDaoFactory;
-	
 	/**
 	 * Gets the source object from the upload location.
 	 * @param upload
@@ -121,7 +118,6 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	@Transactional
 	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		try {
 			File file = new File(upload.getInputPath());

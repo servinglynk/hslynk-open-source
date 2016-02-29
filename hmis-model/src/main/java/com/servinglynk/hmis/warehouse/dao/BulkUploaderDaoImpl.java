@@ -77,13 +77,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public BulkUpload performBulkUpload(BulkUpload upload) {
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
 		try {
 			//upload.setId(UUID.randomUUID());
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			ProjectGroupEntity projectGroupEntity = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupEntity);
+			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
 			Source source = sources.getSource();
 			Export export = source.getExport();
 			UUID exportId = UUID.randomUUID();

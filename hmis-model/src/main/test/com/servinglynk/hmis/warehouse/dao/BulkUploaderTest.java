@@ -28,6 +28,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.live.Export;
 import com.servinglynk.hmis.warehouse.model.live.HmisUser;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,7 +50,8 @@ public class BulkUploaderTest {
 		BulkUpload upload = new BulkUpload();
 		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
 		upload.setInputPath(path.getFile());
-		BulkUpload  uploadResult =   dao.performBulkUpload(upload);
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity);
 		File file = new File(
 				path.getFile());
 		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
@@ -84,7 +86,8 @@ public class BulkUploaderTest {
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
 			for(BulkUpload bullkUpload : uploadEntities) {
 				bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
-				factory.getBulkUploaderDao().performBulkUpload(bullkUpload);
+				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+				factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			}
 		}
 		//logger.info("========Bulk Uploader processed ======");

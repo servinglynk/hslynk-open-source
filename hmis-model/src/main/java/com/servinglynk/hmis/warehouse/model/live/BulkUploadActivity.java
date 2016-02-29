@@ -85,8 +85,8 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 		}
 	
 	@Id
-	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="bulk_upload_activity_id_seq", name="bulk_upload_activity_id_seq" , catalog = "hmis", schema = "live")
-	@GeneratedValue(generator="bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
+	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="live.bulk_upload_activity_id_seq", name="live.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "live")
+	@GeneratedValue(generator="live.bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
 	public Long getId() {
 		return id;
 	}

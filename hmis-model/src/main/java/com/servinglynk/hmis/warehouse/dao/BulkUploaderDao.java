@@ -6,11 +6,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
 
 @Transactional(propagation = Propagation.REQUIRED) 
 public interface BulkUploaderDao {
 
-	BulkUpload performBulkUpload(BulkUpload upload);
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity);
 	public void deleteStagingByExportId(UUID exportId);
 	public void deleteLiveByExportId(UUID exportId);
 	public void deleteLiveByProjectGroupCode(String projectGroupCode);

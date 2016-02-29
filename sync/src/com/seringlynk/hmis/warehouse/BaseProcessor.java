@@ -32,9 +32,9 @@ public class BaseProcessor<T> {
 			connection = getConnection();
 
 			String queryString = "SELECT * FROM live."+tableName ;
-		//	queryString =  queryString + " where sync = ?" ;
+			queryString =  queryString + " where sync = ?" ;
 			PreparedStatement statement = connection.prepareStatement(queryString);
-		//	statement.setBoolean(1, false);
+			statement.setBoolean(1, false);
 			resultSet = statement.executeQuery();
 			
 			// simple JDBC code to run SQL query and populate resultSet - END
