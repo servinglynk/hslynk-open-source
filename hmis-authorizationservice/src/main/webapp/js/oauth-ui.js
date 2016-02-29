@@ -79,7 +79,7 @@ function getConsentMsgs(clientId, token, callback){
          },
 		
 		type: "GET",
-		url: "/hmis-authorization-service/rest/clients/"+clientId+"/consentmessages",
+		url: "/hmis-authorization-service/rest/trustedapps/"+clientId+"/consentmessages",
 		dataType: "json",
 		success: callback,
 		error: function (res) {
@@ -99,12 +99,15 @@ function getDetailedConsentMsgs(clientId, token, callback){
 				  "Content-Type": "application/json;charset=UTF-8",
 				  "Accept-Language": "en-us,en;q=0.5",  
 				  "Accept":"application/json",
-				  "X-HMIS-TrustedApp-Id": "631D1191-9AC5-4F3F-836A-8DB0DBAE3CD3",
 				  "Authorization" : "HMISUserAuth session_token="+token
 		},
+		beforeSend: function (request) {
+
+             request.setRequestHeader("X-HMIS-TrustedApp-Id", clientId);
+         },
 		
 		type: "GET",
-		url: "/hmis-authorization-service/rest/clients/"+clientId+"/detailedconsentmessages",
+		url: "/hmis-authorization-service/rest/trustedapps/"+clientId+"/detailedconsentmessages",
 		dataType: "json",
 		success: callback,
 		error: function (res) {

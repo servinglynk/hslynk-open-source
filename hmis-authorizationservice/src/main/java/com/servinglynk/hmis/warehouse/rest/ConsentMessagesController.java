@@ -14,13 +14,13 @@ import com.servinglynk.hmis.warehouse.core.model.OAuthMessageGroups;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/trustedapps")
 public class ConsentMessagesController extends ControllerBase {
 
 	
-	@RequestMapping(value = "/{trustedAppId}/consentmessages", method = RequestMethod.GET)
+	@RequestMapping(value = "/{trustedappid}/consentmessages", method = RequestMethod.GET)
 	@APIMapping(value="AUTH_GET_CONSENT_MESSAGES",checkSessionToken=true, checkTrustedApp=true)
-	public OAuthMessageGroups getConsentMessages(@PathVariable("trustedAppId") String trustedAppId, HttpServletRequest request)throws Exception{
+	public OAuthMessageGroups getConsentMessages(@PathVariable("trustedappid") String trustedAppId, HttpServletRequest request)throws Exception{
 
 		OAuthMessageGroups oAuthMessageGroups = new OAuthMessageGroups();
 		Session session = sessionHelper.getSession(request);
@@ -33,9 +33,9 @@ public class ConsentMessagesController extends ControllerBase {
 	
 	
 	
-	@RequestMapping(value = "/{trustedAppId}/detailedconsentmessages", method = RequestMethod.GET)
+	@RequestMapping(value = "/{trustedappid}/detailedconsentmessages", method = RequestMethod.GET)
 	@APIMapping(value="AUTH_GET_DETAILED_CONSENT_MESSAGES",checkSessionToken=true, checkTrustedApp=true)
-	public OAuthMessageGroups getConsentDetailedMessages(@PathVariable("trustedAppId") String trustedAppId, HttpServletRequest request) throws Exception {
+	public OAuthMessageGroups getConsentDetailedMessages(@PathVariable("trustedappid") String trustedAppId, HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
 		Account account = session.getAccount();
