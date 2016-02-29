@@ -179,22 +179,22 @@
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency> 
 				<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>core-client</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 				 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency> 
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 				<dependency>
 			<groupId>commons-codec</groupId>

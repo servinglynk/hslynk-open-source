@@ -1,25 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-   <parent>
-     		<groupId>com.servinglynk.hmis.warehouse</groupId>
-     		<artifactId>servinglynk-hmis</artifactId>
-     		<version>0.0.1-SNAPSHOT</version>
-     		<relativePath>../pom.xml</relativePath>
-  	</parent>
-  <artifactId>hmis-developer-service</artifactId>
-  <packaging>war</packaging>
-  	<version>0.0.1-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>servinglynk-hmis</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>hmis-developer-service</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
 
-  <scm>
-    	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
- </scm>
-  	 	<properties>
+	<scm>
+		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
+	</scm>
+	<properties>
 		<parent-version>0.0.1-SNAPSHOT</parent-version>
 
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-	 <slf4j-api-version>1.7.2</slf4j-api-version>
-        <log4j-over-slf4j-version>1.7.2</log4j-over-slf4j-version>
-        <jcl-over-slf4j-version>1.7.2</jcl-over-slf4j-version>
+		<slf4j-api-version>1.7.2</slf4j-api-version>
+		<log4j-over-slf4j-version>1.7.2</log4j-over-slf4j-version>
+		<jcl-over-slf4j-version>1.7.2</jcl-over-slf4j-version>
 
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
 
@@ -28,8 +29,8 @@
 		<spring.version>4.0.0.RELEASE</spring.version>
 	</properties>
 
-  	<dependencies>
-	
+	<dependencies>
+
 		<!-- spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -41,7 +42,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -57,29 +58,29 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
-<dependency>
+
+		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
 		<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-context-support</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-		 <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-		
+
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -93,43 +94,43 @@
 			<version>1.5.9</version>
 		</dependency>
 
-	<dependency>
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-core</artifactId>
-		<version>2.5.3</version>
-	</dependency>
 		<dependency>
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-databind</artifactId>
-		<version>2.5.3</version>
-	</dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.3</version>
+		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.8.5</version>
 		</dependency>
-		
-			<dependency>
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-annotations</artifactId>
-		<version>2.5.3</version>
-	</dependency>
-			<dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.5.3</version>
+		</dependency>
+		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
-<dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.4-1201-jdbc41</version>
@@ -141,68 +142,68 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>1.7.0</version>
-        <scope>runtime</scope>
-    </dependency>
-       <dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-    <version>1.7.5</version>
-	</dependency>
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>1.7.0</version>
-        <scope>runtime</scope>
-    </dependency>
-    <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.14</version>
-    </dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
 
-  </dependencies>
+	</dependencies>
 	<repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Repository Switchboard</name>
-      <layout>default</layout>
-      <url>http://52.33.58.63:8080/nexus/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://52.33.58.63:8080/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <name>Maven Plugin Repository</name>
-      <url>http://52.33.58.63:8080/nexus/content/groups/public</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories> 
-<distributionManagement>
-  <repository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://52.33.58.63:8080/nexus/content/repositories/releases/</url>
-  </repository>
-  <snapshotRepository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://52.33.58.63:8080/nexus/content/repositories/snapshots/</url>
-  </snapshotRepository>
-</distributionManagement>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Plugin Repository</name>
+			<url>http://52.33.58.63:8080/nexus/content/groups/public</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://52.33.58.63:8080/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://52.33.58.63:8080/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

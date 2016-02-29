@@ -6,7 +6,7 @@
 		<artifactId>servinglynk-hmis</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>hmis-clientapi</artifactId>
 	<packaging>war</packaging>
 	<name>HMIS Client API</name>
@@ -31,7 +31,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.framework.version}</version>
-	
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -158,22 +158,19 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-serialize</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-<!-- 		<dependency>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-core-model</artifactId>
 			<version>${parent-version}</version>
-		</dependency> -->
+		</dependency>
+		<!-- <dependency> <groupId>com.servinglynk.hmis.warehouse</groupId> <artifactId>hmis-core-model</artifactId> 
+			<version>${parent-version}</version> </dependency> -->
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
@@ -206,43 +203,43 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	<repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Repository Switchboard</name>
-      <layout>default</layout>
-      <url>http://52.33.58.63:8080/nexus/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <name>Maven Plugin Repository</name>
-      <url>http://52.33.58.63:8080/nexus/content/groups/public</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories> 
-<distributionManagement>
-  <repository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://52.33.58.63:8080/nexus/content/repositories/releases/</url>
-  </repository>
-  <snapshotRepository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://52.33.58.63:8080/nexus/content/repositories/snapshots/</url>
-  </snapshotRepository>
-</distributionManagement>
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://52.33.58.63:8080/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Plugin Repository</name>
+			<url>http://52.33.58.63:8080/nexus/content/groups/public</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://52.33.58.63:8080/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://52.33.58.63:8080/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
