@@ -226,7 +226,7 @@
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-core-common</artifactId>
-			  <version>0.0.2</version>
+			  <version>${parent-version}</version>
 			</dependency>
 	</dependencies>
 		<build>
