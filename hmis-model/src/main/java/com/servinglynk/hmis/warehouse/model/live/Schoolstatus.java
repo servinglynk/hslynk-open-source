@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
+
 
 /**
  * Object mapping for hibernate-handled table: schoolstatus.
@@ -50,7 +52,7 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 	/** Field mapping. */
 	private LocalDateTime informationDate;
 	/** Field mapping. */
-	private Integer schoolStatus;
+	private SchoolStatusEnum schoolStatus;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -180,26 +182,23 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 	}
 
 	 /**
-	 * Return the value associated with the column: schoolStatus.
-	 * @return A Integer object (this.schoolStatus)
-	 */
-	@Basic( optional = true )
-	@Column( name = "school_status"  )
-	public Integer getSchoolStatus() {
-		return this.schoolStatus;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: schoolStatus.
-	 * @param schoolStatus the schoolStatus value you wish to set
-	 */
-	public void setSchoolStatus(final Integer schoolStatus) {
-		this.schoolStatus = schoolStatus;
-	}
-
+		 * Return the value associated with the column: schoolStatus.
+		 * @return A Integer object (this.schoolStatus)
+		 */
+		@Basic( optional = true )
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.SchoolStatusEnumType")
+		@Column( name = "school_status"  )
+		public SchoolStatusEnum getSchoolStatus() {
+			return this.schoolStatus;
+			
+		}
+		 /**  
+		 * Set the value related to the column: schoolStatus.
+		 * @param schoolStatus the schoolStatus value you wish to set
+		 */
+		public void setSchoolStatus(final SchoolStatusEnum schoolStatus) {
+			this.schoolStatus = schoolStatus;
+		}
 
 
    /**

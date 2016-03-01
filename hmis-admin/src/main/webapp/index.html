@@ -23,23 +23,21 @@ margin:0px;
 }
 </style>
 <body>
-
-
-<div style="float: right;padding:10px;">
-       <form method="get" action="/hmis-authorization-service/rest/authorize" id="test-app-form">
+ <div class="ng-cloak"  >
+ <div  style="background-color:#222;">
+       <form method="get" style="float:right" action="/hmis-authorization-service/rest/authorize" id="test-app-form">
 				<ul>
 					<input type="hidden" value="code" name="response_type" />
 					<input type="hidden"  name="trustedApp_id" value="MASTER_TRUSTED_APP"/>
-				<!-- 	<input type="hidden"  name="redirect_uri" value="http://127.0.0.1:8081/hmis-admin/#/admin/dashborad"/> -->
-				  	<input type="hidden"  name="redirect_uri" value="https://www.hmislynk.com/hmis-admin/#/admin/dashborad"/>
+				<!-- 	<input type="hidden"  name="redirect_uri" value="http://127.0.0.1:8081/hmis-admin/#/admin/dashboard"/> -->
+				  	<input type="hidden"  name="redirect_uri" value="https://www.hmislynk.com/hmis-admin/#/admin/dashboard"/>
 					<input type="hidden" value="xyzvalue" name="state" />
 					<input type="hidden" name="access_type" value="online"/>
 					<input type="hidden"  name="approval_prompt" value="auto"/>
 				</ul>
-				<button  class="btn btn-lg btn-primary btn-block" value="LOGIN">Login</button>
+				<button style="width:90px;"  class="btn btn-lg btn-primary btn-block" value="LOGIN">Login</button>
 			</form>
-			</div>
- <div class="ng-cloak" >
+			<br style="clear:both;" /></div>
   <div class="anim" app-view-segment="0"></div>
 </div>
 <!--<div class="container-fluid footer">
@@ -57,7 +55,7 @@ margin:0px;
 <script src="services/commonService.js"></script>
 <script src="controller/login.controller.js"></script>
 <script src="controller/managefiles.controller.js"></script>
-<script src="controller/dashborad.controller.js"></script>
+<script src="controller/dashboard.controller.js"></script>
 <script src="controller/managesync.controller.js"></script>
 <script src="controller/setting.controller.js"></script>
 <script src="controller/requestreport.controller.js"></script>

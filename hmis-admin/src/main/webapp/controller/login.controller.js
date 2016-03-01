@@ -5,7 +5,7 @@ app.controller('validateLoginCtrl', function($scope,$location,$routeSegment) {
 
 	if($scope.email=="admin@servinglynk.com" && $scope.password=="admin")
 	{
-		$location.path($routeSegment.getSegmentUrl('s2.dashborad')); 
+		$location.path($routeSegment.getSegmentUrl('s2.dashboard')); 
 	}
 	else
 	{

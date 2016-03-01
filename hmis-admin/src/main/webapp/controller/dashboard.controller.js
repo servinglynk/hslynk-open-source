@@ -1,4 +1,4 @@
-app.controller('dashboradCtrl', function($rootScope, $scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
+app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
     $scope.authToken = ($location.search()).code;
 
     //$scope.sessionToken= $window.localStorage.getItem('sessionToken');
@@ -27,7 +27,7 @@ app.controller('dashboradCtrl', function($rootScope, $scope, $location, $routeSe
                         if ($sessionStorage.isLoggedIn) {
                             $("#userDetails").html($sessionStorage.account.emailAddress);
                         } else {
-                            $location.path('/login');
+                            $location.path('/login');//
                         }
                     })
             },
@@ -37,7 +37,7 @@ app.controller('dashboradCtrl', function($rootScope, $scope, $location, $routeSe
                 if ($sessionStorage.isLoggedIn) {
                     $("#userDetails").html($sessionStorage.account.emailAddress);
                 } else {
-                    $location.path('/login');
+                    $location.path('/login');//
                 }
             })
     }

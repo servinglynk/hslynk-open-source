@@ -4,7 +4,7 @@
     <div class="col-lg-12">
       <h1 class="page-header"> Profile </h1>
       <ol class="breadcrumb">
-        <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashborad">Dashboard</a> </li>
+        <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashboard">Dashboard</a> </li>
         <li class="active"> <i class="fa fa-table"></i> Profile </li>
       </ol>
     </div>
@@ -21,55 +21,38 @@
          {{errorTextAlert}} </div>
         <ul>
         
-                <li>
-            <label><span class="required">*</span>Profile: </label>
-            
-            <select  required ng-model="form.profile" name="drpProfile" ng-options="profile.profileName for profile in profiles track by profile.id">
-                <option value="">Select Profile</option>
-            </select>
-          </li>
-             <li>
-            <label><span class="required">*</span>Project Group: </label>
-            
-            <select  required ng-model="form.projectgroup" name="drpprojectgroup" ng-options="projectgroup.projectGroupName for projectgroup in projectgroups track by projectgroup.projectGroupId">
-                <option value="">Select Project Group</option>
-            </select>
-          </li>
-          <li>
-            <label><span class="required">*</span>Role: </label>
-            
-            <select  required ng-model="form.role" name="drpRole" ng-options="role.roleName for role in roles track by role.id">
-                <option value="">Select Role</option>
-            </select>
-          </li>
+           
+       
           <li>
             <label><span class="required">*</span>Email Address: </label>
-            <input required ng-model="form.emailAddress" type="email" name="emailAddress">
+            <input required readonly="readonly" ng-model="emailAddress" type="email" name="emailAddress">
+          </li>
+            <li>
+            <label><span class="required">*</span>Role: </label>
+            <input required  readonly="readonly" ng-model="role" type="name" name="form.role">
           </li>
             <li>
             <label><span class="required">*</span>Username: </label>
-            <input required ng-model="form.username" type="name" name="username">
+            <input required  readonly="readonly" ng-model="username" type="name" name="form.username">
           </li>
           <li>
             <label><span class="required">*</span>Password: </label>
-            <input required ng-model="form.password" type="password" name="password">
+            <input required ng-model="password" type="password" name="password">
           </li>
             <li>
             <label><span class="required">*</span>First Name: </label>
-            <input required ng-model="form.firstName" type="name" name="firstName">
+            <input required ng-model="firstName" type="name" name="form.firstName">
           </li>
                  <li>
             <label><span class="required">*</span>Last Name: </label>
-            <input required ng-model="form.lastName" type="name" name="lastName">
+            <input required ng-model="lastName" type="name" name="form.lastName">
+              <input ng-model="accountId" type="hidden" name="form.accountId">
           </li>
-                           <li>
-            <label><span class="required">*</span>Gender: </label>
-            <input required ng-model="form.gender" type="name" name="gender">
-          </li>
+                           
           
           <li>
             <label> </label>
-            <input type="submit" ngClick="Submit"  value="Send Request" class="btn btn-lg btn-upload">
+            <input type="submit" ngClick="Submit"  value="Save" class="btn btn-lg btn-upload">
           </li>
         </ul>
       </form>

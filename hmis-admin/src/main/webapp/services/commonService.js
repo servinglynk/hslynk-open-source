@@ -150,14 +150,34 @@ logout: function ($http,$scope, success,error) {
         if(success)success(data)
     });
 },
-/*
+
 SaveSetting: function ($http,$scope, success,error) {
-	data =$scope.form;
-	// need to change url for services
-	 $http.post('form.php', JSON.stringify(data)).success(function(){ success() }).error(error);
+	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
+        console.log('Session Token..'+$scope.sessionToken);
+     
+        $http({
+            method: 'POST',
+            url: apiurl,
+            data : 
+            	{ "account":{
+                    "username": $scope.emailAddress,
+                    "emailAddress":$scope.emailAddress,
+                    "password":$scope.password,
+                    "firstName":$scope.firstName,
+                    "lastName":$scope.lastName,
+                  	"accountId":$scope.accountId
+                 }
+           },
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data)
+        }).error(error);
   		
 }
-,*/
+,
 SendRequestReport: function ($http,$scope, success,error) {
 	data =$scope.form;
 	 $http.get('/hmis-bulk-loader/mapper/reportMaster?report='+  data.report +'&id='+  data.project.exportID +'&email='+  data.email +'&year='+  data.year +'').success(function(){ success() }).error(error);
@@ -313,7 +333,7 @@ GetProjectGroups: function ($http,$scope, success) {
         }).error(error);
         },
     getToken: function ($http, $scope, success, error) {
-        var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=https://www.hmislynk.com/hmis-admin/#/admin/dashborad";
+        var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=https://www.hmislynk.com/hmis-admin/#/admin/dashboard";
         $http({
             method: 'POST',
             url: apiurl,

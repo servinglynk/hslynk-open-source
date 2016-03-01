@@ -47,8 +47,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
     
         .when('/login',          's1') // this is for login
         .when('/login',          's4') // this is for login
-        .when('/admin',          's2.dashborad')
-        .when('/admin/dashborad',      's2.dashborad')
+        .when('/admin',          's2.dashboard')
+        .when('/admin/dashboard',      's2.dashboard')
 		 .when('/admin/managefiles',      's2.managefiles')
 		  .when('/admin/bulkupload',      's2.bulkupload')
 		   .when('/admin/managesync',      's2.managesync')
@@ -83,8 +83,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
             templateUrl: 'templates/root.html'})
 		 .within()
 		
-         .segment('dashborad', {
-                templateUrl: 'templates/partial/dashborad.html', controller: 'dashboradCtrl'})   
+         .segment('dashboard', {
+                templateUrl: 'templates/partial/dashboard.html', controller: 'dashboardCtrl'})   
 		  .segment('managefiles', {
                 templateUrl: 'templates/partial/managefiles.html', controller: 'managefilesCtrl'})
                 .segment('manageuser', {
@@ -152,11 +152,11 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
 			}
      		// here we have to check why keep out(isLoggedIn is undefined  when dashbaorad load)
      		//$sessionStorage.isLoggedIn=true;
-			if($location.path() != '/admin/dashborad' && $location.path() != '/login' )
+			if($location.path() != '/admin/dashboard' && $location.path() != '/login' )
 			{
      			 if ($sessionStorage.isLoggedIn==undefined) {
      			
-                   $location.path('/login');
+                   $location.path('/login');//
      	       }
 			}
        

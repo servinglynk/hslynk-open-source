@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 
 
 /** 
@@ -54,7 +54,7 @@ public class Schoolstatus extends HmisBaseStagingModel  implements Cloneable, Se
 	/** Field mapping. */
 	private LocalDateTime informationDate;
 	/** Field mapping. */
-	private Integer schoolStatus;
+	private SchoolStatusEnum schoolStatus;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -188,19 +188,17 @@ public class Schoolstatus extends HmisBaseStagingModel  implements Cloneable, Se
 	 * @return A Integer object (this.schoolStatus)
 	 */
 	@Basic( optional = true )
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.SchoolStatusEnumType")
 	@Column( name = "school_status"  )
-	public Integer getSchoolStatus() {
+	public SchoolStatusEnum getSchoolStatus() {
 		return this.schoolStatus;
 		
 	}
-	
-
-  
 	 /**  
 	 * Set the value related to the column: schoolStatus.
 	 * @param schoolStatus the schoolStatus value you wish to set
 	 */
-	public void setSchoolStatus(final Integer schoolStatus) {
+	public void setSchoolStatus(final SchoolStatusEnum schoolStatus) {
 		this.schoolStatus = schoolStatus;
 	}
 

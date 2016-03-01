@@ -5,7 +5,7 @@
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" id="butTopMenu" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <div class="logo"><a ng-href="#{{ 's2.dashborad' | routeSegmentUrl }}"><img src="images/logoSite.png" alt="ServingLynk" /></a></div>
+        <div class="logo"><a ng-href="#{{ 's2.dashboard' | routeSegmentUrl }}"><img src="images/logoSite.png" alt="ServingLynk" /></a></div>
       </div>
       <!-- Top Menu Items -->
       <ul class="nav navbar-right top-nav">
@@ -23,7 +23,7 @@
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-          <li ng-show="roleName === 'SUPERADMIN'" ng-class="{active: ('s2.dashborad' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.dashborad' | routeSegmentUrl }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> </li>
+          <li ng-show="roleName === 'SUPERADMIN'" ng-class="{active: ('s2.dashboard' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.dashboard' | routeSegmentUrl }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> </li>
                <li ng-show="roleName === 'SUPERADMIN'" > <a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Organization <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse" style="height: 0px;">
                <li ng-class="{active: ('s2.createorg' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createorg' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Org</a> </li>
