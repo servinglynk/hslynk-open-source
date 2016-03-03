@@ -15,6 +15,11 @@
             <input required ng-model="form.desc" type="desc" name="desc">
 
           </li>
+         <li>
+            <label><span class="required">*</span>Skip Client Identifiers: </label>
+			<input type="checkbox" ng-model="form.skipuseridentifers"
+           ng-true-value="'YES'" ng-false-value="'NO'">			  
+          </li>
           <li>
             <label> </label>
             <input type="submit" ngClick="Submit"  value="Next" class="btn btn-lg btn-upload">

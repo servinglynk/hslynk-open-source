@@ -36,6 +36,11 @@
             </select> -->
           </li>
           <li>
+            <label><span class="required">*</span>Skip Client Identifiers: </label>
+			<input type="checkbox" ng-model="form.skipuseridentifers"
+           ng-true-value="'YES'" ng-false-value="'NO'">			  
+          </li>
+          <li>
             <label> </label>
             <input type="submit" ngClick="Submit"  value="Send Request" class="btn btn-lg btn-upload">
           </li>

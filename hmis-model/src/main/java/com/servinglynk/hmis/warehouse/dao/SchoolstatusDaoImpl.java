@@ -16,6 +16,8 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
 import com.servinglynk.hmis.warehouse.model.staging.Export;
 import com.servinglynk.hmis.warehouse.model.staging.Schoolstatus;
@@ -46,7 +48,10 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			schoolstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
 			schoolstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
 			schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
-			schoolstatusModel.setSchoolStatus(BasicDataGenerator.getIntegerValue(schoolStatus.getSchoolStatus()));
+			schoolstatusModel.setSchoolStatus(
+			SchoolStatusEnum
+			.lookupEnum(BasicDataGenerator
+					.getStringValue(schoolStatus.getSchoolStatus())));
 			if(schoolStatus.getProjectEntryID() !=null && !"".equals(schoolStatus.getProjectEntryID())) {
 				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((schoolStatus.getProjectEntryID()));
 				if(uuid !=null) {

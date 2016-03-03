@@ -101,37 +101,56 @@ var Service= ({
                  if(success)success(data.BulkUploads.bulkUploads)
              }).error(error);
        },        
-CheckServiceAvailableUploadFile: function ($http, success,error) {
-        $http.post('/hmis-upload-service/uploadFile').success(function (data) {
+CheckServiceAvailableUploadFile: function ($http,$scope, success,error) {
+        $http.post('/hmis-upload-service/uploadFile',{
+            headers: {
+                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                  'Accept': 'application/json;odata=verbose'}}).success(function (data) {
         if(success)success(data)
     }).error(error);
 		
 },
-CheckServiceAvailableAuthenticate: function ($http, success,error) {
-        $http.post('/hmis-client-dedup/rest/api/v1/authenticate').success(function (data) {
+CheckServiceAvailableAuthenticate: function ($http,$scope, success,error) {
+        $http.post('/hmis-client-dedup/rest/api/v1/authenticate',{
+            headers: {
+                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                  'Accept': 'application/json;odata=verbose'}}).success(function (data) {
         if(success)success(data)
     }).error(error);
 		
 },
-LoadStatistics: function ($http, success) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING').success(
+LoadStatistics: function ($http,$scope, success) {
+        $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE',{
+                headers: {
+                    'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                      'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                      'Accept': 'application/json;odata=verbose'}}).success(
 		function (data) 
 		{
-			 filesCollection =data;
+			 filesCollection =data.BulkUploads.bulkUploads;
 	    	// success(data)
-			  $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE').success(
+			  $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING', {
+			            headers: {
+			                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+			                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+			                  'Accept': 'application/json;odata=verbose'}}).success(
 				function (data) 
 				{
-					Array.prototype.push.apply(filesCollection, data);
+					Array.prototype.push.apply(filesCollection, data.BulkUploads.bulkUploads);
 				// success(data)
 					
-					$http.get('/hmis-upload-service/rest/bulkupload?status=ERROR').success(
+					$http.get('/hmis-upload-service/rest/bulkupload?status=ERROR',{
+				            headers: {
+				                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+				                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+				                  'Accept': 'application/json;odata=verbose'}}).success(
 					function (data) 
 					{
-						Array.prototype.push.apply(filesCollection, data);
+						Array.prototype.push.apply(filesCollection, data.BulkUploads.bulkUploads);
 						success(filesCollection)
 				  })
-					
 			  })
 			  
   	  });
@@ -321,7 +340,8 @@ GetProjectGroups: function ($http,$scope, success) {
             data : {
               "projectGroup" : {
                 "projectGroupName" : data.name,
-                "projectGroupDesc" : data.desc
+                "projectGroupDesc" : data.desc,
+                "skipuseridentifers" : data.skipuseridentifers
               }
             },
             headers: {

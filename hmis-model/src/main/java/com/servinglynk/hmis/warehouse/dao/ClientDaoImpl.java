@@ -123,17 +123,34 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				//Lets make a microservice all to the dedup micro service
 				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 				if(!projectGroupEntity.isSkipuseridentifers()) {
+					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
 					String dedupedId = dedupHelper.getDedupedClient(clientModel);
+					System.out.println("Dedup Id is ##### "+dedupedId);
 					if(dedupedId != null) {
 						clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 					}
+				}else {
+					clientModel.setFirstName("");
+					clientModel.setLastName("");
+					clientModel.setSsn("");
+					clientModel.setMiddleName("");
+					try {
+						LocalDateTime dob = clientModel.getDob();
+						if(dob !=null) {
+							LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
+							clientModel.setDob(newDob);
+						}
+					}catch(Exception e) {
+						// Eat this exception.
+					}
+					
 				}
 				//clientModel.setProjectGroupCode(clientModel.getUser());
 				clientModel.setDateCreated(LocalDateTime.now());
 				clientModel.setDateUpdated(LocalDateTime.now());
 				
 				if(clientModel.getDedupClientId() !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId());
+					com.servinglynk.hmis.warehouse.model.live.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId(),clientModel.getProjectGroupCode());
 					/**
 					 * This is where the deduping happens We check if a client with the same information exists and
 					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
@@ -162,7 +179,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		Set<com.servinglynk.hmis.warehouse.model.staging.Client> clients = export.getClients();
 		if(clients !=null && !clients.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.staging.Client client : clients) {
-				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId());
+				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
 				if(clientByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.live.Client target = new com.servinglynk.hmis.warehouse.model.live.Client();
 					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
@@ -184,7 +201,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, client.getExport().getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId());
+				com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
 				if(clientByDedupCliendId ==null) {
 					insert(target);	
 				}
@@ -264,9 +281,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.live.Client getClientByDedupCliendId(UUID id) {
+	public com.servinglynk.hmis.warehouse.model.live.Client getClientByDedupCliendId(UUID id,String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Client.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		List<com.servinglynk.hmis.warehouse.model.live.Client> clients = (List<com.servinglynk.hmis.warehouse.model.live.Client>) findByCriteria(criteria);
 		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;

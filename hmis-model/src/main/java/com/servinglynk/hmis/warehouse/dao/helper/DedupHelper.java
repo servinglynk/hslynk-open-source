@@ -41,7 +41,7 @@ public class DedupHelper {
 		 	
 		 	//String url = "http://ec2-52-34-4-204.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
 	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";       
-	        String requestBody = "{ \"AuthenticationReq+uest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
+	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");
 	        AuthenticationRequest.setUsername("admin");

@@ -37,7 +37,7 @@ public class SyncController {
 			try {
 				connection = getConnection();
 
-				String queryString = "SELECT * FROM live.sync" ;
+				String queryString = "SELECT * FROM live.sync order by date_created desc" ;
 				PreparedStatement statement = connection.prepareStatement(queryString);
 				resultSet = statement.executeQuery();
 				

@@ -14,6 +14,7 @@ public class ProjectGroup extends ClientModel {
 	private String projectGroupDesc;
 	private UUID projectGroupId;
 	private String projectGroupCode;
+	private boolean skipuseridentifers;
 	
 	@JsonProperty("projects")
 	List<Project> projects = new ArrayList<Project>();
@@ -60,5 +61,12 @@ public class ProjectGroup extends ClientModel {
 
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
+	}
+	
+	public boolean isSkipuseridentifers() {
+		return skipuseridentifers;
+	}
+	public void setSkipuseridentifers(boolean skipuseridentifers) {
+		this.skipuseridentifers = skipuseridentifers;
 	}
 }

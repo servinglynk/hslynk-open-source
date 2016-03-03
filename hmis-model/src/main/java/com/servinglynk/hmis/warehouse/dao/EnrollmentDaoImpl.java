@@ -143,7 +143,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				if(enrollment !=null) {
 					com.servinglynk.hmis.warehouse.model.live.Enrollment target = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
 					BeanUtils.copyProperties(enrollment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId());
+					com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId(),enrollment.getProjectGroupCode());
 					if(clientByDedupCliendId == null) {
 						com.servinglynk.hmis.warehouse.model.live.Client client = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, enrollment.getClient().getId());
 						target.setClient(client);	

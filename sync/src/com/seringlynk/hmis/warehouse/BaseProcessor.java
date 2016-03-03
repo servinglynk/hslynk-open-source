@@ -333,7 +333,7 @@ public class BaseProcessor<T> {
 		tables.put("Medicalassistance","medicalassistance");
 		tables.put("Noncashbenefits","noncashbenefits");
 		tables.put("Organization","organization");
-		tables.put("Pathstatus","pathstatus");
+		tables.put("Pathstatus","path_status");
 		tables.put("Percentami","percent_ami");
 		tables.put("Project","project");
 		tables.put("Projectcoc","projectcoc");

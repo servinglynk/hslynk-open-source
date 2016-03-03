@@ -40,9 +40,9 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	
 	
 	public HmisUser createAccount(HmisUser account){
-		String hiveUserName = account.getUsername().replaceAll("[^a-zA-Z0-9]+","-");
+		String hiveUserName = account.getUsername().replaceAll("[^a-zA-Z0-9]+","3");
 		account.setHiveUsername(hiveUserName);
-		account.setPassword("Passw0rd!");
+		account.setHivePassword("Passw0rd!");
 		insert(account);
 		return account;
 	}
