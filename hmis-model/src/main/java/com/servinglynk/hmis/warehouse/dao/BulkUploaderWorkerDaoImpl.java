@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -35,7 +36,10 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
 		query.add(Restrictions.eq("user.id", userId));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		if(StringUtils.equals("DELETED", status)) {
+			query.add(Restrictions.eq("deleted",true));
+		}
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
 	public List<BulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{

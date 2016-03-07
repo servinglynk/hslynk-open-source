@@ -53,7 +53,20 @@ var Service= ({
             }).success(function (data) {
                 if(success)success(data.BulkUploads.bulkUploads)
             });
-      },        
+      },  GetFilesListDELETED: function ($http, success, $scope) {
+          var apiurl = "/hmis-upload-service/rest/bulkupload?status=DELETED";
+       	 console.log('Session Token..'+$scope.sessionToken);
+             $http({
+                 method: 'GET',
+                 url: apiurl,
+                 headers: {
+                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                     'Accept': 'application/json;odata=verbose'}
+             }).success(function (data) {
+                 if(success)success(data.BulkUploads.bulkUploads)
+             });
+       },       
     GetFilesListLIVE: function ($http, success,$scope) {
     var apiurl = "/hmis-upload-service/rest/bulkupload?status=LIVE";
  	 console.log('Session Token..'+$scope.sessionToken);
@@ -353,7 +366,7 @@ GetProjectGroups: function ($http,$scope, success) {
         }).error(error);
         },
     getToken: function ($http, $scope, success, error) {
-        var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=https://www.hmislynk.com/hmis-admin/#/admin/dashboard";
+        var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=http://127.0.0.1:8081/hmis-admin/#/admin/dashboard";
         $http({
             method: 'POST',
             url: apiurl,

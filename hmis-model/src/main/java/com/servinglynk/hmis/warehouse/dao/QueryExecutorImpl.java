@@ -279,6 +279,10 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 		return criteria.list();
 		
 	}
+	public List<?> findByCriteriaWithOutDelete(DetachedCriteria detachedCriteria){
+		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
+		return criteria.list();
+	}
 	
 	@SuppressWarnings("unused")
 	public DetachedCriteria addingConditionsToCriteria(DetachedCriteria detachedCriteria) {

@@ -55,4 +55,17 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
         $scope.currentPageERROR = pageNo;
     };
    
+    Service.GetFilesListDELETED($http,
+    		  //success
+    		  function (data) {
+    		      $scope.listDELETED = data;
+    		      $scope.currentPageDELETED = 1; //current page
+    		      $scope.entryLimitDELETED = 10; //max no of items to display in a page
+    		      $scope.filteredItemsDELETED = $scope.listDELETED.length; //Initially for no filter  
+    		      $scope.totalItemsDELETED = $scope.listDELETED.length;
+    		  },$scope)
+
+    		    $scope.setPageDELETED = function (pageNo) {
+    		        $scope.currentPageDELETED = pageNo;
+    		    };
 });
