@@ -4,18 +4,18 @@
 	<parent>
 		<groupId>com.servinglynk.hmis.warehouse</groupId>
 		<artifactId>servinglynk-hmis</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>hmis-developer-service</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
 	</scm>
 	<properties>
-		<parent-version>0.0.1-SNAPSHOT</parent-version>
+		<parent-version>0.0.2-SNAPSHOT</parent-version>
 
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<slf4j-api-version>1.7.2</slf4j-api-version>

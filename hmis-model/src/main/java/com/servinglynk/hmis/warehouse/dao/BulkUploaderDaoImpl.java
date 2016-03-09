@@ -83,6 +83,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
+			
 			Source source = sources.getSource();
 			Export export = source.getExport();
 			UUID exportId = UUID.randomUUID();
@@ -141,7 +142,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getSexualorientationDao().hydrateStaging(domain);
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain);
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
-			upload.setStatus("STAGING");
+			upload.setStatus(UploadStatus.STAGING.getStatus());
 			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
 			parentDaoFactory.getSourceDao().hydrateLive(exportEntity);
 			if(exportEntity!=null) {
@@ -155,7 +156,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setExport(exportLive);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
-			upload.setStatus("ERROR");
+			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(e.getMessage());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			e.printStackTrace();

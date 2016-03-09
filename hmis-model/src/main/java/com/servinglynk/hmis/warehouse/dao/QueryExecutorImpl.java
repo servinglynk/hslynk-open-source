@@ -152,6 +152,29 @@ public class QueryExecutorImpl  implements QueryExecutor{
 			}
 		}
 	}
+	
+	@SuppressWarnings("unused")
+	public void undoSoftDeleteByExportId(String className,UUID exportId) {
+		DetachedCriteria criteria = null;
+		try {
+			criteria = DetachedCriteria.forClass(Class.forName(className));
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		criteria.createAlias("export", "export");
+		criteria.add(Restrictions.eq("export.id", exportId));
+		criteria.add(Restrictions.eq("deleted", true));
+		List<Object> objects = criteria.getExecutableCriteria(getCurrentSession()).list();
+		if(objects !=null) {
+			for(Object entity : objects) {
+				 if(entity instanceof HmisBaseModel) {
+					 ((HmisBaseModel) entity).setDeleted(false);
+					 update(entity);
+				 }
+			}
+		}
+	}
 	@SuppressWarnings("unused")
 	public void deleteFromDB(Object entity) {
           try
