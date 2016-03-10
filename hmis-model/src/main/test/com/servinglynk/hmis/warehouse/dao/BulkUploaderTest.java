@@ -102,7 +102,11 @@ public class BulkUploaderTest {
 		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
 		dao.deleteLiveByExportId(id);
 	}
-	
+	@Test
+	public void undodeleteExportFromLive() {
+		UUID id = UUID.fromString("8c2f2577-76a6-457f-a76f-d95607889134");
+		dao.undoDeleteLiveByExportId(id);
+	}
 	@Test
 	public void softDeleteProjectGroup() throws Exception {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");

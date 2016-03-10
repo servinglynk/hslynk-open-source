@@ -170,6 +170,7 @@ public class QueryExecutorImpl  implements QueryExecutor{
 			for(Object entity : objects) {
 				 if(entity instanceof HmisBaseModel) {
 					 ((HmisBaseModel) entity).setDeleted(false);
+					 ((HmisBaseModel) entity).setSync(false);
 					 update(entity);
 				 }
 			}
