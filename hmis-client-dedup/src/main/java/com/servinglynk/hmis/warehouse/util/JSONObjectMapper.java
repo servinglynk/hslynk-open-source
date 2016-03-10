@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse;
+package com.servinglynk.hmis.warehouse.util;
 import com.fasterxml.jackson.annotation.JsonInclude;import com.fasterxml.jackson.databind.DeserializationFeature;import com.fasterxml.jackson.databind.ObjectMapper;import com.fasterxml.jackson.databind.SerializationFeature;
 /**
  * JSONObjectMapper enables Jaxb annotation when serializing and deserializing objects in json format

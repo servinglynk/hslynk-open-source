@@ -3,10 +3,10 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>User Service</display-name>
+  <display-name>Hmis Upload Service</display-name>
   
   <servlet>
-    <servlet-name>user-service</servlet-name>
+    <servlet-name>hmis-upload-service</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <!-- we'll use AnnotationConfigWebApplicationContext instead of the default XmlWebApplicationContext... -->
     <init-param>
@@ -25,7 +25,7 @@
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>user-service</servlet-name>
+    <servlet-name>hmis-upload-service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   

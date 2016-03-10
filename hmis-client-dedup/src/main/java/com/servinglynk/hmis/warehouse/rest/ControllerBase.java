@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.controller;
+package com.servinglynk.hmis.warehouse.rest;
 
 import java.util.ArrayList;
 import java.util.List;

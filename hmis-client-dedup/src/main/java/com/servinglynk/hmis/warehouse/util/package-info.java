@@ -5,4 +5,4 @@
  * @author Sandeep
  *
  */
-package com.servinglynk.hmis.warehouse.service;
+package com.servinglynk.hmis.warehouse.util;

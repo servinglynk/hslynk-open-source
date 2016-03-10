@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse;
+package com.servinglynk.hmis.warehouse.util;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("AuthenticationRequest")

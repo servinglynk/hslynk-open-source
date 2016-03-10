@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse;
+package com.servinglynk.hmis.warehouse.util;
 
 import java.text.DateFormat;
 import java.text.Format;

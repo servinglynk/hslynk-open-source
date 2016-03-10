@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.controller;
+package com.servinglynk.hmis.warehouse.rest;
 
 import static com.servinglynk.hmis.warehouse.common.ErrorCodes.ERR_CODE_ACCESS_DENIED;
 import static com.servinglynk.hmis.warehouse.common.ErrorCodes.ERR_CODE_ILLEGAL_STATE;

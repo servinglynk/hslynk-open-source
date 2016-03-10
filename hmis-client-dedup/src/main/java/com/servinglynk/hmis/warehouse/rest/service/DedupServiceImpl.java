@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.service;
+package com.servinglynk.hmis.warehouse.rest.service;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -22,19 +22,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.servinglynk.hmis.warehouse.AuthenticationRequest;
 import com.servinglynk.hmis.warehouse.domain.Gender;
 import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.PersonIdentifier;
+import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
 	private static final String OPENEMPI_SESSION_KEY_HEADER = "OPENEMPI_SESSION_KEY";
 	private static final String OPENEMPI_HOST = "http://ec2-54-149-78-38.us-west-2.compute.amazonaws.com:8080/openempi-webapp-web-2.2.9/";
 	final static Logger logger = Logger.getLogger(DedupServiceImpl.class);
 	
-	@Override
 	public String authenticate(AuthenticationRequest authRequest) {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = OPENEMPI_HOST+"openempi-ws-rest/security-resource/authenticate";       
@@ -48,7 +48,6 @@ public class DedupServiceImpl implements DedupService{
         return response.getBody();
 	}
 
-	@Override
 	public Person createUser(Person person,String sessionKey) {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
@@ -61,7 +60,6 @@ public class DedupServiceImpl implements DedupService{
 	        return responseObject.getBody();
 	}
 
-	@Override
 	public Person updateUser(Person person,String sessionKey) {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
@@ -193,7 +191,6 @@ public class DedupServiceImpl implements DedupService{
 	 * @param sessionKey
 	 * @return
 	 */
-	@Override
 	public Person dedupingLogic(Person person,String sessionKey) {
 		// PART 1: of the algorithm states that when all the required fields are null we should not insert the record in Open EMPI or HMIS database.
 			if(!isRecordFitForMatching(person)) {

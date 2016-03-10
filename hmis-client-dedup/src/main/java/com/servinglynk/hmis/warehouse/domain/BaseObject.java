@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import com.servinglynk.hmis.warehouse.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.util.JSONObjectMapper;
 
 /**
  * Base class for Model objects. Child objects should implement toString(),

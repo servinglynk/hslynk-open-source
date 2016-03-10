@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.controller;
+package com.servinglynk.hmis.warehouse.rest;
 
 import java.util.List;
 
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.servinglynk.hmis.warehouse.AuthenticationException;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.domain.Person;
-import com.servinglynk.hmis.warehouse.AuthenticationRequest;
-import com.servinglynk.hmis.warehouse.service.DedupService;
+import com.servinglynk.hmis.warehouse.rest.service.DedupService;
+import com.servinglynk.hmis.warehouse.util.AuthenticationException;
+import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 
 @RestController
 @RequestMapping("/api/v1")
-public class DedupController {
+public class DedupController  extends ControllerBase{
 	
 	
 	 @Autowired

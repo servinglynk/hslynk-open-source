@@ -1,7 +1,7 @@
-package com.servinglynk.hmis.warehouse.service;
+package com.servinglynk.hmis.warehouse.rest.service;
 
 import com.servinglynk.hmis.warehouse.domain.Person;
-import com.servinglynk.hmis.warehouse.AuthenticationRequest;
+import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public interface DedupService {
 	public String authenticate(AuthenticationRequest authRequest);

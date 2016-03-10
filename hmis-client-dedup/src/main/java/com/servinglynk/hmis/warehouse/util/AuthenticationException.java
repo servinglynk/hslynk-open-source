@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse;
+package com.servinglynk.hmis.warehouse.util;
 
 public class AuthenticationException extends RuntimeException
 {

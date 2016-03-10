@@ -256,7 +256,55 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public void undoDeleteLiveByExportId(UUID exportId) {
+		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Client.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Commercialsexualexploitation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Connectionwithsoar.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Domesticviolence.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Employment.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Enrollment.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(EnrollmentCoc.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Exit.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Exithousingassessment.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Exitplansactions.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Export.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Familyreunification.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Formerwardchildwelfare.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Formerwardjuvenilejustice.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Funder.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Healthinsurance.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(HealthStatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Housingassessmentdisposition.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Incomeandsources.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Inventory.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Lastgradecompleted.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(LastPermAddress.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Medicalassistance.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Noncashbenefits.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Organization.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Pathstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Percentami.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Project.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Projectcoc.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Projectcompletionstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Referralsource.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Residentialmoveindate.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Rhybcpstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Schoolstatus.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Services.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Sexualorientation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(VeteranInfo.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Worsthousingsituation.class.getName(), projectGroupCode);
+		softDeleteByProjectGroupCode(Youthcriticalissues.class.getName(), projectGroupCode);
+		
+	}
+	
 	@Override
 	public void deleteLiveByProjectGroupCode(String projectGroupCode) {
 		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode);
