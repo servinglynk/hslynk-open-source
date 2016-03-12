@@ -29,7 +29,7 @@ import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsit
  * @author Sandeep Dolia
  */
 @Entity(name = "worsthousingsituation")
-@Table(name = "worsthousingsituation", catalog = "hmis", schema = "live")
+@Table(name = "worsthousingsituation", catalog = "hmis", schema = "v2014")
 public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -259,7 +259,7 @@ public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, 
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		result = result && (((getWorsthousingsituation() == null) && (that.getWorsthousingsituation() == null)) || (getWorsthousingsituation() != null && getWorsthousingsituation().equals(that.getWorsthousingsituation())));
 		return result;
 	}

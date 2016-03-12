@@ -1695,7 +1695,7 @@ public class Enrollment extends HmisBaseStagingModel  implements Cloneable, Seri
 		result = result && (((getResidencepriorlengthofstay() == null) && (that.getResidencepriorlengthofstay() == null)) || (getResidencepriorlengthofstay() != null && getResidencepriorlengthofstay().equals(that.getResidencepriorlengthofstay())));
 		result = result && (((getStatusdocumented() == null) && (that.getStatusdocumented() == null)) || (getStatusdocumented() != null && getStatusdocumented().equals(that.getStatusdocumented())));
 		result = result && (((getTimeshomelesspastthreeyears() == null) && (that.getTimeshomelesspastthreeyears() == null)) || (getTimeshomelesspastthreeyears() != null && getTimeshomelesspastthreeyears().equals(that.getTimeshomelesspastthreeyears())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getYearshomeless() == null) && (that.getYearshomeless() == null)) || (getYearshomeless() != null && getYearshomeless().equals(that.getYearshomeless())));
 		return result;
 	}

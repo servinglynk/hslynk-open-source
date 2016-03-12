@@ -328,7 +328,7 @@ public class Bedinventory extends HmisBaseStagingModel  implements Cloneable, Se
 		result = result && (((getChBedInventory() == null) && (that.getChBedInventory() == null)) || (getChBedInventory() != null && getChBedInventory().equals(that.getChBedInventory())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getVetBedInventory() == null) && (that.getVetBedInventory() == null)) || (getVetBedInventory() != null && getVetBedInventory().equals(that.getVetBedInventory())));
 		result = result && (((getYouthAgeGroup() == null) && (that.getYouthAgeGroup() == null)) || (getYouthAgeGroup() != null && getYouthAgeGroup().equals(that.getYouthAgeGroup())));
 		result = result && (((getYouthBedInventory() == null) && (that.getYouthBedInventory() == null)) || (getYouthBedInventory() != null && getYouthBedInventory().equals(that.getYouthBedInventory())));

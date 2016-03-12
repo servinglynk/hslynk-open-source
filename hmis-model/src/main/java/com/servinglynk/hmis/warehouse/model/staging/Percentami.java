@@ -259,7 +259,7 @@ public class Percentami extends HmisBaseStagingModel  implements Cloneable, Seri
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));	
 		result = result && (((getPercentage() == null) && (that.getPercentage() == null)) || (getPercentage() != null && getPercentage().equals(that.getPercentage())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 	

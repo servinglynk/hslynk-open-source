@@ -36,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 
 @Entity(name = "projectcoc")
-@Table(name = "projectcoc", catalog = "hmis", schema = "live")
+@Table(name = "projectcoc", catalog = "hmis", schema = "v2014")
 public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -343,7 +343,7 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

@@ -23,7 +23,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 
 
-@Table(name = "sync", catalog = "hmis", schema = "live")
+@Table(name = "sync", catalog = "hmis", schema = "v2014")
 public class Sync implements Cloneable, Serializable {
 
 	/** Serial Version UID. */

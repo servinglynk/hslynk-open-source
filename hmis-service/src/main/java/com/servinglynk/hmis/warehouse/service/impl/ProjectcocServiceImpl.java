@@ -24,7 +24,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
        if(pProject == null) throw new ProjectNotFoundException(); 
        pProjectcoc.setProjectid(pProject); 
        pProjectcoc.setDateCreated(LocalDateTime.now());
-       pProjectcoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+ //      pProjectcoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getProjectcocDao().createProjectcoc(pProjectcoc);
        projectcoc.setProjectcocId(pProjectcoc.getId());
        return projectcoc;
@@ -41,7 +41,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
        ProjectcocConverter.modelToEntity(projectcoc, pProjectcoc);
        pProjectcoc.setProjectid(pProject); 
        pProjectcoc.setDateUpdated(LocalDateTime.now());
-       pProjectcoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pProjectcoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getProjectcocDao().updateProjectcoc(pProjectcoc);
        projectcoc.setProjectcocId(pProjectcoc.getId());
        return projectcoc;

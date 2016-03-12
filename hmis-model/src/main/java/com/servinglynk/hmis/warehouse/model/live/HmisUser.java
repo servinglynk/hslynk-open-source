@@ -623,7 +623,6 @@ public class HmisUser  {
 		 * @param affiliation item to add
 		 */
 		public void addAffiliation(Affiliation affiliation) {
-			affiliation.setUser(this);
 			this.affiliations.add(affiliation);
 		}
 
@@ -654,7 +653,6 @@ public class HmisUser  {
 		 * @param bedinventory item to add
 		 */
 		public void addBedinventory(Bedinventory bedinventory) {
-			bedinventory.setUser(this);
 			this.bedinventories.add(bedinventory);
 		}
 
@@ -685,7 +683,6 @@ public class HmisUser  {
 		 * @param client item to add
 		 */
 		public void addClient(Client client) {
-			client.setUser(this);
 			this.clients.add(client);
 		}
 
@@ -716,7 +713,6 @@ public class HmisUser  {
 		 * @param commercialsexualexploitation item to add
 		 */
 		public void addCommercialsexualexploitation(Commercialsexualexploitation commercialsexualexploitation) {
-			commercialsexualexploitation.setUser(this);
 			this.commercialsexualexploitations.add(commercialsexualexploitation);
 		}
 
@@ -747,7 +743,6 @@ public class HmisUser  {
 		 * @param connectionwithsoar item to add
 		 */
 		public void addConnectionwithsoar(Connectionwithsoar connectionwithsoar) {
-			connectionwithsoar.setUser(this);
 			this.connectionwithsoars.add(connectionwithsoar);
 		}
 
@@ -778,7 +773,6 @@ public class HmisUser  {
 		 * @param dateofengagement item to add
 		 */
 		public void addDateofengagement(Dateofengagement dateofengagement) {
-			dateofengagement.setUser(this);
 			this.dateofengagements.add(dateofengagement);
 		}
 
@@ -809,7 +803,6 @@ public class HmisUser  {
 		 * @param disabilities item to add
 		 */
 		public void addDisabilities(Disabilities disabilities) {
-			disabilities.setUser(this);
 			this.disabilitieses.add(disabilities);
 		}
 
@@ -840,7 +833,6 @@ public class HmisUser  {
 		 * @param domesticviolence item to add
 		 */
 		public void addDomesticviolence(Domesticviolence domesticviolence) {
-			domesticviolence.setUser(this);
 			this.domesticviolences.add(domesticviolence);
 		}
 
@@ -871,7 +863,6 @@ public class HmisUser  {
 		 * @param employment item to add
 		 */
 		public void addEmployment(Employment employment) {
-			employment.setUser(this);
 			this.employments.add(employment);
 		}
 
@@ -902,7 +893,6 @@ public class HmisUser  {
 		 * @param enrollment item to add
 		 */
 		public void addEnrollment(Enrollment enrollment) {
-			enrollment.setUser(this);
 			this.enrollments.add(enrollment);
 		}
 
@@ -933,7 +923,6 @@ public class HmisUser  {
 		 * @param enrollmentCoc item to add
 		 */
 		public void addEnrollmentCoc(EnrollmentCoc enrollmentCoc) {
-			enrollmentCoc.setUser(this);
 			this.enrollmentCocs.add(enrollmentCoc);
 		}
 
@@ -964,7 +953,6 @@ public class HmisUser  {
 		 * @param exit item to add
 		 */
 		public void addExit(Exit exit) {
-			exit.setUser(this);
 			this.exits.add(exit);
 		}
 
@@ -995,7 +983,6 @@ public class HmisUser  {
 		 * @param exithousingassessment item to add
 		 */
 		public void addExithousingassessment(Exithousingassessment exithousingassessment) {
-			exithousingassessment.setUser(this);
 			this.exithousingassessments.add(exithousingassessment);
 		}
 
@@ -1026,7 +1013,6 @@ public class HmisUser  {
 		 * @param exitplansactions item to add
 		 */
 		public void addExitplansactions(Exitplansactions exitplansactions) {
-			exitplansactions.setUser(this);
 			this.exitplansactionss.add(exitplansactions);
 		}
 
@@ -1057,7 +1043,6 @@ public class HmisUser  {
 		 * @param familyreunification item to add
 		 */
 		public void addFamilyreunification(Familyreunification familyreunification) {
-			familyreunification.setUser(this);
 			this.familyreunifications.add(familyreunification);
 		}
 
@@ -1089,7 +1074,6 @@ public class HmisUser  {
 		 * @param formerwardchildwelfare item to add
 		 */
 		public void addFormerwardchildwelfare(Formerwardchildwelfare formerwardchildwelfare) {
-			formerwardchildwelfare.setUser(this);
 			this.formerwardchildwelfares.add(formerwardchildwelfare);
 		}
 
@@ -1120,7 +1104,6 @@ public class HmisUser  {
 		 * @param formerwardjuvenilejustice item to add
 		 */
 		public void addFormerwardjuvenilejustice(Formerwardjuvenilejustice formerwardjuvenilejustice) {
-			formerwardjuvenilejustice.setUser(this);
 			this.formerwardjuvenilejustices.add(formerwardjuvenilejustice);
 		}
 
@@ -1151,7 +1134,6 @@ public class HmisUser  {
 		 * @param funder item to add
 		 */
 		public void addFunder(Funder funder) {
-			funder.setUser(this);
 			this.funders.add(funder);
 		}
 
@@ -1182,7 +1164,6 @@ public class HmisUser  {
 		 * @param healthinsurance item to add
 		 */
 		public void addHealthinsurance(Healthinsurance healthinsurance) {
-			healthinsurance.setUser(this);
 			this.healthinsurances.add(healthinsurance);
 		}
 
@@ -1213,7 +1194,6 @@ public class HmisUser  {
 		 * @param healthStatus item to add
 		 */
 		public void addHealthStatus(HealthStatus healthStatus) {
-			healthStatus.setUser(this);
 			this.healthStatuses.add(healthStatus);
 		}
 
@@ -1244,7 +1224,6 @@ public class HmisUser  {
 		 * @param hmisType item to add
 		 */
 		public void addHmisType(HmisType hmisType) {
-			hmisType.setUser(this);
 			this.hmisTypes.add(hmisType);
 		}
 
@@ -1275,7 +1254,6 @@ public class HmisUser  {
 		 * @param housingassessmentdisposition item to add
 		 */
 		public void addHousingassessmentdisposition(Housingassessmentdisposition housingassessmentdisposition) {
-			housingassessmentdisposition.setUser(this);
 			this.housingassessmentdispositions.add(housingassessmentdisposition);
 		}
 
@@ -1306,7 +1284,6 @@ public class HmisUser  {
 		 * @param incomeandsources item to add
 		 */
 		public void addIncomeandsources(Incomeandsources incomeandsources) {
-			incomeandsources.setUser(this);
 			this.incomeandsourceses.add(incomeandsources);
 		}
 
@@ -1337,7 +1314,6 @@ public class HmisUser  {
 		 * @param inventory item to add
 		 */
 		public void addInventory(Inventory inventory) {
-			inventory.setUser(this);
 			this.inventories.add(inventory);
 		}
 
@@ -1368,7 +1344,6 @@ public class HmisUser  {
 		 * @param lastgradecompleted item to add
 		 */
 		public void addLastgradecompleted(Lastgradecompleted lastgradecompleted) {
-			lastgradecompleted.setUser(this);
 			this.lastgradecompleteds.add(lastgradecompleted);
 		}
 
@@ -1399,7 +1374,6 @@ public class HmisUser  {
 		 * @param lastPermAddress item to add
 		 */
 		public void addLastPermAddress(LastPermAddress lastPermAddress) {
-			lastPermAddress.setUser(this);
 			this.lastPermAddresses.add(lastPermAddress);
 		}
 
@@ -1431,7 +1405,6 @@ public class HmisUser  {
 		 * @param medicalassistance item to add
 		 */
 		public void addMedicalassistance(Medicalassistance medicalassistance) {
-			medicalassistance.setUser(this);
 			this.medicalassistances.add(medicalassistance);
 		}
 
@@ -1461,7 +1434,6 @@ public class HmisUser  {
 		 * @param noncashbenefits item to add
 		 */
 		public void addNoncashbenefits(Noncashbenefits noncashbenefits) {
-			noncashbenefits.setUser(this);
 			this.noncashbenefitss.add(noncashbenefits);
 		}
 
@@ -1493,7 +1465,6 @@ public class HmisUser  {
 		 * @param pathstatus item to add
 		 */
 		public void addPathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus) {
-			pathstatus.setUser(this);
 			this.pathstatuses.add(pathstatus);
 		}
 
@@ -1524,7 +1495,6 @@ public class HmisUser  {
 		 * @param percentami item to add
 		 */
 		public void addPercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami) {
-			percentami.setUser(this);
 			this.percentamis.add(percentami);
 		}
 
@@ -1555,7 +1525,6 @@ public class HmisUser  {
 		 * @param project item to add
 		 */
 		public void addProject(Project project) {
-			project.setUser(this);
 			this.projects.add(project);
 		}
 
@@ -1586,7 +1555,6 @@ public class HmisUser  {
 		 * @param projectcoc item to add
 		 */
 		public void addProjectcoc(Projectcoc projectcoc) {
-			projectcoc.setUser(this);
 			this.projectcocs.add(projectcoc);
 		}
 
@@ -1617,7 +1585,6 @@ public class HmisUser  {
 		 * @param projectcompletionstatus item to add
 		 */
 		public void addProjectcompletionstatus(Projectcompletionstatus projectcompletionstatus) {
-			projectcompletionstatus.setUser(this);
 			this.projectcompletionstatuses.add(projectcompletionstatus);
 		}
 
@@ -1648,7 +1615,6 @@ public class HmisUser  {
 		 * @param referralsource item to add
 		 */
 		public void addReferralsource(Referralsource referralsource) {
-			referralsource.setUser(this);
 			this.referralsources.add(referralsource);
 		}
 
@@ -1679,7 +1645,6 @@ public class HmisUser  {
 		 * @param residentialmoveindate item to add
 		 */
 		public void addResidentialmoveindate(Residentialmoveindate residentialmoveindate) {
-			residentialmoveindate.setUser(this);
 			this.residentialmoveindates.add(residentialmoveindate);
 		}
 
@@ -1710,7 +1675,6 @@ public class HmisUser  {
 		 * @param rhybcpstatus item to add
 		 */
 		public void addRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus) {
-			rhybcpstatus.setUser(this);
 			this.rhybcpstatuses.add(rhybcpstatus);
 		}
 
@@ -1741,7 +1705,6 @@ public class HmisUser  {
 		 * @param schoolstatus item to add
 		 */
 		public void addSchoolstatus(Schoolstatus schoolstatus) {
-			schoolstatus.setUser(this);
 			this.schoolstatuses.add(schoolstatus);
 		}
 
@@ -1772,7 +1735,6 @@ public class HmisUser  {
 		 * @param services item to add
 		 */
 		public void addServices(Services services) {
-			services.setUser(this);
 			this.serviceses.add(services);
 		}
 
@@ -1803,7 +1765,6 @@ public class HmisUser  {
 		 * @param sexualorientation item to add
 		 */
 		public void addSexualorientation(Sexualorientation sexualorientation) {
-			sexualorientation.setUser(this);
 			this.sexualorientations.add(sexualorientation);
 		}
 
@@ -1834,7 +1795,6 @@ public class HmisUser  {
 		 * @param site item to add
 		 */
 		public void addSite(Site site) {
-			site.setUser(this);
 			this.sites.add(site);
 		}
 
@@ -1865,7 +1825,6 @@ public class HmisUser  {
 		 * @param source item to add
 		 */
 		public void addSource(Source source) {
-			source.setUser(this);
 			this.sources.add(source);
 		}
 
@@ -1896,7 +1855,6 @@ public class HmisUser  {
 		 * @param veteranInfo item to add
 		 */
 		public void addVeteranInfo(VeteranInfo veteranInfo) {
-			veteranInfo.setUser(this);
 			this.veteranInfoes.add(veteranInfo);
 		}
 
@@ -1927,7 +1885,6 @@ public class HmisUser  {
 		 * @param worsthousingsituation item to add
 		 */
 		public void addWorsthousingsituation(Worsthousingsituation worsthousingsituation) {
-			worsthousingsituation.setUser(this);
 			this.worsthousingsituations.add(worsthousingsituation);
 		}
 
@@ -1958,7 +1915,6 @@ public class HmisUser  {
 		 * @param youthcriticalissues item to add
 		 */
 		public void addYouthcriticalissues(Youthcriticalissues youthcriticalissues) {
-			youthcriticalissues.setUser(this);
 			this.youthcriticalissueses.add(youthcriticalissues);
 		}
 

@@ -45,7 +45,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "project")
-@Table(name = "project", catalog = "hmis", schema = "live")
+@Table(name = "project", catalog = "hmis", schema = "v2014")
 public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -576,7 +576,7 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getResidentialaffiliation() == null) && (that.getResidentialaffiliation() == null)) || (getResidentialaffiliation() != null && getResidentialaffiliation().equals(that.getResidentialaffiliation())));
 		result = result && (((getTargetpopulation() == null) && (that.getTargetpopulation() == null)) || (getTargetpopulation() != null && getTargetpopulation().equals(that.getTargetpopulation())));
 		result = result && (((getTrackingmethod() == null) && (that.getTrackingmethod() == null)) || (getTrackingmethod() != null && getTrackingmethod().equals(that.getTrackingmethod())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 }

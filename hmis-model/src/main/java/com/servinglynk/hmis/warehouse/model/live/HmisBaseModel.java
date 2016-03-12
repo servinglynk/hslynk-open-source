@@ -26,8 +26,7 @@ public abstract class HmisBaseModel implements Entity{
 	protected LocalDateTime dateUpdatedFromSource;
 	/** Field mapping. */
 	protected String projectGroupCode;
-	/** Field mapping. */
-	private HmisUser user;
+	private UUID user;
 	 /**
 		 * Return the value associated with the column: dateCreated.
 		 * @return A LocalDateTime object (this.dateCreated)
@@ -135,27 +134,13 @@ public abstract class HmisBaseModel implements Entity{
 			public void setVersion(Long version) {
 				this.version = version;
 			}
-			
-			 /**
-			 * Return the value associated with the column: user.
-			 * @return A HmisUser object (this.user)
-			 */
-			@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-			@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 			@Basic( optional = true )
-			@JoinColumn(name = "user_id", nullable = true )
-			public HmisUser getUser() {
-				return this.user;
-				
+			@Column( name = "user_id", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+			public UUID getUser() {
+				return user;
 			}
-			
 
-		  
-			 /**  
-			 * Set the value related to the column: user.
-			 * @param user the user value you wish to set
-			 */
-			public void setUser(final HmisUser user) {
+			public void setUser(UUID user) {
 				this.user = user;
 			}
 }

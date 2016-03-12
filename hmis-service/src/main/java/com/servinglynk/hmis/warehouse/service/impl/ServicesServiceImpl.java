@@ -24,7 +24,7 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pServices.setEnrollmentid(pEnrollment); 
        pServices.setDateCreated(LocalDateTime.now());
-       pServices.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+ //      pServices.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getServicesDao().createServices(pServices);
        services.setServicesId(pServices.getId());
        return services;
@@ -41,7 +41,7 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
        ServicesConverter.modelToEntity(services, pServices);
        pServices.setEnrollmentid(pEnrollment); 
        pServices.setDateUpdated(LocalDateTime.now());
-       pServices.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pServices.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getServicesDao().updateServices(pServices);
        services.setServicesId(pServices.getId());
        return services;

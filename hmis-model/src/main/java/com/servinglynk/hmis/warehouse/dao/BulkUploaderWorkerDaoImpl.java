@@ -27,7 +27,7 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 	public List<BulkUpload> findBulkUploadByStatus(String status) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
 	

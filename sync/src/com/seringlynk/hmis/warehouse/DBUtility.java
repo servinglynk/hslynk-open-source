@@ -26,7 +26,7 @@ import java.util.List;
 	  String colNameToSearchFor = "part_no";
 	  
 	  String catalog = "hmis";
-	  String schema = "live";
+	  String schema = "v2014";
 	  List listOfTables = new ArrayList();
 
 	  public static void main(String[] args)

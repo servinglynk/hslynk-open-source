@@ -24,7 +24,7 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 	       if(pEnrollment == null) throw new EnrollmentNotFound(); 
 	       pYouthCriticalIssues.setEnrollmentid(pEnrollment); 
 	       pYouthCriticalIssues.setDateCreated(LocalDateTime.now());
-	       pYouthCriticalIssues.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+	  //     pYouthCriticalIssues.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 	       daoFactory.getYouthcriticalissuesDao().createYouthCriticalIssues(pYouthCriticalIssues);
 	       youthCriticalIssues.setYouthCriticalIssuesId(pYouthCriticalIssues.getId());
 	       return youthCriticalIssues;
@@ -41,7 +41,7 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 	       YouthCriticalIssuesConverter.modelToEntity(youthCriticalIssues, pYouthCriticalIssues);
 	       pYouthCriticalIssues.setEnrollmentid(pEnrollment); 
 	       pYouthCriticalIssues.setDateUpdated(LocalDateTime.now());
-	       pYouthCriticalIssues.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+	   //    pYouthCriticalIssues.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 	       daoFactory.getYouthcriticalissuesDao().updateYouthCriticalIssues(pYouthCriticalIssues);
 	       youthCriticalIssues.setYouthCriticalIssuesId(pYouthCriticalIssues.getId());
 	       return youthCriticalIssues;

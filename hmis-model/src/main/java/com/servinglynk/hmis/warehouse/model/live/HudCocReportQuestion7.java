@@ -21,7 +21,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 
 
-@Table(name = "hud_coc_report_question_7", catalog = "hmis", schema = "live")
+@Table(name = "hud_coc_report_question_7", catalog = "hmis", schema = "v2014")
 public class HudCocReportQuestion7 implements Cloneable, Serializable {
 
 	/** Serial Version UID. */

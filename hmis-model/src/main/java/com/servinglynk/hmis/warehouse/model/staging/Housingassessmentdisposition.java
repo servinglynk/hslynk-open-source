@@ -295,7 +295,7 @@ public class Housingassessmentdisposition extends HmisBaseStagingModel  implemen
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));	
 		result = result && (((getOtherdisposition() == null) && (that.getOtherdisposition() == null)) || (getOtherdisposition() != null && getOtherdisposition().equals(that.getOtherdisposition())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

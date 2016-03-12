@@ -260,7 +260,7 @@ public class Affiliation extends HmisBaseStagingModel  implements Cloneable, Ser
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));	
 		result = result && (((getResprojectid() == null) && (that.getResprojectid() == null)) || (getResprojectid() != null && getResprojectid().equals(that.getResprojectid())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

@@ -322,7 +322,7 @@ public class Formerwardjuvenilejustice extends HmisBaseStagingModel  implements 
 		result = result && (((getFormerwardjuvenilejustice() == null) && (that.getFormerwardjuvenilejustice() == null)) || (getFormerwardjuvenilejustice() != null && getFormerwardjuvenilejustice().equals(that.getFormerwardjuvenilejustice())));
 		result = result && (((getJuvenilejusticemonths() == null) && (that.getJuvenilejusticemonths() == null)) || (getJuvenilejusticemonths() != null && getJuvenilejusticemonths().equals(that.getJuvenilejusticemonths())));
 		result = result && (((getJuvenilejusticeyears() == null) && (that.getJuvenilejusticeyears() == null)) || (getJuvenilejusticeyears() != null && getJuvenilejusticeyears().equals(that.getJuvenilejusticeyears())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

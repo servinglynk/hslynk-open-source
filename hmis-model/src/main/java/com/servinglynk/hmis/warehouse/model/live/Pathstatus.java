@@ -30,7 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
  * @author Sandeep Dolia
  */
 @Entity(name = "path_status")
-@Table(name = "path_status", catalog = "hmis", schema = "live")
+@Table(name = "path_status", catalog = "hmis", schema = "v2014")
 public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -316,7 +316,7 @@ public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getReasonNotEnrolled() == null) && (that.getReasonNotEnrolled() == null)) || (getReasonNotEnrolled() != null && getReasonNotEnrolled().equals(that.getReasonNotEnrolled())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

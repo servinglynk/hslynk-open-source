@@ -27,7 +27,7 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
        
        pExitPlansActions.setExitid(pExit);
        pExitPlansActions.setDateCreated(LocalDateTime.now());
-       pExitPlansActions.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pExitPlansActions.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getExitplansactionsDao().createExitPlansActions(pExitPlansActions);
        exitPlansActions.setExitPlansActionsId(pExitPlansActions.getId());
        return exitPlansActions;
@@ -48,7 +48,7 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
        
        ExitPlansActionsConverter.modelToEntity(exitPlansActions, pExitPlansActions);
        pExitPlansActions.setDateUpdated(LocalDateTime.now());
-       pExitPlansActions.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+     //  pExitPlansActions.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getExitplansactionsDao().updateExitPlansActions(pExitPlansActions);
        exitPlansActions.setExitPlansActionsId(pExitPlansActions.getId());
        return exitPlansActions;

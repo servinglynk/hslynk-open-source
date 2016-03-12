@@ -706,7 +706,7 @@ public class Healthinsurance extends HmisBaseStagingModel  implements Cloneable,
 		result = result && (((getPrivatepay() == null) && (that.getPrivatepay() == null)) || (getPrivatepay() != null && getPrivatepay().equals(that.getPrivatepay())));
 		result = result && (((getSchip() == null) && (that.getSchip() == null)) || (getSchip() != null && getSchip().equals(that.getSchip())));
 		result = result && (((getStatehealthins() == null) && (that.getStatehealthins() == null)) || (getStatehealthins() != null && getStatehealthins().equals(that.getStatehealthins())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getVamedicalservices() == null) && (that.getVamedicalservices() == null)) || (getVamedicalservices() != null && getVamedicalservices().equals(that.getVamedicalservices())));
 		return result;
 	}

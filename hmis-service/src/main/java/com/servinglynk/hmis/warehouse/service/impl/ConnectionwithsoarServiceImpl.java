@@ -27,7 +27,7 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
        
        pConnectionwithsoar.setExitid(pExit);
        pConnectionwithsoar.setDateCreated(LocalDateTime.now());
-       pConnectionwithsoar.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+    //   pConnectionwithsoar.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getConnectionwithsoarDao().createConnectionwithsoar(pConnectionwithsoar);
        connectionwithsoar.setConnectionwithsoarId(pConnectionwithsoar.getId());
        return connectionwithsoar;
@@ -49,7 +49,7 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
        pConnectionwithsoar.setExitid(pExit);
        pConnectionwithsoar.setDateUpdated(LocalDateTime.now());
-       pConnectionwithsoar.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pConnectionwithsoar.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getConnectionwithsoarDao().updateConnectionwithsoar(pConnectionwithsoar);
        connectionwithsoar.setConnectionwithsoarId(pConnectionwithsoar.getId());
        return connectionwithsoar;

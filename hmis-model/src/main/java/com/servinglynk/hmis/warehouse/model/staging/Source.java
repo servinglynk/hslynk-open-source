@@ -438,7 +438,7 @@ public class Source extends HmisBaseStagingModel  implements Cloneable, Serializ
 		result = result && (((getSourcecontactphone() == null) && (that.getSourcecontactphone() == null)) || (getSourcecontactphone() != null && getSourcecontactphone().equals(that.getSourcecontactphone())));
 		result = result && (((getSourceid() == null) && (that.getSourceid() == null)) || (getSourceid() != null && getSourceid().equals(that.getSourceid())));
 		result = result && (((getSourcename() == null) && (that.getSourcename() == null)) || (getSourcename() != null && getSourcename().equals(that.getSourcename())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 	

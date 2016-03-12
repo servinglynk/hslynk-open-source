@@ -24,7 +24,7 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pPercentami.setEnrollmentid(pEnrollment); 
        pPercentami.setDateCreated(LocalDateTime.now());
-       pPercentami.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pPercentami.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getPercentamiDao().createPercentami(pPercentami);
        percentami.setPercentamiId(pPercentami.getId());
        return percentami;
@@ -41,7 +41,7 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
        PercentamiConverter.modelToEntity(percentami, pPercentami);
        pPercentami.setEnrollmentid(pEnrollment); 
        pPercentami.setDateUpdated(LocalDateTime.now());
-       pPercentami.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pPercentami.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getPercentamiDao().updatePercentami(pPercentami);
        percentami.setPercentamiId(pPercentami.getId());
        return percentami;

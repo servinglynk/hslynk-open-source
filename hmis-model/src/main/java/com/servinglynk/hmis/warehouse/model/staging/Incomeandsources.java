@@ -1093,7 +1093,7 @@ public class Incomeandsources extends HmisBaseStagingModel  implements Cloneable
 		result = result && (((getTotalmonthlyincome() == null) && (that.getTotalmonthlyincome() == null)) || (getTotalmonthlyincome() != null && getTotalmonthlyincome().equals(that.getTotalmonthlyincome())));
 		result = result && (((getUnemployment() == null) && (that.getUnemployment() == null)) || (getUnemployment() != null && getUnemployment().equals(that.getUnemployment())));
 		result = result && (((getUnemploymentamount() == null) && (that.getUnemploymentamount() == null)) || (getUnemploymentamount() != null && getUnemploymentamount().equals(that.getUnemploymentamount())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getVadisabilitynonservice() == null) && (that.getVadisabilitynonservice() == null)) || (getVadisabilitynonservice() != null && getVadisabilitynonservice().equals(that.getVadisabilitynonservice())));
 		result = result && (((getVadisabilitynonserviceamount() == null) && (that.getVadisabilitynonserviceamount() == null)) || (getVadisabilitynonserviceamount() != null && getVadisabilitynonserviceamount().equals(that.getVadisabilitynonserviceamount())));
 		result = result && (((getVadisabilityservice() == null) && (that.getVadisabilityservice() == null)) || (getVadisabilityservice() != null && getVadisabilityservice().equals(that.getVadisabilityservice())));

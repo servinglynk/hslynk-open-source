@@ -335,7 +335,7 @@ public class Funder extends HmisBaseStagingModel  implements Cloneable, Serializ
 		result = result && (((getGrantid() == null) && (that.getGrantid() == null)) || (getGrantid() != null && getGrantid().equals(that.getGrantid())));
 		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));	
 		result = result && (((getStartdate() == null) && (that.getStartdate() == null)) || (getStartdate() != null && getStartdate().equals(that.getStartdate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 	

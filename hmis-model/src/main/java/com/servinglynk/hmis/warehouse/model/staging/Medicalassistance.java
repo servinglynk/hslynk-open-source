@@ -348,7 +348,7 @@ public class Medicalassistance extends HmisBaseStagingModel  implements Cloneabl
 		result = result && (((getHivaidsassistance() == null) && (that.getHivaidsassistance() == null)) || (getHivaidsassistance() != null && getHivaidsassistance().equals(that.getHivaidsassistance())));
 		result = result && (((getNoadapreason() == null) && (that.getNoadapreason() == null)) || (getNoadapreason() != null && getNoadapreason().equals(that.getNoadapreason())));
 		result = result && (((getNohivaidsassistancereason() == null) && (that.getNohivaidsassistancereason() == null)) || (getNohivaidsassistancereason() != null && getNohivaidsassistancereason().equals(that.getNohivaidsassistancereason())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

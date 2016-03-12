@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
  * @author Sandeep Dolia
  */
 @Entity(name = "rhybcp_status")
-@Table(name = "rhybcp_status", catalog = "hmis", schema = "live")
+@Table(name = "rhybcp_status", catalog = "hmis", schema = "v2014")
 public class Rhybcpstatus extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -313,7 +313,7 @@ public class Rhybcpstatus extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getFysbYouth() == null) && (that.getFysbYouth() == null)) || (getFysbYouth() != null && getFysbYouth().equals(that.getFysbYouth())));
 		result = result && (((getReasonNoServices() == null) && (that.getReasonNoServices() == null)) || (getReasonNoServices() != null && getReasonNoServices().equals(that.getReasonNoServices())));
 		result = result && (((getStatusDate() == null) && (that.getStatusDate() == null)) || (getStatusDate() != null && getStatusDate().equals(that.getStatusDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

@@ -293,7 +293,7 @@ public class Projectcompletionstatus extends HmisBaseStagingModel  implements Cl
 		result = result && (((getEarlyexitreason() == null) && (that.getEarlyexitreason() == null)) || (getEarlyexitreason() != null && getEarlyexitreason().equals(that.getEarlyexitreason())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));	
 		result = result && (((getProjectcompletionstatus() == null) && (that.getProjectcompletionstatus() == null)) || (getProjectcompletionstatus() != null && getProjectcompletionstatus().equals(that.getProjectcompletionstatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 

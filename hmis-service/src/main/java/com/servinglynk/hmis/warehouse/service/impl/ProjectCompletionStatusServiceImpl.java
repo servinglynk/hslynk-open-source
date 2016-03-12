@@ -24,7 +24,7 @@ public class ProjectCompletionStatusServiceImpl extends ServiceBase implements P
        if(pExit == null) throw new ExitNotFoundException(); 
        pProjectCompletionStatus.setExitid(pExit); 
        pProjectCompletionStatus.setDateCreated(LocalDateTime.now());
-       pProjectCompletionStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+     //  pProjectCompletionStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getProjectcompletionstatusDao().createProjectCompletionStatus(pProjectCompletionStatus);
        projectCompletionStatus.setProjectCompletionStatusId(pProjectCompletionStatus.getId());
        return projectCompletionStatus;
@@ -41,7 +41,7 @@ public class ProjectCompletionStatusServiceImpl extends ServiceBase implements P
        ProjectCompletionStatusConverter.modelToEntity(projectCompletionStatus, pProjectCompletionStatus);
        pProjectCompletionStatus.setExitid(pExit); 
        pProjectCompletionStatus.setDateUpdated(LocalDateTime.now());
-       pProjectCompletionStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+     //  pProjectCompletionStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getProjectcompletionstatusDao().updateProjectCompletionStatus(pProjectCompletionStatus);
        projectCompletionStatus.setProjectCompletionStatusId(pProjectCompletionStatus.getId());
        return projectCompletionStatus;

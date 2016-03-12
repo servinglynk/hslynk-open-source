@@ -289,7 +289,7 @@ public class Schoolstatus extends HmisBaseStagingModel  implements Cloneable, Se
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));	
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
 		result = result && (((getSchoolStatus() == null) && (that.getSchoolStatus() == null)) || (getSchoolStatus() != null && getSchoolStatus().equals(that.getSchoolStatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 	

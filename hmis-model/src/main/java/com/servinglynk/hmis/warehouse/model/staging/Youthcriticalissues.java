@@ -940,7 +940,7 @@ public class Youthcriticalissues extends HmisBaseStagingModel  implements Clonea
 		result = result && (((getSexualorientationgenderidyouth() == null) && (that.getSexualorientationgenderidyouth() == null)) || (getSexualorientationgenderidyouth() != null && getSexualorientationgenderidyouth().equals(that.getSexualorientationgenderidyouth())));
 		result = result && (((getUnemploymentfam() == null) && (that.getUnemploymentfam() == null)) || (getUnemploymentfam() != null && getUnemploymentfam().equals(that.getUnemploymentfam())));
 		result = result && (((getUnemploymentyouth() == null) && (that.getUnemploymentyouth() == null)) || (getUnemploymentyouth() != null && getUnemploymentyouth().equals(that.getUnemploymentyouth())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 	

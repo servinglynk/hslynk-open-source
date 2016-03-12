@@ -446,7 +446,7 @@ public class Inventory extends HmisBaseStagingModel  implements Cloneable, Seria
 		result = result && (((getInventorystartdate() == null) && (that.getInventorystartdate() == null)) || (getInventorystartdate() != null && getInventorystartdate().equals(that.getInventorystartdate())));
 		result = result && (((getProjectCoc() == null) && (that.getProjectCoc() == null)) || (getProjectCoc() != null && getProjectCoc().getId().equals(that.getProjectCoc().getId())));	
 		result = result && (((getUnitinventory() == null) && (that.getUnitinventory() == null)) || (getUnitinventory() != null && getUnitinventory().equals(that.getUnitinventory())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

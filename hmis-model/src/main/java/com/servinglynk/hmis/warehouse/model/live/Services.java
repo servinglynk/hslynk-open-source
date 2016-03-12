@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
  * @author Sandeep Dolia
  */
 @Entity(name = "services")
-@Table(name = "services", catalog = "hmis", schema = "live")
+@Table(name = "services", catalog = "hmis", schema = "v2014")
 public class Services extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -414,7 +414,7 @@ public class Services extends HmisBaseModel  implements Cloneable, Serializable{
 		result = result && (((getReferraloutcome() == null) && (that.getReferraloutcome() == null)) || (getReferraloutcome() != null && getReferraloutcome().equals(that.getReferraloutcome())));
 		result = result && (((getSubtypeprovided() == null) && (that.getSubtypeprovided() == null)) || (getSubtypeprovided() != null && getSubtypeprovided().equals(that.getSubtypeprovided())));
 		result = result && (((getTypeprovided() == null) && (that.getTypeprovided() == null)) || (getTypeprovided() != null && getTypeprovided().equals(that.getTypeprovided())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

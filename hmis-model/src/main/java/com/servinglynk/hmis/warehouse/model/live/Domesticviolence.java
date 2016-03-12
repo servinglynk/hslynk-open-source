@@ -34,7 +34,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "domesticviolence")
-@Table(name = "domesticviolence", catalog = "hmis", schema = "live")
+@Table(name = "domesticviolence", catalog = "hmis", schema = "v2014")
 public class Domesticviolence extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -292,7 +292,7 @@ public class Domesticviolence extends HmisBaseModel  implements Cloneable, Seria
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getDomesticviolencevictim() == null) && (that.getDomesticviolencevictim() == null)) || (getDomesticviolencevictim() != null && getDomesticviolencevictim().equals(that.getDomesticviolencevictim())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		result = result && (((getWhenoccurred() == null) && (that.getWhenoccurred() == null)) || (getWhenoccurred() != null && getWhenoccurred().equals(that.getWhenoccurred())));
 		return result;
 	}

@@ -38,7 +38,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "disabilities")
-@Table(name = "disabilities", catalog = "hmis", schema = "live")
+@Table(name = "disabilities", catalog = "hmis", schema = "v2014")
 public class Disabilities extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -428,7 +428,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getPathhowconfirmed() == null) && (that.getPathhowconfirmed() == null)) || (getPathhowconfirmed() != null && getPathhowconfirmed().equals(that.getPathhowconfirmed())));
 		result = result && (((getPathsmiinformation() == null) && (that.getPathsmiinformation() == null)) || (getPathsmiinformation() != null && getPathsmiinformation().equals(that.getPathsmiinformation())));
 		result = result && (((getReceivingservices() == null) && (that.getReceivingservices() == null)) || (getReceivingservices() != null && getReceivingservices().equals(that.getReceivingservices())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 }

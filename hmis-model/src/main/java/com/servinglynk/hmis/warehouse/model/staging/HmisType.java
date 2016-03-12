@@ -400,7 +400,7 @@ public class HmisType implements Cloneable, Serializable{
 		result = result && (((getExpirationDate() == null) && (that.getExpirationDate() == null)) || (getExpirationDate() != null && getExpirationDate().equals(that.getExpirationDate())));
 		result = result && (((getName() == null) && (that.getName() == null)) || (getName() != null && getName().equals(that.getName())));
 		result = result && (((getStatus() == null) && (that.getStatus() == null)) || (getStatus() != null && getStatus().equals(that.getStatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getValue() == null) && (that.getValue() == null)) || (getValue() != null && getValue().equals(that.getValue())));
 		return result;
 	}

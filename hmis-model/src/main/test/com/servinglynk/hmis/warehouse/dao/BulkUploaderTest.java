@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 import java.util.Set;
@@ -20,8 +21,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
-import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -75,7 +74,7 @@ public class BulkUploaderTest {
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 		HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
-		upload.setUser(hmisUser);
+	//	upload.setUser(hmisUser);
 		factory.getBulkUploaderWorkerDao().insert(upload);
 		//dao.performBulkUpload(upload);
 	}
@@ -92,6 +91,16 @@ public class BulkUploaderTest {
 		}
 		//logger.info("========Bulk Uploader processed ======");
 	}
+	
+	@Test
+	public void testDeleted() throws Exception {
+		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
+		if(uploadEntities!=null && uploadEntities.size() >0 ) {
+			for(BulkUpload bullkUpload : uploadEntities) {
+				 dao.deleteLiveByExportId(bullkUpload.getExport().getId());
+			}
+		}
+	}
 	@Test
 	public void deleteExportFromStaging() {
 		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
@@ -104,7 +113,11 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void undodeleteExportFromLive() {
-		UUID id = UUID.fromString("8c2f2577-76a6-457f-a76f-d95607889134");
+		String s = "293bf9fd-a465-413d-9e57-101022f37d21";
+	String s2 = s.replace("-", "");
+	UUID id = new UUID(
+	        new BigInteger(s2.substring(0, 16), 16).longValue(),
+	        new BigInteger(s2.substring(16), 16).longValue());
 		dao.undoDeleteLiveByExportId(id);
 	}
 	@Test

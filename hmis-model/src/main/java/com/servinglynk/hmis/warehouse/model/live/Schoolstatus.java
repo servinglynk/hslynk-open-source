@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 
 
 @Entity(name = "schoolstatus")
-@Table(name = "schoolstatus", catalog = "hmis", schema = "live")
+@Table(name = "schoolstatus", catalog = "hmis", schema = "v2014")
 public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -284,7 +284,7 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
 		result = result && (((getSchoolStatus() == null) && (that.getSchoolStatus() == null)) || (getSchoolStatus() != null && getSchoolStatus().equals(that.getSchoolStatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

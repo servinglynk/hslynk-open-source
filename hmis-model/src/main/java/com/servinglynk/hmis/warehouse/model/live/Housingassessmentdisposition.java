@@ -33,7 +33,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "housingassessmentdisposition")
-@Table(name = "housingassessmentdisposition", catalog = "hmis", schema = "live")
+@Table(name = "housingassessmentdisposition", catalog = "hmis", schema = "v2014")
 public class Housingassessmentdisposition extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -293,7 +293,7 @@ public class Housingassessmentdisposition extends HmisBaseModel  implements Clon
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));
 		result = result && (((getOtherdisposition() == null) && (that.getOtherdisposition() == null)) || (getOtherdisposition() != null && getOtherdisposition().equals(that.getOtherdisposition())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 }

@@ -24,7 +24,7 @@ public class FormerWardChildWelfareServiceImpl extends ServiceBase implements Fo
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pFormerWardChildWelfare.setEnrollmentid(pEnrollment); 
        pFormerWardChildWelfare.setDateCreated(LocalDateTime.now());
-       pFormerWardChildWelfare.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pFormerWardChildWelfare.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getFormerwardchildwelfareDao().createFormerWardChildWelfare(pFormerWardChildWelfare);
        formerWardChildWelfare.setFormerWardChildWelfareId(pFormerWardChildWelfare.getId());
        return formerWardChildWelfare;
@@ -41,7 +41,7 @@ public class FormerWardChildWelfareServiceImpl extends ServiceBase implements Fo
        FormerWardChildWelfareConverter.modelToEntity(formerWardChildWelfare, pFormerWardChildWelfare);
        pFormerWardChildWelfare.setEnrollmentid(pEnrollment); 
        pFormerWardChildWelfare.setDateUpdated(LocalDateTime.now());
-       pFormerWardChildWelfare.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pFormerWardChildWelfare.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getFormerwardchildwelfareDao().updateFormerWardChildWelfare(pFormerWardChildWelfare);
        formerWardChildWelfare.setFormerWardChildWelfareId(pFormerWardChildWelfare.getId());
        return formerWardChildWelfare;

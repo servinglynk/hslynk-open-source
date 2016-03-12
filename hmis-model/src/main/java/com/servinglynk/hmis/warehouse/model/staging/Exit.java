@@ -551,7 +551,7 @@ public class Exit extends HmisBaseStagingModel  implements Cloneable, Serializab
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));	
 		result = result && (((getExitdate() == null) && (that.getExitdate() == null)) || (getExitdate() != null && getExitdate().equals(that.getExitdate())));
 		result = result && (((getOtherdestination() == null) && (that.getOtherdestination() == null)) || (getOtherdestination() != null && getOtherdestination().equals(that.getOtherdestination())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 	

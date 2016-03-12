@@ -33,6 +33,7 @@ import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.servinglynk.hmis.warehouse.model.live.BaseModel;
 import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
 
 @Component
@@ -132,6 +133,17 @@ public class QueryExecutorImpl  implements QueryExecutor{
         	  e.printStackTrace();
           }
 	}
+	
+	@SuppressWarnings("unused")
+	public void hardDelete(Object entity) {
+          try
+          {
+        	 getCurrentSession().delete(entity);
+          } catch(Exception  e){
+        	  getCurrentSession().delete(entity);  
+        	  e.printStackTrace();
+          }
+	}
 	@SuppressWarnings("unused")
 	public void softDeleteByProjectGroupCode(String className,String projectGroupCode) {
 		DetachedCriteria criteria = null;
@@ -171,7 +183,7 @@ public class QueryExecutorImpl  implements QueryExecutor{
 				 if(entity instanceof HmisBaseModel) {
 					 ((HmisBaseModel) entity).setDeleted(false);
 					 ((HmisBaseModel) entity).setSync(false);
-					 update(entity);
+					 undoDelete(entity);
 				 }
 			}
 		}
@@ -188,7 +200,27 @@ public class QueryExecutorImpl  implements QueryExecutor{
 	
 	}
 	
-
+	@SuppressWarnings("unused")
+	public void undoDelete(Object entity) {
+          try
+          {
+        	  // looking for deleted field in entity class. 
+        	  // If field is available deleted field will be updated to true.
+        	  // If field is not available catch block will be executed then regular delete operation will be performed.  
+        	  if(entity instanceof HmisBaseModel) {
+                  BeanUtils.setProperty(entity, "deleted",false);
+                  BeanUtils.setProperty(entity, "sync",true);
+                  BeanUtils.setProperty(entity, "dateUpdated",LocalDateTime.now());
+                  getCurrentSession().update(entity);
+        	  }else{
+        		  getCurrentSession().delete(entity);
+        	  }
+        	 
+          } catch(Exception  e){
+        	  getCurrentSession().delete(entity);  
+        	  e.printStackTrace();
+          }
+	}
 	public Object insertOrUpdate(Object entity) {
 		getCurrentSession().saveOrUpdate(entity);
 		return null;

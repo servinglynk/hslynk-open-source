@@ -32,7 +32,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 		
 @Entity(name = "export")
-@Table(name = "export", catalog = "hmis", schema = "live")
+@Table(name = "export", catalog = "hmis", schema = "v2014")
 public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -1967,7 +1967,7 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getExportDate() == null) && (that.getExportDate() == null)) || (getExportDate() != null && getExportDate().equals(that.getExportDate())));
 		result = result && (((getSource() == null) && (that.getSource() == null)) || (getSource() != null && getSource().getId().equals(that.getSource().getId())));	
 		result = result && (((getStartDate() == null) && (that.getStartDate() == null)) || (getStartDate() != null && getStartDate().equals(that.getStartDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

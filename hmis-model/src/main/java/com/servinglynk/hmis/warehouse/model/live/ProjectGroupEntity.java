@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @SuppressWarnings("serial")
 @Entity (name = "hmis_project_group")
-@Table(name = "hmis_project_group", catalog = "hmis", schema = "live")
+@Table(name = "hmis_project_group", catalog = "hmis", schema = "v2014")
 public class ProjectGroupEntity  {
 
 

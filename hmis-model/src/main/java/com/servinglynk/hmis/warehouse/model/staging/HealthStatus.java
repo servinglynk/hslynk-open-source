@@ -352,7 +352,7 @@ public class HealthStatus extends HmisBaseStagingModel  implements Cloneable, Se
 		result = result && (((getHealthCategory() == null) && (that.getHealthCategory() == null)) || (getHealthCategory() != null && getHealthCategory().equals(that.getHealthCategory())));
 		result = result && (((getHealthStatus() == null) && (that.getHealthStatus() == null)) || (getHealthStatus() != null && getHealthStatus().equals(that.getHealthStatus())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

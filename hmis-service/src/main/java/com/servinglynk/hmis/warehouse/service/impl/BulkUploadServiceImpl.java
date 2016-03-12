@@ -34,7 +34,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 			upload.setSize(uploadModel.getFileSize());
 			HmisUser user = daoFactory.getAccountDao().findByUsername(uploadModel.getUsername());
 			ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
-			upload.setUser(user);
+		//	upload.setUser(user);
 			String projectGroupCode = projectGroupEntity.getProjectGroupCode();
 			upload.setProjectGroupCode(projectGroupCode !=null ? projectGroupCode : uploadModel.getProjectGroupCode());
 			daoFactory.getBulkUploaderWorkerDao().insert(upload);
@@ -66,7 +66,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				bulkUpload.setFileSize(upload.getSize());
 				bulkUpload.setInputPath(upload.getInputPath());
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
-				bulkUpload.setUsername(upload.getUser().getUsername());
+			//	bulkUpload.setUsername(upload.getUser().getUsername());
 				bulkUpload.setStatus(upload.getStatus());
 				bulkUpload.setDescription(upload.getDescription());
 				bulkUploads.addBulkUpload(bulkUpload);

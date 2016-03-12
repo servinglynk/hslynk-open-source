@@ -33,7 +33,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "sexualorientation")
-@Table(name = "sexualorientation", catalog = "hmis", schema = "live")
+@Table(name = "sexualorientation", catalog = "hmis", schema = "v2014")
 public class Sexualorientation extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -264,7 +264,7 @@ public class Sexualorientation extends HmisBaseModel  implements Cloneable, Seri
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getSexualorientation() == null) && (that.getSexualorientation() == null)) || (getSexualorientation() != null && getSexualorientation().equals(that.getSexualorientation())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

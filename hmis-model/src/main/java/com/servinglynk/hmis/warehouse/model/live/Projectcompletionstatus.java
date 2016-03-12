@@ -30,7 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcomple
  * @author Sandeep Dolia
  */
 @Entity(name = "projectcompletionstatus")
-@Table(name = "projectcompletionstatus", catalog = "hmis", schema = "live")
+@Table(name = "projectcompletionstatus", catalog = "hmis", schema = "v2014")
 public class Projectcompletionstatus extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -288,7 +288,7 @@ public class Projectcompletionstatus extends HmisBaseModel  implements Cloneable
 		result = result && (((getEarlyexitreason() == null) && (that.getEarlyexitreason() == null)) || (getEarlyexitreason() != null && getEarlyexitreason().equals(that.getEarlyexitreason())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));
 		result = result && (((getProjectcompletionstatus() == null) && (that.getProjectcompletionstatus() == null)) || (getProjectcompletionstatus() != null && getProjectcompletionstatus().equals(that.getProjectcompletionstatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

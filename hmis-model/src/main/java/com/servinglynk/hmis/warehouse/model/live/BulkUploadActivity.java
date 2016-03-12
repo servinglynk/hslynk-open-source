@@ -23,7 +23,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity (name = "bulk_upload_activity")
-@Table(name = "bulk_upload_activity", catalog = "hmis", schema = "live")
+@Table(name = "bulk_upload_activity", catalog = "hmis", schema = "v2014")
 public class BulkUploadActivity implements Cloneable, Serializable {
 
 
@@ -85,7 +85,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 		}
 	
 	@Id
-	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="live.bulk_upload_activity_id_seq", name="live.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "live")
+	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="live.bulk_upload_activity_id_seq", name="live.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "v2014")
 	@GeneratedValue(generator="live.bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
 	public Long getId() {
 		return id;

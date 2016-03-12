@@ -24,7 +24,7 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
        if(pProject == null) throw new ProjectNotFoundException(); 
        pAffiliation.setProjectid(pProject); 
        pAffiliation.setDateCreated(LocalDateTime.now());
-       pAffiliation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+    //   pAffiliation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getAffiliationDao().createAffiliation(pAffiliation);
        affiliation.setAffiliationId(pAffiliation.getId());
        return affiliation;
@@ -41,7 +41,7 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
        AffiliationConverter.modelToEntity(affiliation, pAffiliation);
        pAffiliation.setProjectid(pProject); 
        pAffiliation.setDateUpdated(LocalDateTime.now());
-       pAffiliation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pAffiliation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getAffiliationDao().updateAffiliation(pAffiliation);
        affiliation.setAffiliationId(pAffiliation.getId());
        return affiliation;

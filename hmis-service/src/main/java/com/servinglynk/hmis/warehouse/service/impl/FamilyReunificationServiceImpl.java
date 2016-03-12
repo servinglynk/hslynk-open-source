@@ -24,7 +24,7 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
        if(pExit == null) throw new ExitNotFoundException(); 
        pFamilyReunification.setExitid(pExit); 
        pFamilyReunification.setDateCreated(LocalDateTime.now());
-       pFamilyReunification.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pFamilyReunification.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getFamilyreunificationDao().createFamilyReunification(pFamilyReunification);
        familyReunification.setFamilyReunificationId(pFamilyReunification.getId());
        return familyReunification;
@@ -41,7 +41,7 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
        FamilyReunificationConverter.modelToEntity(familyReunification, pFamilyReunification);
        pFamilyReunification.setExitid(pExit); 
        pFamilyReunification.setDateUpdated(LocalDateTime.now());
-       pFamilyReunification.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pFamilyReunification.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getFamilyreunificationDao().updateFamilyReunification(pFamilyReunification);
        familyReunification.setFamilyReunificationId(pFamilyReunification.getId());
        return familyReunification;

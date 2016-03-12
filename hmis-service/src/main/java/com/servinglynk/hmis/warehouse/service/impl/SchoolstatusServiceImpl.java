@@ -24,7 +24,7 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pSchoolstatus.setEnrollmentid(pEnrollment); 
        pSchoolstatus.setDateCreated(LocalDateTime.now());
-       pSchoolstatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+ //      pSchoolstatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getSchoolstatusDao().createSchoolstatus(pSchoolstatus);
        schoolstatus.setSchoolstatusId(pSchoolstatus.getId());
        return schoolstatus;
@@ -41,7 +41,7 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
        SchoolstatusConverter.modelToEntity(schoolstatus, pSchoolstatus);
        pSchoolstatus.setEnrollmentid(pEnrollment); 
        pSchoolstatus.setDateUpdated(LocalDateTime.now());
-       pSchoolstatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pSchoolstatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getSchoolstatusDao().updateSchoolstatus(pSchoolstatus);
        schoolstatus.setSchoolstatusId(pSchoolstatus.getId());
        return schoolstatus;

@@ -34,7 +34,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "site")
-@Table(name = "site", catalog = "hmis", schema = "live")
+@Table(name = "site", catalog = "hmis", schema = "v2014")
 public class Site extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -395,7 +395,7 @@ public class Site extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getPrincipalSite() == null) && (that.getPrincipalSite() == null)) || (getPrincipalSite() != null && getPrincipalSite().equals(that.getPrincipalSite())));
 		result = result && (((getProjectCoc() == null) && (that.getProjectCoc() == null)) || (getProjectCoc() != null && getProjectCoc().getId().equals(that.getProjectCoc().getId())));
 		result = result && (((getState() == null) && (that.getState() == null)) || (getState() != null && getState().equals(that.getState())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		result = result && (((getZip() == null) && (that.getZip() == null)) || (getZip() != null && getZip().equals(that.getZip())));
 		return result;
 	}

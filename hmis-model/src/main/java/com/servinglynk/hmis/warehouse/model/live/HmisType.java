@@ -31,7 +31,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 
 @Entity(name = "hmis_type")
-@Table(name = "hmis_type", catalog = "hmis", schema = "live")
+@Table(name = "hmis_type", catalog = "hmis", schema = "v2014")
 public class HmisType implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -198,7 +198,7 @@ public class HmisType implements Cloneable, Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hmisTypeIdGenerator")
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  )
-	@SequenceGenerator(name = "hmisTypeIdGenerator", sequenceName = "hmis.live.hmis_type_id_seq", schema = "live", catalog = "hmis")
+	@SequenceGenerator(name = "hmisTypeIdGenerator", sequenceName = "hmis.live.hmis_type_id_seq", schema = "v2014", catalog = "hmis")
 	public Integer getId() {
 		return this.id;
 
@@ -400,7 +400,7 @@ public class HmisType implements Cloneable, Serializable{
 		result = result && (((getExpirationDate() == null) && (that.getExpirationDate() == null)) || (getExpirationDate() != null && getExpirationDate().equals(that.getExpirationDate())));
 		result = result && (((getName() == null) && (that.getName() == null)) || (getName() != null && getName().equals(that.getName())));
 		result = result && (((getStatus() == null) && (that.getStatus() == null)) || (getStatus() != null && getStatus().equals(that.getStatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		result = result && (((getValue() == null) && (that.getValue() == null)) || (getValue() != null && getValue().equals(that.getValue())));
 		return result;
 	}

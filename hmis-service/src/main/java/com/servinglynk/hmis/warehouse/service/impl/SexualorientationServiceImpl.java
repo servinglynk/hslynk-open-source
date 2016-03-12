@@ -24,7 +24,7 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pSexualorientation.setEnrollmentid(pEnrollment); 
        pSexualorientation.setDateCreated(LocalDateTime.now());
-       pSexualorientation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pSexualorientation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getSexualorientationDao().createSexualorientation(pSexualorientation);
        sexualorientation.setSexualorientationId(pSexualorientation.getId());
        return sexualorientation;
@@ -41,7 +41,7 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
        SexualorientationConverter.modelToEntity(sexualorientation, pSexualorientation);
        pSexualorientation.setEnrollmentid(pEnrollment); 
        pSexualorientation.setDateUpdated(LocalDateTime.now());
-       pSexualorientation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pSexualorientation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getSexualorientationDao().updateSexualorientation(pSexualorientation);
        sexualorientation.setSexualorientationId(pSexualorientation.getId());
        return sexualorientation;

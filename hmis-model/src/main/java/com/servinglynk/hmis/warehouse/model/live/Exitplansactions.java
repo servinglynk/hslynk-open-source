@@ -41,7 +41,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "exitplansactions")
-@Table(name = "exitplansactions", catalog = "hmis", schema = "live")
+@Table(name = "exitplansactions", catalog = "hmis", schema = "v2014")
 public class Exitplansactions extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -487,7 +487,7 @@ public class Exitplansactions extends HmisBaseModel  implements Cloneable, Seria
 		result = result && (((getResourcepackage() == null) && (that.getResourcepackage() == null)) || (getResourcepackage() != null && getResourcepackage().equals(that.getResourcepackage())));
 		result = result && (((getScheduledfollowupcontacts() == null) && (that.getScheduledfollowupcontacts() == null)) || (getScheduledfollowupcontacts() != null && getScheduledfollowupcontacts().equals(that.getScheduledfollowupcontacts())));
 		result = result && (((getTemporaryshelterplacement() == null) && (that.getTemporaryshelterplacement() == null)) || (getTemporaryshelterplacement() != null && getTemporaryshelterplacement().equals(that.getTemporaryshelterplacement())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		result = result && (((getWrittenaftercareplan() == null) && (that.getWrittenaftercareplan() == null)) || (getWrittenaftercareplan() != null && getWrittenaftercareplan().equals(that.getWrittenaftercareplan())));
 		return result;
 	}

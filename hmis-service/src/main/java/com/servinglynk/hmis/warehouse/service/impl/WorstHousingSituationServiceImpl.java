@@ -24,7 +24,7 @@ public class WorstHousingSituationServiceImpl extends ServiceBase implements Wor
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pWorstHousingSituation.setEnrollmentid(pEnrollment); 
        pWorstHousingSituation.setDateCreated(LocalDateTime.now());
-       pWorstHousingSituation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pWorstHousingSituation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getWorsthousingsituationDao().createWorsthousingsituation(pWorstHousingSituation);
        worstHousingSituation.setWorstHousingSituationId(pWorstHousingSituation.getId());
        return worstHousingSituation;
@@ -41,7 +41,7 @@ public class WorstHousingSituationServiceImpl extends ServiceBase implements Wor
        WorstHousingSituationConverter.modelToEntity(worstHousingSituation, pWorstHousingSituation);
        pWorstHousingSituation.setEnrollmentid(pEnrollment); 
        pWorstHousingSituation.setDateUpdated(LocalDateTime.now());
-       pWorstHousingSituation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pWorstHousingSituation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getWorsthousingsituationDao().updateWorsthousingsituation(pWorstHousingSituation);
        worstHousingSituation.setWorstHousingSituationId(pWorstHousingSituation.getId());
        return worstHousingSituation;

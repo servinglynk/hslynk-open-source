@@ -53,7 +53,7 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouth
  * @author Sandeep Dolia
  */
 @Entity(name = "youthcriticalissues")
-@Table(name = "youthcriticalissues", catalog = "hmis", schema = "live")
+@Table(name = "youthcriticalissues", catalog = "hmis", schema = "v2014")
 public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -931,7 +931,7 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 		result = result && (((getSexualorientationgenderidyouth() == null) && (that.getSexualorientationgenderidyouth() == null)) || (getSexualorientationgenderidyouth() != null && getSexualorientationgenderidyouth().equals(that.getSexualorientationgenderidyouth())));
 		result = result && (((getUnemploymentfam() == null) && (that.getUnemploymentfam() == null)) || (getUnemploymentfam() != null && getUnemploymentfam().equals(that.getUnemploymentfam())));
 		result = result && (((getUnemploymentyouth() == null) && (that.getUnemploymentyouth() == null)) || (getUnemploymentyouth() != null && getUnemploymentyouth().equals(that.getUnemploymentyouth())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

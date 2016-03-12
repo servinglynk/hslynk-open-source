@@ -29,7 +29,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 		
 @Entity
-@Table(name = "affiliation", catalog = "hmis", schema = "live")
+@Table(name = "affiliation", catalog = "hmis", schema = "v2014")
 public class Affiliation  extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -257,7 +257,7 @@ public class Affiliation  extends HmisBaseModel implements Cloneable, Serializab
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));	
 		result = result && (((getResprojectid() == null) && (that.getResprojectid() == null)) || (getResprojectid() != null && getResprojectid().equals(that.getResprojectid())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

@@ -297,7 +297,7 @@ public class Exithousingassessment extends HmisBaseStagingModel  implements Clon
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));	
 		result = result && (((getHousingassessment() == null) && (that.getHousingassessment() == null)) || (getHousingassessment() != null && getHousingassessment().equals(that.getHousingassessment())));
 		result = result && (((getSubsidyinformation() == null) && (that.getSubsidyinformation() == null)) || (getSubsidyinformation() != null && getSubsidyinformation().equals(that.getSubsidyinformation())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

@@ -34,7 +34,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "formerwardjuvenilejustice")
-@Table(name = "formerwardjuvenilejustice", catalog = "hmis", schema = "live")
+@Table(name = "formerwardjuvenilejustice", catalog = "hmis", schema = "v2014")
 public class Formerwardjuvenilejustice extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -315,7 +315,7 @@ public class Formerwardjuvenilejustice extends HmisBaseModel  implements Cloneab
 		result = result && (((getFormerwardjuvenilejustice() == null) && (that.getFormerwardjuvenilejustice() == null)) || (getFormerwardjuvenilejustice() != null && getFormerwardjuvenilejustice().equals(that.getFormerwardjuvenilejustice())));
 		result = result && (((getJuvenilejusticemonths() == null) && (that.getJuvenilejusticemonths() == null)) || (getJuvenilejusticemonths() != null && getJuvenilejusticemonths().equals(that.getJuvenilejusticemonths())));
 		result = result && (((getJuvenilejusticeyears() == null) && (that.getJuvenilejusticeyears() == null)) || (getJuvenilejusticeyears() != null && getJuvenilejusticeyears().equals(that.getJuvenilejusticeyears())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 }

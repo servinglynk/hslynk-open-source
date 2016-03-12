@@ -24,7 +24,7 @@ public class ReferralsourceServiceImpl extends ServiceBase implements Referralso
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pReferralsource.setEnrollmentid(pEnrollment); 
        pReferralsource.setDateCreated(LocalDateTime.now());
-       pReferralsource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+    //   pReferralsource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getReferralsourceDao().createReferralsource(pReferralsource);
        referralsource.setReferralsourceId(pReferralsource.getId());
        return referralsource;
@@ -41,7 +41,7 @@ public class ReferralsourceServiceImpl extends ServiceBase implements Referralso
        ReferralsourceConverter.modelToEntity(referralsource, pReferralsource);
        pReferralsource.setEnrollmentid(pEnrollment); 
        pReferralsource.setDateUpdated(LocalDateTime.now());
-       pReferralsource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pReferralsource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getReferralsourceDao().updateReferralsource(pReferralsource);
        referralsource.setReferralsourceId(pReferralsource.getId());
        return referralsource;

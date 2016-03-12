@@ -34,7 +34,7 @@ import org.hibernate.proxy.HibernateProxy;
  * @author Sandeep Dolia
  */
 @Entity(name = "health_status")
-@Table(name = "health_status", catalog = "hmis", schema = "live")
+@Table(name = "health_status", catalog = "hmis", schema = "v2014")
 public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -344,7 +344,7 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getHealthCategory() == null) && (that.getHealthCategory() == null)) || (getHealthCategory() != null && getHealthCategory().equals(that.getHealthCategory())));
 		result = result && (((getHealthStatus() == null) && (that.getHealthStatus() == null)) || (getHealthStatus() != null && getHealthStatus().equals(that.getHealthStatus())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 }

@@ -26,7 +26,7 @@ public class HealthStatusServiceImpl extends ServiceBase implements HealthStatus
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pHealthStatus.setEnrollmentid(pEnrollment); 
        pHealthStatus.setDateCreated(LocalDateTime.now());
-       pHealthStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pHealthStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getHealthStatusDao().createHealthStatus(pHealthStatus);
        healthStatus.setHealthStatusId(pHealthStatus.getId());
        return healthStatus;
@@ -43,7 +43,7 @@ public class HealthStatusServiceImpl extends ServiceBase implements HealthStatus
        HealthStatusConverter.modelToEntity(healthStatus, pHealthStatus);
        pHealthStatus.setEnrollmentid(pEnrollment); 
        pHealthStatus.setDateUpdated(LocalDateTime.now());
-       pHealthStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+    //   pHealthStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getHealthStatusDao().updateHealthStatus(pHealthStatus);
        healthStatus.setHealthStatusId(pHealthStatus.getId());
        return healthStatus;

@@ -30,7 +30,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 
 @Entity(name = "source")
-@Table(name = "source", catalog = "hmis", schema = "live")
+@Table(name = "source", catalog = "hmis", schema = "v2014")
 public class Source extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -441,7 +441,7 @@ public class Source extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getSourcecontactphone() == null) && (that.getSourcecontactphone() == null)) || (getSourcecontactphone() != null && getSourcecontactphone().equals(that.getSourcecontactphone())));
 		result = result && (((getSourceid() == null) && (that.getSourceid() == null)) || (getSourceid() != null && getSourceid().equals(that.getSourceid())));
 		result = result && (((getSourcename() == null) && (that.getSourcename() == null)) || (getSourcename() != null && getSourcename().equals(that.getSourcename())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

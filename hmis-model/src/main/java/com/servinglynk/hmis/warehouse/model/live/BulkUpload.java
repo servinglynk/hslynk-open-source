@@ -19,7 +19,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity (name = "bulk_upload")
-@Table(name = "bulk_upload", catalog = "hmis", schema = "live")
+@Table(name = "bulk_upload", catalog = "hmis", schema = "v2014")
 public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable {
 
 
@@ -63,7 +63,7 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 	}
 	
 	@Id
-	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="bulk_upload_id_seq", name="bulk_upload_id_seq" , catalog = "hmis", schema = "live")
+	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="bulk_upload_id_seq", name="bulk_upload_id_seq" , catalog = "hmis", schema = "v2014")
 	@GeneratedValue(generator="bulk_upload_id_seq", strategy=GenerationType.SEQUENCE )
 	public Long getId() {
 		return id;

@@ -1945,7 +1945,7 @@ public class Export extends HmisBaseStagingModel  implements Cloneable, Serializ
 		result = result && (((getExportDate() == null) && (that.getExportDate() == null)) || (getExportDate() != null && getExportDate().equals(that.getExportDate())));
 		result = result && (((getSource() == null) && (that.getSource() == null)) || (getSource() != null && getSource().getId().equals(that.getSource().getId())));	
 		result = result && (((getStartDate() == null) && (that.getStartDate() == null)) || (getStartDate() != null && getStartDate().equals(that.getStartDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

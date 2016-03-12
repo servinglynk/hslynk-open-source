@@ -41,7 +41,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
  * @author Sandeep Dolia
  */
 @Entity (name = "client")
-@Table(name = "client", catalog = "hmis", schema = "live")
+@Table(name = "client", catalog = "hmis", schema = "v2014")
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -684,7 +684,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getRace() == null) && (that.getRace() == null)) || (getRace() != null && getRace().equals(that.getRace())));
 		result = result && (((getSsn() == null) && (that.getSsn() == null)) || (getSsn() != null && getSsn().equals(that.getSsn())));
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getVeteranStatus() == null) && (that.getVeteranStatus() == null)) || (getVeteranStatus() != null && getVeteranStatus().equals(that.getVeteranStatus())));
 		return result;
 	}

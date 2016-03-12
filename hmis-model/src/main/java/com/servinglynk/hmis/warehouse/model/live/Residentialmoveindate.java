@@ -30,7 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthous
  * @author Sandeep Dolia
  */
 @Entity(name = "residentialmoveindate")
-@Table(name = "residentialmoveindate", catalog = "hmis", schema = "live")
+@Table(name = "residentialmoveindate", catalog = "hmis", schema = "v2014")
 public class Residentialmoveindate extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -287,7 +287,7 @@ public class Residentialmoveindate extends HmisBaseModel  implements Cloneable, 
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getInpermanenthousing() == null) && (that.getInpermanenthousing() == null)) || (getInpermanenthousing() != null && getInpermanenthousing().equals(that.getInpermanenthousing())));
 		result = result && (((getResidentialmoveindate() == null) && (that.getResidentialmoveindate() == null)) || (getResidentialmoveindate() != null && getResidentialmoveindate().equals(that.getResidentialmoveindate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 

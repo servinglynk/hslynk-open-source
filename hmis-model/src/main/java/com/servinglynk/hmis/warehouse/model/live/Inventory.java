@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
  * @author Sandeep Dolia
  */
 @Entity(name = "inventory")
-@Table(name = "inventory", catalog = "hmis", schema = "live")
+@Table(name = "inventory", catalog = "hmis", schema = "v2014")
 public class Inventory extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -450,7 +450,7 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 		result = result && (((getInventorystartdate() == null) && (that.getInventorystartdate() == null)) || (getInventorystartdate() != null && getInventorystartdate().equals(that.getInventorystartdate())));
 		result = result && (((getProjectCoc() == null) && (that.getProjectCoc() == null)) || (getProjectCoc() != null && getProjectCoc().getId().equals(that.getProjectCoc().getId())));
 		result = result && (((getUnitinventory() == null) && (that.getUnitinventory() == null)) || (getUnitinventory() != null && getUnitinventory().equals(that.getUnitinventory())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
 		return result;
 	}
 }

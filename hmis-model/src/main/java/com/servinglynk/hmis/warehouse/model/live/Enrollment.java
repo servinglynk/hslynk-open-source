@@ -44,7 +44,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyear
  * @author Sandeep Dolia
  */
 @Entity(name = "enrollment")
-@Table(name = "enrollment", catalog = "hmis", schema = "live")
+@Table(name = "enrollment", catalog = "hmis", schema = "v2014")
 public class Enrollment extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -1698,7 +1698,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getResidencepriorlengthofstay() == null) && (that.getResidencepriorlengthofstay() == null)) || (getResidencepriorlengthofstay() != null && getResidencepriorlengthofstay().equals(that.getResidencepriorlengthofstay())));
 		result = result && (((getStatusdocumented() == null) && (that.getStatusdocumented() == null)) || (getStatusdocumented() != null && getStatusdocumented().equals(that.getStatusdocumented())));
 		result = result && (((getTimeshomelesspastthreeyears() == null) && (that.getTimeshomelesspastthreeyears() == null)) || (getTimeshomelesspastthreeyears() != null && getTimeshomelesspastthreeyears().equals(that.getTimeshomelesspastthreeyears())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		result = result && (((getYearshomeless() == null) && (that.getYearshomeless() == null)) || (getYearshomeless() != null && getYearshomeless().equals(that.getYearshomeless())));
 		return result;
 	}

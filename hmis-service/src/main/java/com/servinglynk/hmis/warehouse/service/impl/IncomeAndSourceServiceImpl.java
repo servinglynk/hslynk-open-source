@@ -24,7 +24,7 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pIncomeAndSource.setEnrollmentid(pEnrollment); 
        pIncomeAndSource.setDateCreated(LocalDateTime.now());
-       pIncomeAndSource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+   //    pIncomeAndSource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getIncomeandsourcesDao().createIncomeAndSource(pIncomeAndSource);
        incomeAndSource.setIncomeAndSourceId(pIncomeAndSource.getId());
        return incomeAndSource;
@@ -41,7 +41,7 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
        IncomeAndSourceConverter.modelToEntity(incomeAndSource, pIncomeAndSource);
        pIncomeAndSource.setEnrollmentid(pEnrollment); 
        pIncomeAndSource.setDateUpdated(LocalDateTime.now());
-       pIncomeAndSource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pIncomeAndSource.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getIncomeandsourcesDao().updateIncomeAndSource(pIncomeAndSource);
        incomeAndSource.setIncomeAndSourceId(pIncomeAndSource.getId());
        return incomeAndSource;

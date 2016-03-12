@@ -575,7 +575,7 @@ public class Project extends HmisBaseStagingModel  implements Cloneable, Seriali
 		result = result && (((getResidentialaffiliation() == null) && (that.getResidentialaffiliation() == null)) || (getResidentialaffiliation() != null && getResidentialaffiliation().equals(that.getResidentialaffiliation())));
 		result = result && (((getTargetpopulation() == null) && (that.getTargetpopulation() == null)) || (getTargetpopulation() != null && getTargetpopulation().equals(that.getTargetpopulation())));
 		result = result && (((getTrackingmethod() == null) && (that.getTrackingmethod() == null)) || (getTrackingmethod() != null && getTrackingmethod().equals(that.getTrackingmethod())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().getId().equals(that.getUser().getId())));	
+		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
 		return result;
 	}
 }

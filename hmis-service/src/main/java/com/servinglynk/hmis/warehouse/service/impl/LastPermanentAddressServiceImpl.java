@@ -24,7 +24,7 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pLastPermanentAddress.setEnrollmentid(pEnrollment); 
        pLastPermanentAddress.setDateCreated(LocalDateTime.now());
-       pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+    //   pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getLastPermAddressDao().createLastPermanentAddress(pLastPermanentAddress);
        lastPermanentAddress.setLastPermanentAddressId(pLastPermanentAddress.getId());
        return lastPermanentAddress;
@@ -41,7 +41,7 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
        LastPermanentAddressConverter.modelToEntity(lastPermanentAddress, pLastPermanentAddress);
        pLastPermanentAddress.setEnrollmentid(pEnrollment); 
        pLastPermanentAddress.setDateUpdated(LocalDateTime.now());
-       pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+  //     pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        daoFactory.getLastPermAddressDao().updateLastPermanentAddress(pLastPermanentAddress);
        lastPermanentAddress.setLastPermanentAddressId(pLastPermanentAddress.getId());
        return lastPermanentAddress;

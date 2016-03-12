@@ -102,8 +102,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				exportModel.setId(exportId);
 				exportModel.setDateCreated(LocalDateTime.now());
 				exportModel.setDateUpdated(LocalDateTime.now());
-				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
-				exportModel.setUser(user);
+//				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
+			//	exportModel.setUser(user);
 				com.servinglynk.hmis.warehouse.model.staging.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.staging.Source) get(com.servinglynk.hmis.warehouse.model.staging.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
 				exportModel.setProjectGroupCode(upload.getProjectGroupCode());
@@ -240,7 +240,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void deleteLiveByExportId(UUID exportId) {
 		com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,exportId);
-		delete(exportEntity);
+		hardDelete(exportEntity);
 	}
 
 
@@ -258,10 +258,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 	
 	@Override
+	@Transactional
 	public void undoDeleteLiveByExportId(UUID exportId) {
+//		com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,exportId);
+//		unDeleteFromDB(exportEntity);
 		undoSoftDeleteByExportId(Affiliation.class.getName(), exportId);
 		undoSoftDeleteByExportId(Bedinventory.class.getName(), exportId);
-		undoSoftDeleteByExportId(Client.class.getName(), exportId);
 		undoSoftDeleteByExportId(Commercialsexualexploitation.class.getName(), exportId);
 		undoSoftDeleteByExportId(Connectionwithsoar.class.getName(), exportId);
 		undoSoftDeleteByExportId(Dateofengagement.class.getName(), exportId);
@@ -270,6 +272,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		undoSoftDeleteByExportId(Employment.class.getName(), exportId);
 		undoSoftDeleteByExportId(Enrollment.class.getName(), exportId);
 		undoSoftDeleteByExportId(EnrollmentCoc.class.getName(), exportId);
+		undoSoftDeleteByExportId(Client.class.getName(), exportId);
 		undoSoftDeleteByExportId(Exit.class.getName(), exportId);
 		undoSoftDeleteByExportId(Exithousingassessment.class.getName(), exportId);
 		undoSoftDeleteByExportId(Exitplansactions.class.getName(), exportId);
