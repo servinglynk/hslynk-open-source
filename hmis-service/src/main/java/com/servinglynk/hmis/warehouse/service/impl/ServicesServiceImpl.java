@@ -19,8 +19,8 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
 
    @Transactional
    public Services createServices(Services services,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Services pServices = ServicesConverter.modelToEntity(services, null);
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Services pServices = ServicesConverter.modelToEntity(services, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pServices.setEnrollmentid(pEnrollment); 
        pServices.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
 
    @Transactional
    public Services updateServices(Services services,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Services pServices = daoFactory.getServicesDao().getServicesById(services.getServicesId());
+       com.servinglynk.hmis.warehouse.model.v2014.Services pServices = daoFactory.getServicesDao().getServicesById(services.getServicesId());
        if(pServices==null) throw new ServicesNotFoundException();
 
        ServicesConverter.modelToEntity(services, pServices);
@@ -50,7 +50,7 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
 
    @Transactional
    public Services deleteServices(UUID servicesId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Services pServices = daoFactory.getServicesDao().getServicesById(servicesId);
+       com.servinglynk.hmis.warehouse.model.v2014.Services pServices = daoFactory.getServicesDao().getServicesById(servicesId);
        if(pServices==null) throw new ServicesNotFoundException();
 
        daoFactory.getServicesDao().deleteServices(pServices);
@@ -60,7 +60,7 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
 
    @Transactional
    public Services getServicesById(UUID servicesId){
-       com.servinglynk.hmis.warehouse.model.live.Services pServices = daoFactory.getServicesDao().getServicesById(servicesId);
+       com.servinglynk.hmis.warehouse.model.v2014.Services pServices = daoFactory.getServicesDao().getServicesById(servicesId);
        if(pServices==null) throw new ServicesNotFoundException();
 
        return ServicesConverter.entityToModel( pServices );
@@ -70,8 +70,8 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
    @Transactional
    public ServicesList getAllEnrollmentServicess(UUID enrollmentId,Integer startIndex, Integer maxItems){
        ServicesList servicess = new ServicesList();
-        List<com.servinglynk.hmis.warehouse.model.live.Services> entities = daoFactory.getServicesDao().getAllEnrollmentServicess(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Services entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Services> entities = daoFactory.getServicesDao().getAllEnrollmentServicess(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Services entity : entities){
            servicess.addServices(ServicesConverter.entityToModel(entity));
         }
         long count = daoFactory.getServicesDao().getEnrollmentServicessCount(enrollmentId);

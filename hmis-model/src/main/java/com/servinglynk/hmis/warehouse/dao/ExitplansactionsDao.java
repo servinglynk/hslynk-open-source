@@ -13,10 +13,10 @@ import java.util.UUID;
 public interface ExitplansactionsDao extends ParentDao {
 
 	
-	   com.servinglynk.hmis.warehouse.model.live.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions);
-	   com.servinglynk.hmis.warehouse.model.live.Exitplansactions updateExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions);
-	   void deleteExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions);
-	   com.servinglynk.hmis.warehouse.model.live.Exitplansactions getExitPlansActionsById(UUID exitPlansActionsId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Exitplansactions> getAllExitExitPlansActionss(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions);
+	   com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions updateExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions);
+	   void deleteExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions);
+	   com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions getExitPlansActionsById(UUID exitPlansActionsId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions> getAllExitExitPlansActionss(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getExitExitPlansActionssCount(UUID enrollmentId);
 }

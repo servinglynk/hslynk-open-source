@@ -20,17 +20,17 @@ import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.live.BulkUploadActivity;
-import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.live.Sync;
-import com.servinglynk.hmis.warehouse.model.staging.HmisBaseStagingModel;
-import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
+import com.servinglynk.hmis.warehouse.model.stagv2014.HmisBaseStagingModel;
+import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	
-	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.live.HmisUser user) {
+	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.v2014.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "PG0001");
 		BulkUploadActivity activity = new BulkUploadActivity();

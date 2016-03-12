@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Project;
-import com.servinglynk.hmis.warehouse.model.staging.Projectcoc;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Project;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -55,7 +55,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 					domain.getProjectCocMap().put(String.valueOf(projectCoc.getProjectCoCID()), id);
 				}
 			}
-			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			projectcocModel.setExport(exportEntity);
 			exportEntity.addProjectcoc(projectcocModel);
 			insertOrUpdate(projectcocModel);
@@ -70,11 +70,11 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		if(projectcocs != null && !projectcocs.isEmpty()) {
 			for(Projectcoc projectcoc : projectcocs) {
 				if(projectcoc != null) {
-					com.servinglynk.hmis.warehouse.model.live.Projectcoc target = new com.servinglynk.hmis.warehouse.model.live.Projectcoc();
+					com.servinglynk.hmis.warehouse.model.v2014.Projectcoc target = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
 					BeanUtils.copyProperties(projectcoc, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,projectcoc.getExport().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class,projectcoc.getExport().getId());
 					target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.live.Project projectEntity = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,projectcoc.getProjectid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Project projectEntity = (com.servinglynk.hmis.warehouse.model.v2014.Project) get(com.servinglynk.hmis.warehouse.model.v2014.Project.class,projectcoc.getProjectid().getId());
 					target.setProjectid(projectEntity);
 					 target.setDateCreated(LocalDateTime.now());
 					 target.setDateUpdated(LocalDateTime.now());
@@ -104,53 +104,53 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Project createProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Project createProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){
 	       insert(project);
 	       return project;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Project updateProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Project updateProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){
 	       update(project);
 	       return project;
 	   }
-	   public void deleteProject(com.servinglynk.hmis.warehouse.model.live.Project project){
+	   public void deleteProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){
 	       delete(project);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Project getProjectById(UUID projectId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class, projectId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Project getProjectById(UUID projectId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Project) get(com.servinglynk.hmis.warehouse.model.v2014.Project.class, projectId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Project> getAllProjects(Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Project.class);
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Project>) findByCriteria(criteria,startIndex,maxItems);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Project> getAllProjects(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Project.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Project>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectCount(){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Project.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Project.class);
 	       return countRows(criteria);
 	   }
 
 	   
-	   public com.servinglynk.hmis.warehouse.model.live.Projectcoc createProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc createProjectcoc(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectcoc){
 	       projectcoc.setId(UUID.randomUUID()); 
 	       insert(projectcoc);
 	       return projectcoc;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Projectcoc updateProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc updateProjectcoc(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectcoc){
 	       update(projectcoc);
 	       return projectcoc;
 	   }
-	   public void deleteProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc){
+	   public void deleteProjectcoc(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectcoc){
 	       delete(projectcoc);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Projectcoc getProjectcocById(UUID projectcocId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Projectcoc) get(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class, projectcocId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc getProjectcocById(UUID projectcocId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) get(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcocId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Projectcoc> getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc> getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class);
 	       criteria.createAlias("projectid", "projectid");
 	       criteria.add(Restrictions.eq("projectid.id", projectId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Projectcoc>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectProjectcocsCount(UUID projectId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class);
 	       criteria.createAlias("projectid", "projectid");
 	       criteria.add(Restrictions.eq("projectid.id", projectId));
 	       return countRows(criteria);

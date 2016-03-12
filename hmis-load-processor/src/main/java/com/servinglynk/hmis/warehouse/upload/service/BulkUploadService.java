@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.live.Sync;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.exception.WorkerNotFoundException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;

@@ -19,9 +19,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Projectcompletionstatus;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Projectcompletionstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -41,7 +41,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 			for(Services services : servicesList)
 			{
 				UUID id = UUID.randomUUID();
-				com.servinglynk.hmis.warehouse.model.staging.Services servicesModel = new com.servinglynk.hmis.warehouse.model.staging.Services();
+				com.servinglynk.hmis.warehouse.model.stagv2014.Services servicesModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Services();
 				servicesModel.setId(id);
 				servicesModel.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
 				servicesModel.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
@@ -56,7 +56,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				servicesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(services.getProjectEntryID()));
 				servicesModel.setEnrollmentid(enrollment);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				servicesModel.setExport(exportEntity);
 				hydrateCommonFields(servicesModel, domain);
 				insertOrUpdate(servicesModel);
@@ -66,15 +66,15 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 
 	@Override
 	public void hydrateLive(Export export) {
-		Set<com.servinglynk.hmis.warehouse.model.staging.Services> servicesStaging = export.getServiceses();
+		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Services> servicesStaging = export.getServiceses();
 		if(servicesStaging != null && !servicesStaging.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.staging.Services services : servicesStaging) {
+			for(com.servinglynk.hmis.warehouse.model.stagv2014.Services services : servicesStaging) {
 				if(services != null) {
-					com.servinglynk.hmis.warehouse.model.live.Services target = new com.servinglynk.hmis.warehouse.model.live.Services();
+					com.servinglynk.hmis.warehouse.model.v2014.Services target = new com.servinglynk.hmis.warehouse.model.v2014.Services();
 					BeanUtils.copyProperties(services, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, services.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, services.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addServices(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -103,29 +103,29 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Services createServices(com.servinglynk.hmis.warehouse.model.live.Services services){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Services createServices(com.servinglynk.hmis.warehouse.model.v2014.Services services){
 	       services.setId(UUID.randomUUID()); 
 	       insert(services);
 	       return services;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Services updateServices(com.servinglynk.hmis.warehouse.model.live.Services services){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Services updateServices(com.servinglynk.hmis.warehouse.model.v2014.Services services){
 	       update(services);
 	       return services;
 	   }
-	   public void deleteServices(com.servinglynk.hmis.warehouse.model.live.Services services){
+	   public void deleteServices(com.servinglynk.hmis.warehouse.model.v2014.Services services){
 	       delete(services);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Services getServicesById(UUID servicesId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Services) get(com.servinglynk.hmis.warehouse.model.live.Services.class, servicesId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Services getServicesById(UUID servicesId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Services) get(com.servinglynk.hmis.warehouse.model.v2014.Services.class, servicesId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Services> getAllEnrollmentServicess(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Services.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Services> getAllEnrollmentServicess(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Services.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Services>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Services>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentServicessCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Services.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Services.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

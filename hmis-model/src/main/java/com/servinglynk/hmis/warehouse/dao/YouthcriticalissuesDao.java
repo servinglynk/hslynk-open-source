@@ -13,11 +13,11 @@ import java.util.UUID;
 public interface YouthcriticalissuesDao extends ParentDao {
 	
 	
-	   com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues);
-	   com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues updateYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues);
-	   void deleteYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues);
-	   com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues getYouthCriticalIssuesById(UUID youthCriticalIssuesId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues> getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues);
+	   com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues updateYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues);
+	   void deleteYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues);
+	   com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues getYouthCriticalIssuesById(UUID youthCriticalIssuesId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues> getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentYouthCriticalIssuessCount(UUID enrollmentId);
 
 }

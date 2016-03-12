@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectComple
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusEarlyexitreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Exit;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Projectcompletionstatus;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Projectcompletionstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(projectCompletionStatus.getExitID()));
 				projectcompletionstatusModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				projectcompletionstatusModel.setExport(exportEntity);
 				exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
 				hydrateCommonFields(projectcompletionstatusModel, domain);
@@ -65,11 +65,11 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		if(projectcompletionstatuses != null && !projectcompletionstatuses.isEmpty()) {
 			for(Projectcompletionstatus projectcompletionstatus : projectcompletionstatuses) {
 				if(projectcompletionstatus != null) {
-					com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus target = new com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus();
+					com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus target = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
 					BeanUtils.copyProperties(projectcompletionstatus, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, projectcompletionstatus.getExitid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, projectcompletionstatus.getExitid().getId());
 					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addProjectcompletionstatus(target);
 					 target.setDateCreated(LocalDateTime.now());
@@ -98,29 +98,29 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus){
 	       projectCompletionStatus.setId(UUID.randomUUID()); 
 	       insert(projectCompletionStatus);
 	       return projectCompletionStatus;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus updateProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus updateProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus){
 	       update(projectCompletionStatus);
 	       return projectCompletionStatus;
 	   }
-	   public void deleteProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus){
+	   public void deleteProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus){
 	       delete(projectCompletionStatus);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus getProjectCompletionStatusById(UUID projectCompletionStatusId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus) get(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus.class, projectCompletionStatusId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus getProjectCompletionStatusById(UUID projectCompletionStatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) get(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectCompletionStatusId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus> getAllExitProjectCompletionStatuses(UUID exitId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus> getAllExitProjectCompletionStatuses(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitProjectCompletionStatusesCount(UUID exitId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
 	       return countRows(criteria);

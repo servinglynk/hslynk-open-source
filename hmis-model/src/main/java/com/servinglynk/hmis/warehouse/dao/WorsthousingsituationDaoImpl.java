@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Worsthousingsituation;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Worsthousingsituation;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -47,7 +47,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				worsthousingsituationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
 				worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
 				worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				worsthousingsituationModel.setExport(exportEntity);
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID()));
 				worsthousingsituationModel.setEnrollmentid(enrollmentModel);
@@ -64,11 +64,11 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		if(worsthousingsituations!=null && !worsthousingsituations.isEmpty()) {
 			for(Worsthousingsituation worsthousingsituation : worsthousingsituations) {
 				if(worsthousingsituation !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation target = new com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation();
+					com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation target = new com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation();
 					BeanUtils.copyProperties(worsthousingsituation, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, worsthousingsituation.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, worsthousingsituation.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addWorsthousingsituation(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -98,29 +98,29 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 	}
 	
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation createWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation createWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation){
 	       worsthousingsituation.setId(UUID.randomUUID()); 
 	       insert(worsthousingsituation);
 	       return worsthousingsituation;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation updateWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation updateWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation){
 	       update(worsthousingsituation);
 	       return worsthousingsituation;
 	   }
-	   public void deleteWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation){
+	   public void deleteWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation){
 	       delete(worsthousingsituation);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation getWorsthousingsituationById(UUID worsthousingsituationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation) get(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation.class, worsthousingsituationId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation getWorsthousingsituationById(UUID worsthousingsituationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) get(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituationId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation> getAllEnrollmentWorsthousingsituations(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation> getAllEnrollmentWorsthousingsituations(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentWorsthousingsituationsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

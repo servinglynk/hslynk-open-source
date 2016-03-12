@@ -28,8 +28,8 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEn
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
 public class YouthCriticalIssuesConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues modelToEntity (YouthCriticalIssue model ,com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues modelToEntity (YouthCriticalIssue model ,com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
        entity.setId(model.getYouthCriticalIssuesId());
        entity.setAbuseandneglectfam(YouthcriticalissuesAbuseandneglectfamEnum.valueOf(model.getAbuseandneglectfam()));
        entity.setAbuseandneglectyouth(YouthcriticalissuesAbuseandneglectyouthEnum.valueOf(model.getAbuseandneglectyouth()));
@@ -60,7 +60,7 @@ public class YouthCriticalIssuesConverter {
    }
 
 
-   public static YouthCriticalIssue entityToModel (com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues entity) {
+   public static YouthCriticalIssue entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues entity) {
        YouthCriticalIssue model = new YouthCriticalIssue();
        model.setYouthCriticalIssuesId(entity.getId());
        model.setAbuseandneglectfam(entity.getAbuseandneglectfam().name());

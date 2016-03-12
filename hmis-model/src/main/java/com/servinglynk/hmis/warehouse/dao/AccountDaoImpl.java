@@ -6,9 +6,9 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
-import com.servinglynk.hmis.warehouse.model.live.ProfileACLEntity;
-import com.servinglynk.hmis.warehouse.model.live.UserRoleMapEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.ProfileACLEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.UserRoleMapEntity;
 
 public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	

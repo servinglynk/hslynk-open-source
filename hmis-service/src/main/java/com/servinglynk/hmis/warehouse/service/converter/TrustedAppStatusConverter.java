@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.TrustedAppStatus;
-import com.servinglynk.hmis.warehouse.model.live.TrustedAppStatusEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.TrustedAppStatusEntity;
 
 
 public class TrustedAppStatusConverter {

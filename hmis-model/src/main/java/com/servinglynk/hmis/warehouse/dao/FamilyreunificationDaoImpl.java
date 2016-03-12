@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FamilyReunification;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FamilyreunificationFamilyreunificationachievedEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Exit;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Familyreunification;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Familyreunification;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -49,7 +49,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 				familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(familyReunification.getExitID()));
 				familyreunificationModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				familyreunificationModel.setExport(exportEntity);
 				exportEntity.addFamilyreunification(familyreunificationModel);
 				hydrateCommonFields(familyreunificationModel, domain);
@@ -64,11 +64,11 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		if(familyreunifications !=null && !familyreunifications.isEmpty()) {
 			for(Familyreunification familyreunification : familyreunifications) {
 				if(familyreunification != null) {
-					com.servinglynk.hmis.warehouse.model.live.Familyreunification target = new com.servinglynk.hmis.warehouse.model.live.Familyreunification();
+					com.servinglynk.hmis.warehouse.model.v2014.Familyreunification target = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
 					BeanUtils.copyProperties(familyreunification, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, familyreunification.getExitid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, familyreunification.getExitid().getId());
 					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addFamilyreunification(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -99,31 +99,31 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 	}
 
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Familyreunification createFamilyReunification(com.servinglynk.hmis.warehouse.model.live.Familyreunification familyReunification){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification createFamilyReunification(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunification){
 	       familyReunification.setId(UUID.randomUUID()); 
 	       insert(familyReunification);
 	       return familyReunification;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Familyreunification updateFamilyReunification(com.servinglynk.hmis.warehouse.model.live.Familyreunification familyReunification){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification updateFamilyReunification(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunification){
 	       update(familyReunification);
 	       return familyReunification;
 	   }
-	   public void deleteFamilyReunification(com.servinglynk.hmis.warehouse.model.live.Familyreunification familyReunification){
+	   public void deleteFamilyReunification(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunification){
 	       delete(familyReunification);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Familyreunification getFamilyReunificationById(UUID familyReunificationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Familyreunification) get(com.servinglynk.hmis.warehouse.model.live.Familyreunification.class, familyReunificationId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification getFamilyReunificationById(UUID familyReunificationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) get(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunificationId);
 	   }
 	   
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.live.Familyreunification> getAllExitFamilyReunifications(UUID exitId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Familyreunification.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification> getAllExitFamilyReunifications(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Familyreunification>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitFamilyReunificationsCount(UUID exitId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Familyreunification.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
 	       return countRows(criteria);

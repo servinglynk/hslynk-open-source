@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public interface ProjectcompletionstatusDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus);
-	   com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus updateProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus);
-	   void deleteProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus projectCompletionStatus);
-	   com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus getProjectCompletionStatusById(UUID projectCompletionStatusId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus> getAllExitProjectCompletionStatuses(UUID exitId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus updateProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus);
+	   void deleteProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus getProjectCompletionStatusById(UUID projectCompletionStatusId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus> getAllExitProjectCompletionStatuses(UUID exitId,Integer startIndex, Integer maxItems);
 	   long getExitProjectCompletionStatusesCount(UUID exitId);
 }

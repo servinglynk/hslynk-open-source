@@ -18,8 +18,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAs
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Exit;
-import com.servinglynk.hmis.warehouse.model.staging.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -49,7 +49,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
 					Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitHousingAssessment.getExitID()));
 					exithousingassessmentModel.setExitid(exit);
-					com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+					com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 					exithousingassessmentModel.setExport(exportEntity);
 					exportEntity.addExithousingassessment(exithousingassessmentModel);
 					hydrateCommonFields(exithousingassessmentModel, domain);
@@ -60,16 +60,16 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.staging.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
 		Set<Exithousingassessment> exithousingassessments = export.getExithousingassessments();
 		if(exithousingassessments !=null && !exithousingassessments.isEmpty()) {
 			for(Exithousingassessment exithousingassessment : exithousingassessments) {
 				if(exithousingassessment !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Exithousingassessment target = new com.servinglynk.hmis.warehouse.model.live.Exithousingassessment();
+					com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment target = new com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment();
 					BeanUtils.copyProperties(exithousingassessment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, exithousingassessment.getExitid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, exithousingassessment.getExitid().getId());
 					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addExithousingassessment(target);
 					target.setDateCreated(LocalDateTime.now());

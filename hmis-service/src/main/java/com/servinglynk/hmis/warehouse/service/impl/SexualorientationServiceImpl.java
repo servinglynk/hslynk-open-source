@@ -19,8 +19,8 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
 
    @Transactional
    public Sexualorientation createSexualorientation(Sexualorientation sexualorientation,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Sexualorientation pSexualorientation = SexualorientationConverter.modelToEntity(sexualorientation, null);
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation pSexualorientation = SexualorientationConverter.modelToEntity(sexualorientation, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pSexualorientation.setEnrollmentid(pEnrollment); 
        pSexualorientation.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
 
    @Transactional
    public Sexualorientation updateSexualorientation(Sexualorientation sexualorientation,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Sexualorientation pSexualorientation = daoFactory.getSexualorientationDao().getSexualorientationById(sexualorientation.getSexualorientationId());
+       com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation pSexualorientation = daoFactory.getSexualorientationDao().getSexualorientationById(sexualorientation.getSexualorientationId());
        if(pSexualorientation==null) throw new SexualorientationNotFoundException();
 
        SexualorientationConverter.modelToEntity(sexualorientation, pSexualorientation);
@@ -50,7 +50,7 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
 
    @Transactional
    public Sexualorientation deleteSexualorientation(UUID sexualorientationId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Sexualorientation pSexualorientation = daoFactory.getSexualorientationDao().getSexualorientationById(sexualorientationId);
+       com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation pSexualorientation = daoFactory.getSexualorientationDao().getSexualorientationById(sexualorientationId);
        if(pSexualorientation==null) throw new SexualorientationNotFoundException();
 
        daoFactory.getSexualorientationDao().deleteSexualorientation(pSexualorientation);
@@ -60,7 +60,7 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
 
    @Transactional
    public Sexualorientation getSexualorientationById(UUID sexualorientationId){
-       com.servinglynk.hmis.warehouse.model.live.Sexualorientation pSexualorientation = daoFactory.getSexualorientationDao().getSexualorientationById(sexualorientationId);
+       com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation pSexualorientation = daoFactory.getSexualorientationDao().getSexualorientationById(sexualorientationId);
        if(pSexualorientation==null) throw new SexualorientationNotFoundException();
 
        return SexualorientationConverter.entityToModel( pSexualorientation );
@@ -70,8 +70,8 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
    @Transactional
    public Sexualorientations getAllEnrollmentSexualorientations(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Sexualorientations sexualorientations = new Sexualorientations();
-        List<com.servinglynk.hmis.warehouse.model.live.Sexualorientation> entities = daoFactory.getSexualorientationDao().getAllEnrollmentSexualorientations(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Sexualorientation entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation> entities = daoFactory.getSexualorientationDao().getAllEnrollmentSexualorientations(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation entity : entities){
            sexualorientations.addSexualorientation(SexualorientationConverter.entityToModel(entity));
         }
         long count = daoFactory.getSexualorientationDao().getEnrollmentSexualorientationsCount(enrollmentId);

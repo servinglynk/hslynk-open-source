@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Rhybcpstatus;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Rhybcpstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -52,7 +52,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(rhybcpStatus.getProjectEntryID()));
 				rhybcpstatusModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				rhybcpstatusModel.setExport(exportEntity);
 				exportEntity.addRhybcpstatus(rhybcpstatusModel);
 				hydrateCommonFields(rhybcpstatusModel, domain);
@@ -68,11 +68,11 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		if(rhybcpstatuses !=null && !rhybcpstatuses.isEmpty()) {
 			for(Rhybcpstatus rhybcpstatus : rhybcpstatuses) {
 				if(rhybcpstatus !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus target = new com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus();
+					com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus target = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
 					BeanUtils.copyProperties(rhybcpstatus, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, rhybcpstatus.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, rhybcpstatus.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addRhybcpstatus(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -102,29 +102,29 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){
 	       rhybcpstatus.setId(UUID.randomUUID()); 
 	       insert(rhybcpstatus);
 	       return rhybcpstatus;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus updateRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus updateRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){
 	       update(rhybcpstatus);
 	       return rhybcpstatus;
 	   }
-	   public void deleteRhybcpstatus(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus rhybcpstatus){
+	   public void deleteRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){
 	       delete(rhybcpstatus);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus getRhybcpstatusById(UUID rhybcpstatusId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus) get(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus.class, rhybcpstatusId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus getRhybcpstatusById(UUID rhybcpstatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus) get(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class, rhybcpstatusId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus> getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus> getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentRhybcpstatussCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

@@ -19,7 +19,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client createClient(Client client, String caller) {
-		com.servinglynk.hmis.warehouse.model.live.Client pClient = ClientConverter.modelToEntity(client, null);
+		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = ClientConverter.modelToEntity(client, null);
 		pClient.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 	//	pClient.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		daoFactory.getClientDao().createClient(pClient);
@@ -30,7 +30,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client updateClient(Client client, String caller) {
-		com.servinglynk.hmis.warehouse.model.live.Client pClient = daoFactory.getClientDao().getClientById(client.getClientId()); 
+		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(client.getClientId()); 
 		
 		if(pClient == null ) throw new ClientNotFoundException();
 		
@@ -42,7 +42,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client deleteClient(UUID clientId, String caller) {
-	com.servinglynk.hmis.warehouse.model.live.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+	com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
 		
 		if(pClient == null ) throw new ClientNotFoundException();
 		
@@ -53,7 +53,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client getClientById(UUID clientId) {
-		com.servinglynk.hmis.warehouse.model.live.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
 		
 		if(pClient == null ) throw new ClientNotFoundException();
 		
@@ -63,9 +63,9 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Clients getAllClients(String caller,Integer startIndex, Integer maxItems) {
-		List<com.servinglynk.hmis.warehouse.model.live.Client> clientsList = daoFactory.getClientDao().getAllClients(startIndex,maxItems);
+		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clientsList = daoFactory.getClientDao().getAllClients(startIndex,maxItems);
 		Clients clients= new Clients();
-		for(com.servinglynk.hmis.warehouse.model.live.Client pClient : clientsList){
+		for(com.servinglynk.hmis.warehouse.model.v2014.Client pClient : clientsList){
 			clients.addClient(ClientConverter.entityToModel(pClient));
 		}
 		

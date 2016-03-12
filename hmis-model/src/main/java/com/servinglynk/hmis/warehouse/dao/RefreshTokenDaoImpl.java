@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.RefreshToken;
-import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.RefreshToken;
+import com.servinglynk.hmis.warehouse.model.v2014.SessionEntity;
 
 public class RefreshTokenDaoImpl extends QueryExecutorImpl implements
 		RefreshTokenDao {

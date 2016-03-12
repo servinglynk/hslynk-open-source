@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.AccountDataChangeEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.AccountDataChangeEntity;
 
 public class AccountDataChangeDaoImpl extends QueryExecutorImpl
 		implements AccountDataChangeDao {

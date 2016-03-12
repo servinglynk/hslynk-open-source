@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public interface PercentamiDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.live.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami);
-	   com.servinglynk.hmis.warehouse.model.live.Percentami updatePercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami);
-	   void deletePercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami);
-	   com.servinglynk.hmis.warehouse.model.live.Percentami getPercentamiById(UUID percentamiId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Percentami> getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami);
+	   com.servinglynk.hmis.warehouse.model.v2014.Percentami updatePercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami);
+	   void deletePercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami);
+	   com.servinglynk.hmis.warehouse.model.v2014.Percentami getPercentamiById(UUID percentamiId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Percentami> getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentPercentamisCount(UUID enrollmentId);
 }

@@ -16,8 +16,8 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Project;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -37,17 +37,17 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		 {
 			 for(Organization organization : organizations)
 			 {
-				 com.servinglynk.hmis.warehouse.model.staging.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.staging.Organization();
+				 com.servinglynk.hmis.warehouse.model.stagv2014.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Organization();
 				 organizationModel.setId(UUID.randomUUID());
 				 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 				 organizationModel.setOrganizationname(organization.getOrganizationName());
-				  com.servinglynk.hmis.warehouse.model.staging.Project project =  (com.servinglynk.hmis.warehouse.model.staging.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
+				  com.servinglynk.hmis.warehouse.model.stagv2014.Project project =  (com.servinglynk.hmis.warehouse.model.stagv2014.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
 				  organizationModel.addProject(project);
 				  organizationModel.setDateCreated(LocalDateTime.now());
 				  organizationModel.setDateUpdated(LocalDateTime.now());
 				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 				 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
-				 com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				 com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				 organizationModel.setExport(exportEntity);
 				 exportEntity.addOrganization(organizationModel);
 				 hydrateCommonFields(organizationModel, domain);
@@ -58,13 +58,13 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(Export export) {
-		Set<com.servinglynk.hmis.warehouse.model.staging.Organization> organizations = export.getOrganizations();
+		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Organization> organizations = export.getOrganizations();
 		if(organizations != null && !organizations.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.staging.Organization organization : organizations) {
+			for(com.servinglynk.hmis.warehouse.model.stagv2014.Organization organization : organizations) {
 				if(organization != null) {
-					com.servinglynk.hmis.warehouse.model.live.Organization target = new com.servinglynk.hmis.warehouse.model.live.Organization();
+					com.servinglynk.hmis.warehouse.model.v2014.Organization target = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
 					BeanUtils.copyProperties(organization, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
@@ -99,27 +99,27 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Organization createOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2014.Organization organization){
 		   organization.setId(UUID.randomUUID());
 	       insert(organization);
 	       return organization;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.v2014.Organization organization){
 	       update(organization);
 	       return organization;
 	   }
-	   public void deleteOrganization(com.servinglynk.hmis.warehouse.model.live.Organization organization){
+	   public void deleteOrganization(com.servinglynk.hmis.warehouse.model.v2014.Organization organization){
 	       delete(organization);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Organization getOrganizationById(UUID organizationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class, organizationId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Organization getOrganizationById(UUID organizationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Organization) get(com.servinglynk.hmis.warehouse.model.v2014.Organization.class, organizationId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Organization> getAllOrganizations(Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Organization.class);
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Organization>) findByCriteria(criteria,startIndex,maxItems);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Organization> getAllOrganizations(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Organization.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Organization>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getOrganizationCount(){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Organization.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Organization.class);
 	       return countRows(criteria);
 	   }
 

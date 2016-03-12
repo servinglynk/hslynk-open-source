@@ -3,10 +3,10 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.model.live.PermissionSetAclEntity;
-import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
-import com.servinglynk.hmis.warehouse.model.live.UserPermissionSetAclEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.PermissionSetAclEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.PermissionSetEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.UserPermissionSetAclEntity;
 
 public interface PermissionSetDao {
 	

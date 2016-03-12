@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.live.Sync;
+import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 @Service
 @Transactional
 public class SyncListServiceImpl  extends ParentServiceImpl implements SyncListService  {

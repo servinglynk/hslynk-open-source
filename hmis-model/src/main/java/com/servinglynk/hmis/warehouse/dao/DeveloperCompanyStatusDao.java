@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus;
+import com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyStatus;
 
 public interface DeveloperCompanyStatusDao {
 

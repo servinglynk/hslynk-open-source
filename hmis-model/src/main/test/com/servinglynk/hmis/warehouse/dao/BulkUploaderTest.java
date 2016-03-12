@@ -24,11 +24,11 @@ import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.live.Export;
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
@@ -59,7 +59,7 @@ public class BulkUploaderTest {
 		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
 		Source source = sources.getSource();
 		Export export = uploadResult.getExport();
-		com.servinglynk.hmis.warehouse.model.staging.Export stagingExport = (com.servinglynk.hmis.warehouse.model.staging.Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.staging.Export.class, export.getId());
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export stagingExport = (com.servinglynk.hmis.warehouse.model.stagv2014.Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, export.getId());
 		Set<Enrollment> enrollments = stagingExport.getEnrollments();
 	}
 	@Test
@@ -73,7 +73,7 @@ public class BulkUploaderTest {
 		upload.setInputPath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
-		HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
+	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
 	//	upload.setUser(hmisUser);
 		factory.getBulkUploaderWorkerDao().insert(upload);
 		//dao.performBulkUpload(upload);

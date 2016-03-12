@@ -21,8 +21,8 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
 
    @Transactional
    public HousingAssessmentDisposition createHousingAssessmentDisposition(HousingAssessmentDisposition housingAssessmentDisposition,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition pHousingAssessmentDisposition = HousingAssessmentDispositionConverter.modelToEntity(housingAssessmentDisposition, null);
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition pHousingAssessmentDisposition = HousingAssessmentDispositionConverter.modelToEntity(housingAssessmentDisposition, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
        if(pExit == null) throw new ExitNotFoundException(); 
        pHousingAssessmentDisposition.setExitid(pExit); 
        pHousingAssessmentDisposition.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
 
    @Transactional
    public HousingAssessmentDisposition updateHousingAssessmentDisposition(HousingAssessmentDisposition housingAssessmentDisposition,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
        if(pExit == null) throw new ExitNotFoundException(); 
-       com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition pHousingAssessmentDisposition = daoFactory.getHousingassessmentdispositionDao().getHousingAssessmentDispositionById(housingAssessmentDisposition.getHousingAssessmentDispositionId());
+       com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition pHousingAssessmentDisposition = daoFactory.getHousingassessmentdispositionDao().getHousingAssessmentDispositionById(housingAssessmentDisposition.getHousingAssessmentDispositionId());
        if(pHousingAssessmentDisposition==null) throw new HousingAssessmentDispositionNotFoundException();
 
        HousingAssessmentDispositionConverter.modelToEntity(housingAssessmentDisposition, pHousingAssessmentDisposition);
@@ -52,7 +52,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
 
    @Transactional
    public HousingAssessmentDisposition deleteHousingAssessmentDisposition(UUID housingAssessmentDispositionId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition pHousingAssessmentDisposition = daoFactory.getHousingassessmentdispositionDao().getHousingAssessmentDispositionById(housingAssessmentDispositionId);
+       com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition pHousingAssessmentDisposition = daoFactory.getHousingassessmentdispositionDao().getHousingAssessmentDispositionById(housingAssessmentDispositionId);
        if(pHousingAssessmentDisposition==null) throw new HousingAssessmentDispositionNotFoundException();
 
        daoFactory.getHousingassessmentdispositionDao().deleteHousingAssessmentDisposition(pHousingAssessmentDisposition);
@@ -62,7 +62,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
 
    @Transactional
    public HousingAssessmentDisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){
-       com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition pHousingAssessmentDisposition = daoFactory.getHousingassessmentdispositionDao().getHousingAssessmentDispositionById(housingAssessmentDispositionId);
+       com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition pHousingAssessmentDisposition = daoFactory.getHousingassessmentdispositionDao().getHousingAssessmentDispositionById(housingAssessmentDispositionId);
        if(pHousingAssessmentDisposition==null) throw new HousingAssessmentDispositionNotFoundException();
 
        return HousingAssessmentDispositionConverter.entityToModel( pHousingAssessmentDisposition );
@@ -72,8 +72,8 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
    @Transactional
    public HousingAssessmentDispositions getAllEnrollmentHousingAssessmentDispositions(UUID enrollmentId,Integer startIndex, Integer maxItems){
        HousingAssessmentDispositions housingAssessmentDispositions = new HousingAssessmentDispositions();
-        List<com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition> entities = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition> entities = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition entity : entities){
            housingAssessmentDispositions.addHousingAssessmentDisposition(HousingAssessmentDispositionConverter.entityToModel(entity));
         }
         long count = daoFactory.getHousingassessmentdispositionDao().getExitHousingAssessmentDispositionsCount(enrollmentId);

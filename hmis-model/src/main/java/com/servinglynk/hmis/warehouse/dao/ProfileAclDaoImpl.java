@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.ProfileACLEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ProfileACLEntity;
 
 public class ProfileAclDaoImpl extends QueryExecutorImpl implements ProfileAclDao {
 

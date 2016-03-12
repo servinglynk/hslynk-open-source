@@ -37,7 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -117,11 +117,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setOtherresidenceprior(enrollment
 						.getOtherResidencePrior());
 				UUID clientId = domain.getClientPersonalIDMap().get(enrollment.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.staging.Client client = (com.servinglynk.hmis.warehouse.model.staging.Client) get(com.servinglynk.hmis.warehouse.model.staging.Client.class, clientId);
+				com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
 				//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 				// Very important logic needs to come here via a Microservice call.
 				enrollmentModel.setClient(client);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
 
 				enrollmentModel.setDateCreated(LocalDateTime.now());
@@ -136,23 +136,23 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.staging.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
 		Set<Enrollment> enrollments = export.getEnrollments();
 		if(enrollments != null && !enrollments.isEmpty()) {
 			for(Enrollment enrollment : enrollments) {
 				if(enrollment !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Enrollment target = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment target = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
 					BeanUtils.copyProperties(enrollment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId(),enrollment.getProjectGroupCode());
+					com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId(),enrollment.getProjectGroupCode());
 					if(clientByDedupCliendId == null) {
-						com.servinglynk.hmis.warehouse.model.live.Client client = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, enrollment.getClient().getId());
+						com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getClient().getId());
 						target.setClient(client);	
 					}else{
 						target.setClient(clientByDedupCliendId);
 					}
 				//	parentDaoFactory.getClientDao().hydrateLive(enrollment.getClient());
 				//	parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
@@ -163,8 +163,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	}
 
 	
-	public com.servinglynk.hmis.warehouse.model.live.Enrollment getEnrollmentById(UUID enrollmentId) {
-	return (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class,enrollmentId);
+	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentById(UUID enrollmentId) {
+	return (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class,enrollmentId);
 	}
 
 	
@@ -172,7 +172,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	
 	@Override
 	protected void performSave(Iface client, Object entity) {
-		com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment = (com.servinglynk.hmis.warehouse.model.live.Enrollment) entity;
+		com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollment = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) entity;
 		ByteBuffer table = ByteBuffer.wrap("hbase_hmis_user".getBytes());
 		String columnFamily = enrollment.getClass().getSimpleName();
 		TPut put = new TPut();
@@ -227,52 +227,52 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	}
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.live.Enrollment createEnrollment(
-			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment createEnrollment(
+			com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollment) {
 			enrollment.setId(UUID.randomUUID());
 			insert(enrollment);
 		return enrollment;
 	}
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.live.Enrollment updateEnrollment(
-			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment updateEnrollment(
+			com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollment) {
 			update(enrollment);
 		return enrollment;
 	}
 
 	@Override
 	public void deleteEnrollment(
-			com.servinglynk.hmis.warehouse.model.live.Enrollment enrollment) {
+			com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollment) {
 		delete(enrollment);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.live.Enrollment getEnrollmentByClientIdAndEnrollmentId(
+	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId,UUID clientId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Enrollment.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		criteria.add(Restrictions.eq("id",enrollmentId));
 
-		List<com.servinglynk.hmis.warehouse.model.live.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.live.Enrollment>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment>) findByCriteria(criteria);
 		if(enrollments.size()>0) return enrollments.get(0); 
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.live.Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Enrollment.class);
+	public List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 
-		return (List<com.servinglynk.hmis.warehouse.model.live.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
+		return (List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
 	}
 	
 	public long getEnrollmentCount(UUID clientId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Enrollment.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		return countRows(criteria);

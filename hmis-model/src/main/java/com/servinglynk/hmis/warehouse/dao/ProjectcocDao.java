@@ -12,11 +12,11 @@ import java.util.UUID;
  */
 public interface ProjectcocDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.live.Projectcoc createProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc);
-	   com.servinglynk.hmis.warehouse.model.live.Projectcoc updateProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc);
-	   void deleteProjectcoc(com.servinglynk.hmis.warehouse.model.live.Projectcoc projectcoc);
-	   com.servinglynk.hmis.warehouse.model.live.Projectcoc getProjectcocById(UUID projectcocId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Projectcoc> getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Projectcoc createProjectcoc(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectcoc);
+	   com.servinglynk.hmis.warehouse.model.v2014.Projectcoc updateProjectcoc(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectcoc);
+	   void deleteProjectcoc(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectcoc);
+	   com.servinglynk.hmis.warehouse.model.v2014.Projectcoc getProjectcocById(UUID projectcocId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc> getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems);
 	   long getProjectProjectcocsCount(UUID projectId);
 
 }

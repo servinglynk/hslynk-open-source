@@ -18,8 +18,8 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
 public class HealthInsuranceConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Healthinsurance modelToEntity (HealthInsurance model ,com.servinglynk.hmis.warehouse.model.live.Healthinsurance entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Healthinsurance();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance modelToEntity (HealthInsurance model ,com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();
        entity.setId(model.getHealthInsuranceId());
        entity.setCobra(model.getCobra());
        entity.setEmployerprovided(model.getEmployerprovided());
@@ -42,7 +42,7 @@ public class HealthInsuranceConverter {
    }
 
 
-   public static HealthInsurance entityToModel (com.servinglynk.hmis.warehouse.model.live.Healthinsurance entity) {
+   public static HealthInsurance entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance entity) {
        HealthInsurance model = new HealthInsurance();
        model.setHealthInsuranceId(entity.getId());
        model.setCobra(entity.getCobra());

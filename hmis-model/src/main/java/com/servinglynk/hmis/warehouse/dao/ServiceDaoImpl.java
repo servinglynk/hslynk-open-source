@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.ServiceEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ServiceEntity;
 
 public class ServiceDaoImpl extends QueryExecutorImpl implements
 		ServiceDao {

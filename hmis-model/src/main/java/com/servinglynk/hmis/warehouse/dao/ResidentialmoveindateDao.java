@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public interface ResidentialmoveindateDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate);
-	   com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate updateResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate);
-	   void deleteResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate);
-	   com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate);
+	   com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate updateResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate);
+	   void deleteResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate);
+	   com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentResidentialmoveindatesCount(UUID enrollmentId);
 }

@@ -12,9 +12,9 @@ import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploads;
 import com.servinglynk.hmis.warehouse.core.model.Connectionwithsoars;
 import com.servinglynk.hmis.warehouse.core.model.Role;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.service.converter.ConnectionwithsoarConverter;
 

@@ -19,8 +19,8 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 
 	   @Transactional
 	   public YouthCriticalIssue createYouthCriticalIssues(YouthCriticalIssue youthCriticalIssues,UUID enrollmentId,String caller){
-	       com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues pYouthCriticalIssues = YouthCriticalIssuesConverter.modelToEntity(youthCriticalIssues, null);
-	       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+	       com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues pYouthCriticalIssues = YouthCriticalIssuesConverter.modelToEntity(youthCriticalIssues, null);
+	       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
 	       if(pEnrollment == null) throw new EnrollmentNotFound(); 
 	       pYouthCriticalIssues.setEnrollmentid(pEnrollment); 
 	       pYouthCriticalIssues.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 
 	   @Transactional
 	   public YouthCriticalIssue updateYouthCriticalIssues(YouthCriticalIssue youthCriticalIssues,UUID enrollmentId,String caller){
-	       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+	       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
 	       if(pEnrollment == null) throw new EnrollmentNotFound(); 
-	       com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues pYouthCriticalIssues = daoFactory.getYouthcriticalissuesDao().getYouthCriticalIssuesById(youthCriticalIssues.getYouthCriticalIssuesId());
+	       com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues pYouthCriticalIssues = daoFactory.getYouthcriticalissuesDao().getYouthCriticalIssuesById(youthCriticalIssues.getYouthCriticalIssuesId());
 	       if(pYouthCriticalIssues==null) throw new YouthCriticalIssuesNotFoundException();
 
 	       YouthCriticalIssuesConverter.modelToEntity(youthCriticalIssues, pYouthCriticalIssues);
@@ -50,7 +50,7 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 
 	   @Transactional
 	   public YouthCriticalIssue deleteYouthCriticalIssues(UUID youthCriticalIssuesId,String caller){
-	       com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues pYouthCriticalIssues = daoFactory.getYouthcriticalissuesDao().getYouthCriticalIssuesById(youthCriticalIssuesId);
+	       com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues pYouthCriticalIssues = daoFactory.getYouthcriticalissuesDao().getYouthCriticalIssuesById(youthCriticalIssuesId);
 	       if(pYouthCriticalIssues==null) throw new YouthCriticalIssuesNotFoundException();
 
 	       daoFactory.getYouthcriticalissuesDao().deleteYouthCriticalIssues(pYouthCriticalIssues);
@@ -60,7 +60,7 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 
 	   @Transactional
 	   public YouthCriticalIssue getYouthCriticalIssuesById(UUID youthCriticalIssuesId){
-	       com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues pYouthCriticalIssues = daoFactory.getYouthcriticalissuesDao().getYouthCriticalIssuesById(youthCriticalIssuesId);
+	       com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues pYouthCriticalIssues = daoFactory.getYouthcriticalissuesDao().getYouthCriticalIssuesById(youthCriticalIssuesId);
 	       if(pYouthCriticalIssues==null) throw new YouthCriticalIssuesNotFoundException();
 
 	       return YouthCriticalIssuesConverter.entityToModel( pYouthCriticalIssues );
@@ -70,8 +70,8 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 	   @Transactional
 	   public YouthCriticalIssues getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       YouthCriticalIssues youthCriticalIssuess = new YouthCriticalIssues();
-	        List<com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues> entities = daoFactory.getYouthcriticalissuesDao().getAllEnrollmentYouthCriticalIssuess(enrollmentId,startIndex,maxItems);
-	        for(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues entity : entities){
+	        List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues> entities = daoFactory.getYouthcriticalissuesDao().getAllEnrollmentYouthCriticalIssuess(enrollmentId,startIndex,maxItems);
+	        for(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues entity : entities){
 	           youthCriticalIssuess.addYouthCriticalIssue(YouthCriticalIssuesConverter.entityToModel(entity));
 	        }
 	        long count = daoFactory.getYouthcriticalissuesDao().getEnrollmentYouthCriticalIssuessCount(enrollmentId);

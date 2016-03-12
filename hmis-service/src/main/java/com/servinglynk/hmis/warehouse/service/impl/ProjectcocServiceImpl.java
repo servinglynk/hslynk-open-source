@@ -19,8 +19,8 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc createProjectcoc(Projectcoc projectcoc,UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Projectcoc pProjectcoc = ProjectcocConverter.modelToEntity(projectcoc, null);
-       com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(projectId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Projectcoc pProjectcoc = ProjectcocConverter.modelToEntity(projectcoc, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Project pProject = daoFactory.getProjectDao().getProjectById(projectId); 
        if(pProject == null) throw new ProjectNotFoundException(); 
        pProjectcoc.setProjectid(pProject); 
        pProjectcoc.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc updateProjectcoc(Projectcoc projectcoc,UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(projectId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Project pProject = daoFactory.getProjectDao().getProjectById(projectId); 
        if(pProject == null) throw new ProjectNotFoundException(); 
-       com.servinglynk.hmis.warehouse.model.live.Projectcoc pProjectcoc = daoFactory.getProjectcocDao().getProjectcocById(projectcoc.getProjectcocId());
+       com.servinglynk.hmis.warehouse.model.v2014.Projectcoc pProjectcoc = daoFactory.getProjectcocDao().getProjectcocById(projectcoc.getProjectcocId());
        if(pProjectcoc==null) throw new ProjectcocNotFoundException();
 
        ProjectcocConverter.modelToEntity(projectcoc, pProjectcoc);
@@ -50,7 +50,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc deleteProjectcoc(UUID projectcocId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Projectcoc pProjectcoc = daoFactory.getProjectcocDao().getProjectcocById(projectcocId);
+       com.servinglynk.hmis.warehouse.model.v2014.Projectcoc pProjectcoc = daoFactory.getProjectcocDao().getProjectcocById(projectcocId);
        if(pProjectcoc==null) throw new ProjectcocNotFoundException();
 
        daoFactory.getProjectcocDao().deleteProjectcoc(pProjectcoc);
@@ -60,7 +60,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc getProjectcocById(UUID projectcocId){
-       com.servinglynk.hmis.warehouse.model.live.Projectcoc pProjectcoc = daoFactory.getProjectcocDao().getProjectcocById(projectcocId);
+       com.servinglynk.hmis.warehouse.model.v2014.Projectcoc pProjectcoc = daoFactory.getProjectcocDao().getProjectcocById(projectcocId);
        if(pProjectcoc==null) throw new ProjectcocNotFoundException();
 
        return ProjectcocConverter.entityToModel( pProjectcoc );
@@ -70,8 +70,8 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
    @Transactional
    public Projectcocs getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems){
        Projectcocs projectcocs = new Projectcocs();
-        List<com.servinglynk.hmis.warehouse.model.live.Projectcoc> entities = daoFactory.getProjectcocDao().getAllProjectProjectcocs(projectId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Projectcoc entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc> entities = daoFactory.getProjectcocDao().getAllProjectProjectcocs(projectId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc entity : entities){
            projectcocs.addProjectcoc(ProjectcocConverter.entityToModel(entity));
         }
         long count = daoFactory.getProjectcocDao().getProjectProjectcocsCount(projectId);

@@ -41,9 +41,9 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientationgenderidyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Youthcriticalissues;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Youthcriticalissues;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -95,7 +95,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				youthcriticalissuesModel.setSexualorientationgenderidyouth(YouthcriticalissuesSexualorientationgenderidyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getSexualOrientationGenderIDYouth())));
 				youthcriticalissuesModel.setUnemploymentfam(YouthcriticalissuesUnemploymentfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentFam())));
 				youthcriticalissuesModel.setUnemploymentyouth(YouthcriticalissuesUnemploymentyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentYouth())));
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				youthcriticalissuesModel.setExport(exportEntity);
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(youthCriticalIssues.getProjectEntryID()));
 				youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
@@ -112,11 +112,11 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		if(youthcriticalissueses !=null && !youthcriticalissueses.isEmpty()) {
 			for(Youthcriticalissues youthcriticalissues : youthcriticalissueses) {
 				if(youthcriticalissues != null) {
-					com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues target = new com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues();
+					com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues target = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
 					BeanUtils.copyProperties(youthcriticalissues, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, youthcriticalissues.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, youthcriticalissues.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addYouthcriticalissues(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -146,29 +146,29 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 	}
 	
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){
 	       youthCriticalIssues.setId(UUID.randomUUID()); 
 	       insert(youthCriticalIssues);
 	       return youthCriticalIssues;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues updateYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues updateYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){
 	       update(youthCriticalIssues);
 	       return youthCriticalIssues;
 	   }
-	   public void deleteYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues youthCriticalIssues){
+	   public void deleteYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){
 	       delete(youthCriticalIssues);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues getYouthCriticalIssuesById(UUID youthCriticalIssuesId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues) get(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues.class, youthCriticalIssuesId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues getYouthCriticalIssuesById(UUID youthCriticalIssuesId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) get(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthCriticalIssuesId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues> getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues> getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentYouthCriticalIssuessCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

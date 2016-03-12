@@ -33,9 +33,9 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesUnemploymentEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Incomeandsources;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -100,7 +100,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 						incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				incomeAndSourcesModel.setExport(exportEntity);
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
 				hydrateCommonFields(incomeAndSourcesModel, domain);
@@ -115,11 +115,11 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		if(incomeandsourceses !=null && !incomeandsourceses.isEmpty()) {
 			for(Incomeandsources incomeandsources : incomeandsourceses) {
 				if(incomeandsources != null) {
-					com.servinglynk.hmis.warehouse.model.live.Incomeandsources target = new com.servinglynk.hmis.warehouse.model.live.Incomeandsources();
+					com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources target = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();
 					BeanUtils.copyProperties(incomeandsources, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, incomeandsources.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, incomeandsources.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addIncomeandsources(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -150,31 +150,31 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	}
 	
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.live.Incomeandsources incomeAndSource){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeAndSource){
 	       incomeAndSource.setId(UUID.randomUUID()); 
 	       insert(incomeAndSource);
 	       return incomeAndSource;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Incomeandsources updateIncomeAndSource(com.servinglynk.hmis.warehouse.model.live.Incomeandsources incomeAndSource){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources updateIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeAndSource){
 	       update(incomeAndSource);
 	       return incomeAndSource;
 	   }
-	   public void deleteIncomeAndSource(com.servinglynk.hmis.warehouse.model.live.Incomeandsources incomeAndSource){
+	   public void deleteIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeAndSource){
 	       delete(incomeAndSource);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Incomeandsources getIncomeAndSourceById(UUID incomeAndSourceId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Incomeandsources) get(com.servinglynk.hmis.warehouse.model.live.Incomeandsources.class, incomeAndSourceId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources getIncomeAndSourceById(UUID incomeAndSourceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources) get(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, incomeAndSourceId);
 	   }
 	   
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.live.Incomeandsources> getAllEnrollmentIncomeAndSources(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Incomeandsources.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources> getAllEnrollmentIncomeAndSources(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Incomeandsources>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentIncomeAndSourcesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Incomeandsources.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

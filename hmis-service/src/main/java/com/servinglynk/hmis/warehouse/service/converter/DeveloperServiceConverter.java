@@ -2,15 +2,15 @@ package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperService;
-import com.servinglynk.hmis.warehouse.model.live.ServiceStatus;
+import com.servinglynk.hmis.warehouse.model.v2014.ServiceStatus;
 
 public class DeveloperServiceConverter {
 	/**
-	 * Convert to {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.core.model.Service}.
-	 * @param pDeveloperCompany {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.persistence.model.Service} to convert from
-	 * @return converted {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.core.model.Service}
+	 * Convert to {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.core.model.Service}.
+	 * @param pDeveloperCompany {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.persistence.model.Service} to convert from
+	 * @return converted {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.core.model.Service}
 	 */
-	public static DeveloperService convertToService(com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService) {
+	public static DeveloperService convertToService(com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService) {
 		DeveloperService service = new DeveloperService();
 
 		service.setDescription(pService.getDescription());
@@ -21,15 +21,15 @@ public class DeveloperServiceConverter {
 	}
 	
 	/**
-	 * Convert to {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.persistence.model.Service}.
+	 * Convert to {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.persistence.model.Service}.
 	 * 
-	 * @param service {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.core.model.Service} to convert from
-	 * @param pService {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.persistence.model.Service} to convert to
-	 * @return converted {@link com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity.hn.cs.persistence.model.Service}
+	 * @param service {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.core.model.Service} to convert from
+	 * @param pService {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.persistence.model.Service} to convert to
+	 * @return converted {@link com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity.hn.cs.persistence.model.Service}
 	 */
-	public static com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity convertToPersistentService(DeveloperService service, com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService) {		
+	public static com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity convertToPersistentService(DeveloperService service, com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService) {		
 		if (pService == null) {
-			pService = new com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity();
+			pService = new com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity();
 		}
 		if (!ValidationUtil.isEmpty(service.getDescription())) {
 			pService.setDescription(service.getDescription());

@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.VerificationEntity;
 
 public class VerificationDaoImpl extends QueryExecutorImpl implements
 		VerificationDao {

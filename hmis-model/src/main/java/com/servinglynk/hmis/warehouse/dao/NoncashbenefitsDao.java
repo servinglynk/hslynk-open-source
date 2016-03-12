@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public interface NoncashbenefitsDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.live.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits noncashbenefits);
-	   com.servinglynk.hmis.warehouse.model.live.Noncashbenefits updateNoncashbenefits(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits noncashbenefits);
-	   void deleteNoncashbenefits(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits noncashbenefits);
-	   com.servinglynk.hmis.warehouse.model.live.Noncashbenefits getNoncashbenefitsById(UUID noncashbenefitsId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Noncashbenefits> getAllEnrollmentNoncashbenefits(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits noncashbenefits);
+	   com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits updateNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits noncashbenefits);
+	   void deleteNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits noncashbenefits);
+	   com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits getNoncashbenefitsById(UUID noncashbenefitsId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits> getAllEnrollmentNoncashbenefits(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentNoncashbenefitsCount(UUID enrollmentId);
 }

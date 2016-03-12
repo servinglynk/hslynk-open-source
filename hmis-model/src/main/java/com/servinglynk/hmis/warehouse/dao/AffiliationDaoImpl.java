@@ -14,7 +14,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Project;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -32,13 +32,13 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			{
 				for(Affiliation affiliation :affiliations )
 				{
-					com.servinglynk.hmis.warehouse.model.staging.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.staging.Affiliation();
+					com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation();
 					affiliationModel.setId(UUID.randomUUID());
 					affiliationModel.setResprojectid(affiliation.getResProjectID());
 					affiliationModel.setDateCreated(LocalDateTime.now());
 					affiliationModel.setDateUpdated(LocalDateTime.now());
 					Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(affiliation.getProjectID()));
-					com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+					com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 					affiliationModel.setExport(exportEntity);
 					affiliationModel.setProjectid(project);
 					exportEntity.addAffiliation(affiliationModel);
@@ -52,15 +52,15 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 
 		@Override
 		public void hydrateLive(
-				com.servinglynk.hmis.warehouse.model.staging.Export export) {
-			Set<com.servinglynk.hmis.warehouse.model.staging.Affiliation> affiliations = export.getAffiliations();
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			Set<com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation> affiliations = export.getAffiliations();
 			if(affiliations !=null && !affiliations.isEmpty()) {
-				for(com.servinglynk.hmis.warehouse.model.staging.Affiliation affiliation : affiliations ) {
-					 com.servinglynk.hmis.warehouse.model.live.Affiliation target = new com.servinglynk.hmis.warehouse.model.live.Affiliation();
+				for(com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation affiliation : affiliations ) {
+					 com.servinglynk.hmis.warehouse.model.v2014.Affiliation target = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();
 					 BeanUtils.copyProperties(affiliation, target,getNonCollectionFields(target));
-					 com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					 com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					 target.setExport(exportEntity);
-					 com.servinglynk.hmis.warehouse.model.live.Project projectModel = (com.servinglynk.hmis.warehouse.model.live.Project) get(com.servinglynk.hmis.warehouse.model.live.Project.class,affiliation.getProjectid().getId());
+					 com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2014.Project) get(com.servinglynk.hmis.warehouse.model.v2014.Project.class,affiliation.getProjectid().getId());
 					 target.setProjectid(projectModel);
 					 target.setDateCreated(LocalDateTime.now());
 					 target.setDateUpdated(LocalDateTime.now());
@@ -87,29 +87,29 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			return null;
 		}
 		
-		   public com.servinglynk.hmis.warehouse.model.live.Affiliation createAffiliation(com.servinglynk.hmis.warehouse.model.live.Affiliation affiliation){
+		   public com.servinglynk.hmis.warehouse.model.v2014.Affiliation createAffiliation(com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliation){
 		       affiliation.setId(UUID.randomUUID()); 
 		       insert(affiliation);
 		       return affiliation;
 		   }
-		   public com.servinglynk.hmis.warehouse.model.live.Affiliation updateAffiliation(com.servinglynk.hmis.warehouse.model.live.Affiliation affiliation){
+		   public com.servinglynk.hmis.warehouse.model.v2014.Affiliation updateAffiliation(com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliation){
 		       update(affiliation);
 		       return affiliation;
 		   }
-		   public void deleteAffiliation(com.servinglynk.hmis.warehouse.model.live.Affiliation affiliation){
+		   public void deleteAffiliation(com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliation){
 		       delete(affiliation);
 		   }
-		   public com.servinglynk.hmis.warehouse.model.live.Affiliation getAffiliationById(UUID affiliationId){ 
-		       return (com.servinglynk.hmis.warehouse.model.live.Affiliation) get(com.servinglynk.hmis.warehouse.model.live.Affiliation.class, affiliationId);
+		   public com.servinglynk.hmis.warehouse.model.v2014.Affiliation getAffiliationById(UUID affiliationId){ 
+		       return (com.servinglynk.hmis.warehouse.model.v2014.Affiliation) get(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, affiliationId);
 		   }
-		   public List<com.servinglynk.hmis.warehouse.model.live.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems){
-		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Affiliation.class);
+		   public List<com.servinglynk.hmis.warehouse.model.v2014.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems){
+		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class);
 		       criteria.createAlias("projectId", "projectId");
 		       criteria.add(Restrictions.eq("projectId.id", projectId));
-		       return (List<com.servinglynk.hmis.warehouse.model.live.Affiliation>) findByCriteria(criteria,startIndex,maxItems);
+		       return (List<com.servinglynk.hmis.warehouse.model.v2014.Affiliation>) findByCriteria(criteria,startIndex,maxItems);
 		   }
 		   public long getProjectAffiliationsCount(UUID projectId){
-		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Affiliation.class);
+		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class);
 		       criteria.createAlias("projectId", "projectId");
 		       criteria.add(Restrictions.eq("projectId.id", projectId));
 		       return countRows(criteria);

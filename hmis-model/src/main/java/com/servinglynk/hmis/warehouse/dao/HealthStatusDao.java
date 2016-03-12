@@ -13,10 +13,10 @@ import java.util.UUID;
 public interface HealthStatusDao extends ParentDao {
 
 	
-	   com.servinglynk.hmis.warehouse.model.live.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.live.HealthStatus HealthStatus);
-	   com.servinglynk.hmis.warehouse.model.live.HealthStatus updateHealthStatus(com.servinglynk.hmis.warehouse.model.live.HealthStatus HealthStatus);
-	   void deleteHealthStatus(com.servinglynk.hmis.warehouse.model.live.HealthStatus HealthStatus);
-	   com.servinglynk.hmis.warehouse.model.live.HealthStatus getHealthStatusById(UUID HealthStatusId);
-	   List<com.servinglynk.hmis.warehouse.model.live.HealthStatus> getAllEnrollmentHealthStatuses(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus HealthStatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.HealthStatus updateHealthStatus(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus HealthStatus);
+	   void deleteHealthStatus(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus HealthStatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.HealthStatus getHealthStatusById(UUID HealthStatusId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.HealthStatus> getAllEnrollmentHealthStatuses(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentHealthStatusesCount(UUID enrollmentId);
 }

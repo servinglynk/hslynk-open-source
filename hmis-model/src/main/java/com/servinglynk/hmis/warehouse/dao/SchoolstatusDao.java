@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public interface SchoolstatusDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.live.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus);
-	   com.servinglynk.hmis.warehouse.model.live.Schoolstatus updateSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus);
-	   void deleteSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus);
-	   com.servinglynk.hmis.warehouse.model.live.Schoolstatus getSchoolstatusById(UUID schoolstatusId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Schoolstatus> getAllEnrollmentSchoolstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus updateSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus);
+	   void deleteSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus getSchoolstatusById(UUID schoolstatusId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus> getAllEnrollmentSchoolstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentSchoolstatussCount(UUID enrollmentId);
 }

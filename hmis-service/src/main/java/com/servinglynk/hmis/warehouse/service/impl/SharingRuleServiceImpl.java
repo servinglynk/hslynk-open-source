@@ -10,8 +10,8 @@ import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.SharingRule;
 import com.servinglynk.hmis.warehouse.core.model.SharingRules;
-import com.servinglynk.hmis.warehouse.model.live.RoleEntity;
-import com.servinglynk.hmis.warehouse.model.live.SharingRuleEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.RoleEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.SharingRuleEntity;
 import com.servinglynk.hmis.warehouse.service.SharingRuleService;
 import com.servinglynk.hmis.warehouse.service.converter.SharingRuleConverter;
 import com.servinglynk.hmis.warehouse.service.exception.OrganizationNotFound;
@@ -36,19 +36,19 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 			throw new RuntimeException("Atlease one Role required");
 		}
 		
-		com.servinglynk.hmis.warehouse.model.live.Organization fromOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getFromOrganization());
+		com.servinglynk.hmis.warehouse.model.v2014.Organization fromOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getFromOrganization());
 		
 		if(fromOrganization==null) throw new OrganizationNotFound("From Organization not found");
 		
-		com.servinglynk.hmis.warehouse.model.live.Organization toOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getToOrganization());
+		com.servinglynk.hmis.warehouse.model.v2014.Organization toOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getToOrganization());
 		
 		if(toOrganization==null) throw new OrganizationNotFound("To Organization not found");
 		
 		for(Enrollment enrollment : sharingRule.getEnrollments()){
-			com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
+			com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
 			
 			for(Project project : sharingRule.getProjects()){
-				com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+				com.servinglynk.hmis.warehouse.model.v2014.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
 				
 				if(pProject==null) throw new ProfileNotFoundException();
 				

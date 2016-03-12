@@ -7,7 +7,7 @@ import com.servinglynk.hmis.warehouse.core.model.Account;
 public class AccountConverter {
 
 	
-	public static com.servinglynk.hmis.warehouse.core.model.Account convertToAccount(com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount) {
+	public static com.servinglynk.hmis.warehouse.core.model.Account convertToAccount(com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount) {
 		com.servinglynk.hmis.warehouse.core.model.Account account = convertToBasicAccount(pAccount);
 		
 		account.setUsername(pAccount.getUsername());
@@ -18,7 +18,7 @@ public class AccountConverter {
 	}
 	
 
-	public static com.servinglynk.hmis.warehouse.core.model.Account convertToBasicAccount(com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount) {
+	public static com.servinglynk.hmis.warehouse.core.model.Account convertToBasicAccount(com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount) {
 		com.servinglynk.hmis.warehouse.core.model.Account account = new com.servinglynk.hmis.warehouse.core.model.Account();
 		account.setAccountId(pAccount.getId());
 		account.setFirstName(pAccount.getFirstName());
@@ -31,9 +31,9 @@ public class AccountConverter {
 	}
 	
 
-	public static com.servinglynk.hmis.warehouse.model.live.HmisUser convertToPersistentAccount(Account account, com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount) {		
+	public static com.servinglynk.hmis.warehouse.model.v2014.HmisUser convertToPersistentAccount(Account account, com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount) {		
 		if (pAccount == null) {
-			pAccount = new com.servinglynk.hmis.warehouse.model.live.HmisUser();
+			pAccount = new com.servinglynk.hmis.warehouse.model.v2014.HmisUser();
 		}
 		if (ValidationUtil.isNotNull(account.getUsername())) {
 			pAccount.setUsername(account.getUsername());

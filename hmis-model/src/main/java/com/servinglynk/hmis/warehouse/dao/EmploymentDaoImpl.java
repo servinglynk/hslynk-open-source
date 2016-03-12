@@ -19,8 +19,8 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -39,7 +39,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		{
 			for(Employment employment : employmentList)
 			{
-				com.servinglynk.hmis.warehouse.model.staging.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.staging.Employment();
+				com.servinglynk.hmis.warehouse.model.stagv2014.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Employment();
 				employmentModel.setId(UUID.randomUUID());
 
 				employmentModel.setDateCreated(LocalDateTime.now());
@@ -59,7 +59,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					}
 						
 				}
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				employmentModel.setExport(exportEntity);
 				hydrateCommonFields(employmentModel, domain);
 				exportEntity.addEmployment(employmentModel);
@@ -70,14 +70,14 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 
 	@Override
 	public void hydrateLive(Export export) {
-		Set<com.servinglynk.hmis.warehouse.model.staging.Employment> employments = export.getEmployments();
+		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Employment> employments = export.getEmployments();
 		if(employments != null && !employments.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.staging.Employment employment : employments) {
-				com.servinglynk.hmis.warehouse.model.live.Employment target = new com.servinglynk.hmis.warehouse.model.live.Employment();
+			for(com.servinglynk.hmis.warehouse.model.stagv2014.Employment employment : employments) {
+				com.servinglynk.hmis.warehouse.model.v2014.Employment target = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
 				BeanUtils.copyProperties(employment, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, employment.getEnrollmentid().getId());
+				com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, employment.getEnrollmentid().getId());
 				target.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addEmployment(target);
 				target.setDateCreated(LocalDateTime.now());
@@ -104,29 +104,29 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	   public com.servinglynk.hmis.warehouse.model.live.Employment createEmployment(com.servinglynk.hmis.warehouse.model.live.Employment employment){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2014.Employment employment){
 	       employment.setId(UUID.randomUUID()); 
 	       insert(employment);
 	       return employment;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Employment updateEmployment(com.servinglynk.hmis.warehouse.model.live.Employment employment){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Employment updateEmployment(com.servinglynk.hmis.warehouse.model.v2014.Employment employment){
 	       update(employment);
 	       return employment;
 	   }
-	   public void deleteEmployment(com.servinglynk.hmis.warehouse.model.live.Employment employment){
+	   public void deleteEmployment(com.servinglynk.hmis.warehouse.model.v2014.Employment employment){
 	       delete(employment);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Employment getEmploymentById(UUID employmentId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Employment) get(com.servinglynk.hmis.warehouse.model.live.Employment.class, employmentId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Employment getEmploymentById(UUID employmentId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Employment) get(com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employmentId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Employment.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Employment.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Employment>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Employment>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentEmploymentsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Employment.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Employment.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

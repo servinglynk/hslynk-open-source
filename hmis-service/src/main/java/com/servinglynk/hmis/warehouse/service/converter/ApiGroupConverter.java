@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.ApiGroup;
-import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ApiGroupEntity;
 
 public class ApiGroupConverter {
 

@@ -15,9 +15,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Lastgradecompleted;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Lastgradecompleted;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -63,7 +63,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 					}
 						
 				}
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				lastGradeCompletedModel.setExport(exportEntity);
 				exportEntity.addLastgradecompleted(lastGradeCompletedModel);
 				hydrateCommonFields(lastGradeCompletedModel, domain);
@@ -78,11 +78,11 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 		if(lastgradecompleteds != null) {
 			for(Lastgradecompleted lastgradecompleted : lastgradecompleteds) {
 				if(lastgradecompleted != null) {
-					com.servinglynk.hmis.warehouse.model.live.Lastgradecompleted target = new com.servinglynk.hmis.warehouse.model.live.Lastgradecompleted();
+					com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted target = new com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted();
 					BeanUtils.copyProperties(lastgradecompleted, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, lastgradecompleted.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, lastgradecompleted.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addLastgradecompleted(target);
 					target.setDateCreated(LocalDateTime.now());

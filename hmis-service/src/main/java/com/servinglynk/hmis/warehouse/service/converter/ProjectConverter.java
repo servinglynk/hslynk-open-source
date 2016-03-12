@@ -8,8 +8,8 @@ import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 public class ProjectConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Project modelToEntity (Project model ,com.servinglynk.hmis.warehouse.model.live.Project entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Project();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Project modelToEntity (Project model ,com.servinglynk.hmis.warehouse.model.v2014.Project entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Project();
        
        entity.setProjectname(model.getProjectName());
        entity.setContinuumproject(ProjectContinuumprojectEnum.valueOf(model.getContinuumProject()));
@@ -22,7 +22,7 @@ public class ProjectConverter {
    }
 
 
-   public static Project entityToModel (com.servinglynk.hmis.warehouse.model.live.Project entity) {
+   public static Project entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Project entity) {
        Project project= new Project();
        if(entity.getContinuumproject()!=null)
        project.setContinuumProject(entity.getContinuumproject().name());

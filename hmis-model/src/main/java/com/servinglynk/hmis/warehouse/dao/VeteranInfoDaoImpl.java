@@ -26,8 +26,8 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-import com.servinglynk.hmis.warehouse.model.staging.Client;
-import com.servinglynk.hmis.warehouse.model.staging.VeteranInfo;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Client;
+import com.servinglynk.hmis.warehouse.model.stagv2014.VeteranInfo;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -94,9 +94,9 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
 				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.staging.Client client = (com.servinglynk.hmis.warehouse.model.staging.Client) get(com.servinglynk.hmis.warehouse.model.staging.Client.class, clientId);
+				com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
 				vInfo.setClient(client);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				vInfo.setExport(exportEntity);
 				vInfo.setUser(exportEntity.getUser());
 				exportEntity.addVeteranInfo(vInfo);
@@ -108,15 +108,15 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.staging.Export export) {
-		Set<com.servinglynk.hmis.warehouse.model.staging.VeteranInfo> veteranInfos = export.getVeteranInfoes();
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+		Set<com.servinglynk.hmis.warehouse.model.stagv2014.VeteranInfo> veteranInfos = export.getVeteranInfoes();
 		if(veteranInfos !=null && !veteranInfos.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.staging.VeteranInfo veteranInfo : veteranInfos) {
-				com.servinglynk.hmis.warehouse.model.live.VeteranInfo target = new com.servinglynk.hmis.warehouse.model.live.VeteranInfo();
+			for(com.servinglynk.hmis.warehouse.model.stagv2014.VeteranInfo veteranInfo : veteranInfos) {
+				com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo();
 				BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, veteranInfo.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, veteranInfo.getExport().getId());
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.live.Client clientModel = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, veteranInfo.getClient().getId());
+				com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, veteranInfo.getClient().getId());
 				target.setClient(clientModel);
 				target.setDateCreated(LocalDateTime.now());
 				target.setDateUpdated(LocalDateTime.now());
@@ -131,11 +131,11 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		if(veteranInfoes !=null && !veteranInfoes.isEmpty()) {
 			for(VeteranInfo veteranInfo : veteranInfoes) {
 				if(veteranInfo !=null) {
-					com.servinglynk.hmis.warehouse.model.live.VeteranInfo target = new com.servinglynk.hmis.warehouse.model.live.VeteranInfo();
+					com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo();
 					BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, client.getExport().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, client.getExport().getId());
 					target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.live.Client clientModel = (com.servinglynk.hmis.warehouse.model.live.Client) get(com.servinglynk.hmis.warehouse.model.live.Client.class, client.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getId());
 					target.setClient(clientModel);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
@@ -164,31 +164,31 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 	}
 	
 	
-	   public com.servinglynk.hmis.warehouse.model.live.VeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.live.VeteranInfo veteranInfo){
+	   public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo veteranInfo){
 	       veteranInfo.setId(UUID.randomUUID()); 
 	       insert(veteranInfo);
 	       return veteranInfo;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.VeteranInfo updateVeteranInfo(com.servinglynk.hmis.warehouse.model.live.VeteranInfo veteranInfo){
+	   public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo updateVeteranInfo(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo veteranInfo){
 	       update(veteranInfo);
 	       return veteranInfo;
 	   }
-	   public void deleteVeteranInfo(com.servinglynk.hmis.warehouse.model.live.VeteranInfo veteranInfo){
+	   public void deleteVeteranInfo(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo veteranInfo){
 	       delete(veteranInfo);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.VeteranInfo getVeteranInfoById(UUID veteranInfoId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.VeteranInfo) get(com.servinglynk.hmis.warehouse.model.live.VeteranInfo.class, veteranInfoId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo getVeteranInfoById(UUID veteranInfoId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo) get(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class, veteranInfoId);
 	   }
 	   
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.live.VeteranInfo> getAllClientVeteranInfos(UUID clientId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.VeteranInfo.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo> getAllClientVeteranInfos(UUID clientId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class);
 	       criteria.createAlias("client", "client");
 	       criteria.add(Restrictions.eq("client.id", clientId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.VeteranInfo>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getClientVeteranInfosCount(UUID clientId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.VeteranInfo.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class);
 	       criteria.createAlias("client", "client");
 	       criteria.add(Restrictions.eq("client.id", clientId));
 	       return countRows(criteria);

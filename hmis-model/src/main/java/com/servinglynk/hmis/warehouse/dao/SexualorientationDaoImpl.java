@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Sexualorientation;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Sexualorientation;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID()));
 				sexualorientationModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				sexualorientationModel.setExport(exportEntity);
 				exportEntity.addSexualorientation(sexualorientationModel);
 				hydrateCommonFields(sexualorientationModel, domain);
@@ -66,11 +66,11 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		if(sexualorientations !=null && !sexualorientations.isEmpty()) {
 			for(Sexualorientation sexualorientation : sexualorientations) {
 				if(sexualorientation != null) {
-					com.servinglynk.hmis.warehouse.model.live.Sexualorientation target = new com.servinglynk.hmis.warehouse.model.live.Sexualorientation();
+					com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation target = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
 					BeanUtils.copyProperties(sexualorientation,target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, sexualorientation.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, sexualorientation.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addSexualorientation(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -99,29 +99,29 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.live.Sexualorientation sexualorientation){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){
 	       sexualorientation.setId(UUID.randomUUID()); 
 	       insert(sexualorientation);
 	       return sexualorientation;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Sexualorientation updateSexualorientation(com.servinglynk.hmis.warehouse.model.live.Sexualorientation sexualorientation){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation updateSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){
 	       update(sexualorientation);
 	       return sexualorientation;
 	   }
-	   public void deleteSexualorientation(com.servinglynk.hmis.warehouse.model.live.Sexualorientation sexualorientation){
+	   public void deleteSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){
 	       delete(sexualorientation);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Sexualorientation getSexualorientationById(UUID sexualorientationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Sexualorientation) get(com.servinglynk.hmis.warehouse.model.live.Sexualorientation.class, sexualorientationId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation getSexualorientationById(UUID sexualorientationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation) get(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class, sexualorientationId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Sexualorientation> getAllEnrollmentSexualorientations(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Sexualorientation.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation> getAllEnrollmentSexualorientations(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Sexualorientation>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentSexualorientationsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Sexualorientation.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

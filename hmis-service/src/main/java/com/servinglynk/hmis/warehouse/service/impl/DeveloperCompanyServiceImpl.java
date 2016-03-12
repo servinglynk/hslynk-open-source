@@ -37,14 +37,14 @@ import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException
 import com.servinglynk.hmis.warehouse.core.model.exception.IllegalBusinessStateException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
-import com.servinglynk.hmis.warehouse.model.live.ApiGroupEntity;
-import com.servinglynk.hmis.warehouse.model.live.ApiMethodEntity;
-import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyAccountEntity;
-import com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity;
-import com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity;
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
-import com.servinglynk.hmis.warehouse.model.live.ServiceApiMethodEntity;
-import com.servinglynk.hmis.warehouse.model.live.ServiceEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ApiGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyAccountEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ServiceEntity;
 import com.servinglynk.hmis.warehouse.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.converter.ApiGroupConverter;
@@ -83,13 +83,13 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 	@Transactional
 	public DeveloperCompany createDeveloperCompany(DeveloperCompany developerCompany, String requestingService) {
 
-		com.servinglynk.hmis.warehouse.model.live.HmisUser account = daoFactory.getAccountDao()
+		com.servinglynk.hmis.warehouse.model.v2014.HmisUser account = daoFactory.getAccountDao()
 				.findByUsername(developerCompany.getOwner().getUsername());
 
 		if (account == null) throw new AccountNotFoundException();
 		
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = DeveloperCompanyConverter
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany = DeveloperCompanyConverter
 				.convertToPersistentDeveloperCompany(developerCompany, null);
 
 		pDeveloperCompany.setCreatedBy(requestingService);
@@ -99,7 +99,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		daoFactory.getDeveloperCompanyDao().createDeveloperCompany(pDeveloperCompany);
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus pDeveloperCompanyStatus = new com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus();
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyStatus pDeveloperCompanyStatus = new com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyStatus();
 		pDeveloperCompanyStatus.setStatus(Constants.DC_STATUS_SUBMITTED);
 
 		pDeveloperCompanyStatus.setDeveloperCompany(pDeveloperCompany);
@@ -142,7 +142,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 	@Transactional
 	public void updateDeveloperCompany(String externalDeveloperCompanyId, DeveloperCompany developerCompany,
 			Account requestingAccount, String requestingService) {
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = daoFactory
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany = daoFactory
 				.getDeveloperCompanyDao().findByExternalId(externalDeveloperCompanyId);
 
 		if (pDeveloperCompany == null) {
@@ -182,7 +182,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 					"DeveloperCompany " + externalDeveloperCompanyId + " not found");
 		}
 
-		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao()
+		com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount = daoFactory.getAccountDao()
 				.findByUsername(developerAccount.getAccount().getUsername());
 
 		if (pAccount == null) {
@@ -229,7 +229,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 					"DeveloperCompany " + externalDeveloperCompanyId + " not found");
 		}
 
-		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao()
+		com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount = daoFactory.getAccountDao()
 				.findByUsername(username);
 
 		if (pAccount == null) {
@@ -282,7 +282,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 			String requestingService) {
 		logger.debug("getDeveloperCompany called");
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = daoFactory
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany = daoFactory
 				.getDeveloperCompanyDao().findByExternalId(externalDeveloperCompanyId);
 
 		if (pDeveloperCompany == null) {
@@ -366,7 +366,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		logger.debug("updateService called");
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
 				.findByExternalId(externalServiceId);
 		if (pService == null) {
 			throw new ServiceNotFoundException("Service " + externalServiceId + " not found");
@@ -390,7 +390,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		if (!ValidationUtil.isEmpty(service.getFriendlyName())) {
 			if (!pService.getFriendlyName().equalsIgnoreCase(service.getFriendlyName())) {
-				com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity dbService = daoFactory
+				com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity dbService = daoFactory
 						.getDeveloperServiceDao().findByFriendlyName(service.getFriendlyName());
 				if (dbService != null)
 					throw new ServiceAlreadyExistsException("serivce already exists");
@@ -449,7 +449,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 	public ServiceStatus processApprovalSubmission(String externalServiceId, ServiceStatus serviceStatus,
 			Account requestingAccount, String requestingService) {
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
 				.findByExternalId(externalServiceId);
 		if (pService == null) {
 			throw new ServiceNotFoundException("Service " + externalServiceId + " not found");
@@ -463,7 +463,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		}
 
 		// validateCommentLength(serviceStatus.getComment());
-		com.servinglynk.hmis.warehouse.model.live.ServiceStatus pServiceStatus = new com.servinglynk.hmis.warehouse.model.live.ServiceStatus();
+		com.servinglynk.hmis.warehouse.model.v2014.ServiceStatus pServiceStatus = new com.servinglynk.hmis.warehouse.model.v2014.ServiceStatus();
 		pServiceStatus.setStatus(Constants.SERVICE_STATUS_SUBMITTED);
 		serviceStatus.setStatus(Constants.SERVICE_STATUS_SUBMITTED);
 		pServiceStatus.setComments(serviceStatus.getComment());
@@ -510,7 +510,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		  serviceStatus.getStatus().equals(Constants.SERVICE_STATUS_ACTIVE)))
 		  throw new InvalidParameterException("Not a valid status");
 		 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
 				.findByExternalId(externalServiceId);
 		if (pService == null) {
 			throw new ServiceNotFoundException("Service " + externalServiceId + " not found");
@@ -522,7 +522,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		}
 
 
-		com.servinglynk.hmis.warehouse.model.live.ServiceStatus pServiceStatus = new com.servinglynk.hmis.warehouse.model.live.ServiceStatus();
+		com.servinglynk.hmis.warehouse.model.v2014.ServiceStatus pServiceStatus = new com.servinglynk.hmis.warehouse.model.v2014.ServiceStatus();
 		pServiceStatus.setStatus(serviceStatus.getStatus());
 		pServiceStatus.setComments(serviceStatus.getComment());
 		pServiceStatus.setService(pService);
@@ -558,13 +558,13 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 			String requestingService) {
 		logger.debug("createApiBundleForService called");
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
 				.findByExternalId(externalServiceId);
 		if (pService == null) {
 			throw new ServiceNotFoundException("Service " + externalServiceId + " not found");
 		}
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = pService.getDeveloperCompany();
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany = pService.getDeveloperCompany();
 
 		DeveloperCompanyAccountEntity dca = daoFactory.getDeveloperCompanyAccountDao()
 				.findByDeveloperCompanyIdAndAccountUsername(pDeveloperCompany.getId(), requestingAccount.getUsername());
@@ -704,7 +704,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 			Account requestingAccount, String requestingService) {
 		logger.debug("getDeveloperCompanyAccounts called");
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = daoFactory
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany = daoFactory
 				.getDeveloperCompanyDao().findByExternalId(externalDeveloperCompanyId);
 
 		if (pDeveloperCompany == null) {
@@ -746,7 +746,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		logger.debug("getServices called");
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany = daoFactory
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany = daoFactory
 				.getDeveloperCompanyDao().findByExternalId(externalDeveloperCompanyId);
 
 		if (pDeveloperCompany == null) {
@@ -789,11 +789,11 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		List<DeveloperCompany> developerCompanies = new ArrayList<DeveloperCompany>();
 
-		List<com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity> pDeveloperCompanies = daoFactory
+		List<com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity> pDeveloperCompanies = daoFactory
 				.getDeveloperCompanyDao().findAllDeveloperCompanies(serviceStatus, trustedAppStatus, startIndex, maxItems);
 
 		if (pDeveloperCompanies != null) {
-			for (com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyEntity pDeveloperCompany : pDeveloperCompanies) {
+			for (com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyEntity pDeveloperCompany : pDeveloperCompanies) {
 				developerCompanies.add(DeveloperCompanyConverter.convertToDeveloperCompany(pDeveloperCompany));
 			}
 		}
@@ -819,7 +819,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 	public DeveloperService getService(String externalServiceId, Account requestingAccount, String requestingService) {
 		logger.debug("getService called");
 
-		com.servinglynk.hmis.warehouse.model.live.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperServiceEntity pService = daoFactory.getDeveloperServiceDao()
 				.findByExternalId(externalServiceId);
 		if (pService == null) {
 			throw new ServiceNotFoundException("Service " + externalServiceId + " not found");
@@ -853,7 +853,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 			throw new InvalidParameterException("Comments can not be greater than 512 characters.");
 		}
 		
-		com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus pDeveloperCompanyStatus = new com.servinglynk.hmis.warehouse.model.live.DeveloperCompanyStatus();
+		com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyStatus pDeveloperCompanyStatus = new com.servinglynk.hmis.warehouse.model.v2014.DeveloperCompanyStatus();
 		pDeveloperCompanyStatus.setStatus(developerCompanyStatus.getStatus());
 		pDeveloperCompanyStatus.setComments(developerCompanyStatus.getComment());
 		pDeveloperCompanyStatus.setDeveloperCompany(pDeveloperCompany);

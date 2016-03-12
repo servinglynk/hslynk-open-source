@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Bedinventory;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Projectcoc;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Bedinventory;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -44,7 +44,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				
 				UUID id = UUID.randomUUID();
 				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);
-				com.servinglynk.hmis.warehouse.model.staging.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.staging.Inventory();
+				com.servinglynk.hmis.warehouse.model.stagv2014.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Inventory();
 				inventoryModel.setId(id);
 				inventoryModel.setDateCreated(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
 				inventoryModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
@@ -53,7 +53,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				inventoryModel.setBedinventory(bedInventory);
 				Projectcoc projectCocModel = (Projectcoc) get(Projectcoc.class, domain.getProjectCocMap().get(String.valueOf(inventory.getProjectCoCID())));
 				inventoryModel.setProjectCoc(projectCocModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				inventoryModel.setExport(exportEntity);
 				exportEntity.addInventory(inventoryModel);
 				insertOrUpdate(inventoryModel);
@@ -62,17 +62,17 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	}
 	@Override
 	public void hydrateLive(Export export) {
-		Set<com.servinglynk.hmis.warehouse.model.staging.Inventory> inventories = export.getInventories();
+		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Inventory> inventories = export.getInventories();
 		if(inventories != null && !inventories.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.staging.Inventory inventory : inventories) {
+			for(com.servinglynk.hmis.warehouse.model.stagv2014.Inventory inventory : inventories) {
 				if(inventory !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Inventory target = new com.servinglynk.hmis.warehouse.model.live.Inventory();
+					com.servinglynk.hmis.warehouse.model.v2014.Inventory target = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
 					BeanUtils.copyProperties(inventory, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Bedinventory bedInventory = (com.servinglynk.hmis.warehouse.model.live.Bedinventory) get(com.servinglynk.hmis.warehouse.model.live.Bedinventory.class, inventory.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Bedinventory bedInventory = (com.servinglynk.hmis.warehouse.model.v2014.Bedinventory) get(com.servinglynk.hmis.warehouse.model.v2014.Bedinventory.class, inventory.getId());
 					target.setBedinventory(bedInventory);
-					com.servinglynk.hmis.warehouse.model.live.Projectcoc projectCocModel = (com.servinglynk.hmis.warehouse.model.live.Projectcoc) get(com.servinglynk.hmis.warehouse.model.live.Projectcoc.class,inventory.getProjectCoc().getId() );
+					com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectCocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) get(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class,inventory.getProjectCoc().getId() );
 					target.setProjectCoc(projectCocModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, inventory.getExport().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, inventory.getExport().getId());
 					target.setExport(exportEntity);
 					exportEntity.addInventory(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -98,29 +98,29 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Inventory createInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Inventory createInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory){
 	       inventory.setId(UUID.randomUUID()); 
 	       insert(inventory);
 	       return inventory;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory){
 	       update(inventory);
 	       return inventory;
 	   }
-	   public void deleteInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory){
+	   public void deleteInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory){
 	       delete(inventory);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Inventory getInventoryById(UUID inventoryId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Inventory) get(com.servinglynk.hmis.warehouse.model.live.Inventory.class, inventoryId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Inventory getInventoryById(UUID inventoryId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Inventory) get(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, inventoryId);
 	   }																
-	   public List<com.servinglynk.hmis.warehouse.model.live.Inventory> getAllProjectCocInventories(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Inventory.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Inventory> getAllProjectCocInventories(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Inventory>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Inventory>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectCocInventoriesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Inventory.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

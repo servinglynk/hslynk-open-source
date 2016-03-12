@@ -8,8 +8,8 @@ import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
 public class HealthStatusConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.HealthStatus modelToEntity (HealthStatus model ,com.servinglynk.hmis.warehouse.model.live.HealthStatus entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.HealthStatus();
+   public static com.servinglynk.hmis.warehouse.model.v2014.HealthStatus modelToEntity (HealthStatus model ,com.servinglynk.hmis.warehouse.model.v2014.HealthStatus entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.HealthStatus();
        entity.setId(model.getHealthStatusId());
        entity.setInformationDate(model.getInformationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        entity.setHealthCategory(HealthStatusHealthCategoryEnum.valueOf(model.getHealthCategory()));
@@ -19,7 +19,7 @@ public class HealthStatusConverter {
    }
 
 
-   public static HealthStatus entityToModel (com.servinglynk.hmis.warehouse.model.live.HealthStatus entity) {
+   public static HealthStatus entityToModel (com.servinglynk.hmis.warehouse.model.v2014.HealthStatus entity) {
        HealthStatus model = new HealthStatus();
        model.setHealthStatusId(entity.getId());
        model.setInformationDate(Date.from(entity.getInformationDate().atZone(ZoneId.systemDefault()).toInstant()));

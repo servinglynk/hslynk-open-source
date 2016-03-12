@@ -35,7 +35,7 @@ public class DedupHelper {
 	final static Logger logger = Logger.getLogger(DedupHelper.class);
 	private static final String OPENEMPI_HOST = "openempi.host";
 	
-	public String getDedupedClient(com.servinglynk.hmis.warehouse.model.staging.Client client) {
+	public String getDedupedClient(com.servinglynk.hmis.warehouse.model.stagv2014.Client client) {
 		try {
 		 	RestTemplate restTemplate = new RestTemplate();
 		 	
@@ -174,7 +174,7 @@ public class DedupHelper {
 	
     public static void main(String args[]) {
     	DedupHelper impl = new DedupHelper();
-    	com.servinglynk.hmis.warehouse.model.staging.Client client = new com.servinglynk.hmis.warehouse.model.staging.Client();
+    	com.servinglynk.hmis.warehouse.model.stagv2014.Client client = new com.servinglynk.hmis.warehouse.model.stagv2014.Client();
     	client.setFirstName("John");
     	client.setLastName("Anderson");
     	client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));

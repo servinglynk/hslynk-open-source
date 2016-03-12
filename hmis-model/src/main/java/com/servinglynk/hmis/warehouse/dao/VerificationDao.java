@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import com.servinglynk.hmis.warehouse.model.live.VerificationEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.VerificationEntity;
 
 public interface VerificationDao {
 

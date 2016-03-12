@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public interface PathstatusDao extends ParentDao {
 	 	
-	   com.servinglynk.hmis.warehouse.model.live.Pathstatus createPathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus);
-	   com.servinglynk.hmis.warehouse.model.live.Pathstatus updatePathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus);
-	   void deletePathstatus(com.servinglynk.hmis.warehouse.model.live.Pathstatus pathstatus);
-	   com.servinglynk.hmis.warehouse.model.live.Pathstatus getPathstatusById(UUID pathstatusId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Pathstatus> getAllEnrollmentPathstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Pathstatus createPathstatus(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus pathstatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.Pathstatus updatePathstatus(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus pathstatus);
+	   void deletePathstatus(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus pathstatus);
+	   com.servinglynk.hmis.warehouse.model.v2014.Pathstatus getPathstatusById(UUID pathstatusId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Pathstatus> getAllEnrollmentPathstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentPathstatussCount(UUID enrollmentId);
 }

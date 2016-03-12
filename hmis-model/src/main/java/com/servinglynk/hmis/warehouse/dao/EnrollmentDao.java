@@ -3,12 +3,12 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.live.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 
 public interface EnrollmentDao extends ParentDao {
 
 	
-	com.servinglynk.hmis.warehouse.model.live.Enrollment getEnrollmentById(UUID enrollmentId);
+	com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentById(UUID enrollmentId);
 	
 	
 	

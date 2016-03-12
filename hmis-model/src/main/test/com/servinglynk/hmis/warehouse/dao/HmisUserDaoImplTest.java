@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.HmisUserDaoImpl;
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)

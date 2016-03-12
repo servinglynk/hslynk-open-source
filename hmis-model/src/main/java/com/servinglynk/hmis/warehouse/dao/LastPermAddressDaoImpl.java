@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastPermanent
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.LastPermAddress;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.LastPermAddress;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -56,7 +56,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(lastPermanentAddress.getProjectEntryID()));
 				lastPermAddressModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				lastPermAddressModel.setExport(exportEntity);
 				exportEntity.addLastPermAddress(lastPermAddressModel);
 				hydrateCommonFields(lastPermAddressModel, domain);
@@ -72,11 +72,11 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		if(lastPermAddresses != null) {
 			for(LastPermAddress lastPermAddress : lastPermAddresses) {
 				if(lastPermAddress != null) {
-					com.servinglynk.hmis.warehouse.model.live.LastPermAddress target = new com.servinglynk.hmis.warehouse.model.live.LastPermAddress();
+					com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress target = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
 					BeanUtils.copyProperties(lastPermAddress,target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, lastPermAddress.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, lastPermAddress.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
@@ -104,29 +104,29 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public com.servinglynk.hmis.warehouse.model.live.LastPermAddress createLastPermanentAddress(com.servinglynk.hmis.warehouse.model.live.LastPermAddress lastPermanentAddress){
+	public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress createLastPermanentAddress(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermanentAddress){
 			       lastPermanentAddress.setId(UUID.randomUUID()); 
 			       insert(lastPermanentAddress);
 			       return lastPermanentAddress;
 			   }
-			   public com.servinglynk.hmis.warehouse.model.live.LastPermAddress updateLastPermanentAddress(com.servinglynk.hmis.warehouse.model.live.LastPermAddress lastPermanentAddress){
+			   public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress updateLastPermanentAddress(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermanentAddress){
 			       update(lastPermanentAddress);
 			       return lastPermanentAddress;
 			   }
-			   public void deleteLastPermanentAddress(com.servinglynk.hmis.warehouse.model.live.LastPermAddress lastPermanentAddress){
+			   public void deleteLastPermanentAddress(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermanentAddress){
 			       delete(lastPermanentAddress);
 			   }
-			   public com.servinglynk.hmis.warehouse.model.live.LastPermAddress getLastPermanentAddressById(UUID lastPermanentAddressId){ 
-			       return (com.servinglynk.hmis.warehouse.model.live.LastPermAddress) get(com.servinglynk.hmis.warehouse.model.live.LastPermAddress.class, lastPermanentAddressId);
+			   public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress getLastPermanentAddressById(UUID lastPermanentAddressId){ 
+			       return (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) get(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermanentAddressId);
 			   }
-			   public List<com.servinglynk.hmis.warehouse.model.live.LastPermAddress> getAllEnrollmentLastPermanentAddresss(UUID enrollmentId,Integer startIndex, Integer maxItems){
-			       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.LastPermAddress.class);
+			   public List<com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress> getAllEnrollmentLastPermanentAddresss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+			       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class);
 			       criteria.createAlias("enrollmentid", "enrollmentid");
 			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-			       return (List<com.servinglynk.hmis.warehouse.model.live.LastPermAddress>) findByCriteria(criteria,startIndex,maxItems);
+			       return (List<com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress>) findByCriteria(criteria,startIndex,maxItems);
 			   }
 			   public long getEnrollmentLastPermanentAddresssCount(UUID enrollmentId){
-			       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.LastPermAddress.class);
+			       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class);
 			       criteria.createAlias("enrollmentid", "enrollmentid");
 			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 			       return countRows(criteria);

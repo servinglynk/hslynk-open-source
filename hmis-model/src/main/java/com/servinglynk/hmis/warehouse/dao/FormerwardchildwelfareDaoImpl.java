@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardChi
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FormerwardchildwelfareChildwelfareyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardchildwelfareFormerwardchildwelfareEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Formerwardchildwelfare;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Formerwardchildwelfare;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 				formerwardchildwelfareModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
 				formerwardchildwelfareModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardChildWelfare.getProjectEntryID()));
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				formerwardchildwelfareModel.setExport(exportEntity);
 				formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addFormerwardchildwelfare(formerwardchildwelfareModel);
@@ -66,11 +66,11 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		if(formerwardchildwelfares != null && !formerwardchildwelfares.isEmpty()) {
 			for(Formerwardchildwelfare formerwardchildwelfare : formerwardchildwelfares) {
 				if(formerwardchildwelfare !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare target = new com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare();
+					com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare target = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
 					BeanUtils.copyProperties(formerwardchildwelfare, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, formerwardchildwelfare.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, formerwardchildwelfare.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addFormerwardchildwelfare(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -100,29 +100,29 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare createFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare formerWardChildWelfare){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare createFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerWardChildWelfare){
 	       formerWardChildWelfare.setId(UUID.randomUUID()); 
 	       insert(formerWardChildWelfare);
 	       return formerWardChildWelfare;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare updateFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare formerWardChildWelfare){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare updateFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerWardChildWelfare){
 	       update(formerWardChildWelfare);
 	       return formerWardChildWelfare;
 	   }
-	   public void deleteFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare formerWardChildWelfare){
+	   public void deleteFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerWardChildWelfare){
 	       delete(formerWardChildWelfare);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare getFormerWardChildWelfareById(UUID formerWardChildWelfareId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare) get(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare.class, formerWardChildWelfareId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare getFormerWardChildWelfareById(UUID formerWardChildWelfareId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare) get(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class, formerWardChildWelfareId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare> getAllEnrollmentFormerWardChildWelfares(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare> getAllEnrollmentFormerWardChildWelfares(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentFormerWardChildWelfaresCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

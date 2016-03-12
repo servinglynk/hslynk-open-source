@@ -2,8 +2,8 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
 
-import com.servinglynk.hmis.warehouse.model.live.Client;
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
 
 
 public interface HmisUserDao extends ParentDao {

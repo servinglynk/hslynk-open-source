@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
 
 
 public interface ParentDao extends QueryExecutor{

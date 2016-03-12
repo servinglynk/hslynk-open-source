@@ -16,9 +16,9 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -41,7 +41,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				dateOfEngagementModel.setDateUpdated(LocalDateTime.now());
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
 				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				dateOfEngagementModel.setExport(exportEntity);
 				exportEntity.addDateofengagement(dateOfEngagementModel);
 				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
@@ -57,11 +57,11 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		Set<Dateofengagement> dateofengagements = export.getDateofengagements();
 		if(dateofengagements != null && !dateofengagements.isEmpty()) {
 			for(Dateofengagement dateofengagement : dateofengagements) {
-				com.servinglynk.hmis.warehouse.model.live.Dateofengagement target = new com.servinglynk.hmis.warehouse.model.live.Dateofengagement();
+				com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement target = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
 				BeanUtils.copyProperties(dateofengagement, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, dateofengagement.getEnrollmentid().getId());
+				com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, dateofengagement.getEnrollmentid().getId());
 				target.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 				target.setExport(exportEntity);
 				exportEntity.addDateofengagement(target);
 				target.setDateCreated(LocalDateTime.now());
@@ -89,29 +89,29 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.live.Dateofengagement dateofengagement){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagement){
 	       dateofengagement.setId(UUID.randomUUID()); 
 	       insert(dateofengagement);
 	       return dateofengagement;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Dateofengagement updateDateofengagement(com.servinglynk.hmis.warehouse.model.live.Dateofengagement dateofengagement){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement updateDateofengagement(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagement){
 	       update(dateofengagement);
 	       return dateofengagement;
 	   }
-	   public void deleteDateofengagement(com.servinglynk.hmis.warehouse.model.live.Dateofengagement dateofengagement){
+	   public void deleteDateofengagement(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagement){
 	       delete(dateofengagement);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Dateofengagement getDateofengagementById(UUID dateofengagementId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Dateofengagement) get(com.servinglynk.hmis.warehouse.model.live.Dateofengagement.class, dateofengagementId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getDateofengagementById(UUID dateofengagementId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) get(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, dateofengagementId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Dateofengagement> getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Dateofengagement.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement> getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Dateofengagement>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentDateofengagementsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Dateofengagement.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

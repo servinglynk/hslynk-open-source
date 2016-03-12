@@ -19,9 +19,9 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
 
    @Transactional
    public ExitPlansActions createExitPlansActions(ExitPlansActions exitPlansActions,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Exitplansactions pExitPlansActions = ExitPlansActionsConverter.modelToEntity(exitPlansActions, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions pExitPlansActions = ExitPlansActionsConverter.modelToEntity(exitPlansActions, null);
       
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 
        if(pExit == null) throw new ExitNotFoundException();
        
@@ -37,10 +37,10 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
    @Transactional
    public ExitPlansActions updateExitPlansActions(ExitPlansActions exitPlansActions,UUID exitId,String caller){
        
-       com.servinglynk.hmis.warehouse.model.live.Exitplansactions pExitPlansActions = daoFactory.getExitplansactionsDao().getExitPlansActionsById(exitPlansActions.getExitPlansActionsId());
+       com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions pExitPlansActions = daoFactory.getExitplansactionsDao().getExitPlansActionsById(exitPlansActions.getExitPlansActionsId());
        if(pExitPlansActions==null) throw new ExitPlansActionsNotFoundException();
 
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 
        if(pExit == null) throw new ExitNotFoundException();
        
@@ -57,7 +57,7 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
 
    @Transactional
    public ExitPlansActions deleteExitPlansActions(UUID exitPlansActionsId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Exitplansactions pExitPlansActions = daoFactory.getExitplansactionsDao().getExitPlansActionsById(exitPlansActionsId);
+       com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions pExitPlansActions = daoFactory.getExitplansactionsDao().getExitPlansActionsById(exitPlansActionsId);
        if(pExitPlansActions==null) throw new ExitPlansActionsNotFoundException();
 
        daoFactory.getExitplansactionsDao().deleteExitPlansActions(pExitPlansActions);
@@ -67,7 +67,7 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
 
    @Transactional
    public ExitPlansActions getExitPlansActionsById(UUID exitPlansActionsId){
-       com.servinglynk.hmis.warehouse.model.live.Exitplansactions pExitPlansActions = daoFactory.getExitplansactionsDao().getExitPlansActionsById(exitPlansActionsId);
+       com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions pExitPlansActions = daoFactory.getExitplansactionsDao().getExitPlansActionsById(exitPlansActionsId);
        if(pExitPlansActions==null) throw new ExitPlansActionsNotFoundException();
 
        return ExitPlansActionsConverter.entityToModel( pExitPlansActions );
@@ -77,8 +77,8 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
    @Transactional
    public ExitPlansActionsList getAllExitExitPlansActionss(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	   ExitPlansActionsList exitPlansActionss = new ExitPlansActionsList();
-        List<com.servinglynk.hmis.warehouse.model.live.Exitplansactions> entities = daoFactory.getExitplansactionsDao().getAllExitExitPlansActionss(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Exitplansactions entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions> entities = daoFactory.getExitplansactionsDao().getAllExitExitPlansActionss(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions entity : entities){
            exitPlansActionss.addExitPlansActions(ExitPlansActionsConverter.entityToModel(entity));
         }
         long count = daoFactory.getExitplansactionsDao().getExitExitPlansActionssCount(enrollmentId);

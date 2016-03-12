@@ -12,8 +12,8 @@ import com.servinglynk.hmis.warehouse.enums.ExitplansactionsTemporaryshelterplac
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsWrittenaftercareplanEnum;
 public class ExitPlansActionsConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Exitplansactions modelToEntity (ExitPlansActions model ,com.servinglynk.hmis.warehouse.model.live.Exitplansactions entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Exitplansactions();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions modelToEntity (ExitPlansActions model ,com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();
        entity.setAssistancemainstreambenefits(ExitplansactionsAssistancemainstreambenefitsEnum.valueOf(model.getAssistancemainstreambenefits()));
        entity.setExitcounseling(ExitplansactionsExitcounselingEnum.valueOf(model.getExitcounseling()));
        entity.setFurtherfollowupservices(ExitplansactionsFurtherfollowupservicesEnum.valueOf(model.getFurtherfollowupservices()));
@@ -27,7 +27,7 @@ public class ExitPlansActionsConverter {
    }
 
 
-   public static ExitPlansActions entityToModel (com.servinglynk.hmis.warehouse.model.live.Exitplansactions entity) {
+   public static ExitPlansActions entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions entity) {
        ExitPlansActions model = new ExitPlansActions();
        model.setExitPlansActionsId(entity.getId());
        model.setAssistancemainstreambenefits(entity.getAssistancemainstreambenefits().name());

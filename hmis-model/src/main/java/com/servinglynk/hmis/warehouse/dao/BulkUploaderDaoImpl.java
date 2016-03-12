@@ -17,52 +17,52 @@ import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
-import com.servinglynk.hmis.warehouse.model.live.Affiliation;
-import com.servinglynk.hmis.warehouse.model.live.Bedinventory;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.live.Client;
-import com.servinglynk.hmis.warehouse.model.live.Commercialsexualexploitation;
-import com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar;
-import com.servinglynk.hmis.warehouse.model.live.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.live.Disabilities;
-import com.servinglynk.hmis.warehouse.model.live.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.live.Employment;
-import com.servinglynk.hmis.warehouse.model.live.Enrollment;
-import com.servinglynk.hmis.warehouse.model.live.EnrollmentCoc;
-import com.servinglynk.hmis.warehouse.model.live.Exit;
-import com.servinglynk.hmis.warehouse.model.live.Exithousingassessment;
-import com.servinglynk.hmis.warehouse.model.live.Exitplansactions;
-import com.servinglynk.hmis.warehouse.model.live.Familyreunification;
-import com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare;
-import com.servinglynk.hmis.warehouse.model.live.Formerwardjuvenilejustice;
-import com.servinglynk.hmis.warehouse.model.live.Funder;
-import com.servinglynk.hmis.warehouse.model.live.HealthStatus;
-import com.servinglynk.hmis.warehouse.model.live.Healthinsurance;
-import com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition;
-import com.servinglynk.hmis.warehouse.model.live.Incomeandsources;
-import com.servinglynk.hmis.warehouse.model.live.Inventory;
-import com.servinglynk.hmis.warehouse.model.live.LastPermAddress;
-import com.servinglynk.hmis.warehouse.model.live.Lastgradecompleted;
-import com.servinglynk.hmis.warehouse.model.live.Medicalassistance;
-import com.servinglynk.hmis.warehouse.model.live.Noncashbenefits;
-import com.servinglynk.hmis.warehouse.model.live.Organization;
-import com.servinglynk.hmis.warehouse.model.live.Pathstatus;
-import com.servinglynk.hmis.warehouse.model.live.Percentami;
-import com.servinglynk.hmis.warehouse.model.live.Project;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.live.Projectcoc;
-import com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus;
-import com.servinglynk.hmis.warehouse.model.live.Referralsource;
-import com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate;
-import com.servinglynk.hmis.warehouse.model.live.Rhybcpstatus;
-import com.servinglynk.hmis.warehouse.model.live.Schoolstatus;
-import com.servinglynk.hmis.warehouse.model.live.Services;
-import com.servinglynk.hmis.warehouse.model.live.Sexualorientation;
-import com.servinglynk.hmis.warehouse.model.live.Site;
-import com.servinglynk.hmis.warehouse.model.live.VeteranInfo;
-import com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation;
-import com.servinglynk.hmis.warehouse.model.live.Youthcriticalissues;
-import com.servinglynk.hmis.warehouse.model.staging.HmisUser;
+import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
+import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
+import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
+import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2014.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2014.Employment;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2014.Exit;
+import com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions;
+import com.servinglynk.hmis.warehouse.model.v2014.Familyreunification;
+import com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare;
+import com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice;
+import com.servinglynk.hmis.warehouse.model.v2014.Funder;
+import com.servinglynk.hmis.warehouse.model.v2014.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2014.Inventory;
+import com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress;
+import com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted;
+import com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
+import com.servinglynk.hmis.warehouse.model.v2014.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Percentami;
+import com.servinglynk.hmis.warehouse.model.v2014.Project;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
+import com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Referralsource;
+import com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate;
+import com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Services;
+import com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation;
+import com.servinglynk.hmis.warehouse.model.v2014.Site;
+import com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo;
+import com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation;
+import com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
@@ -95,7 +95,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getSourceDao().hydrateStaging(domain);
 			if(export != null)
 			{
-				com.servinglynk.hmis.warehouse.model.staging.Export exportModel  = new com.servinglynk.hmis.warehouse.model.staging.Export();
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportModel  = new com.servinglynk.hmis.warehouse.model.stagv2014.Export();
 				exportModel.setExportDate(BasicDataGenerator.getLocalDateTime(export.getExportDate()));
 				exportModel.setExportdirective(export.getExportDirective());
 				exportModel.setExportperiodtype(export.getExportPeriodType());
@@ -104,7 +104,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				exportModel.setDateUpdated(LocalDateTime.now());
 //				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
 			//	exportModel.setUser(user);
-				com.servinglynk.hmis.warehouse.model.staging.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.staging.Source) get(com.servinglynk.hmis.warehouse.model.staging.Source.class, domain.getSourceId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Source) get(com.servinglynk.hmis.warehouse.model.stagv2014.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
 				exportModel.setProjectGroupCode(upload.getProjectGroupCode());
 				//export.getExportPeriod()
@@ -143,16 +143,16 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain);
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
-			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
 			parentDaoFactory.getSourceDao().hydrateLive(exportEntity);
 			if(exportEntity!=null) {
-				com.servinglynk.hmis.warehouse.model.live.Export target = new com.servinglynk.hmis.warehouse.model.live.Export();
+				com.servinglynk.hmis.warehouse.model.v2014.Export target = new com.servinglynk.hmis.warehouse.model.v2014.Export();
 				BeanUtils.copyProperties(exportEntity, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.live.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.live.Source) get(com.servinglynk.hmis.warehouse.model.live.Source.class, domain.getSourceId());
+				com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) get(com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSourceId());
 				target.setSource(sourceEntity);
 				insert(target);	
 			}
-			com.servinglynk.hmis.warehouse.model.live.Export exportLive = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, exportId);
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
 			upload.setExport(exportLive);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
@@ -183,7 +183,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void moveFromStagingToLive(BulkUpload bulkUpload) {
 		try {
 		UUID exportId = bulkUpload.getExport().getId();
-		com.servinglynk.hmis.warehouse.model.staging.Export export = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, exportId);
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export export = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
 		parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
@@ -233,13 +233,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
-		com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class,exportId);
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class,exportId);
 		deleteFromDB(exportEntity);
 	}
 
 	@Override
 	public void deleteLiveByExportId(UUID exportId) {
-		com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,exportId);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class,exportId);
 		hardDelete(exportEntity);
 	}
 

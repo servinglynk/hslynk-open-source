@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.PasswordResetEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.PasswordResetEntity;
 
 public class PasswordResetDaoImpl extends QueryExecutorImpl implements
 		PasswordResetDao {

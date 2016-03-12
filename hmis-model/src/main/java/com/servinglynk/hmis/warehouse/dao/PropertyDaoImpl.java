@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.PropertyEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.PropertyEntity;
 
 public class PropertyDaoImpl extends QueryExecutorImpl implements PropertyDao {
 

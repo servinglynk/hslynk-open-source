@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 @RestController
 @RequestMapping("/bulkupload")

@@ -13,8 +13,8 @@ import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 
 public class ClientConverter {
 
-	public static com.servinglynk.hmis.warehouse.model.live.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.live.Client pClient){
-		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.live.Client(); 
+	public static com.servinglynk.hmis.warehouse.model.v2014.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.v2014.Client pClient){
+		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.v2014.Client(); 
 
 
 		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
@@ -34,7 +34,7 @@ public class ClientConverter {
 		return pClient;
 	}
 	
-	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.live.Client pClient){
+	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.v2014.Client pClient){
 		Client client = new Client();
 
 		client.setDob(Date.from(pClient.getDob().atZone(ZoneId.systemDefault()).toInstant()));

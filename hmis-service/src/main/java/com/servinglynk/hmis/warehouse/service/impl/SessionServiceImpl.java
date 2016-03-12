@@ -21,10 +21,10 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterExcep
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
-import com.servinglynk.hmis.warehouse.model.live.AccountLockoutEntity;
-import com.servinglynk.hmis.warehouse.model.live.HmisUser;
-import com.servinglynk.hmis.warehouse.model.live.SessionEntity;
-import com.servinglynk.hmis.warehouse.model.live.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.AccountLockoutEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.SessionEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.TrustedAppEntity;
 import com.servinglynk.hmis.warehouse.service.SessionService;
 import com.servinglynk.hmis.warehouse.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.service.core.security.GoogleAuthenticator;
@@ -44,7 +44,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	@Transactional
 	public Session getSession(String userName){
 		
-	 	com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(userName);
+	 	com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(userName);
 		if(pAccount== null) throw new InvalidSessionTokenException( userName +" is not a valid account username ");
 		Account account = AccountConverter.convertToAccount(pAccount);
 		Session session = new Session();
@@ -93,7 +93,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	@Transactional
 	public void createSession(Session session, String trustedAppId, String auditUser) {
 		SessionEntity sessionEntity = new SessionEntity();
-		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
+		com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
 			if(pAccount== null) throw new InvalidSessionTokenException( session.getAccount().getUsername() +" is not a valid account username ");
 		
 			TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedAppId);
@@ -183,7 +183,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			password = HMISCryptographer.Encrypt(password);
 		}
 		
-		com.servinglynk.hmis.warehouse.model.live.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
+		com.servinglynk.hmis.warehouse.model.v2014.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
 		if (pAccount == null ) {
 			throw new AccountNotFoundException();
 		}

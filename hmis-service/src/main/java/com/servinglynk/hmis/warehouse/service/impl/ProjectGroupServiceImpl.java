@@ -10,8 +10,8 @@ import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.ProjectGroupService;
 import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.service.converter.ProjectGroupConverter;
@@ -35,7 +35,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		for(Project project : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
 			entity.setProjectGroupEntity(projectGroupEntity);
-			com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+			com.servinglynk.hmis.warehouse.model.v2014.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
 			if(pProject == null) throw new ProjectNotFoundException();
 			entity.setProject(pProject);
 			entity.setInsertAt(LocalDateTime.now());
@@ -53,8 +53,8 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 	   public ProjectGroups getAllProjectGroups(Integer startIndex, Integer maxItems){
 	       ProjectGroups projects = new ProjectGroups();
 	       ProjectGroup projectGroup = new ProjectGroup();
-	        List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity> entities = daoFactory.getProjectGroupDao().getAllProjectGroups(startIndex,maxItems);
-	        for(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity entity : entities){
+	        List<com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity> entities = daoFactory.getProjectGroupDao().getAllProjectGroups(startIndex,maxItems);
+	        for(com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity entity : entities){
 	        	projectGroup = ProjectGroupConverter.entityToModel(entity);
 	        	
 	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
@@ -91,7 +91,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		for(Project project : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
 			entity.setProjectGroupEntity(projectGroupEntity);
-			com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+			com.servinglynk.hmis.warehouse.model.v2014.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
 			if(pProject == null) throw new ProjectNotFoundException();
 			entity.setProject(pProject);
 			entity.setInsertAt(LocalDateTime.now());

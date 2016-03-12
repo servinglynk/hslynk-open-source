@@ -19,9 +19,9 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
    @Transactional
    public Connectionwithsoar createConnectionwithsoar(Connectionwithsoar connectionwithsoar,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar pConnectionwithsoar = ConnectionwithsoarConverter.modelToEntity(connectionwithsoar, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar pConnectionwithsoar = ConnectionwithsoarConverter.modelToEntity(connectionwithsoar, null);
        
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 
        if(pExit == null) throw new ExitNotFoundException();
        
@@ -37,12 +37,12 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
    @Transactional
    public Connectionwithsoar updateConnectionwithsoar(Connectionwithsoar connectionwithsoar,UUID exitId,String caller){
      
-	   com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+	   com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 
        if(pExit == null) throw new ExitNotFoundException();
        
 	   
-       com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar pConnectionwithsoar = daoFactory.getConnectionwithsoarDao().getConnectionwithsoarById(connectionwithsoar.getConnectionwithsoarId());
+       com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar pConnectionwithsoar = daoFactory.getConnectionwithsoarDao().getConnectionwithsoarById(connectionwithsoar.getConnectionwithsoarId());
        if(pConnectionwithsoar==null) throw new ConnectionwithsoarNotFoundException();
 
        ConnectionwithsoarConverter.modelToEntity(connectionwithsoar, pConnectionwithsoar);
@@ -58,7 +58,7 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
    @Transactional
    public Connectionwithsoar deleteConnectionwithsoar(UUID connectionwithsoarId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar pConnectionwithsoar = daoFactory.getConnectionwithsoarDao().getConnectionwithsoarById(connectionwithsoarId);
+       com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar pConnectionwithsoar = daoFactory.getConnectionwithsoarDao().getConnectionwithsoarById(connectionwithsoarId);
        if(pConnectionwithsoar==null) throw new ConnectionwithsoarNotFoundException();
 
        daoFactory.getConnectionwithsoarDao().deleteConnectionwithsoar(pConnectionwithsoar);
@@ -68,7 +68,7 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
    @Transactional
    public Connectionwithsoar getConnectionwithsoarById(UUID connectionwithsoarId){
-       com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar pConnectionwithsoar = daoFactory.getConnectionwithsoarDao().getConnectionwithsoarById(connectionwithsoarId);
+       com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar pConnectionwithsoar = daoFactory.getConnectionwithsoarDao().getConnectionwithsoarById(connectionwithsoarId);
        if(pConnectionwithsoar==null) throw new ConnectionwithsoarNotFoundException();
 
        return ConnectionwithsoarConverter.entityToModel( pConnectionwithsoar );
@@ -78,8 +78,8 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
    @Transactional
    public Connectionwithsoars getAllExitConnectionwithsoars(UUID exitId,Integer startIndex, Integer maxItems){
        Connectionwithsoars connectionwithsoars = new Connectionwithsoars();
-        List<com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar> entities = daoFactory.getConnectionwithsoarDao().getAllExitConnectionwithsoars(exitId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Connectionwithsoar entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar> entities = daoFactory.getConnectionwithsoarDao().getAllExitConnectionwithsoars(exitId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar entity : entities){
            connectionwithsoars.addConnectionwithsoar(ConnectionwithsoarConverter.entityToModel(entity));
         }
         long count = daoFactory.getConnectionwithsoarDao().getExitConnectionwithsoarsCount(exitId);

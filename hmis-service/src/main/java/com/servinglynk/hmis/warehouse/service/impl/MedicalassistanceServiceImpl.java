@@ -19,8 +19,8 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
 
    @Transactional
    public Medicalassistance createMedicalassistance(Medicalassistance medicalassistance,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Medicalassistance pMedicalassistance = MedicalassistanceConverter.modelToEntity(medicalassistance, null);
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance pMedicalassistance = MedicalassistanceConverter.modelToEntity(medicalassistance, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pMedicalassistance.setEnrollmentid(pEnrollment); 
        pMedicalassistance.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
 
    @Transactional
    public Medicalassistance updateMedicalassistance(Medicalassistance medicalassistance,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Medicalassistance pMedicalassistance = daoFactory.getMedicalassistanceDao().getMedicalassistanceById(medicalassistance.getMedicalassistanceId());
+       com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance pMedicalassistance = daoFactory.getMedicalassistanceDao().getMedicalassistanceById(medicalassistance.getMedicalassistanceId());
        if(pMedicalassistance==null) throw new MedicalassistanceNotFoundException();
 
        MedicalassistanceConverter.modelToEntity(medicalassistance, pMedicalassistance);
@@ -50,7 +50,7 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
 
    @Transactional
    public Medicalassistance deleteMedicalassistance(UUID medicalassistanceId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Medicalassistance pMedicalassistance = daoFactory.getMedicalassistanceDao().getMedicalassistanceById(medicalassistanceId);
+       com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance pMedicalassistance = daoFactory.getMedicalassistanceDao().getMedicalassistanceById(medicalassistanceId);
        if(pMedicalassistance==null) throw new MedicalassistanceNotFoundException();
 
        daoFactory.getMedicalassistanceDao().deleteMedicalassistance(pMedicalassistance);
@@ -60,7 +60,7 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
 
    @Transactional
    public Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){
-       com.servinglynk.hmis.warehouse.model.live.Medicalassistance pMedicalassistance = daoFactory.getMedicalassistanceDao().getMedicalassistanceById(medicalassistanceId);
+       com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance pMedicalassistance = daoFactory.getMedicalassistanceDao().getMedicalassistanceById(medicalassistanceId);
        if(pMedicalassistance==null) throw new MedicalassistanceNotFoundException();
 
        return MedicalassistanceConverter.entityToModel( pMedicalassistance );
@@ -70,8 +70,8 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
    @Transactional
    public Medicalassistances getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Medicalassistances medicalassistances = new Medicalassistances();
-        List<com.servinglynk.hmis.warehouse.model.live.Medicalassistance> entities = daoFactory.getMedicalassistanceDao().getAllEnrollmentMedicalassistances(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Medicalassistance entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance> entities = daoFactory.getMedicalassistanceDao().getAllEnrollmentMedicalassistances(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance entity : entities){
            medicalassistances.addMedicalassistance(MedicalassistanceConverter.entityToModel(entity));
         }
         long count = daoFactory.getMedicalassistanceDao().getEnrollmentMedicalassistancesCount(enrollmentId);

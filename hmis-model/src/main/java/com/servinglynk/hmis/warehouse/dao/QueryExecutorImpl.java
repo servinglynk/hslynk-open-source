@@ -33,8 +33,8 @@ import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.servinglynk.hmis.warehouse.model.live.BaseModel;
-import com.servinglynk.hmis.warehouse.model.live.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2014.BaseModel;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 
 @Component
 public class QueryExecutorImpl  implements QueryExecutor{

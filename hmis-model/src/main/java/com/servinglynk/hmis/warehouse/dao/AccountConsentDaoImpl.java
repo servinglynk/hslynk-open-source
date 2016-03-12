@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.model.live.AccountConsentEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.AccountConsentEntity;
 
 public class AccountConsentDaoImpl extends QueryExecutorImpl implements AccountConsentDao {
 

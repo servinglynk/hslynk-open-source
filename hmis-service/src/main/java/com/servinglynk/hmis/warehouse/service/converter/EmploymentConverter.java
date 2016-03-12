@@ -9,8 +9,8 @@ import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
 public class EmploymentConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Employment modelToEntity (Employment model ,com.servinglynk.hmis.warehouse.model.live.Employment entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Employment();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Employment modelToEntity (Employment model ,com.servinglynk.hmis.warehouse.model.v2014.Employment entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
        entity.setEmployed(EmploymentEmployedEnum.valueOf(model.getEmployed()));
        entity.setEmploymentType(EmploymentEmploymentTypeEnum.valueOf(model.getEmploymentType()));
        entity.setNotEmployedReason(EmploymentNotEmployedReasonEnum.valueOf(model.getNotEmployedReason()));
@@ -19,7 +19,7 @@ public class EmploymentConverter {
    }
 
 
-   public static Employment entityToModel (com.servinglynk.hmis.warehouse.model.live.Employment entity) {
+   public static Employment entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Employment entity) {
        Employment employment= new Employment();
        
        employment.setEmployed(entity.getEmployed().name());

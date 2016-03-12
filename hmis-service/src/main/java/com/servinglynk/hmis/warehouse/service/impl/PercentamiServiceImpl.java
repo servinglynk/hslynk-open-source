@@ -19,8 +19,8 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
 
    @Transactional
    public Percentami createPercentami(Percentami percentami,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Percentami pPercentami = PercentamiConverter.modelToEntity(percentami, null);
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Percentami pPercentami = PercentamiConverter.modelToEntity(percentami, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pPercentami.setEnrollmentid(pEnrollment); 
        pPercentami.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
 
    @Transactional
    public Percentami updatePercentami(Percentami percentami,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Percentami pPercentami = daoFactory.getPercentamiDao().getPercentamiById(percentami.getPercentamiId());
+       com.servinglynk.hmis.warehouse.model.v2014.Percentami pPercentami = daoFactory.getPercentamiDao().getPercentamiById(percentami.getPercentamiId());
        if(pPercentami==null) throw new PercentamiNotFoundException();
 
        PercentamiConverter.modelToEntity(percentami, pPercentami);
@@ -50,7 +50,7 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
 
    @Transactional
    public Percentami deletePercentami(UUID percentamiId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Percentami pPercentami = daoFactory.getPercentamiDao().getPercentamiById(percentamiId);
+       com.servinglynk.hmis.warehouse.model.v2014.Percentami pPercentami = daoFactory.getPercentamiDao().getPercentamiById(percentamiId);
        if(pPercentami==null) throw new PercentamiNotFoundException();
 
        daoFactory.getPercentamiDao().deletePercentami(pPercentami);
@@ -60,7 +60,7 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
 
    @Transactional
    public Percentami getPercentamiById(UUID percentamiId){
-       com.servinglynk.hmis.warehouse.model.live.Percentami pPercentami = daoFactory.getPercentamiDao().getPercentamiById(percentamiId);
+       com.servinglynk.hmis.warehouse.model.v2014.Percentami pPercentami = daoFactory.getPercentamiDao().getPercentamiById(percentamiId);
        if(pPercentami==null) throw new PercentamiNotFoundException();
 
        return PercentamiConverter.entityToModel( pPercentami );
@@ -70,8 +70,8 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
    @Transactional
    public Percentamis getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Percentamis percentamis = new Percentamis();
-        List<com.servinglynk.hmis.warehouse.model.live.Percentami> entities = daoFactory.getPercentamiDao().getAllEnrollmentPercentamis(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Percentami entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Percentami> entities = daoFactory.getPercentamiDao().getAllEnrollmentPercentamis(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Percentami entity : entities){
            percentamis.addPercentami(PercentamiConverter.entityToModel(entity));
         }
         long count = daoFactory.getPercentamiDao().getEnrollmentPercentamisCount(enrollmentId);

@@ -20,8 +20,8 @@ public class EnrollmentConveter {
 
 	
 	
-	public static com.servinglynk.hmis.warehouse.model.live.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment){
-		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.live.Enrollment();
+	public static com.servinglynk.hmis.warehouse.model.v2014.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment){
+		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
 
 		pEnrollment.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.valueOf(enrollment.getContinuouslyhomelessoneyear()));
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.valueOf(enrollment.getDisablingcondition()));
@@ -46,7 +46,7 @@ public class EnrollmentConveter {
 	}
 	
 	
-	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment){
+	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		
 		

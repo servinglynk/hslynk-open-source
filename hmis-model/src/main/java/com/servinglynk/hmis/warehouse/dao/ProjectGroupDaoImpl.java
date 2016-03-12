@@ -10,9 +10,9 @@ import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.live.ProjectProjectGroupMapEntity;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectProjectGroupMapEntity;
 
 public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDao {
 
@@ -73,13 +73,13 @@ public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDa
 	
 
 	   public long getProjectGroupCount(){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity.class);
 	       return countRows(criteria);
 	   }
 	   
-	   public List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity> getAllProjectGroups(Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity.class);
-	       return (List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity>) findByCriteria(criteria,startIndex,maxItems);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity> getAllProjectGroups(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 
 	@Override

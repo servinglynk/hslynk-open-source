@@ -27,8 +27,8 @@ import com.servinglynk.hmis.warehouse.enums.ExitplansactionsResourcepackageEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsScheduledfollowupcontactsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsTemporaryshelterplacementEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsWrittenaftercareplanEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Exit;
-import com.servinglynk.hmis.warehouse.model.staging.Exitplansactions;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exitplansactions;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -66,7 +66,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				exitplansactionsModel.setWrittenaftercareplan(ExitplansactionsWrittenaftercareplanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getWrittenAftercarePlan())));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitPlansActions.getExitID()));
 				exitplansactionsModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				exitplansactionsModel.setExport(exportEntity);
 				exportEntity.addExitplansactions(exitplansactionsModel);
 				hydrateCommonFields(exitplansactionsModel, domain);
@@ -77,16 +77,16 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.staging.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
 		Set<Exitplansactions> exitplansactionss = export.getExitplansactionss();
 		if(exitplansactionss !=null && !exitplansactionss.isEmpty()) {
 			for(Exitplansactions exitplansactions : exitplansactionss) {
 				if(exitplansactions != null) {
-					com.servinglynk.hmis.warehouse.model.live.Exitplansactions target = new com.servinglynk.hmis.warehouse.model.live.Exitplansactions();
+					com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions target = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();
 					BeanUtils.copyProperties(exitplansactions, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, exitplansactions.getExitid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, exitplansactions.getExitid().getId());
 					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addExitplansactions(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -115,31 +115,31 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions){
 	       exitPlansActions.setId(UUID.randomUUID()); 
 	       insert(exitPlansActions);
 	       return exitPlansActions;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Exitplansactions updateExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions updateExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions){
 	       update(exitPlansActions);
 	       return exitPlansActions;
 	   }
-	   public void deleteExitPlansActions(com.servinglynk.hmis.warehouse.model.live.Exitplansactions exitPlansActions){
+	   public void deleteExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions){
 	       delete(exitPlansActions);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Exitplansactions getExitPlansActionsById(UUID exitPlansActionsId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Exitplansactions) get(com.servinglynk.hmis.warehouse.model.live.Exitplansactions.class, exitPlansActionsId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions getExitPlansActionsById(UUID exitPlansActionsId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions) get(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, exitPlansActionsId);
 	   }
 	   
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.live.Exitplansactions> getAllExitExitPlansActionss(UUID exitId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Exitplansactions.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions> getAllExitExitPlansActionss(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", exitId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Exitplansactions>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitExitPlansActionssCount(UUID exitId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Exitplansactions.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);

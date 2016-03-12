@@ -14,7 +14,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
 
 /**
  * @author Sandeep
@@ -28,7 +28,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
-		com.servinglynk.hmis.warehouse.model.staging.Source sourceModel = new com.servinglynk.hmis.warehouse.model.staging.Source();
+		com.servinglynk.hmis.warehouse.model.stagv2014.Source sourceModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Source();
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
 		sourceModel.setSourcecontactemail(source.getSourceContactEmail());
@@ -46,9 +46,9 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateLive(Export export) {
 		// TODO Auto-generated method stub
-		com.servinglynk.hmis.warehouse.model.staging.Source source = export.getSource();
+		com.servinglynk.hmis.warehouse.model.stagv2014.Source source = export.getSource();
 		if(source !=null) {
-			com.servinglynk.hmis.warehouse.model.live.Source target = new com.servinglynk.hmis.warehouse.model.live.Source();
+			com.servinglynk.hmis.warehouse.model.v2014.Source target = new com.servinglynk.hmis.warehouse.model.v2014.Source();
 			BeanUtils.copyProperties(source, target, getNonCollectionFields(target));
 			target.setDateCreated(LocalDateTime.now());
 			target.setDateUpdated(LocalDateTime.now());

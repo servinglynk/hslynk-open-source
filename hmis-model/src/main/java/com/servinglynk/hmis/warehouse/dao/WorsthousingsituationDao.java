@@ -13,10 +13,10 @@ import java.util.UUID;
 public interface WorsthousingsituationDao extends ParentDao {
 
 	
-	   com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation createWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation);
-	   com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation updateWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation);
-	   void deleteWorsthousingsituation(com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation worsthousingsituation);
-	   com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation getWorsthousingsituationById(UUID worsthousingsituationId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Worsthousingsituation> getAllEnrollmentWorsthousingsituations(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation createWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation);
+	   com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation updateWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation);
+	   void deleteWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation);
+	   com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation getWorsthousingsituationById(UUID worsthousingsituationId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation> getAllEnrollmentWorsthousingsituations(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentWorsthousingsituationsCount(UUID enrollmentId);
 }

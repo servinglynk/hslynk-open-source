@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Exit;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -49,7 +49,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(housingAssessmentDisposition.getExitID()));
 				housingassessmentdispositionModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				housingassessmentdispositionModel.setExport(exportEntity);
 				exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
 				hydrateCommonFields(housingassessmentdispositionModel, domain);
@@ -64,11 +64,11 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		if(housingassessmentdispositions !=null && !housingassessmentdispositions.isEmpty()) {
 			for(Housingassessmentdisposition housingassessmentdisposition : housingassessmentdispositions) {
 				if(housingassessmentdisposition !=null) {
-					com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition target = new com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition();
+					com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition target = new com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition();
 					BeanUtils.copyProperties(housingassessmentdisposition, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Exit exitModel = (com.servinglynk.hmis.warehouse.model.live.Exit) get(com.servinglynk.hmis.warehouse.model.live.Exit.class, housingassessmentdisposition.getExitid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, housingassessmentdisposition.getExitid().getId());
 					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addHousingassessmentdisposition(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -98,31 +98,31 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition createHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition housingAssessmentDisposition){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition createHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition housingAssessmentDisposition){
 	       housingAssessmentDisposition.setId(UUID.randomUUID()); 
 	       insert(housingAssessmentDisposition);
 	       return housingAssessmentDisposition;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition updateHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition housingAssessmentDisposition){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition updateHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition housingAssessmentDisposition){
 	       update(housingAssessmentDisposition);
 	       return housingAssessmentDisposition;
 	   }
-	   public void deleteHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition housingAssessmentDisposition){
+	   public void deleteHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition housingAssessmentDisposition){
 	       delete(housingAssessmentDisposition);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition) get(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition.class, housingAssessmentDispositionId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition) get(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, housingAssessmentDispositionId);
 	   }
 	   
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition> getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition> getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitHousingAssessmentDispositionsCount(UUID exitId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Housingassessmentdisposition.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
 	       return countRows(criteria);

@@ -9,8 +9,8 @@ import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
 public class ServicesConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Services modelToEntity (Services model ,com.servinglynk.hmis.warehouse.model.live.Services entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Services();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Services modelToEntity (Services model ,com.servinglynk.hmis.warehouse.model.v2014.Services entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Services();
        entity.setId(model.getServicesId());
        entity.setDateprovided(model.getDateprovided().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        entity.setFaamount(new BigDecimal(model.getFaamount()));
@@ -22,7 +22,7 @@ public class ServicesConverter {
    }
 
 
-   public static Services entityToModel (com.servinglynk.hmis.warehouse.model.live.Services entity) {
+   public static Services entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Services entity) {
        Services model = new Services();
        model.setServicesId(entity.getId());
        model.setDateprovided(Date.from(entity.getDateprovided().atZone(ZoneId.systemDefault()).toInstant()));

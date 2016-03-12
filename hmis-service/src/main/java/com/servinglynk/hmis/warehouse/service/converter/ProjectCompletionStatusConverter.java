@@ -5,8 +5,8 @@ import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusEarlyexitreas
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 public class ProjectCompletionStatusConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus modelToEntity (ProjectCompletionStatus model ,com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus modelToEntity (ProjectCompletionStatus model ,com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
        entity.setId(model.getProjectCompletionStatusId());
        entity.setEarlyexitreason(ProjectcompletionstatusEarlyexitreasonEnum.valueOf(model.getEarlyExitReason()));
        entity.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.valueOf(model.getProjectCompletionStatus()));
@@ -14,7 +14,7 @@ public class ProjectCompletionStatusConverter {
    }
 
 
-   public static ProjectCompletionStatus entityToModel (com.servinglynk.hmis.warehouse.model.live.Projectcompletionstatus entity) {
+   public static ProjectCompletionStatus entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus entity) {
        ProjectCompletionStatus model = new ProjectCompletionStatus();
        model.setProjectCompletionStatusId(entity.getId());
        model.setEarlyExitReason(entity.getEarlyexitreason().name());

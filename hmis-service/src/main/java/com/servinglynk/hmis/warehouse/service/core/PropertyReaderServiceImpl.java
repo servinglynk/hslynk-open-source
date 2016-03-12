@@ -12,7 +12,7 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.PropertyDao;
-import com.servinglynk.hmis.warehouse.model.live.PropertyEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.PropertyEntity;
 
 public class PropertyReaderServiceImpl {
 

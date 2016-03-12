@@ -19,8 +19,8 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
 
    @Transactional
    public Schoolstatus createSchoolstatus(Schoolstatus schoolstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Schoolstatus pSchoolstatus = SchoolstatusConverter.modelToEntity(schoolstatus, null);
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus pSchoolstatus = SchoolstatusConverter.modelToEntity(schoolstatus, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pSchoolstatus.setEnrollmentid(pEnrollment); 
        pSchoolstatus.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
 
    @Transactional
    public Schoolstatus updateSchoolstatus(Schoolstatus schoolstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Schoolstatus pSchoolstatus = daoFactory.getSchoolstatusDao().getSchoolstatusById(schoolstatus.getSchoolstatusId());
+       com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus pSchoolstatus = daoFactory.getSchoolstatusDao().getSchoolstatusById(schoolstatus.getSchoolstatusId());
        if(pSchoolstatus==null) throw new SchoolstatusNotFoundException();
 
        SchoolstatusConverter.modelToEntity(schoolstatus, pSchoolstatus);
@@ -50,7 +50,7 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
 
    @Transactional
    public Schoolstatus deleteSchoolstatus(UUID schoolstatusId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Schoolstatus pSchoolstatus = daoFactory.getSchoolstatusDao().getSchoolstatusById(schoolstatusId);
+       com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus pSchoolstatus = daoFactory.getSchoolstatusDao().getSchoolstatusById(schoolstatusId);
        if(pSchoolstatus==null) throw new SchoolstatusNotFoundException();
 
        daoFactory.getSchoolstatusDao().deleteSchoolstatus(pSchoolstatus);
@@ -60,7 +60,7 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
 
    @Transactional
    public Schoolstatus getSchoolstatusById(UUID schoolstatusId){
-       com.servinglynk.hmis.warehouse.model.live.Schoolstatus pSchoolstatus = daoFactory.getSchoolstatusDao().getSchoolstatusById(schoolstatusId);
+       com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus pSchoolstatus = daoFactory.getSchoolstatusDao().getSchoolstatusById(schoolstatusId);
        if(pSchoolstatus==null) throw new SchoolstatusNotFoundException();
 
        return SchoolstatusConverter.entityToModel( pSchoolstatus );
@@ -70,8 +70,8 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
    @Transactional
    public Schoolstatuses getAllEnrollmentSchoolstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Schoolstatuses schoolstatuss = new Schoolstatuses();
-        List<com.servinglynk.hmis.warehouse.model.live.Schoolstatus> entities = daoFactory.getSchoolstatusDao().getAllEnrollmentSchoolstatuss(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Schoolstatus entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus> entities = daoFactory.getSchoolstatusDao().getAllEnrollmentSchoolstatuss(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus entity : entities){
            schoolstatuss.addSchoolstatus(SchoolstatusConverter.entityToModel(entity));
         }
         long count = daoFactory.getSchoolstatusDao().getEnrollmentSchoolstatussCount(enrollmentId);

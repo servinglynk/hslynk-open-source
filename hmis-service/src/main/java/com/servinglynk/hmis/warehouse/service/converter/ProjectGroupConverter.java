@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
-import com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
 
 public class ProjectGroupConverter {
 

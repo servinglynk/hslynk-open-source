@@ -13,10 +13,10 @@ import java.util.UUID;
 public interface InventoryDao extends ParentDao {
 
 	
-	   com.servinglynk.hmis.warehouse.model.live.Inventory createInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory);
-	   com.servinglynk.hmis.warehouse.model.live.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory);
-	   void deleteInventory(com.servinglynk.hmis.warehouse.model.live.Inventory inventory);
-	   com.servinglynk.hmis.warehouse.model.live.Inventory getInventoryById(UUID inventoryId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Inventory> getAllProjectCocInventories(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Inventory createInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory);
+	   com.servinglynk.hmis.warehouse.model.v2014.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory);
+	   void deleteInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory);
+	   com.servinglynk.hmis.warehouse.model.v2014.Inventory getInventoryById(UUID inventoryId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Inventory> getAllProjectCocInventories(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getProjectCocInventoriesCount(UUID enrollmentId);
 }

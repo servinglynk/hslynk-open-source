@@ -5,8 +5,8 @@ import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnu
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
 public class LastPermanentAddressConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.LastPermAddress modelToEntity (LastPermanentAddress model ,com.servinglynk.hmis.warehouse.model.live.LastPermAddress entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.LastPermAddress();
+   public static com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress modelToEntity (LastPermanentAddress model ,com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
        entity.setId(model.getLastPermanentAddressId());
        entity.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.valueOf(String.valueOf(model.getAddressdataquality())));
        entity.setCity(model.getLastpermanentcity());
@@ -17,7 +17,7 @@ public class LastPermanentAddressConverter {
    }
 
 
-   public static LastPermanentAddress entityToModel (com.servinglynk.hmis.warehouse.model.live.LastPermAddress entity) {
+   public static LastPermanentAddress entityToModel (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress entity) {
        LastPermanentAddress model = new LastPermanentAddress();
        model.setLastPermanentAddressId(entity.getId());
        String addressDataQuality = entity.getAddressDataQuality().getValue();

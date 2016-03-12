@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.live.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
 
 @Transactional
 public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUploaderWorkerDao {
@@ -71,7 +71,7 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 	}
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.staging.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
 		// TODO Auto-generated method stub
 		
 	}

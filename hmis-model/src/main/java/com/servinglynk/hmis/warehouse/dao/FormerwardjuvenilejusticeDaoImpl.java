@@ -16,10 +16,10 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardJuv
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeFormerwardjuvenilejusticeEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeJuvenilejusticeyearsEnum;
-import com.servinglynk.hmis.warehouse.model.live.Formerwardchildwelfare;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Formerwardjuvenilejustice;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Formerwardjuvenilejustice;
+import com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				formerWardJuvenileJusticeModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardJuvenileJustice.getProjectEntryID()));
 				formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				formerWardJuvenileJusticeModel.setExport(exportEntity);
 				exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
 				hydrateCommonFields(formerWardJuvenileJusticeModel, domain);
@@ -66,11 +66,11 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		if(formerwardjuvenilejustices != null && !formerwardjuvenilejustices.isEmpty()) {
 			for(Formerwardjuvenilejustice formerwardjuvenilejustice : formerwardjuvenilejustices) {
 				if(formerwardjuvenilejustice != null) {
-					com.servinglynk.hmis.warehouse.model.live.Formerwardjuvenilejustice target = new com.servinglynk.hmis.warehouse.model.live.Formerwardjuvenilejustice();
+					com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice target = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();
 					BeanUtils.copyProperties(formerwardjuvenilejustice, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, formerwardjuvenilejustice.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, formerwardjuvenilejustice.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addFormerwardjuvenilejustice(target);
 					target.setDateCreated(LocalDateTime.now());

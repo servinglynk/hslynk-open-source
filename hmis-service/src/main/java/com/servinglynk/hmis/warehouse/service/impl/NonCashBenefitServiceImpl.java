@@ -19,8 +19,8 @@ public class NonCashBenefitServiceImpl extends ServiceBase implements NonCashBen
 
    @Transactional
    public NonCashBenefit createNonCashBenefit(NonCashBenefit nonCashBenefit,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Noncashbenefits pNonCashBenefit = NonCashBenefitConverter.modelToEntity(nonCashBenefit, null);
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits pNonCashBenefit = NonCashBenefitConverter.modelToEntity(nonCashBenefit, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pNonCashBenefit.setEnrollmentid(pEnrollment); 
        pNonCashBenefit.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class NonCashBenefitServiceImpl extends ServiceBase implements NonCashBen
 
    @Transactional
    public NonCashBenefit updateNonCashBenefit(NonCashBenefit nonCashBenefit,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId); 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
-       com.servinglynk.hmis.warehouse.model.live.Noncashbenefits pNonCashBenefit = daoFactory.getNoncashbenefitsDao().getNoncashbenefitsById(nonCashBenefit.getNonCashBenefitId());
+       com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits pNonCashBenefit = daoFactory.getNoncashbenefitsDao().getNoncashbenefitsById(nonCashBenefit.getNonCashBenefitId());
        if(pNonCashBenefit==null) throw new NonCashBenefitNotFoundException();
 
        NonCashBenefitConverter.modelToEntity(nonCashBenefit, pNonCashBenefit);
@@ -50,7 +50,7 @@ public class NonCashBenefitServiceImpl extends ServiceBase implements NonCashBen
 
    @Transactional
    public NonCashBenefit deleteNonCashBenefit(UUID nonCashBenefitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Noncashbenefits pNonCashBenefit = daoFactory.getNoncashbenefitsDao().getNoncashbenefitsById(nonCashBenefitId);
+       com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits pNonCashBenefit = daoFactory.getNoncashbenefitsDao().getNoncashbenefitsById(nonCashBenefitId);
        if(pNonCashBenefit==null) throw new NonCashBenefitNotFoundException();
 
        daoFactory.getNoncashbenefitsDao().deleteNoncashbenefits(pNonCashBenefit);
@@ -60,7 +60,7 @@ public class NonCashBenefitServiceImpl extends ServiceBase implements NonCashBen
 
    @Transactional
    public NonCashBenefit getNonCashBenefitById(UUID nonCashBenefitId){
-       com.servinglynk.hmis.warehouse.model.live.Noncashbenefits pNonCashBenefit = daoFactory.getNoncashbenefitsDao().getNoncashbenefitsById(nonCashBenefitId);
+       com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits pNonCashBenefit = daoFactory.getNoncashbenefitsDao().getNoncashbenefitsById(nonCashBenefitId);
        if(pNonCashBenefit==null) throw new NonCashBenefitNotFoundException();
 
        return NonCashBenefitConverter.entityToModel( pNonCashBenefit );
@@ -70,8 +70,8 @@ public class NonCashBenefitServiceImpl extends ServiceBase implements NonCashBen
    @Transactional
    public NonCashBenefits getAllEnrollmentNonCashBenefits(UUID enrollmentId,Integer startIndex, Integer maxItems){
        NonCashBenefits nonCashBenefits = new NonCashBenefits();
-        List<com.servinglynk.hmis.warehouse.model.live.Noncashbenefits> entities = daoFactory.getNoncashbenefitsDao().getAllEnrollmentNoncashbenefits(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Noncashbenefits entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits> entities = daoFactory.getNoncashbenefitsDao().getAllEnrollmentNoncashbenefits(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits entity : entities){
            nonCashBenefits.addNonCashBenefit(NonCashBenefitConverter.entityToModel(entity));
         }
         long count = daoFactory.getNoncashbenefitsDao().getEnrollmentNoncashbenefitsCount(enrollmentId);

@@ -14,10 +14,10 @@ public interface DisabilitiesDao extends ParentDao {
 
 	
 	
-	   com.servinglynk.hmis.warehouse.model.live.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.live.Disabilities disabilities);
-	   com.servinglynk.hmis.warehouse.model.live.Disabilities updateDisabilities(com.servinglynk.hmis.warehouse.model.live.Disabilities disabilities);
-	   void deleteDisabilities(com.servinglynk.hmis.warehouse.model.live.Disabilities disabilities);
-	   com.servinglynk.hmis.warehouse.model.live.Disabilities getDisabilitiesById(UUID disabilitiesId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Disabilities> getAllEnrollmentDisabilitiess(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities);
+	   com.servinglynk.hmis.warehouse.model.v2014.Disabilities updateDisabilities(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities);
+	   void deleteDisabilities(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities);
+	   com.servinglynk.hmis.warehouse.model.v2014.Disabilities getDisabilitiesById(UUID disabilitiesId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Disabilities> getAllEnrollmentDisabilitiess(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentDisabilitiessCount(UUID enrollmentId);
 }

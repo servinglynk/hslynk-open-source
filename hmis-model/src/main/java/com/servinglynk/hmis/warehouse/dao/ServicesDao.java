@@ -13,10 +13,10 @@ import java.util.UUID;
 public interface ServicesDao extends ParentDao {
 
 	
-	   com.servinglynk.hmis.warehouse.model.live.Services createServices(com.servinglynk.hmis.warehouse.model.live.Services services);
-	   com.servinglynk.hmis.warehouse.model.live.Services updateServices(com.servinglynk.hmis.warehouse.model.live.Services services);
-	   void deleteServices(com.servinglynk.hmis.warehouse.model.live.Services services);
-	   com.servinglynk.hmis.warehouse.model.live.Services getServicesById(UUID servicesId);
-	   List<com.servinglynk.hmis.warehouse.model.live.Services> getAllEnrollmentServicess(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2014.Services createServices(com.servinglynk.hmis.warehouse.model.v2014.Services services);
+	   com.servinglynk.hmis.warehouse.model.v2014.Services updateServices(com.servinglynk.hmis.warehouse.model.v2014.Services services);
+	   void deleteServices(com.servinglynk.hmis.warehouse.model.v2014.Services services);
+	   com.servinglynk.hmis.warehouse.model.v2014.Services getServicesById(UUID servicesId);
+	   List<com.servinglynk.hmis.warehouse.model.v2014.Services> getAllEnrollmentServicess(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentServicessCount(UUID enrollmentId);
 }

@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.PermissionSet;
-import com.servinglynk.hmis.warehouse.model.live.PermissionSetEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.PermissionSetEntity;
 
 public class PermissionSetConverter {
 	

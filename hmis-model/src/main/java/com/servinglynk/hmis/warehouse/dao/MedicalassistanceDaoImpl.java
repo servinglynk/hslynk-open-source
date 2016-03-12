@@ -20,9 +20,9 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Medicalassistance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -56,7 +56,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(medicalAssistance.getProjectEntryID()));
 				medicalassistanceModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				medicalassistanceModel.setExport(exportEntity);
 				exportEntity.addMedicalassistance(medicalassistanceModel);
 				hydrateCommonFields(medicalassistanceModel, domain);
@@ -71,11 +71,11 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		if(medicalassistances != null && !medicalassistances.isEmpty()) {
 			for(Medicalassistance medicalassistance : medicalassistances) {
 				if(medicalassistance != null) {
-					com.servinglynk.hmis.warehouse.model.live.Medicalassistance target = new com.servinglynk.hmis.warehouse.model.live.Medicalassistance();
+					com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance target = new com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance();
 					BeanUtils.copyProperties(medicalassistance, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, medicalassistance.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, medicalassistance.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addMedicalassistance(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -104,29 +104,29 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 	
-	   public com.servinglynk.hmis.warehouse.model.live.Medicalassistance createMedicalassistance(com.servinglynk.hmis.warehouse.model.live.Medicalassistance medicalassistance){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance createMedicalassistance(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance medicalassistance){
 	       medicalassistance.setId(UUID.randomUUID()); 
 	       insert(medicalassistance);
 	       return medicalassistance;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Medicalassistance updateMedicalassistance(com.servinglynk.hmis.warehouse.model.live.Medicalassistance medicalassistance){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance updateMedicalassistance(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance medicalassistance){
 	       update(medicalassistance);
 	       return medicalassistance;
 	   }
-	   public void deleteMedicalassistance(com.servinglynk.hmis.warehouse.model.live.Medicalassistance medicalassistance){
+	   public void deleteMedicalassistance(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance medicalassistance){
 	       delete(medicalassistance);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Medicalassistance) get(com.servinglynk.hmis.warehouse.model.live.Medicalassistance.class, medicalassistanceId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance) get(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class, medicalassistanceId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Medicalassistance> getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Medicalassistance.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance> getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Medicalassistance>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentMedicalassistancesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Medicalassistance.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

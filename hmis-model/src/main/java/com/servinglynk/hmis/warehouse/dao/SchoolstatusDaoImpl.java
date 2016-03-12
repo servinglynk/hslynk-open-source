@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Schoolstatus;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Schoolstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -60,7 +60,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 				}
 					
 			}
-			com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			schoolstatusModel.setExport(exportEntity);
 			exportEntity.addSchoolstatus(schoolstatusModel);
 			hydrateCommonFields(schoolstatusModel, domain);
@@ -76,11 +76,11 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		if(schoolstatuses !=null && !schoolstatuses.isEmpty()) {
 			for(Schoolstatus schoolstatus : schoolstatuses) {
 				if(schoolstatus != null) {
-					com.servinglynk.hmis.warehouse.model.live.Schoolstatus target = new com.servinglynk.hmis.warehouse.model.live.Schoolstatus();
+					com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus target = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();
 					BeanUtils.copyProperties(schoolstatus, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, schoolstatus.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, schoolstatus.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addSchoolstatus(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -109,29 +109,29 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){
 	       schoolstatus.setId(UUID.randomUUID()); 
 	       insert(schoolstatus);
 	       return schoolstatus;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Schoolstatus updateSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus updateSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){
 	       update(schoolstatus);
 	       return schoolstatus;
 	   }
-	   public void deleteSchoolstatus(com.servinglynk.hmis.warehouse.model.live.Schoolstatus schoolstatus){
+	   public void deleteSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){
 	       delete(schoolstatus);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Schoolstatus getSchoolstatusById(UUID schoolstatusId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Schoolstatus) get(com.servinglynk.hmis.warehouse.model.live.Schoolstatus.class, schoolstatusId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus getSchoolstatusById(UUID schoolstatusId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) get(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatusId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Schoolstatus> getAllEnrollmentSchoolstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Schoolstatus.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus> getAllEnrollmentSchoolstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Schoolstatus>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentSchoolstatussCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Schoolstatus.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

@@ -16,9 +16,9 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PercentAMI;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Percentami;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Percentami;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -49,7 +49,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(percentAMI.getProjectEntryID()));
 				percentamoModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				percentamoModel.setExport(exportEntity);
 				exportEntity.addPercentami(percentamoModel);
 				hydrateCommonFields(percentamoModel, domain);
@@ -65,11 +65,11 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		if(percentamis !=null && !percentamis.isEmpty()) {
 			for(Percentami percentami : percentamis) {
 				if(percentami != null) {
-					com.servinglynk.hmis.warehouse.model.live.Percentami  target = new com.servinglynk.hmis.warehouse.model.live.Percentami();
+					com.servinglynk.hmis.warehouse.model.v2014.Percentami  target = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();
 					BeanUtils.copyProperties(percentami, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, percentami.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, percentami.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addPercentami(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -99,29 +99,29 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		return null;
 	}
 
-	 public com.servinglynk.hmis.warehouse.model.live.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami){
+	 public com.servinglynk.hmis.warehouse.model.v2014.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami){
 	       percentami.setId(UUID.randomUUID()); 
 	       insert(percentami);
 	       return percentami;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Percentami updatePercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Percentami updatePercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami){
 	       update(percentami);
 	       return percentami;
 	   }
-	   public void deletePercentami(com.servinglynk.hmis.warehouse.model.live.Percentami percentami){
+	   public void deletePercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami){
 	       delete(percentami);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Percentami getPercentamiById(UUID percentamiId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Percentami) get(com.servinglynk.hmis.warehouse.model.live.Percentami.class, percentamiId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Percentami getPercentamiById(UUID percentamiId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Percentami) get(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentamiId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Percentami> getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Percentami.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Percentami> getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Percentami>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Percentami>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentPercentamisCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Percentami.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

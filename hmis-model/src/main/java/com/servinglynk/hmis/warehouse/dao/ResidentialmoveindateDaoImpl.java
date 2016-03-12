@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
-import com.servinglynk.hmis.warehouse.model.staging.Enrollment;
-import com.servinglynk.hmis.warehouse.model.staging.Export;
-import com.servinglynk.hmis.warehouse.model.staging.Residentialmoveindate;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.stagv2014.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(residentialMoveInDate.getProjectEntryID()));
 				residentialmoveindateModel.setEnrollmentid(enrollment);
-				com.servinglynk.hmis.warehouse.model.staging.Export exportEntity = (com.servinglynk.hmis.warehouse.model.staging.Export) get(com.servinglynk.hmis.warehouse.model.staging.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				residentialmoveindateModel.setExport(exportEntity);
 				exportEntity.addResidentialmoveindate(residentialmoveindateModel);
 				hydrateCommonFields(residentialmoveindateModel, domain);
@@ -65,11 +65,11 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		if(residentialmoveindates != null && !residentialmoveindates.isEmpty()) {
 			for(Residentialmoveindate residentialmoveindate : residentialmoveindates) {
 				if(residentialmoveindate != null) {
-					com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate target = new com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate();
+					com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate target = new com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate();
 					BeanUtils.copyProperties(residentialmoveindate, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.live.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.live.Enrollment) get(com.servinglynk.hmis.warehouse.model.live.Enrollment.class, residentialmoveindate.getEnrollmentid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, residentialmoveindate.getEnrollmentid().getId());
 					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class, export.getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					exportEntity.addResidentialmoveindate(target);
 					target.setDateCreated(LocalDateTime.now());
@@ -98,29 +98,29 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		return null;
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate){
 	       residentialmoveindate.setId(UUID.randomUUID()); 
 	       insert(residentialmoveindate);
 	       return residentialmoveindate;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate updateResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate){
+	   public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate updateResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate){
 	       update(residentialmoveindate);
 	       return residentialmoveindate;
 	   }
-	   public void deleteResidentialmoveindate(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate residentialmoveindate){
+	   public void deleteResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate){
 	       delete(residentialmoveindate);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId){ 
-	       return (com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate) get(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate.class, residentialmoveindateId);
+	   public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate) get(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class, residentialmoveindateId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentResidentialmoveindatesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.live.Residentialmoveindate.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

@@ -10,8 +10,8 @@ import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.InformationRelease;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
-import com.servinglynk.hmis.warehouse.model.live.Enrollment;
-import com.servinglynk.hmis.warehouse.model.live.ReleaseOfInfoEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.ReleaseOfInfoEntity;
 import com.servinglynk.hmis.warehouse.service.InformationReleasesService;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
@@ -35,7 +35,7 @@ public class InformationReleasesServiceImpl extends ServiceBase implements Infor
 
 		for (Project project : releaseOfInfo.getProjects()) {
 
-			com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao()
+			com.servinglynk.hmis.warehouse.model.v2014.Project pProject = daoFactory.getProjectDao()
 					.getProjectById(project.getProjectId());
 
 			if (pProject == null)

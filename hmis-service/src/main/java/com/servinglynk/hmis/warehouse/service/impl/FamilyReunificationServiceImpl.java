@@ -19,8 +19,8 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
 
    @Transactional
    public FamilyReunification createFamilyReunification(FamilyReunification familyReunification,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Familyreunification pFamilyReunification = FamilyReunificationConverter.modelToEntity(familyReunification, null);
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Familyreunification pFamilyReunification = FamilyReunificationConverter.modelToEntity(familyReunification, null);
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
        if(pExit == null) throw new ExitNotFoundException(); 
        pFamilyReunification.setExitid(pExit); 
        pFamilyReunification.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
 
    @Transactional
    public FamilyReunification updateFamilyReunification(FamilyReunification familyReunification,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
+       com.servinglynk.hmis.warehouse.model.v2014.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
        if(pExit == null) throw new ExitNotFoundException(); 
-       com.servinglynk.hmis.warehouse.model.live.Familyreunification pFamilyReunification = daoFactory.getFamilyreunificationDao().getFamilyReunificationById(familyReunification.getFamilyReunificationId());
+       com.servinglynk.hmis.warehouse.model.v2014.Familyreunification pFamilyReunification = daoFactory.getFamilyreunificationDao().getFamilyReunificationById(familyReunification.getFamilyReunificationId());
        if(pFamilyReunification==null) throw new FamilyReunificationNotFoundException();
 
        FamilyReunificationConverter.modelToEntity(familyReunification, pFamilyReunification);
@@ -50,7 +50,7 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
 
    @Transactional
    public FamilyReunification deleteFamilyReunification(UUID familyReunificationId,String caller){
-       com.servinglynk.hmis.warehouse.model.live.Familyreunification pFamilyReunification = daoFactory.getFamilyreunificationDao().getFamilyReunificationById(familyReunificationId);
+       com.servinglynk.hmis.warehouse.model.v2014.Familyreunification pFamilyReunification = daoFactory.getFamilyreunificationDao().getFamilyReunificationById(familyReunificationId);
        if(pFamilyReunification==null) throw new FamilyReunificationNotFoundException();
 
        daoFactory.getFamilyreunificationDao().deleteFamilyReunification(pFamilyReunification);
@@ -60,7 +60,7 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
 
    @Transactional
    public FamilyReunification getFamilyReunificationById(UUID familyReunificationId){
-       com.servinglynk.hmis.warehouse.model.live.Familyreunification pFamilyReunification = daoFactory.getFamilyreunificationDao().getFamilyReunificationById(familyReunificationId);
+       com.servinglynk.hmis.warehouse.model.v2014.Familyreunification pFamilyReunification = daoFactory.getFamilyreunificationDao().getFamilyReunificationById(familyReunificationId);
        if(pFamilyReunification==null) throw new FamilyReunificationNotFoundException();
 
        return FamilyReunificationConverter.entityToModel( pFamilyReunification );
@@ -70,8 +70,8 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
    @Transactional
    public FamilyReunifications getAllEnrollmentFamilyReunifications(UUID enrollmentId,Integer startIndex, Integer maxItems){
        FamilyReunifications familyReunifications = new FamilyReunifications();
-        List<com.servinglynk.hmis.warehouse.model.live.Familyreunification> entities = daoFactory.getFamilyreunificationDao().getAllExitFamilyReunifications(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.live.Familyreunification entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification> entities = daoFactory.getFamilyreunificationDao().getAllExitFamilyReunifications(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification entity : entities){
            familyReunifications.addFamilyReunification(FamilyReunificationConverter.entityToModel(entity));
         }
         long count = daoFactory.getFamilyreunificationDao().getExitFamilyReunificationsCount(enrollmentId);

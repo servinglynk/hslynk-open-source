@@ -72,7 +72,7 @@ public class DatabaseConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.entity","com.servinglynk.hmis.warehouse.model.live","com.servinglynk.hmis.warehouse.model.staging");
+		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.entity","com.servinglynk.hmis.warehouse.model.v2014","com.servinglynk.hmis.warehouse.model.stagv2014");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
 		return sessionFactoryBean;
 	}

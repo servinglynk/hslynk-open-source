@@ -9,8 +9,8 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 public class DisabilitiesConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.live.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.live.Disabilities entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.live.Disabilities();
+   public static com.servinglynk.hmis.warehouse.model.v2014.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.v2014.Disabilities entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
        entity.setId(model.getDisabilitiesId());
        entity.setDisabilityresponse(model.getDisabilityresponse());
        entity.setDisabilitytype(DisabilitiesDisabilitytypeEnum.valueOf(model.getDisabilitytype()));
@@ -23,7 +23,7 @@ public class DisabilitiesConverter {
    }
 
 
-   public static Disabilities entityToModel (com.servinglynk.hmis.warehouse.model.live.Disabilities entity) {
+   public static Disabilities entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Disabilities entity) {
        Disabilities model = new Disabilities();
        model.setDisabilitiesId(entity.getId());
        model.setDisabilityresponse(entity.getDisabilityresponse());
