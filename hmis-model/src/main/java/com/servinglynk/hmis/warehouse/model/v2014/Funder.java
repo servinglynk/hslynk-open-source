@@ -269,7 +269,7 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setId(this.getId());
 		copy.setProjectid(this.getProjectid());
 		copy.setStartdate(this.getStartdate());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

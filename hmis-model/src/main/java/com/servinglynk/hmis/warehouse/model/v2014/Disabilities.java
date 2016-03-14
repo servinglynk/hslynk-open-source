@@ -1,14 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -24,11 +16,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
+import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
+import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
+import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
+import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
+import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 
 
 /**
@@ -349,7 +345,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setPathhowconfirmed(this.getPathhowconfirmed());
 		copy.setPathsmiinformation(this.getPathsmiinformation());
 		copy.setReceivingservices(this.getReceivingservices());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

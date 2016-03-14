@@ -337,7 +337,7 @@ public class Services extends HmisBaseModel  implements Cloneable, Serializable{
 		copy.setReferraloutcome(this.getReferraloutcome());
 		copy.setSubtypeprovided(this.getSubtypeprovided());
 		copy.setTypeprovided(this.getTypeprovided());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

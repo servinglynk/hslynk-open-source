@@ -495,7 +495,7 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		copy.setResidentialaffiliation(this.getResidentialaffiliation());
 		copy.setTargetpopulation(this.getTargetpopulation());
 		copy.setTrackingmethod(this.getTrackingmethod());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

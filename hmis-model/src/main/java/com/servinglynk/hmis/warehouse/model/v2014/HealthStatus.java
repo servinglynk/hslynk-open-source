@@ -271,7 +271,7 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setHealthStatus(this.getHealthStatus());
 		copy.setId(this.getId());
 		copy.setInformationDate(this.getInformationDate());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

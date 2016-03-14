@@ -293,7 +293,7 @@ public class LastPermAddress extends HmisBaseModel  implements Cloneable, Serial
 		copy.setId(this.getId());
 		copy.setState(this.getState());
 		copy.setStreet(this.getStreet());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		copy.setZip(this.getZip());
 		return copy;
 	}

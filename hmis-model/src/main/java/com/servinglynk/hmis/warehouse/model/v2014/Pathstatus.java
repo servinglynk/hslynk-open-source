@@ -245,7 +245,7 @@ public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializabl
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setReasonNotEnrolled(this.getReasonNotEnrolled());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

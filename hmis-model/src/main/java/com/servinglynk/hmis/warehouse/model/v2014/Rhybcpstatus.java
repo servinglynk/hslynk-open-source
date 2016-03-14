@@ -244,7 +244,7 @@ public class Rhybcpstatus extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setId(this.getId());
 		copy.setReasonNoServices(this.getReasonNoServices());
 		copy.setStatusDate(this.getStatusDate());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

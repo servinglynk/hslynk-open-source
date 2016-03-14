@@ -215,7 +215,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setProjectCoId(this.getProjectCoId());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

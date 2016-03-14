@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -260,7 +258,7 @@ public class Bedinventory  extends HmisBaseModel implements Cloneable, Serializa
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setId(this.getId());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		copy.setVetBedInventory(this.getVetBedInventory());
 		copy.setYouthAgeGroup(this.getYouthAgeGroup());
 		copy.setYouthBedInventory(this.getYouthBedInventory());

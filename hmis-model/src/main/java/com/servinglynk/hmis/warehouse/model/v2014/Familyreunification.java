@@ -199,7 +199,7 @@ public class Familyreunification extends HmisBaseModel  implements Cloneable, Se
 		copy.setExitid(this.getExitid());
 		copy.setFamilyreunificationachieved(this.getFamilyreunificationachieved());
 		copy.setId(this.getId());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

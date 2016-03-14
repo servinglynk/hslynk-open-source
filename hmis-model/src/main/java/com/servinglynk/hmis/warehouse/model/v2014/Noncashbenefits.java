@@ -424,7 +424,7 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 		copy.setSnap(this.getSnap());
 		copy.setTanfchildcare(this.getTanfchildcare());
 		copy.setTanftransportation(this.getTanftransportation());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		copy.setWic(this.getWic());
 		return copy;
 	}

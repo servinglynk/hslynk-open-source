@@ -275,7 +275,7 @@ public class Employment extends HmisBaseModel  implements Cloneable, Serializabl
 		copy.setId(this.getId());
 		copy.setInformationDate(this.getInformationDate());
 		copy.setNotEmployedReason(this.getNotEmployedReason());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

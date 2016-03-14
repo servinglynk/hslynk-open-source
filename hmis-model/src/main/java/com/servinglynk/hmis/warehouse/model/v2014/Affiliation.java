@@ -190,7 +190,7 @@ public class Affiliation  extends HmisBaseModel implements Cloneable, Serializab
 		copy.setId(this.getId());
 		copy.setProjectid(this.getProjectid());
 		copy.setResprojectid(this.getResprojectid());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 	

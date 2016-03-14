@@ -220,7 +220,7 @@ public class Residentialmoveindate extends HmisBaseModel  implements Cloneable, 
 		copy.setId(this.getId());
 		copy.setInpermanenthousing(this.getInpermanenthousing());
 		copy.setResidentialmoveindate(this.getResidentialmoveindate());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

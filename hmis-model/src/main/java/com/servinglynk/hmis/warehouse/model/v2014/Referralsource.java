@@ -218,7 +218,7 @@ public class Referralsource extends HmisBaseModel  implements Cloneable, Seriali
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setReferralsource(this.getReferralsource());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

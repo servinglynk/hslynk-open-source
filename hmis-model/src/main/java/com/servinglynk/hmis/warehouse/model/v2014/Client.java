@@ -586,7 +586,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setRace(this.getRace());
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		if (this.getVeteranInfoes() != null) {
 			copy.getVeteranInfoes().addAll(this.getVeteranInfoes());
 		}

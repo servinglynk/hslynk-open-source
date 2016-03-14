@@ -1,10 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
-import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
-import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -20,11 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
+import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
 
 
 /**
@@ -226,7 +222,7 @@ public class Exithousingassessment extends HmisBaseModel  implements Cloneable, 
 		copy.setHousingassessment(this.getHousingassessment());
 		copy.setId(this.getId());
 		copy.setSubsidyinformation(this.getSubsidyinformation());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		return copy;
 	}
 

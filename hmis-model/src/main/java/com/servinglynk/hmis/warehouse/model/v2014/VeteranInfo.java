@@ -472,7 +472,7 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 		copy.setKoreanWar(this.getKoreanWar());
 		copy.setMilitaryBranch(this.getMilitaryBranch());
 		copy.setOtherTheater(this.getOtherTheater());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		copy.setVietnamWar(this.getVietnamWar());
 		copy.setWorldWar2(this.getWorldWar2());
 		copy.setYearEntrdService(this.getYearEntrdService());

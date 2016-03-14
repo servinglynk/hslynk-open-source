@@ -955,7 +955,7 @@ public class Incomeandsources extends HmisBaseModel  implements Cloneable, Seria
 		copy.setTotalmonthlyincome(this.getTotalmonthlyincome());
 		copy.setUnemployment(this.getUnemployment());
 		copy.setUnemploymentamount(this.getUnemploymentamount());
-		copy.setUser(this.getUser());
+		copy.setUserId(this.getUser());
 		copy.setVadisabilitynonservice(this.getVadisabilitynonservice());
 		copy.setVadisabilitynonserviceamount(this.getVadisabilitynonserviceamount());
 		copy.setVadisabilityservice(this.getVadisabilityservice());
