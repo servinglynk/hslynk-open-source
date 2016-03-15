@@ -1,16 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
-import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
-import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2014.Funder;
-import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,7 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,12 +19,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 
 
 /**
