@@ -2433,15 +2433,21 @@ CREATE TABLE "v2015".bulk_upload
   id bigint NOT NULL,
   inputPath text,
   status character(10),
-  insert_at timestamp,
-  update_at timestamp,
-  insert_by character(100),
-  update_by character(100),
-   export_id uuid,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,
+  sync boolean DEFAULT false,
+  constraint "bulk_upload_pkey" primary key ("id"),
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2015.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT bulk_upload_pk PRIMARY KEY (id)
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
