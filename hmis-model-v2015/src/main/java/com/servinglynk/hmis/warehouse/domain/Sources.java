@@ -20,880 +20,12 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
-
 
 /**
  * <p>Java class for Sources element declaration.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;element name="Sources">
- *   &lt;complexType>
- *     &lt;complexContent>
- *       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *         &lt;sequence>
- *           &lt;element name="Source">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="SourceID" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                     &lt;element name="SoftwareVendor" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                     &lt;element name="SoftwareVersion" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                     &lt;element name="SourceContactEmail" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                     &lt;element name="SourceContactExtension" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                     &lt;element name="SourceContactFirst" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                     &lt;element name="SourceContactLast" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                     &lt;element name="SourceContactPhone" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *                     &lt;element name="SourceName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                     &lt;element name="Export">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="ExportID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                               &lt;element name="ExportDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                               &lt;element name="ExportPeriod">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ExportPeriodType" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                               &lt;element name="ExportDirective" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                               &lt;element name="Client">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="FirstName">
- *                                           &lt;complexType>
- *                                             &lt;simpleContent>
- *                                               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *                                                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                               &lt;/extension>
- *                                             &lt;/simpleContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                         &lt;element name="MiddleName">
- *                                           &lt;complexType>
- *                                             &lt;simpleContent>
- *                                               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *                                                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                               &lt;/extension>
- *                                             &lt;/simpleContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                         &lt;element name="LastName">
- *                                           &lt;complexType>
- *                                             &lt;simpleContent>
- *                                               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *                                                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                               &lt;/extension>
- *                                             &lt;/simpleContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                         &lt;element name="NameSuffix" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="NameDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SSN">
- *                                           &lt;complexType>
- *                                             &lt;simpleContent>
- *                                               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *                                                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                               &lt;/extension>
- *                                             &lt;/simpleContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                         &lt;element name="SSNDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DOB" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="DOBDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="Gender" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherGender" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="Ethnicity" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="Race" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="VeteranStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Contact">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ContactID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ContactDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                         &lt;element name="ContactLocation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DateOfEngagement">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DateOfEngagementID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="DateOfEngagement" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Disabilities">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DisabilitiesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="DisabilityType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DisabilityResponse" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="IndefiniteAndImpairsIndependence" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DocumentationOnFile" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ReceivingServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PATHHowConfirmed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PATHSMIInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TCellCountAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TCellCount" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="TCellSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ViralLoadAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ViralLoad" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="ViralLoadSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DomesticViolence">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DomesticViolenceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="DomesticViolenceVictim" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="WhenOccurred" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="CurrentlyFleeing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Education">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="EducationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="LastGradeCompleted" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SchoolStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Employment">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="EmploymentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="Employed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="EmploymentType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NotEmployedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Enrollment" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="EntryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="HouseholdID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="RelationshipToHoH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ResidencePrior" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherResidencePrior" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ResidencePriorLengthOfStay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="EntryFromStreetESSH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DateToStreetESSH" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                                         &lt;element name="TimesHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="MonthsHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DisablingCondition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HousingStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="EnrollmentCoC" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="EnrollmentCoCID" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Exit" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ExitDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="Destination" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherDestination" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ExitHousingAssessment">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ExitHousingAssessmentID" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="HousingAssessment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SubsidyInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ExitPATH">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ExitPATHID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ExitRHY">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ExitRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="WrittenAftercarePlan" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AssistanceMainstreamBenefits" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PermanentHousingPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TemporaryShelterPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ExitCounseling" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="FurtherFollowUpServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ScheduledFollowUpContacts" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ResourcePackage" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherAftercarePlanOrAction" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="FamilyReunificationAchieved" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ProjectCompletionStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="EarlyExitReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Funder" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="FunderID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="Funder" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="GrantID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="HealthInsurance" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="HealthInsuranceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="InsuranceFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="Medicaid" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoMedicaidReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="Medicare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoMedicareReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SCHIP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoSCHIPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="VAMedicalServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoVAMedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="EmployerProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoEmployerProvidedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="COBRA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoCOBRAReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PrivatePay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoPrivatePayReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="StateHealthIns" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoStateHealthInsReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateDeleted" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="HealthStatus">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="HealthStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="HealthCategory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HealthStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="HousingAssessmentDisposition">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="HousingAssessmentDispositionID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="AssessmentDisposition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherDisposition" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="IncomeAndSources">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="IncomeAndSourcesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="IncomeFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TotalMonthlyIncome" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="Earned" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="EarnedAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="Unemployment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="UnemploymentAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="SSI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SSIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="SSDI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SSDIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="VADisabilityService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="VADisabilityServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="VADisabilityNonService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="VADisabilityNonServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="PrivateDisability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PrivateDisabilityAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="WorkersComp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="WorkersCompAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="TANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TANFAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="GA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="GAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="SocSecRetirement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SocSecRetirementAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="Pension" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PensionAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="ChildSupport" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ChildSupportAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="Alimony" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AlimonyAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherSourceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Inventory">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="InventoryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="HouseholdType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="BedType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="Availability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="UnitInventory" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="BedInventory">
- *                                           &lt;complexType>
- *                                             &lt;complexContent>
- *                                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                 &lt;sequence>
- *                                                   &lt;element name="BedInventory" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                                   &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                                   &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                                   &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                                   &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                                 &lt;/sequence>
- *                                               &lt;/restriction>
- *                                             &lt;/complexContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                         &lt;element name="InventoryStartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="InventoryEndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="HMISParticipatingBeds" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="MedicalAssistance">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="MedicalAssistanceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="HIVAIDSAssistance" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoHIVAIDSAssistanceReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ADAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="NoADAPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="NonCashBenefits">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="NonCashBenefitsID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="BenefitsFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SNAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="WIC" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TANFChildCare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TANFTransportation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherTANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="RentalAssistanceOngoing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="RentalAssistanceTemp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Organization">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OrganizationName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="OrganizationCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="PATHStatus">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="PathStatusID" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="DateOfStatus" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="ClientEnrolledInPATH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ReasonNotEnrolled" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="EntrySSVF">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="EntrySSVFID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="PercentAMI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HPScreeningScore" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="VAMCStation" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="LastPermanentStreet" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="LastPermanentCity" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="LastPermanentState" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="LastPermanentZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="AddressDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}short" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Project" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ProjectName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ContinuumProject" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ProjectType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ResidentialAffiliation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TrackingMethod" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="TargetPopulation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ProjectCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="CoC" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ResidentialMoveInDate">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ResidentialMoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ResidentialMoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="RHYBCPStatus">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="RHYBCPStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="StatusDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="FYSBYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ReasonNoServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Services">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ServicesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="DateProvided" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="RecordType" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="TypeProvided" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="OtherTypeProvided" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="SubTypeProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="FAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *                                         &lt;element name="ReferralOutcome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Site">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="SiteID" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="PrincipalSite" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="Address" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="City" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="State" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="Geocode" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ClientVeteranInfo">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ClientVeteranInfoID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="YearEnteredService" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="YearSeparated" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                                         &lt;element name="WorldWarII" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="KoreanWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="VietnamWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DesertStorm" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AfghanistanOEF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="IraqOIF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="IraqOND" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="OtherTheater" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="MilitaryBranch" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="DischargeStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="WorstHousingSituation">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="EntryRHY">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="EntryRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="HouseholdDynamics" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SexualOrientation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SexualOrientationGenderIdentityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SexualOrientationGenderIDFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HousingIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HousingIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SchoolEducationalIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="SchoolEducationalIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="UnemploymentYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="UnemploymentFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="MentalHealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="MentalHealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="HealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PhysicalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="PhysicalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="MentalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="MentalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AbuseAndNeglectYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AbuseAndNeglectFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AlcoholDrugAbuseYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AlcoholDrugAbuseFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="InsufficientIncome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ActiveMilitaryParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="IncarceratedParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="IncarceratedParentStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="WorkPlaceViolenceThreats" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="WorkplacePromiseDifference" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="CoercedToContinueWork" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="LaborExploitPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="CountOfExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AskedOrForcedToExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="AskedOrForcedToExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="FormerWardJuvenileJustice" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="JuvenileJusticeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="JuvenileJusticeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="FormerWardChildWelfare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ChildWelfareYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ChildWelfareMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="ReferralSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                         &lt;element name="CountOutreachReferralApproaches" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                                       &lt;/sequence>
- *                                       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *                                       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *                                       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/sequence>
- *       &lt;/restriction>
- *     &lt;/complexContent>
- *   &lt;/complexType>
- * &lt;/element>
- * </pre>
- * 
- * 
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -902,7 +34,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
 @XmlRootElement(name = "Sources")
 public class Sources {
 
-    @XmlElement(name = "Source", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+    @XmlElement(name = "Source", required = true)
     protected Source source;
 
     /**
@@ -929,867 +61,6 @@ public class Sources {
         this.source = value;
     }
 
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="SourceID" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *         &lt;element name="SoftwareVendor" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="SoftwareVersion" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *         &lt;element name="SourceContactEmail" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="SourceContactExtension" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *         &lt;element name="SourceContactFirst" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="SourceContactLast" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="SourceContactPhone" type="{http://www.w3.org/2001/XMLSchema}long"/>
-     *         &lt;element name="SourceName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="Export">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ExportID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                   &lt;element name="ExportDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                   &lt;element name="ExportPeriod">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                           &lt;/sequence>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="ExportPeriodType" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="ExportDirective" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="Client">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="FirstName">
-     *                               &lt;complexType>
-     *                                 &lt;simpleContent>
-     *                                   &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *                                     &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                                   &lt;/extension>
-     *                                 &lt;/simpleContent>
-     *                               &lt;/complexType>
-     *                             &lt;/element>
-     *                             &lt;element name="MiddleName">
-     *                               &lt;complexType>
-     *                                 &lt;simpleContent>
-     *                                   &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *                                     &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                                   &lt;/extension>
-     *                                 &lt;/simpleContent>
-     *                               &lt;/complexType>
-     *                             &lt;/element>
-     *                             &lt;element name="LastName">
-     *                               &lt;complexType>
-     *                                 &lt;simpleContent>
-     *                                   &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *                                     &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                                   &lt;/extension>
-     *                                 &lt;/simpleContent>
-     *                               &lt;/complexType>
-     *                             &lt;/element>
-     *                             &lt;element name="NameSuffix" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="NameDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SSN">
-     *                               &lt;complexType>
-     *                                 &lt;simpleContent>
-     *                                   &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *                                     &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                                   &lt;/extension>
-     *                                 &lt;/simpleContent>
-     *                               &lt;/complexType>
-     *                             &lt;/element>
-     *                             &lt;element name="SSNDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DOB" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="DOBDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="Gender" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherGender" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="Ethnicity" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="Race" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="VeteranStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Contact">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ContactID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ContactDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                             &lt;element name="ContactLocation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DateOfEngagement">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="DateOfEngagementID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="DateOfEngagement" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Disabilities">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="DisabilitiesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="DisabilityType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DisabilityResponse" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="IndefiniteAndImpairsIndependence" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DocumentationOnFile" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ReceivingServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PATHHowConfirmed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PATHSMIInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TCellCountAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TCellCount" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="TCellSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ViralLoadAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ViralLoad" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                             &lt;element name="ViralLoadSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DomesticViolence">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="DomesticViolenceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="DomesticViolenceVictim" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="WhenOccurred" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="CurrentlyFleeing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Education">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="EducationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="LastGradeCompleted" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SchoolStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Employment">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="EmploymentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="Employed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="EmploymentType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NotEmployedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Enrollment" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="EntryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="HouseholdID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="RelationshipToHoH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ResidencePrior" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherResidencePrior" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ResidencePriorLengthOfStay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="EntryFromStreetESSH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DateToStreetESSH" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *                             &lt;element name="TimesHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="MonthsHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DisablingCondition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HousingStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="EnrollmentCoC" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="EnrollmentCoCID" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Exit" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ExitDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="Destination" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherDestination" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="ExitHousingAssessment">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ExitHousingAssessmentID" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="HousingAssessment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SubsidyInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="ExitPATH">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ExitPATHID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="ExitRHY">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ExitRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="WrittenAftercarePlan" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AssistanceMainstreamBenefits" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PermanentHousingPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TemporaryShelterPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ExitCounseling" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="FurtherFollowUpServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ScheduledFollowUpContacts" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ResourcePackage" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherAftercarePlanOrAction" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="FamilyReunificationAchieved" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ProjectCompletionStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="EarlyExitReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Funder" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="FunderID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="Funder" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="GrantID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="HealthInsurance" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="HealthInsuranceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="InsuranceFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="Medicaid" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoMedicaidReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="Medicare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoMedicareReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SCHIP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoSCHIPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="VAMedicalServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoVAMedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="EmployerProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoEmployerProvidedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="COBRA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoCOBRAReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PrivatePay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoPrivatePayReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="StateHealthIns" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoStateHealthInsReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateDeleted" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="HealthStatus">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="HealthStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="HealthCategory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HealthStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="HousingAssessmentDisposition">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="HousingAssessmentDispositionID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="AssessmentDisposition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherDisposition" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="IncomeAndSources">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="IncomeAndSourcesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="IncomeFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TotalMonthlyIncome" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="Earned" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="EarnedAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="Unemployment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="UnemploymentAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="SSI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SSIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="SSDI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SSDIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="VADisabilityService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="VADisabilityServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="VADisabilityNonService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="VADisabilityNonServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="PrivateDisability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PrivateDisabilityAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="WorkersComp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="WorkersCompAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="TANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TANFAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="GA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="GAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="SocSecRetirement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SocSecRetirementAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="Pension" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PensionAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="ChildSupport" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ChildSupportAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="Alimony" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AlimonyAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherSourceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Inventory">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="InventoryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="HouseholdType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="BedType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="Availability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="UnitInventory" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                             &lt;element name="BedInventory">
-     *                               &lt;complexType>
-     *                                 &lt;complexContent>
-     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                     &lt;sequence>
-     *                                       &lt;element name="BedInventory" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                                       &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                                       &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                                       &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                                       &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                                     &lt;/sequence>
-     *                                   &lt;/restriction>
-     *                                 &lt;/complexContent>
-     *                               &lt;/complexType>
-     *                             &lt;/element>
-     *                             &lt;element name="InventoryStartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="InventoryEndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="HMISParticipatingBeds" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="MedicalAssistance">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="MedicalAssistanceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="HIVAIDSAssistance" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoHIVAIDSAssistanceReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ADAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="NoADAPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="NonCashBenefits">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="NonCashBenefitsID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="BenefitsFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SNAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="WIC" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TANFChildCare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TANFTransportation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherTANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="RentalAssistanceOngoing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="RentalAssistanceTemp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Organization">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OrganizationName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="OrganizationCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="PATHStatus">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="PathStatusID" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="DateOfStatus" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="ClientEnrolledInPATH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ReasonNotEnrolled" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="EntrySSVF">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="EntrySSVFID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="PercentAMI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HPScreeningScore" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="VAMCStation" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="LastPermanentStreet" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="LastPermanentCity" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="LastPermanentState" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="LastPermanentZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                             &lt;element name="AddressDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}short" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Project" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ProjectName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ContinuumProject" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ProjectType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ResidentialAffiliation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TrackingMethod" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="TargetPopulation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ProjectCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="CoC" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="ResidentialMoveInDate">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ResidentialMoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ResidentialMoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="RHYBCPStatus">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="RHYBCPStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="StatusDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="FYSBYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ReasonNoServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Services">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ServicesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="DateProvided" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="RecordType" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="TypeProvided" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="OtherTypeProvided" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="SubTypeProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="FAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-     *                             &lt;element name="ReferralOutcome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="Site">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="SiteID" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="PrincipalSite" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="Address" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="City" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="State" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                             &lt;element name="Geocode" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="ClientVeteranInfo">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="ClientVeteranInfoID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="YearEnteredService" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="YearSeparated" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *                             &lt;element name="WorldWarII" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="KoreanWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="VietnamWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DesertStorm" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AfghanistanOEF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="IraqOIF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="IraqOND" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="OtherTheater" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="MilitaryBranch" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="DischargeStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="WorstHousingSituation">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="EntryRHY">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="EntryRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="HouseholdDynamics" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SexualOrientation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SexualOrientationGenderIdentityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SexualOrientationGenderIDFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HousingIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HousingIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SchoolEducationalIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="SchoolEducationalIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="UnemploymentYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="UnemploymentFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="MentalHealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="MentalHealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="HealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PhysicalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="PhysicalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="MentalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="MentalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AbuseAndNeglectYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AbuseAndNeglectFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AlcoholDrugAbuseYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AlcoholDrugAbuseFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="InsufficientIncome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ActiveMilitaryParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="IncarceratedParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="IncarceratedParentStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="WorkPlaceViolenceThreats" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="WorkplacePromiseDifference" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="CoercedToContinueWork" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="LaborExploitPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="CountOfExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AskedOrForcedToExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="AskedOrForcedToExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="FormerWardJuvenileJustice" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="JuvenileJusticeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="JuvenileJusticeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="FormerWardChildWelfare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ChildWelfareYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ChildWelfareMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="ReferralSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                             &lt;element name="CountOutreachReferralApproaches" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *                           &lt;/sequence>
-     *                           &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-     *                           &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-     *                           &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "sourceID",
@@ -1805,25 +76,25 @@ public class Sources {
     })
     public static class Source {
 
-        @XmlElement(name = "SourceID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+        @XmlElement(name = "SourceID")
         protected short sourceID;
-        @XmlElement(name = "SoftwareVendor", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+        @XmlElement(name = "SoftwareVendor", required = true)
         protected String softwareVendor;
-        @XmlElement(name = "SoftwareVersion", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+        @XmlElement(name = "SoftwareVersion")
         protected byte softwareVersion;
-        @XmlElement(name = "SourceContactEmail", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+        @XmlElement(name = "SourceContactEmail", required = true)
         protected String sourceContactEmail;
-        @XmlElement(name = "SourceContactExtension", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+        @XmlElement(name = "SourceContactExtension")
         protected short sourceContactExtension;
-        @XmlElement(name = "SourceContactFirst", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+        @XmlElement(name = "SourceContactFirst", required = true)
         protected String sourceContactFirst;
-        @XmlElement(name = "SourceContactLast", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+        @XmlElement(name = "SourceContactLast", required = true)
         protected String sourceContactLast;
-        @XmlElement(name = "SourceContactPhone", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+        @XmlElement(name = "SourceContactPhone")
         protected long sourceContactPhone;
-        @XmlElement(name = "SourceName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+        @XmlElement(name = "SourceName", required = true)
         protected String sourceName;
-        @XmlElement(name = "Export", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+        @XmlElement(name = "Export", required = true)
         protected Export export;
 
         /**
@@ -2035,847 +306,6 @@ public class Sources {
         }
 
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ExportID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *         &lt;element name="ExportDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="ExportPeriod">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *                   &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ExportPeriodType" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="ExportDirective" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="Client">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="FirstName">
-         *                     &lt;complexType>
-         *                       &lt;simpleContent>
-         *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *                           &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                         &lt;/extension>
-         *                       &lt;/simpleContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                   &lt;element name="MiddleName">
-         *                     &lt;complexType>
-         *                       &lt;simpleContent>
-         *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *                           &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                         &lt;/extension>
-         *                       &lt;/simpleContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                   &lt;element name="LastName">
-         *                     &lt;complexType>
-         *                       &lt;simpleContent>
-         *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *                           &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                         &lt;/extension>
-         *                       &lt;/simpleContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                   &lt;element name="NameSuffix" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="NameDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SSN">
-         *                     &lt;complexType>
-         *                       &lt;simpleContent>
-         *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *                           &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                         &lt;/extension>
-         *                       &lt;/simpleContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                   &lt;element name="SSNDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DOB" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="DOBDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="Gender" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherGender" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="Ethnicity" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="Race" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="VeteranStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Contact">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ContactID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ContactDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *                   &lt;element name="ContactLocation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DateOfEngagement">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DateOfEngagementID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="DateOfEngagement" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Disabilities">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DisabilitiesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="DisabilityType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DisabilityResponse" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="IndefiniteAndImpairsIndependence" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DocumentationOnFile" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ReceivingServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PATHHowConfirmed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PATHSMIInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TCellCountAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TCellCount" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="TCellSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ViralLoadAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ViralLoad" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="ViralLoadSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DomesticViolence">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DomesticViolenceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="DomesticViolenceVictim" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="WhenOccurred" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="CurrentlyFleeing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Education">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="EducationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="LastGradeCompleted" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SchoolStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Employment">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="EmploymentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="Employed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="EmploymentType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NotEmployedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Enrollment" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="EntryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="HouseholdID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="RelationshipToHoH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ResidencePrior" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherResidencePrior" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ResidencePriorLengthOfStay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="EntryFromStreetESSH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DateToStreetESSH" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-         *                   &lt;element name="TimesHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="MonthsHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DisablingCondition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HousingStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="EnrollmentCoC" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="EnrollmentCoCID" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Exit" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ExitDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="Destination" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherDestination" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ExitHousingAssessment">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ExitHousingAssessmentID" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="HousingAssessment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SubsidyInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ExitPATH">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ExitPATHID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ExitRHY">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ExitRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="WrittenAftercarePlan" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AssistanceMainstreamBenefits" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PermanentHousingPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TemporaryShelterPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ExitCounseling" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="FurtherFollowUpServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ScheduledFollowUpContacts" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ResourcePackage" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherAftercarePlanOrAction" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="FamilyReunificationAchieved" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ProjectCompletionStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="EarlyExitReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Funder" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="FunderID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="Funder" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="GrantID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="HealthInsurance" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="HealthInsuranceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="InsuranceFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="Medicaid" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoMedicaidReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="Medicare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoMedicareReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SCHIP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoSCHIPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="VAMedicalServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoVAMedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="EmployerProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoEmployerProvidedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="COBRA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoCOBRAReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PrivatePay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoPrivatePayReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="StateHealthIns" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoStateHealthInsReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateDeleted" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="HealthStatus">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="HealthStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="HealthCategory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HealthStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="HousingAssessmentDisposition">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="HousingAssessmentDispositionID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="AssessmentDisposition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherDisposition" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="IncomeAndSources">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="IncomeAndSourcesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="IncomeFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TotalMonthlyIncome" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="Earned" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="EarnedAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="Unemployment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="UnemploymentAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="SSI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SSIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="SSDI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SSDIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="VADisabilityService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="VADisabilityServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="VADisabilityNonService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="VADisabilityNonServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="PrivateDisability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PrivateDisabilityAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="WorkersComp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="WorkersCompAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="TANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TANFAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="GA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="GAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="SocSecRetirement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SocSecRetirementAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="Pension" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PensionAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="ChildSupport" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ChildSupportAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="Alimony" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AlimonyAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherSourceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Inventory">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="InventoryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="HouseholdType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="BedType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="Availability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="UnitInventory" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="BedInventory">
-         *                     &lt;complexType>
-         *                       &lt;complexContent>
-         *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                           &lt;sequence>
-         *                             &lt;element name="BedInventory" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                             &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                             &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                             &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                             &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                           &lt;/sequence>
-         *                         &lt;/restriction>
-         *                       &lt;/complexContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                   &lt;element name="InventoryStartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="InventoryEndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="HMISParticipatingBeds" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="MedicalAssistance">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="MedicalAssistanceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="HIVAIDSAssistance" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoHIVAIDSAssistanceReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ADAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="NoADAPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="NonCashBenefits">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="NonCashBenefitsID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="BenefitsFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SNAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="WIC" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TANFChildCare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TANFTransportation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherTANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="RentalAssistanceOngoing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="RentalAssistanceTemp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Organization">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OrganizationName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="OrganizationCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="PATHStatus">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="PathStatusID" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="DateOfStatus" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="ClientEnrolledInPATH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ReasonNotEnrolled" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="EntrySSVF">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="EntrySSVFID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="PercentAMI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HPScreeningScore" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="VAMCStation" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="LastPermanentStreet" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="LastPermanentCity" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="LastPermanentState" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="LastPermanentZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="AddressDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}short" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Project" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ProjectName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ContinuumProject" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ProjectType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ResidentialAffiliation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TrackingMethod" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="TargetPopulation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ProjectCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="CoC" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ResidentialMoveInDate">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ResidentialMoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ResidentialMoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="RHYBCPStatus">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="RHYBCPStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="StatusDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="FYSBYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ReasonNoServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Services">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ServicesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="DateProvided" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="RecordType" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="TypeProvided" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="OtherTypeProvided" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="SubTypeProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="FAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-         *                   &lt;element name="ReferralOutcome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Site">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="SiteID" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="PrincipalSite" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="Address" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="City" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="State" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="Geocode" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ClientVeteranInfo">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ClientVeteranInfoID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="YearEnteredService" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="YearSeparated" type="{http://www.w3.org/2001/XMLSchema}short"/>
-         *                   &lt;element name="WorldWarII" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="KoreanWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="VietnamWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DesertStorm" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AfghanistanOEF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="IraqOIF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="IraqOND" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="OtherTheater" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="MilitaryBranch" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="DischargeStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="WorstHousingSituation">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="EntryRHY">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="EntryRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="HouseholdDynamics" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SexualOrientation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SexualOrientationGenderIdentityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SexualOrientationGenderIDFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HousingIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HousingIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SchoolEducationalIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="SchoolEducationalIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="UnemploymentYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="UnemploymentFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="MentalHealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="MentalHealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="HealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PhysicalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="PhysicalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="MentalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="MentalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AbuseAndNeglectYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AbuseAndNeglectFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AlcoholDrugAbuseYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AlcoholDrugAbuseFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="InsufficientIncome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ActiveMilitaryParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="IncarceratedParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="IncarceratedParentStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="WorkPlaceViolenceThreats" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="WorkplacePromiseDifference" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="CoercedToContinueWork" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="LaborExploitPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="CountOfExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AskedOrForcedToExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="AskedOrForcedToExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="FormerWardJuvenileJustice" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="JuvenileJusticeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="JuvenileJusticeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="FormerWardChildWelfare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ChildWelfareYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ChildWelfareMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="ReferralSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                   &lt;element name="CountOutreachReferralApproaches" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-         *                 &lt;/sequence>
-         *                 &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
-         *                 &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-         *                 &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "exportID",
@@ -2883,6 +313,7 @@ public class Sources {
             "exportPeriod",
             "exportPeriodType",
             "exportDirective",
+            "affiliation",
             "client",
             "contact",
             "dateOfEngagement",
@@ -2919,83 +350,83 @@ public class Sources {
         })
         public static class Export {
 
-            @XmlElement(name = "ExportID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+            @XmlElement(name = "ExportID")
             protected byte exportID;
-            @XmlElement(name = "ExportDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExportDate", required = true)
             protected XMLGregorianCalendar exportDate;
-            @XmlElement(name = "ExportPeriod", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExportPeriod", required = true)
             protected ExportPeriod exportPeriod;
-            @XmlElement(name = "ExportPeriodType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExportPeriodType", required = true)
             protected String exportPeriodType;
-            @XmlElement(name = "ExportDirective", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExportDirective", required = true)
             protected String exportDirective;
-            @XmlElement(name = "Client", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
-            protected List<Client> clients;
-            @XmlElement(name = "Affiliation" , required = true)
+            @XmlElement(name = "Client", required = true)
+            protected List<Client> client;
+            @XmlElement(name = "Affiliation")
             protected List<Affiliation> affiliation;
-            @XmlElement(name = "Contact", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Contact", required = true)
             protected List<Contact> contact;
-            @XmlElement(name = "DateOfEngagement", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "DateOfEngagement", required = true)
             protected List<DateOfEngagement> dateOfEngagement;
-            @XmlElement(name = "Disabilities", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Disabilities", required = true)
             protected List<Disabilities> disabilities;
-            @XmlElement(name = "DomesticViolence", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "DomesticViolence", required = true)
             protected List<DomesticViolence> domesticViolence;
-            @XmlElement(name = "Education", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Education", required = true)
             protected List<Education> education;
-            @XmlElement(name = "Employment", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Employment", required = true)
             protected List<Employment> employment;
-            @XmlElement(name = "Enrollment", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Enrollment", required = true)
             protected List<Enrollment> enrollment;
-            @XmlElement(name = "EnrollmentCoC", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "EnrollmentCoC", required = true)
             protected List<EnrollmentCoC> enrollmentCoC;
-            @XmlElement(name = "Exit", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Exit", required = true)
             protected List<Exit> exit;
-            @XmlElement(name = "ExitHousingAssessment", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExitHousingAssessment", required = true)
             protected List<ExitHousingAssessment> exitHousingAssessment;
-            @XmlElement(name = "ExitPATH", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExitPATH", required = true)
             protected List<ExitPATH> exitPATH;
-            @XmlElement(name = "ExitRHY", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ExitRHY", required = true)
             protected List<ExitRHY> exitRHY;
-            @XmlElement(name = "Funder", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Funder", required = true)
             protected List<Funder> funder;
-            @XmlElement(name = "HealthInsurance", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "HealthInsurance", required = true)
             protected List<HealthInsurance> healthInsurance;
-            @XmlElement(name = "HealthStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "HealthStatus", required = true)
             protected List<HealthStatus> healthStatus;
-            @XmlElement(name = "HousingAssessmentDisposition", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "HousingAssessmentDisposition", required = true)
             protected List<HousingAssessmentDisposition> housingAssessmentDisposition;
-            @XmlElement(name = "IncomeAndSources", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "IncomeAndSources", required = true)
             protected List<IncomeAndSources> incomeAndSources;
-            @XmlElement(name = "Inventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Inventory", required = true)
             protected List<Inventory> inventory;
-            @XmlElement(name = "MedicalAssistance", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "MedicalAssistance", required = true)
             protected List<MedicalAssistance> medicalAssistance;
-            @XmlElement(name = "NonCashBenefits", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "NonCashBenefits", required = true)
             protected List<NonCashBenefits> nonCashBenefits;
-            @XmlElement(name = "Organization", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Organization", required = true)
             protected List<Organization> organization;
-            @XmlElement(name = "PATHStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "PATHStatus", required = true)
             protected List<PATHStatus> pathStatus;
-            @XmlElement(name = "EntrySSVF", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "EntrySSVF", required = true)
             protected List<EntrySSVF> entrySSVF;
-            @XmlElement(name = "Project", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Project", required = true)
             protected List<Project> project;
-            @XmlElement(name = "CoC", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "CoC", required = true)
             protected List<CoC> coC;
-            @XmlElement(name = "ResidentialMoveInDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ResidentialMoveInDate", required = true)
             protected List<ResidentialMoveInDate> residentialMoveInDate;
-            @XmlElement(name = "RHYBCPStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "RHYBCPStatus", required = true)
             protected List<RHYBCPStatus> rhybcpStatus;
-            @XmlElement(name = "Services", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Services", required = true)
             protected List<Services> services;
-            @XmlElement(name = "Site", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "Site", required = true)
             protected List<Site> site;
-            @XmlElement(name = "ClientVeteranInfo", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "ClientVeteranInfo", required = true)
             protected List<ClientVeteranInfo> clientVeteranInfo;
-            @XmlElement(name = "WorstHousingSituation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "WorstHousingSituation", required = true)
             protected List<WorstHousingSituation> worstHousingSituation;
-            @XmlElement(name = "EntryRHY", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+            @XmlElement(name = "EntryRHY", required = true)
             protected List<EntryRHY> entryRHY;
 
             /**
@@ -3141,7 +572,7 @@ public class Sources {
              *     
              */
             public List<Client> getClient() {
-                return clients;
+                return client;
             }
 
             /**
@@ -3153,7 +584,7 @@ public class Sources {
              *     
              */
             public void setClients(List<Client> value) {
-                this.clients = value;
+                this.client = value;
             }
 
             /**
@@ -4234,35 +1665,35 @@ public class Sources {
             })
             public static class Client {
 
-                @XmlElement(name = "PersonalID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "PersonalID", required = true)
                 protected String personalID;
-                @XmlElement(name = "FirstName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "FirstName", required = true)
                 protected FirstName firstName;
-                @XmlElement(name = "MiddleName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "MiddleName", required = true)
                 protected MiddleName middleName;
-                @XmlElement(name = "LastName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "LastName", required = true)
                 protected LastName lastName;
-                @XmlElement(name = "NameSuffix", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "NameSuffix", required = true)
                 protected String nameSuffix;
-                @XmlElement(name = "NameDataQuality", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NameDataQuality")
                 protected byte nameDataQuality;
-                @XmlElement(name = "SSN", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "SSN", required = true)
                 protected SSN ssn;
-                @XmlElement(name = "SSNDataQuality", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SSNDataQuality")
                 protected byte ssnDataQuality;
-                @XmlElement(name = "DOB", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DOB", required = true)
                 protected XMLGregorianCalendar dob;
-                @XmlElement(name = "DOBDataQuality", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DOBDataQuality")
                 protected byte dobDataQuality;
-                @XmlElement(name = "Gender", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Gender")
                 protected byte gender;
-                @XmlElement(name = "OtherGender", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OtherGender", required = true)
                 protected String otherGender;
-                @XmlElement(name = "Ethnicity", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Ethnicity")
                 protected byte ethnicity;
-                @XmlElement(name = "Race", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Race")
                 protected byte race;
-                @XmlElement(name = "VeteranStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VeteranStatus")
                 protected byte veteranStatus;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -5020,33 +2451,33 @@ public class Sources {
             })
             public static class ClientVeteranInfo {
 
-                @XmlElement(name = "ClientVeteranInfoID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ClientVeteranInfoID", required = true)
                 protected String clientVeteranInfoID;
-                @XmlElement(name = "PersonalID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "PersonalID", required = true)
                 protected String personalID;
-                @XmlElement(name = "YearEnteredService", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "YearEnteredService")
                 protected short yearEnteredService;
-                @XmlElement(name = "YearSeparated", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "YearSeparated")
                 protected short yearSeparated;
-                @XmlElement(name = "WorldWarII", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WorldWarII")
                 protected byte worldWarII;
-                @XmlElement(name = "KoreanWar", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "KoreanWar")
                 protected byte koreanWar;
-                @XmlElement(name = "VietnamWar", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VietnamWar")
                 protected byte vietnamWar;
-                @XmlElement(name = "DesertStorm", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DesertStorm")
                 protected byte desertStorm;
-                @XmlElement(name = "AfghanistanOEF", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AfghanistanOEF")
                 protected byte afghanistanOEF;
-                @XmlElement(name = "IraqOIF", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "IraqOIF")
                 protected byte iraqOIF;
-                @XmlElement(name = "IraqOND", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "IraqOND")
                 protected byte iraqOND;
-                @XmlElement(name = "OtherTheater", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherTheater")
                 protected byte otherTheater;
-                @XmlElement(name = "MilitaryBranch", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "MilitaryBranch")
                 protected byte militaryBranch;
-                @XmlElement(name = "DischargeStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DischargeStatus")
                 protected byte dischargeStatus;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -5400,9 +2831,9 @@ public class Sources {
             })
             public static class CoC {
 
-                @XmlElement(name = "CoCCode", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
-                @XmlElement(name = "ProjectID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectID", required = true)
                 protected String projectID;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -5568,13 +2999,13 @@ public class Sources {
             })
             public static class Contact {
 
-                @XmlElement(name = "ContactID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ContactID", required = true)
                 protected String contactID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "ContactDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ContactDate", required = true)
                 protected XMLGregorianCalendar contactDate;
-                @XmlElement(name = "ContactLocation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ContactLocation")
                 protected byte contactLocation;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -5778,11 +3209,11 @@ public class Sources {
             })
             public static class DateOfEngagement {
 
-                @XmlElement(name = "DateOfEngagementID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DateOfEngagementID", required = true)
                 protected String dateOfEngagementID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "DateOfEngagement", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DateOfEngagement", required = true)
                 protected XMLGregorianCalendar dateOfEngagement;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -5996,35 +3427,35 @@ public class Sources {
             })
             public static class Disabilities {
 
-                @XmlElement(name = "DisabilitiesID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DisabilitiesID", required = true)
                 protected String disabilitiesID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "DisabilityType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DisabilityType")
                 protected byte disabilityType;
-                @XmlElement(name = "DisabilityResponse", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DisabilityResponse")
                 protected byte disabilityResponse;
-                @XmlElement(name = "IndefiniteAndImpairsIndependence", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "IndefiniteAndImpairsIndependence")
                 protected byte indefiniteAndImpairsIndependence;
-                @XmlElement(name = "DocumentationOnFile", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DocumentationOnFile")
                 protected byte documentationOnFile;
-                @XmlElement(name = "ReceivingServices", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ReceivingServices")
                 protected byte receivingServices;
-                @XmlElement(name = "PATHHowConfirmed", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PATHHowConfirmed")
                 protected byte pathHowConfirmed;
-                @XmlElement(name = "PATHSMIInformation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PATHSMIInformation")
                 protected byte pathsmiInformation;
-                @XmlElement(name = "TCellCountAvailable", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TCellCountAvailable")
                 protected byte tCellCountAvailable;
-                @XmlElement(name = "TCellCount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TCellCount")
                 protected short tCellCount;
-                @XmlElement(name = "TCellSource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TCellSource")
                 protected byte tCellSource;
-                @XmlElement(name = "ViralLoadAvailable", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ViralLoadAvailable")
                 protected byte viralLoadAvailable;
-                @XmlElement(name = "ViralLoad", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ViralLoad")
                 protected int viralLoad;
-                @XmlElement(name = "ViralLoadSource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ViralLoadSource")
                 protected byte viralLoadSource;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -6454,15 +3885,15 @@ public class Sources {
             })
             public static class DomesticViolence {
 
-                @XmlElement(name = "DomesticViolenceID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DomesticViolenceID", required = true)
                 protected String domesticViolenceID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "DomesticViolenceVictim", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DomesticViolenceVictim")
                 protected byte domesticViolenceVictim;
-                @XmlElement(name = "WhenOccurred", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WhenOccurred")
                 protected byte whenOccurred;
-                @XmlElement(name = "CurrentlyFleeing", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "CurrentlyFleeing")
                 protected byte currentlyFleeing;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -6730,13 +4161,13 @@ public class Sources {
             })
             public static class Education {
 
-                @XmlElement(name = "EducationID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EducationID", required = true)
                 protected String educationID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "LastGradeCompleted", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "LastGradeCompleted")
                 protected byte lastGradeCompleted;
-                @XmlElement(name = "SchoolStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SchoolStatus")
                 protected byte schoolStatus;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -6990,15 +4421,15 @@ public class Sources {
             })
             public static class Employment {
 
-                @XmlElement(name = "EmploymentID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EmploymentID", required = true)
                 protected String employmentID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "Employed", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Employed")
                 protected byte employed;
-                @XmlElement(name = "EmploymentType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "EmploymentType")
                 protected byte employmentType;
-                @XmlElement(name = "NotEmployedReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NotEmployedReason")
                 protected byte notEmployedReason;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -7286,35 +4717,35 @@ public class Sources {
             })
             public static class Enrollment {
 
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "PersonalID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "PersonalID", required = true)
                 protected String personalID;
-                @XmlElement(name = "ProjectID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectID", required = true)
                 protected String projectID;
-                @XmlElement(name = "EntryDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EntryDate", required = true)
                 protected XMLGregorianCalendar entryDate;
-                @XmlElement(name = "HouseholdID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "HouseholdID", required = true)
                 protected String householdID;
-                @XmlElement(name = "RelationshipToHoH", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "RelationshipToHoH")
                 protected byte relationshipToHoH;
-                @XmlElement(name = "ResidencePrior", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ResidencePrior")
                 protected byte residencePrior;
-                @XmlElement(name = "OtherResidencePrior", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OtherResidencePrior", required = true)
                 protected String otherResidencePrior;
-                @XmlElement(name = "ResidencePriorLengthOfStay", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ResidencePriorLengthOfStay")
                 protected byte residencePriorLengthOfStay;
-                @XmlElement(name = "EntryFromStreetESSH", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "EntryFromStreetESSH")
                 protected byte entryFromStreetESSH;
-                @XmlElement(name = "DateToStreetESSH", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DateToStreetESSH")
                 protected XMLGregorianCalendar dateToStreetESSH;
-                @XmlElement(name = "TimesHomelessPastThreeYears", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TimesHomelessPastThreeYears")
                 protected byte timesHomelessPastThreeYears;
-                @XmlElement(name = "MonthsHomelessPastThreeYears", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "MonthsHomelessPastThreeYears")
                 protected byte monthsHomelessPastThreeYears;
-                @XmlElement(name = "DisablingCondition", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "DisablingCondition")
                 protected byte disablingCondition;
-                @XmlElement(name = "HousingStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HousingStatus")
                 protected byte housingStatus;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -7728,11 +5159,11 @@ public class Sources {
             })
             public static class EnrollmentCoC {
 
-                @XmlElement(name = "EnrollmentCoCID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "EnrollmentCoCID")
                 protected int enrollmentCoCID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "CoCCode", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -8049,95 +5480,95 @@ public class Sources {
             })
             public static class EntryRHY {
 
-                @XmlElement(name = "EntryRHYID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EntryRHYID", required = true)
                 protected String entryRHYID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "HouseholdDynamics", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HouseholdDynamics")
                 protected byte householdDynamics;
-                @XmlElement(name = "SexualOrientation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SexualOrientation")
                 protected byte sexualOrientation;
-                @XmlElement(name = "SexualOrientationGenderIdentityYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SexualOrientationGenderIdentityYouth")
                 protected byte sexualOrientationGenderIdentityYouth;
-                @XmlElement(name = "SexualOrientationGenderIDFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SexualOrientationGenderIDFam")
                 protected byte sexualOrientationGenderIDFam;
-                @XmlElement(name = "HousingIssuesYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HousingIssuesYouth")
                 protected byte housingIssuesYouth;
-                @XmlElement(name = "HousingIssuesFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HousingIssuesFam")
                 protected byte housingIssuesFam;
-                @XmlElement(name = "SchoolEducationalIssuesYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SchoolEducationalIssuesYouth")
                 protected byte schoolEducationalIssuesYouth;
-                @XmlElement(name = "SchoolEducationalIssuesFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SchoolEducationalIssuesFam")
                 protected byte schoolEducationalIssuesFam;
-                @XmlElement(name = "UnemploymentYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "UnemploymentYouth")
                 protected byte unemploymentYouth;
-                @XmlElement(name = "UnemploymentFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "UnemploymentFam")
                 protected byte unemploymentFam;
-                @XmlElement(name = "MentalHealthIssuesYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "MentalHealthIssuesYouth")
                 protected byte mentalHealthIssuesYouth;
-                @XmlElement(name = "MentalHealthIssuesFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "MentalHealthIssuesFam")
                 protected byte mentalHealthIssuesFam;
-                @XmlElement(name = "HealthIssuesYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HealthIssuesYouth")
                 protected byte healthIssuesYouth;
-                @XmlElement(name = "HealthIssuesFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HealthIssuesFam")
                 protected byte healthIssuesFam;
-                @XmlElement(name = "PhysicalDisabilityYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PhysicalDisabilityYouth")
                 protected byte physicalDisabilityYouth;
-                @XmlElement(name = "PhysicalDisabilityFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PhysicalDisabilityFam")
                 protected byte physicalDisabilityFam;
-                @XmlElement(name = "MentalDisabilityYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "MentalDisabilityYouth")
                 protected byte mentalDisabilityYouth;
-                @XmlElement(name = "MentalDisabilityFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "MentalDisabilityFam")
                 protected byte mentalDisabilityFam;
-                @XmlElement(name = "AbuseAndNeglectYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AbuseAndNeglectYouth")
                 protected byte abuseAndNeglectYouth;
-                @XmlElement(name = "AbuseAndNeglectFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AbuseAndNeglectFam")
                 protected byte abuseAndNeglectFam;
-                @XmlElement(name = "AlcoholDrugAbuseYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AlcoholDrugAbuseYouth")
                 protected byte alcoholDrugAbuseYouth;
-                @XmlElement(name = "AlcoholDrugAbuseFam", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AlcoholDrugAbuseFam")
                 protected byte alcoholDrugAbuseFam;
-                @XmlElement(name = "InsufficientIncome", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "InsufficientIncome")
                 protected byte insufficientIncome;
-                @XmlElement(name = "ActiveMilitaryParent", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ActiveMilitaryParent")
                 protected byte activeMilitaryParent;
-                @XmlElement(name = "IncarceratedParent", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "IncarceratedParent")
                 protected byte incarceratedParent;
-                @XmlElement(name = "IncarceratedParentStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "IncarceratedParentStatus")
                 protected byte incarceratedParentStatus;
-                @XmlElement(name = "WorkPlaceViolenceThreats", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WorkPlaceViolenceThreats")
                 protected byte workPlaceViolenceThreats;
-                @XmlElement(name = "WorkplacePromiseDifference", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WorkplacePromiseDifference")
                 protected byte workplacePromiseDifference;
-                @XmlElement(name = "CoercedToContinueWork", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "CoercedToContinueWork")
                 protected byte coercedToContinueWork;
-                @XmlElement(name = "LaborExploitPastThreeMonths", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "LaborExploitPastThreeMonths")
                 protected byte laborExploitPastThreeMonths;
-                @XmlElement(name = "ExchangeForSex", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ExchangeForSex")
                 protected byte exchangeForSex;
-                @XmlElement(name = "ExchangeForSexPastThreeMonths", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ExchangeForSexPastThreeMonths")
                 protected byte exchangeForSexPastThreeMonths;
-                @XmlElement(name = "CountOfExchangeForSex", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "CountOfExchangeForSex")
                 protected byte countOfExchangeForSex;
-                @XmlElement(name = "AskedOrForcedToExchangeForSex", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AskedOrForcedToExchangeForSex")
                 protected byte askedOrForcedToExchangeForSex;
-                @XmlElement(name = "AskedOrForcedToExchangeForSexPastThreeMonths", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AskedOrForcedToExchangeForSexPastThreeMonths")
                 protected byte askedOrForcedToExchangeForSexPastThreeMonths;
-                @XmlElement(name = "FormerWardJuvenileJustice", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "FormerWardJuvenileJustice")
                 protected byte formerWardJuvenileJustice;
-                @XmlElement(name = "JuvenileJusticeYears", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "JuvenileJusticeYears")
                 protected byte juvenileJusticeYears;
-                @XmlElement(name = "JuvenileJusticeMonths", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "JuvenileJusticeMonths")
                 protected byte juvenileJusticeMonths;
-                @XmlElement(name = "FormerWardChildWelfare", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "FormerWardChildWelfare")
                 protected byte formerWardChildWelfare;
-                @XmlElement(name = "ChildWelfareYears", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ChildWelfareYears")
                 protected byte childWelfareYears;
-                @XmlElement(name = "ChildWelfareMonths", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ChildWelfareMonths")
                 protected byte childWelfareMonths;
-                @XmlElement(name = "ReferralSource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ReferralSource")
                 protected byte referralSource;
-                @XmlElement(name = "CountOutreachReferralApproaches", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "CountOutreachReferralApproaches")
                 protected byte countOutreachReferralApproaches;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -9029,25 +6460,25 @@ public class Sources {
             })
             public static class EntrySSVF {
 
-                @XmlElement(name = "EntrySSVFID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EntrySSVFID", required = true)
                 protected String entrySSVFID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "PercentAMI", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PercentAMI")
                 protected byte percentAMI;
-                @XmlElement(name = "HPScreeningScore", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HPScreeningScore")
                 protected byte hpScreeningScore;
-                @XmlElement(name = "VAMCStation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "VAMCStation", required = true)
                 protected String vamcStation;
-                @XmlElement(name = "LastPermanentStreet", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "LastPermanentStreet", required = true)
                 protected String lastPermanentStreet;
-                @XmlElement(name = "LastPermanentCity", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "LastPermanentCity", required = true)
                 protected String lastPermanentCity;
-                @XmlElement(name = "LastPermanentState", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "LastPermanentState", required = true)
                 protected String lastPermanentState;
-                @XmlElement(name = "LastPermanentZIP", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "LastPermanentZIP")
                 protected int lastPermanentZIP;
-                @XmlElement(name = "AddressDataQuality", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AddressDataQuality")
                 protected byte addressDataQuality;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -9375,15 +6806,15 @@ public class Sources {
             })
             public static class Exit {
 
-                @XmlElement(name = "ExitID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "ExitDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitDate", required = true)
                 protected XMLGregorianCalendar exitDate;
-                @XmlElement(name = "Destination", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Destination")
                 protected byte destination;
-                @XmlElement(name = "OtherDestination", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherDestination")
                 protected String otherDestination;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -9613,13 +7044,13 @@ public class Sources {
             })
             public static class ExitHousingAssessment {
 
-                @XmlElement(name = "ExitHousingAssessmentID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ExitHousingAssessmentID")
                 protected short exitHousingAssessmentID;
-                @XmlElement(name = "ExitID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "HousingAssessment", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HousingAssessment")
                 protected byte housingAssessment;
-                @XmlElement(name = "SubsidyInformation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SubsidyInformation")
                 protected byte subsidyInformation;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -9807,11 +7238,11 @@ public class Sources {
             })
             public static class ExitPATH {
 
-                @XmlElement(name = "ExitPATHID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitPATHID", required = true)
                 protected String exitPATHID;
-                @XmlElement(name = "ExitID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "ConnectionWithSOAR", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ConnectionWithSOAR")
                 protected byte connectionWithSOAR;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -10013,33 +7444,33 @@ public class Sources {
             })
             public static class ExitRHY {
 
-                @XmlElement(name = "ExitRHYID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitRHYID", required = true)
                 protected String exitRHYID;
-                @XmlElement(name = "ExitID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "WrittenAftercarePlan", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WrittenAftercarePlan")
                 protected byte writtenAftercarePlan;
-                @XmlElement(name = "AssistanceMainstreamBenefits", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AssistanceMainstreamBenefits")
                 protected byte assistanceMainstreamBenefits;
-                @XmlElement(name = "PermanentHousingPlacement", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PermanentHousingPlacement")
                 protected byte permanentHousingPlacement;
-                @XmlElement(name = "TemporaryShelterPlacement", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TemporaryShelterPlacement")
                 protected byte temporaryShelterPlacement;
-                @XmlElement(name = "ExitCounseling", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ExitCounseling")
                 protected byte exitCounseling;
-                @XmlElement(name = "FurtherFollowUpServices", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "FurtherFollowUpServices")
                 protected byte furtherFollowUpServices;
-                @XmlElement(name = "ScheduledFollowUpContacts", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ScheduledFollowUpContacts")
                 protected byte scheduledFollowUpContacts;
-                @XmlElement(name = "ResourcePackage", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ResourcePackage")
                 protected byte resourcePackage;
-                @XmlElement(name = "OtherAftercarePlanOrAction", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherAftercarePlanOrAction")
                 protected byte otherAftercarePlanOrAction;
-                @XmlElement(name = "FamilyReunificationAchieved", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "FamilyReunificationAchieved")
                 protected byte familyReunificationAchieved;
-                @XmlElement(name = "ProjectCompletionStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ProjectCompletionStatus")
                 protected byte projectCompletionStatus;
-                @XmlElement(name = "EarlyExitReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "EarlyExitReason")
                 protected byte earlyExitReason;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -10390,9 +7821,9 @@ public class Sources {
             })
             public static class ExportPeriod {
 
-                @XmlElement(name = "StartDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "StartDate", required = true)
                 protected XMLGregorianCalendar startDate;
-                @XmlElement(name = "EndDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EndDate", required = true)
                 protected XMLGregorianCalendar endDate;
 
                 /**
@@ -10484,17 +7915,17 @@ public class Sources {
             })
             public static class Funder {
 
-                @XmlElement(name = "FunderID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "FunderID", required = true)
                 protected String funderID;
-                @XmlElement(name = "ProjectID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectID", required = true)
                 protected String projectID;
-                @XmlElement(name = "Funder", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Funder")
                 protected byte funder;
-                @XmlElement(name = "GrantID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "GrantID", required = true)
                 protected String grantID;
-                @XmlElement(name = "StartDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "StartDate", required = true)
                 protected XMLGregorianCalendar startDate;
-                @XmlElement(name = "EndDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "EndDate", required = true)
                 protected XMLGregorianCalendar endDate;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -10781,43 +8212,43 @@ public class Sources {
             })
             public static class HealthInsurance {
 
-                @XmlElement(name = "HealthInsuranceID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "HealthInsuranceID", required = true)
                 protected String healthInsuranceID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "InsuranceFromAnySource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "InsuranceFromAnySource")
                 protected byte insuranceFromAnySource;
-                @XmlElement(name = "Medicaid", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Medicaid")
                 protected byte medicaid;
-                @XmlElement(name = "NoMedicaidReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoMedicaidReason")
                 protected byte noMedicaidReason;
-                @XmlElement(name = "Medicare", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Medicare")
                 protected byte medicare;
-                @XmlElement(name = "NoMedicareReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoMedicareReason")
                 protected byte noMedicareReason;
-                @XmlElement(name = "SCHIP", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SCHIP")
                 protected byte schip;
-                @XmlElement(name = "NoSCHIPReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoSCHIPReason")
                 protected byte noSCHIPReason;
-                @XmlElement(name = "VAMedicalServices", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VAMedicalServices")
                 protected byte vaMedicalServices;
-                @XmlElement(name = "NoVAMedReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoVAMedReason")
                 protected byte noVAMedReason;
-                @XmlElement(name = "EmployerProvided", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "EmployerProvided")
                 protected byte employerProvided;
-                @XmlElement(name = "NoEmployerProvidedReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoEmployerProvidedReason")
                 protected byte noEmployerProvidedReason;
-                @XmlElement(name = "COBRA", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "COBRA")
                 protected byte cobra;
-                @XmlElement(name = "NoCOBRAReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoCOBRAReason")
                 protected byte noCOBRAReason;
-                @XmlElement(name = "PrivatePay", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PrivatePay")
                 protected byte privatePay;
-                @XmlElement(name = "NoPrivatePayReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoPrivatePayReason")
                 protected byte noPrivatePayReason;
-                @XmlElement(name = "StateHealthIns", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "StateHealthIns")
                 protected byte stateHealthIns;
-                @XmlElement(name = "NoStateHealthInsReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoStateHealthInsReason")
                 protected byte noStateHealthInsReason;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -11337,15 +8768,15 @@ public class Sources {
             })
             public static class HealthStatus {
 
-                @XmlElement(name = "HealthStatusID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "HealthStatusID", required = true)
                 protected String healthStatusID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "HealthCategory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HealthCategory")
                 protected byte healthCategory;
-                @XmlElement(name = "HealthStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HealthStatus")
                 protected byte healthStatus;
-                @XmlElement(name = "DueDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DueDate", required = true)
                 protected XMLGregorianCalendar dueDate;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -11619,13 +9050,13 @@ public class Sources {
             })
             public static class HousingAssessmentDisposition {
 
-                @XmlElement(name = "HousingAssessmentDispositionID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "HousingAssessmentDispositionID", required = true)
                 protected String housingAssessmentDispositionID;
-                @XmlElement(name = "ExitID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "AssessmentDisposition", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AssessmentDisposition")
                 protected byte assessmentDisposition;
-                @XmlElement(name = "OtherDisposition", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OtherDisposition", required = true)
                 protected String otherDisposition;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -11895,75 +9326,75 @@ public class Sources {
             })
             public static class IncomeAndSources {
 
-                @XmlElement(name = "IncomeAndSourcesID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "IncomeAndSourcesID", required = true)
                 protected String incomeAndSourcesID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "IncomeFromAnySource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "IncomeFromAnySource")
                 protected byte incomeFromAnySource;
-                @XmlElement(name = "TotalMonthlyIncome", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TotalMonthlyIncome")
                 protected float totalMonthlyIncome;
-                @XmlElement(name = "Earned", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Earned")
                 protected byte earned;
-                @XmlElement(name = "EarnedAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "EarnedAmount")
                 protected float earnedAmount;
-                @XmlElement(name = "Unemployment", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Unemployment")
                 protected byte unemployment;
-                @XmlElement(name = "UnemploymentAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "UnemploymentAmount")
                 protected float unemploymentAmount;
-                @XmlElement(name = "SSI", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SSI")
                 protected byte ssi;
-                @XmlElement(name = "SSIAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SSIAmount")
                 protected float ssiAmount;
-                @XmlElement(name = "SSDI", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SSDI")
                 protected byte ssdi;
-                @XmlElement(name = "SSDIAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SSDIAmount")
                 protected float ssdiAmount;
-                @XmlElement(name = "VADisabilityService", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VADisabilityService")
                 protected byte vaDisabilityService;
-                @XmlElement(name = "VADisabilityServiceAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VADisabilityServiceAmount")
                 protected float vaDisabilityServiceAmount;
-                @XmlElement(name = "VADisabilityNonService", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VADisabilityNonService")
                 protected byte vaDisabilityNonService;
-                @XmlElement(name = "VADisabilityNonServiceAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "VADisabilityNonServiceAmount")
                 protected float vaDisabilityNonServiceAmount;
-                @XmlElement(name = "PrivateDisability", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PrivateDisability")
                 protected byte privateDisability;
-                @XmlElement(name = "PrivateDisabilityAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PrivateDisabilityAmount")
                 protected float privateDisabilityAmount;
-                @XmlElement(name = "WorkersComp", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WorkersComp")
                 protected byte workersComp;
-                @XmlElement(name = "WorkersCompAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WorkersCompAmount")
                 protected float workersCompAmount;
-                @XmlElement(name = "TANF", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TANF")
                 protected byte tanf;
-                @XmlElement(name = "TANFAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TANFAmount")
                 protected float tanfAmount;
-                @XmlElement(name = "GA", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "GA")
                 protected byte ga;
-                @XmlElement(name = "GAAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "GAAmount")
                 protected float gaAmount;
-                @XmlElement(name = "SocSecRetirement", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SocSecRetirement")
                 protected byte socSecRetirement;
-                @XmlElement(name = "SocSecRetirementAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SocSecRetirementAmount")
                 protected float socSecRetirementAmount;
-                @XmlElement(name = "Pension", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Pension")
                 protected byte pension;
-                @XmlElement(name = "PensionAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PensionAmount")
                 protected float pensionAmount;
-                @XmlElement(name = "ChildSupport", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ChildSupport")
                 protected byte childSupport;
-                @XmlElement(name = "ChildSupportAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ChildSupportAmount")
                 protected float childSupportAmount;
-                @XmlElement(name = "Alimony", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Alimony")
                 protected byte alimony;
-                @XmlElement(name = "AlimonyAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "AlimonyAmount")
                 protected float alimonyAmount;
-                @XmlElement(name = "OtherSource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherSource")
                 protected byte otherSource;
-                @XmlElement(name = "OtherSourceAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherSourceAmount")
                 protected float otherSourceAmount;
-                @XmlElement(name = "OtherSourceIdentify", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -12744,25 +10175,25 @@ public class Sources {
             })
             public static class Inventory {
 
-                @XmlElement(name = "InventoryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "InventoryID", required = true)
                 protected String inventoryID;
-                @XmlElement(name = "CoCCode", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
-                @XmlElement(name = "HouseholdType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HouseholdType")
                 protected byte householdType;
-                @XmlElement(name = "BedType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "BedType")
                 protected byte bedType;
-                @XmlElement(name = "Availability", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Availability")
                 protected byte availability;
-                @XmlElement(name = "UnitInventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "UnitInventory")
                 protected int unitInventory;
-                @XmlElement(name = "BedInventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "BedInventory", required = true)
                 protected BedInventory bedInventory;
-                @XmlElement(name = "InventoryStartDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "InventoryStartDate", required = true)
                 protected XMLGregorianCalendar inventoryStartDate;
-                @XmlElement(name = "InventoryEndDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "InventoryEndDate", required = true)
                 protected XMLGregorianCalendar inventoryEndDate;
-                @XmlElement(name = "HMISParticipatingBeds", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HMISParticipatingBeds")
                 protected int hmisParticipatingBeds;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -13103,15 +10534,15 @@ public class Sources {
                 })
                 public static class BedInventory {
 
-                    @XmlElement(name = "BedInventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                    @XmlElement(name = "BedInventory")
                     protected short bedInventory;
-                    @XmlElement(name = "CHBedInventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                    @XmlElement(name = "CHBedInventory")
                     protected byte chBedInventory;
-                    @XmlElement(name = "VetBedInventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                    @XmlElement(name = "VetBedInventory")
                     protected byte vetBedInventory;
-                    @XmlElement(name = "YouthBedInventory", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                    @XmlElement(name = "YouthBedInventory")
                     protected byte youthBedInventory;
-                    @XmlElement(name = "YouthAgeGroup", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                    @XmlElement(name = "YouthAgeGroup")
                     protected byte youthAgeGroup;
 
                     /**
@@ -13239,17 +10670,17 @@ public class Sources {
             })
             public static class MedicalAssistance {
 
-                @XmlElement(name = "MedicalAssistanceID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "MedicalAssistanceID", required = true)
                 protected String medicalAssistanceID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "HIVAIDSAssistance", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "HIVAIDSAssistance")
                 protected byte hivaidsAssistance;
-                @XmlElement(name = "NoHIVAIDSAssistanceReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoHIVAIDSAssistanceReason")
                 protected byte noHIVAIDSAssistanceReason;
-                @XmlElement(name = "ADAP", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ADAP")
                 protected byte adap;
-                @XmlElement(name = "NoADAPReason", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "NoADAPReason")
                 protected byte noADAPReason;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -13549,29 +10980,29 @@ public class Sources {
             })
             public static class NonCashBenefits {
 
-                @XmlElement(name = "NonCashBenefitsID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "NonCashBenefitsID", required = true)
                 protected String nonCashBenefitsID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "BenefitsFromAnySource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "BenefitsFromAnySource")
                 protected byte benefitsFromAnySource;
-                @XmlElement(name = "SNAP", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SNAP")
                 protected byte snap;
-                @XmlElement(name = "WIC", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WIC")
                 protected byte wic;
-                @XmlElement(name = "TANFChildCare", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TANFChildCare")
                 protected byte tanfChildCare;
-                @XmlElement(name = "TANFTransportation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TANFTransportation")
                 protected byte tanfTransportation;
-                @XmlElement(name = "OtherTANF", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherTANF")
                 protected byte otherTANF;
-                @XmlElement(name = "RentalAssistanceOngoing", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "RentalAssistanceOngoing")
                 protected byte rentalAssistanceOngoing;
-                @XmlElement(name = "RentalAssistanceTemp", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "RentalAssistanceTemp")
                 protected byte rentalAssistanceTemp;
-                @XmlElement(name = "OtherSource", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OtherSource")
                 protected byte otherSource;
-                @XmlElement(name = "OtherSourceIdentify", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
@@ -13955,11 +11386,11 @@ public class Sources {
             })
             public static class Organization {
 
-                @XmlElement(name = "OrganizationID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OrganizationID")
                 protected byte organizationID;
-                @XmlElement(name = "OrganizationName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OrganizationName", required = true)
                 protected String organizationName;
-                @XmlElement(name = "OrganizationCommonName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OrganizationCommonName", required = true)
                 protected String organizationCommonName;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -14143,15 +11574,15 @@ public class Sources {
             })
             public static class PATHStatus {
 
-                @XmlElement(name = "PathStatusID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PathStatusID")
                 protected int pathStatusID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "DateOfStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DateOfStatus", required = true)
                 protected XMLGregorianCalendar dateOfStatus;
-                @XmlElement(name = "ClientEnrolledInPATH", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ClientEnrolledInPATH")
                 protected byte clientEnrolledInPATH;
-                @XmlElement(name = "ReasonNotEnrolled", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ReasonNotEnrolled")
                 protected byte reasonNotEnrolled;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -14375,23 +11806,23 @@ public class Sources {
             })
             public static class Project {
 
-                @XmlElement(name = "ProjectID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectID", required = true)
                 protected String projectID;
-                @XmlElement(name = "OrganizationID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "OrganizationID")
                 protected byte organizationID;
-                @XmlElement(name = "ProjectName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectName", required = true)
                 protected String projectName;
-                @XmlElement(name = "ContinuumProject", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ContinuumProject")
                 protected byte continuumProject;
-                @XmlElement(name = "ProjectType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ProjectType")
                 protected byte projectType;
-                @XmlElement(name = "ResidentialAffiliation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ResidentialAffiliation")
                 protected byte residentialAffiliation;
-                @XmlElement(name = "TrackingMethod", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TrackingMethod")
                 protected byte trackingMethod;
-                @XmlElement(name = "TargetPopulation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TargetPopulation")
                 protected byte targetPopulation;
-                @XmlElement(name = "ProjectCommonName", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectCommonName", required = true)
                 protected String projectCommonName;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -14679,15 +12110,15 @@ public class Sources {
             })
             public static class RHYBCPStatus {
 
-                @XmlElement(name = "RHYBCPStatusID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "RHYBCPStatusID", required = true)
                 protected String rhybcpStatusID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "StatusDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "StatusDate", required = true)
                 protected XMLGregorianCalendar statusDate;
-                @XmlElement(name = "FYSBYouth", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "FYSBYouth")
                 protected byte fysbYouth;
-                @XmlElement(name = "ReasonNoServices", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ReasonNoServices")
                 protected byte reasonNoServices;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -14909,13 +12340,13 @@ public class Sources {
             })
             public static class ResidentialMoveInDate {
 
-                @XmlElement(name = "ResidentialMoveInDateID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ResidentialMoveInDateID", required = true)
                 protected String residentialMoveInDateID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "InPermanentHousing", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "InPermanentHousing")
                 protected byte inPermanentHousing;
-                @XmlElement(name = "ResidentialMoveInDate", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ResidentialMoveInDate", required = true)
                 protected XMLGregorianCalendar residentialMoveInDate;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -15131,23 +12562,23 @@ public class Sources {
             })
             public static class Services {
 
-                @XmlElement(name = "ServicesID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ServicesID", required = true)
                 protected String servicesID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "DateProvided", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "DateProvided", required = true)
                 protected XMLGregorianCalendar dateProvided;
-                @XmlElement(name = "RecordType", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "RecordType")
                 protected short recordType;
-                @XmlElement(name = "TypeProvided", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "TypeProvided")
                 protected short typeProvided;
-                @XmlElement(name = "OtherTypeProvided", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "OtherTypeProvided", required = true)
                 protected String otherTypeProvided;
-                @XmlElement(name = "SubTypeProvided", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SubTypeProvided")
                 protected byte subTypeProvided;
-                @XmlElement(name = "FAAmount", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "FAAmount")
                 protected float faAmount;
-                @XmlElement(name = "ReferralOutcome", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ReferralOutcome")
                 protected byte referralOutcome;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -15449,21 +12880,21 @@ public class Sources {
             })
             public static class Site {
 
-                @XmlElement(name = "SiteID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "SiteID")
                 protected short siteID;
-                @XmlElement(name = "CoCCode", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
-                @XmlElement(name = "PrincipalSite", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "PrincipalSite")
                 protected byte principalSite;
-                @XmlElement(name = "Address", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "Address", required = true)
                 protected String address;
-                @XmlElement(name = "City", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "City", required = true)
                 protected String city;
-                @XmlElement(name = "State", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "State", required = true)
                 protected String state;
-                @XmlElement(name = "ZIP", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "ZIP")
                 protected int zip;
-                @XmlElement(name = "Geocode", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "Geocode")
                 protected int geocode;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
@@ -15739,11 +13170,11 @@ public class Sources {
             })
             public static class WorstHousingSituation {
 
-                @XmlElement(name = "WorstHousingSituationID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "WorstHousingSituationID", required = true)
                 protected String worstHousingSituationID;
-                @XmlElement(name = "ProjectEntryID", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd", required = true)
+                @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-                @XmlElement(name = "WorstHousingSituation", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
+                @XmlElement(name = "WorstHousingSituation")
                 protected byte worstHousingSituation;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;

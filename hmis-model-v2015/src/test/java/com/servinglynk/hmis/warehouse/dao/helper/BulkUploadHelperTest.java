@@ -51,7 +51,7 @@ public class BulkUploadHelperTest {
 		
 		List<Client> clients = sources.getSource().getExport().getClient();
 		assertNotNull(clients);
-		assertEquals(clients.size(), 10);
+		assertEquals(clients.size(), 1);
 		
 		Client client = clients.get(0);
 		assertEquals(client.getPersonalID(), "client_3");

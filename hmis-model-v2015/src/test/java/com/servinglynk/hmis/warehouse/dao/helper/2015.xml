@@ -22,11 +22,11 @@
            </hmis:ExportPeriod> 
            <hmis:ExportPeriodType>effective</hmis:ExportPeriodType> 
            <hmis:ExportDirective>other</hmis:ExportDirective> 
-           <!--<hmis:Affiliation hmis:dateCreated="2016-04-11T23:14:59Z" hmis:dateUpdated="2015-05-30T23:14:59" hmis:userID="nf"> 
+           <hmis:Affiliation hmis:dateCreated="2016-04-11T23:14:59Z" hmis:dateUpdated="2015-05-30T23:14:59" hmis:userID="nf"> 
                <hmis:AffiliationID>76yt</hmis:AffiliationID> 
                <hmis:ProjectID>222E</hmis:ProjectID> 
                <hmis:ResProjectID>222D</hmis:ResProjectID> 
-           </hmis:Affiliation>--> 
+           </hmis:Affiliation>
            <hmis:Client hmis:dateCreated="2016-04-11T23:14:59Z" hmis:dateUpdated="2015-05-30T23:14:59" hmis:userID="ned100"> 
                <hmis:PersonalID>A1a1</hmis:PersonalID> 
                <hmis:FirstName hmis:hashStatus="2">123456789012345678901234567890ABCDEF12d4</hmis:FirstName> 
