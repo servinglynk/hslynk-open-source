@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -108,16 +107,16 @@ public class RhybcpStatus extends HmisBaseModelV2015 implements Cloneable, Seria
 	}
 
 
-	 /**
+	/**
 	 * Return the value associated with the column: fysbYouth.
 	 * @return A RhybcpStatusFysbYouthEnum object (this.fysbYouth)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.RhybcpStatusFysbYouthEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnumType")
 	@Basic( optional = true )
 	@Column( name = "fysb_youth"  )
 	public RhybcpStatusFysbYouthEnum getFysbYouth() {
 		return this.fysbYouth;
-		
+
 	}
 	
 
@@ -162,16 +161,16 @@ public class RhybcpStatus extends HmisBaseModelV2015 implements Cloneable, Seria
 	
 
 
-	 /**
+	/**
 	 * Return the value associated with the column: reasonNoServices.
 	 * @return A RhybcpStatusReasonNoServicesEnum object (this.reasonNoServices)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.RhybcpStatusReasonNoServicesEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnumType")
 	@Basic( optional = true )
 	@Column( name = "reason_no_services"  )
 	public RhybcpStatusReasonNoServicesEnum getReasonNoServices() {
 		return this.reasonNoServices;
-		
+
 	}
 	
 

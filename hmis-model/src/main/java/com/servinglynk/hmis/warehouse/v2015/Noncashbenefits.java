@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -104,14 +103,16 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 	}
  
 
-	 /**
+	/**
 	 * Return the value associated with the column: benefitsfromanysource.
 	 * @return A NoncashbenefitsBenefitsfromanysourceEnum object (this.benefitsfromanysource)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsBenefitsfromanysourceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsBenefitsfromanysourceEnumType")
+	@Basic( optional = true )
+	@Column
 	public NoncashbenefitsBenefitsfromanysourceEnum getBenefitsfromanysource() {
 		return this.benefitsfromanysource;
-		
+
 	}
 	
 
@@ -179,15 +180,17 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.id = id;
 	}
 
-	 /**
-	 * Return the value associated with the column: othersource.
-	 * @return A NoncashbenefitsOthersourceEnum object (this.othersource)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsOthersourceEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public NoncashbenefitsOthersourceEnum getOthersource() {
-		return this.othersource;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: othersource.
+		 * @return A NoncashbenefitsOthersourceEnum object (this.othersource)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsOthersourceEnumType")
+		@Basic( optional = true )
+		@Column
+		public NoncashbenefitsOthersourceEnum getOthersource() {
+			return this.othersource;
+
+		}
 	
 
   
@@ -220,14 +223,16 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.othersourceidentify = othersourceidentify;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: othertanf.
 	 * @return A NoncashbenefitsOthertanfEnum object (this.othertanf)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsOthertanfEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsOthertanfEnumType")
+	@Basic( optional = true )
+	@Column
 	public NoncashbenefitsOthertanfEnum getOthertanf() {
 		return this.othertanf;
-		
+
 	}
 	
 
@@ -240,14 +245,16 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.othertanf = othertanf;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: rentalassistanceongoing.
 	 * @return A NoncashbenefitsRentalassistanceongoingEnum object (this.rentalassistanceongoing)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsRentalassistanceongoingEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsRentalassistanceongoingEnumType")
+	@Basic( optional = true )
+	@Column
 	public NoncashbenefitsRentalassistanceongoingEnum getRentalassistanceongoing() {
 		return this.rentalassistanceongoing;
-		
+
 	}
 	
 
@@ -260,14 +267,14 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.rentalassistanceongoing = rentalassistanceongoing;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: rentalassistancetemp.
 	 * @return A NoncashbenefitsRentalassistancetempEnum object (this.rentalassistancetemp)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsRentalassistancetempEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsRentalassistancetempEnumType")
 	public NoncashbenefitsRentalassistancetempEnum getRentalassistancetemp() {
 		return this.rentalassistancetemp;
-		
+
 	}
 	
 
@@ -280,14 +287,14 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.rentalassistancetemp = rentalassistancetemp;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: snap.
 	 * @return A NoncashbenefitsSnapEnum object (this.snap)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsSnapEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnumType")
 	public NoncashbenefitsSnapEnum getSnap() {
 		return this.snap;
-		
+
 	}
 	
 
@@ -300,14 +307,16 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.snap = snap;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: tanfchildcare.
 	 * @return A NoncashbenefitsTanfchildcareEnum object (this.tanfchildcare)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsTanfchildcareEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnumType")
+	@Basic( optional = true )
+	@Column
 	public NoncashbenefitsTanfchildcareEnum getTanfchildcare() {
 		return this.tanfchildcare;
-		
+
 	}
 	
 
@@ -320,14 +329,16 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.tanfchildcare = tanfchildcare;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: tanftransportation.
 	 * @return A NoncashbenefitsTanftransportationEnum object (this.tanftransportation)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsTanftransportationEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnumType")
+	@Basic( optional = true )
+	@Column
 	public NoncashbenefitsTanftransportationEnum getTanftransportation() {
 		return this.tanftransportation;
-		
+
 	}
 	
 
@@ -340,15 +351,17 @@ public class Noncashbenefits extends HmisBaseModelV2015 implements Cloneable, Se
 		this.tanftransportation = tanftransportation;
 	}
 
-	 /**
-	 * Return the value associated with the column: wic.
-	 * @return A NoncashbenefitsWicEnum object (this.wic)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.NoncashbenefitsWicEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public NoncashbenefitsWicEnum getWic() {
-		return this.wic;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: wic.
+		 * @return A NoncashbenefitsWicEnum object (this.wic)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnumType")
+		@Basic( optional = true )
+		@Column
+		public NoncashbenefitsWicEnum getWic() {
+			return this.wic;
+
+		}
 	
 
   

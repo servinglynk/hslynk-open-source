@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -226,17 +225,17 @@ public class Site extends HmisBaseModelV2015 implements Cloneable, Serializable 
 		this.parentId = parentId;
 	}
 
-	 /**
-	 * Return the value associated with the column: principalSite.
-	 * @return A SitePrincipalSiteEnum object (this.principalSite)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.SitePrincipalSiteEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Basic( optional = true )
-	@Column( name = "principal_site"  )
-	public SitePrincipalSiteEnum getPrincipalSite() {
-		return this.principalSite;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: principalSite.
+		 * @return A SitePrincipalSiteEnum object (this.principalSite)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnumType")
+		@Basic( optional = true )
+		@Column( name = "principal_site"  )
+		public SitePrincipalSiteEnum getPrincipalSite() {
+			return this.principalSite;
+
+		}
 	
 
   

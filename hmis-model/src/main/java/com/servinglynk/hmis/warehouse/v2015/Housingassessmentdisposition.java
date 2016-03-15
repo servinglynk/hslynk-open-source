@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -79,14 +78,16 @@ public class Housingassessmentdisposition extends HmisBaseModelV2015 implements 
 	}
  
 
-	 /**
+	/**
 	 * Return the value associated with the column: assessmentdisposition.
 	 * @return A HousingassessmentdispositionAssessmentdispositionEnum object (this.assessmentdisposition)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HousingassessmentdispositionAssessmentdispositionEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnumType")
+	@Basic( optional = true )
+	@Column
 	public HousingassessmentdispositionAssessmentdispositionEnum getAssessmentdisposition() {
 		return this.assessmentdisposition;
-		
+
 	}
 	
 

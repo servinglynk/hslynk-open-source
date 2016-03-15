@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -134,16 +133,16 @@ public class HealthStatus extends HmisBaseModelV2015 implements Cloneable, Seria
 	}
 
 	 /**
-	 * Return the value associated with the column: healthCategory.
-	 * @return A HealthStatusHealthCategoryEnum object (this.healthCategory)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthStatusHealthCategoryEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Basic( optional = true )
-	@Column( name = "health_category"  )
-	public HealthStatusHealthCategoryEnum getHealthCategory() {
-		return this.healthCategory;
-		
-	}
+		 * Return the value associated with the column: healthCategory.
+		 * @return A HealthStatusHealthCategoryEnum object (this.healthCategory)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnumType")
+		@Basic( optional = true )
+		@Column( name = "health_category"  )
+		public HealthStatusHealthCategoryEnum getHealthCategory() {
+			return this.healthCategory;
+
+		}
 	
 
   
@@ -155,17 +154,17 @@ public class HealthStatus extends HmisBaseModelV2015 implements Cloneable, Seria
 		this.healthCategory = healthCategory;
 	}
 
-	 /**
-	 * Return the value associated with the column: healthStatus.
-	 * @return A HealthStatusHealthStatusEnum object (this.healthStatus)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthStatusHealthStatusEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Basic( optional = true )
-	@Column( name = "health_status"  )
-	public HealthStatusHealthStatusEnum getHealthStatus() {
-		return this.healthStatus;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: healthStatus.
+		 * @return A HealthStatusHealthStatusEnum object (this.healthStatus)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnumType")
+		@Basic( optional = true )
+		@Column( name = "health_status"  )
+		public HealthStatusHealthStatusEnum getHealthStatus() {
+			return this.healthStatus;
+
+		}
 	
 
   

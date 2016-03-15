@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -115,15 +114,17 @@ public class Funder extends HmisBaseModelV2015 implements Cloneable, Serializabl
 		this.enddate = enddate;
 	}
 
-	 /**
-	 * Return the value associated with the column: funder.
-	 * @return A FunderFunderEnum object (this.funder)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.FunderFunderEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public FunderFunderEnum getFunder() {
-		return this.funder;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: funder.
+		 * @return A FunderFunderEnum object (this.funder)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.FunderFunderEnumType")
+		@Basic( optional = true )
+		@Column
+		public FunderFunderEnum getFunder() {
+			return this.funder;
+
+		}
 	
 
   

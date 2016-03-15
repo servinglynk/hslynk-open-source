@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -131,14 +130,16 @@ public class Residentialmoveindate extends HmisBaseModelV2015 implements Cloneab
 		this.id = id;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: inpermanenthousing.
 	 * @return A ResidentialmoveindateInpermanenthousingEnum object (this.inpermanenthousing)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.ResidentialmoveindateInpermanenthousingEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnumType")
+	@Basic( optional = true )
+	@Column
 	public ResidentialmoveindateInpermanenthousingEnum getInpermanenthousing() {
 		return this.inpermanenthousing;
-		
+
 	}
 	
 

@@ -84,17 +84,17 @@ public class PathStatus extends HmisBaseModelV2015 implements Cloneable, Seriali
 	}
  
 
-	 /**
-		 * Return the value associated with the column: dobDataQuality.
-		 * @return A ClientDobDataQualityEnum object (this.dobDataQuality)
-		 */
-		@Type(type="com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnumType")
-		@Basic( optional = true )
-		@Column( name = "reason_not_enrolled"  )
-		public PathstatusReasonnotenrolledEnum getReasonNotEnrolled() {
-			return this.reasonNotEnrolled;
-			
-		}
+	/**
+	 * Return the value associated with the column: dobDataQuality.
+	 * @return A ClientDobDataQualityEnum object (this.dobDataQuality)
+	 */
+	@Type(type="com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnumType")
+	@Basic( optional = true )
+	@Column( name = "reason_not_enrolled"  )
+	public PathstatusReasonnotenrolledEnum getReasonNotEnrolled() {
+		return this.reasonNotEnrolled;
+		
+	}
 		
 
 

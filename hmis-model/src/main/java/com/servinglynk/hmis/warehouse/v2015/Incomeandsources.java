@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -157,15 +156,17 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 	}
  
 
-	 /**
-	 * Return the value associated with the column: alimony.
-	 * @return A IncomeandsourcesAlimonyEnum object (this.alimony)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesAlimonyEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public IncomeandsourcesAlimonyEnum getAlimony() {
-		return this.alimony;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: alimony.
+		 * @return A IncomeandsourcesAlimonyEnum object (this.alimony)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesAlimonyEnumType")
+		@Basic( optional = true )
+		@Column
+		public IncomeandsourcesAlimonyEnum getAlimony() {
+			return this.alimony;
+
+		}
 	
 
   
@@ -196,14 +197,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.alimonyamount = alimonyamount;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: childsupport.
 	 * @return A IncomeandsourcesChildsupportEnum object (this.childsupport)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesChildsupportEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesChildsupportEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesChildsupportEnum getChildsupport() {
 		return this.childsupport;
-		
+
 	}
 	
 
@@ -239,15 +242,17 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 
 
 
-	 /**
-	 * Return the value associated with the column: earned.
-	 * @return A IncomeandsourcesEarnedEnum object (this.earned)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesEarnedEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public IncomeandsourcesEarnedEnum getEarned() {
-		return this.earned;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: earned.
+		 * @return A IncomeandsourcesEarnedEnum object (this.earned)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesEarnedEnumType")
+		@Basic( optional = true )
+		@Column
+		public IncomeandsourcesEarnedEnum getEarned() {
+			return this.earned;
+
+		}
 	
 	 /**  
 	 * Set the value related to the column: earned.
@@ -299,14 +304,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.enrollmentid = enrollmentid;
 	}
   
-	 /**
+	/**
 	 * Return the value associated with the column: ga.
 	 * @return A IncomeandsourcesGaEnum object (this.ga)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesGaEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesGaEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesGaEnum getGa() {
 		return this.ga;
-		
+
 	}
 	
 
@@ -368,16 +375,17 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.id = id;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: incomefromanysource.
 	 * @return A IncomeandsourcesIncomefromanysourceEnum object (this.incomefromanysource)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesIncomefromanysourceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesIncomefromanysourceEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesIncomefromanysourceEnum getIncomefromanysource() {
 		return this.incomefromanysource;
-		
+
 	}
-	
 
   
 	 /**  
@@ -388,14 +396,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.incomefromanysource = incomefromanysource;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: othersource.
 	 * @return A IncomeandsourcesOthersourceEnum object (this.othersource)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesOthersourceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesOthersourceEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesOthersourceEnum getOthersource() {
 		return this.othersource;
-		
+
 	}
 	
 
@@ -448,14 +458,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.othersourceidentify = othersourceidentify;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: pension.
 	 * @return A IncomeandsourcesPensionEnum object (this.pension)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesPensionEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesPensionEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesPensionEnum getPension() {
 		return this.pension;
-		
+
 	}
 	
 
@@ -487,14 +499,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.pensionamount = pensionamount;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: privatedisability.
 	 * @return A IncomeandsourcesPrivatedisabilityEnum object (this.privatedisability)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesPrivatedisabilityEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesPrivatedisabilityEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesPrivatedisabilityEnum getPrivatedisability() {
 		return this.privatedisability;
-		
+
 	}
 	
 
@@ -547,14 +561,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.projectGroupCode = projectGroupCode;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: socsecretirement.
 	 * @return A IncomeandsourcesSocsecretirementEnum object (this.socsecretirement)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesSocsecretirementEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesSocsecretirementEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesSocsecretirementEnum getSocsecretirement() {
 		return this.socsecretirement;
-		
+
 	}
 	
 
@@ -586,15 +602,17 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.socsecretirementamount = socsecretirementamount;
 	}
 
-	 /**
-	 * Return the value associated with the column: ssdi.
-	 * @return A IncomeandsourcesSsdiEnum object (this.ssdi)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesSsdiEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public IncomeandsourcesSsdiEnum getSsdi() {
-		return this.ssdi;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: ssdi.
+		 * @return A IncomeandsourcesSsdiEnum object (this.ssdi)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesSsdiEnumType")
+		@Basic( optional = true )
+		@Column
+		public IncomeandsourcesSsdiEnum getSsdi() {
+			return this.ssdi;
+
+		}
 	
 
   
@@ -625,16 +643,17 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.ssdiamount = ssdiamount;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: ssi.
 	 * @return A IncomeandsourcesSsiEnum object (this.ssi)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesSsiEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesSsiEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesSsiEnum getSsi() {
 		return this.ssi;
-		
+
 	}
-	
 
   
 	 /**  
@@ -665,14 +684,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 	}
 
 
-	 /**
+	/**
 	 * Return the value associated with the column: tanf.
 	 * @return A IncomeandsourcesTanfEnum object (this.tanf)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesTanfEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesTanfEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesTanfEnum getTanf() {
 		return this.tanf;
-		
+
 	}
 	
 
@@ -723,14 +744,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.totalmonthlyincome = totalmonthlyincome;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: unemployment.
 	 * @return A IncomeandsourcesUnemploymentEnum object (this.unemployment)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesUnemploymentEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesUnemploymentEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesUnemploymentEnum getUnemployment() {
 		return this.unemployment;
-		
+
 	}
 	
 
@@ -763,13 +786,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 	}
 
 
-	 /**
+	/**
+	 * Return the value associated with the column: vadisabilitynonservice.
 	 * @return A IncomeandsourcesVadisabilitynonserviceEnum object (this.vadisabilitynonservice)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesVadisabilitynonserviceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonserviceEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesVadisabilitynonserviceEnum getVadisabilitynonservice() {
 		return this.vadisabilitynonservice;
-		
+
 	}
 	
 
@@ -801,14 +827,16 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 		this.vadisabilitynonserviceamount = vadisabilitynonserviceamount;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: vadisabilityservice.
 	 * @return A IncomeandsourcesVadisabilityserviceEnum object (this.vadisabilityservice)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesVadisabilityserviceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnumType")
+	@Basic( optional = true )
+	@Column
 	public IncomeandsourcesVadisabilityserviceEnum getVadisabilityservice() {
 		return this.vadisabilityservice;
-		
+
 	}
 	
 
@@ -841,15 +869,17 @@ public class Incomeandsources extends HmisBaseModelV2015 implements Cloneable, S
 	}
 
 
-	 /**
-	 * Return the value associated with the column: workerscomp.
-	 * @return A IncomeandsourcesWorkerscompEnum object (this.workerscomp)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.IncomeandsourcesWorkerscompEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public IncomeandsourcesWorkerscompEnum getWorkerscomp() {
-		return this.workerscomp;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: workerscomp.
+		 * @return A IncomeandsourcesWorkerscompEnum object (this.workerscomp)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnumType")
+		@Basic( optional = true )
+		@Column
+		public IncomeandsourcesWorkerscompEnum getWorkerscomp() {
+			return this.workerscomp;
+
+		}
 	
 	 /**  
 	 * Set the value related to the column: workerscomp.

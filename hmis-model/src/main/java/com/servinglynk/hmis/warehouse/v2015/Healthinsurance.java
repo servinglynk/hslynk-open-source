@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -221,14 +220,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.id = id;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: insurancefromanysource.
 	 * @return A HealthinsuranceInsurancefromanysourceEnum object (this.insurancefromanysource)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceInsurancefromanysourceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceInsurancefromanysourceEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceInsurancefromanysourceEnum getInsurancefromanysource() {
 		return this.insurancefromanysource;
-		
+
 	}
 	
 
@@ -241,14 +242,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.insurancefromanysource = insurancefromanysource;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: medicaid.
 	 * @return A HealthinsuranceMedicaidEnum object (this.medicaid)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceMedicaidEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicaidEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceMedicaidEnum getMedicaid() {
 		return this.medicaid;
-		
+
 	}
 	
 
@@ -261,15 +264,17 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.medicaid = medicaid;
 	}
 
-	 /**
-	 * Return the value associated with the column: medicare.
-	 * @return A HealthinsuranceMedicareEnum object (this.medicare)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceMedicareEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsuranceMedicareEnum getMedicare() {
-		return this.medicare;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: medicare.
+		 * @return A HealthinsuranceMedicareEnum object (this.medicare)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicareEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsuranceMedicareEnum getMedicare() {
+			return this.medicare;
+
+		}
 	
 
   
@@ -282,14 +287,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 	}
 
 	 /**
-	 * Return the value associated with the column: nocobrareason.
-	 * @return A HealthinsuranceNocobrareasonEnum object (this.nocobrareason)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNocobrareasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsuranceNocobrareasonEnum getNocobrareason() {
-		return this.nocobrareason;
-		
-	}
+		 * Return the value associated with the column: nocobrareason.
+		 * @return A HealthinsuranceNocobrareasonEnum object (this.nocobrareason)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNocobrareasonEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsuranceNocobrareasonEnum getNocobrareason() {
+			return this.nocobrareason;
+
+		}
 	
 
   
@@ -301,14 +308,14 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.nocobrareason = nocobrareason;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: noemployerprovidedreason.
 	 * @return A HealthinsuranceNoemployerprovidedreasonEnum object (this.noemployerprovidedreason)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNoemployerprovidedreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNoemployerprovidedreasonEnumType")
 	public HealthinsuranceNoemployerprovidedreasonEnum getNoemployerprovidedreason() {
 		return this.noemployerprovidedreason;
-		
+
 	}
 	
 
@@ -321,15 +328,17 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.noemployerprovidedreason = noemployerprovidedreason;
 	}
 
-	 /**
-	 * Return the value associated with the column: nomedicaidreason.
-	 * @return A HealthinsuranceNomedicaidreasonEnum object (this.nomedicaidreason)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNomedicaidreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsuranceNomedicaidreasonEnum getNomedicaidreason() {
-		return this.nomedicaidreason;
-		
-	}
+		/**
+		 * Return the value associated with the column: nomedicaidreason.
+		 * @return A HealthinsuranceNomedicaidreasonEnum object (this.nomedicaidreason)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNomedicaidreasonEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsuranceNomedicaidreasonEnum getNomedicaidreason() {
+			return this.nomedicaidreason;
+
+		}
 	
 
   
@@ -341,14 +350,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.nomedicaidreason = nomedicaidreason;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: nomedicarereason.
 	 * @return A HealthinsuranceNomedicarereasonEnum object (this.nomedicarereason)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNomedicarereasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNomedicarereasonEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceNomedicarereasonEnum getNomedicarereason() {
 		return this.nomedicarereason;
-		
+
 	}
 	
 
@@ -361,16 +372,17 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.nomedicarereason = nomedicarereason;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: noprivatepayreason.
 	 * @return A HealthinsuranceNoprivatepayreasonEnum object (this.noprivatepayreason)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNoprivatepayreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNoprivatepayreasonEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceNoprivatepayreasonEnum getNoprivatepayreason() {
 		return this.noprivatepayreason;
-		
+
 	}
-	
 
   
 	 /**  
@@ -382,14 +394,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 	}
 
 	 /**
-	 * Return the value associated with the column: noschipreason.
-	 * @return A HealthinsuranceNoschipreasonEnum object (this.noschipreason)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNoschipreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsuranceNoschipreasonEnum getNoschipreason() {
-		return this.noschipreason;
-		
-	}
+		 * Return the value associated with the column: noschipreason.
+		 * @return A HealthinsuranceNoschipreasonEnum object (this.noschipreason)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNoschipreasonEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsuranceNoschipreasonEnum getNoschipreason() {
+			return this.noschipreason;
+
+		}
 	
 
   
@@ -401,14 +415,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.noschipreason = noschipreason;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: nostatehealthinsreason.
 	 * @return A HealthinsuranceNostatehealthinsreasonEnum object (this.nostatehealthinsreason)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNostatehealthinsreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNostatehealthinsreasonEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceNostatehealthinsreasonEnum getNostatehealthinsreason() {
 		return this.nostatehealthinsreason;
-		
+
 	}
 	
 
@@ -421,15 +437,17 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.nostatehealthinsreason = nostatehealthinsreason;
 	}
 
-	 /**
-	 * Return the value associated with the column: novamedreason.
-	 * @return A HealthinsuranceNovamedreasonEnum object (this.novamedreason)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceNovamedreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsuranceNovamedreasonEnum getNovamedreason() {
-		return this.novamedreason;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: novamedreason.
+		 * @return A HealthinsuranceNovamedreasonEnum object (this.novamedreason)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNovamedreasonEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsuranceNovamedreasonEnum getNovamedreason() {
+			return this.novamedreason;
+
+		}
 	
 
   
@@ -483,15 +501,17 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.otherSourceIdentify = otherSourceIdentify;
 	}
 
-	 /**
-	 * Return the value associated with the column: privatepay.
-	 * @return A HealthinsurancePrivatepayEnum object (this.privatepay)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsurancePrivatepayEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsurancePrivatepayEnum getPrivatepay() {
-		return this.privatepay;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: privatepay.
+		 * @return A HealthinsurancePrivatepayEnum object (this.privatepay)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsurancePrivatepayEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsurancePrivatepayEnum getPrivatepay() {
+			return this.privatepay;
+
+		}
 	
 
   
@@ -503,14 +523,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.privatepay = privatepay;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: schip.
 	 * @return A HealthinsuranceSchipEnum object (this.schip)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceSchipEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceSchipEnum getSchip() {
 		return this.schip;
-		
+
 	}
 	
 
@@ -523,15 +545,17 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 		this.schip = schip;
 	}
 
-	 /**
-	 * Return the value associated with the column: statehealthins.
-	 * @return A HealthinsuranceStatehealthinsEnum object (this.statehealthins)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceStatehealthinsEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public HealthinsuranceStatehealthinsEnum getStatehealthins() {
-		return this.statehealthins;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: statehealthins.
+		 * @return A HealthinsuranceStatehealthinsEnum object (this.statehealthins)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnumType")
+		@Basic( optional = true )
+		@Column
+		public HealthinsuranceStatehealthinsEnum getStatehealthins() {
+			return this.statehealthins;
+
+		}
 	
 
   
@@ -544,14 +568,16 @@ public class Healthinsurance extends HmisBaseModelV2015 implements Cloneable, Se
 	}
 
 
-	 /**
+	/**
 	 * Return the value associated with the column: vamedicalservices.
 	 * @return A HealthinsuranceVamedicalservicesEnum object (this.vamedicalservices)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.HealthinsuranceVamedicalservicesEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnumType")
+	@Basic( optional = true )
+	@Column
 	public HealthinsuranceVamedicalservicesEnum getVamedicalservices() {
 		return this.vamedicalservices;
-		
+
 	}
 	
 

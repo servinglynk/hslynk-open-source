@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -105,15 +104,17 @@ public class Inventory extends HmisBaseModelV2015 implements Cloneable, Serializ
 	}
  
 
-	 /**
-	 * Return the value associated with the column: availabilty.
-	 * @return A InventoryAvailabiltyEnum object (this.availabilty)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.InventoryAvailabiltyEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public InventoryAvailabiltyEnum getAvailabilty() {
-		return this.availabilty;
-		
-	}
+	 	/**
+		 * Return the value associated with the column: availabilty.
+		 * @return A InventoryAvailabiltyEnum object (this.availabilty)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnumType")
+		@Basic( optional = true )
+		@Column
+		public InventoryAvailabiltyEnum getAvailabilty() {
+			return this.availabilty;
+
+		}
 	
 
   
@@ -148,14 +149,16 @@ public class Inventory extends HmisBaseModelV2015 implements Cloneable, Serializ
 		this.bedinventory = bedinventory;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: bedtype.
 	 * @return A InventoryBedtypeEnum object (this.bedtype)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.InventoryBedtypeEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnumType")
+	@Basic( optional = true )
+	@Column
 	public InventoryBedtypeEnum getBedtype() {
 		return this.bedtype;
-		
+
 	}
 	
 
@@ -233,14 +236,16 @@ public class Inventory extends HmisBaseModelV2015 implements Cloneable, Serializ
 		this.hmisparticipatingbeds = hmisparticipatingbeds;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: householdtype.
 	 * @return A InventoryHouseholdtypeEnum object (this.householdtype)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.InventoryHouseholdtypeEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnumType")
+	@Basic( optional = true )
+	@Column
 	public InventoryHouseholdtypeEnum getHouseholdtype() {
 		return this.householdtype;
-		
+
 	}
 	
 

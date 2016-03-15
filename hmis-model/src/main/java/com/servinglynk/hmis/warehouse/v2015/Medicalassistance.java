@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -92,14 +91,16 @@ public class Medicalassistance extends HmisBaseModelV2015 implements Cloneable, 
 	}
  
 
-	 /**
+	/**
 	 * Return the value associated with the column: adap.
 	 * @return A MedicalassistanceAdapEnum object (this.adap)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.MedicalassistanceAdapEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnumType")
+	@Basic( optional = true )
+	@Column
 	public MedicalassistanceAdapEnum getAdap() {
 		return this.adap;
-		
+
 	}
 	
 
@@ -136,14 +137,16 @@ public class Medicalassistance extends HmisBaseModelV2015 implements Cloneable, 
 	}
 
 
-	 /**
+	/**
 	 * Return the value associated with the column: hivaidsassistance.
 	 * @return A MedicalassistanceHivaidsassistanceEnum object (this.hivaidsassistance)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.MedicalassistanceHivaidsassistanceEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnumType")
+	@Basic( optional = true )
+	@Column
 	public MedicalassistanceHivaidsassistanceEnum getHivaidsassistance() {
 		return this.hivaidsassistance;
-		
+
 	}
 	
 
@@ -208,14 +211,16 @@ public class Medicalassistance extends HmisBaseModelV2015 implements Cloneable, 
 		this.informationDate = informationDate;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: noadapreason.
 	 * @return A MedicalassistanceNoadapreasonEnum object (this.noadapreason)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.MedicalassistanceNoadapreasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnumType")
+	@Basic( optional = true )
+	@Column
 	public MedicalassistanceNoadapreasonEnum getNoadapreason() {
 		return this.noadapreason;
-		
+
 	}
 	
 
@@ -228,14 +233,16 @@ public class Medicalassistance extends HmisBaseModelV2015 implements Cloneable, 
 		this.noadapreason = noadapreason;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: nohivaidsassistancereason.
 	 * @return A MedicalassistanceNohivaidsassistancereasonEnum object (this.nohivaidsassistancereason)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.MedicalassistanceNohivaidsassistancereasonEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnumType")
+	@Basic( optional = true )
+	@Column
 	public MedicalassistanceNohivaidsassistancereasonEnum getNohivaidsassistancereason() {
 		return this.nohivaidsassistancereason;
-		
+
 	}
 	
 

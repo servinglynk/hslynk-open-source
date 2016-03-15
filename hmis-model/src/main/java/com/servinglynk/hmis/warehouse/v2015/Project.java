@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -169,14 +168,16 @@ public class Project extends HmisBaseModelV2015 implements Cloneable, Serializab
 		this.cocs = coc;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: continuumproject.
 	 * @return A ProjectContinuumprojectEnum object (this.continuumproject)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.ProjectContinuumprojectEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnumType")
+	@Basic( optional = true )
+	@Column
 	public ProjectContinuumprojectEnum getContinuumproject() {
 		return this.continuumproject;
-		
+
 	}
 	
 
@@ -346,15 +347,17 @@ public class Project extends HmisBaseModelV2015 implements Cloneable, Serializab
 		this.projectname = projectname;
 	}
 
-	 /**
-	 * Return the value associated with the column: projecttype.
-	 * @return A ProjectProjecttypeEnum object (this.projecttype)
-	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.ProjectProjecttypeEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	public ProjectProjecttypeEnum getProjecttype() {
-		return this.projecttype;
-		
-	}
+		/**
+		 * Return the value associated with the column: projecttype.
+		 * @return A ProjectProjecttypeEnum object (this.projecttype)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnumType")
+		@Basic( optional = true )
+		@Column
+		public ProjectProjecttypeEnum getProjecttype() {
+			return this.projecttype;
+
+		}
 	
 
   
@@ -366,14 +369,16 @@ public class Project extends HmisBaseModelV2015 implements Cloneable, Serializab
 		this.projecttype = projecttype;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: targetpopulation.
 	 * @return A ProjectTargetpopulationEnum object (this.targetpopulation)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.ProjectTargetpopulationEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnumType")
+	@Basic( optional = true )
+	@Column
 	public ProjectTargetpopulationEnum getTargetpopulation() {
 		return this.targetpopulation;
-		
+
 	}
 	
 
@@ -386,14 +391,16 @@ public class Project extends HmisBaseModelV2015 implements Cloneable, Serializab
 		this.targetpopulation = targetpopulation;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: trackingmethod.
 	 * @return A ProjectTrackingmethodEnum object (this.trackingmethod)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.ProjectTrackingmethodEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnumType")
+	@Basic( optional = true )
+	@Column
 	public ProjectTrackingmethodEnum getTrackingmethod() {
 		return this.trackingmethod;
-		
+
 	}
 	
 
