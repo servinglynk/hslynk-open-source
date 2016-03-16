@@ -107,7 +107,7 @@ public class Domesticviolence extends HmisBaseModel implements Cloneable, Serial
 	 * Return the value associated with the column: domesticviolencevictim.
 	 * @return A DomesticviolenceDomesticviolencevictimEnum object (this.domesticviolencevictim)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnumType")
 	@Basic( optional = true )
 	@Column(name = "domesticviolencevictim")
 	public DomesticviolenceDomesticviolencevictimEnum getDomesticviolencevictim() {
@@ -188,8 +188,7 @@ public class Domesticviolence extends HmisBaseModel implements Cloneable, Serial
 	 * Return the value associated with the column: whenoccurred.
 	 * @return A DomesticviolenceWhenoccurredEnum object (this.whenoccurred)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.DomesticviolenceWhenoccurredEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnumType")
 	@Basic( optional = true )
 	@Column( name = "whenoccurred" )
 	public DomesticviolenceWhenoccurredEnum getWhenoccurred() {

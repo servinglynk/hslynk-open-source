@@ -102,7 +102,6 @@ public class DatabaseConfig {
 	@Bean
 	public BedinventoryDao bedinventoryDao() {
 		return new BedinventoryDaoImpl();
-		
 	}
 	@Bean
 	public ClientDao clientDao() { 
@@ -115,6 +114,10 @@ public class DatabaseConfig {
 	@Bean
 	public DomesticviolenceDao domesticviolenceDao() { 
 		return new DomesticviolenceDaoImpl();
+	}
+	@Bean
+	public RhybcpstatusDao rhybcpstatusDao() { 
+		return new RhybcpstatusDaoImpl();
 	}
 	@Bean
 	public EmploymentDao employmentDao() { 

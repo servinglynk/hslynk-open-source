@@ -47,7 +47,7 @@ public class BulkUploaderTest {
 //		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
 		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
-		upload.setInputPath(path.getFile());
+		upload.setInputpath(path.getFile());
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity);
 		File file = new File(
@@ -69,7 +69,7 @@ public class BulkUploaderTest {
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
-		upload.setInputPath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
+		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -83,7 +83,7 @@ public class BulkUploaderTest {
 		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
 			for(BulkUpload bullkUpload : uploadEntities) {
-				bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
+				//bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			}

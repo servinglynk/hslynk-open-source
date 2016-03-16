@@ -24,8 +24,8 @@ import com.servinglynk.hmis.warehouse.enums.BedinventoryYouthAgeGroupEnum;
  *
  * @author Sandeep Dolia
  */
-@Entity(name = "bedinventory")
-@Table(name = "bedinventory", catalog = "hmis", schema = "v2014")
+@Entity(name = "bedinventory_stagv2015")
+@Table(name = "bedinventory", catalog = "hmis", schema = "stagv2015")
 public class Bedinventory  extends HmisBaseStagingModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */

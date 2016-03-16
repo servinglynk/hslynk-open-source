@@ -1,23 +1,17 @@
 package com.servinglynk.hmis.warehouse.model.stagv2015;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 
@@ -29,8 +23,8 @@ import org.hibernate.proxy.HibernateProxy;
  */
 		
 
-@Entity
-@Table(name = "bulk_upload", catalog = "hmis", schema = "v2015")
+@Entity (name = "bulk_upload_stagv2015")
+@Table(name = "bulk_upload", catalog = "hmis", schema = "stagv2015")
 public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -44,23 +38,12 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 	/** hashCode temporary storage. */
 	private volatile Long hashCode;
 	
-
-	/** Field mapping. */
-	private Export export;
 	/** Field mapping. */
 	private Long id;
 	/** Field mapping. */
 	private String inputpath;
 	/** Field mapping. */
-	private LocalDateTime insertAt;
-	/** Field mapping. */
-	private String insertBy;
-	/** Field mapping. */
 	private String status;
-	/** Field mapping. */
-	private LocalDateTime updateAt;
-	/** Field mapping. */
-	private String updateBy;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -87,29 +70,6 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 		return BulkUpload.class;
 	}
  
-
-	 /**
-	 * Return the value associated with the column: export.
-	 * @return A Export object (this.export)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "export_id", nullable = true )
-	public Export getExport() {
-		return this.export;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: export.
-	 * @param export the export value you wish to set
-	 */
-	public void setExport(final Export export) {
-		this.export = export;
-	}
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -163,49 +123,6 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 	}
 
 	 /**
-	 * Return the value associated with the column: insertAt.
-	 * @return A LocalDateTime object (this.insertAt)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "insert_at"  )
-	public LocalDateTime getInsertAt() {
-		return this.insertAt;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: insertAt.
-	 * @param insertAt the insertAt value you wish to set
-	 */
-	public void setInsertAt(final LocalDateTime insertAt) {
-		this.insertAt = insertAt;
-	}
-
-	 /**
-	 * Return the value associated with the column: insertBy.
-	 * @return A String object (this.insertBy)
-	 */
-	@Basic( optional = true )
-	@Column( name = "insert_by", length = 100  )
-	public String getInsertBy() {
-		return this.insertBy;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: insertBy.
-	 * @param insertBy the insertBy value you wish to set
-	 */
-	public void setInsertBy(final String insertBy) {
-		this.insertBy = insertBy;
-	}
-
-	 /**
 	 * Return the value associated with the column: status.
 	 * @return A String object (this.status)
 	 */
@@ -226,50 +143,6 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 		this.status = status;
 	}
 
-	 /**
-	 * Return the value associated with the column: updateAt.
-	 * @return A LocalDateTime object (this.updateAt)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "update_at"  )
-	public LocalDateTime getUpdateAt() {
-		return this.updateAt;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: updateAt.
-	 * @param updateAt the updateAt value you wish to set
-	 */
-	public void setUpdateAt(final LocalDateTime updateAt) {
-		this.updateAt = updateAt;
-	}
-
-	 /**
-	 * Return the value associated with the column: updateBy.
-	 * @return A String object (this.updateBy)
-	 */
-	@Basic( optional = true )
-	@Column( name = "update_by", length = 100  )
-	public String getUpdateBy() {
-		return this.updateBy;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: updateBy.
-	 * @param updateBy the updateBy value you wish to set
-	 */
-	public void setUpdateBy(final String updateBy) {
-		this.updateBy = updateBy;
-	}
-
-
    /**
     * Deep copy.
 	* @return cloned object
@@ -283,11 +156,7 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 		copy.setExport(this.getExport());
 		copy.setId(this.getId());
 		copy.setInputpath(this.getInputpath());
-		copy.setInsertAt(this.getInsertAt());
-		copy.setInsertBy(this.getInsertBy());
 		copy.setStatus(this.getStatus());
-		copy.setUpdateAt(this.getUpdateAt());
-		copy.setUpdateBy(this.getUpdateBy());
 		return copy;
 	}
 	
@@ -303,11 +172,7 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 		
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("inputpath: " + this.getInputpath() + ", ");
-		sb.append("insertAt: " + this.getInsertAt() + ", ");
-		sb.append("insertBy: " + this.getInsertBy() + ", ");
 		sb.append("status: " + this.getStatus() + ", ");
-		sb.append("updateAt: " + this.getUpdateAt() + ", ");
-		sb.append("updateBy: " + this.getUpdateBy());
 		return sb.toString();		
 	}
 
@@ -355,11 +220,7 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));	
 		result = result && (((getInputpath() == null) && (that.getInputpath() == null)) || (getInputpath() != null && getInputpath().equals(that.getInputpath())));
-		result = result && (((getInsertAt() == null) && (that.getInsertAt() == null)) || (getInsertAt() != null && getInsertAt().equals(that.getInsertAt())));
-		result = result && (((getInsertBy() == null) && (that.getInsertBy() == null)) || (getInsertBy() != null && getInsertBy().equals(that.getInsertBy())));
 		result = result && (((getStatus() == null) && (that.getStatus() == null)) || (getStatus() != null && getStatus().equals(that.getStatus())));
-		result = result && (((getUpdateAt() == null) && (that.getUpdateAt() == null)) || (getUpdateAt() != null && getUpdateAt().equals(that.getUpdateAt())));
-		result = result && (((getUpdateBy() == null) && (that.getUpdateBy() == null)) || (getUpdateBy() != null && getUpdateBy().equals(that.getUpdateBy())));
 		return result;
 	}
 	

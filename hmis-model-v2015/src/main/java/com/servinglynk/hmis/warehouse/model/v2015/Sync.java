@@ -27,7 +27,7 @@ import com.servinglynk.hmis.warehouse.util.IPojoGenEntity;
  */
 		
 
-@Entity
+@Entity (name = "sync_v2015")
 @Table(name = "sync", catalog = "hmis", schema = "v2015")
 public class Sync implements Cloneable, Serializable, IPojoGenEntity {
 

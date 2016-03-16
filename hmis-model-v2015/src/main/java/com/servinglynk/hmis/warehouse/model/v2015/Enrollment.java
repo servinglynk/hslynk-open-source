@@ -119,16 +119,12 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private String otherresidenceprior;
 	/** Field mapping. */
-	private java.util.UUID parentId;
-	/** Field mapping. */
 	private Set<Pathstatus> pathStatuses = new HashSet<Pathstatus>();
 
 	/** Field mapping. */
 	private java.util.UUID projectentryid;
 	/** Field mapping. */
 	private Project projectid;
-	/** Field mapping. */
-	private String projectGroupCode;
 	/** Field mapping. */
 	private EnrollmentRelationshiptohohEnum relationshiptohoh;
 	/** Field mapping. */
@@ -145,9 +141,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private Set<ServiceFaReferral> serviceFaReferrals = new HashSet<ServiceFaReferral>();
 
 		
-	/** Field mapping. */
-	private java.util.UUID userId;
-	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -628,8 +621,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: housingstatus.
 	 * @return A EnrollmentHousingstatusEnum object (this.housingstatus)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.EnrollmentHousingstatusEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnumType")
 	@Basic( optional = true )
 	@Column( name = "housingstatus" )
 	public EnrollmentHousingstatusEnum getHousingstatus() {
@@ -744,8 +736,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: monthshomelesspastthreeyears.
 	 * @return A EnrollmentMonthshomelesspastthreeyearsEnum object (this.monthshomelesspastthreeyears)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.EnrollmentMonthshomelesspastthreeyearsEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnumType")
 	@Basic( optional = true )
 	@Column( name = "monthshomelesspastthreeyears" )
 	public EnrollmentMonthshomelesspastthreeyearsEnum getMonthshomelesspastthreeyears() {
@@ -813,27 +804,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 */
 	public void setOtherresidenceprior(final String otherresidenceprior) {
 		this.otherresidenceprior = otherresidenceprior;
-	}
-
-	 /**
-	 * Return the value associated with the column: parentId.
-	 * @return A java.util.UUID object (this.parentId)
-	 */
-	@Basic( optional = true )
-	@Column( name = "parent_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getParentId() {
-		return this.parentId;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: parentId.
-	 * @param parentId the parentId value you wish to set
-	 */
-	public void setParentId(final java.util.UUID parentId) {
-		this.parentId = parentId;
 	}
 
 	 /**
@@ -912,35 +882,12 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.projectid = projectid;
 	}
 
-	 /**
-	 * Return the value associated with the column: projectGroupCode.
-	 * @return A String object (this.projectGroupCode)
-	 */
-	@Basic( optional = true )
-	@Column( name = "project_group_code", length = 8  )
-	public String getProjectGroupCode() {
-		return this.projectGroupCode;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: projectGroupCode.
-	 * @param projectGroupCode the projectGroupCode value you wish to set
-	 */
-	public void setProjectGroupCode(final String projectGroupCode) {
-		this.projectGroupCode = projectGroupCode;
-	}
-
-	
 	
 	 /**
 	 * Return the value associated with the column: relationshiptohoh.
 	 * @return A EnrollmentRelationshiptohohEnum object (this.relationshiptohoh)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.EnrollmentRelationshiptohohEnum"), @Parameter(name = "forPgSQL", value = "true")})
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnumType")
 	@Basic( optional = true )
 	@Column( name = "relationshiptohoh" )
 	public EnrollmentRelationshiptohohEnum getRelationshiptohoh() {
@@ -1093,7 +1040,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: timeshomelesspastthreeyears.
 	 * @return A EnrollmentTimeshomelesspastthreeyearsEnum object (this.timeshomelesspastthreeyears)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnumType")
 	@Basic( optional = true )
 	@Column( name = "timeshomelesspastthreeyears" )
 	public EnrollmentTimeshomelesspastthreeyearsEnum getTimeshomelesspastthreeyears() {
@@ -1109,27 +1056,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 */
 	public void setTimeshomelesspastthreeyears(final EnrollmentTimeshomelesspastthreeyearsEnum timeshomelesspastthreeyears) {
 		this.timeshomelesspastthreeyears = timeshomelesspastthreeyears;
-	}
-
-	 /**
-	 * Return the value associated with the column: userId.
-	 * @return A java.util.UUID object (this.userId)
-	 */
-	@Basic( optional = true )
-	@Column( name = "user_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getUserId() {
-		return this.userId;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: userId.
-	 * @param userId the userId value you wish to set
-	 */
-	public void setUserId(final java.util.UUID userId) {
-		this.userId = userId;
 	}
 
 		
@@ -1266,7 +1192,9 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		return sb.toString();		
 	}
 
-
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnumType")
+	@Basic( optional = true )
+	@Column
 	public EnrollmentDisablingconditionEnum getDisablingcondition() {
 		return disablingcondition;
 	}

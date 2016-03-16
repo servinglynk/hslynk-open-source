@@ -56,8 +56,6 @@ public class Site extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private java.util.UUID parentId;
-	/** Field mapping. */
 	private SitePrincipalSiteEnum principalSite;
 	/** Field mapping. */
 	private StateEnum state;
@@ -202,27 +200,6 @@ public class Site extends HmisBaseModel implements Cloneable, Serializable {
 		SAVED_HASHES.put( id, this.hashCode );
 		}
 		this.id = id;
-	}
-
-	 /**
-	 * Return the value associated with the column: parentId.
-	 * @return A java.util.UUID object (this.parentId)
-	 */
-	@Basic( optional = true )
-	@Column( name = "parent_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getParentId() {
-		return this.parentId;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: parentId.
-	 * @param parentId the parentId value you wish to set
-	 */
-	public void setParentId(final java.util.UUID parentId) {
-		this.parentId = parentId;
 	}
 
 	 	/**

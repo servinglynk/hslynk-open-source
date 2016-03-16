@@ -123,30 +123,6 @@ public class Housingassessmentdisposition extends HmisBaseModel implements Clone
 	public void setExitid(final Exit exitid) {
 		this.exitid = exitid;
 	}
-
-	 /**
-	 * Return the value associated with the column: export.
-	 * @return A Export object (this.export)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "export_id", nullable = true )
-	public Export getExport() {
-		return this.export;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: export.
-	 * @param export the export value you wish to set
-	 */
-	public void setExport(final Export export) {
-		this.export = export;
-	}
-
 	 /**
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)

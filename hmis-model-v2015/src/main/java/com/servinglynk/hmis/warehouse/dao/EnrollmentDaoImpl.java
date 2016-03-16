@@ -78,10 +78,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(enrollment
 												.getHousingStatus())));
-				enrollmentModel
-						.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
-								.getStringValue(enrollment
-										.getDisablingCondition())));
+//				enrollmentModel
+//						.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
+//								.getStringValue(enrollment
+//										.getDisablingCondition())));
 //				enrollmentModel.setYearshomeless(new Integer(
 //						BasicDataGenerator.getStringValue(enrollment
 //								.getYearsHomeless())));
@@ -97,10 +97,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //				enrollmentModel
 //						.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 //								.getResidencePriorLengthOfStay())));
-				enrollmentModel
-						.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
-								.getStringValue(enrollment
-										.getRelationshipToHoH())));
+//				enrollmentModel
+//						.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
+//								.getStringValue(enrollment
+//										.getRelationshipToHoH())));
 				enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
 						.getLocalDateTime(enrollment.getDateCreated()));
 				enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator

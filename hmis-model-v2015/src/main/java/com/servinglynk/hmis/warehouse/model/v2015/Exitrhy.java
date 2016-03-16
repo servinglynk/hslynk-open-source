@@ -18,8 +18,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.model.stagv2015.HmisBaseStagingModel;
-
 /** 
  * Object mapping for hibernate-handled table: exitrhy.
  * 
@@ -317,27 +315,6 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	public void setProjectCompletionStatus(final Integer projectCompletionStatus) {
 		this.projectCompletionStatus = projectCompletionStatus;
-	}
-
-	 /**
-	 * Return the value associated with the column: projectGroupCode.
-	 * @return A String object (this.projectGroupCode)
-	 */
-	@Basic( optional = true )
-	@Column( name = "project_group_code", length = 8  )
-	public String getProjectGroupCode() {
-		return this.projectGroupCode;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: projectGroupCode.
-	 * @param projectGroupCode the projectGroupCode value you wish to set
-	 */
-	public void setProjectGroupCode(final String projectGroupCode) {
-		this.projectGroupCode = projectGroupCode;
 	}
 
 	 /**

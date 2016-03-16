@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 
@@ -27,8 +29,8 @@ import org.hibernate.proxy.HibernateProxy;
  */
 
 
-@Entity(name = "enrollment_coc")
-@Table(name = "enrollment_coc", catalog = "hmis", schema = "v2014")
+@Entity(name = "enrollment_coc__2015")
+@Table(name = "enrollment_coc", catalog = "hmis", schema = "v2015")
 public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -44,13 +46,13 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
 
 	/** Field mapping. */
-	private String cocCode;
+	private String clientCode;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
+	private LocalDateTime informationDate;
 	/** Field mapping. */
-	private java.util.UUID projectCoId;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -64,36 +66,6 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	public EnrollmentCoc(java.util.UUID id) {
 		this.id = id;
 	}
-
-
-
-
-
-	/** Field mapping. */
-	private Export export;
-	 /**
-	 * Return the value associated with the column: export.
-	 * @return A Export object (this.export)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "export_id", nullable = true )
-	public Export getExport() {
-		return this.export;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: export.
-	 * @param export the export value you wish to set
-	 */
-	public void setExport(final Export export) {
-		this.export = export;
-	}
-
 	/** Return the type of this class. Useful for when dealing with proxies.
 	* @return Defining class.
 	*/
@@ -103,28 +75,18 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	}
 
 
-	 /**
-	 * Return the value associated with the column: cocCode.
-	 * @return A String object (this.cocCode)
-	 */
+	
 	@Basic( optional = true )
-	@Column( name = "coc_code", length = 20  )
-	public String getCocCode() {
-		return this.cocCode;
-
+	@Column( name = "client_code", length = 20  )
+	 public String getClientCode() {
+		return clientCode;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: cocCode.
-	 * @param cocCode the cocCode value you wish to set
-	 */
-	public void setCocCode(final String cocCode) {
-		this.cocCode = cocCode;
+	public void setClientCode(String clientCode) {
+		this.clientCode = clientCode;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: enrollmentid.
 	 * @return A Enrollment object (this.enrollmentid)
 	 */
@@ -138,8 +100,18 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	}
 
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "information_date"  )
+	 public LocalDateTime getInformationDate() {
+		return informationDate;
+	}
 
-	 /**
+	public void setInformationDate(LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
+
+	/**
 	 * Set the value related to the column: enrollmentid.
 	 * @param enrollmentid the enrollmentid value you wish to set
 	 */
@@ -175,26 +147,6 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		this.id = id;
 	}
 
-	 /**
-	 * Return the value associated with the column: projectCoId.
-	 * @return A java.util.UUID object (this.projectCoId)
-	 */
-	@Basic( optional = true )
-	@Column( name = "project_co_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getProjectCoId() {
-		return this.projectCoId;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: projectCoId.
-	 * @param projectCoId the projectCoId value you wish to set
-	 */
-	public void setProjectCoId(final java.util.UUID projectCoId) {
-		this.projectCoId = projectCoId;
-	}
 
 
    /**
@@ -207,12 +159,11 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
         final EnrollmentCoc copy = (EnrollmentCoc)super.clone();
 
-		copy.setCocCode(this.getCocCode());
+		copy.setClientCode(this.getClientCode());
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setProjectCoId(this.getProjectCoId());
 		copy.setUserId(this.getUserId());
 		return copy;
 	}
@@ -226,11 +177,10 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("cocCode: " + this.getCocCode() + ", ");
+		sb.append("clientCode: " + this.getClientCode() + ", ");
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("id: " + this.getId() + ", ");
-		sb.append("projectCoId: " + this.getProjectCoId() + ", ");
 		return sb.toString();
 	}
 
@@ -276,11 +226,9 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
-		result = result && (((getCocCode() == null) && (that.getCocCode() == null)) || (getCocCode() != null && getCocCode().equals(that.getCocCode())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getProjectCoId() == null) && (that.getProjectCoId() == null)) || (getProjectCoId() != null && getProjectCoId().equals(that.getProjectCoId())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}

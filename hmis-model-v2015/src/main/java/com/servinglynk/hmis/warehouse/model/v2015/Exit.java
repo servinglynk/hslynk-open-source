@@ -102,7 +102,9 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: destination.
 	 * @return A ExitDestinationEnum object (this.destination)
 	 */
-	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.ExitDestinationEnum"), @Parameter(name = "forPgSQL", value = "true")})
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitDestinationEnumType")
+	@Basic( optional = true )
+	@Column
 	public ExitDestinationEnum getDestination() {
 		return this.destination;
 		

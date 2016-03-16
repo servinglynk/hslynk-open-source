@@ -26,7 +26,6 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.HmisBaseStagingModel;
 
 
 /** 
@@ -61,15 +60,13 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private DisabilitiesIndefiniteandimpairsEnum indefiniteAndImpairsIndependence;
+	private DisabilitiesIndefiniteandimpairsEnum indefiniteandimpairs;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
 	/** Field mapping. */
 	private DisabilitiesPathhowconfirmedEnum pathhowconfirmed;
 	/** Field mapping. */
 	private DisabilitiesPathsmiinformationEnum pathsmiinformation;
-	/** Field mapping. */
-	private String projectGroupCode;
 	/** Field mapping. */
 	private DisabilitiesReceivingservicesEnum receivingservices;
 	/** Field mapping. */
@@ -110,95 +107,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		return Disabilities.class;
 	}
  
-
-	 /**
-	 * Return the value associated with the column: dateCreated.
-	 * @return A LocalDateTime object (this.dateCreated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created"  )
-	public LocalDateTime getDateCreated() {
-		return this.dateCreated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreated.
-	 * @param dateCreated the dateCreated value you wish to set
-	 */
-	public void setDateCreated(final LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateCreatedFromSource.
-	 * @return A LocalDateTime object (this.dateCreatedFromSource)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_created_from_source"  )
-	public LocalDateTime getDateCreatedFromSource() {
-		return this.dateCreatedFromSource;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateCreatedFromSource.
-	 * @param dateCreatedFromSource the dateCreatedFromSource value you wish to set
-	 */
-	public void setDateCreatedFromSource(final LocalDateTime dateCreatedFromSource) {
-		this.dateCreatedFromSource = dateCreatedFromSource;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdated.
-	 * @return A LocalDateTime object (this.dateUpdated)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated"  )
-	public LocalDateTime getDateUpdated() {
-		return this.dateUpdated;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdated.
-	 * @param dateUpdated the dateUpdated value you wish to set
-	 */
-	public void setDateUpdated(final LocalDateTime dateUpdated) {
-		this.dateUpdated = dateUpdated;
-	}
-
-	 /**
-	 * Return the value associated with the column: dateUpdatedFromSource.
-	 * @return A LocalDateTime object (this.dateUpdatedFromSource)
-	 */
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "date_updated_from_source"  )
-	public LocalDateTime getDateUpdatedFromSource() {
-		return this.dateUpdatedFromSource;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: dateUpdatedFromSource.
-	 * @param dateUpdatedFromSource the dateUpdatedFromSource value you wish to set
-	 */
-	public void setDateUpdatedFromSource(final LocalDateTime dateUpdatedFromSource) {
-		this.dateUpdatedFromSource = dateUpdatedFromSource;
-	}
-
 	 /**
 	 * Return the value associated with the column: disabilityresponse.
 	 * @return A Integer object (this.disabilityresponse)
@@ -323,22 +231,16 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnumType")
 	@Basic( optional = true )
 	@Column
-	public DisabilitiesIndefiniteandimpairsEnum getIndefiniteAndImpairsIndependence() {
-		return this.indefiniteAndImpairsIndependence;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: indefiniteAndImpairsIndependence.
-	 * @param indefiniteandimpairs the indefiniteAndImpairsIndependence value you wish to set
-	 */
-	public void setIndefiniteAndImpairsIndependence(final DisabilitiesIndefiniteandimpairsEnum indefiniteAndImpairsIndependence) {
-		this.indefiniteAndImpairsIndependence = indefiniteAndImpairsIndependence;
+	 public DisabilitiesIndefiniteandimpairsEnum getIndefiniteandimpairs() {
+		return indefiniteandimpairs;
 	}
 
-	 /**
+	public void setIndefiniteandimpairs(
+			DisabilitiesIndefiniteandimpairsEnum indefiniteandimpairs) {
+		this.indefiniteandimpairs = indefiniteandimpairs;
+	}
+
+	/**
 	 * Return the value associated with the column: informationDate.
 	 * @return A LocalDateTime object (this.informationDate)
 	 */
@@ -365,7 +267,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: pathhowconfirmed.
 	 * @return A DisabilitiesPathhowconfirmedEnum object (this.pathhowconfirmed)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.DisabilitiesPathhowconfirmedEnum"), @Parameter(name = "forPgSQL", value = "true")})
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnumType")
 	@Basic( optional = true )
 	@Column
@@ -386,7 +287,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: pathsmiinformation.
 	 * @return A DisabilitiesPathsmiinformationEnum object (this.pathsmiinformation)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.DisabilitiesPathsmiinformationEnum"), @Parameter(name = "forPgSQL", value = "true")})
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnumType")
 	@Basic( optional = true )
 	@Column
@@ -405,26 +305,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		this.pathsmiinformation = pathsmiinformation;
 	}
 
-	 /**
-	 * Return the value associated with the column: projectGroupCode.
-	 * @return A String object (this.projectGroupCode)
-	 */
-	@Basic( optional = true )
-	@Column( name = "project_group_code", length = 8  )
-	public String getProjectGroupCode() {
-		return this.projectGroupCode;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: projectGroupCode.
-	 * @param projectGroupCode the projectGroupCode value you wish to set
-	 */
-	public void setProjectGroupCode(final String projectGroupCode) {
-		this.projectGroupCode = projectGroupCode;
-	}
 
 	/**
 	 * Return the value associated with the column: receivingservices.
@@ -506,27 +386,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 */
 	public void setTcellcountsource(final String tcellcountsource) {
 		this.tcellcountsource = tcellcountsource;
-	}
-
-	 /**
-	 * Return the value associated with the column: userId.
-	 * @return A java.util.UUID object (this.userId)
-	 */
-	@Basic( optional = true )
-	@Column( name = "user_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getUserId() {
-		return this.userId;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: userId.
-	 * @param userId the userId value you wish to set
-	 */
-	public void setUserId(final java.util.UUID userId) {
-		this.userId = userId;
 	}
 
 	 /**
@@ -614,7 +473,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setExport(this.getExport());
 		copy.setId(this.getId());
-		copy.setIndefiniteAndImpairsIndependence(this.getIndefiniteAndImpairsIndependence());
+		copy.setIndefiniteandimpairs(this.getIndefiniteandimpairs());
 		copy.setInformationDate(this.getInformationDate());
 		copy.setParentId(this.getParentId());
 		copy.setPathhowconfirmed(this.getPathhowconfirmed());
@@ -652,7 +511,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		sb.append("disabilitytype: " + this.getDisabilitytype() + ", ");
 		sb.append("documentationonfile: " + this.getDocumentationonfile() + ", ");
 		sb.append("id: " + this.getId() + ", ");
-		sb.append("indefiniteAndImpairsIndependence: " + this.getIndefiniteAndImpairsIndependence() + ", ");
+		sb.append("indefiniteAndImpairsIndependence: " + this.getIndefiniteandimpairs() + ", ");
 		sb.append("informationDate: " + this.getInformationDate() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("pathhowconfirmed: " + this.getPathhowconfirmed() + ", ");
@@ -722,7 +581,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		result = result && (((getDocumentationonfile() == null) && (that.getDocumentationonfile() == null)) || (getDocumentationonfile() != null && getDocumentationonfile().equals(that.getDocumentationonfile())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));	
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));	
-		result = result && (((getIndefiniteAndImpairsIndependence() == null) && (that.getIndefiniteAndImpairsIndependence() == null)) || (getIndefiniteAndImpairsIndependence() != null && getIndefiniteAndImpairsIndependence().equals(that.getIndefiniteAndImpairsIndependence())));
+		result = result && (((getIndefiniteandimpairs() == null) && (that.getIndefiniteandimpairs() == null)) || (getIndefiniteandimpairs() != null && getIndefiniteandimpairs().equals(that.getIndefiniteandimpairs())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getPathhowconfirmed() == null) && (that.getPathhowconfirmed() == null)) || (getPathhowconfirmed() != null && getPathhowconfirmed().equals(that.getPathhowconfirmed())));

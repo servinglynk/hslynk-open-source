@@ -10,14 +10,9 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -36,45 +31,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
-import com.googlecode.jcsv.CSVStrategy;
-import com.googlecode.jcsv.annotations.internal.ValueProcessorProvider;
-import com.googlecode.jcsv.reader.CSVReader;
-import com.googlecode.jcsv.reader.internal.AnnotationEntryParser;
-import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
-import com.servinglynk.hmis.warehouse.csv.Client;
-import com.servinglynk.hmis.warehouse.csv.Disabilities;
-import com.servinglynk.hmis.warehouse.csv.EmployementEducation;
-import com.servinglynk.hmis.warehouse.csv.Enrollment;
-import com.servinglynk.hmis.warehouse.csv.EnrollmentCoC;
-import com.servinglynk.hmis.warehouse.csv.Exit;
-import com.servinglynk.hmis.warehouse.csv.Export;
-import com.servinglynk.hmis.warehouse.csv.Funder;
-import com.servinglynk.hmis.warehouse.csv.HealthAndDV;
-import com.servinglynk.hmis.warehouse.csv.IncomeBenefits;
-import com.servinglynk.hmis.warehouse.csv.Inventory;
-import com.servinglynk.hmis.warehouse.csv.Organization;
-import com.servinglynk.hmis.warehouse.csv.Project;
-import com.servinglynk.hmis.warehouse.csv.ProjectCOC;
-import com.servinglynk.hmis.warehouse.csv.Services;
-import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.MedicalAssistance;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
-import com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2015.ProjectGroupEntity;
 
@@ -87,11 +45,11 @@ public class BulkUploadHelper {
 	 * @return sources
 	 */
 	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
-		String inputPath = upload.getInputPath();
-		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputPath()))){
+		String inputPath = upload.getInputpath();
+		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
 			return getSourcesForZipFile(upload);
 		}
-		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputPath()))){
+		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
 			return getSourcesForXml(upload,projectGroupEntity);
 		}
 		return null;
@@ -103,14 +61,14 @@ public class BulkUploadHelper {
 	 */
 	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		try {
-			File file = new File(upload.getInputPath());
+			File file = new File(upload.getInputpath());
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
 //				System.out.println("XML is valid");
 //			}else{
 //				System.out.println("XML is NOT valid");
 //			}
 			
-		    File tempFile = new File(upload.getInputPath()+System.currentTimeMillis()+"temp.xml");
+		    File tempFile = new File(upload.getInputpath()+System.currentTimeMillis()+"temp.xml");
 			try {
 				
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();

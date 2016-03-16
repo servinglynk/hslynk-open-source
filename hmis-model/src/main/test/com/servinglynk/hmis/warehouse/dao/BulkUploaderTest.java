@@ -84,7 +84,7 @@ public class BulkUploaderTest {
 		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
 			for(BulkUpload bullkUpload : uploadEntities) {
-				bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
+			//	bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			}

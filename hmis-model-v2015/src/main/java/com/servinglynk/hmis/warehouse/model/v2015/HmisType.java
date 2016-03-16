@@ -28,7 +28,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 		
 
-@Entity
+@Entity (name = "hmis_type_v2015")
 @Table(name = "hmis_type", catalog = "hmis", schema = "v2015")
 public class HmisType implements Cloneable, Serializable {
 
