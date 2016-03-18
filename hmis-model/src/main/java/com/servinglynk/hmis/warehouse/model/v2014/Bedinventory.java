@@ -258,7 +258,7 @@ public class Bedinventory  extends HmisBaseModel implements Cloneable, Serializa
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setVetBedInventory(this.getVetBedInventory());
 		copy.setYouthAgeGroup(this.getYouthAgeGroup());
 		copy.setYouthBedInventory(this.getYouthBedInventory());
@@ -332,7 +332,7 @@ public class Bedinventory  extends HmisBaseModel implements Cloneable, Serializa
 		result = result && (((getChBedInventory() == null) && (that.getChBedInventory() == null)) || (getChBedInventory() != null && getChBedInventory().equals(that.getChBedInventory())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		result = result && (((getVetBedInventory() == null) && (that.getVetBedInventory() == null)) || (getVetBedInventory() != null && getVetBedInventory().equals(that.getVetBedInventory())));
 		result = result && (((getYouthAgeGroup() == null) && (that.getYouthAgeGroup() == null)) || (getYouthAgeGroup() != null && getYouthAgeGroup().equals(that.getYouthAgeGroup())));
 		result = result && (((getYouthBedInventory() == null) && (that.getYouthBedInventory() == null)) || (getYouthBedInventory() != null && getYouthBedInventory().equals(that.getYouthBedInventory())));

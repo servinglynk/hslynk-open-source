@@ -345,7 +345,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setPathhowconfirmed(this.getPathhowconfirmed());
 		copy.setPathsmiinformation(this.getPathsmiinformation());
 		copy.setReceivingservices(this.getReceivingservices());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -424,7 +424,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getPathhowconfirmed() == null) && (that.getPathhowconfirmed() == null)) || (getPathhowconfirmed() != null && getPathhowconfirmed().equals(that.getPathhowconfirmed())));
 		result = result && (((getPathsmiinformation() == null) && (that.getPathsmiinformation() == null)) || (getPathsmiinformation() != null && getPathsmiinformation().equals(that.getPathsmiinformation())));
 		result = result && (((getReceivingservices() == null) && (that.getReceivingservices() == null)) || (getReceivingservices() != null && getReceivingservices().equals(that.getReceivingservices())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

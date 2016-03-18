@@ -192,7 +192,7 @@ public class Dateofengagement extends HmisBaseModel  implements Cloneable, Seria
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -259,7 +259,7 @@ public class Dateofengagement extends HmisBaseModel  implements Cloneable, Seria
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

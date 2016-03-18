@@ -369,7 +369,7 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 		copy.setInventorystartdate(this.getInventorystartdate());
 		copy.setProjectCoc(this.getProjectCoc());
 		copy.setUnitinventory(this.getUnitinventory());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -450,7 +450,7 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 		result = result && (((getInventorystartdate() == null) && (that.getInventorystartdate() == null)) || (getInventorystartdate() != null && getInventorystartdate().equals(that.getInventorystartdate())));
 		result = result && (((getProjectCoc() == null) && (that.getProjectCoc() == null)) || (getProjectCoc() != null && getProjectCoc().getId().equals(that.getProjectCoc().getId())));
 		result = result && (((getUnitinventory() == null) && (that.getUnitinventory() == null)) || (getUnitinventory() != null && getUnitinventory().equals(that.getUnitinventory())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

@@ -276,7 +276,7 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		if (this.getSites() != null) {
 			copy.getSites().addAll(this.getSites());
 		}
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -343,7 +343,7 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

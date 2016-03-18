@@ -357,7 +357,7 @@ public class Source extends HmisBaseModel  implements Cloneable, Serializable {
 		copy.setSourcecontactphone(this.getSourcecontactphone());
 		copy.setSourceid(this.getSourceid());
 		copy.setSourcename(this.getSourcename());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -441,7 +441,7 @@ public class Source extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getSourcecontactphone() == null) && (that.getSourcecontactphone() == null)) || (getSourcecontactphone() != null && getSourcecontactphone().equals(that.getSourcecontactphone())));
 		result = result && (((getSourceid() == null) && (that.getSourceid() == null)) || (getSourceid() != null && getSourceid().equals(that.getSourceid())));
 		result = result && (((getSourcename() == null) && (that.getSourcename() == null)) || (getSourcename() != null && getSourcename().equals(that.getSourcename())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

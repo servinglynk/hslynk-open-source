@@ -224,7 +224,7 @@ public class Housingassessmentdisposition extends HmisBaseModel  implements Clon
 		copy.setExitid(this.getExitid());
 		copy.setId(this.getId());
 		copy.setOtherdisposition(this.getOtherdisposition());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -293,7 +293,7 @@ public class Housingassessmentdisposition extends HmisBaseModel  implements Clon
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));
 		result = result && (((getOtherdisposition() == null) && (that.getOtherdisposition() == null)) || (getOtherdisposition() != null && getOtherdisposition().equals(that.getOtherdisposition())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

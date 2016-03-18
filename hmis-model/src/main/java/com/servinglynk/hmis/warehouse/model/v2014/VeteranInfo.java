@@ -472,7 +472,7 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 		copy.setKoreanWar(this.getKoreanWar());
 		copy.setMilitaryBranch(this.getMilitaryBranch());
 		copy.setOtherTheater(this.getOtherTheater());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setVietnamWar(this.getVietnamWar());
 		copy.setWorldWar2(this.getWorldWar2());
 		copy.setYearEntrdService(this.getYearEntrdService());
@@ -561,7 +561,7 @@ public class VeteranInfo extends HmisBaseModel  implements Cloneable, Serializab
 		result = result && (((getKoreanWar() == null) && (that.getKoreanWar() == null)) || (getKoreanWar() != null && getKoreanWar().equals(that.getKoreanWar())));
 		result = result && (((getMilitaryBranch() == null) && (that.getMilitaryBranch() == null)) || (getMilitaryBranch() != null && getMilitaryBranch().equals(that.getMilitaryBranch())));
 		result = result && (((getOtherTheater() == null) && (that.getOtherTheater() == null)) || (getOtherTheater() != null && getOtherTheater().equals(that.getOtherTheater())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVietnamWar() == null) && (that.getVietnamWar() == null)) || (getVietnamWar() != null && getVietnamWar().equals(that.getVietnamWar())));
 		result = result && (((getWorldWar2() == null) && (that.getWorldWar2() == null)) || (getWorldWar2() != null && getWorldWar2().equals(that.getWorldWar2())));
 		result = result && (((getYearEntrdService() == null) && (that.getYearEntrdService() == null)) || (getYearEntrdService() != null && getYearEntrdService().equals(that.getYearEntrdService())));

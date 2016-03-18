@@ -244,7 +244,7 @@ public class Rhybcpstatus extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setId(this.getId());
 		copy.setReasonNoServices(this.getReasonNoServices());
 		copy.setStatusDate(this.getStatusDate());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -313,7 +313,7 @@ public class Rhybcpstatus extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getFysbYouth() == null) && (that.getFysbYouth() == null)) || (getFysbYouth() != null && getFysbYouth().equals(that.getFysbYouth())));
 		result = result && (((getReasonNoServices() == null) && (that.getReasonNoServices() == null)) || (getReasonNoServices() != null && getReasonNoServices().equals(that.getReasonNoServices())));
 		result = result && (((getStatusDate() == null) && (that.getStatusDate() == null)) || (getStatusDate() != null && getStatusDate().equals(that.getStatusDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

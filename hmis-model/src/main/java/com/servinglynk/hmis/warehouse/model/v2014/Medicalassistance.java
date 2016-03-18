@@ -276,7 +276,7 @@ public class Medicalassistance extends HmisBaseModel  implements Cloneable, Seri
 		copy.setId(this.getId());
 		copy.setNoadapreason(this.getNoadapreason());
 		copy.setNohivaidsassistancereason(this.getNohivaidsassistancereason());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -347,7 +347,7 @@ public class Medicalassistance extends HmisBaseModel  implements Cloneable, Seri
 		result = result && (((getHivaidsassistance() == null) && (that.getHivaidsassistance() == null)) || (getHivaidsassistance() != null && getHivaidsassistance().equals(that.getHivaidsassistance())));
 		result = result && (((getNoadapreason() == null) && (that.getNoadapreason() == null)) || (getNoadapreason() != null && getNoadapreason().equals(that.getNoadapreason())));
 		result = result && (((getNohivaidsassistancereason() == null) && (that.getNohivaidsassistancereason() == null)) || (getNohivaidsassistancereason() != null && getNohivaidsassistancereason().equals(that.getNohivaidsassistancereason())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

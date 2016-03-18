@@ -223,7 +223,7 @@ public class Domesticviolence extends HmisBaseModel  implements Cloneable, Seria
 		copy.setDomesticviolencevictim(this.getDomesticviolencevictim());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setWhenoccurred(this.getWhenoccurred());
 		return copy;
 	}
@@ -292,7 +292,7 @@ public class Domesticviolence extends HmisBaseModel  implements Cloneable, Seria
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getDomesticviolencevictim() == null) && (that.getDomesticviolencevictim() == null)) || (getDomesticviolencevictim() != null && getDomesticviolencevictim().equals(that.getDomesticviolencevictim())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getWhenoccurred() == null) && (that.getWhenoccurred() == null)) || (getWhenoccurred() != null && getWhenoccurred().equals(that.getWhenoccurred())));
 		return result;
 	}

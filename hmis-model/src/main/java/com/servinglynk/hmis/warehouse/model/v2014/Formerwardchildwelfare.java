@@ -246,7 +246,7 @@ public class Formerwardchildwelfare extends HmisBaseModel  implements Cloneable,
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setFormerwardchildwelfare(this.getFormerwardchildwelfare());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -317,7 +317,7 @@ public class Formerwardchildwelfare extends HmisBaseModel  implements Cloneable,
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getFormerwardchildwelfare() == null) && (that.getFormerwardchildwelfare() == null)) || (getFormerwardchildwelfare() != null && getFormerwardchildwelfare().equals(that.getFormerwardchildwelfare())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

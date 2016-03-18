@@ -424,7 +424,7 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 		copy.setSnap(this.getSnap());
 		copy.setTanfchildcare(this.getTanfchildcare());
 		copy.setTanftransportation(this.getTanftransportation());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setWic(this.getWic());
 		return copy;
 	}
@@ -509,7 +509,7 @@ public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serial
 		result = result && (((getSnap() == null) && (that.getSnap() == null)) || (getSnap() != null && getSnap().equals(that.getSnap())));
 		result = result && (((getTanfchildcare() == null) && (that.getTanfchildcare() == null)) || (getTanfchildcare() != null && getTanfchildcare().equals(that.getTanfchildcare())));
 		result = result && (((getTanftransportation() == null) && (that.getTanftransportation() == null)) || (getTanftransportation() != null && getTanftransportation().equals(that.getTanftransportation())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getWic() == null) && (that.getWic() == null)) || (getWic() != null && getWic().equals(that.getWic())));
 		return result;
 	}

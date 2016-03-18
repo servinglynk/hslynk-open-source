@@ -337,7 +337,7 @@ public class Services extends HmisBaseModel  implements Cloneable, Serializable{
 		copy.setReferraloutcome(this.getReferraloutcome());
 		copy.setSubtypeprovided(this.getSubtypeprovided());
 		copy.setTypeprovided(this.getTypeprovided());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -414,7 +414,7 @@ public class Services extends HmisBaseModel  implements Cloneable, Serializable{
 		result = result && (((getReferraloutcome() == null) && (that.getReferraloutcome() == null)) || (getReferraloutcome() != null && getReferraloutcome().equals(that.getReferraloutcome())));
 		result = result && (((getSubtypeprovided() == null) && (that.getSubtypeprovided() == null)) || (getSubtypeprovided() != null && getSubtypeprovided().equals(that.getSubtypeprovided())));
 		result = result && (((getTypeprovided() == null) && (that.getTypeprovided() == null)) || (getTypeprovided() != null && getTypeprovided().equals(that.getTypeprovided())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

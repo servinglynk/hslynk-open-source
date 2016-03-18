@@ -586,7 +586,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setRace(this.getRace());
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		if (this.getVeteranInfoes() != null) {
 			copy.getVeteranInfoes().addAll(this.getVeteranInfoes());
 		}
@@ -684,7 +684,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getRace() == null) && (that.getRace() == null)) || (getRace() != null && getRace().equals(that.getRace())));
 		result = result && (((getSsn() == null) && (that.getSsn() == null)) || (getSsn() != null && getSsn().equals(that.getSsn())));
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		result = result && (((getVeteranStatus() == null) && (that.getVeteranStatus() == null)) || (getVeteranStatus() != null && getVeteranStatus().equals(that.getVeteranStatus())));
 		return result;
 	}

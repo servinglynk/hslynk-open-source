@@ -293,7 +293,7 @@ public class LastPermAddress extends HmisBaseModel  implements Cloneable, Serial
 		copy.setId(this.getId());
 		copy.setState(this.getState());
 		copy.setStreet(this.getStreet());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setZip(this.getZip());
 		return copy;
 	}
@@ -368,7 +368,7 @@ public class LastPermAddress extends HmisBaseModel  implements Cloneable, Serial
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getState() == null) && (that.getState() == null)) || (getState() != null && getState().equals(that.getState())));
 		result = result && (((getStreet() == null) && (that.getStreet() == null)) || (getStreet() != null && getStreet().equals(that.getStreet())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getZip() == null) && (that.getZip() == null)) || (getZip() != null && getZip().equals(that.getZip())));
 		return result;
 	}

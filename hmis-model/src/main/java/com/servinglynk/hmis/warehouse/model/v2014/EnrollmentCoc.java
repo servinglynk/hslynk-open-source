@@ -215,7 +215,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setProjectCoId(this.getProjectCoId());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -283,7 +283,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getProjectCoId() == null) && (that.getProjectCoId() == null)) || (getProjectCoId() != null && getProjectCoId().equals(that.getProjectCoId())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

@@ -50,7 +50,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
-	
+	/** Field mapping. */
+	private java.util.UUID dedupClientId;
 
 	/** Field mapping. */
 	private Set<ClientVeteranInfo> clientVeteranInfoes = new HashSet<ClientVeteranInfo>();
@@ -112,7 +113,26 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	public Class<?> getClassType() {
 		return Client.class;
 	}
- 
+	 /**
+		 * Return the value associated with the column: dedupClientId.
+		 * @return A java.util.UUID object (this.dedupClientId)
+		 */
+		@Basic( optional = true )
+		@Column( name = "dedup_client_id"  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+		public java.util.UUID getDedupClientId() {
+			return this.dedupClientId;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: dedupClientId.
+		 * @param dedupClientId the dedupClientId value you wish to set
+		 */
+		public void setDedupClientId(final java.util.UUID dedupClientId) {
+			this.dedupClientId = dedupClientId;
+		}
 
 	 /**
 	 * Return the value associated with the column: clientVeteranInfo.

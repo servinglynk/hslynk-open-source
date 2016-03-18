@@ -486,7 +486,7 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		copy.setResidentialaffiliation(this.getResidentialaffiliation());
 		copy.setTargetpopulation(this.getTargetpopulation());
 		copy.setTrackingmethod(this.getTrackingmethod());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -567,7 +567,7 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getResidentialaffiliation() == null) && (that.getResidentialaffiliation() == null)) || (getResidentialaffiliation() != null && getResidentialaffiliation().equals(that.getResidentialaffiliation())));
 		result = result && (((getTargetpopulation() == null) && (that.getTargetpopulation() == null)) || (getTargetpopulation() != null && getTargetpopulation().equals(that.getTargetpopulation())));
 		result = result && (((getTrackingmethod() == null) && (that.getTrackingmethod() == null)) || (getTrackingmethod() != null && getTrackingmethod().equals(that.getTrackingmethod())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

@@ -222,7 +222,7 @@ public class Exithousingassessment extends HmisBaseModel  implements Cloneable, 
 		copy.setHousingassessment(this.getHousingassessment());
 		copy.setId(this.getId());
 		copy.setSubsidyinformation(this.getSubsidyinformation());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -289,7 +289,7 @@ public class Exithousingassessment extends HmisBaseModel  implements Cloneable, 
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));
 		result = result && (((getHousingassessment() == null) && (that.getHousingassessment() == null)) || (getHousingassessment() != null && getHousingassessment().equals(that.getHousingassessment())));
 		result = result && (((getSubsidyinformation() == null) && (that.getSubsidyinformation() == null)) || (getSubsidyinformation() != null && getSubsidyinformation().equals(that.getSubsidyinformation())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

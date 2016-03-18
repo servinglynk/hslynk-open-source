@@ -245,7 +245,7 @@ public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializabl
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setReasonNotEnrolled(this.getReasonNotEnrolled());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -316,7 +316,7 @@ public class Pathstatus extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getReasonNotEnrolled() == null) && (that.getReasonNotEnrolled() == null)) || (getReasonNotEnrolled() != null && getReasonNotEnrolled().equals(that.getReasonNotEnrolled())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

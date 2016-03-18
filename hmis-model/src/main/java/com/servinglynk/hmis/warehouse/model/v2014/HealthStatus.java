@@ -271,7 +271,7 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setHealthStatus(this.getHealthStatus());
 		copy.setId(this.getId());
 		copy.setInformationDate(this.getInformationDate());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -344,7 +344,7 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getHealthCategory() == null) && (that.getHealthCategory() == null)) || (getHealthCategory() != null && getHealthCategory().equals(that.getHealthCategory())));
 		result = result && (((getHealthStatus() == null) && (that.getHealthStatus() == null)) || (getHealthStatus() != null && getHealthStatus().equals(that.getHealthStatus())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

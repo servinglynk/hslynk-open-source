@@ -478,7 +478,7 @@ public class Exit  extends HmisBaseModel implements Cloneable, Serializable{
 		if (this.getProjectcompletionstatuses() != null) {
 			copy.getProjectcompletionstatuses().addAll(this.getProjectcompletionstatuses());
 		}
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 	
@@ -549,7 +549,7 @@ public class Exit  extends HmisBaseModel implements Cloneable, Serializable{
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));	
 		result = result && (((getExitdate() == null) && (that.getExitdate() == null)) || (getExitdate() != null && getExitdate().equals(that.getExitdate())));
 		result = result && (((getOtherdestination() == null) && (that.getOtherdestination() == null)) || (getOtherdestination() != null && getOtherdestination().equals(that.getOtherdestination())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		return result;
 	}
 	

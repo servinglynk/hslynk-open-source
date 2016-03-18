@@ -199,7 +199,7 @@ public class Familyreunification extends HmisBaseModel  implements Cloneable, Se
 		copy.setExitid(this.getExitid());
 		copy.setFamilyreunificationachieved(this.getFamilyreunificationachieved());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -264,7 +264,7 @@ public class Familyreunification extends HmisBaseModel  implements Cloneable, Se
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));
 		result = result && (((getFamilyreunificationachieved() == null) && (that.getFamilyreunificationachieved() == null)) || (getFamilyreunificationachieved() != null && getFamilyreunificationachieved().equals(that.getFamilyreunificationachieved())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

@@ -318,7 +318,7 @@ public class Site extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setPrincipalSite(this.getPrincipalSite());
 		copy.setProjectCoc(this.getProjectCoc());
 		copy.setState(this.getState());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setZip(this.getZip());
 		return copy;
 	}
@@ -395,7 +395,7 @@ public class Site extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getPrincipalSite() == null) && (that.getPrincipalSite() == null)) || (getPrincipalSite() != null && getPrincipalSite().equals(that.getPrincipalSite())));
 		result = result && (((getProjectCoc() == null) && (that.getProjectCoc() == null)) || (getProjectCoc() != null && getProjectCoc().getId().equals(that.getProjectCoc().getId())));
 		result = result && (((getState() == null) && (that.getState() == null)) || (getState() != null && getState().equals(that.getState())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getZip() == null) && (that.getZip() == null)) || (getZip() != null && getZip().equals(that.getZip())));
 		return result;
 	}

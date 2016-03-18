@@ -275,7 +275,7 @@ public class Employment extends HmisBaseModel  implements Cloneable, Serializabl
 		copy.setId(this.getId());
 		copy.setInformationDate(this.getInformationDate());
 		copy.setNotEmployedReason(this.getNotEmployedReason());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -348,7 +348,7 @@ public class Employment extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
 		result = result && (((getNotEmployedReason() == null) && (that.getNotEmployedReason() == null)) || (getNotEmployedReason() != null && getNotEmployedReason().equals(that.getNotEmployedReason())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

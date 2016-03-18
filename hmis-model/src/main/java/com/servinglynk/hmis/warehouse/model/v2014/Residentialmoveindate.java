@@ -220,7 +220,7 @@ public class Residentialmoveindate extends HmisBaseModel  implements Cloneable, 
 		copy.setId(this.getId());
 		copy.setInpermanenthousing(this.getInpermanenthousing());
 		copy.setResidentialmoveindate(this.getResidentialmoveindate());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -287,7 +287,7 @@ public class Residentialmoveindate extends HmisBaseModel  implements Cloneable, 
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getInpermanenthousing() == null) && (that.getInpermanenthousing() == null)) || (getInpermanenthousing() != null && getInpermanenthousing().equals(that.getInpermanenthousing())));
 		result = result && (((getResidentialmoveindate() == null) && (that.getResidentialmoveindate() == null)) || (getResidentialmoveindate() != null && getResidentialmoveindate().equals(that.getResidentialmoveindate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

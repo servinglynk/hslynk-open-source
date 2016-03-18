@@ -404,7 +404,7 @@ public class Exitplansactions extends HmisBaseModel  implements Cloneable, Seria
 		copy.setResourcepackage(this.getResourcepackage());
 		copy.setScheduledfollowupcontacts(this.getScheduledfollowupcontacts());
 		copy.setTemporaryshelterplacement(this.getTemporaryshelterplacement());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		copy.setWrittenaftercareplan(this.getWrittenaftercareplan());
 		return copy;
 	}
@@ -487,7 +487,7 @@ public class Exitplansactions extends HmisBaseModel  implements Cloneable, Seria
 		result = result && (((getResourcepackage() == null) && (that.getResourcepackage() == null)) || (getResourcepackage() != null && getResourcepackage().equals(that.getResourcepackage())));
 		result = result && (((getScheduledfollowupcontacts() == null) && (that.getScheduledfollowupcontacts() == null)) || (getScheduledfollowupcontacts() != null && getScheduledfollowupcontacts().equals(that.getScheduledfollowupcontacts())));
 		result = result && (((getTemporaryshelterplacement() == null) && (that.getTemporaryshelterplacement() == null)) || (getTemporaryshelterplacement() != null && getTemporaryshelterplacement().equals(that.getTemporaryshelterplacement())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getWrittenaftercareplan() == null) && (that.getWrittenaftercareplan() == null)) || (getWrittenaftercareplan() != null && getWrittenaftercareplan().equals(that.getWrittenaftercareplan())));
 		return result;
 	}

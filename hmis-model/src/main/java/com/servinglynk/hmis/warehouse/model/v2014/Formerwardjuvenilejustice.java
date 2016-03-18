@@ -246,7 +246,7 @@ public class Formerwardjuvenilejustice extends HmisBaseModel  implements Cloneab
 		copy.setId(this.getId());
 		copy.setJuvenilejusticemonths(this.getJuvenilejusticemonths());
 		copy.setJuvenilejusticeyears(this.getJuvenilejusticeyears());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -315,7 +315,7 @@ public class Formerwardjuvenilejustice extends HmisBaseModel  implements Cloneab
 		result = result && (((getFormerwardjuvenilejustice() == null) && (that.getFormerwardjuvenilejustice() == null)) || (getFormerwardjuvenilejustice() != null && getFormerwardjuvenilejustice().equals(that.getFormerwardjuvenilejustice())));
 		result = result && (((getJuvenilejusticemonths() == null) && (that.getJuvenilejusticemonths() == null)) || (getJuvenilejusticemonths() != null && getJuvenilejusticemonths().equals(that.getJuvenilejusticemonths())));
 		result = result && (((getJuvenilejusticeyears() == null) && (that.getJuvenilejusticeyears() == null)) || (getJuvenilejusticeyears() != null && getJuvenilejusticeyears().equals(that.getJuvenilejusticeyears())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 }

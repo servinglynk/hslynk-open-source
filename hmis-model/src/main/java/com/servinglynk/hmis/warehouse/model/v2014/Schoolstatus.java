@@ -217,7 +217,7 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setId(this.getId());
 		copy.setInformationDate(this.getInformationDate());
 		copy.setSchoolStatus(this.getSchoolStatus());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -284,7 +284,7 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
 		result = result && (((getSchoolStatus() == null) && (that.getSchoolStatus() == null)) || (getSchoolStatus() != null && getSchoolStatus().equals(that.getSchoolStatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

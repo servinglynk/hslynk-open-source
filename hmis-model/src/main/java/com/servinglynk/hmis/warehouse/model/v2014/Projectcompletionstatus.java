@@ -219,7 +219,7 @@ public class Projectcompletionstatus extends HmisBaseModel  implements Cloneable
 		copy.setExitid(this.getExitid());
 		copy.setId(this.getId());
 		copy.setProjectcompletionstatus(this.getProjectcompletionstatus());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -288,7 +288,7 @@ public class Projectcompletionstatus extends HmisBaseModel  implements Cloneable
 		result = result && (((getEarlyexitreason() == null) && (that.getEarlyexitreason() == null)) || (getEarlyexitreason() != null && getEarlyexitreason().equals(that.getEarlyexitreason())));
 		result = result && (((getExitid() == null) && (that.getExitid() == null)) || (getExitid() != null && getExitid().getId().equals(that.getExitid().getId())));
 		result = result && (((getProjectcompletionstatus() == null) && (that.getProjectcompletionstatus() == null)) || (getProjectcompletionstatus() != null && getProjectcompletionstatus().equals(that.getProjectcompletionstatus())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

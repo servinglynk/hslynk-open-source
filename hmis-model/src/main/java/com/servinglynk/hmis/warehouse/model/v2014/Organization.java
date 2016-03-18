@@ -226,7 +226,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setId(this.getId());
 		copy.setOrganizationcommonname(this.getOrganizationcommonname());
 		copy.setOrganizationname(this.getOrganizationname());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -294,7 +294,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getOrganizationcommonname() == null) && (that.getOrganizationcommonname() == null)) || (getOrganizationcommonname() != null && getOrganizationcommonname().equals(that.getOrganizationcommonname())));
 		result = result && (((getOrganizationname() == null) && (that.getOrganizationname() == null)) || (getOrganizationname() != null && getOrganizationname().equals(that.getOrganizationname())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

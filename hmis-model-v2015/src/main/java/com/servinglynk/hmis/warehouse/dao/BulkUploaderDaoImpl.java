@@ -181,7 +181,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		catch (Exception e) {
 			bulkUpload.setStatus(UploadStatus.ERROR.getStatus());
-			//bulkUpload.setDescription(e.getMessage());
+			//bulkUpload.setd(e.getMessage());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
 		}
 	}

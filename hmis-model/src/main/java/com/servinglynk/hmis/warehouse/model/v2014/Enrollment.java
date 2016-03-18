@@ -1594,7 +1594,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		}
 		copy.setStatusdocumented(this.getStatusdocumented());
 		copy.setTimeshomelesspastthreeyears(this.getTimeshomelesspastthreeyears());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		if (this.getWorsthousingsituations() != null) {
 			copy.getWorsthousingsituations().addAll(this.getWorsthousingsituations());
 		}
@@ -1698,7 +1698,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getResidencepriorlengthofstay() == null) && (that.getResidencepriorlengthofstay() == null)) || (getResidencepriorlengthofstay() != null && getResidencepriorlengthofstay().equals(that.getResidencepriorlengthofstay())));
 		result = result && (((getStatusdocumented() == null) && (that.getStatusdocumented() == null)) || (getStatusdocumented() != null && getStatusdocumented().equals(that.getStatusdocumented())));
 		result = result && (((getTimeshomelesspastthreeyears() == null) && (that.getTimeshomelesspastthreeyears() == null)) || (getTimeshomelesspastthreeyears() != null && getTimeshomelesspastthreeyears().equals(that.getTimeshomelesspastthreeyears())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		result = result && (((getYearshomeless() == null) && (that.getYearshomeless() == null)) || (getYearshomeless() != null && getYearshomeless().equals(that.getYearshomeless())));
 		return result;
 	}

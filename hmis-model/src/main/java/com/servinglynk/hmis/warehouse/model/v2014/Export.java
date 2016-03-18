@@ -1883,7 +1883,7 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		}
 		copy.setSource(this.getSource());
 		copy.setStartDate(this.getStartDate());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		if (this.getVeteranInfoes() != null) {
 			copy.getVeteranInfoes().addAll(this.getVeteranInfoes());
 		}
@@ -1967,7 +1967,7 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getExportDate() == null) && (that.getExportDate() == null)) || (getExportDate() != null && getExportDate().equals(that.getExportDate())));
 		result = result && (((getSource() == null) && (that.getSource() == null)) || (getSource() != null && getSource().getId().equals(that.getSource().getId())));	
 		result = result && (((getStartDate() == null) && (that.getStartDate() == null)) || (getStartDate() != null && getStartDate().equals(that.getStartDate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));	
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		return result;
 	}
 }

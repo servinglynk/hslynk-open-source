@@ -269,7 +269,7 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setId(this.getId());
 		copy.setProjectid(this.getProjectid());
 		copy.setStartdate(this.getStartdate());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -341,7 +341,7 @@ public class Funder  extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getGrantid() == null) && (that.getGrantid() == null)) || (getGrantid() != null && getGrantid().equals(that.getGrantid())));
 		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));
 		result = result && (((getStartdate() == null) && (that.getStartdate() == null)) || (getStartdate() != null && getStartdate().equals(that.getStartdate())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

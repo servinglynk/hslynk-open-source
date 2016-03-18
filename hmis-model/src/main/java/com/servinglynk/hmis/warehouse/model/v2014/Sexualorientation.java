@@ -199,7 +199,7 @@ public class Sexualorientation extends HmisBaseModel  implements Cloneable, Seri
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setSexualorientation(this.getSexualorientation());
-		copy.setUserId(this.getUser());
+		copy.setUserId(this.getUserId());
 		return copy;
 	}
 
@@ -264,7 +264,7 @@ public class Sexualorientation extends HmisBaseModel  implements Cloneable, Seri
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getSexualorientation() == null) && (that.getSexualorientation() == null)) || (getSexualorientation() != null && getSexualorientation().equals(that.getSexualorientation())));
-		result = result && (((getUser() == null) && (that.getUser() == null)) || (getUser() != null && getUser().equals(that.getUser())));
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
 

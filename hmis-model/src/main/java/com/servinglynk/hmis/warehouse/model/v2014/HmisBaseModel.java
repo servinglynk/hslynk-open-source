@@ -26,7 +26,7 @@ public abstract class HmisBaseModel implements Entity{
 	protected LocalDateTime dateUpdatedFromSource;
 	/** Field mapping. */
 	protected String projectGroupCode;
-	private UUID user;
+	private UUID userId;
 	 /**
 		 * Return the value associated with the column: dateCreated.
 		 * @return A LocalDateTime object (this.dateCreated)
@@ -136,11 +136,11 @@ public abstract class HmisBaseModel implements Entity{
 			}
 			@Basic( optional = true )
 			@Column( name = "user_id", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-			public UUID getUser() {
-				return user;
+			public UUID getUserId() {
+				return userId;
 			}
 
 			public void setUserId(UUID user) {
-				this.user = user;
+				this.userId = user;
 			}
 }
