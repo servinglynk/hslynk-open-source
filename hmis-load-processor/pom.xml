@@ -66,7 +66,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-core-model</artifactId>
+			<artifactId>hmis-model-v2014</artifactId>
 				<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 

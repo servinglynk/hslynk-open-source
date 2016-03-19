@@ -178,7 +178,7 @@
 		<!-- HMIS Dependencies -->
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-core-model</artifactId>
+			<artifactId>hmis-model-v2014</artifactId>
 			<version>${parent-version}</version>
 		</dependency> 
 				<dependency>

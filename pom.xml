@@ -15,7 +15,8 @@
 </properties>
     <modules>
 	<module>hmis-service</module>
-	<module>hmis-model</module>
+	<module>hmis-model-v2014</module>
+	<module>hmis-model-v2015</module>
 	<module>hmis-common</module>
 	<module>hmis-admin</module>
 	<module>hmis-client</module>

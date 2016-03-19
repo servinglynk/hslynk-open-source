@@ -1,0 +1,7 @@
+<root>
+  <facet id="jpt.jaxb">
+    <node name="classgen">
+      <attribute name="package" value="com.servinglynk.hmis.warehouse.dao.helper"/>
+    </node>
+  </facet>
+</root>
