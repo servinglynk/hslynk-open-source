@@ -184,7 +184,7 @@ public class BulkUploadHelper {
 	}
 	
 	 private boolean validateXMLSchema(String xsdPath, String xmlPath){
-         
+         /*
 	        try {
 	            SchemaFactory factory = 
 	                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -194,7 +194,7 @@ public class BulkUploadHelper {
 	        } catch ( SAXException |JAXBException e) {
 	            System.out.println("Exception: "+e.getMessage());
 	            return false;
-	        }
+	        } */
 	        return true;
 	    }
 	/**

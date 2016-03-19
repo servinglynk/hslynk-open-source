@@ -1,0 +1,495 @@
+<?xml version="1.1" encoding="UTF-8"?> 
+ <Sources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:schemaLocation="http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd" 
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" 
+  xmlns:hmis="http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd"> 
+  <Source> 
+      <SourceID>12345</SourceID> 
+      <SoftwareVendor>HMISSoft Inc.</SoftwareVendor> 
+      <SoftwareVersion>3</SoftwareVersion> 
+       <SourceContactEmail>bill@gsnail.com</SourceContactEmail> 
+       <SourceContactExtension>775</SourceContactExtension> 
+       <SourceContactFirst>Patricia</SourceContactFirst> 
+       <SourceContactLast>Duke</SourceContactLast> 
+       <SourceContactPhone>5939698367</SourceContactPhone> 
+       <SourceName>Fictitious County HMIS</SourceName> 
+       <Export> 
+           <ExportID>37</ExportID> 
+           <ExportDate>2015-02-27T23:14:59</ExportDate> 
+           <ExportPeriod> 
+               <StartDate>2015-01-04T23:14:59</StartDate> 
+               <EndDate>2015-03-26T23:14:59Z</EndDate> 
+           </ExportPeriod> 
+           <ExportPeriodType>effective</ExportPeriodType> 
+           <ExportDirective>other</ExportDirective> 
+           <Affiliation dateCreated="2016-04-11T23:14:59Z" dateUpdated="2015-05-30T23:14:59" userID="nf"> 
+               <AffiliationID>76yt</AffiliationID> 
+               <ProjectID>222E</ProjectID> 
+               <ResProjectID>222D</ResProjectID> 
+           </Affiliation>
+           <Client dateCreated="2016-04-11T23:14:59Z" dateUpdated="2015-05-30T23:14:59" userID="ned100"> 
+               <PersonalID>A1a1</PersonalID> 
+               <FirstName hashStatus="2">123456789012345678901234567890ABCDEF12d4</FirstName> 
+               <MiddleName hashStatus="1">Barnaby</MiddleName> 
+               <LastName hashStatus="3">Jones</LastName> 
+               <NameSuffix>Sr.</NameSuffix> 
+               <NameDataQuality>9</NameDataQuality> 
+               <SSN hashStatus="1">79xx9xx8x</SSN> 
+               <SSNDataQuality>2</SSNDataQuality> 
+<DOB>2014-11-01</DOB>
+               <DOBDataQuality>1</DOBDataQuality> 
+               <Gender>4</Gender> 
+               <OtherGender>intersex</OtherGender> 
+               <Ethnicity>0</Ethnicity> 
+               <Race>8</Race> 
+               <VeteranStatus>9</VeteranStatus> 
+           </Client> 
+           <Contact  dateCreated="2015-08-13T23:14:59" dateUpdated="2015-03-30T23:14:59" userID="IFmMP"> 
+               <ContactID>98yuywwyy776ww</ContactID> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+               <ContactDate>2015-08-13T23:14:59</ContactDate> 
+               <ContactLocation>2</ContactLocation> 
+           </Contact> 
+           <DateOfEngagement dateCreated="2015-08-13T23:14:59" dateUpdated="2015-03-30T23:14:59" userID="IFmMP"> 
+               <DateOfEngagementID>4321s</DateOfEngagementID> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+               <DateOfEngagement>2016-04-17</DateOfEngagement> 
+           </DateOfEngagement> 
+           <Disabilities dataCollectionStage="1" informationDate="2014-09-01" dateCreated="2014-09-01T23:14:59" dateUpdated="2016-04-17T23:14:59Z" 
+                userID="YBR5goXMKigc."> 
+               <DisabilitiesID>6743e</DisabilitiesID> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+               <DisabilityType>8</DisabilityType> 
+               <DisabilityResponse>2</DisabilityResponse> 
+               <IndefiniteAndImpairsIndependence>9</IndefiniteAndImpairsIndependence> 
+               <DocumentationOnFile>1</DocumentationOnFile> 
+               <ReceivingServices>99</ReceivingServices> 
+               <PATHHowConfirmed>1</PATHHowConfirmed> 
+               <PATHSMIInformation>3</PATHSMIInformation> 
+               <TCellCountAvailable>1</TCellCountAvailable> 
+               <TCellCount>1401</TCellCount> 
+               <TCellSource>3</TCellSource> 
+               <ViralLoadAvailable>1</ViralLoadAvailable> 
+               <ViralLoad>999999</ViralLoad> 
+               <ViralLoadSource>2</ViralLoadSource> 
+           </Disabilities> 
+           <DomesticViolence dataCollectionStage="1" informationDate="2014-11-21" dateCreated="2014-11-21T23:14:59" 
+                dateUpdated="2016-01-05T23:14:59Z" userID="fPKfm5Rtfi0m3OhjeFL_pozaSRUUA"> 
+               <DomesticViolenceID>87865g</DomesticViolenceID> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+               <DomesticViolenceVictim>1</DomesticViolenceVictim> 
+               <WhenOccurred>2</WhenOccurred> 
+               <CurrentlyFleeing>8</CurrentlyFleeing> 
+           </DomesticViolence> 
+           <Education dataCollectionStage="1" informationDate="2014-11-21" dateCreated="2014-11-21T23:14:59" dateUpdated="2014-11-21T23:14:59" userID="user7"> 
+               <EducationID>56t54</EducationID> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+               <LastGradeCompleted>3</LastGradeCompleted> 
+               <SchoolStatus>8</SchoolStatus> 
+           </Education> 
+           <Employment dataCollectionStage="5" informationDate="2014-11-21" dateCreated="2016-03-26T23:14:59Z" 
+                dateUpdated="2015-04-01T23:14:59Z" userID="sXKqL"> 
+               <EmploymentID>344r445y</EmploymentID> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+               <Employed>8</Employed> 
+               <EmploymentType>2</EmploymentType> 
+               <NotEmployedReason>3</NotEmployedReason> 
+           </Employment> 
+           <Enrollment dateCreated="2015-05-08T23:14:59" dateUpdated="2015-01-27T23:14:59Z" userID="Hc8CQeYVWWj0dA9cWkDLe"> 
+               <ProjectEntryID>w5641</ProjectEntryID> 
+                <PersonalID>A1a1</PersonalID> 
+                <ProjectID>222D</ProjectID> 
+                <EntryDate>2016-04-12Z</EntryDate> 
+                <HouseholdID>a34563w</HouseholdID> 
+                <RelationshipToHoH>1</RelationshipToHoH> 
+                <ResidencePrior>17</ResidencePrior> 
+                <OtherResidencePrior>some other residence text here</OtherResidencePrior> 
+                <ResidencePriorLengthOfStay>8</ResidencePriorLengthOfStay> 
+                <EntryFromStreetESSH>1</EntryFromStreetESSH> 
+                <DateToStreetESSH>2015-04-01</DateToStreetESSH> 
+                <TimesHomelessPastThreeYears>2</TimesHomelessPastThreeYears> 
+                <MonthsHomelessPastThreeYears>103</MonthsHomelessPastThreeYears> 
+                <DisablingCondition>9</DisablingCondition> 
+                <HousingStatus>6</HousingStatus> 
+            </Enrollment> 
+            <Enrollment dateCreated="2015-05-08T23:14:59" dateUpdated="2015-01-27T23:14:59Z" userID="Hc8CQeYVWWj0dA9cWkDLe"> 
+                <ProjectEntryID>w5642</ProjectEntryID> 
+                <PersonalID>A1a1</PersonalID> 
+                <ProjectID>222E</ProjectID> 
+                <EntryDate>2016-04-12Z</EntryDate> 
+                <HouseholdID>a34563w</HouseholdID> 
+                <RelationshipToHoH>2</RelationshipToHoH> 
+                <ResidencePrior>17</ResidencePrior> 
+                <OtherResidencePrior>some other residence text here</OtherResidencePrior> 
+                <ResidencePriorLengthOfStay>8</ResidencePriorLengthOfStay> 
+                <EntryFromStreetESSH>0</EntryFromStreetESSH> 
+                <TimesHomelessPastThreeYears>1</TimesHomelessPastThreeYears> 
+                <MonthsHomelessPastThreeYears>103</MonthsHomelessPastThreeYears> 
+                <DisablingCondition>9</DisablingCondition> 
+                <HousingStatus>6</HousingStatus> 
+            </Enrollment> 
+            <EnrollmentCoC dataCollectionStage="1" informationDate="2015-06-24" dateCreated="2016-02-13T23:14:59Z" 
+                 dateUpdated="2016-02-19T23:14:59" userID="DU5m"> 
+                <EnrollmentCoCID>56332</EnrollmentCoCID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <CoCCode>BZ-123</CoCCode> 
+            </EnrollmentCoC> 
+            <EnrollmentCoC dataCollectionStage="1" informationDate="2015-06-24" dateCreated="2016-02-13T23:14:59Z" 
+                dateUpdated="2016-02-19T23:14:59" userID="DU5m"> 
+                <EnrollmentCoCID>56332</EnrollmentCoCID> 
+                <ProjectEntryID>w5642</ProjectEntryID> 
+                <CoCCode>BZ-123</CoCCode> 
+            </EnrollmentCoC> 
+            <Exit dateCreated="2014-10-07T23:14:59Z" dateUpdated="2015-11-06T23:14:59Z" userID="GO"> 
+                <ExitID>C2x</ExitID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <ExitDate>2016-11-16Z</ExitDate> 
+                <Destination>17</Destination> 
+                <OtherDestination>Hotel Training Program</OtherDestination> 
+            </Exit> 
+            <Exit dateCreated="2014-10-07T23:14:59Z" dateUpdated="2015-11-06T23:14:59Z" userID="GO"> 
+                <ExitID>C3x</ExitID> 
+                <ProjectEntryID>w5642</ProjectEntryID> 
+                <ExitDate>2016-11-16Z</ExitDate> 
+                <Destination>22</Destination> 
+            </Exit> 
+            <ExitHousingAssessment dateCreated="2015-02-09T23:14:59" dateUpdated="2015-08-17T23:14:59" userID="l_Xj"> 
+                <ExitHousingAssessmentID>326</ExitHousingAssessmentID> 
+                <ExitID>C2x</ExitID> 
+                <HousingAssessment>6</HousingAssessment> 
+                <SubsidyInformation>2</SubsidyInformation> 
+            </ExitHousingAssessment> 
+            <ExitPATH dateCreated="2015-05-20T23:14:59Z" dateUpdated="2016-05-21T23:14:59" userID="y9SC3Udh_t0aJCX"> 
+                <ExitPATHID>676rt</ExitPATHID> 
+                <ExitID>C2x</ExitID> 
+                <ConnectionWithSOAR>0</ConnectionWithSOAR> 
+            </ExitPATH> 
+            <ExitRHY dateCreated="2015-11-22T23:14:59" dateUpdated="2015-10-11T23:14:59Z" userID="Zu6Nb5-"> 
+                <ExitRHYID>342r</ExitRHYID> 
+                <ExitID>C2x</ExitID> 
+                <WrittenAftercarePlan>9</WrittenAftercarePlan> 
+                <AssistanceMainstreamBenefits>0</AssistanceMainstreamBenefits> 
+                <PermanentHousingPlacement>0</PermanentHousingPlacement> 
+                <TemporaryShelterPlacement>0</TemporaryShelterPlacement> 
+                <ExitCounseling>0</ExitCounseling> 
+                <FurtherFollowUpServices>1</FurtherFollowUpServices> 
+                <ScheduledFollowUpContacts>1</ScheduledFollowUpContacts> 
+                <ResourcePackage>9</ResourcePackage> 
+                <OtherAftercarePlanOrAction>0</OtherAftercarePlanOrAction> 
+                <FamilyReunificationAchieved>1</FamilyReunificationAchieved> 
+                <ProjectCompletionStatus>3</ProjectCompletionStatus> 
+                <EarlyExitReason>1</EarlyExitReason> 
+            </ExitRHY> 
+            <Funder dateCreated="2015-09-19T23:14:59" dateUpdated="2016-01-29T23:14:59Z" userID="m2Pym5-77tSVuI-IjerY"> 
+                <FunderID>76g</FunderID> 
+                <ProjectID>222D</ProjectID> 
+                <Funder>16</Funder> 
+                <GrantID>S_w9P0npP</GrantID> 
+                <StartDate>2016-06-11Z</StartDate> 
+                <EndDate>2016-04-08</EndDate> 
+            </Funder> 
+            <Funder dateCreated="2015-09-19T23:14:59" dateUpdated="2016-01-29T23:14:59Z" userID="m2Pym5-77tSVuI-IjerY"> 
+                <FunderID>76g</FunderID> 
+                <ProjectID>222E</ProjectID> 
+                <Funder>16</Funder> 
+                <GrantID>S_w9P0npP</GrantID> 
+                <StartDate>2016-06-11Z</StartDate> 
+                <EndDate>2016-04-08</EndDate> 
+            </Funder> 
+            <HealthInsurance dataCollectionStage="1" informationDate="2014-11-21" dateCreated="2016-01-13T23:14:59" dateUpdated="2014-09-29T23:14:59Z" 
+                 userID="NdLgvXYr7g"> 
+                <HealthInsuranceID>sw1ws2</HealthInsuranceID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <InsuranceFromAnySource>8</InsuranceFromAnySource> 
+                <Medicaid>0</Medicaid> 
+                <NoMedicaidReason>1</NoMedicaidReason> 
+                <Medicare>0</Medicare> 
+                <NoMedicareReason>4</NoMedicareReason> 
+                <SCHIP>1</SCHIP> 
+                <NoSCHIPReason>3</NoSCHIPReason> 
+                <VAMedicalServices>0</VAMedicalServices> 
+                <NoVAMedReason>99</NoVAMedReason> 
+                <EmployerProvided>1</EmployerProvided> 
+                <NoEmployerProvidedReason>9</NoEmployerProvidedReason> 
+                <COBRA>1</COBRA> 
+                <NoCOBRAReason>9</NoCOBRAReason> 
+                <PrivatePay>1</PrivatePay> 
+                <NoPrivatePayReason>8</NoPrivatePayReason> 
+                <StateHealthIns>0</StateHealthIns> 
+                <NoStateHealthInsReason>4</NoStateHealthInsReason> 
+            </HealthInsurance> 
+            <HealthInsurance dataCollectionStage="1" informationDate="2014-11-21" dateCreated="2016-01-13T23:14:59" dateDeleted="2016-01-14T21:11:19" dateUpdated="2016-01-13T23:14:59" userID="NdLgvXYr7g"> 
+                <HealthInsuranceID>sw1ws3</HealthInsuranceID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <InsuranceFromAnySource>8</InsuranceFromAnySource> 
+                <Medicaid>0</Medicaid> 
+                <NoMedicaidReason>1</NoMedicaidReason> 
+                <Medicare>0</Medicare> 
+                <NoMedicareReason>4</NoMedicareReason> 
+                <SCHIP>1</SCHIP> 
+                <NoSCHIPReason>3</NoSCHIPReason> 
+                <VAMedicalServices>0</VAMedicalServices> 
+                <NoVAMedReason>99</NoVAMedReason> 
+                <EmployerProvided>1</EmployerProvided> 
+                <NoEmployerProvidedReason>9</NoEmployerProvidedReason> 
+                <COBRA>1</COBRA> 
+                <NoCOBRAReason>9</NoCOBRAReason> 
+                <PrivatePay>1</PrivatePay> 
+                <NoPrivatePayReason>8</NoPrivatePayReason> 
+                <StateHealthIns>0</StateHealthIns> 
+                <NoStateHealthInsReason>4</NoStateHealthInsReason> 
+            </HealthInsurance> 
+            <HealthStatus dataCollectionStage="5" informationDate="2014-11-21" dateCreated="2015-07-02T23:14:59Z" 
+                 dateUpdated="2014-08-05T23:14:59Z" userID="e79Gzul_HbyrI9JY"> 
+                <HealthStatusID>y676755</HealthStatusID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <HealthCategory>27</HealthCategory> 
+                <HealthStatus>4</HealthStatus> 
+                <DueDate>2015-04-15Z</DueDate> 
+            </HealthStatus> 
+            <HousingAssessmentDisposition dateCreated="2015-04-09T23:14:59Z" dateUpdated="2016-07-01T23:14:59Z" userID="BtcDoTPF4UC-8ybtUm-woIM"> 
+                <HousingAssessmentDispositionID>456q</HousingAssessmentDispositionID> 
+                <ExitID>C2x</ExitID> 
+                <AssessmentDisposition>9</AssessmentDisposition> 
+                <OtherDisposition>some other disposition text here</OtherDisposition> 
+            </HousingAssessmentDisposition> 
+            <IncomeAndSources dataCollectionStage="1" informationDate="2016-07-15" dateCreated="2016-01-13T23:14:59" 
+                 dateUpdated="2015-04-17T23:14:59" userID="DN2J6hP2SNfgBs30u8dgkh8cVjY4jApG"> 
+                <IncomeAndSourcesID>32dd</IncomeAndSourcesID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <IncomeFromAnySource>1</IncomeFromAnySource> 
+                <TotalMonthlyIncome>1889.22</TotalMonthlyIncome> 
+                <Earned>1</Earned> 
+                <EarnedAmount>13916.10</EarnedAmount> 
+                <Unemployment>0</Unemployment> 
+                <UnemploymentAmount>315.87</UnemploymentAmount> 
+                <SSI>1</SSI> 
+                <SSIAmount>2885.09</SSIAmount> 
+                <SSDI>0</SSDI> 
+                <SSDIAmount>41016.91</SSDIAmount> 
+                <VADisabilityService>1</VADisabilityService> 
+                <VADisabilityServiceAmount>5642.48</VADisabilityServiceAmount> 
+                <VADisabilityNonService>0</VADisabilityNonService> 
+                <VADisabilityNonServiceAmount>6847.91</VADisabilityNonServiceAmount> 
+                <PrivateDisability>0</PrivateDisability> 
+                <PrivateDisabilityAmount>11484.77</PrivateDisabilityAmount> 
+                <WorkersComp>1</WorkersComp> 
+                <WorkersCompAmount>8951855.15</WorkersCompAmount> 
+                <TANF>0</TANF> 
+                <TANFAmount>963412872.89</TANFAmount> 
+                <GA>1</GA> 
+                <GAAmount>15254.55</GAAmount> 
+                <SocSecRetirement>1</SocSecRetirement> 
+                <SocSecRetirementAmount>4784.72</SocSecRetirementAmount> 
+                <Pension>1</Pension> 
+                <PensionAmount>7865.32</PensionAmount> 
+                <ChildSupport>1</ChildSupport> 
+                <ChildSupportAmount>562.40</ChildSupportAmount> 
+                <Alimony>1</Alimony> 
+                <AlimonyAmount>1121.76</AlimonyAmount> 
+                <OtherSource>1</OtherSource> 
+                <OtherSourceAmount>156.47</OtherSourceAmount> 
+                <OtherSourceIdentify>some other source here</OtherSourceIdentify> 
+            </IncomeAndSources> 
+            <Inventory informationDate="2015-04-04Z" dateCreated="2015-09-12T23:14:59Z" dateUpdated="2015-08-29T23:14:59Z" 
+                 userID="billj"> 
+                <InventoryID>56563a</InventoryID> 
+                <CoCCode>BZ-123</CoCCode> 
+                <HouseholdType>1</HouseholdType> 
+                <BedType>3</BedType> 
+                <Availability>3</Availability> 
+                <UnitInventory>1595973432</UnitInventory> 
+                <BedInventory> 
+                    <BedInventory>130</BedInventory> 
+                    <CHBedInventory>17</CHBedInventory> 
+                    <VetBedInventory>14</VetBedInventory> 
+                    <YouthBedInventory>16</YouthBedInventory> 
+                    <YouthAgeGroup>1</YouthAgeGroup> 
+                </BedInventory> 
+                <InventoryStartDate>2014-10-31</InventoryStartDate> 
+                <InventoryEndDate>2015-05-12Z</InventoryEndDate> 
+                <HMISParticipatingBeds>539390492</HMISParticipatingBeds> 
+            </Inventory> 
+            <MedicalAssistance dataCollectionStage="1" informationDate="2014-11-21" dateCreated="2015-08-22T23:14:59" 
+                 dateUpdated="2014-10-25T23:14:59" userID="ptravis"> 
+                <MedicalAssistanceID>y7665</MedicalAssistanceID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <HIVAIDSAssistance>99</HIVAIDSAssistance> 
+                <NoHIVAIDSAssistanceReason>1</NoHIVAIDSAssistanceReason> 
+                <ADAP>9</ADAP> 
+                <NoADAPReason>9</NoADAPReason> 
+            </MedicalAssistance> 
+            <NonCashBenefits dataCollectionStage="1" informationDate="2016-05-03" dateCreated="2014-11-19T23:14:59" 
+                 dateUpdated="2015-02-27T23:14:59" userID="ptravis"> 
+                <NonCashBenefitsID>766ww</NonCashBenefitsID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <BenefitsFromAnySource>1</BenefitsFromAnySource> 
+                <SNAP>0</SNAP> 
+                <WIC>0</WIC> 
+                <TANFChildCare>0</TANFChildCare> 
+                <TANFTransportation>0</TANFTransportation> 
+                <OtherTANF>0</OtherTANF> 
+                <RentalAssistanceOngoing>1</RentalAssistanceOngoing> 
+                <RentalAssistanceTemp>1</RentalAssistanceTemp> 
+                <OtherSource>0</OtherSource> 
+                <OtherSourceIdentify>some other source name</OtherSourceIdentify> 
+            </NonCashBenefits> 
+            <Organization dateCreated="2015-02-17T23:14:59" dateUpdated="2016-02-29T23:14:59" userID="ptravis"> 
+                <OrganizationID>34</OrganizationID> 
+                <OrganizationName>Helping People, Inc.</OrganizationName> 
+                <OrganizationCommonName>Helping</OrganizationCommonName> 
+            </Organization> 
+            <PATHStatus dateCreated="2014-08-31T23:14:59" dateUpdated="2016-01-06T23:14:59" userID="bmerriweather"> 
+                <PathStatusID>453332</PathStatusID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <DateOfStatus>2016-04-23</DateOfStatus> 
+                <ClientEnrolledInPATH>0</ClientEnrolledInPATH> 
+                <ReasonNotEnrolled>2</ReasonNotEnrolled> 
+            </PATHStatus> 
+            <EntrySSVF dateCreated="2014-11-21T23:14:59Z" dateUpdated="2015-06-11T23:14:59" userID="7653"> 
+                <EntrySSVFID>787ughj55</EntrySSVFID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <PercentAMI>1</PercentAMI> 
+                <HPScreeningScore>12</HPScreeningScore> 
+                <VAMCStation>76762T78</VAMCStation> 
+                <LastPermanentStreet>13th Ave W</LastPermanentStreet> 
+                <LastPermanentCity>Yreka</LastPermanentCity> 
+                <LastPermanentState>AR</LastPermanentState> 
+                <LastPermanentZIP>57601</LastPermanentZIP> 
+                <AddressDataQuality>2</AddressDataQuality> 
+            </EntrySSVF> 
+            <Project dateCreated="2016-02-17T23:14:59" dateUpdated="2015-03-14T23:14:59Z" userID="j2ZsRLAPv"> 
+                <ProjectID>222D</ProjectID> 
+                <OrganizationID>34</OrganizationID> 
+                <ProjectName>Residence Enablers</ProjectName> 
+                <ContinuumProject>0</ContinuumProject> 
+                <ProjectType>9</ProjectType> 
+                <ResidentialAffiliation>0</ResidentialAffiliation> 
+                <TrackingMethod>0</TrackingMethod> 
+                <TargetPopulation>4</TargetPopulation> 
+                <ProjectCommonName>Residence Enablers</ProjectCommonName> 
+            </Project> 
+            <Project dateCreated="2016-02-17T23:14:59" dateUpdated="2015-03-14T23:14:59Z" userID="j2ZsRLAPv"> 
+                <ProjectID>222E</ProjectID> 
+                <OrganizationID>34</OrganizationID> 
+                <ProjectName>City Shelter</ProjectName> 
+                <ContinuumProject>0</ContinuumProject> 
+                <ProjectType>9</ProjectType> 
+                <ResidentialAffiliation>1</ResidentialAffiliation> 
+                <TrackingMethod>0</TrackingMethod> 
+                <TargetPopulation>4</TargetPopulation> 
+                <ProjectCommonName>City Shelter</ProjectCommonName> 
+            </Project> 
+            <CoC  dateCreated="2015-11-22T23:14:59" dateUpdated="2015-10-11T23:14:59Z" userID="bmerriweather"> 
+                <CoCCode>MA-500</CoCCode> 
+                <ProjectID>222D</ProjectID> 
+            </CoC> 
+            <CoC  dateCreated="2015-11-22T23:14:59" dateUpdated="2015-10-11T23:14:59Z" userID="bmerriweather"> 
+                <CoCCode>BZ-123</CoCCode> 
+                <ProjectID>222E</ProjectID> 
+            </CoC> 
+            <ResidentialMoveInDate dateCreated="2015-04-25T23:14:59" dateUpdated="2015-07-23T23:14:59Z" userID="AUfZ2"> 
+                <ResidentialMoveInDateID>z44332</ResidentialMoveInDateID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <InPermanentHousing>1</InPermanentHousing> 
+                <ResidentialMoveInDate>2016-05-19Z</ResidentialMoveInDate> 
+            </ResidentialMoveInDate> 
+            <RHYBCPStatus dateCreated="2014-10-25T23:14:59Z" dateUpdated="2015-03-27T23:14:59Z" userID="ryu"> 
+                <RHYBCPStatusID>erffedyte1</RHYBCPStatusID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <StatusDate>2014-09-20</StatusDate> 
+                <FYSBYouth>0</FYSBYouth> 
+                <ReasonNoServices>3</ReasonNoServices> 
+            </RHYBCPStatus> 
+            <Services dateCreated="2015-09-04T23:14:59" dateUpdated="2015-02-28T23:14:59Z" userID="CoaTbskfRfTvBSHN8_eRmMF4.4O-A"> 
+                <ServicesID>44gg</ServicesID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <DateProvided>2015-09-06</DateProvided> 
+                <RecordType>200</RecordType> 
+                <TypeProvided>200</TypeProvided> 
+                <OtherTypeProvided>some other type here</OtherTypeProvided> 
+                <SubTypeProvided>12</SubTypeProvided> 
+                <FAAmount>1145.59</FAAmount> 
+                <ReferralOutcome>2</ReferralOutcome> 
+            </Services> 
+            <Site dateCreated="2014-09-03T23:14:59" dateUpdated="2016-02-25T23:14:59Z" userID="ck"> 
+                <SiteID>4526</SiteID> 
+                <CoCCode>BZ-123</CoCCode> 
+                <PrincipalSite>1</PrincipalSite> 
+                <Address>111 Pine St.</Address> 
+                <City>Tuscaloosa</City> 
+                <State>OK</State> 
+                <ZIP>84683</ZIP> 
+                <Geocode>177988</Geocode> 
+            </Site> 
+            <ClientVeteranInfo dateCreated="2014-12-17T23:14:59" dateUpdated="2016-03-10T23:14:59" userID="dZPlRM"> 
+                <ClientVeteranInfoID>7878665s</ClientVeteranInfoID> 
+                <PersonalID>A1a1</PersonalID> 
+                <YearEnteredService>2002</YearEnteredService> 
+                <YearSeparated>2004</YearSeparated> 
+                <WorldWarII>0</WorldWarII> 
+                <KoreanWar>99</KoreanWar> 
+                <VietnamWar>1</VietnamWar> 
+                <DesertStorm>0</DesertStorm> 
+                <AfghanistanOEF>8</AfghanistanOEF> 
+                <IraqOIF>9</IraqOIF> 
+                <IraqOND>99</IraqOND> 
+                <OtherTheater>8</OtherTheater> 
+                <MilitaryBranch>8</MilitaryBranch> 
+                <DischargeStatus>6</DischargeStatus> 
+            </ClientVeteranInfo> 
+            <WorstHousingSituation dateCreated="2015-06-24T23:14:59" dateUpdated="2015-02-13T23:14:59Z" userID="as1Peee5hTGWNY6mtD1O_M"> 
+                <WorstHousingSituationID>8i76</WorstHousingSituationID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <WorstHousingSituation>9</WorstHousingSituation> 
+            </WorstHousingSituation> 
+            <EntryRHY dataCollectionStage="1" dateCreated="2016-05-08T23:14:59" dateUpdated="2016-05-06T23:14:59Z" userID="DG4IfIQuAFF6I.yl7"> 
+                <EntryRHYID>y76754</EntryRHYID> 
+                <ProjectEntryID>w5641</ProjectEntryID> 
+                <HouseholdDynamics>0</HouseholdDynamics> 
+                <SexualOrientation>99</SexualOrientation>                
+                <SexualOrientationGenderIdentityYouth>1</SexualOrientationGenderIdentityYouth> 
+                <SexualOrientationGenderIDFam>0</SexualOrientationGenderIDFam> 
+                <HousingIssuesYouth>1</HousingIssuesYouth> 
+                <HousingIssuesFam>1</HousingIssuesFam> 
+                <SchoolEducationalIssuesYouth>0</SchoolEducationalIssuesYouth> 
+                <SchoolEducationalIssuesFam>0</SchoolEducationalIssuesFam> 
+                <UnemploymentYouth>1</UnemploymentYouth> 
+                <UnemploymentFam>0</UnemploymentFam> 
+                <MentalHealthIssuesYouth>0</MentalHealthIssuesYouth> 
+                <MentalHealthIssuesFam>0</MentalHealthIssuesFam> 
+                <HealthIssuesYouth>1</HealthIssuesYouth> 
+                <HealthIssuesFam>0</HealthIssuesFam> 
+                <PhysicalDisabilityYouth>0</PhysicalDisabilityYouth> 
+                <PhysicalDisabilityFam>0</PhysicalDisabilityFam> 
+                <MentalDisabilityYouth>1</MentalDisabilityYouth> 
+                <MentalDisabilityFam>0</MentalDisabilityFam> 
+                <AbuseAndNeglectYouth>0</AbuseAndNeglectYouth> 
+                <AbuseAndNeglectFam>1</AbuseAndNeglectFam> 
+                <AlcoholDrugAbuseYouth>0</AlcoholDrugAbuseYouth> 
+                <AlcoholDrugAbuseFam>0</AlcoholDrugAbuseFam> 
+                <InsufficientIncome>0</InsufficientIncome> 
+                <ActiveMilitaryParent>1</ActiveMilitaryParent> 
+                <IncarceratedParent>1</IncarceratedParent> 
+                <IncarceratedParentStatus>1</IncarceratedParentStatus> 
+                <WorkPlaceViolenceThreats>0</WorkPlaceViolenceThreats> 
+                <WorkplacePromiseDifference>1</WorkplacePromiseDifference> 
+                <CoercedToContinueWork>0</CoercedToContinueWork> 
+                <LaborExploitPastThreeMonths>8</LaborExploitPastThreeMonths> 
+                <ExchangeForSex>1</ExchangeForSex> 
+                <ExchangeForSexPastThreeMonths>1</ExchangeForSexPastThreeMonths> 
+                <CountOfExchangeForSex>3</CountOfExchangeForSex> 
+                <AskedOrForcedToExchangeForSex>1</AskedOrForcedToExchangeForSex> 
+                <AskedOrForcedToExchangeForSexPastThreeMonths>8</AskedOrForcedToExchangeForSexPastThreeMonths> 
+                <FormerWardJuvenileJustice>9</FormerWardJuvenileJustice> 
+                <JuvenileJusticeYears>3</JuvenileJusticeYears> 
+                <JuvenileJusticeMonths>2</JuvenileJusticeMonths> 
+                <FormerWardChildWelfare>1</FormerWardChildWelfare> 
+                <ChildWelfareYears>2</ChildWelfareYears> 
+                <ChildWelfareMonths>42</ChildWelfareMonths> 
+                <ReferralSource>18</ReferralSource> 
+                <CountOutreachReferralApproaches>3</CountOutreachReferralApproaches> 
+            </EntryRHY> 
+        </Export> 
+    </Source> 
+</Sources> 
