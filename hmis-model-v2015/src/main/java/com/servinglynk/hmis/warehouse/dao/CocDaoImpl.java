@@ -3,17 +3,21 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
-
+	
+	@Autowired
+	private ParentDaoFactory factory;
+	
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
-		// TODO Auto-generated method stub
-		
+		factory.getInventoryDao().hydrateStaging(domain);
+		factory.getSiteDao().hydrateStaging(domain);		
 	}
 
 	@Override

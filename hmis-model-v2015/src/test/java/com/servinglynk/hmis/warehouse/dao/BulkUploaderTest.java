@@ -81,19 +81,12 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception
 	{
-		//List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
-	//	if(uploadEntities!=null && uploadEntities.size() >0 ) {
-	//		for(BulkUpload bullkUpload : uploadEntities) {
-				//bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
 				URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload bullkUpload = new BulkUpload();
 				bullkUpload.setInputpath(path.getPath());
 				bullkUpload.setId(2L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
-		//	}
-	//	}
-		//logger.info("========Bulk Uploader processed ======");
 	}
 	
 	@Test

@@ -104,6 +104,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain);
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain);
 			parentDaoFactory.getExitDao().hydrateStaging(domain);
+			parentDaoFactory.getEntryrhspDao().hydrateStaging(domain);
+			parentDaoFactory.getEntryrhyDao().hydrateStaging(domain);
+			parentDaoFactory.getEntryssvfDao().hydrateStaging(domain);
+			parentDaoFactory.getExitpathDao().hydrateStaging(domain);
+			parentDaoFactory.getExitrhyDao().hydrateStaging(domain);
+			parentDaoFactory.getContactDao().hydrateStaging(domain);
+			parentDaoFactory.getServiceFaReferralDao().hydrateStaging(domain);
 			parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain);
 			parentDaoFactory.getHealthStatusDao().hydrateStaging(domain);
 			parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain);
@@ -168,6 +175,15 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getDomesticviolenceDao().hydrateLive(export);
 		parentDaoFactory.getEmploymentDao().hydrateLive(export);
 		parentDaoFactory.getExitDao().hydrateLive(export);
+		
+		parentDaoFactory.getEntryrhspDao().hydrateLive(export);
+		parentDaoFactory.getEntryrhyDao().hydrateLive(export);
+		parentDaoFactory.getEntryssvfDao().hydrateLive(export);
+		parentDaoFactory.getExitpathDao().hydrateLive(export);
+		parentDaoFactory.getExitrhyDao().hydrateLive(export);
+		parentDaoFactory.getContactDao().hydrateLive(export);
+		parentDaoFactory.getServiceFaReferralDao().hydrateLive(export);
+		
 		parentDaoFactory.getHealthinsuranceDao().hydrateLive(export);
 		parentDaoFactory.getHealthStatusDao().hydrateLive(export);
 		parentDaoFactory.getIncomeandsourcesDao().hydrateLive(export);

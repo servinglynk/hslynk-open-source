@@ -83,6 +83,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			factory.getOrganizationDao().hydrateStaging(domain);
 			factory.getAffiliationDao().hydrateStaging(domain);
 			factory.getFunderDao().hydrateStaging(domain);
+			factory.getCocDao().hydrateStaging(domain);
 			}
 
 	}
@@ -108,6 +109,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			}
 			factory.getAffiliationDao().hydrateLive(export);
 			factory.getFunderDao().hydrateLive(export);
+			factory.getCocDao().hydrateLive(export);
 		}
 	}
 
