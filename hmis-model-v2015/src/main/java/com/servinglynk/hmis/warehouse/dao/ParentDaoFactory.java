@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import Contact.ContactDao;
+import Entryrhsp.EntryrhspDao;
+
 
 public interface ParentDaoFactory {
 	
@@ -37,5 +40,12 @@ public interface ParentDaoFactory {
 	ExportDao getExportDao();
 	
 	ProjectGroupDao getProjectGroupDao();
-
+	CocDao getCocDao();
+	ContactDao getContactDao();
+	EntryrhspDao getEntryrhspDao();
+	EntryrhyDao getEntryrhyDao();
+	EntryssvfDao getEntryssvfDao();
+	ExitpathDao getExitpathDao();
+	ExitrhyDao getExitrhyDao();
+	ServiceFaReferralDao getServiceFaReferralDao();
 }

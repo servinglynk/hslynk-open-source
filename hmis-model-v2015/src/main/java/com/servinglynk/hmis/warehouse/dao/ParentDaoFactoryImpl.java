@@ -3,6 +3,9 @@ package com.servinglynk.hmis.warehouse.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import Contact.ContactDao;
+import Entryrhsp.EntryrhspDao;
+
 @Component
 public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	@Autowired
@@ -68,9 +71,24 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
 	@Autowired
 	private ExportDao exportDao;
-	
 	@Autowired
 	private ProjectGroupDao projectGroupDao;
+	@Autowired
+	private CocDao cocDao;
+	@Autowired
+	private ContactDao contactDao;
+	@Autowired
+	private EntryrhspDao entryrhspDao;
+	@Autowired
+	private EntryrhyDao entryrhyDao;
+	@Autowired
+	private EntryssvfDao entryssvfDao;
+	@Autowired
+	private ExitpathDao exitpathDao;
+	@Autowired
+	private ExitrhyDao exitrhyDao;
+	@Autowired
+	private ServiceFaReferralDao serviceFaReferralDao;
 
 	/**
 	 * @return the bulkUploaderDao
@@ -524,4 +542,69 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	public void setProjectGroupDao(ProjectGroupDao projectGroupDao) {
 		this.projectGroupDao = projectGroupDao;
 	}
+
+	public CocDao getCocDao() {
+		return cocDao;
+	}
+
+	public void setCocDao(CocDao cocDao) {
+		this.cocDao = cocDao;
+	}
+
+	public ContactDao getContactDao() {
+		return contactDao;
+	}
+
+	public void setContactDao(ContactDao contactDao) {
+		this.contactDao = contactDao;
+	}
+
+	public EntryrhspDao getEntryrhspDao() {
+		return entryrhspDao;
+	}
+
+	public void setEntryrhspDao(EntryrhspDao entryrhspDao) {
+		this.entryrhspDao = entryrhspDao;
+	}
+
+	public EntryrhyDao getEntryrhyDao() {
+		return entryrhyDao;
+	}
+
+	public void setEntryrhyDao(EntryrhyDao entryrhyDao) {
+		this.entryrhyDao = entryrhyDao;
+	}
+
+	public EntryssvfDao getEntryssvfDao() {
+		return entryssvfDao;
+	}
+
+	public void setEntryssvfDao(EntryssvfDao entryssvfDao) {
+		this.entryssvfDao = entryssvfDao;
+	}
+
+	public ExitpathDao getExitpathDao() {
+		return exitpathDao;
+	}
+
+	public void setExitpathDao(ExitpathDao exitpathDao) {
+		this.exitpathDao = exitpathDao;
+	}
+
+	public ExitrhyDao getExitrhyDao() {
+		return exitrhyDao;
+	}
+
+	public void setExitrhyDao(ExitrhyDao exitrhyDao) {
+		this.exitrhyDao = exitrhyDao;
+	}
+
+	public ServiceFaReferralDao getServiceFaReferralDao() {
+		return serviceFaReferralDao;
+	}
+
+	public void setServiceFaReferralDao(ServiceFaReferralDao serviceFaReferralDao) {
+		this.serviceFaReferralDao = serviceFaReferralDao;
+	}
+	
 }

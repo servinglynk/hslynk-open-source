@@ -52,25 +52,6 @@ hmis-bulk-loader/*.iml
 hmis-bulk-loader/target
 hmis-bulk-loader/bin
 
-hmis-bulk-loader/target/*
-hmis-bulk-loader/bin/*
-hmis-bulk-loader/.settings/*
-hmis-bulk-loader/.classpath
-hmis-bulk-loader/.project
-hmis-bulk-loader/.idea
-hmis-bulk-loader/*.iml
-hmis-bulk-loader/target
-hmis-bulk-loader/bin
-
-hmis-bulk-loader-service/target/*
-hmis-bulk-loader-service/bin/*
-hmis-bulk-loader-service/.settings/*
-hmis-bulk-loader-service/.classpath
-hmis-bulk-loader-service/.project
-hmis-bulk-loader-service/.idea
-hmis-bulk-loader-service/*.iml
-hmis-bulk-loader-service/target
-hmis-bulk-loader-service/bin
 
 hmis-client/target/*
 hmis-client/bin/*
@@ -115,14 +96,13 @@ hmis-developerservice/bin
 hmis-developerservice/target/*
 hmis-developerservice/bin/*
 
-hmis-enrollment/.settings/*
-hmis-enrollment/.classpath
-hmis-enrollment/.project
-hmis-enrollment/.idea
-hmis-enrollment/*.iml
-hmis-enrollment/target
-hmis-enrollment/bin
-
+hmis-upload-service/.settings/*
+hmis-upload-service/.classpath
+hmis-upload-service/.project
+hmis-upload-service/.idea
+hmis-upload-service/*.iml
+hmis-upload-service/target
+hmis-upload-service/bin
 
 hmis-load-processor/target/*
 hmis-load-processor/bin/*
@@ -134,16 +114,25 @@ hmis-load-processor/*.iml
 hmis-load-processor/target
 hmis-load-processo/bin
 
-hmis-model/target/*
-hmis-model/bin/*
-hmis-model/.settings/*
-hmis-model/.classpath
-hmis-model/.project
-hmis-model/.idea
-hmis-model/*.iml
-hmis-model/target
-hmis-model/bin
+hmis-model-v2014/target/*
+hmis-model-v2014/bin/*
+hmis-model-v2014/.settings/*
+hmis-model-v2014/.classpath
+hmis-model-v2014/.project
+hmis-model-v2014/.idea
+hmis-model-v2014/*.iml
+hmis-model-v2014/target
+hmis-model-v2014/bin
 
+hmis-model-v2015/target/*
+hmis-model-v2015/bin/*
+hmis-model-v2015/.settings/*
+hmis-model-v2015/.classpath
+hmis-model-v2015/.project
+hmis-model-v2015/.idea
+hmis-model-v2015/*.iml
+hmis-model-v2015/target
+hmis-model-v2015/bin
 
 hmis-notification-core/target/*
 hmis-notification-core/bin/*
@@ -238,6 +227,16 @@ sync-processor/.idea
 sync-processor/*.iml
 sync-processor/target
 sync-processor/bin
+
+sync/target/*
+sync/bin/*
+sync/.settings/*
+sync/.classpath
+sync/.project
+sync/.idea
+sync/*.iml
+sync/target
+sync/bin
 
 hmis-clientapi/target/*
 hmis-clientapi/bin/*
