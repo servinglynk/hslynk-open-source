@@ -192,7 +192,7 @@ public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, 
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		copy.setWorsthousingsituation(this.getWorsthousingsituation());
 		return copy;
 	}

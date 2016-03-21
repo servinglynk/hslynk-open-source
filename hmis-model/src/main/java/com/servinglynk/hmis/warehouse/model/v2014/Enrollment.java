@@ -1594,7 +1594,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		}
 		copy.setStatusdocumented(this.getStatusdocumented());
 		copy.setTimeshomelesspastthreeyears(this.getTimeshomelesspastthreeyears());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		if (this.getWorsthousingsituations() != null) {
 			copy.getWorsthousingsituations().addAll(this.getWorsthousingsituations());
 		}

@@ -345,7 +345,7 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setPathhowconfirmed(this.getPathhowconfirmed());
 		copy.setPathsmiinformation(this.getPathsmiinformation());
 		copy.setReceivingservices(this.getReceivingservices());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

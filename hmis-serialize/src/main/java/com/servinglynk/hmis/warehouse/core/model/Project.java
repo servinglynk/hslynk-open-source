@@ -11,11 +11,11 @@ public class Project extends ClientModel {
 	private UUID projectId;
     private String projectName;
     private String projectCommonName;
-    private String continuumProject;
-    private String projectType;
-    private String residentialAffiliation;
-    private String targetPopulation;
-    private String trackingMethod;
+    private Integer continuumProject;
+    private Integer projectType;
+    private Integer residentialAffiliation;
+    private Integer targetPopulation;
+    private Integer trackingMethod;
     
 	public Project() {
 		
@@ -49,43 +49,43 @@ public class Project extends ClientModel {
 		this.projectCommonName = projectCommonName;
 	}
 
-	public String getContinuumProject() {
+	public Integer getContinuumProject() {
 		return continuumProject;
 	}
 
-	public void setContinuumProject(String continuumProject) {
+	public void setContinuumProject(Integer continuumProject) {
 		this.continuumProject = continuumProject;
 	}
 
-	public String getProjectType() {
+	public Integer getProjectType() {
 		return projectType;
 	}
 
-	public void setProjectType(String projectType) {
+	public void setProjectType(Integer projectType) {
 		this.projectType = projectType;
 	}
 
-	public String getResidentialAffiliation() {
+	public Integer getResidentialAffiliation() {
 		return residentialAffiliation;
 	}
 
-	public void setResidentialAffiliation(String residentialAffiliation) {
+	public void setResidentialAffiliation(Integer residentialAffiliation) {
 		this.residentialAffiliation = residentialAffiliation;
 	}
 
-	public String getTargetPopulation() {
+	public Integer getTargetPopulation() {
 		return targetPopulation;
 	}
 
-	public void setTargetPopulation(String targetPopulation) {
+	public void setTargetPopulation(Integer targetPopulation) {
 		this.targetPopulation = targetPopulation;
 	}
 
-	public String getTrackingMethod() {
+	public Integer getTrackingMethod() {
 		return trackingMethod;
 	}
 
-	public void setTrackingMethod(String trackingMethod) {
+	public void setTrackingMethod(Integer trackingMethod) {
 		this.trackingMethod = trackingMethod;
 	}
 }

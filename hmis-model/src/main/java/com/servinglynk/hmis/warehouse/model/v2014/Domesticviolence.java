@@ -223,7 +223,7 @@ public class Domesticviolence extends HmisBaseModel  implements Cloneable, Seria
 		copy.setDomesticviolencevictim(this.getDomesticviolencevictim());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		copy.setWhenoccurred(this.getWhenoccurred());
 		return copy;
 	}

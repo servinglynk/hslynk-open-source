@@ -276,7 +276,7 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 		if (this.getSites() != null) {
 			copy.getSites().addAll(this.getSites());
 		}
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

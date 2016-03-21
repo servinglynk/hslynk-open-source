@@ -357,7 +357,7 @@ public class Source extends HmisBaseModel  implements Cloneable, Serializable {
 		copy.setSourcecontactphone(this.getSourcecontactphone());
 		copy.setSourceid(this.getSourceid());
 		copy.setSourcename(this.getSourcename());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

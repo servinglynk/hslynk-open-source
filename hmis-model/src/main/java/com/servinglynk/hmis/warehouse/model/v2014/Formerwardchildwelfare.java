@@ -246,7 +246,7 @@ public class Formerwardchildwelfare extends HmisBaseModel  implements Cloneable,
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setFormerwardchildwelfare(this.getFormerwardchildwelfare());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

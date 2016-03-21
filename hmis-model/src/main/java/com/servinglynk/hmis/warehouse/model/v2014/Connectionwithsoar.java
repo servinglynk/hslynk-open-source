@@ -190,7 +190,7 @@ public class Connectionwithsoar extends HmisBaseModel  implements Cloneable, Ser
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setExitid(this.getExitid());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

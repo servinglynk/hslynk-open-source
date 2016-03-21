@@ -369,7 +369,7 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 		copy.setInventorystartdate(this.getInventorystartdate());
 		copy.setProjectCoc(this.getProjectCoc());
 		copy.setUnitinventory(this.getUnitinventory());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

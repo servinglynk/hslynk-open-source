@@ -404,7 +404,7 @@ public class Exitplansactions extends HmisBaseModel  implements Cloneable, Seria
 		copy.setResourcepackage(this.getResourcepackage());
 		copy.setScheduledfollowupcontacts(this.getScheduledfollowupcontacts());
 		copy.setTemporaryshelterplacement(this.getTemporaryshelterplacement());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		copy.setWrittenaftercareplan(this.getWrittenaftercareplan());
 		return copy;
 	}

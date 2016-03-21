@@ -15,11 +15,11 @@ public class Inventory extends ClientModel{
 
       private UUID bedinventory;
 
-      private String bedtype;
+      private Integer bedtype;
 
       private Integer hmisparticipatingbeds;
 
-      private String householdtype;
+      private Integer householdtype;
 
       private LocalDateTime inventoryenddate;
 
@@ -47,10 +47,10 @@ public class Inventory extends ClientModel{
       public void setBedinventory(UUID bedinventory){
           this.bedinventory = bedinventory;
       }
-      public String getBedtype(){
+      public Integer getBedtype(){
           return bedtype;
       }
-      public void setBedtype(String bedtype){
+      public void setBedtype(Integer bedtype){
           this.bedtype = bedtype;
       }
       public Integer getHmisparticipatingbeds(){
@@ -59,10 +59,10 @@ public class Inventory extends ClientModel{
       public void setHmisparticipatingbeds(Integer hmisparticipatingbeds){
           this.hmisparticipatingbeds = hmisparticipatingbeds;
       }
-      public String getHouseholdtype(){
+      public Integer getHouseholdtype(){
           return householdtype;
       }
-      public void setHouseholdtype(String householdtype){
+      public void setHouseholdtype(Integer householdtype){
           this.householdtype = householdtype;
       }
       public LocalDateTime getInventoryenddate(){

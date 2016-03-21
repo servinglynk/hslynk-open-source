@@ -222,7 +222,7 @@ public class Exithousingassessment extends HmisBaseModel  implements Cloneable, 
 		copy.setHousingassessment(this.getHousingassessment());
 		copy.setId(this.getId());
 		copy.setSubsidyinformation(this.getSubsidyinformation());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

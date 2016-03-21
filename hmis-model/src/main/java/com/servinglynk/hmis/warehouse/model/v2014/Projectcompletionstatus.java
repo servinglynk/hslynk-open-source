@@ -219,7 +219,7 @@ public class Projectcompletionstatus extends HmisBaseModel  implements Cloneable
 		copy.setExitid(this.getExitid());
 		copy.setId(this.getId());
 		copy.setProjectcompletionstatus(this.getProjectcompletionstatus());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

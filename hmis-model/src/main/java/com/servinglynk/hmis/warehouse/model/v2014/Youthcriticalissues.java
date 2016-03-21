@@ -816,7 +816,7 @@ public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Se
 		copy.setSexualorientationgenderidyouth(this.getSexualorientationgenderidyouth());
 		copy.setUnemploymentfam(this.getUnemploymentfam());
 		copy.setUnemploymentyouth(this.getUnemploymentyouth());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

@@ -198,7 +198,7 @@ public class Lastgradecompleted extends HmisBaseModel  implements Cloneable, Ser
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setLastgradecompleted(this.getLastgradecompleted());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

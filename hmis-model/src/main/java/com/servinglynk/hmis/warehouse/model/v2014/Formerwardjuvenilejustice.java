@@ -246,7 +246,7 @@ public class Formerwardjuvenilejustice extends HmisBaseModel  implements Cloneab
 		copy.setId(this.getId());
 		copy.setJuvenilejusticemonths(this.getJuvenilejusticemonths());
 		copy.setJuvenilejusticeyears(this.getJuvenilejusticeyears());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

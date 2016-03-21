@@ -192,7 +192,7 @@ public class Dateofengagement extends HmisBaseModel  implements Cloneable, Seria
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

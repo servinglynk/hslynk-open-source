@@ -191,7 +191,7 @@ public class Percentami extends HmisBaseModel  implements Cloneable, Serializabl
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setPercentage(this.getPercentage());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

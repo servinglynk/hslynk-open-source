@@ -16,7 +16,7 @@ public class Site extends ClientModel{
 
       private Integer geocode;
 
-      private String principalsite;
+      private Integer principalsite;
 
       private String state;
 
@@ -48,10 +48,10 @@ public class Site extends ClientModel{
       public void setGeocode(Integer geocode){
           this.geocode = geocode;
       }
-      public String getPrincipalsite(){
+      public Integer getPrincipalsite(){
           return principalsite;
       }
-      public void setPrincipalsite(String principalsite){
+      public void setPrincipalsite(Integer principalsite){
           this.principalsite = principalsite;
       }
       public String getState(){

@@ -602,7 +602,7 @@ public class Healthinsurance extends HmisBaseModel  implements Cloneable, Serial
 		copy.setPrivatepay(this.getPrivatepay());
 		copy.setSchip(this.getSchip());
 		copy.setStatehealthins(this.getStatehealthins());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		copy.setVamedicalservices(this.getVamedicalservices());
 		return copy;
 	}

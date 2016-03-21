@@ -10,7 +10,7 @@ public class FamilyReunification extends ClientModel{
 
 	 private UUID familyReunificationId;
 
-     private String familyreunificationachieved;
+     private Integer familyreunificationachieved;
 
 
 
@@ -20,10 +20,10 @@ public class FamilyReunification extends ClientModel{
      public void setFamilyReunificationId(UUID familyReunificationId){
          this.familyReunificationId = familyReunificationId;
      }
-     public String getFamilyreunificationachieved(){
+     public Integer getFamilyreunificationachieved(){
          return familyreunificationachieved;
      }
-     public void setFamilyreunificationachieved(String familyreunificationachieved){
+     public void setFamilyreunificationachieved(Integer familyreunificationachieved){
          this.familyreunificationachieved = familyreunificationachieved;
      }
 

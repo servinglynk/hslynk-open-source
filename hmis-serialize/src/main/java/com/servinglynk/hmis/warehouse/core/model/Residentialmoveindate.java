@@ -10,7 +10,7 @@ public class Residentialmoveindate extends ClientModel{
 
       private UUID residentialmoveindateId;
 
-      private String inpermanenthousing;
+      private Integer inpermanenthousing;
 
 
 
@@ -20,10 +20,10 @@ public class Residentialmoveindate extends ClientModel{
       public void setResidentialmoveindateId(UUID residentialmoveindateId){
           this.residentialmoveindateId = residentialmoveindateId;
       }
-      public String getInpermanenthousing(){
+      public Integer getInpermanenthousing(){
           return inpermanenthousing;
       }
-      public void setInpermanenthousing(String inpermanenthousing){
+      public void setInpermanenthousing(Integer inpermanenthousing){
           this.inpermanenthousing = inpermanenthousing;
       }
 

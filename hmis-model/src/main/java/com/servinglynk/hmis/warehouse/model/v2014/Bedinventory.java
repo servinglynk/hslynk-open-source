@@ -258,7 +258,7 @@ public class Bedinventory  extends HmisBaseModel implements Cloneable, Serializa
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setId(this.getId());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		copy.setVetBedInventory(this.getVetBedInventory());
 		copy.setYouthAgeGroup(this.getYouthAgeGroup());
 		copy.setYouthBedInventory(this.getYouthBedInventory());

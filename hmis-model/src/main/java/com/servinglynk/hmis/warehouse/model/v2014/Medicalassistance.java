@@ -276,7 +276,7 @@ public class Medicalassistance extends HmisBaseModel  implements Cloneable, Seri
 		copy.setId(this.getId());
 		copy.setNoadapreason(this.getNoadapreason());
 		copy.setNohivaidsassistancereason(this.getNohivaidsassistancereason());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

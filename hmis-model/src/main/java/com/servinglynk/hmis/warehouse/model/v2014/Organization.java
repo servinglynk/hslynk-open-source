@@ -226,7 +226,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setId(this.getId());
 		copy.setOrganizationcommonname(this.getOrganizationcommonname());
 		copy.setOrganizationname(this.getOrganizationname());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

@@ -12,7 +12,7 @@ public class Funder extends ClientModel{
 
     private LocalDateTime enddate;
 
-    private String funder;
+    private Integer funder;
 
     private String grantid;
 
@@ -32,10 +32,10 @@ public class Funder extends ClientModel{
     public void setEnddate(LocalDateTime enddate){
         this.enddate = enddate;
     }
-    public String getFunder(){
+    public Integer getFunder(){
         return funder;
     }
-    public void setFunder(String funder){
+    public void setFunder(Integer funder){
         this.funder = funder;
     }
     public String getGrantid(){

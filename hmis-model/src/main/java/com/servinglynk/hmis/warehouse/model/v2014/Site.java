@@ -318,7 +318,7 @@ public class Site extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setPrincipalSite(this.getPrincipalSite());
 		copy.setProjectCoc(this.getProjectCoc());
 		copy.setState(this.getState());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		copy.setZip(this.getZip());
 		return copy;
 	}

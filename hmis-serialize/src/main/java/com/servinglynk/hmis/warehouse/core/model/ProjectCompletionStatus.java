@@ -10,9 +10,9 @@ public class ProjectCompletionStatus extends ClientModel{
 
       private UUID projectCompletionStatusId;
 
-      private String earlyExitReason;
+      private Integer earlyExitReason;
 
-      private String projectCompletionStatus;
+      private Integer projectCompletionStatus;
 
 
 
@@ -22,16 +22,16 @@ public class ProjectCompletionStatus extends ClientModel{
       public void setProjectCompletionStatusId(UUID projectCompletionStatusId){
           this.projectCompletionStatusId = projectCompletionStatusId;
       }
-      public String getEarlyExitReason(){
+      public Integer getEarlyExitReason(){
           return earlyExitReason;
       }
-      public void setEarlyExitReason(String earlyExitReason){
+      public void setEarlyExitReason(Integer earlyExitReason){
           this.earlyExitReason = earlyExitReason;
       }
-      public String getProjectCompletionStatus(){
+      public Integer getProjectCompletionStatus(){
           return projectCompletionStatus;
       }
-      public void setProjectCompletionStatus(String projectCompletionStatus){
+      public void setProjectCompletionStatus(Integer projectCompletionStatus){
           this.projectCompletionStatus = projectCompletionStatus;
       }
 

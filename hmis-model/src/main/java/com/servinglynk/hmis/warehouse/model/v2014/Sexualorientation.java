@@ -199,7 +199,7 @@ public class Sexualorientation extends HmisBaseModel  implements Cloneable, Seri
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
 		copy.setSexualorientation(this.getSexualorientation());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

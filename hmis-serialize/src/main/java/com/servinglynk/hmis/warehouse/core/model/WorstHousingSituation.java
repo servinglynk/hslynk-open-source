@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
-import java.util.Date;
 import java.util.UUID;
-
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -12,7 +10,7 @@ public class WorstHousingSituation extends ClientModel{
 
       private UUID worstHousingSituationId;
 
-      private String worsthousingsituation;
+      private Integer worsthousingsituation;
 
 
 
@@ -22,10 +20,10 @@ public class WorstHousingSituation extends ClientModel{
       public void setWorstHousingSituationId(UUID worstHousingSituationId){
           this.worstHousingSituationId = worstHousingSituationId;
       }
-      public String getWorsthousingsituation(){
+      public Integer getWorsthousingsituation(){
           return worsthousingsituation;
       }
-      public void setWorsthousingsituation(String worsthousingsituation){
+      public void setWorsthousingsituation(Integer worsthousingsituation){
           this.worsthousingsituation = worsthousingsituation;
       }
 

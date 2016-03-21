@@ -10,21 +10,21 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
-public class NonCashBenefitConverter {
+public class NonCashBenefitConverter extends BaseConveter {
 
    public static com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits modelToEntity (NonCashBenefit model ,com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
        entity.setId(model.getNonCashBenefitId());
-       entity.setOthersource(NoncashbenefitsOthersourceEnum.valueOf(model.getOthersource()));
+       entity.setOthersource(NoncashbenefitsOthersourceEnum.lookupEnum(model.getOthersource().toString()));
        entity.setOthersourceidentify(model.getOthersourceidentify());
-       entity.setOthertanf(NoncashbenefitsOthertanfEnum.valueOf(model.getOthertanf()));
-       entity.setRentalassistanceongoing(NoncashbenefitsRentalassistanceongoingEnum.valueOf(model.getRentalassistanceongoing()));
-       entity.setRentalassistancetemp(NoncashbenefitsRentalassistancetempEnum.valueOf(model.getRentalassistancetemp()));
-       entity.setSnap(NoncashbenefitsSnapEnum.valueOf(model.getSnap()));
-       entity.setTanfchildcare(NoncashbenefitsTanfchildcareEnum.valueOf(model.getTanfchildcare()));
-       entity.setTanftransportation(NoncashbenefitsTanftransportationEnum.valueOf(model.getTanftransportation()));
-       entity.setWic(NoncashbenefitsWicEnum.valueOf(model.getWic()));
-       entity.setBenefitsfromanysource(NoncashbenefitsBenefitsfromanysourceEnum.valueOf(model.getBenefitsfromanysource()));
+       entity.setOthertanf(NoncashbenefitsOthertanfEnum.lookupEnum(model.getOthertanf().toString()));
+       entity.setRentalassistanceongoing(NoncashbenefitsRentalassistanceongoingEnum.lookupEnum(model.getRentalassistanceongoing().toString()));
+       entity.setRentalassistancetemp(NoncashbenefitsRentalassistancetempEnum.lookupEnum(model.getRentalassistancetemp().toString()));
+       entity.setSnap(NoncashbenefitsSnapEnum.lookupEnum(model.getSnap().toString()));
+       entity.setTanfchildcare(NoncashbenefitsTanfchildcareEnum.lookupEnum(model.getTanfchildcare().toString()));
+       entity.setTanftransportation(NoncashbenefitsTanftransportationEnum.lookupEnum(model.getTanftransportation().toString()));
+       entity.setWic(NoncashbenefitsWicEnum.lookupEnum(model.getWic().toString()));
+       entity.setBenefitsfromanysource(NoncashbenefitsBenefitsfromanysourceEnum.lookupEnum(model.getBenefitsfromanysource().toString()));
        return entity;    
    }
 
@@ -32,16 +32,17 @@ public class NonCashBenefitConverter {
    public static NonCashBenefit entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits entity) {
        NonCashBenefit model = new NonCashBenefit();
        model.setNonCashBenefitId(entity.getId());
-       model.setOthersource(entity.getOthersource().name());
+       model.setOthersource(Integer.parseInt(entity.getOthersource().getValue()));
        model.setOthersourceidentify(entity.getOthersourceidentify());
-       model.setOthertanf(entity.getOthertanf().name());
-       model.setRentalassistanceongoing(entity.getRentalassistanceongoing().name());
-       model.setRentalassistancetemp(entity.getRentalassistancetemp().name());
-       model.setSnap(entity.getSnap().name());
-       model.setTanfchildcare(entity.getTanfchildcare().name());
-       model.setTanftransportation(entity.getTanftransportation().name());
-       model.setWic(entity.getWic().name());
-       model.setBenefitsfromanysource(entity.getBenefitsfromanysource().name());
+       model.setOthertanf(Integer.parseInt(entity.getOthertanf().getValue()));
+       model.setRentalassistanceongoing(Integer.parseInt(entity.getRentalassistanceongoing().getValue()));
+       model.setRentalassistancetemp(Integer.parseInt(entity.getRentalassistancetemp().getValue()));
+       model.setSnap(Integer.parseInt(entity.getSnap().getValue()));
+       model.setTanfchildcare(Integer.parseInt(entity.getTanfchildcare().getValue()));
+       model.setTanftransportation(Integer.parseInt(entity.getTanftransportation().getValue()));
+       model.setWic(Integer.parseInt(entity.getWic().getValue()));
+       model.setBenefitsfromanysource(Integer.parseInt(entity.getBenefitsfromanysource().getValue()));
+       copyBeanProperties(entity, model);
        return model;
    }
 

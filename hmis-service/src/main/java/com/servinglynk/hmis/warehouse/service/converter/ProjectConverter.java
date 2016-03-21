@@ -6,18 +6,18 @@ import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
-public class ProjectConverter {
+public class ProjectConverter extends BaseConveter {
 
    public static com.servinglynk.hmis.warehouse.model.v2014.Project modelToEntity (Project model ,com.servinglynk.hmis.warehouse.model.v2014.Project entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Project();
        
        entity.setProjectname(model.getProjectName());
-       entity.setContinuumproject(ProjectContinuumprojectEnum.valueOf(model.getContinuumProject()));
+       entity.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(model.getContinuumProject().toString()));
        entity.setProjectcommonname(model.getProjectCommonName());
-       entity.setProjecttype(ProjectProjecttypeEnum.valueOf(model.getProjectType()));
-       entity.setResidentialaffiliation(ProjectResidentialaffiliationEnum.valueOf(model.getResidentialAffiliation()));
-       entity.setTrackingmethod(ProjectTrackingmethodEnum.valueOf(model.getTrackingMethod()));
-       entity.setTargetpopulation(ProjectTargetpopulationEnum.valueOf(model.getTargetPopulation()));
+       entity.setProjecttype(ProjectProjecttypeEnum.lookupEnum(model.getProjectType().toString()));
+       entity.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(model.getResidentialAffiliation().toString()));
+       entity.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(model.getTrackingMethod().toString()));
+       entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
        return entity;    
    }
 
@@ -25,21 +25,22 @@ public class ProjectConverter {
    public static Project entityToModel (com.servinglynk.hmis.warehouse.model.v2014.Project entity) {
        Project project= new Project();
        if(entity.getContinuumproject()!=null)
-       project.setContinuumProject(entity.getContinuumproject().name());
+       project.setContinuumProject(Integer.parseInt(entity.getContinuumproject().getValue()));
        project.setProjectCommonName(entity.getProjectcommonname());
        project.setProjectId(entity.getId());
        project.setProjectName(entity.getProjectname());
        if(entity.getProjecttype()!=null)
-       project.setProjectType(entity.getProjecttype().name());
+       project.setProjectType(Integer.parseInt(entity.getProjecttype().getValue()));
        if(entity.getResidentialaffiliation()!=null)
-       project.setResidentialAffiliation(entity.getResidentialaffiliation().name());
+       project.setResidentialAffiliation(Integer.parseInt(entity.getResidentialaffiliation().getValue()));
        
        if(entity.getTargetpopulation()!=null)
-       project.setTargetPopulation(entity.getTargetpopulation().name());
+       project.setTargetPopulation(Integer.parseInt(entity.getTargetpopulation().getValue()));
        
        if(entity.getTrackingmethod()!=null)
-       project.setTrackingMethod(entity.getTrackingmethod().name());
+       project.setTrackingMethod(Integer.parseInt(entity.getTrackingmethod().getValue()));
        
+       copyBeanProperties(entity, project);
        return project;
    }
 

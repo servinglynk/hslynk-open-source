@@ -1883,7 +1883,7 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		}
 		copy.setSource(this.getSource());
 		copy.setStartDate(this.getStartDate());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		if (this.getVeteranInfoes() != null) {
 			copy.getVeteranInfoes().addAll(this.getVeteranInfoes());
 		}

@@ -14,25 +14,25 @@ public class VeteranInfo extends ClientModel{
 
       private Integer yearSeperated;
 
-      private String worldWar2;
+      private Integer worldWar2;
 
-      private String koreanWar;
+      private Integer koreanWar;
 
-      private String vietnamWar;
+      private Integer vietnamWar;
 
-      private String desertStorm;
+      private Integer desertStorm;
 
-      private String afghanistanOef;
+      private Integer afghanistanOef;
 
-      private String iraqOif;
+      private Integer iraqOif;
 
-      private String iraqOnd;
+      private Integer iraqOnd;
 
-      private String otherTheater;
+      private Integer otherTheater;
 
-      private String militaryBranch;
+      private Integer militaryBranch;
 
-      private String dischargeStatus;
+      private Integer dischargeStatus;
 
 
 
@@ -54,64 +54,64 @@ public class VeteranInfo extends ClientModel{
       public void setYearSeperated(Integer yearSeperated){
           this.yearSeperated = yearSeperated;
       }
-      public String getWorldWar2(){
+      public Integer getWorldWar2(){
           return worldWar2;
       }
-      public void setWorldWar2(String worldWar2){
+      public void setWorldWar2(Integer worldWar2){
           this.worldWar2 = worldWar2;
       }
-      public String getKoreanWar(){
+      public Integer getKoreanWar(){
           return koreanWar;
       }
-      public void setKoreanWar(String koreanWar){
+      public void setKoreanWar(Integer koreanWar){
           this.koreanWar = koreanWar;
       }
-      public String getVietnamWar(){
+      public Integer getVietnamWar(){
           return vietnamWar;
       }
-      public void setVietnamWar(String vietnamWar){
+      public void setVietnamWar(Integer vietnamWar){
           this.vietnamWar = vietnamWar;
       }
-      public String getDesertStorm(){
+      public Integer getDesertStorm(){
           return desertStorm;
       }
-      public void setDesertStorm(String desertStorm){
+      public void setDesertStorm(Integer desertStorm){
           this.desertStorm = desertStorm;
       }
-      public String getAfghanistanOef(){
+      public Integer getAfghanistanOef(){
           return afghanistanOef;
       }
-      public void setAfghanistanOef(String afghanistanOef){
+      public void setAfghanistanOef(Integer afghanistanOef){
           this.afghanistanOef = afghanistanOef;
       }
-      public String getIraqOif(){
+      public Integer getIraqOif(){
           return iraqOif;
       }
-      public void setIraqOif(String iraqOif){
+      public void setIraqOif(Integer iraqOif){
           this.iraqOif = iraqOif;
       }
-      public String getIraqOnd(){
+      public Integer getIraqOnd(){
           return iraqOnd;
       }
-      public void setIraqOnd(String iraqOnd){
+      public void setIraqOnd(Integer iraqOnd){
           this.iraqOnd = iraqOnd;
       }
-      public String getOtherTheater(){
+      public Integer getOtherTheater(){
           return otherTheater;
       }
-      public void setOtherTheater(String otherTheater){
+      public void setOtherTheater(Integer otherTheater){
           this.otherTheater = otherTheater;
       }
-      public String getMilitaryBranch(){
+      public Integer getMilitaryBranch(){
           return militaryBranch;
       }
-      public void setMilitaryBranch(String militaryBranch){
+      public void setMilitaryBranch(Integer militaryBranch){
           this.militaryBranch = militaryBranch;
       }
-      public String getDischargeStatus(){
+      public Integer getDischargeStatus(){
           return dischargeStatus;
       }
-      public void setDischargeStatus(String dischargeStatus){
+      public void setDischargeStatus(Integer dischargeStatus){
           this.dischargeStatus = dischargeStatus;
       }
 

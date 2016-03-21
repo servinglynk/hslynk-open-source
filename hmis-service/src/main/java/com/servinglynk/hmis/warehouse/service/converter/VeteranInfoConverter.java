@@ -11,7 +11,7 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-public class VeteranInfoConverter {
+public class VeteranInfoConverter extends BaseConveter {
 
    public static com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo modelToEntity (VeteranInfo model ,com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo();
@@ -30,17 +30,17 @@ public class VeteranInfoConverter {
        
        entity.setYearEntrdService(model.getYearEntrdService());
        entity.setYearSeperated(model.getYearSeperated());
-       entity.setWorldWar2(VeteranInfoWorldWar2Enum.valueOf(model.getWorldWar2()));
-       entity.setKoreanWar(VeteranInfoKoreanWarEnum.valueOf(model.getKoreanWar()));
-       entity.setVietnamWar(VeteranInfoVietnamWarEnum.valueOf(model.getVietnamWar()));
-       entity.setDesertStorm(VeteranInfoDesertStormEnum.valueOf(model.getDesertStorm()));
-       entity.setAfghanistanOef(VeteranInfoAfghanistanOefEnum.valueOf(model.getAfghanistanOef()));
-       entity.setIraqOif(VeteranInfoIraqOifEnum.valueOf(model.getIraqOif()));
-       entity.setIraqOnd(VeteranInfoIraqOndEnum.valueOf(model.getIraqOnd()));
-       entity.setOtherTheater(VeteranInfoOtherTheaterEnum.valueOf(model.getOtherTheater()));
-       entity.setMilitaryBranch(VeteranInfoMilitaryBranchEnum.valueOf(model.getMilitaryBranch()));
-       entity.setDischargeStatus(VeteranInfoDischargeStatusEnum.valueOf(model.getDischargeStatus()));
-
+       entity.setWorldWar2(VeteranInfoWorldWar2Enum.lookupEnum(model.getWorldWar2().toString()));
+       entity.setKoreanWar(VeteranInfoKoreanWarEnum.lookupEnum(model.getKoreanWar().toString()));
+       entity.setVietnamWar(VeteranInfoVietnamWarEnum.lookupEnum(model.getVietnamWar().toString()));
+       entity.setDesertStorm(VeteranInfoDesertStormEnum.lookupEnum(model.getDesertStorm().toString()));
+       entity.setAfghanistanOef(VeteranInfoAfghanistanOefEnum.lookupEnum(model.getAfghanistanOef().toString()));
+       entity.setIraqOif(VeteranInfoIraqOifEnum.lookupEnum(model.getIraqOif().toString()));
+       entity.setIraqOnd(VeteranInfoIraqOndEnum.lookupEnum(model.getIraqOnd().toString()));
+       entity.setOtherTheater(VeteranInfoOtherTheaterEnum.lookupEnum(model.getOtherTheater().toString()));
+       entity.setMilitaryBranch(VeteranInfoMilitaryBranchEnum.lookupEnum(model.getMilitaryBranch().toString()));
+       entity.setDischargeStatus(VeteranInfoDischargeStatusEnum.lookupEnum(model.getDischargeStatus().toString()));
+       copyBeanProperties(entity, model);
        return entity;    
    }
 
@@ -67,16 +67,16 @@ public class VeteranInfoConverter {
        model.setVeteranInfoId(entity.getId());
        model.setYearEntrdService(entity.getYearEntrdService());
        model.setYearSeperated(entity.getYearSeperated());
-       model.setWorldWar2(entity.getWorldWar2().name());
-       model.setKoreanWar(entity.getKoreanWar().name());
-       model.setVietnamWar(entity.getVietnamWar().name());
-       model.setDesertStorm(entity.getDesertStorm().name());
-       model.setAfghanistanOef(entity.getAfghanistanOef().name());
-       model.setIraqOif(entity.getIraqOif().name());
-       model.setIraqOnd(entity.getIraqOnd().name());
-       model.setOtherTheater(entity.getOtherTheater().name());
-       model.setMilitaryBranch(entity.getMilitaryBranch().name());
-       model.setDischargeStatus(entity.getDischargeStatus().name());
+       model.setWorldWar2(Integer.parseInt(entity.getWorldWar2().getValue()));
+       model.setKoreanWar(Integer.parseInt(entity.getKoreanWar().getValue()));
+       model.setVietnamWar(Integer.parseInt(entity.getVietnamWar().getValue()));
+       model.setDesertStorm(Integer.parseInt(entity.getDesertStorm().getValue()));
+       model.setAfghanistanOef(Integer.parseInt(entity.getAfghanistanOef().getValue()));
+       model.setIraqOif(Integer.parseInt(entity.getIraqOif().getValue()));
+       model.setIraqOnd(Integer.parseInt(entity.getIraqOnd().getValue()));
+       model.setOtherTheater(Integer.parseInt(entity.getOtherTheater().getValue()));
+       model.setMilitaryBranch(Integer.parseInt(entity.getMilitaryBranch().getValue()));
+       model.setDischargeStatus(Integer.parseInt(entity.getDischargeStatus().getValue()));
        return model;
    }
 

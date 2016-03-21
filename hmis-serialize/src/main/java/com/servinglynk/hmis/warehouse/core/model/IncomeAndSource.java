@@ -10,69 +10,69 @@ public class IncomeAndSource extends ClientModel{
 
       private UUID incomeAndSourceId;
 
-      private String alimony;
+      private Integer alimony;
 
       private float alimonyamount;
 
-      private String childsupport;
+      private Integer childsupport;
 
       private float childsupportamount;
 
-      private String earned;
+      private Integer earned;
 
       private float earnedamount;
 
-      private String ga;
+      private Integer ga;
 
       private float gaamount;
 
-      private String incomefromanysource;
+      private Integer incomefromanysource;
 
-      private String othersource;
+      private Integer othersource;
 
       private float othersourceamount;
 
       private String othersourceidentify;
 
-      private String pension;
+      private Integer pension;
 
       private float pensionamount;
 
-      private String privatedisability;
+      private Integer privatedisability;
 
       private float privatedisabilityamount;
 
-      private String socsecretirement;
+      private Integer socsecretirement;
 
       private float socsecretirementamount;
 
-      private String ssdi;
+      private Integer ssdi;
 
       private float ssdiamount;
 
-      private String ssi;
+      private Integer ssi;
 
       private float ssiamount;
 
-      private String tanf;
+      private Integer tanf;
 
       private float tanfamount;
 
       private float totalmonthlyincome;
 
-      private String unemployment;
+      private Integer unemployment;
 
       private float unemploymentamount;
 
-      private String vadisabilitynonservice;
+      private Integer vadisabilitynonservice;
 
       private float vadisabilitynonserviceamount;
 
-      private String vadisabilityservice;
+      private Integer vadisabilityservice;
 
       private float vadisabilityserviceamount;
 
-      private String workerscomp;
+      private Integer workerscomp;
 
       private float workerscompamount;
 
@@ -84,10 +84,10 @@ public class IncomeAndSource extends ClientModel{
       public void setIncomeAndSourceId(UUID incomeAndSourceId){
           this.incomeAndSourceId = incomeAndSourceId;
       }
-      public String getAlimony(){
+      public Integer getAlimony(){
           return alimony;
       }
-      public void setAlimony(String alimony){
+      public void setAlimony(Integer alimony){
           this.alimony = alimony;
       }
       public float getAlimonyamount(){
@@ -96,10 +96,10 @@ public class IncomeAndSource extends ClientModel{
       public void setAlimonyamount(float alimonyamount){
           this.alimonyamount = alimonyamount;
       }
-      public String getChildsupport(){
+      public Integer getChildsupport(){
           return childsupport;
       }
-      public void setChildsupport(String childsupport){
+      public void setChildsupport(Integer childsupport){
           this.childsupport = childsupport;
       }
       public float getChildsupportamount(){
@@ -108,10 +108,10 @@ public class IncomeAndSource extends ClientModel{
       public void setChildsupportamount(float childsupportamount){
           this.childsupportamount = childsupportamount;
       }
-      public String getEarned(){
+      public Integer getEarned(){
           return earned;
       }
-      public void setEarned(String earned){
+      public void setEarned(Integer earned){
           this.earned = earned;
       }
       public float getEarnedamount(){
@@ -120,10 +120,10 @@ public class IncomeAndSource extends ClientModel{
       public void setEarnedamount(float earnedamount){
           this.earnedamount = earnedamount;
       }
-      public String getGa(){
+      public Integer getGa(){
           return ga;
       }
-      public void setGa(String ga){
+      public void setGa(Integer ga){
           this.ga = ga;
       }
       public float getGaamount(){
@@ -132,16 +132,16 @@ public class IncomeAndSource extends ClientModel{
       public void setGaamount(float gaamount){
           this.gaamount = gaamount;
       }
-      public String getIncomefromanysource(){
+      public Integer getIncomefromanysource(){
           return incomefromanysource;
       }
-      public void setIncomefromanysource(String incomefromanysource){
+      public void setIncomefromanysource(Integer incomefromanysource){
           this.incomefromanysource = incomefromanysource;
       }
-      public String getOthersource(){
+      public Integer getOthersource(){
           return othersource;
       }
-      public void setOthersource(String othersource){
+      public void setOthersource(Integer othersource){
           this.othersource = othersource;
       }
       public float getOthersourceamount(){
@@ -156,10 +156,10 @@ public class IncomeAndSource extends ClientModel{
       public void setOthersourceidentify(String othersourceidentify){
           this.othersourceidentify = othersourceidentify;
       }
-      public String getPension(){
+      public Integer getPension(){
           return pension;
       }
-      public void setPension(String pension){
+      public void setPension(Integer pension){
           this.pension = pension;
       }
       public float getPensionamount(){
@@ -168,10 +168,10 @@ public class IncomeAndSource extends ClientModel{
       public void setPensionamount(float pensionamount){
           this.pensionamount = pensionamount;
       }
-      public String getPrivatedisability(){
+      public Integer getPrivatedisability(){
           return privatedisability;
       }
-      public void setPrivatedisability(String privatedisability){
+      public void setPrivatedisability(Integer privatedisability){
           this.privatedisability = privatedisability;
       }
       public float getPrivatedisabilityamount(){
@@ -180,10 +180,10 @@ public class IncomeAndSource extends ClientModel{
       public void setPrivatedisabilityamount(float privatedisabilityamount){
           this.privatedisabilityamount = privatedisabilityamount;
       }
-      public String getSocsecretirement(){
+      public Integer getSocsecretirement(){
           return socsecretirement;
       }
-      public void setSocsecretirement(String socsecretirement){
+      public void setSocsecretirement(Integer socsecretirement){
           this.socsecretirement = socsecretirement;
       }
       public float getSocsecretirementamount(){
@@ -192,10 +192,10 @@ public class IncomeAndSource extends ClientModel{
       public void setSocsecretirementamount(float socsecretirementamount){
           this.socsecretirementamount = socsecretirementamount;
       }
-      public String getSsdi(){
+      public Integer getSsdi(){
           return ssdi;
       }
-      public void setSsdi(String ssdi){
+      public void setSsdi(Integer ssdi){
           this.ssdi = ssdi;
       }
       public float getSsdiamount(){
@@ -204,10 +204,10 @@ public class IncomeAndSource extends ClientModel{
       public void setSsdiamount(float ssdiamount){
           this.ssdiamount = ssdiamount;
       }
-      public String getSsi(){
+      public Integer getSsi(){
           return ssi;
       }
-      public void setSsi(String ssi){
+      public void setSsi(Integer ssi){
           this.ssi = ssi;
       }
       public float getSsiamount(){
@@ -216,10 +216,10 @@ public class IncomeAndSource extends ClientModel{
       public void setSsiamount(float ssiamount){
           this.ssiamount = ssiamount;
       }
-      public String getTanf(){
+      public Integer getTanf(){
           return tanf;
       }
-      public void setTanf(String tanf){
+      public void setTanf(Integer tanf){
           this.tanf = tanf;
       }
       public float getTanfamount(){
@@ -234,10 +234,10 @@ public class IncomeAndSource extends ClientModel{
       public void setTotalmonthlyincome(float totalmonthlyincome){
           this.totalmonthlyincome = totalmonthlyincome;
       }
-      public String getUnemployment(){
+      public Integer getUnemployment(){
           return unemployment;
       }
-      public void setUnemployment(String unemployment){
+      public void setUnemployment(Integer unemployment){
           this.unemployment = unemployment;
       }
       public float getUnemploymentamount(){
@@ -246,10 +246,10 @@ public class IncomeAndSource extends ClientModel{
       public void setUnemploymentamount(float unemploymentamount){
           this.unemploymentamount = unemploymentamount;
       }
-      public String getVadisabilitynonservice(){
+      public Integer getVadisabilitynonservice(){
           return vadisabilitynonservice;
       }
-      public void setVadisabilitynonservice(String vadisabilitynonservice){
+      public void setVadisabilitynonservice(Integer vadisabilitynonservice){
           this.vadisabilitynonservice = vadisabilitynonservice;
       }
       public float getVadisabilitynonserviceamount(){
@@ -258,10 +258,10 @@ public class IncomeAndSource extends ClientModel{
       public void setVadisabilitynonserviceamount(float vadisabilitynonserviceamount){
           this.vadisabilitynonserviceamount = vadisabilitynonserviceamount;
       }
-      public String getVadisabilityservice(){
+      public Integer getVadisabilityservice(){
           return vadisabilityservice;
       }
-      public void setVadisabilityservice(String vadisabilityservice){
+      public void setVadisabilityservice(Integer vadisabilityservice){
           this.vadisabilityservice = vadisabilityservice;
       }
       public float getVadisabilityserviceamount(){
@@ -270,10 +270,10 @@ public class IncomeAndSource extends ClientModel{
       public void setVadisabilityserviceamount(float vadisabilityserviceamount){
           this.vadisabilityserviceamount = vadisabilityserviceamount;
       }
-      public String getWorkerscomp(){
+      public Integer getWorkerscomp(){
           return workerscomp;
       }
-      public void setWorkerscomp(String workerscomp){
+      public void setWorkerscomp(Integer workerscomp){
           this.workerscomp = workerscomp;
       }
       public float getWorkerscompamount(){

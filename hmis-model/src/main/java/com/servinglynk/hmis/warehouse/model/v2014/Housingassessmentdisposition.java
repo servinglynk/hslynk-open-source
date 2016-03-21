@@ -224,7 +224,7 @@ public class Housingassessmentdisposition extends HmisBaseModel  implements Clon
 		copy.setExitid(this.getExitid());
 		copy.setId(this.getId());
 		copy.setOtherdisposition(this.getOtherdisposition());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

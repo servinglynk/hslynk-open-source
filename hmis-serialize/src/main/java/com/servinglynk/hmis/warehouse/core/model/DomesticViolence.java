@@ -10,9 +10,9 @@ public class DomesticViolence extends ClientModel{
 
       private UUID domesticViolenceId;
 
-      private String domesticviolencevictim;
+      private Integer domesticviolencevictim;
 
-      private String whenoccurred;
+      private Integer whenoccurred;
 
 
 
@@ -22,16 +22,16 @@ public class DomesticViolence extends ClientModel{
       public void setDomesticViolenceId(UUID domesticViolenceId){
           this.domesticViolenceId = domesticViolenceId;
       }
-      public String getDomesticviolencevictim(){
+      public Integer getDomesticviolencevictim(){
           return domesticviolencevictim;
       }
-      public void setDomesticviolencevictim(String domesticviolencevictim){
+      public void setDomesticviolencevictim(Integer domesticviolencevictim){
           this.domesticviolencevictim = domesticviolencevictim;
       }
-      public String getWhenoccurred(){
+      public Integer getWhenoccurred(){
           return whenoccurred;
       }
-      public void setWhenoccurred(String whenoccurred){
+      public void setWhenoccurred(Integer whenoccurred){
           this.whenoccurred = whenoccurred;
       }
 

@@ -140,7 +140,7 @@ public abstract class HmisBaseModel implements Entity{
 				return user;
 			}
 
-			public void setUserId(UUID user) {
+			public void setUser(UUID user) {
 				this.user = user;
 			}
 }

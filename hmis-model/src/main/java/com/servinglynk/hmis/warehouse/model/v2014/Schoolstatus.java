@@ -217,7 +217,7 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setId(this.getId());
 		copy.setInformationDate(this.getInformationDate());
 		copy.setSchoolStatus(this.getSchoolStatus());
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 

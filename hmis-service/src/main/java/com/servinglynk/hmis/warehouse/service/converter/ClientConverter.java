@@ -11,25 +11,25 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 
-public class ClientConverter {
+public class ClientConverter extends BaseConveter {
 
 	public static com.servinglynk.hmis.warehouse.model.v2014.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.v2014.Client pClient){
 		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.v2014.Client(); 
 
 
 		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-		pClient.setDobDataQuality(ClientDobDataQualityEnum.valueOf(client.getDobDataQuality()));
-		pClient.setEthnicity(ClientEthnicityEnum.valueOf(client.getEthnicity()+""));
+		pClient.setDobDataQuality(ClientDobDataQualityEnum.lookupEnum(client.getDobDataQuality().toString()));
+		pClient.setEthnicity(ClientEthnicityEnum.lookupEnum(client.getEthnicity()+""));
 		pClient.setFirstName(client.getFirstName());
-		pClient.setGender(ClientGenderEnum.valueOf(client.getGender()+""));
+		pClient.setGender(ClientGenderEnum.lookupEnum(client.getGender()+""));
 		pClient.setLastName(client.getLastName());
 		pClient.setMiddleName(client.getMiddleName());
-		pClient.setNameDataQuality(ClientNameDataQualityEnum.valueOf(client.getNameDataQuality()+""));
+		pClient.setNameDataQuality(ClientNameDataQualityEnum.lookupEnum(client.getNameDataQuality()+""));
 		pClient.setNameSuffix(client.getNameSuffix());
 		pClient.setOtherGender(client.getOtherGender());
-		pClient.setRace(ClientRaceEnum.valueOf(client.getRace()+""));
+		pClient.setRace(ClientRaceEnum.lookupEnum(client.getRace()+""));
 		pClient.setSsn(client.getSsn());
-		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.valueOf(client.getSsnDataQuality()+""));
+		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.lookupEnum(client.getSsnDataQuality()+""));
 		
 		return pClient;
 	}
@@ -38,20 +38,21 @@ public class ClientConverter {
 		Client client = new Client();
 
 		client.setDob(Date.from(pClient.getDob().atZone(ZoneId.systemDefault()).toInstant()));
-		client.setDobDataQuality(pClient.getDobDataQuality().getValue());
-		client.setEthnicity(pClient.getEthnicity().getValue());
+		client.setDobDataQuality(Integer.parseInt(pClient.getDobDataQuality().getValue()));
+		client.setEthnicity(Integer.parseInt(pClient.getEthnicity().getValue()));
 		client.setFirstName(pClient.getFirstName());
-		client.setGender(pClient.getGender().getValue());
+		client.setGender(Integer.parseInt(pClient.getGender().getValue()));
 		client.setLastName(pClient.getLastName());
 		client.setMiddleName(pClient.getMiddleName());
-		client.setNameDataQuality(pClient.getNameDataQuality().getValue());
+		client.setNameDataQuality(Integer.parseInt(pClient.getNameDataQuality().getValue()));
 		client.setNameSuffix(pClient.getNameSuffix());
 		client.setOtherGender(pClient.getOtherGender());
-		client.setRace(pClient.getRace().getValue());
+		client.setRace(Integer.parseInt(pClient.getRace().getValue()));
 		client.setSsn(pClient.getSsn());
-		client.setSsnDataQuality(pClient.getSsnDataQuality().getValue());
+		client.setSsnDataQuality(Integer.parseInt(pClient.getSsnDataQuality().getValue()));
+		client.setClientId(pClient.getId());
 
-	
+		copyBeanProperties(pClient,client);
 	return client;
 	}
 }

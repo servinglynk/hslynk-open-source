@@ -478,7 +478,7 @@ public class Exit  extends HmisBaseModel implements Cloneable, Serializable{
 		if (this.getProjectcompletionstatuses() != null) {
 			copy.getProjectcompletionstatuses().addAll(this.getProjectcompletionstatuses());
 		}
-		copy.setUserId(this.getUser());
+		copy.setUser(this.getUser());
 		return copy;
 	}
 	

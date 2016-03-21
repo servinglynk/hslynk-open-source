@@ -10,55 +10,55 @@ public class YouthCriticalIssue extends ClientModel{
 
       private UUID youthCriticalIssuesId;
 
-      private String abuseandneglectfam;
+      private Integer abuseandneglectfam;
 
-      private String abuseandneglectyouth;
+      private Integer abuseandneglectyouth;
 
-      private String activemilitaryparent;
+      private Integer activemilitaryparent;
 
-      private String alcoholdrugabusefam;
+      private Integer alcoholdrugabusefam;
 
-      private String alcoholdrugabuseyouth;
+      private Integer alcoholdrugabuseyouth;
 
-      private String healthissuesfam;
+      private Integer healthissuesfam;
 
-      private String healthissuesyouth;
+      private Integer healthissuesyouth;
 
-      private String householddynamics;
+      private Integer householddynamics;
 
-      private String housingissuesfam;
+      private Integer housingissuesfam;
 
-      private String housingissuesyouth;
+      private Integer housingissuesyouth;
 
-      private String incarceratedparent;
+      private Integer incarceratedparent;
 
-      private String incarceratedparentstatus;
+      private Integer incarceratedparentstatus;
 
-      private String insufficientincome;
+      private Integer insufficientincome;
 
-      private String mentaldisabilityfam;
+      private Integer mentaldisabilityfam;
 
-      private String mentaldisabilityyouth;
+      private Integer mentaldisabilityyouth;
 
-      private String mentalhealthissuesfam;
+      private Integer mentalhealthissuesfam;
 
-      private String mentalhealthissuesyouth;
+      private Integer mentalhealthissuesyouth;
 
-      private String physicaldisabilityfam;
+      private Integer physicaldisabilityfam;
 
-      private String physicaldisabilityyouth;
+      private Integer physicaldisabilityyouth;
 
-      private String schooleducationalissuesfam;
+      private Integer schooleducationalissuesfam;
 
-      private String schooleducationalissuesyouth;
+      private Integer schooleducationalissuesyouth;
 
-      private String sexualorientationgenderidfam;
+      private Integer sexualorientationgenderidfam;
 
-      private String sexualorientationgenderidyouth;
+      private Integer sexualorientationgenderidyouth;
 
-      private String unemploymentfam;
+      private Integer unemploymentfam;
 
-      private String unemploymentyouth;
+      private Integer unemploymentyouth;
 
 
 
@@ -68,154 +68,154 @@ public class YouthCriticalIssue extends ClientModel{
       public void setYouthCriticalIssuesId(UUID youthCriticalIssuesId){
           this.youthCriticalIssuesId = youthCriticalIssuesId;
       }
-      public String getAbuseandneglectfam(){
+      public Integer getAbuseandneglectfam(){
           return abuseandneglectfam;
       }
-      public void setAbuseandneglectfam(String abuseandneglectfam){
+      public void setAbuseandneglectfam(Integer abuseandneglectfam){
           this.abuseandneglectfam = abuseandneglectfam;
       }
-      public String getAbuseandneglectyouth(){
+      public Integer getAbuseandneglectyouth(){
           return abuseandneglectyouth;
       }
-      public void setAbuseandneglectyouth(String abuseandneglectyouth){
+      public void setAbuseandneglectyouth(Integer abuseandneglectyouth){
           this.abuseandneglectyouth = abuseandneglectyouth;
       }
-      public String getActivemilitaryparent(){
+      public Integer getActivemilitaryparent(){
           return activemilitaryparent;
       }
-      public void setActivemilitaryparent(String activemilitaryparent){
+      public void setActivemilitaryparent(Integer activemilitaryparent){
           this.activemilitaryparent = activemilitaryparent;
       }
-      public String getAlcoholdrugabusefam(){
+      public Integer getAlcoholdrugabusefam(){
           return alcoholdrugabusefam;
       }
-      public void setAlcoholdrugabusefam(String alcoholdrugabusefam){
+      public void setAlcoholdrugabusefam(Integer alcoholdrugabusefam){
           this.alcoholdrugabusefam = alcoholdrugabusefam;
       }
-      public String getAlcoholdrugabuseyouth(){
+      public Integer getAlcoholdrugabuseyouth(){
           return alcoholdrugabuseyouth;
       }
-      public void setAlcoholdrugabuseyouth(String alcoholdrugabuseyouth){
+      public void setAlcoholdrugabuseyouth(Integer alcoholdrugabuseyouth){
           this.alcoholdrugabuseyouth = alcoholdrugabuseyouth;
       }
-      public String getHealthissuesfam(){
+      public Integer getHealthissuesfam(){
           return healthissuesfam;
       }
-      public void setHealthissuesfam(String healthissuesfam){
+      public void setHealthissuesfam(Integer healthissuesfam){
           this.healthissuesfam = healthissuesfam;
       }
-      public String getHealthissuesyouth(){
+      public Integer getHealthissuesyouth(){
           return healthissuesyouth;
       }
-      public void setHealthissuesyouth(String healthissuesyouth){
+      public void setHealthissuesyouth(Integer healthissuesyouth){
           this.healthissuesyouth = healthissuesyouth;
       }
-      public String getHouseholddynamics(){
+      public Integer getHouseholddynamics(){
           return householddynamics;
       }
-      public void setHouseholddynamics(String householddynamics){
+      public void setHouseholddynamics(Integer householddynamics){
           this.householddynamics = householddynamics;
       }
-      public String getHousingissuesfam(){
+      public Integer getHousingissuesfam(){
           return housingissuesfam;
       }
-      public void setHousingissuesfam(String housingissuesfam){
+      public void setHousingissuesfam(Integer housingissuesfam){
           this.housingissuesfam = housingissuesfam;
       }
-      public String getHousingissuesyouth(){
+      public Integer getHousingissuesyouth(){
           return housingissuesyouth;
       }
-      public void setHousingissuesyouth(String housingissuesyouth){
+      public void setHousingissuesyouth(Integer housingissuesyouth){
           this.housingissuesyouth = housingissuesyouth;
       }
-      public String getIncarceratedparent(){
+      public Integer getIncarceratedparent(){
           return incarceratedparent;
       }
-      public void setIncarceratedparent(String incarceratedparent){
+      public void setIncarceratedparent(Integer incarceratedparent){
           this.incarceratedparent = incarceratedparent;
       }
-      public String getIncarceratedparentstatus(){
+      public Integer getIncarceratedparentstatus(){
           return incarceratedparentstatus;
       }
-      public void setIncarceratedparentstatus(String incarceratedparentstatus){
+      public void setIncarceratedparentstatus(Integer incarceratedparentstatus){
           this.incarceratedparentstatus = incarceratedparentstatus;
       }
-      public String getInsufficientincome(){
+      public Integer getInsufficientincome(){
           return insufficientincome;
       }
-      public void setInsufficientincome(String insufficientincome){
+      public void setInsufficientincome(Integer insufficientincome){
           this.insufficientincome = insufficientincome;
       }
-      public String getMentaldisabilityfam(){
+      public Integer getMentaldisabilityfam(){
           return mentaldisabilityfam;
       }
-      public void setMentaldisabilityfam(String mentaldisabilityfam){
+      public void setMentaldisabilityfam(Integer mentaldisabilityfam){
           this.mentaldisabilityfam = mentaldisabilityfam;
       }
-      public String getMentaldisabilityyouth(){
+      public Integer getMentaldisabilityyouth(){
           return mentaldisabilityyouth;
       }
-      public void setMentaldisabilityyouth(String mentaldisabilityyouth){
+      public void setMentaldisabilityyouth(Integer mentaldisabilityyouth){
           this.mentaldisabilityyouth = mentaldisabilityyouth;
       }
-      public String getMentalhealthissuesfam(){
+      public Integer getMentalhealthissuesfam(){
           return mentalhealthissuesfam;
       }
-      public void setMentalhealthissuesfam(String mentalhealthissuesfam){
+      public void setMentalhealthissuesfam(Integer mentalhealthissuesfam){
           this.mentalhealthissuesfam = mentalhealthissuesfam;
       }
-      public String getMentalhealthissuesyouth(){
+      public Integer getMentalhealthissuesyouth(){
           return mentalhealthissuesyouth;
       }
-      public void setMentalhealthissuesyouth(String mentalhealthissuesyouth){
+      public void setMentalhealthissuesyouth(Integer mentalhealthissuesyouth){
           this.mentalhealthissuesyouth = mentalhealthissuesyouth;
       }
-      public String getPhysicaldisabilityfam(){
+      public Integer getPhysicaldisabilityfam(){
           return physicaldisabilityfam;
       }
-      public void setPhysicaldisabilityfam(String physicaldisabilityfam){
+      public void setPhysicaldisabilityfam(Integer physicaldisabilityfam){
           this.physicaldisabilityfam = physicaldisabilityfam;
       }
-      public String getPhysicaldisabilityyouth(){
+      public Integer getPhysicaldisabilityyouth(){
           return physicaldisabilityyouth;
       }
-      public void setPhysicaldisabilityyouth(String physicaldisabilityyouth){
+      public void setPhysicaldisabilityyouth(Integer physicaldisabilityyouth){
           this.physicaldisabilityyouth = physicaldisabilityyouth;
       }
-      public String getSchooleducationalissuesfam(){
+      public Integer getSchooleducationalissuesfam(){
           return schooleducationalissuesfam;
       }
-      public void setSchooleducationalissuesfam(String schooleducationalissuesfam){
+      public void setSchooleducationalissuesfam(Integer schooleducationalissuesfam){
           this.schooleducationalissuesfam = schooleducationalissuesfam;
       }
-      public String getSchooleducationalissuesyouth(){
+      public Integer getSchooleducationalissuesyouth(){
           return schooleducationalissuesyouth;
       }
-      public void setSchooleducationalissuesyouth(String schooleducationalissuesyouth){
+      public void setSchooleducationalissuesyouth(Integer schooleducationalissuesyouth){
           this.schooleducationalissuesyouth = schooleducationalissuesyouth;
       }
-      public String getSexualorientationgenderidfam(){
+      public Integer getSexualorientationgenderidfam(){
           return sexualorientationgenderidfam;
       }
-      public void setSexualorientationgenderidfam(String sexualorientationgenderidfam){
+      public void setSexualorientationgenderidfam(Integer sexualorientationgenderidfam){
           this.sexualorientationgenderidfam = sexualorientationgenderidfam;
       }
-      public String getSexualorientationgenderidyouth(){
+      public Integer getSexualorientationgenderidyouth(){
           return sexualorientationgenderidyouth;
       }
-      public void setSexualorientationgenderidyouth(String sexualorientationgenderidyouth){
+      public void setSexualorientationgenderidyouth(Integer sexualorientationgenderidyouth){
           this.sexualorientationgenderidyouth = sexualorientationgenderidyouth;
       }
-      public String getUnemploymentfam(){
+      public Integer getUnemploymentfam(){
           return unemploymentfam;
       }
-      public void setUnemploymentfam(String unemploymentfam){
+      public void setUnemploymentfam(Integer unemploymentfam){
           this.unemploymentfam = unemploymentfam;
       }
-      public String getUnemploymentyouth(){
+      public Integer getUnemploymentyouth(){
           return unemploymentyouth;
       }
-      public void setUnemploymentyouth(String unemploymentyouth){
+      public void setUnemploymentyouth(Integer unemploymentyouth){
           this.unemploymentyouth = unemploymentyouth;
       }
 

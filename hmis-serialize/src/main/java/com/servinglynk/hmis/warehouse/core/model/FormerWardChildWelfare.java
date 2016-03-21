@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
-import java.util.Date;
 import java.util.UUID;
-
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -14,9 +12,9 @@ public class FormerWardChildWelfare extends ClientModel{
 
       private Integer childwelfaremonths;
 
-      private String childwelfareyears;
+      private Integer childwelfareyears;
 
-      private String formerwardchildwelfare;
+      private Integer formerwardchildwelfare;
 
 
 
@@ -32,16 +30,16 @@ public class FormerWardChildWelfare extends ClientModel{
       public void setChildwelfaremonths(Integer childwelfaremonths){
           this.childwelfaremonths = childwelfaremonths;
       }
-      public String getChildwelfareyears(){
+      public Integer getChildwelfareyears(){
           return childwelfareyears;
       }
-      public void setChildwelfareyears(String childwelfareyears){
+      public void setChildwelfareyears(Integer childwelfareyears){
           this.childwelfareyears = childwelfareyears;
       }
-      public String getFormerwardchildwelfare(){
+      public Integer getFormerwardchildwelfare(){
           return formerwardchildwelfare;
       }
-      public void setFormerwardchildwelfare(String formerwardchildwelfare){
+      public void setFormerwardchildwelfare(Integer formerwardchildwelfare){
           this.formerwardchildwelfare = formerwardchildwelfare;
       }
 
