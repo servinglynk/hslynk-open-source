@@ -200,4 +200,9 @@
 			<url>http://52.37.76.153:8080/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<parent>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>servinglynk-hmis</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 </project>

@@ -11,11 +11,11 @@ public class Employment extends ClientModel{
 
        private UUID employmentId;
 
-       private String employed;
+       private Integer employed;
 
-       private String employmentType;
+       private Integer employmentType;
 
-       private String notEmployedReason;
+       private Integer notEmployedReason;
        
        private Date informationDate;
 
@@ -27,27 +27,27 @@ public class Employment extends ClientModel{
 		this.employmentId = employmentId;
 	}
 
-	public String getEmployed() {
+	public Integer getEmployed() {
 		return employed;
 	}
 
-	public void setEmployed(String employed) {
+	public void setEmployed(Integer employed) {
 		this.employed = employed;
 	}
 
-	public String getEmploymentType() {
+	public Integer getEmploymentType() {
 		return employmentType;
 	}
 
-	public void setEmploymentType(String employmentType) {
+	public void setEmploymentType(Integer employmentType) {
 		this.employmentType = employmentType;
 	}
 
-	public String getNotEmployedReason() {
+	public Integer getNotEmployedReason() {
 		return notEmployedReason;
 	}
 
-	public void setNotEmployedReason(String notEmployedReason) {
+	public void setNotEmployedReason(Integer notEmployedReason) {
 		this.notEmployedReason = notEmployedReason;
 	}
 

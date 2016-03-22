@@ -10,7 +10,7 @@ public class HousingAssessmentDisposition extends ClientModel{
 
       private UUID housingAssessmentDispositionId;
 
-      private String assessmentdisposition;
+      private Integer assessmentdisposition;
 
       private String otherdisposition;
 
@@ -22,10 +22,10 @@ public class HousingAssessmentDisposition extends ClientModel{
       public void setHousingAssessmentDispositionId(UUID housingAssessmentDispositionId){
           this.housingAssessmentDispositionId = housingAssessmentDispositionId;
       }
-      public String getAssessmentdisposition(){
+      public Integer getAssessmentdisposition(){
           return assessmentdisposition;
       }
-      public void setAssessmentdisposition(String assessmentdisposition){
+      public void setAssessmentdisposition(Integer assessmentdisposition){
           this.assessmentdisposition = assessmentdisposition;
       }
       public String getOtherdisposition(){

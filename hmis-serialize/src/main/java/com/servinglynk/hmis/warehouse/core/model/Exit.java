@@ -14,6 +14,7 @@ public class Exit extends ClientModel{
        private Date exitDate;
 
        private String otherDestination;
+       private Integer destination;
      /*  
        @JsonProperty("enrollment")
        private Enrollment enrollment;*/
@@ -41,6 +42,16 @@ public class Exit extends ClientModel{
 	public void setOtherDestination(String otherDestination) {
 		this.otherDestination = otherDestination;
 	}
+
+	public Integer getDestination() {
+		return destination;
+	}
+
+	public void setDestination(Integer destination) {
+		this.destination = destination;
+	}
+	
+	
 
 /*	public Enrollment getEnrollment() {
 		return enrollment;

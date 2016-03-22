@@ -13,19 +13,19 @@ public class Client extends ClientModel {
 	private String middleName;
 	private String lastName;
 	private String nameSuffix;
-	private String nameDataQuality;
+	private Integer nameDataQuality;
 	private String ssn;
-	private String ssnDataQuality;
+	private Integer ssnDataQuality;
 	private Date dob;
-	private String dobDataQuality;
+	private Integer dobDataQuality;
 	private String amIndAKNative;
 	private String asian;
 	private String blackAfAmerican;
 	private String nativeHIOtherPacific;
 	private String white;
-	private String race;
-	private String ethnicity;
-	private String gender;
+	private Integer race;
+	private Integer ethnicity;
+	private Integer gender;
 	private String otherGender;
 	private String veteranStatus;
 	public UUID getClientId() {
@@ -58,10 +58,10 @@ public class Client extends ClientModel {
 	public void setNameSuffix(String nameSuffix) {
 		this.nameSuffix = nameSuffix;
 	}
-	public String getNameDataQuality() {
+	public Integer getNameDataQuality() {
 		return nameDataQuality;
 	}
-	public void setNameDataQuality(String nameDataQuality) {
+	public void setNameDataQuality(Integer nameDataQuality) {
 		this.nameDataQuality = nameDataQuality;
 	}
 	public String getSsn() {
@@ -70,10 +70,10 @@ public class Client extends ClientModel {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-	public String getSsnDataQuality() {
+	public Integer getSsnDataQuality() {
 		return ssnDataQuality;
 	}
-	public void setSsnDataQuality(String ssnDataQuality) {
+	public void setSsnDataQuality(Integer ssnDataQuality) {
 		this.ssnDataQuality = ssnDataQuality;
 	}
 	public Date getDob() {
@@ -82,10 +82,10 @@ public class Client extends ClientModel {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	public String getDobDataQuality() {
+	public Integer getDobDataQuality() {
 		return dobDataQuality;
 	}
-	public void setDobDataQuality(String dobDataQuality) {
+	public void setDobDataQuality(Integer dobDataQuality) {
 		this.dobDataQuality = dobDataQuality;
 	}
 	public String getAmIndAKNative() {
@@ -118,22 +118,22 @@ public class Client extends ClientModel {
 	public void setWhite(String white) {
 		this.white = white;
 	}
-	public String getRace() {
+	public Integer getRace() {
 		return race;
 	}
-	public void setRace(String race) {
+	public void setRace(Integer race) {
 		this.race = race;
 	}
-	public String getEthnicity() {
+	public Integer getEthnicity() {
 		return ethnicity;
 	}
-	public void setEthnicity(String ethnicity) {
+	public void setEthnicity(Integer ethnicity) {
 		this.ethnicity = ethnicity;
 	}
-	public String getGender() {
+	public Integer getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 	public String getOtherGender() {

@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Organization;
-public class OrganizationConverter {
+public class OrganizationConverter extends BaseConveter {
 
    public static com.servinglynk.hmis.warehouse.model.v2014.Organization modelToEntity (Organization model ,com.servinglynk.hmis.warehouse.model.v2014.Organization entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
@@ -17,6 +17,7 @@ public class OrganizationConverter {
        organization.setOrganizationCommonName(entity.getOrganizationcommonname());
        organization.setOrganizationId(entity.getId());
        organization.setOrganizationName(organization.getOrganizationName());
+       copyBeanProperties(entity, organization);
        return organization;
    }
 

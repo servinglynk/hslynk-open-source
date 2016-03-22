@@ -10,25 +10,25 @@ public class NonCashBenefit extends ClientModel{
 
       private UUID nonCashBenefitId;
 
-      private String othersource;
+      private Integer othersource;
 
       private String othersourceidentify;
 
-      private String othertanf;
+      private Integer othertanf;
 
-      private String rentalassistanceongoing;
+      private Integer rentalassistanceongoing;
 
-      private String rentalassistancetemp;
+      private Integer rentalassistancetemp;
 
-      private String snap;
+      private Integer snap;
 
-      private String tanfchildcare;
+      private Integer tanfchildcare;
 
-      private String tanftransportation;
+      private Integer tanftransportation;
 
-      private String wic;
+      private Integer wic;
 
-      private String benefitsfromanysource;
+      private Integer benefitsfromanysource;
 
 
 
@@ -38,10 +38,10 @@ public class NonCashBenefit extends ClientModel{
       public void setNonCashBenefitId(UUID nonCashBenefitId){
           this.nonCashBenefitId = nonCashBenefitId;
       }
-      public String getOthersource(){
+      public Integer getOthersource(){
           return othersource;
       }
-      public void setOthersource(String othersource){
+      public void setOthersource(Integer othersource){
           this.othersource = othersource;
       }
       public String getOthersourceidentify(){
@@ -50,52 +50,52 @@ public class NonCashBenefit extends ClientModel{
       public void setOthersourceidentify(String othersourceidentify){
           this.othersourceidentify = othersourceidentify;
       }
-      public String getOthertanf(){
+      public Integer getOthertanf(){
           return othertanf;
       }
-      public void setOthertanf(String othertanf){
+      public void setOthertanf(Integer othertanf){
           this.othertanf = othertanf;
       }
-      public String getRentalassistanceongoing(){
+      public Integer getRentalassistanceongoing(){
           return rentalassistanceongoing;
       }
-      public void setRentalassistanceongoing(String rentalassistanceongoing){
+      public void setRentalassistanceongoing(Integer rentalassistanceongoing){
           this.rentalassistanceongoing = rentalassistanceongoing;
       }
-      public String getRentalassistancetemp(){
+      public Integer getRentalassistancetemp(){
           return rentalassistancetemp;
       }
-      public void setRentalassistancetemp(String rentalassistancetemp){
+      public void setRentalassistancetemp(Integer rentalassistancetemp){
           this.rentalassistancetemp = rentalassistancetemp;
       }
-      public String getSnap(){
+      public Integer getSnap(){
           return snap;
       }
-      public void setSnap(String snap){
+      public void setSnap(Integer snap){
           this.snap = snap;
       }
-      public String getTanfchildcare(){
+      public Integer getTanfchildcare(){
           return tanfchildcare;
       }
-      public void setTanfchildcare(String tanfchildcare){
+      public void setTanfchildcare(Integer tanfchildcare){
           this.tanfchildcare = tanfchildcare;
       }
-      public String getTanftransportation(){
+      public Integer getTanftransportation(){
           return tanftransportation;
       }
-      public void setTanftransportation(String tanftransportation){
+      public void setTanftransportation(Integer tanftransportation){
           this.tanftransportation = tanftransportation;
       }
-      public String getWic(){
+      public Integer getWic(){
           return wic;
       }
-      public void setWic(String wic){
+      public void setWic(Integer wic){
           this.wic = wic;
       }
-      public String getBenefitsfromanysource(){
+      public Integer getBenefitsfromanysource(){
           return benefitsfromanysource;
       }
-      public void setBenefitsfromanysource(String benefitsfromanysource){
+      public void setBenefitsfromanysource(Integer benefitsfromanysource){
           this.benefitsfromanysource = benefitsfromanysource;
       }
 

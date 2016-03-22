@@ -10,7 +10,7 @@ public class Medicalassistance extends ClientModel{
 
       private UUID medicalassistanceId;
 
-      private String adap;
+      private Integer adap;
 
 
 
@@ -20,10 +20,10 @@ public class Medicalassistance extends ClientModel{
       public void setMedicalassistanceId(UUID medicalassistanceId){
           this.medicalassistanceId = medicalassistanceId;
       }
-      public String getAdap(){
+      public Integer getAdap(){
           return adap;
       }
-      public void setAdap(String adap){
+      public void setAdap(Integer adap){
           this.adap = adap;
       }
 

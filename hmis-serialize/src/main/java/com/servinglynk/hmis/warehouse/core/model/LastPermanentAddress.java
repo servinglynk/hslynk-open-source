@@ -14,7 +14,7 @@ public class LastPermanentAddress extends ClientModel{
 
       private String lastpermanentcity;
 
-      private String lastpermanentstate;
+      private Integer lastpermanentstate;
 
       private String lastpermanentstreet;
 
@@ -40,10 +40,10 @@ public class LastPermanentAddress extends ClientModel{
       public void setLastpermanentcity(String lastpermanentcity){
           this.lastpermanentcity = lastpermanentcity;
       }
-      public String getLastpermanentstate(){
+      public Integer getLastpermanentstate(){
           return lastpermanentstate;
       }
-      public void setLastpermanentstate(String lastpermanentstate){
+      public void setLastpermanentstate(Integer lastpermanentstate){
           this.lastpermanentstate = lastpermanentstate;
       }
       public String getLastpermanentstreet(){

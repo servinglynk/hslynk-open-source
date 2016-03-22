@@ -17,9 +17,9 @@ public class Services extends ClientModel{
 
       private String insurancefromanysource;
 
-      private String recordtype;
+      private Integer recordtype;
 
-      private String referraloutcome;
+      private Integer referraloutcome;
 
       private Integer subtypeprovided;
 
@@ -51,16 +51,16 @@ public class Services extends ClientModel{
       public void setInsurancefromanysource(String insurancefromanysource){
           this.insurancefromanysource = insurancefromanysource;
       }
-      public String getRecordtype(){
+      public Integer getRecordtype(){
           return recordtype;
       }
-      public void setRecordtype(String recordtype){
+      public void setRecordtype(Integer recordtype){
           this.recordtype = recordtype;
       }
-      public String getReferraloutcome(){
+      public Integer getReferraloutcome(){
           return referraloutcome;
       }
-      public void setReferraloutcome(String referraloutcome){
+      public void setReferraloutcome(Integer referraloutcome){
           this.referraloutcome = referraloutcome;
       }
       public Integer getSubtypeprovided(){

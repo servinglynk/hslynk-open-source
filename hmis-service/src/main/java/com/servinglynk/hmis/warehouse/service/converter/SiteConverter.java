@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import com.servinglynk.hmis.warehouse.core.model.Site;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
-public class SiteConverter {
+public class SiteConverter extends BaseConveter {
 
    public static com.servinglynk.hmis.warehouse.model.v2014.Site modelToEntity (Site model ,com.servinglynk.hmis.warehouse.model.v2014.Site entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Site();
@@ -11,7 +11,7 @@ public class SiteConverter {
        entity.setAddress(model.getAddress());
        entity.setCity(model.getCity());
        entity.setGeocode(model.getGeocode());
-       entity.setPrincipalSite(SitePrincipalSiteEnum.valueOf(model.getPrincipalsite()));
+       entity.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(model.getPrincipalsite().toString()));
        entity.setState(StateEnum.valueOf(model.getState()));
        entity.setZip(model.getZip());
        return entity;    
@@ -24,9 +24,10 @@ public class SiteConverter {
        model.setAddress(entity.getAddress());
        model.setCity(entity.getCity());
        model.setGeocode(entity.getGeocode());
-       model.setPrincipalsite(entity.getPrincipalSite().name());
+       model.setPrincipalsite(Integer.parseInt(entity.getPrincipalSite().getValue()));
        model.setState(entity.getState().name());
        model.setZip(entity.getZip());
+       copyBeanProperties(entity, model);
        return model;
    }
 

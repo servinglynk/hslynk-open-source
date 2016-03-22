@@ -13,9 +13,9 @@ public class HealthStatus extends ClientModel{
 
       private Date informationDate;
 
-      private String healthCategory;
+      private Integer healthCategory;
 
-      private String healthStatus;
+      private Integer healthStatus;
 
       private Date dueDate;
 
@@ -33,16 +33,16 @@ public class HealthStatus extends ClientModel{
       public void setInformationDate(Date informationDate){
           this.informationDate = informationDate;
       }
-      public String getHealthCategory(){
+      public Integer getHealthCategory(){
           return healthCategory;
       }
-      public void setHealthCategory(String healthCategory){
+      public void setHealthCategory(Integer healthCategory){
           this.healthCategory = healthCategory;
       }
-      public String getHealthStatus(){
+      public Integer getHealthStatus(){
           return healthStatus;
       }
-      public void setHealthStatus(String healthStatus){
+      public void setHealthStatus(Integer healthStatus){
           this.healthStatus = healthStatus;
       }
       public Date getDueDate(){

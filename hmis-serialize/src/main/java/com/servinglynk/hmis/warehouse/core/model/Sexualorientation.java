@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
-import java.util.Date;
 import java.util.UUID;
-
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -12,7 +10,7 @@ public class Sexualorientation extends ClientModel{
 
       private UUID sexualorientationId;
 
-      private String sexualorientation;
+      private Integer sexualorientation;
 
 
 
@@ -22,10 +20,10 @@ public class Sexualorientation extends ClientModel{
       public void setSexualorientationId(UUID sexualorientationId){
           this.sexualorientationId = sexualorientationId;
       }
-      public String getSexualorientation(){
+      public Integer getSexualorientation(){
           return sexualorientation;
       }
-      public void setSexualorientation(String sexualorientation){
+      public void setSexualorientation(Integer sexualorientation){
           this.sexualorientation = sexualorientation;
       }
 

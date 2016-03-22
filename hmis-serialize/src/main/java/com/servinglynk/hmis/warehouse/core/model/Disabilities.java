@@ -2,6 +2,8 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
+import org.omg.CORBA.INTERNAL;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("disabilities")
@@ -12,17 +14,17 @@ public class Disabilities extends ClientModel{
 
       private Integer disabilityresponse;
 
-      private String disabilitytype;
+      private Integer disabilitytype;
 
-      private String documentationonfile;
+      private Integer documentationonfile;
 
-      private String indefiniteandimpairs;
+      private Integer indefiniteandimpairs;
 
-      private String pathhowconfirmed;
+      private Integer pathhowconfirmed;
 
-      private String receivingservices;
+      private Integer receivingservices;
 
-      private String pathsmiinformation;
+      private Integer pathsmiinformation;
 
 
 
@@ -38,41 +40,40 @@ public class Disabilities extends ClientModel{
       public void setDisabilityresponse(Integer disabilityresponse){
           this.disabilityresponse = disabilityresponse;
       }
-      public String getDisabilitytype(){
+      public Integer getDisabilitytype(){
           return disabilitytype;
       }
-      public void setDisabilitytype(String disabilitytype){
+      public void setDisabilitytype(Integer disabilitytype){
           this.disabilitytype = disabilitytype;
       }
-      public String getDocumentationonfile(){
-          return documentationonfile;
-      }
-      public void setDocumentationonfile(String documentationonfile){
-          this.documentationonfile = documentationonfile;
-      }
-      public String getIndefiniteandimpairs(){
-          return indefiniteandimpairs;
-      }
-      public void setIndefiniteandimpairs(String indefiniteandimpairs){
-          this.indefiniteandimpairs = indefiniteandimpairs;
-      }
-      public String getPathhowconfirmed(){
-          return pathhowconfirmed;
-      }
-      public void setPathhowconfirmed(String pathhowconfirmed){
-          this.pathhowconfirmed = pathhowconfirmed;
-      }
-      public String getReceivingservices(){
-          return receivingservices;
-      }
-      public void setReceivingservices(String receivingservices){
-          this.receivingservices = receivingservices;
-      }
-      public String getPathsmiinformation(){
-          return pathsmiinformation;
-      }
-      public void setPathsmiinformation(String pathsmiinformation){
-          this.pathsmiinformation = pathsmiinformation;
-      }
-
+	public Integer getDocumentationonfile() {
+		return documentationonfile;
+	}
+	public void setDocumentationonfile(Integer documentationonfile) {
+		this.documentationonfile = documentationonfile;
+	}
+	public Integer getIndefiniteandimpairs() {
+		return indefiniteandimpairs;
+	}
+	public void setIndefiniteandimpairs(Integer indefiniteandimpairs) {
+		this.indefiniteandimpairs = indefiniteandimpairs;
+	}
+	public Integer getPathhowconfirmed() {
+		return pathhowconfirmed;
+	}
+	public void setPathhowconfirmed(Integer pathhowconfirmed) {
+		this.pathhowconfirmed = pathhowconfirmed;
+	}
+	public Integer getReceivingservices() {
+		return receivingservices;
+	}
+	public void setReceivingservices(Integer receivingservices) {
+		this.receivingservices = receivingservices;
+	}
+	public Integer getPathsmiinformation() {
+		return pathsmiinformation;
+	}
+	public void setPathsmiinformation(Integer pathsmiinformation) {
+		this.pathsmiinformation = pathsmiinformation;
+	}
  }

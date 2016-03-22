@@ -10,23 +10,23 @@ public class ExitPlansActions extends ClientModel{
 
       private UUID exitPlansActionsId;
 
-      private String assistancemainstreambenefits;
+      private Integer assistancemainstreambenefits;
 
-      private String exitcounseling;
+      private Integer exitcounseling;
 
-      private String furtherfollowupservices;
+      private Integer furtherfollowupservices;
 
-      private String otheraftercareplanoraction;
+      private Integer otheraftercareplanoraction;
 
-      private String permanenthousingplacement;
+      private Integer permanenthousingplacement;
 
-      private String resourcepackage;
+      private Integer resourcepackage;
 
-      private String scheduledfollowupcontacts;
+      private Integer scheduledfollowupcontacts;
 
-      private String temporaryshelterplacement;
+      private Integer temporaryshelterplacement;
 
-      private String writtenaftercareplan;
+      private Integer writtenaftercareplan;
 
 
 
@@ -36,58 +36,58 @@ public class ExitPlansActions extends ClientModel{
       public void setExitPlansActionsId(UUID exitPlansActionsId){
           this.exitPlansActionsId = exitPlansActionsId;
       }
-      public String getAssistancemainstreambenefits(){
+      public Integer getAssistancemainstreambenefits(){
           return assistancemainstreambenefits;
       }
-      public void setAssistancemainstreambenefits(String assistancemainstreambenefits){
+      public void setAssistancemainstreambenefits(Integer assistancemainstreambenefits){
           this.assistancemainstreambenefits = assistancemainstreambenefits;
       }
-      public String getExitcounseling(){
+      public Integer getExitcounseling(){
           return exitcounseling;
       }
-      public void setExitcounseling(String exitcounseling){
+      public void setExitcounseling(Integer exitcounseling){
           this.exitcounseling = exitcounseling;
       }
-      public String getFurtherfollowupservices(){
+      public Integer getFurtherfollowupservices(){
           return furtherfollowupservices;
       }
-      public void setFurtherfollowupservices(String furtherfollowupservices){
+      public void setFurtherfollowupservices(Integer furtherfollowupservices){
           this.furtherfollowupservices = furtherfollowupservices;
       }
-      public String getOtheraftercareplanoraction(){
+      public Integer getOtheraftercareplanoraction(){
           return otheraftercareplanoraction;
       }
-      public void setOtheraftercareplanoraction(String otheraftercareplanoraction){
+      public void setOtheraftercareplanoraction(Integer otheraftercareplanoraction){
           this.otheraftercareplanoraction = otheraftercareplanoraction;
       }
-      public String getPermanenthousingplacement(){
+      public Integer getPermanenthousingplacement(){
           return permanenthousingplacement;
       }
-      public void setPermanenthousingplacement(String permanenthousingplacement){
+      public void setPermanenthousingplacement(Integer permanenthousingplacement){
           this.permanenthousingplacement = permanenthousingplacement;
       }
-      public String getResourcepackage(){
+      public Integer getResourcepackage(){
           return resourcepackage;
       }
-      public void setResourcepackage(String resourcepackage){
+      public void setResourcepackage(Integer resourcepackage){
           this.resourcepackage = resourcepackage;
       }
-      public String getScheduledfollowupcontacts(){
+      public Integer getScheduledfollowupcontacts(){
           return scheduledfollowupcontacts;
       }
-      public void setScheduledfollowupcontacts(String scheduledfollowupcontacts){
+      public void setScheduledfollowupcontacts(Integer scheduledfollowupcontacts){
           this.scheduledfollowupcontacts = scheduledfollowupcontacts;
       }
-      public String getTemporaryshelterplacement(){
+      public Integer getTemporaryshelterplacement(){
           return temporaryshelterplacement;
       }
-      public void setTemporaryshelterplacement(String temporaryshelterplacement){
+      public void setTemporaryshelterplacement(Integer temporaryshelterplacement){
           this.temporaryshelterplacement = temporaryshelterplacement;
       }
-      public String getWrittenaftercareplan(){
+      public Integer getWrittenaftercareplan(){
           return writtenaftercareplan;
       }
-      public void setWrittenaftercareplan(String writtenaftercareplan){
+      public void setWrittenaftercareplan(Integer writtenaftercareplan){
           this.writtenaftercareplan = writtenaftercareplan;
       }
 

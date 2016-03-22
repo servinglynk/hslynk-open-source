@@ -14,35 +14,35 @@ public class HealthInsurance extends ClientModel{
 
       private Integer employerprovided;
 
-      private String insurancefromanysource;
+      private Integer insurancefromanysource;
 
-      private String medicaid;
+      private Integer medicaid;
 
-      private String medicare;
+      private Integer medicare;
 
-      private String nocobrareason;
+      private Integer nocobrareason;
 
-      private String noemployerprovidedreason;
+      private Integer noemployerprovidedreason;
 
-      private String nomedicaidreason;
+      private Integer nomedicaidreason;
 
-      private String nomedicarereason;
+      private Integer nomedicarereason;
 
-      private String noprivatepayreason;
+      private Integer noprivatepayreason;
 
-      private String noschipreason;
+      private Integer noschipreason;
 
-      private String nostatehealthinsreason;
+      private Integer nostatehealthinsreason;
 
-      private String novamedreason;
+      private Integer novamedreason;
 
-      private String privatepay;
+      private Integer privatepay;
 
-      private String schip;
+      private Integer schip;
 
-      private String statehealthins;
+      private Integer statehealthins;
 
-      private String vamedicalservices;
+      private Integer vamedicalservices;
 
 
 
@@ -64,94 +64,94 @@ public class HealthInsurance extends ClientModel{
       public void setEmployerprovided(Integer employerprovided){
           this.employerprovided = employerprovided;
       }
-      public String getInsurancefromanysource(){
+      public Integer getInsurancefromanysource(){
           return insurancefromanysource;
       }
-      public void setInsurancefromanysource(String insurancefromanysource){
+      public void setInsurancefromanysource(Integer insurancefromanysource){
           this.insurancefromanysource = insurancefromanysource;
       }
-      public String getMedicaid(){
+      public Integer getMedicaid(){
           return medicaid;
       }
-      public void setMedicaid(String medicaid){
+      public void setMedicaid(Integer medicaid){
           this.medicaid = medicaid;
       }
-      public String getMedicare(){
+      public Integer getMedicare(){
           return medicare;
       }
-      public void setMedicare(String medicare){
+      public void setMedicare(Integer medicare){
           this.medicare = medicare;
       }
-      public String getNocobrareason(){
+      public Integer getNocobrareason(){
           return nocobrareason;
       }
-      public void setNocobrareason(String nocobrareason){
+      public void setNocobrareason(Integer nocobrareason){
           this.nocobrareason = nocobrareason;
       }
-      public String getNoemployerprovidedreason(){
+      public Integer getNoemployerprovidedreason(){
           return noemployerprovidedreason;
       }
-      public void setNoemployerprovidedreason(String noemployerprovidedreason){
+      public void setNoemployerprovidedreason(Integer noemployerprovidedreason){
           this.noemployerprovidedreason = noemployerprovidedreason;
       }
-      public String getNomedicaidreason(){
+      public Integer getNomedicaidreason(){
           return nomedicaidreason;
       }
-      public void setNomedicaidreason(String nomedicaidreason){
+      public void setNomedicaidreason(Integer nomedicaidreason){
           this.nomedicaidreason = nomedicaidreason;
       }
-      public String getNomedicarereason(){
+      public Integer getNomedicarereason(){
           return nomedicarereason;
       }
-      public void setNomedicarereason(String nomedicarereason){
+      public void setNomedicarereason(Integer nomedicarereason){
           this.nomedicarereason = nomedicarereason;
       }
-      public String getNoprivatepayreason(){
+      public Integer getNoprivatepayreason(){
           return noprivatepayreason;
       }
-      public void setNoprivatepayreason(String noprivatepayreason){
+      public void setNoprivatepayreason(Integer noprivatepayreason){
           this.noprivatepayreason = noprivatepayreason;
       }
-      public String getNoschipreason(){
+      public Integer getNoschipreason(){
           return noschipreason;
       }
-      public void setNoschipreason(String noschipreason){
+      public void setNoschipreason(Integer noschipreason){
           this.noschipreason = noschipreason;
       }
-      public String getNostatehealthinsreason(){
+      public Integer getNostatehealthinsreason(){
           return nostatehealthinsreason;
       }
-      public void setNostatehealthinsreason(String nostatehealthinsreason){
+      public void setNostatehealthinsreason(Integer nostatehealthinsreason){
           this.nostatehealthinsreason = nostatehealthinsreason;
       }
-      public String getNovamedreason(){
+      public Integer getNovamedreason(){
           return novamedreason;
       }
-      public void setNovamedreason(String novamedreason){
+      public void setNovamedreason(Integer novamedreason){
           this.novamedreason = novamedreason;
       }
-      public String getPrivatepay(){
+      public Integer getPrivatepay(){
           return privatepay;
       }
-      public void setPrivatepay(String privatepay){
+      public void setPrivatepay(Integer privatepay){
           this.privatepay = privatepay;
       }
-      public String getSchip(){
+      public Integer getSchip(){
           return schip;
       }
-      public void setSchip(String schip){
+      public void setSchip(Integer schip){
           this.schip = schip;
       }
-      public String getStatehealthins(){
+      public Integer getStatehealthins(){
           return statehealthins;
       }
-      public void setStatehealthins(String statehealthins){
+      public void setStatehealthins(Integer statehealthins){
           this.statehealthins = statehealthins;
       }
-      public String getVamedicalservices(){
+      public Integer getVamedicalservices(){
           return vamedicalservices;
       }
-      public void setVamedicalservices(String vamedicalservices){
+      public void setVamedicalservices(Integer vamedicalservices){
           this.vamedicalservices = vamedicalservices;
       }
 
