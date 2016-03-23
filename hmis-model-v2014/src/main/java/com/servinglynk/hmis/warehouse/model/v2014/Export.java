@@ -23,6 +23,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.base.Organization;
+
 
 /** 
  * Object mapping for hibernate-handled table: export.
@@ -1172,37 +1174,37 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		this.noncashbenefitss = noncashbenefits;
 	}
 
-	 /**
+	/* *//**
 	 * Return the value associated with the column: organization.
 	 * @return A Set&lt;Organization&gt; object (this.organization)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+	 *//*
+ 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@Basic( optional = false )
-	@Column( nullable = false  )
+	@JoinColumn( nullable = false,name=""  )
 	public Set<Organization> getOrganizations() {
 		return this.organizations;
 		
 	}
 	
-	/**
+	*//**
 	 * Adds a bi-directional link of type Organization to the organizations set.
 	 * @param organization item to add
-	 */
+	 *//*
 	public void addOrganization(Organization organization) {
-		organization.setExport(this);
+//		organization.setExport(this);
 		this.organizations.add(organization);
 	}
 
   
-	 /**  
+	 *//**  
 	 * Set the value related to the column: organization.
 	 * @param organization the organization value you wish to set
-	 */
+	 *//*
 	public void setOrganizations(final Set<Organization> organization) {
 		this.organizations = organization;
 	}
-
+*/
 	 /**
 	 * Return the value associated with the column: pathstatus.
 	 * @return A Set&lt;com.servinglynk.hmis.warehouse.model.live.Pathstatus&gt; object (this.pathstatus)
@@ -1842,9 +1844,9 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 		if (this.getNoncashbenefitss() != null) {
 			copy.getNoncashbenefitss().addAll(this.getNoncashbenefitss());
 		}
-		if (this.getOrganizations() != null) {
+/*		if (this.getOrganizations() != null) {
 			copy.getOrganizations().addAll(this.getOrganizations());
-		}
+		}*/
 		if (this.getPathstatuses() != null) {
 			copy.getPathstatuses().addAll(this.getPathstatuses());
 		}

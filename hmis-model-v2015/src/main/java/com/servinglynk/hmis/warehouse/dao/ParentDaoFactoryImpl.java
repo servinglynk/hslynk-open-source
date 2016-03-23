@@ -3,11 +3,13 @@ package com.servinglynk.hmis.warehouse.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
+
 import Contact.ContactDao;
 import Entryrhsp.EntryrhspDao;
 
 @Component
-public class ParentDaoFactoryImpl implements ParentDaoFactory {
+public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {
 	@Autowired
 	private BulkUploaderDao bulkUploaderDao;
 	@Autowired
@@ -50,8 +52,6 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	private MedicalassistanceDao medicalassistanceDao;
 	@Autowired
 	private NoncashbenefitsDao noncashbenefitsDao;
-	@Autowired
-	private OrganizationDao organizationDao;
 	@Autowired
 	private PathstatusDao pathstatusDao;
 	@Autowired
@@ -396,21 +396,6 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	}
 
 	/**
-	 * @return the organizationDao
-	 */
-	public OrganizationDao getOrganizationDao() {
-		return organizationDao;
-	}
-
-	/**
-	 * @param organizationDao
-	 *            the organizationDao to set
-	 */
-	public void setOrganizationDao(OrganizationDao organizationDao) {
-		this.organizationDao = organizationDao;
-	}
-
-	/**
 	 * @return the pathstatusDao
 	 */
 	public PathstatusDao getPathstatusDao() {
@@ -533,10 +518,6 @@ public class ParentDaoFactoryImpl implements ParentDaoFactory {
 	
 	public void setExportDao(ExportDao exportDao) {
 		this.exportDao = exportDao;
-	}
-
-	public ProjectGroupDao getProjectGroupDao() {
-		return projectGroupDao;
 	}
 
 	public void setProjectGroupDao(ProjectGroupDao projectGroupDao) {

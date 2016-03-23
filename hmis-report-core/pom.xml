@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>report-core</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>hmis-report-core</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>Report Core</name>
 	<description>Report Core</description>
 	<scm>	
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>0.0.1-SNAPSHOT</parent-version>
+		<parent-version>0.0.2-SNAPSHOT</parent-version>
 	</properties>
 
 	<parent>
@@ -23,7 +23,7 @@
 
   <dependency>
   	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-core-serialize</artifactId>
+	<artifactId>hmis-base-serialize</artifactId>
 	<version>${parent-version}</version>
   </dependency>
  

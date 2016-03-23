@@ -25,7 +25,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.HmisUserGenderEnum;
 import com.servinglynk.hmis.warehouse.enums.HmisUserOrganizationEnum;
-import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
 /** 

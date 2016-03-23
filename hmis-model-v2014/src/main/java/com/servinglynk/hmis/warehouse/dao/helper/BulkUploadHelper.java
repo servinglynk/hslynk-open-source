@@ -90,7 +90,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Component
 public class BulkUploadHelper {

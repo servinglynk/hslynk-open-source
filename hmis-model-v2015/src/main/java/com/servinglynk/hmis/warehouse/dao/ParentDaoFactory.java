@@ -1,10 +1,11 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
+
 import Contact.ContactDao;
 import Entryrhsp.EntryrhspDao;
 
-
-public interface ParentDaoFactory {
+public interface ParentDaoFactory extends BaseDaoFactory {
 	
 	BulkUploaderDao getBulkUploaderDao();
 	DateofengagementDao getDateofengagementDao();
@@ -28,7 +29,6 @@ public interface ParentDaoFactory {
 	InventoryDao getInventoryDao();
 	MedicalassistanceDao getMedicalassistanceDao();
 	NoncashbenefitsDao getNoncashbenefitsDao();
-	OrganizationDao getOrganizationDao();
 	PathstatusDao getPathstatusDao();
 	ResidentialmoveindateDao getResidentialmoveindateDao();
 	RhybcpstatusDao getRhybcpstatusDao();
@@ -39,7 +39,7 @@ public interface ParentDaoFactory {
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	ExportDao getExportDao();
 	
-	ProjectGroupDao getProjectGroupDao();
+
 	CocDao getCocDao();
 	ContactDao getContactDao();
 	EntryrhspDao getEntryrhspDao();

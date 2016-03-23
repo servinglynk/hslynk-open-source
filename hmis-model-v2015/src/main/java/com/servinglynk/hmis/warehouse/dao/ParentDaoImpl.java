@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
 
+import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.stagv2015.HmisBaseStagingModel;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;

@@ -12,6 +12,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.servinglynk.hmis.warehouse.model.base.Organization;
+import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="hmis_sharing_rule")

@@ -1,9 +1,10 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
 
-public interface ParentDaoFactory {
+public interface ParentDaoFactory extends BaseDaoFactory {
 	
-	HmisUserDao getHmisUserDao();
+
 	SyncListDao getSyncListDao();
 	BulkUploaderDao getBulkUploaderDao();
 	CommercialsexualexploitationDao getCommercialsexualexploitationDao();
@@ -36,7 +37,6 @@ public interface ParentDaoFactory {
 	LastPermAddressDao getLastPermAddressDao();
 	MedicalassistanceDao getMedicalassistanceDao();
 	NoncashbenefitsDao getNoncashbenefitsDao();
-	OrganizationDao getOrganizationDao();
 	PathstatusDao getPathstatusDao();
 	PercentamiDao getPercentamiDao();
 	ProjectcompletionstatusDao getProjectcompletionstatusDao();
@@ -55,23 +55,7 @@ public interface ParentDaoFactory {
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	ExportDao getExportDao();
 	
-	AccountDao getAccountDao();
-	DeveloperCompanyDao getDeveloperCompanyDao() ;
-	DeveloperServiceDao getDeveloperServiceDao() ;
-	DeveloperCompanyAccountDao getDeveloperCompanyAccountDao();
-	ServiceLicenseDao getServiceLicenseDao() ;
-	ServiceApiMethodDao getServiceApiMethodDao();
-	ServiceDao getServiceDao();
-	VerificationDao getVerificationDao();
-	AccountDataChangeDao getAccountDataChangeDao();
-	PasswordResetDao getPasswordResetDao();
-	DeveloperCompanyStatusDao getDeveloperCompanyStatusDao();
-	RoleDao getRoleDao();
-	ProfileDao getProfileDao();
-	ProfileAclDao getProfileAclDao();
-	PermissionSetDao getPermissionSetDao();
+
 	SharingRuleDao getSharingRuleDao();
 	InformationReleasesDao getInformationReleasesDao();
-	ProjectGroupDao getProjectGroupDao();
-
 }

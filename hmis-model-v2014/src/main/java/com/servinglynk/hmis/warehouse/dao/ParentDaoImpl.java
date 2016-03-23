@@ -18,19 +18,20 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
+import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2014.HmisBaseStagingModel;
 import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	
-	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.v2014.HmisUser user) {
+	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.base.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "PG0001");
 		BulkUploadActivity activity = new BulkUploadActivity();

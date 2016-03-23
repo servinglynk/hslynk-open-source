@@ -80,7 +80,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				hydrateCommonFields(projectModel, domain);
 				insertOrUpdate(projectModel);
 			}
-			factory.getOrganizationDao().hydrateStaging(domain);
+//			factory.getOrganizationDao().hydrateStaging(domain);
 			factory.getAffiliationDao().hydrateStaging(domain);
 			factory.getFunderDao().hydrateStaging(domain);
 			factory.getCocDao().hydrateStaging(domain);

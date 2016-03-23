@@ -22,6 +22,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+
 @Entity (name = "bulk_upload_activity")
 @Table(name = "bulk_upload_activity", catalog = "hmis", schema = "v2014")
 public class BulkUploadActivity implements Cloneable, Serializable {

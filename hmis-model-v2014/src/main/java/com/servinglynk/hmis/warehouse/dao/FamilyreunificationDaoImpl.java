@@ -119,13 +119,13 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification> getAllExitFamilyReunifications(UUID exitId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class);
 	       criteria.createAlias("exitid", "exitid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitFamilyReunificationsCount(UUID exitId){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class);
 	       criteria.createAlias("exitid", "exitid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);
 	   }
 }

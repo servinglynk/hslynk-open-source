@@ -8,33 +8,19 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Gender;
-import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -45,9 +31,6 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
-import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.restful.model.AppRequest;
-import com.servinglynk.hmis.warehouse.restful.model.AuthenticationRequest;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**

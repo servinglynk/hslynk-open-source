@@ -13,30 +13,6 @@
    <!-- Unique entry point for version number management --> 
    <global.version>0.0.1-SNAPSHOT</global.version>
 </properties>
-    <modules>
-	<module>hmis-service</module>
-	<module>hmis-model-v2014</module>
-	<module>hmis-model-v2015</module>
-	<module>hmis-common</module>
-	<module>hmis-admin</module>
-	<module>hmis-client</module>
-	<module>hmis-serialize</module>
-<!-- 	<module>hmis-bulk-loader-service</module>
-	<module>hmis-load-processor</module>
-	<module>hmis-bulk-loader</module> -->
-	<module>hmis-authorizationservice</module>
-<!-- 	<module>hmis-client-dedup</module> -->
-	<module>hmis-upload-service</module>
-	<module>hmis-developerservice</module>
-	<module>hmis-report-core</module>
-	<!-- <module>hmis-sync</module> -->
-	<module>hmis-userservice</module>
-	<module>hmis-notification-core</module>
-	<module>notification-service</module>
-	<module>hmis-report-service</module>
-	<module>hmis-clientapi</module>
-<!-- 	<module>sync-processor</module> -->
-    </modules>
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -55,4 +31,23 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<modules>
+		<module>hmis-core-client</module>
+		<module>hmis-core-common</module>
+		<module>hmis-base-model</module>
+		<module>hmis-base-serialize</module>
+		<module>hmis-base-service</module>
+		<module>hmis-notification-core</module>
+		<module>hmis-notification-service</module>
+		<module>hmis-report-core</module>
+		<module>hmis-report-service</module>
+		<module>hmis-user-service</module>
+		<module>hmis-developer-service</module>
+		<module>hmis-authorization-service</module>
+		<module>hmis-model-v2014</module>
+ 		<module>hmis-model-v2015</module>
+		<module>hmis-service-v2014</module>
+		<module>hmis-serialize-v2014</module>
+		<module>hmis-clientapi-v2014</module>
+	</modules>
 </project>

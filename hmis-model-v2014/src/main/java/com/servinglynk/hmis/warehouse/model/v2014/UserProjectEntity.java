@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="hmis_user_project")

@@ -9,10 +9,11 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
+import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
+import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
+import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.SharingRuleEntity;
-import com.servinglynk.hmis.warehouse.model.v2014.UserRoleMapEntity;
 
 public class SharingRuleDaoImpl extends QueryExecutorImpl implements SharingRuleDao {
 	
