@@ -7,8 +7,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 public class BaseConverter implements IBaseConverter {
-	
-	
+
 	 public static void copyBeanProperties(
 		      final Object source,
 		      final Object target){
@@ -28,5 +27,4 @@ public class BaseConverter implements IBaseConverter {
 		      }
 
 		  }
-
 }

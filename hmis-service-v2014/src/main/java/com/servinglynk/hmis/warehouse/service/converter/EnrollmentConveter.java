@@ -15,31 +15,47 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstay
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 
-public class EnrollmentConveter extends BaseConveter {
+public class EnrollmentConveter extends BaseConverter {
 	
 
 	
 	
 	public static com.servinglynk.hmis.warehouse.model.v2014.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment){
 		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
-
+		if(enrollment.getContinuouslyhomelessoneyear()!=null)
 		pEnrollment.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(enrollment.getContinuouslyhomelessoneyear().toString()));
+		if(enrollment.getDisablingcondition()!=null)
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
+		if(enrollment.getEntrydate()!=null)
 		pEnrollment.setEntrydate(enrollment.getEntrydate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		if(enrollment.getHouseholdid()!=null)
 		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
+		if(enrollment.getHousingstatus()!=null)
 		pEnrollment.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(enrollment.getHousingstatus().toString()));
+		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
+		if(enrollment.getMonthshomelessthistime()!=null)
 		pEnrollment.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(enrollment.getMonthshomelessthistime().toString()));
+		if(enrollment.getOtherresidenceprior()!=null)
 		pEnrollment.setOtherresidenceprior(enrollment.getOtherresidenceprior());
+		if(enrollment.getPersonalid()!=null)
 		pEnrollment.setPersonalid(enrollment.getPersonalid());
+		if(enrollment.getProjectentryid()!=null)
 		pEnrollment.setProjectentryid(enrollment.getProjectentryid());
+		if(enrollment.getProjectid()!=null)
 		pEnrollment.setProjectid(enrollment.getProjectid());
+		if(enrollment.getRelationshiptohoh()!=null)
 		pEnrollment.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(enrollment.getRelationshiptohoh().toString()));
+		if(enrollment.getResidenceprior()!=null)
 		pEnrollment.setResidenceprior(EnrollmentResidencepriorEnum.lookupEnum(enrollment.getResidenceprior().toString()));
+		if(enrollment.getResidencepriorlengthofstay()!=null)
 		pEnrollment.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(enrollment.getResidencepriorlengthofstay().toString()));
+		if(enrollment.getStatusdocumented()!=null)
 		pEnrollment.setStatusdocumented(EnrollmentStatusdocumentedEnum.lookupEnum(enrollment.getStatusdocumented().toString()));
+		if(enrollment.getTimeshomelesspastthreeyears()!=null)
 		pEnrollment.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(enrollment.getTimeshomelesspastthreeyears().toString()));
 		pEnrollment.setYearshomeless(enrollment.getYearshomeless());
+		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
 		
 		return pEnrollment;
@@ -47,9 +63,8 @@ public class EnrollmentConveter extends BaseConveter {
 	
 	
 	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment){
-		Enrollment enrollment = new Enrollment();
-		
-		
+		Enrollment enrollment = new Enrollment();	
+		if(pEnrollment.getContinuouslyhomelessoneyear()!=null)
 		enrollment.setContinuouslyhomelessoneyear(Integer.parseInt(pEnrollment.getContinuouslyhomelessoneyear().getValue()));
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
 		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));

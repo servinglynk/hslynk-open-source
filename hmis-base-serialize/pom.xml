@@ -7,7 +7,7 @@
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>hmis-bae-serialize</name>
+	<name>hmis-base-serialize</name>
 	<url>http://maven.apache.org</url>
 	<scm>
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
