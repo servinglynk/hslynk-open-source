@@ -29,8 +29,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2014.ProjectGroupEntity;
 public class BulkUploadHelperTest1 {
 
 	public BulkUploadHelper helper = new BulkUploadHelper();
