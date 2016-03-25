@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.DedupController;
 import com.servinglynk.hmis.warehouse.rest.service.DedupService;
@@ -23,7 +24,7 @@ import com.servinglynk.hmis.warehouse.rest.service.DedupServiceImpl;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
-		com.servinglynk.hmis.warehouse.service.config.AppConfig.class,
+		BaseServiceConfig.class,
 		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
