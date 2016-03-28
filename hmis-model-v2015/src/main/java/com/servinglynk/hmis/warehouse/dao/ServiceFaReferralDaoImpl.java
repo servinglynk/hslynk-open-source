@@ -12,7 +12,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ServiceFAReferral;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -22,37 +21,37 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		
-	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-		List<ServiceFAReferral> serviceFaReferral = export.getServiceFAReferral();
-		if (serviceFaReferral != null && serviceFaReferral.size() > 0) {
-			for (ServiceFAReferral serviceFaReferrals : serviceFaReferral) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral();
-				UUID serviceFaReferralUUID = UUID.randomUUID();
-				serviceFaReferralModel.setId(serviceFaReferralUUID);
-				serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-				serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFaAmount()));
-				serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
-				serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
-				serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
-				serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getServiceCategory()).intValue());
-				serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
-				serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
-								
-				serviceFaReferralModel.setDeleted(false);
-				serviceFaReferralModel.setDateCreated(LocalDateTime.now());
-				serviceFaReferralModel.setDateUpdated(LocalDateTime.now());
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
-				exportEntity.addServiceFaReferral(serviceFaReferralModel);
-				serviceFaReferralModel.setUserId(exportEntity.getUserId());
-				serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-				serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
-				hydrateCommonFields(serviceFaReferralModel, domain);
-				serviceFaReferralModel.setExport(exportEntity);
-				serviceFaReferralModel.setProjectGroupCode(serviceFaReferrals.getProjectEntryID());
-				serviceFaReferralModel.setSync(false);
-				insertOrUpdate(serviceFaReferralModel);
-			}
-		}
+//	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
+//		List<ServiceFAReferral> serviceFaReferral = export.getServiceFAReferral();
+//		if (serviceFaReferral != null && serviceFaReferral.size() > 0) {
+//			for (ServiceFAReferral serviceFaReferrals : serviceFaReferral) {
+//				com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral();
+//				UUID serviceFaReferralUUID = UUID.randomUUID();
+//				serviceFaReferralModel.setId(serviceFaReferralUUID);
+//				serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+//				serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFaAmount()));
+//				serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
+//				serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
+//				serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
+//				serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getServiceCategory()).intValue());
+//				serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
+//				serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
+//								
+//				serviceFaReferralModel.setDeleted(false);
+//				serviceFaReferralModel.setDateCreated(LocalDateTime.now());
+//				serviceFaReferralModel.setDateUpdated(LocalDateTime.now());
+//				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+//				exportEntity.addServiceFaReferral(serviceFaReferralModel);
+//				serviceFaReferralModel.setUserId(exportEntity.getUserId());
+//				serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+//				serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
+//				hydrateCommonFields(serviceFaReferralModel, domain);
+//				serviceFaReferralModel.setExport(exportEntity);
+//				serviceFaReferralModel.setProjectGroupCode(serviceFaReferrals.getProjectEntryID());
+//				serviceFaReferralModel.setSync(false);
+//				insertOrUpdate(serviceFaReferralModel);
+//			}
+//		}
 	
 	}
 
