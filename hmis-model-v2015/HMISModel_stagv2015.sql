@@ -461,7 +461,6 @@ WITH (
   OIDS=FALSE
 );
 
---- Prabhakaran Starts ----
 INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('world_war_2','0','No','ACTIVE');
 INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('world_war_2','1','Yes','ACTIVE');
 INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('world_war_2','8','Client doesn''t know','ACTIVE');
@@ -513,7 +512,6 @@ INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('emplo
 
    
   
---- Prabhakaran Complete ----
 INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('address_data_quality','1','Full address reported','ACTIVE');
 INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('address_data_quality','2','Incomplete or estimated address reported','ACTIVE');
 INSERT INTO "stagv2015".hmis_type (name,value,description,status) values ('address_data_quality','8','Client doesn''t know','ACTIVE');

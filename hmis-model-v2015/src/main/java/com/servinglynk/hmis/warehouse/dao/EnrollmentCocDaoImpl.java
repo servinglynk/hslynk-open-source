@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,16 +44,19 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			{
 				EnrollmentCoc enrollmentCocModel = new EnrollmentCoc();
 				enrollmentCocModel.setId(UUID.randomUUID());
-				//enrollmentCocModel.setCocCode(enrollmentCoc.get;
-				//enrollmentCocModel.setProjectCoId(projectCoId);
-				//enrollmentCocModel.setProjectCoId(projectCoId);
-				enrollmentCocModel.setDateCreated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
-				enrollmentCocModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
+				enrollmentCocModel.setClientCode(enrollmentCoc.getCoCCode());;
+				enrollmentCocModel.setProjectGroupCode(enrollmentCoc.getProjectEntryID());
+				enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
+				enrollmentCocModel.setDateCreated(LocalDateTime.now());
+				enrollmentCocModel.setDateUpdated(LocalDateTime.now());
+				enrollmentCocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
+				enrollmentCocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(enrollmentCoc.getProjectEntryID()));
 				enrollmentCocModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
-				enrollmentCocModel.setExport(exportEntity);
 				exportEntity.addEnrollmentCoc(enrollmentCocModel);
+				enrollmentCocModel.setUserId(exportEntity.getUserId());
+				enrollmentCocModel.setExport(exportEntity);
 				insertOrUpdate(enrollmentCocModel);
 			}
 		}
@@ -96,5 +101,60 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
+	@Override
+	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc createEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc) {
+		enrollmentCoc.setId(UUID.randomUUID());
+			insert(enrollmentCoc);
+		return enrollmentCoc;
+	}
+
+
+	@Override
+	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc updateEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc) {
+			update(enrollmentCoc);
+		return enrollmentCoc;
+	}
+
+
+	@Override
+	public void deleteEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc) {
+			delete(enrollmentCoc);
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getEnrollmentCocById(UUID enrollmentCocId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+		criteria.add(Restrictions.eq("id", enrollmentCocId));
+		List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> enrollmentCoc = (List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc>) findByCriteria(criteria);
+		if(enrollmentCoc.size()>0) return enrollmentCoc.get(0);
+		return null;
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getEnrollmentCocByDedupEnrollmentCocId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+		criteria.add(Restrictions.eq("dedupClientId", id));
+		List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> enrollmentCoc = (List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc>) findByCriteria(criteria);
+		if(enrollmentCoc !=null && enrollmentCoc.size()>0) return enrollmentCoc.get(0);
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> getAllEnrollmentCoc(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> enrollmentCoc = (List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc>) findByCriteria(criteria,startIndex,maxItems);
+		return enrollmentCoc;
+	}
+	
+	
+	public long getEnrollmentCocCount(){
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);	
+		return countRows(criteria);
+	}
+
 
 }
