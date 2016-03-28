@@ -142,7 +142,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 * @return A Integer object (this.hpScreenScore)
 	 */
 	@Basic( optional = true )
-	@Column( name = "hp_screening_score"  )
+	@Column( name = "hp_screen_score"  )
 	public Integer getHpScreeningScore() {
 		return this.hpScreeningScore;
 		
@@ -295,7 +295,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 * @return A String object (this.vamcStation)
 	 */
 	@Basic( optional = true )
-	@Column( name = "vamc_station", length = 50  )
+	@Column( name = "vamc_staction", length = 50  )
 	public String getVamcStation() {
 		return this.vamcStation;
 		

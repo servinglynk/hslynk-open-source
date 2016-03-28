@@ -22,7 +22,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSour
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 public class BulkUploadHelperTest {
 
@@ -112,7 +111,7 @@ public class BulkUploadHelperTest {
 		assertEquals(enrollCoc.size(), 2);
 		EnrollmentCoC enrollmentCoC = enrollCoc.get(0);
 		assertEquals(enrollmentCoC.getEnrollmentCoCID(),56332);
-		assertEquals(enrollmentCoC.getCoCCode(),"BZ-123");
+		assertEquals(enrollmentCoC.getClientCoC(),"BZ-123");
 		assertEquals(enrollmentCoC.getProjectEntryID(), "w5641");
 		assertEquals(enrollmentCoC.getUserID(), "DU5m");
 		enrollCoc.size();
@@ -183,7 +182,7 @@ public class BulkUploadHelperTest {
 		 assertEquals(incomeAndSources.getIncomeAndSourcesID(), "32dd");
 		 assertEquals(incomeAndSources.getIncomeFromAnySource(), 1);
 		 assertEquals(incomeAndSources.getOtherSource(), 1);
-		 assertEquals(incomeAndSources.getOtherSourceAmount(),156.47000122070312,0.0002);
+		 assertEquals(incomeAndSources.getOtherAmount(),156.47000122070312,0.0002);
 		 assertEquals(incomeAndSources.getOtherSourceIdentify(), "some other source here");
 		 assertEquals(incomeAndSources.getPension(), 1);
 		 assertEquals(incomeAndSources.getPensionAmount(),7865.31982421875, 0.0002);

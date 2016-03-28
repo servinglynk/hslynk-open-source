@@ -3,6 +3,7 @@ CREATE SCHEMA "v2015";
 DROP SEQUENCE IF EXISTS "v2015".bulk_upload_id_seq;
 
 DROP TABLE IF EXISTS "v2015".hmis_type;
+DROP TABLE IF EXISTS "v2014".path_status;
 DROP TABLE IF EXISTS "v2015".rhybcp_status;
 DROP TABLE IF EXISTS "v2015".employment;
 DROP TABLE IF EXISTS "v2015".health_status;
@@ -11,7 +12,6 @@ DROP TABLE IF EXISTS "v2015".site;
 DROP TABLE IF EXISTS "v2015".inventory;
 DROP TABLE IF EXISTS "v2015".funder;	
 DROP TABLE IF EXISTS "v2015".enrollment_coc;
-DROP TABLE IF EXISTS "v2015".path_status;
 DROP TABLE IF EXISTS "v2015".medicalassistance;
 DROP TABLE IF EXISTS "v2015".domesticviolence;
 DROP TABLE IF EXISTS "v2015".disabilities;
@@ -2287,7 +2287,7 @@ create table "v2015".exitPath
 (
 	"id" uuid not null, 
 	connection_with_soar integer,
-	"exitId" uuid,
+	"exitid" uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2303,7 +2303,7 @@ create table "v2015".exitPath
 		REFERENCES v2015.export (id) MATCH SIMPLE
 		ON UPDATE NO ACTION ON DELETE NO ACTION,
 		constraint "exit_path_pkey" primary key ("id"),
-		constraint "exit_fkey" foreign key ("exitId")
+		constraint "exit_fkey" foreign key ("exitid")
 		references v2015.exit(id) match simple
 		on update no action on delete no action
 )

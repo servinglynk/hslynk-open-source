@@ -73,7 +73,6 @@ import com.servinglynk.hmis.warehouse.dao.PathstatusDao;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ProjectDao;
 import com.servinglynk.hmis.warehouse.dao.ProjectDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.ProjectGroupDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ResidentialmoveindateDao;
 import com.servinglynk.hmis.warehouse.dao.ResidentialmoveindateDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDao;
@@ -238,10 +237,10 @@ public class DatabaseConfig {
 	public NoncashbenefitsDao noncashbenefitsDao() { 
 		return new NoncashbenefitsDaoImpl();
 	}
-	@Bean
-	public OrganizationDao organizationDao() { 
-		return new OrganizationDaoImpl();
-	}
+//	@Bean
+//	public OrganizationDao organizationDao() { 
+//		return new OrganizationDaoImpl();
+//	}
 	@Bean
 	public PathstatusDao pathstatusDao() { 
 		return new PathstatusDaoImpl();
@@ -282,10 +281,10 @@ public class DatabaseConfig {
 		return new BulkUploadHelper();
 	}
 	
-	@Bean
-	public ProjectGroupDaoImpl projectGroupDao(){
-		return new ProjectGroupDaoImpl();
-	}
+//	@Bean
+//	public ProjectGroupDaoImpl projectGroupDao(){
+//		return new ProjectGroupDaoImpl();
+//	}
 	@Bean
 	public CocDaoImpl cocDao(){
 		return new CocDaoImpl();

@@ -10,7 +10,8 @@ import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,10 @@ public class BulkUploaderTest {
 				bullkUpload.setInputpath(path.getPath());
 				bullkUpload.setId(2L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
+				assertNotNull(exportEntity);
+				assertEquals("",exportEntity.getExportperiodtype());
 	}
 	
 	@Test

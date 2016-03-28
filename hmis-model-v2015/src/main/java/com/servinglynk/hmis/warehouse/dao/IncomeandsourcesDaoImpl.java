@@ -66,7 +66,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setGaamount(new BigDecimal(incomeAndSources.getGAAmount()));
 				incomeAndSourcesModel.setIncomefromanysource(IncomeandsourcesIncomefromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getIncomeFromAnySource())));
 				incomeAndSourcesModel.setOthersource(IncomeandsourcesOthersourceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getOtherSource())));
-				incomeAndSourcesModel.setOthersourceamount(new BigDecimal(incomeAndSources.getOtherSourceAmount()));
+				incomeAndSourcesModel.setOthersourceamount(new BigDecimal(incomeAndSources.getOtherAmount()));
 				incomeAndSourcesModel.setOthersourceidentify(incomeAndSources.getOtherSourceIdentify());
 				incomeAndSourcesModel.setPension(IncomeandsourcesPensionEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getPension())));
 				incomeAndSourcesModel.setPensionamount(new BigDecimal(incomeAndSources.getPensionAmount()));

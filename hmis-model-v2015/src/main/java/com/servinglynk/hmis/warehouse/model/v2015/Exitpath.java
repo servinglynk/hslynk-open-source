@@ -115,7 +115,7 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = true )
-	@JoinColumn(name = "exitId", nullable = true )
+	@JoinColumn(name = "exitid", nullable = true )
 	public Exit getExitid() {
 		return this.exitid;
 		
@@ -127,8 +127,8 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: exitid.
 	 * @param exitid the exitid value you wish to set
 	 */
-	public void setExitid(final Exit exitid) {
-		this.exitid = exitid;
+	public void setExitId(final Exit exitId) {
+		this.exitid = exitId;
 	}
 
 	 /**
@@ -178,7 +178,7 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setDateUpdatedFromSource(this.getDateUpdatedFromSource());
 		copy.setDeleted(this.isDeleted());
-		copy.setExitid(this.getExitid());
+		copy.setExitId(this.getExitid());
 		copy.setExport(this.getExport());
 		copy.setId(this.getId());
 		copy.setParentId(this.getParentId());

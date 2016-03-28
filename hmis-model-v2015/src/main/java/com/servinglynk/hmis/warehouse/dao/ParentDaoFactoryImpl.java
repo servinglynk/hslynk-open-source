@@ -5,9 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
 
-import Contact.ContactDao;
-import Entryrhsp.EntryrhspDao;
-
 @Component
 public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {
 	@Autowired
@@ -71,8 +68,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
 	@Autowired
 	private ExportDao exportDao;
-	@Autowired
-	private ProjectGroupDao projectGroupDao;
 	@Autowired
 	private CocDao cocDao;
 	@Autowired
@@ -518,10 +513,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	
 	public void setExportDao(ExportDao exportDao) {
 		this.exportDao = exportDao;
-	}
-
-	public void setProjectGroupDao(ProjectGroupDao projectGroupDao) {
-		this.projectGroupDao = projectGroupDao;
 	}
 
 	public CocDao getCocDao() {

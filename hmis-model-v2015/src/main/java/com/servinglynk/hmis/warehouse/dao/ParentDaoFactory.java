@@ -2,9 +2,6 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
 
-import Contact.ContactDao;
-import Entryrhsp.EntryrhspDao;
-
 public interface ParentDaoFactory extends BaseDaoFactory {
 	
 	BulkUploaderDao getBulkUploaderDao();

@@ -77,7 +77,7 @@ hmis-developer-service/.classpath
 hmis-developer-service/.project
 hmis-developer-service/.idea
 hmis-developer-service/*.iml
-hmis-developer-service/target
+hmis-developer-service/target/*
 hmis-developer-service/bin
 hmis-developer-service/target/*
 hmis-developer-service/bin/*
@@ -107,7 +107,7 @@ hmis-model-v2014/.classpath
 hmis-model-v2014/.project
 hmis-model-v2014/.idea
 hmis-model-v2014/*.iml
-hmis-model-v2014/target
+hmis-model-v2014/target*
 hmis-model-v2014/bin
 
 hmis-model-v2015/target/*
@@ -117,7 +117,7 @@ hmis-model-v2015/.classpath
 hmis-model-v2015/.project
 hmis-model-v2015/.idea
 hmis-model-v2015/*.iml
-hmis-model-v2015/target
+hmis-model-v2015/target/*
 hmis-model-v2015/bin
 
 hmis-notification-core/target/*
