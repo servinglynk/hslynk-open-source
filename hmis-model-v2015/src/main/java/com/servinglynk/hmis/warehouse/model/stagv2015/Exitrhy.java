@@ -146,7 +146,7 @@ public class Exitrhy  extends HmisBaseStagingModel implements Cloneable, Seriali
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = true )
-	@JoinColumn(name = "exitId", nullable = true )
+	@JoinColumn(name = "exitid", nullable = true )
 	public Exit getExitid() {
 		return this.exitid;
 

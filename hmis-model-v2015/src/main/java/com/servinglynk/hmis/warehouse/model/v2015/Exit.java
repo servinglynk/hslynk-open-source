@@ -198,7 +198,7 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: exitpath.
 	 * @return A Set&lt;Exitpath&gt; object (this.exitpath)
 	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitId"  )
+ 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitid"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
 	@Column( nullable = false  )
@@ -212,7 +212,7 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	 * @param exitpath item to add
 	 */
 	public void addExitpath(Exitpath exitpath) {
-		exitpath.setExitId(this);
+		exitpath.setExitid(this);
 		this.exitpaths.add(exitpath);
 	}
 

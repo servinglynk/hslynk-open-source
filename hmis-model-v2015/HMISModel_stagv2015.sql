@@ -2345,7 +2345,7 @@ with (
 create table "stagv2015".exitRHY
 (
 	"id" uuid not null, 
-	"exitId" uuid,
+	"exitid" uuid,
 	project_completion_status integer,
 	early_exit_reason integer,
 	family_reunification_achieved integer,
@@ -2373,7 +2373,7 @@ create table "stagv2015".exitRHY
 		REFERENCES stagv2015.export (id) MATCH SIMPLE
 		ON UPDATE NO ACTION ON DELETE NO ACTION,
 		constraint "exitRHY_pkey" primary key ("id"),
-		constraint "exitRHY_fkey" foreign key ("exitId")
+		constraint "exitRHY_fkey" foreign key ("exitid")
 		references stagv2015.exit("id") match simple
 		on update no action on delete no action
 )

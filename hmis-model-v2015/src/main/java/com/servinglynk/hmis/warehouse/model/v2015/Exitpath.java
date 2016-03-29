@@ -127,8 +127,8 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: exitid.
 	 * @param exitid the exitid value you wish to set
 	 */
-	public void setExitId(final Exit exitId) {
-		this.exitid = exitId;
+	public void setExitid(final Exit exitid) {
+		this.exitid = exitid;
 	}
 
 	 /**
@@ -178,7 +178,7 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setDateUpdatedFromSource(this.getDateUpdatedFromSource());
 		copy.setDeleted(this.isDeleted());
-		copy.setExitId(this.getExitid());
+		copy.setExitid(this.getExitid());
 		copy.setExport(this.getExport());
 		copy.setId(this.getId());
 		copy.setParentId(this.getParentId());
