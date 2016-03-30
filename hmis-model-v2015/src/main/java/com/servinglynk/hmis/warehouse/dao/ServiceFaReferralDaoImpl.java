@@ -1,10 +1,10 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.math.*;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
@@ -12,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ServiceFAReferral;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -23,18 +23,18 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	public void hydrateStaging(ExportDomain domain) {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-		List<ServiceFAReferral> serviceFaReferral = export.getServiceFAReferral();
-		if (serviceFaReferral != null && serviceFaReferral.size() > 0) {
-			for (ServiceFAReferral serviceFaReferrals : serviceFaReferral) {
+		List<Services> services = export.getServices();
+		if (services != null && services.size() > 0) {
+			for (Services serviceFaReferrals : services) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral();
 				UUID serviceFaReferralUUID = UUID.randomUUID();
 				serviceFaReferralModel.setId(serviceFaReferralUUID);
 				serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-				serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFaAmount()));
-				serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
+				serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
+				//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
 				serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
 				serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
-				serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getServiceCategory()).intValue());
+			//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
 				serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
 				serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
 								

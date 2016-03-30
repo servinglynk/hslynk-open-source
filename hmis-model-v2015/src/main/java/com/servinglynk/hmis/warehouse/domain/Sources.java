@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -343,7 +344,7 @@ public class Sources {
             "residentialMoveInDate",
             "rhybcpStatus",
             /*"services",*/
-            "serviceFAReferral",
+            "services",
             "site",
             "clientVeteranInfo",
             "worstHousingSituation",
@@ -420,10 +421,8 @@ public class Sources {
             protected List<ResidentialMoveInDate> residentialMoveInDate;
             @XmlElement(name = "RHYBCPStatus", required = true)
             protected List<RHYBCPStatus> rhybcpStatus;
-           /* @XmlElement(name = "Services", required = true)
-            protected List<Services> services;*/
-            @XmlElement(name = "ServiceFAReferral", required = true)
-            protected List<ServiceFAReferral> serviceFAReferral;
+            @XmlElement(name = "Services", required = true)
+            protected List<Services> services;
             @XmlElement(name = "Site", required = true)
             protected List<Site> site;
             @XmlElement(name = "ClientVeteranInfo", required = true)
@@ -1314,8 +1313,8 @@ public class Sources {
            /* public List<Services> getServices() {
                 return services;
             }*/
-            public List<ServiceFAReferral> getServiceFAReferral() {
-                return serviceFAReferral;
+            public List<Services> getServices() {
+                return services;
             }
             
 
@@ -1330,8 +1329,8 @@ public class Sources {
             /*public void setServices(List<Services> value) {
                 this.services = value;
             }*/
-            public void setServiceFAReferral(List<ServiceFAReferral> value) {
-                this.serviceFAReferral = value;
+            public void setServices(List<Services> value) {
+                this.services = value;
             }
             
 
@@ -12811,7 +12810,7 @@ public class Sources {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-                /*"servicesID",
+                "servicesID",
                 "projectEntryID",
                 "dateProvided",
                 "recordType",
@@ -12819,25 +12818,16 @@ public class Sources {
                 "otherTypeProvided",
                 "subTypeProvided",
                 "faAmount",
-                "referralOutcome"*/
-                	"serviceFaReferralID",
-                    "projectEntryID",
-                    "dateProvided",
-                    "serviceCategory",
-                    "funderList",
-                    "typeProvided",
-                    "otherTypeProvided",
-                    "subTypeProvided",
-                    "faAmount",
-                    "referralOutcome"
+                "referralOutcome"
             })
-            public static class /*Services*/ServiceFAReferral {
+            public static class Services {
 
-                /*@XmlElement(name = "ServicesID", required = true)
+                @XmlElement(name = "ServicesID", required = true)
                 protected String servicesID;
                 @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
                 @XmlElement(name = "DateProvided", required = true)
+                @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar dateProvided;
                 @XmlElement(name = "RecordType")
                 protected short recordType;
@@ -12850,62 +12840,17 @@ public class Sources {
                 @XmlElement(name = "FAAmount")
                 protected float faAmount;
                 @XmlElement(name = "ReferralOutcome")
-                protected byte referralOutcome;*/
-            	
-            	@XmlElement(name = "ServiceFaReferralID", required = true)
-                protected String serviceFaReferralID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
-                @XmlElement(name = "DateProvided", required = true)
-                protected XMLGregorianCalendar dateProvided;
-                @XmlElement(name = "ServiceCategory")
-                protected int serviceCategory;
-                @XmlElement(name = "FunderList")
-                protected int funderList; 
-                @XmlElement(name = "TypeProvided")
-                protected int typeProvided;
-                @XmlElement(name = "OtherTypeProvided", required = true)
-                protected String otherTypeProvided;
-                @XmlElement(name = "SubTypeProvided")
-                protected byte subTypeProvided;
-                @XmlElement(name = "FAAmount")
-                protected float faAmount;
-                @XmlElement(name = "ReferralOutcome")
                 protected byte referralOutcome;
-                @XmlAttribute
+                @XmlAttribute(name = "dateCreated")
+                @XmlSchemaType(name = "dateTime")
                 protected XMLGregorianCalendar dateCreated;
-                @XmlAttribute
+                @XmlAttribute(name = "dateUpdated")
+                @XmlSchemaType(name = "dateTime")
                 protected XMLGregorianCalendar dateUpdated;
-                @XmlAttribute
+                @XmlAttribute(name = "userID")
                 protected String userID;
-                
-                
 
-                public int getServiceCategory() {
-					return serviceCategory;
-				}
-
-				public void setServiceCategory(int value) {
-					this.serviceCategory = value;
-				}
-
-				public int getFunderList() {
-					return funderList;
-				}
-
-				public void setFunderList(int value) {
-					this.funderList = value;
-				}
-
-				public float getFaAmount() {
-					return faAmount;
-				}
-
-				public void setFaAmount(float value) {
-					this.faAmount = value;
-				}
-
-				/**
+                /**
                  * Gets the value of the servicesID property.
                  * 
                  * @return
@@ -12913,8 +12858,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getServiceFaReferralID() {
-                    return serviceFaReferralID;
+                public String getServicesID() {
+                    return servicesID;
                 }
 
                 /**
@@ -12925,8 +12870,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setServiceFaReferralID(String value) {
-                    this.serviceFaReferralID = value;
+                public void setServicesID(String value) {
+                    this.servicesID = value;
                 }
 
                 /**
@@ -12981,23 +12926,23 @@ public class Sources {
                  * Gets the value of the recordType property.
                  * 
                  */
-               /* public short getRecordType() {
+                public short getRecordType() {
                     return recordType;
-                }*/
+                }
 
                 /**
                  * Sets the value of the recordType property.
                  * 
                  */
-                /*public void setRecordType(short value) {
+                public void setRecordType(short value) {
                     this.recordType = value;
-                }*/
+                }
 
                 /**
                  * Gets the value of the typeProvided property.
                  * 
                  */
-                public int getTypeProvided() {
+                public short getTypeProvided() {
                     return typeProvided;
                 }
 
@@ -13005,7 +12950,7 @@ public class Sources {
                  * Sets the value of the typeProvided property.
                  * 
                  */
-                public void setTypeProvided(int value) {
+                public void setTypeProvided(short value) {
                     this.typeProvided = value;
                 }
 
@@ -13154,6 +13099,7 @@ public class Sources {
                 }
 
             }
+
 
 
             /**
