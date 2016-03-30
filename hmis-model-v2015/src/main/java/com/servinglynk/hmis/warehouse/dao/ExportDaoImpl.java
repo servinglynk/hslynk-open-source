@@ -1,8 +1,11 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -40,4 +43,11 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		return null;
 	}
 
+	
+		public Export getExportById(UUID id) throws Exception{
+			DetachedCriteria query = DetachedCriteria.forClass(Export.class);
+			query.add(Restrictions.eq("id",id));
+			List<Export> list = (List<Export>) findByCriteria(query);
+			return list.get(0);
+		}
 }

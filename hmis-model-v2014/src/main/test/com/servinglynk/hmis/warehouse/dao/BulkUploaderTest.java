@@ -80,15 +80,13 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception
 	{
-		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("INITIAL");
-		if(uploadEntities!=null && uploadEntities.size() >0 ) {
-			for(BulkUpload bullkUpload : uploadEntities) {
-			//	bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\HUD_4_0__6.xml");
-				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
-			}
-		}
-		//logger.info("========Bulk Uploader processed ======");
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload bullkUpload = new BulkUpload();
+		bullkUpload.setInputPath(path.getPath());
+		bullkUpload.setId(2L);
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("PG0001");
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 	}
 	
 	@Test

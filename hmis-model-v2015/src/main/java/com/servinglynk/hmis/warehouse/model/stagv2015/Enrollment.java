@@ -27,6 +27,8 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
+import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
+import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 
 
@@ -128,9 +130,9 @@ public class Enrollment extends HmisBaseStagingModel implements Cloneable, Seria
 	/** Field mapping. */
 	private EnrollmentRelationshiptohohEnum relationshiptohoh;
 	/** Field mapping. */
-	private Integer residenceprior;
+	private EnrollmentResidencepriorEnum residenceprior;
 	/** Field mapping. */
-	private Integer residencepriorlengthofstay;
+	private EnrollmentResidencepriorlengthofstayEnum residencepriorlengthofstay;
 	/** Field mapping. */
 	private Set<Residentialmoveindate> residentialmoveindates = new HashSet<Residentialmoveindate>();
 
@@ -907,42 +909,51 @@ public class Enrollment extends HmisBaseStagingModel implements Cloneable, Seria
 	}
 
 	 /**
-	 * Return the value associated with the column: residenceprior.
-	 * @return A Integer object (this.residenceprior)
-	 */
-	public Integer getResidenceprior() {
-		return this.residenceprior;
+		 * Return the value associated with the column: residenceprior.
+		 * @return A EnrollmentResidencepriorEnum object (this.residenceprior)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnumType")
+		@Basic( optional = true )
+		@Column
+		public EnrollmentResidencepriorEnum getResidenceprior() {
+			return this.residenceprior;
+			
+		}
+		
 
-	}
+	  
+		 /**  
+		 * Set the value related to the column: residenceprior.
+		 * @param residenceprior the residenceprior value you wish to set
+		 */
+		public void setResidenceprior(final EnrollmentResidencepriorEnum residenceprior) {
+			this.residenceprior = residenceprior;
+		}
+
+		 /**
+		 * Return the value associated with the column: residencepriorlengthofstay.
+		 * @return A EnrollmentResidencepriorlengthofstayEnum object (this.residencepriorlengthofstay)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnumType")
+		@Basic( optional = true )
+		@Column
+		public EnrollmentResidencepriorlengthofstayEnum getResidencepriorlengthofstay() {
+			return this.residencepriorlengthofstay;
+			
+		}
+		
+
+	  
+		 /**  
+		 * Set the value related to the column: residencepriorlengthofstay.
+		 * @param residencepriorlengthofstay the residencepriorlengthofstay value you wish to set
+		 */
+		public void setResidencepriorlengthofstay(final EnrollmentResidencepriorlengthofstayEnum residencepriorlengthofstay) {
+			this.residencepriorlengthofstay = residencepriorlengthofstay;
+		}
 
 
 
-	 /**
-	 * Set the value related to the column: residenceprior.
-	 * @param residenceprior the residenceprior value you wish to set
-	 */
-	public void setResidenceprior(final Integer residenceprior) {
-		this.residenceprior = residenceprior;
-	}
-
-	 /**
-	 * Return the value associated with the column: residencepriorlengthofstay.
-	 * @return A Integer object (this.residencepriorlengthofstay)
-	 */
-	public Integer getResidencepriorlengthofstay() {
-		return this.residencepriorlengthofstay;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: residencepriorlengthofstay.
-	 * @param residencepriorlengthofstay the residencepriorlengthofstay value you wish to set
-	 */
-	public void setResidencepriorlengthofstay(final Integer residencepriorlengthofstay) {
-		this.residencepriorlengthofstay = residencepriorlengthofstay;
-	}
 
 	 /**
 	 * Return the value associated with the column: residentialmoveindate.

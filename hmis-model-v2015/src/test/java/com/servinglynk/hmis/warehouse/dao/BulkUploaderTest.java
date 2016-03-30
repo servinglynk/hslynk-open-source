@@ -40,6 +40,9 @@ public class BulkUploaderTest {
 	BulkUploaderDao dao;
 	
 	@Autowired
+	ExportDao exportDao;
+	
+	@Autowired
 	ParentDaoFactory factory;
 	
 	@Test 
@@ -88,8 +91,9 @@ public class BulkUploaderTest {
 				bullkUpload.setId(2L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
-//				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
-//				assertNotNull(exportEntity);
+			//	com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
+				//(com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
+			//	assertNotNull(exportEntity);
 //				assertEquals("",exportEntity.getExportperiodtype());
 	}
 	

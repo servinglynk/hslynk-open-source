@@ -1255,9 +1255,9 @@ CREATE TABLE "v2015".enrollment
 	entrydate timestamp,
 	householdid uuid,
 	relationshiptohoh "v2015".relationship_to_head_of_household,
-	residencePrior integer,
 	otherresidenceprior character varying(50),
-	residencePriorLengthOfStay integer,
+	residencePrior "v2015".residence_prior,
+	residencePriorlengthofstay "v2015".residence_prior_length_of_stay,
 	disablingCondition "v2015".five_val_dk_refused,
 	housingstatus "v2015".housing_status,
 	entryFromStreetESSH integer,
@@ -1460,7 +1460,7 @@ WITH (
 );
 
 
-CREATE TABLE "v2015".serviceFaReferral
+CREATE TABLE "v2015".service_fa_referral
 (
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
@@ -1487,7 +1487,7 @@ CREATE TABLE "v2015".serviceFaReferral
     REFERENCES v2015.export (id) MATCH SIMPLE
     ON UPDATE NO ACTION ON DELETE NO ACTION,
 	CONSTRAINT service_fa_referral_pk PRIMARY KEY ("id"),
-	CONSTRAINT "enrollment_rhybcp_status_fk_key" FOREIGN KEY ("enrollmentid")
+	CONSTRAINT "service_fa_referral_fk_key" FOREIGN KEY ("enrollmentid")
 	REFERENCES v2015.enrollment ("id") MATCH SIMPLE
 	ON UPDATE NO ACTION ON DELETE NO ACTION
 )

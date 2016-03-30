@@ -161,8 +161,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		try {
 		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.stagv2015.Export export = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
-		parentDaoFactory.getClientDao().hydrateLive(export);
-		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
+	//	parentDaoFactory.getClientDao().hydrateLive(export);
+	//	parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
 		//parentDaoFactory.getDateofengagementDao().hydrateLive(export);
 		//parentDaoFactory.getOrganizationDao().hydrateLive(export);

@@ -40,7 +40,7 @@ import com.servinglynk.hmis.warehouse.util.IPojoGenEntity;
  */
 @Entity (name = "client_veteran_info_stagv2015")
 @Table(name = "client_veteran_info", catalog = "hmis", schema = "stagv2015")
-public class ClientVeteranInfo extends HmisBaseStagingModel implements Cloneable, Serializable, IPojoGenEntity {
+public class ClientVeteranInfo extends HmisBaseStagingModel implements Cloneable, Serializable {
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6287250433537253318L;
 

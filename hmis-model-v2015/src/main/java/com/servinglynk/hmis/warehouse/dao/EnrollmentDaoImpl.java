@@ -78,29 +78,29 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(enrollment
 												.getHousingStatus())));
-//				enrollmentModel
-//						.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
-//								.getStringValue(enrollment
-//										.getDisablingCondition())));
+				enrollmentModel
+						.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
+								.getStringValue(enrollment
+										.getDisablingCondition())));
 //				enrollmentModel.setYearshomeless(new Integer(
 //						BasicDataGenerator.getStringValue(enrollment
 //								.getYearsHomeless())));
-//				enrollmentModel
-//						.setResidenceprior(EnrollmentResidencepriorEnum
-//								.lookupEnum(BasicDataGenerator
-//										.getStringValue(enrollment
-//												.getResidencePrior())));
+				enrollmentModel
+						.setResidenceprior(EnrollmentResidencepriorEnum
+								.lookupEnum(BasicDataGenerator
+										.getStringValue(enrollment
+												.getResidencePrior())));
 //				enrollmentModel
 //						.setStatusdocumented(EnrollmentStatusdocumentedEnum.lookupEnum(BasicDataGenerator
 //								.getStringValue(enrollment
 //										.getStatusDocumented())));
-//				enrollmentModel
-//						.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
-//								.getResidencePriorLengthOfStay())));
-//				enrollmentModel
-//						.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
-//								.getStringValue(enrollment
-//										.getRelationshipToHoH())));
+				enrollmentModel
+						.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
+								.getResidencePriorLengthOfStay())));
+				enrollmentModel
+						.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
+								.getStringValue(enrollment
+										.getRelationshipToHoH())));
 				enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
 						.getLocalDateTime(enrollment.getDateCreated()));
 				enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator

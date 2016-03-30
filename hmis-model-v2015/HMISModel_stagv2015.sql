@@ -1255,9 +1255,9 @@ CREATE TABLE "stagv2015".enrollment
 	entrydate timestamp,
 	householdid uuid,
 	relationshiptohoh "stagv2015".relationship_to_head_of_household,
-	residencePrior integer,
 	otherresidenceprior character varying(50),
-	residencePriorLengthOfStay integer,
+	residencePrior "stagv2015".residence_prior,
+	residencePriorlengthofstay "stagv2015".residence_prior_length_of_stay,
 	disablingCondition "stagv2015".five_val_dk_refused,
 	housingstatus "stagv2015".housing_status,
 	entryFromStreetESSH integer,
@@ -1460,7 +1460,7 @@ WITH (
 );
 
 
-CREATE TABLE "stagv2015".serviceFaReferral
+CREATE TABLE "stagv2015".service_fa_referral
 (
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
