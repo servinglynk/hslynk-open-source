@@ -20,8 +20,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private BedinventoryDao bedinventoryDao;
 	@Autowired
-	private ClientDao clientDao;
-	@Autowired
 	private ConnectionwithsoarDao connectionwithsoarDao;
 	@Autowired
 	private DisabilitiesDao disabilitiesDao;
@@ -106,6 +104,11 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	@Autowired
 	private SharingRuleDao sharingRuleDao;
+	
+	@Autowired
+	private OrganizationDao organizationDao;
+	
+	
 	public SyncListDao getSyncListDao() {
 		return syncListDao;
 	}
@@ -141,12 +144,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setBedinventoryDao(BedinventoryDao bedinventoryDao) {
 		this.bedinventoryDao = bedinventoryDao;
-	}
-	public ClientDao getClientDao() {
-		return clientDao;
-	}
-	public void setClientDao(ClientDao clientDao) {
-		this.clientDao = clientDao;
 	}
 	public ConnectionwithsoarDao getConnectionwithsoarDao() {
 		return connectionwithsoarDao;
@@ -399,5 +396,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setSharingRuleDao(SharingRuleDao sharingRuleDao) {
 		this.sharingRuleDao = sharingRuleDao;
+	}
+	public OrganizationDao getOrganizationDao() {
+		return organizationDao;
+	}
+	public void setOrganizationDao(OrganizationDao organizationDao) {
+		this.organizationDao = organizationDao;
 	}		
+	
 }

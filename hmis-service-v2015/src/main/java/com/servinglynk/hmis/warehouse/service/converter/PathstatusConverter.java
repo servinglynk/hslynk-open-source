@@ -1,0 +1,29 @@
+package com.servinglynk.hmis.warehouse.service.converter; 
+
+import com.servinglynk.hmis.warehouse.core.model.Pathstatus;
+import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
+public class PathstatusConverter  extends BaseConverter {
+
+   public static com.servinglynk.hmis.warehouse.model.v2015.Pathstatus modelToEntity (Pathstatus model ,com.servinglynk.hmis.warehouse.model.v2015.Pathstatus entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2015.Pathstatus();
+       entity.setId(model.getPathstatusId());
+       entity.setDateOfStatus(model.getDateOfStatus());
+       entity.setClientEnrolledInPath(model.getClientEnrolledInPath());
+ if(model.getReasonNotEnrolled()!=null)
+       entity.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(model.getReasonNotEnrolled().toString()));
+       return entity;    
+   }
+
+
+   public static Pathstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2015.Pathstatus entity) {
+       Pathstatus model = new Pathstatus();
+       model.setPathstatusId(entity.getId());
+       model.setDateOfStatus(entity.getDateOfStatus());
+       model.setClientEnrolledInPath(entity.getClientEnrolledInPath());
+if(entity.getReasonNotEnrolled()!=null)
+       model.setReasonNotEnrolled(Integer.parseInt(entity.getReasonNotEnrolled().getValue()));
+       return model;
+   }
+
+
+}

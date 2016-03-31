@@ -16,8 +16,8 @@ import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChe
 import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
-import com.servinglynk.hmis.warehouse.base.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProfileServiceImpl;
@@ -55,6 +55,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		return new LocalApiAuthChecker();
 	}
 	
+	@Bean
+	public ClientServiceImpl clientService(){
+		return new ClientServiceImpl();
+	}
 	
 	 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
@@ -172,14 +176,7 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 public PermissionSetServiceImpl permissionSetService(){
 		 return new PermissionSetServiceImpl();
 	 }
-	 
-	 
-	 @Bean
-	 public OrganizationServiceImpl organizationService(){
-		 return new OrganizationServiceImpl();
-	 }
-	 
-	  
+	
 	 @Bean
 	 public ProjectGroupServiceImpl projectGroupService(){
 		 return new ProjectGroupServiceImpl();

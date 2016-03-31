@@ -7,6 +7,7 @@ bin/*
 *.iml
 target
 bin
+hmis-userservice/*
 
 hmis-admin/target/*
 hmis-admin/bin/*
@@ -100,25 +101,14 @@ hmis-load-processor/*.iml
 hmis-load-processor/target
 hmis-load-processo/bin
 
-hmis-model-v2014/target/*
-hmis-model-v2014/bin/*
-hmis-model-v2014/.settings/*
-hmis-model-v2014/.classpath
-hmis-model-v2014/.project
-hmis-model-v2014/.idea
-hmis-model-v2014/*.iml
-hmis-model-v2014/target*
-hmis-model-v2014/bin
-
-hmis-model-v2015/target/*
-hmis-model-v2015/bin/*
-hmis-model-v2015/.settings/*
-hmis-model-v2015/.classpath
-hmis-model-v2015/.project
-hmis-model-v2015/.idea
-hmis-model-v2015/*.iml
-hmis-model-v2015/target/*
-hmis-model-v2015/bin
+hmis-model-*/target/*
+hmis-model-*/.settings/*
+hmis-model-*/.classpath
+hmis-model-*/.project
+hmis-model-*/.idea
+hmis-model-*/*.iml
+hmis-model-*/target
+hmis-model-*/bin
 
 hmis-notification-core/target/*
 hmis-notification-core/bin/*
@@ -151,25 +141,25 @@ hmis-report-service/*.iml
 hmis-report-service/target
 hmis-report-service/bin
 
-hmis-serialize-v2014/target/*
-hmis-serialize-v2014/bin/*
-hmis-serialize-v2014/.settings/*
-hmis-serialize-v2014/.classpath
-hmis-serialize-v2014/.project
-hmis-serialize-v2014/.idea
-hmis-serialize-v2014/*.iml
-hmis-serialize-v2014/target
-hmis-serialize-v2014/bin
+hmis-serialize-*/target/*
+hmis-serialize-*/bin/*
+hmis-serialize-*/.settings/*
+hmis-serialize-*/.classpath
+hmis-serialize-*/.project
+hmis-serialize-*/.idea
+hmis-serialize-*/*.iml
+hmis-serialize-*/target
+hmis-serialize-*/bin
 
-hmis-service-v2014/target/*
-hmis-service-v2014/bin/*
-hmis-service-v2014/.settings/*
-hmis-service-v2014/.classpath
-hmis-service-v2014/.project
-hmis-service-v2014/.idea
-hmis-service-v2014/*.iml
-hmis-service-v2014/target
-hmis-service-v2014/bin
+hmis-service-*/target/*
+hmis-service-*/bin/*
+hmis-service-*/.settings/*
+hmis-service-*/.classpath
+hmis-service-*/.project
+hmis-service-*/.idea
+hmis-service-*/*.iml
+hmis-service-*/target
+hmis-service-*/bin
 
 
 hmis-sync/target/*
@@ -224,15 +214,15 @@ sync/*.iml
 sync/target
 sync/bin
 
-hmis-clientapi-v2014/target/*
-hmis-clientapi-v2014/bin/*
-hmis-clientapi-v2014/.settings/*
-hmis-clientapi-v2014/.classpath
-hmis-clientapi-v2014/.project
-hmis-clientapi-v2014/.idea
-hmis-clientapi-v2014/*.iml
-hmis-clientapi-v2014/target
-hmis-clientapi-v2014/bin
+hmis-clientapi-*/target/*
+hmis-clientapi-*/bin/*
+hmis-clientapi-*/.settings/*
+hmis-clientapi-*/.classpath
+hmis-clientapi-*/.project
+hmis-clientapi-*/.idea
+hmis-clientapi-*/*.iml
+hmis-clientapi-*/target
+hmis-clientapi-*/bin
 
 hmis-report-core/target/*
 hmis-report-core/bin/*
@@ -273,3 +263,5 @@ hmis-base-serialize/.idea
 hmis-base-serialize/*.iml
 hmis-base-serialize/target
 hmis-base-serialize/bin
+*.class
+hmis-model-v2015/target/*

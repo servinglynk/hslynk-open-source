@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.base.service.ClientService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
-import com.servinglynk.hmis.warehouse.base.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
@@ -57,6 +57,9 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired
 	private PermissionSetService permissionSetService;
+	
+	@Autowired
+	private ClientService clientService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -155,17 +158,6 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setPermissionSetService(PermissionSetService permissionSetService) {
 		this.permissionSetService = permissionSetService;
 	}
-
-	@Autowired
-	private OrganizationService organizationService;
-
-	public OrganizationService getOrganizationService() {
-		return organizationService;
-	}
-
-	public void setOrganizationService(OrganizationService organizationService) {
-		this.organizationService = organizationService;
-	}
 	
 	@Autowired ProjectGroupService projectGroupService;
 
@@ -177,5 +169,12 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setProjectGroupService(ProjectGroupService projectGroupService) {
 		this.projectGroupService = projectGroupService;
 	}
-	
+
+	public ClientService getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
+	}
 }

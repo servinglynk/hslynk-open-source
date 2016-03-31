@@ -16,8 +16,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private BedinventoryDao bedinventoryDao;
 	@Autowired
-	private ClientDao clientDao;
-	@Autowired
 	private DisabilitiesDao disabilitiesDao;
 	@Autowired
 	private DomesticviolenceDao domesticviolenceDao;
@@ -84,6 +82,8 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private ExitrhyDao exitrhyDao;
 	@Autowired
 	private ServiceFaReferralDao serviceFaReferralDao;
+	@Autowired
+	private OrganizationDao organizationDao;
 
 	/**
 	 * @return the bulkUploaderDao
@@ -145,23 +145,7 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setBedinventoryDao(BedinventoryDao bedinventoryDao) {
 		this.bedinventoryDao = bedinventoryDao;
 	}
-
-	/**
-	 * @return the clientDao
-	 */
-	public ClientDao getClientDao() {
-		return clientDao;
-	}
-
-	/**
-	 * @param clientDao
-	 *            the clientDao to set
-	 */
-	public void setClientDao(ClientDao clientDao) {
-		this.clientDao = clientDao;
-	}
-
-
+	
 	/**
 	 * @return the disabilitiesDao
 	 */
@@ -514,7 +498,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setExportDao(ExportDao exportDao) {
 		this.exportDao = exportDao;
 	}
-
 	public CocDao getCocDao() {
 		return cocDao;
 	}
@@ -577,6 +560,14 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	public void setServiceFaReferralDao(ServiceFaReferralDao serviceFaReferralDao) {
 		this.serviceFaReferralDao = serviceFaReferralDao;
+	}
+
+	public OrganizationDao getOrganizationDao() {
+		return organizationDao;
+	}
+
+	public void setOrganizationDao(OrganizationDao organizationDao) {
+		this.organizationDao = organizationDao;
 	}
 	
 }

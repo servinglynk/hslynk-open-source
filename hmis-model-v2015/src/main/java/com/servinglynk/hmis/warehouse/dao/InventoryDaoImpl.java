@@ -181,6 +181,21 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class);	
 		return countRows(criteria);
 	}
+
+
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2015.Inventory> getAllCocInventories(UUID projectCocId,
+			Integer startIndex, Integer maxItems) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public long getCocInventoriesCount(UUID projectCocId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	   

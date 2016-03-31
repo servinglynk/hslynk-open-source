@@ -3,12 +3,11 @@ package com.servinglynk.hmis.warehouse.service.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.servinglynk.hmis.warehouse.base.service.OrganizationService;
+import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
-import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
@@ -98,19 +97,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setInformationReleasesService(InformationReleasesService informationReleasesService) {
 		this.informationReleasesService = informationReleasesService;
 	}	
-	
-	
-	@Autowired
-	private ClientService clientService;
-
-	public ClientService getClientService() {
-		return clientService;
-	}
-
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
-	}	
-	
 
 	@Autowired
 	private OrganizationService organizationService;

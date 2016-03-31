@@ -19,7 +19,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project createProject(Project project,UUID organizationId,String caller){
-	   com.servinglynk.hmis.warehouse.model.base.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
+	   com.servinglynk.hmis.warehouse.model.v2014.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
 	   
        com.servinglynk.hmis.warehouse.model.v2014.Project pProject = ProjectConverter.modelToEntity(project, null);
        pProject.setOrganizationid(pOrganization);

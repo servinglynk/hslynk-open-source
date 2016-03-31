@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.v2015.Coc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
@@ -135,6 +136,31 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		return null;
 	}
 
+	   public com.servinglynk.hmis.warehouse.model.v2015.Project createProject(com.servinglynk.hmis.warehouse.model.v2015.Project project){
+	       insert(project);
+	       return project;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.v2015.Project updateProject(com.servinglynk.hmis.warehouse.model.v2015.Project project){
+	       update(project);
+	       return project;
+	   }
+	   public void deleteProject(com.servinglynk.hmis.warehouse.model.v2015.Project project){
+	       delete(project);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.v2015.Project getProjectById(UUID projectId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class, projectId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Project> getAllProjects(Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Project.class);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Project>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getProjectCount(){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Project.class);
+	       return countRows(criteria);
+	   }
+
+	   
+	 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Coc createCoc(
 			com.servinglynk.hmis.warehouse.model.v2015.Coc coc) {
@@ -169,8 +195,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		if(coc.size()>0) return coc.get(0);
 		return null;
 	}
-	@SuppressWarnings("unchecked")
-	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Coc getCocByDedupCliendId(UUID id,String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Coc.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
@@ -187,8 +211,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<com.servinglynk.hmis.warehouse.model.v2015.Coc> getAllCoc(Integer startIndex, Integer maxItems) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Coc.class);	
 		List<com.servinglynk.hmis.warehouse.model.v2015.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.v2015.Coc>) findByCriteria(criteria,startIndex,maxItems);
@@ -200,5 +222,22 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Coc.class);	
 		return countRows(criteria);
 	}
+
+
+
+	@Override
+	public List<Coc> getAllCocs(UUID projectId, Integer startIndex, Integer maxItems) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public long getCocsCount(UUID projectId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

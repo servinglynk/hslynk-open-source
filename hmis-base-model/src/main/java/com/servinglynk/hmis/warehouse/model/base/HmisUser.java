@@ -328,15 +328,15 @@ public class HmisUser  {
 	}
 	
 
-	private Organization organization;
+	private OrganizationEntity organization;
 
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="organization_id")
-	public Organization getOrganization() {
+	public OrganizationEntity getOrganization() {
 		return organization;
 	}
 
-	public void setOrganization(Organization organization) {
+	public void setOrganization(OrganizationEntity organization) {
 		this.organization = organization;
 	}
 

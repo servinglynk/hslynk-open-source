@@ -164,6 +164,11 @@
 			  <artifactId>hmis-base-model</artifactId>
 			  <version>${parent-version}</version>
 			</dependency>		
+			<dependency>
+			 <groupId>com.servinglynk.hmis.warehouse</groupId>
+			  <artifactId>hmis-base-service</artifactId>
+			  <version>${parent-version}</version>
+			</dependency>			
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-serialize-v2014</artifactId>

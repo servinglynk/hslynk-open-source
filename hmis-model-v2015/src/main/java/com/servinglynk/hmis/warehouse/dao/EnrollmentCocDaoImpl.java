@@ -103,37 +103,35 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	}
 	
 
-	@Override
-	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc createEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc) {
-		enrollmentCoc.setId(UUID.randomUUID());
-			insert(enrollmentCoc);
-		return enrollmentCoc;
-	}
+	   public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc createEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc){
+	       enrollmentCoc.setId(UUID.randomUUID()); 
+	       insert(enrollmentCoc);
+	       return enrollmentCoc;
+	   }
+	   public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc updateEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc){
+	       update(enrollmentCoc);
+	       return enrollmentCoc;
+	   }
+	   public void deleteEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc){
+	       delete(enrollmentCoc);
+	   }
+	   public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getEnrollmentCocById(UUID enrollmentCocId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc) get(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class, enrollmentCocId);
+	   }
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> getAllEnrollmentEnrollmentCocs(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentEnrollmentCocsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 
-	@Override
-	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc updateEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc) {
-			update(enrollmentCoc);
-		return enrollmentCoc;
-	}
-
-
-	@Override
-	public void deleteEnrollmentCoc(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCoc) {
-			delete(enrollmentCoc);
-		
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getEnrollmentCocById(UUID enrollmentCocId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
-		criteria.add(Restrictions.eq("id", enrollmentCocId));
-		List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> enrollmentCoc = (List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc>) findByCriteria(criteria);
-		if(enrollmentCoc.size()>0) return enrollmentCoc.get(0);
-		return null;
-	}
-	
 	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getEnrollmentCocByDedupEnrollmentCocId(UUID id,String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));

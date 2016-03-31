@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.servinglynk.hmis.warehouse.model.base.Organization;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
 import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
 
 @SuppressWarnings("serial")

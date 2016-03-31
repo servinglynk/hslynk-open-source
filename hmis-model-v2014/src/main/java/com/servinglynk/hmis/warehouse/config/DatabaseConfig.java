@@ -22,8 +22,6 @@ import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.ClientDao;
-import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CommercialsexualexploitationDao;
 import com.servinglynk.hmis.warehouse.dao.CommercialsexualexploitationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ConnectionwithsoarDao;
@@ -74,6 +72,8 @@ import com.servinglynk.hmis.warehouse.dao.MedicalassistanceDao;
 import com.servinglynk.hmis.warehouse.dao.MedicalassistanceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.NoncashbenefitsDao;
 import com.servinglynk.hmis.warehouse.dao.NoncashbenefitsDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.OrganizationDao;
+import com.servinglynk.hmis.warehouse.dao.OrganizationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactoryImpl;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDao;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDaoImpl;
@@ -208,10 +208,6 @@ public class DatabaseConfig {
 	public BedinventoryDao bedinventoryDao() {
 		return new BedinventoryDaoImpl();
 		
-	}
-	@Bean
-	public ClientDao clientDao() { 
-		return new ClientDaoImpl();
 	}
 	@Bean
 	public ConnectionwithsoarDao connectionwithsoarDao() {
@@ -401,5 +397,10 @@ public class DatabaseConfig {
 	@Bean
 	public DedupHelper dedupHelper(){
 		return new DedupHelper();
+	}
+	
+	@Bean
+	public OrganizationDaoImpl organizationDao(){
+		return new OrganizationDaoImpl();
 	}
 }

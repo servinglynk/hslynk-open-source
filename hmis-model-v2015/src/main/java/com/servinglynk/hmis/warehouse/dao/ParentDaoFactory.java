@@ -9,7 +9,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	ProjectDao getProjectDao();
 	AffiliationDao getAffiliationDao();
 	BedinventoryDao getBedinventoryDao();
-	ClientDao getClientDao();
 	DisabilitiesDao getDisabilitiesDao();
 	DomesticviolenceDao getDomesticviolenceDao();
 	EmploymentDao getEmploymentDao();
