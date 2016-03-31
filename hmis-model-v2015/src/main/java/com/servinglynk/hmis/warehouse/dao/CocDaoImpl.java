@@ -54,6 +54,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				cocModel.setExport(exportEntity);
 				cocModel.setProjectGroupCode(coc.getProjectID());
 				factory.getSiteDao().hydrateStaging(domain);
+				factory.getInventoryDao().hydrateStaging(domain);
 				insertOrUpdate(cocModel);
 				
 			}

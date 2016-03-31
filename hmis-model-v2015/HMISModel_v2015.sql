@@ -1,7 +1,7 @@
 DROP SCHEMA IF EXISTS "v2015" cascade;
 CREATE SCHEMA "v2015";
 DROP SEQUENCE IF EXISTS "v2015".bulk_upload_id_seq;
-
+DROP SEQUENCE IF EXISTS "v2015".bulk_upload_activity_id_seq;
 DROP TABLE IF EXISTS "v2015".hmis_type;
 DROP TABLE IF EXISTS "v2014".path_status;
 DROP TABLE IF EXISTS "v2015".rhybcp_status;
@@ -32,6 +32,7 @@ DROP TABLE IF  EXISTS "v2015".sync;
 DROP TABLE IF EXISTS "v2015".client_veteran_info;
 DROP TABLE IF EXISTS "v2015".client;
 DROP TABLE IF EXISTS "v2015".bulk_upload;
+DROP TABLE IF EXISTS "v2015".bulk_upload_activity;
 DROP TABLE IF EXISTS "v2015".export; 
 DROP TABLE IF EXISTS "v2015".source;
 DROP TABLE IF EXISTS v2015.exitRHY;
@@ -1468,7 +1469,7 @@ CREATE TABLE "v2015".service_fa_referral
   service_category integer,
   funder_list integer,
   type_provided integer,
-  other_type_provided character(8),
+  other_type_provided text,
   sub_type_provided integer,
   fa_amount numeric(10,2),
   referral_outcome integer,
@@ -2434,7 +2435,7 @@ WITH (
 
 CREATE TABLE "v2015".bulk_upload
 (
-  id bigint NOT NULL,
+  id serial NOT NULL,
   inputPath text,
   status character(10),
   "project_group_code" character varying(8),
@@ -2456,8 +2457,29 @@ CREATE TABLE "v2015".bulk_upload
 WITH (
   OIDS=FALSE
 );
+--CREATE SEQUENCE "v2015".bulk_upload_id_seq START 1;
 
-CREATE SEQUENCE "v2015".bulk_upload_id_seq START 1;
+create table "v2015".bulk_upload_activity
+(
+ id serial not null,
+ bulk_upload_id bigint not null,
+ table_name character varying(100),
+ records_processed bigint,
+ description text,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+     CONSTRAINT export_fkey FOREIGN KEY (export_id)
+      REFERENCES v2015.export (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT bulk_upload_activity_pk PRIMARY KEY ("id")
+);
 
 CREATE TABLE "v2015".hud_coc_report_question_7(
 id bigint primary key NOT NULL,

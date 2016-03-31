@@ -84,6 +84,8 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private ExitrhyDao exitrhyDao;
 	@Autowired
 	private ServiceFaReferralDao serviceFaReferralDao;
+	@Autowired
+	private OrganizationDao organizationDao;
 
 	/**
 	 * @return the bulkUploaderDao
@@ -578,5 +580,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setServiceFaReferralDao(ServiceFaReferralDao serviceFaReferralDao) {
 		this.serviceFaReferralDao = serviceFaReferralDao;
 	}
-	
+
+	public OrganizationDao getOrganizationDao() {
+		return organizationDao;
+	}
+
+	public void setOrganizationDao(OrganizationDao organizationDao) {
+		this.organizationDao = organizationDao;
+	}
 }

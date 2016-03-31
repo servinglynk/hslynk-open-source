@@ -1468,7 +1468,7 @@ CREATE TABLE "stagv2015".service_fa_referral
   service_category integer,
   funder_list integer,
   type_provided integer,
-  other_type_provided character(8),
+  other_type_provided text,
   sub_type_provided integer,
   fa_amount numeric(10,2),
   referral_outcome integer,

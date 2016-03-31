@@ -12,6 +12,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
@@ -26,6 +27,9 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class OrganizationDaoImpl extends ParentDaoImpl implements
 		OrganizationDao {
+	
+	@Autowired
+	private ParentDaoFactory factory;
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -52,6 +56,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 exportEntity.addOrganization(organizationModel);
 				 hydrateCommonFields(organizationModel, domain);
 				 insertOrUpdate(organizationModel);
+				 factory.getProjectDao().hydrateStaging(domain);
 			 }
 		 }
 	}
@@ -69,6 +74,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
+					factory.getProjectDao().hydrateLive(export);
 				}
 			}
 

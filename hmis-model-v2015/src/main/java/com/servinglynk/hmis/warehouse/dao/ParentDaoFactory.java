@@ -14,6 +14,7 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	DomesticviolenceDao getDomesticviolenceDao();
 	EmploymentDao getEmploymentDao();
 	EnrollmentDao getEnrollmentDao();
+	OrganizationDao getOrganizationDao();
 	EnrollmentCocDao getEnrollmentCocDao();
 	ExitDao getExitDao();
 	ExithousingassessmentDao getExithousingassessmentDao();

@@ -61,9 +61,9 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setHmisUserDao(HmisUserDao hmisUserDao) {
 		this.hmisUserDao = hmisUserDao;
 	}
-	public OrganizationDao getOrganizationDao() {
-		return organizationDao;
-	}
+//	public OrganizationDao getOrganizationDao() {
+//		return organizationDao;
+//	}
 	public void setOrganizationDao(OrganizationDao organizationDao) {
 		this.organizationDao = organizationDao;
 	}

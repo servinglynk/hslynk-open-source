@@ -203,7 +203,7 @@ public class ServiceFaReferral extends HmisBaseStagingModel implements Cloneable
 	 * @return A String object (this.otherTypeProvided)
 	 */
 	@Basic( optional = true )
-	@Column( name = "other_type_provided", length = 8  )
+	@Column( name = "other_type_provided", length = 800  )
 	public String getOtherTypeProvided() {
 		return this.otherTypeProvided;
 

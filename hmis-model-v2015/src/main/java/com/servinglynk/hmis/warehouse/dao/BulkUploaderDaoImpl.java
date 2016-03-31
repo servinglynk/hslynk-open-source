@@ -94,12 +94,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
+			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
+			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
+			
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain);
-			parentDaoFactory.getProjectDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain);
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
-			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain);
 			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain);
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain);
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain);
