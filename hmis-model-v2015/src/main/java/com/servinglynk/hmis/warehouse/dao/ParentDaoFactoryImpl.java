@@ -569,8 +569,4 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setOrganizationDao(OrganizationDao organizationDao) {
 		this.organizationDao = organizationDao;
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 3bf05a6b14d0b51d692f3bd28ca2bd3e2b149099
 }

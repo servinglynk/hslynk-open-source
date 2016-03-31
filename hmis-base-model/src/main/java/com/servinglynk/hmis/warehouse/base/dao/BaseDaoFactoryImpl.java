@@ -64,19 +64,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setHmisUserDao(HmisUserDao hmisUserDao) {
 		this.hmisUserDao = hmisUserDao;
 	}
-<<<<<<< HEAD
-//	public OrganizationDao getOrganizationDao() {
-//		return organizationDao;
-//	}
-	public void setOrganizationDao(OrganizationDao organizationDao) {
-		this.organizationDao = organizationDao;
-=======
 	public HmisOrganizationDao getHmisOrganizationDao() {
 		return hmisOrganizationDao;
 	}
 	public void setOrganizationDao(HmisOrganizationDao organizationDao) {
 		this.hmisOrganizationDao = organizationDao;
->>>>>>> 3bf05a6b14d0b51d692f3bd28ca2bd3e2b149099
 	}
 	public ProjectGroupDao getProjectGroupDao() {
 		return projectGroupDao;
