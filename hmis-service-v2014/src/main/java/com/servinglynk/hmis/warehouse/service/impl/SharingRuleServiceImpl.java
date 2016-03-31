@@ -36,11 +36,11 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 			throw new RuntimeException("Atlease one Role required");
 		}
 		
-		com.servinglynk.hmis.warehouse.model.base.Organization fromOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getFromOrganization());
+		com.servinglynk.hmis.warehouse.model.v2014.Organization fromOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getFromOrganization());
 		
 		if(fromOrganization==null) throw new OrganizationNotFound("From Organization not found");
 		
-		com.servinglynk.hmis.warehouse.model.base.Organization toOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getToOrganization());
+		com.servinglynk.hmis.warehouse.model.v2014.Organization toOrganization = daoFactory.getOrganizationDao().getOrganizationById(sharingRule.getToOrganization());
 		
 		if(toOrganization==null) throw new OrganizationNotFound("To Organization not found");
 		

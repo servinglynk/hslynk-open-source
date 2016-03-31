@@ -49,5 +49,11 @@
 		<module>hmis-service-v2014</module>
 		<module>hmis-serialize-v2014</module>
 		<module>hmis-clientapi-v2014</module>
+		<module>hmis-clientapi-v2015</module>
+		
+		
+		
+		<module>hmis-service-v2015</module>
+		<module>hmis-serialize-v2015</module>
 	</modules>
 </project>

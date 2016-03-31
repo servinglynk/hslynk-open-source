@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -23,8 +22,6 @@ import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.ClientDao;
-import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDao;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CocDaoImpl;
@@ -67,8 +64,8 @@ import com.servinglynk.hmis.warehouse.dao.MedicalassistanceDao;
 import com.servinglynk.hmis.warehouse.dao.MedicalassistanceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.NoncashbenefitsDao;
 import com.servinglynk.hmis.warehouse.dao.NoncashbenefitsDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.OrganizationDao;
 import com.servinglynk.hmis.warehouse.dao.OrganizationDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.ParentDaoFactoryImpl;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDao;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ProjectDao;
@@ -83,10 +80,11 @@ import com.servinglynk.hmis.warehouse.dao.SiteDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.servinglynk.hmis.warehouse")
+//@ComponentScan("com.servinglynk.hmis.warehouse.dao.helper")
 @PropertySource("classpath:database.properties")
 public class DatabaseConfig {
 
@@ -138,7 +136,7 @@ public class DatabaseConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.entity","com.servinglynk.hmis.warehouse.model.v2015","com.servinglynk.hmis.warehouse.model.stagv2015");
+		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2015","com.servinglynk.hmis.warehouse.model.stagv2015");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
 		return sessionFactoryBean;
 	}
@@ -168,10 +166,6 @@ public class DatabaseConfig {
 	@Bean
 	public BedinventoryDao bedinventoryDao() {
 		return new BedinventoryDaoImpl();
-	}
-	@Bean
-	public ClientDao clientDao() { 
-		return new ClientDaoImpl();
 	}
 	@Bean
 	public DisabilitiesDao disabilitiesDao() { 
@@ -237,10 +231,6 @@ public class DatabaseConfig {
 	public NoncashbenefitsDao noncashbenefitsDao() { 
 		return new NoncashbenefitsDaoImpl();
 	}
-//	@Bean
-//	public OrganizationDao organizationDao() { 
-//		return new OrganizationDaoImpl();
-//	}
 	@Bean
 	public PathstatusDao pathstatusDao() { 
 		return new PathstatusDaoImpl();
@@ -281,10 +271,6 @@ public class DatabaseConfig {
 		return new BulkUploadHelper();
 	}
 	
-//	@Bean
-//	public ProjectGroupDaoImpl projectGroupDao(){
-//		return new ProjectGroupDaoImpl();
-//	}
 	@Bean
 	public CocDaoImpl cocDao(){
 		return new CocDaoImpl();
@@ -318,4 +304,17 @@ public class DatabaseConfig {
 		return new ServiceFaReferralDaoImpl();
 	}
 	
+	@Bean
+	public ParentDaoFactoryImpl parentDaoFactory(){
+		return new ParentDaoFactoryImpl();
+	}
+	@Bean
+	public DedupHelper dedupHelper(){
+		return new DedupHelper();
+	}
+	
+	@Bean
+	public OrganizationDaoImpl organizationDao(){
+		return new OrganizationDaoImpl();
+	}
 }

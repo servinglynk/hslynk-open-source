@@ -24,6 +24,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.v2015.Organization;
+
 
 
 /**
@@ -297,32 +300,32 @@ public class Export implements Cloneable, Serializable {
 	 * Return the value associated with the column: client.
 	 * @return A Set&lt;Client&gt; object (this.client)
 	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+ 	/*@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
-	@Column( nullable = false  )
+ 	@JoinColumn(name = "user_id", nullable = true )
 	public Set<Client> getClients() {
 		return this.clients;
 
 	}
 
-	/**
+	*//**
 	 * Adds a bi-directional link of type Client to the clients set.
 	 * @param client item to add
-	 */
+	 *//*
 	public void addClient(Client client) {
-		client.setExport(this);
+	//	client.setExport(this);
 		this.clients.add(client);
 	}
 
 
-	 /**
+	 *//**
 	 * Set the value related to the column: client.
 	 * @param client the client value you wish to set
-	 */
+	 *//*
 	public void setClients(final Set<Client> client) {
 		this.clients = client;
-	}
+	}*/
 
 	 /**
 	 * Return the value associated with the column: clientVeteranInfo.
@@ -1175,10 +1178,10 @@ public class Export implements Cloneable, Serializable {
 		this.noncashbenefitss = noncashbenefits;
 	}
 
-	 /**
+	/* *//**
 	 * Return the value associated with the column: organization.
 	 * @return A Set&lt;Organization&gt; object (this.organization)
-	 */
+	 *//*
  	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
@@ -1188,23 +1191,23 @@ public class Export implements Cloneable, Serializable {
 
 	}
 
-	/**
+	*//**
 	 * Adds a bi-directional link of type Organization to the organizations set.
 	 * @param organization item to add
-	 */
+	 *//*
 	public void addOrganization(Organization organization) {
-		organization.setExport(this);
+//		organization.setExport(this);
 		this.organizations.add(organization);
 	}
 
 
-	 /**
+	 *//**
 	 * Set the value related to the column: organization.
 	 * @param organization the organization value you wish to set
-	 */
+	 *//*
 	public void setOrganizations(final Set<Organization> organization) {
 		this.organizations = organization;
-	}
+	}*/
 
 	 /**
 	 * Return the value associated with the column: parentId.
@@ -1627,9 +1630,9 @@ public class Export implements Cloneable, Serializable {
 		if (this.getBulkUploads() != null) {
 			copy.getBulkUploads().addAll(this.getBulkUploads());
 		}
-		if (this.getClients() != null) {
+	/*	if (this.getClients() != null) {
 			copy.getClients().addAll(this.getClients());
-		}
+		}*/
 		if (this.getClientVeteranInfoes() != null) {
 			copy.getClientVeteranInfoes().addAll(this.getClientVeteranInfoes());
 		}
@@ -1710,9 +1713,9 @@ public class Export implements Cloneable, Serializable {
 		if (this.getNoncashbenefitss() != null) {
 			copy.getNoncashbenefitss().addAll(this.getNoncashbenefitss());
 		}
-		if (this.getOrganizations() != null) {
+	/*	if (this.getOrganizations() != null) {
 			copy.getOrganizations().addAll(this.getOrganizations());
-		}
+		}*/
 		copy.setParentId(this.getParentId());
 		if (this.getPathStatuses() != null) {
 			copy.getPathStatuses().addAll(this.getPathStatuses());

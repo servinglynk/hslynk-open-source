@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +15,12 @@ import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
+import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2015.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2015.Client;
+import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2015.Disabilities;
 import com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence;
@@ -40,11 +40,9 @@ import com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.model.v2015.Organization;
 import com.servinglynk.hmis.warehouse.model.v2015.Pathstatus;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
-import com.servinglynk.hmis.warehouse.model.v2015.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.model.v2015.Site;
-import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
@@ -92,7 +90,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
-			parentDaoFactory.getClientDao().hydrateStaging(domain);
+//			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
@@ -162,6 +160,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		try {
 		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.stagv2015.Export export = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
+
 	//	parentDaoFactory.getClientDao().hydrateLive(export);
 	//	parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);

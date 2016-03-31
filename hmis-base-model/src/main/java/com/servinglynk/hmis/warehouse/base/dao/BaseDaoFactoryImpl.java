@@ -8,7 +8,7 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	@Autowired
 	private HmisUserDao hmisUserDao;
 	@Autowired
-	private OrganizationDao organizationDao;
+	private HmisOrganizationDao hmisOrganizationDao;
 	@Autowired
 	private ProjectGroupDao projectGroupDao;
 	@Autowired
@@ -55,17 +55,28 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	private ProfileAclDao profileAclDao;	
 	@Autowired
 	private PermissionSetDao permissionSetDao;
+	@Autowired
+	private ClientDao clientDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
 	public void setHmisUserDao(HmisUserDao hmisUserDao) {
 		this.hmisUserDao = hmisUserDao;
 	}
+<<<<<<< HEAD
 //	public OrganizationDao getOrganizationDao() {
 //		return organizationDao;
 //	}
 	public void setOrganizationDao(OrganizationDao organizationDao) {
 		this.organizationDao = organizationDao;
+=======
+	public HmisOrganizationDao getHmisOrganizationDao() {
+		return hmisOrganizationDao;
+	}
+	public void setOrganizationDao(HmisOrganizationDao organizationDao) {
+		this.hmisOrganizationDao = organizationDao;
+>>>>>>> 3bf05a6b14d0b51d692f3bd28ca2bd3e2b149099
 	}
 	public ProjectGroupDao getProjectGroupDao() {
 		return projectGroupDao;
@@ -204,5 +215,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setPermissionSetDao(PermissionSetDao permissionSetDao) {
 		this.permissionSetDao = permissionSetDao;
+	}
+	public ClientDao getClientDao() {
+		return clientDao;
+	}
+	public void setClientDao(ClientDao clientDao) {
+		this.clientDao = clientDao;
 	}
 }

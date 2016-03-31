@@ -27,7 +27,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
-import com.servinglynk.hmis.warehouse.model.base.Organization;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
 
 
 /**

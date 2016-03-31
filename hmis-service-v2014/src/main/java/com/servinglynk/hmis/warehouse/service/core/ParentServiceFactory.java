@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.service.core;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
-import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
@@ -24,6 +23,7 @@ import com.servinglynk.hmis.warehouse.service.InventoryService;
 import com.servinglynk.hmis.warehouse.service.LastPermanentAddressService;
 import com.servinglynk.hmis.warehouse.service.MedicalassistanceService;
 import com.servinglynk.hmis.warehouse.service.NonCashBenefitService;
+import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.PercentamiService;
 import com.servinglynk.hmis.warehouse.service.ProjectCompletionStatusService;
@@ -48,7 +48,6 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	SharingRuleService getSharingRuleService();
 	EnrollmentService getEnrollmentService();
 	InformationReleasesService getInformationReleasesService();
-	ClientService getClientService();
 	ProjectService getProjectService();
 	ExitService getExitService();
 	EmploymentService getEmploymentService();
@@ -84,4 +83,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	SiteService getSiteService();
 	InventoryService getInventoryService();
 	BulkUploadService getBulkUploadService();
+	OrganizationService getOrganizationService();
 }

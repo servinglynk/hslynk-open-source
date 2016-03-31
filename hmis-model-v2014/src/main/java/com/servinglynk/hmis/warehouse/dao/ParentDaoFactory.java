@@ -13,7 +13,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	ProjectcocDao getProjectcocDao();
 	AffiliationDao getAffiliationDao();
 	BedinventoryDao getBedinventoryDao();
-	ClientDao getClientDao();
 	ConnectionwithsoarDao getConnectionwithsoarDao();
 	DisabilitiesDao getDisabilitiesDao();
 	DomesticviolenceDao getDomesticviolenceDao();
@@ -54,6 +53,7 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	YouthcriticalissuesDao getYouthcriticalissuesDao();
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	ExportDao getExportDao();
+	OrganizationDao getOrganizationDao();
 	
 
 	SharingRuleDao getSharingRuleDao();

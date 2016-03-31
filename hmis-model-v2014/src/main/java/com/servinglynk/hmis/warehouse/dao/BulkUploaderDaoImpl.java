@@ -17,13 +17,13 @@ import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
-import com.servinglynk.hmis.warehouse.model.base.Organization;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
 import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
@@ -110,7 +110,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
-			parentDaoFactory.getClientDao().hydrateStaging(domain);
+//			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);
 			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain);
@@ -184,12 +184,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		try {
 		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.stagv2014.Export export = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
-		parentDaoFactory.getClientDao().hydrateLive(export);
+//		parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
 		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export);
 		//parentDaoFactory.getDateofengagementDao().hydrateLive(export);
-		//parentDaoFactory.getOrganizationDao().hydrateLive(export);
+		parentDaoFactory.getOrganizationDao().hydrateLive(export);
 //		parentDaoFactory.getOrganizationDao().hydrateLive(export);
 		parentDaoFactory.getProjectDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);

@@ -116,7 +116,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
 				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, veteranInfo.getExport().getId());
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, veteranInfo.getClient().getId());
+				com.servinglynk.hmis.warehouse.model.base.Client clientModel = (com.servinglynk.hmis.warehouse.model.base.Client) get(com.servinglynk.hmis.warehouse.model.base.Client.class, veteranInfo.getClient().getId());
 				target.setClient(clientModel);
 				target.setDateCreated(LocalDateTime.now());
 				target.setDateUpdated(LocalDateTime.now());
@@ -135,7 +135,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 					BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, client.getExport().getId());
 					target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getId());
+					com.servinglynk.hmis.warehouse.model.base.Client clientModel = (com.servinglynk.hmis.warehouse.model.base.Client) get(com.servinglynk.hmis.warehouse.model.base.Client.class, client.getId());
 					target.setClient(clientModel);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());

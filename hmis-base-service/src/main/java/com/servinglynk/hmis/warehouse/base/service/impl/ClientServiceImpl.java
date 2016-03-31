@@ -1,0 +1,84 @@
+package com.servinglynk.hmis.warehouse.base.service.impl;
+
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.base.service.ClientService;
+import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
+import com.servinglynk.hmis.warehouse.core.model.Client;
+import com.servinglynk.hmis.warehouse.core.model.Clients;
+import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
+
+public class ClientServiceImpl extends ServiceBase implements ClientService {
+
+	@Override
+	@Transactional
+	public Client createClient(Client client, String caller) {
+		com.servinglynk.hmis.warehouse.model.base.Client pClient = ClientConverter.modelToEntity(client, null);
+		pClient.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+	//	pClient.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+		daoFactory.getClientDao().createClient(pClient);
+		client.setClientId(pClient.getId());
+		return client;
+	}
+
+	@Override
+	@Transactional
+	public Client updateClient(Client client, String caller) {
+		com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(client.getClientId()); 
+		
+		if(pClient == null ) throw new ClientNotFoundException();
+		
+		ClientConverter.modelToEntity(client, pClient);
+			daoFactory.getClientDao().updateClient(pClient);
+		return client;
+	}
+
+	@Override
+	@Transactional
+	public Client deleteClient(UUID clientId, String caller) {
+	com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+		
+		if(pClient == null ) throw new ClientNotFoundException();
+		
+		daoFactory.getClientDao().deleteClient(pClient);
+		return new Client();
+	}
+
+	@Override
+	@Transactional
+	public Client getClientById(UUID clientId) {
+		com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+		
+		if(pClient == null ) throw new ClientNotFoundException();
+		
+		return ClientConverter.entityToModel(pClient);
+	}
+
+	@Override
+	@Transactional
+	public Clients getAllClients(String caller,Integer startIndex, Integer maxItems) {
+		List<com.servinglynk.hmis.warehouse.model.base.Client> clientsList = daoFactory.getClientDao().getAllClients(startIndex,maxItems);
+		Clients clients= new Clients();
+		for(com.servinglynk.hmis.warehouse.model.base.Client pClient : clientsList){
+			clients.addClient(ClientConverter.entityToModel(pClient));
+		}
+		
+        long count = daoFactory.getClientDao().getClientsCount();
+        SortedPagination pagination = new SortedPagination();
+ 
+        pagination.setFrom(startIndex);
+        pagination.setReturned(clients.getClients().size());
+        pagination.setTotal((int)count);
+        clients.setPagination(pagination);
+
+		
+		return clients;
+	}
+
+}

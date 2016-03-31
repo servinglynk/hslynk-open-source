@@ -16,8 +16,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private BedinventoryDao bedinventoryDao;
 	@Autowired
-	private ClientDao clientDao;
-	@Autowired
 	private DisabilitiesDao disabilitiesDao;
 	@Autowired
 	private DomesticviolenceDao domesticviolenceDao;
@@ -147,23 +145,7 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setBedinventoryDao(BedinventoryDao bedinventoryDao) {
 		this.bedinventoryDao = bedinventoryDao;
 	}
-
-	/**
-	 * @return the clientDao
-	 */
-	public ClientDao getClientDao() {
-		return clientDao;
-	}
-
-	/**
-	 * @param clientDao
-	 *            the clientDao to set
-	 */
-	public void setClientDao(ClientDao clientDao) {
-		this.clientDao = clientDao;
-	}
-
-
+	
 	/**
 	 * @return the disabilitiesDao
 	 */
@@ -516,7 +498,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setExportDao(ExportDao exportDao) {
 		this.exportDao = exportDao;
 	}
-
 	public CocDao getCocDao() {
 		return cocDao;
 	}
@@ -588,4 +569,8 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setOrganizationDao(OrganizationDao organizationDao) {
 		this.organizationDao = organizationDao;
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 3bf05a6b14d0b51d692f3bd28ca2bd3e2b149099
 }

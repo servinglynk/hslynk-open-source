@@ -10,7 +10,6 @@ import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.BulkUploadServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.CommercialSexualExploitationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ConnectionwithsoarServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
@@ -31,6 +30,7 @@ import com.servinglynk.hmis.warehouse.service.impl.InventoryServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.LastPermanentAddressServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.MedicalassistanceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.NonCashBenefitServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PercentamiServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectCompletionStatusServiceImpl;
@@ -62,6 +62,11 @@ public class ServiceConfig  {
 	public SyncListDao syncListDao() {
 		return new SyncListDaoImpl();
 	}
+	
+	@Bean
+	public OrganizationServiceImpl  organizationService(){
+		return new OrganizationServiceImpl();
+	}
 	 
 	 @Bean
 	 public SharingRuleServiceImpl sharingRuleService(){
@@ -76,11 +81,6 @@ public class ServiceConfig  {
 	 @Bean
 	 public InformationReleasesServiceImpl informationReleasesService(){
 		 return new InformationReleasesServiceImpl();
-	 }
-	 
-	 @Bean
-	 public ClientServiceImpl clientService(){
-		 return new ClientServiceImpl();
 	 }
 	 
 	 @Bean

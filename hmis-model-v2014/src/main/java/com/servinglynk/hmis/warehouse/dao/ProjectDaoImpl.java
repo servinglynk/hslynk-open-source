@@ -99,7 +99,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					target.setEnrollmentid(enrollmentModel);
 					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.base.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.base.Organization) get(com.servinglynk.hmis.warehouse.model.base.Organization.class, project.getOrganizationid().getId());
+					com.servinglynk.hmis.warehouse.model.v2014.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.v2014.Organization) get(com.servinglynk.hmis.warehouse.model.v2014.Organization.class, project.getOrganizationid().getId());
 					target.setOrganizationid(orgEntity);
 					target.setDateCreated(LocalDateTime.now());
 					 target.setDateUpdated(LocalDateTime.now());

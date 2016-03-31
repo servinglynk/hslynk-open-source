@@ -7,15 +7,14 @@ import com.servinglynk.hmis.warehouse.base.dao.AccountConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDataChangeDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ApiMethodDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.OrganizationDao;
-import com.servinglynk.hmis.warehouse.base.dao.OrganizationDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.HmisOrganizationDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PasswordResetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PermissionSetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileAclDaoImpl;
@@ -44,8 +43,8 @@ public class BaseDatabaseConfig {
 	}
 
 	@Bean
-	public OrganizationDao organizationDao() { 
-		return new OrganizationDaoImpl();
+	public HmisOrganizationDaoImpl hmisorganizationDao() { 
+		return new HmisOrganizationDaoImpl();
 	}	
 	@Bean
 	public DeveloperCompanyDaoImpl developerCompanyDao(){
@@ -179,5 +178,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public PropertyDaoImpl propertyDao(){
 		return new PropertyDaoImpl();
+	}
+	
+	@Bean
+	public ClientDaoImpl clientDao(){
+		return new ClientDaoImpl();
 	}
 }

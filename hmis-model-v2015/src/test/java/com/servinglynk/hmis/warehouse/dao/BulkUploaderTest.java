@@ -29,7 +29,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
-import com.servinglynk.hmis.warehouse.model.v2015.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)

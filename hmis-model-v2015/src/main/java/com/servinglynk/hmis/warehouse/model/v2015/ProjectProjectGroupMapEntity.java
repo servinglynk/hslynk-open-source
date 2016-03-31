@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+
 
 @Entity
 @Table(name="hmis_project_projectgroup_map")

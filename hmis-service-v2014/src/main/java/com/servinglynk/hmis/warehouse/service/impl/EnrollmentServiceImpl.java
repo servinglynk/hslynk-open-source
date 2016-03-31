@@ -1,18 +1,15 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.generated.thrift.thrift_jsp;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -25,7 +22,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment createEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
-		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
@@ -42,7 +39,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
-		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());

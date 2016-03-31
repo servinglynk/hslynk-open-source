@@ -45,7 +45,7 @@ import com.servinglynk.hmis.warehouse.model.base.AccountLockoutEntity;
 import com.servinglynk.hmis.warehouse.model.base.AccountPreferenceEntity;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.base.Organization;
+import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.base.PermissionSetEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProfileEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
@@ -96,7 +96,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = AccountConverter.convertToPersistentAccount(account, null);
 	
-		Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
+		OrganizationEntity pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(account.getOrganizationId());
 
 		if(pOrganization==null) throw new OrganizationNotFound();
 
@@ -297,7 +297,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				
 				pAccount.setProfileEntity(profileEntity);
 				
-				Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(account.getOrganizationId());
+				OrganizationEntity pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(account.getOrganizationId());
 
 				if(pOrganization==null) throw new OrganizationNotFound();
 

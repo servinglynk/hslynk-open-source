@@ -4,7 +4,11 @@ package com.servinglynk.hmis.warehouse.base.dao;
 public interface BaseDaoFactory {
 	
 	HmisUserDao getHmisUserDao();
+<<<<<<< HEAD
 //	OrganizationDao getOrganizationDao();
+=======
+	HmisOrganizationDao getHmisOrganizationDao();
+>>>>>>> 3bf05a6b14d0b51d692f3bd28ca2bd3e2b149099
 	AccountDao getAccountDao();
 	DeveloperCompanyDao getDeveloperCompanyDao() ;
 	DeveloperServiceDao getDeveloperServiceDao() ;
@@ -20,5 +24,6 @@ public interface BaseDaoFactory {
 	ProfileAclDao getProfileAclDao();
 	PermissionSetDao getPermissionSetDao();
 	ProjectGroupDao getProjectGroupDao();
+	ClientDao getClientDao();
 
 }

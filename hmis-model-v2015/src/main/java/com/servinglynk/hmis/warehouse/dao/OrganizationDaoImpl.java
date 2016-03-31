@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 package com.servinglynk.hmis.warehouse.dao;
 
@@ -10,13 +10,13 @@ import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -77,12 +77,12 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					factory.getProjectDao().hydrateLive(export);
 				}
 			}
-
-
+			
+			
 		}
 	}
-
-
+	
+	
 /*	public com.servinglynk.hmis.warehouse.model.live.Organization getOrganizationByYd(UUID organizationId){
 		return (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class,organizationId);
 	}*/
@@ -90,13 +90,13 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	protected void performSave(Iface client, Object entity) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -104,10 +104,13 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){
 		   organization.setId(UUID.randomUUID());
 	       insert(organization);
+	       OrganizationEntity entity = new OrganizationEntity();
+	       BeanUtils.copyProperties(organization, entity);
+	       insert(entity);
 	       return organization;
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){
@@ -117,7 +120,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	   public void deleteOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){
 	       delete(organization);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2015.Organization getOrganizationById(UUID organizationId){
+	   public com.servinglynk.hmis.warehouse.model.v2015.Organization getOrganizationById(UUID organizationId){ 
 	       return (com.servinglynk.hmis.warehouse.model.v2015.Organization) get(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organizationId);
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2015.Organization> getAllOrganizations(Integer startIndex, Integer maxItems){
