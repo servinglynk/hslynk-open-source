@@ -14,6 +14,10 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.base.dao.HmisOrganizationDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ProjectGroupDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BedinventoryDao;
@@ -88,7 +92,7 @@ import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 @EnableTransactionManagement
 //@ComponentScan("com.servinglynk.hmis.warehouse.dao.helper")
 @PropertySource("classpath:database.properties")
-public class DatabaseConfig {
+public class DatabaseConfig extends BaseDatabaseConfig{
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER   = "db.driver";
     private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -147,6 +151,22 @@ public class DatabaseConfig {
 	public ClientVeteranInfoDao veteranInfoDao() {
 		return new ClientVeteranInfoDaoImpl();
 	}
+//	
+//	@Bean
+//	public HmisUserDaoImpl hmisUserDao() {
+//		return new HmisUserDaoImpl();
+//	}
+//	
+//	@Bean
+//	public HmisOrganizationDaoImpl hmisOrganizationDao() {
+//		return new HmisOrganizationDaoImpl();
+//	}
+//	
+//	@Bean
+//	public ProjectGroupDaoImpl projectGroupDao() {
+//		return new ProjectGroupDaoImpl();
+//	}
+	
 	@Bean
 	public BulkUploaderDao bulkUploaderDao()
 	{

@@ -46,8 +46,11 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				cocModel.setCoccode(coc.getCoCCode());
 				cocModel.setDateCreated(LocalDateTime.now());
 				cocModel.setDateUpdated(LocalDateTime.now());
-				Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(coc.getProjectID()));
-				cocModel.setProjectid(project);
+				UUID uuid = domain.getAffiliationProjectMap().get(coc.getProjectID());
+				if(uuid !=null) {
+					Project project = (Project) get(Project.class,uuid);
+					cocModel.setProjectid(project);
+				}
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 				exportEntity.addCoc(cocModel);
 				cocModel.setUserId(exportEntity.getUserId());
@@ -57,9 +60,9 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				cocModel.setExport(exportEntity);
 				cocModel.setProjectGroupCode(coc.getProjectID());
 				domain.getCocCodeMap().put(coc.getCoCCode(), cocUUID);
+				insertOrUpdate(cocModel);
 				factory.getSiteDao().hydrateStaging(domain);
 				factory.getInventoryDao().hydrateStaging(domain);
-				insertOrUpdate(cocModel);
 			}
 	}
 	

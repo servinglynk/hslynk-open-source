@@ -117,10 +117,13 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setOtherresidenceprior(enrollment
 						.getOtherResidencePrior());
 				UUID clientId = domain.getClientPersonalIDMap().get(enrollment.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.stagv2015.Client client = (com.servinglynk.hmis.warehouse.model.stagv2015.Client) get(com.servinglynk.hmis.warehouse.model.stagv2015.Client.class, clientId);
-				//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
-				// Very important logic needs to come here via a Microservice call.
-				enrollmentModel.setClient(client);
+				if(clientId!=null) {
+					com.servinglynk.hmis.warehouse.model.stagv2015.Client client = (com.servinglynk.hmis.warehouse.model.stagv2015.Client) get(com.servinglynk.hmis.warehouse.model.stagv2015.Client.class, clientId);
+					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
+					// Very important logic needs to come here via a Microservice call.
+					enrollmentModel.setClient(client);
+						
+				}
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
 

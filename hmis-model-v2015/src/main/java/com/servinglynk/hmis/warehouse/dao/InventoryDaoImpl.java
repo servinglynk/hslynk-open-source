@@ -79,8 +79,11 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				hydrateCommonFields(inventoryModel, domain);
 				inventoryModel.setExport(exportEntity);
 				inventoryModel.setSync(false);
-				Coc coc = (Coc) get(Coc.class,domain.getCocCodeMap().get(inventory.getCoCCode()));
-				inventoryModel.setCoc(coc);
+				UUID uuid = domain.getCocCodeMap().get(inventory.getCoCCode());
+				if(uuid !=null) {
+					Coc coc = (Coc) get(Coc.class,uuid);
+					inventoryModel.setCoc(coc);
+				}
 				insertOrUpdate(inventoryModel);
 			}
 		}

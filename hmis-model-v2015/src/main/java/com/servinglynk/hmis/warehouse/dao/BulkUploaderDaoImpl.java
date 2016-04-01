@@ -90,9 +90,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
-//			parentDaoFactory.getClientDao().hydrateStaging(domain);
-			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
+		//	parentDaoFactory.getClientDao().hydrateStaging(domain);
+		//	parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
+			parentDaoFactory.getProjectDao().hydrateStaging(domain);
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
 			
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);

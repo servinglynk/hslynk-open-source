@@ -49,10 +49,14 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				funderModel.setDateUpdated(LocalDateTime.now());
 				funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
 				funderModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
-				Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(funder.getProjectID()));
+				UUID uuid = domain.getAffiliationProjectMap().get(funder.getProjectID());
+				if(uuid !=null) {
+					Project project = (Project) get(Project.class,uuid);
+					funderModel.setProjectid(project);
+				}
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 				funderModel.setExport(exportEntity);
-				funderModel.setProjectid(project);
+				
 				hydrateCommonFields(funderModel, domain);
 				exportEntity.addFunder(funderModel);
 				insertOrUpdate(funderModel);

@@ -34,8 +34,11 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					siteModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 					siteModel.setGeocode(site.getGeocode());
 					siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
-					Coc coc = (Coc) get(Coc.class,domain.getCocCodeMap().get(site.getCoCCode()));
-					siteModel.setCoc(coc);
+					UUID uuid = domain.getCocCodeMap().get(site.getCoCCode());
+					if(uuid !=null) {
+						Coc coc = (Coc) get(Coc.class,uuid);
+						siteModel.setCoc(coc);
+					}
 					siteModel.setState(StateEnum.lookupEnum(site.getState()));
 					com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 					siteModel.setExport(exportEntity);

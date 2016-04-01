@@ -88,7 +88,7 @@ public class BulkUploaderTest {
 				URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload bullkUpload = new BulkUpload();
 				bullkUpload.setInputpath(path.getPath());
-				bullkUpload.setId(2L);
+				bullkUpload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			//	com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
