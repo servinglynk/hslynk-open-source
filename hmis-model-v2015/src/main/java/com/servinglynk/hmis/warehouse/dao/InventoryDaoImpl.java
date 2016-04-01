@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Bedinventory;
+import com.servinglynk.hmis.warehouse.model.stagv2015.Coc;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -30,6 +31,9 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
+	
+	@Autowired
+	ParentDaoFactory parentDaoFactory;
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -41,26 +45,27 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	public void hydrateStaging(ExportDomain domain) {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-		List<Inventory> inventory = export.getInventory();
-		if (inventory != null && inventory.size() > 0) {
-			for (Inventory inventories : inventory) {
+		List<Inventory> inventories = export.getInventory();
+		if (inventories != null && inventories.size() > 0) {
+			for (Inventory inventory : inventories) {
+				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);
 				com.servinglynk.hmis.warehouse.model.stagv2015.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Inventory();
 				UUID inventoryUUID = UUID.randomUUID();
 				inventoryModel.setId(inventoryUUID);
-				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventories.getAvailability())));
-//				inventoryModel.setBedinventory(inventories.getBedInventory());
-				inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventories.getBedType())));
-				inventoryModel.setChBedInventory(inventories.getChBedInventory());
-//				inventoryModel.setCoc(coc);
-				inventoryModel.setHmisparticipatingbeds(inventories.getHMISParticipatingBeds() );
-				inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventories.getHouseholdType())));
-				inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventories.getInformationDate()));
-				inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventories.getInventoryEndDate()));
-				inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventories.getInventoryStartDate()));
-				inventoryModel.setUnitinventory(inventories.getUnitInventory());
-				inventoryModel.setVetBedInventory(inventories.getVetBedInventory());
-				inventoryModel.setYouthAgeGroup(inventories.getYouthAgeGroup());
-				inventoryModel.setYouthBedInventory(inventories.getYouthBedInventory());
+				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
+				Bedinventory bedInventory = (Bedinventory) get(Bedinventory.class, domain.getBedInventoryMap().get(String.valueOf(inventory.getBedInventory().getBedInventory())));
+				inventoryModel.setBedinventory(bedInventory);
+				inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
+				inventoryModel.setChBedInventory(inventory.getChBedInventory());
+				inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
+				inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
+				inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
+				inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
+				inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
+				inventoryModel.setUnitinventory(inventory.getUnitInventory());
+				inventoryModel.setVetBedInventory(inventory.getVetBedInventory());
+				inventoryModel.setYouthAgeGroup(inventory.getYouthAgeGroup());
+				inventoryModel.setYouthBedInventory(inventory.getYouthBedInventory());
 				inventoryModel.setDeleted(false);
 				inventoryModel.setDateCreated(LocalDateTime.now());
 				inventoryModel.setDateUpdated(LocalDateTime.now());
@@ -69,12 +74,13 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 				exportEntity.addInventory(inventoryModel);
 				inventoryModel.setUserId(exportEntity.getUserId());
-				inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventories.getDateCreated()));
-				inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventories.getDateUpdated()));
+				inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
+				inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 				hydrateCommonFields(inventoryModel, domain);
 				inventoryModel.setExport(exportEntity);
-//				inventoryModel.setProjectGroupCode(inventories.getUserID());
 				inventoryModel.setSync(false);
+				Coc coc = (Coc) get(Coc.class,domain.getCocCodeMap().get(inventory.getCoCCode()));
+				inventoryModel.setCoc(coc);
 				insertOrUpdate(inventoryModel);
 			}
 		}

@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.stagv2015.Project;
 import com.servinglynk.hmis.warehouse.model.v2015.Coc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -45,7 +46,8 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				cocModel.setCoccode(coc.getCoCCode());
 				cocModel.setDateCreated(LocalDateTime.now());
 				cocModel.setDateUpdated(LocalDateTime.now());
-//				factory.getInventoryDao().hydrateStaging(domain);
+				Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(coc.getProjectID()));
+				cocModel.setProjectid(project);
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 				exportEntity.addCoc(cocModel);
 				cocModel.setUserId(exportEntity.getUserId());
@@ -54,10 +56,10 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				hydrateCommonFields(cocModel, domain);
 				cocModel.setExport(exportEntity);
 				cocModel.setProjectGroupCode(coc.getProjectID());
+				domain.getCocCodeMap().put(coc.getCoCCode(), cocUUID);
 				factory.getSiteDao().hydrateStaging(domain);
 				factory.getInventoryDao().hydrateStaging(domain);
 				insertOrUpdate(cocModel);
-				
 			}
 	}
 	

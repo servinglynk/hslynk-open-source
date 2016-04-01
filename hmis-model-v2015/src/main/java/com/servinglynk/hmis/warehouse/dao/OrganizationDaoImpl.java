@@ -56,7 +56,6 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 exportEntity.addOrganization(organizationModel);
 				 hydrateCommonFields(organizationModel, domain);
 				 insertOrUpdate(organizationModel);
-				 factory.getProjectDao().hydrateStaging(domain);
 			 }
 		 }
 	}

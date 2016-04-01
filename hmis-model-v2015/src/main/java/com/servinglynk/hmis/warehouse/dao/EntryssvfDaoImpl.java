@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -22,38 +23,35 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	public void hydrateStaging(ExportDomain domain) {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-		List<EntrySSVF> entrySSVF = export.getEntrySSVF();
-		if (entrySSVF != null && entrySSVF.size() > 0) {
-			for (EntrySSVF entrySSVFs : entrySSVF) {
+		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
+		if (entrySSVFs != null && entrySSVFs.size() > 0) {
+			for (EntrySSVF entrySSVF : entrySSVFs) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvfModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf();
 				UUID entrySSVFUUID = UUID.randomUUID();
 				entrySsvfModel.setId(entrySSVFUUID);
-				entrySsvfModel.setAddressDataQuality(new Integer(entrySSVFs.getAddressDataQuality()).intValue());
+				entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
 				entrySsvfModel.setDeleted(false);
-//				entrySsvfModel.setEnrollmentid(enrollmentid);
-//				entrySsvfModel.setExport(export);
-				entrySsvfModel.setHpScreeningScore(new Integer(entrySSVFs.getHPScreeningScore()).intValue());
-				entrySsvfModel.setLastPermanentCity(entrySSVFs.getLastPermanentCity());
-				entrySsvfModel.setLastPermanentState(entrySSVFs.getLastPermanentState());
-				entrySsvfModel.setLastPermanentStreet(entrySSVFs.getLastPermanentStreet());
-				entrySsvfModel.setLastPermanentZip(new Integer(entrySSVFs.getLastPermanentZIP()).toString());
-				entrySsvfModel.setPercentami(new Integer(entrySSVFs.getPercentAMI()).intValue());
+				entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
+				entrySsvfModel.setLastPermanentCity(entrySSVF.getLastPermanentCity());
+				entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
+				entrySsvfModel.setLastPermanentStreet(entrySSVF.getLastPermanentStreet());
+				entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
+				entrySsvfModel.setPercentami(new Integer(entrySSVF.getPercentAMI()).intValue());
 				entrySsvfModel.setDateCreated(LocalDateTime.now());
 				entrySsvfModel.setDateUpdated(LocalDateTime.now());
-				entrySsvfModel.setVamcStation(entrySSVFs.getVAMCStation());
-				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
-				entryRhspModel.setEnrollmentid(enrollmentModel);*/
+				entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
+				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entrySSVF.getProjectEntryID()));
+				entrySsvfModel.setEnrollmentid(enrollmentModel);
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 				exportEntity.addEntryssvf(entrySsvfModel);
 				entrySsvfModel.setUserId(exportEntity.getUserId());
-				entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVFs.getDateCreated()));
-				entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVFs.getDateUpdated()));
+				entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateCreated()));
+				entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
 				hydrateCommonFields(entrySsvfModel, domain);
 				entrySsvfModel.setExport(exportEntity);
-				entrySsvfModel.setProjectGroupCode(entrySSVFs.getProjectEntryID());
+				entrySsvfModel.setProjectGroupCode(entrySSVF.getProjectEntryID());
 				entrySsvfModel.setSync(false);
 				insertOrUpdate(entrySsvfModel);
-				
 			}
 	}
 	

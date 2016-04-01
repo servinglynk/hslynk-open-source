@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
+import com.servinglynk.hmis.warehouse.model.stagv2015.Coc;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -33,8 +34,8 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					siteModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 					siteModel.setGeocode(site.getGeocode());
 					siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
-//					Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,domain.getProjectCocMap().get(site.getProjectCoCID()));
-//					siteModel.setProjectCoc(projectCoc);
+					Coc coc = (Coc) get(Coc.class,domain.getCocCodeMap().get(site.getCoCCode()));
+					siteModel.setCoc(coc);
 					siteModel.setState(StateEnum.lookupEnum(site.getState()));
 					com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 					siteModel.setExport(exportEntity);

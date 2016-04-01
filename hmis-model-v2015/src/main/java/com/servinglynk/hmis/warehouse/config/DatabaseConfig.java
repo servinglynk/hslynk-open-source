@@ -32,6 +32,8 @@ import com.servinglynk.hmis.warehouse.dao.DisabilitiesDao;
 import com.servinglynk.hmis.warehouse.dao.DisabilitiesDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.DomesticviolenceDao;
 import com.servinglynk.hmis.warehouse.dao.DomesticviolenceDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.EducationDao;
+import com.servinglynk.hmis.warehouse.dao.EducationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.EmploymentDao;
 import com.servinglynk.hmis.warehouse.dao.EmploymentDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.EnrollmentCocDao;
@@ -316,5 +318,9 @@ public class DatabaseConfig {
 	@Bean
 	public OrganizationDaoImpl organizationDao(){
 		return new OrganizationDaoImpl();
+	}
+	@Bean
+	public EducationDaoImpl educationDao() {
+		return new EducationDaoImpl();
 	}
 }

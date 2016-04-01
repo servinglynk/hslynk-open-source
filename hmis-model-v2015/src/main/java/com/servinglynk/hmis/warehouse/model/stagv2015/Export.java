@@ -24,8 +24,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-
-
 /**
  * Object mapping for hibernate-handled table: export.
  *
@@ -110,6 +108,8 @@ public class Export  implements Cloneable, Serializable {
 
 	/** Field mapping. */
 	private Set<Exitrhy> exitrhies = new HashSet<Exitrhy>();
+	
+	private Set<Education> educations = new HashSet<Education>();
 
 	/** Field mapping. */
 	private String exportdirective;
@@ -1488,6 +1488,36 @@ public class Export  implements Cloneable, Serializable {
 	public void setEnrollmentCocs(final Set<EnrollmentCoc> enrollmentCoc) {
 		this.enrollmentCocs = enrollmentCoc;
 	}
+	
+	 /**
+	 * Return the value associated with the column: affiliation.
+	 * @return A Set&lt;Affiliation&gt; object (this.affiliation)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<com.servinglynk.hmis.warehouse.model.stagv2015.Education> getEducations() {
+		return this.educations;
+
+	}
+	/**
+	 * Adds a bi-directional link of type Affiliation to the affiliations set.
+	 * @param affiliation item to add
+	 */
+	public void addEducation(Education education) {
+		education.setExport(this);
+		this.educations.add(education);
+	}
+
+	 /**
+	 * Set the value related to the column: affiliation.
+	 * @param affiliation the affiliation value you wish to set
+	 */
+	public void setEducations(final Set<Education> education) {
+		this.educations = education;
+	}
+
 	
 		/** Field mapping. */
 		private LocalDateTime dateCreated;

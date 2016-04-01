@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 	public class BedinventoryDaoImpl  extends ParentDaoImpl  implements BedinventoryDao {
-
+		
 		@Override
 		public void hydrateStaging(ExportDomain domain) {
 			throw new UnsupportedOperationException();

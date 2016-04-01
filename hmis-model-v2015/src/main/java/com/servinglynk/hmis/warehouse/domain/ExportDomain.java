@@ -48,6 +48,7 @@ public class ExportDomain {
 	private Map<String, UUID> organizationProjectMap = new HashMap<>();
 	private Map<String, UUID> affiliationProjectMap = new HashMap<>();
 	private Map<String,UUID> bedInventoryMap = new HashMap<>();
+	private Map<String,UUID> cocCodeMap = new HashMap<>();
 	private BulkUpload upload;
 	
 	public Export getExport() {
@@ -133,5 +134,12 @@ public class ExportDomain {
 	public void setUpload(BulkUpload upload) {
 		this.upload = upload;
 	}
-	
+
+	public Map<String, UUID> getCocCodeMap() {
+		return cocCodeMap;
+	}
+
+	public void setCocCodeMap(Map<String, UUID> cocCodeMap) {
+		this.cocCodeMap = cocCodeMap;
+	}
 }

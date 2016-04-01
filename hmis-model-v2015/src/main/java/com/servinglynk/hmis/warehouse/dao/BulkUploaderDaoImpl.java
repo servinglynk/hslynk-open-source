@@ -116,7 +116,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain);
 			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain);
 			parentDaoFactory.getPathstatusDao().hydrateStaging(domain);
-		//	parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
+			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
 			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);

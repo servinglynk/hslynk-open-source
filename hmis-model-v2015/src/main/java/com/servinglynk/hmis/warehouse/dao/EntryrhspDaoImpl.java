@@ -16,7 +16,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -25,33 +27,31 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		
-//	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-//		List<EntryRHSP> entryRhsp = export.getEntryRHSP();
-//		if (entryRhsp != null && entryRhsp.size() > 0) {
-//			for (EntryRHSP entryRhsps : entryRhsp) {
-//				com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRhspModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp();
-//				UUID entryRhspUUID = UUID.randomUUID();
-//				entryRhspModel.setId(entryRhspUUID);
-//				entryRhspModel.setWorstHousingSituation(Integer.parseInt(entryRhsps.getWorstHousingSituation()));
-//				entryRhspModel.setDateCreated(LocalDateTime.now());
-//				entryRhspModel.setDateUpdated(LocalDateTime.now());
-//				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
-//				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-//				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
-//				exportEntity.addEntryrhsp(entryRhspModel);
-//				entryRhspModel.setUserId(exportEntity.getUserId());
-//				entryRhspModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsps.getDateCreated()));
-//				entryRhspModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsps.getDateUpdated()));
-//				hydrateCommonFields(entryRhspModel, domain);
-//				entryRhspModel.setExport(exportEntity);
-//				entryRhspModel.setProjectGroupCode(entryRhsps.getProjectID());
-//				entryRhspModel.setSync(false);
-//				entryRhspModel.setDeleted(false);
-//				insertOrUpdate(entryRhspModel);
-//				
-//			}
-//	}
-	
+	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
+		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
+		if (entryRhsps != null && entryRhsps.size() > 0) {
+			for (EntryRHSP entryRhsp : entryRhsps) {
+				com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRhspModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp();
+				UUID entryRhspUUID = UUID.randomUUID();
+				entryRhspModel.setId(entryRhspUUID);
+				entryRhspModel.setWorstHousingSituation(Integer.parseInt(entryRhsp.getWorstHousingSituation()));
+				entryRhspModel.setDateCreated(LocalDateTime.now());
+				entryRhspModel.setDateUpdated(LocalDateTime.now());
+				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsp.getEntryRHSPID()));
+				entryRhspModel.setEnrollmentid(enrollmentModel);
+				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				exportEntity.addEntryrhsp(entryRhspModel);
+			//	entryRhspModel.setUserId(exportEntity.getUserId());
+				entryRhspModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateCreated()));
+				entryRhspModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateUpdated()));
+				hydrateCommonFields(entryRhspModel, domain);
+				entryRhspModel.setExport(exportEntity);
+				entryRhspModel.setProjectGroupCode(entryRhsp.getProjectID());
+				entryRhspModel.setSync(false);
+				entryRhspModel.setDeleted(false);
+				insertOrUpdate(entryRhspModel);
+			}
+	   }
 	}
 
 
