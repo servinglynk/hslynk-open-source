@@ -23,12 +23,30 @@ import com.servinglynk.hmis.warehouse.core.model.Domesticviolence;
 import com.servinglynk.hmis.warehouse.core.model.Domesticviolences;
 import com.servinglynk.hmis.warehouse.core.model.Employment;
 import com.servinglynk.hmis.warehouse.core.model.Employments;
+import com.servinglynk.hmis.warehouse.core.model.Enrollment;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentCocs;
+import com.servinglynk.hmis.warehouse.core.model.Enrollments;
+import com.servinglynk.hmis.warehouse.core.model.Entryrhsp;
+import com.servinglynk.hmis.warehouse.core.model.Entryrhsps;
+import com.servinglynk.hmis.warehouse.core.model.Entryrhy;
+import com.servinglynk.hmis.warehouse.core.model.Entryrhys;
+import com.servinglynk.hmis.warehouse.core.model.Entryssvf;
+import com.servinglynk.hmis.warehouse.core.model.Entryssvfs;
+import com.servinglynk.hmis.warehouse.core.model.Exit;
+import com.servinglynk.hmis.warehouse.core.model.Exitpath;
+import com.servinglynk.hmis.warehouse.core.model.Exitpaths;
+import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
+import com.servinglynk.hmis.warehouse.core.model.Exitrhys;
+import com.servinglynk.hmis.warehouse.core.model.Exits;
 import com.servinglynk.hmis.warehouse.core.model.Healthinsurance;
 import com.servinglynk.hmis.warehouse.core.model.Healthinsurances;
 import com.servinglynk.hmis.warehouse.core.model.Healthstatus;
 import com.servinglynk.hmis.warehouse.core.model.Healthstatuses;
+import com.servinglynk.hmis.warehouse.core.model.HousingAssessmentDisposition;
+import com.servinglynk.hmis.warehouse.core.model.HousingAssessmentDispositions;
+import com.servinglynk.hmis.warehouse.core.model.IncomeAndSource;
+import com.servinglynk.hmis.warehouse.core.model.IncomeAndSources;
 import com.servinglynk.hmis.warehouse.core.model.Medicalassistance;
 import com.servinglynk.hmis.warehouse.core.model.Medicalassistances;
 import com.servinglynk.hmis.warehouse.core.model.Noncashbenefits;
@@ -39,7 +57,11 @@ import com.servinglynk.hmis.warehouse.core.model.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.core.model.Residentialmoveindates;
 import com.servinglynk.hmis.warehouse.core.model.Rhybcpstatus;
 import com.servinglynk.hmis.warehouse.core.model.Rhybcpstatuses;
+import com.servinglynk.hmis.warehouse.core.model.Servicefareferral;
+import com.servinglynk.hmis.warehouse.core.model.Servicefareferrals;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.VeteranInfo;
+import com.servinglynk.hmis.warehouse.core.model.VeteranInfos;
 
 @RestController
 @RequestMapping("/clients")
@@ -91,6 +113,100 @@ public class ClientsController extends ControllerBase {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getClientService().getAllClients(session.getAccount().getUsername(),startIndex,maxItems);
 	}
+	
+	@RequestMapping(value="/{clientid}/enrollments",method=RequestMethod.POST)
+	@APIMapping(value="CLIENT_API_CREATE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
+	public Enrollment createEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId ,HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		serviceFactory.getEnrollmentService().createEnrollment(enrollment, clientId, session.getAccount().getUsername());
+		Enrollment returnEnrollment = new Enrollment();
+		returnEnrollment.setEnrollmentId(enrollment.getEnrollmentId());
+		return returnEnrollment;
+	}
+	
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}",method=RequestMethod.PUT)	
+	@APIMapping(value="CLIENT_API_UPDATE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
+	public void updateEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		serviceFactory.getEnrollmentService().updateEnrollment(enrollment, clientId, session.getAccount().getUsername());
+	}
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}",method=RequestMethod.DELETE)
+	@APIMapping(value="CLIENT_API_DELETE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
+	public void deleteEnrollment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId
+			,HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		serviceFactory.getEnrollmentService().deleteEnrollment(enrollmentId,clientId, session.getAccount().getUsername());
+		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	}
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}",method=RequestMethod.GET)
+	@APIMapping(value="CLIENT_API_GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
+	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId,clientId);
+	}
+
+	@RequestMapping(value="/{clientid}/enrollments",method=RequestMethod.GET)
+	@APIMapping(value="CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS",checkSessionToken=true,checkTrustedApp=true)
+	public Enrollments getAllClientEnrollments(@PathVariable("clientid") UUID clientId,
+			@RequestParam(value="startIndex", required=false) Integer startIndex, 
+            @RequestParam(value="maxItems", required=false) Integer maxItems ,HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		if (startIndex == null) startIndex =0;
+         if (maxItems == null) maxItems =30;
+
+		return serviceFactory.getEnrollmentService().getEnrollmentsByClientId(clientId,session.getAccount().getUsername(),startIndex,maxItems);
+	}
+	
+	// Veteran Info API Start
+	   
+	   @RequestMapping(value="/{clientid}/veteraninfos",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_VETERANINFO",checkTrustedApp=true,checkSessionToken=true)
+	   public VeteranInfo createVeteranInfo(@PathVariable("clientid") UUID clientId,@RequestBody VeteranInfo veteranInfo,HttpServletRequest request) throws Exception{
+		   Session session = sessionHelper.getSession(request);
+		   serviceFactory.getVeteranInfoService().createVeteranInfo(veteranInfo, clientId, session.getAccount().getUsername());
+		   VeteranInfo returnVeteranInfo = new VeteranInfo();
+		   returnVeteranInfo.setVeteranInfoId(veteranInfo.getVeteranInfoId());
+		   return returnVeteranInfo;
+	   }
+
+	   @RequestMapping(value="/{clientid}/veteraninfos/{veteranInfoid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_VETERANINFO",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateVeteranInfo(@PathVariable("clientid") UUID clientId, @PathVariable( "veteranInfoid" ) UUID veteranInfoId,@RequestBody VeteranInfo veteranInfo,HttpServletRequest request) throws Exception{
+		   Session session = sessionHelper.getSession(request);
+		   serviceFactory.getVeteranInfoService().updateVeteranInfo(veteranInfo, clientId, session.getAccount().getUsername());
+	   }
+
+	   @RequestMapping(value="/{clientid}/veteraninfos/{veteranInfoid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_VETERANINFO",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteVeteranInfo(@PathVariable("clientid") UUID clientId,@PathVariable( "veteranInfoid" ) UUID veteranInfoId,
+			   HttpServletRequest request,HttpServletResponse response) throws Exception{
+		   serviceFactory.getClientService().getClientById(clientId);
+		   Session session = sessionHelper.getSession(request);
+		   serviceFactory.getVeteranInfoService().deleteVeteranInfo(veteranInfoId,  session.getAccount().getUsername());
+		   response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	   }
+
+	   @RequestMapping(value="/{clientid}/veteraninfos/{veteranInfoid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_VETERANINFO_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public VeteranInfo getVeteranInfoById(@PathVariable("clientid") UUID clientId,@PathVariable( "veteranInfoid" ) UUID veteranInfoId,HttpServletRequest request) throws Exception{
+		   serviceFactory.getClientService().getClientById(clientId);
+		   return serviceFactory.getVeteranInfoService().getVeteranInfoById(veteranInfoId);
+	   }
+
+	   @RequestMapping(value="/{clientid}/veteraninfos",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_CLIENT_VETERANINFOS",checkTrustedApp=true,checkSessionToken=true)
+	   public VeteranInfos getAllEnrollmentVeteranInfos(@PathVariable("clientid") UUID clientId,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	           serviceFactory.getClientService().getClientById(clientId);
+	           return serviceFactory.getVeteranInfoService().getAllClientVeteranInfos(clientId, startIndex, maxItems);
+	           
+	    }
 	
 	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/employments",method=RequestMethod.POST)
 	   @APIMapping(value="CLIENT_API_CREATE_EMPLOYMENT",checkTrustedApp=true,checkSessionToken=true)
@@ -707,5 +823,510 @@ public class ClientsController extends ControllerBase {
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
 	        return serviceFactory.getRhybcpstatusService().getAllEnrollmentRhybcpstatuss(enrollmentId,startIndex,maxItems); 
 	   }
+	
+	   // IncomeAndSources API
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/incomeandsources",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_INCOMEANDSOURCE",checkTrustedApp=true,checkSessionToken=true)
+	   public IncomeAndSource createIncomeAndSource(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody IncomeAndSource incomeAndSource,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getIncomeAndSourceService().createIncomeAndSource(incomeAndSource,enrollmentId,session.getAccount().getUsername()); 
+	         IncomeAndSource returnIncomeAndSource = new IncomeAndSource();
+	         returnIncomeAndSource.setIncomeAndSourceId(incomeAndSource.getIncomeAndSourceId());
+	         return returnIncomeAndSource;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_INCOMEANDSOURCE",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateIncomeAndSource(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "incomeAndSourceid" ) UUID incomeAndSourceId,@RequestBody IncomeAndSource incomeAndSource,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getIncomeAndSourceService().updateIncomeAndSource(incomeAndSource,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_INCOMEANDSOURCE",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteIncomeAndSource(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable( "incomeAndSourceid" ) UUID incomeAndSourceId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getIncomeAndSourceService().deleteIncomeAndSource(incomeAndSourceId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_INCOMEANDSOURCE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public IncomeAndSource getIncomeAndSourceById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "incomeAndSourceid" ) UUID incomeAndSourceId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getIncomeAndSourceService().getIncomeAndSourceById(incomeAndSourceId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/incomeandsources",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_INCOMEANDSOURCE",checkTrustedApp=true,checkSessionToken=true)
+	   public IncomeAndSources getAllEnrollmentIncomeAndSources(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getIncomeAndSourceService().getAllEnrollmentIncomeAndSources(enrollmentId,startIndex,maxItems); 
+	   }
+
+
+	// Exits API start
+	
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits",method=RequestMethod.POST)
+	@APIMapping(value="CLIENT_API_CREATE_EXIT",checkTrustedApp=true,checkSessionToken=true)
+	public Exit createExit(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Exit exit,HttpServletRequest request) throws Exception{
+	     Session session = sessionHelper.getSession(request); 
+	     serviceFactory.getClientService().getClientById(clientId);
+	//        exit.setEnrollment(enrollmentId);
+	     serviceFactory.getExitService().createExit(exit,enrollmentId,session.getAccount().getUsername()); 
+	     Exit returnExit = new Exit();
+	     returnExit.setExitId(exit.getExitId());
+	     return returnExit;
 	}
 	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}",method=RequestMethod.PUT)
+	@APIMapping(value="CLIENT_API_UPDATE_EXIT",checkTrustedApp=true,checkSessionToken=true)
+	public void updateExit(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exitid" ) UUID exitId,@RequestBody Exit exit,HttpServletRequest request) throws Exception{
+	     Session session = sessionHelper.getSession(request); 
+	     serviceFactory.getClientService().getClientById(clientId);
+	 //    exit.setEnrollment(enrollmentId);
+	     serviceFactory.getExitService().updateExit(exit,enrollmentId,session.getAccount().getUsername()); 
+	}
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}",method=RequestMethod.DELETE)
+	@APIMapping(value="CLIENT_API_DELETE_EXIT",checkTrustedApp=true,checkSessionToken=true)
+	public void deleteExit(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable( "exitid" ) UUID exitId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	     Session session = sessionHelper.getSession(request); 
+	     serviceFactory.getClientService().getClientById(clientId);
+	     serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+	     serviceFactory.getExitService().deleteExit(exitId,session.getAccount().getUsername()); 
+	     response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	}
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}",method=RequestMethod.GET)
+	@APIMapping(value="CLIENT_API_GET_EXIT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	public Exit getExitById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exitid" ) UUID exitId,HttpServletRequest request) throws Exception{
+	     serviceFactory.getClientService().getClientById(clientId);
+	     serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+		   return serviceFactory.getExitService().getExitById(exitId); 
+	}
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits",method=RequestMethod.GET)
+	@APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_EXITS",checkTrustedApp=true,checkSessionToken=true)
+	public Exits getAllEnrollmentExits(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   			   @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                    @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                    HttpServletRequest request) throws Exception {
+	        if (startIndex == null) startIndex =0;
+	        if (maxItems == null) maxItems =30;
+		        serviceFactory.getClientService().getClientById(clientId);
+		        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+	     return serviceFactory.getExitService().getAllEnrollmentExits(enrollmentId,startIndex,maxItems); 
+	}
+	
+	   // Housing Assessment Dispositions API start
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_HOUSINGASSESSMENTDISPOSITION",checkTrustedApp=true,checkSessionToken=true)
+	   public HousingAssessmentDisposition createHousingAssessmentDisposition(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody HousingAssessmentDisposition housingAssessmentDisposition,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getHousingAssessmentDispositionService().createHousingAssessmentDisposition(housingAssessmentDisposition,enrollmentId,session.getAccount().getUsername()); 
+	         HousingAssessmentDisposition returnHousingAssessmentDisposition = new HousingAssessmentDisposition();
+	         returnHousingAssessmentDisposition.setHousingAssessmentDispositionId(housingAssessmentDisposition.getHousingAssessmentDispositionId());
+	         return returnHousingAssessmentDisposition;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions/{housingAssessmentDispositionid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_HOUSINGASSESSMENTDISPOSITION",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateHousingAssessmentDisposition(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "housingAssessmentDispositionid" ) UUID housingAssessmentDispositionId,@RequestBody HousingAssessmentDisposition housingAssessmentDisposition,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getHousingAssessmentDispositionService().updateHousingAssessmentDisposition(housingAssessmentDisposition,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions/{housingAssessmentDispositionid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_HOUSINGASSESSMENTDISPOSITION",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteHousingAssessmentDisposition(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , 
+			   @PathVariable("exitid") UUID exitId, @PathVariable( "housingAssessmentDispositionid" ) UUID housingAssessmentDispositionId,
+			   HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getHousingAssessmentDispositionService().deleteHousingAssessmentDisposition(housingAssessmentDispositionId,session.getAccount().getUsername()); 
+	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions/{housingAssessmentDispositionid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_HOUSINGASSESSMENTDISPOSITION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public HousingAssessmentDisposition getHousingAssessmentDispositionById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "housingAssessmentDispositionid" ) UUID housingAssessmentDispositionId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getExitService().getExitById(exitId);
+	        return serviceFactory.getHousingAssessmentDispositionService().getHousingAssessmentDispositionById(housingAssessmentDispositionId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_EXIT_HOUSINGASSESSMENTDISPOSITION",checkTrustedApp=true,checkSessionToken=true)
+	   public HousingAssessmentDispositions getAllEnrollmentHousingAssessmentDispositions(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable("exitid") UUID exitId, 
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getExitService().getExitById(exitId);
+	        return serviceFactory.getHousingAssessmentDispositionService().getAllEnrollmentHousingAssessmentDispositions(enrollmentId,startIndex,maxItems); 
+	   }
+	   
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid/exits/{exitid}}/exitpaths",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_EXITPATH",checkTrustedApp=true,checkSessionToken=true)
+	   public Exitpath createExitpath(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @RequestBody Exitpath exitpath,HttpServletRequest request) throws Exception{
+		   	 Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 	         
+	         serviceFactory.getExitpathService().createExitpath(exitpath,enrollmentId,session.getAccount().getUsername()); 
+	         Exitpath returnexitpath = new Exitpath();
+	         returnexitpath.setExitpathId(exitpath.getExitpathId());
+	         return returnexitpath;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_EXITPATH",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateExitpath(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @PathVariable( "exitpathid" ) UUID exitpathId,@RequestBody Exitpath exitpath,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 	        
+	        serviceFactory.getExitpathService().updateExitpath(exitpath,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_EXITPATH",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteExitpath(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @PathVariable( "exitpathid" ) UUID exitpathId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getExitpathService().deleteExitpath(exitpathId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_EXITPATH_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Exitpath getExitpathById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @PathVariable( "exitpathid" ) UUID exitpathId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getExitpathService().getExitpathById(exitpathId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_EXIT_EXITPATHS",checkTrustedApp=true,checkSessionToken=true)
+	   public Exitpaths getAllEnrollmentExitpaths(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   			   @PathVariable("exitid") UUID exitId,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getExitService().getExitById(exitId);	         
+	        return serviceFactory.getExitpathService().getAllExitExitpaths(enrollmentId,startIndex,maxItems); 
+	   }
+	   
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_EXITRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public Exitrhy createExitrhy(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @RequestBody Exitrhy exitrhy,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getExitrhyService().createExitrhy(exitrhy,enrollmentId,session.getAccount().getUsername()); 
+	         Exitrhy returnexitrhy = new Exitrhy();
+	         returnexitrhy.setExitrhyId(exitrhy.getExitrhyId());
+	         return returnexitrhy;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys/{exitrhyid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_EXITRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateExitrhy(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @PathVariable( "exitrhyid" ) UUID exitrhyId,@RequestBody Exitrhy exitrhy,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getExitrhyService().updateExitrhy(exitrhy,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys/{exitrhyid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_EXITRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteExitrhy(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @PathVariable( "exitrhyid" ) UUID exitrhyId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getExitrhyService().deleteExitrhy(exitrhyId,session.getAccount().getUsername()); 
+	        serviceFactory.getExitService().getExitById(exitId);
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys/{exitrhyid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_EXITRHY_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Exitrhy getExitrhyById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitId,
+			   @PathVariable( "exitrhyid" ) UUID exitrhyId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getExitService().getExitById(exitId);
+	        return serviceFactory.getExitrhyService().getExitrhyById(exitrhyId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_EXITRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public Exitrhys getAllEnrollmentExitrhys(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   			   @PathVariable("exitid") UUID exitId,			   
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getExitService().getExitById(exitId);
+	        return serviceFactory.getExitrhyService().getAllExitExitrhys(exitId,startIndex,maxItems); 
+	   }
+	   
+	   	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhsps",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_ENTRYRHSP",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryrhsp createEntryrhsp(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Entryrhsp entryrhsp,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEntryrhspService().createEntryrhsp(entryrhsp,enrollmentId,session.getAccount().getUsername()); 
+	         Entryrhsp returnentryrhsp = new Entryrhsp();
+	         returnentryrhsp.setEntryrhspId(entryrhsp.getEntryrhspId());
+	         return returnentryrhsp;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhsps/{entryrhspid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_ENTRYRHSP",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateEntryrhsp(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryrhspid" ) UUID entryrhspId,@RequestBody Entryrhsp entryrhsp,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEntryrhspService().updateEntryrhsp(entryrhsp,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhsps/{entryrhspid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_ENTRYRHSP",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteEntryrhsp(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryrhspid" ) UUID entryrhspId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getEntryrhspService().deleteEntryrhsp(entryrhspId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhsps/{entryrhspid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ENTRYRHSP_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryrhsp getEntryrhspById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryrhspid" ) UUID entryrhspId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEntryrhspService().getEntryrhspById(entryrhspId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhsps",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_ENTRYRHSP",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryrhsps getAllEnrollmentEntryrhsps(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEntryrhspService().getAllEnrollmentEntryrhsps(enrollmentId,startIndex,maxItems); 
+	   }
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhys",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_ENTRYRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryrhy createEntryrhy(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Entryrhy entryrhy,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEntryrhyService().createEntryrhy(entryrhy,enrollmentId,session.getAccount().getUsername()); 
+	         Entryrhy returnentryrhy = new Entryrhy();
+	         returnentryrhy.setEntryrhyId(entryrhy.getEntryrhyId());
+	         return returnentryrhy;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhys/{entryrhyid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_ENTRYRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateEntryrhy(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryrhyid" ) UUID entryrhyId,@RequestBody Entryrhy entryrhy,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEntryrhyService().updateEntryrhy(entryrhy,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhys/{entryrhyid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_ENTRYRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteEntryrhy(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryrhyid" ) UUID entryrhyId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getEntryrhyService().deleteEntryrhy(entryrhyId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhys/{entryrhyid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ENTRYRHY_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryrhy getEntryrhyById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryrhyid" ) UUID entryrhyId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEntryrhyService().getEntryrhyById(entryrhyId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryrhys",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_ENTRYRHY",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryrhys getAllEnrollmentEntryrhys(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEntryrhyService().getAllEnrollmentEntryrhys(enrollmentId,startIndex,maxItems); 
+	   }
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryssvfs",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_ENTRYSSVF",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryssvf createEntryssvf(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Entryssvf entryssvf,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEntryssvfService().createEntryssvf(entryssvf,enrollmentId,session.getAccount().getUsername()); 
+	         Entryssvf returnentryssvf = new Entryssvf();
+	         returnentryssvf.setEntryssvfId(entryssvf.getEntryssvfId());
+	         return returnentryssvf;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryssvfs/{entryssvfid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_ENTRYSSVF",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateEntryssvf(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryssvfid" ) UUID entryssvfId,@RequestBody Entryssvf entryssvf,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEntryssvfService().updateEntryssvf(entryssvf,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryssvfs/{entryssvfid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_ENTRYSSVF",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteEntryssvf(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryssvfid" ) UUID entryssvfId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getEntryssvfService().deleteEntryssvf(entryssvfId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryssvfs/{entryssvfid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ENTRYSSVF_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryssvf getEntryssvfById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "entryssvfid" ) UUID entryssvfId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEntryssvfService().getEntryssvfById(entryssvfId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/entryssvfs",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_ENTRYSSVF",checkTrustedApp=true,checkSessionToken=true)
+	   public Entryssvfs getAllEnrollmentEntryssvfs(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEntryssvfService().getAllEnrollmentEntryssvfs(enrollmentId,startIndex,maxItems); 
+	   }
+	   
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/servicefareferrals",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_SERVICEFAREFERRAL",checkTrustedApp=true,checkSessionToken=true)
+	   public Servicefareferral createServicefareferral(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Servicefareferral servicefareferral,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getServicefareferralService().createServicefareferral(servicefareferral,enrollmentId,session.getAccount().getUsername()); 
+	         Servicefareferral returnservicefareferral = new Servicefareferral();
+	         returnservicefareferral.setServicefareferralId(servicefareferral.getServicefareferralId());
+	         return returnservicefareferral;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/servicefareferrals/{servicefareferralid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_SERVICEFAREFERRAL",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateServicefareferral(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "servicefareferralid" ) UUID servicefareferralId,@RequestBody Servicefareferral servicefareferral,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getServicefareferralService().updateServicefareferral(servicefareferral,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/servicefareferrals/{servicefareferralid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_SERVICEFAREFERRAL",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteServicefareferral(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "servicefareferralid" ) UUID servicefareferralId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getServicefareferralService().deleteServicefareferral(servicefareferralId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/servicefareferrals/{servicefareferralid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_SERVICEFAREFERRAL_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Servicefareferral getServicefareferralById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "servicefareferralid" ) UUID servicefareferralId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getServicefareferralService().getServicefareferralById(servicefareferralId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/servicefareferrals",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_SERVICEFAREFERRAL",checkTrustedApp=true,checkSessionToken=true)
+	   public Servicefareferrals getAllEnrollmentServicefareferrals(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getServicefareferralService().getAllEnrollmentServicefareferrals(enrollmentId,startIndex,maxItems); 
+	   }
+
+	   
+	
+}

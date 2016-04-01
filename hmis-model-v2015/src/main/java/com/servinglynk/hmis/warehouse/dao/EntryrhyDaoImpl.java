@@ -240,6 +240,14 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		return countRows(criteria);
 	}
 
+	public List<Entryrhy> getAllEnrollmentEntryrhys(UUID enrollmentId, Integer startIndex, Integer maxItems) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public long getEnrollmentEntryrhysCount(UUID enrollmentId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
 }

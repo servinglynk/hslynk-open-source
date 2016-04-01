@@ -183,6 +183,20 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class);	
 		return countRows(criteria);
 	}
+	
+	
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Exitrhy> getAllExitExitrhys(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Exitrhy>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitExitrhysCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 
 }

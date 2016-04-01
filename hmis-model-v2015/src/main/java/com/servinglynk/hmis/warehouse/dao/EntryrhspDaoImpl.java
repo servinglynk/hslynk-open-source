@@ -190,4 +190,14 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	}
 
 
+	public List<Entryrhsp> getAllEnrollmentEntryrhsps(UUID enrollmentId, Integer startIndex, Integer maxItems) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public long getEnrollmentEntryrhspsCount(UUID enrollmentId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

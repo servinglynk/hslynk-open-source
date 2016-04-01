@@ -1,21 +1,18 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.UUID;
-
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("incomeandsources")
-public class Incomeandsources extends ClientModel{
+@JsonRootName("incomeAndSource")
+public class IncomeAndSource extends ClientModel{
 
 
-      private UUID incomeandsourcesId;
+      private UUID incomeAndSourceId;
 
       private Integer alimony;
 
-      private BigDecimal alimonyamount;
+      private float alimonyamount;
 
       private Integer childsupport;
 
@@ -65,15 +62,15 @@ public class Incomeandsources extends ClientModel{
 
       private Integer unemployment;
 
-      private Integer unemploymentamount;
+      private float unemploymentamount;
 
       private Integer vadisabilitynonservice;
 
-      private Integer vadisabilitynonserviceamount;
+      private float vadisabilitynonserviceamount;
 
       private Integer vadisabilityservice;
 
-      private Integer vadisabilityserviceamount;
+      private float vadisabilityserviceamount;
 
       private Integer workerscomp;
 
@@ -81,11 +78,11 @@ public class Incomeandsources extends ClientModel{
 
 
 
-      public UUID getIncomeandsourcesId(){
-          return incomeandsourcesId;
+      public UUID getIncomeAndSourceId(){
+          return incomeAndSourceId;
       }
-      public void setIncomeandsourcesId(UUID incomeandsourcesId){
-          this.incomeandsourcesId = incomeandsourcesId;
+      public void setIncomeAndSourceId(UUID incomeAndSourceId){
+          this.incomeAndSourceId = incomeAndSourceId;
       }
       public Integer getAlimony(){
           return alimony;
@@ -93,10 +90,10 @@ public class Incomeandsources extends ClientModel{
       public void setAlimony(Integer alimony){
           this.alimony = alimony;
       }
-      public BigDecimal getAlimonyamount(){
+      public float getAlimonyamount(){
           return alimonyamount;
       }
-      public void setAlimonyamount(BigDecimal alimonyamount){
+      public void setAlimonyamount(float alimonyamount){
           this.alimonyamount = alimonyamount;
       }
       public Integer getChildsupport(){
@@ -243,10 +240,10 @@ public class Incomeandsources extends ClientModel{
       public void setUnemployment(Integer unemployment){
           this.unemployment = unemployment;
       }
-      public Integer getUnemploymentamount(){
+      public float getUnemploymentamount(){
           return unemploymentamount;
       }
-      public void setUnemploymentamount(Integer unemploymentamount){
+      public void setUnemploymentamount(float unemploymentamount){
           this.unemploymentamount = unemploymentamount;
       }
       public Integer getVadisabilitynonservice(){
@@ -255,10 +252,10 @@ public class Incomeandsources extends ClientModel{
       public void setVadisabilitynonservice(Integer vadisabilitynonservice){
           this.vadisabilitynonservice = vadisabilitynonservice;
       }
-      public Integer getVadisabilitynonserviceamount(){
+      public float getVadisabilitynonserviceamount(){
           return vadisabilitynonserviceamount;
       }
-      public void setVadisabilitynonserviceamount(Integer vadisabilitynonserviceamount){
+      public void setVadisabilitynonserviceamount(float vadisabilitynonserviceamount){
           this.vadisabilitynonserviceamount = vadisabilitynonserviceamount;
       }
       public Integer getVadisabilityservice(){
@@ -267,10 +264,10 @@ public class Incomeandsources extends ClientModel{
       public void setVadisabilityservice(Integer vadisabilityservice){
           this.vadisabilityservice = vadisabilityservice;
       }
-      public Integer getVadisabilityserviceamount(){
+      public float getVadisabilityserviceamount(){
           return vadisabilityserviceamount;
       }
-      public void setVadisabilityserviceamount(Integer vadisabilityserviceamount){
+      public void setVadisabilityserviceamount(float vadisabilityserviceamount){
           this.vadisabilityserviceamount = vadisabilityserviceamount;
       }
       public Integer getWorkerscomp(){

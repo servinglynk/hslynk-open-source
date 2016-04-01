@@ -15,5 +15,8 @@ public interface EntryrhspDao extends ParentDao{
 	List<Entryrhsp> getAllEntryrhsp(Integer startIndex, Integer maxItems);
 	long getEntryrhspCount();
 	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRshp);
+	
+	List<Entryrhsp> getAllEnrollmentEntryrhsps(UUID enrollmentId, Integer startIndex, Integer maxItems);
+	long getEnrollmentEntryrhspsCount(UUID enrollmentId);
 
 }

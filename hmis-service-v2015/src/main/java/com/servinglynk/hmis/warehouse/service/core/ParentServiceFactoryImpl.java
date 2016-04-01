@@ -11,9 +11,17 @@ import com.servinglynk.hmis.warehouse.service.DomesticviolenceService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.EntryrhspService;
+import com.servinglynk.hmis.warehouse.service.EntryrhyService;
+import com.servinglynk.hmis.warehouse.service.EntryssvfService;
+import com.servinglynk.hmis.warehouse.service.ExitService;
+import com.servinglynk.hmis.warehouse.service.ExitpathService;
+import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
+import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
+import com.servinglynk.hmis.warehouse.service.IncomeAndSourceService;
 import com.servinglynk.hmis.warehouse.service.InventoryService;
 import com.servinglynk.hmis.warehouse.service.MedicalassistanceService;
 import com.servinglynk.hmis.warehouse.service.NoncashbenefitsService;
@@ -23,7 +31,9 @@ import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
+import com.servinglynk.hmis.warehouse.service.ServicefareferralService;
 import com.servinglynk.hmis.warehouse.service.SiteService;
+import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 
 @Component
 public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements ParentServiceFactory {
@@ -43,7 +53,17 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public HealthstatusService healthstatusService;
 	@Autowired public RhybcpstatusService rhybcpstatusService;
 	@Autowired public ProjectService projectService;
-
+	@Autowired public ExitService exitService;
+	@Autowired public HousingAssessmentDispositionService housingAssessmentDispositionService;
+	@Autowired public VeteranInfoService veteranInfoService;
+	@Autowired public IncomeAndSourceService incomeAndSourceService;
+	@Autowired public ExitpathService exitpathService;
+	@Autowired public ExitrhyService exitrhyService;
+	@Autowired public EntryrhspService entryrhspService;
+	@Autowired public EntryrhyService entryrhyService;
+	@Autowired public EntryssvfService entryssvfService;
+	@Autowired public ServicefareferralService servicefareferralService;
+	
 
 	
 	public RhybcpstatusService getRhybcpstatusService() {
@@ -218,5 +238,85 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	
+
+	public ExitService getExitService() {
+		return exitService;
+	}
+
+	public void setExitService(ExitService exitService) {
+		this.exitService = exitService;
+	}
+
+	public HousingAssessmentDispositionService getHousingAssessmentDispositionService() {
+		return housingAssessmentDispositionService;
+	}
+
+	public void setHousingAssessmentDispositionService(
+			HousingAssessmentDispositionService housingAssessmentDispositionService) {
+		this.housingAssessmentDispositionService = housingAssessmentDispositionService;
+	}
+
+	public VeteranInfoService getVeteranInfoService() {
+		return veteranInfoService;
+	}
+
+	public void setVeteranInfoService(VeteranInfoService veteranInfoService) {
+		this.veteranInfoService = veteranInfoService;
+	}
+
+	public IncomeAndSourceService getIncomeAndSourceService() {
+		return incomeAndSourceService;
+	}
+
+	public void setIncomeAndSourceService(IncomeAndSourceService incomeAndSourceService) {
+		this.incomeAndSourceService = incomeAndSourceService;
+	}
+
+	public ExitpathService getExitpathService() {
+		return exitpathService;
+	}
+
+	public void setExitpathService(ExitpathService exitpathService) {
+		this.exitpathService = exitpathService;
+	}
+
+	public ExitrhyService getExitrhyService() {
+		return exitrhyService;
+	}
+
+	public void setExitrhyService(ExitrhyService exitrhyService) {
+		this.exitrhyService = exitrhyService;
+	}
+
+	public EntryrhspService getEntryrhspService() {
+		return entryrhspService;
+	}
+
+	public void setEntryrhspService(EntryrhspService entryrhspService) {
+		this.entryrhspService = entryrhspService;
+	}
+
+	public EntryrhyService getEntryrhyService() {
+		return entryrhyService;
+	}
+
+	public void setEntryrhyService(EntryrhyService entryrhyService) {
+		this.entryrhyService = entryrhyService;
+	}
+
+	public EntryssvfService getEntryssvfService() {
+		return entryssvfService;
+	}
+
+	public void setEntryssvfService(EntryssvfService entryssvfService) {
+		this.entryssvfService = entryssvfService;
+	}
+
+	public ServicefareferralService getServicefareferralService() {
+		return servicefareferralService;
+	}
+
+	public void setServicefareferralService(ServicefareferralService servicefareferralService) {
+		this.servicefareferralService = servicefareferralService;
+	}
 }

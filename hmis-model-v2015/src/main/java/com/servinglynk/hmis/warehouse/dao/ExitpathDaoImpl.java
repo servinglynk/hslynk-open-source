@@ -163,6 +163,19 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		return exitpath;
 	}
 	
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Exitpath> getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Exitpath>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	
+	public long getExitExitpathsCount(UUID exitId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return countRows(criteria);
+	   }
 	
 	public long getExitpathCount(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class);	

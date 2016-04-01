@@ -15,5 +15,8 @@ public interface EntryssvfDao extends ParentDao {
 	List<Entryssvf> getAllEntryssvf(Integer startIndex, Integer maxItems);
 	long getEntryssvfCount();
 	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entryssvf);
+	
+	  List getAllEnrollmentEntryssvfs(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   long getEnrollmentEntryssvfsCount(UUID enrollmentId);
 
 }

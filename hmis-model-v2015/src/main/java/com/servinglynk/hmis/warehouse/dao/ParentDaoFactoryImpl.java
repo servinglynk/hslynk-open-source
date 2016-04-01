@@ -571,6 +571,7 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setOrganizationDao(OrganizationDao organizationDao) {
 		this.organizationDao = organizationDao;
 	}
+<<<<<<< HEAD
 
 	public EducationDao getEducationDao() {
 		return educationDao;
@@ -579,5 +580,7 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setEducationDao(EducationDao educationDao) {
 		this.educationDao = educationDao;
 	}
+=======
+>>>>>>> 23226a9f823bf9a2471208b02ecf994592310ed3
 	
 }
