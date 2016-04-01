@@ -177,4 +177,16 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		return countRows(criteria);
 	}
 
+	public List getAllEnrollmentEntryssvfs(UUID enrollmentId, Integer startIndex, Integer maxItems) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public long getEnrollmentEntryssvfsCount(UUID enrollmentId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }

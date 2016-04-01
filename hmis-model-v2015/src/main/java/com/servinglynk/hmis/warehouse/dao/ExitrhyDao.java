@@ -16,4 +16,7 @@ public interface ExitrhyDao extends ParentDao {
 	List<Exitrhy> getAllExitrhy(Integer startIndex, Integer maxItems);
 	long getExitrhyCount();
 	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy exitrhy);
+	
+	List<com.servinglynk.hmis.warehouse.model.v2015.Exitrhy> getAllExitExitrhys(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	long getExitExitrhysCount(UUID enrollmentId);
 }

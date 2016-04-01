@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS "v2014".enrollment;
 DROP TABLE IF EXISTS "v2014".organization; 
 DROP TABLE IF  EXISTS "v2014".sync;
 DROP TABLE IF EXISTS "v2014".veteran_info;
-DROP TABLE IF EXISTS "v2014".client;
+-- DROP TABLE IF EXISTS "v2014".client;
 
 
 DROP TABLE IF EXISTS "v2014".bulk_upload;
@@ -1105,45 +1105,7 @@ with (
   oids=false
 );
 
--- DROP TABLE "v2014"."client";
-CREATE TABLE "v2014".client
-(
-  "id" uuid NOT NULL,
-  "dedup_client_id" uuid,
-  "first_name" character(50),
-  "middle_name" character(50),
-  "last_name" character(50),
-  "name_suffix" character(50),
-  "name_data_quality" "v2014".name_data_quality,
-   "ssn" character(9),
-  "ssn_data_quality" "v2014".ssn_data_quality,
-  "dob" timestamp,
-  "dob_data_quality" "v2014".dob_data_quality,
-  "gender" "v2014".gender,
-  "other_gender" character(10),
-  "ethnicity" "v2014".ethnicity,
-  "race"  "v2014".race,
-  "veteran_status" "v2014".veteran_status,
-  "project_group_code" character varying(8),
-  "date_created" timestamp,
-  "date_created_from_source" timestamp,
-  "date_updated_from_source" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
-  export_id uuid,
-  parent_id uuid,
-  version integer,
-  deleted boolean DEFAULT false, 
-  sync boolean DEFAULT false,
-      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2014.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT client_pk PRIMARY KEY ("id")
-      )
-WITH (
-  OIDS=FALSE
-);
--- Table: "v2014"."client"
+
 
 
 CREATE TABLE "v2014".veteran_info
@@ -1178,7 +1140,7 @@ CREATE TABLE "v2014".veteran_info
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT veteran_info_pk PRIMARY KEY ("id"),
   CONSTRAINT veteran_info_client_fk FOREIGN KEY ("client_id")
-      REFERENCES "v2014".client ("id")
+      REFERENCES "base".client ("id")
       )
 WITH (
   OIDS=FALSE
@@ -1221,7 +1183,7 @@ sync boolean DEFAULT false,
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
-      REFERENCES "v2014".client ("id")
+      REFERENCES "base".client ("id")
 )
 WITH (
   OIDS=FALSE

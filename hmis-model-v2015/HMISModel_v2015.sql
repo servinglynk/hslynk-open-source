@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS "v2015".enrollment;
 DROP TABLE IF EXISTS "v2015".organization; 
 DROP TABLE IF  EXISTS "v2015".sync;
 DROP TABLE IF EXISTS "v2015".client_veteran_info;
-DROP TABLE IF EXISTS "v2015".client;
+-- DROP TABLE IF EXISTS "v2015".client;
 DROP TABLE IF EXISTS "v2015".bulk_upload;
 DROP TABLE IF EXISTS "v2015".bulk_upload_activity;
 DROP TABLE IF EXISTS "v2015".export; 
@@ -1169,45 +1169,6 @@ CREATE TABLE  "v2015".project
 WITH (
   OIDS=FALSE
 );
--- DROP TABLE "v2015"."client";
-CREATE TABLE "v2015".client
-(
-  "id" uuid NOT NULL,
-  "dedup_client_id" uuid,
-  "first_name" character(50),
-  "middle_name" character(50),
-  "last_name" character(50),
-  "name_suffix" character(50),
-  "name_data_quality" "v2015".name_data_quality,
-  "ssn" character(9),
-  "ssn_data_quality" "v2015".ssn_data_quality,
-  "dob" timestamp,
-  "dob_data_quality" "v2015".dob_data_quality,
-  "gender" "v2015".gender,
-  "other_gender" character(10),
-  "ethnicity" "v2015".ethnicity,
-  "race"  "v2015".race,
-  "veteran_status" "v2015".veteran_status,
-  "project_group_code" character varying(8),
-  "date_created" timestamp,
-  "date_created_from_source" timestamp,
-  "date_updated_from_source" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
-  export_id uuid,
-  parent_id uuid,
-  version integer,
-  deleted boolean DEFAULT false, 
-  sync boolean DEFAULT false,
-      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2015.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  	  CONSTRAINT client_pk PRIMARY KEY ("id")
-      )
-WITH (
-  OIDS=FALSE
-);
--- Table: "v2015"."client"
 
 -- veteran_info changed to client_veteran_info
 CREATE TABLE "v2015".client_veteran_info
@@ -1242,7 +1203,7 @@ CREATE TABLE "v2015".client_veteran_info
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   	  CONSTRAINT veteran_info_pk PRIMARY KEY ("id"),
   	  CONSTRAINT veteran_info_client_fk FOREIGN KEY ("client_id")
-      REFERENCES "v2015".client ("id") MATCH SIMPLE
+      REFERENCES "base".client ("id") MATCH SIMPLE
 )
 WITH (
   OIDS=FALSE
@@ -1283,7 +1244,7 @@ CREATE TABLE "v2015".enrollment
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   		CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     	CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
-      	REFERENCES "v2015".client ("id") MATCH SIMPLE
+      	REFERENCES "base".client ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
       	CONSTRAINT enrollment_project_fk FOREIGN KEY ("projectid")
       	REFERENCES "v2015".project ("id") MATCH SIMPLE

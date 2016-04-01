@@ -170,5 +170,18 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 		
 	}
+	
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment> getAllExitExithousingassessments(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitExithousingassessmentsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

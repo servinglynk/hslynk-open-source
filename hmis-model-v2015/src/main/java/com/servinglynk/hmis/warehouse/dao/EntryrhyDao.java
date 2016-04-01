@@ -15,5 +15,8 @@ public interface EntryrhyDao extends ParentDao {
 	List<Entryrhy> getAllEntryrhy(Integer startIndex, Integer maxItems);
 	long getEntryrhyCount();
 	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryrhy);
+	
+	   List<Entryrhy> getAllEnrollmentEntryrhys(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   long getEnrollmentEntryrhysCount(UUID enrollmentId);
 
 }

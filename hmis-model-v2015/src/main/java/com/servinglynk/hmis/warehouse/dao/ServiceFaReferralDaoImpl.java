@@ -175,4 +175,23 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	}
 
 
+	@Override
+	public long getEnrollmentServiceFaReferralsCount(UUID enrollmentId) {
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	}
+
+
+	@Override
+	public List<ServiceFaReferral> getAllEnrollmentServiceFaReferrals(UUID enrollmentId, Integer startIndex,
+			Integer maxItems) {
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral>) findByCriteria(criteria,startIndex,maxItems);
+	}
+
+
 }

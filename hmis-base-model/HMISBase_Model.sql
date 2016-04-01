@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS  base.hmis_trusted_app_status;
 DROP TABLE IF EXISTS  base.hmis_user_permission_set_acl;
 DROP TABLE IF EXISTS  base.hmis_user_role_map;
 DROP TABLE IF EXISTS  base.hmis_verification;
-
+DROP TABLE IF EXISTS  base.client;
 
 DROP TYPE IF EXISTS "base".gender;
 
@@ -62,7 +62,7 @@ WITH (
   OIDS=FALSE
 );
 
-create table "base".organization
+create table "base".hmis_organization
 (
   organizationcommonname character varying(32),
   id uuid not null,
@@ -1002,6 +1002,43 @@ WITH (
   OIDS=FALSE
 );
 
+-- DROP TABLE "base"."client";
+CREATE TABLE "base".client
+(
+  "id" uuid NOT NULL,
+  "dedup_client_id" uuid,
+  "first_name" character(50),
+  "middle_name" character(50),
+  "last_name" character(50),
+  "name_suffix" character(50),
+  "name_data_quality" "v2014".name_data_quality,
+   "ssn" character(9),
+  "ssn_data_quality" "v2014".ssn_data_quality,
+  "dob" timestamp,
+  "dob_data_quality" "v2014".dob_data_quality,
+  "gender" "v2014".gender,
+  "other_gender" character(10),
+  "ethnicity" "v2014".ethnicity,
+  "race"  "v2014".race,
+  "veteran_status" "v2014".veteran_status,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+  CONSTRAINT client_pk PRIMARY KEY ("id")
+      )
+WITH (
+  OIDS=FALSE
+);
+-- Table: "base"."client"
+
 
 ALTER TABLE base.hmis_user ADD COLUMN created_by character varying(256);
 ALTER TABLE base.hmis_user ADD COLUMN modified_by character varying(256);
@@ -1017,7 +1054,7 @@ ALTER TABLE base.hmis_user ADD COLUMN authenticator_secret character varying(16)
 ALTER TABLE base.hmis_user ADD COLUMN two_factor_authentication boolean;
 
 
-ALTER TABLE  base.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES base.organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE  base.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES base.hmis_organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (profile_id) REFERENCES base.hmis_profile (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES base.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROJECT_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES base.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;

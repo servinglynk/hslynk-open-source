@@ -6,7 +6,6 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment;
 
 /**
@@ -23,5 +22,8 @@ public interface ExithousingassessmentDao extends ParentDao {
 	List<Exithousingassessment> getAllExithousingassessment(Integer startIndex, Integer maxItems);
 	long getExithousingassessmentCount();
 	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Exithousingassessment exithousingassessment);
+	
+	   List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment> getAllExitExithousingassessments(UUID exitId,Integer startIndex, Integer maxItems);
+	   long getExitExithousingassessmentsCount(UUID exitId);
 
 }

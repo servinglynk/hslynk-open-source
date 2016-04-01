@@ -13,9 +13,17 @@ import com.servinglynk.hmis.warehouse.service.impl.DomesticviolenceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EntryrhyServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EntryssvfServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ExitpathServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.IncomeAndSourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.InventoryServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.MedicalassistanceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.NoncashbenefitsServiceImpl;
@@ -25,7 +33,9 @@ import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ServicefareferralServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SiteServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.VeteranInfoServiceImpl;
 
 
 @Configuration
@@ -141,4 +151,52 @@ public class ServiceConfig  {
 		 return new ProjectServiceImpl();
 	 }
 	 
+	 @Bean
+	 public ExitServiceImpl exitService(){
+		 return new ExitServiceImpl();
+	 }
+	 
+	 @Bean
+	 public HousingAssessmentDispositionServiceImpl housingAssessmentDispositionService(){
+		 return new HousingAssessmentDispositionServiceImpl();
+	 }
+	 
+	 @Bean
+	 public VeteranInfoServiceImpl veteranInfoService(){
+		 return new VeteranInfoServiceImpl();
+	 }
+	 
+	 @Bean
+	 public IncomeAndSourceServiceImpl incomeAndSourceService(){
+		 return new IncomeAndSourceServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ExitpathServiceImpl exitpathService(){
+		 return new ExitpathServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ExitrhyServiceImpl exitrhyService(){
+		 return new ExitrhyServiceImpl();
+	 }
+	 	@Bean
+	public EntryrhspServiceImpl entryrhspService(){
+		return new EntryrhspServiceImpl();
+	}
+	
+	@Bean
+	public EntryrhyServiceImpl entryrhyService(){
+		return new EntryrhyServiceImpl();
+	}
+
+	@Bean
+	public EntryssvfServiceImpl entryssvfService(){
+		return new EntryssvfServiceImpl();
+	}
+	
+	@Bean
+	public ServicefareferralServiceImpl servicefareferralService(){
+		return new ServicefareferralServiceImpl();
+	}
 }

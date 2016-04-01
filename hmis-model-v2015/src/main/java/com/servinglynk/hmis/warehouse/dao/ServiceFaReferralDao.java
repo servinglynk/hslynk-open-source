@@ -16,4 +16,6 @@ public interface ServiceFaReferralDao extends ParentDao {
 	List<ServiceFaReferral> getAllServiceFaReferral(Integer startIndex, Integer maxItems);
 	long getServiceFaReferralCount();
 	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferral);
+	long getEnrollmentServiceFaReferralsCount(UUID enrollmentId);
+	List<ServiceFaReferral> getAllEnrollmentServiceFaReferrals(UUID enrollmentId, Integer startIndex, Integer maxItems);
 }
