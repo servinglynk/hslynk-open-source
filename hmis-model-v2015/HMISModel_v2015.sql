@@ -2036,7 +2036,7 @@ with (
 create table  "v2015".education
 (
   	"id" uuid not null,
-	lastgradecompleted "stagv2014".last_grade_completed,,
+	lastgradecompleted "stagv2014".last_grade_completed,
 	"school_status" "stagv2014".school_status,
 	"enrollmentid" uuid,
 	"project_group_code" character varying(8),
