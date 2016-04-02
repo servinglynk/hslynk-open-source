@@ -26,6 +26,7 @@ import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDao;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CocDaoImpl;
@@ -342,5 +343,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public EducationDaoImpl educationDao() {
 		return new EducationDaoImpl();
+	}
+	
+	@Bean
+	public ClientDaoImpl clientDao(){
+		return new ClientDaoImpl();
 	}
 }

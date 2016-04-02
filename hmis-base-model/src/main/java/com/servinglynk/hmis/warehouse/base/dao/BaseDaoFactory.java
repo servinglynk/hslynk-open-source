@@ -20,6 +20,6 @@ public interface BaseDaoFactory {
 	ProfileAclDao getProfileAclDao();
 	PermissionSetDao getPermissionSetDao();
 	ProjectGroupDao getProjectGroupDao();
-	ClientDao getClientDao();
+	ClientDao getHmisClientDao();
 
 }

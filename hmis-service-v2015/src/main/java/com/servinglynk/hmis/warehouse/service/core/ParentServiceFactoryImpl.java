@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
+import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticviolenceService;
@@ -63,6 +64,7 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public EntryrhyService entryrhyService;
 	@Autowired public EntryssvfService entryssvfService;
 	@Autowired public ServicefareferralService servicefareferralService;
+	@Autowired public ClientService clientService;
 	
 
 	
@@ -319,4 +321,13 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setServicefareferralService(ServicefareferralService servicefareferralService) {
 		this.servicefareferralService = servicefareferralService;
 	}
+
+	public ClientService getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
+	}
+	
 }

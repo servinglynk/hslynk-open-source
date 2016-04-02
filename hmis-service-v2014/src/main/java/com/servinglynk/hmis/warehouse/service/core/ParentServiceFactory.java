@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.service.core;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
+import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
@@ -84,4 +85,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	InventoryService getInventoryService();
 	BulkUploadService getBulkUploadService();
 	OrganizationService getOrganizationService();
+	ClientService getClientService();
 }

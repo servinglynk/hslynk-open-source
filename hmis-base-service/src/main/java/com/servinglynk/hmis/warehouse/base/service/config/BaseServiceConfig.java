@@ -56,7 +56,7 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	}
 	
 	@Bean
-	public ClientServiceImpl clientService(){
+	public ClientServiceImpl hmisClientService(){
 		return new ClientServiceImpl();
 	}
 	

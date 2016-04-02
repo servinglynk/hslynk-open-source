@@ -86,6 +86,9 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private OrganizationDao organizationDao;
 	@Autowired
 	private EducationDao educationDao; 
+	
+	@Autowired
+	private ClientDao clientDao;
 
 	/**
 	 * @return the bulkUploaderDao
@@ -578,6 +581,14 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	public void setEducationDao(EducationDao educationDao) {
 		this.educationDao = educationDao;
+	}
+
+	public ClientDao getClientDao() {
+		return clientDao;
+	}
+
+	public void setClientDao(ClientDao clientDao) {
+		this.clientDao = clientDao;
 	}
 	
 }

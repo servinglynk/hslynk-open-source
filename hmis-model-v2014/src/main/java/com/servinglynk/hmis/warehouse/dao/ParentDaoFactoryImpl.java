@@ -108,6 +108,9 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private OrganizationDao organizationDao;
 	
+	@Autowired
+	private ClientDao clientDao;
+	
 	
 	public SyncListDao getSyncListDao() {
 		return syncListDao;
@@ -402,6 +405,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setOrganizationDao(OrganizationDao organizationDao) {
 		this.organizationDao = organizationDao;
+	}
+	public ClientDao getClientDao() {
+		return clientDao;
+	}
+	public void setClientDao(ClientDao clientDao) {
+		this.clientDao = clientDao;
 	}		
 	
 }

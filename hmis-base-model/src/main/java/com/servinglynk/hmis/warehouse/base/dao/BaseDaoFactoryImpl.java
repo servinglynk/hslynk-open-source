@@ -56,7 +56,7 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	@Autowired
 	private PermissionSetDao permissionSetDao;
 	@Autowired
-	private ClientDao clientDao;
+	private ClientDao hmisClientDao;
 	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
@@ -208,10 +208,10 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setPermissionSetDao(PermissionSetDao permissionSetDao) {
 		this.permissionSetDao = permissionSetDao;
 	}
-	public ClientDao getClientDao() {
-		return clientDao;
+	public ClientDao getHmisClientDao() {
+		return hmisClientDao;
 	}
-	public void setClientDao(ClientDao clientDao) {
-		this.clientDao = clientDao;
+	public void setHmisClientDao(ClientDao hmisClientDao) {
+		this.hmisClientDao = hmisClientDao;
 	}
 }

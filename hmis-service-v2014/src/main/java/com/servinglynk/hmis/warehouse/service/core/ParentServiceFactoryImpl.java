@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
+import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
@@ -511,4 +512,17 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setInventoryService(InventoryService inventoryService) {
 		this.inventoryService = inventoryService;
 	}
+	
+	@Autowired public ClientService clientService;
+
+
+	public ClientService getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
+	}
+	
+	
 }

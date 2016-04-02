@@ -37,6 +37,20 @@ DROP TABLE IF EXISTS  base.client;
 
 DROP TYPE IF EXISTS "base".gender;
 
+DROP TYPE IF EXISTS "base".name_data_quality;
+DROP TYPE IF EXISTS "base".dob_data_quality;
+DROP TYPE IF EXISTS "base".ssn_data_quality;
+DROP TYPE IF EXISTS "base".gender;
+DROP TYPE IF EXISTS "base".ethnicity;
+DROP TYPE IF EXISTS "base".veteran_status;
+DROP TYPE IF EXISTS "base".race;
+
+CREATE TYPE "base".name_data_quality AS ENUM ('1', '2', '8','9','99');
+CREATE TYPE "base".dob_data_quality AS ENUM ('1', '2', '8','9','99');
+CREATE TYPE "base".ssn_data_quality AS ENUM ('1', '2', '8','9','99');
+CREATE TYPE "base".veteran_status AS ENUM ('0', '1', '8','9','99');
+CREATE TYPE "base".race AS ENUM ('1', '2','3','4','5','8','9','99');
+CREATE TYPE "base".ethnicity AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "base".gender AS ENUM ('1', '2','3','4','8','9','99');
 
 -- DROP TABLE "base"."client";
@@ -1011,16 +1025,16 @@ CREATE TABLE "base".client
   "middle_name" character(50),
   "last_name" character(50),
   "name_suffix" character(50),
-  "name_data_quality" "v2014".name_data_quality,
+  "name_data_quality" "base".name_data_quality,
    "ssn" character(9),
-  "ssn_data_quality" "v2014".ssn_data_quality,
+  "ssn_data_quality" "base".ssn_data_quality,
   "dob" timestamp,
-  "dob_data_quality" "v2014".dob_data_quality,
-  "gender" "v2014".gender,
+  "dob_data_quality" "base".dob_data_quality,
+  "gender" "base".gender,
   "other_gender" character(10),
-  "ethnicity" "v2014".ethnicity,
-  "race"  "v2014".race,
-  "veteran_status" "v2014".veteran_status,
+  "ethnicity" "base".ethnicity,
+  "race"  "base".race,
+  "veteran_status" "base".veteran_status,
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,

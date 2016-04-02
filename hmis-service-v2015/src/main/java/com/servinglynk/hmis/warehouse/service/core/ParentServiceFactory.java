@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.service.core;
 
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
+import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticviolenceService;
@@ -67,4 +68,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	EntryrhyService getEntryrhyService();
 	EntryssvfService getEntryssvfService();
 	ServicefareferralService getServicefareferralService();
+	ClientService getClientService();
 }

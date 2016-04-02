@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfo;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfos;
-import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.v2015.Client;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 import com.servinglynk.hmis.warehouse.service.converter.VeteranInfoConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;

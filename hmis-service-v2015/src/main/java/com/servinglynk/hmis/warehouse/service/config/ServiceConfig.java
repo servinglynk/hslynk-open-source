@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -198,5 +199,10 @@ public class ServiceConfig  {
 	@Bean
 	public ServicefareferralServiceImpl servicefareferralService(){
 		return new ServicefareferralServiceImpl();
+	}
+	
+	@Bean
+	public ClientServiceImpl clientService(){
+		return new ClientServiceImpl();
 	}
 }

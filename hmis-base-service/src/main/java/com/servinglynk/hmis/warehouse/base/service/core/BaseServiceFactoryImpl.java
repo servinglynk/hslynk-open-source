@@ -59,7 +59,7 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	private PermissionSetService permissionSetService;
 	
 	@Autowired
-	private ClientService clientService;
+	private ClientService hmisClientService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -170,11 +170,11 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 		this.projectGroupService = projectGroupService;
 	}
 
-	public ClientService getClientService() {
-		return clientService;
+	public ClientService getHmisClientService() {
+		return hmisClientService;
 	}
 
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
+	public void setHmisClientService(ClientService hmisClientService) {
+		this.hmisClientService = hmisClientService;
 	}
 }

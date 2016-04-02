@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
 import com.servinglynk.hmis.warehouse.model.v2014.Organization;
 
 
@@ -302,7 +302,7 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 	 * @param client item to add
 	 */
 	public void addClient(Client client) {
-	//	client.setExport(this);
+		client.setExport(this);
 		this.clients.add(client);
 	}
 

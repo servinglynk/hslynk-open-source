@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.dao.SyncListDao;
 import com.servinglynk.hmis.warehouse.dao.SyncListDaoImpl;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
@@ -262,5 +263,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public BulkUploadServiceImpl bulkUploadService(){
 		 return new BulkUploadServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ClientServiceImpl clientService(){
+		 return new ClientServiceImpl();
 	 }
 }

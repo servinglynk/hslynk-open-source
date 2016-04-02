@@ -181,7 +181,7 @@ public class BaseDatabaseConfig {
 	}
 	
 	@Bean
-	public ClientDaoImpl clientDao(){
+	public ClientDaoImpl hmisClientDao(){
 		return new ClientDaoImpl();
 	}
 }

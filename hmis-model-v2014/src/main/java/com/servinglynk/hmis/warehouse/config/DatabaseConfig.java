@@ -23,6 +23,8 @@ import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.ClientDao;
+import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CommercialsexualexploitationDao;
 import com.servinglynk.hmis.warehouse.dao.CommercialsexualexploitationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ConnectionwithsoarDao;
@@ -404,4 +406,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	public OrganizationDaoImpl organizationDao(){
 		return new OrganizationDaoImpl();
 	}
+	
+	@Bean
+	public ClientDaoImpl clientDao(){
+		return new ClientDaoImpl();
+	}
+	
 }

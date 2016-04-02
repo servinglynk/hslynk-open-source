@@ -33,5 +33,5 @@ public interface BaseServiceFactory {
 	ProfileService getProfileService();
 	PermissionSetService getPermissionSetService();
 	ProjectGroupService getProjectGroupService();
-	ClientService getClientService();
+	ClientService getHmisClientService();
 }

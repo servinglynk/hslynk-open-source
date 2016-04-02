@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.v2015.Client;
 import com.servinglynk.hmis.warehouse.model.v2015.Organization;
 
 
@@ -301,32 +301,32 @@ public class Export implements Cloneable, Serializable {
 	 * Return the value associated with the column: client.
 	 * @return A Set&lt;Client&gt; object (this.client)
 	 */
- 	/*@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+ 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
- 	@JoinColumn(name = "user_id", nullable = true )
+ 	@Column(nullable = true )
 	public Set<Client> getClients() {
 		return this.clients;
 
 	}
 
-	*//**
+	/**
 	 * Adds a bi-directional link of type Client to the clients set.
 	 * @param client item to add
-	 *//*
+	 */
 	public void addClient(Client client) {
-	//	client.setExport(this);
+		client.setExport(this);
 		this.clients.add(client);
 	}
 
 
-	 *//**
+	 /**
 	 * Set the value related to the column: client.
 	 * @param client the client value you wish to set
-	 *//*
+	 */
 	public void setClients(final Set<Client> client) {
 		this.clients = client;
-	}*/
+	}
 
 	 /**
 	 * Return the value associated with the column: clientVeteranInfo.

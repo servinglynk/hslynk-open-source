@@ -22,7 +22,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment createEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
-		com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		com.servinglynk.hmis.warehouse.model.v2015.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
@@ -39,7 +39,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
-		com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		com.servinglynk.hmis.warehouse.model.v2015.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
