@@ -90,8 +90,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
-		//	parentDaoFactory.getClientDao().hydrateStaging(domain);
-		//	parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
+			parentDaoFactory.getClientDao().hydrateStaging(domain);
+			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
 			parentDaoFactory.getProjectDao().hydrateStaging(domain);
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
@@ -162,13 +162,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		UUID exportId = bulkUpload.getExport().getId();
 		com.servinglynk.hmis.warehouse.model.stagv2015.Export export = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
 
-	//	parentDaoFactory.getClientDao().hydrateLive(export);
-	//	parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
-		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
-		//parentDaoFactory.getDateofengagementDao().hydrateLive(export);
-		//parentDaoFactory.getOrganizationDao().hydrateLive(export);
-//		parentDaoFactory.getOrganizationDao().hydrateLive(export);
+		parentDaoFactory.getClientDao().hydrateLive(export);
+		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
+		parentDaoFactory.getOrganizationDao().hydrateLive(export);
 		parentDaoFactory.getProjectDao().hydrateLive(export);
+		
+		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
+		
 		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);
 		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
 		parentDaoFactory.getDateofengagementDao().hydrateLive(export);

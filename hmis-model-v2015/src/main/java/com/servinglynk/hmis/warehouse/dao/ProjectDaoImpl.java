@@ -95,12 +95,13 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				if(project != null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Project target = new com.servinglynk.hmis.warehouse.model.v2015.Project();
 					BeanUtils.copyProperties(project, target,getNonCollectionFields(target));
-//					com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, project.getEnrollments().get(0).getId());
+					//com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, project.getEnrollments().get(0).getId());
 //					target.addEnrollment(enrollmentModel);
-//					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-				//	target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.v2015.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.v2015.Organization) get(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, project.getOrganizationid().getId());
-					target.setOrganizationid(orgEntity);
+					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
+					target.setExport(exportEntity);
+					//Sandeep TODO Need to fix this.
+//					com.servinglynk.hmis.warehouse.model.v2015.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.v2015.Organization) get(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, project.getOrganizationid().getId());
+//					target.setOrganizationid(orgEntity);
 					target.setDateCreated(LocalDateTime.now());
 					 target.setDateUpdated(LocalDateTime.now());
 					insert(target);

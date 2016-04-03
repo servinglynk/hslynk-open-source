@@ -75,8 +75,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 					BeanUtils.copyProperties(funder, target,getNonCollectionFields(target));
 					 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
 					 target.setExport(exportEntity);
-					 com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class,funder.getProjectid().getId());
-					 target.setProjectid(projectModel);
+					 if(funder.getProjectid() !=null) {
+						 com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class,funder.getProjectid().getId());
+						 target.setProjectid(projectModel);
+					 }
 					 target.setDateCreated(LocalDateTime.now());
 					 target.setDateUpdated(LocalDateTime.now());
 					insert(target);
