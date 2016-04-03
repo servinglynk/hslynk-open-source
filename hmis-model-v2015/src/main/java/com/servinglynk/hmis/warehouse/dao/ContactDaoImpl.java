@@ -72,8 +72,8 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Contact> contact = export.getContacts();
 		if(contact !=null && !contact.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Contact contacts : contact) {
-				com.servinglynk.hmis.warehouse.model.v2015.Contact contactByDedupContactId = getContactByDedupContactId(contacts.getId(),contacts.getProjectGroupCode());
-				if(contactByDedupContactId ==null) {
+			//	com.servinglynk.hmis.warehouse.model.v2015.Contact contactByDedupContactId = getContactByDedupContactId(contacts.getId(),contacts.getProjectGroupCode());
+			//	if(contactByDedupContactId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Contact target = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
 					BeanUtils.copyProperties(contacts, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
@@ -81,7 +81,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
 				}
-			}
+		//	}
 		}
 	}
 	

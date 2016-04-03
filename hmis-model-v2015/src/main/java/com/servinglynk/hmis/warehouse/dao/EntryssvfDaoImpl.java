@@ -63,8 +63,8 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf> entrySsvf = export.getEntryssvfs();
 		if(entrySsvf !=null && !entrySsvf.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvfs : entrySsvf) {
-				com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvfs.getId(),entrySsvfs.getProjectGroupCode());
-				if(entryssvfByDedupCliendId ==null) {
+			//	com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvfs.getId(),entrySsvfs.getProjectGroupCode());
+			//	if(entryssvfByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf target = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
 					BeanUtils.copyProperties(entrySsvfs, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
@@ -72,7 +72,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
 				}
-			}
+			//}
 		}
 	}
 	

@@ -161,6 +161,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp getEntryrhspByDedupEntryrhspId(UUID id,String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class);
+		if(id == null || projectGroupCode == null) return null;
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		List<com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp>) findByCriteria(criteria);

@@ -72,8 +72,8 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy> exitrhy = export.getExitrhies();
 		if(exitrhy !=null && !exitrhy.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy exitrhys : exitrhy) {
-				com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyByDedupCliendId = getExitrhyByDedupExitrhyId(exitrhys.getId(),exitrhys.getProjectGroupCode());
-				if(exitrhyByDedupCliendId ==null) {
+				//com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyByDedupCliendId = getExitrhyByDedupExitrhyId(exitrhys.getId(),exitrhys.getProjectGroupCode());
+				//if(exitrhyByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Exitrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
 					BeanUtils.copyProperties(exitrhys, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
@@ -81,7 +81,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
 				}
-			}
+		//	}
 		}
 	}
 	

@@ -112,15 +112,15 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy> entryRhy = export.getEntryrhies();
 		if(entryRhy !=null && !entryRhy.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryRhys : entryRhy) {
-				com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryrhyByDedupCliendId = getEntryrhyByDedupEntryrhyId(entryRhys.getId(),entryRhys.getProjectGroupCode());
-				if(entryrhyByDedupCliendId ==null) {
+				//com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryrhyByDedupCliendId = getEntryrhyByDedupEntryrhyId(entryRhys.getId(),entryRhys.getProjectGroupCode());
+			//	if(entryrhyByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Entryrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
 					BeanUtils.copyProperties(entryRhys, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
 					exportEntity.addEntryrhy(target);
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
-				}
+		//		}
 			}
 		}
 	}
@@ -212,6 +212,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Entryrhy getEntryrhyByDedupEntryrhyId(UUID id,String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class);
+		if(id == null || projectGroupCode == null) return null;
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		List<com.servinglynk.hmis.warehouse.model.v2015.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2015.Entryrhy>) findByCriteria(criteria);

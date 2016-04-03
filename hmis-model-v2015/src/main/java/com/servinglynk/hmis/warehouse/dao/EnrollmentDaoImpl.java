@@ -146,12 +146,14 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				if(enrollment !=null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Enrollment target = new com.servinglynk.hmis.warehouse.model.v2015.Enrollment();
 					BeanUtils.copyProperties(enrollment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId(),enrollment.getProjectGroupCode());
-					if(clientByDedupCliendId == null) {
-						com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, enrollment.getClient().getId());
-						target.setClient(client);
-					}else{
-						target.setClient(clientByDedupCliendId);
+					if(enrollment.getClient().getDedupClientId() !=null) {
+						com.servinglynk.hmis.warehouse.model.v2015.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId(),enrollment.getProjectGroupCode());
+						if(clientByDedupCliendId == null) {
+							com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, enrollment.getClient().getId());
+							target.setClient(client);
+						}else{
+							target.setClient(clientByDedupCliendId);
+						}
 					}
 				//	parentDaoFactory.getClientDao().hydrateLive(enrollment.getClient());
 				//	parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());

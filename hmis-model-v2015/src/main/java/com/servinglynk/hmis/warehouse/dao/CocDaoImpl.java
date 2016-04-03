@@ -76,15 +76,19 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Coc> coc = export.getCocs();
 		if(coc !=null && !coc.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Coc cocs : coc) {
-				com.servinglynk.hmis.warehouse.model.v2015.Coc cocByDedupCliendId = getCocByDedupCliendId(cocs.getId(),cocs.getProjectGroupCode());
-				if(cocByDedupCliendId ==null) {
+				//com.servinglynk.hmis.warehouse.model.v2015.Coc cocByDedupCliendId = getCocByDedupCliendId(cocs.getId(),cocs.getProjectGroupCode());
+			//	if(cocByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Coc target = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
-					BeanUtils.copyProperties(cocs, target, new String[] {"enrollments","veteranInfoes"});
+					BeanUtils.copyProperties(cocs, target, new String[] {"inventories","sites"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
 					exportEntity.addCoc(target);
+					 if(cocs.getProjectid() !=null) {
+						 com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class,cocs.getProjectid().getId());
+						 target.setProjectid(projectModel);
+					 }
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
-				}
+			//	}
 			}
 		}
 	}

@@ -57,8 +57,8 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath> exitpath = export.getExitpaths();
 		if(exitpath !=null && !exitpath.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpaths : exitpath) {
-				com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathByDedupCliendId = getExitpathByDedupExitpathId(exitpaths.getId(),exitpaths.getProjectGroupCode());
-				if(exitpathByDedupCliendId ==null) {
+			//	com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathByDedupCliendId = getExitpathByDedupExitpathId(exitpaths.getId(),exitpaths.getProjectGroupCode());
+			//	if(exitpathByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Exitpath target = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
 					BeanUtils.copyProperties(exitpaths, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
@@ -66,7 +66,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
 				}
-			}
+			//}
 		}
 	}
 	

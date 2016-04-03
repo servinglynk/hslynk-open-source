@@ -62,8 +62,8 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral> serviceFaReferral = export.getServiceFaReferrals();
 		if(serviceFaReferral !=null && !serviceFaReferral.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferrals : serviceFaReferral) {
-				com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralByDedupCliendId = getServiceFaReferralByDedupServiceFaReferralId(serviceFaReferrals.getId(),serviceFaReferrals.getProjectGroupCode());
-				if(serviceFaReferralByDedupCliendId ==null) {
+			//	com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralByDedupCliendId = getServiceFaReferralByDedupServiceFaReferralId(serviceFaReferrals.getId(),serviceFaReferrals.getProjectGroupCode());
+			//	if(serviceFaReferralByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral target = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
 					BeanUtils.copyProperties(serviceFaReferrals, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
@@ -71,7 +71,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
 				}
-			}
+		//	}
 		}
 	}
 	
