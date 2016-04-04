@@ -44,6 +44,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo> veteranInfoList = export
 				.getClientVeteranInfo();
+		hydrateBulkUploadActivityStaging(veteranInfoList, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), domain);
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo veteranInfo : veteranInfoList) {
 

@@ -19,7 +19,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
@@ -42,9 +41,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	public void hydrateStaging(ExportDomain domain) {
 
 		List<Project> projects = domain.getExport().getProject();
+		hydrateBulkUploadActivityStaging(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), domain);
 		if(projects !=null && projects.size() > 0)
 		{
-
 			for(Project project : projects)
 			{
 				com.servinglynk.hmis.warehouse.model.stagv2015.Project projectModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Project();

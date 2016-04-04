@@ -16,7 +16,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhy;
@@ -30,6 +29,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<EntryRHY> entryRhy = export.getEntryRHY();
+		hydrateBulkUploadActivityStaging(entryRhy, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), domain);
 		if (entryRhy != null && entryRhy.size() > 0) {
 			for (EntryRHY entryRhys : entryRhy) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryRhyModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy();

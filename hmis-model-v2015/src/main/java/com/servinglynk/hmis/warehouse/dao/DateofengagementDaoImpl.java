@@ -30,6 +30,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain)
 	{
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
+		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class.getSimpleName(), domain);
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)

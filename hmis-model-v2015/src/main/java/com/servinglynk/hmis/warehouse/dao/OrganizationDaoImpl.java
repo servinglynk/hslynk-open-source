@@ -73,11 +73,10 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
 					insertOrUpdate(target);
+					hydrateCommonFields(target);
 				//	factory.getProjectDao().hydrateLive(export);
 				}
 			}
-			
-			
 		}
 	}
 	

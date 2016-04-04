@@ -33,6 +33,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Funder> funders = domain.getExport().getFunder();
+		hydrateBulkUploadActivityStaging(funders, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), domain);
 		if(funders!=null && funders.size() > 0)
 		{
 			for(Funder funder : funders)

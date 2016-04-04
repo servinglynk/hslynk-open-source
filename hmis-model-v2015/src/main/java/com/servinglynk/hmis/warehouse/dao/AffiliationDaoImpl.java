@@ -28,6 +28,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		{
 			Export export = domain.getExport();
 			List<Affiliation> affiliations = export.getAffiliation();
+			hydrateBulkUploadActivityStaging(affiliations, com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class.getSimpleName(), domain);
 			if(affiliations!=null && !affiliations.isEmpty())
 			{
 				for(Affiliation affiliation :affiliations )

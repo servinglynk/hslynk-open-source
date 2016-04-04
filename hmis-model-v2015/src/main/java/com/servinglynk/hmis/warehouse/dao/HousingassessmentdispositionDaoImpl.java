@@ -35,6 +35,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
+		hydrateBulkUploadActivityStaging(housingAssessmentDispositions, com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class.getSimpleName(), domain);
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty())
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)

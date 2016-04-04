@@ -27,6 +27,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
+		hydrateBulkUploadActivityStaging(domesticViolenceList, com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class.getSimpleName(), domain);
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)

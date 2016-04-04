@@ -35,6 +35,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<ResidentialMoveInDate> residentialMoveInDates = domain.getExport().getResidentialMoveInDate();
+		hydrateBulkUploadActivityStaging(residentialMoveInDates, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), domain);
 		if(residentialMoveInDates != null && !residentialMoveInDates.isEmpty())
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)

@@ -37,6 +37,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		
 		com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<Contact> contact = export.getContact();
+		hydrateBulkUploadActivityStaging(contact, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), domain);
 		if (contact != null && contact.size() > 0) {
 			for (Contact contacts : contact) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Contact contactModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Contact();

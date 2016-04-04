@@ -38,6 +38,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 
 		List<EnrollmentCoC> enrollmentCoCs = domain.getExport().getEnrollmentCoC();
+		hydrateBulkUploadActivityStaging(enrollmentCoCs, com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class.getSimpleName(), domain);
 		if(enrollmentCoCs!=null)
 		{
 			for(EnrollmentCoC enrollmentCoc : enrollmentCoCs)

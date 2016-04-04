@@ -24,6 +24,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
+		hydrateBulkUploadActivityStaging(entrySSVFs, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain);
 		if (entrySSVFs != null && entrySSVFs.size() > 0) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvfModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf();

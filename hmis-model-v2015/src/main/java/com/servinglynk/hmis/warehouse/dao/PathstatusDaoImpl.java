@@ -34,6 +34,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
+		hydrateBulkUploadActivityStaging(pathStatusList, com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class.getSimpleName(), domain);
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)

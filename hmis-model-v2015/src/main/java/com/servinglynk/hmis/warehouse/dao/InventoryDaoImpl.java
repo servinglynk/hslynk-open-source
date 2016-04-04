@@ -15,7 +15,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
@@ -46,6 +45,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<Inventory> inventories = export.getInventory();
+		hydrateBulkUploadActivityStaging(inventories, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain);
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
 				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);

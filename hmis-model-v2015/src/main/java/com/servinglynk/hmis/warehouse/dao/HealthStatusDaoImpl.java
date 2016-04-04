@@ -35,6 +35,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<HealthStatus> healthStatuses = domain.getExport().getHealthStatus();
+		hydrateBulkUploadActivityStaging(healthStatuses, com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class.getSimpleName(), domain);
 		if(healthStatuses !=null &&  !healthStatuses.isEmpty())
 		{
 			for(HealthStatus healthStatus : healthStatuses )

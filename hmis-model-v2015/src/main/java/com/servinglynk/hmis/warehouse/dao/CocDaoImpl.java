@@ -38,6 +38,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		
 	    Export export = domain.getExport();
 		List<CoC> cocs = export.getCoC();
+		hydrateBulkUploadActivityStaging(cocs, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), domain);
 		if (cocs != null && cocs.size() > 0) {
 			for (CoC coc : cocs) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Coc cocModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Coc();

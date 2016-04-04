@@ -23,6 +23,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<ExitRHY> exitrhy = export.getExitRHY();
+		hydrateBulkUploadActivityStaging(exitrhy, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), domain);
 		if (exitrhy != null && exitrhy.size() > 0) {
 			for (ExitRHY exitrhys : exitrhy) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy exitrhyModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy();

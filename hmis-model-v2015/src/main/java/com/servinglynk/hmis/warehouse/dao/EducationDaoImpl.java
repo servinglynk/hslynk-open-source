@@ -34,6 +34,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Education> educationList  = domain.getExport().getEducation();
+		hydrateBulkUploadActivityStaging(educationList, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain);
 		if(educationList!=null && !educationList.isEmpty())
 		{
 			for(Education education : educationList)

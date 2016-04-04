@@ -29,6 +29,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
+		hydrateBulkUploadActivityStaging(entryRhsps, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), domain);
 		if (entryRhsps != null && entryRhsps.size() > 0) {
 			for (EntryRHSP entryRhsp : entryRhsps) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRhspModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp();

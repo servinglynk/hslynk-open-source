@@ -51,6 +51,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
+		hydrateBulkUploadActivityStaging(incomeAndSourceses, com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class.getSimpleName(), domain);
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)

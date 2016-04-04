@@ -38,6 +38,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
+		hydrateBulkUploadActivityStaging(disabilitiesList, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain);
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)

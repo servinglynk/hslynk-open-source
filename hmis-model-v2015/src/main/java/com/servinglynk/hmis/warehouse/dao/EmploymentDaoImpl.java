@@ -35,6 +35,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
+		hydrateBulkUploadActivityStaging(employmentList, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), domain);
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)

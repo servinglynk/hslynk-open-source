@@ -36,6 +36,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
+		hydrateBulkUploadActivityStaging(rhybcpStatusList, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), domain);
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)

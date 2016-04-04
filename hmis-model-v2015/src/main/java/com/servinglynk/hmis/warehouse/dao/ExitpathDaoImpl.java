@@ -23,6 +23,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<ExitPATH> exitpath = export.getExitPATH();
+		hydrateBulkUploadActivityStaging(exitpath, com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class.getSimpleName(), domain);
 		if (exitpath != null && exitpath.size() > 0) {
 			for (ExitPATH exitpaths : exitpath) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpathModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath();

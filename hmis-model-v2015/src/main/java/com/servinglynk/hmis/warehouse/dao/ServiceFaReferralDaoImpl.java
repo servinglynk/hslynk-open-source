@@ -24,6 +24,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<Services> services = export.getServices();
+		hydrateBulkUploadActivityStaging(services, com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class.getSimpleName(), domain);
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral();

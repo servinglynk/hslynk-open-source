@@ -49,6 +49,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	public void hydrateStaging(ExportDomain domain) {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
+		hydrateBulkUploadActivityStaging(exits, com.servinglynk.hmis.warehouse.model.v2015.Exit.class.getSimpleName(), domain);
 		if(exits !=null && exits.size() > 0)
 		{
 			for(Exit exit : exits)
