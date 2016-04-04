@@ -169,9 +169,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 
 		parentDaoFactory.getClientDao().hydrateLive(export);
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export);
-		parentDaoFactory.getOrganizationDao().hydrateLive(export);
+	//	parentDaoFactory.getOrganizationDao().hydrateLive(export);
 		parentDaoFactory.getProjectDao().hydrateLive(export);
-		
+		parentDaoFactory.getFunderDao().hydrateLive(export);
+		parentDaoFactory.getSiteDao().hydrateLive(export);
+		parentDaoFactory.getInventoryDao().hydrateLive(export);
+		parentDaoFactory.getOrganizationDao().hydrateLive(export);
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export);
 		
 		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export);
@@ -199,7 +202,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		//parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
 		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export);
 		bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
-		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
+		parentDaoFactory.getBulkUploaderWorkerDao().update(bulkUpload);
 		}
 		catch (Exception e) {
 			bulkUpload.setStatus(UploadStatus.ERROR.getStatus());
