@@ -70,6 +70,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	
 		Export export = domain.getExport();
 		List<Client> clients = export.getClient();
+		hydrateBulkUploadActivityStaging(clients, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain);
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.stagv2015.Client clientModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Client();

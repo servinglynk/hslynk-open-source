@@ -94,6 +94,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
 			parentDaoFactory.getProjectDao().hydrateStaging(domain);
+			parentDaoFactory.getAffiliationDao().hydrateStaging(domain);
+			parentDaoFactory.getCocDao().hydrateStaging(domain);
+			parentDaoFactory.getFunderDao().hydrateStaging(domain);
+			parentDaoFactory.getSiteDao().hydrateStaging(domain);
+			parentDaoFactory.getInventoryDao().hydrateStaging(domain);
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
 			
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);

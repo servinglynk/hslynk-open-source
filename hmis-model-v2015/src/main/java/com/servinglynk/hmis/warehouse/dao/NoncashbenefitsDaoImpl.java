@@ -43,6 +43,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
+		hydrateBulkUploadActivityStaging(nonCashBenefitsList, com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class.getSimpleName(), domain);
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)

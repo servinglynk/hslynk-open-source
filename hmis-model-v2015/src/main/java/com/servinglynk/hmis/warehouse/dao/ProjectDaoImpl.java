@@ -78,9 +78,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				exportEntity.addProject(projectModel);
 				hydrateCommonFields(projectModel, domain);
 				insertOrUpdate(projectModel);
-				factory.getAffiliationDao().hydrateStaging(domain);
-				factory.getCocDao().hydrateStaging(domain);
-				factory.getFunderDao().hydrateStaging(domain);
 			}
 		}
 

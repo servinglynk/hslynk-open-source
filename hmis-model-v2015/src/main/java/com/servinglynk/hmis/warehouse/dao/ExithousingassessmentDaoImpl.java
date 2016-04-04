@@ -35,6 +35,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
+		hydrateBulkUploadActivityStaging(exitHousingAssessments, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), domain);
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty())
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
