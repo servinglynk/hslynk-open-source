@@ -56,6 +56,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateLive(Export export) {
 		Set<Dateofengagement> dateofengagements = export.getDateofengagements();
+		hydrateBulkUploadActivity(dateofengagements, com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class.getSimpleName(), export);
 		if(dateofengagements != null && !dateofengagements.isEmpty()) {
 			for(Dateofengagement dateofengagement : dateofengagements) {
 				com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement target = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();

@@ -69,6 +69,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	@Override
 	public void hydrateLive(Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Funder> funders = export.getFunders();
+		hydrateBulkUploadActivity(funders, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), export);
 		if(funders !=null && !funders.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Funder funder : funders) {
 				if(funder != null) {

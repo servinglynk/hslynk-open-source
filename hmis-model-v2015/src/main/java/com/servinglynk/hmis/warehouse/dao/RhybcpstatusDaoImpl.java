@@ -66,6 +66,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateLive(Export export) {
 		Set<RhybcpStatus> rhybcpstatuses = export.getRhybcpStatuses();
+		hydrateBulkUploadActivity(rhybcpstatuses, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), export);
 		if(rhybcpstatuses !=null && !rhybcpstatuses.isEmpty()) {
 			for(RhybcpStatus rhybcpstatus : rhybcpstatuses) {
 				if(rhybcpstatus !=null) {

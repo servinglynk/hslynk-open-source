@@ -63,6 +63,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateLive(Export export) {
 		Set<Residentialmoveindate> residentialmoveindates = export.getResidentialmoveindates();
+		hydrateBulkUploadActivity(residentialmoveindates, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), export);
 		if(residentialmoveindates != null && !residentialmoveindates.isEmpty()) {
 			for(Residentialmoveindate residentialmoveindate : residentialmoveindates) {
 				if(residentialmoveindate != null) {

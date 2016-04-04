@@ -85,6 +85,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateLive(Export export) {
 		Set<Noncashbenefits> noncashbenefitss = export.getNoncashbenefitss();
+		hydrateBulkUploadActivity(noncashbenefitss, com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class.getSimpleName(), export);
 		if(noncashbenefitss != null && !noncashbenefitss.isEmpty()) {
 			for(Noncashbenefits noncashbenefits : noncashbenefitss) {
 				if(noncashbenefits != null) {

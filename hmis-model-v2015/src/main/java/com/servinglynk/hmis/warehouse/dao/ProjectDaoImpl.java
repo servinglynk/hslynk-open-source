@@ -86,6 +86,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	@Override
 	public void hydrateLive(Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Project> projects = export.getProjects();
+		hydrateBulkUploadActivity(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), export);
 		if(projects != null && !projects.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Project project : projects) {
 				if(project != null) {

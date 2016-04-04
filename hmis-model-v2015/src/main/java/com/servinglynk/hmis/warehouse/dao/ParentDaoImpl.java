@@ -22,16 +22,17 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	public void hydrateCommonFields(HmisBaseModel baseModel) {
 		ProjectGroupEntity projectGroupEntity = new ProjectGroupEntity();
 	}
-	public void hydrateBulkUploadActicity(Set sets,String className, Export export ) {
+	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.stagv2015.Export export ) {
+		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
 		BulkUploadActivity activity = new BulkUploadActivity();
-		activity.setBulkUpload(export.getBulkUploads().iterator().next());
+		activity.setBulkUpload(exportEntity.getBulkUploads().iterator().next());
 		activity.setDateCreated(LocalDateTime.now());
 		activity.setDateUpdated(LocalDateTime.now());
 		activity.setTableName(className);
 		activity.setDeleted(false);
 	//	activity.setUser(user);
 		activity.setProjectGroupCode(export.getProjectGroupCode());
-		activity.setExport(export);
+		activity.setExport(exportEntity);
 		activity.setRecordsProcessed(new Long(sets !=null ? sets.size(): 0L));
 		activity.setDescription("Saving "+className +" to Live" );
 		insertOrUpdate(activity); 		

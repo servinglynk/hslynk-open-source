@@ -56,6 +56,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	@Override
 	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath> exitpath = export.getExitpaths();
+		hydrateBulkUploadActivity(exitpath, com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class.getSimpleName(), export);
 		if(exitpath !=null && !exitpath.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpaths : exitpath) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathByDedupCliendId = getExitpathByDedupExitpathId(exitpaths.getId(),exitpaths.getProjectGroupCode());

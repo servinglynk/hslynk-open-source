@@ -73,6 +73,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Coc> coc = export.getCocs();
+		hydrateBulkUploadActivity(coc, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), export);
 		if(coc !=null && !coc.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Coc cocs : coc) {
 				//com.servinglynk.hmis.warehouse.model.v2015.Coc cocByDedupCliendId = getCocByDedupCliendId(cocs.getId(),cocs.getProjectGroupCode());

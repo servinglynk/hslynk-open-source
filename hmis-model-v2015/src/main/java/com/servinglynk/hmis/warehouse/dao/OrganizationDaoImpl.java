@@ -63,6 +63,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateLive(Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Organization> organizations = export.getOrganizations();
+		hydrateBulkUploadActivity(organizations, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), export);
 		if(organizations != null && !organizations.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Organization organization : organizations) {
 				if(organization != null) {

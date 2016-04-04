@@ -62,6 +62,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	@Override
 	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf> entrySsvf = export.getEntryssvfs();
+		hydrateBulkUploadActivity(entrySsvf, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), export);
 		if(entrySsvf !=null && !entrySsvf.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvfs : entrySsvf) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvfs.getId(),entrySsvfs.getProjectGroupCode());

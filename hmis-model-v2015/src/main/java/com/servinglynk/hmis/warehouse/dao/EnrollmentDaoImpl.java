@@ -142,7 +142,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<Enrollment> enrollments = export.getEnrollments();
-		
+		hydrateBulkUploadActivity(enrollments, com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class.getSimpleName(), export);
 		if(enrollments != null && !enrollments.isEmpty()) {
 			for(Enrollment enrollment : enrollments) {
 				if(enrollment !=null) {

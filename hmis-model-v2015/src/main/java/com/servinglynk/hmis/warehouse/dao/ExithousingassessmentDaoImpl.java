@@ -64,6 +64,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<Exithousingassessment> exithousingassessments = export.getExithousingassessments();
+		hydrateBulkUploadActivity(exithousingassessments, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), export);
 		if(exithousingassessments !=null && !exithousingassessments.isEmpty()) {
 			for(Exithousingassessment exithousingassessment : exithousingassessments) {
 				if(exithousingassessment !=null) {

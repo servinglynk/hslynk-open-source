@@ -62,6 +62,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	@Override
 	public void hydrateLive(Export export) {
 		Set<Housingassessmentdisposition> housingassessmentdispositions = export.getHousingassessmentdispositions();
+		hydrateBulkUploadActivity(housingassessmentdispositions, com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class.getSimpleName(), export);
 		if(housingassessmentdispositions !=null && !housingassessmentdispositions.isEmpty()) {
 			for(Housingassessmentdisposition housingassessmentdisposition : housingassessmentdispositions) {
 				if(housingassessmentdisposition !=null) {

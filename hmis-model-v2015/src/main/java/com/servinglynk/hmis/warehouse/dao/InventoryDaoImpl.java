@@ -94,6 +94,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	@Override
 	public void hydrateLive(Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Inventory> inventories = export.getInventories();
+		hydrateBulkUploadActivity(inventories, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), export);
 		if(inventories != null && !inventories.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Inventory inventory : inventories) {
 				if(inventory !=null) {

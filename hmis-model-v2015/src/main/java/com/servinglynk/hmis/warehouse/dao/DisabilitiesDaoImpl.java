@@ -78,6 +78,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities> disabilitieses = export.getDisabilitieses();
+		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), export);
 		if(disabilitieses !=null && !disabilitieses.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities disabilities : disabilitieses) {
 				com.servinglynk.hmis.warehouse.model.v2015.Disabilities target = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();

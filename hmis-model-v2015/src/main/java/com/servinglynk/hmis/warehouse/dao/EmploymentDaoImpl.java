@@ -72,6 +72,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	@Override
 	public void hydrateLive(Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Employment> employments = export.getEmployments();
+		hydrateBulkUploadActivity(employments, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), export);
 		if(employments != null && !employments.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Employment employment : employments) {
 				com.servinglynk.hmis.warehouse.model.v2015.Employment target = new com.servinglynk.hmis.warehouse.model.v2015.Employment();

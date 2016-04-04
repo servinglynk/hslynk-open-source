@@ -90,6 +90,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exit> exits = export.getExits();
+		hydrateBulkUploadActivity(exits, com.servinglynk.hmis.warehouse.model.v2015.Exit.class.getSimpleName(), export);
 		if(exits != null && !exits.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exit exit : exits) {
 				if(exit != null) {

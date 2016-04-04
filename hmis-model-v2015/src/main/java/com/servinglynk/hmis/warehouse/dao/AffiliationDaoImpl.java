@@ -55,6 +55,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		public void hydrateLive(
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 			Set<com.servinglynk.hmis.warehouse.model.stagv2015.Affiliation> affiliations = export.getAffiliations();
+			hydrateBulkUploadActivity(affiliations, com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class.getSimpleName(), export);
 			if(affiliations !=null && !affiliations.isEmpty()) {
 				for(com.servinglynk.hmis.warehouse.model.stagv2015.Affiliation affiliation : affiliations ) {
 					 com.servinglynk.hmis.warehouse.model.v2015.Affiliation target = new com.servinglynk.hmis.warehouse.model.v2015.Affiliation();

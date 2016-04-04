@@ -180,6 +180,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Client> clients = export.getClients();
+		hydrateBulkUploadActivity(clients, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), export);
 		if(clients !=null && !clients.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.v2015.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
