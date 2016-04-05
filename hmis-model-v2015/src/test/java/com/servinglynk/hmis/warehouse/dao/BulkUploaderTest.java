@@ -10,8 +10,10 @@ import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.stagv2015.Client;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
@@ -83,6 +86,7 @@ public class BulkUploaderTest {
 		//dao.performBulkUpload(upload);
 	}
 	@Test
+	@Transactional
 	public void testCSVZip() throws Exception
 	{
 				URL path = BulkUploaderTest.class.getResource("2015.xml");
@@ -91,10 +95,16 @@ public class BulkUploaderTest {
 				bullkUpload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
-			//	com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
-				//(com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
-			//	assertNotNull(exportEntity);
-//				assertEquals("",exportEntity.getExportperiodtype());
+				//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
+				assertNotNull(exportEntity);
+				assertEquals("effective",exportEntity.getExportperiodtype());
+				assertEquals(0,exportEntity.getAffiliations().size());
+				assertEquals(1,exportEntity.getClients().size());
+				Set<Client> clients = exportEntity.getClients();
+				for(Client client : clients) {
+					assertEquals("123456789012345678901234567890ABCDEF12d4",client.getFirstName());
+				}
 	}
 	
 	@Test
