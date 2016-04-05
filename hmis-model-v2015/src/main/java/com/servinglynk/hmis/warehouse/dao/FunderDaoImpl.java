@@ -101,7 +101,6 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		return null;
 	}
 
-	@Override
 	public void hydrateHBASE(SyncDomain domain) {
 		/**
 		 * Get the Last Synced record from the Sync table.

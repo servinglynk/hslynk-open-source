@@ -23,16 +23,16 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		ProjectGroupEntity projectGroupEntity = new ProjectGroupEntity();
 	}
 	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.stagv2015.Export export ) {
-		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
+       com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
 		BulkUploadActivity activity = new BulkUploadActivity();
-		activity.setBulkUpload(exportEntity.getBulkUploads().iterator().next());
+	//	activity.setBulkUploadId(exportEntity.getBulkUploads().iterator().next().getId());
 		activity.setDateCreated(LocalDateTime.now());
 		activity.setDateUpdated(LocalDateTime.now());
 		activity.setTableName(className);
 		activity.setDeleted(false);
 	//	activity.setUser(user);
 		activity.setProjectGroupCode(export.getProjectGroupCode());
-		activity.setExport(exportEntity);
+	//	activity.setExport(exportEntity);
 		activity.setRecordsProcessed(new Long(sets !=null ? sets.size(): 0L));
 		activity.setDescription("Saving "+className +" to Live" );
 		insertOrUpdate(activity); 		
@@ -40,7 +40,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	
 	public void hydrateBulkUploadActivityStaging(List lists,String className,ExportDomain domain ) {
 		BulkUploadActivity activity = new BulkUploadActivity();
-		activity.setBulkUpload(domain.getUpload());
+		activity.setBulkUploadId(domain.getUpload().getId());
 		activity.setDateCreated(LocalDateTime.now());
 		activity.setDateUpdated(LocalDateTime.now());
 		activity.setTableName(className);

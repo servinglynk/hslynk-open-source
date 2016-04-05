@@ -2463,7 +2463,7 @@ WITH (
 create table "v2015".bulk_upload_activity
 (
  id serial not null,
- bulk_upload_id bigint not null,
+ bulk_upload_id bigint,
  table_name character varying(100),
  records_processed bigint,
  description text,

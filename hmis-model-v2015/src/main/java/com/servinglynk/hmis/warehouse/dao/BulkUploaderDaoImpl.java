@@ -202,9 +202,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		//parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export);
 		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export);
 		bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
-		parentDaoFactory.getBulkUploaderWorkerDao().update(bulkUpload);
+		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			bulkUpload.setStatus(UploadStatus.ERROR.getStatus());
 			//bulkUpload.setd(e.getMessage());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
