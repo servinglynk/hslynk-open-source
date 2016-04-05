@@ -7,7 +7,7 @@
     <groupId>com.servinglynk.hmis.warehouse</groupId>
     <artifactId>servinglynk-hmis</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>bulk loader </name>
 <properties>
    <!-- Unique entry point for version number management --> 
@@ -50,10 +50,10 @@
 		<module>hmis-serialize-v2014</module>
 		<module>hmis-clientapi-v2014</module>
 		<module>hmis-clientapi-v2015</module>
-		
-		
-		
 		<module>hmis-service-v2015</module>
 		<module>hmis-serialize-v2015</module>
+		<module>hmis-upload-service</module>
+		<module>hmis-load-processor</module>
+		<module>hmis-bulk-loader</module>
 	</modules>
 </project>
