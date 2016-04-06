@@ -64,8 +64,9 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<EnrollmentCoc> enrollmentCocs = export.getEnrollmentCocs();
+		hydrateBulkUploadActivity(enrollmentCocs, com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class.getSimpleName(), export, id);
 		if(enrollmentCocs !=null && !enrollmentCocs.isEmpty()) {
 			for(EnrollmentCoc enrollmentCoc : enrollmentCocs) {
 				if(enrollmentCoc != null) {

@@ -68,9 +68,9 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.HealthStatus> healthStatuses = export.getHealthStatuses();
-		hydrateBulkUploadActivity(healthStatuses, com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(healthStatuses, com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class.getSimpleName(), export,id);
 		if(healthStatuses !=null && !healthStatuses.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.HealthStatus healthStatus : healthStatuses) {
 				if(healthStatus !=null) {

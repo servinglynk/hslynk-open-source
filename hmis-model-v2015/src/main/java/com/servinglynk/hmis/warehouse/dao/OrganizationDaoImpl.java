@@ -37,6 +37,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		 List<Organization> organizations = domain.getExport().getOrganization();
+		 hydrateBulkUploadActivityStaging(organizations, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), domain);
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
@@ -61,9 +62,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Organization> organizations = export.getOrganizations();
-		hydrateBulkUploadActivity(organizations, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(organizations, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), export,id);
 		if(organizations != null && !organizations.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Organization organization : organizations) {
 				if(organization != null) {

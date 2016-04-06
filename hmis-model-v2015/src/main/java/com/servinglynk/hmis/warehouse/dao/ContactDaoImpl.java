@@ -69,9 +69,9 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Contact> contact = export.getContacts();
-		hydrateBulkUploadActivity(contact, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(contact, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), export, id );
 		if(contact !=null && !contact.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Contact contacts : contact) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.Contact contactByDedupContactId = getContactByDedupContactId(contacts.getId(),contacts.getProjectGroupCode());

@@ -41,7 +41,7 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 			insertOrUpdate(bedInventoryModel);
 		}
 		@Override
-		public void hydrateLive(Export export) {
+		public void hydrateLive(Export export,Long id) {
 			Set<Bedinventory> bedinventories = export.getBedinventories();
 			if(bedinventories !=null && !bedinventories.isEmpty()) {
 				for(Bedinventory bedInventory : bedinventories) {

@@ -44,7 +44,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		// TODO Auto-generated method stub
 		com.servinglynk.hmis.warehouse.model.stagv2015.Source source = export.getSource();
 		//hydrateBulkUploadActivity(source, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), export);

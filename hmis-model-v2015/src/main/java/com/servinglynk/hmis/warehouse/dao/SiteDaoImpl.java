@@ -55,9 +55,9 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Site> sites = export.getSites();
-		hydrateBulkUploadActivity(sites, com.servinglynk.hmis.warehouse.model.v2015.Site.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(sites, com.servinglynk.hmis.warehouse.model.v2015.Site.class.getSimpleName(), export,id);
 		if(sites !=null && !sites.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Site site : sites) {
 				if(site !=null) {

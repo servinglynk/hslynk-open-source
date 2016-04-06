@@ -58,9 +58,9 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp> entryRshp = export.getEntryrhsps();
-		hydrateBulkUploadActivity(entryRshp, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(entryRshp, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), export, id);
 		if(entryRshp !=null && !entryRshp.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRshps : entryRshp) {
 				com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryrhspByDedupCliendId = getEntryrhspByDedupEntryrhspId(entryRshps.getId(),entryRshps.getProjectGroupCode());

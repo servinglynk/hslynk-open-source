@@ -76,9 +76,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2015.Export export,Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities> disabilitieses = export.getDisabilitieses();
-		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), export,id);
 		if(disabilitieses !=null && !disabilitieses.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities disabilities : disabilitieses) {
 				com.servinglynk.hmis.warehouse.model.v2015.Disabilities target = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();

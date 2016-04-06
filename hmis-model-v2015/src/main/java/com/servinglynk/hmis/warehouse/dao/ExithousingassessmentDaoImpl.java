@@ -62,9 +62,9 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
 		Set<Exithousingassessment> exithousingassessments = export.getExithousingassessments();
-		hydrateBulkUploadActivity(exithousingassessments, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(exithousingassessments, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), export, id);
 		if(exithousingassessments !=null && !exithousingassessments.isEmpty()) {
 			for(Exithousingassessment exithousingassessment : exithousingassessments) {
 				if(exithousingassessment !=null) {

@@ -108,9 +108,9 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy> entryRhy = export.getEntryrhies();
-		hydrateBulkUploadActivity(entryRhy, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(entryRhy, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), export, id);
 		if(entryRhy !=null && !entryRhy.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryRhys : entryRhy) {
 				//com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryrhyByDedupCliendId = getEntryrhyByDedupEntryrhyId(entryRhys.getId(),entryRhys.getProjectGroupCode());

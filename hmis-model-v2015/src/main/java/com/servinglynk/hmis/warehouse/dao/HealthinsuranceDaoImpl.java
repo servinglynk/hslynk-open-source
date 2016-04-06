@@ -90,9 +90,9 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Healthinsurance> healthinsurances = export.getHealthinsurances();
-		hydrateBulkUploadActivity(healthinsurances, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(healthinsurances, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), export,id);
 		if(healthinsurances !=null && !healthinsurances.isEmpty()) {
 			for(Healthinsurance healthinsurance : healthinsurances) {
 				com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance target = new com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance();

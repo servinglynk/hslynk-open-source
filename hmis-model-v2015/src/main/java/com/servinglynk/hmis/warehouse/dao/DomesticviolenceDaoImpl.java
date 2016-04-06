@@ -53,9 +53,9 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export,Long id) {
 		Set<Domesticviolence> domesticviolences = export.getDomesticviolences();
-		hydrateBulkUploadActivity(domesticviolences, com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(domesticviolences, com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class.getSimpleName(), export, id);
 		if(domesticviolences != null && !domesticviolences.isEmpty()) {
 			for(Domesticviolence domesticviolence : domesticviolences) {
 				com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence target = new com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence();

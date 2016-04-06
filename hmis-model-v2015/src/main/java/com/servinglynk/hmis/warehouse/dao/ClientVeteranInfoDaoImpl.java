@@ -109,9 +109,9 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo> veteranInfos = export.getClientVeteranInfoes();
-		hydrateBulkUploadActivity(veteranInfos, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(veteranInfos, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), export, id);
 		if(veteranInfos !=null && !veteranInfos.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo veteranInfo : veteranInfos) {
 				com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();

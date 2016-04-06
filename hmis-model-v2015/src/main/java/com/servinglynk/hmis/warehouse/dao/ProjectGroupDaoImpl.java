@@ -89,7 +89,7 @@ public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDa
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		// TODO Auto-generated method stub
 
 	}

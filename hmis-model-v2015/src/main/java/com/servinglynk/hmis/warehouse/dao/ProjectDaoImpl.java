@@ -84,9 +84,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Project> projects = export.getProjects();
-		hydrateBulkUploadActivity(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), export,id);
 		if(projects != null && !projects.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Project project : projects) {
 				if(project != null) {
@@ -104,9 +104,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					insert(target);
 				}
 			}
-			factory.getAffiliationDao().hydrateLive(export);
-			factory.getFunderDao().hydrateLive(export);
-			factory.getCocDao().hydrateLive(export);
 		}
 	}
 

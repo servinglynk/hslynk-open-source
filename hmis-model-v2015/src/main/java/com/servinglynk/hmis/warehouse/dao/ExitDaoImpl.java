@@ -88,9 +88,9 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exit> exits = export.getExits();
-		hydrateBulkUploadActivity(exits, com.servinglynk.hmis.warehouse.model.v2015.Exit.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(exits, com.servinglynk.hmis.warehouse.model.v2015.Exit.class.getSimpleName(), export, id);
 		if(exits != null && !exits.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exit exit : exits) {
 				if(exit != null) {
@@ -107,8 +107,8 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				}
 			}
 		}
-		factory.getExithousingassessmentDao().hydrateLive(export);
-		factory.getHousingassessmentdispositionDao().hydrateLive(export);
+		factory.getExithousingassessmentDao().hydrateLive(export,id);
+		factory.getHousingassessmentdispositionDao().hydrateLive(export,id);
 	}
 
 	@Override

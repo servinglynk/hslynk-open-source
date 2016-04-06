@@ -111,9 +111,9 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Incomeandsources> incomeandsourceses = export.getIncomeandsourceses();
-		hydrateBulkUploadActivity(incomeandsourceses, com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(incomeandsourceses, com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class.getSimpleName(), export, id);
 		if(incomeandsourceses !=null && !incomeandsourceses.isEmpty()) {
 			for(Incomeandsources incomeandsources : incomeandsourceses) {
 				if(incomeandsources != null) {

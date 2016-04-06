@@ -67,9 +67,9 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Medicalassistance> medicalassistances = export.getMedicalassistances();
-		hydrateBulkUploadActivity(medicalassistances, com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(medicalassistances, com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class.getSimpleName(), export,id);
 		if(medicalassistances != null && !medicalassistances.isEmpty()) {
 			for(Medicalassistance medicalassistance : medicalassistances) {
 				if(medicalassistance != null) {

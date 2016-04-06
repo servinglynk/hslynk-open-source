@@ -71,9 +71,9 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export,Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Education> educations = export.getEducations();
-		hydrateBulkUploadActivity(educations, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), export);
+		hydrateBulkUploadActivity(educations, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), export, id);
 		if(educations != null && !educations.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2015.Education education : educations) {
 				com.servinglynk.hmis.warehouse.model.v2015.Employment target = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
