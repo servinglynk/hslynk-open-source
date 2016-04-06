@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.math.BigInteger;
 import java.net.URL;
@@ -11,9 +14,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,22 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Client;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
-import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
@@ -104,6 +111,18 @@ public class BulkUploaderTest {
 				Set<Client> clients = exportEntity.getClients();
 				for(Client client : clients) {
 					assertEquals("123456789012345678901234567890ABCDEF12d4",client.getFirstName());
+					assertEquals(ClientGenderEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("4"))),client.getGender());
+					assertEquals("Barnaby", client.getMiddleName());
+					assertEquals("Jones", client.getLastName());
+					assertEquals("Sr.", client.getNameSuffix());
+					assertEquals(ClientNameDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("9"))), client.getNameDataQuality());
+					assertEquals("intersex", client.getOtherGender());
+					assertEquals(ClientRaceEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("8"))), client.getRace());
+					assertEquals("79xx9xx8x", client.getSsn());
+					assertEquals(ClientSsnDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("2"))), client.getSsnDataQuality());
+					assertEquals(ClientVeteranStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("9"))), client.getVeteranStatus());
+					assertEquals(ClientEthnicityEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("0"))), client.getEthnicity());
+					assertEquals(ClientDobDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("1"))), client.getDobDataQuality());
 				}
 	}
 	
