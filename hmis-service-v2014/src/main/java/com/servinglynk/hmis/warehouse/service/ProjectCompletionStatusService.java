@@ -10,5 +10,5 @@ public interface ProjectCompletionStatusService {
    ProjectCompletionStatus updateProjectCompletionStatus(ProjectCompletionStatus projectCompletionStatus,UUID exitId,String caller);
    ProjectCompletionStatus deleteProjectCompletionStatus(UUID projectCompletionStatusId,String caller);
    ProjectCompletionStatus getProjectCompletionStatusById(UUID projectCompletionStatusId);
-   ProjectCompletionStatuses getAllEnrollmentProjectCompletionStatuss(UUID exitId,Integer startIndex, Integer maxItems);
+   ProjectCompletionStatuses getAllExitProjectCompletionStatuss(UUID exitId,Integer startIndex, Integer maxItems);
 }

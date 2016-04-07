@@ -10,5 +10,5 @@ public interface HousingAssessmentDispositionService {
    HousingAssessmentDisposition updateHousingAssessmentDisposition(HousingAssessmentDisposition housingAssessmentDisposition,UUID exitId,String caller);
    HousingAssessmentDisposition deleteHousingAssessmentDisposition(UUID housingAssessmentDispositionId,String caller);
    HousingAssessmentDisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId);
-   HousingAssessmentDispositions getAllEnrollmentHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems);
+   HousingAssessmentDispositions getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems);
 }

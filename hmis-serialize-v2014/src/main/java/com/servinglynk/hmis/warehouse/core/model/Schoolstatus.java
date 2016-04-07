@@ -12,8 +12,8 @@ public class Schoolstatus extends ClientModel {
 
 	private UUID schoolstatusId;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	private LocalDateTime informationDate;
 	private Integer schoolStatus;
 

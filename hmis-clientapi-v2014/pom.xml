@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>hmis-clientapi-v2014</artifactId>
 	<packaging>war</packaging>
-	<name>HMIS Client API</name>
+	<name>HMIS Client API (v2014)</name>
 	<description>HMIS Client API</description>
 
 

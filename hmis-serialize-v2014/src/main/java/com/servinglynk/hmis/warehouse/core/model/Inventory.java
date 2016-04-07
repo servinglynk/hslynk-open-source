@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("inventory")
 public class Inventory extends ClientModel{
@@ -21,8 +23,12 @@ public class Inventory extends ClientModel{
 
       private Integer householdtype;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime inventoryenddate;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime inventorystartdate;
 
       private Integer unitinventory;

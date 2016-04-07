@@ -118,13 +118,13 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition> getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class);
 	       criteria.createAlias("exitid", "exitid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitHousingAssessmentDispositionsCount(UUID exitId){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class);
 	       criteria.createAlias("exitid", "exitid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);
 	   }
 }

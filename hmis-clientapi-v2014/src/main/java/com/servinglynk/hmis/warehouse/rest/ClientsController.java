@@ -95,6 +95,7 @@ public class ClientsController extends ControllerBase {
 	@APIMapping(value="CLIENT_API_UPDATE_CLIENT",checkSessionToken=true,checkTrustedApp=true)
 	public void updateClient(@PathVariable("clientid") UUID clientId ,@RequestBody Client client , HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
+		client.setClientId(clientId);
 		serviceFactory.getClientService().updateClient(client, session.getAccount().getUsername());
 	}
 	
@@ -142,6 +143,7 @@ public class ClientsController extends ControllerBase {
 	@APIMapping(value="CLIENT_API_UPDATE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
 	public void updateEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
+		enrollment.setEnrollmentId(enrollmentId);
 		serviceFactory.getEnrollmentService().updateEnrollment(enrollment, clientId, session.getAccount().getUsername());
 	}
 	
@@ -192,6 +194,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_EXIT",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateExit(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exitid" ) UUID exitId,@RequestBody Exit exit,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        exit.setExitId(exitId);
 	        serviceFactory.getClientService().getClientById(clientId);
 	    //    exit.setEnrollment(enrollmentId);
 	        serviceFactory.getExitService().updateExit(exit,enrollmentId,session.getAccount().getUsername()); 
@@ -243,7 +246,8 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/employments/{employmentid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_EMPLOYMENT",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateEmployment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "employmentid" ) UUID employmentId,@RequestBody Employment employment,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        employment.setEmploymentId(employmentId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getEmploymentService().updateEmployment(employment,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -298,6 +302,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_VETERANINFO",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateVeteranInfo(@PathVariable("clientid") UUID clientId, @PathVariable( "veteranInfoid" ) UUID veteranInfoId,@RequestBody VeteranInfo veteranInfo,HttpServletRequest request) throws Exception{
 		   Session session = sessionHelper.getSession(request);
+		   veteranInfo.setVeteranInfoId(veteranInfoId);
 		   serviceFactory.getVeteranInfoService().updateVeteranInfo(veteranInfo, clientId, session.getAccount().getUsername());
 	   }
 
@@ -348,6 +353,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_DISABILITIES",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateDisabilities(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "disabilitiesid" ) UUID disabilitiesId,@RequestBody Disabilities disabilities,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        disabilities.setDisabilitiesId(disabilitiesId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getDisabilitiesService().updateDisabilities(disabilities,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -408,6 +414,7 @@ public class ClientsController extends ControllerBase {
 			 @PathVariable("exitid") UUID exitId ,
 			 @PathVariable( "connectionwithsoarid" ) UUID connectionwithsoarId,@RequestBody Connectionwithsoar connectionwithsoar,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        connectionwithsoar.setConnectionwithsoarId(connectionwithsoarId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getConnectionwithsoarService().updateConnectionwithsoar(connectionwithsoar,exitId,session.getAccount().getUsername()); 
 	   }
@@ -426,7 +433,7 @@ public class ClientsController extends ControllerBase {
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
 
-	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/connectionwithsoars/{connectionwithsoarid}",method=RequestMethod.GET)
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/connectionwithsoars/{connectionwithsoarid}",method=RequestMethod.GET)
 	   @APIMapping(value="CLIENT_API_GET_CONNECTIONWITHSOAR_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Connectionwithsoar getConnectionwithsoarById(@PathVariable("clientid") UUID clientId,
 			   @PathVariable("enrollmentid") UUID enrollmentId ,
@@ -479,6 +486,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable("exitid") UUID exitId ,
 			   @PathVariable( "exitPlansActionsid" ) UUID exitPlansActionsId,@RequestBody ExitPlansActions exitPlansActions,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        exitPlansActions.setExitPlansActionsId(exitPlansActionsId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getExitPlansActionsService().updateExitPlansActions(exitPlansActions,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -535,7 +543,8 @@ public class ClientsController extends ControllerBase {
 	   public FamilyReunification createFamilyReunification(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody FamilyReunification familyReunification,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getFamilyReunificationService().createFamilyReunification(familyReunification,enrollmentId,session.getAccount().getUsername()); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+	         serviceFactory.getFamilyReunificationService().createFamilyReunification(familyReunification,exitId,session.getAccount().getUsername()); 
 	         FamilyReunification returnFamilyReunification = new FamilyReunification();
 	         returnFamilyReunification.setFamilyReunificationId(familyReunification.getFamilyReunificationId());
 	         return returnFamilyReunification;
@@ -545,8 +554,10 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_FAMILYREUNIFICATION",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateFamilyReunification(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "familyReunificationid" ) UUID familyReunificationId,@RequestBody FamilyReunification familyReunification,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        familyReunification.setFamilyReunificationId(familyReunificationId);
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 	        serviceFactory.getClientService().getClientById(clientId); 
-	        serviceFactory.getFamilyReunificationService().updateFamilyReunification(familyReunification,enrollmentId,session.getAccount().getUsername()); 
+	        serviceFactory.getFamilyReunificationService().updateFamilyReunification(familyReunification,exitId,session.getAccount().getUsername()); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/familyreunifications/{familyReunificationid}",method=RequestMethod.DELETE)
@@ -594,7 +605,8 @@ public class ClientsController extends ControllerBase {
 	   public HousingAssessmentDisposition createHousingAssessmentDisposition(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody HousingAssessmentDisposition housingAssessmentDisposition,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getHousingAssessmentDispositionService().createHousingAssessmentDisposition(housingAssessmentDisposition,enrollmentId,session.getAccount().getUsername()); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getHousingAssessmentDispositionService().createHousingAssessmentDisposition(housingAssessmentDisposition,exitId,session.getAccount().getUsername()); 
 	         HousingAssessmentDisposition returnHousingAssessmentDisposition = new HousingAssessmentDisposition();
 	         returnHousingAssessmentDisposition.setHousingAssessmentDispositionId(housingAssessmentDisposition.getHousingAssessmentDispositionId());
 	         return returnHousingAssessmentDisposition;
@@ -603,9 +615,11 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions/{housingAssessmentDispositionid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_HOUSINGASSESSMENTDISPOSITION",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateHousingAssessmentDisposition(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "housingAssessmentDispositionid" ) UUID housingAssessmentDispositionId,@RequestBody HousingAssessmentDisposition housingAssessmentDisposition,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        housingAssessmentDisposition.setHousingAssessmentDispositionId(housingAssessmentDispositionId);
 	        serviceFactory.getClientService().getClientById(clientId); 
-	        serviceFactory.getHousingAssessmentDispositionService().updateHousingAssessmentDisposition(housingAssessmentDisposition,enrollmentId,session.getAccount().getUsername()); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getHousingAssessmentDispositionService().updateHousingAssessmentDisposition(housingAssessmentDisposition,exitId,session.getAccount().getUsername()); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/housingassessmentdispositions/{housingAssessmentDispositionid}",method=RequestMethod.DELETE)
@@ -642,7 +656,7 @@ public class ClientsController extends ControllerBase {
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
 	         serviceFactory.getExitService().getExitById(exitId);
-	        return serviceFactory.getHousingAssessmentDispositionService().getAllEnrollmentHousingAssessmentDispositions(enrollmentId,startIndex,maxItems); 
+	        return serviceFactory.getHousingAssessmentDispositionService().getAllExitHousingAssessmentDispositions(enrollmentId,startIndex,maxItems); 
 	   }
 	   
 	   
@@ -654,7 +668,8 @@ public class ClientsController extends ControllerBase {
 	   public ProjectCompletionStatus createProjectCompletionStatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody ProjectCompletionStatus projectCompletionStatus,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getProjectCompletionStatusService().createProjectCompletionStatus(projectCompletionStatus,enrollmentId,session.getAccount().getUsername()); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getProjectCompletionStatusService().createProjectCompletionStatus(projectCompletionStatus,exitId,session.getAccount().getUsername()); 
 	         ProjectCompletionStatus returnProjectCompletionStatus = new ProjectCompletionStatus();
 	         returnProjectCompletionStatus.setProjectCompletionStatusId(projectCompletionStatus.getProjectCompletionStatusId());
 	         return returnProjectCompletionStatus;
@@ -664,8 +679,10 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_PROJECTCOMPLETIONSTATUS",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateProjectCompletionStatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "projectCompletionStatusid" ) UUID projectCompletionStatusId,@RequestBody ProjectCompletionStatus projectCompletionStatus,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        projectCompletionStatus.setProjectCompletionStatusId(projectCompletionStatusId);
 	        serviceFactory.getClientService().getClientById(clientId); 
-	        serviceFactory.getProjectCompletionStatusService().updateProjectCompletionStatus(projectCompletionStatus,enrollmentId,session.getAccount().getUsername()); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getProjectCompletionStatusService().updateProjectCompletionStatus(projectCompletionStatus,exitId,session.getAccount().getUsername()); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/projectcompletionstatuses/{projectCompletionStatusid}",method=RequestMethod.DELETE)
@@ -699,7 +716,7 @@ public class ClientsController extends ControllerBase {
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	        return serviceFactory.getProjectCompletionStatusService().getAllEnrollmentProjectCompletionStatuss(enrollmentId,startIndex,maxItems); 
+	        return serviceFactory.getProjectCompletionStatusService().getAllExitProjectCompletionStatuss(exitId,startIndex,maxItems); 
 	   }
 	   
 	   
@@ -719,7 +736,8 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_INCOMEANDSOURCE",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateIncomeAndSource(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "incomeAndSourceid" ) UUID incomeAndSourceId,@RequestBody IncomeAndSource incomeAndSource,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        incomeAndSource.setIncomeAndSourceId(incomeAndSourceId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getIncomeAndSourceService().updateIncomeAndSource(incomeAndSource,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -774,7 +792,8 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthInsuranceid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_HEALTHINSURANCE",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateHealthInsurance(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "healthInsuranceid" ) UUID healthInsuranceId,@RequestBody HealthInsurance healthInsurance,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        healthInsurance.setHealthInsuranceId(healthInsuranceId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getHealthInsuranceService().updateHealthInsurance(healthInsurance,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -831,6 +850,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_SERVICES",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateServices(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "servicesid" ) UUID servicesId,@RequestBody Services services,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        services.setServicesId(servicesId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getServicesService().updateServices(services,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -885,7 +905,8 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthStatusid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_HEALTHSTATUS",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateHealthStatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "healthStatusid" ) UUID healthStatusId,@RequestBody HealthStatus healthStatus,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        healthStatus.setHealthStatusId(healthStatusId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getHealthStatusService().updateHealthStatus(healthStatus,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -940,7 +961,8 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/commercialsexualexploitations/{commercialSexualExploitationid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_COMMERCIAL_SEXUAL_EXPLOITATION",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateCommercialSexualExploitation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "commercialSexualExploitationid" ) UUID commercialSexualExploitationId,@RequestBody CommercialSexualExploitation commercialSexualExploitation,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        commercialSexualExploitation.setCommercialsexualexploitationId(commercialSexualExploitationId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getCommercialSexualExploitationService().updateCommercialSexualExploitation(commercialSexualExploitation,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -996,6 +1018,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_DATEOFENGAGEMENT",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateDateofengagement(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "dateofengagementid" ) UUID dateofengagementId,@RequestBody Dateofengagement dateofengagement,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        dateofengagement.setDateofengagementId(dateofengagementId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getDateofengagementService().updateDateofengagement(dateofengagement,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1051,6 +1074,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_DOMESTICVIOLENCE",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateDomesticViolence(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "domesticViolenceid" ) UUID domesticViolenceId,@RequestBody DomesticViolence domesticViolence,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        domesticViolence.setDomesticViolenceId(domesticViolenceId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getDomesticViolenceService().updateDomesticViolence(domesticViolence,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1106,6 +1130,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_LASTPERMANENTADDRESS",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateLastPermanentAddress(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "lastpermanentaddressid" ) UUID lastPermanentAddressId,@RequestBody LastPermanentAddress lastPermanentAddress,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        lastPermanentAddress.setLastPermanentAddressId(lastPermanentAddressId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getLastPermanentAddressService().updateLastPermanentAddress(lastPermanentAddress,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1165,6 +1190,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_YOUTHCRITICALISSUES",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateYouthCriticalIssues(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "youthCriticalIssuesid" ) UUID youthCriticalIssuesId,@RequestBody YouthCriticalIssue youthCriticalIssues,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        youthCriticalIssues.setYouthCriticalIssuesId(youthCriticalIssuesId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getYouthCriticalIssuesService().updateYouthCriticalIssues(youthCriticalIssues,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1219,6 +1245,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_WORSTHOUSINGSITUATION",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateWorstHousingSituation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "worstHousingSituationid" ) UUID worstHousingSituationId,@RequestBody WorstHousingSituation worstHousingSituation,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        worstHousingSituation.setWorstHousingSituationId(worstHousingSituationId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getWorstHousingSituationService().updateWorstHousingSituation(worstHousingSituation,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1275,6 +1302,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_SEXUALORIENTATION",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateSexualorientation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "sexualorientationid" ) UUID sexualorientationId,@RequestBody Sexualorientation sexualorientation,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        sexualorientation.setSexualorientationId(sexualorientationId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getSexualorientationService().updateSexualorientation(sexualorientation,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1329,6 +1357,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_SCHOOLSTATUS",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateSchoolstatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "schoolstatusid" ) UUID schoolstatusId,@RequestBody Schoolstatus schoolstatus,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        schoolstatus.setSchoolstatusId(schoolstatusId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getSchoolstatusService().updateSchoolstatus(schoolstatus,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1383,7 +1412,8 @@ public class ClientsController extends ControllerBase {
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/medicalassistances/{medicalassistanceid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_MEDICALASSISTANCE",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateMedicalassistance(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "medicalassistanceid" ) UUID medicalassistanceId,@RequestBody Medicalassistance medicalassistance,HttpServletRequest request) throws Exception{
-	        Session session = sessionHelper.getSession(request); 
+	        Session session = sessionHelper.getSession(request);
+	        medicalassistance.setMedicalassistanceId(medicalassistanceId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getMedicalassistanceService().updateMedicalassistance(medicalassistance,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1440,6 +1470,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_PATHSTATUS",checkTrustedApp=true,checkSessionToken=true)
 	   public void updatePathstatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "pathstatusid" ) UUID pathstatusId,@RequestBody Pathstatus pathstatus,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        pathstatus.setPathstatusId(pathstatusId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getPathstatusService().updatePathstatus(pathstatus,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1496,6 +1527,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_PERCENTAMI",checkTrustedApp=true,checkSessionToken=true)
 	   public void updatePercentami(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "percentamiid" ) UUID percentamiId,@RequestBody Percentami percentami,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        percentami.setPercentamiId(percentamiId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getPercentamiService().updatePercentami(percentami,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1551,6 +1583,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_REFERRALSOURCE",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateReferralsource(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "referralsourceid" ) UUID referralsourceId,@RequestBody Referralsource referralsource,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        referralsource.setReferralsourceId(referralsourceId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getReferralsourceService().updateReferralsource(referralsource,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1606,6 +1639,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_RESIDENTIALMOVEINDATE",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateResidentialmoveindate(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "residentialmoveindateid" ) UUID residentialmoveindateId,@RequestBody Residentialmoveindate residentialmoveindate,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        residentialmoveindate.setResidentialmoveindateId(residentialmoveindateId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getResidentialmoveindateService().updateResidentialmoveindate(residentialmoveindate,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1661,6 +1695,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_RHYBCPSTATUS",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateRhybcpstatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "rhybcpstatusid" ) UUID rhybcpstatusId,@RequestBody Rhybcpstatus rhybcpstatus,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        rhybcpstatus.setRhybcpstatusId(rhybcpstatusId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getRhybcpstatusService().updateRhybcpstatus(rhybcpstatus,enrollmentId,session.getAccount().getUsername()); 
 	   }
@@ -1716,6 +1751,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_UPDATE_NONCASHBENEFIT",checkTrustedApp=true,checkSessionToken=true)
 	   public void updateNonCashBenefit(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "nonCashBenefitid" ) UUID nonCashBenefitId,@RequestBody NonCashBenefit nonCashBenefit,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
+	        nonCashBenefit.setNonCashBenefitId(nonCashBenefitId);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getNonCashBenefitService().updateNonCashBenefit(nonCashBenefit,enrollmentId,session.getAccount().getUsername()); 
 	   }

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-service-v2014</artifactId>
-	<name>HMISService</name>
+	<name>HMIS Service (v2014)</name>
 	<packaging>jar</packaging>
 	<version>0.0.2-SNAPSHOT</version>
 	<scm>	

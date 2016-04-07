@@ -7,7 +7,7 @@
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>hmis-core-serialize</name>
+	<name>hmis-serialize (v2014)</name>
 	<url>http://maven.apache.org</url>
 	<scm>
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>

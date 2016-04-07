@@ -45,6 +45,7 @@ public class ProjectsController extends ControllerBase {
    @APIMapping(value="CLIENT_API_UPDATE_PROJECT",checkTrustedApp=true,checkSessionToken=true)
    public void updateProject(@PathVariable( "projectid" ) UUID projectId,@RequestBody Project project,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
+        project.setProjectId(projectId);
         serviceFactory.getProjectService().updateProject(project,session.getAccount().getUsername()); 
    }
 
@@ -89,7 +90,7 @@ public class ProjectsController extends ControllerBase {
    @APIMapping(value="CLIENT_API_UPDATE_PROJECTCOC",checkTrustedApp=true,checkSessionToken=true)
    public void updateProjectcoc(@PathVariable("projectid") UUID projectId ,@PathVariable( "projectcocid" ) UUID projectcocId,@RequestBody Projectcoc projectcoc,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
-
+        projectcoc.setProjectcocId(projectcocId);
         serviceFactory.getProjectcocService().updateProjectcoc(projectcoc,projectId,session.getAccount().getUsername()); 
    }
 
@@ -142,7 +143,7 @@ public class ProjectsController extends ControllerBase {
    @APIMapping(value="CLIENT_API_UPDATE_AFFILIATION",checkTrustedApp=true,checkSessionToken=true)
    public void updateAffiliation(@PathVariable("projectid") UUID projectId  ,@PathVariable( "affiliationid" ) UUID affiliationId,@RequestBody Affiliation affiliation,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
-
+        affiliation.setAffiliationId(affiliationId);
         serviceFactory.getAffiliationService().updateAffiliation(affiliation,projectId,session.getAccount().getUsername()); 
    }
 
@@ -195,7 +196,7 @@ public class ProjectsController extends ControllerBase {
    @APIMapping(value="CLIENT_API_UPDATE_FUNDER",checkTrustedApp=true,checkSessionToken=true)
    public void updateFunder(@PathVariable("projectid") UUID projectId ,@PathVariable( "funderid" ) UUID funderId,@RequestBody Funder funder,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
-
+        funder.setFunderId(funderId);
          serviceFactory.getFunderService().updateFunder(funder,projectId,session.getAccount().getUsername()); 
    }
 
@@ -247,6 +248,7 @@ public class ProjectsController extends ControllerBase {
    @APIMapping(value="CLIENT_API_UPDATE_SITE",checkTrustedApp=true,checkSessionToken=true)
    public void updateSite(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "siteid" ) UUID siteId,@RequestBody Site site,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
+        site.setSiteId(siteId);
         serviceFactory.getProjectService().getProjectById(projectid);
         serviceFactory.getSiteService().updateSite(site,projectcocid,session.getAccount().getUsername()); 
    }
@@ -304,6 +306,7 @@ public class ProjectsController extends ControllerBase {
    @APIMapping(value="CLIENT_API_UPDATE_INVENTORY",checkTrustedApp=true,checkSessionToken=true)
    public void updateInventory(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "inventoryid" ) UUID inventoryId,@RequestBody Inventory inventory,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
+        inventory.setInventoryId(inventoryId);
         serviceFactory.getProjectService().getProjectById(projectid);
         serviceFactory.getInventoryService().updateInventory(inventory,projectcocid,session.getAccount().getUsername()); 
    }

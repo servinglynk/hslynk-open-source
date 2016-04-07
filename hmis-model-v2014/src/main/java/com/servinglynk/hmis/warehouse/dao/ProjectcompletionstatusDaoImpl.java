@@ -116,13 +116,13 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus> getAllExitProjectCompletionStatuses(UUID exitId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class);
 	       criteria.createAlias("exitid", "exitid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitProjectCompletionStatusesCount(UUID exitId){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class);
 	       criteria.createAlias("exitid", "exitid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", exitId));
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);
 	   }
 }

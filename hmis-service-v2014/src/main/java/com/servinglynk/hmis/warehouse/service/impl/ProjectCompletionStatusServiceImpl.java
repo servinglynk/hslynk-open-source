@@ -68,7 +68,7 @@ public class ProjectCompletionStatusServiceImpl extends ServiceBase implements P
 
 
    @Transactional
-   public ProjectCompletionStatuses getAllEnrollmentProjectCompletionStatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
+   public ProjectCompletionStatuses getAllExitProjectCompletionStatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
        ProjectCompletionStatuses projectCompletionStatuss = new ProjectCompletionStatuses();
         List<com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus> entities = daoFactory.getProjectcompletionstatusDao().getAllExitProjectCompletionStatuses(enrollmentId,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus entity : entities){

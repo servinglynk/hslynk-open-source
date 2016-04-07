@@ -70,7 +70,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
 
 
    @Transactional
-   public HousingAssessmentDispositions getAllEnrollmentHousingAssessmentDispositions(UUID enrollmentId,Integer startIndex, Integer maxItems){
+   public HousingAssessmentDispositions getAllExitHousingAssessmentDispositions(UUID enrollmentId,Integer startIndex, Integer maxItems){
        HousingAssessmentDispositions housingAssessmentDispositions = new HousingAssessmentDispositions();
         List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition> entities = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(enrollmentId,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition entity : entities){

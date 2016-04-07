@@ -1,14 +1,19 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Rhybcpstatus;
+import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 public class RhybcpstatusConverter extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus modelToEntity (Rhybcpstatus model ,com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
-       if(model.getRhybcpstatusId()!=null)
-       entity.setId(model.getRhybcpstatusId());
+       
        if(model.getStatusDate()!=null)
        entity.setStatusDate(model.getStatusDate());
+       if(model.getFysbYouth()!=null)
+    	   	entity.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(model.getFysbYouth().toString()));
+       if(model.getReasonNoServices()!=null)
+    	   	entity.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(model.getReasonNoServices().toString()));
        return entity;    
    }
 
