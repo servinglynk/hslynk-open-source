@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-bulk-loader</artifactId>
+	<artifactId>hmis-bulk-loader-v2015</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>hmis-bulk-loader</name>
-	<description>Hmis Bulk Loader</description>
+	<name>hmis-bulk-loader-v2015</name>
+	<description>Hmis Bulk Loader V2015</description>
 
 	  <scm>
 	  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
