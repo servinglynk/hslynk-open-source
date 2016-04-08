@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-load-processor-v2014</artifactId>
+	<artifactId>hmis-load-processor-v2015</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>hmis-load-processor-v2014</name>
+	<name>hmis-load-processor-v2015</name>
 	<url>http://maven.apache.org</url>
 	<scm>	
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
