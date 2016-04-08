@@ -3,9 +3,7 @@ package com.servinglynk.hmis.warehouse.service.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
-import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
@@ -29,6 +27,7 @@ import com.servinglynk.hmis.warehouse.service.InventoryService;
 import com.servinglynk.hmis.warehouse.service.LastPermanentAddressService;
 import com.servinglynk.hmis.warehouse.service.MedicalassistanceService;
 import com.servinglynk.hmis.warehouse.service.NonCashBenefitService;
+import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.PercentamiService;
 import com.servinglynk.hmis.warehouse.service.ProjectCompletionStatusService;

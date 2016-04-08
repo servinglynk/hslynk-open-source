@@ -27,8 +27,8 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import com.seringlynk.hmis.warehouse.ResultSetMapper;
-import com.servinglynk.hmis.warehouse.model.Project;
-import com.servinglynk.hmis.warehouse.model.ReportMaster;
+import com.servinglynk.hmis.warehouse.model.v2014.Project;
+import com.servinglynk.hmis.warehouse.model.v2014.ReportMaster;
 
 public class Reporter {
         @SuppressWarnings("unchecked")

@@ -24,7 +24,7 @@ import org.apache.hadoop.hbase.filter.SingleColumnValueFilter;
 import org.apache.hadoop.hbase.filter.SubstringComparator;
 import org.apache.hadoop.hbase.util.Bytes;
 
-import com.servinglynk.hmis.warehouse.model.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
 
 public class ReportDataGenerator<T> {
 	

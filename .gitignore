@@ -29,16 +29,15 @@ hmis-authorization-service/*.iml
 hmis-authorization-service/target
 hmis-authorization-service/bin
 
-hmis-bulk-loader/target/*
-hmis-bulk-loader/bin/*
-hmis-bulk-loader/.settings/*
-hmis-bulk-loader/.classpath
-hmis-bulk-loader/.project
-hmis-bulk-loader/.idea
-hmis-bulk-loader/*.iml
-hmis-bulk-loader/target
-hmis-bulk-loader/bin
-
+hmis-bulk-loader-*/target/*
+hmis-bulk-loader-*/bin/*
+hmis-bulk-loader-*/.settings/*
+hmis-bulk-loader-*/.classpath
+hmis-bulk-loader-*/.project
+hmis-bulk-loader-*/.idea
+hmis-bulk-loader-*/*.iml
+hmis-bulk-loader-*/target
+hmis-bulk-loader-*/bin
 
 hmis-core-client/target/*
 hmis-core-client/bin/*
@@ -91,15 +90,15 @@ hmis-upload-service/*.iml
 hmis-upload-service/target
 hmis-upload-service/bin
 
-hmis-load-processor/target/*
-hmis-load-processor/bin/*
-hmis-load-processor/.settings/*
-hmis-load-processor/.classpath
-hmis-load-processor/.project
-hmis-load-processor/.idea
-hmis-load-processor/*.iml
-hmis-load-processor/target
-hmis-load-processo/bin
+hmis-load-processor-*/target/*
+hmis-load-processor-*/bin/*
+hmis-load-processor-*/.settings/*
+hmis-load-processor-*/.classpath
+hmis-load-processor-*/.project
+hmis-load-processor-*/.idea
+hmis-load-processor-*/*.iml
+hmis-load-processor-*/target
+hmis-load-processor-*/bin
 
 hmis-model-*/target/*
 hmis-model-*/.settings/*

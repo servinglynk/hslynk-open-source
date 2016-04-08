@@ -9,10 +9,10 @@ import java.util.List;
 
 import org.apache.hadoop.hbase.filter.CompareFilter;
 
-import com.servinglynk.hmis.warehouse.model.Client;
-import com.servinglynk.hmis.warehouse.model.Organization;
-import com.servinglynk.hmis.warehouse.model.Project;
-import com.servinglynk.hmis.warehouse.model.ReportMaster;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
+import com.servinglynk.hmis.warehouse.model.v2014.Project;
+import com.servinglynk.hmis.warehouse.model.v2014.ReportMaster;
 
 public class DataBeanMaker {
         public ArrayList<DataBean> getDataBeanList(ReportMaster master) {
