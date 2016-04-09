@@ -101,6 +101,7 @@ DROP TYPE IF EXISTS "v2015".when_dom_violence_occurred;
 DROP TYPE IF EXISTS "v2015".youth_age_group;
 DROP TYPE IF EXISTS "v2015".housing_status;
 DROP TYPE IF EXISTS "v2015".state;
+DROP TYPE IF EXISTS "v2015".contact_location;
 
 
 
@@ -380,6 +381,13 @@ CREATE TYPE "v2015".housing_status AS ENUM (
 '9',
 '99');
 
+CREATE TYPE "v2015".contact_location AS ENUM (
+'1',
+'2',
+'3',
+'8',
+'9',
+'99');
 CREATE TYPE "v2015".state AS ENUM (
 'AK',
 'AL',
@@ -1597,7 +1605,7 @@ create table "v2015".contact
 (
 	id uuid not null, 
 	contact_date timestamp,
-	contact_location integer,
+	contact_location v2015.contact_location,
 	"enrollmentid" uuid,
 	"project_group_code" character varying(8),
   	"date_created" timestamp,

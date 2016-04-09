@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
+
 
 /**
  * Object mapping for hibernate-handled table: contact.
@@ -48,7 +50,7 @@ public class Contact extends HmisBaseStagingModel implements Cloneable, Serializ
 	/** Field mapping. */
 	private LocalDateTime contactDate;
 	/** Field mapping. */
-	private Integer contactLocation;
+	private ContactLocationEnum contactLocation;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
@@ -106,9 +108,10 @@ public class Contact extends HmisBaseStagingModel implements Cloneable, Serializ
 	 * Return the value associated with the column: contactLocation.
 	 * @return A Integer object (this.contactLocation)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ContactLocationEnumType")
 	@Basic( optional = true )
 	@Column( name = "contact_location"  )
-	public Integer getContactLocation() {
+	public ContactLocationEnum getContactLocation() {
 		return this.contactLocation;
 
 	}
@@ -119,7 +122,7 @@ public class Contact extends HmisBaseStagingModel implements Cloneable, Serializ
 	 * Set the value related to the column: contactLocation.
 	 * @param contactLocation the contactLocation value you wish to set
 	 */
-	public void setContactLocation(final Integer contactLocation) {
+	public void setContactLocation(final ContactLocationEnum contactLocation) {
 		this.contactLocation = contactLocation;
 	}
 

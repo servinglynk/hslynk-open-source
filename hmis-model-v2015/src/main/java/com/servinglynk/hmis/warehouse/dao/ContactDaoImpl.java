@@ -20,6 +20,8 @@ import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -44,7 +46,8 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				UUID contactUUID = UUID.randomUUID();
 				contactModel.setId(contactUUID);
 				contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
-				contactModel.setContactLocation(new Integer(contacts.getContactLocation()).intValue());
+				contactModel.setContactLocation(ContactLocationEnum.lookupEnum(BasicDataGenerator.getStringValue(contacts
+								.getContactLocation())));
 				contactModel.setDateCreated(LocalDateTime.now());
 				contactModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateCreated()));
 				contactModel.setDateUpdated(LocalDateTime.now());
