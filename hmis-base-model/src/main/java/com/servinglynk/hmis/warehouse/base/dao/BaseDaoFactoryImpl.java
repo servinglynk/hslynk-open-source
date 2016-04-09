@@ -57,6 +57,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	private PermissionSetDao permissionSetDao;
 	@Autowired
 	private ClientDao hmisClientDao;
+	@Autowired
+	private HmisBulkUploadDao hmisBulkUploadDao;
 	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
@@ -214,4 +216,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setHmisClientDao(ClientDao hmisClientDao) {
 		this.hmisClientDao = hmisClientDao;
 	}
+	public HmisBulkUploadDao getHmisBulkUploadDao() {
+		return hmisBulkUploadDao;
+	}
+	public void setHmisBulkUploadDao(HmisBulkUploadDao hmisBulkUploadDao) {
+		this.hmisBulkUploadDao = hmisBulkUploadDao;
+	}
+	
 }

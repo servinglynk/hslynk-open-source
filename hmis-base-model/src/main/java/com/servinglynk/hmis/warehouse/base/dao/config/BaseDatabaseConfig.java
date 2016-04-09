@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.HmisBulkUploadDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisOrganizationDaoImpl;
@@ -183,5 +184,9 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ClientDaoImpl hmisClientDao(){
 		return new ClientDaoImpl();
+	}
+	@Bean
+	public HmisBulkUploadDaoImpl hmisBulkUploadDao(){
+		return new HmisBulkUploadDaoImpl();
 	}
 }

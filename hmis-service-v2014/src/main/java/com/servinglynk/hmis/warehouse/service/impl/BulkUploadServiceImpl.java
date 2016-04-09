@@ -13,6 +13,7 @@ import com.servinglynk.hmis.warehouse.core.model.BulkUploads;
 import com.servinglynk.hmis.warehouse.core.model.Connectionwithsoars;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
@@ -22,22 +23,22 @@ import com.servinglynk.hmis.warehouse.service.converter.ConnectionwithsoarConver
 public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadService  {
 	
 	@Transactional
-	public void createBulkUploadEntry(com.servinglynk.hmis.warehouse.core.model.BulkUpload uploadModel) throws Exception {
+	public void createBulkUploadEntry(HmisBulkUpload uploadModel) throws Exception {
 		try{
 			
-			BulkUpload upload = new BulkUpload();
-			upload.setInputPath(uploadModel.getInputPath());
+			HmisBulkUpload upload = new HmisBulkUpload();
+			upload.setInputpath(uploadModel.getInputpath());
 			upload.setStatus("INITIAL");
 			upload.setDateCreated(LocalDateTime.now());
 			upload.setDateUpdated(LocalDateTime.now());
 			upload.setSync(false);
-			upload.setSize(uploadModel.getFileSize());
-			HmisUser user = daoFactory.getAccountDao().findByUsername(uploadModel.getUsername());
+			upload.setSize(uploadModel.getSize());
+			HmisUser user = daoFactory.getAccountDao().findByUsername(uploadModel.getUser().getUsername());
 			ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
-		//	upload.setUser(user);
+			upload.setUser(user);
 			String projectGroupCode = projectGroupEntity.getProjectGroupCode();
 			upload.setProjectGroupCode(projectGroupCode !=null ? projectGroupCode : uploadModel.getProjectGroupCode());
-			daoFactory.getBulkUploaderWorkerDao().insert(upload);
+			daoFactory.getHmisBulkUploadDao().insert(upload);
 		}catch(Exception e){
 				throw new Exception("Worker Not Found"+ e.getMessage());
 		}

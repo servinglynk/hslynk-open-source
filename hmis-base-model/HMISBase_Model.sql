@@ -34,6 +34,8 @@ DROP TABLE IF EXISTS  base.hmis_user_permission_set_acl;
 DROP TABLE IF EXISTS  base.hmis_user_role_map;
 DROP TABLE IF EXISTS  base.hmis_verification;
 DROP TABLE IF EXISTS  base.client;
+DROP TABLE IF EXISTS  base.bulk_upload;
+DROP TABLE IF EXISTS  base.bulk_upload_activity;
 
 DROP TYPE IF EXISTS "base".gender;
 
@@ -1052,6 +1054,34 @@ WITH (
   OIDS=FALSE
 );
 -- Table: "base"."client"
+
+CREATE TABLE base.bulk_upload
+(
+  id bigint NOT NULL,
+  inputPath text,
+  status character(10),
+  description text,
+  year bigint,
+  size bigint,
+  export_id uuid,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false, 
+  sync boolean DEFAULT false,
+  CONSTRAINT bulk_upload_pk PRIMARY KEY (id),
+   CONSTRAINT "FK_BULK_UPLOAD_USERID" FOREIGN KEY (user_id)
+      REFERENCES base.hmis_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
 
 
 ALTER TABLE base.hmis_user ADD COLUMN created_by character varying(256);
