@@ -44,6 +44,8 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 	private String inputpath;
 	/** Field mapping. */
 	private String status;
+	/** Field mapping. */
+	private String description;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -133,8 +135,6 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: status.
 	 * @param status the status value you wish to set
@@ -142,8 +142,18 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 	public void setStatus(final String status) {
 		this.status = status;
 	}
+	
+	@Basic( optional = true )
+	@Column
+   public String getDescription() {
+		return description;
+	}
 
-   /**
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+/**
     * Deep copy.
 	* @return cloned object
 	* @throws CloneNotSupportedException on error

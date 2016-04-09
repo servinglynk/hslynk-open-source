@@ -3,7 +3,7 @@ CREATE SCHEMA "v2015";
 DROP SEQUENCE IF EXISTS "v2015".bulk_upload_id_seq;
 DROP SEQUENCE IF EXISTS "v2015".bulk_upload_activity_id_seq;
 DROP TABLE IF EXISTS "v2015".hmis_type;
-DROP TABLE IF EXISTS "v2014".path_status;
+DROP TABLE IF EXISTS "v2015".path_status;
 DROP TABLE IF EXISTS "v2015".rhybcp_status;
 DROP TABLE IF EXISTS "v2015".employment;
 DROP TABLE IF EXISTS "v2015".health_status;
@@ -2439,6 +2439,8 @@ CREATE TABLE "v2015".bulk_upload
   id serial NOT NULL,
   inputPath text,
   status character(10),
+  description text,
+  size bigint,
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,

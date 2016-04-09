@@ -135,8 +135,6 @@ public class BulkUpload extends HmisBaseStagingModel implements Cloneable, Seria
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: status.
 	 * @param status the status value you wish to set

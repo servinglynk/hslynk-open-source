@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
 	
+	private static final Logger logger = LoggerFactory
+			.getLogger(BulkUploaderDaoImpl.class);
 	
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
@@ -60,6 +64,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
 		try {
 			//upload.setId(UUID.randomUUID());
+			logger.debug("Bulk Uploader Process Begins..........");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
@@ -73,6 +78,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setUpload(upload);
 			domain.setSource(source);
 			parentDaoFactory.getSourceDao().hydrateStaging(domain);
+			logger.debug("Staging Source table.........");
 			if(export != null)
 			{
 				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportModel  = new com.servinglynk.hmis.warehouse.model.stagv2015.Export();
@@ -89,6 +95,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			//	exportModel.setProjectGroupCode(upload.getProjectGroupCode());
 				//export.getExportPeriod()
 				insert(exportModel);
+				logger.debug("Staging Export table.........");
 			}
 			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
@@ -124,23 +131,27 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getPathstatusDao().hydrateStaging(domain);
 			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
+			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
 			parentDaoFactory.getSourceDao().hydrateLive(exportEntity,upload.getId());
+			logger.debug("Live Source table.........");
 			if(exportEntity!=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Export target = new com.servinglynk.hmis.warehouse.model.v2015.Export();
 				BeanUtils.copyProperties(exportEntity, target,getNonCollectionFields(target));
 				com.servinglynk.hmis.warehouse.model.v2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2015.Source) get(com.servinglynk.hmis.warehouse.model.v2015.Source.class, domain.getSourceId());
 				target.setSource(sourceEntity);
 				insert(target);	
+				logger.debug("Live Export table.........");
 			}
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
 			upload.setExport(exportLive);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
+			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
-		//	upload.setDescription(e.getMessage());
+			upload.setDescription(e.getMessage());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			e.printStackTrace();
+			logger.error("Error executing the bulk upload process::",e.getMessage());
 		}
 		return upload;
 	}
@@ -204,6 +215,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export,bulkUpload.getId());
 		bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
 		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
+		logger.debug("Bulk Upload Live Process Ends.....");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

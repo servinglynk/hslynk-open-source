@@ -84,8 +84,6 @@ public class BulkUpload extends HmisBaseModel implements Cloneable, Serializable
 		this.size = size;
 	}
 
-
-
 	@Column(name = "status")
 	public String getStatus() {
 		return status;
