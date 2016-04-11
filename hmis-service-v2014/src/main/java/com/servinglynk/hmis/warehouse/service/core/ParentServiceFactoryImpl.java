@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
