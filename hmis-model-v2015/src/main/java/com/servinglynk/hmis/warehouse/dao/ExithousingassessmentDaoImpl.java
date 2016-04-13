@@ -53,7 +53,6 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
 					exithousingassessmentModel.setExport(exportEntity);
 					exportEntity.addExithousingassessment(exithousingassessmentModel);
-					exithousingassessmentModel.setProjectGroupCode(exitHousingAssessment.getExitID());
 					hydrateCommonFields(exithousingassessmentModel, domain);
 					insertOrUpdate(exithousingassessmentModel);
 				}

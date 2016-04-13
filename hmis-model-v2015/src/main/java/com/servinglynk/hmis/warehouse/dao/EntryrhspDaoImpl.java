@@ -47,7 +47,6 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				entryRhspModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateUpdated()));
 				hydrateCommonFields(entryRhspModel, domain);
 				entryRhspModel.setExport(exportEntity);
-				entryRhspModel.setProjectGroupCode(entryRhsp.getProjectID());
 				entryRhspModel.setSync(false);
 				entryRhspModel.setDeleted(false);
 				insertOrUpdate(entryRhspModel);

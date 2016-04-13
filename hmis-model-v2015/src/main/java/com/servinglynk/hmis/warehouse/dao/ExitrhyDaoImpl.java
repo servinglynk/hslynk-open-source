@@ -59,7 +59,6 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateUpdated()));
 				hydrateCommonFields(exitrhyModel, domain);
 				exitrhyModel.setExport(exportEntity);
-				exitrhyModel.setProjectGroupCode(exitrhys.getExitID());
 				exitrhyModel.setSync(false);
 				insertOrUpdate(exitrhyModel);
 			}

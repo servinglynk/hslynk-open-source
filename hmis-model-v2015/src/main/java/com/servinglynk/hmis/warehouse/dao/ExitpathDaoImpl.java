@@ -44,7 +44,6 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 				exitpathModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitpaths.getDateUpdated()));
 				hydrateCommonFields(exitpathModel, domain);
 				exitpathModel.setExport(exportEntity);
-				exitpathModel.setProjectGroupCode(exitpaths.getExitID());
 				exitpathModel.setSync(false);
 				insertOrUpdate(exitpathModel);
 			}

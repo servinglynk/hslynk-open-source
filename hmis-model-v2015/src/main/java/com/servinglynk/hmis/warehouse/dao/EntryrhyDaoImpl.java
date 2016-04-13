@@ -73,7 +73,6 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 //				entryRhyModel.setParentId(parentId);
 				entryRhyModel.setPhysicalDisabilityFamilyMbr(new Integer(entryRhys.getPhysicalDisabilityFam()).intValue());
 				entryRhyModel.setPhysicalDisabilityYouth(new Integer(entryRhys.getPhysicalDisabilityYouth()));
-				entryRhyModel.setProjectGroupCode(entryRhys.getProjectEntryID());
 				entryRhyModel.setReferralSource(new Integer(entryRhys.getReferralSource()).intValue());
 				entryRhyModel.setSchoolEducationIssuesFamilyMbr(new Integer(entryRhys.getSchoolEducationalIssuesFam()).intValue());
 				entryRhyModel.setSchoolEducationIssuesYouth(new Integer(entryRhys.getSchoolEducationalIssuesYouth()).intValue());

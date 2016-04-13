@@ -46,7 +46,6 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				EnrollmentCoc enrollmentCocModel = new EnrollmentCoc();
 				enrollmentCocModel.setId(UUID.randomUUID());
 				enrollmentCocModel.setClientCode(enrollmentCoc.getClientCoC());;
-				enrollmentCocModel.setProjectGroupCode(enrollmentCoc.getProjectEntryID());
 				enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
 				enrollmentCocModel.setDateCreated(LocalDateTime.now());
 				enrollmentCocModel.setDateUpdated(LocalDateTime.now());

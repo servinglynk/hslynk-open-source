@@ -50,7 +50,6 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
 				hydrateCommonFields(entrySsvfModel, domain);
 				entrySsvfModel.setExport(exportEntity);
-				entrySsvfModel.setProjectGroupCode(entrySSVF.getProjectEntryID());
 				entrySsvfModel.setSync(false);
 				insertOrUpdate(entrySsvfModel);
 			}

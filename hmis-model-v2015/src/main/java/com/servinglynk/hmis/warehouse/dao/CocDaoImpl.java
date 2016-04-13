@@ -59,7 +59,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 				hydrateCommonFields(cocModel, domain);
 				cocModel.setExport(exportEntity);
-				cocModel.setProjectGroupCode(coc.getProjectID());
 				domain.getCocCodeMap().put(coc.getCoCCode(), cocUUID);
 				insertOrUpdate(cocModel);
 			}

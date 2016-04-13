@@ -92,7 +92,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			//	exportModel.setUser(user);
 				com.servinglynk.hmis.warehouse.model.stagv2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Source) get(com.servinglynk.hmis.warehouse.model.stagv2015.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
-			//	exportModel.setProjectGroupCode(upload.getProjectGroupCode());
 				//export.getExportPeriod()
 				insert(exportModel);
 				logger.debug("Staging Export table.........");

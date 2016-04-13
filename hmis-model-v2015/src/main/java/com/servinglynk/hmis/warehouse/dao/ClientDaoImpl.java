@@ -133,7 +133,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					}
 					
 				}
-				//clientModel.setProjectGroupCode(clientModel.getUser());
 				clientModel.setDateCreated(LocalDateTime.now());
 				clientModel.setDateUpdated(LocalDateTime.now());
 				

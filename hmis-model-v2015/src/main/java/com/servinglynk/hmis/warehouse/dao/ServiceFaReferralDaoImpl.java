@@ -49,7 +49,6 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
 				hydrateCommonFields(serviceFaReferralModel, domain);
 				serviceFaReferralModel.setExport(exportEntity);
-				serviceFaReferralModel.setProjectGroupCode(serviceFaReferrals.getProjectEntryID());
 				serviceFaReferralModel.setSync(false);
 				insertOrUpdate(serviceFaReferralModel);
 			}

@@ -60,7 +60,6 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				exportEntity.addContact(contactModel);
 				contactModel.setEnrollmentid(enrollment);
 			
-				contactModel.setProjectGroupCode(contacts.getProjectEntryID());
 				contactModel.setSync(false);
 				contactModel.setUserId(exportEntity.getUserId());
 				insertOrUpdate(contactModel);
