@@ -310,7 +310,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.projectcommonname)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getProjectcommonname() {
 		return this.projectcommonname;
 		
@@ -331,7 +331,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.projectname)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getProjectname() {
 		return this.projectname;
 		

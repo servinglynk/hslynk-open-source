@@ -1442,9 +1442,9 @@ WITH (
 
 create table "v2014".organization
 (
-  organizationcommonname character varying(32),
+  organizationcommonname text,
   id uuid not null,
-  organizationname character varying(32),
+  organizationname text,
   "project_group_code" character varying(8),
    "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,
@@ -1470,8 +1470,8 @@ CREATE TABLE  "v2014".project
   enrollmentid uuid,
   continuumproject "v2014".no_yes,
   organizationid uuid,
-  projectcommonname character varying(32),
-  projectname character varying(32),
+  projectcommonname text,
+  projectname text,
   projecttype "v2014".project_type,
   residentialaffiliation "v2014".no_yes,
   targetpopulation "v2014".target_population_type,

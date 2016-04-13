@@ -1120,8 +1120,8 @@ with (
 create table "v2015".organization
 (
 	id uuid not null,  
-	organizationname character varying(32),
-	organizationcommonname character varying(32),
+	organizationname text,
+	organizationcommonname text,
    "project_group_code" character varying(8),
    "date_created" timestamp,
    "date_created_from_source" timestamp,
@@ -1147,13 +1147,13 @@ CREATE TABLE  "v2015".project
 (
 	  id uuid NOT NULL,
 	  --project_id character varying(8),
-	  projectname character varying(32),
+	  projectname text,
 	  continuumproject "v2015".no_yes,
 	  projecttype "v2015".project_type,
 	  --residentialaffiliation "v2015".no_yes,
 	  trackingmethod "v2015".tracking_method,
 	  targetpopulation "v2015".target_population_type,
-	  projectcommonname character varying(32),
+	  projectcommonname text,
 	  organizationid uuid,
 	  date_created timestamp,
 	  date_updated timestamp,
