@@ -12,15 +12,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
+import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -110,10 +111,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
 				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
+				//TODO: Sandeep need to get the project group from the base schema.
+				// Need to change S.O.P to logger.
 				if(!projectGroupEntity.isSkipuseridentifers()) {
-					logger.info("Calling Dedup Service for "+clientModel.getFirstName());
-					String dedupedId = dedupHelper.getDedupedClient(clientModel);
-					logger.debug("Dedup Id is ##### "+dedupedId);
+					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
+					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
+					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
+					String dedupedId = dedupHelper.getDedupedClient(target);
+					System.out.println("Dedup Id is ##### "+dedupedId);
 					if(dedupedId != null) {
 						clientModel.setDedupClientId(UUID.fromString(dedupedId));	
 					}

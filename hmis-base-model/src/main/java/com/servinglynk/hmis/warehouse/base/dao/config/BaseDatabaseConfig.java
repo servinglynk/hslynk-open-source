@@ -32,6 +32,7 @@ import com.servinglynk.hmis.warehouse.base.dao.SessionDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.VerificationDaoImpl;
+import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 
 @Configuration
 public class BaseDatabaseConfig {
@@ -188,5 +189,9 @@ public class BaseDatabaseConfig {
 	@Bean
 	public HmisBulkUploadDaoImpl hmisBulkUploadDao(){
 		return new HmisBulkUploadDaoImpl();
+	}
+	@Bean
+	public DedupHelper dedupHelpder() {
+		return new DedupHelper();
 	}
 }

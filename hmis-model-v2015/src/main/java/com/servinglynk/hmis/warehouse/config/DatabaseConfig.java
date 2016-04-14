@@ -14,9 +14,6 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.base.dao.HmisOrganizationDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.ProjectGroupDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
@@ -37,7 +34,6 @@ import com.servinglynk.hmis.warehouse.dao.DisabilitiesDao;
 import com.servinglynk.hmis.warehouse.dao.DisabilitiesDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.DomesticviolenceDao;
 import com.servinglynk.hmis.warehouse.dao.DomesticviolenceDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.EducationDao;
 import com.servinglynk.hmis.warehouse.dao.EducationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.EmploymentDao;
 import com.servinglynk.hmis.warehouse.dao.EmploymentDaoImpl;
@@ -87,7 +83,6 @@ import com.servinglynk.hmis.warehouse.dao.SiteDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
-import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 
 @Configuration
 @EnableTransactionManagement
@@ -330,10 +325,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public ParentDaoFactoryImpl parentDaoFactory(){
 		return new ParentDaoFactoryImpl();
-	}
-	@Bean
-	public DedupHelper dedupHelper(){
-		return new DedupHelper();
 	}
 	
 	@Bean

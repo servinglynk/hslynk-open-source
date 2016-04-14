@@ -16,7 +16,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC;
@@ -27,9 +26,6 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 	
-	@Autowired
-	DedupHelper dedupHelper;
-		
 	@Autowired
 	private ParentDaoFactory factory;
 	

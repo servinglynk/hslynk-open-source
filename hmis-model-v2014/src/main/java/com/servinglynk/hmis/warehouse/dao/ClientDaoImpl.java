@@ -8,34 +8,19 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
-import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
+import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Gender;
-import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -47,8 +32,6 @@ import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.restful.model.AppRequest;
-import com.servinglynk.hmis.warehouse.restful.model.AuthenticationRequest;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -122,12 +105,15 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				hydrateCommonFields(clientModel, domain);
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
-			//	ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
+				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 				
 				//TODO: Sandeep need to get the project group from the base schema.
-				if(1==1) {
+				// Need to change S.O.P to logger.
+				if(!projectGroupEntity.isSkipuseridentifers()) {
 					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
-					String dedupedId = dedupHelper.getDedupedClient(clientModel);
+					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
+					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
+					String dedupedId = dedupHelper.getDedupedClient(target);
 					System.out.println("Dedup Id is ##### "+dedupedId);
 					if(dedupedId != null) {
 						clientModel.setDedupClientId(UUID.fromString(dedupedId));	

@@ -16,21 +16,15 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.servinglynk.hmis.warehouse.dao.helper.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
-
-	@Autowired
-	DedupHelper dedupHelper;
-		
 	@Autowired
 	private ParentDaoFactory factory;
 	
