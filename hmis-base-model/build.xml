@@ -14,7 +14,7 @@
            <classpath>
             <pathelement location="C:/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
            </classpath>   
-           <transaction src="HMISBaseSchema.sql"/>
+           <transaction src="HMISBase_Model.sql"/>
       </sql>
    </target>
 	   <target name="MasterData">

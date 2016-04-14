@@ -11,6 +11,8 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -39,6 +41,9 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
+	private static final Logger logger = LoggerFactory
+			.getLogger(VeteranInfoDaoImpl.class);
+	
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		Export export = domain.getExport();
@@ -94,8 +99,12 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
 				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
-				vInfo.setClient(client);
+				if(clientId !=null) {
+					com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
+					vInfo.setClient(client);
+				}else{
+					logger.warn("A match was not found with the PersonID:{}",veteranInfo.getPersonalID());
+				}
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				vInfo.setExport(exportEntity);
 				vInfo.setUser(exportEntity.getUser());

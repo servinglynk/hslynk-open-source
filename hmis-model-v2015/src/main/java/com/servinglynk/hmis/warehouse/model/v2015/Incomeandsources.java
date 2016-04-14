@@ -440,7 +440,7 @@ public class Incomeandsources extends HmisBaseModel implements Cloneable, Serial
 	 * @return A String object (this.othersourceidentify)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getOthersourceidentify() {
 		return this.othersourceidentify;
 		

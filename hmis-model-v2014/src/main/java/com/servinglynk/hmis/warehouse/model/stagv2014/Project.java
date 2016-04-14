@@ -337,7 +337,7 @@ public class Project extends HmisBaseStagingModel  implements Cloneable, Seriali
 	 * @return A String object (this.projectcommonname)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getProjectcommonname() {
 		return this.projectcommonname;
 		
@@ -358,7 +358,7 @@ public class Project extends HmisBaseStagingModel  implements Cloneable, Seriali
 	 * @return A String object (this.projectname)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getProjectname() {
 		return this.projectname;
 		

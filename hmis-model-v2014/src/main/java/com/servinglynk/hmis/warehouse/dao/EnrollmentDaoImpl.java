@@ -21,6 +21,8 @@ import org.apache.hadoop.hbase.thrift2.generated.TPut;
 import org.apache.thrift.TException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,6 +47,10 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(EnrollmentDaoImpl.class);
+	
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
 	/* (non-Javadoc)
@@ -117,10 +123,15 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setOtherresidenceprior(enrollment
 						.getOtherResidencePrior());
 				UUID clientId = domain.getClientPersonalIDMap().get(enrollment.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
-				//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
-				// Very important logic needs to come here via a Microservice call.
-				enrollmentModel.setClient(client);
+				if(clientId !=null) {
+					com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
+					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
+					// Very important logic needs to come here via a Microservice call.
+					enrollmentModel.setClient(client);
+				}else{
+					logger.warn("A match was not found with the PersonID:{}",enrollment.getPersonalID());
+				}
+				
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
 

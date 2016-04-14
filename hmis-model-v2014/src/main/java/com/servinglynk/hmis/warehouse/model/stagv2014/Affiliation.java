@@ -162,7 +162,7 @@ public class Affiliation extends HmisBaseStagingModel  implements Cloneable, Ser
 	 * @return A String object (this.resprojectid)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getResprojectid() {
 		return this.resprojectid;
 		

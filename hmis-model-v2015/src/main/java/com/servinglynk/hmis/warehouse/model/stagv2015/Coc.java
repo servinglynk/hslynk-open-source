@@ -87,7 +87,7 @@ public class Coc extends HmisBaseStagingModel implements Cloneable, Serializable
 	 * @return A String object (this.coccode)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getCoccode() {
 		return this.coccode;
 

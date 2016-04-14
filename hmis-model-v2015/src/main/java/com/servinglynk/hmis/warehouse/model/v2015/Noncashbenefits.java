@@ -207,7 +207,7 @@ public class Noncashbenefits extends HmisBaseModel implements Cloneable, Seriali
 	 * @return A String object (this.othersourceidentify)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getOthersourceidentify() {
 		return this.othersourceidentify;
 		

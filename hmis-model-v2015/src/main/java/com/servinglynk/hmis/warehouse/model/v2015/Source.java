@@ -271,7 +271,7 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.sourceid)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getSourceid() {
 		return this.sourceid;
 		

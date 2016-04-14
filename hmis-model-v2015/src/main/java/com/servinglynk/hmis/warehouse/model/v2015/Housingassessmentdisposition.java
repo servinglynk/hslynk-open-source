@@ -158,7 +158,7 @@ public class Housingassessmentdisposition extends HmisBaseModel implements Clone
 	 * @return A String object (this.otherdisposition)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getOtherdisposition() {
 		return this.otherdisposition;
 		

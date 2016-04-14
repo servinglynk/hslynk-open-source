@@ -121,7 +121,7 @@ public class Projectcoc extends HmisBaseModel  implements Cloneable, Serializabl
 	 * @return A String object (this.coccode)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getCoccode() {
 		return this.coccode;
 

@@ -80,9 +80,9 @@ WITH (
 
 create table "base".hmis_organization
 (
-  organizationcommonname character varying(32),
+  organizationcommonname text,
   id uuid not null,
-  organizationname character varying(32),
+  organizationname text,
   "project_group_code" character varying(8),
    "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
   "date_updated" timestamp,

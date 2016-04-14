@@ -158,7 +158,7 @@ public class Affiliation  extends HmisBaseModel implements Cloneable, Serializab
 	 * @return A String object (this.resprojectid)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getResprojectid() {
 		return this.resprojectid;
 		

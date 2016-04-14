@@ -104,7 +104,7 @@ public class OrganizationEntity extends HmisBaseModel  implements Cloneable, Ser
 	 * @return A String object (this.organizationcommonname)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getOrganizationcommonname() {
 		return this.organizationcommonname;
 
@@ -123,7 +123,7 @@ public class OrganizationEntity extends HmisBaseModel  implements Cloneable, Ser
 	 * @return A String object (this.organizationname)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getOrganizationname() {
 		return this.organizationname;
 

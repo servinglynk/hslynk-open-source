@@ -322,7 +322,7 @@ public class Exit extends HmisBaseStagingModel implements Cloneable, Serializabl
 	 * @return A String object (this.otherdestination)
 	 */
 	@Basic( optional = true )
-	@Column( length = 32  )
+	@Column
 	public String getOtherdestination() {
 		return this.otherdestination;
 

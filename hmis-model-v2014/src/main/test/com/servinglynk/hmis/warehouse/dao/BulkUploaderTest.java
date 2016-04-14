@@ -90,6 +90,18 @@ public class BulkUploaderTest {
 	}
 	
 	@Test
+	public void testxmlBigFile() throws Exception
+	{
+		BulkUpload bullkUpload = new BulkUpload();
+		bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\Files\\HUD_4_0_1_3101_13.xml");
+		bullkUpload.setId(2L);
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("PG0001");
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+	}
+	
+	
+	@Test
 	public void testDeleted() throws Exception {
 		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
