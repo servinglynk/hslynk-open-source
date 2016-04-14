@@ -97,6 +97,7 @@ public class BulkUploaderTest {
 		bullkUpload.setId(2L);
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
+		bullkUpload.setProjectGroupCode("PG0001");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 	}
 	
