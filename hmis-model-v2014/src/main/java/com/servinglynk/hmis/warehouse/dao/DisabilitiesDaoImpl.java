@@ -38,6 +38,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
+		hydrateBulkUploadActivityStaging(disabilitiesList, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain);
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
@@ -66,7 +67,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				disabilitiesModel.setExport(exportEntity);
-				hydrateCommonFields(disabilitiesModel, domain);
+				hydrateCommonFields(disabilitiesModel, domain, disabilities.getDisabilitiesID());
 				exportEntity.addDisabilities(disabilitiesModel);
 				insertOrUpdate(disabilitiesModel);
 			}
@@ -75,8 +76,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Disabilities> disabilitieses = export.getDisabilitieses();
+		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), export,id);
 		if(disabilitieses !=null && !disabilitieses.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Disabilities disabilities : disabilitieses) {
 				com.servinglynk.hmis.warehouse.model.v2014.Disabilities target = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();

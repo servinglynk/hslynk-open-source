@@ -22,7 +22,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 
 @Entity (name = "bulk_upload_activity")
 @Table(name = "bulk_upload_activity", catalog = "hmis", schema = "v2014")
@@ -41,7 +40,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Export export;
 	
-	private BulkUpload bulkUpload;
+	private Long bulkUploadId;
 	private String tableName;
 	private Long recordsProcessed;
 	private String description;
@@ -70,25 +69,22 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 		 * Return the value associated with the column: export.
 		 * @return A Export object (this.export)
 		 */
-		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
-//		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.REMOVE})
-		@Basic( optional = true )
-		@JoinColumn(name = "bulk_upload_id", nullable = true )
-		public BulkUpload getBulkUpload() {
-			return this.bulkUpload;
+		@Column(name = "bulk_upload_id", nullable = true )
+		public Long getBulkUploadId() {
+			return this.bulkUploadId;
 			
 		}
 		 /**  
 		 * Set the value related to the column: export.
 		 * @param export the export value you wish to set
 		 */
-		public void setBulkUpload(final BulkUpload bulkUpload) {
-			this.bulkUpload = bulkUpload;
+		public void setBulkUploadId(final Long bulkUpload) {
+			this.bulkUploadId = bulkUpload;
 		}
 	
 	@Id
-	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="live.bulk_upload_activity_id_seq", name="live.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "v2014")
-	@GeneratedValue(generator="live.bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
+	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="v2015.bulk_upload_activity_id_seq", name="v2015.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "v2014")
+	@GeneratedValue(generator="v2015.bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
 	public Long getId() {
 		return id;
 	}
@@ -128,7 +124,6 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	/** Field mapping. */
 	protected String projectGroupCode;
 	/** Field mapping. */
-	private HmisUser user;
 	 /**
 		 * Return the value associated with the column: dateCreated.
 		 * @return A LocalDateTime object (this.dateCreated)
@@ -218,28 +213,4 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 				this.version = version;
 			}
 			
-			 /**
-			 * Return the value associated with the column: user.
-			 * @return A HmisUser object (this.user)
-			 */
-			@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-			@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-			@Basic( optional = true )
-			@JoinColumn(name = "user_id", nullable = true )
-			public HmisUser getUser() {
-				return this.user;
-				
-			}
-			
-
-		  
-			 /**  
-			 * Set the value related to the column: user.
-			 * @param user the user value you wish to set
-			 */
-			public void setUser(final HmisUser user) {
-				this.user = user;
-			}	
-
-	
 }

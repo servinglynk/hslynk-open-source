@@ -98,7 +98,6 @@ import com.servinglynk.hmis.warehouse.dao.ServicesDao;
 import com.servinglynk.hmis.warehouse.dao.ServicesDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SexualorientationDao;
 import com.servinglynk.hmis.warehouse.dao.SexualorientationDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.SharingRuleDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SiteDao;
 import com.servinglynk.hmis.warehouse.dao.SiteDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
@@ -368,11 +367,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public String consentUri(){
 		return new String("/hmis-authorization-service/consent.html");
-	}
-	
-	@Bean
-	public SharingRuleDaoImpl sharingRuleDao(){
-		return new SharingRuleDaoImpl();
 	}
 	
 	@Bean

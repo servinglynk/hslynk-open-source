@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -33,6 +32,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		 List<Organization> organizations = domain.getExport().getOrganization();
+		 hydrateBulkUploadActivityStaging(organizations, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), domain);
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
@@ -50,15 +50,16 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				 organizationModel.setExport(exportEntity);
 				 exportEntity.addOrganization(organizationModel);
-				 hydrateCommonFields(organizationModel, domain);
+				 hydrateCommonFields(organizationModel, domain,String.valueOf(organization.getOrganizationID()));
 				 insertOrUpdate(organizationModel);
 			 }
 		 }
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Organization> organizations = export.getOrganizations();
+		hydrateBulkUploadActivity(organizations, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), export,id);
 		if(organizations != null && !organizations.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Organization organization : organizations) {
 				if(organization != null) {

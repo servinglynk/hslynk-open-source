@@ -43,6 +43,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
+		hydrateBulkUploadActivityStaging(nonCashBenefitsList, com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class.getSimpleName(), domain);
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)
@@ -74,7 +75,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				noncashbenefitsModel.setExport(exportEntity);
 				exportEntity.addNoncashbenefits(noncashbenefitsModel);
-				hydrateCommonFields(noncashbenefitsModel, domain);
+				hydrateCommonFields(noncashbenefitsModel, domain, nonCashBenefits.getNonCashBenefitsID());
 				insertOrUpdate(noncashbenefitsModel);
 			}
 		}
@@ -82,8 +83,9 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Noncashbenefits> noncashbenefitss = export.getNoncashbenefitss();
+		hydrateBulkUploadActivity(noncashbenefitss, com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class.getSimpleName(), export,id);
 		if(noncashbenefitss != null && !noncashbenefitss.isEmpty()) {
 			for(Noncashbenefits noncashbenefits : noncashbenefitss) {
 				if(noncashbenefits != null) {

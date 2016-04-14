@@ -36,6 +36,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<FormerWardChildWelfare> formerWardChildWelfares = domain.getExport().getFormerWardChildWelfare();
+		hydrateBulkUploadActivityStaging(formerWardChildWelfares, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), domain);
 		if(formerWardChildWelfares !=null && !formerWardChildWelfares.isEmpty() ) 
 		{
 			for(FormerWardChildWelfare formerWardChildWelfare : formerWardChildWelfares)
@@ -54,15 +55,16 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 				formerwardchildwelfareModel.setExport(exportEntity);
 				formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addFormerwardchildwelfare(formerwardchildwelfareModel);
-				hydrateCommonFields(formerwardchildwelfareModel, domain);
+				hydrateCommonFields(formerwardchildwelfareModel, domain, formerWardChildWelfare.getFormerWardChildWelfareID());
 				insertOrUpdate(formerwardchildwelfareModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Formerwardchildwelfare> formerwardchildwelfares = export.getFormerwardchildwelfares();
+		hydrateBulkUploadActivity(formerwardchildwelfares, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), export,id);
 		if(formerwardchildwelfares != null && !formerwardchildwelfares.isEmpty()) {
 			for(Formerwardchildwelfare formerwardchildwelfare : formerwardchildwelfares) {
 				if(formerwardchildwelfare !=null) {

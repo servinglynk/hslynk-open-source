@@ -16,7 +16,6 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
@@ -36,6 +35,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
+		hydrateBulkUploadActivityStaging(schoolStatusList, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain);
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
@@ -63,7 +63,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			schoolstatusModel.setExport(exportEntity);
 			exportEntity.addSchoolstatus(schoolstatusModel);
-			hydrateCommonFields(schoolstatusModel, domain);
+			hydrateCommonFields(schoolstatusModel, domain, schoolStatus.getSchoolStatusID());
 			insertOrUpdate(schoolstatusModel);
 			}
 		}
@@ -71,8 +71,9 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Schoolstatus> schoolstatuses = export.getSchoolstatuses();
+		hydrateBulkUploadActivity(schoolstatuses,com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), export,id);
 		if(schoolstatuses !=null && !schoolstatuses.isEmpty()) {
 			for(Schoolstatus schoolstatus : schoolstatuses) {
 				if(schoolstatus != null) {

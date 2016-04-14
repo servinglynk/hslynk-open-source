@@ -38,6 +38,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
+		hydrateBulkUploadActivityStaging(medicalAssistanceList, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), domain);
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			for(MedicalAssistance medicalAssistance : medicalAssistanceList)
@@ -59,15 +60,16 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				medicalassistanceModel.setExport(exportEntity);
 				exportEntity.addMedicalassistance(medicalassistanceModel);
-				hydrateCommonFields(medicalassistanceModel, domain);
+				hydrateCommonFields(medicalassistanceModel, domain, medicalAssistance.getMedicalAssistanceID());
 				insertOrUpdate(medicalassistanceModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Medicalassistance> medicalassistances = export.getMedicalassistances();
+		hydrateBulkUploadActivity(medicalassistances, com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class.getSimpleName(), export,id);
 		if(medicalassistances != null && !medicalassistances.isEmpty()) {
 			for(Medicalassistance medicalassistance : medicalassistances) {
 				if(medicalassistance != null) {

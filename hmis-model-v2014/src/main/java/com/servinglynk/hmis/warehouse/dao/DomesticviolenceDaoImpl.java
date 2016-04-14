@@ -27,6 +27,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
+		hydrateBulkUploadActivityStaging(domesticViolenceList, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), domain);
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
@@ -44,7 +45,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				domesticviolenceModel.setExport(exportEntity);
 				domesticviolenceModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addDomesticviolence(domesticviolenceModel);
-				hydrateCommonFields(domesticviolenceModel, domain);
+				hydrateCommonFields(domesticviolenceModel, domain, domesticViolence.getDomesticViolenceID());
 				insertOrUpdate(domesticviolenceModel);
 			}
 		}
@@ -52,8 +53,9 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Domesticviolence> domesticviolences = export.getDomesticviolences();
+		hydrateBulkUploadActivity(domesticviolences, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), export,id);
 		if(domesticviolences != null && !domesticviolences.isEmpty()) {
 			for(Domesticviolence domesticviolence : domesticviolences) {
 				com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence target = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();

@@ -36,6 +36,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<LastPermanentAddress> lastPermanentAddresses = domain.getExport().getLastPermanentAddress();
+		hydrateBulkUploadActivityStaging(lastPermanentAddresses, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), domain);
 		if(lastPermanentAddresses !=null && !lastPermanentAddresses.isEmpty())
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)
@@ -59,7 +60,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				lastPermAddressModel.setExport(exportEntity);
 				exportEntity.addLastPermAddress(lastPermAddressModel);
-				hydrateCommonFields(lastPermAddressModel, domain);
+				hydrateCommonFields(lastPermAddressModel, domain, lastPermanentAddress.getLastPermanentAddressID());
 				insertOrUpdate(lastPermAddressModel);
 			}
 		}
@@ -67,8 +68,9 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<LastPermAddress> lastPermAddresses = export.getLastPermAddresses();
+		hydrateBulkUploadActivity(lastPermAddresses, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), export,id);
 		if(lastPermAddresses != null) {
 			for(LastPermAddress lastPermAddress : lastPermAddresses) {
 				if(lastPermAddress != null) {

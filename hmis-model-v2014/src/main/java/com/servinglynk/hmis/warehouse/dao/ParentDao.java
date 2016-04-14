@@ -8,6 +8,6 @@ import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
 
 public interface ParentDao extends BaseDao{
 	public void hydrateStaging(ExportDomain domain);
-	public void hydrateLive(Export export);
+	public void hydrateLive(Export export,Long id);
 	public void hydrateHBASE(SyncDomain syncDomain);
 }

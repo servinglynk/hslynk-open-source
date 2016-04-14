@@ -38,6 +38,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		List<LastGradeCompleted> lastGradeCompletedList = domain.getExport()
 				.getLastGradeCompleted();
+		hydrateBulkUploadActivityStaging(lastGradeCompletedList, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), domain);
 		if (lastGradeCompletedList != null && !lastGradeCompletedList.isEmpty()) {
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
 				Lastgradecompleted lastGradeCompletedModel = new Lastgradecompleted();
@@ -66,15 +67,16 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				lastGradeCompletedModel.setExport(exportEntity);
 				exportEntity.addLastgradecompleted(lastGradeCompletedModel);
-				hydrateCommonFields(lastGradeCompletedModel, domain);
+				hydrateCommonFields(lastGradeCompletedModel, domain, lastGradeCompleted.getLastGradeCompletedID());
 				insertOrUpdate(lastGradeCompletedModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Lastgradecompleted> lastgradecompleteds = export.getLastgradecompleteds();
+		hydrateBulkUploadActivity(lastgradecompleteds, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), export,id);
 		if(lastgradecompleteds != null) {
 			for(Lastgradecompleted lastgradecompleted : lastgradecompleteds) {
 				if(lastgradecompleted != null) {

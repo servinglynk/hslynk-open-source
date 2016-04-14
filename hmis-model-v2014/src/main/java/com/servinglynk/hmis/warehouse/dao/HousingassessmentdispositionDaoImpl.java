@@ -35,6 +35,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
+		hydrateBulkUploadActivityStaging(housingAssessmentDispositions, com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class.getSimpleName(), domain);
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty()) 
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
@@ -52,15 +53,16 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				housingassessmentdispositionModel.setExport(exportEntity);
 				exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
-				hydrateCommonFields(housingassessmentdispositionModel, domain);
+				hydrateCommonFields(housingassessmentdispositionModel, domain, housingAssessmentDisposition.getHousingAssessmentDispositionID());
 				insertOrUpdate(housingassessmentdispositionModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Housingassessmentdisposition> housingassessmentdispositions = export.getHousingassessmentdispositions();
+		hydrateBulkUploadActivity(housingassessmentdispositions, com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class.getSimpleName(), export,id);
 		if(housingassessmentdispositions !=null && !housingassessmentdispositions.isEmpty()) {
 			for(Housingassessmentdisposition housingassessmentdisposition : housingassessmentdispositions) {
 				if(housingassessmentdisposition !=null) {

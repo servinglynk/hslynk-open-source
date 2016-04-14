@@ -33,6 +33,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Funder> funders = domain.getExport().getFunder();
+		hydrateBulkUploadActivityStaging(funders, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), domain);
 		if(funders!=null && funders.size() > 0)
 		{
 			for(Funder funder : funders)
@@ -53,7 +54,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				funderModel.setExport(exportEntity);
 				funderModel.setProjectid(project);
-				hydrateCommonFields(funderModel, domain);
+				hydrateCommonFields(funderModel, domain, funder.getFunderID());
 				exportEntity.addFunder(funderModel);
 				insertOrUpdate(funderModel);
 			}
@@ -62,8 +63,9 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Funder> funders = export.getFunders();
+		hydrateBulkUploadActivity(funders, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), export,id);
 		if(funders !=null && !funders.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Funder funder : funders) {
 				if(funder != null) {

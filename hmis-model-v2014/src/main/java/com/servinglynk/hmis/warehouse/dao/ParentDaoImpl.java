@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
@@ -31,24 +32,56 @@ import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	
+	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.stagv2014.Export export,Long id ) {
+	       com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
+			BulkUploadActivity activity = new BulkUploadActivity();
+			
+			activity.setBulkUploadId(id);
+			activity.setDateCreated(LocalDateTime.now());
+			activity.setDateUpdated(LocalDateTime.now());
+			activity.setTableName(className);
+			activity.setDeleted(false);
+		//	activity.setUser(user);
+			activity.setProjectGroupCode(export.getProjectGroupCode());
+			activity.setExport(exportEntity);
+			activity.setRecordsProcessed(new Long(sets !=null ? sets.size(): 0L));
+			activity.setDescription("Saving "+className +" to Live" );
+			insertOrUpdate(activity); 		
+		}
+		
+		public void hydrateBulkUploadActivityStaging(List lists,String className,ExportDomain domain ) {
+			BulkUploadActivity activity = new BulkUploadActivity();
+			activity.setBulkUploadId(domain.getUpload().getId());
+			activity.setDateCreated(LocalDateTime.now());
+			activity.setDateUpdated(LocalDateTime.now());
+			activity.setTableName(className);
+			activity.setDeleted(false);
+		//	activity.setUser(user);
+			activity.setProjectGroupCode(domain.getUpload().getProjectGroupCode());
+			//activity.setExport(export);
+			activity.setRecordsProcessed(new Long(lists !=null ? lists.size(): 0L));
+			activity.setDescription("Saving "+className +" to staging" );
+			insertOrUpdate(activity); 		
+		}
+		
 	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.base.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "PG0001");
-		BulkUploadActivity activity = new BulkUploadActivity();
-	//	activity.setBulkUpload(domain.getUpload());
-		activity.setDateCreated(LocalDateTime.now());
-		activity.setDateUpdated(LocalDateTime.now());
-		activity.setTableName(baseModel.getClass().getSimpleName());
-		activity.setDeleted(false);
-		activity.setUser(user);
-		activity.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
-		//activity.setExport(domain.getExport());
-		activity.setRecordsProcessed(1L);
-		activity.setDescription("Saving "+baseModel.getClass().getSimpleName() +" to staging" );
-		insertOrUpdate(activity);
+//		BulkUploadActivity activity = new BulkUploadActivity();
+//	//	activity.setBulkUpload(domain.getUpload());
+//		activity.setDateCreated(LocalDateTime.now());
+//		activity.setDateUpdated(LocalDateTime.now());
+//		activity.setTableName(baseModel.getClass().getSimpleName());
+//		activity.setDeleted(false);
+//	//	activity.setUser(user);
+//		activity.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
+//		//activity.setExport(domain.getExport());
+//		activity.setRecordsProcessed(1L);
+//		activity.setDescription("Saving "+baseModel.getClass().getSimpleName() +" to staging" );
+//		insertOrUpdate(activity);
 		
 	}
-	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain) {
+	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain, String sourceId) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 	/*	BulkUploadActivity activity = new BulkUploadActivity();

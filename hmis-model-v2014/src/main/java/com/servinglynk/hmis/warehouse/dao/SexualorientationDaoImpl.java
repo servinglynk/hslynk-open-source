@@ -35,6 +35,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<SexualOrientation> sexualOrientations = domain.getExport().getSexualOrientation();
+		hydrateBulkUploadActivityStaging(sexualOrientations, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain);
 		if(sexualOrientations !=null && !sexualOrientations.isEmpty())
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)
@@ -53,7 +54,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				sexualorientationModel.setExport(exportEntity);
 				exportEntity.addSexualorientation(sexualorientationModel);
-				hydrateCommonFields(sexualorientationModel, domain);
+				hydrateCommonFields(sexualorientationModel, domain,sexualOrientation.getSexualOrientationID());
 				insertOrUpdate(sexualorientationModel);
 			}
 		}
@@ -61,8 +62,9 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Sexualorientation> sexualorientations = export.getSexualorientations();
+		hydrateBulkUploadActivity(sexualorientations,com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), export,id);
 		if(sexualorientations !=null && !sexualorientations.isEmpty()) {
 			for(Sexualorientation sexualorientation : sexualorientations) {
 				if(sexualorientation != null) {

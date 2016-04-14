@@ -54,6 +54,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	
 		Export export = domain.getExport();
 		List<Client> clients = export.getClient();
+		hydrateBulkUploadActivityStaging(clients, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain);
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Client clientModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Client();
@@ -102,14 +103,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				clientModel.setUser(exportEntity.getUser());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
-				hydrateCommonFields(clientModel, domain);
+				hydrateCommonFields(clientModel, domain, client.getPersonalID());
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
 				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 				
 				//TODO: Sandeep need to get the project group from the base schema.
 				// Need to change S.O.P to logger.
-				if(!projectGroupEntity.isSkipuseridentifers()) {
+				if(projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers()) {
 					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
 					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 					BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
@@ -164,8 +165,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Client> clients = export.getClients();
+		hydrateBulkUploadActivity(clients, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), export,id);
 		if(clients !=null && !clients.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());

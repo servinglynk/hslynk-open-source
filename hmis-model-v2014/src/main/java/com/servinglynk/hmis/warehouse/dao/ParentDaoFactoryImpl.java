@@ -103,9 +103,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public InformationReleasesDao informationReleasesDao;
 
 	@Autowired
-	private SharingRuleDao sharingRuleDao;
-	
-	@Autowired
 	private OrganizationDao organizationDao;
 	
 	@Autowired
@@ -393,12 +390,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setInformationReleasesDao(InformationReleasesDao informationReleasesDao) {
 		this.informationReleasesDao = informationReleasesDao;
-	}
-	public SharingRuleDao getSharingRuleDao() {
-		return sharingRuleDao;
-	}
-	public void setSharingRuleDao(SharingRuleDao sharingRuleDao) {
-		this.sharingRuleDao = sharingRuleDao;
 	}
 	public OrganizationDao getOrganizationDao() {
 		return organizationDao;

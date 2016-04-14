@@ -8,12 +8,10 @@ import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.apache.hadoop.hbase.thrift2.generated.TIOError;
@@ -38,7 +36,6 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
-import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -61,6 +58,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		Export export =  domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
+		hydrateBulkUploadActivityStaging(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), domain);
 		if (enrollments != null && enrollments.size() > 0) {
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
@@ -139,7 +137,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setDateUpdated(LocalDateTime.now());
 				enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
-				hydrateCommonFields(enrollmentModel, domain);
+				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID());
 				insert(enrollmentModel);
 			}
 		}
@@ -147,8 +145,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 		Set<Enrollment> enrollments = export.getEnrollments();
+		hydrateBulkUploadActivity(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), export,id);
 		if(enrollments != null && !enrollments.isEmpty()) {
 			for(Enrollment enrollment : enrollments) {
 				if(enrollment !=null) {

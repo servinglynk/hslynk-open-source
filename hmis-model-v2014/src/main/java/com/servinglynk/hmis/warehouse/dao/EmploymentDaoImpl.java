@@ -35,6 +35,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
+		hydrateBulkUploadActivityStaging(employmentList, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain);
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)
@@ -61,7 +62,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				}
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				employmentModel.setExport(exportEntity);
-				hydrateCommonFields(employmentModel, domain);
+				hydrateCommonFields(employmentModel, domain, employment.getEmploymentID());
 				exportEntity.addEmployment(employmentModel);
 				insertOrUpdate(employmentModel);				
 			}
@@ -69,8 +70,9 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Employment> employments = export.getEmployments();
+		hydrateBulkUploadActivity(employments, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),export, id);
 		if(employments != null && !employments.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Employment employment : employments) {
 				com.servinglynk.hmis.warehouse.model.v2014.Employment target = new com.servinglynk.hmis.warehouse.model.v2014.Employment();

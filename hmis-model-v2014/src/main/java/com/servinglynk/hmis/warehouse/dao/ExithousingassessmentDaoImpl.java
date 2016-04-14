@@ -5,7 +5,6 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,7 +12,6 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
@@ -35,6 +33,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
+		hydrateBulkUploadActivityStaging(exitHousingAssessments, com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class.getSimpleName(), domain);
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty()) 
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
@@ -52,7 +51,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 					exithousingassessmentModel.setExport(exportEntity);
 					exportEntity.addExithousingassessment(exithousingassessmentModel);
-					hydrateCommonFields(exithousingassessmentModel, domain);
+					hydrateCommonFields(exithousingassessmentModel, domain, String.valueOf(exitHousingAssessment.getExitHousingAssessmentID()));
 					insertOrUpdate(exithousingassessmentModel);
 				}
 		}
@@ -60,8 +59,9 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 		Set<Exithousingassessment> exithousingassessments = export.getExithousingassessments();
+		hydrateBulkUploadActivity(exithousingassessments, com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class.getSimpleName(), export,id);
 		if(exithousingassessments !=null && !exithousingassessments.isEmpty()) {
 			for(Exithousingassessment exithousingassessment : exithousingassessments) {
 				if(exithousingassessment !=null) {

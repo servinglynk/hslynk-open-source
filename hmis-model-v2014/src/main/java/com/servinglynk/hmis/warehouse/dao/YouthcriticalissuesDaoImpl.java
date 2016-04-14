@@ -59,6 +59,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<YouthCriticalIssues> youthCriticalIssuesList = domain.getExport().getYouthCriticalIssues();
+		hydrateBulkUploadActivityStaging(youthCriticalIssuesList, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), domain);
 		if(youthCriticalIssuesList !=null && !youthCriticalIssuesList.isEmpty())
 		{
 			for(YouthCriticalIssues youthCriticalIssues : youthCriticalIssuesList)
@@ -100,15 +101,16 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(youthCriticalIssues.getProjectEntryID()));
 				youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
-				hydrateCommonFields(youthcriticalissuesModel, domain);
+				hydrateCommonFields(youthcriticalissuesModel, domain, youthCriticalIssues.getYouthCriticalIssuesID());
 				insertOrUpdate(youthcriticalissuesModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Youthcriticalissues> youthcriticalissueses = export.getYouthcriticalissueses();
+		hydrateBulkUploadActivity(youthcriticalissueses, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), export,id);
 		if(youthcriticalissueses !=null && !youthcriticalissueses.isEmpty()) {
 			for(Youthcriticalissues youthcriticalissues : youthcriticalissueses) {
 				if(youthcriticalissues != null) {

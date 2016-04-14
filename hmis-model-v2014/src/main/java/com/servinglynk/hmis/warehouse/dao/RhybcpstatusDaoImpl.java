@@ -36,6 +36,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
+		hydrateBulkUploadActivityStaging(rhybcpStatusList, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), domain);
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)
@@ -55,7 +56,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				rhybcpstatusModel.setExport(exportEntity);
 				exportEntity.addRhybcpstatus(rhybcpstatusModel);
-				hydrateCommonFields(rhybcpstatusModel, domain);
+				hydrateCommonFields(rhybcpstatusModel, domain,rhybcpStatus.getRHYBCPStatusID());
 				insertOrUpdate(rhybcpstatusModel);
 			}
 		}
@@ -63,8 +64,9 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Rhybcpstatus> rhybcpstatuses = export.getRhybcpstatuses();
+		hydrateBulkUploadActivity(rhybcpstatuses, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), export,id);
 		if(rhybcpstatuses !=null && !rhybcpstatuses.isEmpty()) {
 			for(Rhybcpstatus rhybcpstatus : rhybcpstatuses) {
 				if(rhybcpstatus !=null) {

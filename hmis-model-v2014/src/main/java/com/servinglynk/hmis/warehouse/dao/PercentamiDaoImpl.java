@@ -33,6 +33,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<PercentAMI> percentAMIs = domain.getExport().getPercentAMI();
+		hydrateBulkUploadActivityStaging(percentAMIs, com.servinglynk.hmis.warehouse.model.v2014.Percentami.class.getSimpleName(), domain);
 		if(percentAMIs !=null && !percentAMIs.isEmpty())
 		{
 			for(PercentAMI percentAMI :percentAMIs)
@@ -52,7 +53,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				percentamoModel.setExport(exportEntity);
 				exportEntity.addPercentami(percentamoModel);
-				hydrateCommonFields(percentamoModel, domain);
+				hydrateCommonFields(percentamoModel, domain, percentAMI.getPercentAMIID());
 				insertOrUpdate(percentamoModel);
 			}
 		}
@@ -60,8 +61,9 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Percentami> percentamis = export.getPercentamis();
+		hydrateBulkUploadActivity(percentamis, com.servinglynk.hmis.warehouse.model.v2014.Percentami.class.getSimpleName(), export,id);
 		if(percentamis !=null && !percentamis.isEmpty()) {
 			for(Percentami percentami : percentamis) {
 				if(percentami != null) {

@@ -5,9 +5,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -49,6 +47,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	public void hydrateStaging(ExportDomain domain) {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
+		hydrateBulkUploadActivityStaging(exits, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain);
 		if(exits !=null && exits.size() > 0)
 		{
 			for(Exit exit : exits)
@@ -76,24 +75,18 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				exitModel.setExport(exportEntity);
 				exportEntity.addExit(exitModel);
-				hydrateCommonFields(exitModel, domain);
+				hydrateCommonFields(exitModel, domain, exit.getExitID());
 				insertOrUpdate(exitModel);
 			}
-			
-			factory.getFamilyreunificationDao().hydrateStaging(domain);
-			factory.getExithousingassessmentDao().hydrateStaging(domain);
-			factory.getHousingassessmentdispositionDao().hydrateStaging(domain);
-			factory.getExitplansactionsDao().hydrateStaging(domain);
-			factory.getConnectionwithsoarDao().hydrateStaging(domain);
-			factory.getProjectcompletionstatusDao().hydrateStaging(domain);
 			}
 	}
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Exit> exits = export.getExits();
 		if(exits != null && !exits.isEmpty()) {
+			hydrateBulkUploadActivity(exits, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), export,id);
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Exit exit : exits) {
 				if(exit != null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Exit target = new com.servinglynk.hmis.warehouse.model.v2014.Exit();
@@ -109,14 +102,6 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				}
 			}
 		}
-		factory.getFamilyreunificationDao().hydrateLive(export);
-		factory.getExithousingassessmentDao().hydrateLive(export);
-		factory.getHousingassessmentdispositionDao().hydrateLive(export);
-		factory.getExitplansactionsDao().hydrateLive(export);
-		factory.getConnectionwithsoarDao().hydrateLive(export);
-		factory.getProjectcompletionstatusDao().hydrateLive(export);
-
-		
 	}
 
 	@Override

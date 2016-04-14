@@ -37,6 +37,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Inventory> inventories = domain.getExport().getInventory();
+		hydrateBulkUploadActivityStaging(inventories, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), domain);
 		if(inventories != null && !inventories.isEmpty())
 		{
 			for(Inventory inventory : inventories)
@@ -61,8 +62,9 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		}
 	}
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Inventory> inventories = export.getInventories();
+		hydrateBulkUploadActivity(inventories, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), export,id);
 		if(inventories != null && !inventories.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Inventory inventory : inventories) {
 				if(inventory !=null) {

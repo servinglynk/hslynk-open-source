@@ -35,6 +35,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
+		hydrateBulkUploadActivityStaging(worstHousingSituationList, com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class.getSimpleName(), domain);
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
@@ -52,15 +53,16 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID()));
 				worsthousingsituationModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addWorsthousingsituation(worsthousingsituationModel);
-				hydrateCommonFields(worsthousingsituationModel, domain);
+				hydrateCommonFields(worsthousingsituationModel, domain, worstHousingSituation.getWorstHousingSituationID());
 				insertOrUpdate(worsthousingsituationModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Worsthousingsituation> worsthousingsituations = export.getWorsthousingsituations();
+		hydrateBulkUploadActivity(worsthousingsituations, com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class.getSimpleName(), export,id);
 		if(worsthousingsituations!=null && !worsthousingsituations.isEmpty()) {
 			for(Worsthousingsituation worsthousingsituation : worsthousingsituations) {
 				if(worsthousingsituation !=null) {

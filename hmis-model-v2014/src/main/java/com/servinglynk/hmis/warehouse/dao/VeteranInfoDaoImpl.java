@@ -49,6 +49,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo> veteranInfoList = export
 				.getVeteranInfo();
+		hydrateBulkUploadActivityStaging(veteranInfoList, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain);
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo veteranInfo : veteranInfoList) {
 				
@@ -109,7 +110,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				vInfo.setExport(exportEntity);
 				vInfo.setUser(exportEntity.getUser());
 				exportEntity.addVeteranInfo(vInfo);
-				hydrateCommonFields(vInfo, domain);
+				hydrateCommonFields(vInfo, domain,veteranInfo.getVeteranInfoID());
 				insert(vInfo);
 			}
 		}
@@ -117,8 +118,9 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.VeteranInfo> veteranInfos = export.getVeteranInfoes();
+		hydrateBulkUploadActivity(veteranInfos, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), export,id);
 		if(veteranInfos !=null && !veteranInfos.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.VeteranInfo veteranInfo : veteranInfos) {
 				com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo();

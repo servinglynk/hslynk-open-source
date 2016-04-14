@@ -19,7 +19,6 @@ import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeJuvenilejus
 import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Formerwardjuvenilejustice;
-import com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -35,6 +34,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<FormerWardJuvenileJustice> formerWardJuvenileJustices = domain.getExport().getFormerWardJuvenileJustice();
+		hydrateBulkUploadActivityStaging(formerWardJuvenileJustices, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), domain);
 		if(formerWardJuvenileJustices !=null && !formerWardJuvenileJustices.isEmpty()) 
 		{
 			for(FormerWardJuvenileJustice formerWardJuvenileJustice : formerWardJuvenileJustices )
@@ -53,7 +53,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				formerWardJuvenileJusticeModel.setExport(exportEntity);
 				exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
-				hydrateCommonFields(formerWardJuvenileJusticeModel, domain);
+				hydrateCommonFields(formerWardJuvenileJusticeModel, domain, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID());
 				insertOrUpdate(formerWardJuvenileJusticeModel);
 				
 			}
@@ -61,8 +61,9 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Formerwardjuvenilejustice> formerwardjuvenilejustices = export.getFormerwardjuvenilejustices();
+		hydrateBulkUploadActivity(formerwardjuvenilejustices, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), export,id);
 		if(formerwardjuvenilejustices != null && !formerwardjuvenilejustices.isEmpty()) {
 			for(Formerwardjuvenilejustice formerwardjuvenilejustice : formerwardjuvenilejustices) {
 				if(formerwardjuvenilejustice != null) {

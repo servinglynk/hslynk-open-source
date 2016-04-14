@@ -602,7 +602,7 @@ public class BulkUploadHelper {
 	    	  referralsourceModel.setReferralSource(getByte(enroll.getReferralSource()));
 //	    	  referralsourceModel.setReferralSourceID(enroll.getre);
 	    	  referralsourceModel.setUserID(enroll.getUserID());
-	    	  sources.getSource().getExport().setReferralSource(referralsourceModel);
+	    	  referralSourceList.add(referralsourceModel);
 	    	  
 	    	  SexualOrientation sexualorientationModel = new SexualOrientation();
 //	    	  sexualorientationModel.setDataCollectionStage(getByte(enroll.getC));
@@ -684,6 +684,7 @@ public class BulkUploadHelper {
     	  sources.getSource().getExport().setYouthCriticalIssues(youthCriticalIssuesList);
     	  sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
     	  sources.getSource().getExport().setCommercialSexualExploitation(commercialSexualExploitationList);
+    	  sources.getSource().getExport().setReferralSource(referralSourceList);
 	  }
 	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.

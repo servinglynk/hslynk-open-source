@@ -38,6 +38,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		List<EnrollmentCoC> enrollmentCoCs = domain.getExport().getEnrollmentCoC();
 		if(enrollmentCoCs!=null)
 		{
+			hydrateBulkUploadActivityStaging(enrollmentCoCs, com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class.getSimpleName(), domain);
 			for(EnrollmentCoC enrollmentCoc : enrollmentCoCs)
 			{
 				EnrollmentCoc enrollmentCocModel = new EnrollmentCoc();
@@ -54,14 +55,14 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				exportEntity.addEnrollmentCoc(enrollmentCocModel);
 				insertOrUpdate(enrollmentCocModel);
 			}
-			factory.getProjectcocDao().hydrateStaging(domain);
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<EnrollmentCoc> enrollmentCocs = export.getEnrollmentCocs();
 		if(enrollmentCocs !=null && !enrollmentCocs.isEmpty()) {
+			hydrateBulkUploadActivity(enrollmentCocs, com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class.getSimpleName(), export,id);
 			for(EnrollmentCoc enrollmentCoc : enrollmentCocs) {
 				if(enrollmentCoc != null) {
 					com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc target = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();

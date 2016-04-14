@@ -36,6 +36,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<ProjectCompletionStatus> projectCompletionStatusList = domain.getExport().getProjectCompletionStatus();
+		hydrateBulkUploadActivityStaging(projectCompletionStatusList, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), domain);
 		if(projectCompletionStatusList !=null && !projectCompletionStatusList.isEmpty()) 
 		{
 			for(ProjectCompletionStatus projectCompletionStatus : projectCompletionStatusList)
@@ -53,15 +54,16 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				projectcompletionstatusModel.setExport(exportEntity);
 				exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
-				hydrateCommonFields(projectcompletionstatusModel, domain);
+				hydrateCommonFields(projectcompletionstatusModel, domain, projectCompletionStatus.getProjectCompletionStatusID());
 				insertOrUpdate(projectcompletionstatusModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Projectcompletionstatus> projectcompletionstatuses = export.getProjectcompletionstatuses();
+		hydrateBulkUploadActivity(projectcompletionstatuses, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), export,id);
 		if(projectcompletionstatuses != null && !projectcompletionstatuses.isEmpty()) {
 			for(Projectcompletionstatus projectcompletionstatus : projectcompletionstatuses) {
 				if(projectcompletionstatus != null) {

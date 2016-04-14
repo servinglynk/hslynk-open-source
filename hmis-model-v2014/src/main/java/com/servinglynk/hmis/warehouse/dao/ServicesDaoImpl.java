@@ -21,7 +21,6 @@ import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Projectcompletionstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -36,6 +35,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<Services> servicesList = domain.getExport().getServices();
+		hydrateBulkUploadActivityStaging(servicesList, com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), domain);
 		if(servicesList != null && !servicesList.isEmpty())
 		{
 			for(Services services : servicesList)
@@ -58,15 +58,16 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				servicesModel.setEnrollmentid(enrollment);
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				servicesModel.setExport(exportEntity);
-				hydrateCommonFields(servicesModel, domain);
+				hydrateCommonFields(servicesModel, domain,services.getServicesID());
 				insertOrUpdate(servicesModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Services> servicesStaging = export.getServiceses();
+		hydrateBulkUploadActivity(servicesStaging,com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), export,id);
 		if(servicesStaging != null && !servicesStaging.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Services services : servicesStaging) {
 				if(services != null) {

@@ -34,6 +34,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		java.util.List<ConnectionWithSOAR> connectionWithSOARList = domain.getExport().getConnectionWithSOAR();
+		hydrateBulkUploadActivityStaging(connectionWithSOARList, com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class.getSimpleName(), domain);
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
 		{
 			for(ConnectionWithSOAR connectionWithSOAR:connectionWithSOARList )
@@ -50,15 +51,16 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				exportEntity.addConnectionwithsoar(connectionwithsoarModel);
 				connectionwithsoarModel.setDateCreated(LocalDateTime.now());
 				connectionwithsoarModel.setDateUpdated(LocalDateTime.now());
-				hydrateCommonFields(connectionwithsoarModel, domain);
+				hydrateCommonFields(connectionwithsoarModel, domain, connectionWithSOAR.getConnectionWithSOARID());
 				insertOrUpdate(connectionwithsoarModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Connectionwithsoar> connectionwithsoars = export.getConnectionwithsoars();
+		hydrateBulkUploadActivity(connectionwithsoars, com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class.getSimpleName(), export,id);
 		if(connectionwithsoars != null && !connectionwithsoars.isEmpty()) {
 			for(Connectionwithsoar connectionwithsoar : connectionwithsoars) {
 				com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar target = new com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar();

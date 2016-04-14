@@ -35,6 +35,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<ResidentialMoveInDate> residentialMoveInDates = domain.getExport().getResidentialMoveInDate();
+		hydrateBulkUploadActivityStaging(residentialMoveInDates, com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class.getSimpleName(), domain);
 		if(residentialMoveInDates != null && !residentialMoveInDates.isEmpty())
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)
@@ -53,15 +54,16 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				residentialmoveindateModel.setExport(exportEntity);
 				exportEntity.addResidentialmoveindate(residentialmoveindateModel);
-				hydrateCommonFields(residentialmoveindateModel, domain);
+				hydrateCommonFields(residentialmoveindateModel, domain, residentialMoveInDate.getResidentialMoveInDateID());
 				insertOrUpdate(residentialmoveindateModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Residentialmoveindate> residentialmoveindates = export.getResidentialmoveindates();
+		hydrateBulkUploadActivity(residentialmoveindates, com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class.getSimpleName(), export,id);
 		if(residentialmoveindates != null && !residentialmoveindates.isEmpty()) {
 			for(Residentialmoveindate residentialmoveindate : residentialmoveindates) {
 				if(residentialmoveindate != null) {

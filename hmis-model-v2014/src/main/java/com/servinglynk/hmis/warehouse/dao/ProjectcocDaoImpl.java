@@ -39,6 +39,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	public void hydrateStaging(ExportDomain domain) {
 		
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
+		hydrateBulkUploadActivityStaging(projectCoCs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), domain);
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
 			UUID id = UUID.randomUUID();
@@ -58,15 +59,15 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			projectcocModel.setExport(exportEntity);
 			exportEntity.addProjectcoc(projectcocModel);
+			hydrateCommonFields(projectcocModel, domain, String.valueOf(projectCoc.getProjectCoCID()));
 			insertOrUpdate(projectcocModel);
 		}
-		factory.getInventoryDao().hydrateStaging(domain);
-		factory.getSiteDao().hydrateStaging(domain);
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Projectcoc> projectcocs = export.getProjectcocs();
+		hydrateBulkUploadActivity(projectcocs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), export,id);
 		if(projectcocs != null && !projectcocs.isEmpty()) {
 			for(Projectcoc projectcoc : projectcocs) {
 				if(projectcoc != null) {
@@ -82,8 +83,6 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 				}
 			}
 		}
-		factory.getInventoryDao().hydrateLive(export);
-		factory.getSiteDao().hydrateLive(export);
 	}
 
 	@Override

@@ -3,9 +3,11 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.rmi.server.ExportException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
@@ -28,6 +30,9 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
+		List<Source> sources = new ArrayList<>();
+		sources.add(source);
+		hydrateBulkUploadActivityStaging(sources, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain);
 		com.servinglynk.hmis.warehouse.model.stagv2014.Source sourceModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Source();
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
@@ -40,13 +45,17 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		UUID id = UUID.randomUUID();
 		domain.setSourceId(id);
 		sourceModel.setId(id);
+		hydrateCommonFields(sourceModel, domain, String.valueOf(source.getSourceID()));
 		insertOrUpdate(sourceModel);
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		// TODO Auto-generated method stub
 		com.servinglynk.hmis.warehouse.model.stagv2014.Source source = export.getSource();
+		Set sources = new HashSet<>();
+		sources.add(source);
+		hydrateBulkUploadActivity(sources, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), export,id);
 		if(source !=null) {
 			com.servinglynk.hmis.warehouse.model.v2014.Source target = new com.servinglynk.hmis.warehouse.model.v2014.Source();
 			BeanUtils.copyProperties(source, target, getNonCollectionFields(target));

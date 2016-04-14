@@ -3299,7 +3299,7 @@ public class Sources {
             @XmlElement(name = "ProjectCompletionStatus" , required = true)
             protected List<ProjectCompletionStatus> projectCompletionStatus;
             @XmlElement(name = "ReferralSource" , required = true)
-            protected ReferralSource referralSource;
+            protected List<ReferralSource> referralSource;
             @XmlElement(name = "ResidentialMoveInDate" , required = true)
             protected List<ResidentialMoveInDate> residentialMoveInDate;
             @XmlElement(name = "RHYBCPStatus" , required = true)
@@ -4269,7 +4269,7 @@ public class Sources {
              *     {@link ReferralSource }
              *     
              */
-            public ReferralSource getReferralSource() {
+            public List<ReferralSource> getReferralSource() {
                 return referralSource;
             }
 
@@ -4281,7 +4281,7 @@ public class Sources {
              *     {@link ReferralSource }
              *     
              */
-            public void setReferralSource(ReferralSource value) {
+            public void setReferralSource(List<ReferralSource> value) {
                 this.referralSource = value;
             }
 

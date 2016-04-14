@@ -40,8 +40,8 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
-		
 		List<Project> projects = domain.getExport().getProject();
+		hydrateBulkUploadActivityStaging(projects, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain);
 		if(projects !=null && projects.size() > 0)
 		{
 			
@@ -77,19 +77,17 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
-				hydrateCommonFields(projectModel, domain);
+				hydrateCommonFields(projectModel, domain, project.getProjectID());
 				insertOrUpdate(projectModel);
 			}
-			factory.getOrganizationDao().hydrateStaging(domain);
-			factory.getAffiliationDao().hydrateStaging(domain);
-			factory.getFunderDao().hydrateStaging(domain);
 			}
 
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Project> projects = export.getProjects();
+		hydrateBulkUploadActivity(projects, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), export,id);
 		if(projects != null && !projects.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Project project : projects) {
 				if(project != null) {
@@ -106,8 +104,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					insert(target);
 				}
 			}
-			factory.getAffiliationDao().hydrateLive(export);
-			factory.getFunderDao().hydrateLive(export);
 		}
 	}
 	

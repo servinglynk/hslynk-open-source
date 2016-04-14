@@ -49,6 +49,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<HealthInsurance> healthInsurances = domain.getExport().getHealthInsurance();
+		hydrateBulkUploadActivityStaging(healthInsurances, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain);
 		if(healthInsurances!=null && healthInsurances.size() >0 )
 		{
 			for(HealthInsurance healthInsurance : healthInsurances)
@@ -82,15 +83,16 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				healthinsuranceModel.setExport(exportEntity);
 				exportEntity.addHealthinsurance(healthinsuranceModel);
-				hydrateCommonFields(healthinsuranceModel, domain);
+				hydrateCommonFields(healthinsuranceModel, domain, healthInsurance.getHealthInsuranceID());
 				insertOrUpdate(healthinsuranceModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Healthinsurance> healthinsurances = export.getHealthinsurances();
+		hydrateBulkUploadActivity(healthinsurances, com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class.getSimpleName(), export,id);
 		if(healthinsurances !=null && !healthinsurances.isEmpty()) {
 			for(Healthinsurance healthinsurance : healthinsurances) {
 				com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance target = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();

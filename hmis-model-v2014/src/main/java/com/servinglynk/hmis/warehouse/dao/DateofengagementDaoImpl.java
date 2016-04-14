@@ -30,6 +30,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) 
 	{
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
+		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class.getSimpleName(), domain);
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
@@ -46,15 +47,16 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				exportEntity.addDateofengagement(dateOfEngagementModel);
 				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
 				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-				hydrateCommonFields(dateOfEngagementModel, domain);
+				hydrateCommonFields(dateOfEngagementModel, domain, dateOfEngagement.getDateOfEngagementID());
 				insertOrUpdate(dateOfEngagementModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Dateofengagement> dateofengagements = export.getDateofengagements();
+		hydrateBulkUploadActivity(dateofengagements, com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class.getSimpleName(), export,id);
 		if(dateofengagements != null && !dateofengagements.isEmpty()) {
 			for(Dateofengagement dateofengagement : dateofengagements) {
 				com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement target = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();

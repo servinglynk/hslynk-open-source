@@ -5,7 +5,6 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,7 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPlansActions;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsAssistancemainstreambenefitsEnum;
@@ -44,6 +42,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<ExitPlansActions> exitPlansActionsList = domain.getExport().getExitPlansActions();
+		hydrateBulkUploadActivityStaging(exitPlansActionsList, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain);
 		if(exitPlansActionsList !=null && !exitPlansActionsList.isEmpty()) 
 		{
 			for(ExitPlansActions exitPlansActions : exitPlansActionsList)
@@ -69,7 +68,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				exitplansactionsModel.setExport(exportEntity);
 				exportEntity.addExitplansactions(exitplansactionsModel);
-				hydrateCommonFields(exitplansactionsModel, domain);
+				hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID());
 				insertOrUpdate(exitplansactionsModel);
 			}
 		}
@@ -77,7 +76,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export export,Long id) {
 		Set<Exitplansactions> exitplansactionss = export.getExitplansactionss();
 		if(exitplansactionss !=null && !exitplansactionss.isEmpty()) {
 			for(Exitplansactions exitplansactions : exitplansactionss) {

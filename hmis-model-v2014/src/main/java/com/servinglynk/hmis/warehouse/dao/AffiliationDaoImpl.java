@@ -28,6 +28,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		{
 			Export export = domain.getExport();
 			List<Affiliation> affiliations = export.getAffiliation();
+			hydrateBulkUploadActivityStaging(affiliations, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), domain);
 			if(affiliations!=null && !affiliations.isEmpty())
 			{
 				for(Affiliation affiliation :affiliations )
@@ -44,7 +45,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					exportEntity.addAffiliation(affiliationModel);
 					affiliationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
 					affiliationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
-					hydrateCommonFields(affiliationModel, domain);
+					hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID());
 					insertOrUpdate(affiliationModel);
 				}
 			}
@@ -52,8 +53,9 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 
 		@Override
 		public void hydrateLive(
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export export) {
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
 			Set<com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation> affiliations = export.getAffiliations();
+			hydrateBulkUploadActivity(affiliations, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), export,id);
 			if(affiliations !=null && !affiliations.isEmpty()) {
 				for(com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation affiliation : affiliations ) {
 					 com.servinglynk.hmis.warehouse.model.v2014.Affiliation target = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();

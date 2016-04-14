@@ -35,6 +35,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<HealthStatus> healthStatuses = domain.getExport().getHealthStatus();
+		hydrateBulkUploadActivityStaging(healthStatuses, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain);
 		if(healthStatuses !=null &&  !healthStatuses.isEmpty())
 		{
 			for(HealthStatus healthStatus : healthStatuses )
@@ -60,14 +61,14 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				healthStatusModel.setExport(exportEntity);
 				exportEntity.addHealthStatus(healthStatusModel);
-				hydrateCommonFields(healthStatusModel, domain);
+				hydrateCommonFields(healthStatusModel, domain, healthStatus.getHealthStatusID());
 				insertOrUpdate(healthStatusModel);
 			}
       	  }
 		}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<com.servinglynk.hmis.warehouse.model.stagv2014.HealthStatus> healthStatuses = export.getHealthStatuses();
 		if(healthStatuses !=null && !healthStatuses.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.HealthStatus healthStatus : healthStatuses) {

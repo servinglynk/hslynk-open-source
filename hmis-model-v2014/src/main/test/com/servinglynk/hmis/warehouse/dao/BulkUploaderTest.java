@@ -84,6 +84,7 @@ public class BulkUploaderTest {
 		BulkUpload bullkUpload = new BulkUpload();
 		bullkUpload.setInputPath(path.getPath());
 		bullkUpload.setId(2L);
+		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);

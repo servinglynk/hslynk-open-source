@@ -51,6 +51,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
+		hydrateBulkUploadActivityStaging(incomeAndSourceses, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), domain);
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
@@ -103,15 +104,16 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				incomeAndSourcesModel.setExport(exportEntity);
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
-				hydrateCommonFields(incomeAndSourcesModel, domain);
+				hydrateCommonFields(incomeAndSourcesModel, domain, incomeAndSources.getIncomeAndSourcesID());
 				insertOrUpdate(incomeAndSourcesModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Incomeandsources> incomeandsourceses = export.getIncomeandsourceses();
+		hydrateBulkUploadActivity(incomeandsourceses, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), export,id);
 		if(incomeandsourceses !=null && !incomeandsourceses.isEmpty()) {
 			for(Incomeandsources incomeandsources : incomeandsourceses) {
 				if(incomeandsources != null) {

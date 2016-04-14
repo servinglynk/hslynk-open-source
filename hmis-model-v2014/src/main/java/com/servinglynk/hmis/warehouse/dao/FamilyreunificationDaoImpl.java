@@ -35,6 +35,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<FamilyReunification> familyReunifications = domain.getExport().getFamilyReunification();
+		hydrateBulkUploadActivityStaging(familyReunifications, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain);
 		if(familyReunifications!=null && familyReunifications.size() >0 ) 
 		{
 			for(FamilyReunification familyReunification : familyReunifications)
@@ -52,15 +53,16 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				familyreunificationModel.setExport(exportEntity);
 				exportEntity.addFamilyreunification(familyreunificationModel);
-				hydrateCommonFields(familyreunificationModel, domain);
+				hydrateCommonFields(familyreunificationModel, domain, familyReunification.getFamilyReunificationID());
 				insertOrUpdate(familyreunificationModel);
 			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export,Long id) {
 		Set<Familyreunification> familyreunifications = export.getFamilyreunifications();
+		hydrateBulkUploadActivity(familyreunifications, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), export,id);
 		if(familyreunifications !=null && !familyreunifications.isEmpty()) {
 			for(Familyreunification familyreunification : familyreunifications) {
 				if(familyreunification != null) {

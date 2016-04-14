@@ -56,6 +56,5 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	OrganizationDao getOrganizationDao();
 	ClientDao getClientDao();
 
-	SharingRuleDao getSharingRuleDao();
 	InformationReleasesDao getInformationReleasesDao();
 }

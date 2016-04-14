@@ -34,33 +34,36 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
-		ReferralSource referralSource = domain.getExport().getReferralSource();
-		if(referralSource !=null)
+		List<ReferralSource> referralSources = domain.getExport().getReferralSource();
+		hydrateBulkUploadActivityStaging(referralSources, com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class.getSimpleName(), domain);
+		if(referralSources !=null && !referralSources.isEmpty())
 		{
-			Referralsource referralsourceModel = new Referralsource();
-			UUID id = UUID.randomUUID();
-			referralsourceModel.setId(id);
-			referralsourceModel.setDateCreated(LocalDateTime.now());
-			referralsourceModel.setDateUpdated(LocalDateTime.now());
-			referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
-			referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
-			referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
-			referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
-			
-			Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(referralSource.getProjectEntryID()));
-			referralsourceModel.setEnrollmentid(enrollmentModel);
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
-			referralsourceModel.setExport(exportEntity);
-			exportEntity.addReferralsource(referralsourceModel);
-			hydrateCommonFields(referralsourceModel, domain);
-			insertOrUpdate(referralsourceModel);
+			for(ReferralSource referralSource : referralSources) {
+				Referralsource referralsourceModel = new Referralsource();
+				UUID id = UUID.randomUUID();
+				referralsourceModel.setId(id);
+				referralsourceModel.setDateCreated(LocalDateTime.now());
+				referralsourceModel.setDateUpdated(LocalDateTime.now());
+				referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
+				referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
+				referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
+				referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
+				
+				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(referralSource.getProjectEntryID()));
+				referralsourceModel.setEnrollmentid(enrollmentModel);
+				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+				referralsourceModel.setExport(exportEntity);
+				exportEntity.addReferralsource(referralsourceModel);
+				hydrateCommonFields(referralsourceModel, domain, referralSource.getReferralSourceID());
+				insertOrUpdate(referralsourceModel);
+			}
 		}
 	}
 
 	@Override
-	public void hydrateLive(Export export) {
+	public void hydrateLive(Export export, Long id) {
 		Set<Referralsource> referralsources = export.getReferralsources();
-		if(referralsources != null && !referralsources.isEmpty()) {
+		hydrateBulkUploadActivity(referralsources, com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class.getSimpleName(), export,id);
 			for(Referralsource referralsource : referralsources) {
 				if(referralsource != null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Referralsource target = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
@@ -75,7 +78,6 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 					insertOrUpdate(target);
 				}
 			}
-		}
 	}
 
 	@Override
