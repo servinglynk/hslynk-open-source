@@ -23,22 +23,22 @@ public abstract class ControllerBase {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	protected ParentServiceFactory serviceFactory;
-
-	
-
-	public ParentServiceFactory getServiceFactory() {
-
-		return serviceFactory;
-
-	}
-
-	public void setServiceFactory(ParentServiceFactory serviceFactory) {
-
-		this.serviceFactory = serviceFactory;
-
-	}
+//	@Autowired
+//	protected ParentServiceFactory serviceFactory;
+//
+//	
+//
+//	public ParentServiceFactory getServiceFactory() {
+//
+//		return serviceFactory;
+//
+//	}
+//
+//	public void setServiceFactory(ParentServiceFactory serviceFactory) {
+//
+//		this.serviceFactory = serviceFactory;
+//
+//	}
 	
 	
 	@Autowired

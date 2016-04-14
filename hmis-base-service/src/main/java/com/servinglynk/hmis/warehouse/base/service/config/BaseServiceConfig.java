@@ -150,7 +150,6 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		 return "http://localhost:8080/notification-service/rest";
 	 }
 	 
-	 
 	 @Bean
 	 public ApiMethodServiceImpl apiMethodService(){
 		 return new ApiMethodServiceImpl();
