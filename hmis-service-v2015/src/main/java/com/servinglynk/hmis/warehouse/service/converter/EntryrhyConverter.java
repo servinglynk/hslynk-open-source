@@ -5,48 +5,91 @@ public class EntryrhyConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2015.Entryrhy modelToEntity (Entryrhy model ,com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
+       if(model.getEntryrhyId()!=null)
        entity.setId(model.getEntryrhyId());
+       if(model.getSexualOrientation()!=null)
        entity.setSexualOrientation(model.getSexualOrientation());
+       if(model.getFormerlyWardChildWelfrForestCare()!=null)
        entity.setFormerlyWardChildWelfrForestCare(model.getFormerlyWardChildWelfrForestCare());
+       if(model.getYearsChildWelfrForestCare()!=null)
        entity.setYearsChildWelfrForestCare(model.getYearsChildWelfrForestCare());
+       if(model.getMonthsChildWelfrForestCare()!=null)
        entity.setMonthsChildWelfrForestCare(model.getMonthsChildWelfrForestCare());
+       if(model.getFormerlyWardOfJuvenileJustice()!=null)
        entity.setFormerlyWardOfJuvenileJustice(model.getFormerlyWardOfJuvenileJustice());
+       if(model.getYearsJuvenileJustice()!=null)
        entity.setYearsJuvenileJustice(model.getYearsJuvenileJustice());
+       if(model.getHouseHoldDynamics()!=null)
        entity.setHouseHoldDynamics(model.getHouseHoldDynamics());
+       if(model.getSexualOrientatiionGenderIdentityYouth()!=null)
        entity.setSexualOrientatiionGenderIdentityYouth(model.getSexualOrientatiionGenderIdentityYouth());
+       if(model.getSexualOrientatiionGenderIdentityFamilyMbr()!=null)
        entity.setSexualOrientatiionGenderIdentityFamilyMbr(model.getSexualOrientatiionGenderIdentityFamilyMbr());
+       if(model.getHousingIssuesYouth()!=null)
        entity.setHousingIssuesYouth(model.getHousingIssuesYouth());
+       if(model.getHousingIssuesFamilyMbr()!=null)
        entity.setHousingIssuesFamilyMbr(model.getHousingIssuesFamilyMbr());
+       if(model.getSchoolEducationIssuesYouth()!=null)
        entity.setSchoolEducationIssuesYouth(model.getSchoolEducationIssuesYouth());
+       if(model.getSchoolEducationIssuesFamilyMbr()!=null)
        entity.setSchoolEducationIssuesFamilyMbr(model.getSchoolEducationIssuesFamilyMbr());
+       if(model.getUnemployementYouth()!=null)
        entity.setUnemployementYouth(model.getUnemployementYouth());
+       if(model.getUnemployementFamilyMbr()!=null)
        entity.setUnemployementFamilyMbr(model.getUnemployementFamilyMbr());
+       if(model.getMentalHealthIssuesYouth()!=null)
        entity.setMentalHealthIssuesYouth(model.getMentalHealthIssuesYouth());
+       if(model.getMentalHealthIssuesFamilyMbr()!=null)
        entity.setMentalHealthIssuesFamilyMbr(model.getMentalHealthIssuesFamilyMbr());
+       if(model.getHealthIssuesYouth()!=null)
        entity.setHealthIssuesYouth(model.getHealthIssuesYouth());
+       if(model.getHealthIssuesFamilyMbr()!=null)
        entity.setHealthIssuesFamilyMbr(model.getHealthIssuesFamilyMbr());
+       if(model.getPhysicalDisabilityYouth()!=null)
        entity.setPhysicalDisabilityYouth(model.getPhysicalDisabilityYouth());
+       if(model.getPhysicalDisabilityFamilyMbr()!=null)
        entity.setPhysicalDisabilityFamilyMbr(model.getPhysicalDisabilityFamilyMbr());
+       if(model.getMentalDisabilityYouth()!=null)
        entity.setMentalDisabilityYouth(model.getMentalDisabilityYouth());
+       if(model.getMentalDisabilityFamilyMbr()!=null)
        entity.setMentalDisabilityFamilyMbr(model.getMentalDisabilityFamilyMbr());
+       if(model.getAbuseAndNeglectYouth()!=null)
        entity.setAbuseAndNeglectYouth(model.getAbuseAndNeglectYouth());
+       if(model.getAbuseAndNeglectFamilyMbr()!=null)
        entity.setAbuseAndNeglectFamilyMbr(model.getAbuseAndNeglectFamilyMbr());
+       if(model.getAlcoholDrugAbuseYouth()!=null)
        entity.setAlcoholDrugAbuseYouth(model.getAlcoholDrugAbuseYouth());
+       if(model.getAlcoholDrugAbuseFamilyMbr()!=null)
        entity.setAlcoholDrugAbuseFamilyMbr(model.getAlcoholDrugAbuseFamilyMbr());
+       if(model.getInsufficientIncomeToSupportYouth()!=null)
        entity.setInsufficientIncomeToSupportYouth(model.getInsufficientIncomeToSupportYouth());
+       if(model.getActiveMilitaryParent()!=null)
        entity.setActiveMilitaryParent(model.getActiveMilitaryParent());
+       if(model.getIncarceratedParent()!=null)
        entity.setIncarceratedParent(model.getIncarceratedParent());
+       if(model.getIncarceratedParentStatus()!=null)
        entity.setIncarceratedParentStatus(model.getIncarceratedParentStatus());
+       if(model.getReferralSource()!=null)
        entity.setReferralSource(model.getReferralSource());
+       if(model.getCountOutReachReferralApproaches()!=null)
        entity.setCountOutReachReferralApproaches(model.getCountOutReachReferralApproaches());
+       if(model.getExchangeForSex()!=null)
        entity.setExchangeForSex(model.getExchangeForSex());
+       if(model.getExchangeForSexPastThreeMonths()!=null)
        entity.setExchangeForSexPastThreeMonths(model.getExchangeForSexPastThreeMonths());
+       if(model.getCountOfExchangeForSex()!=null)
        entity.setCountOfExchangeForSex(model.getCountOfExchangeForSex());
+       if(model.getAskedOfForcedToExchangeForSex()!=null)
        entity.setAskedOfForcedToExchangeForSex(model.getAskedOfForcedToExchangeForSex());
+       if(model.getAskedOfForcedToExchangeForSexPastThreeMonths()!=null)
        entity.setAskedOfForcedToExchangeForSexPastThreeMonths(model.getAskedOfForcedToExchangeForSexPastThreeMonths());
+       if(model.getWorkPlaceViolenceThreat()!=null)
        entity.setWorkPlaceViolenceThreat(model.getWorkPlaceViolenceThreat());
+       if(model.getWorkPlacePromiseDifference()!=null)
        entity.setWorkPlacePromiseDifference(model.getWorkPlacePromiseDifference());
+       if(model.getCoercedToContinueWork()!=null)
        entity.setCoercedToContinueWork(model.getCoercedToContinueWork());
+       if(model.getLaborExploitPastThreeMonths()!=null)
        entity.setLaborExploitPastThreeMonths(model.getLaborExploitPastThreeMonths());
        return entity;    
    }
@@ -54,48 +97,91 @@ public class EntryrhyConverter  extends BaseConverter {
 
    public static Entryrhy entityToModel (com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entity) {
        Entryrhy model = new Entryrhy();
+       if(entity.getId()!=null)
        model.setEntryrhyId(entity.getId());
+       if(entity.getSexualOrientation()!=null)
        model.setSexualOrientation(entity.getSexualOrientation());
+       if(entity.getFormerlyWardChildWelfrForestCare()!=null)
        model.setFormerlyWardChildWelfrForestCare(entity.getFormerlyWardChildWelfrForestCare());
+       if(entity.getYearsChildWelfrForestCare()!=null)
        model.setYearsChildWelfrForestCare(entity.getYearsChildWelfrForestCare());
+       if(entity.getMonthsChildWelfrForestCare()!=null)
        model.setMonthsChildWelfrForestCare(entity.getMonthsChildWelfrForestCare());
+       if(entity.getFormerlyWardOfJuvenileJustice()!=null)
        model.setFormerlyWardOfJuvenileJustice(entity.getFormerlyWardOfJuvenileJustice());
+       if(entity.getYearsJuvenileJustice()!=null)
        model.setYearsJuvenileJustice(entity.getYearsJuvenileJustice());
+       if(entity.getHouseHoldDynamics()!=null)
        model.setHouseHoldDynamics(entity.getHouseHoldDynamics());
+       if(entity.getSexualOrientatiionGenderIdentityYouth()!=null)
        model.setSexualOrientatiionGenderIdentityYouth(entity.getSexualOrientatiionGenderIdentityYouth());
+       if(entity.getId()!=null)
        model.setSexualOrientatiionGenderIdentityFamilyMbr(entity.getSexualOrientatiionGenderIdentityFamilyMbr());
+       if(entity.getSexualOrientatiionGenderIdentityFamilyMbr()!=null)
        model.setHousingIssuesYouth(entity.getHousingIssuesYouth());
+       if(entity.getHousingIssuesFamilyMbr()!=null)
        model.setHousingIssuesFamilyMbr(entity.getHousingIssuesFamilyMbr());
+       if(entity.getSchoolEducationIssuesYouth()!=null)
        model.setSchoolEducationIssuesYouth(entity.getSchoolEducationIssuesYouth());
+       if(entity.getId()!=null)
        model.setSchoolEducationIssuesFamilyMbr(entity.getSchoolEducationIssuesFamilyMbr());
+       if(entity.getSchoolEducationIssuesFamilyMbr()!=null)
        model.setUnemployementYouth(entity.getUnemployementYouth());
+       if(entity.getUnemployementFamilyMbr()!=null)
        model.setUnemployementFamilyMbr(entity.getUnemployementFamilyMbr());
+       if(entity.getMentalHealthIssuesYouth()!=null)
        model.setMentalHealthIssuesYouth(entity.getMentalHealthIssuesYouth());
+       if(entity.getMentalHealthIssuesFamilyMbr()!=null)
        model.setMentalHealthIssuesFamilyMbr(entity.getMentalHealthIssuesFamilyMbr());
+       if(entity.getHealthIssuesYouth()!=null)
        model.setHealthIssuesYouth(entity.getHealthIssuesYouth());
+       if(entity.getHealthIssuesFamilyMbr()!=null)
        model.setHealthIssuesFamilyMbr(entity.getHealthIssuesFamilyMbr());
+       if(entity.getId()!=null)
        model.setPhysicalDisabilityYouth(entity.getPhysicalDisabilityYouth());
+       if(entity.getPhysicalDisabilityYouth()!=null)
        model.setPhysicalDisabilityFamilyMbr(entity.getPhysicalDisabilityFamilyMbr());
+       if(entity.getMentalDisabilityYouth()!=null)
        model.setMentalDisabilityYouth(entity.getMentalDisabilityYouth());
+       if(entity.getMentalDisabilityFamilyMbr()!=null)
        model.setMentalDisabilityFamilyMbr(entity.getMentalDisabilityFamilyMbr());
+       if(entity.getAbuseAndNeglectYouth()!=null)
        model.setAbuseAndNeglectYouth(entity.getAbuseAndNeglectYouth());
+       if(entity.getAbuseAndNeglectFamilyMbr()!=null)
        model.setAbuseAndNeglectFamilyMbr(entity.getAbuseAndNeglectFamilyMbr());
+       if(entity.getAlcoholDrugAbuseYouth()!=null)
        model.setAlcoholDrugAbuseYouth(entity.getAlcoholDrugAbuseYouth());
+       if(entity.getAlcoholDrugAbuseFamilyMbr()!=null)
        model.setAlcoholDrugAbuseFamilyMbr(entity.getAlcoholDrugAbuseFamilyMbr());
+       if(entity.getInsufficientIncomeToSupportYouth()!=null)
        model.setInsufficientIncomeToSupportYouth(entity.getInsufficientIncomeToSupportYouth());
+       if(entity.getActiveMilitaryParent()!=null)
        model.setActiveMilitaryParent(entity.getActiveMilitaryParent());
+       if(entity.getIncarceratedParent()!=null)
        model.setIncarceratedParent(entity.getIncarceratedParent());
+       if(entity.getIncarceratedParentStatus()!=null)
        model.setIncarceratedParentStatus(entity.getIncarceratedParentStatus());
+       if(entity.getReferralSource()!=null)
        model.setReferralSource(entity.getReferralSource());
+       if(entity.getCountOutReachReferralApproaches()!=null)
        model.setCountOutReachReferralApproaches(entity.getCountOutReachReferralApproaches());
+       if(entity.getExchangeForSex()!=null)
        model.setExchangeForSex(entity.getExchangeForSex());
+       if(entity.getExchangeForSexPastThreeMonths()!=null)
        model.setExchangeForSexPastThreeMonths(entity.getExchangeForSexPastThreeMonths());
+       if(entity.getCountOfExchangeForSex()!=null)
        model.setCountOfExchangeForSex(entity.getCountOfExchangeForSex());
+       if(entity.getId()!=null)
        model.setAskedOfForcedToExchangeForSex(entity.getAskedOfForcedToExchangeForSex());
+       if(entity.getAskedOfForcedToExchangeForSex()!=null)
        model.setAskedOfForcedToExchangeForSexPastThreeMonths(entity.getAskedOfForcedToExchangeForSexPastThreeMonths());
+       if(entity.getWorkPlaceViolenceThreat()!=null)
        model.setWorkPlaceViolenceThreat(entity.getWorkPlaceViolenceThreat());
+       if(entity.getWorkPlacePromiseDifference()!=null)
        model.setWorkPlacePromiseDifference(entity.getWorkPlacePromiseDifference());
+       if(entity.getCoercedToContinueWork()!=null)
        model.setCoercedToContinueWork(entity.getCoercedToContinueWork());
+       if(entity.getLaborExploitPastThreeMonths()!=null)
        model.setLaborExploitPastThreeMonths(entity.getLaborExploitPastThreeMonths());
        return model;
    }

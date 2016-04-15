@@ -6,6 +6,8 @@ import java.util.UUID;
 
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("medicalassistance")
 public class Medicalassistance extends ClientModel{
@@ -13,6 +15,8 @@ public class Medicalassistance extends ClientModel{
 
       private UUID medicalassistanceId;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
 
       private Integer hivaidsassistance;

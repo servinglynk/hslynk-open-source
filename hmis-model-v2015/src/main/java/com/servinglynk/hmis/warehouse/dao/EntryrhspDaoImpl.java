@@ -193,13 +193,17 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 
 
 	public List<Entryrhsp> getAllEnrollmentEntryrhsps(UUID enrollmentId, Integer startIndex, Integer maxItems) {
-		// TODO Auto-generated method stub
-		return null;
+			DetachedCriteria criteria = DetachedCriteria.forClass(Entryrhsp.class);
+			criteria.createAlias("enrollmentid","enrollmentid");
+			criteria.add(Restrictions.eq("enrollmentid.id",enrollmentId));
+		return (List<Entryrhsp>) findByCriteria(criteria,startIndex,maxItems);
 	}
 
 	public long getEnrollmentEntryrhspsCount(UUID enrollmentId) {
-		// TODO Auto-generated method stub
-		return 0;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Entryrhsp.class);
+		criteria.createAlias("enrollmentid","enrollmentid");
+		criteria.add(Restrictions.eq("enrollmentid.id",enrollmentId));
+		return countRows(criteria);
 	}
 
 }

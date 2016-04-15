@@ -65,7 +65,7 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 							entity.setActiveTo(sharingRule.getActiveTo());
 							entity.setCreatedAt(new Date());
 							entity.setCreatedBy(caller);
-							daoFactory.getSharingRuleDao().insertSharingRule(entity);
+//							daoFactory.getSharingRuleDao().insertSharingRule(entity);
 							sharingRules.addSharingRule(SharingRuleConverter.entityToModel(entity));
 							createSharingRuleForParentRole(entity, roleEntity,sharingRules);
 						}
@@ -92,7 +92,7 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 				entity.setActiveTo(sharingRuleEntity.getActiveTo());
 				entity.setCreatedAt(sharingRuleEntity.getCreatedAt());
 				entity.setCreatedBy(sharingRuleEntity.getCreatedBy());
-				daoFactory.getSharingRuleDao().insertSharingRule(entity);
+//				daoFactory.getSharingRuleDao().insertSharingRule(entity);
 				rules.addSharingRule(SharingRuleConverter.entityToModel(entity));
 				if(roleEntity.getParentRoleEntity()!=null){
 					createSharingRuleForParentRole(entity,roleEntity.getParentRoleEntity(),rules);
@@ -109,10 +109,10 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 
 	
 	public SharingRule deleteSharingRule(UUID sharingRuleId,String caller) {
-		SharingRuleEntity entity=daoFactory.getSharingRuleDao().getSharingRuleId(sharingRuleId);
-		if(entity==null) throw new RuntimeException();
+//		SharingRuleEntity entity=daoFactory.getSharingRuleDao().getSharingRuleId(sharingRuleId);
+//		if(entity==null) throw new RuntimeException();
 		
-		daoFactory.getSharingRuleDao().deleteSharingRule(entity);
+//		daoFactory.getSharingRuleDao().deleteSharingRule(entity);
 		
 		return new SharingRule();
 	}

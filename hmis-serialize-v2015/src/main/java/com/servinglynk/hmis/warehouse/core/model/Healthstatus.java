@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.springframework.cglib.core.Local;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("healthstatus")
 public class Healthstatus extends ClientModel{
@@ -15,12 +17,16 @@ public class Healthstatus extends ClientModel{
 
       private UUID healthstatusId;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
 
       private Integer healthCategory;
 
       private Integer healthStatus;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime dueDate;
 
 

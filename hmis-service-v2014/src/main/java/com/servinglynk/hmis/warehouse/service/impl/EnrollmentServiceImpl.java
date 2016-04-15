@@ -84,10 +84,10 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		if(hmisUser==null) throw new AccountNotFoundException();
 				
 		List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> pEnrollments = daoFactory.getEnrollmentDao().getEnrollmentsByClientId(clientId,startIndex,maxItems);
-		List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> sharingEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(hmisUser.getId(),hmisUser.getOrganization().getId());
-		if(sharingEnrollments.size()>0){
-			pEnrollments.addAll(sharingEnrollments);
-		}
+	//	List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> sharingEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(hmisUser.getId(),hmisUser.getOrganization().getId());
+	//	if(sharingEnrollments.size()>0){
+	//		pEnrollments.addAll(sharingEnrollments);
+	//	}
 		
 		Enrollments enrollments = new Enrollments();
 		

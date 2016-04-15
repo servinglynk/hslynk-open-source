@@ -176,15 +176,19 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		return countRows(criteria);
 	}
 
-	public List getAllEnrollmentEntryssvfs(UUID enrollmentId, Integer startIndex, Integer maxItems) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<com.servinglynk.hmis.warehouse.model.v2015.Entryssvf> getAllEnrollmentEntryssvfs(UUID enrollmentId, Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class);	
+		criteria.createAlias("enrollmentid", "enrollmentid");
+		criteria.add(Restrictions.eq("enrollmentid.id",enrollmentId));
+		return (List<Entryssvf>) findByCriteria(criteria,startIndex,maxItems);
 	}
 
 	
 	public long getEnrollmentEntryssvfsCount(UUID enrollmentId) {
-		// TODO Auto-generated method stub
-		return 0;
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class);	
+		criteria.createAlias("enrollmentid", "enrollmentid");
+		criteria.add(Restrictions.eq("enrollmentid.id",enrollmentId));
+		return countRows(criteria);
 	}
 
 
