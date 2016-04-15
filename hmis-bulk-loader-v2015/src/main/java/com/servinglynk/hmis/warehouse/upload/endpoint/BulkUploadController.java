@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 @RestController
 @RequestMapping("/bulkupload")
@@ -31,10 +31,10 @@ public class BulkUploadController {
 		List<BulkUploadDTO> getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status) {
 
 	 		try {
-	 			List<HmisBulkUpload> uploads = parentServiceFactory.getBulkUploadService().getBulkUploads(status);
+	 			List<BulkUpload> uploads = parentServiceFactory.getBulkUploadService().getBulkUploads(status);
 	 			List<BulkUploadDTO> dtos = new ArrayList<BulkUploadDTO>();
 	 			if(uploads !=null) {
-	 				for(HmisBulkUpload upload : uploads) {
+	 				for(BulkUpload upload : uploads) {
 	 					BulkUploadDTO dto = new BulkUploadDTO();
 	 					BeanUtils.copyProperties(upload, dto, new String[] {"export"});
 	 					dtos.add(dto);

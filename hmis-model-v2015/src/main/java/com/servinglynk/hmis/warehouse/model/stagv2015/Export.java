@@ -57,9 +57,6 @@ public class Export  implements Cloneable, Serializable {
 	private Set<Bedinventory> bedinventories = new HashSet<Bedinventory>();
 
 	/** Field mapping. */
-	private Set<BulkUpload> bulkUploads = new HashSet<BulkUpload>();
-
-	/** Field mapping. */
 	private Set<Client> clients = new HashSet<Client>();
 
 	/** Field mapping. */
@@ -261,38 +258,6 @@ public class Export  implements Cloneable, Serializable {
 	public void setBedinventories(final Set<Bedinventory> bedinventory) {
 		this.bedinventories = bedinventory;
 	}
-
-	 /**
-	 * Return the value associated with the column: bulkUpload.
-	 * @return A Set&lt;BulkUpload&gt; object (this.bulkUpload)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<BulkUpload> getBulkUploads() {
-		return this.bulkUploads;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type BulkUpload to the bulkUploads set.
-	 * @param bulkUpload item to add
-	 */
-	public void addBulkUpload(BulkUpload bulkUpload) {
-		bulkUpload.setExport(this);
-		this.bulkUploads.add(bulkUpload);
-	}
-
-
-	 /**
-	 * Set the value related to the column: bulkUpload.
-	 * @param bulkUpload the bulkUpload value you wish to set
-	 */
-	public void setBulkUploads(final Set<BulkUpload> bulkUpload) {
-		this.bulkUploads = bulkUpload;
-	}
-
 	 /**
 	 * Return the value associated with the column: client.
 	 * @return A Set&lt;Client&gt; object (this.client)
@@ -1653,9 +1618,6 @@ public class Export  implements Cloneable, Serializable {
 		}
 		if (this.getBedinventories() != null) {
 			copy.getBedinventories().addAll(this.getBedinventories());
-		}
-		if (this.getBulkUploads() != null) {
-			copy.getBulkUploads().addAll(this.getBulkUploads());
 		}
 		if (this.getClients() != null) {
 			copy.getClients().addAll(this.getClients());

@@ -58,7 +58,7 @@ public class BulkUploadHelperTest {
 	public void testXMLUpload() {
 		URL path = BulkUploadHelperTest.class.getResource("2015.xml");
 //		System.out.println(path);
-		com.servinglynk.hmis.warehouse.model.v2015.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.v2015.BulkUpload();
+		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setInputpath(path.getPath());

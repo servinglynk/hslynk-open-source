@@ -15,7 +15,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +33,7 @@ public class BulkUploaderTest {
 	@Transactional
 	public void testOldFile()
 	{
-		HmisBulkUpload upload = new HmisBulkUpload();
+		BulkUpload upload = new BulkUpload();
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
@@ -49,8 +49,8 @@ public class BulkUploaderTest {
 	public void testCSVZip() throws Exception
 	{
 		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
-		HmisBulkUpload
-		bullkUpload = new HmisBulkUpload();
+		BulkUpload
+		bullkUpload = new BulkUpload();
 		bullkUpload.setInputpath(path.getPath());
 		bullkUpload.setId(2L);
 		bullkUpload.setProjectGroupCode("PG0001");
@@ -62,7 +62,7 @@ public class BulkUploaderTest {
 	@Test
 	public void testxmlBigFile() throws Exception
 	{
-		HmisBulkUpload bullkUpload = new HmisBulkUpload();
+		BulkUpload bullkUpload = new BulkUpload();
 		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\Files\\HUD_4_0_1_3101_13.xml");
 		bullkUpload.setId(2L);
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
@@ -74,9 +74,9 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void testDeleted() throws Exception {
-		List<HmisBulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
+		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
-			for(HmisBulkUpload bullkUpload : uploadEntities) {
+			for(BulkUpload bullkUpload : uploadEntities) {
 				 dao.deleteLiveByExportId(bullkUpload.getExportId());
 			}
 		}
@@ -102,8 +102,8 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void softDeleteProjectGroup() throws Exception {
-		List<HmisBulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
-		for(HmisBulkUpload upload : uploads) {
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
+		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode());		
 			}
@@ -113,8 +113,8 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void moveToLive() throws Exception {
-		List<HmisBulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
-		for(HmisBulkUpload upload : uploads) {
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
+		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.moveFromStagingToLive(upload);		
 			}

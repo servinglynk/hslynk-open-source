@@ -24,8 +24,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.model.v2015.Client;
-import com.servinglynk.hmis.warehouse.model.v2015.Organization;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 
 
@@ -284,7 +283,6 @@ public class Export implements Cloneable, Serializable {
 	 * @param bulkUpload item to add
 	 */
 	public void addBulkUpload(BulkUpload bulkUpload) {
-		bulkUpload.setExport(this);
 		this.bulkUploads.add(bulkUpload);
 	}
 

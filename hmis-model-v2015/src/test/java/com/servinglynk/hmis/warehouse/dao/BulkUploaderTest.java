@@ -125,6 +125,7 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Client;
 import com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo;
@@ -158,7 +159,6 @@ import com.servinglynk.hmis.warehouse.model.stagv2015.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.model.stagv2015.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.model.stagv2015.Site;
-import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -193,9 +193,9 @@ public class BulkUploaderTest {
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
 		Source source = sources.getSource();
-		Export export = uploadResult.getExport();
-		com.servinglynk.hmis.warehouse.model.stagv2015.Export stagingExport = (com.servinglynk.hmis.warehouse.model.stagv2015.Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, export.getId());
-		Set<Enrollment> enrollments = stagingExport.getEnrollments();
+//		Export export = uploadResult.getExport();
+//		com.servinglynk.hmis.warehouse.model.stagv2015.Export stagingExport = (com.servinglynk.hmis.warehouse.model.stagv2015.Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, export.getId());
+//		Set<Enrollment> enrollments = stagingExport.getEnrollments();
 	}
 	@Test
 	@Transactional
@@ -253,7 +253,7 @@ public class BulkUploaderTest {
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
+			com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExportId());
 			assertNotNull(exportEntity);
 			assertEquals("effective",exportEntity.getExportperiodtype());
 			
@@ -746,7 +746,7 @@ public class BulkUploaderTest {
 		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
 			for(BulkUpload bullkUpload : uploadEntities) {
-				 dao.deleteLiveByExportId(bullkUpload.getExport().getId());
+				 dao.deleteLiveByExportId(bullkUpload.getExportId());
 			}
 		}
 	}
@@ -773,7 +773,7 @@ public class BulkUploaderTest {
 	public void softDeleteProjectGroup() throws Exception {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
 		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExport() !=null) {
+			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode());		
 			}
 		}
@@ -784,7 +784,7 @@ public class BulkUploaderTest {
 	public void moveToLive() throws Exception {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExport() !=null) {
+			if(upload !=null && upload.getExportId() !=null) {
 				dao.moveFromStagingToLive(upload);		
 			}
 		}

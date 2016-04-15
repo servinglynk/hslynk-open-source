@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 public class ExportDomain {
 	

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
@@ -36,9 +36,9 @@ public class LiveWorker  extends ParentService implements ILiveWorker  {
 	public void processWorkerLine() throws ReportCreationException{
 		try {
 			
-			List<HmisBulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
+			List<BulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
 			if(stagingUploadEntities!=null && stagingUploadEntities.size() >0 ) {
-				for(HmisBulkUpload bulkUpload : stagingUploadEntities) {
+				for(BulkUpload bulkUpload : stagingUploadEntities) {
 					daoFactory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
 					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload);
 				}

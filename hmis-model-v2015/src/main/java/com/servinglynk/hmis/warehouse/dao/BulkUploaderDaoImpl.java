@@ -18,10 +18,10 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2015.Bedinventory;
-import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2015.Disabilities;
@@ -143,7 +143,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				logger.debug("Live Export table.........");
 			}
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
-			upload.setExport(exportLive);
+			upload.setExportId(exportLive.getId());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
@@ -173,7 +173,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Transactional
 	public void moveFromStagingToLive(BulkUpload bulkUpload) {
 		try {
-		UUID exportId = bulkUpload.getExport().getId();
+		UUID exportId = bulkUpload.getExportId();
 		com.servinglynk.hmis.warehouse.model.stagv2015.Export export = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
 
 		parentDaoFactory.getClientDao().hydrateLive(export,bulkUpload.getId());

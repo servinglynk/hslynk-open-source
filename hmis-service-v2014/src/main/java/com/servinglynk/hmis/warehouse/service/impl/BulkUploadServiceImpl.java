@@ -10,7 +10,7 @@ import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploads;
 import com.servinglynk.hmis.warehouse.core.model.Role;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
@@ -19,10 +19,10 @@ import com.servinglynk.hmis.warehouse.service.BulkUploadService;
 public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadService  {
 	
 	@Transactional
-	public void createBulkUploadEntry(HmisBulkUpload uploadModel) throws Exception {
+	public void createBulkUploadEntry(BulkUpload uploadModel) throws Exception {
 		try{
 			
-			HmisBulkUpload upload = new HmisBulkUpload();
+			BulkUpload upload = new BulkUpload();
 			upload.setInputpath(uploadModel.getInputpath());
 			upload.setStatus("INITIAL");
 			upload.setDateCreated(LocalDateTime.now());
@@ -45,7 +45,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
 		 Role role = account.getRoles()!=null ? account.getRoles().getRoles().get(0):null;
-			List<HmisBulkUpload> uploads = null; 
+			List<BulkUpload> uploads = null; 
 			try {
 		if(role != null) {
 			 if("CUSTADMIN".equals(role.getRoleName())) 
@@ -58,7 +58,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				logger.error("Some issues trying to get project groups"+e.getMessage());
 			}
 			BulkUploads bulkUploads = new BulkUploads();
-			for(HmisBulkUpload upload : uploads ){
+			for(BulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 				bulkUpload.setFileSize(upload.getSize());
 				bulkUpload.setInputPath(upload.getInputpath());

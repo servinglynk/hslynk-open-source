@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
-import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Component

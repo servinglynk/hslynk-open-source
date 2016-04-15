@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2015.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 public interface BulkUploaderWorkerDao extends ParentDao{
 	public List<BulkUpload> findUnProcessedUploads(String status) throws Exception;

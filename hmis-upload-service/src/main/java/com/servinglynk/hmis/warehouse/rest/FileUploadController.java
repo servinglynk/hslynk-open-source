@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.BulkUpload;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 @RestController
 @RequestMapping("/upload")
@@ -58,7 +58,7 @@ public class FileUploadController  extends ControllerBase {
 					logger.info("Server File Location="
 							+ serverFile.getAbsolutePath());
 					Session session = sessionHelper.getSession(request);
-					HmisBulkUpload upload = new HmisBulkUpload();
+					BulkUpload upload = new BulkUpload();
 					upload.setInputpath(serverFile.getAbsolutePath());
 					upload.setSize(file.getSize());
 					//upload.setProjectGroupCode(projGrpCode);

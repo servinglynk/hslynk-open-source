@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.Client;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
@@ -77,7 +77,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public HmisBulkUpload performBulkUpload(HmisBulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
 		try {
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
@@ -189,7 +189,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public void moveFromStagingToLive(HmisBulkUpload bulkUpload) {
+	public void moveFromStagingToLive(BulkUpload bulkUpload) {
 		try {
 		UUID exportId = bulkUpload.getExportId();
 		com.servinglynk.hmis.warehouse.model.stagv2014.Export export = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);

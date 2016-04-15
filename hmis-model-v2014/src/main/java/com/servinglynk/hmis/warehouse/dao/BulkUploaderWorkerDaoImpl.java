@@ -11,54 +11,54 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 @Transactional
 public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUploaderWorkerDao {
 
-	public List<HmisBulkUpload> findUnProcessedUploads(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
+	public List<BulkUpload> findUnProcessedUploads(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status","INITIAL"));
-		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
-	public List<HmisBulkUpload> findBulkUploadByStatus(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
+	public List<BulkUpload> findBulkUploadByStatus(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
-		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteriaWithOutDelete(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
 	
-	public List<HmisBulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
+	public List<BulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
 		query.add(Restrictions.eq("user.id", userId));
 		if(StringUtils.equals("DELETED", status)) {
 			query.add(Restrictions.eq("deleted",true));
 		}
-		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteriaWithOutDelete(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
-	public List<HmisBulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
+	public List<BulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
 		query.add(Restrictions.eq("user.id", userId));
-		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
-	public List<HmisBulkUpload> findBulkUploadFoSuperAdmin(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
+	public List<BulkUpload> findBulkUploadFoSuperAdmin(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
-		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
-	public List<HmisBulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
+	public List<BulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));
 		query.add(Restrictions.eq("status","LIVE"));
-		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
 	

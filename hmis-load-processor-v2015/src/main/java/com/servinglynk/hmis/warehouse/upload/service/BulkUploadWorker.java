@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
@@ -44,13 +44,13 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
-			List<HmisBulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
-				for(HmisBulkUpload upload : uploadEntities) {
+				for(BulkUpload upload : uploadEntities) {
 					/** Perform full refresh base on Project group */
 					if(upload.getProjectGroupCode() !=null) {
-						List<HmisBulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(upload.getProjectGroupCode());
-						for(HmisBulkUpload  bulkUpload : uploads) {
+						List<BulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(upload.getProjectGroupCode());
+						for(BulkUpload  bulkUpload : uploads) {
 							daoFactory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExportId());
 							bulkUpload.setStatus("DELETED");
 							daoFactory.getBulkUploaderWorkerDao().delete(bulkUpload);

@@ -83,7 +83,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrienta
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
-import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Component
@@ -94,7 +94,7 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return sources
 	 */
-	public Sources getSourcesFromFiles(HmisBulkUpload upload,ProjectGroupEntity projectGroupEntity) {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		String inputPath = upload.getInputpath();
 		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
 			return getSourcesForZipFile(upload);
@@ -109,7 +109,7 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	public Sources getSourcesForXml(HmisBulkUpload upload,ProjectGroupEntity projectGroupEntity) {
+	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		try {
 			File file = new File(upload.getInputpath());
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
@@ -197,7 +197,7 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	public Sources getSourcesForZipFile(HmisBulkUpload upload) {
+	public Sources getSourcesForZipFile(BulkUpload upload) {
 		Sources sources = new Sources();
 		Source source = sources.getSource();
 		if(source == null) {
