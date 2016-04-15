@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,14 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploads;
-import com.servinglynk.hmis.warehouse.core.model.Connectionwithsoars;
 import com.servinglynk.hmis.warehouse.core.model.Role;
-import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.service.BulkUploadService;
-import com.servinglynk.hmis.warehouse.service.converter.ConnectionwithsoarConverter;
 
 @Service
 public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadService  {
@@ -49,7 +45,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
 		 Role role = account.getRoles()!=null ? account.getRoles().getRoles().get(0):null;
-			List<BulkUpload> uploads = null; 
+			List<HmisBulkUpload> uploads = null; 
 			try {
 		if(role != null) {
 			 if("CUSTADMIN".equals(role.getRoleName())) 
@@ -62,10 +58,10 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				logger.error("Some issues trying to get project groups"+e.getMessage());
 			}
 			BulkUploads bulkUploads = new BulkUploads();
-			for(BulkUpload upload : uploads ){
+			for(HmisBulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 				bulkUpload.setFileSize(upload.getSize());
-				bulkUpload.setInputPath(upload.getInputPath());
+				bulkUpload.setInputPath(upload.getInputpath());
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
 				bulkUpload.setStatus(upload.getStatus());

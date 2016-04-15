@@ -1,15 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,13 +15,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.domain.Sources;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
@@ -35,41 +24,20 @@ import com.servinglynk.hmis.warehouse.model.v2014.Export;
 public class BulkUploaderTest {
 	
 	@Autowired
-	BulkUploaderDao dao;
+	BulkUploaderDao dao; 
 	
 	@Autowired
 	ParentDaoFactory factory;
 	
-	@Test 
-	public void test() throws JAXBException
-	{
-		SyncDomain domain = new SyncDomain();
-//		factory.getEnrollmentDao().hydrateHBASE(domain);
-		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
-		upload.setInputPath(path.getFile());
-		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity);
-		File file = new File(
-				path.getFile());
-		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
-
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
-		Source source = sources.getSource();
-		Export export = uploadResult.getExport();
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export stagingExport = (com.servinglynk.hmis.warehouse.model.stagv2014.Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, export.getId());
-		Set<Enrollment> enrollments = stagingExport.getEnrollments();
-	}
-	@Test
+	
 	@Transactional
 	public void testOldFile()
 	{
-		BulkUpload upload = new BulkUpload();
+		HmisBulkUpload upload = new HmisBulkUpload();
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
-		upload.setInputPath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
+		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -81,8 +49,9 @@ public class BulkUploaderTest {
 	public void testCSVZip() throws Exception
 	{
 		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
-		BulkUpload bullkUpload = new BulkUpload();
-		bullkUpload.setInputPath(path.getPath());
+		HmisBulkUpload
+		bullkUpload = new HmisBulkUpload();
+		bullkUpload.setInputpath(path.getPath());
 		bullkUpload.setId(2L);
 		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
@@ -93,8 +62,8 @@ public class BulkUploaderTest {
 	@Test
 	public void testxmlBigFile() throws Exception
 	{
-		BulkUpload bullkUpload = new BulkUpload();
-		bullkUpload.setInputPath("C:\\Users\\sdolia\\Desktop\\Files\\HUD_4_0_1_3101_13.xml");
+		HmisBulkUpload bullkUpload = new HmisBulkUpload();
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\Files\\HUD_4_0_1_3101_13.xml");
 		bullkUpload.setId(2L);
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
@@ -105,10 +74,10 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void testDeleted() throws Exception {
-		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
+		List<HmisBulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
 		if(uploadEntities!=null && uploadEntities.size() >0 ) {
-			for(BulkUpload bullkUpload : uploadEntities) {
-				 dao.deleteLiveByExportId(bullkUpload.getExport().getId());
+			for(HmisBulkUpload bullkUpload : uploadEntities) {
+				 dao.deleteLiveByExportId(bullkUpload.getExportId());
 			}
 		}
 	}
@@ -133,9 +102,9 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void softDeleteProjectGroup() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
-		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExport() !=null) {
+		List<HmisBulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
+		for(HmisBulkUpload upload : uploads) {
+			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode());		
 			}
 		}
@@ -144,9 +113,9 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void moveToLive() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
-		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExport() !=null) {
+		List<HmisBulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
+		for(HmisBulkUpload upload : uploads) {
+			if(upload !=null && upload.getExportId() !=null) {
 				dao.moveFromStagingToLive(upload);		
 			}
 		}

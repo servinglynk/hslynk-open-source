@@ -18,11 +18,11 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
-import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
 import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
@@ -77,7 +77,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
+	public HmisBulkUpload performBulkUpload(HmisBulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
 		try {
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
@@ -162,7 +162,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				insert(target);	
 			}
 			com.servinglynk.hmis.warehouse.model.v2014.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
-			upload.setExport(exportLive);
+			upload.setExportId(exportLive.getId());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
@@ -189,9 +189,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public void moveFromStagingToLive(BulkUpload bulkUpload) {
+	public void moveFromStagingToLive(HmisBulkUpload bulkUpload) {
 		try {
-		UUID exportId = bulkUpload.getExport().getId();
+		UUID exportId = bulkUpload.getExportId();
 		com.servinglynk.hmis.warehouse.model.stagv2014.Export export = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
 		parentDaoFactory.getClientDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export,bulkUpload.getId());
@@ -323,7 +323,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		undoSoftDeleteByExportId(VeteranInfo.class.getName(), exportId);
 		undoSoftDeleteByExportId(Worsthousingsituation.class.getName(), exportId);
 		undoSoftDeleteByExportId(Youthcriticalissues.class.getName(), exportId);
-		undoSoftDeleteByExportId(BulkUpload.class.getName(), exportId);
+		//undoSoftDeleteByExportId(HmisBulkUpload.class.getName(), exportId);
 	}
 	
 	@Override

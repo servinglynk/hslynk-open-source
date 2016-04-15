@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,56 +10,55 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 
 @Transactional
 public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUploaderWorkerDao {
 
-	public List<BulkUpload> findUnProcessedUploads(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+	public List<HmisBulkUpload> findUnProcessedUploads(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
 		query.add(Restrictions.eq("status","INITIAL"));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
 		return list;
 	}
-	public List<BulkUpload> findBulkUploadByStatus(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+	public List<HmisBulkUpload> findBulkUploadByStatus(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
 		query.add(Restrictions.eq("status",status));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
+		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
 	
-	public List<BulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+	public List<HmisBulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
 		query.add(Restrictions.eq("user.id", userId));
 		if(StringUtils.equals("DELETED", status)) {
 			query.add(Restrictions.eq("deleted",true));
 		}
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
+		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
-	public List<BulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+	public List<HmisBulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
 		query.add(Restrictions.eq("user.id", userId));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
 		return list;
 	}
-	public List<BulkUpload> findBulkUploadFoSuperAdmin(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+	public List<HmisBulkUpload> findBulkUploadFoSuperAdmin(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
 		query.add(Restrictions.eq("status",status));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
 		return list;
 	}
-	public List<BulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+	public List<HmisBulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(HmisBulkUpload.class);
 		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));
 		query.add(Restrictions.eq("status","LIVE"));
-		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		List<HmisBulkUpload> list = (List<HmisBulkUpload>) findByCriteria(query);
 		return list;
 	}
 	

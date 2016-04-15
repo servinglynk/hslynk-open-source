@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.model.base;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -37,7 +38,7 @@ public class HmisBulkUpload extends HmisBaseModel {
 	/** Field mapping. */
 	private String description;
 	/** Field mapping. */
-	private String exportId;
+	private UUID exportId;
 	private Long size;
 	private Long year;
 	/**
@@ -151,11 +152,12 @@ public class HmisBulkUpload extends HmisBaseModel {
 	
 	@Basic( optional = true )
 	@Column( name = "export_id"  )
-	public String getExportId() {
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getExportId() {
 		return exportId;
 	}
 
-	public void setExportId(String exportId) {
+	public void setExportId(UUID exportId) {
 		this.exportId = exportId;
 	}
 

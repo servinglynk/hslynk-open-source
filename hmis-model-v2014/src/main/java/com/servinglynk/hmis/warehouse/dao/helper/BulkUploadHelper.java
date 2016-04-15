@@ -19,22 +19,16 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.Validator;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
-import org.xml.sax.SAXException;
 
 import com.googlecode.jcsv.CSVStrategy;
 import com.googlecode.jcsv.annotations.internal.ValueProcessorProvider;
@@ -89,7 +83,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrienta
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
-import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Component
@@ -100,12 +94,12 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return sources
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
-		String inputPath = upload.getInputPath();
-		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputPath()))){
+	public Sources getSourcesFromFiles(HmisBulkUpload upload,ProjectGroupEntity projectGroupEntity) {
+		String inputPath = upload.getInputpath();
+		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
 			return getSourcesForZipFile(upload);
 		}
-		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputPath()))){
+		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
 			return getSourcesForXml(upload,projectGroupEntity);
 		}
 		return null;
@@ -115,16 +109,16 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
+	public Sources getSourcesForXml(HmisBulkUpload upload,ProjectGroupEntity projectGroupEntity) {
 		try {
-			File file = new File(upload.getInputPath());
+			File file = new File(upload.getInputpath());
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
 //				System.out.println("XML is valid");
 //			}else{
 //				System.out.println("XML is NOT valid");
 //			}
 			
-		    File tempFile = new File(upload.getInputPath()+System.currentTimeMillis()+"temp.xml");
+		    File tempFile = new File(upload.getInputpath()+System.currentTimeMillis()+"temp.xml");
 			try {
 				
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
@@ -203,7 +197,7 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	public Sources getSourcesForZipFile(BulkUpload upload) {
+	public Sources getSourcesForZipFile(HmisBulkUpload upload) {
 		Sources sources = new Sources();
 		Source source = sources.getSource();
 		if(source == null) {
@@ -212,7 +206,7 @@ public class BulkUploadHelper {
 			newSource.setExport(new Sources.Source.Export());
 		}
 		try {
-			ZipFile zf = new ZipFile(upload.getInputPath());
+			ZipFile zf = new ZipFile(upload.getInputpath());
 		      Enumeration entries = zf.entries();
 		      while (entries.hasMoreElements()) {
 		        ZipEntry ze = (ZipEntry) entries.nextElement();
