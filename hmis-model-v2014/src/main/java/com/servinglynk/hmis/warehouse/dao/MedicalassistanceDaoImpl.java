@@ -38,7 +38,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
-		hydrateBulkUploadActivityStaging(medicalAssistanceList, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), domain);
+		hydrateBulkUploadActivityStaging(medicalAssistanceList, com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class.getSimpleName(), domain);
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			for(MedicalAssistance medicalAssistance : medicalAssistanceList)

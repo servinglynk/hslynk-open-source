@@ -49,7 +49,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		List<HealthInsurance> healthInsurances = domain.getExport().getHealthInsurance();
-		hydrateBulkUploadActivityStaging(healthInsurances, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain);
+		hydrateBulkUploadActivityStaging(healthInsurances, com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class.getSimpleName(), domain);
 		if(healthInsurances!=null && healthInsurances.size() >0 )
 		{
 			for(HealthInsurance healthInsurance : healthInsurances)

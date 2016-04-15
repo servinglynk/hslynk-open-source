@@ -78,6 +78,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.stagv2014.Export export,Long id) {
 		Set<Exitplansactions> exitplansactionss = export.getExitplansactionss();
+		hydrateBulkUploadActivity(exitplansactionss, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), export,id);
 		if(exitplansactionss !=null && !exitplansactionss.isEmpty()) {
 			for(Exitplansactions exitplansactions : exitplansactionss) {
 				if(exitplansactions != null) {
