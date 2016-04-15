@@ -1,13 +1,10 @@
 package com.servinglynk.hmis.warehouse.upload.service;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.v2014.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.HmisBulkUpload;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
@@ -39,9 +36,9 @@ public class LiveWorker  extends ParentService implements ILiveWorker  {
 	public void processWorkerLine() throws ReportCreationException{
 		try {
 			
-			List<BulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
+			List<HmisBulkUpload> stagingUploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.STAGING.getStatus());
 			if(stagingUploadEntities!=null && stagingUploadEntities.size() >0 ) {
-				for(BulkUpload bulkUpload : stagingUploadEntities) {
+				for(HmisBulkUpload bulkUpload : stagingUploadEntities) {
 					daoFactory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
 					factory.getBulkUploaderDao().moveFromStagingToLive(bulkUpload);
 				}
