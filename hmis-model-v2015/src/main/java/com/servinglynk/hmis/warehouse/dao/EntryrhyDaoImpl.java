@@ -242,12 +242,16 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 	}
 
 	public List<Entryrhy> getAllEnrollmentEntryrhys(UUID enrollmentId, Integer startIndex, Integer maxItems) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class);	
+		criteria.createAlias("enrollmentid","enrollmentid");
+		criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+		return (List<Entryrhy>) findByCriteria(criteria, startIndex, maxItems);
 	}
 	public long getEnrollmentEntryrhysCount(UUID enrollmentId) {
-		// TODO Auto-generated method stub
-		return 0;
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class);	
+		criteria.createAlias("enrollmentid","enrollmentid");
+		criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+		return countRows(criteria);
 	}
 
 

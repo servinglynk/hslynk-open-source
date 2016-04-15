@@ -588,6 +588,18 @@ INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('89103d70-6b5b-471b-9d79-9bd0b8bc7932','DCS_GET_SERVICE_API_GROUPS','DCS_GET_SERVICE_API_GROUPS','DCS_GET_SERVICE_API_GROUPS','GET',CURRENT_timestamp,'MASTER DATA','084ab7d7de7e-1138-4f74-b50e-d9ebbc10',0,TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850a', 'CLIENT_DEDUP_AUTHENTICATE', 'CLIENT_DEDUP_AUTHENTICATE', 'CLIENT_DEDUP_AUTHENTICATE', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0850b', 'CLIENT_DEDUP_SERVICE', 'CLIENT_DEDUP_SERVICE', 'CLIENT_DEDUP_SERVICE', 'POST',current_timestamp, 'MASTER DATA', '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, TRUE);
+INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0851c', 'CLIENT_API_CREATE_ENROLLMENTCOC', 'CLIENT_API_CREATE_ENROLLMENTCOC', 'CLIENT_API_CREATE_ENROLLMENTCOC', 'POST',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+
+INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0852a', 'CLIENT_API_UPDATE_ENROLLMENTCOC', 'CLIENT_API_UPDATE_ENROLLMENTCOC', 'CLIENT_API_UPDATE_ENROLLMENTCOC', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0852b', 'CLIENT_API_DELETE_ENROLLMENTCOC', 'CLIENT_API_DELETE_ENROLLMENTCOC', 'CLIENT_API_DELETE_ENROLLMENTCOC', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0852c', 'CLIENT_API_GET_ENROLLMENTCOC_BY_ID', 'CLIENT_API_GET_ENROLLMENTCOC_BY_ID', 'CLIENT_API_GET_ENROLLMENTCOC_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0852d', 'CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC', 'CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC', 'CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
+
+
+CLIENT_API_UPDATE_ENROLLMENTCOC
+CLIENT_API_DELETE_ENROLLMENTCOC
+CLIENT_API_GET_ENROLLMENTCOC_BY_ID
+CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC
 
 CREATE TABLE base.hmis_developer_company
 (

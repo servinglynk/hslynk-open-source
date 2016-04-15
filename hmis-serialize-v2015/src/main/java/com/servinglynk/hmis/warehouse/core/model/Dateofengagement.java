@@ -6,6 +6,8 @@ import java.util.UUID;
 
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("dateofengagement")
 public class Dateofengagement extends ClientModel{
@@ -13,6 +15,8 @@ public class Dateofengagement extends ClientModel{
 
       private UUID dateofengagementId;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime dateofengagement;
 
 

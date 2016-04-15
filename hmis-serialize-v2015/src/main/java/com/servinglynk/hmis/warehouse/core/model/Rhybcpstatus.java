@@ -6,6 +6,8 @@ import java.util.UUID;
 
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.thoughtworks.xstream.mapper.LocalConversionMapper;
 
 @JsonRootName("rhybcpstatus")
@@ -14,6 +16,8 @@ public class Rhybcpstatus extends ClientModel{
 
       private UUID rhybcpstatusId;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime statusDate;
 
       private Integer fysbYouth;

@@ -6,6 +6,8 @@ import java.util.UUID;
 
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("pathstatus")
 public class Pathstatus extends ClientModel{
@@ -13,6 +15,8 @@ public class Pathstatus extends ClientModel{
 
       private UUID pathstatusId;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime dateOfStatus;
 
       private Long clientEnrolledInPath;
