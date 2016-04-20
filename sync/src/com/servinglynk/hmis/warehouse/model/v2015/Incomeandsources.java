@@ -11,581 +11,275 @@ public class Incomeandsources extends BaseModel {
 	@Column(name = "alimony")
 	public String alimony;
 	@Column(name = "alimonyamount")
-	public String alimonyamount;
+	public Double alimonyamount;
 	@Column(name = "childsupport")
 	public String childsupport;
 	@Column(name = "childsupportamount")
-	public String childsupportamount;
+	public Double childsupportamount;
 	@Column(name = "earned")
-	public String earned;
+	public Integer earned;
 	@Column(name = "earnedamount")
-	public String earnedamount;
+	public Double earnedamount;
 	@Column(name = "ga")
-	public String ga;
+	public Integer ga;
 	@Column(name = "gaamount")
-	public String gaamount;
+	public Double gaamount;
 	@Column(name = "incomefromanysource")
-	public String incomefromanysource;
+	public Integer incomefromanysource;
 	@Column(name = "othersource")
 	public String othersource;
 	@Column(name = "othersourceamount")
-	public String othersourceamount;
+	public Double othersourceamount;
 	@Column(name = "othersourceidentify")
 	public String othersourceidentify;
 	@Column(name = "pension")
-	public String pension;
+	public Integer pension;
 	@Column(name = "pensionamount")
-	public String pensionamount;
+	public Double pensionamount;
 	@Column(name = "privatedisability")
-	public String privatedisability;
+	public Integer privatedisability;
 	@Column(name = "privatedisabilityamount")
-	public String privatedisabilityamount;
+	public Double privatedisabilityamount;
 	@Column(name = "enrollmentid")
 	public UUID enrollmentid;
 	@Column(name = "socsecretirement")
-	public String socsecretirement;
+	public Integer socsecretirement;
 	@Column(name = "socsecretirementamount")
-	public String socsecretirementamount;
+	public Double socsecretirementamount;
 	@Column(name = "ssdi")
-	public String ssdi;
+	public Integer ssdi;
 	@Column(name = "ssdiamount")
-	public String ssdiamount;
+	public Double ssdiamount;
 	@Column(name = "ssi")
-	public String ssi;
+	public Integer ssi;
 	@Column(name = "ssiamount")
-	public String ssiamount;
+	public Double ssiamount;
 	@Column(name = "tanf")
-	public String tanf;
+	public Integer tanf;
 	@Column(name = "tanfamount")
-	public String tanfamount;
+	public Double tanfamount;
 	@Column(name = "totalmonthlyincome")
-	public String totalmonthlyincome;
+	public Double totalmonthlyincome;
 	@Column(name = "unemployment")
-	public String unemployment;
+	public Integer unemployment;
 	@Column(name = "unemploymentamount")
-	public String unemploymentamount;
+	public Double unemploymentamount;
 	@Column(name = "vadisabilitynonservice")
-	public String vadisabilitynonservice;
+	public Integer vadisabilitynonservice;
 	@Column(name = "vadisabilitynonserviceamount")
-	public String vadisabilitynonserviceamount;
+	public Double vadisabilitynonserviceamount;
 	@Column(name = "vadisabilityservice")
-	public String vadisabilityservice;
+	public Integer vadisabilityservice;
 	@Column(name = "vadisabilityserviceamount")
-	public String vadisabilityserviceamount;
+	public Double vadisabilityserviceamount;
 	@Column(name = "workerscomp")
-	public String workerscomp;
+	public Integer workerscomp;
 	@Column(name = "workerscompamount")
-	public String workerscompamount;
-
-	/**
-	 * @return the alimony
-	 */
+	public Double workerscompamount;
 	public String getAlimony() {
 		return alimony;
 	}
-
-	/**
-	 * @param alimony
-	 *            the alimony to set
-	 */
 	public void setAlimony(String alimony) {
 		this.alimony = alimony;
 	}
-
-	/**
-	 * @return the alimonyamount
-	 */
-	public String getAlimonyamount() {
+	public Double getAlimonyamount() {
 		return alimonyamount;
 	}
-
-	/**
-	 * @param alimonyamount
-	 *            the alimonyamount to set
-	 */
-	public void setAlimonyamount(String alimonyamount) {
+	public void setAlimonyamount(Double alimonyamount) {
 		this.alimonyamount = alimonyamount;
 	}
-
-	/**
-	 * @return the childsupport
-	 */
 	public String getChildsupport() {
 		return childsupport;
 	}
-
-	/**
-	 * @param childsupport
-	 *            the childsupport to set
-	 */
 	public void setChildsupport(String childsupport) {
 		this.childsupport = childsupport;
 	}
-
-	/**
-	 * @return the childsupportamount
-	 */
-	public String getChildsupportamount() {
+	public Double getChildsupportamount() {
 		return childsupportamount;
 	}
-
-	/**
-	 * @param childsupportamount
-	 *            the childsupportamount to set
-	 */
-	public void setChildsupportamount(String childsupportamount) {
+	public void setChildsupportamount(Double childsupportamount) {
 		this.childsupportamount = childsupportamount;
 	}
-
-	/**
-	 * @return the earned
-	 */
-	public String getEarned() {
+	public Integer getEarned() {
 		return earned;
 	}
-
-	/**
-	 * @param earned
-	 *            the earned to set
-	 */
-	public void setEarned(String earned) {
+	public void setEarned(Integer earned) {
 		this.earned = earned;
 	}
-
-	/**
-	 * @return the earnedamount
-	 */
-	public String getEarnedamount() {
+	public Double getEarnedamount() {
 		return earnedamount;
 	}
-
-	/**
-	 * @param earnedamount
-	 *            the earnedamount to set
-	 */
-	public void setEarnedamount(String earnedamount) {
+	public void setEarnedamount(Double earnedamount) {
 		this.earnedamount = earnedamount;
 	}
-
-	/**
-	 * @return the ga
-	 */
-	public String getGa() {
+	public Integer getGa() {
 		return ga;
 	}
-
-	/**
-	 * @param ga
-	 *            the ga to set
-	 */
-	public void setGa(String ga) {
+	public void setGa(Integer ga) {
 		this.ga = ga;
 	}
-
-	/**
-	 * @return the gaamount
-	 */
-	public String getGaamount() {
+	public Double getGaamount() {
 		return gaamount;
 	}
-
-	/**
-	 * @param gaamount
-	 *            the gaamount to set
-	 */
-	public void setGaamount(String gaamount) {
+	public void setGaamount(Double gaamount) {
 		this.gaamount = gaamount;
 	}
-
-	/**
-	 * @return the incomefromanysource
-	 */
-	public String getIncomefromanysource() {
+	public Integer getIncomefromanysource() {
 		return incomefromanysource;
 	}
-
-	/**
-	 * @param incomefromanysource
-	 *            the incomefromanysource to set
-	 */
-	public void setIncomefromanysource(String incomefromanysource) {
+	public void setIncomefromanysource(Integer incomefromanysource) {
 		this.incomefromanysource = incomefromanysource;
 	}
-
-	/**
-	 * @return the othersource
-	 */
 	public String getOthersource() {
 		return othersource;
 	}
-
-	/**
-	 * @param othersource
-	 *            the othersource to set
-	 */
 	public void setOthersource(String othersource) {
 		this.othersource = othersource;
 	}
-
-	/**
-	 * @return the othersourceamount
-	 */
-	public String getOthersourceamount() {
+	public Double getOthersourceamount() {
 		return othersourceamount;
 	}
-
-	/**
-	 * @param othersourceamount
-	 *            the othersourceamount to set
-	 */
-	public void setOthersourceamount(String othersourceamount) {
+	public void setOthersourceamount(Double othersourceamount) {
 		this.othersourceamount = othersourceamount;
 	}
-
-	/**
-	 * @return the othersourceidentify
-	 */
 	public String getOthersourceidentify() {
 		return othersourceidentify;
 	}
-
-	/**
-	 * @param othersourceidentify
-	 *            the othersourceidentify to set
-	 */
 	public void setOthersourceidentify(String othersourceidentify) {
 		this.othersourceidentify = othersourceidentify;
 	}
-
-	/**
-	 * @return the pension
-	 */
-	public String getPension() {
+	public Integer getPension() {
 		return pension;
 	}
-
-	/**
-	 * @param pension
-	 *            the pension to set
-	 */
-	public void setPension(String pension) {
+	public void setPension(Integer pension) {
 		this.pension = pension;
 	}
-
-	/**
-	 * @return the pensionamount
-	 */
-	public String getPensionamount() {
+	public Double getPensionamount() {
 		return pensionamount;
 	}
-
-	/**
-	 * @param pensionamount
-	 *            the pensionamount to set
-	 */
-	public void setPensionamount(String pensionamount) {
+	public void setPensionamount(Double pensionamount) {
 		this.pensionamount = pensionamount;
 	}
-
-	/**
-	 * @return the privatedisability
-	 */
-	public String getPrivatedisability() {
+	public Integer getPrivatedisability() {
 		return privatedisability;
 	}
-
-	/**
-	 * @param privatedisability
-	 *            the privatedisability to set
-	 */
-	public void setPrivatedisability(String privatedisability) {
+	public void setPrivatedisability(Integer privatedisability) {
 		this.privatedisability = privatedisability;
 	}
-
-	/**
-	 * @return the privatedisabilityamount
-	 */
-	public String getPrivatedisabilityamount() {
+	public Double getPrivatedisabilityamount() {
 		return privatedisabilityamount;
 	}
-
-	/**
-	 * @param privatedisabilityamount
-	 *            the privatedisabilityamount to set
-	 */
-	public void setPrivatedisabilityamount(String privatedisabilityamount) {
+	public void setPrivatedisabilityamount(Double privatedisabilityamount) {
 		this.privatedisabilityamount = privatedisabilityamount;
 	}
-
-	/**
-	 * @return the enrollmentid
-	 */
 	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
-
-	/**
-	 * @param enrollmentid
-	 *            the enrollmentid to set
-	 */
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
-
-	/**
-	 * @return the socsecretirement
-	 */
-	public String getSocsecretirement() {
+	public Integer getSocsecretirement() {
 		return socsecretirement;
 	}
-
-	/**
-	 * @param socsecretirement
-	 *            the socsecretirement to set
-	 */
-	public void setSocsecretirement(String socsecretirement) {
+	public void setSocsecretirement(Integer socsecretirement) {
 		this.socsecretirement = socsecretirement;
 	}
-
-	/**
-	 * @return the socsecretirementamount
-	 */
-	public String getSocsecretirementamount() {
+	public Double getSocsecretirementamount() {
 		return socsecretirementamount;
 	}
-
-	/**
-	 * @param socsecretirementamount
-	 *            the socsecretirementamount to set
-	 */
-	public void setSocsecretirementamount(String socsecretirementamount) {
+	public void setSocsecretirementamount(Double socsecretirementamount) {
 		this.socsecretirementamount = socsecretirementamount;
 	}
-
-	/**
-	 * @return the ssdi
-	 */
-	public String getSsdi() {
+	public Integer getSsdi() {
 		return ssdi;
 	}
-
-	/**
-	 * @param ssdi
-	 *            the ssdi to set
-	 */
-	public void setSsdi(String ssdi) {
+	public void setSsdi(Integer ssdi) {
 		this.ssdi = ssdi;
 	}
-
-	/**
-	 * @return the ssdiamount
-	 */
-	public String getSsdiamount() {
+	public Double getSsdiamount() {
 		return ssdiamount;
 	}
-
-	/**
-	 * @param ssdiamount
-	 *            the ssdiamount to set
-	 */
-	public void setSsdiamount(String ssdiamount) {
+	public void setSsdiamount(Double ssdiamount) {
 		this.ssdiamount = ssdiamount;
 	}
-
-	/**
-	 * @return the ssi
-	 */
-	public String getSsi() {
+	public Integer getSsi() {
 		return ssi;
 	}
-
-	/**
-	 * @param ssi
-	 *            the ssi to set
-	 */
-	public void setSsi(String ssi) {
+	public void setSsi(Integer ssi) {
 		this.ssi = ssi;
 	}
-
-	/**
-	 * @return the ssiamount
-	 */
-	public String getSsiamount() {
+	public Double getSsiamount() {
 		return ssiamount;
 	}
-
-	/**
-	 * @param ssiamount
-	 *            the ssiamount to set
-	 */
-	public void setSsiamount(String ssiamount) {
+	public void setSsiamount(Double ssiamount) {
 		this.ssiamount = ssiamount;
 	}
-
-	/**
-	 * @return the tanf
-	 */
-	public String getTanf() {
+	public Integer getTanf() {
 		return tanf;
 	}
-
-	/**
-	 * @param tanf
-	 *            the tanf to set
-	 */
-	public void setTanf(String tanf) {
+	public void setTanf(Integer tanf) {
 		this.tanf = tanf;
 	}
-
-	/**
-	 * @return the tanfamount
-	 */
-	public String getTanfamount() {
+	public Double getTanfamount() {
 		return tanfamount;
 	}
-
-	/**
-	 * @param tanfamount
-	 *            the tanfamount to set
-	 */
-	public void setTanfamount(String tanfamount) {
+	public void setTanfamount(Double tanfamount) {
 		this.tanfamount = tanfamount;
 	}
-
-	/**
-	 * @return the totalmonthlyincome
-	 */
-	public String getTotalmonthlyincome() {
+	public Double getTotalmonthlyincome() {
 		return totalmonthlyincome;
 	}
-
-	/**
-	 * @param totalmonthlyincome
-	 *            the totalmonthlyincome to set
-	 */
-	public void setTotalmonthlyincome(String totalmonthlyincome) {
+	public void setTotalmonthlyincome(Double totalmonthlyincome) {
 		this.totalmonthlyincome = totalmonthlyincome;
 	}
-
-	/**
-	 * @return the unemployment
-	 */
-	public String getUnemployment() {
+	public Integer getUnemployment() {
 		return unemployment;
 	}
-
-	/**
-	 * @param unemployment
-	 *            the unemployment to set
-	 */
-	public void setUnemployment(String unemployment) {
+	public void setUnemployment(Integer unemployment) {
 		this.unemployment = unemployment;
 	}
-
-	/**
-	 * @return the unemploymentamount
-	 */
-	public String getUnemploymentamount() {
+	public Double getUnemploymentamount() {
 		return unemploymentamount;
 	}
-
-	/**
-	 * @param unemploymentamount
-	 *            the unemploymentamount to set
-	 */
-	public void setUnemploymentamount(String unemploymentamount) {
+	public void setUnemploymentamount(Double unemploymentamount) {
 		this.unemploymentamount = unemploymentamount;
 	}
-
-	/**
-	 * @return the vadisabilitynonservice
-	 */
-	public String getVadisabilitynonservice() {
+	public Integer getVadisabilitynonservice() {
 		return vadisabilitynonservice;
 	}
-
-	/**
-	 * @param vadisabilitynonservice
-	 *            the vadisabilitynonservice to set
-	 */
-	public void setVadisabilitynonservice(String vadisabilitynonservice) {
+	public void setVadisabilitynonservice(Integer vadisabilitynonservice) {
 		this.vadisabilitynonservice = vadisabilitynonservice;
 	}
-
-	/**
-	 * @return the vadisabilitynonserviceamount
-	 */
-	public String getVadisabilitynonserviceamount() {
+	public Double getVadisabilitynonserviceamount() {
 		return vadisabilitynonserviceamount;
 	}
-
-	/**
-	 * @param vadisabilitynonserviceamount
-	 *            the vadisabilitynonserviceamount to set
-	 */
-	public void setVadisabilitynonserviceamount(
-			String vadisabilitynonserviceamount) {
+	public void setVadisabilitynonserviceamount(Double vadisabilitynonserviceamount) {
 		this.vadisabilitynonserviceamount = vadisabilitynonserviceamount;
 	}
-
-	/**
-	 * @return the vadisabilityservice
-	 */
-	public String getVadisabilityservice() {
+	public Integer getVadisabilityservice() {
 		return vadisabilityservice;
 	}
-
-	/**
-	 * @param vadisabilityservice
-	 *            the vadisabilityservice to set
-	 */
-	public void setVadisabilityservice(String vadisabilityservice) {
+	public void setVadisabilityservice(Integer vadisabilityservice) {
 		this.vadisabilityservice = vadisabilityservice;
 	}
-
-	/**
-	 * @return the vadisabilityserviceamount
-	 */
-	public String getVadisabilityserviceamount() {
+	public Double getVadisabilityserviceamount() {
 		return vadisabilityserviceamount;
 	}
-
-	/**
-	 * @param vadisabilityserviceamount
-	 *            the vadisabilityserviceamount to set
-	 */
-	public void setVadisabilityserviceamount(String vadisabilityserviceamount) {
+	public void setVadisabilityserviceamount(Double vadisabilityserviceamount) {
 		this.vadisabilityserviceamount = vadisabilityserviceamount;
 	}
-
-	/**
-	 * @return the workerscomp
-	 */
-	public String getWorkerscomp() {
+	public Integer getWorkerscomp() {
 		return workerscomp;
 	}
-
-	/**
-	 * @param workerscomp
-	 *            the workerscomp to set
-	 */
-	public void setWorkerscomp(String workerscomp) {
+	public void setWorkerscomp(Integer workerscomp) {
 		this.workerscomp = workerscomp;
 	}
-
-	/**
-	 * @return the workerscompamount
-	 */
-	public String getWorkerscompamount() {
+	public Double getWorkerscompamount() {
 		return workerscompamount;
 	}
-
-	/**
-	 * @param workerscompamount
-	 *            the workerscompamount to set
-	 */
-	public void setWorkerscompamount(String workerscompamount) {
+	public void setWorkerscompamount(Double workerscompamount) {
 		this.workerscompamount = workerscompamount;
 	}
 
+	
 }

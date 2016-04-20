@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -7,46 +8,37 @@ import javax.persistence.Entity;
 @Entity
 public class Residentialmoveindate extends BaseModel{
 	@Column(name = "inpermanenthousing")			
-	public String inpermanenthousing;
+	public Integer inpermanenthousing;
 	@Column(name = "enrollmentid")			
 	public UUID enrollmentid;
+	@Column(name = "id")			
+	public UUID id;
 	@Column(name = "residentialmoveindate")
-	public String residentialmoveindate;
-	/**
-	 * @return the inpermanenthousing
-	 */
-	public String getInpermanenthousing() {
+	public Date residentialmoveindate;
+	public Integer getInpermanenthousing() {
 		return inpermanenthousing;
 	}
-	/**
-	 * @param inpermanenthousing the inpermanenthousing to set
-	 */
-	public void setInpermanenthousing(String inpermanenthousing) {
+	public void setInpermanenthousing(Integer inpermanenthousing) {
 		this.inpermanenthousing = inpermanenthousing;
 	}
-	/**
-	 * @return the enrollmentid
-	 */
 	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
-	/**
-	 * @param enrollmentid the enrollmentid to set
-	 */
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
-	/**
-	 * @return the residentialmoveindate
-	 */
-	public String getResidentialmoveindate() {
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	public Date getResidentialmoveindate() {
 		return residentialmoveindate;
 	}
-	/**
-	 * @param residentialmoveindate the residentialmoveindate to set
-	 */
-	public void setResidentialmoveindate(String residentialmoveindate) {
+	public void setResidentialmoveindate(Date residentialmoveindate) {
 		this.residentialmoveindate = residentialmoveindate;
 	}
+	
 	
 }

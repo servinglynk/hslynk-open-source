@@ -19,6 +19,16 @@ public class HealthStatus extends BaseModel {
 	public String health_status;
 	@Column(name = "due_date")
 	public Timestamp due_date;
+	@Column(name = "id")
+	public UUID id;
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the enrollmentid

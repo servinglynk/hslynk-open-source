@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -19,6 +18,17 @@ public class Funder extends BaseModel {
 	public UUID projectid;
 	@Column(name = "startdate")
 	public Timestamp startdate;
+	@Column(name = "id")
+	public UUID id;
+	
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the enddate

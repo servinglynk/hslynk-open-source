@@ -8,45 +8,44 @@ import javax.persistence.Entity;
 public class Domesticviolence extends BaseModel {
 	@Column(name="domesticviolencevictim")
 	public String domesticviolencevictim;
+	@Column(name="id")		
+	public UUID id;
 	@Column(name="enrollmentid")		
 	public UUID enrollmentid;
 	@Column(name="whenoccurred")
 	public String whenoccurred;
-	/**
-	 * @return the domesticviolencevictim
-	 */
+	@Column(name="currently_fleeing")
+	public Integer currentlyFleeing;
 	public String getDomesticviolencevictim() {
 		return domesticviolencevictim;
 	}
-	/**
-	 * @param domesticviolencevictim the domesticviolencevictim to set
-	 */
 	public void setDomesticviolencevictim(String domesticviolencevictim) {
 		this.domesticviolencevictim = domesticviolencevictim;
 	}
-	/**
-	 * @return the enrollmentid
-	 */
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
 	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
-	/**
-	 * @param enrollmentid the enrollmentid to set
-	 */
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
-	/**
-	 * @return the whenoccurred
-	 */
 	public String getWhenoccurred() {
 		return whenoccurred;
 	}
-	/**
-	 * @param whenoccurred the whenoccurred to set
-	 */
 	public void setWhenoccurred(String whenoccurred) {
 		this.whenoccurred = whenoccurred;
 	}
+	public Integer getCurrentlyFleeing() {
+		return currentlyFleeing;
+	}
+	public void setCurrentlyFleeing(Integer currentlyFleeing) {
+		this.currentlyFleeing = currentlyFleeing;
+	}
+	
 	
 }

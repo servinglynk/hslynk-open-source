@@ -8,160 +8,101 @@ import javax.persistence.Entity;
 @Entity
 public class Noncashbenefits extends BaseModel {
 	@Column(name = "benefitsfromanysource")
-	public String benefitsfromanysource;
+	public Integer benefitsfromanysource;
 	@Column(name = "othersource")
-	public String othersource;
+	public Integer othersource;
 	@Column(name = "othersourceidentify")
 	public String othersourceidentify;
 	@Column(name = "othertanf")			
-	public String othertanf;
+	public Integer othertanf;
 	@Column(name = "enrollmentid")		
 	public UUID enrollmentid;
+	@Column(name = "id")		
+	public UUID id;
 	@Column(name = "rentalassistanceongoing")
-	public String rentalassistanceongoing;
+	public Integer rentalassistanceongoing;
 	@Column(name = "rentalassistancetemp")
-	public String rentalassistancetemp;
+	public Integer rentalassistancetemp;
 	@Column(name = "snap")			
-	public String snap;
+	public Integer snap;
 	@Column(name = "tanfchildcare")		
-	public String tanfchildcare;
+	public Integer tanfchildcare;
 	@Column(name = "tanftransportation")
-	public String tanftransportation;
+	public Integer tanftransportation;
 	@Column(name = "wic")
-	public String wic;
-	/**
-	 * @return the benefitsfromanysource
-	 */
-	public String getBenefitsfromanysource() {
+	public Integer wic;
+	public Integer getBenefitsfromanysource() {
 		return benefitsfromanysource;
 	}
-	/**
-	 * @param benefitsfromanysource the benefitsfromanysource to set
-	 */
-	public void setBenefitsfromanysource(String benefitsfromanysource) {
+	public void setBenefitsfromanysource(Integer benefitsfromanysource) {
 		this.benefitsfromanysource = benefitsfromanysource;
 	}
-	/**
-	 * @return the othersource
-	 */
-	public String getOthersource() {
+	public Integer getOthersource() {
 		return othersource;
 	}
-	/**
-	 * @param othersource the othersource to set
-	 */
-	public void setOthersource(String othersource) {
+	public void setOthersource(Integer othersource) {
 		this.othersource = othersource;
 	}
-	/**
-	 * @return the othersourceidentify
-	 */
 	public String getOthersourceidentify() {
 		return othersourceidentify;
 	}
-	/**
-	 * @param othersourceidentify the othersourceidentify to set
-	 */
 	public void setOthersourceidentify(String othersourceidentify) {
 		this.othersourceidentify = othersourceidentify;
 	}
-	/**
-	 * @return the othertanf
-	 */
-	public String getOthertanf() {
+	public Integer getOthertanf() {
 		return othertanf;
 	}
-	/**
-	 * @param othertanf the othertanf to set
-	 */
-	public void setOthertanf(String othertanf) {
+	public void setOthertanf(Integer othertanf) {
 		this.othertanf = othertanf;
 	}
-	/**
-	 * @return the enrollmentid
-	 */
 	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
-	/**
-	 * @param enrollmentid the enrollmentid to set
-	 */
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
-	/**
-	 * @return the rentalassistanceongoing
-	 */
-	public String getRentalassistanceongoing() {
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	public Integer getRentalassistanceongoing() {
 		return rentalassistanceongoing;
 	}
-	/**
-	 * @param rentalassistanceongoing the rentalassistanceongoing to set
-	 */
-	public void setRentalassistanceongoing(String rentalassistanceongoing) {
+	public void setRentalassistanceongoing(Integer rentalassistanceongoing) {
 		this.rentalassistanceongoing = rentalassistanceongoing;
 	}
-	/**
-	 * @return the rentalassistancetemp
-	 */
-	public String getRentalassistancetemp() {
+	public Integer getRentalassistancetemp() {
 		return rentalassistancetemp;
 	}
-	/**
-	 * @param rentalassistancetemp the rentalassistancetemp to set
-	 */
-	public void setRentalassistancetemp(String rentalassistancetemp) {
+	public void setRentalassistancetemp(Integer rentalassistancetemp) {
 		this.rentalassistancetemp = rentalassistancetemp;
 	}
-	/**
-	 * @return the snap
-	 */
-	public String getSnap() {
+	public Integer getSnap() {
 		return snap;
 	}
-	/**
-	 * @param snap the snap to set
-	 */
-	public void setSnap(String snap) {
+	public void setSnap(Integer snap) {
 		this.snap = snap;
 	}
-	/**
-	 * @return the tanfchildcare
-	 */
-	public String getTanfchildcare() {
+	public Integer getTanfchildcare() {
 		return tanfchildcare;
 	}
-	/**
-	 * @param tanfchildcare the tanfchildcare to set
-	 */
-	public void setTanfchildcare(String tanfchildcare) {
+	public void setTanfchildcare(Integer tanfchildcare) {
 		this.tanfchildcare = tanfchildcare;
 	}
-	/**
-	 * @return the tanftransportation
-	 */
-	public String getTanftransportation() {
+	public Integer getTanftransportation() {
 		return tanftransportation;
 	}
-	/**
-	 * @param tanftransportation the tanftransportation to set
-	 */
-	public void setTanftransportation(String tanftransportation) {
+	public void setTanftransportation(Integer tanftransportation) {
 		this.tanftransportation = tanftransportation;
 	}
-	/**
-	 * @return the wic
-	 */
-	public String getWic() {
+	public Integer getWic() {
 		return wic;
 	}
-	/**
-	 * @param wic the wic to set
-	 */
-	public void setWic(String wic) {
+	public void setWic(Integer wic) {
 		this.wic = wic;
 	}
 	
 	
-
 }

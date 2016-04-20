@@ -66,8 +66,8 @@ public class BulkUploaderTest {
 		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\Files\\HUD_4_0_1_3101_13.xml");
 		bullkUpload.setId(2L);
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		projectGrpEntity.setProjectGroupCode("PG0001");
-		bullkUpload.setProjectGroupCode("PG0001");
+		projectGrpEntity.setProjectGroupCode("CP0004");
+		bullkUpload.setProjectGroupCode("CP0004");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 	}
 	

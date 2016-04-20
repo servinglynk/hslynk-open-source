@@ -12,99 +12,65 @@ public class Site extends BaseModel {
 	@Column(name = "city")
 	public String city;
 	@Column(name = "geocode")
-	public String geocode;
+	public Integer geocode;
 	@Column(name = "principal_site")
-	public String principal_site;
-	@Column(name = "project_coc_id")
-	public UUID project_coc_id;
+	public Integer principal_site;
+	@Column(name = "coc_id")
+	public UUID cocId;
 	@Column(name = "state")
 	public String state;
 	@Column(name = "zip")
 	public String zip;
-	/**
-	 * @return the address
-	 */
+	@Column(name = "id")
+	public UUID id;
 	public String getAddress() {
 		return address;
 	}
-	/**
-	 * @param address the address to set
-	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	/**
-	 * @return the city
-	 */
 	public String getCity() {
 		return city;
 	}
-	/**
-	 * @param city the city to set
-	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
-	/**
-	 * @return the geocode
-	 */
-	public String getGeocode() {
+	public Integer getGeocode() {
 		return geocode;
 	}
-	/**
-	 * @param geocode the geocode to set
-	 */
-	public void setGeocode(String geocode) {
+	public void setGeocode(Integer geocode) {
 		this.geocode = geocode;
 	}
-	/**
-	 * @return the principal_site
-	 */
-	public String getPrincipal_site() {
+	public Integer getPrincipal_site() {
 		return principal_site;
 	}
-	/**
-	 * @param principal_site the principal_site to set
-	 */
-	public void setPrincipal_site(String principal_site) {
+	public void setPrincipal_site(Integer principal_site) {
 		this.principal_site = principal_site;
 	}
-	/**
-	 * @return the project_coc_id
-	 */
-	public UUID getProject_coc_id() {
-		return project_coc_id;
+	public UUID getCocId() {
+		return cocId;
 	}
-	/**
-	 * @param project_coc_id the project_coc_id to set
-	 */
-	public void setProject_coc_id(UUID project_coc_id) {
-		this.project_coc_id = project_coc_id;
+	public void setCocId(UUID cocId) {
+		this.cocId = cocId;
 	}
-	/**
-	 * @return the state
-	 */
 	public String getState() {
 		return state;
 	}
-	/**
-	 * @param state the state to set
-	 */
 	public void setState(String state) {
 		this.state = state;
 	}
-	/**
-	 * @return the zip
-	 */
 	public String getZip() {
 		return zip;
 	}
-	/**
-	 * @param zip the zip to set
-	 */
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
 	
 }

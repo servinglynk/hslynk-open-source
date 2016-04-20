@@ -10,28 +10,26 @@ public class Dateofengagement extends BaseModel{
 	public String dateofengagement;
 	@Column(name="enrollmentid")
 	public UUID enrollmentid;
-	/**
-	 * @return the dateofengagement
-	 */
+	@Column(name="id")
+	public UUID id;
 	public String getDateofengagement() {
 		return dateofengagement;
 	}
-	/**
-	 * @param dateofengagement the dateofengagement to set
-	 */
 	public void setDateofengagement(String dateofengagement) {
 		this.dateofengagement = dateofengagement;
 	}
-	/**
-	 * @return the enrollmentid
-	 */
 	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
-	/**
-	 * @param enrollmentid the enrollmentid to set
-	 */
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	
 }

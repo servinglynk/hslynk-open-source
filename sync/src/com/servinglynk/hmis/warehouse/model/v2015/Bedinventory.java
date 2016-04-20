@@ -13,7 +13,6 @@ public class Bedinventory extends BaseModel{
 	public String youth_age_group;
 	@Column(name="youth_bed_inventory")
 	public String youth_bed_inventory;
-	
 	/**
 	 * @return the bed_inventory
 	 */

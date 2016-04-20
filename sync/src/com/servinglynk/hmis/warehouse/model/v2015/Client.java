@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
-import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;

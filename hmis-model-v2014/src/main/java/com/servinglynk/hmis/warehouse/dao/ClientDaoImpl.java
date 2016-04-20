@@ -170,15 +170,16 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		hydrateBulkUploadActivity(clients, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), export,id);
 		if(clients !=null && !clients.isEmpty()) {
 			for(com.servinglynk.hmis.warehouse.model.stagv2014.Client client : clients) {
-				com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
-				if(clientByDedupCliendId ==null) {
+				//com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
+				//if(clientByDedupCliendId ==null) {
+				//TODO : Sandeep need to take a look at this later.
 					com.servinglynk.hmis.warehouse.model.v2014.Client target = new com.servinglynk.hmis.warehouse.model.v2014.Client();
 					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
 					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					exportEntity.addClient(target);
 					target.setExport(exportEntity);
 					insertOrUpdate(target);
-				}
+				//}
 			}
 		}
 	}

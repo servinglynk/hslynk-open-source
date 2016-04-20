@@ -9,74 +9,52 @@ import javax.persistence.Entity;
 public class Medicalassistance extends BaseModel {
 
 	@Column(name = "adap")			
-	public String  adap;
+	public Integer  adap;
 	@Column(name = "hivaidsassistance")
-	public String  hivaidsassistance;
+	public Integer  hivaidsassistance;
 	@Column(name = "noadapreason")
-	public String  noadapreason;
+	public Integer  noadapreason;
 	@Column(name = "nohivaidsassistancereason")
-	public String  nohivaidsassistancereason;
+	public Integer  nohivaidsassistancereason;
 	@Column(name = "enrollmentid")
 	public UUID  enrollmentid;
-	/**
-	 * @return the adap
-	 */
-	public String getAdap() {
+	@Column(name = "id")
+	public UUID  id;
+	public Integer getAdap() {
 		return adap;
 	}
-	/**
-	 * @param adap the adap to set
-	 */
-	public void setAdap(String adap) {
+	public void setAdap(Integer adap) {
 		this.adap = adap;
 	}
-	/**
-	 * @return the hivaidsassistance
-	 */
-	public String getHivaidsassistance() {
+	public Integer getHivaidsassistance() {
 		return hivaidsassistance;
 	}
-	/**
-	 * @param hivaidsassistance the hivaidsassistance to set
-	 */
-	public void setHivaidsassistance(String hivaidsassistance) {
+	public void setHivaidsassistance(Integer hivaidsassistance) {
 		this.hivaidsassistance = hivaidsassistance;
 	}
-	/**
-	 * @return the noadapreason
-	 */
-	public String getNoadapreason() {
+	public Integer getNoadapreason() {
 		return noadapreason;
 	}
-	/**
-	 * @param noadapreason the noadapreason to set
-	 */
-	public void setNoadapreason(String noadapreason) {
+	public void setNoadapreason(Integer noadapreason) {
 		this.noadapreason = noadapreason;
 	}
-	/**
-	 * @return the nohivaidsassistancereason
-	 */
-	public String getNohivaidsassistancereason() {
+	public Integer getNohivaidsassistancereason() {
 		return nohivaidsassistancereason;
 	}
-	/**
-	 * @param nohivaidsassistancereason the nohivaidsassistancereason to set
-	 */
-	public void setNohivaidsassistancereason(String nohivaidsassistancereason) {
+	public void setNohivaidsassistancereason(Integer nohivaidsassistancereason) {
 		this.nohivaidsassistancereason = nohivaidsassistancereason;
 	}
-	/**
-	 * @return the enrollmentid
-	 */
 	public UUID getEnrollmentid() {
 		return enrollmentid;
 	}
-	/**
-	 * @param enrollmentid the enrollmentid to set
-	 */
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
+	}
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
 	}
 	
 	

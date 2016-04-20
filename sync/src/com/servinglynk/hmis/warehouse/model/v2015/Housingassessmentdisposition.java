@@ -14,6 +14,18 @@ public class Housingassessmentdisposition extends BaseModel {
 	public UUID exitid;
 	@Column(name = "otherdisposition")
 	public String otherdisposition;
+	@Column(name = "id")
+	public UUID id;
+	
+	
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the assessmentdisposition

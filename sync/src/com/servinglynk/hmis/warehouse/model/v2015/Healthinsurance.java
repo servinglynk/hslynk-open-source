@@ -44,6 +44,16 @@ public class Healthinsurance extends BaseModel {
 	public String statehealthins;
 	@Column(name = "vamedicalservices")
 	public String vamedicalservices;
+	@Column(name = "id")
+	public UUID id;
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the cobra
