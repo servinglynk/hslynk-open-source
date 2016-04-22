@@ -3,10 +3,13 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +70,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(BulkUploaderDaoImpl.class);
 	
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
@@ -76,13 +80,16 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	BulkUploadHelper bulkUploadHelper;
 	
 	@Override
-	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
 		try {
+			
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			long startNanos = System.nanoTime();
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
-			
+			logger.info("{}.File reading took {} millis",
+	                getClass().getSimpleName(),
+	                TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 			Source source = sources.getSource();
 			Export export = source.getExport();
 			UUID exportId = UUID.randomUUID();

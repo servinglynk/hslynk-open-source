@@ -25,14 +25,15 @@ public class BaseProcessor<T> {
 		int index = 0;
 		ResultSet resultSet = null;
 		tableSyncList.put(tableName, index);
+		UUID exportId = getExportIDFromBulkUpload();
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			String queryString = "SELECT * FROM stagv2014."+tableName ;
-//			queryString =  queryString + " where sync = ?" ;
+			queryString =  queryString + " where export_id = ?" ;
 			PreparedStatement statement = connection.prepareStatement(queryString);
-		//	statement.setBoolean(1, false);
+			statement.setObject(1, false);
 			resultSet = statement.executeQuery();
 			
 			// simple JDBC code to run SQL query and populate resultSet - END
@@ -59,7 +60,7 @@ public class BaseProcessor<T> {
 				tableSyncList.put(tableName, ++index);
 				HBaseImport baseImport = new HBaseImport();
 				data.remove("class");
-				System.out.println("Table Name ::"+getTableName(pojo.getClass().getSimpleName()));
+			//	System.out.println("Table Name ::"+getTableName(pojo.getClass().getSimpleName()));
 				populateHmisType(data);
 				// Check if the record exist in the table
 				if(baseImport.isDataExist(class1.getSimpleName()+"_2014", id)) {
@@ -68,7 +69,6 @@ public class BaseProcessor<T> {
 					baseImport.insert(class1.getSimpleName()+"_2014","CF" ,id , getNonCollectionFields(pojo), data);	
 				}
 				//update the Sync flag to true in Postgres.
-				updateSyncFlag(getTableName(pojo.getClass().getSimpleName()),UUID.fromString(id));
 				}
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
@@ -80,10 +80,11 @@ public class BaseProcessor<T> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(pojo);
+			//System.out.println(pojo);
 					}
 					
 				}
+				updateSyncFlag(tableName,exportId);
 			}else{
 				System.out.println("ResultSet is empty. Please check if database table is empty for Table ::"+tableName);
 			}
@@ -96,7 +97,8 @@ public class BaseProcessor<T> {
 
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
-		} 
+		}
+		updateSyncFlag(tableName,exportId);
 	}
 
 	private Connection getConnection() throws SQLException {
@@ -159,7 +161,7 @@ public class BaseProcessor<T> {
 		for(String key :data.keySet()) {
 			String hmisType = getHmisType(key,(String)data.get(key));
 			if(StringUtils.isNotEmpty(hmisType)) {
-				System.out.println("Desc Field::"+key+"_desc");
+				//System.out.println("Desc Field::"+key+"_desc");
 				descMap.put(key+"_desc", hmisType.trim());	
 			}
 		}
@@ -170,7 +172,6 @@ public class BaseProcessor<T> {
 		}
 		
 	}
-	
 	/***
 	 * Gets the type from hmis_type table so we can store readable values in HBASE.
 	 * @param key
@@ -208,6 +209,43 @@ public class BaseProcessor<T> {
 
 		return null;
 	}
+	/***
+	 * Gets the type from hmis_type table so we can store readable values in HBASE.
+	 * @param key
+	 * @return
+	 */
+	public UUID getExportIDFromBulkUpload() {
+		ResultSet resultSet = null;
+		UUID exportId = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement("SELECT export_id FROM base.bulk_upload where status='STAGING'");
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				exportId = UUID.fromString(resultSet.getString(1));
+			}
+			return exportId;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	
 	private Timestamp getCUrrentTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());

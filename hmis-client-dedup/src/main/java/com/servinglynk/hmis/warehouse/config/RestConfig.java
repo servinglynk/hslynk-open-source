@@ -26,7 +26,6 @@ import com.servinglynk.hmis.warehouse.rest.service.DedupServiceImpl;
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-		SpringConfig.class,
 		com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement

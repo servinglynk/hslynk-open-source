@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -28,6 +29,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
 		List<Source> sources = new ArrayList<>();

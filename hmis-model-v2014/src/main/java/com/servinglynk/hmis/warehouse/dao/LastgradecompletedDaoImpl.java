@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
@@ -35,6 +36,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 	 * hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<LastGradeCompleted> lastGradeCompletedList = domain.getExport()
 				.getLastGradeCompleted();

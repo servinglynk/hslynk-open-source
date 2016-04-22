@@ -18,6 +18,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -50,13 +51,19 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	ParentDaoFactory daoFactory;
 	
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 	
 		Export export = domain.getExport();
+		//Lets make a microservice all to the dedup micro service
+		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
+		boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		hydrateBulkUploadActivityStaging(clients, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain);
+		int i=0;
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
+				i++;
 				com.servinglynk.hmis.warehouse.model.stagv2014.Client clientModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Client();
 				clientModel.setFirstName(client.getFirstName());
 				clientModel.setDateCreated(BasicDataGenerator
@@ -105,12 +112,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				hydrateCommonFields(clientModel, domain, client.getPersonalID());
 				clientModel.setExport(exportEntity);
-				//Lets make a microservice all to the dedup micro service
-				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
-				
 				//TODO: Sandeep need to get the project group from the base schema.
 				// Need to change S.O.P to logger.
-				if(projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers()) {
+				if(skipClientIdentifier) {
 					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
 					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 					BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
@@ -158,6 +162,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				}
 				
 				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
+				
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 	}
 	}

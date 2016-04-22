@@ -14,6 +14,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -44,14 +45,17 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
 		hydrateBulkUploadActivityStaging(exits, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain);
+		int i=0;
 		if(exits !=null && exits.size() > 0)
 		{
 			for(Exit exit : exits)
 			{
+				i++;
 				com.servinglynk.hmis.warehouse.model.stagv2014.Exit exitModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Exit();
 				UUID id = UUID.randomUUID();
 				exitModel.setId(id);
@@ -76,7 +80,11 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				exitModel.setExport(exportEntity);
 				exportEntity.addExit(exitModel);
 				hydrateCommonFields(exitModel, domain, exit.getExitID());
-				insertOrUpdate(exitModel);
+				insert(exitModel);
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 			}
 	}

@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -54,14 +55,17 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		Export export =  domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
 		hydrateBulkUploadActivityStaging(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), domain);
 		if (enrollments != null && enrollments.size() > 0) {
+			int i=0;
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
+				i++;
 				UUID enrollmentID = UUID.randomUUID();
 				String projectEntryID = enrollment.getProjectEntryID();
 				domain.getEnrollmentProjectEntryIDMap().put(projectEntryID,
@@ -140,7 +144,12 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID());
 				insert(enrollmentModel);
 			}
+			  if(i % batchSize() == 0 && i > 0) {
+                  getCurrentSession().flush();
+                  getCurrentSession().clear();
+              }
 		}
+		
 	}
 
 	@Override

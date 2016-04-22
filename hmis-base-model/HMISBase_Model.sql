@@ -78,7 +78,7 @@ WITH (
   OIDS=FALSE
 );
 
-create table "base".hmis_organization
+create table "base".organization
 (
   organizationcommonname text,
   id uuid not null,
@@ -595,12 +595,6 @@ INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0852c', 'CLIENT_API_GET_ENROLLMENTCOC_BY_ID', 'CLIENT_API_GET_ENROLLMENTCOC_BY_ID', 'CLIENT_API_GET_ENROLLMENTCOC_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('eb23bef5-423f-464f-946c-5521eda0852d', 'CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC', 'CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC', 'CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 
-
-CLIENT_API_UPDATE_ENROLLMENTCOC
-CLIENT_API_DELETE_ENROLLMENTCOC
-CLIENT_API_GET_ENROLLMENTCOC_BY_ID
-CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC
-
 CREATE TABLE base.hmis_developer_company
 (
   id uuid NOT NULL,
@@ -1110,7 +1104,7 @@ ALTER TABLE base.hmis_user ADD COLUMN authenticator_secret character varying(16)
 ALTER TABLE base.hmis_user ADD COLUMN two_factor_authentication boolean;
 
 
-ALTER TABLE  base.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES base.hmis_organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE  base.hmis_user ADD CONSTRAINT  "FK_USER_ORGANIZATION_ID" FOREIGN KEY (organization_id) REFERENCES base.organization (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (profile_id) REFERENCES base.hmis_profile (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES base.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROJECT_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES base.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;

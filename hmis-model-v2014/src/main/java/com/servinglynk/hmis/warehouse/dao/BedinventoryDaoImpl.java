@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
@@ -20,10 +21,12 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 	public class BedinventoryDaoImpl  extends ParentDaoImpl  implements BedinventoryDao {
 
 		@Override
+		@Transactional
 		public void hydrateStaging(ExportDomain domain) {
 			throw new UnsupportedOperationException();
 		}
 		@Override
+		@Transactional
 		public void hydrateBedInventory(ExportDomain domain, Inventory inventory) {
 			BedInventory bedInventory = inventory.getBedInventory();
 			Bedinventory bedInventoryModel = new Bedinventory();

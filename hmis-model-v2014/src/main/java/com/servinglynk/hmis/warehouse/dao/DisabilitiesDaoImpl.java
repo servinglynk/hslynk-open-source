@@ -12,6 +12,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -32,13 +33,14 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
-	
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) 
 	{
 		
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		hydrateBulkUploadActivityStaging(disabilitiesList, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain);
+		int i=0;
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
@@ -69,7 +71,12 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				disabilitiesModel.setExport(exportEntity);
 				hydrateCommonFields(disabilitiesModel, domain, disabilities.getDisabilitiesID());
 				exportEntity.addDisabilities(disabilitiesModel);
-				insertOrUpdate(disabilitiesModel);
+				insert(disabilitiesModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

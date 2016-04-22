@@ -13,6 +13,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
@@ -36,6 +37,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	private ParentDaoFactory factory;
 	
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();

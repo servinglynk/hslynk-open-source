@@ -13,6 +13,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
@@ -35,6 +36,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	@Autowired
 	private ParentDaoFactory parentDaoFactory;
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Inventory> inventories = domain.getExport().getInventory();
 		hydrateBulkUploadActivityStaging(inventories, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), domain);

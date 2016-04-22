@@ -12,6 +12,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
@@ -32,11 +33,13 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		java.util.List<ConnectionWithSOAR> connectionWithSOARList = domain.getExport().getConnectionWithSOAR();
 		hydrateBulkUploadActivityStaging(connectionWithSOARList, com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class.getSimpleName(), domain);
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
 		{
+			int i=0;
 			for(ConnectionWithSOAR connectionWithSOAR:connectionWithSOARList )
 			{
 				Connectionwithsoar connectionwithsoarModel = new Connectionwithsoar();
@@ -52,7 +55,12 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				connectionwithsoarModel.setDateCreated(LocalDateTime.now());
 				connectionwithsoarModel.setDateUpdated(LocalDateTime.now());
 				hydrateCommonFields(connectionwithsoarModel, domain, connectionWithSOAR.getConnectionWithSOARID());
-				insertOrUpdate(connectionwithsoarModel);
+				insert(connectionwithsoarModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

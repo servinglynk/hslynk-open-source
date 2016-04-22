@@ -9,6 +9,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
@@ -24,10 +25,12 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		DomesticviolenceDao {
 
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
 		hydrateBulkUploadActivityStaging(domesticViolenceList, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), domain);
+		int i=0;
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
@@ -46,7 +49,12 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				domesticviolenceModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addDomesticviolence(domesticviolenceModel);
 				hydrateCommonFields(domesticviolenceModel, domain, domesticViolence.getDomesticViolenceID());
-				insertOrUpdate(domesticviolenceModel);
+				insert(domesticviolenceModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 

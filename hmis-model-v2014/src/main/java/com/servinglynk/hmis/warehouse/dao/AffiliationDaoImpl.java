@@ -9,6 +9,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -24,6 +25,7 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao {
 
 		@Override
+		@Transactional
 		public void hydrateStaging(ExportDomain domain) 
 		{
 			Export export = domain.getExport();

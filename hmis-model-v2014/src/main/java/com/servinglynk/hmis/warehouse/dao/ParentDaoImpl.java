@@ -17,6 +17,7 @@ import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.dialect.Dialect;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
@@ -143,4 +144,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		}
 		return fieldsArray;
 	}
+	
+	 protected int batchSize() {
+	        return Integer.valueOf(50);
+	    }
 }

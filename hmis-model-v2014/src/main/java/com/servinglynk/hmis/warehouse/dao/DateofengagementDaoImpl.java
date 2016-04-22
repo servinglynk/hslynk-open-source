@@ -12,6 +12,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
@@ -27,10 +28,13 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		DateofengagementDao {
+	
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) 
 	{
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
 		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class.getSimpleName(), domain);
+		int i=0;
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
@@ -48,7 +52,11 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
 				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
 				hydrateCommonFields(dateOfEngagementModel, domain, dateOfEngagement.getDateOfEngagementID());
-				insertOrUpdate(dateOfEngagementModel);
+				insert(dateOfEngagementModel);
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}
