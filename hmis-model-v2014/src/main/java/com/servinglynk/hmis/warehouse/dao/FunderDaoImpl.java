@@ -36,6 +36,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		List<Funder> funders = domain.getExport().getFunder();
 		hydrateBulkUploadActivityStaging(funders, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(funders!=null && funders.size() > 0)
 		{
 			for(Funder funder : funders)
@@ -53,17 +54,12 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
 				funderModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
 				Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(funder.getProjectID()));
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				funderModel.setExport(exportEntity);
 				funderModel.setProjectid(project);
-				hydrateCommonFields(funderModel, domain, funder.getFunderID());
+				i++;
+				hydrateCommonFields(funderModel, domain, funder.getFunderID(),i);
 				exportEntity.addFunder(funderModel);
 				insert(funderModel);
-				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
 			}
 		}
 

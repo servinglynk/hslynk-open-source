@@ -49,6 +49,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
 		hydrateBulkUploadActivityStaging(exits, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		int i=0;
 		if(exits !=null && exits.size() > 0)
 		{
@@ -75,15 +76,10 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					
 			}
 			
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				exitModel.setExport(exportEntity);
 				exportEntity.addExit(exitModel);
-				hydrateCommonFields(exitModel, domain, exit.getExitID());
+				hydrateCommonFields(exitModel, domain, exit.getExitID(),i);
 				insert(exitModel);
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
 			}
 			}
 	}

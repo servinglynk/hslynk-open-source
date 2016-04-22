@@ -38,6 +38,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
 		hydrateBulkUploadActivityStaging(employmentList, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)
@@ -62,16 +63,11 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					}
 						
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				employmentModel.setExport(exportEntity);
-				hydrateCommonFields(employmentModel, domain, employment.getEmploymentID());
+				i++;
+				hydrateCommonFields(employmentModel, domain, employment.getEmploymentID(),i);
 				exportEntity.addEmployment(employmentModel);
 				insert(employmentModel);	
-				i++;
-				if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	             }
 			}
 		}
 	}

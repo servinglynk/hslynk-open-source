@@ -34,6 +34,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
 		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
@@ -45,18 +46,13 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				dateOfEngagementModel.setDateUpdated(LocalDateTime.now());
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
 				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				dateOfEngagementModel.setExport(exportEntity);
 				exportEntity.addDateofengagement(dateOfEngagementModel);
 				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
 				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-				hydrateCommonFields(dateOfEngagementModel, domain, dateOfEngagement.getDateOfEngagementID());
-				insert(dateOfEngagementModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(dateOfEngagementModel, domain, dateOfEngagement.getDateOfEngagementID(),i);
+				insert(dateOfEngagementModel);
 			}
 		}
 	}

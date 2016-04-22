@@ -62,6 +62,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		List<YouthCriticalIssues> youthCriticalIssuesList = domain.getExport().getYouthCriticalIssues();
 		hydrateBulkUploadActivityStaging(youthCriticalIssuesList, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), domain);
 		int i =0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(youthCriticalIssuesList !=null && !youthCriticalIssuesList.isEmpty())
 		{
 			for(YouthCriticalIssues youthCriticalIssues : youthCriticalIssuesList)
@@ -98,18 +99,13 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				youthcriticalissuesModel.setSexualorientationgenderidyouth(YouthcriticalissuesSexualorientationgenderidyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getSexualOrientationGenderIDYouth())));
 				youthcriticalissuesModel.setUnemploymentfam(YouthcriticalissuesUnemploymentfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentFam())));
 				youthcriticalissuesModel.setUnemploymentyouth(YouthcriticalissuesUnemploymentyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentYouth())));
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				youthcriticalissuesModel.setExport(exportEntity);
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(youthCriticalIssues.getProjectEntryID()));
 				youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
-				hydrateCommonFields(youthcriticalissuesModel, domain, youthCriticalIssues.getYouthCriticalIssuesID());
-				insert(youthcriticalissuesModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(youthcriticalissuesModel, domain, youthCriticalIssues.getYouthCriticalIssuesID(),i);
+				insert(youthcriticalissuesModel);
 			}
 		}
 	}

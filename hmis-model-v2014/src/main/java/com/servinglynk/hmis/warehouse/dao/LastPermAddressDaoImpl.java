@@ -39,6 +39,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		List<LastPermanentAddress> lastPermanentAddresses = domain.getExport().getLastPermanentAddress();
 		hydrateBulkUploadActivityStaging(lastPermanentAddresses, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(lastPermanentAddresses !=null && !lastPermanentAddresses.isEmpty())
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)
@@ -59,16 +60,11 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(lastPermanentAddress.getProjectEntryID()));
 				lastPermAddressModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				lastPermAddressModel.setExport(exportEntity);
 				exportEntity.addLastPermAddress(lastPermAddressModel);
-				hydrateCommonFields(lastPermAddressModel, domain, lastPermanentAddress.getLastPermanentAddressID());
-				insert(lastPermAddressModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(lastPermAddressModel, domain, lastPermanentAddress.getLastPermanentAddressID(),i);
+				insert(lastPermAddressModel);
 			}
 		}
 

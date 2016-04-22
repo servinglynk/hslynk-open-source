@@ -38,6 +38,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
 		hydrateBulkUploadActivityStaging(housingAssessmentDispositions, com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty()) 
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
@@ -52,16 +53,11 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(housingAssessmentDisposition.getExitID()));
 				housingassessmentdispositionModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				housingassessmentdispositionModel.setExport(exportEntity);
 				exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
-				hydrateCommonFields(housingassessmentdispositionModel, domain, housingAssessmentDisposition.getHousingAssessmentDispositionID());
-				insert(housingassessmentdispositionModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(housingassessmentdispositionModel, domain, housingAssessmentDisposition.getHousingAssessmentDispositionID(),i);
+				insert(housingassessmentdispositionModel);
 			}
 		}
 	}

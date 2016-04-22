@@ -38,6 +38,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		List<SexualOrientation> sexualOrientations = domain.getExport().getSexualOrientation();
 		hydrateBulkUploadActivityStaging(sexualOrientations, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(sexualOrientations !=null && !sexualOrientations.isEmpty())
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)
@@ -53,16 +54,11 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID()));
 				sexualorientationModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				sexualorientationModel.setExport(exportEntity);
 				exportEntity.addSexualorientation(sexualorientationModel);
-				hydrateCommonFields(sexualorientationModel, domain,sexualOrientation.getSexualOrientationID());
-				insert(sexualorientationModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(sexualorientationModel, domain,sexualOrientation.getSexualOrientationID(),i++);
+				insert(sexualorientationModel);
 			}
 		}
 

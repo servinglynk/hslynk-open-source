@@ -42,6 +42,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
 		hydrateBulkUploadActivityStaging(projectCoCs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
 			UUID id = UUID.randomUUID();
@@ -58,16 +59,11 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 					domain.getProjectCocMap().put(String.valueOf(projectCoc.getProjectCoCID()), id);
 				}
 			}
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			projectcocModel.setExport(exportEntity);
 			exportEntity.addProjectcoc(projectcocModel);
-			hydrateCommonFields(projectcocModel, domain, String.valueOf(projectCoc.getProjectCoCID()));
-			insert(projectcocModel);
 			i++;
-			  if(i % batchSize() == 0 && i > 0) {
-                  getCurrentSession().flush();
-                  getCurrentSession().clear();
-              }
+			hydrateCommonFields(projectcocModel, domain, String.valueOf(projectCoc.getProjectCoCID()),i);
+			insert(projectcocModel);
 		}
 	}
 

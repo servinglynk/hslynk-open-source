@@ -38,6 +38,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
 		hydrateBulkUploadActivityStaging(schoolStatusList, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
@@ -62,16 +63,11 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 				}
 					
 			}
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			schoolstatusModel.setExport(exportEntity);
 			exportEntity.addSchoolstatus(schoolstatusModel);
-			hydrateCommonFields(schoolstatusModel, domain, schoolStatus.getSchoolStatusID());
-			insert(schoolstatusModel);
 			i++;
-			  if(i % batchSize() == 0 && i > 0) {
-                  getCurrentSession().flush();
-                  getCurrentSession().clear();
-              }
+			hydrateCommonFields(schoolstatusModel, domain, schoolStatus.getSchoolStatusID(),i);
+			insert(schoolstatusModel);
 			}
 		}
 

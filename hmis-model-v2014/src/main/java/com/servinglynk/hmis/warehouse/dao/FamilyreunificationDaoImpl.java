@@ -38,6 +38,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		List<FamilyReunification> familyReunifications = domain.getExport().getFamilyReunification();
 		hydrateBulkUploadActivityStaging(familyReunifications, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(familyReunifications!=null && familyReunifications.size() >0 ) 
 		{
 			for(FamilyReunification familyReunification : familyReunifications)
@@ -52,16 +53,11 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 				familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(familyReunification.getExitID()));
 				familyreunificationModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				familyreunificationModel.setExport(exportEntity);
 				exportEntity.addFamilyreunification(familyreunificationModel);
-				hydrateCommonFields(familyreunificationModel, domain, familyReunification.getFamilyReunificationID());
-				insert(familyreunificationModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(familyreunificationModel, domain, familyReunification.getFamilyReunificationID(),i);
+				insert(familyreunificationModel);
 			}
 		}
 	}

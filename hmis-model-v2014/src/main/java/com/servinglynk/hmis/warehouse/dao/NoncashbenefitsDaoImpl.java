@@ -46,6 +46,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
 		hydrateBulkUploadActivityStaging(nonCashBenefitsList, com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)
@@ -74,16 +75,11 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 						noncashbenefitsModel.setEnrollmentid(enrollmentModel);
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				noncashbenefitsModel.setExport(exportEntity);
 				exportEntity.addNoncashbenefits(noncashbenefitsModel);
-				hydrateCommonFields(noncashbenefitsModel, domain, nonCashBenefits.getNonCashBenefitsID());
-				insert(noncashbenefitsModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(noncashbenefitsModel, domain, nonCashBenefits.getNonCashBenefitsID(),i);
+				insert(noncashbenefitsModel);
 			}
 		}
 

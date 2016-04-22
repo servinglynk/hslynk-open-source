@@ -37,6 +37,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
 		hydrateBulkUploadActivityStaging(pathStatusList, com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)
@@ -52,10 +53,10 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(pathStatus.getProjectEntryID()));
 				pathstatusModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				pathstatusModel.setExport(exportEntity);
 				exportEntity.addPathstatus(pathstatusModel);
-				hydrateCommonFields(pathstatusModel, domain,String.valueOf(pathStatus.getPathStatusID()));
+				i++;
+				hydrateCommonFields(pathstatusModel, domain,String.valueOf(pathStatus.getPathStatusID()),i);
 				insert(pathstatusModel);
 			}
 		}

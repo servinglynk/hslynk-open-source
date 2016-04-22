@@ -33,7 +33,7 @@ public class BaseProcessor<T> {
 			String queryString = "SELECT * FROM stagv2014."+tableName ;
 			queryString =  queryString + " where export_id = ?" ;
 			PreparedStatement statement = connection.prepareStatement(queryString);
-			statement.setObject(1, false);
+			statement.setObject(1, exportId);
 			resultSet = statement.executeQuery();
 			
 			// simple JDBC code to run SQL query and populate resultSet - END

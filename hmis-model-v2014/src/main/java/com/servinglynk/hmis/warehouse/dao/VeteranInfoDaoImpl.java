@@ -50,6 +50,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo> veteranInfoList = export
 				.getVeteranInfo();
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		hydrateBulkUploadActivityStaging(veteranInfoList, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain);
 		int i=0;
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
@@ -108,17 +109,12 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				}else{
 					logger.warn("A match was not found with the PersonID:{}",veteranInfo.getPersonalID());
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				vInfo.setExport(exportEntity);
 				vInfo.setUser(exportEntity.getUser());
 				exportEntity.addVeteranInfo(vInfo);
-				hydrateCommonFields(vInfo, domain,veteranInfo.getVeteranInfoID());
-				insert(vInfo);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(vInfo, domain,veteranInfo.getVeteranInfoID(),i);
+				insert(vInfo);
 			}
 		}
 	}

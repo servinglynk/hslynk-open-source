@@ -47,14 +47,9 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					exportEntity.addAffiliation(affiliationModel);
 					affiliationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
 					affiliationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
-					hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID());
-					insert(affiliationModel);
 					i++;
-					if(i % batchSize() == 0 && i > 0) {
-		                    getCurrentSession().flush();
-		                    getCurrentSession().clear();
-		             }
-					
+					hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),i);
+					insert(affiliationModel);
 				}
 			}
 		}

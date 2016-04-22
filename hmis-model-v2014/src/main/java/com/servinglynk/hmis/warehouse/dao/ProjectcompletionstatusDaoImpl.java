@@ -39,6 +39,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		List<ProjectCompletionStatus> projectCompletionStatusList = domain.getExport().getProjectCompletionStatus();
 		hydrateBulkUploadActivityStaging(projectCompletionStatusList, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(projectCompletionStatusList !=null && !projectCompletionStatusList.isEmpty()) 
 		{
 			for(ProjectCompletionStatus projectCompletionStatus : projectCompletionStatusList)
@@ -53,16 +54,11 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(projectCompletionStatus.getExitID()));
 				projectcompletionstatusModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				projectcompletionstatusModel.setExport(exportEntity);
 				exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
-				hydrateCommonFields(projectcompletionstatusModel, domain, projectCompletionStatus.getProjectCompletionStatusID());
-				insert(projectcompletionstatusModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-				  }
+				hydrateCommonFields(projectcompletionstatusModel, domain, projectCompletionStatus.getProjectCompletionStatusID(),i);
+				insert(projectcompletionstatusModel);
 			}
 		}
 	}

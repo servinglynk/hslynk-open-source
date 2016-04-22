@@ -56,13 +56,9 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				residentialmoveindateModel.setEnrollmentid(enrollment);
 				exportEntity.addResidentialmoveindate(residentialmoveindateModel);
 				residentialmoveindateModel.setExport(exportEntity);
-				hydrateCommonFields(residentialmoveindateModel, domain, residentialMoveInDate.getResidentialMoveInDateID());
-				insert(residentialmoveindateModel);
 				i++;
-				if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	             }
+				hydrateCommonFields(residentialmoveindateModel, domain, residentialMoveInDate.getResidentialMoveInDateID(),i);
+				insert(residentialmoveindateModel);
 			}
 		}
 	}

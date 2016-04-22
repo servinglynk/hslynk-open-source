@@ -62,6 +62,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		hydrateBulkUploadActivityStaging(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), domain);
 		if (enrollments != null && enrollments.size() > 0) {
 			int i=0;
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
 				i++;
@@ -132,21 +133,16 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				}else{
 					logger.warn("A match was not found with the PersonID:{}",enrollment.getPersonalID());
 				}
-				
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
 
 				enrollmentModel.setDateCreated(LocalDateTime.now());
 				enrollmentModel.setDateUpdated(LocalDateTime.now());
 				enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
-				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID());
+				
+				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID(),i);
 				insert(enrollmentModel);
 			}
-			  if(i % batchSize() == 0 && i > 0) {
-                  getCurrentSession().flush();
-                  getCurrentSession().clear();
-              }
 		}
 		
 	}

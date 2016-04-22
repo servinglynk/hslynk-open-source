@@ -54,6 +54,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
 		hydrateBulkUploadActivityStaging(incomeAndSourceses, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
@@ -103,16 +104,11 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 						incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				incomeAndSourcesModel.setExport(exportEntity);
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
-				hydrateCommonFields(incomeAndSourcesModel, domain, incomeAndSources.getIncomeAndSourcesID());
-				insert(incomeAndSourcesModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(incomeAndSourcesModel, domain, incomeAndSources.getIncomeAndSourcesID(),i);
+				insert(incomeAndSourcesModel);
 			}
 		}
 	}

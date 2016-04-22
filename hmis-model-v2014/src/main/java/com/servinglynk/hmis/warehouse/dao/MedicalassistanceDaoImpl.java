@@ -40,6 +40,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
 		hydrateBulkUploadActivityStaging(medicalAssistanceList, com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			int i=0;
@@ -59,16 +60,11 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(medicalAssistance.getProjectEntryID()));
 				medicalassistanceModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				medicalassistanceModel.setExport(exportEntity);
 				exportEntity.addMedicalassistance(medicalassistanceModel);
-				hydrateCommonFields(medicalassistanceModel, domain, medicalAssistance.getMedicalAssistanceID());
-				insert(medicalassistanceModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(medicalassistanceModel, domain, medicalAssistance.getMedicalAssistanceID(),i);
+				insert(medicalassistanceModel);
 			}
 		}
 	}

@@ -6,8 +6,6 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import org.joda.time.LocalDateTime;
-
 
 @Entity
 public class Contact extends BaseModel{

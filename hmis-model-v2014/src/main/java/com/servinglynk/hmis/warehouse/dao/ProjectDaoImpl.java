@@ -44,6 +44,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		List<Project> projects = domain.getExport().getProject();
 		hydrateBulkUploadActivityStaging(projects, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(projects !=null && projects.size() > 0)
 		{
 			
@@ -76,16 +77,11 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 						projectModel.setEnrollmentid(enrollmentModel);
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
-				hydrateCommonFields(projectModel, domain, project.getProjectID());
-				insert(projectModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(projectModel, domain, project.getProjectID(),i);
+				insert(projectModel);
 			}
 			}
 

@@ -82,9 +82,13 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 //		insertOrUpdate(activity);
 		
 	}
-	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain, String sourceId) {
+	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain, String sourceId,int i) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
+//		  if(i % batchSize() == 0 && i > 0) {
+//              getCurrentSession().flush();
+//              getCurrentSession().clear();
+//          }
 	/*	BulkUploadActivity activity = new BulkUploadActivity();
 		activity.setBulkUpload(domain.getUpload());
 		activity.setDateCreated(LocalDateTime.now());

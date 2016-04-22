@@ -36,6 +36,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		java.util.List<ConnectionWithSOAR> connectionWithSOARList = domain.getExport().getConnectionWithSOAR();
 		hydrateBulkUploadActivityStaging(connectionWithSOARList, com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
 		{
 			int i=0;
@@ -48,18 +49,13 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				connectionwithsoarModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(connectionWithSOAR.getExitID()));
 				connectionwithsoarModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				connectionwithsoarModel.setExport(exportEntity);
 				exportEntity.addConnectionwithsoar(connectionwithsoarModel);
 				connectionwithsoarModel.setDateCreated(LocalDateTime.now());
 				connectionwithsoarModel.setDateUpdated(LocalDateTime.now());
-				hydrateCommonFields(connectionwithsoarModel, domain, connectionWithSOAR.getConnectionWithSOARID());
-				insert(connectionwithsoarModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(connectionwithsoarModel, domain, connectionWithSOAR.getConnectionWithSOARID(),i);
+				insert(connectionwithsoarModel);
 			}
 		}
 	}

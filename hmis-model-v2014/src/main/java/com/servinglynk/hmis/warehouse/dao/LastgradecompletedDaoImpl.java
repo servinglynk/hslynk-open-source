@@ -41,6 +41,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				.getLastGradeCompleted();
 		hydrateBulkUploadActivityStaging(lastGradeCompletedList, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if (lastGradeCompletedList != null && !lastGradeCompletedList.isEmpty()) {
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
 				Lastgradecompleted lastGradeCompletedModel = new Lastgradecompleted();
@@ -66,16 +67,11 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 					}
 						
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				lastGradeCompletedModel.setExport(exportEntity);
 				exportEntity.addLastgradecompleted(lastGradeCompletedModel);
-				hydrateCommonFields(lastGradeCompletedModel, domain, lastGradeCompleted.getLastGradeCompletedID());
-				insert(lastGradeCompletedModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(lastGradeCompletedModel, domain, lastGradeCompleted.getLastGradeCompletedID(),i);
+				insert(lastGradeCompletedModel);
 			}
 		}
 	}

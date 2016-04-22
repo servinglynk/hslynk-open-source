@@ -38,6 +38,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		List<ReferralSource> referralSources = domain.getExport().getReferralSource();
 		hydrateBulkUploadActivityStaging(referralSources, com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(referralSources !=null && !referralSources.isEmpty())
 		{
 			for(ReferralSource referralSource : referralSources) {
@@ -53,16 +54,11 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(referralSource.getProjectEntryID()));
 				referralsourceModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				referralsourceModel.setExport(exportEntity);
 				exportEntity.addReferralsource(referralsourceModel);
-				hydrateCommonFields(referralsourceModel, domain, referralSource.getReferralSourceID());
-				insert(referralsourceModel);
 				i++;
-				if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	             }
+				hydrateCommonFields(referralsourceModel, domain, referralSource.getReferralSourceID(),i);
+				insert(referralsourceModel);
 			}
 		}
 	}

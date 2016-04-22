@@ -18,7 +18,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
@@ -52,18 +51,19 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	ParentDaoFactory daoFactory;
 	
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 	
 		Export export = domain.getExport();
 		//Lets make a microservice all to the dedup micro service
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
-		boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
+		Boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		hydrateBulkUploadActivityStaging(clients, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain);
 		int i=0;
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
-				i++;
 				com.servinglynk.hmis.warehouse.model.stagv2014.Client clientModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Client();
 				clientModel.setFirstName(client.getFirstName());
 				clientModel.setDateCreated(BasicDataGenerator
@@ -105,12 +105,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				UUID clientUUID = UUID.randomUUID();
 				clientModel.setId(clientUUID);
 				UUID exportId = domain.getExportId();
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
 				exportEntity.addClient(clientModel);
 				clientModel.setUser(exportEntity.getUser());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
-				hydrateCommonFields(clientModel, domain, client.getPersonalID());
+				i++;
+				hydrateCommonFields(clientModel, domain, client.getPersonalID(),i);
 				clientModel.setExport(exportEntity);
 				//TODO: Sandeep need to get the project group from the base schema.
 				// Need to change S.O.P to logger.
@@ -162,11 +162,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				}
 				
 				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
-				
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
 			}
 	}
 	}

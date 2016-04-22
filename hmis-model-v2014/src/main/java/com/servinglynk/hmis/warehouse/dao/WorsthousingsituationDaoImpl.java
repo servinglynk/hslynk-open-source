@@ -38,6 +38,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
 		hydrateBulkUploadActivityStaging(worstHousingSituationList, com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
@@ -50,18 +51,13 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				worsthousingsituationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
 				worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
 				worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				worsthousingsituationModel.setExport(exportEntity);
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID()));
 				worsthousingsituationModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addWorsthousingsituation(worsthousingsituationModel);
-				hydrateCommonFields(worsthousingsituationModel, domain, worstHousingSituation.getWorstHousingSituationID());
-				insert(worsthousingsituationModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(worsthousingsituationModel, domain, worstHousingSituation.getWorstHousingSituationID(),i);
+				insert(worsthousingsituationModel);
 			}
 		}
 	}

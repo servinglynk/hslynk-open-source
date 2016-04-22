@@ -45,6 +45,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		List<ExitPlansActions> exitPlansActionsList = domain.getExport().getExitPlansActions();
 		hydrateBulkUploadActivityStaging(exitPlansActionsList, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(exitPlansActionsList !=null && !exitPlansActionsList.isEmpty()) 
 		{
 			for(ExitPlansActions exitPlansActions : exitPlansActionsList)
@@ -67,16 +68,11 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				exitplansactionsModel.setWrittenaftercareplan(ExitplansactionsWrittenaftercareplanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getWrittenAftercarePlan())));
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitPlansActions.getExitID()));
 				exitplansactionsModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				exitplansactionsModel.setExport(exportEntity);
 				exportEntity.addExitplansactions(exitplansactionsModel);
-				hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID());
-				insert(exitplansactionsModel);
 				i++;
-				if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	             }
+				hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID(),i);
+				insert(exitplansactionsModel);
 			}
 		}
 	}

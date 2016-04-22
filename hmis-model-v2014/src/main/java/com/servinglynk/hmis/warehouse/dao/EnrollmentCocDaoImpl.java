@@ -55,12 +55,10 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				enrollmentCocModel.setExport(exportEntity);
 				exportEntity.addEnrollmentCoc(enrollmentCocModel);
-				insert(enrollmentCocModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(enrollmentCocModel, domain, String.valueOf(enrollmentCoc.getEnrollmentCoCID()), i);
+				insert(enrollmentCocModel);
+				
 			}
 		}
 	}

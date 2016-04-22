@@ -35,6 +35,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		 List<Organization> organizations = domain.getExport().getOrganization();
 		 hydrateBulkUploadActivityStaging(organizations, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), domain);
 		 int i=0;
+		 com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
@@ -49,16 +50,11 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				  organizationModel.setDateUpdated(LocalDateTime.now());
 				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 				 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
-				 com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				 organizationModel.setExport(exportEntity);
 				 exportEntity.addOrganization(organizationModel);
-				 hydrateCommonFields(organizationModel, domain,String.valueOf(organization.getOrganizationID()));
-				 insert(organizationModel);
 				 i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				 hydrateCommonFields(organizationModel, domain,String.valueOf(organization.getOrganizationID()),i);
+				 insert(organizationModel);
 			 }
 		 }
 	}

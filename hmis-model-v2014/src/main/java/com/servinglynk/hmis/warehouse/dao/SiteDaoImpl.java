@@ -25,6 +25,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 	public void hydrateStaging(ExportDomain domain) {
 		List<Site> sites = domain.getExport().getSite();
 		hydrateBulkUploadActivityStaging(sites, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(sites !=null && !sites.isEmpty()) {
 			int i=0;
 			for(Site site :sites) {
@@ -39,19 +40,14 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 //					Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,domain.getProjectCocMap().get(site.getProjectCoCID()));
 //					siteModel.setProjectCoc(projectCoc);
 					siteModel.setState(StateEnum.lookupEnum(site.getState()));
-					com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 					siteModel.setExport(exportEntity);
 					siteModel.setId(UUID.randomUUID());
 					//site.getUserID()
 					siteModel.setZip(String.valueOf(site.getZIP()));
 					exportEntity.addSite(siteModel);
-					hydrateCommonFields(siteModel, domain,String.valueOf(site.getSiteID()));
-					insert(siteModel);
 					i++;
-					  if(i % batchSize() == 0 && i > 0) {
-		                    getCurrentSession().flush();
-		                    getCurrentSession().clear();
-		                }
+					hydrateCommonFields(siteModel, domain,String.valueOf(site.getSiteID()),i);
+					insert(siteModel);
 				}
 			}
 			

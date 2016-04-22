@@ -37,6 +37,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		List<FormerWardJuvenileJustice> formerWardJuvenileJustices = domain.getExport().getFormerWardJuvenileJustice();
 		hydrateBulkUploadActivityStaging(formerWardJuvenileJustices, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(formerWardJuvenileJustices !=null && !formerWardJuvenileJustices.isEmpty()) 
 		{
 			for(FormerWardJuvenileJustice formerWardJuvenileJustice : formerWardJuvenileJustices )
@@ -52,17 +53,11 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				formerWardJuvenileJusticeModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardJuvenileJustice.getProjectEntryID()));
 				formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				formerWardJuvenileJusticeModel.setExport(exportEntity);
 				exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
-				hydrateCommonFields(formerWardJuvenileJusticeModel, domain, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID());
-				insert(formerWardJuvenileJusticeModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
-				
+				hydrateCommonFields(formerWardJuvenileJusticeModel, domain, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(),i);
+				insert(formerWardJuvenileJusticeModel);
 			}
 		}
 	}

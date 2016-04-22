@@ -36,6 +36,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		List<PercentAMI> percentAMIs = domain.getExport().getPercentAMI();
 		hydrateBulkUploadActivityStaging(percentAMIs, com.servinglynk.hmis.warehouse.model.v2014.Percentami.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(percentAMIs !=null && !percentAMIs.isEmpty())
 		{
 			for(PercentAMI percentAMI :percentAMIs)
@@ -52,16 +53,11 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(percentAMI.getProjectEntryID()));
 				percentamoModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				percentamoModel.setExport(exportEntity);
 				exportEntity.addPercentami(percentamoModel);
-				hydrateCommonFields(percentamoModel, domain, percentAMI.getPercentAMIID());
-				insert(percentamoModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(percentamoModel, domain, percentAMI.getPercentAMIID(),i);
+				insert(percentamoModel);
 			}
 		}
 

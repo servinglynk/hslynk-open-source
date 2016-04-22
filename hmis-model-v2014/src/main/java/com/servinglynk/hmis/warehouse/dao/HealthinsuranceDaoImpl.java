@@ -54,6 +54,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		if(healthInsurances!=null && healthInsurances.size() >0 )
 		{
 			int i=0;
+			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 			for(HealthInsurance healthInsurance : healthInsurances)
 			{
 				Healthinsurance healthinsuranceModel = new Healthinsurance();
@@ -82,16 +83,11 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(healthInsurance.getProjectEntryID()));
 				healthinsuranceModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				healthinsuranceModel.setExport(exportEntity);
 				exportEntity.addHealthinsurance(healthinsuranceModel);
-				hydrateCommonFields(healthinsuranceModel, domain, healthInsurance.getHealthInsuranceID());
-				insert(healthinsuranceModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(healthinsuranceModel, domain, healthInsurance.getHealthInsuranceID(),i);
+				insert(healthinsuranceModel);
 			}
 		}
 	}

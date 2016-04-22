@@ -46,7 +46,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		UUID id = UUID.randomUUID();
 		domain.setSourceId(id);
 		sourceModel.setId(id);
-		hydrateCommonFields(sourceModel, domain, String.valueOf(source.getSourceID()));
+		hydrateCommonFields(sourceModel, domain, String.valueOf(source.getSourceID()),0);
 		insert(sourceModel);
               getCurrentSession().flush();
               getCurrentSession().clear();

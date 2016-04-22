@@ -39,6 +39,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
 		hydrateBulkUploadActivityStaging(rhybcpStatusList, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), domain);
 		int i=0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)
@@ -55,16 +56,11 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(rhybcpStatus.getProjectEntryID()));
 				rhybcpstatusModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				rhybcpstatusModel.setExport(exportEntity);
 				exportEntity.addRhybcpstatus(rhybcpstatusModel);
-				hydrateCommonFields(rhybcpstatusModel, domain,rhybcpStatus.getRHYBCPStatusID());
-				insert(rhybcpstatusModel);
 				i++;
-				  if(i % batchSize() == 0 && i > 0) {
-	                    getCurrentSession().flush();
-	                    getCurrentSession().clear();
-	                }
+				hydrateCommonFields(rhybcpstatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),i);
+				insert(rhybcpstatusModel);
 			}
 		}
 
