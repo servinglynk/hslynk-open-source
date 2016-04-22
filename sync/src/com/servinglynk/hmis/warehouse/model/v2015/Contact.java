@@ -6,16 +6,18 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import org.joda.time.LocalDateTime;
+
 
 @Entity
 public class Contact extends BaseModel{
 
 	
 	@Column( name = "contact_date")
-	private Timestamp contactDate;
+	private Timestamp contact_date;
 	
 	@Column( name = "contact_location")
-	private Integer contactLocation;
+	private Integer contact_location;
 	
 	@Column(name = "enrollmentid")
 	private UUID enrollmentid;
@@ -23,20 +25,28 @@ public class Contact extends BaseModel{
 	@Column( name = "id")
 	private java.util.UUID id;
 
-	public Timestamp getContactDate() {
-		return contactDate;
+	public Timestamp getContact_date() {
+		return contact_date;
 	}
 
-	public void setContactDate(Timestamp contactDate) {
-		this.contactDate = contactDate;
+	public void setContact_date(Timestamp contact_date) {
+		this.contact_date = contact_date;
 	}
 
-	public Integer getContactLocation() {
-		return contactLocation;
+	public Integer getContact_location() {
+		return contact_location;
 	}
 
-	public void setContactLocation(Integer contactLocation) {
-		this.contactLocation = contactLocation;
+	public void setContact_location(Integer contact_location) {
+		this.contact_location = contact_location;
+	}
+
+	public UUID getEnrollmentid() {
+		return enrollmentid;
+	}
+
+	public void setEnrollmentid(UUID enrollmentid) {
+		this.enrollmentid = enrollmentid;
 	}
 
 	public java.util.UUID getId() {
@@ -47,14 +57,6 @@ public class Contact extends BaseModel{
 		this.id = id;
 	}
 
-	public UUID getEnrollmentid() {
-		return enrollmentid;
-	}
-
-	public void setEnrollmentid(UUID enrollmentid) {
-		this.enrollmentid = enrollmentid;
-	}
-	
-	
+		
    
 }

@@ -8,155 +8,156 @@ public class Entryrhy extends BaseModel {
 
 	
 	@Column( name = "abuse_and_neglect_family_mbr")
-	private Integer abuseAndNeglectFamilyMbr;
+	private Integer abuse_and_neglect_family_mbr;
 	@Column( name = "abuse_and_neglect_youth")
-	private Integer abuseAndNeglectYouth;
+	private Integer abuse_and_neglect_youth;
 	@Column( name = "active_military_parent")
-	private Integer activeMilitaryParent;
+	private Integer active_military_parent;
 	@Column( name = "alcohol_drug_abuse_family_mbr")
-	private Integer alcoholDrugAbuseFamilyMbr;
+	private Integer alcohol_drug_abuse_family_mbr;
 	@Column( name = "alcohol_drug_abuse_youth")
-	private Integer alcoholDrugAbuseYouth;
+	private Integer alcohol_drug_abuse_youth;
 	@Column( name = "asked_of_forced_to_exchange_for_sex")
-	private Integer askedOfForcedToExchangeForSex;
+	private Integer asked_of_forced_to_exchange_for_sex;
 	@Column( name = "asked_of_forced_to_exchange_for_sex_past_three_months")
-	private Integer askedOfForcedToExchangeForSexPastThreeMonths;
+	private Integer asked_of_forced_to_exchange_for_sex_past_three_months;
 	@Column( name = "coerced_to_continue_work")
-	private Integer coercedToContinueWork;
+	private Integer coerced_to_continue_work;
 	@Column( name = "count_of_exchange_for_sex")
-	private Integer countOfExchangeForSex;
+	private Integer count_of_exchange_for_sex;
 	@Column( name = "count_out_reach_referral_approaches")
-	private Integer countOutReachReferralApproaches;
+	private Integer count_out_reach_referral_approaches;
 	@Column(name = "enrollmentid")
 	private Enrollment enrollmentid;
 	@Column( name = "exchange_for_sex")
-	private Integer exchangeForSex;
+	private Integer exchange_for_sex;
 	@Column( name = "exchange_for_sex_past_three_months")
-	private Integer exchangeForSexPastThreeMonths;
+	private Integer exchange_for_sex_past_three_months;
 	@Column( name = "formerly_ward_child_welfr_forest_care")
-	private Integer formerlyWardChildWelfrForestCare;
+	private Integer formerly_ward_child_welfr_forest_care;
 	@Column( name = "formerly_ward_of_juvenile_justice")
-	private Integer formerlyWardOfJuvenileJustice;
+	private Integer formerly_ward_of_juvenile_justice;
 	@Column( name = "health_issues_family_mbr")
-	private Integer healthIssuesFamilyMbr;
+	private Integer health_issues_family_mbr;
 	@Column( name = "health_issues_youth")
-	private Integer healthIssuesYouth;
+	private Integer health_issues_youth;
 	@Column( name = "house_hold_dynamics")
-	private Integer houseHoldDynamics;
+	private Integer house_hold_dynamics;
 	@Column( name = "housing_issues_family_mbr")
-	private Integer housingIssuesFamilyMbr;
+	private Integer housing_issues_family_mbr;
 	@Column( name = "housing_issues_youth")
-	private Integer housingIssuesYouth;
+	private Integer housing_issues_youth;
 	@Column( name = "id")
 	private java.util.UUID id;
 	@Column( name = "incarcerated_parent")
-	private Integer incarceratedParent;
+	private Integer incarcerated_parent;
 	@Column( name = "incarcerated_parent_status")
-	private Integer incarceratedParentStatus;
+	private Integer incarcerated_parent_status;
 	@Column( name = "insufficient_income_to_support_youth")
-	private Integer insufficientIncomeToSupportYouth;
+	private Integer insufficient_income_to_support_youth;
 	@Column( name = "labor_exploit_past_three_months")
-	private Integer laborExploitPastThreeMonths;
+	private Integer labor_exploit_past_three_months;
 	@Column( name = "mental_disability_family_mbr")
-	private Integer mentalDisabilityFamilyMbr;
+	private Integer mental_disability_family_mbr;
 	@Column( name = "mental_disability_youth")
-	private Integer mentalDisabilityYouth;
+	private Integer mental_disability_youth;
 	@Column( name = "mental_health_issues_family_mbr")
-	private Integer mentalHealthIssuesFamilyMbr;
+	private Integer mental_health_issues_family_mbr;
 	@Column( name = "mental_health_issues_youth")
-	private Integer mentalHealthIssuesYouth;
+	private Integer mental_health_issues_youth;
 	@Column( name = "months_child_welfr_forest_care")
-	private Integer monthsChildWelfrForestCare;
+	private Integer months_child_welfr_forest_care;
 	@Column( name = "physical_disability_family_mbr")
-	private Integer physicalDisabilityFamilyMbr;
+	private Integer physical_disability_family_mbr;
 	@Column( name = "physical_disability_youth")
-	private Integer physicalDisabilityYouth;
+	private Integer physical_disability_youth;
 	@Column( name = "referral_source")
-	private Integer referralSource;
+	private Integer referral_source;
 	@Column( name = "school_education_issues_family_mbr")
-	private Integer schoolEducationIssuesFamilyMbr;
+	private Integer school_education_issues_family_mbr;
 	@Column( name = "school_education_issues_youth")
-	private Integer schoolEducationIssuesYouth;
+	private Integer school_education_issues_youth;
 	@Column( name = "sexual_orientatiion_gender_identity_family_mbr")
-	private Integer sexualOrientatiionGenderIdentityFamilyMbr;
+	private Integer sexual_orientatiion_gender_identity_family_mbr;
 	@Column( name = "sexual_orientatiion_gender_identity_youth")
-	private Integer sexualOrientatiionGenderIdentityYouth;
+	private Integer sexual_orientatiion_gender_identity_youth;
 	@Column( name = "sexual_orientation")
-	private Integer sexualOrientation;
+	private Integer sexual_orientation;
 	@Column( name = "unemployement_family_mbr")
-	private Integer unemployementFamilyMbr;
+	private Integer unemployement_family_mbr;
 	@Column( name = "unemployement_youth")
-	private Integer unemployementYouth;
+	private Integer unemployement_youth;
 	@Column( name = "work_place_promise_difference")
-	private Integer workPlacePromiseDifference;
+	private Integer work_place_promise_difference;
 	@Column( name = "work_place_violence_threat")
-	private Integer workPlaceViolenceThreat;
+	private Integer work_place_violence_threat;
 	@Column( name = "years_child_welfr_forest_care")
-	private Integer yearsChildWelfrForestCare;
+	private Integer years_child_welfr_forest_care;
 	@Column( name = "years_juvenile_justice")
-	private Integer yearsJuvenileJustice;
-	public Integer getAbuseAndNeglectFamilyMbr() {
-		return abuseAndNeglectFamilyMbr;
+	private Integer years_juvenile_justice;
+	public Integer getAbuse_and_neglect_family_mbr() {
+		return abuse_and_neglect_family_mbr;
 	}
-	public void setAbuseAndNeglectFamilyMbr(Integer abuseAndNeglectFamilyMbr) {
-		this.abuseAndNeglectFamilyMbr = abuseAndNeglectFamilyMbr;
+	public void setAbuse_and_neglect_family_mbr(Integer abuse_and_neglect_family_mbr) {
+		this.abuse_and_neglect_family_mbr = abuse_and_neglect_family_mbr;
 	}
-	public Integer getAbuseAndNeglectYouth() {
-		return abuseAndNeglectYouth;
+	public Integer getAbuse_and_neglect_youth() {
+		return abuse_and_neglect_youth;
 	}
-	public void setAbuseAndNeglectYouth(Integer abuseAndNeglectYouth) {
-		this.abuseAndNeglectYouth = abuseAndNeglectYouth;
+	public void setAbuse_and_neglect_youth(Integer abuse_and_neglect_youth) {
+		this.abuse_and_neglect_youth = abuse_and_neglect_youth;
 	}
-	public Integer getActiveMilitaryParent() {
-		return activeMilitaryParent;
+	public Integer getActive_military_parent() {
+		return active_military_parent;
 	}
-	public void setActiveMilitaryParent(Integer activeMilitaryParent) {
-		this.activeMilitaryParent = activeMilitaryParent;
+	public void setActive_military_parent(Integer active_military_parent) {
+		this.active_military_parent = active_military_parent;
 	}
-	public Integer getAlcoholDrugAbuseFamilyMbr() {
-		return alcoholDrugAbuseFamilyMbr;
+	public Integer getAlcohol_drug_abuse_family_mbr() {
+		return alcohol_drug_abuse_family_mbr;
 	}
-	public void setAlcoholDrugAbuseFamilyMbr(Integer alcoholDrugAbuseFamilyMbr) {
-		this.alcoholDrugAbuseFamilyMbr = alcoholDrugAbuseFamilyMbr;
+	public void setAlcohol_drug_abuse_family_mbr(
+			Integer alcohol_drug_abuse_family_mbr) {
+		this.alcohol_drug_abuse_family_mbr = alcohol_drug_abuse_family_mbr;
 	}
-	public Integer getAlcoholDrugAbuseYouth() {
-		return alcoholDrugAbuseYouth;
+	public Integer getAlcohol_drug_abuse_youth() {
+		return alcohol_drug_abuse_youth;
 	}
-	public void setAlcoholDrugAbuseYouth(Integer alcoholDrugAbuseYouth) {
-		this.alcoholDrugAbuseYouth = alcoholDrugAbuseYouth;
+	public void setAlcohol_drug_abuse_youth(Integer alcohol_drug_abuse_youth) {
+		this.alcohol_drug_abuse_youth = alcohol_drug_abuse_youth;
 	}
-	public Integer getAskedOfForcedToExchangeForSex() {
-		return askedOfForcedToExchangeForSex;
+	public Integer getAsked_of_forced_to_exchange_for_sex() {
+		return asked_of_forced_to_exchange_for_sex;
 	}
-	public void setAskedOfForcedToExchangeForSex(
-			Integer askedOfForcedToExchangeForSex) {
-		this.askedOfForcedToExchangeForSex = askedOfForcedToExchangeForSex;
+	public void setAsked_of_forced_to_exchange_for_sex(
+			Integer asked_of_forced_to_exchange_for_sex) {
+		this.asked_of_forced_to_exchange_for_sex = asked_of_forced_to_exchange_for_sex;
 	}
-	public Integer getAskedOfForcedToExchangeForSexPastThreeMonths() {
-		return askedOfForcedToExchangeForSexPastThreeMonths;
+	public Integer getAsked_of_forced_to_exchange_for_sex_past_three_months() {
+		return asked_of_forced_to_exchange_for_sex_past_three_months;
 	}
-	public void setAskedOfForcedToExchangeForSexPastThreeMonths(
-			Integer askedOfForcedToExchangeForSexPastThreeMonths) {
-		this.askedOfForcedToExchangeForSexPastThreeMonths = askedOfForcedToExchangeForSexPastThreeMonths;
+	public void setAsked_of_forced_to_exchange_for_sex_past_three_months(
+			Integer asked_of_forced_to_exchange_for_sex_past_three_months) {
+		this.asked_of_forced_to_exchange_for_sex_past_three_months = asked_of_forced_to_exchange_for_sex_past_three_months;
 	}
-	public Integer getCoercedToContinueWork() {
-		return coercedToContinueWork;
+	public Integer getCoerced_to_continue_work() {
+		return coerced_to_continue_work;
 	}
-	public void setCoercedToContinueWork(Integer coercedToContinueWork) {
-		this.coercedToContinueWork = coercedToContinueWork;
+	public void setCoerced_to_continue_work(Integer coerced_to_continue_work) {
+		this.coerced_to_continue_work = coerced_to_continue_work;
 	}
-	public Integer getCountOfExchangeForSex() {
-		return countOfExchangeForSex;
+	public Integer getCount_of_exchange_for_sex() {
+		return count_of_exchange_for_sex;
 	}
-	public void setCountOfExchangeForSex(Integer countOfExchangeForSex) {
-		this.countOfExchangeForSex = countOfExchangeForSex;
+	public void setCount_of_exchange_for_sex(Integer count_of_exchange_for_sex) {
+		this.count_of_exchange_for_sex = count_of_exchange_for_sex;
 	}
-	public Integer getCountOutReachReferralApproaches() {
-		return countOutReachReferralApproaches;
+	public Integer getCount_out_reach_referral_approaches() {
+		return count_out_reach_referral_approaches;
 	}
-	public void setCountOutReachReferralApproaches(
-			Integer countOutReachReferralApproaches) {
-		this.countOutReachReferralApproaches = countOutReachReferralApproaches;
+	public void setCount_out_reach_referral_approaches(
+			Integer count_out_reach_referral_approaches) {
+		this.count_out_reach_referral_approaches = count_out_reach_referral_approaches;
 	}
 	public Enrollment getEnrollmentid() {
 		return enrollmentid;
@@ -164,62 +165,62 @@ public class Entryrhy extends BaseModel {
 	public void setEnrollmentid(Enrollment enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
-	public Integer getExchangeForSex() {
-		return exchangeForSex;
+	public Integer getExchange_for_sex() {
+		return exchange_for_sex;
 	}
-	public void setExchangeForSex(Integer exchangeForSex) {
-		this.exchangeForSex = exchangeForSex;
+	public void setExchange_for_sex(Integer exchange_for_sex) {
+		this.exchange_for_sex = exchange_for_sex;
 	}
-	public Integer getExchangeForSexPastThreeMonths() {
-		return exchangeForSexPastThreeMonths;
+	public Integer getExchange_for_sex_past_three_months() {
+		return exchange_for_sex_past_three_months;
 	}
-	public void setExchangeForSexPastThreeMonths(
-			Integer exchangeForSexPastThreeMonths) {
-		this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
+	public void setExchange_for_sex_past_three_months(
+			Integer exchange_for_sex_past_three_months) {
+		this.exchange_for_sex_past_three_months = exchange_for_sex_past_three_months;
 	}
-	public Integer getFormerlyWardChildWelfrForestCare() {
-		return formerlyWardChildWelfrForestCare;
+	public Integer getFormerly_ward_child_welfr_forest_care() {
+		return formerly_ward_child_welfr_forest_care;
 	}
-	public void setFormerlyWardChildWelfrForestCare(
-			Integer formerlyWardChildWelfrForestCare) {
-		this.formerlyWardChildWelfrForestCare = formerlyWardChildWelfrForestCare;
+	public void setFormerly_ward_child_welfr_forest_care(
+			Integer formerly_ward_child_welfr_forest_care) {
+		this.formerly_ward_child_welfr_forest_care = formerly_ward_child_welfr_forest_care;
 	}
-	public Integer getFormerlyWardOfJuvenileJustice() {
-		return formerlyWardOfJuvenileJustice;
+	public Integer getFormerly_ward_of_juvenile_justice() {
+		return formerly_ward_of_juvenile_justice;
 	}
-	public void setFormerlyWardOfJuvenileJustice(
-			Integer formerlyWardOfJuvenileJustice) {
-		this.formerlyWardOfJuvenileJustice = formerlyWardOfJuvenileJustice;
+	public void setFormerly_ward_of_juvenile_justice(
+			Integer formerly_ward_of_juvenile_justice) {
+		this.formerly_ward_of_juvenile_justice = formerly_ward_of_juvenile_justice;
 	}
-	public Integer getHealthIssuesFamilyMbr() {
-		return healthIssuesFamilyMbr;
+	public Integer getHealth_issues_family_mbr() {
+		return health_issues_family_mbr;
 	}
-	public void setHealthIssuesFamilyMbr(Integer healthIssuesFamilyMbr) {
-		this.healthIssuesFamilyMbr = healthIssuesFamilyMbr;
+	public void setHealth_issues_family_mbr(Integer health_issues_family_mbr) {
+		this.health_issues_family_mbr = health_issues_family_mbr;
 	}
-	public Integer getHealthIssuesYouth() {
-		return healthIssuesYouth;
+	public Integer getHealth_issues_youth() {
+		return health_issues_youth;
 	}
-	public void setHealthIssuesYouth(Integer healthIssuesYouth) {
-		this.healthIssuesYouth = healthIssuesYouth;
+	public void setHealth_issues_youth(Integer health_issues_youth) {
+		this.health_issues_youth = health_issues_youth;
 	}
-	public Integer getHouseHoldDynamics() {
-		return houseHoldDynamics;
+	public Integer getHouse_hold_dynamics() {
+		return house_hold_dynamics;
 	}
-	public void setHouseHoldDynamics(Integer houseHoldDynamics) {
-		this.houseHoldDynamics = houseHoldDynamics;
+	public void setHouse_hold_dynamics(Integer house_hold_dynamics) {
+		this.house_hold_dynamics = house_hold_dynamics;
 	}
-	public Integer getHousingIssuesFamilyMbr() {
-		return housingIssuesFamilyMbr;
+	public Integer getHousing_issues_family_mbr() {
+		return housing_issues_family_mbr;
 	}
-	public void setHousingIssuesFamilyMbr(Integer housingIssuesFamilyMbr) {
-		this.housingIssuesFamilyMbr = housingIssuesFamilyMbr;
+	public void setHousing_issues_family_mbr(Integer housing_issues_family_mbr) {
+		this.housing_issues_family_mbr = housing_issues_family_mbr;
 	}
-	public Integer getHousingIssuesYouth() {
-		return housingIssuesYouth;
+	public Integer getHousing_issues_youth() {
+		return housing_issues_youth;
 	}
-	public void setHousingIssuesYouth(Integer housingIssuesYouth) {
-		this.housingIssuesYouth = housingIssuesYouth;
+	public void setHousing_issues_youth(Integer housing_issues_youth) {
+		this.housing_issues_youth = housing_issues_youth;
 	}
 	public java.util.UUID getId() {
 		return id;
@@ -227,147 +228,155 @@ public class Entryrhy extends BaseModel {
 	public void setId(java.util.UUID id) {
 		this.id = id;
 	}
-	public Integer getIncarceratedParent() {
-		return incarceratedParent;
+	public Integer getIncarcerated_parent() {
+		return incarcerated_parent;
 	}
-	public void setIncarceratedParent(Integer incarceratedParent) {
-		this.incarceratedParent = incarceratedParent;
+	public void setIncarcerated_parent(Integer incarcerated_parent) {
+		this.incarcerated_parent = incarcerated_parent;
 	}
-	public Integer getIncarceratedParentStatus() {
-		return incarceratedParentStatus;
+	public Integer getIncarcerated_parent_status() {
+		return incarcerated_parent_status;
 	}
-	public void setIncarceratedParentStatus(Integer incarceratedParentStatus) {
-		this.incarceratedParentStatus = incarceratedParentStatus;
+	public void setIncarcerated_parent_status(Integer incarcerated_parent_status) {
+		this.incarcerated_parent_status = incarcerated_parent_status;
 	}
-	public Integer getInsufficientIncomeToSupportYouth() {
-		return insufficientIncomeToSupportYouth;
+	public Integer getInsufficient_income_to_support_youth() {
+		return insufficient_income_to_support_youth;
 	}
-	public void setInsufficientIncomeToSupportYouth(
-			Integer insufficientIncomeToSupportYouth) {
-		this.insufficientIncomeToSupportYouth = insufficientIncomeToSupportYouth;
+	public void setInsufficient_income_to_support_youth(
+			Integer insufficient_income_to_support_youth) {
+		this.insufficient_income_to_support_youth = insufficient_income_to_support_youth;
 	}
-	public Integer getLaborExploitPastThreeMonths() {
-		return laborExploitPastThreeMonths;
+	public Integer getLabor_exploit_past_three_months() {
+		return labor_exploit_past_three_months;
 	}
-	public void setLaborExploitPastThreeMonths(Integer laborExploitPastThreeMonths) {
-		this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
+	public void setLabor_exploit_past_three_months(
+			Integer labor_exploit_past_three_months) {
+		this.labor_exploit_past_three_months = labor_exploit_past_three_months;
 	}
-	public Integer getMentalDisabilityFamilyMbr() {
-		return mentalDisabilityFamilyMbr;
+	public Integer getMental_disability_family_mbr() {
+		return mental_disability_family_mbr;
 	}
-	public void setMentalDisabilityFamilyMbr(Integer mentalDisabilityFamilyMbr) {
-		this.mentalDisabilityFamilyMbr = mentalDisabilityFamilyMbr;
+	public void setMental_disability_family_mbr(Integer mental_disability_family_mbr) {
+		this.mental_disability_family_mbr = mental_disability_family_mbr;
 	}
-	public Integer getMentalDisabilityYouth() {
-		return mentalDisabilityYouth;
+	public Integer getMental_disability_youth() {
+		return mental_disability_youth;
 	}
-	public void setMentalDisabilityYouth(Integer mentalDisabilityYouth) {
-		this.mentalDisabilityYouth = mentalDisabilityYouth;
+	public void setMental_disability_youth(Integer mental_disability_youth) {
+		this.mental_disability_youth = mental_disability_youth;
 	}
-	public Integer getMentalHealthIssuesFamilyMbr() {
-		return mentalHealthIssuesFamilyMbr;
+	public Integer getMental_health_issues_family_mbr() {
+		return mental_health_issues_family_mbr;
 	}
-	public void setMentalHealthIssuesFamilyMbr(Integer mentalHealthIssuesFamilyMbr) {
-		this.mentalHealthIssuesFamilyMbr = mentalHealthIssuesFamilyMbr;
+	public void setMental_health_issues_family_mbr(
+			Integer mental_health_issues_family_mbr) {
+		this.mental_health_issues_family_mbr = mental_health_issues_family_mbr;
 	}
-	public Integer getMentalHealthIssuesYouth() {
-		return mentalHealthIssuesYouth;
+	public Integer getMental_health_issues_youth() {
+		return mental_health_issues_youth;
 	}
-	public void setMentalHealthIssuesYouth(Integer mentalHealthIssuesYouth) {
-		this.mentalHealthIssuesYouth = mentalHealthIssuesYouth;
+	public void setMental_health_issues_youth(Integer mental_health_issues_youth) {
+		this.mental_health_issues_youth = mental_health_issues_youth;
 	}
-	public Integer getMonthsChildWelfrForestCare() {
-		return monthsChildWelfrForestCare;
+	public Integer getMonths_child_welfr_forest_care() {
+		return months_child_welfr_forest_care;
 	}
-	public void setMonthsChildWelfrForestCare(Integer monthsChildWelfrForestCare) {
-		this.monthsChildWelfrForestCare = monthsChildWelfrForestCare;
+	public void setMonths_child_welfr_forest_care(
+			Integer months_child_welfr_forest_care) {
+		this.months_child_welfr_forest_care = months_child_welfr_forest_care;
 	}
-	public Integer getPhysicalDisabilityFamilyMbr() {
-		return physicalDisabilityFamilyMbr;
+	public Integer getPhysical_disability_family_mbr() {
+		return physical_disability_family_mbr;
 	}
-	public void setPhysicalDisabilityFamilyMbr(Integer physicalDisabilityFamilyMbr) {
-		this.physicalDisabilityFamilyMbr = physicalDisabilityFamilyMbr;
+	public void setPhysical_disability_family_mbr(
+			Integer physical_disability_family_mbr) {
+		this.physical_disability_family_mbr = physical_disability_family_mbr;
 	}
-	public Integer getPhysicalDisabilityYouth() {
-		return physicalDisabilityYouth;
+	public Integer getPhysical_disability_youth() {
+		return physical_disability_youth;
 	}
-	public void setPhysicalDisabilityYouth(Integer physicalDisabilityYouth) {
-		this.physicalDisabilityYouth = physicalDisabilityYouth;
+	public void setPhysical_disability_youth(Integer physical_disability_youth) {
+		this.physical_disability_youth = physical_disability_youth;
 	}
-	public Integer getReferralSource() {
-		return referralSource;
+	public Integer getReferral_source() {
+		return referral_source;
 	}
-	public void setReferralSource(Integer referralSource) {
-		this.referralSource = referralSource;
+	public void setReferral_source(Integer referral_source) {
+		this.referral_source = referral_source;
 	}
-	public Integer getSchoolEducationIssuesFamilyMbr() {
-		return schoolEducationIssuesFamilyMbr;
+	public Integer getSchool_education_issues_family_mbr() {
+		return school_education_issues_family_mbr;
 	}
-	public void setSchoolEducationIssuesFamilyMbr(
-			Integer schoolEducationIssuesFamilyMbr) {
-		this.schoolEducationIssuesFamilyMbr = schoolEducationIssuesFamilyMbr;
+	public void setSchool_education_issues_family_mbr(
+			Integer school_education_issues_family_mbr) {
+		this.school_education_issues_family_mbr = school_education_issues_family_mbr;
 	}
-	public Integer getSchoolEducationIssuesYouth() {
-		return schoolEducationIssuesYouth;
+	public Integer getSchool_education_issues_youth() {
+		return school_education_issues_youth;
 	}
-	public void setSchoolEducationIssuesYouth(Integer schoolEducationIssuesYouth) {
-		this.schoolEducationIssuesYouth = schoolEducationIssuesYouth;
+	public void setSchool_education_issues_youth(
+			Integer school_education_issues_youth) {
+		this.school_education_issues_youth = school_education_issues_youth;
 	}
-	public Integer getSexualOrientatiionGenderIdentityFamilyMbr() {
-		return sexualOrientatiionGenderIdentityFamilyMbr;
+	public Integer getSexual_orientatiion_gender_identity_family_mbr() {
+		return sexual_orientatiion_gender_identity_family_mbr;
 	}
-	public void setSexualOrientatiionGenderIdentityFamilyMbr(
-			Integer sexualOrientatiionGenderIdentityFamilyMbr) {
-		this.sexualOrientatiionGenderIdentityFamilyMbr = sexualOrientatiionGenderIdentityFamilyMbr;
+	public void setSexual_orientatiion_gender_identity_family_mbr(
+			Integer sexual_orientatiion_gender_identity_family_mbr) {
+		this.sexual_orientatiion_gender_identity_family_mbr = sexual_orientatiion_gender_identity_family_mbr;
 	}
-	public Integer getSexualOrientatiionGenderIdentityYouth() {
-		return sexualOrientatiionGenderIdentityYouth;
+	public Integer getSexual_orientatiion_gender_identity_youth() {
+		return sexual_orientatiion_gender_identity_youth;
 	}
-	public void setSexualOrientatiionGenderIdentityYouth(
-			Integer sexualOrientatiionGenderIdentityYouth) {
-		this.sexualOrientatiionGenderIdentityYouth = sexualOrientatiionGenderIdentityYouth;
+	public void setSexual_orientatiion_gender_identity_youth(
+			Integer sexual_orientatiion_gender_identity_youth) {
+		this.sexual_orientatiion_gender_identity_youth = sexual_orientatiion_gender_identity_youth;
 	}
-	public Integer getSexualOrientation() {
-		return sexualOrientation;
+	public Integer getSexual_orientation() {
+		return sexual_orientation;
 	}
-	public void setSexualOrientation(Integer sexualOrientation) {
-		this.sexualOrientation = sexualOrientation;
+	public void setSexual_orientation(Integer sexual_orientation) {
+		this.sexual_orientation = sexual_orientation;
 	}
-	public Integer getUnemployementFamilyMbr() {
-		return unemployementFamilyMbr;
+	public Integer getUnemployement_family_mbr() {
+		return unemployement_family_mbr;
 	}
-	public void setUnemployementFamilyMbr(Integer unemployementFamilyMbr) {
-		this.unemployementFamilyMbr = unemployementFamilyMbr;
+	public void setUnemployement_family_mbr(Integer unemployement_family_mbr) {
+		this.unemployement_family_mbr = unemployement_family_mbr;
 	}
-	public Integer getUnemployementYouth() {
-		return unemployementYouth;
+	public Integer getUnemployement_youth() {
+		return unemployement_youth;
 	}
-	public void setUnemployementYouth(Integer unemployementYouth) {
-		this.unemployementYouth = unemployementYouth;
+	public void setUnemployement_youth(Integer unemployement_youth) {
+		this.unemployement_youth = unemployement_youth;
 	}
-	public Integer getWorkPlacePromiseDifference() {
-		return workPlacePromiseDifference;
+	public Integer getWork_place_promise_difference() {
+		return work_place_promise_difference;
 	}
-	public void setWorkPlacePromiseDifference(Integer workPlacePromiseDifference) {
-		this.workPlacePromiseDifference = workPlacePromiseDifference;
+	public void setWork_place_promise_difference(
+			Integer work_place_promise_difference) {
+		this.work_place_promise_difference = work_place_promise_difference;
 	}
-	public Integer getWorkPlaceViolenceThreat() {
-		return workPlaceViolenceThreat;
+	public Integer getWork_place_violence_threat() {
+		return work_place_violence_threat;
 	}
-	public void setWorkPlaceViolenceThreat(Integer workPlaceViolenceThreat) {
-		this.workPlaceViolenceThreat = workPlaceViolenceThreat;
+	public void setWork_place_violence_threat(Integer work_place_violence_threat) {
+		this.work_place_violence_threat = work_place_violence_threat;
 	}
-	public Integer getYearsChildWelfrForestCare() {
-		return yearsChildWelfrForestCare;
+	public Integer getYears_child_welfr_forest_care() {
+		return years_child_welfr_forest_care;
 	}
-	public void setYearsChildWelfrForestCare(Integer yearsChildWelfrForestCare) {
-		this.yearsChildWelfrForestCare = yearsChildWelfrForestCare;
+	public void setYears_child_welfr_forest_care(
+			Integer years_child_welfr_forest_care) {
+		this.years_child_welfr_forest_care = years_child_welfr_forest_care;
 	}
-	public Integer getYearsJuvenileJustice() {
-		return yearsJuvenileJustice;
+	public Integer getYears_juvenile_justice() {
+		return years_juvenile_justice;
 	}
-	public void setYearsJuvenileJustice(Integer yearsJuvenileJustice) {
-		this.yearsJuvenileJustice = yearsJuvenileJustice;
+	public void setYears_juvenile_justice(Integer years_juvenile_justice) {
+		this.years_juvenile_justice = years_juvenile_justice;
 	}
-
+	
+	
 }

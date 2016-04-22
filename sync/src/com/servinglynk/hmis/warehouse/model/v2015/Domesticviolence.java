@@ -15,7 +15,7 @@ public class Domesticviolence extends BaseModel {
 	@Column(name="whenoccurred")
 	public String whenoccurred;
 	@Column(name="currently_fleeing")
-	public Integer currentlyFleeing;
+	public Integer currently_fleeing;
 	public String getDomesticviolencevictim() {
 		return domesticviolencevictim;
 	}
@@ -40,11 +40,11 @@ public class Domesticviolence extends BaseModel {
 	public void setWhenoccurred(String whenoccurred) {
 		this.whenoccurred = whenoccurred;
 	}
-	public Integer getCurrentlyFleeing() {
-		return currentlyFleeing;
+	public Integer getCurrently_fleeing() {
+		return currently_fleeing;
 	}
-	public void setCurrentlyFleeing(Integer currentlyFleeing) {
-		this.currentlyFleeing = currentlyFleeing;
+	public void setCurrently_fleeing(Integer currently_fleeing) {
+		this.currently_fleeing = currently_fleeing;
 	}
 	
 	

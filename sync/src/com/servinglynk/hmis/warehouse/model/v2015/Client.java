@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 
 @Entity
 public class Client extends BaseModel {
+	
+	@Column(name="id")
+	public UUID id;
 	@Column(name="dedup_client_id")
 	public UUID dedup_client_id;
 	@Column(name="first_name")
@@ -18,26 +21,31 @@ public class Client extends BaseModel {
 	@Column(name="name_suffix")
 	public String name_suffix;
 	@Column(name="name_data_quality")
-	public String name_data_quality;
+	public Integer name_data_quality;
 	@Column(name="ssn")		
 	public String ssn;
 	@Column(name="ssn_data_quality")
-	public String ssn_data_quality;
+	public Integer ssn_data_quality;
 	@Column(name="dob")		
 	public String dob;
 	@Column(name="dob_data_quality")
-	public String dob_data_quality;
+	public Integer dob_data_quality;
 	@Column(name="gender")	
-	public String gender;
+	public Integer gender;
 	@Column(name="other_gender")
 	public String other_gender;
 	@Column(name="ethnicity")
-	public String ethnicity;
+	public Integer ethnicity;
 	@Column(name="race")	
-	public String race;
+	public Integer race;
 	@Column(name="veteran_status")
-	public String veteran_status;
-
+	public Integer veteran_status;
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
 	public UUID getDedup_client_id() {
 		return dedup_client_id;
 	}
@@ -68,10 +76,10 @@ public class Client extends BaseModel {
 	public void setName_suffix(String name_suffix) {
 		this.name_suffix = name_suffix;
 	}
-	public String getName_data_quality() {
+	public Integer getName_data_quality() {
 		return name_data_quality;
 	}
-	public void setName_data_quality(String name_data_quality) {
+	public void setName_data_quality(Integer name_data_quality) {
 		this.name_data_quality = name_data_quality;
 	}
 	public String getSsn() {
@@ -80,10 +88,10 @@ public class Client extends BaseModel {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-	public String getSsn_data_quality() {
+	public Integer getSsn_data_quality() {
 		return ssn_data_quality;
 	}
-	public void setSsn_data_quality(String ssn_data_quality) {
+	public void setSsn_data_quality(Integer ssn_data_quality) {
 		this.ssn_data_quality = ssn_data_quality;
 	}
 	public String getDob() {
@@ -92,16 +100,16 @@ public class Client extends BaseModel {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-	public String getDob_data_quality() {
+	public Integer getDob_data_quality() {
 		return dob_data_quality;
 	}
-	public void setDob_data_quality(String dob_data_quality) {
+	public void setDob_data_quality(Integer dob_data_quality) {
 		this.dob_data_quality = dob_data_quality;
 	}
-	public String getGender() {
+	public Integer getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 	public String getOther_gender() {
@@ -110,22 +118,25 @@ public class Client extends BaseModel {
 	public void setOther_gender(String other_gender) {
 		this.other_gender = other_gender;
 	}
-	public String getEthnicity() {
+	public Integer getEthnicity() {
 		return ethnicity;
 	}
-	public void setEthnicity(String ethnicity) {
+	public void setEthnicity(Integer ethnicity) {
 		this.ethnicity = ethnicity;
 	}
-	public String getRace() {
+	public Integer getRace() {
 		return race;
 	}
-	public void setRace(String race) {
+	public void setRace(Integer race) {
 		this.race = race;
 	}
-	public String getVeteran_status() {
+	public Integer getVeteran_status() {
 		return veteran_status;
 	}
-	public void setVeteran_status(String veteran_status) {
+	public void setVeteran_status(Integer veteran_status) {
 		this.veteran_status = veteran_status;
 	}
+		
+	
+	
 }

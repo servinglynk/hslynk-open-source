@@ -8,61 +8,62 @@ import javax.persistence.Entity;
 public class Exitrhy  extends BaseModel{
 
 	@Column( name = "assistance_main_stream_benefits")
-	private Integer assistanceMainStreamBenefits;
+	private Integer assistance_main_stream_benefits;
 	
 	@Column( name = "early_exit_reason")
-	private Integer earlyExitReason;
+	private Integer early_exit_reason;
 	
 	@Column(name = "exitid")
 	private Exit exitid;
 	
 	@Column( name = "exit_counseling")
-	private Integer exitCounseling;
+	private Integer exit_counseling;
 	
 	@Column( name = "family_reunification_achieved")
-	private Integer familyReunificationAchieved;
+	private Integer family_reunification_achieved;
 	
 	@Column( name = "further_followup_services")
-	private Integer furtherFollowupServices;
+	private Integer further_followup_services;
 	
 	@Column( name = "id")
 	private java.util.UUID id;
 	
 	@Column( name = "other_aftercare_plan_or_action")
-	private Integer otherAftercarePlanOrAction;
+	private Integer other_aftercare_plan_or_action;
 	
 	@Column( name = "permenant_housing_placement")
-	private Integer permenantHousingPlacement;
+	private Integer permenant_housing_placement;
 	
 	@Column( name = "project_completion_status")
-	private Integer projectCompletionStatus;
+	private Integer project_completion_status;
 	
 	@Column( name = "resource_package")
-	private Integer resourcePackage;
+	private Integer resource_package;
 	
 	@Column( name = "scheduled_followup_contacts")
-	private Integer scheduledFollowupContacts;
+	private Integer scheduled_followup_contacts;
 	
 	@Column( name = "temp_shelter_placement")
-	private Integer tempShelterPlacement;
+	private Integer temp_shelter_placement;
 	
 	@Column( name = "written_after_care_plan")
-	private Integer writtenAfterCarePlan;
+	private Integer written_after_care_plan;
 
-	public Integer getAssistanceMainStreamBenefits() {
-		return assistanceMainStreamBenefits;
+	public Integer getAssistance_main_stream_benefits() {
+		return assistance_main_stream_benefits;
 	}
 
-	public void setAssistanceMainStreamBenefits(Integer assistanceMainStreamBenefits) {
-		this.assistanceMainStreamBenefits = assistanceMainStreamBenefits;
+	public void setAssistance_main_stream_benefits(
+			Integer assistance_main_stream_benefits) {
+		this.assistance_main_stream_benefits = assistance_main_stream_benefits;
 	}
 
-	public Integer getEarlyExitReason() {
-		return earlyExitReason;
+	public Integer getEarly_exit_reason() {
+		return early_exit_reason;
 	}
 
-	public void setEarlyExitReason(Integer earlyExitReason) {
-		this.earlyExitReason = earlyExitReason;
+	public void setEarly_exit_reason(Integer early_exit_reason) {
+		this.early_exit_reason = early_exit_reason;
 	}
 
 	public Exit getExitid() {
@@ -73,28 +74,29 @@ public class Exitrhy  extends BaseModel{
 		this.exitid = exitid;
 	}
 
-	public Integer getExitCounseling() {
-		return exitCounseling;
+	public Integer getExit_counseling() {
+		return exit_counseling;
 	}
 
-	public void setExitCounseling(Integer exitCounseling) {
-		this.exitCounseling = exitCounseling;
+	public void setExit_counseling(Integer exit_counseling) {
+		this.exit_counseling = exit_counseling;
 	}
 
-	public Integer getFamilyReunificationAchieved() {
-		return familyReunificationAchieved;
+	public Integer getFamily_reunification_achieved() {
+		return family_reunification_achieved;
 	}
 
-	public void setFamilyReunificationAchieved(Integer familyReunificationAchieved) {
-		this.familyReunificationAchieved = familyReunificationAchieved;
+	public void setFamily_reunification_achieved(
+			Integer family_reunification_achieved) {
+		this.family_reunification_achieved = family_reunification_achieved;
 	}
 
-	public Integer getFurtherFollowupServices() {
-		return furtherFollowupServices;
+	public Integer getFurther_followup_services() {
+		return further_followup_services;
 	}
 
-	public void setFurtherFollowupServices(Integer furtherFollowupServices) {
-		this.furtherFollowupServices = furtherFollowupServices;
+	public void setFurther_followup_services(Integer further_followup_services) {
+		this.further_followup_services = further_followup_services;
 	}
 
 	public java.util.UUID getId() {
@@ -105,61 +107,64 @@ public class Exitrhy  extends BaseModel{
 		this.id = id;
 	}
 
-	public Integer getOtherAftercarePlanOrAction() {
-		return otherAftercarePlanOrAction;
+	public Integer getOther_aftercare_plan_or_action() {
+		return other_aftercare_plan_or_action;
 	}
 
-	public void setOtherAftercarePlanOrAction(Integer otherAftercarePlanOrAction) {
-		this.otherAftercarePlanOrAction = otherAftercarePlanOrAction;
+	public void setOther_aftercare_plan_or_action(
+			Integer other_aftercare_plan_or_action) {
+		this.other_aftercare_plan_or_action = other_aftercare_plan_or_action;
 	}
 
-	public Integer getPermenantHousingPlacement() {
-		return permenantHousingPlacement;
+	public Integer getPermenant_housing_placement() {
+		return permenant_housing_placement;
 	}
 
-	public void setPermenantHousingPlacement(Integer permenantHousingPlacement) {
-		this.permenantHousingPlacement = permenantHousingPlacement;
+	public void setPermenant_housing_placement(Integer permenant_housing_placement) {
+		this.permenant_housing_placement = permenant_housing_placement;
 	}
 
-	public Integer getProjectCompletionStatus() {
-		return projectCompletionStatus;
+	public Integer getProject_completion_status() {
+		return project_completion_status;
 	}
 
-	public void setProjectCompletionStatus(Integer projectCompletionStatus) {
-		this.projectCompletionStatus = projectCompletionStatus;
+	public void setProject_completion_status(Integer project_completion_status) {
+		this.project_completion_status = project_completion_status;
 	}
 
-	public Integer getResourcePackage() {
-		return resourcePackage;
+	public Integer getResource_package() {
+		return resource_package;
 	}
 
-	public void setResourcePackage(Integer resourcePackage) {
-		this.resourcePackage = resourcePackage;
+	public void setResource_package(Integer resource_package) {
+		this.resource_package = resource_package;
 	}
 
-	public Integer getScheduledFollowupContacts() {
-		return scheduledFollowupContacts;
+	public Integer getScheduled_followup_contacts() {
+		return scheduled_followup_contacts;
 	}
 
-	public void setScheduledFollowupContacts(Integer scheduledFollowupContacts) {
-		this.scheduledFollowupContacts = scheduledFollowupContacts;
+	public void setScheduled_followup_contacts(Integer scheduled_followup_contacts) {
+		this.scheduled_followup_contacts = scheduled_followup_contacts;
 	}
 
-	public Integer getTempShelterPlacement() {
-		return tempShelterPlacement;
+	public Integer getTemp_shelter_placement() {
+		return temp_shelter_placement;
 	}
 
-	public void setTempShelterPlacement(Integer tempShelterPlacement) {
-		this.tempShelterPlacement = tempShelterPlacement;
+	public void setTemp_shelter_placement(Integer temp_shelter_placement) {
+		this.temp_shelter_placement = temp_shelter_placement;
 	}
 
-	public Integer getWrittenAfterCarePlan() {
-		return writtenAfterCarePlan;
+	public Integer getWritten_after_care_plan() {
+		return written_after_care_plan;
 	}
 
-	public void setWrittenAfterCarePlan(Integer writtenAfterCarePlan) {
-		this.writtenAfterCarePlan = writtenAfterCarePlan;
+	public void setWritten_after_care_plan(Integer written_after_care_plan) {
+		this.written_after_care_plan = written_after_care_plan;
 	}
 	
+	
+		
 	
 }

@@ -5,8 +5,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import org.joda.time.LocalDateTime;
-
 
 @Entity
 public class ServiceFaReferral extends BaseModel{
@@ -16,28 +14,28 @@ public class ServiceFaReferral extends BaseModel{
 	private Enrollment enrollmentid;
 
 	@Column( name = "fa_amount")
-	private java.math.BigDecimal faAmount;
+	private java.math.BigDecimal fa_amount;
 
 	@Column( name = "funder_list")
-	private Integer funderList;
+	private Integer funder_list;
 
 	@Column( name = "id")
 	private java.util.UUID id;
 
 	@Column( name = "other_type_provided")
-	private String otherTypeProvided;
+	private String other_type_provided;
 
 	@Column( name = "referral_outcome")
-	private Integer referralOutcome;
+	private Integer referral_outcome;
 
 	@Column( name = "service_category")
-	private Integer serviceCategory;
+	private Integer service_category;
 	
 	@Column( name = "sub_type_provided")
-	private Integer subTypeProvided;
+	private Integer sub_type_provided;
 	
 	@Column( name = "type_provided")
-	private Integer typeProvided;
+	private Integer type_provided;
 	
 	@Column( name = "dateProvided")
 	private Timestamp dateprovided;
@@ -50,20 +48,20 @@ public class ServiceFaReferral extends BaseModel{
 		this.enrollmentid = enrollmentid;
 	}
 
-	public java.math.BigDecimal getFaAmount() {
-		return faAmount;
+	public java.math.BigDecimal getFa_amount() {
+		return fa_amount;
 	}
 
-	public void setFaAmount(java.math.BigDecimal faAmount) {
-		this.faAmount = faAmount;
+	public void setFa_amount(java.math.BigDecimal fa_amount) {
+		this.fa_amount = fa_amount;
 	}
 
-	public Integer getFunderList() {
-		return funderList;
+	public Integer getFunder_list() {
+		return funder_list;
 	}
 
-	public void setFunderList(Integer funderList) {
-		this.funderList = funderList;
+	public void setFunder_list(Integer funder_list) {
+		this.funder_list = funder_list;
 	}
 
 	public java.util.UUID getId() {
@@ -74,44 +72,44 @@ public class ServiceFaReferral extends BaseModel{
 		this.id = id;
 	}
 
-	public String getOtherTypeProvided() {
-		return otherTypeProvided;
+	public String getOther_type_provided() {
+		return other_type_provided;
 	}
 
-	public void setOtherTypeProvided(String otherTypeProvided) {
-		this.otherTypeProvided = otherTypeProvided;
+	public void setOther_type_provided(String other_type_provided) {
+		this.other_type_provided = other_type_provided;
 	}
 
-	public Integer getReferralOutcome() {
-		return referralOutcome;
+	public Integer getReferral_outcome() {
+		return referral_outcome;
 	}
 
-	public void setReferralOutcome(Integer referralOutcome) {
-		this.referralOutcome = referralOutcome;
+	public void setReferral_outcome(Integer referral_outcome) {
+		this.referral_outcome = referral_outcome;
 	}
 
-	public Integer getServiceCategory() {
-		return serviceCategory;
+	public Integer getService_category() {
+		return service_category;
 	}
 
-	public void setServiceCategory(Integer serviceCategory) {
-		this.serviceCategory = serviceCategory;
+	public void setService_category(Integer service_category) {
+		this.service_category = service_category;
 	}
 
-	public Integer getSubTypeProvided() {
-		return subTypeProvided;
+	public Integer getSub_type_provided() {
+		return sub_type_provided;
 	}
 
-	public void setSubTypeProvided(Integer subTypeProvided) {
-		this.subTypeProvided = subTypeProvided;
+	public void setSub_type_provided(Integer sub_type_provided) {
+		this.sub_type_provided = sub_type_provided;
 	}
 
-	public Integer getTypeProvided() {
-		return typeProvided;
+	public Integer getType_provided() {
+		return type_provided;
 	}
 
-	public void setTypeProvided(Integer typeProvided) {
-		this.typeProvided = typeProvided;
+	public void setType_provided(Integer type_provided) {
+		this.type_provided = type_provided;
 	}
 
 	public Timestamp getDateprovided() {
@@ -121,6 +119,7 @@ public class ServiceFaReferral extends BaseModel{
 	public void setDateprovided(Timestamp dateprovided) {
 		this.dateprovided = dateprovided;
 	}
-	
+
+		
 	
 }

@@ -10,30 +10,29 @@ public class Affiliation extends BaseModel{
 	@Column(name="projectid")
 	private UUID projectid;
 	@Column(name="resprojectid")
-	private UUID resprojectid;
-	/**
-	 * @return the projectid
-	 */
+	private String resprojectid;
+	@Column(name="id")
+	private UUID id;
 	public UUID getProjectid() {
 		return projectid;
 	}
-	/**
-	 * @param projectid the projectid to set
-	 */
 	public void setProjectid(UUID projectid) {
 		this.projectid = projectid;
 	}
-	/**
-	 * @return the resprojectid
-	 */
-	public UUID getResprojectid() {
+	public String getResprojectid() {
 		return resprojectid;
 	}
-	/**
-	 * @param resprojectid the resprojectid to set
-	 */
-	public void setResprojectid(UUID resprojectid) {
+	public void setResprojectid(String resprojectid) {
 		this.resprojectid = resprojectid;
 	}
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
+	
+	
 	
 }

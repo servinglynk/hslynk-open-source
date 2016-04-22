@@ -16,7 +16,7 @@ public class Site extends BaseModel {
 	@Column(name = "principal_site")
 	public Integer principal_site;
 	@Column(name = "coc_id")
-	public UUID cocId;
+	public UUID coc_id;
 	@Column(name = "state")
 	public String state;
 	@Column(name = "zip")
@@ -47,11 +47,12 @@ public class Site extends BaseModel {
 	public void setPrincipal_site(Integer principal_site) {
 		this.principal_site = principal_site;
 	}
-	public UUID getCocId() {
-		return cocId;
+	
+	public UUID getCoc_id() {
+		return coc_id;
 	}
-	public void setCocId(UUID cocId) {
-		this.cocId = cocId;
+	public void setCoc_id(UUID coc_id) {
+		this.coc_id = coc_id;
 	}
 	public String getState() {
 		return state;

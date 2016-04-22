@@ -19,7 +19,7 @@ public class Education extends BaseModel {
 	private Integer lastgradecompleted;
 	
 	@Column( name = "school_status")
-	private Integer schoolStatus;
+	private Integer school_status;
 
 	
 	public UUID getEnrollmentid() {
@@ -46,13 +46,15 @@ public class Education extends BaseModel {
 		this.lastgradecompleted = lastgradecompleted;
 	}
 
-	public Integer getSchoolStatus() {
-		return schoolStatus;
+	public Integer getSchool_status() {
+		return school_status;
 	}
 
-	public void setSchoolStatus(Integer schoolStatus) {
-		this.schoolStatus = schoolStatus;
+	public void setSchool_status(Integer school_status) {
+		this.school_status = school_status;
 	}
+
+	
 	
 	
 	

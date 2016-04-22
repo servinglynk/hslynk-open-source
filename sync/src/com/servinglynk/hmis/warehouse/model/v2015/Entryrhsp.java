@@ -13,7 +13,7 @@ public class Entryrhsp extends BaseModel {
 	@Column( name = "id")
 	private java.util.UUID id;
 	@Column( name = "worst_housing_situation")
-	private Integer worstHousingSituation;
+	private Integer worst_housing_situation;
 	
 	public UUID getEnrollmentid() {
 		return enrollmentid;
@@ -27,12 +27,12 @@ public class Entryrhsp extends BaseModel {
 	public void setId(java.util.UUID id) {
 		this.id = id;
 	}
-	public Integer getWorstHousingSituation() {
-		return worstHousingSituation;
+	public Integer getWorst_housing_situation() {
+		return worst_housing_situation;
 	}
-	public void setWorstHousingSituation(Integer worstHousingSituation) {
-		this.worstHousingSituation = worstHousingSituation;
+	public void setWorst_housing_situation(Integer worst_housing_situation) {
+		this.worst_housing_situation = worst_housing_situation;
 	}
-	
+		
 	
 }

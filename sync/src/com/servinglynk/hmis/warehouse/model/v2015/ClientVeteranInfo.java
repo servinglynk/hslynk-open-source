@@ -11,77 +11,77 @@ public class ClientVeteranInfo extends BaseModel{
 	
 
 	@Column( name = "afghanistan_oef")
-	private Integer afghanistanOef;
+	private Integer afghanistan_oef;
 	
 	@Column(name = "client_id")
-	private UUID clientId;
+	private UUID client_id;
 	
 	@Column( name = "desert_storm")
-	private Integer desertStorm;
+	private Integer desert_storm;
 	
 	@Column( name = "discharge_status")
-	private Integer dischargeStatus;
+	private Integer discharge_status;
 	
 	@Column( name = "id")
 	private UUID id;
 	
     @Column( name = "iraq_oif")
-	private Integer iraqOif;
+	private Integer iraq_oif;
 	
 	@Column( name = "iraq_ond")
-	private Integer iraqOnd;
+	private Integer iraq_ond;
 	
 	@Column( name = "korean_war")
-	private Integer koreanWar;
+	private Integer korean_war;
 	
 	@Column( name = "military_branch")
-	private Integer militaryBranch;
+	private Integer military_branch;
 	
 	@Column( name = "other_theater")
-	private Integer otherTheater;
+	private Integer other_theater;
 	
 	@Column( name = "vietnam_war")
-	private Integer vietnamWar;
+	private Integer vietnam_war;
 	
 	@Column( name = "world_war_2")
-	private Integer worldWar2;
+	private Integer world_war_2;
 	
 	@Column( name = "year_entrd_service")
-	private Integer yearEntrdService;
+	private Integer year_entrd_service;
 	
 	@Column( name = "year_seperated")
-	private Integer yearSeperated;
+	private Integer year_seperated;
 
-	public Integer getAfghanistanOef() {
-		return afghanistanOef;
+	public Integer getAfghanistan_oef() {
+		return afghanistan_oef;
 	}
 
-	public void setAfghanistanOef(Integer afghanistanOef) {
-		this.afghanistanOef = afghanistanOef;
+	public void setAfghanistan_oef(Integer afghanistan_oef) {
+		this.afghanistan_oef = afghanistan_oef;
 	}
 
-	public UUID getClientId() {
-		return clientId;
+	public UUID getClient_id() {
+		return client_id;
 	}
 
-	public void setClientId(UUID clientId) {
-		this.clientId = clientId;
+	public void setClient_id(UUID client_id) {
+		this.client_id = client_id;
 	}
 
-	public Integer getDesertStorm() {
-		return desertStorm;
+	public Integer getDesert_storm() {
+		return desert_storm;
 	}
 
-	public void setDesertStorm(Integer desertStorm) {
-		this.desertStorm = desertStorm;
+	public void setDesert_storm(Integer desert_storm) {
+		this.desert_storm = desert_storm;
 	}
 
-	public Integer getDischargeStatus() {
-		return dischargeStatus;
+	public Integer getDischarge_status() {
+		return discharge_status;
 	}
 
-	public void setDischargeStatus(Integer dischargeStatus) {
-		this.dischargeStatus = dischargeStatus;
+	public void setDischarge_status(Integer discharge_status) {
+		this.discharge_status = discharge_status;
 	}
 
 	public UUID getId() {
@@ -92,78 +92,78 @@ public class ClientVeteranInfo extends BaseModel{
 		this.id = id;
 	}
 
-	public Integer getIraqOif() {
-		return iraqOif;
+	public Integer getIraq_oif() {
+		return iraq_oif;
 	}
 
-	public void setIraqOif(Integer iraqOif) {
-		this.iraqOif = iraqOif;
+	public void setIraq_oif(Integer iraq_oif) {
+		this.iraq_oif = iraq_oif;
 	}
 
-	public Integer getIraqOnd() {
-		return iraqOnd;
+	public Integer getIraq_ond() {
+		return iraq_ond;
 	}
 
-	public void setIraqOnd(Integer iraqOnd) {
-		this.iraqOnd = iraqOnd;
+	public void setIraq_ond(Integer iraq_ond) {
+		this.iraq_ond = iraq_ond;
 	}
 
-	public Integer getKoreanWar() {
-		return koreanWar;
+	public Integer getKorean_war() {
+		return korean_war;
 	}
 
-	public void setKoreanWar(Integer koreanWar) {
-		this.koreanWar = koreanWar;
+	public void setKorean_war(Integer korean_war) {
+		this.korean_war = korean_war;
 	}
 
-	public Integer getMilitaryBranch() {
-		return militaryBranch;
+	public Integer getMilitary_branch() {
+		return military_branch;
 	}
 
-	public void setMilitaryBranch(Integer militaryBranch) {
-		this.militaryBranch = militaryBranch;
+	public void setMilitary_branch(Integer military_branch) {
+		this.military_branch = military_branch;
 	}
 
-	public Integer getOtherTheater() {
-		return otherTheater;
+	public Integer getOther_theater() {
+		return other_theater;
 	}
 
-	public void setOtherTheater(Integer otherTheater) {
-		this.otherTheater = otherTheater;
+	public void setOther_theater(Integer other_theater) {
+		this.other_theater = other_theater;
 	}
 
-	public Integer getVietnamWar() {
-		return vietnamWar;
+	public Integer getVietnam_war() {
+		return vietnam_war;
 	}
 
-	public void setVietnamWar(Integer vietnamWar) {
-		this.vietnamWar = vietnamWar;
+	public void setVietnam_war(Integer vietnam_war) {
+		this.vietnam_war = vietnam_war;
 	}
 
-	public Integer getWorldWar2() {
-		return worldWar2;
+	public Integer getWorld_war_2() {
+		return world_war_2;
 	}
 
-	public void setWorldWar2(Integer worldWar2) {
-		this.worldWar2 = worldWar2;
+	public void setWorld_war_2(Integer world_war_2) {
+		this.world_war_2 = world_war_2;
 	}
 
-	public Integer getYearEntrdService() {
-		return yearEntrdService;
+	public Integer getYear_entrd_service() {
+		return year_entrd_service;
 	}
 
-	public void setYearEntrdService(Integer yearEntrdService) {
-		this.yearEntrdService = yearEntrdService;
+	public void setYear_entrd_service(Integer year_entrd_service) {
+		this.year_entrd_service = year_entrd_service;
 	}
 
-	public Integer getYearSeperated() {
-		return yearSeperated;
+	public Integer getYear_seperated() {
+		return year_seperated;
 	}
 
-	public void setYearSeperated(Integer yearSeperated) {
-		this.yearSeperated = yearSeperated;
+	public void setYear_seperated(Integer year_seperated) {
+		this.year_seperated = year_seperated;
 	}
-	
+
 	
 
 }

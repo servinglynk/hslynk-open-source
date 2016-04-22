@@ -50,13 +50,13 @@ public class Disabilities extends BaseModel{
 	private String tcellcountsource;
 	
 	@Column( name = "viral_load")
-	private Integer viralLoad;
+	private Integer viral_load;
 	
 	@Column( name = "viral_load_available")
-	private Integer viralLoadAvailable;
+	private Integer viral_load_available;
 	
 	@Column( name = "viral_load_source")
-	private String viralLoadSource;
+	private String viral_load_source;
 
 	public Integer getDisabilityresponse() {
 		return disabilityresponse;
@@ -163,29 +163,31 @@ public class Disabilities extends BaseModel{
 		this.tcellcountsource = tcellcountsource;
 	}
 
-	public Integer getViralLoad() {
-		return viralLoad;
+	public Integer getViral_load() {
+		return viral_load;
 	}
 
-	public void setViralLoad(Integer viralLoad) {
-		this.viralLoad = viralLoad;
+	public void setViral_load(Integer viral_load) {
+		this.viral_load = viral_load;
 	}
 
-	public Integer getViralLoadAvailable() {
-		return viralLoadAvailable;
+	public Integer getViral_load_available() {
+		return viral_load_available;
 	}
 
-	public void setViralLoadAvailable(Integer viralLoadAvailable) {
-		this.viralLoadAvailable = viralLoadAvailable;
+	public void setViral_load_available(Integer viral_load_available) {
+		this.viral_load_available = viral_load_available;
 	}
 
-	public String getViralLoadSource() {
-		return viralLoadSource;
+	public String getViral_load_source() {
+		return viral_load_source;
 	}
 
-	public void setViralLoadSource(String viralLoadSource) {
-		this.viralLoadSource = viralLoadSource;
+	public void setViral_load_source(String viral_load_source) {
+		this.viral_load_source = viral_load_source;
 	}
+
+	
 	
 	
 	   

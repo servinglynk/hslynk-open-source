@@ -13,7 +13,7 @@ public class EnrollmentCoc extends BaseModel {
 	@Column(name = "enrollmentid")
 	public UUID enrollmentid;
 	@Column(name = "client_code")
-	public String clientCode;
+	public String client_code;
 	public UUID getId() {
 		return id;
 	}
@@ -26,13 +26,11 @@ public class EnrollmentCoc extends BaseModel {
 	public void setEnrollmentid(UUID enrollmentid) {
 		this.enrollmentid = enrollmentid;
 	}
-	public String getClientCode() {
-		return clientCode;
+	public String getClient_code() {
+		return client_code;
 	}
-	public void setClientCode(String clientCode) {
-		this.clientCode = clientCode;
+	public void setClient_code(String client_code) {
+		this.client_code = client_code;
 	}
-	
-
-	
+		
 }

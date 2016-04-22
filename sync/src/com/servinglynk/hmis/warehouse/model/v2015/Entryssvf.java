@@ -9,41 +9,41 @@ public class Entryssvf extends BaseModel {
 
 
 	@Column( name = "address_data_quality")
-	private Integer addressDataQuality;
+	private Integer address_data_quality;
 	
 	@Column(name = "enrollmentid")
 	private Enrollment enrollmentid;
 	
 	@Column( name = "hp_screen_score")
-	private Integer hpScreeningScore;
+	private Integer hp_screen_score;
 	
 	@Column( name = "id")
 	private java.util.UUID id;
 	
 	@Column( name = "last_permanent_city")
-	private String lastPermanentCity;
+	private String last_permanent_city;
 	
 	@Column( name = "last_permanent_state")
-	private String lastPermanentState;
+	private String last_permanent_state;
 	
 	@Column( name = "last_permanent_street")
-	private String lastPermanentStreet;
+	private String last_permanent_street;
 	
 	@Column( name = "last_permanent_zip")
-	private String lastPermanentZip;
+	private String last_permanent_zip;
 	
 	@Column( name = "percentami")
 	private Integer percentami;
 	
 	@Column( name = "vamc_staction")
-	private String vamcStation;
+	private String vamc_staction;
 
-	public Integer getAddressDataQuality() {
-		return addressDataQuality;
+	public Integer getAddress_data_quality() {
+		return address_data_quality;
 	}
 
-	public void setAddressDataQuality(Integer addressDataQuality) {
-		this.addressDataQuality = addressDataQuality;
+	public void setAddress_data_quality(Integer address_data_quality) {
+		this.address_data_quality = address_data_quality;
 	}
 
 	public Enrollment getEnrollmentid() {
@@ -54,12 +54,12 @@ public class Entryssvf extends BaseModel {
 		this.enrollmentid = enrollmentid;
 	}
 
-	public Integer getHpScreeningScore() {
-		return hpScreeningScore;
+	public Integer getHp_screen_score() {
+		return hp_screen_score;
 	}
 
-	public void setHpScreeningScore(Integer hpScreeningScore) {
-		this.hpScreeningScore = hpScreeningScore;
+	public void setHp_screen_score(Integer hp_screen_score) {
+		this.hp_screen_score = hp_screen_score;
 	}
 
 	public java.util.UUID getId() {
@@ -70,36 +70,36 @@ public class Entryssvf extends BaseModel {
 		this.id = id;
 	}
 
-	public String getLastPermanentCity() {
-		return lastPermanentCity;
+	public String getLast_permanent_city() {
+		return last_permanent_city;
 	}
 
-	public void setLastPermanentCity(String lastPermanentCity) {
-		this.lastPermanentCity = lastPermanentCity;
+	public void setLast_permanent_city(String last_permanent_city) {
+		this.last_permanent_city = last_permanent_city;
 	}
 
-	public String getLastPermanentState() {
-		return lastPermanentState;
+	public String getLast_permanent_state() {
+		return last_permanent_state;
 	}
 
-	public void setLastPermanentState(String lastPermanentState) {
-		this.lastPermanentState = lastPermanentState;
+	public void setLast_permanent_state(String last_permanent_state) {
+		this.last_permanent_state = last_permanent_state;
 	}
 
-	public String getLastPermanentStreet() {
-		return lastPermanentStreet;
+	public String getLast_permanent_street() {
+		return last_permanent_street;
 	}
 
-	public void setLastPermanentStreet(String lastPermanentStreet) {
-		this.lastPermanentStreet = lastPermanentStreet;
+	public void setLast_permanent_street(String last_permanent_street) {
+		this.last_permanent_street = last_permanent_street;
 	}
 
-	public String getLastPermanentZip() {
-		return lastPermanentZip;
+	public String getLast_permanent_zip() {
+		return last_permanent_zip;
 	}
 
-	public void setLastPermanentZip(String lastPermanentZip) {
-		this.lastPermanentZip = lastPermanentZip;
+	public void setLast_permanent_zip(String last_permanent_zip) {
+		this.last_permanent_zip = last_permanent_zip;
 	}
 
 	public Integer getPercentami() {
@@ -110,14 +110,13 @@ public class Entryssvf extends BaseModel {
 		this.percentami = percentami;
 	}
 
-	public String getVamcStation() {
-		return vamcStation;
+	public String getVamc_staction() {
+		return vamc_staction;
 	}
 
-	public void setVamcStation(String vamcStation) {
-		this.vamcStation = vamcStation;
+	public void setVamc_staction(String vamc_staction) {
+		this.vamc_staction = vamc_staction;
 	}
 
 	
-   
 }
