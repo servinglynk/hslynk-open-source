@@ -34,7 +34,6 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		
 		List<EnrollmentCoC> enrollmentCoCs = domain.getExport().getEnrollmentCoC();

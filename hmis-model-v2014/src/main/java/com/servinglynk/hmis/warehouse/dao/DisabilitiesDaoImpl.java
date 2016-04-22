@@ -33,7 +33,6 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) 
 	{
 		

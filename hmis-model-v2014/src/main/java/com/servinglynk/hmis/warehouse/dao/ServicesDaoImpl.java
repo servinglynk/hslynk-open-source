@@ -34,10 +34,10 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Services> servicesList = domain.getExport().getServices();
 		hydrateBulkUploadActivityStaging(servicesList, com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), domain);
+		int i=0;
 		if(servicesList != null && !servicesList.isEmpty())
 		{
 			for(Services services : servicesList)
@@ -61,7 +61,12 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				servicesModel.setExport(exportEntity);
 				hydrateCommonFields(servicesModel, domain,services.getServicesID());
-				insertOrUpdate(servicesModel);
+				insert(servicesModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

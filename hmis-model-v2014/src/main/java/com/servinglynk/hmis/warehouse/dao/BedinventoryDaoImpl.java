@@ -21,12 +21,10 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 	public class BedinventoryDaoImpl  extends ParentDaoImpl  implements BedinventoryDao {
 
 		@Override
-		@Transactional
 		public void hydrateStaging(ExportDomain domain) {
 			throw new UnsupportedOperationException();
 		}
 		@Override
-		@Transactional
 		public void hydrateBedInventory(ExportDomain domain, Inventory inventory) {
 			BedInventory bedInventory = inventory.getBedInventory();
 			Bedinventory bedInventoryModel = new Bedinventory();
@@ -41,7 +39,7 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 			bedInventoryModel.setId(bedInventoryId);
 			domain.getBedInventoryMap().put(String.valueOf(bedInventory.getBedInventory()), bedInventoryId);
 			exportEntity.addBedinventory(bedInventoryModel);
-			insertOrUpdate(bedInventoryModel);
+			insert(bedInventoryModel);
 		}
 		@Override
 		public void hydrateLive(Export export, Long id) {

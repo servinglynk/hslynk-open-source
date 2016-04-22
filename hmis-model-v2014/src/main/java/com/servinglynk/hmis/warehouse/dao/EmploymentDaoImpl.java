@@ -34,10 +34,10 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
 		hydrateBulkUploadActivityStaging(employmentList, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain);
+		int i=0;
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)
@@ -66,7 +66,12 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				employmentModel.setExport(exportEntity);
 				hydrateCommonFields(employmentModel, domain, employment.getEmploymentID());
 				exportEntity.addEmployment(employmentModel);
-				insertOrUpdate(employmentModel);				
+				insert(employmentModel);	
+				i++;
+				if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	             }
 			}
 		}
 	}

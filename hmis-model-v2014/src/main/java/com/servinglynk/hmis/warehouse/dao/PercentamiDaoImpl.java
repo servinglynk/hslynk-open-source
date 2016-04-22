@@ -32,10 +32,10 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<PercentAMI> percentAMIs = domain.getExport().getPercentAMI();
 		hydrateBulkUploadActivityStaging(percentAMIs, com.servinglynk.hmis.warehouse.model.v2014.Percentami.class.getSimpleName(), domain);
+		int i=0;
 		if(percentAMIs !=null && !percentAMIs.isEmpty())
 		{
 			for(PercentAMI percentAMI :percentAMIs)
@@ -56,7 +56,12 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				percentamoModel.setExport(exportEntity);
 				exportEntity.addPercentami(percentamoModel);
 				hydrateCommonFields(percentamoModel, domain, percentAMI.getPercentAMIID());
-				insertOrUpdate(percentamoModel);
+				insert(percentamoModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 

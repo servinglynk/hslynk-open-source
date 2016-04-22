@@ -37,11 +37,11 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	private ParentDaoFactory factory;
 	
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
 		hydrateBulkUploadActivityStaging(projectCoCs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), domain);
+		int i=0;
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
 			UUID id = UUID.randomUUID();
@@ -62,7 +62,12 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			projectcocModel.setExport(exportEntity);
 			exportEntity.addProjectcoc(projectcocModel);
 			hydrateCommonFields(projectcocModel, domain, String.valueOf(projectCoc.getProjectCoCID()));
-			insertOrUpdate(projectcocModel);
+			insert(projectcocModel);
+			i++;
+			  if(i % batchSize() == 0 && i > 0) {
+                  getCurrentSession().flush();
+                  getCurrentSession().clear();
+              }
 		}
 	}
 

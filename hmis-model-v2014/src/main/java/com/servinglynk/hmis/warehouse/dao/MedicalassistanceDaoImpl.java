@@ -37,12 +37,12 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
 		hydrateBulkUploadActivityStaging(medicalAssistanceList, com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class.getSimpleName(), domain);
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
+			int i=0;
 			for(MedicalAssistance medicalAssistance : medicalAssistanceList)
 			{
 				Medicalassistance medicalassistanceModel = new Medicalassistance();
@@ -63,7 +63,12 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				medicalassistanceModel.setExport(exportEntity);
 				exportEntity.addMedicalassistance(medicalassistanceModel);
 				hydrateCommonFields(medicalassistanceModel, domain, medicalAssistance.getMedicalAssistanceID());
-				insertOrUpdate(medicalassistanceModel);
+				insert(medicalassistanceModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

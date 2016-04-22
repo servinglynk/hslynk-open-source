@@ -35,10 +35,10 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<LastPermanentAddress> lastPermanentAddresses = domain.getExport().getLastPermanentAddress();
 		hydrateBulkUploadActivityStaging(lastPermanentAddresses, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), domain);
+		int i=0;
 		if(lastPermanentAddresses !=null && !lastPermanentAddresses.isEmpty())
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)
@@ -63,7 +63,12 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				lastPermAddressModel.setExport(exportEntity);
 				exportEntity.addLastPermAddress(lastPermAddressModel);
 				hydrateCommonFields(lastPermAddressModel, domain, lastPermanentAddress.getLastPermanentAddressID());
-				insertOrUpdate(lastPermAddressModel);
+				insert(lastPermAddressModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 

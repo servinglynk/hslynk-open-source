@@ -46,12 +46,12 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 			.getLogger(VeteranInfoDaoImpl.class);
 	
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo> veteranInfoList = export
 				.getVeteranInfo();
 		hydrateBulkUploadActivityStaging(veteranInfoList, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain);
+		int i=0;
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo veteranInfo : veteranInfoList) {
 				
@@ -114,6 +114,11 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				exportEntity.addVeteranInfo(vInfo);
 				hydrateCommonFields(vInfo, domain,veteranInfo.getVeteranInfoID());
 				insert(vInfo);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

@@ -29,7 +29,6 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		DateofengagementDao {
 	
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) 
 	{
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
@@ -53,6 +52,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
 				hydrateCommonFields(dateOfEngagementModel, domain, dateOfEngagement.getDateOfEngagementID());
 				insert(dateOfEngagementModel);
+				i++;
 				  if(i % batchSize() == 0 && i > 0) {
 	                    getCurrentSession().flush();
 	                    getCurrentSession().clear();

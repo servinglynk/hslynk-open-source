@@ -35,10 +35,10 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<FormerWardChildWelfare> formerWardChildWelfares = domain.getExport().getFormerWardChildWelfare();
 		hydrateBulkUploadActivityStaging(formerWardChildWelfares, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), domain);
+		int i=0;
 		if(formerWardChildWelfares !=null && !formerWardChildWelfares.isEmpty() ) 
 		{
 			for(FormerWardChildWelfare formerWardChildWelfare : formerWardChildWelfares)
@@ -68,6 +68,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		Set<Formerwardchildwelfare> formerwardchildwelfares = export.getFormerwardchildwelfares();
 		hydrateBulkUploadActivity(formerwardchildwelfares, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), export,id);
 		if(formerwardchildwelfares != null && !formerwardchildwelfares.isEmpty()) {
+			int i=0;
 			for(Formerwardchildwelfare formerwardchildwelfare : formerwardchildwelfares) {
 				if(formerwardchildwelfare !=null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare target = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
@@ -79,7 +80,12 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 					exportEntity.addFormerwardchildwelfare(target);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
+					insert(target);
+					i++;
+					  if(i % batchSize() == 0 && i > 0) {
+		                    getCurrentSession().flush();
+		                    getCurrentSession().clear();
+		                }
 				}
 			}
 		}

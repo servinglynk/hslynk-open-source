@@ -31,10 +31,10 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		 List<Organization> organizations = domain.getExport().getOrganization();
 		 hydrateBulkUploadActivityStaging(organizations, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), domain);
+		 int i=0;
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
@@ -53,7 +53,12 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 organizationModel.setExport(exportEntity);
 				 exportEntity.addOrganization(organizationModel);
 				 hydrateCommonFields(organizationModel, domain,String.valueOf(organization.getOrganizationID()));
-				 insertOrUpdate(organizationModel);
+				 insert(organizationModel);
+				 i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			 }
 		 }
 	}

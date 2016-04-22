@@ -40,10 +40,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Project> projects = domain.getExport().getProject();
 		hydrateBulkUploadActivityStaging(projects, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain);
+		int i=0;
 		if(projects !=null && projects.size() > 0)
 		{
 			
@@ -80,7 +80,12 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
 				hydrateCommonFields(projectModel, domain, project.getProjectID());
-				insertOrUpdate(projectModel);
+				insert(projectModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 			}
 

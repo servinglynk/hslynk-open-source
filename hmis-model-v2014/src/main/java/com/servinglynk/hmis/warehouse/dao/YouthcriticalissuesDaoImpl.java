@@ -58,10 +58,10 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<YouthCriticalIssues> youthCriticalIssuesList = domain.getExport().getYouthCriticalIssues();
 		hydrateBulkUploadActivityStaging(youthCriticalIssuesList, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), domain);
+		int i =0;
 		if(youthCriticalIssuesList !=null && !youthCriticalIssuesList.isEmpty())
 		{
 			for(YouthCriticalIssues youthCriticalIssues : youthCriticalIssuesList)
@@ -104,7 +104,12 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
 				hydrateCommonFields(youthcriticalissuesModel, domain, youthCriticalIssues.getYouthCriticalIssuesID());
-				insertOrUpdate(youthcriticalissuesModel);
+				insert(youthcriticalissuesModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

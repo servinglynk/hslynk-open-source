@@ -34,10 +34,10 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<ReferralSource> referralSources = domain.getExport().getReferralSource();
 		hydrateBulkUploadActivityStaging(referralSources, com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class.getSimpleName(), domain);
+		int i=0;
 		if(referralSources !=null && !referralSources.isEmpty())
 		{
 			for(ReferralSource referralSource : referralSources) {
@@ -57,7 +57,12 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 				referralsourceModel.setExport(exportEntity);
 				exportEntity.addReferralsource(referralsourceModel);
 				hydrateCommonFields(referralsourceModel, domain, referralSource.getReferralSourceID());
-				insertOrUpdate(referralsourceModel);
+				insert(referralsourceModel);
+				i++;
+				if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	             }
 			}
 		}
 	}

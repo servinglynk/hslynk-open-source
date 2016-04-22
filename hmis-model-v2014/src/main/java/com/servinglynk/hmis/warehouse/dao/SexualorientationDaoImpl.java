@@ -34,10 +34,10 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<SexualOrientation> sexualOrientations = domain.getExport().getSexualOrientation();
 		hydrateBulkUploadActivityStaging(sexualOrientations, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain);
+		int i=0;
 		if(sexualOrientations !=null && !sexualOrientations.isEmpty())
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)
@@ -57,7 +57,12 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				sexualorientationModel.setExport(exportEntity);
 				exportEntity.addSexualorientation(sexualorientationModel);
 				hydrateCommonFields(sexualorientationModel, domain,sexualOrientation.getSexualOrientationID());
-				insertOrUpdate(sexualorientationModel);
+				insert(sexualorientationModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 

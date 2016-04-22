@@ -32,10 +32,10 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
 		hydrateBulkUploadActivityStaging(exitHousingAssessments, com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class.getSimpleName(), domain);
+		int i=0;
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty()) 
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
@@ -54,7 +54,12 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					exithousingassessmentModel.setExport(exportEntity);
 					exportEntity.addExithousingassessment(exithousingassessmentModel);
 					hydrateCommonFields(exithousingassessmentModel, domain, String.valueOf(exitHousingAssessment.getExitHousingAssessmentID()));
-					insertOrUpdate(exithousingassessmentModel);
+					insert(exithousingassessmentModel);
+					i++;
+					if(i % batchSize() == 0 && i > 0) {
+		                    getCurrentSession().flush();
+		                    getCurrentSession().clear();
+		             }
 				}
 		}
 	}

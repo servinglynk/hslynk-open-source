@@ -34,7 +34,6 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<FamilyReunification> familyReunifications = domain.getExport().getFamilyReunification();
 		hydrateBulkUploadActivityStaging(familyReunifications, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain);

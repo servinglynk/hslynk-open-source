@@ -36,11 +36,11 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 	 * hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<LastGradeCompleted> lastGradeCompletedList = domain.getExport()
 				.getLastGradeCompleted();
 		hydrateBulkUploadActivityStaging(lastGradeCompletedList, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), domain);
+		int i=0;
 		if (lastGradeCompletedList != null && !lastGradeCompletedList.isEmpty()) {
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
 				Lastgradecompleted lastGradeCompletedModel = new Lastgradecompleted();
@@ -70,7 +70,12 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				lastGradeCompletedModel.setExport(exportEntity);
 				exportEntity.addLastgradecompleted(lastGradeCompletedModel);
 				hydrateCommonFields(lastGradeCompletedModel, domain, lastGradeCompleted.getLastGradeCompletedID());
-				insertOrUpdate(lastGradeCompletedModel);
+				insert(lastGradeCompletedModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

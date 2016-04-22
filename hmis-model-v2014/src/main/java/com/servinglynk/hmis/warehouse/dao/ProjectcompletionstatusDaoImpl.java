@@ -35,10 +35,10 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<ProjectCompletionStatus> projectCompletionStatusList = domain.getExport().getProjectCompletionStatus();
 		hydrateBulkUploadActivityStaging(projectCompletionStatusList, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), domain);
+		int i=0;
 		if(projectCompletionStatusList !=null && !projectCompletionStatusList.isEmpty()) 
 		{
 			for(ProjectCompletionStatus projectCompletionStatus : projectCompletionStatusList)
@@ -57,7 +57,12 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				projectcompletionstatusModel.setExport(exportEntity);
 				exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
 				hydrateCommonFields(projectcompletionstatusModel, domain, projectCompletionStatus.getProjectCompletionStatusID());
-				insertOrUpdate(projectcompletionstatusModel);
+				insert(projectcompletionstatusModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+				  }
 			}
 		}
 	}

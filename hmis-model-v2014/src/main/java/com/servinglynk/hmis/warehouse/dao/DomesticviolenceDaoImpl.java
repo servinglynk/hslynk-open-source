@@ -25,7 +25,6 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		DomesticviolenceDao {
 
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();

@@ -18,6 +18,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
@@ -51,7 +52,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	ParentDaoFactory daoFactory;
 	
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 	
 		Export export = domain.getExport();

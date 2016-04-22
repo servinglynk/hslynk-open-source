@@ -34,10 +34,10 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
 		hydrateBulkUploadActivityStaging(worstHousingSituationList, com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class.getSimpleName(), domain);
+		int i=0;
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
@@ -56,7 +56,12 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				worsthousingsituationModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addWorsthousingsituation(worsthousingsituationModel);
 				hydrateCommonFields(worsthousingsituationModel, domain, worstHousingSituation.getWorstHousingSituationID());
-				insertOrUpdate(worsthousingsituationModel);
+				insert(worsthousingsituationModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

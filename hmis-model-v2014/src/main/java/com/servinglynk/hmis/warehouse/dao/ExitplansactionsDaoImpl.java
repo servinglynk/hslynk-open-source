@@ -41,10 +41,10 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<ExitPlansActions> exitPlansActionsList = domain.getExport().getExitPlansActions();
 		hydrateBulkUploadActivityStaging(exitPlansActionsList, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain);
+		int i=0;
 		if(exitPlansActionsList !=null && !exitPlansActionsList.isEmpty()) 
 		{
 			for(ExitPlansActions exitPlansActions : exitPlansActionsList)
@@ -71,7 +71,12 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				exitplansactionsModel.setExport(exportEntity);
 				exportEntity.addExitplansactions(exitplansactionsModel);
 				hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID());
-				insertOrUpdate(exitplansactionsModel);
+				insert(exitplansactionsModel);
+				i++;
+				if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	             }
 			}
 		}
 	}

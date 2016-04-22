@@ -36,10 +36,10 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	@Autowired
 	private ParentDaoFactory parentDaoFactory;
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Inventory> inventories = domain.getExport().getInventory();
 		hydrateBulkUploadActivityStaging(inventories, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), domain);
+		int i=0;
 		if(inventories != null && !inventories.isEmpty())
 		{
 			for(Inventory inventory : inventories)
@@ -59,7 +59,12 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 				inventoryModel.setExport(exportEntity);
 				exportEntity.addInventory(inventoryModel);
-				insertOrUpdate(inventoryModel);
+				insert(inventoryModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 	}

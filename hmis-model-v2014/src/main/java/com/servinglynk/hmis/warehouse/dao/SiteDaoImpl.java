@@ -22,11 +22,11 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Site> sites = domain.getExport().getSite();
 		hydrateBulkUploadActivityStaging(sites, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain);
 		if(sites !=null && !sites.isEmpty()) {
+			int i=0;
 			for(Site site :sites) {
 				if(site !=null) {
 					com.servinglynk.hmis.warehouse.model.stagv2014.Site siteModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Site();
@@ -46,7 +46,12 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					siteModel.setZip(String.valueOf(site.getZIP()));
 					exportEntity.addSite(siteModel);
 					hydrateCommonFields(siteModel, domain,String.valueOf(site.getSiteID()));
-					insertOrUpdate(siteModel);
+					insert(siteModel);
+					i++;
+					  if(i % batchSize() == 0 && i > 0) {
+		                    getCurrentSession().flush();
+		                    getCurrentSession().clear();
+		                }
 				}
 			}
 			

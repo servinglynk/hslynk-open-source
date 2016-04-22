@@ -42,10 +42,10 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
 		hydrateBulkUploadActivityStaging(nonCashBenefitsList, com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class.getSimpleName(), domain);
+		int i=0;
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)
@@ -78,7 +78,12 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				noncashbenefitsModel.setExport(exportEntity);
 				exportEntity.addNoncashbenefits(noncashbenefitsModel);
 				hydrateCommonFields(noncashbenefitsModel, domain, nonCashBenefits.getNonCashBenefitsID());
-				insertOrUpdate(noncashbenefitsModel);
+				insert(noncashbenefitsModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 

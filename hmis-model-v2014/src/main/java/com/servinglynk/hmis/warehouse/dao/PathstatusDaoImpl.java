@@ -33,10 +33,10 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
 		hydrateBulkUploadActivityStaging(pathStatusList, com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class.getSimpleName(), domain);
+		int i=0;
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)
@@ -56,7 +56,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				pathstatusModel.setExport(exportEntity);
 				exportEntity.addPathstatus(pathstatusModel);
 				hydrateCommonFields(pathstatusModel, domain,String.valueOf(pathStatus.getPathStatusID()));
-				insertOrUpdate(pathstatusModel);
+				insert(pathstatusModel);
 			}
 		}
 	}

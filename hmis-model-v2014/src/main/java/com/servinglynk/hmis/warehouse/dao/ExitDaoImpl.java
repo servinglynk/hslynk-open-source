@@ -45,7 +45,6 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();

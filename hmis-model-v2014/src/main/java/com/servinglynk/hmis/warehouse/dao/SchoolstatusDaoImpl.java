@@ -34,10 +34,10 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
 		hydrateBulkUploadActivityStaging(schoolStatusList, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain);
+		int i=0;
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
@@ -66,7 +66,12 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			schoolstatusModel.setExport(exportEntity);
 			exportEntity.addSchoolstatus(schoolstatusModel);
 			hydrateCommonFields(schoolstatusModel, domain, schoolStatus.getSchoolStatusID());
-			insertOrUpdate(schoolstatusModel);
+			insert(schoolstatusModel);
+			i++;
+			  if(i % batchSize() == 0 && i > 0) {
+                  getCurrentSession().flush();
+                  getCurrentSession().clear();
+              }
 			}
 		}
 

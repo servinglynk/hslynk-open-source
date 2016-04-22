@@ -25,7 +25,6 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao {
 
 		@Override
-		@Transactional
 		public void hydrateStaging(ExportDomain domain) 
 		{
 			Export export = domain.getExport();
@@ -33,6 +32,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			hydrateBulkUploadActivityStaging(affiliations, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), domain);
 			if(affiliations!=null && !affiliations.isEmpty())
 			{
+				int i=0;
 				for(Affiliation affiliation :affiliations )
 				{
 					com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation();
@@ -48,7 +48,13 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					affiliationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
 					affiliationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
 					hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID());
-					insertOrUpdate(affiliationModel);
+					insert(affiliationModel);
+					i++;
+					if(i % batchSize() == 0 && i > 0) {
+		                    getCurrentSession().flush();
+		                    getCurrentSession().clear();
+		             }
+					
 				}
 			}
 		}

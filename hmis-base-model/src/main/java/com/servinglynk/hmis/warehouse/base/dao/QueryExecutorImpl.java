@@ -32,6 +32,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.model.base.HmisBaseModel;
 
@@ -57,7 +59,7 @@ public class QueryExecutorImpl  implements QueryExecutor{
 	public Object get(Class<?> entity,Serializable id){
 		return getCurrentSession().get(entity, id);
 	}
-	
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Object insert(Object entity) {
 		try{
 		return getCurrentSession().save(entity);

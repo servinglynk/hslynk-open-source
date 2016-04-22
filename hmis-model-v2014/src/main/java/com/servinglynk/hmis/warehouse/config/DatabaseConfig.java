@@ -155,7 +155,9 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		properties.put("hibernate.order_inserts", "true");
 		properties.put("hibernate.order_updates", "true");
 		properties.put("hibernate.jdbc.batch_versioned_data", "true");
-
+	//	properties.put("hibernate.cache.use_second_level_cache", "false");
+	//	properties.put("hibernate.connection.autocommit", "true");
+		
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		return properties;	

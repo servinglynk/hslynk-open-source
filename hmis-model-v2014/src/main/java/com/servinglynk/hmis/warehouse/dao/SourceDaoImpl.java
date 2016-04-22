@@ -29,7 +29,6 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
 		List<Source> sources = new ArrayList<>();
@@ -48,7 +47,9 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		domain.setSourceId(id);
 		sourceModel.setId(id);
 		hydrateCommonFields(sourceModel, domain, String.valueOf(source.getSourceID()));
-		insertOrUpdate(sourceModel);
+		insert(sourceModel);
+              getCurrentSession().flush();
+              getCurrentSession().clear();
 	}
 
 	@Override

@@ -33,10 +33,10 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<FormerWardJuvenileJustice> formerWardJuvenileJustices = domain.getExport().getFormerWardJuvenileJustice();
 		hydrateBulkUploadActivityStaging(formerWardJuvenileJustices, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), domain);
+		int i=0;
 		if(formerWardJuvenileJustices !=null && !formerWardJuvenileJustices.isEmpty()) 
 		{
 			for(FormerWardJuvenileJustice formerWardJuvenileJustice : formerWardJuvenileJustices )
@@ -56,7 +56,12 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				formerWardJuvenileJusticeModel.setExport(exportEntity);
 				exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
 				hydrateCommonFields(formerWardJuvenileJusticeModel, domain, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID());
-				insertOrUpdate(formerWardJuvenileJusticeModel);
+				insert(formerWardJuvenileJusticeModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 				
 			}
 		}
@@ -78,7 +83,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 					exportEntity.addFormerwardjuvenilejustice(target);
 					target.setDateCreated(LocalDateTime.now());
 					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
+					insert(target);
 				}
 			}
 		}

@@ -34,10 +34,11 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<ResidentialMoveInDate> residentialMoveInDates = domain.getExport().getResidentialMoveInDate();
 		hydrateBulkUploadActivityStaging(residentialMoveInDates, com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class.getSimpleName(), domain);
+		int i =0;
+		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
 		if(residentialMoveInDates != null && !residentialMoveInDates.isEmpty())
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)
@@ -53,11 +54,15 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(residentialMoveInDate.getProjectEntryID()));
 				residentialmoveindateModel.setEnrollmentid(enrollment);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
-				residentialmoveindateModel.setExport(exportEntity);
 				exportEntity.addResidentialmoveindate(residentialmoveindateModel);
+				residentialmoveindateModel.setExport(exportEntity);
 				hydrateCommonFields(residentialmoveindateModel, domain, residentialMoveInDate.getResidentialMoveInDateID());
-				insertOrUpdate(residentialmoveindateModel);
+				insert(residentialmoveindateModel);
+				i++;
+				if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	             }
 			}
 		}
 	}

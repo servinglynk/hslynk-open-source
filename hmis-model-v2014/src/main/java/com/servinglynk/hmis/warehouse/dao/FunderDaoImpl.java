@@ -32,10 +32,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<Funder> funders = domain.getExport().getFunder();
 		hydrateBulkUploadActivityStaging(funders, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), domain);
+		int i=0;
 		if(funders!=null && funders.size() > 0)
 		{
 			for(Funder funder : funders)
@@ -58,7 +58,12 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				funderModel.setProjectid(project);
 				hydrateCommonFields(funderModel, domain, funder.getFunderID());
 				exportEntity.addFunder(funderModel);
-				insertOrUpdate(funderModel);
+				insert(funderModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 

@@ -146,6 +146,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	}
 	
 	 protected int batchSize() {
-	        return Integer.valueOf(50);
+	        return Integer.valueOf(5);
 	    }
 }

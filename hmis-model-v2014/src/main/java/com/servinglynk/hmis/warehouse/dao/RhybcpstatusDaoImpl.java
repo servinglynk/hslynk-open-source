@@ -35,10 +35,10 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain) {
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
 		hydrateBulkUploadActivityStaging(rhybcpStatusList, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), domain);
+		int i=0;
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)
@@ -59,7 +59,12 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				rhybcpstatusModel.setExport(exportEntity);
 				exportEntity.addRhybcpstatus(rhybcpstatusModel);
 				hydrateCommonFields(rhybcpstatusModel, domain,rhybcpStatus.getRHYBCPStatusID());
-				insertOrUpdate(rhybcpstatusModel);
+				insert(rhybcpstatusModel);
+				i++;
+				  if(i % batchSize() == 0 && i > 0) {
+	                    getCurrentSession().flush();
+	                    getCurrentSession().clear();
+	                }
 			}
 		}
 
