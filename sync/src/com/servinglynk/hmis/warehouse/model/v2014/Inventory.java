@@ -12,7 +12,7 @@ public class Inventory extends BaseModel {
 	@Column(name = "availabilty")
 	public String availabilty;
 	@Column(name = "bedinventory")
-	public String bedinventory;
+	public UUID bedinventory;
 	@Column(name = "bedtype")
 	public String bedtype;
 	@Column(name = "hmisparticipatingbeds")
@@ -46,7 +46,7 @@ public class Inventory extends BaseModel {
 	/**
 	 * @return the bedinventory
 	 */
-	public String getBedinventory() {
+	public UUID getBedinventory() {
 		return bedinventory;
 	}
 
@@ -54,7 +54,7 @@ public class Inventory extends BaseModel {
 	 * @param bedinventory
 	 *            the bedinventory to set
 	 */
-	public void setBedinventory(String bedinventory) {
+	public void setBedinventory(UUID bedinventory) {
 		this.bedinventory = bedinventory;
 	}
 

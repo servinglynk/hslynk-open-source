@@ -2,7 +2,10 @@ package com.servinglynk.hmis.warehouse;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
@@ -55,13 +58,14 @@ public class FromPostgres {
 	//	syncClient(date,Client.class);
 	System.out.println("-------- PostgreSQL "
 			+ "JDBC Connection Testing ------------");
-	
+	long startNanos = System.nanoTime();
 	// Sync Table Start
 	BaseProcessor baseProcessor = new BaseProcessor();
 	// Lets use timestamp instead of date.
 	Timestamp lastSyncTime = null;
 	UUID syncUid = baseProcessor.insertSyncStartTime();		
-	
+	final List<BulkUpload> uploads = baseProcessor.getExportIDFromBulkUpload();
+	final Map<String,String> hmisTypes = baseProcessor.loadHmisTypeMap();
 	System.out.println(lastSyncTime);
 	java.util.Map<String, Integer> tableSyncList = new HashMap<>();
 	final java.util.Map<String, Integer> affiliationMap = new HashMap<>();
@@ -110,15 +114,21 @@ public class FromPostgres {
 					
 	Thread thread1 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Affiliation> aff = new BaseProcessor<>();
-	    	aff.syncToHBASE(Affiliation.class,"affiliation",affiliationMap, null);
+	    	aff.syncToHBASE(Affiliation.class,"affiliation",affiliationMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Time taken to complete Sync in millis"+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	
 	Thread thread2 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Client> db = new BaseProcessor<>();
-	    	db.syncToHBASE(Client.class,"Client",ClientMap, null);
+	    	db.syncToHBASE(Client.class,"Client",ClientMap, null,uploads.get(0),hmisTypes);
+	     	System.out.println("Sync in millis for Client containing "+ClientMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	
@@ -126,251 +136,365 @@ public class FromPostgres {
 	
 	Thread thread3 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Bedinventory> bedInventory = new BaseProcessor<>();
-	    	bedInventory.syncToHBASE(Bedinventory.class,"Bedinventory",bedinventoryMap, null);
+	    	bedInventory.syncToHBASE(Bedinventory.class,"Bedinventory",bedinventoryMap, null,uploads.get(0),hmisTypes);
+	     	System.out.println("Sync in millis for Bedinventory containing "+bedinventoryMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	
 	Thread thread4 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Connectionwithsoar> connectionwithsoar = new BaseProcessor<>();
-	    	connectionwithsoar.syncToHBASE(Connectionwithsoar.class,"Connectionwithsoar",ConnectionwithsoarMap, null);
+	    	connectionwithsoar.syncToHBASE(Connectionwithsoar.class,"Connectionwithsoar",ConnectionwithsoarMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Connectionwithsoar containing "+ConnectionwithsoarMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 
 	Thread thread5 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Dateofengagement> dateofengagement = new BaseProcessor<>();
-	    	dateofengagement.syncToHBASE(Dateofengagement.class,"Dateofengagement",DateofengagementMap, null);
+	    	dateofengagement.syncToHBASE(Dateofengagement.class,"Dateofengagement",DateofengagementMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Dateofengagement containing "+DateofengagementMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	
 	Thread thread6 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Disabilities> disabilities = new BaseProcessor<>();
-	    	disabilities.syncToHBASE(Disabilities.class,"Disabilities",DisabilitiesMap, null);
+	    	disabilities.syncToHBASE(Disabilities.class,"Disabilities",DisabilitiesMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Disabilities containing "+DisabilitiesMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread7 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Domesticviolence> domesticviolence = new BaseProcessor<>();
-	    	domesticviolence.syncToHBASE(Domesticviolence.class,"Domesticviolence",DomesticviolenceMap, null);
+	    	domesticviolence.syncToHBASE(Domesticviolence.class,"Domesticviolence",DomesticviolenceMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Domesticviolence containing "+DomesticviolenceMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread8 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Employment> employment = new BaseProcessor<>();
-	    	employment.syncToHBASE(Employment.class,"Employment",EmploymentMap, null);
+	    	employment.syncToHBASE(Employment.class,"Employment",EmploymentMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Employment containing "+EmploymentMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread9 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Commercialsexualexploitation> commercialsexualexploitation = new BaseProcessor<>();
-	    	commercialsexualexploitation.syncToHBASE(Commercialsexualexploitation.class,"Commercialsexualexploitation",CommercialsexualexploitationMap, null);
+	    	commercialsexualexploitation.syncToHBASE(Commercialsexualexploitation.class,"Commercialsexualexploitation",CommercialsexualexploitationMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Commercialsexualexploitation containing "+CommercialsexualexploitationMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	
 	Thread thread10 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Enrollment> enrollment = new BaseProcessor<>();
-	    	enrollment.syncToHBASE(Enrollment.class,"Enrollment",EnrollmentMap, null);
+	    	enrollment.syncToHBASE(Enrollment.class,"Enrollment",EnrollmentMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Enrollment containing "+EnrollmentMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread11 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<EnrollmentCoc> enrollmentCoc = new BaseProcessor<>();
-	    	enrollmentCoc.syncToHBASE(EnrollmentCoc.class,"Enrollment_coc",Enrollment_cocMap, null);
+	    	enrollmentCoc.syncToHBASE(EnrollmentCoc.class,"Enrollment_coc",Enrollment_cocMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Enrollment_coc containing "+Enrollment_cocMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread12 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Exit> exit = new BaseProcessor<>();
-	    	exit.syncToHBASE(Exit.class,"Exit",ExitMap, null);
+	    	exit.syncToHBASE(Exit.class,"Exit",ExitMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Exit containing "+ExitMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 
 	    }
 	};
 	Thread thread14 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Exithousingassessment> exithousingassessment = new BaseProcessor<>();
-	    	exithousingassessment.syncToHBASE(Exithousingassessment.class,"Exithousingassessment",ExithousingassessmentMap, null);
+	    	exithousingassessment.syncToHBASE(Exithousingassessment.class,"Exithousingassessment",ExithousingassessmentMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Exithousingassessment containing "+ExithousingassessmentMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread15 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Exitplansactions> exitplansactions = new BaseProcessor<>();
-	    	exitplansactions.syncToHBASE(Exitplansactions.class,"Exitplansactions",ExitplansactionsMap, null);
+	    	exitplansactions.syncToHBASE(Exitplansactions.class,"Exitplansactions",ExitplansactionsMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Exitplansactions containing "+ExitplansactionsMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	
 	Thread thread16 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Export> export = new BaseProcessor<>();
-	    	export.syncToHBASE(Export.class,"Export",ExportMap, null);
+	    	export.syncToHBASE(Export.class,"Export",ExportMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Export containing "+ExportMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread17 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Familyreunification> familyreunification = new BaseProcessor<>();
-	    	familyreunification.syncToHBASE(Familyreunification.class,"familyreunification",familyreunificationMap, null);
+	    	familyreunification.syncToHBASE(Familyreunification.class,"familyreunification",familyreunificationMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for familyreunification containing "+familyreunificationMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread18 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Formerwardchildwelfare> formerwardchildwelfare = new BaseProcessor<>();
-	    	formerwardchildwelfare.syncToHBASE(Formerwardchildwelfare.class,"Formerwardchildwelfare",FormerwardchildwelfareMap, null);
+	    	formerwardchildwelfare.syncToHBASE(Formerwardchildwelfare.class,"Formerwardchildwelfare",FormerwardchildwelfareMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Formerwardchildwelfare containing "+FormerwardchildwelfareMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread20 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Formerwardjuvenilejustice> formerwardjuvenilejustice = new BaseProcessor<>();
-	    	formerwardjuvenilejustice.syncToHBASE(Formerwardjuvenilejustice.class,"Formerwardjuvenilejustice",FormerwardjuvenilejusticeMap, null);
+	    	formerwardjuvenilejustice.syncToHBASE(Formerwardjuvenilejustice.class,"Formerwardjuvenilejustice",FormerwardjuvenilejusticeMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Formerwardjuvenilejustice containing "+FormerwardjuvenilejusticeMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread21 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Funder> funder = new BaseProcessor<>();
-	    	funder.syncToHBASE(Funder.class,"Funder",FunderMap, null);
+	    	funder.syncToHBASE(Funder.class,"Funder",FunderMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Funder containing "+FunderMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread22 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<HealthStatus> healthStatus = new BaseProcessor<>();
-	    	healthStatus.syncToHBASE(HealthStatus.class,"Health_Status",Health_StatusMap, null);
+	    	healthStatus.syncToHBASE(HealthStatus.class,"Health_Status",Health_StatusMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Health_Status containing "+Health_StatusMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 
 	    }
 	};
 	Thread thread23 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Housingassessmentdisposition> housingassessmentdisposition = new BaseProcessor<>();
-	    	housingassessmentdisposition.syncToHBASE(Housingassessmentdisposition.class,"Housingassessmentdisposition",HousingassessmentdispositionMap, null);
+	    	housingassessmentdisposition.syncToHBASE(Housingassessmentdisposition.class,"Housingassessmentdisposition",HousingassessmentdispositionMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Housingassessmentdisposition containing "+HousingassessmentdispositionMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread24 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Incomeandsources> incomeandsources = new BaseProcessor<>();
-	    	incomeandsources.syncToHBASE(Incomeandsources.class,"Incomeandsources",IncomeandsourcesMap, null);
+	    	incomeandsources.syncToHBASE(Incomeandsources.class,"Incomeandsources",IncomeandsourcesMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Incomeandsources containing "+IncomeandsourcesMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread25 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Inventory> inventory = new BaseProcessor<>();
-	    	inventory.syncToHBASE(Inventory.class,"Inventory",InventoryMap, null);
+	    	inventory.syncToHBASE(Inventory.class,"Inventory",InventoryMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Inventory containing "+InventoryMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread26 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Lastgradecompleted> lastgradecompleted = new BaseProcessor<>();
-	    	lastgradecompleted.syncToHBASE(Lastgradecompleted.class,"Lastgradecompleted",LastgradecompletedMap, null);
+	    	lastgradecompleted.syncToHBASE(Lastgradecompleted.class,"Lastgradecompleted",LastgradecompletedMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Lastgradecompleted containing "+LastgradecompletedMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	
 	Thread thread27 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Lastpermanentaddress> Lastpermanentaddress = new BaseProcessor<>();
-	    	Lastpermanentaddress.syncToHBASE(Lastpermanentaddress.class,"last_perm_address",last_perm_addressMap, null);
+	    	Lastpermanentaddress.syncToHBASE(Lastpermanentaddress.class,"last_perm_address",last_perm_addressMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Lastpermanentaddress containing "+last_perm_addressMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread28 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Medicalassistance> Medicalassistance = new BaseProcessor<>();
-	    	Medicalassistance.syncToHBASE(Medicalassistance.class,"Medicalassistance",MedicalassistanceMap, null);
+	    	Medicalassistance.syncToHBASE(Medicalassistance.class,"Medicalassistance",MedicalassistanceMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Medicalassistance containing "+MedicalassistanceMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread29 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Noncashbenefits> Noncashbenefits = new BaseProcessor<>();
-	    	Noncashbenefits.syncToHBASE(Noncashbenefits.class,"Noncashbenefits",NoncashbenefitsMap, null);
+	    	Noncashbenefits.syncToHBASE(Noncashbenefits.class,"Noncashbenefits",NoncashbenefitsMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Noncashbenefits containing "+NoncashbenefitsMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread30 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Organization> Organization = new BaseProcessor<>();
-	    	Organization.syncToHBASE(Organization.class,"Organization",OrganizationMap, null);
+	    	Organization.syncToHBASE(Organization.class,"Organization",OrganizationMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Organization containing "+OrganizationMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread31 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Pathstatus> Pathstatus = new BaseProcessor<>();
-	    	Pathstatus.syncToHBASE(Pathstatus.class,"Path_status",Path_statusMap, null);
+	    	Pathstatus.syncToHBASE(Pathstatus.class,"Path_status",Path_statusMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Path_status containing "+Path_statusMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	
 	Thread thread32 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Percentami> Percentami = new BaseProcessor<>();
-	    	Percentami.syncToHBASE(Percentami.class,"Percent_ami",Percent_amiMap, null);
+	    	Percentami.syncToHBASE(Percentami.class,"Percent_ami",Percent_amiMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Percent_ami containing "+Percent_amiMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread33 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Project> Project = new BaseProcessor<>();
-	    	Project.syncToHBASE(Project.class,"Project",ProjectMap, null);
+	    	Project.syncToHBASE(Project.class,"Project",ProjectMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Project containing "+ProjectMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread34 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Projectcoc> Projectcoc = new BaseProcessor<>();
-	    	Projectcoc.syncToHBASE(Projectcoc.class,"Projectcoc",ProjectcocMap, null);
+	    	Projectcoc.syncToHBASE(Projectcoc.class,"Projectcoc",ProjectcocMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Projectcoc containing "+ProjectcocMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread35 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Projectcompletionstatus> Projectcompletionstatus = new BaseProcessor<>();
-	    	Projectcompletionstatus.syncToHBASE(Projectcompletionstatus.class,"Projectcompletionstatus",ProjectcompletionstatusMap, null);
+	    	Projectcompletionstatus.syncToHBASE(Projectcompletionstatus.class,"Projectcompletionstatus",ProjectcompletionstatusMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Projectcompletionstatus containing "+ProjectcompletionstatusMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread36 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Referralsource> Referralsource = new BaseProcessor<>();
-	    	Referralsource.syncToHBASE(Referralsource.class,"Referralsource",ReferralsourceMap, null);
+	    	Referralsource.syncToHBASE(Referralsource.class,"Referralsource",ReferralsourceMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Referralsource containing "+ReferralsourceMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	Thread thread37 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Residentialmoveindate> Residentialmoveindate = new BaseProcessor<>();
-	    	Residentialmoveindate.syncToHBASE(Residentialmoveindate.class,"residentialmoveindate",residentialmoveindateMap, null);
+	    	Residentialmoveindate.syncToHBASE(Residentialmoveindate.class,"residentialmoveindate",residentialmoveindateMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Residentialmoveindate containing "+residentialmoveindateMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread38 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Rhybcpstatus> Rhybcpstatus = new BaseProcessor<>();
-	    	Rhybcpstatus.syncToHBASE(Rhybcpstatus.class,"Rhybcp_status",Rhybcp_statusMap, null);
+	    	Rhybcpstatus.syncToHBASE(Rhybcpstatus.class,"Rhybcp_status",Rhybcp_statusMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Rhybcp_status containing "+Rhybcp_statusMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread39 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Schoolstatus> Schoolstatus = new BaseProcessor<>();
-	    	Schoolstatus.syncToHBASE(Schoolstatus.class,"Schoolstatus",SchoolstatusMap, null);
+	    	Schoolstatus.syncToHBASE(Schoolstatus.class,"Schoolstatus",SchoolstatusMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Schoolstatus containing "+SchoolstatusMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread40 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Services> Services = new BaseProcessor<>();
-	    	Services.syncToHBASE(Services.class,"Services",ServicesMap, null);
+	    	Services.syncToHBASE(Services.class,"Services",ServicesMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Services containing "+ServicesMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread41 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Sexualorientation> Sexualorientation = new BaseProcessor<>();
-	    	Sexualorientation.syncToHBASE(Sexualorientation.class,"Sexualorientation",SexualorientationMap, null);
+	    	Sexualorientation.syncToHBASE(Sexualorientation.class,"Sexualorientation",SexualorientationMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Sexualorientation containing "+SexualorientationMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread42 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Site> Site = new BaseProcessor<>();
-	    	Site.syncToHBASE(Site.class,"Site",SiteMap, null);
+	    	Site.syncToHBASE(Site.class,"Site",SiteMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Site containing "+SiteMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 //	BaseProcessor<Source> Source = new BaseProcessor<>();
@@ -378,29 +502,38 @@ public class FromPostgres {
 	
 	Thread thread43 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<VeteranInfo> VeteranInfo = new BaseProcessor<>();
-	    	VeteranInfo.syncToHBASE(VeteranInfo.class,"Veteran_Info",Veteran_InfoMap, null);
+	    	VeteranInfo.syncToHBASE(VeteranInfo.class,"Veteran_Info",Veteran_InfoMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Veteran_Info containing "+Veteran_InfoMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    }
 	};
 	Thread thread44 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Worsthousingsituation> Worsthousingsituation = new BaseProcessor<>();
-	    	Worsthousingsituation.syncToHBASE(Worsthousingsituation.class,"Worsthousingsituation",WorsthousingsituationMap, null);
+	    	Worsthousingsituation.syncToHBASE(Worsthousingsituation.class,"Worsthousingsituation",WorsthousingsituationMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Worsthousingsituation containing "+WorsthousingsituationMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	    	
 	    }
 	};
 	
 	Thread thread45 = new Thread() {
 	    public void run() {
+	    	long startNanos = System.nanoTime();
 	    	BaseProcessor<Youthcriticalissues> Youthcriticalissues = new BaseProcessor<>();
-	    	Youthcriticalissues.syncToHBASE(Youthcriticalissues.class,"Youthcriticalissues",YouthcriticalissuesMap, null);
+	    	Youthcriticalissues.syncToHBASE(Youthcriticalissues.class,"Youthcriticalissues",YouthcriticalissuesMap, null,uploads.get(0),hmisTypes);
+	    	System.out.println("Sync in millis for Youthcriticalissues containing "+YouthcriticalissuesMap.size() +" is "+
+		            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 
 	    }
 	};
 	
 	/*
 	BaseProcessor<Commercialsexualexploitation> commercialsexualexploitation = new BaseProcessor<>();
-	commercialsexualexploitation.syncToHBASE(Commercialsexualexploitation.class,"Commercialsexualexploitation",tableSyncList, null);
+	commercialsexualexploitation.syncToHBASE(Commercialsexualexploitation.class,"Commercialsexualexploitation",tableSyncList, null,uploads.get(0),hmisTypes);
 	
 	System.out.println("Tables::"+tableSyncList.toString());
 	*/
@@ -450,16 +583,59 @@ public class FromPostgres {
 	
 	
 	
-	/*try {
+try {
 		thread1.join();
 		thread2.join();
-		thread3.join();
+		thread4.join();
+		thread5.join();
+		thread6.join();
+		thread7.join();
+		thread8.join();
+		thread9.join();
+		thread10.join();
+		thread11.join();
+		thread12.join();
+		thread14.join();
+		thread15.join();
+		thread16.join();
+		thread17.join();
+		thread18.join();
+		thread20.join();
+		thread21.join();
+		thread22.join();
+		thread23.join();
+		thread24.join();
+		thread25.join();
+		thread26.join();
+		thread27.join();
+		thread28.join();
+		thread29.join();
+		thread30.join();
+		thread31.join();
+		thread32.join();
+		thread33.join();
+		thread34.join();
+		thread35.join();
+		thread36.join();
+		thread37.join();
+		thread38.join();
+		thread39.join();
+		thread40.join();
+		thread41.join();
+		thread42.join();
+		thread43.join();
+		thread44.join();
+		thread45.join();
+		baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid); 
+		System.out.println("Time taken to complete Sync in millis"+
+	            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-*/
+
 	
-	baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid); 
+	
+	
 }
 }

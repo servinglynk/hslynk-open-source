@@ -20,93 +20,96 @@ import org.apache.commons.lang.StringUtils;
 
 public class BaseProcessor<T> {
 	
-	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList,Timestamp lastSyncDate) {
-		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
-		int index = 0;
-		ResultSet resultSet = null;
-		tableSyncList.put(tableName, index);
-		UUID exportId = getExportIDFromBulkUpload();
-		Connection connection = null;
-		try {
-			connection = getConnection();
-
-			String queryString = "SELECT * FROM stagv2014."+tableName ;
-			queryString =  queryString + " where export_id = ?" ;
-			PreparedStatement statement = connection.prepareStatement(queryString);
-			statement.setObject(1, exportId);
-			resultSet = statement.executeQuery();
-			
-			// simple JDBC code to run SQL query and populate resultSet - END
-			if(resultSet !=null) {
-			List<T> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, class1);
+	public void syncToHBASE(Class<T> class1,String tableName,java.util.Map<String, Integer> tableSyncList,Timestamp lastSyncDate, BulkUpload upload, Map<String, String> hmisTypes) {
+		int index=0;
+		List<T> pojoList = getPojoData(upload, tableName, class1);
 			// print out the list retrieved from database
 			if(pojoList != null){
 				for(T pojo : pojoList){
 					if(pojo !=null) 
 					{
-					HBaseImport hbaseImpot = new HBaseImport();
 					// Insert data into an HBASE table  with in a column Family called Client
-			//TOOD: Need to verify Exception Handling
-			try {
-				Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(pojo);
-				String id =(String) data.get("id");
-				if(id !=null) {
+					//TOOD: Need to verify Exception Handling
+					try {
+					Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(pojo);
+					String id =(String) data.get("id");
+					if(id !=null) {
 					// Update the sync to true;
-				String rowKey =(String) data.get("export_id");
-				if(rowKey ==null) {
-					rowKey = UUID.randomUUID().toString();
+						String rowKey =(String) data.get("export_id");
+						if(rowKey ==null) {
+							rowKey = UUID.randomUUID().toString();
+						}
+				   // Call HBaseImport Insert
+						tableSyncList.put(tableName, index++);
+						HBaseImport baseImport = new HBaseImport();
+						data.remove("class");
+						//	System.out.println("Table Name ::"+getTableName(pojo.getClass().getSimpleName()));
+						populateHmisType(data,hmisTypes);
+						// Check if the record exist in the table
+						if(baseImport.isDataExist(class1.getSimpleName()+"_"+upload.getProjectGroupCode()+"_2014", id)) {
+							baseImport.updateData(class1.getSimpleName()+"_"+upload.getProjectGroupCode()+"_2014", id, data );	
+						}else{
+							baseImport.insert(class1.getSimpleName()+"_"+upload.getProjectGroupCode()+"_2014","CF" ,id , getNonCollectionFields(pojo), data);	
+						}
+					  }
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchMethodException e) {
+						// 	TODO Auto-generated catch block
+						e.printStackTrace();
+					 }
+				   }
 				}
-				// Call HBaseImport Insert
-				tableSyncList.put(tableName, ++index);
-				HBaseImport baseImport = new HBaseImport();
-				data.remove("class");
-			//	System.out.println("Table Name ::"+getTableName(pojo.getClass().getSimpleName()));
-				populateHmisType(data);
-				// Check if the record exist in the table
-				if(baseImport.isDataExist(class1.getSimpleName()+"_2014", id)) {
-					 baseImport.updateData(class1.getSimpleName(), id, data );	
-				}else{
-					baseImport.insert(class1.getSimpleName()+"_2014","CF" ,id , getNonCollectionFields(pojo), data);	
+				updateSyncFlag(tableName,upload.getExportId());
 				}
-				//update the Sync flag to true in Postgres.
-				}
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//System.out.println(pojo);
-					}
-					
-				}
-				updateSyncFlag(tableName,exportId);
-			}else{
-				System.out.println("ResultSet is empty. Please check if database table is empty for Table ::"+tableName);
-			}
-			}else{
-				System.out.println("ResultSet is empty. Please check if database table is empty for Table ::"+tableName);
-			}
-			connection.close();
-
-		} catch (SQLException e) {
-
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-		}
-		updateSyncFlag(tableName,exportId);
 	}
+	private List<T> getPojoData(BulkUpload upload, String tableName,Class<T> class1) {
+		List<T> pojoList =null;
+		UUID exportId = upload.getExportId();
+		Connection connection = null;
+		PreparedStatement statement =null;
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
+		ResultSet resultSet = null;
+		try {
+			connection = getConnection();
 
+			String queryString = "SELECT * FROM stagv2014."+tableName ;
+			queryString =  queryString + " where export_id = ?" ;
+			statement = connection.prepareStatement(queryString);
+			statement.setObject(1, exportId);
+			resultSet = statement.executeQuery();
+			
+			// simple JDBC code to run SQL query and populate resultSet - END
+			if(resultSet !=null) {
+				pojoList = resultSetMapper.mapRersultSetToObject(resultSet, class1);
+			}
+		}
+			 catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+		return pojoList;
+	}
 	private Connection getConnection() throws SQLException {
 		Connection connection = DriverManager.getConnection(
-//				"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
-//				"hmisdb1234");
-				"jdbc:postgresql://localhost:5432/hmis", "postgres",
-				"postgres");
+				"jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
+				"hmisdb1234");
+//				"jdbc:postgresql://localhost:5432/hmis", "postgres",
+//				"postgres");
 		return connection;
 	}
 	
@@ -156,10 +159,13 @@ public class BaseProcessor<T> {
 		return null;
 	}
 	
-	private void populateHmisType(Map<String, Object> data) {
+	private void populateHmisType(Map<String, Object> data, Map<String,String> hmisTypes) {
 		Map<String, Object> descMap = new HashMap<String, Object>();
 		for(String key :data.keySet()) {
-			String hmisType = getHmisType(key,(String)data.get(key));
+			String value = (String)data.get(key);
+			value = value!=null ? value.trim() :"";
+			String mapKey = key.trim()+"_"+value;
+			String hmisType = hmisTypes.get(mapKey.trim());
 			if(StringUtils.isNotEmpty(hmisType)) {
 				//System.out.println("Desc Field::"+key+"_desc");
 				descMap.put(key+"_desc", hmisType.trim());	
@@ -173,25 +179,24 @@ public class BaseProcessor<T> {
 		
 	}
 	/***
-	 * Gets the type from hmis_type table so we can store readable values in HBASE.
-	 * @param key
-	 * @return
+	 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
+	 * @return Map<String,String>
 	 */
-	public String getHmisType(String key,String value) {
+	public Map<String,String> loadHmisTypeMap() {
 		ResultSet resultSet = null;
-		String desc = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
+		Map<String, String> hmisTypeMap = new HashMap<String, String>();
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("SELECT description FROM v2014.hmis_type where status='ACTIVE' and name = ? and value= ?");
-			statement.setString(1, key);
-			statement.setString(2, value);
+			statement = connection.prepareStatement("SELECT name, value,description FROM v2014.hmis_type");
 			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				desc =  resultSet.getString(1);
+			while (resultSet.next()) {
+				String name = resultSet.getString(1);
+				String key = name.trim()+"_"+resultSet.getString(2).trim();
+				hmisTypeMap.put(key.trim(), resultSet.getString(3).trim());
 			}
-			return desc;
+			return hmisTypeMap;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,19 +219,24 @@ public class BaseProcessor<T> {
 	 * @param key
 	 * @return
 	 */
-	public UUID getExportIDFromBulkUpload() {
+	public List<BulkUpload> getExportIDFromBulkUpload() {
 		ResultSet resultSet = null;
 		UUID exportId = null;
+		String projectGroupCode = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
+		List<BulkUpload> uploads = new ArrayList<BulkUpload>();
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("SELECT export_id FROM base.bulk_upload where status='STAGING'");
+			statement = connection.prepareStatement("SELECT export_id,project_group_code FROM base.bulk_upload where status='STAGING'");
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				exportId = UUID.fromString(resultSet.getString(1));
+				BulkUpload upload = new BulkUpload();
+				upload.setExportId(UUID.fromString(resultSet.getString(1)));
+				upload.setProjectGroupCode(projectGroupCode = resultSet.getString(2));
+				uploads.add(upload);
 			}
-			return exportId;
+			return uploads;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
