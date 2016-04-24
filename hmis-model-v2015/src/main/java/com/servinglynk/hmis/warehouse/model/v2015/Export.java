@@ -269,7 +269,7 @@ public class Export implements Cloneable, Serializable {
 	 * Return the value associated with the column: bulkUpload.
 	 * @return A Set&lt;BulkUpload&gt; object (this.bulkUpload)
 	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+ 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exportId"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
 	@Column( nullable = false  )
