@@ -106,14 +106,14 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		   }
 		   public List<com.servinglynk.hmis.warehouse.model.v2015.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems){
 		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
-		       criteria.createAlias("projectId", "projectId");
-		       criteria.add(Restrictions.eq("projectId.id", projectId));
+		       criteria.createAlias("projectid", "projectid");
+		       criteria.add(Restrictions.eq("projectid.id", projectId));
 		       return (List<com.servinglynk.hmis.warehouse.model.v2015.Affiliation>) findByCriteria(criteria,startIndex,maxItems);
 		   }
 		   public long getProjectAffiliationsCount(UUID projectId){
 		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
-		       criteria.createAlias("projectId", "projectId");
-		       criteria.add(Restrictions.eq("projectId.id", projectId));
+		       criteria.createAlias("projectid", "projectid");
+		       criteria.add(Restrictions.eq("projectid.id", projectId));
 		       return countRows(criteria);
 		   }
 		

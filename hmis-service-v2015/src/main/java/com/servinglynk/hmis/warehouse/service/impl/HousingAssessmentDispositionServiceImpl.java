@@ -70,13 +70,13 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
 
 
    @Transactional
-   public HousingAssessmentDispositions getAllEnrollmentHousingAssessmentDispositions(UUID enrollmentId,Integer startIndex, Integer maxItems){
+   public HousingAssessmentDispositions getAllEnrollmentHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
        HousingAssessmentDispositions housingAssessmentDispositions = new HousingAssessmentDispositions();
-        List<com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition> entities = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(enrollmentId,startIndex,maxItems);
+        List<com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition> entities = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(exitId,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition entity : entities){
            housingAssessmentDispositions.addHousingAssessmentDisposition(HousingAssessmentDispositionConverter.entityToModel(entity));
         }
-        long count = daoFactory.getHousingassessmentdispositionDao().getExitHousingAssessmentDispositionsCount(enrollmentId);
+        long count = daoFactory.getHousingassessmentdispositionDao().getExitHousingAssessmentDispositionsCount(exitId);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);

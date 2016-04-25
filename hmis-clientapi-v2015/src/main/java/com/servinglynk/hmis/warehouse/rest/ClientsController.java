@@ -1248,10 +1248,10 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 		serviceFactory.getExitService().getExitById(exitId);
 		return serviceFactory.getHousingAssessmentDispositionService()
-				.getAllEnrollmentHousingAssessmentDispositions(enrollmentId, startIndex, maxItems);
+				.getAllEnrollmentHousingAssessmentDispositions(exitId, startIndex, maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid/exits/{exitid}/exitpaths", method = RequestMethod.POST)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_EXITPATH", checkTrustedApp = true, checkSessionToken = true)
 	public Exitpath createExitpath(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("exitid") UUID exitId,
@@ -1259,7 +1259,7 @@ public class ClientsController extends ControllerBase {
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitpathService().createExitpath(exitpath, enrollmentId, session.getAccount().getUsername());
+		serviceFactory.getExitpathService().createExitpath(exitpath, exitId, session.getAccount().getUsername());
 		Exitpath returnexitpath = new Exitpath();
 		returnexitpath.setExitpathId(exitpath.getExitpathId());
 		return returnexitpath;
@@ -1274,7 +1274,7 @@ public class ClientsController extends ControllerBase {
 		exitpath.setExitpathId(exitpathId);
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitpathService().updateExitpath(exitpath, enrollmentId, session.getAccount().getUsername());
+		serviceFactory.getExitpathService().updateExitpath(exitpath, exitId, session.getAccount().getUsername());
 	}
 
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}", method = RequestMethod.DELETE)

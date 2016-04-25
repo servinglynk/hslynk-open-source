@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.core.model.Exitpath;
 import com.servinglynk.hmis.warehouse.core.model.Exitpaths;
 import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.converter.ExitpathConverter;
+import com.servinglynk.hmis.warehouse.service.exception.ExitNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ExitpathNotFoundException;
 
 
@@ -20,7 +21,7 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
    public Exitpath createExitpath(Exitpath exitpath,UUID exitId,String caller){
        com.servinglynk.hmis.warehouse.model.v2015.Exitpath pExitpath = ExitpathConverter.modelToEntity(exitpath, null);
        com.servinglynk.hmis.warehouse.model.v2015.Exit pExit = daoFactory.getExitDao().getExitById(exitId); 
-       if(pExit == null) throw new ExitpathNotFoundException(); 
+       if(pExit == null) throw new ExitNotFoundException(); 
        pExitpath.setExitid(pExit); 
        pExitpath.setDateCreated(LocalDateTime.now());
 //       pExitpath.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
