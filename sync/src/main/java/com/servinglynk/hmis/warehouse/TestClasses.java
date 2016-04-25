@@ -6,7 +6,7 @@ import org.apache.hadoop.hbase.client.HTable;
 import java.util.Map;
 
 /**
- * Created by flaviusi on 24/04/2016.
+ * Created by sandeep
  */
 public class TestClasses {
     public static void main(String args[]) throws Exception{

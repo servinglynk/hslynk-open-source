@@ -5,7 +5,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 
 /**
- * Created by flaviusi on 24/04/2016.
+ * Created by sandeep
  */
 public class HbaseUtil {
 
