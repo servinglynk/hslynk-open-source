@@ -100,7 +100,7 @@ public class BaseProcessor<T> extends Logging {
 		try {
 			connection = getConnection();
 
-			String queryString = "SELECT * FROM stagv2014." + tableName;
+			String queryString = "SELECT * FROM v2014." + tableName;
 			queryString = queryString + " where export_id = ?";
 			statement = connection.prepareStatement(queryString);
 			statement.setObject(1, exportId);
@@ -302,7 +302,7 @@ public class BaseProcessor<T> extends Logging {
 		try {
 			UUID syncID = UUID.randomUUID();
 			connection = getConnection();
-			statement = connection.prepareStatement("INSERT INTO stagv2014.sync (id, date_created, status) VALUES (?, ?, ?)");
+			statement = connection.prepareStatement("INSERT INTO v2014.sync (id, date_created, status) VALUES (?, ?, ?)");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setObject(1, syncID);
 			statement.setTimestamp(2, currentTimestamp);
@@ -333,7 +333,7 @@ public class BaseProcessor<T> extends Logging {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE stagv2014.sync SET date_updated=?, status=?, json=? where id=?");
+			statement = connection.prepareStatement("UPDATE v2014.sync SET date_updated=?, status=?, json=? where id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setString(2, "COMPLETE");
@@ -361,7 +361,7 @@ public class BaseProcessor<T> extends Logging {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE stagv2014." + tableName + " SET date_updated=?, sync=? where id=?");
+			statement = connection.prepareStatement("UPDATE v2014." + tableName + " SET date_updated=?, sync=? where id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setBoolean(2, true);

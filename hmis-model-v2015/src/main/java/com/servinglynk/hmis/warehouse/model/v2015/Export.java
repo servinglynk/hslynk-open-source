@@ -25,7 +25,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2014.Organization;
+import com.servinglynk.hmis.warehouse.model.v2015.Organization;
 
 
 
