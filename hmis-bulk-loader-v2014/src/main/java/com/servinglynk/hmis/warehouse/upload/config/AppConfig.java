@@ -17,7 +17,10 @@ import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 
 @Configuration 
 @ComponentScan("com.servinglynk.hmis.warehouse.upload") 
-@Import({ SpringConfig.class,DatabaseConfig.class})
+@Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
+	com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
+	DatabaseConfig.class,
+	com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class})
 @EnableWebMvc   
 @EnableTransactionManagement
 @EnableScheduling

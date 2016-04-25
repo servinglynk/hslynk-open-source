@@ -1,0 +1,292 @@
+2016-04-24 23:29:54 main FromPostgres [INFO] -------- PostgreSQL JDBC Connection Testing ------------
+2016-04-24 23:29:55 main FromPostgres [INFO] Get list of bulkupload
+2016-04-24 23:29:55 main FromPostgres [INFO] Get map of hmisTypes
+2016-04-24 23:29:55 main FromPostgres [INFO] Create tables in HBASE
+2016-04-24 23:30:05 main NativeCodeLoader [WARN] Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2016-04-24 23:30:05 main Shell [ERROR] Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:355)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:370)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:363)
+	at org.apache.hadoop.util.StringUtils.<clinit>(StringUtils.java:79)
+	at org.apache.hadoop.security.Groups.parseStaticMapping(Groups.java:130)
+	at org.apache.hadoop.security.Groups.<init>(Groups.java:94)
+	at org.apache.hadoop.security.Groups.<init>(Groups.java:74)
+	at org.apache.hadoop.security.Groups.getUserToGroupsMappingService(Groups.java:303)
+	at org.apache.hadoop.security.UserGroupInformation.initialize(UserGroupInformation.java:283)
+	at org.apache.hadoop.security.UserGroupInformation.ensureInitialized(UserGroupInformation.java:260)
+	at org.apache.hadoop.security.UserGroupInformation.loginUserFromSubject(UserGroupInformation.java:804)
+	at org.apache.hadoop.security.UserGroupInformation.getLoginUser(UserGroupInformation.java:774)
+	at org.apache.hadoop.security.UserGroupInformation.getCurrentUser(UserGroupInformation.java:647)
+	at org.apache.hadoop.hbase.security.User$SecureHadoopUser.<init>(User.java:283)
+	at org.apache.hadoop.hbase.security.User$SecureHadoopUser.<init>(User.java:279)
+	at org.apache.hadoop.hbase.security.User.getCurrent(User.java:183)
+	at org.apache.hadoop.hbase.security.UserProvider.getCurrent(UserProvider.java:88)
+	at org.apache.hadoop.hbase.client.HConnectionKey.<init>(HConnectionKey.java:72)
+	at org.apache.hadoop.hbase.client.ConnectionManager.getConnectionInternal(ConnectionManager.java:281)
+	at org.apache.hadoop.hbase.client.HBaseAdmin.<init>(HBaseAdmin.java:207)
+	at com.servinglynk.hmis.warehouse.HbaseUtil.getAdmin(HbaseUtil.java:28)
+	at com.servinglynk.hmis.warehouse.CreateTable.createTables(CreateTable.java:79)
+	at com.servinglynk.hmis.warehouse.FromPostgres.RunSync(FromPostgres.java:37)
+	at com.servinglynk.hmis.warehouse.FromPostgres.main(FromPostgres.java:17)
+2016-04-24 23:30:05 main RecoverableZooKeeper [INFO] Process identifier=hconnection-0xf8c1ddd connecting to ZooKeeper ensemble=ec2-52-34-38-188.us-west-2.compute.amazonaws.com:2181
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:zookeeper.version=3.4.5-cdh5.4.3--1, built on 06/25/2015 02:25 GMT
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:host.name=sdolia-pc
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.version=1.8.0_31
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.vendor=Oracle Corporation
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.home=C:\Program Files\Java\jdk1.8.0_31\jre
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.class.path=C:\HMIS\hmis-lynk-open-source\sync\target\classes;C:\Users\sdolia\.m2\repository\org\apache\zookeeper\zookeeper\3.4.5-cdh5.4.3\zookeeper-3.4.5-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\slf4j\slf4j-api\1.7.5\slf4j-api-1.7.5.jar;C:\Users\sdolia\.m2\repository\org\slf4j\slf4j-log4j12\1.7.5\slf4j-log4j12-1.7.5.jar;C:\Users\sdolia\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\Users\sdolia\.m2\repository\jline\jline\2.11\jline-2.11.jar;C:\Users\sdolia\.m2\repository\org\jboss\netty\netty\3.2.2.Final\netty-3.2.2.Final.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-common\2.6.0-cdh5.4.3\hadoop-common-2.6.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-annotations\2.6.0-cdh5.4.3\hadoop-annotations-2.6.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\com\google\guava\guava\11.0.2\guava-11.0.2.jar;C:\Users\sdolia\.m2\repository\commons-cli\commons-cli\1.2\commons-cli-1.2.jar;C:\Users\sdolia\.m2\repository\org\apache\commons\commons-math3\3.1.1\commons-math3-3.1.1.jar;C:\Users\sdolia\.m2\repository\xmlenc\xmlenc\0.52\xmlenc-0.52.jar;C:\Users\sdolia\.m2\repository\commons-httpclient\commons-httpclient\3.1\commons-httpclient-3.1.jar;C:\Users\sdolia\.m2\repository\commons-codec\commons-codec\1.4\commons-codec-1.4.jar;C:\Users\sdolia\.m2\repository\commons-io\commons-io\2.4\commons-io-2.4.jar;C:\Users\sdolia\.m2\repository\commons-net\commons-net\3.1\commons-net-3.1.jar;C:\Users\sdolia\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\sdolia\.m2\repository\org\mortbay\jetty\jetty\6.1.26.cloudera.4\jetty-6.1.26.cloudera.4.jar;C:\Users\sdolia\.m2\repository\org\mortbay\jetty\jetty-util\6.1.26.cloudera.4\jetty-util-6.1.26.cloudera.4.jar;C:\Users\sdolia\.m2\repository\com\sun\jersey\jersey-server\1.9\jersey-server-1.9.jar;C:\Users\sdolia\.m2\repository\asm\asm\3.1\asm-3.1.jar;C:\Users\sdolia\.m2\repository\javax\servlet\jsp\jsp-api\2.1\jsp-api-2.1.jar;C:\Users\sdolia\.m2\repository\commons-el\commons-el\1.0\commons-el-1.0.jar;C:\Users\sdolia\.m2\repository\commons-logging\commons-logging\1.1.3\commons-logging-1.1.3.jar;C:\Users\sdolia\.m2\repository\net\java\dev\jets3t\jets3t\0.9.0\jets3t-0.9.0.jar;C:\Users\sdolia\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\sdolia\.m2\repository\commons-configuration\commons-configuration\1.6\commons-configuration-1.6.jar;C:\Users\sdolia\.m2\repository\commons-beanutils\commons-beanutils-core\1.8.0\commons-beanutils-core-1.8.0.jar;C:\Users\sdolia\.m2\repository\org\codehaus\jackson\jackson-core-asl\1.8.8\jackson-core-asl-1.8.8.jar;C:\Users\sdolia\.m2\repository\org\codehaus\jackson\jackson-mapper-asl\1.8.8\jackson-mapper-asl-1.8.8.jar;C:\Users\sdolia\.m2\repository\org\apache\avro\avro\1.7.6-cdh5.4.3\avro-1.7.6-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\com\thoughtworks\paranamer\paranamer\2.3\paranamer-2.3.jar;C:\Users\sdolia\.m2\repository\org\xerial\snappy\snappy-java\1.0.5\snappy-java-1.0.5.jar;C:\Users\sdolia\.m2\repository\com\google\protobuf\protobuf-java\2.5.0\protobuf-java-2.5.0.jar;C:\Users\sdolia\.m2\repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-auth\2.6.0-cdh5.4.3\hadoop-auth-2.6.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\directory\server\apacheds-kerberos-codec\2.0.0-M15\apacheds-kerberos-codec-2.0.0-M15.jar;C:\Users\sdolia\.m2\repository\org\apache\directory\server\apacheds-i18n\2.0.0-M15\apacheds-i18n-2.0.0-M15.jar;C:\Users\sdolia\.m2\repository\org\apache\directory\api\api-asn1-api\1.0.0-M20\api-asn1-api-1.0.0-M20.jar;C:\Users\sdolia\.m2\repository\org\apache\directory\api\api-util\1.0.0-M20\api-util-1.0.0-M20.jar;C:\Users\sdolia\.m2\repository\com\jcraft\jsch\0.1.42\jsch-0.1.42.jar;C:\Users\sdolia\.m2\repository\org\apache\curator\curator-client\2.7.1\curator-client-2.7.1.jar;C:\Users\sdolia\.m2\repository\org\apache\curator\curator-recipes\2.7.1\curator-recipes-2.7.1.jar;C:\Users\sdolia\.m2\repository\com\google\code\findbugs\jsr305\3.0.0\jsr305-3.0.0.jar;C:\Users\sdolia\.m2\repository\org\apache\commons\commons-compress\1.4.1\commons-compress-1.4.1.jar;C:\Users\sdolia\.m2\repository\org\tukaani\xz\1.0\xz-1.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-common\1.0.0-cdh5.4.3\hbase-common-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-annotations\1.0.0-cdh5.4.3\hbase-annotations-1.0.0-cdh5.4.3.jar;C:\Program Files\Java\jdk1.8.0_31\lib\tools.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-core\2.6.0-mr1-cdh5.4.3\hadoop-core-2.6.0-mr1-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\hsqldb\hsqldb\1.8.0.10\hsqldb-1.8.0.10.jar;C:\Users\sdolia\.m2\repository\org\eclipse\jdt\core\3.1.1\core-3.1.1.jar;C:\Users\sdolia\.m2\repository\com\github\stephenc\findbugs\findbugs-annotations\1.3.9-1\findbugs-annotations-1.3.9-1.jar;C:\Users\sdolia\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\sdolia\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-client\1.0.0-cdh5.4.3\hbase-client-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-protocol\1.0.0-cdh5.4.3\hbase-protocol-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\io\netty\netty\3.6.6.Final\netty-3.6.6.Final.jar;C:\Users\sdolia\.m2\repository\org\jruby\jcodings\jcodings\1.0.8\jcodings-1.0.8.jar;C:\Users\sdolia\.m2\repository\org\jruby\joni\joni\2.1.2\joni-2.1.2.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-hadoop2-compat\1.0.0-cdh5.4.3\hbase-hadoop2-compat-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\commons\commons-math\2.1\commons-math-2.1.jar;C:\Users\sdolia\.m2\repository\com\yammer\metrics\metrics-core\2.2.0\metrics-core-2.2.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-hadoop-compat\1.0.0-cdh5.4.3\hbase-hadoop-compat-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-it\1.0.0-cdh5.4.3\hbase-it-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-shell\1.0.0-cdh5.4.3\hbase-shell-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-prefix-tree\1.0.0-cdh5.4.3\hbase-prefix-tree-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-common\1.0.0-cdh5.4.3\hbase-common-1.0.0-cdh5.4.3-tests.jar;C:\Users\sdolia\.m2\repository\org\jruby\jruby-cloudera\1.0.0\jruby-cloudera-1.0.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-hdfs\2.6.0-cdh5.4.3\hadoop-hdfs-2.6.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\commons-daemon\commons-daemon\1.0.13\commons-daemon-1.0.13.jar;C:\Users\sdolia\.m2\repository\org\fusesource\leveldbjni\leveldbjni-all\1.8\leveldbjni-all-1.8.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-hdfs\2.6.0-cdh5.4.3\hadoop-hdfs-2.6.0-cdh5.4.3-tests.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-server\1.0.0-cdh5.4.3\hbase-server-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\jamon\jamon-runtime\2.3.1\jamon-runtime-2.3.1.jar;C:\Users\sdolia\.m2\repository\com\lmax\disruptor\3.3.0\disruptor-3.3.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-examples\1.0.0-cdh5.4.3\hbase-examples-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\thrift\libthrift\0.9.0\libthrift-0.9.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-rest\1.0.0-cdh5.4.3\hbase-rest-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\mortbay\jetty\jsp-2.1\6.1.14\jsp-2.1-6.1.14.jar;C:\Users\sdolia\.m2\repository\org\codehaus\jackson\jackson-jaxrs\1.8.8\jackson-jaxrs-1.8.8.jar;C:\Users\sdolia\.m2\repository\org\mortbay\jetty\jetty-sslengine\6.1.26.cloudera.4\jetty-sslengine-6.1.26.cloudera.4.jar;C:\Users\sdolia\.m2\repository\org\mortbay\jetty\jsp-api-2.1\6.1.14\jsp-api-2.1-6.1.14.jar;C:\Users\sdolia\.m2\repository\org\mortbay\jetty\servlet-api-2.5\6.1.14\servlet-api-2.5-6.1.14.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-thrift\1.0.0-cdh5.4.3\hbase-thrift-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hbase\hbase-checkstyle\1.0.0-cdh5.4.3\hbase-checkstyle-1.0.0-cdh5.4.3.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-exec\1.2.1\hive-exec-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-ant\1.2.1\hive-ant-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\velocity\velocity\1.5\velocity-1.5.jar;C:\Users\sdolia\.m2\repository\oro\oro\2.0.8\oro-2.0.8.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-shims\1.2.1\hive-shims-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\shims\hive-shims-common\1.2.1\hive-shims-common-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\shims\hive-shims-0.20S\1.2.1\hive-shims-0.20S-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\shims\hive-shims-0.23\1.2.1\hive-shims-0.23-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-yarn-server-resourcemanager\2.6.0\hadoop-yarn-server-resourcemanager-2.6.0.jar;C:\Users\sdolia\.m2\repository\com\google\inject\extensions\guice-servlet\3.0\guice-servlet-3.0.jar;C:\Users\sdolia\.m2\repository\com\google\inject\guice\3.0\guice-3.0.jar;C:\Users\sdolia\.m2\repository\javax\inject\javax.inject\1\javax.inject-1.jar;C:\Users\sdolia\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\sdolia\.m2\repository\com\sun\jersey\contribs\jersey-guice\1.9\jersey-guice-1.9.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-yarn-common\2.6.0\hadoop-yarn-common-2.6.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-yarn-api\2.6.0\hadoop-yarn-api-2.6.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-yarn-server-common\2.6.0\hadoop-yarn-server-common-2.6.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-yarn-server-applicationhistoryservice\2.6.0\hadoop-yarn-server-applicationhistoryservice-2.6.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hadoop\hadoop-yarn-server-web-proxy\2.6.0\hadoop-yarn-server-web-proxy-2.6.0.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\shims\hive-shims-scheduler\1.2.1\hive-shims-scheduler-1.2.1.jar;C:\Users\sdolia\.m2\repository\log4j\apache-log4j-extras\1.2.17\apache-log4j-extras-1.2.17.jar;C:\Users\sdolia\.m2\repository\org\antlr\antlr-runtime\3.4\antlr-runtime-3.4.jar;C:\Users\sdolia\.m2\repository\org\antlr\stringtemplate\3.2.1\stringtemplate-3.2.1.jar;C:\Users\sdolia\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\sdolia\.m2\repository\org\antlr\ST4\4.0.4\ST4-4.0.4.jar;C:\Users\sdolia\.m2\repository\org\apache\ant\ant\1.9.1\ant-1.9.1.jar;C:\Users\sdolia\.m2\repository\org\apache\ant\ant-launcher\1.9.1\ant-launcher-1.9.1.jar;C:\Users\sdolia\.m2\repository\org\apache\thrift\libfb303\0.9.2\libfb303-0.9.2.jar;C:\Users\sdolia\.m2\repository\org\apache\ivy\ivy\2.4.0\ivy-2.4.0.jar;C:\Users\sdolia\.m2\repository\org\apache\curator\curator-framework\2.6.0\curator-framework-2.6.0.jar;C:\Users\sdolia\.m2\repository\org\codehaus\groovy\groovy-all\2.1.6\groovy-all-2.1.6.jar;C:\Users\sdolia\.m2\repository\org\datanucleus\datanucleus-core\3.2.10\datanucleus-core-3.2.10.jar;C:\Users\sdolia\.m2\repository\org\apache\calcite\calcite-core\1.2.0-incubating\calcite-core-1.2.0-incubating.jar;C:\Users\sdolia\.m2\repository\org\apache\calcite\calcite-linq4j\1.2.0-incubating\calcite-linq4j-1.2.0-incubating.jar;C:\Users\sdolia\.m2\repository\net\hydromatic\eigenbase-properties\1.1.5\eigenbase-properties-1.1.5.jar;C:\Users\sdolia\.m2\repository\org\codehaus\janino\janino\2.7.6\janino-2.7.6.jar;C:\Users\sdolia\.m2\repository\org\codehaus\janino\commons-compiler\2.7.6\commons-compiler-2.7.6.jar;C:\Users\sdolia\.m2\repository\org\pentaho\pentaho-aggdesigner-algorithm\5.1.5-jhyde\pentaho-aggdesigner-algorithm-5.1.5-jhyde.jar;C:\Users\sdolia\.m2\repository\org\apache\calcite\calcite-avatica\1.2.0-incubating\calcite-avatica-1.2.0-incubating.jar;C:\Users\sdolia\.m2\repository\stax\stax-api\1.0.1\stax-api-1.0.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-jdbc\1.2.1\hive-jdbc-1.2.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-common\1.2.1\hive-common-1.2.1.jar;C:\Users\sdolia\.m2\repository\joda-time\joda-time\2.5\joda-time-2.5.jar;C:\Users\sdolia\.m2\repository\org\json\json\20090211\json-20090211.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-serde\1.2.1\hive-serde-1.2.1.jar;C:\Users\sdolia\.m2\repository\net\sf\opencsv\opencsv\2.3\opencsv-2.3.jar;C:\Users\sdolia\.m2\repository\com\twitter\parquet-hadoop-bundle\1.6.0\parquet-hadoop-bundle-1.6.0.jar;C:\Users\sdolia\.m2\repository\org\apache\httpcomponents\httpcore\4.4\httpcore-4.4.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-metastore\1.2.1\hive-metastore-1.2.1.jar;C:\Users\sdolia\.m2\repository\com\jolbox\bonecp\0.8.0.RELEASE\bonecp-0.8.0.RELEASE.jar;C:\Users\sdolia\.m2\repository\org\apache\derby\derby\10.10.2.0\derby-10.10.2.0.jar;C:\Users\sdolia\.m2\repository\org\datanucleus\datanucleus-api-jdo\3.2.6\datanucleus-api-jdo-3.2.6.jar;C:\Users\sdolia\.m2\repository\org\datanucleus\datanucleus-rdbms\3.2.9\datanucleus-rdbms-3.2.9.jar;C:\Users\sdolia\.m2\repository\commons-pool\commons-pool\1.5.4\commons-pool-1.5.4.jar;C:\Users\sdolia\.m2\repository\commons-dbcp\commons-dbcp\1.4\commons-dbcp-1.4.jar;C:\Users\sdolia\.m2\repository\javax\jdo\jdo-api\3.0.1\jdo-api-3.0.1.jar;C:\Users\sdolia\.m2\repository\javax\transaction\jta\1.1\jta-1.1.jar;C:\Users\sdolia\.m2\repository\org\apache\hive\hive-service\1.2.1\hive-service-1.2.1.jar;C:\Users\sdolia\.m2\repository\net\sf\jpam\jpam\1.1\jpam-1.1.jar;C:\Users\sdolia\.m2\repository\org\eclipse\jetty\aggregate\jetty-all\7.6.0.v20120127\jetty-all-7.6.0.v20120127.jar;C:\Users\sdolia\.m2\repository\org\apache\geronimo\specs\geronimo-jta_1.1_spec\1.1.1\geronimo-jta_1.1_spec-1.1.1.jar;C:\Users\sdolia\.m2\repository\org\apache\geronimo\specs\geronimo-jaspic_1.0_spec\1.0\geronimo-jaspic_1.0_spec-1.0.jar;C:\Users\sdolia\.m2\repository\org\apache\geronimo\specs\geronimo-annotation_1.0_spec\1.1.1\geronimo-annotation_1.0_spec-1.1.1.jar;C:\Users\sdolia\.m2\repository\asm\asm-commons\3.1\asm-commons-3.1.jar;C:\Users\sdolia\.m2\repository\asm\asm-tree\3.1\asm-tree-3.1.jar;C:\Users\sdolia\.m2\repository\org\hsqldb\hsqldb\1.8.0.10\hsqldb-1.8.0.10.jar;C:\Users\sdolia\.m2\repository\org\htrace\htrace-core\3.0.4\htrace-core-3.0.4.jar;C:\Users\sdolia\.m2\repository\org\apache\htrace\htrace-core\3.1.0-incubating\htrace-core-3.1.0-incubating.jar;C:\Users\sdolia\.m2\repository\org\apache\httpcomponents\httpclient\4.2.5\httpclient-4.2.5.jar;C:\Users\sdolia\.m2\repository\com\lowagie\itext\2.1.7\itext-2.1.7.jar;C:\Users\sdolia\.m2\repository\bouncycastle\bcmail-jdk14\138\bcmail-jdk14-138.jar;C:\Users\sdolia\.m2\repository\bouncycastle\bcprov-jdk14\138\bcprov-jdk14-138.jar;C:\Users\sdolia\.m2\repository\org\bouncycastle\bctsp-jdk14\1.38\bctsp-jdk14-1.38.jar;C:\Users\sdolia\.m2\repository\org\bouncycastle\bcprov-jdk14\1.38\bcprov-jdk14-1.38.jar;C:\Users\sdolia\.m2\repository\org\bouncycastle\bcmail-jdk14\1.38\bcmail-jdk14-1.38.jar;C:\Users\sdolia\.m2\repository\javax\mail\mail\1.4.4\mail-1.4.4.jar;C:\Users\sdolia\.m2\repository\javax\activation\activation\1.1\activation-1.1.jar;C:\Users\sdolia\.m2\repository\org\hibernate\javax\persistence\hibernate-jpa-2.0-api\1.0.1.Final\hibernate-jpa-2.0-api-1.0.1.Final.jar;C:\Users\sdolia\.m2\repository\com\jamesmurty\utils\java-xmlbuilder\0.4\java-xmlbuilder-0.4.jar;C:\Users\sdolia\.m2\repository\com\github\stephenc\high-scale-lib\high-scale-lib\1.1.1\high-scale-lib-1.1.1.jar;C:\Users\sdolia\.m2\repository\javax\xml\bind\jaxb-api\2.1\jaxb-api-2.1.jar;C:\Users\sdolia\.m2\repository\javax\xml\stream\stax-api\1.0-2\stax-api-1.0-2.jar;C:\Users\sdolia\.m2\repository\com\sun\xml\bind\jaxb-impl\2.2.3-1\jaxb-impl-2.2.3-1.jar;C:\Users\sdolia\.m2\repository\javax\servlet\servlet-api\2.5\servlet-api-2.5.jar;C:\Users\sdolia\.m2\repository\tomcat\jasper-runtime\5.5.23\jasper-runtime-5.5.23.jar;C:\Users\sdolia\.m2\repository\tomcat\jasper-compiler\5.5.23\jasper-compiler-5.5.23.jar;C:\Users\sdolia\.m2\repository\javax\servlet\jsp-api\2.0\jsp-api-2.0.jar;C:\Users\sdolia\.m2\repository\ant\ant\1.6.5\ant-1.6.5.jar;C:\Users\sdolia\.m2\repository\com\sun\jersey\jersey-core\1.9\jersey-core-1.9.jar;C:\Users\sdolia\.m2\repository\com\sun\jersey\jersey-json\1.9\jersey-json-1.9.jar;C:\Users\sdolia\.m2\repository\org\codehaus\jettison\jettison\1.1\jettison-1.1.jar;C:\Users\sdolia\.m2\repository\org\codehaus\jackson\jackson-xc\1.8.3\jackson-xc-1.8.3.jar;C:\Users\sdolia\.m2\repository\com\sun\jersey\jersey-client\1.9\jersey-client-1.9.jar;C:\Users\sdolia\.m2\repository\javax\persistence\persistence-api\1.0\persistence-api-1.0.jar;C:\Users\sdolia\.m2\repository\net\sf\jasperreports\jasperreports\3.7.6\jasperreports-3.7.6.jar;C:\Users\sdolia\.m2\repository\commons-beanutils\commons-beanutils\1.8.0\commons-beanutils-1.8.0.jar;C:\Users\sdolia\.m2\repository\commons-digester\commons-digester\1.7\commons-digester-1.7.jar;C:\Users\sdolia\.m2\repository\jfree\jcommon\1.0.15\jcommon-1.0.15.jar;C:\Users\sdolia\.m2\repository\jfree\jfreechart\1.0.12\jfreechart-1.0.12.jar;C:\Users\sdolia\.m2\repository\xml-apis\xml-apis\1.3.02\xml-apis-1.3.02.jar;C:\Users\sdolia\.m2\repository\eclipse\jdtcore\3.1.0\jdtcore-3.1.0.jar;C:\Users\sdolia\.m2\repository\org\postgresql\postgresql\9.4.1208\postgresql-9.4.1208.jar
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.library.path=C:\Program Files\Java\jdk1.8.0_31\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\HP SimplePass\x64;C:\Program Files (x86)\HP SimplePass\;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\HP\Unified Functional Testing\bin;C:\Program Files (x86)\Skype\Phone\;C:\apache-maven-3.3.3\bin;C:\Program Files\Java\jdk1.8.0_31\bin;C:\Program Files\MIT\Kerberos\bin;.
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.io.tmpdir=C:\Users\sdolia\AppData\Local\Temp\
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:java.compiler=<NA>
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:os.name=Windows 8.1
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:os.arch=amd64
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:os.version=6.3
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:user.name=sdolia
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:user.home=C:\Users\sdolia
+2016-04-24 23:30:14 main ZooKeeper [INFO] Client environment:user.dir=C:\HMIS\hmis-lynk-open-source\sync
+2016-04-24 23:30:14 main ZooKeeper [INFO] Initiating client connection, connectString=ec2-52-34-38-188.us-west-2.compute.amazonaws.com:2181 sessionTimeout=90000 watcher=hconnection-0xf8c1ddd0x0, quorum=ec2-52-34-38-188.us-west-2.compute.amazonaws.com:2181, baseZNode=/hbase
+2016-04-24 23:30:14 main-SendThread(ip-172-31-10-65.us-west-2.compute.internal:2181) ClientCnxn [INFO] Opening socket connection to server ip-172-31-10-65.us-west-2.compute.internal/52.34.38.188:2181. Will not attempt to authenticate using SASL (unknown error)
+2016-04-24 23:30:14 main-SendThread(ip-172-31-10-65.us-west-2.compute.internal:2181) ClientCnxn [INFO] Socket connection established, initiating session, client: /192.168.0.3:58469, server: ip-172-31-10-65.us-west-2.compute.internal/52.34.38.188:2181
+2016-04-24 23:30:14 main-SendThread(ip-172-31-10-65.us-west-2.compute.internal:2181) ClientCnxn [INFO] Session establishment complete on server ip-172-31-10-65.us-west-2.compute.internal/52.34.38.188:2181, sessionid = 0x1543fe7692624db, negotiated timeout = 60000
+2016-04-24 23:30:15 main deprecation [INFO] hadoop.native.lib is deprecated. Instead, use io.native.lib.available
+2016-04-24 23:31:57 main FromPostgres [INFO] Time taken to complete create table in seconds: 121
+2016-04-24 23:31:57 main FromPostgres [INFO] [familyreunification] Processing table number: 0
+2016-04-24 23:31:57 main FromPostgres [INFO] [funder] Processing table number: 1
+2016-04-24 23:31:57 pool-1-thread-1 FromPostgres [INFO] [familyreunification] Start thread  for: familyreunification
+2016-04-24 23:31:57 main FromPostgres [INFO] [commercialsexualexploitation] Processing table number: 2
+2016-04-24 23:31:57 pool-1-thread-1 BaseProcessor [INFO] [familyreunification] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Familyreunification
+2016-04-24 23:31:57 pool-1-thread-2 FromPostgres [INFO] [funder] Start thread  for: funder
+2016-04-24 23:31:57 pool-1-thread-3 FromPostgres [INFO] [commercialsexualexploitation] Start thread  for: commercialsexualexploitation
+2016-04-24 23:31:57 main FromPostgres [INFO] [formerwardchildwelfare] Processing table number: 3
+2016-04-24 23:31:57 pool-1-thread-3 BaseProcessor [INFO] [commercialsexualexploitation] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation
+2016-04-24 23:31:57 pool-1-thread-2 BaseProcessor [INFO] [funder] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Funder
+2016-04-24 23:31:57 pool-1-thread-4 FromPostgres [INFO] [formerwardchildwelfare] Start thread  for: formerwardchildwelfare
+2016-04-24 23:31:57 main FromPostgres [INFO] [projectcompletionstatus] Processing table number: 4
+2016-04-24 23:31:57 pool-1-thread-4 BaseProcessor [INFO] [formerwardchildwelfare] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare
+2016-04-24 23:31:57 main FromPostgres [INFO] [bedinventory] Processing table number: 5
+2016-04-24 23:31:57 main FromPostgres [INFO] [exithousingassessment] Processing table number: 6
+2016-04-24 23:31:57 pool-1-thread-5 FromPostgres [INFO] [projectcompletionstatus] Start thread  for: projectcompletionstatus
+2016-04-24 23:31:57 main FromPostgres [INFO] [project] Processing table number: 7
+2016-04-24 23:31:57 pool-1-thread-5 BaseProcessor [INFO] [projectcompletionstatus] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus
+2016-04-24 23:31:57 main FromPostgres [INFO] [sexualorientation] Processing table number: 8
+2016-04-24 23:31:57 main FromPostgres [INFO] [connectionwithsoar] Processing table number: 9
+2016-04-24 23:31:57 main FromPostgres [INFO] [source] Processing table number: 10
+2016-04-24 23:31:57 main FromPostgres [INFO] [inventory] Processing table number: 11
+2016-04-24 23:31:57 main FromPostgres [INFO] [path_status] Processing table number: 12
+2016-04-24 23:31:57 main FromPostgres [INFO] [referralsource] Processing table number: 13
+2016-04-24 23:31:57 main FromPostgres [INFO] [housingassessmentdisposition] Processing table number: 14
+2016-04-24 23:31:57 main FromPostgres [INFO] [affiliation] Processing table number: 15
+2016-04-24 23:31:57 main FromPostgres [INFO] [incomeandsources] Processing table number: 16
+2016-04-24 23:31:57 main FromPostgres [INFO] [rhybcp_status] Processing table number: 17
+2016-04-24 23:31:57 main FromPostgres [INFO] [client] Processing table number: 18
+2016-04-24 23:31:57 main FromPostgres [INFO] [enrollment_coc] Processing table number: 19
+2016-04-24 23:31:57 main FromPostgres [INFO] [lastgradecompleted] Processing table number: 20
+2016-04-24 23:31:57 main FromPostgres [INFO] [health_status] Processing table number: 21
+2016-04-24 23:31:57 main FromPostgres [INFO] [export] Processing table number: 22
+2016-04-24 23:31:57 main FromPostgres [INFO] [noncashbenefits] Processing table number: 23
+2016-04-24 23:31:57 main FromPostgres [INFO] [residentialmoveindate] Processing table number: 24
+2016-04-24 23:31:57 main FromPostgres [INFO] [exitplansactions] Processing table number: 25
+2016-04-24 23:31:57 main FromPostgres [INFO] [veteran_info] Processing table number: 26
+2016-04-24 23:31:57 main FromPostgres [INFO] [projectcoc] Processing table number: 27
+2016-04-24 23:31:57 main FromPostgres [INFO] [employment] Processing table number: 28
+2016-04-24 23:31:57 main FromPostgres [INFO] [services] Processing table number: 29
+2016-04-24 23:31:57 main FromPostgres [INFO] [formerwardjuvenilejustice] Processing table number: 30
+2016-04-24 23:31:57 main FromPostgres [INFO] [percent_ami] Processing table number: 31
+2016-04-24 23:31:57 main FromPostgres [INFO] [enrollment] Processing table number: 32
+2016-04-24 23:31:57 main FromPostgres [INFO] [worsthousingsituation] Processing table number: 33
+2016-04-24 23:31:57 main FromPostgres [INFO] [youthcriticalissues] Processing table number: 34
+2016-04-24 23:31:57 main FromPostgres [INFO] [exit] Processing table number: 35
+2016-04-24 23:31:57 main FromPostgres [INFO] [medicalassistance] Processing table number: 36
+2016-04-24 23:31:57 main FromPostgres [INFO] [disabilities] Processing table number: 37
+2016-04-24 23:31:57 main FromPostgres [INFO] [healthinsurance] Processing table number: 38
+2016-04-24 23:31:57 main FromPostgres [INFO] [site] Processing table number: 39
+2016-04-24 23:31:57 main FromPostgres [INFO] [dateofengagement] Processing table number: 40
+2016-04-24 23:31:57 main FromPostgres [INFO] [organization] Processing table number: 41
+2016-04-24 23:31:57 main FromPostgres [INFO] [schoolstatus] Processing table number: 42
+2016-04-24 23:31:57 main FromPostgres [INFO] [domesticviolence] Processing table number: 43
+2016-04-24 23:31:57 main FromPostgres [INFO] [last_perm_address] Processing table number: 44
+2016-04-24 23:31:57 pool-1-thread-3 FromPostgres [INFO] [commercialsexualexploitation]Time taken to complete Sync for 'commercialsexualexploitation' in seconds: 0
+2016-04-24 23:31:57 pool-1-thread-3 FromPostgres [INFO] [commercialsexualexploitation]End thread for: commercialsexualexploitation
+2016-04-24 23:31:57 pool-1-thread-3 FromPostgres [INFO] [bedinventory] Start thread  for: bedinventory
+2016-04-24 23:31:57 pool-1-thread-3 BaseProcessor [INFO] [bedinventory] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Bedinventory
+2016-04-24 23:31:57 pool-1-thread-5 FromPostgres [INFO] [projectcompletionstatus]Time taken to complete Sync for 'projectcompletionstatus' in seconds: 0
+2016-04-24 23:31:57 pool-1-thread-5 FromPostgres [INFO] [projectcompletionstatus]End thread for: projectcompletionstatus
+2016-04-24 23:31:57 pool-1-thread-5 FromPostgres [INFO] [exithousingassessment] Start thread  for: exithousingassessment
+2016-04-24 23:31:57 pool-1-thread-5 BaseProcessor [INFO] [exithousingassessment] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment
+2016-04-24 23:31:57 pool-1-thread-4 FromPostgres [INFO] [formerwardchildwelfare]Time taken to complete Sync for 'formerwardchildwelfare' in seconds: 0
+2016-04-24 23:31:57 pool-1-thread-4 FromPostgres [INFO] [formerwardchildwelfare]End thread for: formerwardchildwelfare
+2016-04-24 23:31:57 pool-1-thread-4 FromPostgres [INFO] [project] Start thread  for: project
+2016-04-24 23:31:57 pool-1-thread-4 BaseProcessor [INFO] [project] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Project
+2016-04-24 23:31:57 pool-1-thread-1 FromPostgres [INFO] [familyreunification]Time taken to complete Sync for 'familyreunification' in seconds: 0
+2016-04-24 23:31:57 pool-1-thread-1 FromPostgres [INFO] [familyreunification]End thread for: familyreunification
+2016-04-24 23:31:57 pool-1-thread-1 FromPostgres [INFO] [sexualorientation] Start thread  for: sexualorientation
+2016-04-24 23:31:57 pool-1-thread-1 BaseProcessor [INFO] [sexualorientation] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation
+2016-04-24 23:31:58 pool-1-thread-3 FromPostgres [INFO] [bedinventory]Time taken to complete Sync for 'bedinventory' in seconds: 0
+2016-04-24 23:31:58 pool-1-thread-3 FromPostgres [INFO] [bedinventory]End thread for: bedinventory
+2016-04-24 23:31:58 pool-1-thread-3 FromPostgres [INFO] [connectionwithsoar] Start thread  for: connectionwithsoar
+2016-04-24 23:31:58 pool-1-thread-3 BaseProcessor [INFO] [connectionwithsoar] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar
+2016-04-24 23:31:58 pool-1-thread-1 FromPostgres [INFO] [sexualorientation]Time taken to complete Sync for 'sexualorientation' in seconds: 0
+2016-04-24 23:31:58 pool-1-thread-1 FromPostgres [INFO] [sexualorientation]End thread for: sexualorientation
+2016-04-24 23:31:58 pool-1-thread-1 FromPostgres [INFO] [source] Start thread  for: source
+2016-04-24 23:31:58 pool-1-thread-1 BaseProcessor [INFO] [source] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Source
+2016-04-24 23:31:58 pool-1-thread-1 FromPostgres [INFO] [source]Time taken to complete Sync for 'source' in seconds: 0
+2016-04-24 23:31:58 pool-1-thread-1 FromPostgres [INFO] [source]End thread for: source
+2016-04-24 23:31:58 pool-1-thread-1 FromPostgres [INFO] [inventory] Start thread  for: inventory
+2016-04-24 23:31:58 pool-1-thread-1 BaseProcessor [INFO] [inventory] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Inventory
+2016-04-24 23:31:59 pool-1-thread-3 BaseProcessor [INFO] [connectionwithsoar] Time taken to generate insert and update maps in seconds: 1
+2016-04-24 23:31:59 pool-1-thread-3 BaseProcessor [INFO] [connectionwithsoar] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar : 1
+2016-04-24 23:31:59 pool-1-thread-3 BaseProcessor [INFO] [connectionwithsoar] Updates for com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar : 0
+2016-04-24 23:31:59 pool-1-thread-1 BaseProcessor [INFO] [inventory] Time taken to generate insert and update maps in seconds: 1
+2016-04-24 23:31:59 pool-1-thread-1 BaseProcessor [INFO] [inventory] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Inventory : 52
+2016-04-24 23:31:59 pool-1-thread-1 BaseProcessor [INFO] [inventory] Updates for com.servinglynk.hmis.warehouse.model.v2014.Inventory : 0
+2016-04-24 23:31:59 pool-1-thread-3 FromPostgres [INFO] [connectionwithsoar]Time taken to complete Sync for 'connectionwithsoar' in seconds: 1
+2016-04-24 23:31:59 pool-1-thread-3 FromPostgres [INFO] [connectionwithsoar]End thread for: connectionwithsoar
+2016-04-24 23:31:59 pool-1-thread-3 FromPostgres [INFO] [path_status] Start thread  for: path_status
+2016-04-24 23:31:59 pool-1-thread-3 BaseProcessor [INFO] [path_status] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Pathstatus
+2016-04-24 23:31:59 pool-1-thread-1 FromPostgres [INFO] [inventory]Time taken to complete Sync for 'inventory' in seconds: 1
+2016-04-24 23:31:59 pool-1-thread-1 FromPostgres [INFO] [inventory]End thread for: inventory
+2016-04-24 23:31:59 pool-1-thread-1 FromPostgres [INFO] [referralsource] Start thread  for: referralsource
+2016-04-24 23:31:59 pool-1-thread-1 BaseProcessor [INFO] [referralsource] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Referralsource
+2016-04-24 23:32:00 pool-1-thread-5 BaseProcessor [INFO] [exithousingassessment] Time taken to generate insert and update maps in seconds: 2
+2016-04-24 23:32:00 pool-1-thread-5 BaseProcessor [INFO] [exithousingassessment] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment : 77
+2016-04-24 23:32:00 pool-1-thread-5 BaseProcessor [INFO] [exithousingassessment] Updates for com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment : 0
+2016-04-24 23:32:00 pool-1-thread-4 BaseProcessor [INFO] [project] Time taken to generate insert and update maps in seconds: 2
+2016-04-24 23:32:00 pool-1-thread-4 BaseProcessor [INFO] [project] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Project : 122
+2016-04-24 23:32:00 pool-1-thread-4 BaseProcessor [INFO] [project] Updates for com.servinglynk.hmis.warehouse.model.v2014.Project : 0
+2016-04-24 23:32:00 pool-1-thread-2 BaseProcessor [INFO] [funder] Time taken to generate insert and update maps in seconds: 3
+2016-04-24 23:32:00 pool-1-thread-2 BaseProcessor [INFO] [funder] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Funder : 127
+2016-04-24 23:32:00 pool-1-thread-2 BaseProcessor [INFO] [funder] Updates for com.servinglynk.hmis.warehouse.model.v2014.Funder : 0
+2016-04-24 23:32:00 pool-1-thread-5 FromPostgres [INFO] [exithousingassessment]Time taken to complete Sync for 'exithousingassessment' in seconds: 3
+2016-04-24 23:32:00 pool-1-thread-5 FromPostgres [INFO] [exithousingassessment]End thread for: exithousingassessment
+2016-04-24 23:32:00 pool-1-thread-5 FromPostgres [INFO] [housingassessmentdisposition] Start thread  for: housingassessmentdisposition
+2016-04-24 23:32:00 pool-1-thread-5 BaseProcessor [INFO] [housingassessmentdisposition] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition
+2016-04-24 23:32:00 pool-1-thread-4 FromPostgres [INFO] [project]Time taken to complete Sync for 'project' in seconds: 3
+2016-04-24 23:32:00 pool-1-thread-4 FromPostgres [INFO] [project]End thread for: project
+2016-04-24 23:32:00 pool-1-thread-4 FromPostgres [INFO] [affiliation] Start thread  for: affiliation
+2016-04-24 23:32:00 pool-1-thread-4 BaseProcessor [INFO] [affiliation] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Affiliation
+2016-04-24 23:32:00 pool-1-thread-2 FromPostgres [INFO] [funder]Time taken to complete Sync for 'funder' in seconds: 3
+2016-04-24 23:32:00 pool-1-thread-2 FromPostgres [INFO] [funder]End thread for: funder
+2016-04-24 23:32:00 pool-1-thread-2 FromPostgres [INFO] [incomeandsources] Start thread  for: incomeandsources
+2016-04-24 23:32:00 pool-1-thread-2 BaseProcessor [INFO] [incomeandsources] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources
+2016-04-24 23:32:57 pool-1-thread-4 FromPostgres [INFO] [affiliation]Time taken to complete Sync for 'affiliation' in seconds: 57
+2016-04-24 23:32:57 pool-1-thread-4 FromPostgres [INFO] [affiliation]End thread for: affiliation
+2016-04-24 23:32:57 pool-1-thread-4 FromPostgres [INFO] [rhybcp_status] Start thread  for: rhybcp_status
+2016-04-24 23:32:57 pool-1-thread-4 BaseProcessor [INFO] [rhybcp_status] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus
+2016-04-24 23:33:02 pool-1-thread-4 FromPostgres [INFO] [rhybcp_status]Time taken to complete Sync for 'rhybcp_status' in seconds: 4
+2016-04-24 23:33:02 pool-1-thread-4 FromPostgres [INFO] [rhybcp_status]End thread for: rhybcp_status
+2016-04-24 23:33:02 pool-1-thread-4 FromPostgres [INFO] [client] Start thread  for: client
+2016-04-24 23:33:02 pool-1-thread-4 BaseProcessor [INFO] [client] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Client
+2016-04-24 23:33:15 pool-1-thread-3 BaseProcessor [INFO] [path_status] Time taken to generate insert and update maps in seconds: 75
+2016-04-24 23:33:15 pool-1-thread-3 BaseProcessor [INFO] [path_status] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Pathstatus : 232
+2016-04-24 23:33:15 pool-1-thread-3 BaseProcessor [INFO] [path_status] Updates for com.servinglynk.hmis.warehouse.model.v2014.Pathstatus : 0
+2016-04-24 23:33:15 pool-1-thread-3 FromPostgres [INFO] [path_status]Time taken to complete Sync for 'path_status' in seconds: 75
+2016-04-24 23:33:15 pool-1-thread-3 FromPostgres [INFO] [path_status]End thread for: path_status
+2016-04-24 23:33:15 pool-1-thread-3 FromPostgres [INFO] [enrollment_coc] Start thread  for: enrollment_coc
+2016-04-24 23:33:15 pool-1-thread-3 BaseProcessor [INFO] [enrollment_coc] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc
+2016-04-24 23:33:15 pool-1-thread-1 BaseProcessor [INFO] [referralsource] Time taken to generate insert and update maps in seconds: 75
+2016-04-24 23:33:15 pool-1-thread-1 BaseProcessor [INFO] [referralsource] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Referralsource : 1007
+2016-04-24 23:33:15 pool-1-thread-1 BaseProcessor [INFO] [referralsource] Updates for com.servinglynk.hmis.warehouse.model.v2014.Referralsource : 0
+2016-04-24 23:33:17 pool-1-thread-1 FromPostgres [INFO] [referralsource]Time taken to complete Sync for 'referralsource' in seconds: 77
+2016-04-24 23:33:17 pool-1-thread-1 FromPostgres [INFO] [referralsource]End thread for: referralsource
+2016-04-24 23:33:17 pool-1-thread-1 FromPostgres [INFO] [lastgradecompleted] Start thread  for: lastgradecompleted
+2016-04-24 23:33:17 pool-1-thread-1 BaseProcessor [INFO] [lastgradecompleted] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted
+2016-04-24 23:33:17 pool-1-thread-5 BaseProcessor [INFO] [housingassessmentdisposition] Time taken to generate insert and update maps in seconds: 77
+2016-04-24 23:33:17 pool-1-thread-5 BaseProcessor [INFO] [housingassessmentdisposition] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition : 10875
+2016-04-24 23:33:17 pool-1-thread-5 BaseProcessor [INFO] [housingassessmentdisposition] Updates for com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition : 0
+2016-04-24 23:33:18 pool-1-thread-4 BaseProcessor [INFO] [client] Time taken to generate insert and update maps in seconds: 15
+2016-04-24 23:33:18 pool-1-thread-4 BaseProcessor [INFO] [client] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Client : 14396
+2016-04-24 23:33:18 pool-1-thread-4 BaseProcessor [INFO] [client] Updates for com.servinglynk.hmis.warehouse.model.v2014.Client : 0
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [lastgradecompleted]Time taken to complete Sync for 'lastgradecompleted' in seconds: 12
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [lastgradecompleted]End thread for: lastgradecompleted
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [health_status] Start thread  for: health_status
+2016-04-24 23:33:30 pool-1-thread-1 BaseProcessor [INFO] [health_status] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.HealthStatus
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [health_status]Time taken to complete Sync for 'health_status' in seconds: 0
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [health_status]End thread for: health_status
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [export] Start thread  for: export
+2016-04-24 23:33:30 pool-1-thread-1 BaseProcessor [INFO] [export] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Export
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [export]Time taken to complete Sync for 'export' in seconds: 0
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [export]End thread for: export
+2016-04-24 23:33:30 pool-1-thread-1 FromPostgres [INFO] [noncashbenefits] Start thread  for: noncashbenefits
+2016-04-24 23:33:30 pool-1-thread-1 BaseProcessor [INFO] [noncashbenefits] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits
+2016-04-24 23:33:43 pool-1-thread-3 BaseProcessor [INFO] [enrollment_coc] Time taken to generate insert and update maps in seconds: 27
+2016-04-24 23:33:43 pool-1-thread-3 BaseProcessor [INFO] [enrollment_coc] Insertions for com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc : 51059
+2016-04-24 23:33:43 pool-1-thread-3 BaseProcessor [INFO] [enrollment_coc] Updates for com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc : 0
+2016-04-24 23:33:47 pool-1-thread-2 BaseProcessor [INFO] [incomeandsources] Time taken to generate insert and update maps in seconds: 107
+2016-04-24 23:33:47 pool-1-thread-2 BaseProcessor [INFO] [incomeandsources] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources : 85263
+2016-04-24 23:33:47 pool-1-thread-2 BaseProcessor [INFO] [incomeandsources] Updates for com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources : 0
+2016-04-24 23:33:48 pool-1-thread-5 FromPostgres [INFO] [housingassessmentdisposition]Time taken to complete Sync for 'housingassessmentdisposition' in seconds: 108
+2016-04-24 23:33:48 pool-1-thread-5 FromPostgres [INFO] [housingassessmentdisposition]End thread for: housingassessmentdisposition
+2016-04-24 23:33:48 pool-1-thread-5 FromPostgres [INFO] [residentialmoveindate] Start thread  for: residentialmoveindate
+2016-04-24 23:33:48 pool-1-thread-5 BaseProcessor [INFO] [residentialmoveindate] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate
+2016-04-24 23:34:23 pool-1-thread-5 BaseProcessor [INFO] [residentialmoveindate] Time taken to generate insert and update maps in seconds: 35
+2016-04-24 23:34:23 pool-1-thread-5 BaseProcessor [INFO] [residentialmoveindate] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate : 2544
+2016-04-24 23:34:23 pool-1-thread-5 BaseProcessor [INFO] [residentialmoveindate] Updates for com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate : 0
+2016-04-24 23:34:32 pool-1-thread-5 FromPostgres [INFO] [residentialmoveindate]Time taken to complete Sync for 'residentialmoveindate' in seconds: 44
+2016-04-24 23:34:32 pool-1-thread-5 FromPostgres [INFO] [residentialmoveindate]End thread for: residentialmoveindate
+2016-04-24 23:34:32 pool-1-thread-5 FromPostgres [INFO] [exitplansactions] Start thread  for: exitplansactions
+2016-04-24 23:34:32 pool-1-thread-5 BaseProcessor [INFO] [exitplansactions] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions
+2016-04-24 23:34:32 pool-1-thread-5 FromPostgres [INFO] [exitplansactions]Time taken to complete Sync for 'exitplansactions' in seconds: 0
+2016-04-24 23:34:32 pool-1-thread-5 FromPostgres [INFO] [exitplansactions]End thread for: exitplansactions
+2016-04-24 23:34:32 pool-1-thread-5 FromPostgres [INFO] [veteran_info] Start thread  for: veteran_info
+2016-04-24 23:34:32 pool-1-thread-5 BaseProcessor [INFO] [veteran_info] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo
+2016-04-24 23:34:44 pool-1-thread-1 BaseProcessor [INFO] [noncashbenefits] Time taken to generate insert and update maps in seconds: 73
+2016-04-24 23:34:44 pool-1-thread-1 BaseProcessor [INFO] [noncashbenefits] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits : 85160
+2016-04-24 23:34:44 pool-1-thread-1 BaseProcessor [INFO] [noncashbenefits] Updates for com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits : 0
+2016-04-24 23:34:44 pool-1-thread-5 BaseProcessor [INFO] [veteran_info] Time taken to generate insert and update maps in seconds: 11
+2016-04-24 23:34:44 pool-1-thread-5 BaseProcessor [INFO] [veteran_info] Insertions for com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo : 5
+2016-04-24 23:34:44 pool-1-thread-5 BaseProcessor [INFO] [veteran_info] Updates for com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo : 0
+2016-04-24 23:34:46 pool-1-thread-5 FromPostgres [INFO] [veteran_info]Time taken to complete Sync for 'veteran_info' in seconds: 14
+2016-04-24 23:34:46 pool-1-thread-5 FromPostgres [INFO] [veteran_info]End thread for: veteran_info
+2016-04-24 23:34:46 pool-1-thread-5 FromPostgres [INFO] [projectcoc] Start thread  for: projectcoc
+2016-04-24 23:34:46 pool-1-thread-5 BaseProcessor [INFO] [projectcoc] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Projectcoc
+2016-04-24 23:35:08 pool-1-thread-4 FromPostgres [INFO] [client]Time taken to complete Sync for 'client' in seconds: 126
+2016-04-24 23:35:08 pool-1-thread-4 FromPostgres [INFO] [client]End thread for: client
+2016-04-24 23:35:08 pool-1-thread-4 FromPostgres [INFO] [employment] Start thread  for: employment
+2016-04-24 23:35:08 pool-1-thread-4 BaseProcessor [INFO] [employment] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Employment
+2016-04-24 23:35:10 pool-1-thread-5 BaseProcessor [INFO] [projectcoc] Time taken to generate insert and update maps in seconds: 23
+2016-04-24 23:35:10 pool-1-thread-5 BaseProcessor [INFO] [projectcoc] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Projectcoc : 124
+2016-04-24 23:35:10 pool-1-thread-5 BaseProcessor [INFO] [projectcoc] Updates for com.servinglynk.hmis.warehouse.model.v2014.Projectcoc : 0
+2016-04-24 23:35:15 pool-1-thread-5 FromPostgres [INFO] [projectcoc]Time taken to complete Sync for 'projectcoc' in seconds: 28
+2016-04-24 23:35:15 pool-1-thread-5 FromPostgres [INFO] [projectcoc]End thread for: projectcoc
+2016-04-24 23:35:15 pool-1-thread-5 FromPostgres [INFO] [services] Start thread  for: services
+2016-04-24 23:35:15 pool-1-thread-5 BaseProcessor [INFO] [services] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Services
+2016-04-24 23:36:16 pool-1-thread-4 BaseProcessor [INFO] [employment] Time taken to generate insert and update maps in seconds: 67
+2016-04-24 23:36:16 pool-1-thread-4 BaseProcessor [INFO] [employment] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Employment : 84510
+2016-04-24 23:36:16 pool-1-thread-4 BaseProcessor [INFO] [employment] Updates for com.servinglynk.hmis.warehouse.model.v2014.Employment : 0
+2016-04-24 23:36:21 pool-1-thread-5 BaseProcessor [INFO] [services] Time taken to generate insert and update maps in seconds: 66
+2016-04-24 23:36:21 pool-1-thread-5 BaseProcessor [INFO] [services] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Services : 17076
+2016-04-24 23:36:21 pool-1-thread-5 BaseProcessor [INFO] [services] Updates for com.servinglynk.hmis.warehouse.model.v2014.Services : 0
+2016-04-24 23:36:22 pool-1-thread-3 FromPostgres [INFO] [enrollment_coc]Time taken to complete Sync for 'enrollment_coc' in seconds: 186
+2016-04-24 23:36:22 pool-1-thread-3 FromPostgres [INFO] [enrollment_coc]End thread for: enrollment_coc
+2016-04-24 23:36:22 pool-1-thread-3 FromPostgres [INFO] [formerwardjuvenilejustice] Start thread  for: formerwardjuvenilejustice
+2016-04-24 23:36:22 pool-1-thread-3 BaseProcessor [INFO] [formerwardjuvenilejustice] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice
+2016-04-24 23:36:22 pool-1-thread-3 FromPostgres [INFO] [formerwardjuvenilejustice]Time taken to complete Sync for 'formerwardjuvenilejustice' in seconds: 0
+2016-04-24 23:36:22 pool-1-thread-3 FromPostgres [INFO] [formerwardjuvenilejustice]End thread for: formerwardjuvenilejustice
+2016-04-24 23:36:22 pool-1-thread-3 FromPostgres [INFO] [percent_ami] Start thread  for: percent_ami
+2016-04-24 23:36:22 pool-1-thread-3 BaseProcessor [INFO] [percent_ami] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Percentami
+2016-04-24 23:36:35 pool-1-thread-3 BaseProcessor [INFO] [percent_ami] Time taken to generate insert and update maps in seconds: 12
+2016-04-24 23:36:35 pool-1-thread-3 BaseProcessor [INFO] [percent_ami] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Percentami : 1012
+2016-04-24 23:36:35 pool-1-thread-3 BaseProcessor [INFO] [percent_ami] Updates for com.servinglynk.hmis.warehouse.model.v2014.Percentami : 0
+2016-04-24 23:36:39 pool-1-thread-3 FromPostgres [INFO] [percent_ami]Time taken to complete Sync for 'percent_ami' in seconds: 16
+2016-04-24 23:36:39 pool-1-thread-3 FromPostgres [INFO] [percent_ami]End thread for: percent_ami
+2016-04-24 23:36:39 pool-1-thread-3 FromPostgres [INFO] [enrollment] Start thread  for: enrollment
+2016-04-24 23:36:39 pool-1-thread-3 BaseProcessor [INFO] [enrollment] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Enrollment
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [services]Time taken to complete Sync for 'services' in seconds: 132
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [services]End thread for: services
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [worsthousingsituation] Start thread  for: worsthousingsituation
+2016-04-24 23:37:27 pool-1-thread-5 BaseProcessor [INFO] [worsthousingsituation] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [worsthousingsituation]Time taken to complete Sync for 'worsthousingsituation' in seconds: 0
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [worsthousingsituation]End thread for: worsthousingsituation
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [youthcriticalissues] Start thread  for: youthcriticalissues
+2016-04-24 23:37:27 pool-1-thread-5 BaseProcessor [INFO] [youthcriticalissues] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [youthcriticalissues]Time taken to complete Sync for 'youthcriticalissues' in seconds: 0
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [youthcriticalissues]End thread for: youthcriticalissues
+2016-04-24 23:37:27 pool-1-thread-5 FromPostgres [INFO] [exit] Start thread  for: exit
+2016-04-24 23:37:27 pool-1-thread-5 BaseProcessor [INFO] [exit] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Exit
+2016-04-24 23:37:34 pool-1-thread-3 BaseProcessor [INFO] [enrollment] Time taken to generate insert and update maps in seconds: 55
+2016-04-24 23:37:34 pool-1-thread-3 BaseProcessor [INFO] [enrollment] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Enrollment : 51059
+2016-04-24 23:37:34 pool-1-thread-3 BaseProcessor [INFO] [enrollment] Updates for com.servinglynk.hmis.warehouse.model.v2014.Enrollment : 0
+2016-04-24 23:38:00 pool-1-thread-5 BaseProcessor [INFO] [exit] Time taken to generate insert and update maps in seconds: 32
+2016-04-24 23:38:00 pool-1-thread-5 BaseProcessor [INFO] [exit] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Exit : 41354
+2016-04-24 23:38:00 pool-1-thread-5 BaseProcessor [INFO] [exit] Updates for com.servinglynk.hmis.warehouse.model.v2014.Exit : 0
