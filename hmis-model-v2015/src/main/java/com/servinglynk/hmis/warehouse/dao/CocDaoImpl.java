@@ -232,16 +232,21 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 
 	@Override
 	public List<Coc> getAllCocs(UUID projectId, Integer startIndex, Integer maxItems) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Coc.class);	
+		criteria.createAlias("projectid","projectid");
+		criteria.add(Restrictions.eq("projectid.id", projectId));
+		List<com.servinglynk.hmis.warehouse.model.v2015.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.v2015.Coc>) findByCriteria(criteria,startIndex,maxItems);
+		return coc;
 	}
 
 
 
 	@Override
 	public long getCocsCount(UUID projectId) {
-		// TODO Auto-generated method stub
-		return 0;
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Coc.class);	
+		criteria.createAlias("projectid","projectid");
+		criteria.add(Restrictions.eq("projectid.id", projectId));
+		return countRows(criteria);
 	}
 
 
