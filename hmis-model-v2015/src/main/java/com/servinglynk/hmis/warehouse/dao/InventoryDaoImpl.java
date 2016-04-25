@@ -196,30 +196,18 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	@Override
 	public List<com.servinglynk.hmis.warehouse.model.v2015.Inventory> getAllCocInventories(UUID projectCocId,
 			Integer startIndex, Integer maxItems) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", projectCocId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Inventory>) findByCriteria(criteria,startIndex,maxItems);
 	}
 
 
 	@Override
 	public long getCocInventoriesCount(UUID projectCocId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
-	   
-	  /* public List<com.servinglynk.hmis.warehouse.model.v2015.Inventory> getAllProjectCocInventories(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
-	       criteria.createAlias("enrollmentid", "enrollmentid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Inventory>) findByCriteria(criteria,startIndex,maxItems);
-	   }
-	   public long getProjectCocInventoriesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
-	       criteria.createAlias("enrollmentid", "enrollmentid");
-	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", projectCocId));
 	       return countRows(criteria);
-	   }*/
-
+	}
 }
