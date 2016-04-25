@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.servinglynk.hmis.warehouse.model.v2014.Client;
 
 public interface ClientDao extends ParentDao {
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2014.Client client);
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2014.Client client);
 	
 	Client createClient(Client client);
 	Client updateClient(Client client);

@@ -218,7 +218,36 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 	public Class<?> getClassType() {
 		return Export.class;
 	}
- 
+	 /**
+	 * Return the value associated with the column: organization.
+	 * @return A Set&lt;Organization&gt; object (this.organization)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<Organization> getOrganizations() {
+		return this.organizations;
+
+	}
+
+	/**
+	 * Adds a bi-directional link of type Organization to the organizations set.
+	 * @param organization item to add
+	 */
+	public void addOrganization(Organization organization) {
+		organization.setExport(this);
+		this.organizations.add(organization);
+	}
+
+
+	 /**
+	 * Set the value related to the column: organization.
+	 * @param organization the organization value you wish to set
+	 */
+	public void setOrganizations(final Set<Organization> organization) {
+		this.organizations = organization;
+	}
 
 	 /**
 	 * Return the value associated with the column: affiliation.

@@ -24,7 +24,6 @@ import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
@@ -103,7 +102,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getSourceDao().hydrateStaging(domain);
 			if(export != null)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportModel  = new com.servinglynk.hmis.warehouse.model.stagv2014.Export();
+				com.servinglynk.hmis.warehouse.model.v2014.Export exportModel  = new com.servinglynk.hmis.warehouse.model.v2014.Export();
 				exportModel.setExportDate(BasicDataGenerator.getLocalDateTime(export.getExportDate()));
 				exportModel.setExportdirective(export.getExportDirective());
 				exportModel.setExportperiodtype(export.getExportPeriodType());
@@ -112,7 +111,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				exportModel.setDateUpdated(LocalDateTime.now());
 //				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
 			//	exportModel.setUser(user);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Source) get(com.servinglynk.hmis.warehouse.model.stagv2014.Source.class, domain.getSourceId());
+				com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) get(com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
 				exportModel.setProjectGroupCode(upload.getProjectGroupCode());
 				//export.getExportPeriod()
@@ -161,7 +160,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain);
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
 			parentDaoFactory.getSourceDao().hydrateLive(exportEntity,upload.getId());
 			if(exportEntity!=null) {
 				com.servinglynk.hmis.warehouse.model.v2014.Export target = new com.servinglynk.hmis.warehouse.model.v2014.Export();
@@ -181,7 +180,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		return upload;
 	}
-	
+	/*
 	public HmisUser getHmisUser(String id) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 		criteria.createAlias("projectGroupEntity","projectGroupEntity");
@@ -194,14 +193,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		return null;
 	}
-	
+	*/
 	
 	@Override
 	@Transactional
 	public void moveFromStagingToLive(BulkUpload bulkUpload) {
 		try {
 		UUID exportId = bulkUpload.getExportId();
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export export = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, exportId);
+		com.servinglynk.hmis.warehouse.model.v2014.Export export = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
 		parentDaoFactory.getClientDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getEnrollmentDao().hydrateLive(export,bulkUpload.getId());
@@ -258,7 +257,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class,exportId);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class,exportId);
 		deleteFromDB(exportEntity);
 	}
 

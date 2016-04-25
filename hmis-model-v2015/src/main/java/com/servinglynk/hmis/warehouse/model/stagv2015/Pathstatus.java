@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
  */
 @Entity(name = "path_status_stagv2015")
 @Table(name = "path_status", catalog = "hmis", schema = "stagv2015")
-public class Pathstatus extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3511147204684378597L;

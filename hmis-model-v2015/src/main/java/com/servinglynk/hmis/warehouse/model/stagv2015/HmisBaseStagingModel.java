@@ -14,7 +14,7 @@ import org.hibernate.annotations.Type;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
-public abstract class HmisBaseStagingModel implements Entity{
+public abstract class HmisBaseModel implements Entity{
 	
 	/** Field mapping. */
 	protected LocalDateTime dateCreated;

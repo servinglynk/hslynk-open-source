@@ -19,9 +19,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastPermanent
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.LastPermAddress;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -39,7 +39,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		List<LastPermanentAddress> lastPermanentAddresses = domain.getExport().getLastPermanentAddress();
 		hydrateBulkUploadActivityStaging(lastPermanentAddresses, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(lastPermanentAddresses !=null && !lastPermanentAddresses.isEmpty())
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)

@@ -24,8 +24,6 @@ import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.stagv2014.HmisBaseStagingModel;
-import com.servinglynk.hmis.warehouse.model.stagv2014.HmisUser;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Sync;
@@ -33,7 +31,7 @@ import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	
-	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.stagv2014.Export export,Long id ) {
+	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.v2014.Export export,Long id ) {
 	       com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 			BulkUploadActivity activity = new BulkUploadActivity();
 			
@@ -82,7 +80,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 //		insertOrUpdate(activity);
 		
 	}
-	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain, String sourceId,int i) {
+	public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,int i) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 //		  if(i % batchSize() == 0 && i > 0) {

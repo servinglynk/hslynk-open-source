@@ -30,7 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessme
  */
 @Entity(name = "housingassessmentdisposition_stagv2015")
 @Table(name = "housingassessmentdisposition", catalog = "hmis", schema = "stagv2015")
-public class Housingassessmentdisposition extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Housingassessmentdisposition extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 8906820996032660100L;

@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Sexualorientation;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,7 +38,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		List<SexualOrientation> sexualOrientations = domain.getExport().getSexualOrientation();
 		hydrateBulkUploadActivityStaging(sexualOrientations, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(sexualOrientations !=null && !sexualOrientations.isEmpty())
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)

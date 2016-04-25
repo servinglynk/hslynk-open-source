@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Schoolstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,7 +38,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
 		hydrateBulkUploadActivityStaging(schoolStatusList, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)

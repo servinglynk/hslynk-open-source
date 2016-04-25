@@ -31,7 +31,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "enrollment_coc_stag_2015")
 @Table(name = "enrollment_coc", catalog = "hmis", schema = "stagv2015")
-public class EnrollmentCoc extends HmisBaseStagingModel  implements Cloneable, Serializable{
+public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1839464248978194057L;

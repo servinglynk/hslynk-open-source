@@ -20,8 +20,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -43,7 +43,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 			for(Services services : servicesList)
 			{
 				UUID id = UUID.randomUUID();
-				com.servinglynk.hmis.warehouse.model.stagv2014.Services servicesModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Services();
+				com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = new com.servinglynk.hmis.warehouse.model.v2014.Services();
 				servicesModel.setId(id);
 				servicesModel.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
 				servicesModel.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
@@ -58,7 +58,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				servicesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(services.getProjectEntryID()));
 				servicesModel.setEnrollmentid(enrollment);
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 				servicesModel.setExport(exportEntity);
 				i++;
 				hydrateCommonFields(servicesModel, domain,services.getServicesID(),i);
@@ -69,10 +69,10 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Services> servicesStaging = export.getServiceses();
+		Set<com.servinglynk.hmis.warehouse.model.v2014.Services> servicesStaging = export.getServiceses();
 		hydrateBulkUploadActivity(servicesStaging,com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), export,id);
 		if(servicesStaging != null && !servicesStaging.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2014.Services services : servicesStaging) {
+			for(com.servinglynk.hmis.warehouse.model.v2014.Services services : servicesStaging) {
 				if(services != null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Services target = new com.servinglynk.hmis.warehouse.model.v2014.Services();
 					BeanUtils.copyProperties(services, target,getNonCollectionFields(target));

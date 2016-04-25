@@ -28,7 +28,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity (name = "entryrhsp_stagv2015")
 @Table(name = "entryrhsp", catalog = "hmis", schema = "stagv2015")
-public class Entryrhsp extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Entryrhsp extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -510691497455454900L;

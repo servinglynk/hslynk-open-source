@@ -37,7 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -62,7 +62,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		hydrateBulkUploadActivityStaging(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), domain);
 		if (enrollments != null && enrollments.size() > 0) {
 			int i=0;
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
 				i++;
@@ -126,7 +126,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 						.getOtherResidencePrior());
 				UUID clientId = domain.getClientPersonalIDMap().get(enrollment.getPersonalID());
 				if(clientId !=null) {
-					com.servinglynk.hmis.warehouse.model.stagv2014.Client client = (com.servinglynk.hmis.warehouse.model.stagv2014.Client) get(com.servinglynk.hmis.warehouse.model.stagv2014.Client.class, clientId);
+					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, clientId);
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
@@ -137,7 +137,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 				enrollmentModel.setDateCreated(LocalDateTime.now());
 				enrollmentModel.setDateUpdated(LocalDateTime.now());
-				enrollmentModel.setUser(exportEntity.getUser());
+				//enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
 				
 				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID(),i);
@@ -149,7 +149,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
+			com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
 		Set<Enrollment> enrollments = export.getEnrollments();
 		hydrateBulkUploadActivity(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), export,id);
 		if(enrollments != null && !enrollments.isEmpty()) {

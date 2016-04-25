@@ -17,8 +17,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAs
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2014.Exit;
+import com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
 					Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitHousingAssessment.getExitID()));
 					exithousingassessmentModel.setExitid(exit);
-					com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 					exithousingassessmentModel.setExport(exportEntity);
 					exportEntity.addExithousingassessment(exithousingassessmentModel);
 					i++;
@@ -62,7 +62,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
+			com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
 		Set<Exithousingassessment> exithousingassessments = export.getExithousingassessments();
 		hydrateBulkUploadActivity(exithousingassessments, com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class.getSimpleName(), export,id);
 		if(exithousingassessments !=null && !exithousingassessments.isEmpty()) {

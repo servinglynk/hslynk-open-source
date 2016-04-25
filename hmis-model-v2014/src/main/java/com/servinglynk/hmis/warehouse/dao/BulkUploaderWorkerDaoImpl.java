@@ -69,7 +69,7 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 	}
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
+			com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,8 +14,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.BedinventoryYouthAgeGroupEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Bedinventory;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 	public class BedinventoryDaoImpl  extends ParentDaoImpl  implements BedinventoryDao {
@@ -33,7 +33,7 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 			bedInventoryModel.setVetBedInventory(new Integer(bedInventory.getVetBedInventory()));
 			bedInventoryModel.setYouthAgeGroup(BedinventoryYouthAgeGroupEnum.lookupEnum(BasicDataGenerator.getStringValue(bedInventory.getYouthAgeGroup())));
 			bedInventoryModel.setYouthBedInventory(new Long(bedInventory.getYouthBedInventory()));
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 			bedInventoryModel.setExport(exportEntity);
 			UUID bedInventoryId = UUID.randomUUID();
 			bedInventoryModel.setId(bedInventoryId);

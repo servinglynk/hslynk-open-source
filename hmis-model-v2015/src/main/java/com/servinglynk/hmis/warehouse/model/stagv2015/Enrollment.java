@@ -40,7 +40,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyear
  */
 @Entity (name = "enrollment_stagv2015")
 @Table(name = "enrollment", catalog = "hmis", schema = "stagv2015")
-public class Enrollment extends HmisBaseStagingModel implements Cloneable, Serializable{
+public class Enrollment extends HmisBaseModel implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6048419471750369756L;

@@ -32,9 +32,9 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsurancePrivatepayEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -54,7 +54,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		if(healthInsurances!=null && healthInsurances.size() >0 )
 		{
 			int i=0;
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 			for(HealthInsurance healthInsurance : healthInsurances)
 			{
 				Healthinsurance healthinsuranceModel = new Healthinsurance();

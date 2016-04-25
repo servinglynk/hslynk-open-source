@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 
 /**
  * @author Sandeep
@@ -34,7 +34,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		List<Source> sources = new ArrayList<>();
 		sources.add(source);
 		hydrateBulkUploadActivityStaging(sources, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.stagv2014.Source sourceModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Source();
+		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Source();
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
 		sourceModel.setSourcecontactemail(source.getSourceContactEmail());
@@ -55,7 +55,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateLive(Export export, Long id) {
 		// TODO Auto-generated method stub
-		com.servinglynk.hmis.warehouse.model.stagv2014.Source source = export.getSource();
+		com.servinglynk.hmis.warehouse.model.v2014.Source source = export.getSource();
 		Set sources = new HashSet<>();
 		sources.add(source);
 		hydrateBulkUploadActivity(sources, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), export,id);

@@ -283,15 +283,7 @@
 		</plugins>
 	</build>
 	<repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Repository Switchboard</name>
-      <layout>default</layout>
-      <url>http://52.37.76.153:8080/nexus/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
+   
   </repositories>
 
   <pluginRepositories>

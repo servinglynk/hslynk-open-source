@@ -16,7 +16,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
@@ -25,12 +25,12 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 	public void hydrateStaging(ExportDomain domain) {
 		List<Site> sites = domain.getExport().getSite();
 		hydrateBulkUploadActivityStaging(sites, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(sites !=null && !sites.isEmpty()) {
 			int i=0;
 			for(Site site :sites) {
 				if(site !=null) {
-					com.servinglynk.hmis.warehouse.model.stagv2014.Site siteModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Site();
+					com.servinglynk.hmis.warehouse.model.v2014.Site siteModel = new com.servinglynk.hmis.warehouse.model.v2014.Site();
 					siteModel.setAddress(site.getAddress());
 					siteModel.setCity(site.getCity());
 					siteModel.setDateCreated(BasicDataGenerator.getLocalDateTime(site.getDateCreated()));
@@ -56,10 +56,10 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Site> sites = export.getSites();
+		Set<com.servinglynk.hmis.warehouse.model.v2014.Site> sites = export.getSites();
 		hydrateBulkUploadActivity(sites,com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), export,id);
 		if(sites !=null && !sites.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2014.Site site : sites) {
+			for(com.servinglynk.hmis.warehouse.model.v2014.Site site : sites) {
 				if(site !=null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Site target = new com.servinglynk.hmis.warehouse.model.v2014.Site();
 					BeanUtils.copyProperties(site, target, getNonCollectionFields(target));

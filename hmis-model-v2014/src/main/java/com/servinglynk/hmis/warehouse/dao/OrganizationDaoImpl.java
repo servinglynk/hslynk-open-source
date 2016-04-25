@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Project;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -35,23 +35,23 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		 List<Organization> organizations = domain.getExport().getOrganization();
 		 hydrateBulkUploadActivityStaging(organizations, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), domain);
 		 int i=0;
-		 com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		 com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
 			 {
-				 com.servinglynk.hmis.warehouse.model.stagv2014.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Organization();
+				 com.servinglynk.hmis.warehouse.model.v2014.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
 				 organizationModel.setId(UUID.randomUUID());
 				 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 				 organizationModel.setOrganizationname(organization.getOrganizationName());
-				  com.servinglynk.hmis.warehouse.model.stagv2014.Project project =  (com.servinglynk.hmis.warehouse.model.stagv2014.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
+				  com.servinglynk.hmis.warehouse.model.v2014.Project project =  (com.servinglynk.hmis.warehouse.model.v2014.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
 				  organizationModel.addProject(project);
 				  organizationModel.setDateCreated(LocalDateTime.now());
 				  organizationModel.setDateUpdated(LocalDateTime.now());
 				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 				 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 				 organizationModel.setExport(exportEntity);
-				 exportEntity.addOrganization(organizationModel);
+				 //exportEntity.addOrganization(organizationModel);
 				 i++;
 				 hydrateCommonFields(organizationModel, domain,String.valueOf(organization.getOrganizationID()),i);
 				 insert(organizationModel);
@@ -61,10 +61,10 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Organization> organizations = export.getOrganizations();
+		Set<com.servinglynk.hmis.warehouse.model.v2014.Organization> organizations = export.getOrganizations();
 		hydrateBulkUploadActivity(organizations, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), export,id);
 		if(organizations != null && !organizations.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2014.Organization organization : organizations) {
+			for(com.servinglynk.hmis.warehouse.model.v2014.Organization organization : organizations) {
 				if(organization != null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Organization target = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
 					BeanUtils.copyProperties(organization, target,getNonCollectionFields(target));

@@ -38,7 +38,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
  */
 @Entity(name = "noncashbenefits_stagv2015")
 @Table(name = "noncashbenefits", catalog = "hmis", schema = "stagv2015")
-public class Noncashbenefits extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Noncashbenefits extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6493511274453583782L;

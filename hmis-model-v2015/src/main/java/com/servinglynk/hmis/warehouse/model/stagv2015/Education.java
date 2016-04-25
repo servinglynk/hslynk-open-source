@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
  */
 @Entity (name = "eductaion_stagv2015")
 @Table(name = "eductaion", catalog = "hmis", schema = "stagv2015")
-public class Education extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Education extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6654649692481756031L;

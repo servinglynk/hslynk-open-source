@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformat
  */
 @Entity(name = "exithousingassessment_stagv2015")
 @Table(name = "exithousingassessment", catalog = "hmis", schema = "stagv2015")
-public class Exithousingassessment extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Exithousingassessment extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6863824805023629132L;

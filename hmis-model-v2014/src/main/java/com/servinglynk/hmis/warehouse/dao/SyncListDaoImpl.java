@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 @Transactional
 public class SyncListDaoImpl  extends ParentDaoImpl implements SyncListDao{

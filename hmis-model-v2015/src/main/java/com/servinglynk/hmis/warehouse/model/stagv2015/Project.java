@@ -36,7 +36,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
  */
 @Entity(name = "project_stagv2015")
 @Table(name = "project", catalog = "hmis", schema = "stagv2015")
-public class Project extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Project extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -7029415480218844556L;

@@ -37,7 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 
 @Entity (name = "disabilities_stagv2015")
 @Table(name = "disabilities", catalog = "hmis", schema = "stagv2015")
-public class Disabilities extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Disabilities extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6492609509614588571L;

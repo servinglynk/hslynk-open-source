@@ -29,7 +29,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "exitpath_stagv2015v2015")
 @Table(name = "exitpath", catalog = "hmis", schema = "stagv2015")
-public class Exitpath extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 7736934696108986499L;

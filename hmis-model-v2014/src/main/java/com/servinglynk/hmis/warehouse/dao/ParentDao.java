@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import com.servinglynk.hmis.warehouse.base.dao.BaseDao;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 
 
 public interface ParentDao extends BaseDao{

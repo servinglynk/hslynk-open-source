@@ -21,9 +21,9 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -40,7 +40,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
 		hydrateBulkUploadActivityStaging(medicalAssistanceList, com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			int i=0;

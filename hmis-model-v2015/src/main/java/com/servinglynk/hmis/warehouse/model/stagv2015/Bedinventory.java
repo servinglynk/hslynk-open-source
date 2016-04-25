@@ -26,7 +26,7 @@ import com.servinglynk.hmis.warehouse.enums.BedinventoryYouthAgeGroupEnum;
  */
 @Entity(name = "bedinventory_stagv2015")
 @Table(name = "bedinventory", catalog = "hmis", schema = "stagv2015")
-public class Bedinventory  extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Bedinventory  extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -5659967634977461140L;

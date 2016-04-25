@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Pathstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -37,7 +37,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
 		hydrateBulkUploadActivityStaging(pathStatusList, com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)

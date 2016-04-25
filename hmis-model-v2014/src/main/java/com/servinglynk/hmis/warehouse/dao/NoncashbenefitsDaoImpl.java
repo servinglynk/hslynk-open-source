@@ -26,9 +26,9 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -46,7 +46,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
 		hydrateBulkUploadActivityStaging(nonCashBenefitsList, com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)

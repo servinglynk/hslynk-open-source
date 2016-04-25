@@ -15,9 +15,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViole
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
@@ -29,7 +29,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
 		hydrateBulkUploadActivityStaging(domesticViolenceList, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)

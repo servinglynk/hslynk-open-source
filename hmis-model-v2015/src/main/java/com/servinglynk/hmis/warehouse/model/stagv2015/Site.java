@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.StateEnum;
  */
 @Entity(name = "site_stagv2015")
 @Table(name = "site", catalog = "hmis", schema = "stagv2015")
-public class Site extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Site extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6352811751941522574L;

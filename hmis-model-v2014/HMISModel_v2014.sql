@@ -1068,7 +1068,7 @@ create table "v2014".source
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
   constraint "source_pkey" primary key (id)
      )
@@ -1094,7 +1094,7 @@ create table "v2014".export
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false, 
   sync boolean DEFAULT false,
   constraint "export_pkey" primary key (id),
       CONSTRAINT source_fkey FOREIGN KEY (source_id)
@@ -1133,7 +1133,7 @@ CREATE TABLE "v2014".client
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false, 
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1173,7 +1173,7 @@ CREATE TABLE "v2014".veteran_info
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false, 
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1216,7 +1216,7 @@ user_id uuid,
 export_id uuid,
 parent_id uuid,
 version integer,
-deleted boolean DEFAULT false,
+deleted boolean DEFAULT false,active boolean DEFAULT false,
 sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1244,7 +1244,7 @@ CREATE TABLE "v2014".path_status
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1274,7 +1274,7 @@ CREATE TABLE "v2014".rhybcp_status
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1308,7 +1308,7 @@ CREATE TABLE "v2014".last_perm_address
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1338,7 +1338,7 @@ CREATE TABLE "v2014".percent_ami
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1366,7 +1366,7 @@ CREATE TABLE "v2014".schoolstatus
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1396,7 +1396,7 @@ CREATE TABLE "v2014".employment
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1426,7 +1426,7 @@ CREATE TABLE "v2014".health_status
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1452,7 +1452,7 @@ create table "v2014".organization
   export_id uuid,
   parent_id uuid,
 version integer,
-deleted boolean DEFAULT false,
+deleted boolean DEFAULT false,active boolean DEFAULT false,
 sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1485,7 +1485,7 @@ CREATE TABLE  "v2014".project
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1519,7 +1519,7 @@ CREATE TABLE "v2014".affiliation
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1550,7 +1550,7 @@ CREATE TABLE "v2014".bedinventory
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1579,7 +1579,7 @@ create table "v2014".projectcoc
    export_id uuid,
    parent_id uuid,
    version integer,
-   deleted boolean DEFAULT false,
+   deleted boolean DEFAULT false,active boolean DEFAULT false,
    sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1606,7 +1606,7 @@ CREATE TABLE "v2014".enrollment_coc
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1643,7 +1643,7 @@ user_id uuid,
 export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1680,7 +1680,7 @@ create table "v2014".inventory
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1719,7 +1719,7 @@ create table  "v2014".funder
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1748,7 +1748,7 @@ create table "v2014".rhybcpstatus
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1778,7 +1778,7 @@ create table "v2014".sexualorientation
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1806,7 +1806,7 @@ create table "v2014".formerwardjuvenilejustice
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1838,7 +1838,7 @@ create table "v2014".lastpermanentaddress
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1864,7 +1864,7 @@ create table "v2014".percentami
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1897,7 +1897,7 @@ create table "v2014".medicalassistance
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1949,7 +1949,7 @@ create table "v2014".youthcriticalissues
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -1979,7 +1979,7 @@ create table  "v2014".worsthousingsituation
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2007,7 +2007,7 @@ create table "v2014".formerwardchildwelfare
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2036,7 +2036,7 @@ create table "v2014".lastgradecompleted
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2064,7 +2064,7 @@ create table "v2014".referralsource
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2093,7 +2093,7 @@ create table "v2014".commercialsexualexploitation
   export_id uuid,
   parent_id uuid,
 version integer,
-deleted boolean DEFAULT false,
+deleted boolean DEFAULT false,active boolean DEFAULT false,
 sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2124,7 +2124,7 @@ create table "v2014".domesticviolence
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2160,7 +2160,7 @@ create table "v2014".disabilities
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2190,7 +2190,7 @@ create table  "v2014".residentialmoveindate
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2219,7 +2219,7 @@ create table  "v2014".dateofengagement
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2252,7 +2252,7 @@ create table "v2014".services
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2313,7 +2313,7 @@ create table "v2014".incomeandsources
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false, 
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2352,7 +2352,7 @@ create table "v2014".noncashbenefits
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2398,7 +2398,7 @@ create table "v2014".healthinsurance
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2426,7 +2426,7 @@ create table "v2014".exit
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2454,7 +2454,7 @@ create table  "v2014".exithousingassessment
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2492,7 +2492,7 @@ create table  "v2014".exitplansactions
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2524,7 +2524,7 @@ create table "v2014".housingassessmentdisposition
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2551,7 +2551,7 @@ create table "v2014".familyreunification
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2579,7 +2579,7 @@ create table "v2014".connectionwithsoar
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2611,7 +2611,7 @@ create table "v2014".projectcompletionstatus
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false,
+  deleted boolean DEFAULT false,active boolean DEFAULT false,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2657,7 +2657,7 @@ CREATE TABLE "v2014".bulk_upload
   "user_id" uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false, 
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2683,7 +2683,7 @@ create table "v2014".bulk_upload_mapping
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false, 
   sync boolean DEFAULT false,
      CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
@@ -2705,7 +2705,7 @@ create table "v2014".bulk_upload_activity
   export_id uuid,
   parent_id uuid,
   version integer,
-  deleted boolean DEFAULT false, 
+  deleted boolean DEFAULT false,active boolean DEFAULT false, 
   sync boolean DEFAULT false,
      CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE

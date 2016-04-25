@@ -33,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 
 @Entity(name = "contact_stagv2015")
 @Table(name = "contact", catalog = "hmis", schema = "stagv2015")
-public class Contact extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Contact extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -4922450713586410718L;

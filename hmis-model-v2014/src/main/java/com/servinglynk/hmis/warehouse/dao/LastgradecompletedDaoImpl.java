@@ -16,9 +16,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.LastGradeCompleted;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Lastgradecompleted;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -41,7 +41,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				.getLastGradeCompleted();
 		hydrateBulkUploadActivityStaging(lastGradeCompletedList, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if (lastGradeCompletedList != null && !lastGradeCompletedList.isEmpty()) {
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
 				Lastgradecompleted lastGradeCompletedModel = new Lastgradecompleted();

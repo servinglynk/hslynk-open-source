@@ -26,8 +26,8 @@ import com.servinglynk.hmis.warehouse.enums.ExitplansactionsResourcepackageEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsScheduledfollowupcontactsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsTemporaryshelterplacementEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsWrittenaftercareplanEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Exitplansactions;
+import com.servinglynk.hmis.warehouse.model.v2014.Exit;
+import com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -45,7 +45,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		List<ExitPlansActions> exitPlansActionsList = domain.getExport().getExitPlansActions();
 		hydrateBulkUploadActivityStaging(exitPlansActionsList, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(exitPlansActionsList !=null && !exitPlansActionsList.isEmpty()) 
 		{
 			for(ExitPlansActions exitPlansActions : exitPlansActionsList)
@@ -79,7 +79,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2014.Export export,Long id) {
+			com.servinglynk.hmis.warehouse.model.v2014.Export export,Long id) {
 		Set<Exitplansactions> exitplansactionss = export.getExitplansactionss();
 		hydrateBulkUploadActivity(exitplansactionss, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), export,id);
 		if(exitplansactionss !=null && !exitplansactionss.isEmpty()) {

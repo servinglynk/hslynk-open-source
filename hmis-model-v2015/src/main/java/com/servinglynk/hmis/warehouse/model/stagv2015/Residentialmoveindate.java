@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthous
  */
 @Entity(name = "residentialmoveindate_stagv2015")
 @Table(name = "residentialmoveindate", catalog = "hmis", schema = "stagv2015")
-public class Residentialmoveindate extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Residentialmoveindate extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8790779523756672150L;

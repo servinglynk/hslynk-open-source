@@ -42,9 +42,9 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientationgenderidyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Youthcriticalissues;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -62,7 +62,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		List<YouthCriticalIssues> youthCriticalIssuesList = domain.getExport().getYouthCriticalIssues();
 		hydrateBulkUploadActivityStaging(youthCriticalIssuesList, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), domain);
 		int i =0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(youthCriticalIssuesList !=null && !youthCriticalIssuesList.isEmpty())
 		{
 			for(YouthCriticalIssues youthCriticalIssues : youthCriticalIssuesList)

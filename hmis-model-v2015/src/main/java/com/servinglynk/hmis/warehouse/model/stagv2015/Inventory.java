@@ -33,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
  */
 @Entity(name = "inventory_stagv2015")
 @Table(name = "inventory", catalog = "hmis", schema = "stagv2015")
-public class Inventory extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Inventory extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 5575541932820010068L;

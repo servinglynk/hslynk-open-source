@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
  */
 @Entity (name = "domesticviolence_stagv2015")
 @Table(name = "domesticviolence", catalog = "hmis", schema = "stagv2015")
-public class Domesticviolence extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Domesticviolence extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1553980337126312406L;

@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
  */
 @Entity(name = "health_status_stagv2015")
 @Table(name = "health_status", catalog = "hmis", schema = "stagv2015")
-public class HealthStatus extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class HealthStatus extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 903091481736147622L;

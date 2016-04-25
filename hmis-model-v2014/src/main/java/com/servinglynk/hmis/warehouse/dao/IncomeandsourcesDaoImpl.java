@@ -34,9 +34,9 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesUnemploymentEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -54,7 +54,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
 		hydrateBulkUploadActivityStaging(incomeAndSourceses, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)

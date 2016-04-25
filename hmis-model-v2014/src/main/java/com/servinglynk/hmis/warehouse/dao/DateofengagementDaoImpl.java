@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -34,7 +34,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
 		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)

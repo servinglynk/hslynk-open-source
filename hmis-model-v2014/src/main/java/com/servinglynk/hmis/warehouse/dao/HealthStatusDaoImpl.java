@@ -19,8 +19,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -37,13 +37,13 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		List<HealthStatus> healthStatuses = domain.getExport().getHealthStatus();
 		hydrateBulkUploadActivityStaging(healthStatuses, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(healthStatuses !=null &&  !healthStatuses.isEmpty())
 		{
 			int i=0;
 			for(HealthStatus healthStatus : healthStatuses )
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2014.HealthStatus healthStatusModel = new com.servinglynk.hmis.warehouse.model.stagv2014.HealthStatus();
+				com.servinglynk.hmis.warehouse.model.v2014.HealthStatus healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2014.HealthStatus();
 				healthStatusModel.setId(UUID.randomUUID());
 				healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
 				healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthCategory())));
@@ -72,10 +72,10 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2014.HealthStatus> healthStatuses = export.getHealthStatuses();
+		Set<com.servinglynk.hmis.warehouse.model.v2014.HealthStatus> healthStatuses = export.getHealthStatuses();
 		hydrateBulkUploadActivity(healthStatuses, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), export,id);
 		if(healthStatuses !=null && !healthStatuses.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2014.HealthStatus healthStatus : healthStatuses) {
+			for(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus healthStatus : healthStatuses) {
 				if(healthStatus !=null) {
 					com.servinglynk.hmis.warehouse.model.v2014.HealthStatus target = new com.servinglynk.hmis.warehouse.model.v2014.HealthStatus();
 					BeanUtils.copyProperties(healthStatus, target,getNonCollectionFields(target));

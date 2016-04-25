@@ -93,6 +93,7 @@ public abstract class HmisBaseModel implements Entity{
 			
 			
 			private boolean deleted;
+			private boolean active;
 			private boolean sync;
 			
 			
@@ -111,7 +112,14 @@ public abstract class HmisBaseModel implements Entity{
 			public void setDeleted(boolean deleted) {
 				this.deleted = deleted;
 			}
+			@Column(name="active")
+			public boolean isActive() {
+				return active;
+			}
 
+			public void setActive(boolean active) {
+				this.active = active;
+			}
 			private UUID parentId;
 			
 			@Basic( optional = true )

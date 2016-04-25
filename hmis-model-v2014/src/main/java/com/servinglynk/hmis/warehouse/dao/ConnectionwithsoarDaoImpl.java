@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Connectionwithsoar;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
+import com.servinglynk.hmis.warehouse.model.v2014.Exit;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -36,7 +36,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		java.util.List<ConnectionWithSOAR> connectionWithSOARList = domain.getExport().getConnectionWithSOAR();
 		hydrateBulkUploadActivityStaging(connectionWithSOARList, com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
 		{
 			int i=0;

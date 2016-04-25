@@ -19,9 +19,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Rhybcpstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -39,7 +39,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
 		hydrateBulkUploadActivityStaging(rhybcpStatusList, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)

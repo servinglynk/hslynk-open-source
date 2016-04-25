@@ -15,7 +15,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Project;
+import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -35,13 +35,13 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 				int i=0;
 				for(Affiliation affiliation :affiliations )
 				{
-					com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation();
+					com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliationModel = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();
 					affiliationModel.setId(UUID.randomUUID());
 					affiliationModel.setResprojectid(affiliation.getResProjectID());
 					affiliationModel.setDateCreated(LocalDateTime.now());
 					affiliationModel.setDateUpdated(LocalDateTime.now());
 					Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(affiliation.getProjectID()));
-					com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 					affiliationModel.setExport(exportEntity);
 					affiliationModel.setProjectid(project);
 					exportEntity.addAffiliation(affiliationModel);
@@ -56,11 +56,11 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 
 		@Override
 		public void hydrateLive(
-				com.servinglynk.hmis.warehouse.model.stagv2014.Export export, Long id) {
-			Set<com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation> affiliations = export.getAffiliations();
+				com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
+			Set<com.servinglynk.hmis.warehouse.model.v2014.Affiliation> affiliations = export.getAffiliations();
 			hydrateBulkUploadActivity(affiliations, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), export,id);
 			if(affiliations !=null && !affiliations.isEmpty()) {
-				for(com.servinglynk.hmis.warehouse.model.stagv2014.Affiliation affiliation : affiliations ) {
+				for(com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliation : affiliations ) {
 					 com.servinglynk.hmis.warehouse.model.v2014.Affiliation target = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();
 					 BeanUtils.copyProperties(affiliation, target,getNonCollectionFields(target));
 					 com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());

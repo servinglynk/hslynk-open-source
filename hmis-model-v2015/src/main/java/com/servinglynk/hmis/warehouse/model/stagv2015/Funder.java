@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
  */
 @Entity(name = "funder_stagv2015")
 @Table(name = "funder", catalog = "hmis", schema = "stagv2015")
-public class Funder extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Funder extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 3130486567455571039L;

@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Exit;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2014.Exit;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,7 +38,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
 		hydrateBulkUploadActivityStaging(housingAssessmentDispositions, com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty()) 
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)

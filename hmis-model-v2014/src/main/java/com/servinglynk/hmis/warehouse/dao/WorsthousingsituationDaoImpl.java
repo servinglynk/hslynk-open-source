@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Worsthousingsituation;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,7 +38,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
 		hydrateBulkUploadActivityStaging(worstHousingSituationList, com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)

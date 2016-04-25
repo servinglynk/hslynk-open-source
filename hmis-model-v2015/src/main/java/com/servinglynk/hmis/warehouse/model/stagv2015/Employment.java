@@ -33,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
  */
 @Entity (name = "employment_stagv2015")
 @Table(name = "employment", catalog = "hmis", schema = "stagv2015")
-public class Employment extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Employment extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6654649692481756031L;

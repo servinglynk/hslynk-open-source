@@ -11,7 +11,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.stagv2015.HmisBaseStagingModel;
+import com.servinglynk.hmis.warehouse.model.stagv2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
@@ -53,7 +53,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		activity.setDescription("Saving "+className +" to staging" );
 		insertOrUpdate(activity); 		
 	}
-	public void hydrateCommonFields(HmisBaseStagingModel baseModel,ExportDomain domain) {
+	public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 	/*	BulkUploadActivity activity = new BulkUploadActivity();

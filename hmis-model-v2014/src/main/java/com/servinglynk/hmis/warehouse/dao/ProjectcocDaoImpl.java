@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Project;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Projectcoc;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Project;
+import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -42,7 +42,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
 		hydrateBulkUploadActivityStaging(projectCoCs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
 			UUID id = UUID.randomUUID();

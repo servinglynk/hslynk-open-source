@@ -20,8 +20,8 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,12 +38,12 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
 		hydrateBulkUploadActivityStaging(employmentList, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain);
 		int i=0;
-		com.servinglynk.hmis.warehouse.model.stagv2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2014.Export) get(com.servinglynk.hmis.warehouse.model.stagv2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2014.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.stagv2014.Employment();
+				com.servinglynk.hmis.warehouse.model.v2014.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
 				employmentModel.setId(UUID.randomUUID());
 
 				employmentModel.setDateCreated(LocalDateTime.now());
@@ -74,10 +74,10 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2014.Employment> employments = export.getEmployments();
+		Set<com.servinglynk.hmis.warehouse.model.v2014.Employment> employments = export.getEmployments();
 		hydrateBulkUploadActivity(employments, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),export, id);
 		if(employments != null && !employments.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2014.Employment employment : employments) {
+			for(com.servinglynk.hmis.warehouse.model.v2014.Employment employment : employments) {
 				com.servinglynk.hmis.warehouse.model.v2014.Employment target = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
 				BeanUtils.copyProperties(employment, target,getNonCollectionFields(target));
 				com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, employment.getEnrollmentid().getId());

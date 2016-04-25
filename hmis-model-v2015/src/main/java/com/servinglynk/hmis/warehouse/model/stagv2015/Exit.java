@@ -35,7 +35,7 @@ import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
  */
 @Entity (name = "exit_stagv2015")
 @Table(name = "exit", catalog = "hmis", schema = "stagv2015")
-public class Exit extends HmisBaseStagingModel implements Cloneable, Serializable {
+public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -75314002207556153L;

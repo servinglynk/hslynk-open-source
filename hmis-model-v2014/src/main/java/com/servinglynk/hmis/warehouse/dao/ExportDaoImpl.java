@@ -6,7 +6,7 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Export;
 
 public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 
