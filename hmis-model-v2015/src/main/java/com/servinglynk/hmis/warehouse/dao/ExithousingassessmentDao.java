@@ -21,7 +21,7 @@ public interface ExithousingassessmentDao extends ParentDao {
 	public Exithousingassessment getExithousingassessmentByDedupExithousingassessmentId(UUID id,String projectGroupCode);
 	List<Exithousingassessment> getAllExithousingassessment(Integer startIndex, Integer maxItems);
 	long getExithousingassessmentCount();
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Exithousingassessment exithousingassessment);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment exithousingassessment);
 	
 	   List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment> getAllExitExithousingassessments(UUID exitId,Integer startIndex, Integer maxItems);
 	   long getExitExithousingassessmentsCount(UUID exitId);

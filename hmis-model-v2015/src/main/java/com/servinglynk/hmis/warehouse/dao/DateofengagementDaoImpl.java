@@ -16,9 +16,9 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -42,7 +42,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				dateOfEngagementModel.setDateUpdated(LocalDateTime.now());
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
 				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				dateOfEngagementModel.setExport(exportEntity);
 				exportEntity.addDateofengagement(dateOfEngagementModel);
 				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));

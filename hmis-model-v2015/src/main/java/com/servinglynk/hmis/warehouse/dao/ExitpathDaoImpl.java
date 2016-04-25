@@ -26,18 +26,18 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		hydrateBulkUploadActivityStaging(exitpath, com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class.getSimpleName(), domain);
 		if (exitpath != null && exitpath.size() > 0) {
 			for (ExitPATH exitpaths : exitpath) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpathModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath();
+				com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
 				UUID exitpathUUID = UUID.randomUUID();
 				exitpathModel.setId(exitpathUUID);
 				exitpathModel.setConnectionWithSoar(new Integer(exitpaths.getConnectionWithSOAR()).intValue());
-				com.servinglynk.hmis.warehouse.model.stagv2015.Exit exit = (com.servinglynk.hmis.warehouse.model.stagv2015.Exit) get(com.servinglynk.hmis.warehouse.model.stagv2015.Exit.class, domain.getExitMap().get(exitpaths.getExitID()));
+				com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) get(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, domain.getExitMap().get(exitpaths.getExitID()));
 				exitpathModel.setExitid(exit);
 				exitpathModel.setDeleted(false);
 				exitpathModel.setDateCreated(LocalDateTime.now());
 				exitpathModel.setDateUpdated(LocalDateTime.now());
 				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addExitpath(exitpathModel);
 				exitpathModel.setUserId(exportEntity.getUserId());
 				exitpathModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitpaths.getDateCreated()));
@@ -53,11 +53,11 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath> exitpath = export.getExitpaths();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Exitpath> exitpath = export.getExitpaths();
 		hydrateBulkUploadActivity(exitpath, com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class.getSimpleName(), export,id);
 		if(exitpath !=null && !exitpath.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpaths : exitpath) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpaths : exitpath) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathByDedupCliendId = getExitpathByDedupExitpathId(exitpaths.getId(),exitpaths.getProjectGroupCode());
 			//	if(exitpathByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Exitpath target = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
@@ -72,7 +72,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpath) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpath) {
 			if(exitpath !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Exitpath target = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
 				BeanUtils.copyProperties(exitpath, target, new String[] {"enrollments","veteranInfoes"});

@@ -83,6 +83,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,int i) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
+		baseModel.set
 //		  if(i % batchSize() == 0 && i > 0) {
 //              getCurrentSession().flush();
 //              getCurrentSession().clear();

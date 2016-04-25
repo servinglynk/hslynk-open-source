@@ -15,6 +15,6 @@ public interface ContactDao extends ParentDao {
 	List<Contact> getAllContact(Integer startIndex, Integer maxItems);
 	long getContactCount();
 	public com.servinglynk.hmis.warehouse.model.v2015.Contact getContactByDedupContactId(UUID id,String projectGroupCode);
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Contact contact);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Contact contact);
 
 }

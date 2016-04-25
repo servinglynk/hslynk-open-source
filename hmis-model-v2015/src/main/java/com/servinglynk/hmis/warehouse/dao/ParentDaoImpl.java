@@ -11,7 +11,6 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.stagv2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
@@ -22,7 +21,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	public void hydrateCommonFields(HmisBaseModel baseModel) {
 		ProjectGroupEntity projectGroupEntity = new ProjectGroupEntity();
 	}
-	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.stagv2015.Export export,Long id ) {
+	public void hydrateBulkUploadActivity(Set sets,String className, com.servinglynk.hmis.warehouse.model.v2015.Export export,Long id ) {
        com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
 		BulkUploadActivity activity = new BulkUploadActivity();
 		

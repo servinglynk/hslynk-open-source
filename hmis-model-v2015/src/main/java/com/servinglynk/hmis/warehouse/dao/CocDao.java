@@ -12,7 +12,7 @@ public interface CocDao  extends ParentDao {
 	   List<com.servinglynk.hmis.warehouse.model.v2015.Coc> getAllCocs(UUID projectId,Integer startIndex, Integer maxItems);
 	   long getCocsCount(UUID projectId);
 
-	   public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Coc coc);
+	   public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Coc coc);
 	
 		
 }

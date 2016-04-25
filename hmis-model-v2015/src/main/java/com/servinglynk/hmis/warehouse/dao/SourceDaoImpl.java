@@ -14,7 +14,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 
 /**
  * @author Sandeep
@@ -28,7 +28,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
-		com.servinglynk.hmis.warehouse.model.stagv2015.Source sourceModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Source();
+		com.servinglynk.hmis.warehouse.model.v2015.Source sourceModel = new com.servinglynk.hmis.warehouse.model.v2015.Source();
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
 		sourceModel.setSourcecontactemail(source.getSourceContactEmail());
@@ -46,7 +46,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateLive(Export export, Long id) {
 		// TODO Auto-generated method stub
-		com.servinglynk.hmis.warehouse.model.stagv2015.Source source = export.getSource();
+		com.servinglynk.hmis.warehouse.model.v2015.Source source = export.getSource();
 		//hydrateBulkUploadActivity(source, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), export);
 		if(source !=null) {
 			com.servinglynk.hmis.warehouse.model.v2015.Source target = new com.servinglynk.hmis.warehouse.model.v2015.Source();

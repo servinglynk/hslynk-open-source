@@ -18,9 +18,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2015.RhybcpStatus;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -53,7 +53,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(rhybcpStatus.getProjectEntryID()));
 				rhybcpstatusModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				rhybcpstatusModel.setExport(exportEntity);
 				exportEntity.addRhybcpStatus(rhybcpstatusModel);
 				hydrateCommonFields(rhybcpstatusModel, domain);

@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 
 public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 

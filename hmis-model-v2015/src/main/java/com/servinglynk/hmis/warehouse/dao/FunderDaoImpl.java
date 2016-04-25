@@ -17,8 +17,8 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Project;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,7 +38,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		{
 			for(Funder funder : funders)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2015.Funder funderModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Funder();
+				com.servinglynk.hmis.warehouse.model.v2015.Funder funderModel = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
 				UUID id = UUID.randomUUID();
 				funderModel.setId(id);
 				funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
@@ -55,7 +55,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 					Project project = (Project) get(Project.class,uuid);
 					funderModel.setProjectid(project);
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				funderModel.setExport(exportEntity);
 				
 				hydrateCommonFields(funderModel, domain);
@@ -68,10 +68,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Funder> funders = export.getFunders();
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Funder> funders = export.getFunders();
 		hydrateBulkUploadActivity(funders, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), export, id);
 		if(funders !=null && !funders.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Funder funder : funders) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Funder funder : funders) {
 				if(funder != null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Funder target = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
 					BeanUtils.copyProperties(funder, target,getNonCollectionFields(target));

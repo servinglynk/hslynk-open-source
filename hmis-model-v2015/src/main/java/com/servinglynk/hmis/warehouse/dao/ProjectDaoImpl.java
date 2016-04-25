@@ -21,8 +21,8 @@ import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -46,7 +46,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		{
 			for(Project project : projects)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2015.Project projectModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Project();
+				com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = new com.servinglynk.hmis.warehouse.model.v2015.Project();
 				UUID id = UUID.randomUUID();
 				projectModel.setId(id);
 				//projectModel.setAffiliations(affiliation);
@@ -73,7 +73,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 						projectModel.addEnrollment(enrollmentModel);
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
 				hydrateCommonFields(projectModel, domain);
@@ -85,10 +85,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Project> projects = export.getProjects();
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Project> projects = export.getProjects();
 		hydrateBulkUploadActivity(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), export,id);
 		if(projects != null && !projects.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Project project : projects) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Project project : projects) {
 				if(project != null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Project target = new com.servinglynk.hmis.warehouse.model.v2015.Project();
 					BeanUtils.copyProperties(project, target,getNonCollectionFields(target));

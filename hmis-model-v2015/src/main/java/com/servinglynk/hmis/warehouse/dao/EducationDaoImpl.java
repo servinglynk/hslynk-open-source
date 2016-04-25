@@ -18,8 +18,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Education;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -39,7 +39,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		{
 			for(Education education : educationList)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2015.Education educationModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Education();
+				com.servinglynk.hmis.warehouse.model.v2015.Education educationModel = new com.servinglynk.hmis.warehouse.model.v2015.Education();
 				educationModel.setId(UUID.randomUUID());
 				educationModel.setDateCreated(LocalDateTime.now());
 				educationModel.setDateUpdated(LocalDateTime.now());
@@ -61,7 +61,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 						educationModel.setEnrollmentid(enrollmentModel);
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				educationModel.setExport(exportEntity);
 				hydrateCommonFields(educationModel, domain);
 				exportEntity.addEducation(educationModel);
@@ -72,10 +72,10 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 
 	@Override
 	public void hydrateLive(Export export,Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Education> educations = export.getEducations();
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Education> educations = export.getEducations();
 		hydrateBulkUploadActivity(educations, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), export, id);
 		if(educations != null && !educations.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Education education : educations) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Education education : educations) {
 				com.servinglynk.hmis.warehouse.model.v2015.Employment target = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
 				BeanUtils.copyProperties(education, target,getNonCollectionFields(target));
 				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, education.getEnrollmentid().getId());

@@ -26,7 +26,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		hydrateBulkUploadActivityStaging(exitrhy, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), domain);
 		if (exitrhy != null && exitrhy.size() > 0) {
 			for (ExitRHY exitrhys : exitrhy) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy exitrhyModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy();
+				com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
 				UUID exitrhyUUID = UUID.randomUUID();
 				exitrhyModel.setId(exitrhyUUID);
 				exitrhyModel.setAssistanceMainStreamBenefits(new Integer(exitrhys.getAssistanceMainstreamBenefits()).intValue());
@@ -44,7 +44,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				exitrhyModel.setTempShelterPlacement(new Integer(exitrhys.getTemporaryShelterPlacement()).intValue());
 				exitrhyModel.setWrittenAfterCarePlan(new Integer(exitrhys.getWrittenAftercarePlan()).intValue());
 				
-				com.servinglynk.hmis.warehouse.model.stagv2015.Exit exit = (com.servinglynk.hmis.warehouse.model.stagv2015.Exit) get(com.servinglynk.hmis.warehouse.model.stagv2015.Exit.class, domain.getExitMap().get(exitrhys.getExitID()));
+				com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) get(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, domain.getExitMap().get(exitrhys.getExitID()));
 				exitrhyModel.setExitid(exit);
 				
 				exitrhyModel.setDeleted(false);
@@ -52,7 +52,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				exitrhyModel.setDateUpdated(LocalDateTime.now());
 				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addExitrhy(exitrhyModel);
 				exitrhyModel.setUserId(exportEntity.getUserId());
 				exitrhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateCreated()));
@@ -68,11 +68,11 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy> exitrhy = export.getExitrhies();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Exitrhy> exitrhy = export.getExitrhies();
 		hydrateBulkUploadActivity(exitrhy, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), export, id);
 		if(exitrhy !=null && !exitrhy.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy exitrhys : exitrhy) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhys : exitrhy) {
 				//com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyByDedupCliendId = getExitrhyByDedupExitrhyId(exitrhys.getId(),exitrhys.getProjectGroupCode());
 				//if(exitrhyByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Exitrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
@@ -87,7 +87,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Exitrhy exitrhy) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhy) {
 			if(exitrhy !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Exitrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
 				BeanUtils.copyProperties(exitrhy, target, new String[] {"enrollments","veteranInfoes"});

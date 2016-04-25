@@ -25,6 +25,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
 
 
 
@@ -1521,7 +1522,37 @@ public class Export implements Cloneable, Serializable {
 		this.educations = education;
 	}
 
-	
+	 /**
+	 * Return the value associated with the column: organization.
+	 * @return A Set&lt;Organization&gt; object (this.organization)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<Organization> getOrganizations() {
+		return this.organizations;
+
+	}
+
+	/**
+	 * Adds a bi-directional link of type Organization to the organizations set.
+	 * @param organization item to add
+	 */
+	public void addOrganization(Organization organization) {
+		organization.setExport(this);
+		this.organizations.add(organization);
+	}
+
+
+	 /**
+	 * Set the value related to the column: organization.
+	 * @param organization the organization value you wish to set
+	 */
+	public void setOrganizations(final Set<Organization> organization) {
+		this.organizations = organization;
+	}
+
 		/** Field mapping. */
 		private LocalDateTime dateCreated;
 		/** Field mapping. */

@@ -20,9 +20,9 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -57,7 +57,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(medicalAssistance.getProjectEntryID()));
 				medicalassistanceModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				medicalassistanceModel.setExport(exportEntity);
 				exportEntity.addMedicalassistance(medicalassistanceModel);
 				hydrateCommonFields(medicalassistanceModel, domain);

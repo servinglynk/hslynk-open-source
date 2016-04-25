@@ -10,8 +10,8 @@ import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.model.v2015.ProjectProjectGroupMapEntity;
 
 public class ProjectGroupDaoImpl extends ParentDaoImpl implements ProjectGroupDao {

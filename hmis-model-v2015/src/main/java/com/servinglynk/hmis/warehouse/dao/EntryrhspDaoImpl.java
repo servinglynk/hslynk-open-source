@@ -18,7 +18,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -32,7 +32,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		hydrateBulkUploadActivityStaging(entryRhsps, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), domain);
 		if (entryRhsps != null && entryRhsps.size() > 0) {
 			for (EntryRHSP entryRhsp : entryRhsps) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRhspModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp();
+				com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryRhspModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
 				UUID entryRhspUUID = UUID.randomUUID();
 				entryRhspModel.setId(entryRhspUUID);
 				entryRhspModel.setWorstHousingSituation(Integer.parseInt(entryRhsp.getWorstHousingSituation()));
@@ -40,7 +40,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				entryRhspModel.setDateUpdated(LocalDateTime.now());
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsp.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addEntryrhsp(entryRhspModel);
 			//	entryRhspModel.setUserId(exportEntity.getUserId());
 				entryRhspModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateCreated()));
@@ -57,11 +57,11 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp> entryRshp = export.getEntryrhsps();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp> entryRshp = export.getEntryrhsps();
 		hydrateBulkUploadActivity(entryRshp, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), export, id);
 		if(entryRshp !=null && !entryRshp.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRshps : entryRshp) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryRshps : entryRshp) {
 				com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryrhspByDedupCliendId = getEntryrhspByDedupEntryrhspId(entryRshps.getId(),entryRshps.getProjectGroupCode());
 				if(entryrhspByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp target = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
@@ -76,7 +76,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhsp entryRshp) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryRshp) {
 			if(entryRshp !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp target = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
 				BeanUtils.copyProperties(entryRshp, target, new String[] {"enrollments","veteranInfoes"});

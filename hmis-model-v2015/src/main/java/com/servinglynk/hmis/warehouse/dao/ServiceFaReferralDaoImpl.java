@@ -27,7 +27,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		hydrateBulkUploadActivityStaging(services, com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class.getSimpleName(), domain);
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral();
+				com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
 				UUID serviceFaReferralUUID = UUID.randomUUID();
 				serviceFaReferralModel.setId(serviceFaReferralUUID);
 				serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
@@ -42,7 +42,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				serviceFaReferralModel.setDeleted(false);
 				serviceFaReferralModel.setDateCreated(LocalDateTime.now());
 				serviceFaReferralModel.setDateUpdated(LocalDateTime.now());
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addServiceFaReferral(serviceFaReferralModel);
 				serviceFaReferralModel.setUserId(exportEntity.getUserId());
 				serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
@@ -58,11 +58,11 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral> serviceFaReferral = export.getServiceFaReferrals();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral> serviceFaReferral = export.getServiceFaReferrals();
 		hydrateBulkUploadActivity(serviceFaReferral, com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class.getSimpleName(), export, id);
 		if(serviceFaReferral !=null && !serviceFaReferral.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferrals : serviceFaReferral) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferrals : serviceFaReferral) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralByDedupCliendId = getServiceFaReferralByDedupServiceFaReferralId(serviceFaReferrals.getId(),serviceFaReferrals.getProjectGroupCode());
 			//	if(serviceFaReferralByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral target = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
@@ -77,7 +77,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.ServiceFaReferral serviceFaReferral) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferral) {
 			if(serviceFaReferral !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral target = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
 				BeanUtils.copyProperties(serviceFaReferral, target, new String[] {"enrollments","veteranInfoes"});

@@ -20,7 +20,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
@@ -36,7 +36,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		hydrateBulkUploadActivityStaging(contact, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), domain);
 		if (contact != null && contact.size() > 0) {
 			for (Contact contacts : contact) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Contact contactModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Contact();
+				com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
 				UUID contactUUID = UUID.randomUUID();
 				contactModel.setId(contactUUID);
 				contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
@@ -49,7 +49,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				contactModel.setDeleted(false);
 				
 				Enrollment enrollment = (Enrollment) get(Enrollment.class,domain.getEnrollmentProjectEntryIDMap().get(contacts.getProjectEntryID()));
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				contactModel.setExport(exportEntity);
 				exportEntity.addContact(contactModel);
 				contactModel.setEnrollmentid(enrollment);
@@ -65,11 +65,11 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Contact> contact = export.getContacts();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Contact> contact = export.getContacts();
 		hydrateBulkUploadActivity(contact, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), export, id );
 		if(contact !=null && !contact.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Contact contacts : contact) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Contact contacts : contact) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.Contact contactByDedupContactId = getContactByDedupContactId(contacts.getId(),contacts.getProjectGroupCode());
 			//	if(contactByDedupContactId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Contact target = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
@@ -84,7 +84,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Contact contact) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Contact contact) {
 			if(contact !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Contact target = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
 				BeanUtils.copyProperties(contact, target, new String[] {"enrollments","veteranInfoes"});
@@ -179,10 +179,10 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		if(contact !=null && contact.size()>0) return contact.get(0);
 		return null;
 	}
-	public com.servinglynk.hmis.warehouse.model.stagv2015.Contact getContactByDedupContactId(UUID id) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.stagv2015.Contact.class);
+	public com.servinglynk.hmis.warehouse.model.v2015.Contact getContactByDedupContactId(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Contact.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
-		List<com.servinglynk.hmis.warehouse.model.stagv2015.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.stagv2015.Contact>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2015.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2015.Contact>) findByCriteria(criteria);
 		if(contact !=null && contact.size()>0) return contact.get(0);
 		return null;
 	}

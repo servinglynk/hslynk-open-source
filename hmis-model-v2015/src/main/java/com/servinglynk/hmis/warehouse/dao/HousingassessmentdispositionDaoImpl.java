@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Exit;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2015.Exit;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
 				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(housingAssessmentDisposition.getExitID()));
 				housingassessmentdispositionModel.setExitid(exit);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				housingassessmentdispositionModel.setExport(exportEntity);
 				exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
 				hydrateCommonFields(housingassessmentdispositionModel, domain);

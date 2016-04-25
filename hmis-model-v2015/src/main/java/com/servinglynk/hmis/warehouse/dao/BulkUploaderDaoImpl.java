@@ -81,7 +81,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.debug("Staging Source table.........");
 			if(export != null)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportModel  = new com.servinglynk.hmis.warehouse.model.stagv2015.Export();
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportModel  = new com.servinglynk.hmis.warehouse.model.v2015.Export();
 				exportModel.setExportDate(BasicDataGenerator.getLocalDateTime(export.getExportDate()));
 				exportModel.setExportdirective(export.getExportDirective());
 				exportModel.setExportperiodtype(export.getExportPeriodType());
@@ -90,7 +90,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				exportModel.setDateUpdated(LocalDateTime.now());
 //				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
 			//	exportModel.setUser(user);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Source) get(com.servinglynk.hmis.warehouse.model.stagv2015.Source.class, domain.getSourceId());
+				com.servinglynk.hmis.warehouse.model.v2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2015.Source) get(com.servinglynk.hmis.warehouse.model.v2015.Source.class, domain.getSourceId());
 				exportModel.setSource(sourceEntity);
 				//export.getExportPeriod()
 				insert(exportModel);
@@ -131,7 +131,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
+			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
 			parentDaoFactory.getSourceDao().hydrateLive(exportEntity,upload.getId());
 			logger.debug("Live Source table.........");
 			if(exportEntity!=null) {
@@ -174,7 +174,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void moveFromStagingToLive(BulkUpload bulkUpload) {
 		try {
 		UUID exportId = bulkUpload.getExportId();
-		com.servinglynk.hmis.warehouse.model.stagv2015.Export export = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, exportId);
+		com.servinglynk.hmis.warehouse.model.v2015.Export export = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
 
 		parentDaoFactory.getClientDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getVeteranInfoDao().hydrateLive(export,bulkUpload.getId());
@@ -228,7 +228,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
-		com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class,exportId);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class,exportId);
 		deleteFromDB(exportEntity);
 	}
 

@@ -13,7 +13,7 @@ public interface ExitpathDao extends ParentDao {
 	public Exitpath getExitpathByDedupExitpathId(UUID id,String projectGroupCode);
 	List<Exitpath> getAllExitpath(Integer startIndex, Integer maxItems);
 	long getExitpathCount();
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Exitpath exitpath);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpath);
 	
 	   List<com.servinglynk.hmis.warehouse.model.v2015.Exitpath> getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems);
 	   long getExitExitpathsCount(UUID exitId);

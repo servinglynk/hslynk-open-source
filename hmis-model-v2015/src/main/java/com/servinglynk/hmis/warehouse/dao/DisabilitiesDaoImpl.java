@@ -23,7 +23,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -43,7 +43,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
-				com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities();
+				com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
 				disabilitiesModel.setId(UUID.randomUUID());
 				disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
 				disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
@@ -65,7 +65,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 
 				}
 
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				disabilitiesModel.setExport(exportEntity);
 				hydrateCommonFields(disabilitiesModel, domain);
 				exportEntity.addDisabilities(disabilitiesModel);
@@ -76,11 +76,11 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export,Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities> disabilitieses = export.getDisabilitieses();
+			com.servinglynk.hmis.warehouse.model.v2015.Export export,Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Disabilities> disabilitieses = export.getDisabilitieses();
 		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), export,id);
 		if(disabilitieses !=null && !disabilitieses.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Disabilities disabilities : disabilitieses) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilities : disabilitieses) {
 				com.servinglynk.hmis.warehouse.model.v2015.Disabilities target = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
 				BeanUtils.copyProperties(disabilities, target,getNonCollectionFields(target));
 				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, disabilities.getEnrollmentid().getId());

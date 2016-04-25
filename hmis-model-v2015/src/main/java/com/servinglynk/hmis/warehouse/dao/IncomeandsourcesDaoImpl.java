@@ -33,9 +33,9 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesUnemploymentEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -101,7 +101,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 						incomeAndSourcesModel.setEnrollmentid(enrollmentModel);
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				incomeAndSourcesModel.setExport(exportEntity);
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
 				hydrateCommonFields(incomeAndSourcesModel, domain);

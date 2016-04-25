@@ -15,9 +15,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViole
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
@@ -41,7 +41,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 				domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(domesticViolence.getProjectEntryID()));
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				domesticviolenceModel.setExport(exportEntity);
 				domesticviolenceModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addDomesticviolence(domesticviolenceModel);

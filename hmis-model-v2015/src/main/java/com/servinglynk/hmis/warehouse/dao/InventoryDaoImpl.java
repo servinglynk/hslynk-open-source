@@ -20,9 +20,9 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Bedinventory;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Coc;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Bedinventory;
+import com.servinglynk.hmis.warehouse.model.v2015.Coc;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -49,7 +49,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
 				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Inventory();
+				com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
 				UUID inventoryUUID = UUID.randomUUID();
 				inventoryModel.setId(inventoryUUID);
 				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
@@ -71,7 +71,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				inventoryModel.setDateUpdated(LocalDateTime.now());
 				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addInventory(inventoryModel);
 				inventoryModel.setUserId(exportEntity.getUserId());
 				inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
@@ -93,10 +93,10 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	
 	@Override
 	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Inventory> inventories = export.getInventories();
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Inventory> inventories = export.getInventories();
 		hydrateBulkUploadActivity(inventories, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), export,id);
 		if(inventories != null && !inventories.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Inventory inventory : inventories) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Inventory inventory : inventories) {
 				if(inventory !=null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Inventory target = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
 					BeanUtils.copyProperties(inventory, target,getNonCollectionFields(target));

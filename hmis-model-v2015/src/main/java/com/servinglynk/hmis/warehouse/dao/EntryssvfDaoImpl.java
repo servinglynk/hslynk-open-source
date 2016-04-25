@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -27,7 +27,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		hydrateBulkUploadActivityStaging(entrySSVFs, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain);
 		if (entrySSVFs != null && entrySSVFs.size() > 0) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvfModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf();
+				com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
 				UUID entrySSVFUUID = UUID.randomUUID();
 				entrySsvfModel.setId(entrySSVFUUID);
 				entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
@@ -43,7 +43,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entrySSVF.getProjectEntryID()));
 				entrySsvfModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addEntryssvf(entrySsvfModel);
 				entrySsvfModel.setUserId(exportEntity.getUserId());
 				entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateCreated()));
@@ -59,11 +59,11 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf> entrySsvf = export.getEntryssvfs();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Entryssvf> entrySsvf = export.getEntryssvfs();
 		hydrateBulkUploadActivity(entrySsvf, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), export, id);
 		if(entrySsvf !=null && !entrySsvf.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvfs : entrySsvf) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfs : entrySsvf) {
 			//	com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvfs.getId(),entrySsvfs.getProjectGroupCode());
 			//	if(entryssvfByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf target = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
@@ -78,7 +78,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Entryssvf entrySsvf) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvf) {
 			if(entrySsvf !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Entryssvf target = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
 				BeanUtils.copyProperties(entrySsvf, target, new String[] {"enrollments","veteranInfoes"});

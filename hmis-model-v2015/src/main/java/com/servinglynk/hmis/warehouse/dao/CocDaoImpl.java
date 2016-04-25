@@ -20,8 +20,8 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Project;
 import com.servinglynk.hmis.warehouse.model.v2015.Coc;
+import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
@@ -37,7 +37,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		hydrateBulkUploadActivityStaging(cocs, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), domain);
 		if (cocs != null && cocs.size() > 0) {
 			for (CoC coc : cocs) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Coc cocModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Coc();
+				com.servinglynk.hmis.warehouse.model.v2015.Coc cocModel = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
 				UUID cocUUID = UUID.randomUUID();
 				cocModel.setId(cocUUID);
 				cocModel.setCoccode(coc.getCoCCode());
@@ -48,7 +48,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 					Project project = (Project) get(Project.class,uuid);
 					cocModel.setProjectid(project);
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addCoc(cocModel);
 				cocModel.setUserId(exportEntity.getUserId());
 				cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
@@ -66,11 +66,11 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Coc> coc = export.getCocs();
+			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Coc> coc = export.getCocs();
 		hydrateBulkUploadActivity(coc, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), export,id);
 		if(coc !=null && !coc.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Coc cocs : coc) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Coc cocs : coc) {
 				//com.servinglynk.hmis.warehouse.model.v2015.Coc cocByDedupCliendId = getCocByDedupCliendId(cocs.getId(),cocs.getProjectGroupCode());
 			//	if(cocByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Coc target = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
@@ -90,7 +90,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 	
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Coc coc) {
+			com.servinglynk.hmis.warehouse.model.v2015.Coc coc) {
 			if(coc !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Coc target = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
 				BeanUtils.copyProperties(coc, target, new String[] {"enrollments","veteranInfoes"});
@@ -208,10 +208,10 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		if(coc !=null && coc.size()>0) return coc.get(0);
 		return null;
 	}
-	public com.servinglynk.hmis.warehouse.model.stagv2015.Coc getCocByDedupCliendIdFromStaging(UUID id) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.stagv2015.Coc.class);
+	public com.servinglynk.hmis.warehouse.model.v2015.Coc getCocByDedupCliendIdFromStaging(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Coc.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
-		List<com.servinglynk.hmis.warehouse.model.stagv2015.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.stagv2015.Coc>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2015.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.v2015.Coc>) findByCriteria(criteria);
 		if(coc !=null && coc.size()>0) return coc.get(0);
 		return null;
 	}

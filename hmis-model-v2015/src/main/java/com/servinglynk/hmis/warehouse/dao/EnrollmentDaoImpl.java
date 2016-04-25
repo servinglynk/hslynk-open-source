@@ -37,7 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentStatusdocumentedEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -119,13 +119,13 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 						.getOtherResidencePrior());
 				UUID clientId = domain.getClientPersonalIDMap().get(enrollment.getPersonalID());
 				if(clientId!=null) {
-					com.servinglynk.hmis.warehouse.model.stagv2015.Client client = (com.servinglynk.hmis.warehouse.model.stagv2015.Client) get(com.servinglynk.hmis.warehouse.model.stagv2015.Client.class, clientId);
+					com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, clientId);
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
 						
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				enrollmentModel.setExport(exportEntity);
 
 				enrollmentModel.setDateCreated(LocalDateTime.now());
@@ -140,7 +140,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
+			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
 		Set<Enrollment> enrollments = export.getEnrollments();
 		hydrateBulkUploadActivity(enrollments, com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class.getSimpleName(), export, id);
 		if(enrollments != null && !enrollments.isEmpty()) {

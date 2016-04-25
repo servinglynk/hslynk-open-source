@@ -25,9 +25,9 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Export;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -72,7 +72,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 						noncashbenefitsModel.setEnrollmentid(enrollmentModel);
 					}
 				}
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				noncashbenefitsModel.setExport(exportEntity);
 				exportEntity.addNoncashbenefits(noncashbenefitsModel);
 				hydrateCommonFields(noncashbenefitsModel, domain);

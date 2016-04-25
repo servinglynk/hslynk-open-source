@@ -26,8 +26,8 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-import com.servinglynk.hmis.warehouse.model.stagv2015.Client;
-import com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo;
+import com.servinglynk.hmis.warehouse.model.v2015.Client;
+import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -95,9 +95,9 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
 				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.stagv2015.Client client = (com.servinglynk.hmis.warehouse.model.stagv2015.Client) get(com.servinglynk.hmis.warehouse.model.stagv2015.Client.class, clientId);
+				com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, clientId);
 				vInfo.setClient(client);
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				vInfo.setExport(exportEntity);
 				vInfo.setUserId(exportEntity.getUserId());
 				exportEntity.addClientVeteranInfo(vInfo);
@@ -109,11 +109,11 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo> veteranInfos = export.getClientVeteranInfoes();
+			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo> veteranInfos = export.getClientVeteranInfoes();
 		hydrateBulkUploadActivity(veteranInfos, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), export, id);
 		if(veteranInfos !=null && !veteranInfos.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.ClientVeteranInfo veteranInfo : veteranInfos) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo veteranInfo : veteranInfos) {
 				com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
 				BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
 				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, veteranInfo.getExport().getId());
@@ -129,7 +129,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 
 	@Override
 	public void hydrateLive(Client client) {
-		Set<ClientVeteranInfo> veteranInfoes = client.getClientVeteranInfoes();
+		Set<ClientVeteranInfo> veteranInfoes = client.getVeteranInfoes();
 		if(veteranInfoes !=null && !veteranInfoes.isEmpty()) {
 			for(ClientVeteranInfo veteranInfo : veteranInfoes) {
 				if(veteranInfo !=null) {

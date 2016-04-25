@@ -32,7 +32,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		hydrateBulkUploadActivityStaging(entryRhy, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), domain);
 		if (entryRhy != null && entryRhy.size() > 0) {
 			for (EntryRHY entryRhys : entryRhy) {
-				com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryRhyModel = new com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy();
+				com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryRhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
 				UUID entryRhyUUID = UUID.randomUUID();
 				entryRhyModel.setAbuseAndNeglectFamilyMbr(new Integer(entryRhys.getAbuseAndNeglectFam()).intValue());
 				entryRhyModel.setAbuseAndNeglectYouth(new Integer(entryRhys.getAbuseAndNeglectYouth()).intValue());
@@ -81,7 +81,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 				entryRhyModel.setSexualOrientation(new Integer(entryRhys.getSexualOrientation()).intValue());
 				entryRhyModel.setUnemployementFamilyMbr(new Integer(entryRhys.getUnemploymentFam()).intValue());  ;
 				entryRhyModel.setUnemployementYouth(new Integer(entryRhys.getUnemploymentYouth()).intValue());
-				com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, domain.getExportId());
+				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				exportEntity.addEntryrhy(entryRhyModel);
 				entryRhyModel.setUserId(exportEntity.getUserId());
 //				entryRhyModel.setVersion(version);
@@ -107,11 +107,11 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy> entryRhy = export.getEntryrhies();
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
+		Set<com.servinglynk.hmis.warehouse.model.v2015.Entryrhy> entryRhy = export.getEntryrhies();
 		hydrateBulkUploadActivity(entryRhy, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), export, id);
 		if(entryRhy !=null && !entryRhy.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryRhys : entryRhy) {
+			for(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryRhys : entryRhy) {
 				//com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryrhyByDedupCliendId = getEntryrhyByDedupEntryrhyId(entryRhys.getId(),entryRhys.getProjectGroupCode());
 			//	if(entryrhyByDedupCliendId ==null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Entryrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
@@ -126,7 +126,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 	}
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.stagv2015.Entryrhy entryRhy) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryRhy) {
 			if(entryRhy !=null) {
 				com.servinglynk.hmis.warehouse.model.v2015.Entryrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
 				BeanUtils.copyProperties(entryRhy, target, new String[] {"enrollments","veteranInfoes"});
