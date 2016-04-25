@@ -290,3 +290,60 @@ java.io.IOException: Could not locate executable null\bin\winutils.exe in the Ha
 2016-04-24 23:38:00 pool-1-thread-5 BaseProcessor [INFO] [exit] Time taken to generate insert and update maps in seconds: 32
 2016-04-24 23:38:00 pool-1-thread-5 BaseProcessor [INFO] [exit] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Exit : 41354
 2016-04-24 23:38:00 pool-1-thread-5 BaseProcessor [INFO] [exit] Updates for com.servinglynk.hmis.warehouse.model.v2014.Exit : 0
+2016-04-24 23:42:20 pool-1-thread-4 FromPostgres [INFO] [employment]Time taken to complete Sync for 'employment' in seconds: 431
+2016-04-24 23:42:20 pool-1-thread-4 FromPostgres [INFO] [employment]End thread for: employment
+2016-04-24 23:42:20 pool-1-thread-4 FromPostgres [INFO] [medicalassistance] Start thread  for: medicalassistance
+2016-04-24 23:42:20 pool-1-thread-4 BaseProcessor [INFO] [medicalassistance] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance
+2016-04-24 23:42:20 pool-1-thread-4 FromPostgres [INFO] [medicalassistance]Time taken to complete Sync for 'medicalassistance' in seconds: 0
+2016-04-24 23:42:20 pool-1-thread-4 FromPostgres [INFO] [medicalassistance]End thread for: medicalassistance
+2016-04-24 23:42:20 pool-1-thread-4 FromPostgres [INFO] [disabilities] Start thread  for: disabilities
+2016-04-24 23:42:20 pool-1-thread-4 BaseProcessor [INFO] [disabilities] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Disabilities
+2016-04-24 23:42:30 pool-1-thread-1 FromPostgres [INFO] [noncashbenefits]Time taken to complete Sync for 'noncashbenefits' in seconds: 540
+2016-04-24 23:42:30 pool-1-thread-1 FromPostgres [INFO] [noncashbenefits]End thread for: noncashbenefits
+2016-04-24 23:42:30 pool-1-thread-1 FromPostgres [INFO] [healthinsurance] Start thread  for: healthinsurance
+2016-04-24 23:42:30 pool-1-thread-1 BaseProcessor [INFO] [healthinsurance] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance
+2016-04-24 23:43:18 pool-1-thread-5 FromPostgres [INFO] [exit]Time taken to complete Sync for 'exit' in seconds: 350
+2016-04-24 23:43:18 pool-1-thread-5 FromPostgres [INFO] [exit]End thread for: exit
+2016-04-24 23:43:18 pool-1-thread-5 FromPostgres [INFO] [site] Start thread  for: site
+2016-04-24 23:43:18 pool-1-thread-5 BaseProcessor [INFO] [site] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Site
+2016-04-24 23:44:34 pool-1-thread-5 BaseProcessor [INFO] [site] Time taken to generate insert and update maps in seconds: 75
+2016-04-24 23:44:34 pool-1-thread-5 BaseProcessor [INFO] [site] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Site : 124
+2016-04-24 23:44:34 pool-1-thread-5 BaseProcessor [INFO] [site] Updates for com.servinglynk.hmis.warehouse.model.v2014.Site : 0
+2016-04-24 23:44:36 pool-1-thread-5 FromPostgres [INFO] [site]Time taken to complete Sync for 'site' in seconds: 77
+2016-04-24 23:44:36 pool-1-thread-5 FromPostgres [INFO] [site]End thread for: site
+2016-04-24 23:44:36 pool-1-thread-5 FromPostgres [INFO] [dateofengagement] Start thread  for: dateofengagement
+2016-04-24 23:44:36 pool-1-thread-5 BaseProcessor [INFO] [dateofengagement] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement
+2016-04-24 23:44:36 pool-1-thread-3 FromPostgres [INFO] [enrollment]Time taken to complete Sync for 'enrollment' in seconds: 477
+2016-04-24 23:44:36 pool-1-thread-3 FromPostgres [INFO] [enrollment]End thread for: enrollment
+2016-04-24 23:44:36 pool-1-thread-3 FromPostgres [INFO] [organization] Start thread  for: organization
+2016-04-24 23:44:36 pool-1-thread-3 BaseProcessor [INFO] [organization] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Organization
+2016-04-24 23:44:39 pool-1-thread-3 BaseProcessor [INFO] [organization] Time taken to generate insert and update maps in seconds: 3
+2016-04-24 23:44:39 pool-1-thread-3 BaseProcessor [INFO] [organization] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Organization : 122
+2016-04-24 23:44:39 pool-1-thread-3 BaseProcessor [INFO] [organization] Updates for com.servinglynk.hmis.warehouse.model.v2014.Organization : 0
+2016-04-24 23:44:40 pool-1-thread-3 FromPostgres [INFO] [organization]Time taken to complete Sync for 'organization' in seconds: 4
+2016-04-24 23:44:40 pool-1-thread-3 FromPostgres [INFO] [organization]End thread for: organization
+2016-04-24 23:44:40 pool-1-thread-3 FromPostgres [INFO] [schoolstatus] Start thread  for: schoolstatus
+2016-04-24 23:44:40 pool-1-thread-3 BaseProcessor [INFO] [schoolstatus] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus
+2016-04-24 23:44:41 pool-1-thread-5 BaseProcessor [INFO] [dateofengagement] Time taken to generate insert and update maps in seconds: 4
+2016-04-24 23:44:41 pool-1-thread-5 BaseProcessor [INFO] [dateofengagement] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement : 2420
+2016-04-24 23:44:41 pool-1-thread-5 BaseProcessor [INFO] [dateofengagement] Updates for com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement : 0
+2016-04-24 23:44:41 pool-1-thread-3 FromPostgres [INFO] [schoolstatus]Time taken to complete Sync for 'schoolstatus' in seconds: 0
+2016-04-24 23:44:41 pool-1-thread-3 FromPostgres [INFO] [schoolstatus]End thread for: schoolstatus
+2016-04-24 23:44:41 pool-1-thread-3 FromPostgres [INFO] [domesticviolence] Start thread  for: domesticviolence
+2016-04-24 23:44:41 pool-1-thread-3 BaseProcessor [INFO] [domesticviolence] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence
+2016-04-24 23:44:45 pool-1-thread-5 FromPostgres [INFO] [dateofengagement]Time taken to complete Sync for 'dateofengagement' in seconds: 9
+2016-04-24 23:44:45 pool-1-thread-5 FromPostgres [INFO] [dateofengagement]End thread for: dateofengagement
+2016-04-24 23:44:45 pool-1-thread-5 FromPostgres [INFO] [last_perm_address] Start thread  for: last_perm_address
+2016-04-24 23:44:45 pool-1-thread-5 BaseProcessor [INFO] [last_perm_address] Run SyncToHBASE for class: com.servinglynk.hmis.warehouse.model.v2014.Lastpermanentaddress
+2016-04-24 23:44:51 pool-1-thread-1 BaseProcessor [INFO] [healthinsurance] Time taken to generate insert and update maps in seconds: 140
+2016-04-24 23:44:51 pool-1-thread-1 BaseProcessor [INFO] [healthinsurance] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance : 92413
+2016-04-24 23:44:51 pool-1-thread-1 BaseProcessor [INFO] [healthinsurance] Updates for com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance : 0
+2016-04-24 23:45:20 pool-1-thread-4 BaseProcessor [INFO] [disabilities] Time taken to generate insert and update maps in seconds: 180
+2016-04-24 23:45:20 pool-1-thread-4 BaseProcessor [INFO] [disabilities] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Disabilities : 365384
+2016-04-24 23:45:20 pool-1-thread-4 BaseProcessor [INFO] [disabilities] Updates for com.servinglynk.hmis.warehouse.model.v2014.Disabilities : 0
+2016-04-24 23:45:34 pool-1-thread-5 BaseProcessor [INFO] [last_perm_address] Time taken to generate insert and update maps in seconds: 48
+2016-04-24 23:45:34 pool-1-thread-5 BaseProcessor [INFO] [last_perm_address] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Lastpermanentaddress : 23703
+2016-04-24 23:45:34 pool-1-thread-5 BaseProcessor [INFO] [last_perm_address] Updates for com.servinglynk.hmis.warehouse.model.v2014.Lastpermanentaddress : 0
+2016-04-24 23:45:38 pool-1-thread-3 BaseProcessor [INFO] [domesticviolence] Time taken to generate insert and update maps in seconds: 57
+2016-04-24 23:45:38 pool-1-thread-3 BaseProcessor [INFO] [domesticviolence] Insertions for com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence : 45871
+2016-04-24 23:45:38 pool-1-thread-3 BaseProcessor [INFO] [domesticviolence] Updates for com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence : 0
