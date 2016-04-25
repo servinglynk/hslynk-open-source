@@ -108,14 +108,14 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2015.Site> getAllProjectCOCSites(UUID projectCocId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Site.class);
-	       criteria.createAlias("projectCoc", "projectCoc");
-	       criteria.add(Restrictions.eq("projectCoc.id", projectCocId));
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", projectCocId));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Site>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectCOCSitesCount(UUID projectCocId){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Site.class);
-	       criteria.createAlias("projectCoc", "projectCoc");
-	       criteria.add(Restrictions.eq("projectCoc.id", projectCocId));
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", projectCocId));
 	       return countRows(criteria);
 	   }
 
