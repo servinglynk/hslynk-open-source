@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
 
 public interface ParentDaoFactory extends BaseDaoFactory {
 	

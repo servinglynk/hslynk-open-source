@@ -1,22 +1,17 @@
-package com.servinglynk.hmis.warehouse.dao;
+package com.servinglynk.hmis.warehouse.base.dao;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 @Transactional
-public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUploaderWorkerDao {
+public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implements BulkUploaderWorkerDao {
 
 	public List<BulkUpload> findUnProcessedUploads(String status) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
@@ -62,32 +57,5 @@ public class BulkUploaderWorkerDaoImpl extends ParentDaoImpl implements BulkUplo
 		query.add(Restrictions.eq("status","LIVE"));
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
-	}
-	
-	@Override
-	public void hydrateStaging(ExportDomain domain) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2015.Export export,Long id) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

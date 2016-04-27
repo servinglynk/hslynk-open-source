@@ -21,5 +21,5 @@ public interface BaseDaoFactory {
 	PermissionSetDao getPermissionSetDao();
 	ProjectGroupDao getProjectGroupDao();
 	ClientDao getHmisClientDao();
-
+	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 }

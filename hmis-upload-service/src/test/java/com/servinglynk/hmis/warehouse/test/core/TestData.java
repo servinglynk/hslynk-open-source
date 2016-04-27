@@ -15,7 +15,6 @@ import com.servinglynk.hmis.warehouse.core.model.RedirectUri;
 import com.servinglynk.hmis.warehouse.core.model.RedirectUris;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.ServiceStatus;
-import com.servinglynk.hmis.warehouse.core.model.SharingRule;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.core.model.TrustedAppStatus;
 
@@ -257,11 +256,4 @@ public class TestData {
 		
 		return permissionSet;
 	}
-	
-	public static SharingRule getSharingRule() throws Exception {
-		return null;
-	}
-	
-	
-	
 }

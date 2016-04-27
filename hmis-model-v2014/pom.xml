@@ -229,9 +229,9 @@
 			  <version>${parent-version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.servinglynk.hmis.warehouse</groupId>
-				<artifactId>hmis-base-model</artifactId>
-				<version>${parent-version}</version>
+			 <groupId>com.servinglynk.hmis.warehouse</groupId>
+			  <artifactId>hmis-base-model</artifactId>
+			  <version>${parent-version}</version>
 			</dependency>
 	</dependencies>
 		<build>
@@ -250,13 +250,6 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
-			    <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml> 
-                </configuration>
-            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -283,7 +276,15 @@
 		</plugins>
 	</build>
 	<repositories>
-   
+    <repository>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://52.37.76.153:8080/nexus/content/groups/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
   </repositories>
 
   <pluginRepositories>

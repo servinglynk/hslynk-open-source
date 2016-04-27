@@ -66,7 +66,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			//upload.setId(UUID.randomUUID());
 			logger.debug("Bulk Uploader Process Begins..........");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			insertOrUpdate(upload);
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
 			
 			Source source = sources.getSource();
@@ -144,12 +144,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
 			upload.setExportId(exportLive.getId());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
+			insertOrUpdate(upload); 
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(e.getMessage());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			insertOrUpdate(upload);
 			logger.error("Error executing the bulk upload process::",e.getMessage());
 		}
 		return upload;
@@ -213,14 +213,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		//parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export,bulkUpload.getId());
 		bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
-		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
+		insertOrUpdate(bulkUpload);
 		logger.debug("Bulk Upload Live Process Ends.....");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			bulkUpload.setStatus(UploadStatus.ERROR.getStatus());
 			//bulkUpload.setd(e.getMessage());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
+			insertOrUpdate(bulkUpload);
 		}
 	}
 	

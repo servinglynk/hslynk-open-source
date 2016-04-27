@@ -20,8 +20,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadService;

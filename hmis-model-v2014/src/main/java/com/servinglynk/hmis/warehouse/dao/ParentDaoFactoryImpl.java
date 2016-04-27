@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
 
 @Component
 public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {

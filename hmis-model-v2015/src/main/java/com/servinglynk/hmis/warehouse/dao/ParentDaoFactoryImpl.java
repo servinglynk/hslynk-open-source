@@ -63,8 +63,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private ClientVeteranInfoDao veteranInfoDao;
 	@Autowired
-	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
-	@Autowired
 	private ExportDao exportDao;
 	@Autowired
 	private CocDao cocDao;
@@ -484,15 +482,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	 */
 	public void setVeteranInfoDao(ClientVeteranInfoDao veteranInfoDao) {
 		this.veteranInfoDao = veteranInfoDao;
-	}
-
-	public BulkUploaderWorkerDao getBulkUploaderWorkerDao() {
-		return bulkUploaderWorkerDao;
-	}
-
-	public void setBulkUploaderWorkerDao(
-			BulkUploaderWorkerDao bulkUploaderWorkerDao) {
-		this.bulkUploaderWorkerDao = bulkUploaderWorkerDao;
 	}
 
 	@Override

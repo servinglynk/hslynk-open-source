@@ -154,7 +154,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-serialize-v2014</artifactId>
+			<artifactId>hmis-base-serialize</artifactId>
 			<version>${parent-version}</version>
 		</dependency>
 			<dependency>
@@ -164,7 +164,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-service-v2014</artifactId>
+			<artifactId>hmis-base-service</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>

@@ -7,6 +7,8 @@ import com.servinglynk.hmis.warehouse.base.dao.AccountConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDataChangeDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ApiMethodDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
@@ -193,5 +195,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public DedupHelper dedupHelpder() {
 		return new DedupHelper();
+	}
+	
+	@Bean
+	public BulkUploaderWorkerDao bulkUploaderWorkerDao() {
+		return new BulkUploaderWorkerDaoImpl();
 	}
 }

@@ -33,7 +33,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	SourceDao getSourceDao();
 	//SyncDao getSyncDao();
 	ClientVeteranInfoDao getVeteranInfoDao();
-	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	ExportDao getExportDao();
 	ClientDao getClientDao();
 	

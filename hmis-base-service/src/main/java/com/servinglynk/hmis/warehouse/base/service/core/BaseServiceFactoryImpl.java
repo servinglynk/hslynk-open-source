@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
@@ -60,6 +61,9 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired
 	private ClientService hmisClientService;
+	
+	@Autowired
+	private BulkUploadService bulkUploadService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -177,4 +181,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setHmisClientService(ClientService hmisClientService) {
 		this.hmisClientService = hmisClientService;
 	}
+
+	public BulkUploadService getBulkUploadService() {
+		return bulkUploadService;
+	}
+
+	public void setBulkUploadService(BulkUploadService bulkUploadService) {
+		this.bulkUploadService = bulkUploadService;
+	}
+	
 }

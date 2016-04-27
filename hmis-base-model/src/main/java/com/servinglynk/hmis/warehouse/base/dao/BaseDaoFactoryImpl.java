@@ -59,6 +59,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	private ClientDao hmisClientDao;
 	@Autowired
 	private HmisBulkUploadDao hmisBulkUploadDao;
+	@Autowired
+	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
 	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
@@ -221,6 +223,12 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setHmisBulkUploadDao(HmisBulkUploadDao hmisBulkUploadDao) {
 		this.hmisBulkUploadDao = hmisBulkUploadDao;
+	}
+	public BulkUploaderWorkerDao getBulkUploaderWorkerDao() {
+		return bulkUploaderWorkerDao;
+	}
+	public void setBulkUploaderWorkerDao(BulkUploaderWorkerDao bulkUploaderWorkerDao) {
+		this.bulkUploaderWorkerDao = bulkUploaderWorkerDao;
 	}
 	
 }

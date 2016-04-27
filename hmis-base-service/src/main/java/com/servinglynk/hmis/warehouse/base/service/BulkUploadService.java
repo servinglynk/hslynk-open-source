@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.service;
+package com.servinglynk.hmis.warehouse.base.service;
 
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploads;

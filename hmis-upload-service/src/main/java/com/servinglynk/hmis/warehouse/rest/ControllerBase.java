@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.core.model.Error;
 import com.servinglynk.hmis.warehouse.core.model.Errors;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 import com.servinglynk.hmis.warehouse.rest.common.ExceptionMapper;
-import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
-import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 
 
 @Controller
@@ -28,15 +28,15 @@ public abstract class ControllerBase {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	@Autowired
-	protected ParentServiceFactory serviceFactory;
+	protected BaseServiceFactory serviceFactory;
 
 	
 
-	public ParentServiceFactory getServiceFactory() {
+	public BaseServiceFactory getServiceFactory() {
 		return serviceFactory;
 	}
 
-	public void setServiceFactory(ParentServiceFactory serviceFactory) {
+	public void setServiceFactory(BaseServiceFactory serviceFactory) {
 		this.serviceFactory = serviceFactory;
 	}
 	

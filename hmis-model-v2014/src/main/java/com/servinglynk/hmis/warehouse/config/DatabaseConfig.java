@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
+import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
@@ -21,8 +23,6 @@ import com.servinglynk.hmis.warehouse.dao.BedinventoryDao;
 import com.servinglynk.hmis.warehouse.dao.BedinventoryDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDao;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CommercialsexualexploitationDao;
 import com.servinglynk.hmis.warehouse.dao.CommercialsexualexploitationDaoImpl;

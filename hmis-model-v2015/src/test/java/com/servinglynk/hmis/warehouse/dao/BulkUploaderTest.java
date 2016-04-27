@@ -26,6 +26,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -176,6 +177,8 @@ public class BulkUploaderTest {
 	@Autowired
 	ParentDaoFactory factory;
 	
+	@Autowired
+	BaseDaoFactory baseFactory;
 	@Test 
 	public void test() throws JAXBException
 	{
@@ -740,7 +743,7 @@ public class BulkUploaderTest {
 					
 		} 
 
-	
+	/* Sandeep TODO: Need to move this test to the base model.
 	@Test
 	public void testDeleted() throws Exception {
 		List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("DELETED");
@@ -750,6 +753,7 @@ public class BulkUploaderTest {
 			}
 		}
 	}
+	*/
 	@Test
 	public void deleteExportFromStaging() {
 		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
@@ -779,10 +783,9 @@ public class BulkUploaderTest {
 		}
 		
 	}
-	
 	@Test
 	public void moveToLive() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
+		List<BulkUpload> uploads = baseFactory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.moveFromStagingToLive(upload);		

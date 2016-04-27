@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.base.service.core;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
@@ -34,4 +35,5 @@ public interface BaseServiceFactory {
 	PermissionSetService getPermissionSetService();
 	ProjectGroupService getProjectGroupService();
 	ClientService getHmisClientService();
+	BulkUploadService getBulkUploadService();
 }

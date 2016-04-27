@@ -21,8 +21,6 @@ import com.servinglynk.hmis.warehouse.dao.BedinventoryDao;
 import com.servinglynk.hmis.warehouse.dao.BedinventoryDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDao;
-import com.servinglynk.hmis.warehouse.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDao;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDaoImpl;
@@ -167,11 +165,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	public BulkUploaderDao bulkUploaderDao()
 	{
 		return new BulkUploaderDaoImpl();
-	}
-	@Bean
-	public BulkUploaderWorkerDao bulkUploaderWorkerDao()
-	{
-		return new BulkUploaderWorkerDaoImpl();
 	}
 	@Bean
 	public DateofengagementDao dateofengagementDao() { 

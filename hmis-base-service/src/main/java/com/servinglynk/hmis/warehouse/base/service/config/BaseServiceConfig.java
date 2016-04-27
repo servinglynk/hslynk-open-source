@@ -11,12 +11,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
+import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
 import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
@@ -182,4 +184,9 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 public ProjectGroupServiceImpl projectGroupService(){
 		 return new ProjectGroupServiceImpl();
 	 }	 
+	 
+	 @Bean
+	 public BulkUploadService bulkUploadService() {
+		 return new BulkUploadServiceImpl();
+	 }
 }
