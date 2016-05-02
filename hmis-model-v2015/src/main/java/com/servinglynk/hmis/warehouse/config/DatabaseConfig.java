@@ -109,7 +109,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		
 		JndiObjectFactoryBean jndi=new JndiObjectFactoryBean();
 		jndi.setResourceRef(true);
-		jndi.setJndiName(env.getProperty("app.jndi.name"));
+		jndi.setJndiName("jdbc/multischema");
 		jndi.setProxyInterface(DataSource.class);
 		jndi.setLookupOnStartup(true);
 		try {
