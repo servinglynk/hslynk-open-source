@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -199,7 +200,9 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
 	       criteria.createAlias("coc", "coc");
 	       criteria.add(Restrictions.eq("coc.id", projectCocId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Inventory>) findByCriteria(criteria,startIndex,maxItems);
+	       List<com.servinglynk.hmis.warehouse.model.v2015.Inventory> inventories = (List<com.servinglynk.hmis.warehouse.model.v2015.Inventory>) findByCriteria(criteria,startIndex,maxItems);
+	       if(inventories.size()>0) return inventories;
+	       else return new ArrayList<com.servinglynk.hmis.warehouse.model.v2015.Inventory>(); 
 	}
 
 
