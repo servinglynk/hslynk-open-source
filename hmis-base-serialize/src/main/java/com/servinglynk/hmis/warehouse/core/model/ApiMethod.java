@@ -13,6 +13,8 @@ public class ApiMethod	extends ClientModel {
 	private String authorizationMsg;
 	private Long methodSequence;
 	private String apiMethodId;
+	private Boolean requiresAccessToken;
+	private Boolean requiresCheckTrustedApp;
 
 	public String getExternalId() {
 		return externalId;
@@ -56,5 +58,16 @@ public class ApiMethod	extends ClientModel {
 	public void setApiMethodId(String apiMethodId) {
 		this.apiMethodId = apiMethodId;
 	}
-	
+	public Boolean getRequiresAccessToken() {
+		return requiresAccessToken;
+	}
+	public void setRequiresAccessToken(Boolean requiresAccessToken) {
+		this.requiresAccessToken = requiresAccessToken;
+	}
+	public Boolean getRequiresCheckTrustedApp() {
+		return requiresCheckTrustedApp;
+	}
+	public void setRequiresCheckTrustedApp(Boolean requiresCheckTrustedApp) {
+		this.requiresCheckTrustedApp = requiresCheckTrustedApp;
+	}	
 }

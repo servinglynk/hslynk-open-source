@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.client.base;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class CoreClientBase {
 
-
+	@Autowired
 	protected RestTemplate restTemplate;
 	
 	

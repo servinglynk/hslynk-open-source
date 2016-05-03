@@ -27,5 +27,15 @@ public class CoreClientConfig {
 	public void setReportServiceUrl(String reportServiceUrl) {
 		this.reportServiceUrl = reportServiceUrl;
 	}
+	
+	  @Value("${authorization.service.url}")
+	  private String authorizationServiceUrl;
 
+	public String getAuthorizationServiceUrl() {
+		return authorizationServiceUrl;
+	}
+
+	public void setAuthorizationServiceUrl(String authorizationServiceUrl) {
+		this.authorizationServiceUrl = authorizationServiceUrl;
+	}
 }

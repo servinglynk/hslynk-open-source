@@ -50,6 +50,9 @@ public class ApiMethodEntity extends BaseModel {
 	@Column(name = "is_public")
 	private Boolean publicMethod;
 	
+	@Column(name="requires_check_trustedApp")
+	private Boolean requiresCheckTrustedApp;
+	
 	@OneToMany(mappedBy = "apiMethod")
 	private List<ServiceApiMethodEntity> serviceApiMethodList;
 
@@ -147,5 +150,10 @@ public class ApiMethodEntity extends BaseModel {
 	public void initializeExternalId() {
 		this.externalId = getNewGuid();
 	}
-	
+	public Boolean getRequiresCheckTrustedApp() {
+		return requiresCheckTrustedApp;
+	}
+	public void setRequiresCheckTrustedApp(Boolean requiresCheckTrustedApp) {
+		this.requiresCheckTrustedApp = requiresCheckTrustedApp;
+	}
 }

@@ -10,10 +10,12 @@ import com.servinglynk.hmis.warehouse.base.service.converter.ApiMethodConverter;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodGroups;
+import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.model.base.ApiGroupEntity;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.DeveloperServiceEntity;
 import com.servinglynk.hmis.warehouse.model.base.ServiceApiMethodEntity;
+import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
 
 public class ApiMethodServiceImpl extends ServiceBase implements ApiMethodService {
 
@@ -57,6 +59,17 @@ public class ApiMethodServiceImpl extends ServiceBase implements ApiMethodServic
 		
 		
 		
+	}
+	
+	@Transactional
+	public ApiMethod getApiMethod(String externalId){
+		ApiMethodEntity pApiMethod = daoFactory.getApiMethodDao().findByExternalId(externalId);
+		if(pApiMethod==null) throw new AccessDeniedException("api " + externalId + " not found");
+		ApiMethod apiMethod = new ApiMethod();
+		apiMethod.setApiMethodId(pApiMethod.getExternalId());
+		apiMethod.setRequiresAccessToken(pApiMethod.getRequiresAccessToken());
+		apiMethod.setRequiresCheckTrustedApp(pApiMethod.getRequiresCheckTrustedApp());
+		return apiMethod;		
 	}
 	
 	@Transactional
