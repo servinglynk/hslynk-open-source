@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 public class CoreClientBase {
 
-	@Autowired
 	protected RestTemplate restTemplate;
 	
 	
