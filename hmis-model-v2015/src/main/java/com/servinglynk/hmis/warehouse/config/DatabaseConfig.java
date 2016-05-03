@@ -106,27 +106,15 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	
 	@Bean
 	public DataSource dataSource() {
-		
-		JndiObjectFactoryBean jndi=new JndiObjectFactoryBean();
-		jndi.setResourceRef(true);
-		jndi.setJndiName("jdbc/multischema");
-		jndi.setProxyInterface(DataSource.class);
-		jndi.setLookupOnStartup(true);
-		try {
-			jndi.afterPropertiesSet();
-		}catch (NamingException e) {
-			throw new RuntimeException(e);
-		}
-		return (DataSource)jndi.getObject();
 
-/*		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
 		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
 		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
 		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 		
-		return dataSource;*/
+		return dataSource;
 	}
 	
 	private Properties hibProperties() {

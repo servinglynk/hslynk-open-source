@@ -340,6 +340,7 @@ CREATE TABLE base.hmis_api_method
   detailed_consent_message_id uuid,
   is_public boolean,
   requires_access_token boolean,
+  requires_check_trustedapp boolean,
   CONSTRAINT "PK_API_METHOD" PRIMARY KEY (id),
   CONSTRAINT "FK_AM_CONSENT_MESSAGE_ID" FOREIGN KEY (consent_message_id)
       REFERENCES base.hmis_consent_message (id) MATCH SIMPLE

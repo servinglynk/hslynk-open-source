@@ -10,8 +10,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
+import com.servinglynk.hmis.warehouse.client.authorizationservice.IAuthorizationClient;
 import com.servinglynk.hmis.warehouse.client.notificationservice.INotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.reportservice.IReportServiceClient;
@@ -20,7 +21,6 @@ import com.servinglynk.hmis.warehouse.client.reportservice.ReportServiceClient;
 
 @Configuration
 @EnableScheduling
-@EnableTransactionManagement
 @ImportResource({"classpath:com/notification-service-client-config.xml"})
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.client.notificationservice","com.servinglynk.hmis.warehouse.client.reportservice"})
 @PropertySource("classpath:com/core-client.properties")
@@ -39,7 +39,7 @@ public class SpringConfig {
 
 	@Autowired
 	Environment env;
-		
+	
 	@Bean
 	public INotificationServiceClient notificationServiceClient(){
 		return new NotificationServiceClient();
@@ -48,6 +48,10 @@ public class SpringConfig {
 	@Bean
 	public IReportServiceClient reportServiceClient(){
 		return new ReportServiceClient();
+	}
+	@Bean
+	public IAuthorizationClient authorizationClient(){
+		return new AuthorizationServiceClient();
 	}
 	
 	

@@ -9,4 +9,5 @@ public interface ApiMethodService {
 	public ApiMethod createApiMehod(ApiMethod apiMethod);
 	public void mapServiceWithApiMethod(String serviceId,String apiMethodId);
 	public ApiMethodGroups getApiMethods();
+	ApiMethod getApiMethod(String externalId);
 }

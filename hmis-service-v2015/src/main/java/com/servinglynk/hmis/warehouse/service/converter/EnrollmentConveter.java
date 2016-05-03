@@ -29,8 +29,8 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
 		if(enrollment.getOtherresidenceprior()!=null)
 		pEnrollment.setOtherresidenceprior(enrollment.getOtherresidenceprior());
-		if(enrollment.getProjectentryid()!=null)
-		pEnrollment.setProjectentryid(enrollment.getProjectentryid());
+	/*	if(enrollment.getProjectentryid()!=null)
+		pEnrollment.setProjectentryid(enrollment.getProjectentryid());*/
 		if(enrollment.getRelationshiptohoh()!=null)
 		pEnrollment.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(enrollment.getRelationshiptohoh().toString()));
 		if(enrollment.getTimeshomelesspastthreeyears()!=null)
@@ -50,8 +50,8 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getHousingstatus()!=null) enrollment.setHousingstatus(Integer.parseInt(pEnrollment.getHousingstatus().getValue()));
 		if(pEnrollment.getMonthshomelesspastthreeyears()!=null) enrollment.setMonthshomelesspastthreeyears(Integer.parseInt(pEnrollment.getMonthshomelesspastthreeyears().getValue()));
 		if(pEnrollment.getOtherresidenceprior()!=null) enrollment.setOtherresidenceprior(pEnrollment.getOtherresidenceprior());
-		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
-		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
+/*		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
+*/		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
 		if(pEnrollment.getTimeshomelesspastthreeyears()!=null) enrollment.setTimeshomelesspastthreeyears(Integer.parseInt(pEnrollment.getTimeshomelesspastthreeyears().getValue()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		copyBeanProperties(pEnrollment, enrollment);
