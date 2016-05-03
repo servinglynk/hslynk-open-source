@@ -13012,7 +13012,7 @@ public class Sources {
             public static class Organization {
 
                 @XmlElement(name = "OrganizationID" )
-                protected byte organizationID;
+                protected String organizationID;
                 @XmlElement(name = "OrganizationName" , required = true)
                 protected String organizationName;
                 @XmlElement(name = "OrganizationCommonName" , required = true)
@@ -13028,7 +13028,7 @@ public class Sources {
                  * Gets the value of the organizationID property.
                  * 
                  */
-                public byte getOrganizationID() {
+                public String getOrganizationID() {
                     return organizationID;
                 }
 
@@ -13036,7 +13036,7 @@ public class Sources {
                  * Sets the value of the organizationID property.
                  * 
                  */
-                public void setOrganizationID(byte value) {
+                public void setOrganizationID(String value) {
                     this.organizationID = value;
                 }
 
@@ -13618,7 +13618,7 @@ public class Sources {
                 @XmlElement(name = "ProjectID" , required = true)
                 protected String projectID;
                 @XmlElement(name = "OrganizationID" )
-                protected byte organizationID;
+                protected String organizationID;
                 @XmlElement(name = "ProjectName" , required = true)
                 protected String projectName;
                 @XmlElement(name = "ContinuumProject" )
@@ -13668,7 +13668,7 @@ public class Sources {
                  * Gets the value of the organizationID property.
                  * 
                  */
-                public byte getOrganizationID() {
+                public String getOrganizationID() {
                     return organizationID;
                 }
 
@@ -13676,7 +13676,7 @@ public class Sources {
                  * Sets the value of the organizationID property.
                  * 
                  */
-                public void setOrganizationID(byte value) {
+                public void setOrganizationID(String value) {
                     this.organizationID = value;
                 }
 

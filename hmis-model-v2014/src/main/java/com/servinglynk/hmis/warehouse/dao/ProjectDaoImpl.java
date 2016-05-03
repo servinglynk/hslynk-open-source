@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Organization;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -56,11 +57,12 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				//projectModel.setAffiliations(affiliation);
 				projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
 				//projectModel.setFunders(funder);
-				domain.getOrganizationProjectMap().put(BasicDataGenerator.getStringValue(project.getOrganizationID()),id);
 				domain.getAffiliationProjectMap().put(project.getProjectID(), id);
 				domain.getProjectCocMap().put(project.getProjectID(), id);
 				//projectModel.setProjectcocs(projectcoc);
 				projectModel.setProjectname(project.getProjectName());
+				Organization organization = (Organization)get(Organization.class, domain.getOrganizationProjectMap().get(project.getOrganizationID()));
+				projectModel.setOrganizationid(organization);
 				projectModel.setProjectcommonname(project.getProjectCommonName());
 				projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
 				projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
@@ -70,13 +72,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				projectModel.setDateUpdated(LocalDateTime.now());
 				projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 				projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
-				if(project.getProjectID() !=null && !"".equals(project.getProjectID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID());
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
-						projectModel.setEnrollmentid(enrollmentModel);
-					}
-				}
 				projectModel.setExport(exportEntity);
 				exportEntity.addProject(projectModel);
 				i++;
@@ -96,8 +91,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				if(project != null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Project target = new com.servinglynk.hmis.warehouse.model.v2014.Project();
 					BeanUtils.copyProperties(project, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, project.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
 					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
 					target.setExport(exportEntity);
 					com.servinglynk.hmis.warehouse.model.v2014.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.v2014.Organization) get(com.servinglynk.hmis.warehouse.model.v2014.Organization.class, project.getOrganizationid().getId());

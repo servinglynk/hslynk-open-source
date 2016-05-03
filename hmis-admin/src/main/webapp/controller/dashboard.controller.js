@@ -45,7 +45,7 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
                             $location.path('/login');//
                         }
                     });
-                	Service.CheckServiceAvailableBulkUpload($http,$scope,
+                /*	Service.CheckServiceAvailableBulkUpload($http,$scope,
                         //success
                         function(data) {
                             $("#divBulkUpload .button-success").css("display", "inline");
@@ -84,7 +84,7 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
                         function(filesCollection) {
                             $scope.managefiles = filesCollection;
 
-                        });
+                        }); */
                     if($rootScope.roleName=="SUPERADMIN")
             		{
             			$(".dashboard").show();

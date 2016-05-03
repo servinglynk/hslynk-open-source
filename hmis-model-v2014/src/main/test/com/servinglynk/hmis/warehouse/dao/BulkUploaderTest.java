@@ -49,8 +49,7 @@ public class BulkUploaderTest {
 	public void testCSVZip() throws Exception
 	{
 		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
-		BulkUpload
-		bullkUpload = new BulkUpload();
+		BulkUpload	bullkUpload = new BulkUpload();
 		bullkUpload.setInputpath(path.getPath());
 		bullkUpload.setId(3L);
 		bullkUpload.setProjectGroupCode("PG0001");

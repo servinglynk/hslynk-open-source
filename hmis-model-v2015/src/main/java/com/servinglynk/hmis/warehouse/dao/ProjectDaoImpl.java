@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
+import com.servinglynk.hmis.warehouse.model.v2015.Organization;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -52,10 +53,12 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				//projectModel.setAffiliations(affiliation);
 				projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
 				//projectModel.setFunders(funder);
-				domain.getOrganizationProjectMap().put(BasicDataGenerator.getStringValue(project.getOrganizationID()),id);
+				
 				domain.getAffiliationProjectMap().put(project.getProjectID(), id);
 				domain.getProjectCocMap().put(project.getProjectID(), id);
 				//projectModel.setProjectcocs(projectcoc);
+				Organization organization = (Organization)get(Organization.class, domain.getOrganizationProjectMap().get(project.getOrganizationID()));
+				projectModel.setOrganizationid(organization);
 				projectModel.setProjectname(project.getProjectName());
 				projectModel.setProjectcommonname(project.getProjectCommonName());
 				projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));

@@ -119,11 +119,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
+			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
+			parentDaoFactory.getProjectDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);
 			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain);
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain);
-			parentDaoFactory.getProjectDao().hydrateStaging(domain);
-			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
 			parentDaoFactory.getAffiliationDao().hydrateStaging(domain);
 			parentDaoFactory.getFunderDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain);
@@ -160,15 +160,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain);
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
-			parentDaoFactory.getSourceDao().hydrateLive(exportEntity,upload.getId());
-			if(exportEntity!=null) {
-				com.servinglynk.hmis.warehouse.model.v2014.Export target = new com.servinglynk.hmis.warehouse.model.v2014.Export();
-				BeanUtils.copyProperties(exportEntity, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) get(com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSourceId());
-				target.setSource(sourceEntity);
-				insert(target);	
-			}
 			com.servinglynk.hmis.warehouse.model.v2014.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
 			upload.setExportId(exportLive.getId());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 

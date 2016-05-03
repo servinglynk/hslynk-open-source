@@ -95,6 +95,7 @@ DROP TYPE IF EXISTS "v2014".issues_number_of_years;
 DROP TYPE IF EXISTS "v2014".last_grade_completed;
 DROP TYPE IF EXISTS "v2014".military_branch;
 DROP TYPE IF EXISTS "v2014".months_homeless_past_3_years;
+DROP TYPE IF EXISTS "v2014".months_homeless_this_time;
 DROP TYPE IF EXISTS "v2014".no_adap_reason;
 DROP TYPE IF EXISTS "v2014".no_health_insurance_reason;
 DROP TYPE IF EXISTS "v2014".no_medical_assistance_reason;
@@ -162,7 +163,9 @@ CREATE TYPE "v2014".incarcerated_parent_status AS ENUM ('1','2','3','99');
 CREATE TYPE "v2014".issues_number_of_years AS ENUM ('1','2','3');
 CREATE TYPE "v2014".last_grade_completed  AS ENUM ('1','2','3','4','5','6','7','10','8','9','99');
 CREATE TYPE "v2014".military_branch AS ENUM ('1','2','3','4','6','8','9','99');
-CREATE TYPE "v2014".months_homeless_past_3_years AS ENUM ('100','7','8','9','99');
+CREATE TYPE "v2014".months_homeless_past_3_years AS ENUM ('100','7','8','9','99','112','102','111');
+CREATE TYPE "v2014".months_homeless_this_time AS ENUM ('100','99','101','0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34');
+
 CREATE TYPE "v2014".no_adap_reason AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2014".no_health_insurance_reason AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2014".no_medical_assistance_reason AS ENUM (	
@@ -722,7 +725,14 @@ INSERT INTO "v2014".hmis_type (name,status,value,description) values ('childwelf
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','8','Client does not know','ACTIVE');
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','9','Client refused','ACTIVE');
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','99','Data not collected','ACTIVE');
-  
+    
+    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','101','0 to 12 months (with a leading 1)');
+    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','100','0 to 12 months (with a leading 1)');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','7','More than 12 months');
+    INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','8','Client does not know','ACTIVE');
+    INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','9','Client refused','ACTIVE');
+    INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','99','Data not collected','ACTIVE');
+    
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','1','Full name reported'); 
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','2','Partial, street name, or code name reported');  
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('name_data_quality','8','Client does not know','ACTIVE');  
@@ -956,15 +966,15 @@ INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('race','9
   INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');
   
   
-     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','2','More than one week, but less than one month'); 
-     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','3','One to three months'); 
-     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','4','More than three months, but less than one year');  
-     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','5','One year or longer'); 
-     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','8','Client doesn''t know'); 
-     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','9','Client refused');
-    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','10','One day or less');
-    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','11','Two days to one week'); 
-   INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('residencePriorlengthofstay','99','Data not collected','ACTIVE'); 
+     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','2','More than one week, but less than one month'); 
+     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','3','One to three months'); 
+     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','4','More than three months, but less than one year');  
+     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','5','One year or longer'); 
+     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','8','Client doesn''t know'); 
+     INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','9','Client refused');
+    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','10','One day or less');
+    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','11','Two days to one week'); 
+   INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('residencepriorlengthofstay','99','Data not collected','ACTIVE'); 
   
   
      INSERT INTO "v2014".hmis_type (name,status,value,description) values ('sexualorientation','ACTIVE','1','Heterosexual');
@@ -1186,6 +1196,62 @@ WITH (
   OIDS=FALSE
 );
 
+create table "v2014".organization
+(
+  organizationcommonname text,
+  id uuid not null,
+  organizationname text,
+  "project_group_code" character varying(8),
+   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+version integer,
+deleted boolean DEFAULT false,active boolean DEFAULT true,
+sync boolean DEFAULT false,
+      CONSTRAINT export_fkey FOREIGN KEY (export_id)
+      REFERENCES v2014.export (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  constraint "organization_pkey" primary key (id)
+)
+with (
+  oids=false
+);
+CREATE TABLE  "v2014".project
+(
+  id uuid NOT NULL,
+  continuumproject "v2014".no_yes,
+  organizationid uuid,
+  projectcommonname text,
+  projectname text,
+  projecttype "v2014".project_type,
+  residentialaffiliation "v2014".no_yes,
+  targetpopulation "v2014".target_population_type,
+  trackingmethod "v2014".tracking_method,
+  project_group_code character varying(8),
+  date_created timestamp,
+  date_updated timestamp,
+   "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  user_id uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,
+  deleted boolean DEFAULT false,active boolean DEFAULT true,
+  sync boolean DEFAULT false,
+      CONSTRAINT export_fkey FOREIGN KEY (export_id)
+      REFERENCES v2014.export (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "project_pk" PRIMARY KEY (id),
+        CONSTRAINT "organization_project_fkey" FOREIGN KEY (organizationid)
+      REFERENCES v2014.organization (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
 CREATE TABLE "v2014".enrollment
 (
   id uuid NOT NULL,
@@ -1195,11 +1261,8 @@ entrydate timestamp,
 householdid uuid,
 housingstatus "v2014".housing_status,
 monthsHomelessPastThreeYears "v2014".months_homeless_past_3_years,
-monthsHomelessThisTime "v2014".times_homeless_past_3_years,
+monthsHomelessThisTime "v2014".months_homeless_this_time,
 otherresidenceprior character varying(50),
-personalid uuid,
-projectentryid uuid,
-projectid uuid,
 relationshiptohoh "v2014".relationship_to_head_of_household,
 residencePrior "v2014".residence_prior,
 residencePriorlengthofstay "v2014".residence_prior_length_of_stay,
@@ -1207,6 +1270,7 @@ statusDocumented "v2014".no_yes,
 timesHomelesspastthreeyears "v2014".times_homeless_past_3_years,
 yearshomeless integer,
 client_id uuid,
+project_id  uuid,
 project_group_code character varying(8),
 date_created timestamp,
 date_updated timestamp,
@@ -1223,7 +1287,9 @@ sync boolean DEFAULT false,
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
-      REFERENCES "v2014".client ("id")
+      REFERENCES "v2014".client ("id"),
+          CONSTRAINT enrollment_project_fk FOREIGN KEY ("project_id")
+      REFERENCES "v2014".project ("id")
 )
 WITH (
   OIDS=FALSE
@@ -1440,70 +1506,6 @@ WITH (
   OIDS=FALSE
 );
 
-create table "v2014".organization
-(
-  organizationcommonname text,
-  id uuid not null,
-  organizationname text,
-  "project_group_code" character varying(8),
-   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
-  export_id uuid,
-  parent_id uuid,
-version integer,
-deleted boolean DEFAULT false,active boolean DEFAULT true,
-sync boolean DEFAULT false,
-      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2014.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  constraint "organization_pkey" primary key (id)
-)
-with (
-  oids=false
-);
-
-
-CREATE TABLE  "v2014".project
-(
-  id uuid NOT NULL,
-  enrollmentid uuid,
-  continuumproject "v2014".no_yes,
-  organizationid uuid,
-  projectcommonname text,
-  projectname text,
-  projecttype "v2014".project_type,
-  residentialaffiliation "v2014".no_yes,
-  targetpopulation "v2014".target_population_type,
-  trackingmethod "v2014".tracking_method,
-  project_group_code character varying(8),
-  date_created timestamp,
-  date_updated timestamp,
-   "date_created_from_source" timestamp,
-  "date_updated_from_source" timestamp,
-  user_id uuid,
-  export_id uuid,
-  parent_id uuid,
-  version integer,
-  deleted boolean DEFAULT false,active boolean DEFAULT true,
-  sync boolean DEFAULT false,
-      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2014.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "project_pk" PRIMARY KEY (id),
-       CONSTRAINT "enrollment_project_fk_key" FOREIGN KEY ("enrollmentid")
-      REFERENCES v2014.enrollment ("id") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-        CONSTRAINT "organization_project_fkey" FOREIGN KEY (organizationid)
-      REFERENCES v2014.organization (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-
-
--- Table: "affiliation"
 
 -- DROP TABLE "affiliation";
 

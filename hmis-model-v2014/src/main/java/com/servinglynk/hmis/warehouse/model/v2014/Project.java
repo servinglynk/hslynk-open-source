@@ -58,9 +58,9 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 	/** Field mapping. */
 	private ProjectContinuumprojectEnum continuumproject;
 	/** Field mapping. */
-	private Enrollment enrollmentid;
-	/** Field mapping. */
 	private Set<Funder> funders = new HashSet<Funder>();
+	
+	private Set<Enrollment> enrollments  = new HashSet<Enrollment>();
 
 	/** Field mapping. */
 	private java.util.UUID id;
@@ -188,29 +188,6 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 	}
 
 	 /**
-	 * Return the value associated with the column: enrollmentid.
-	 * @return A Enrollment object (this.enrollmentid)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "enrollmentid", nullable = true )
-	public Enrollment getEnrollmentid() {
-		return this.enrollmentid;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: enrollmentid.
-	 * @param enrollmentid the enrollmentid value you wish to set
-	 */
-	public void setEnrollmentid(final Enrollment enrollmentid) {
-		this.enrollmentid = enrollmentid;
-	}
-
-	 /**
 	 * Return the value associated with the column: funder.
 	 * @return A Set&lt;Funder&gt; object (this.funder)
 	 */
@@ -241,6 +218,36 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		this.funders = funder;
 	}
 
+	 /**
+		 * Return the value associated with the column: funder.
+		 * @return A Set&lt;Funder&gt; object (this.funder)
+		 */
+	 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "project"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<Enrollment> getEnrollments() {
+			return this.enrollments;
+
+		}
+
+		/**
+		 * Adds a bi-directional link of type Funder to the funders set.
+		 * @param enrollment item to add
+		 */
+		public void addEnrollment(Enrollment enrollment) {
+			enrollment.setProject(this);
+			this.enrollments.add(enrollment);
+		}
+
+
+		 /**
+		 * Set the value related to the column: funder.
+		 * @param funder the funder value you wish to set
+		 */
+		public void setEnrollments(final Set<Enrollment> enrollments) {
+			this.enrollments = enrollments;
+		}
 	 /**
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
@@ -472,7 +479,7 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		copy.setContinuumproject(this.getContinuumproject());
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
-		copy.setEnrollmentid(this.getEnrollmentid());
+		copy.setEnrollments(this.getEnrollments());
 		if (this.getFunders() != null) {
 			copy.getFunders().addAll(this.getFunders());
 		}
@@ -560,7 +567,6 @@ public class Project extends HmisBaseModel  implements Cloneable, Serializable {
 		result = result && (((getContinuumproject() == null) && (that.getContinuumproject() == null)) || (getContinuumproject() != null && getContinuumproject().equals(that.getContinuumproject())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
-		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getOrganizationid() == null) && (that.getOrganizationid() == null)) || (getOrganizationid() != null && getOrganizationid().equals(that.getOrganizationid())));
 		result = result && (((getProjectcommonname() == null) && (that.getProjectcommonname() == null)) || (getProjectcommonname() != null && getProjectcommonname().equals(that.getProjectcommonname())));
 		result = result && (((getProjectname() == null) && (that.getProjectname() == null)) || (getProjectname() != null && getProjectname().equals(that.getProjectname())));

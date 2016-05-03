@@ -134,14 +134,8 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private Set<com.servinglynk.hmis.warehouse.model.v2014.Percentami> percentamis = new HashSet<com.servinglynk.hmis.warehouse.model.v2014.Percentami>();
 
 	/** Field mapping. */
-	private java.util.UUID personalid;
-	/** Field mapping. */
-	private Set<Project> projects = new HashSet<Project>();
+	private Project project;
 
-	/** Field mapping. */
-	private java.util.UUID projectentryid;
-	/** Field mapping. */
-	private java.util.UUID projectid;
 	/** Field mapping. */
 	private Set<Referralsource> referralsources = new HashSet<Referralsource>();
 
@@ -1017,100 +1011,29 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	public void setPercentamis(final Set<com.servinglynk.hmis.warehouse.model.v2014.Percentami> percentami) {
 		this.percentamis = percentami;
 	}
-
-	 /**
-	 * Return the value associated with the column: personalid.
-	 * @return A java.util.UUID object (this.personalid)
-	 */
-	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getPersonalid() {
-		return this.personalid;
-		
-	}
-	
-
   
-	 /**  
-	 * Set the value related to the column: personalid.
-	 * @param personalid the personalid value you wish to set
-	 */
-	public void setPersonalid(final java.util.UUID personalid) {
-		this.personalid = personalid;
-	}
-
 	 /**
-	 * Return the value associated with the column: project.
-	 * @return A Set&lt;Project&gt; object (this.project)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Project> getProjects() {
-		return this.projects;
-		
-	}
-	
-	/**
-	 * Adds a bi-directional link of type Project to the projects set.
-	 * @param project item to add
-	 */
-	public void addProject(Project project) {
-		project.setEnrollmentid(this);
-		this.projects.add(project);
-	}
+		 * Return the value associated with the column: projectid.
+		 * @return A Project object (this.projectid)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "project_id", nullable = true )
+		public Project getProject() {
+			return this.project;
 
-  
-	 /**  
-	 * Set the value related to the column: project.
-	 * @param project the project value you wish to set
-	 */
-	public void setProjects(final Set<Project> project) {
-		this.projects = project;
-	}
+		}
 
-	 /**
-	 * Return the value associated with the column: projectentryid.
-	 * @return A java.util.UUID object (this.projectentryid)
-	 */
-	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getProjectentryid() {
-		return this.projectentryid;
-		
-	}
-	
 
-  
-	 /**  
-	 * Set the value related to the column: projectentryid.
-	 * @param projectentryid the projectentryid value you wish to set
-	 */
-	public void setProjectentryid(final java.util.UUID projectentryid) {
-		this.projectentryid = projectentryid;
-	}
 
-	 /**
-	 * Return the value associated with the column: projectid.
-	 * @return A java.util.UUID object (this.projectid)
-	 */
-	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getProjectid() {
-		return this.projectid;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: projectid.
-	 * @param projectid the projectid value you wish to set
-	 */
-	public void setProjectid(final java.util.UUID projectid) {
-		this.projectid = projectid;
-	}
+		 /**
+		 * Set the value related to the column: projectid.
+		 * @param project the projectid value you wish to set
+		 */
+		public void setProject(final Project project) {
+			this.project = project;
+		}
 
 	 /**
 	 * Return the value associated with the column: referralsource.
@@ -1565,12 +1488,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		if (this.getPercentamis() != null) {
 			copy.getPercentamis().addAll(this.getPercentamis());
 		}
-		copy.setPersonalid(this.getPersonalid());
-		if (this.getProjects() != null) {
-			copy.getProjects().addAll(this.getProjects());
-		}
-		copy.setProjectentryid(this.getProjectentryid());
-		copy.setProjectid(this.getProjectid());
+		copy.setProject(this.getProject());
 		if (this.getReferralsources() != null) {
 			copy.getReferralsources().addAll(this.getReferralsources());
 		}
@@ -1626,9 +1544,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		sb.append("monthshomelesspastthreeyears: " + this.getMonthshomelesspastthreeyears() + ", ");
 		sb.append("monthshomelessthistime: " + this.getMonthshomelessthistime() + ", ");
 		sb.append("otherresidenceprior: " + this.getOtherresidenceprior() + ", ");
-		sb.append("personalid: " + this.getPersonalid() + ", ");
-		sb.append("projectentryid: " + this.getProjectentryid() + ", ");
-		sb.append("projectid: " + this.getProjectid() + ", ");
+		sb.append("projectid: " + this.getProject() + ", ");
 		sb.append("relationshiptohoh: " + this.getRelationshiptohoh() + ", ");
 		sb.append("residenceprior: " + this.getResidenceprior() + ", ");
 		sb.append("residencepriorlengthofstay: " + this.getResidencepriorlengthofstay() + ", ");
@@ -1690,9 +1606,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		result = result && (((getMonthshomelesspastthreeyears() == null) && (that.getMonthshomelesspastthreeyears() == null)) || (getMonthshomelesspastthreeyears() != null && getMonthshomelesspastthreeyears().equals(that.getMonthshomelesspastthreeyears())));
 		result = result && (((getMonthshomelessthistime() == null) && (that.getMonthshomelessthistime() == null)) || (getMonthshomelessthistime() != null && getMonthshomelessthistime().equals(that.getMonthshomelessthistime())));
 		result = result && (((getOtherresidenceprior() == null) && (that.getOtherresidenceprior() == null)) || (getOtherresidenceprior() != null && getOtherresidenceprior().equals(that.getOtherresidenceprior())));
-		result = result && (((getPersonalid() == null) && (that.getPersonalid() == null)) || (getPersonalid() != null && getPersonalid().equals(that.getPersonalid())));
-		result = result && (((getProjectentryid() == null) && (that.getProjectentryid() == null)) || (getProjectentryid() != null && getProjectentryid().equals(that.getProjectentryid())));
-		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().equals(that.getProjectid())));
+		result = result && (((getProject() == null) && (that.getProject() == null)) || (getProject() != null && getProject().equals(that.getProject())));
 		result = result && (((getRelationshiptohoh() == null) && (that.getRelationshiptohoh() == null)) || (getRelationshiptohoh() != null && getRelationshiptohoh().equals(that.getRelationshiptohoh())));
 		result = result && (((getResidenceprior() == null) && (that.getResidenceprior() == null)) || (getResidenceprior() != null && getResidenceprior().equals(that.getResidenceprior())));
 		result = result && (((getResidencepriorlengthofstay() == null) && (that.getResidencepriorlengthofstay() == null)) || (getResidencepriorlengthofstay() != null && getResidencepriorlengthofstay().equals(that.getResidencepriorlengthofstay())));

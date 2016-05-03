@@ -842,35 +842,14 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 
 
 	 /**
-	 * Return the value associated with the column: projectentryid.
-	 * @return A java.util.UUID object (this.projectentryid)
-	 */
-	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getProjectentryid() {
-		return this.projectentryid;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: projectentryid.
-	 * @param projectentryid the projectentryid value you wish to set
-	 */
-	public void setProjectentryid(final java.util.UUID projectentryid) {
-		this.projectentryid = projectentryid;
-	}
-
-	 /**
 	 * Return the value associated with the column: projectid.
 	 * @return A Project object (this.projectid)
 	 */
 	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = true )
-	@JoinColumn(name = "projectid", nullable = true )
-	public Project getProjectid() {
+	@JoinColumn(name = "project_id", nullable = true )
+	public Project getProject() {
 		return this.projectid;
 
 	}
@@ -881,7 +860,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Set the value related to the column: projectid.
 	 * @param projectid the projectid value you wish to set
 	 */
-	public void setProjectid(final Project projectid) {
+	public void setProject(final Project projectid) {
 		this.projectid = projectid;
 	}
 
@@ -1144,8 +1123,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		if (this.getPathStatuses() != null) {
 			copy.getPathStatuses().addAll(this.getPathStatuses());
 		}
-		copy.setProjectentryid(this.getProjectentryid());
-		copy.setProjectid(this.getProjectid());
+		copy.setProject(this.getProject());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setRelationshiptohoh(this.getRelationshiptohoh());
 		copy.setResidenceprior(this.getResidenceprior());
@@ -1191,7 +1169,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		sb.append("monthshomelesspastthreeyears: " + this.getMonthshomelesspastthreeyears() + ", ");
 		sb.append("otherresidenceprior: " + this.getOtherresidenceprior() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
-		sb.append("projectentryid: " + this.getProjectentryid() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
 		sb.append("relationshiptohoh: " + this.getRelationshiptohoh() + ", ");
 		sb.append("residenceprior: " + this.getResidenceprior() + ", ");
@@ -1271,8 +1248,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		result = result && (((getMonthshomelesspastthreeyears() == null) && (that.getMonthshomelesspastthreeyears() == null)) || (getMonthshomelesspastthreeyears() != null && getMonthshomelesspastthreeyears().equals(that.getMonthshomelesspastthreeyears())));
 		result = result && (((getOtherresidenceprior() == null) && (that.getOtherresidenceprior() == null)) || (getOtherresidenceprior() != null && getOtherresidenceprior().equals(that.getOtherresidenceprior())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
-		result = result && (((getProjectentryid() == null) && (that.getProjectentryid() == null)) || (getProjectentryid() != null && getProjectentryid().equals(that.getProjectentryid())));
-		result = result && (((getProjectid() == null) && (that.getProjectid() == null)) || (getProjectid() != null && getProjectid().getId().equals(that.getProjectid().getId())));
+		result = result && (((getProject() == null) && (that.getProject() == null)) || (getProject() != null && getProject().getId().equals(that.getProject().getId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getRelationshiptohoh() == null) && (that.getRelationshiptohoh() == null)) || (getRelationshiptohoh() != null && getRelationshiptohoh().equals(that.getRelationshiptohoh())));
 		result = result && (((getResidenceprior() == null) && (that.getResidenceprior() == null)) || (getResidenceprior() != null && getResidenceprior().equals(that.getResidenceprior())));

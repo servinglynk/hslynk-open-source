@@ -43,11 +43,11 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 			 for(Organization organization : organizations)
 			 {
 				 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();
-				 organizationModel.setId(UUID.randomUUID());
+				 UUID id = UUID.randomUUID();
+				 organizationModel.setId(id);
 				 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 				 organizationModel.setOrganizationname(organization.getOrganizationName());
-				  com.servinglynk.hmis.warehouse.model.v2015.Project project =  (com.servinglynk.hmis.warehouse.model.v2015.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
-				  organizationModel.addProject(project);
+				 domain.getOrganizationProjectMap().put(BasicDataGenerator.getStringValue(organization.getOrganizationID()),id);
 				  organizationModel.setDateCreated(LocalDateTime.now());
 				  organizationModel.setDateUpdated(LocalDateTime.now());
 				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));

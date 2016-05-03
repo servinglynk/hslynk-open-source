@@ -18,6 +18,12 @@ public enum EnrollmentMonthshomelesspastthreeyearsEnum {
 	/** Enum Constant. */
 	NINE("9"),
 	/** Enum Constant. */
+	ONE_HUNDRED_TWO("102"),
+	/** Enum Constant. */
+	ONE_HUNDRED_TWELVE("112"),
+	/** Enum Constant. */
+	ONE_HUNDRED_ELEVEN("111"),
+	/** Enum Constant. */
 	NINTY_NINE("99");
 	/**
 	 * Internal storage of status field value, see the Enum spec for

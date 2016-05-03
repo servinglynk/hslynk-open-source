@@ -11,13 +11,11 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
-import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -41,13 +39,13 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 			 for(Organization organization : organizations)
 			 {
 				 com.servinglynk.hmis.warehouse.model.v2014.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
-				 organizationModel.setId(UUID.randomUUID());
+				 UUID id =UUID.randomUUID();
+				 organizationModel.setId(id);
 				 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 				 organizationModel.setOrganizationname(organization.getOrganizationName());
-				  com.servinglynk.hmis.warehouse.model.v2014.Project project =  (com.servinglynk.hmis.warehouse.model.v2014.Project) get(Project.class,domain.getOrganizationProjectMap().get(BasicDataGenerator.getStringValue(organization.getOrganizationID())));
-				  organizationModel.addProject(project);
 				  organizationModel.setDateCreated(LocalDateTime.now());
 				  organizationModel.setDateUpdated(LocalDateTime.now());
+				  domain.getOrganizationProjectMap().put(organization.getOrganizationID(),id);
 				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 				 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 				 organizationModel.setExport(exportEntity);

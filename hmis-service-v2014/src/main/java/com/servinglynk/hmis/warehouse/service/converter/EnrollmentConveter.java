@@ -38,12 +38,6 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(enrollment.getMonthshomelessthistime().toString()));
 		if(enrollment.getOtherresidenceprior()!=null)
 		pEnrollment.setOtherresidenceprior(enrollment.getOtherresidenceprior());
-		if(enrollment.getPersonalid()!=null)
-		pEnrollment.setPersonalid(enrollment.getPersonalid());
-		if(enrollment.getProjectentryid()!=null)
-		pEnrollment.setProjectentryid(enrollment.getProjectentryid());
-		if(enrollment.getProjectid()!=null)
-		pEnrollment.setProjectid(enrollment.getProjectid());
 		if(enrollment.getRelationshiptohoh()!=null)
 		pEnrollment.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(enrollment.getRelationshiptohoh().toString()));
 		if(enrollment.getResidenceprior()!=null)
@@ -73,8 +67,6 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getMonthshomelesspastthreeyears()!=null) enrollment.setMonthshomelesspastthreeyears(Integer.parseInt(pEnrollment.getMonthshomelesspastthreeyears().getValue()));
 		if(pEnrollment.getMonthshomelessthistime()!=null) enrollment.setMonthshomelessthistime(Integer.parseInt(pEnrollment.getMonthshomelessthistime().getValue()));
 		if(pEnrollment.getOtherresidenceprior()!=null) enrollment.setOtherresidenceprior(pEnrollment.getOtherresidenceprior());
-		if(pEnrollment.getPersonalid()!=null) enrollment.setPersonalid(pEnrollment.getPersonalid());
-		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
 		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
 		if(pEnrollment.getResidenceprior()!=null) enrollment.setResidenceprior(Integer.parseInt(pEnrollment.getResidenceprior().getValue()));
 		if(pEnrollment.getResidencepriorlengthofstay()!=null) enrollment.setResidencepriorlengthofstay(Integer.parseInt(pEnrollment.getResidencepriorlengthofstay().getValue()));

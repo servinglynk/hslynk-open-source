@@ -194,7 +194,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: enrollment.
 	 * @return A Set&lt;Enrollment&gt; object (this.enrollment)
 	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "projectid"  )
+ 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "project"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
 	@Column( nullable = false  )
@@ -208,7 +208,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	 * @param enrollment item to add
 	 */
 	public void addEnrollment(Enrollment enrollment) {
-		enrollment.setProjectid(this);
+		enrollment.setProject(this);
 		this.enrollments.add(enrollment);
 	}
 
