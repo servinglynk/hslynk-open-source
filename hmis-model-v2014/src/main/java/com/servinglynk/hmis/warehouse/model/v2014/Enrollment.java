@@ -1315,13 +1315,17 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnumType")
 	@Basic( optional = true )
-	@Column
+	@Column( name = "timesHomelesspastthreeyears"  )
 	public EnrollmentTimeshomelesspastthreeyearsEnum getTimeshomelesspastthreeyears() {
 		return this.timeshomelesspastthreeyears;
 		
 	}
 	
 
+	
+	
+	
+	
   
 	 /**  
 	 * Set the value related to the column: timeshomelesspastthreeyears.

@@ -164,7 +164,7 @@ public class BaseProcessor<T> extends Logging {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE stagv2015.sync SET date_created=?, status=? where date_created=?");
+			statement = connection.prepareStatement("UPDATE v2014.sync SET date_created=?, status=? where date_created=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setString(2, "Initial");
@@ -195,7 +195,7 @@ public class BaseProcessor<T> extends Logging {
 			String value = (String) data.get(key);
 			value = value != null ? value.trim() : "";
 			String mapKey = key.trim() + "_" + value;
-			String hmisType = hmisTypes.get(mapKey.trim());
+			String hmisType = hmisTypes.get(mapKey.trim().toLowerCase());
 			if (StringUtils.isNotEmpty(hmisType)) {
 				//System.out.println("Desc Field::"+key+"_desc");
 				descMap.put(key + "_desc", hmisType.trim());
@@ -226,7 +226,7 @@ public class BaseProcessor<T> extends Logging {
 			while (resultSet.next()) {
 				String name = resultSet.getString(1);
 				String key = name.trim() + "_" + resultSet.getString(2).trim();
-				hmisTypeMap.put(key.trim(), resultSet.getString(3).trim());
+				hmisTypeMap.put(key.trim().toLowerCase(), resultSet.getString(3).trim());
 			}
 			return hmisTypeMap;
 		} catch (SQLException e) {

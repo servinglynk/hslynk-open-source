@@ -3,14 +3,13 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.Properties;
 
 import javax.annotation.Resource;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jndi.JndiObjectFactoryBean;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -135,7 +134,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	
 	@Bean
 	public DataSource dataSource() {
-		
+	/*	
 		JndiObjectFactoryBean jndi=new JndiObjectFactoryBean();
 		jndi.setResourceRef(true);
 		jndi.setJndiName("jdbc/multischema");
@@ -146,16 +145,16 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		}catch (NamingException e) {
 			throw new RuntimeException(e);
 		}
-		return (DataSource)jndi.getObject();
+		return (DataSource)jndi.getObject(); */
 
-		/*DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
 		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
 		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
 		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 		
-		return dataSource;*/
+		return dataSource;
 	}
 	
 	private Properties hibProperties() {

@@ -30,8 +30,8 @@ public class Enrollment extends BaseModel{
 	public UUID personalid;
 	@Column(name="projectentryid")		
 	public UUID projectentryid;
-	@Column(name="projectid")			
-	public UUID projectid;
+	@Column(name="project_id")			
+	public UUID project_id;
 	@Column(name="relationshiptohoh")
 	public String relationshiptohoh;
 	@Column(name="residenceprior")		
@@ -166,17 +166,12 @@ public class Enrollment extends BaseModel{
 	public void setProjectentryid(UUID projectentryid) {
 		this.projectentryid = projectentryid;
 	}
-	/**
-	 * @return the projectid
-	 */
-	public UUID getProjectid() {
-		return projectid;
+	
+	public UUID getProject_id() {
+		return project_id;
 	}
-	/**
-	 * @param projectid the projectid to set
-	 */
-	public void setProjectid(UUID projectid) {
-		this.projectid = projectid;
+	public void setProject_id(UUID project_id) {
+		this.project_id = project_id;
 	}
 	/**
 	 * @return the relationshiptohoh
