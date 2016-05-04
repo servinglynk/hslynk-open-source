@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.client.notificationservice;
 
 import com.servinglynk.hmis.warehouse.client.exception.RestClientHttpException;
-import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.client.model.Notification;
 
 
 

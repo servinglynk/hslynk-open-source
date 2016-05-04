@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
-import com.servinglynk.hmis.warehouse.core.model.JSONHttpMessageConverter;
-import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.client.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.client.model.Notification;
 
 
 
@@ -42,12 +42,12 @@ public class NotificationServiceClient extends CoreClientBase implements INotifi
 			e.printStackTrace();
 		}
 		
-		JSONHttpMessageConverter jhmc = new JSONHttpMessageConverter();
-		jhmc.setObjectMapper(new JSONObjectMapper());
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setObjectMapper(new JSONObjectMapper());
 
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 		messageConverters.add(createXmlHttpMessageConverter());
-		messageConverters.add(jhmc);
+		messageConverters.add(converter);
 
 		restTemplate.setMessageConverters(messageConverters);
 		
