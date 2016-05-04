@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.client.authorizationservice;
 
 import com.servinglynk.hmis.warehouse.client.exception.RestClientHttpException;
-import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
+import com.servinglynk.hmis.warehouse.client.model.ApiMethodAuthorizationCheck;
 
 
 

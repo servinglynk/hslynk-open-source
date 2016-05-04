@@ -3,11 +3,8 @@ package com.servinglynk.hmis.warehouse.client.authorizationservice;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,7 +14,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.client.support.RestGatewaySupport;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,10 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
-import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
-import com.servinglynk.hmis.warehouse.core.model.JSONHttpMessageConverter;
-import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
+import com.servinglynk.hmis.warehouse.client.model.ApiMethodAuthorizationCheck;
 
 
 
@@ -54,7 +47,6 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 		jhmc.setObjectMapper(new JSONObjectMapper());*/
 		
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		//converter.set
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
@@ -71,10 +63,9 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 		restTemplate.setMessageConverters(messageConverters);
 
 		HttpEntity entity = new HttpEntity(headers);
-		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange(coreClientConfig.getAuthorizationServiceUrl() + "/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
+		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange("http://localhost:8080/hmis-user-service/rest"+ "/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
 
-      System.out.println(response.getBody());
-		return null;
+		return response.getBody();
 	}
 	
 	private HttpMessageConverter<Object> createXmlHttpMessageConverter() {
