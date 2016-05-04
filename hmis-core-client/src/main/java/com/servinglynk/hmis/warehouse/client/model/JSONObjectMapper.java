@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+@SuppressWarnings("serial")
 public class JSONObjectMapper extends ObjectMapper{
 	public JSONObjectMapper() {
 		super();
