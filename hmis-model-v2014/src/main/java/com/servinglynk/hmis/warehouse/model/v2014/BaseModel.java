@@ -15,7 +15,8 @@ public abstract class BaseModel implements Entity{
 	@Column(name = "created_by")
 	protected String createdBy;
 	@Column(name = "modified_at")
-	protected Date modifiedAt;	
+	protected Date modifiedAt;
+	
 	@Column(name = "modified_by")
 	protected String modifiedBy;
 /*	protected abstract void setId(Long id);

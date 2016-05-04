@@ -134,7 +134,7 @@ CREATE TYPE "v2014".address_data_quality AS ENUM ('1', '2', '8','9','99');
 
 CREATE TYPE "v2014".veteran_status AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "v2014".race AS ENUM ('1', '2','3','4','5','8','9','99');
-CREATE TYPE "v2014".gender AS ENUM ('1', '2','3','4','8','9','99');
+CREATE TYPE "v2014".gender AS ENUM ('0','1', '2','3','4','8','9','99');
 CREATE TYPE "v2014".ethnicity AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "v2014".afghanistanoef AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "v2014".desertstorm AS ENUM ('0', '1', '8','9','99');
@@ -164,7 +164,7 @@ CREATE TYPE "v2014".issues_number_of_years AS ENUM ('1','2','3');
 CREATE TYPE "v2014".last_grade_completed  AS ENUM ('1','2','3','4','5','6','7','10','8','9','99');
 CREATE TYPE "v2014".military_branch AS ENUM ('1','2','3','4','6','8','9','99');
 CREATE TYPE "v2014".months_homeless_past_3_years AS ENUM ('7','8','9','99','100','101','102','103','104','105','106','107','108','109','110','111','112');
-CREATE TYPE "v2014".months_homeless_this_time AS ENUM ('100','99','101','0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34');
+CREATE TYPE "v2014".months_homeless_this_time AS ENUM ('100','99','0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','101','102','103','104','105','106','107','108','109','110','111','112');
 
 CREATE TYPE "v2014".no_adap_reason AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2014".no_health_insurance_reason AS ENUM ('1','2','3','4','8','9','99');
@@ -648,6 +648,8 @@ INSERT INTO "v2014".hmis_type (name,value,description,status) values ('destinati
  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');
  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','4','Other');
  INSERT INTO "v2014".hmis_type (name,value,description,status) values ('reason_no_services','99','Data not collected','ACTIVE'); 
+
+ INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('gender','0','Female','ACTIVE');
  INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('gender','1','Male','ACTIVE');
  INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('gender','2','Transgender male to female','ACTIVE');
  INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('gender','3','Transgender female to male','ACTIVE');
@@ -720,7 +722,7 @@ INSERT INTO "v2014".hmis_type (name,status,value,description) values ('childwelf
   INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('military_branch','9','Client refused','ACTIVE');
   INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('military_branch','99','Data not collected','ACTIVE');
   
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','100','0 to 12 months (with a leading 1)');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','100','0 months');
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','101','1 month');
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','102','2 months');
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','103','3 months');
@@ -739,9 +741,21 @@ INSERT INTO "v2014".hmis_type (name,status,value,description) values ('childwelf
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','9','Client refused','ACTIVE');
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','99','Data not collected','ACTIVE');
     
-    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','101','0 to 12 months (with a leading 1)');
-    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','100','0 to 12 months (with a leading 1)');
+    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','100','0 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','101','1 month');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','102','2 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','103','3 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','104','4 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','105','5 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','106','6 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','107','7 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','108','8 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','109','9 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','110','10 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','111','11 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','112','12 months');
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','7','More than 12 months');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','1','More than 12 months');
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','8','Client does not know','ACTIVE');
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','9','Client refused','ACTIVE');
     INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','99','Data not collected','ACTIVE');
@@ -946,9 +960,9 @@ INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('race','9
  INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');  
  
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','1','Self (head of household)'); 
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','2','Head of household’s child'); 
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','3','Head of household’s spouse or partner');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','4','Head of household’s other relation member (other relation to head of household)');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','2','Head of household''s child'); 
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','3','Head of household''s spouse or partner');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','4','Head of household''s other relation member (other relation to head of household)');
   INSERT INTO "v2014".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','5','Other: non-relation member');
   
   
@@ -961,22 +975,22 @@ INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('race','9
    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','7','Jail, prison or juvenile detention facility'); 
    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','8','Client does not know');
    INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','9','Client refused'); 
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','13','Staying or living in a friend’s room, apartment or house');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher'); 
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','15','Foster care home or foster care group home');                         
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','16','Place not meant for habitation (e.g. a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','17','Other');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','18','Safe Haven');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','19','Rental by client, with VASH subsidy');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','20','Rental by client, with other ongoing housing subsidy');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','21','Owned by client, with ongoing housing subsidy'); 
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','22','Rental by client, no ongoing housing subsidy');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','23','Owned by client, no ongoing housing subsidy'); 
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','24','Long-term care facility or nursing home');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','25','Rental by client, with GPD TIP subsidy');
-  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','26','Residential project or halfway house with no homeless criteria');
-  INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','13','Staying or living in a friend’s room, apartment or house');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher'); 
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','15','Foster care home or foster care group home');                         
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','16','Place not meant for habitation (e.g. a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','17','Other');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','18','Safe Haven');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','19','Rental by client, with VASH subsidy');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','20','Rental by client, with other ongoing housing subsidy');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','21','Owned by client, with ongoing housing subsidy'); 
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','22','Rental by client, no ongoing housing subsidy');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','23','Owned by client, no ongoing housing subsidy'); 
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','24','Long-term care facility or nursing home');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','25','Rental by client, with GPD TIP subsidy');
+  INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','26','Residential project or halfway house with no homeless criteria');
+  INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('residencePrior','99','Data not collected','ACTIVE');
   
   
      INSERT INTO "v2014".hmis_type (name,status,value,description) values ('residencepriorlengthofstay','ACTIVE','2','More than one week, but less than one month'); 
@@ -1001,11 +1015,11 @@ INSERT INTO "v2014".hmis_type (name,value,description,status)  values ('race','9
 
  
           
-        INSERT INTO "v2014".hmis_type (name,value,description,status) values ('ssndataquality','1','Full SSN reported','ACTIVE');
-        INSERT INTO "v2014".hmis_type (name,value,description,status) values   ('ssndataquality','2','Approximate or partial SSN reported','ACTIVE');
-        INSERT INTO "v2014".hmis_type (name,value,description,status) values    ('ssndataquality','8','Client does not know','ACTIVE');
-        INSERT INTO "v2014".hmis_type  (name,value,description,status) values  ('ssndataquality','9','Client refused','ACTIVE');
-        INSERT INTO "v2014".hmis_type  (name,value,description,status) values ('ssndataquality','99','Data not collected','ACTIVE');
+        INSERT INTO "v2014".hmis_type (name,value,description,status) values ('ssn_data_quality','1','Full SSN reported','ACTIVE');
+        INSERT INTO "v2014".hmis_type (name,value,description,status) values   ('ssn_data_quality','2','Approximate or partial SSN reported','ACTIVE');
+        INSERT INTO "v2014".hmis_type (name,value,description,status) values    ('ssn_data_quality','8','Client does not know','ACTIVE');
+        INSERT INTO "v2014".hmis_type  (name,value,description,status) values  ('ssn_data_quality','9','Client refused','ACTIVE');
+        INSERT INTO "v2014".hmis_type  (name,value,description,status) values ('ssn_data_quality','99','Data not collected','ACTIVE');
         
         
         INSERT INTO "v2014".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','1','Without a subsidy');
@@ -1090,7 +1104,7 @@ create table "v2014".source
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
   constraint "source_pkey" primary key (id)
@@ -1116,7 +1130,7 @@ create table "v2014".export
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
   constraint "export_pkey" primary key (id),
@@ -1143,7 +1157,7 @@ CREATE TABLE "v2014".client
   "dob" timestamp,
   "dob_data_quality" "v2014".dob_data_quality,
   "gender" "v2014".gender,
-  "other_gender" character(10),
+  "other_gender" text,
   "ethnicity" "v2014".ethnicity,
   "race"  "v2014".race,
   "veteran_status" "v2014".veteran_status,
@@ -1155,7 +1169,7 @@ CREATE TABLE "v2014".client
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1195,7 +1209,7 @@ CREATE TABLE "v2014".veteran_info
   "client_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1220,7 +1234,7 @@ create table "v2014".organization
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-version integer,
+version integer,source_system_id text,
 deleted boolean DEFAULT false,active boolean DEFAULT true,
 sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1250,7 +1264,7 @@ CREATE TABLE  "v2014".project
   user_id uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1275,7 +1289,7 @@ householdid uuid,
 housingstatus "v2014".housing_status,
 monthsHomelessPastThreeYears "v2014".months_homeless_past_3_years,
 monthsHomelessThisTime "v2014".months_homeless_this_time,
-otherresidenceprior character varying(50),
+otherresidenceprior text,
 relationshiptohoh "v2014".relationship_to_head_of_household,
 residencePrior "v2014".residence_prior,
 residencePriorlengthofstay "v2014".residence_prior_length_of_stay,
@@ -1292,7 +1306,7 @@ date_updated timestamp,
 user_id uuid,
 export_id uuid,
 parent_id uuid,
-version integer,
+version integer,source_system_id text,
 deleted boolean DEFAULT false,active boolean DEFAULT true,
 sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1322,7 +1336,7 @@ CREATE TABLE "v2014".path_status
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1352,7 +1366,7 @@ CREATE TABLE "v2014".rhybcp_status
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1386,7 +1400,7 @@ CREATE TABLE "v2014".last_perm_address
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1416,7 +1430,7 @@ CREATE TABLE "v2014".percent_ami
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1444,7 +1458,7 @@ CREATE TABLE "v2014".schoolstatus
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1474,7 +1488,7 @@ CREATE TABLE "v2014".employment
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1504,7 +1518,7 @@ CREATE TABLE "v2014".health_status
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1533,7 +1547,7 @@ CREATE TABLE "v2014".affiliation
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1564,7 +1578,7 @@ CREATE TABLE "v2014".bedinventory
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1593,7 +1607,7 @@ create table "v2014".projectcoc
    user_id uuid,
    export_id uuid,
    parent_id uuid,
-   version integer,
+   version integer,source_system_id text,
    deleted boolean DEFAULT false,active boolean DEFAULT true,
    sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1620,7 +1634,7 @@ CREATE TABLE "v2014".enrollment_coc
   user_id uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1657,7 +1671,7 @@ date_updated timestamp,
 user_id uuid,
 export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1694,7 +1708,7 @@ create table "v2014".inventory
   user_id uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1733,7 +1747,7 @@ create table  "v2014".funder
   user_id uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1762,7 +1776,7 @@ create table "v2014".rhybcpstatus
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1792,7 +1806,7 @@ create table "v2014".sexualorientation
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,  
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1820,7 +1834,7 @@ create table "v2014".formerwardjuvenilejustice
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1852,7 +1866,7 @@ create table "v2014".lastpermanentaddress
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1878,7 +1892,7 @@ create table "v2014".percentami
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1911,7 +1925,7 @@ create table "v2014".medicalassistance
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1963,7 +1977,7 @@ create table "v2014".youthcriticalissues
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -1993,7 +2007,7 @@ create table  "v2014".worsthousingsituation
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2021,7 +2035,7 @@ create table "v2014".formerwardchildwelfare
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2050,7 +2064,7 @@ create table "v2014".lastgradecompleted
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2078,7 +2092,7 @@ create table "v2014".referralsource
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2107,7 +2121,7 @@ create table "v2014".commercialsexualexploitation
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-version integer,
+version integer,source_system_id text,
 deleted boolean DEFAULT false,active boolean DEFAULT true,
 sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2138,7 +2152,7 @@ create table "v2014".domesticviolence
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2174,7 +2188,7 @@ create table "v2014".disabilities
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2204,7 +2218,7 @@ create table  "v2014".residentialmoveindate
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2233,7 +2247,7 @@ create table  "v2014".dateofengagement
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2266,7 +2280,7 @@ create table "v2014".services
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2327,7 +2341,7 @@ create table "v2014".incomeandsources
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false, 
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2366,7 +2380,7 @@ create table "v2014".noncashbenefits
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2412,7 +2426,7 @@ create table "v2014".healthinsurance
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2440,7 +2454,7 @@ create table "v2014".exit
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2468,7 +2482,7 @@ create table  "v2014".exithousingassessment
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2506,7 +2520,7 @@ create table  "v2014".exitplansactions
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2538,7 +2552,7 @@ create table "v2014".housingassessmentdisposition
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2565,7 +2579,7 @@ create table "v2014".familyreunification
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2593,7 +2607,7 @@ create table "v2014".connectionwithsoar
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2625,7 +2639,7 @@ create table "v2014".projectcompletionstatus
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true,
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2671,7 +2685,7 @@ CREATE TABLE "v2014".bulk_upload
   "date_updated" timestamp,
   "user_id" uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2697,7 +2711,7 @@ create table "v2014".bulk_upload_mapping
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
      CONSTRAINT export_fkey FOREIGN KEY (export_id)
@@ -2719,7 +2733,7 @@ create table "v2014".bulk_upload_activity
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,
-  version integer,
+  version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
      CONSTRAINT export_fkey FOREIGN KEY (export_id)

@@ -371,7 +371,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.otherGender)
 	 */
 	@Basic( optional = true )
-	@Column( name = "other_gender", length = 10  )
+	@Column( name = "other_gender"  )
 	public String getOtherGender() {
 		return this.otherGender;
 		

@@ -22,6 +22,8 @@ public class BaseModel {
 	public boolean deleted;
 	@Column(name="project_group_code")
 	public String project_group_code;
+	@Column(name="source_system_id")
+	public String source_system_id;
 	
 	/**
 	 * @return the id
@@ -95,6 +97,12 @@ public class BaseModel {
 	}
 	public void setDate_updated_from_source(Timestamp date_updated_from_source) {
 		this.date_updated_from_source = date_updated_from_source;
+	}
+	public String getSource_system_id() {
+		return source_system_id;
+	}
+	public void setSource_system_id(String source_system_id) {
+		this.source_system_id = source_system_id;
 	}
 	
 }

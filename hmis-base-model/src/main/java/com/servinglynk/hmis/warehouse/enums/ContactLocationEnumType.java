@@ -11,8 +11,9 @@ import org.hibernate.engine.spi.SessionImplementor;
 
 import com.servinglynk.hmis.warehouse.util.GenericEnumType;
 
-public class ContactLocationEnumType  extends GenericEnumType<String, ContactLocationEnum> {
-	public ContactLocationEnumType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+public class ContactLocationEnumType extends GenericEnumType<String, ContactLocationEnum> {
+	public ContactLocationEnumType() throws NoSuchMethodException, InvocationTargetException,
+			IllegalAccessException {
 		super(ContactLocationEnum.class, ContactLocationEnum.values(), "getValue", Types.OTHER);
 	}
 
@@ -27,6 +28,4 @@ public class ContactLocationEnumType  extends GenericEnumType<String, ContactLoc
 			throws HibernateException, SQLException {
 		nullSafeSet(st, value, index);
 	}
-
-
 }

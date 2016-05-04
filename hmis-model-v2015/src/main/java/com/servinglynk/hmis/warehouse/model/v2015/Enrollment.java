@@ -792,7 +792,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * @return A String object (this.otherresidenceprior)
 	 */
 	@Basic( optional = true )
-	@Column( length = 50  )
+	@Column
 	public String getOtherresidenceprior() {
 		return this.otherresidenceprior;
 

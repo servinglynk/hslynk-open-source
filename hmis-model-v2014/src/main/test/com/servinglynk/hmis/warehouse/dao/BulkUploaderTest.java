@@ -69,7 +69,17 @@ public class BulkUploaderTest {
 		bullkUpload.setProjectGroupCode("CP0004");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 	}
-	
+	@Test
+	public void testAnotherxmlBigFile() throws Exception
+	{
+		BulkUpload bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_29.xml");
+		bullkUpload.setId(5L);
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("JP0005");
+		bullkUpload.setProjectGroupCode("JP0005");
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+	}
 	
 	@Test
 	public void testDeleted() throws Exception {

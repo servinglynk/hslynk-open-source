@@ -8,7 +8,8 @@ import java.util.HashMap;
  *
  */
 public enum ClientGenderEnum {
-
+	/** Enum Constant. */
+	ZERO("0"),
 	/** Enum Constant. */
 	ONE("1"),
 	/** Enum Constant. */

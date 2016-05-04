@@ -34,7 +34,7 @@ public class FromPostgres extends Logging{
 
 		log.info("Create tables in HBASE");
 		long startCreateTables = System.nanoTime();
-		CreateTable.createTables();
+		CreateTable.createTables(uploads.get(0).getProjectGroupCode());
 		log.info("Time taken to complete create table in seconds: " +
 				TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startCreateTables) / 1000);
 

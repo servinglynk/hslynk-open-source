@@ -451,6 +451,64 @@ CREATE TYPE "v2015".state AS ENUM (
 'AA',
 'AE',
 'AP');
+-- Newly created ENUMS -- Starts
+CREATE TYPE "v2015".percent_ami  AS ENUM ('1','2','3','99');
+CREATE TYPE "v2015".connection_with_soar  AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".contact_location  AS ENUM ('1','2','3');
+
+CREATE TYPE "v2015".written_after_care_plan  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".assistance_main_stream_benefits  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".permanent_housing_placement  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".temporary_shelter_placement  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".exit_counseling  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".further_followup_services  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".scheduled_followup_contacts  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".resource_package  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".other_after_care_planoraction  AS ENUM ('0','1','2','99');
+CREATE TYPE "v2015".family_reunification_achieved  AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".project_completion_status  AS ENUM ('1','2','3',99);
+CREATE TYPE "v2015".early_exit_reason  AS ENUM ('1','2','3','4','5','6','99');
+
+
+CREATE TYPE "v2015".active_military_parent AS ENUM ('0','1','99');
+CREATE TYPE "v2015".household_dynamics AS ENUM ('0','1','99');
+CREATE TYPE "v2015".insufficient_income AS ENUM ('0','1','99'); 
+CREATE TYPE "v2015".alcohol_drug_abuse_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".alcohol_drug_abuse_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".abuse_and_neglect_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".abuse_and_neglect_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".mental_disability_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".mental_disability_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".physical_disability_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".physical_disability_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".health_issues_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".health_issues_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".mental_health_issues_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".mental_health_issues_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".unemployment_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".school_educational_issues_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".school_educational_issues_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".unemployment_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".incarcerated_parent AS ENUM ('0','1','99');
+CREATE TYPE "v2015".housing_issues_fam AS ENUM ('0','1','99');
+CREATE TYPE "v2015".housing_issues_youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".sexual_orientation_gender_identity_Youth AS ENUM ('0','1','99');
+CREATE TYPE "v2015".sexual_orientation_gender_id_fam AS ENUM ('0','1','99');
+
+CREATE TYPE "v2015".child_welfare_years AS ENUM ('1','2','3');
+CREATE TYPE "v2015".juvenile_justice_years AS ENUM ('1','2','3');
+
+CREATE TYPE "v2015".former_ward_child_welfare AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".former_ward_juvenile_justice AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".asked_or_forced_to_exchange_for_sex_past_three_months AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".exchange_for_sex_past_three_months AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".coerced_to_continue_work AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".work_place_promise_difference AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".work_place_violence_threats AS ENUM ('0','1','8','9','99');
+
+CREATE TYPE "v2015".incarcerated_parent_status AS ENUM ('1','2','3','99');
+CREATE TYPE "v2015".count_of_exchange_for_sex AS ENUM ('1','2','3','4','8','9','99');
+CREATE TYPE "v2015".asked_or_forced_to_exchange_for_sex AS ENUM ('0','1','8','9','99');
 
 CREATE TABLE "v2015".hmis_type
 (
@@ -739,12 +797,45 @@ INSERT INTO "v2015".hmis_type (name,status,value,description) values ('childwelf
   INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('military_branch','9','Client refused','ACTIVE');
   INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('military_branch','99','Data not collected','ACTIVE');
   
-  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','100','0 to 12 months (with a leading 1)');
+ 
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','100','0 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','101','1 month');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','102','2 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','103','3 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','104','4 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','105','5 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','106','6 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','107','7 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','108','8 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','109','9 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','110','10 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','111','11 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','112','12 months');
   INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','7','More than 12 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','1','More than 12 months');
     INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','8','Client does not know','ACTIVE');
     INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','9','Client refused','ACTIVE');
     INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','99','Data not collected','ACTIVE');
-  
+    
+    INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','100','0 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','101','1 month');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','102','2 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','103','3 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','104','4 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','105','5 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','106','6 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','107','7 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','108','8 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','109','9 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','110','10 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','111','11 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','112','12 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','7','More than 12 months');
+  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','1','More than 12 months');
+    INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','8','Client does not know','ACTIVE');
+    INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','9','Client refused','ACTIVE');
+    INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','99','Data not collected','ACTIVE');
+    
   INSERT INTO "v2015".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','1','Full name reported'); 
   INSERT INTO "v2015".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','2','Partial, street name, or code name reported');  
     INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('name_data_quality','8','Client does not know','ACTIVE');  
@@ -988,13 +1079,12 @@ INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('race','9
     INSERT INTO "v2015".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','11','Two days to one week'); 
    INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('residencePriorlengthofstay','99','Data not collected','ACTIVE'); 
  
-          
-        INSERT INTO "v2015".hmis_type (name,value,description,status) values ('ssndataquality','1','Full SSN reported','ACTIVE');
-        INSERT INTO "v2015".hmis_type (name,value,description,status) values   ('ssndataquality','2','Approximate or partial SSN reported','ACTIVE');
-        INSERT INTO "v2015".hmis_type (name,value,description,status) values    ('ssndataquality','8','Client does not know','ACTIVE');
-        INSERT INTO "v2015".hmis_type  (name,value,description,status) values  ('ssndataquality','9','Client refused','ACTIVE');
-        INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('ssndataquality','99','Data not collected','ACTIVE');
-        
+         INSERT INTO "v2015".hmis_type (name,value,description,status) values ('ssn_data_quality','1','Full SSN reported','ACTIVE');
+        INSERT INTO "v2015".hmis_type (name,value,description,status) values   ('ssn_data_quality','2','Approximate or partial SSN reported','ACTIVE');
+        INSERT INTO "v2015".hmis_type (name,value,description,status) values    ('ssn_data_quality','8','Client does not know','ACTIVE');
+        INSERT INTO "v2015".hmis_type  (name,value,description,status) values  ('ssn_data_quality','9','Client refused','ACTIVE');
+        INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('ssn_data_quality','99','Data not collected','ACTIVE');
+      
         
         INSERT INTO "v2015".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','1','Without a subsidy');
         INSERT INTO "v2015".hmis_type (name,status,value,description) values ('subsidyinformation','ACTIVE','2','With the subsidy they had at project entry');
@@ -1056,6 +1146,252 @@ INSERT INTO "v2015".hmis_type (name,value,description,status) values ('afghanist
 INSERT INTO "v2015".hmis_type (name,value,description,status) values    ('afghanistan_oef','8','Client does not know','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values  ('afghanistan_oef','9','Client refused','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('afghanistan_oef','99','Data not collected','ACTIVE');
+
+-- New ENUMS Insert Starts
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percent_ami','1','Less than 30%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percent_ami','2','30% to 50%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percent_ami','3','Greater than 50%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percent_ami','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','0','No%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','1','Place not meant for habitation','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','2','Service setting, non-residential','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','3','Service setting, residential','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('permanent_housing_placement','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('permanent_housing_placement','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('permanent_housing_placement','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('permanent_housing_placement','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('temporary_shelter_placement','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('temporary_shelter_placement','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('temporary_shelter_placement','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('temporary_shelter_placement','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exit_counseling','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exit_counseling','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exit_counseling','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exit_counseling','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('further_followup_services','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('further_followup_services','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('further_followup_services','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('further_followup_services','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('resource_package','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('resource_package','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('resource_package','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('resource_package','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('other_after_care_planoraction','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('other_after_care_planoraction','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('other_after_care_planoraction','2','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('other_after_care_planoraction','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('family_reunification_achieved','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('family_reunification_achieved','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('family_reunification_achieved','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('family_reunification_achieved','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('family_reunification_achieved','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('project_completion_status','1','Completed project','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('project_completion_status','2','Youth voluntarily left early','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('project_completion_status','3','Youth was expelled or otherwise involuntarily discharged from project','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('project_completion_status','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','1','if 4.37A: Left for other opportunities â€“ Independent living *OR* if 4.37B: Criminal activity/destruction of property/violence','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','2','if 4.37A: Left for other opportunities - Education *OR* if 4.37B: Non-compliance with project rules','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','3','if 4.37A: Left for other opportunities - Military *OR* if 4.37B: Non-payment of rent/occupancy charge','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','4','if 4.37A: Left for other opportunities - Other *OR* if 4.37B: Reached maximum time allowed by project','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','5','if 4.37A: Needs could not be met by project *OR* if 4.37B: Project terminated','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','6','4.37B only: Unknown/disappeared','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('early_exit_reason','99','both 4.37A and 4.37B: Data not collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('active_military_parent','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('active_military_parent','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('active_military_parent','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('household_dynamics','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('household_dynamics','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('household_dynamics','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('insufficient_income','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('insufficient_income','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('insufficient_income','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('abuse_and_neglect_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('abuse_and_neglect_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('abuse_and_neglect_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('abuse_and_neglect_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('abuse_and_neglect_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('abuse_and_neglect_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_disability_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_disability_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_disability_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_disability_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_disability_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_disability_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('physical_disability_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('physical_disability_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('physical_disability_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('physical_disability_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('physical_disability_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('physical_disability_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('health_issues_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('health_issues_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('health_issues_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('health_issues_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('health_issues_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('health_issues_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_health_issues_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_health_issues_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_health_issues_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_health_issues_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_health_issues_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('mental_health_issues_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('unemployment_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('unemployment_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('unemployment_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('school_educational_issues_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('school_educational_issues_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('school_educational_issues_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('school_educational_issues_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('school_educational_issues_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('school_educational_issues_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('unemployment_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('unemployment_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('unemployment_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('housing_issues_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('housing_issues_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('housing_issues_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('housing_issues_youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('housing_issues_youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('housing_issues_youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_identity_Youth','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_identity_Youth','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_identity_Youth','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_id_fam','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_id_fam','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_id_fam','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('child_welfare_years','1','Less than one year','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('child_welfare_years','2','Less than one year','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('child_welfare_years','3','3 to 5 or more years','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('juvenile_justice_years','1','Less than one year','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('juvenile_justice_years','2','Less than one year','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('juvenile_justice_years','3','3 to 5 or more years','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_child_welfare','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_child_welfare','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_child_welfare','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_child_welfare','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_child_welfare','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_juvenile_justice','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_juvenile_justice','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_juvenile_justice','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_juvenile_justice','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('former_ward_juvenile_justice','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_promise_difference','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_promise_difference','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_promise_difference','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_promise_difference','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_promise_difference','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_violence_threats','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_violence_threats','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_violence_threats','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_violence_threats','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('work_place_violence_threats','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','1','One parent / legal guardian is incarcerated','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','2','One parent / legal guardian is incarcerated','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','3','The only parent / legal guardian is incarceratedt','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','1','1-3','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','2','4-7','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','3','8-11','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','4','12 or more','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','99','Data Not Collected','ACTIVE');
+
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','0','No','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','1','Yes','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','99','Data Not Collected','ACTIVE');
 
 create table "v2015".source
 (
@@ -1193,7 +1529,7 @@ CREATE TABLE "v2015".client
   "dob" timestamp,
   "dob_data_quality" "v2015".dob_data_quality,
   "gender" "v2015".gender,
-  "other_gender" character(10),
+  "other_gender" text,
   "ethnicity" "v2015".ethnicity,
   "race"  "v2015".race,
   "veteran_status" "v2015".veteran_status,
@@ -1265,7 +1601,7 @@ CREATE TABLE "v2015".enrollment
 	entrydate timestamp,
 	householdid uuid,
 	relationshiptohoh "v2015".relationship_to_head_of_household,
-	otherresidenceprior character varying(50),
+	otherresidenceprior text,
 	residencePrior "v2015".residence_prior,
 	residencePriorlengthofstay "v2015".residence_prior_length_of_stay,
 	disablingCondition "v2015".five_val_dk_refused,
@@ -2356,18 +2692,18 @@ create table "v2015".exitRHY
 (
 	"id" uuid not null, 
 	"exitid" uuid,
-	project_completion_status integer,
-	early_exit_reason integer,
-	family_reunification_achieved integer,
-	written_after_care_plan integer,
-	assistance_main_stream_benefits integer,
-	permenant_housing_placement integer,
-	temp_shelter_placement integer,
-	exit_counseling integer,
-	further_followup_services integer,
-	scheduled_followup_contacts integer,
-	resource_package integer,
-	other_aftercare_plan_or_action integer,
+	"project_completion_status" "v2015".project_completion_status,
+	"early_exit_reason" "v2015".early_exit_reason,
+	"family_reunification_achieved" "v2015".family_reunification_achieved,
+	"written_after_care_plan" "v2015".written_after_care_plan,
+	"assistance_main_stream_benefits" "v2015".assistance_main_stream_benefits,
+	"permenant_housing_placement" "v2015".permanent_housing_placement,
+	"temp_shelter_placement" "v2015".temporary_shelter_placement,
+	"exit_counseling" "v2015".exit_counseling,
+	"further_followup_services" "v2015".further_followup_services,
+	"scheduled_followup_contacts" "v2015".scheduled_followup_contacts,
+	"resource_package" "v2015".resource_package,
+	"other_aftercare_plan_or_action" "v2015".other_after_care_planoraction,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,

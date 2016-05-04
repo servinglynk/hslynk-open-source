@@ -1,22 +1,23 @@
 package com.servinglynk.hmis.warehouse.enums;
-
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Defines the ContactLocationEnum enumeration.
+ * 
+ * @author Sandeep Dolia
+ *
+ */
 public enum ContactLocationEnum {
+	
 
 	/** Enum Constant. */
 	ONE("1"),
 	/** Enum Constant. */
 	TWO("2"),
 	/** Enum Constant. */
-	THREE("3"),
-	/** Enum Constant. */
-	EIGHT("8"),
-	/** Enum Constant. */
-	NINE("9"),
-	/** Enum Constant. */
-	NINTY_NINE("99");
+	THREE("3");
+		
+	
 	/**
 	 * Internal storage of status field value, see the Enum spec for
  	 * clarification.

@@ -84,6 +84,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 		baseModel.setActive(false);
+		baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
 //		  if(i % batchSize() == 0 && i > 0) {
 //              getCurrentSession().flush();
 //              getCurrentSession().clear();

@@ -25,7 +25,7 @@ public class Client extends BaseModel {
 	@Column(name="ssn_data_quality")
 	public String ssn_data_quality;
 	@Column(name="dob")		
-	public String dob;
+	public Date dob;
 	@Column(name="dob_data_quality")
 	public String dob_data_quality;
 	@Column(name="gender")	
@@ -87,10 +87,10 @@ public class Client extends BaseModel {
 	public void setSsn_data_quality(String ssn_data_quality) {
 		this.ssn_data_quality = ssn_data_quality;
 	}
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 	public String getDob_data_quality() {

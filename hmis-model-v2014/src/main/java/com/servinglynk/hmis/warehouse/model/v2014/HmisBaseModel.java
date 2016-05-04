@@ -27,6 +27,7 @@ public abstract class HmisBaseModel implements Entity{
 	/** Field mapping. */
 	protected String projectGroupCode;
 	private UUID userId;
+	private String sourceSystemId;
 	 /**
 		 * Return the value associated with the column: dateCreated.
 		 * @return A LocalDateTime object (this.dateCreated)
@@ -150,5 +151,15 @@ public abstract class HmisBaseModel implements Entity{
 
 			public void setUserId(UUID user) {
 				this.userId = user;
+			}
+			
+			@Basic( optional = true )
+			@Column( name = "source_system_id", nullable = true  )
+			public String getSourceSystemId() {
+				return sourceSystemId;
+			}
+
+			public void setSourceSystemId(String sourceId) {
+				this.sourceSystemId = sourceId;
 			}
 }
