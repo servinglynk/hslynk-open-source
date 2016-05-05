@@ -88,6 +88,7 @@ public class BaseProcessor<T> extends Logging {
 			table.close();
 			hBaseImport.closeAdmin();
 		}
+		updateSyncFlag(tableName, upload.getExportId());
 	}
 
 	private List<T> getPojoData(BulkUpload upload, String tableName, Class<T> class1) {
@@ -252,24 +253,23 @@ public class BaseProcessor<T> extends Logging {
 	 *
 	 * @return
 	 */
-	public static List<BulkUpload> getExportIDFromBulkUpload() {
+	public static BulkUpload getExportIDFromBulkUpload() {
 		ResultSet resultSet = null;
-		UUID exportId = null;
-		String projectGroupCode = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
 		List<BulkUpload> uploads = new ArrayList<BulkUpload>();
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("SELECT export_id,project_group_code FROM base.bulk_upload where status='STAGING'");
+			statement = connection.prepareStatement("SELECT export_id,project_group_code,id FROM base.bulk_upload where status='STAGING'");
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
 				BulkUpload upload = new BulkUpload();
 				upload.setExportId(UUID.fromString(resultSet.getString(1)));
-				upload.setProjectGroupCode(projectGroupCode = resultSet.getString(2));
+				upload.setProjectGroupCode(resultSet.getString(2));
+				upload.setId(resultSet.getLong(3));
 				uploads.add(upload);
 			}
-			return uploads;
+			return uploads.get(0);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -355,17 +355,43 @@ public class BaseProcessor<T> extends Logging {
 			}
 		}
 	}
-
+	public void updateBulkUpload(Long id) {
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement("UPDATE v2014.sync SET date_updated=?, status=? where id =?");
+			Timestamp currentTimestamp = getCUrrentTimestamp();
+			statement.setTimestamp(1, currentTimestamp);
+			statement.setString(2, "LIVE");
+			statement.setLong(3, id);
+			int status = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	public void updateSyncFlag(String tableName, UUID id) {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE v2014." + tableName + " SET date_updated=?, sync=? where id=?");
+			statement = connection.prepareStatement("UPDATE v2014." + tableName + " SET date_updated=?, sync=?,active=? where export_id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setBoolean(2, true);
-			statement.setObject(3, id);
+			statement.setBoolean(3, true);
+			statement.setObject(4, id);
 			int status = statement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -383,7 +409,57 @@ public class BaseProcessor<T> extends Logging {
 		}
 	}
 
-	public static Map<String, Class<? extends BaseModel>> getAlltables() {
+	public static Map<String, Class<? extends BaseModel>> getAlltablesV2014() {
+		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
+		tables.put("affiliation", Affiliation.class);
+		tables.put("bedinventory", Bedinventory.class);
+		tables.put("client", Client.class);
+		tables.put("commercialsexualexploitation", Commercialsexualexploitation.class);
+		tables.put("connectionwithsoar", Connectionwithsoar.class);
+		tables.put("dateofengagement", Dateofengagement.class);
+		tables.put("disabilities", Disabilities.class);
+		tables.put("domesticviolence", Domesticviolence.class);
+		tables.put("employment", Employment.class);
+		tables.put("enrollment", Enrollment.class);
+		tables.put("enrollment_coc", EnrollmentCoc.class);
+		tables.put("exit", Exit.class);
+		tables.put("exithousingassessment", Exithousingassessment.class);
+		tables.put("exitplansactions", Exitplansactions.class);
+		tables.put("export", Export.class);
+		tables.put("familyreunification", Familyreunification.class);
+		tables.put("formerwardchildwelfare", Formerwardchildwelfare.class);
+		tables.put("formerwardjuvenilejustice", Formerwardjuvenilejustice.class);
+		tables.put("funder", Funder.class);
+		tables.put("healthinsurance", Healthinsurance.class);
+		tables.put("health_status", HealthStatus.class);
+		tables.put("housingassessmentdisposition", Housingassessmentdisposition.class);
+		tables.put("incomeandsources", Incomeandsources.class);
+		tables.put("inventory", Inventory.class);
+		tables.put("lastgradecompleted", Lastgradecompleted.class);
+		tables.put("last_perm_address", Lastpermanentaddress.class);
+		tables.put("medicalassistance", Medicalassistance.class);
+		tables.put("noncashbenefits", Noncashbenefits.class);
+		tables.put("organization", Organization.class);
+		tables.put("path_status", Pathstatus.class);
+		tables.put("percent_ami", Percentami.class);
+		tables.put("project", Project.class);
+		tables.put("projectcoc", Projectcoc.class);
+		tables.put("projectcompletionstatus", Projectcompletionstatus.class);
+		tables.put("referralsource", Referralsource.class);
+		tables.put("residentialmoveindate", Residentialmoveindate.class);
+		tables.put("rhybcp_status", Rhybcpstatus.class);
+		tables.put("schoolstatus", Schoolstatus.class);
+		tables.put("services", Services.class);
+		tables.put("sexualorientation", Sexualorientation.class);
+		tables.put("site", Site.class);
+		tables.put("source", Source.class);
+		tables.put("veteran_info", VeteranInfo.class);
+		tables.put("worsthousingsituation", Worsthousingsituation.class);
+		tables.put("youthcriticalissues", Youthcriticalissues.class);
+		return tables;
+	}
+	
+	public static Map<String, Class<? extends BaseModel>> getAlltablesV2015() {
 		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
 		tables.put("affiliation", Affiliation.class);
 		tables.put("bedinventory", Bedinventory.class);

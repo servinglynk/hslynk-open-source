@@ -122,6 +122,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
 			parentDaoFactory.getProjectDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);
+			
 			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain);
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain);
 			parentDaoFactory.getAffiliationDao().hydrateStaging(domain);

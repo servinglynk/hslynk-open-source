@@ -11,10 +11,10 @@ import com.servinglynk.hmis.warehouse.model.v2014.*;
 import com.servinglynk.hmis.warehouse.model.v2015.Pathstatus;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
 
-public class FromPostgres extends Logging{
+public class BulkUploadV2015 extends Logging{
 
 	public static void main(String args[]) throws Exception {
-		new FromPostgres().RunSync();
+		new BulkUploadV2015().RunSync();
 	}
 
 	public void RunSync() throws Exception {

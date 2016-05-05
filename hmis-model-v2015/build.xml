@@ -16,12 +16,4 @@
 	           <transaction src="HMISModel_v2015.sql"/>
 	      </sql>
 	   </target>
-	   <target name="setupDB-v2015staging">
-	      <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}">
-	           <classpath>
-	            <pathelement location="C:/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
-	           </classpath>   
-	           <transaction src="HMISModel_stagv2015.sql"/>
-	      </sql>
-	   </target>
 	</project>

@@ -288,7 +288,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A Integer object (this.askedOfForcedToExchangeForSexPastThreeMonths)
 	 */
 	@Basic( optional = true )
-	@Column( name = "asked_of_forced_to_exchange_for_sex_past_three_months"  )
+	@Column( name = "asked_of_forced_to_exchange_for_sex_past_3_months"  )
 	public Integer getAskedOfForcedToExchangeForSexPastThreeMonths() {
 		return this.askedOfForcedToExchangeForSexPastThreeMonths;
 

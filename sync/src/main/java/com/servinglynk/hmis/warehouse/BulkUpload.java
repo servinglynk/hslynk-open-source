@@ -5,6 +5,7 @@ import java.util.UUID;
 public class BulkUpload {
 	private UUID exportId;
 	private String projectGroupCode;
+	private Long id;
 
 	public UUID getExportId() {
 		return exportId;
@@ -20,6 +21,14 @@ public class BulkUpload {
 
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

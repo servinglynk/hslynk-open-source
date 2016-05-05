@@ -19,7 +19,7 @@ public class Entryrhy extends BaseModel {
 	private Integer alcohol_drug_abuse_youth;
 	@Column( name = "asked_of_forced_to_exchange_for_sex")
 	private Integer asked_of_forced_to_exchange_for_sex;
-	@Column( name = "asked_of_forced_to_exchange_for_sex_past_three_months")
+	@Column( name = "asked_of_forced_to_exchange_for_sex_past_3_months")
 	private Integer asked_of_forced_to_exchange_for_sex_past_three_months;
 	@Column( name = "coerced_to_continue_work")
 	private Integer coerced_to_continue_work;
