@@ -116,9 +116,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: assistanceMainStreamBenefits.
 		 * @return A Integer object (this.assistanceMainStreamBenefits)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="assistance_main_stream_benefits")
 		public ExitRHYAssistanceMainstreamBenefitsEnum getAssistanceMainStreamBenefits() {
 			return this.assistanceMainStreamBenefits;
 
@@ -138,9 +138,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: earlyExitReason.
 		 * @return A Integer object (this.earlyExitReason)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="early_exit_reason")
 		public ExitRHYEarlyExitReasonEnum getEarlyExitReason() {
 			return this.earlyExitReason;
 
@@ -183,9 +183,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: exitCounseling.
 		 * @return A Integer object (this.exitCounseling)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="exit_counseling")
 		public ExitRHYExitCounselingEnum getExitCounseling() {
 			return this.exitCounseling;
 
@@ -205,9 +205,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: familyReunificationAchieved.
 		 * @return A Integer object (this.familyReunificationAchieved)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYFamilyReunificationAchievedEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYFamilyReunificationAchievedEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="family_reunification_achieved")
 		public ExitRHYFamilyReunificationAchievedEnum getFamilyReunificationAchieved() {
 			return this.familyReunificationAchieved;
 
@@ -227,9 +227,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: furtherFollowupServices.
 		 * @return A Integer object (this.furtherFollowupServices)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYFurtherFollowUpServicesEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYFurtherFollowUpServicesEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="further_followup_services")
 		public ExitRHYFurtherFollowUpServicesEnum getFurtherFollowupServices() {
 			return this.furtherFollowupServices;
 
@@ -279,9 +279,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: otherAftercarePlanOrAction.
 		 * @return A Integer object (this.otherAftercarePlanOrAction)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYOtherAftercarePlanOrActionEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYOtherAftercarePlanOrActionEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="other_aftercare_plan_or_action")
 		public ExitRHYOtherAftercarePlanOrActionEnum getOtherAftercarePlanOrAction() {
 			return this.otherAftercarePlanOrAction;
 
@@ -302,9 +302,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: permenantHousingPlacement.
 		 * @return A Integer object (this.permenantHousingPlacement)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYPermanentHousingPlacementEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYPermanentHousingPlacementEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="permenant_housing_placement")
 		public ExitRHYPermanentHousingPlacementEnum getPermenantHousingPlacement() {
 			return this.permenantHousingPlacement;
 
@@ -322,9 +322,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: projectCompletionStatus.
 		 * @return A Integer object (this.projectCompletionStatus)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column(name="project_completion_status")
 		public ProjectcompletionstatusProjectcompletionstatusEnum getProjectCompletionStatus() {
 			return this.projectCompletionStatus;
 
@@ -344,9 +344,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: resourcePackage.
 		 * @return A Integer object (this.resourcePackage)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYResourcePackageEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYResourcePackageEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="resource_package")
 		public ExitRHYResourcePackageEnum getResourcePackage() {
 			return this.resourcePackage;
 
@@ -366,9 +366,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: scheduledFollowupContacts.
 		 * @return A Integer object (this.scheduledFollowupContacts)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="scheduled_followup_contacts")
 		public ExitRHYScheduledFollowUpContactsEnum getScheduledFollowupContacts() {
 			return this.scheduledFollowupContacts;
 
@@ -389,9 +389,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: tempShelterPlacement.
 		 * @return A Integer object (this.tempShelterPlacement)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="temp_shelter_placement")
 		public ExitRHYTemporaryShelterPlacementEnum getTempShelterPlacement() {
 			return this.tempShelterPlacement;
 
@@ -411,9 +411,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: writtenAfterCarePlan.
 		 * @return A Integer object (this.writtenAfterCarePlan)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnumType")
 		@Basic( optional = true )
-		@Column
+		@Column(name="written_after_care_plan")
 		public ExitRHYWrittenAfterCarePlanEnum getWrittenAfterCarePlan() {
 			return this.writtenAfterCarePlan;
 

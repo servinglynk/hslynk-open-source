@@ -84,9 +84,9 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 		 * Return the value associated with the column: connectionWithSoar.
 		 * @return A Integer object (this.connectionWithSoar)
 		 */
-		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnum")
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnumType")
 		@Basic( optional = true )
-		@Column
+		@Column (name="connection_with_soar")
 		public ExitPathConnectionWithSOAREnum getConnectionWithSoar() {
 			return this.connectionWithSoar;
 			

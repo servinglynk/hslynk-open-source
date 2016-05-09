@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -37,7 +38,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
 				entrySsvfModel.setLastPermanentStreet(entrySSVF.getLastPermanentStreet());
 				entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
-				entrySsvfModel.setPercentami(new Integer(entrySSVF.getPercentAMI()).intValue());
+				entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(BasicDataGenerator.getStringValue(entrySSVF.getPercentAMI())));
 				entrySsvfModel.setDateCreated(LocalDateTime.now());
 				entrySsvfModel.setDateUpdated(LocalDateTime.now());
 				entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());

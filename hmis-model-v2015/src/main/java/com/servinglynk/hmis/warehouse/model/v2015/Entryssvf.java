@@ -275,9 +275,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 * Return the value associated with the column: percentami.
 	 * @return A Integer object (this.percentami)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnumType")
 	@Basic( optional = true )
-	@Column
+	@Column (name="percentAMI")
 	public EntrySSVFPercentAMIEnum getPercentami() {
 		return this.percentami;
 

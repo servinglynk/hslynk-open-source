@@ -141,7 +141,7 @@ CREATE TYPE "v2015".incarcerated_parent_status AS ENUM ('1','2','3','99');
 CREATE TYPE "v2015".issues_number_of_years AS ENUM ('1','2','3');
 CREATE TYPE "v2015".last_grade_completed  AS ENUM ('1','2','3','4','5','6','7','10','8','9','99');
 CREATE TYPE "v2015".military_branch AS ENUM ('1','2','3','4','6','8','9','99');
-CREATE TYPE "v2015".months_homeless_past_3_years AS ENUM ('100','7','8','9','99');
+CREATE TYPE "v2015".months_homeless_past_3_years AS ENUM ('7','8','9','99','100','101','102','103','104','105','106','107','108','109','110','111','112');
 CREATE TYPE "v2015".no_adap_reason AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2015".no_health_insurance_reason AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2015".no_medical_assistance_reason AS ENUM (	
@@ -1138,10 +1138,10 @@ INSERT INTO "v2015".hmis_type  (name,value,description,status) values  ('afghani
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('afghanistan_oef','99','Data not collected','ACTIVE');
 
 -- New ENUMS Insert Starts
-INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentAMI','1','Less than 30%','ACTIVE');
-INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentAMI','2','30% to 50%','ACTIVE');
-INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentAMI','3','Greater than 50%','ACTIVE');
-INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentAMI','99','Data not collected','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentami','1','Less than 30%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentami','2','30% to 50%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentami','3','Greater than 50%','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('percentami','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','0','No%','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connection_with_soar','1','Yes','ACTIVE');
@@ -1667,7 +1667,7 @@ CREATE TABLE "v2015".entrySSVF
 (
 	"id" uuid NOT NULL,
 	"enrollmentid" uuid,
-	"percentAMI"  "v2015".percentAMI,
+	"percentami"  "v2015".percentAMI,
 	last_permanent_street character(50),
 	last_permanent_city character(50),
 	last_permanent_state character(50),
@@ -1717,19 +1717,19 @@ CREATE TABLE "v2015".entryRHY
 	"school_education_issues_family_mbr" "v2015".school_education_issues_family_mbr,
 	"unemployement_youth" "v2015".unemployment_youth,
 	"unemployement_family_mbr" "v2015".unemployement_family_mbr,
-	"mental_health_issues_youth" "v2015".mental_health_issues_family_mbrily_mbr,
-	"mental_health_issues_family_mbrily_mbrily_mbr" "v2015".mental_health_issues_family_mbrily_mbr,
+	"mental_health_issues_youth" "v2015".mental_health_issues_youth,
+	"mental_health_issues_family_mbrily_mbr" "v2015".mental_health_issues_family_mbrily_mbr,
 	"health_issues_youth" "v2015".health_issues_youth,
 	"health_issues_family_mbrily_mbr" "v2015".health_issues_family_mbr,
 	"physical_disability_youth" "v2015".physical_disability_youth,
-	"physical_disability_family_mbrily_mbr" "v2015".physical_disability_family_mbr,
+	"physical_disability_family_mbr" "v2015".physical_disability_family_mbr,
 	"mental_disability_youth" "v2015".mental_disability_youth,
 	"mental_disability_family_mbrily_mbr" "v2015".mental_disability_family_mbr,
 	"abuse_and_neglect_youth" "v2015".abuse_and_neglect_youth,
-	"abuse_and_neglect_family_mbrily_mbr" "v2015".abuse_and_neglect_family_mbr,
+	"abuse_and_neglect_family_mbr" "v2015".abuse_and_neglect_family_mbr,
 	"alcohol_drug_abuse_youth" "v2015".alcohol_drug_abuse_youth,
-	"alcohol_drug_abuse_family_mbrily_mbr" "v2015".alcohol_drug_abuse_family_mbr,
-	"insufficient_income_to_support_youth_to_support_youth" "v2015".insufficient_income_to_support_youth,
+	"alcohol_drug_abuse_family_mbr" "v2015".alcohol_drug_abuse_family_mbr,
+	"insufficient_income_to_support_youth" "v2015".insufficient_income_to_support_youth,
 	"active_military_parent" "v2015".active_military_parent,
 	"incarcerated_parent" "v2015".incarcerated_parent,
 	"incarcerated_parent_status" "v2015".incarcerated_parent_status,

@@ -133,16 +133,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
-			parentDaoFactory.getSourceDao().hydrateLive(exportEntity,upload.getId());
 			logger.debug("Live Source table.........");
-			if(exportEntity!=null) {
-				com.servinglynk.hmis.warehouse.model.v2015.Export target = new com.servinglynk.hmis.warehouse.model.v2015.Export();
-				BeanUtils.copyProperties(exportEntity, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2015.Source) get(com.servinglynk.hmis.warehouse.model.v2015.Source.class, domain.getSourceId());
-				target.setSource(sourceEntity);
-				insert(target);	
-				logger.debug("Live Export table.........");
-			}
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
 			upload.setExportId(exportLive.getId());
 			insertOrUpdate(upload); 
