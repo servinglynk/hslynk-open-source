@@ -17,7 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnum;
 
 /** 
  * Object mapping for hibernate-handled table: exitpath.
@@ -44,7 +47,7 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
 	
 
 	/** Field mapping. */
-	private Integer connectionWithSoar;
+	private ExitPathConnectionWithSOAREnum connectionWithSoar;
 	/** Field mapping. */
 	private Exit exitid;
 	/** Field mapping. */
@@ -78,25 +81,26 @@ public class Exitpath extends HmisBaseModel implements Cloneable, Serializable {
  
 
 	 /**
-	 * Return the value associated with the column: connectionWithSoar.
-	 * @return A Integer object (this.connectionWithSoar)
-	 */
-	@Basic( optional = true )
-	@Column( name = "connection_with_soar"  )
-	public Integer getConnectionWithSoar() {
-		return this.connectionWithSoar;
+		 * Return the value associated with the column: connectionWithSoar.
+		 * @return A Integer object (this.connectionWithSoar)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnum")
+		@Basic( optional = true )
+		@Column
+		public ExitPathConnectionWithSOAREnum getConnectionWithSoar() {
+			return this.connectionWithSoar;
+			
+		}
 		
-	}
-	
 
-  
-	 /**  
-	 * Set the value related to the column: connectionWithSoar.
-	 * @param connectionWithSoar the connectionWithSoar value you wish to set
-	 */
-	public void setConnectionWithSoar(final Integer connectionWithSoar) {
-		this.connectionWithSoar = connectionWithSoar;
-	}
+	  
+		 /**  
+		 * Set the value related to the column: connectionWithSoar.
+		 * @param connectionWithSoar the connectionWithSoar value you wish to set
+		 */
+		public void setConnectionWithSoar(final ExitPathConnectionWithSOAREnum connectionWithSoar) {
+			this.connectionWithSoar = connectionWithSoar;
+		}
 	
 
   

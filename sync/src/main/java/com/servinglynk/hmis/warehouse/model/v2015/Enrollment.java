@@ -47,6 +47,9 @@ public class Enrollment extends BaseModel{
 	public UUID client_id;
 	@Column(name="id")
 	public UUID id;
+	@Column(name="ageAtEntry")
+	public Integer ageAtEntry;
+	
 	public String getDisablingcondition() {
 		return disablingcondition;
 	}
@@ -149,6 +152,11 @@ public class Enrollment extends BaseModel{
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	
+	public Integer getAgeAtEntry() {
+		return ageAtEntry;
+	}
+	public void setAgeAtEntry(Integer ageAtEntry) {
+		this.ageAtEntry = ageAtEntry;
+	}
 	
 }

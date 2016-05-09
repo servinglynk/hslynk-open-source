@@ -245,7 +245,6 @@ public class BulkUploaderTest {
 				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 	}
 		@Test
-		@Transactional
 		public void testCSVZip() throws Exception
 		{
 			URL path = BulkUploaderTest.class.getResource("2015.xml");

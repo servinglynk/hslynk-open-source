@@ -6,6 +6,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -115,6 +116,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 						.getLocalDateTime(enrollment.getDateUpdated()));
 				enrollmentModel.setEntrydate(BasicDataGenerator
 						.getLocalDateTime(enrollment.getEntryDate()));
+				
 				enrollmentModel
 						.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 								.getMonthsHomelessPastThreeYears())));
@@ -132,6 +134,14 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, clientId);
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
+					LocalDateTime entryDate = enrollmentModel.getEntrydate();
+					LocalDateTime dob = client.getDob();
+					if(entryDate !=null && dob!=null) {
+						LocalDateTime tempDateTime = LocalDateTime.from( dob );
+						long years = tempDateTime.until( entryDate, ChronoUnit.YEARS);
+						enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+					}
+					
 					enrollmentModel.setClient(client);
 				}else{
 					logger.warn("A match was not found with the PersonID:{}",enrollment.getPersonalID());

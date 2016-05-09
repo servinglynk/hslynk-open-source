@@ -16,7 +16,48 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYActiveMilitaryParentEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYChildWelfareYearsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYCoercedToContinueWorkEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardChildWelfareEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardJuvenileJusticeEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYHouseholdDynamicsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentStatusEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYInsufficientIncomeEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYLaborExploitPastThreeMonthsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIDFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIdentityYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
+import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 
 /**
  * Object mapping for hibernate-handled table: entryrhy.
@@ -43,93 +84,93 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	/** Field mapping. */
-	private Integer abuseAndNeglectFamilyMbr;
+	private EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr;
 	/** Field mapping. */
-	private Integer abuseAndNeglectYouth;
+	private EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth;
 	/** Field mapping. */
-	private Integer activeMilitaryParent;
+	private EntryRHYActiveMilitaryParentEnum activeMilitaryParent;
 	/** Field mapping. */
-	private Integer alcoholDrugAbuseFamilyMbr;
+	private EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr;
 	/** Field mapping. */
-	private Integer alcoholDrugAbuseYouth;
+	private EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth;
 	/** Field mapping. */
-	private Integer askedOfForcedToExchangeForSex;
+	private EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex;
 	/** Field mapping. */
-	private Integer askedOfForcedToExchangeForSexPastThreeMonths;
+	private EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum askedOfForcedToExchangeForSexPastThreeMonths;
 	/** Field mapping. */
-	private Integer coercedToContinueWork;
+	private EntryRHYCoercedToContinueWorkEnum coercedToContinueWork;
 	/** Field mapping. */
-	private Integer countOfExchangeForSex;
+	private EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex;
 	/** Field mapping. */
 	private Integer countOutReachReferralApproaches;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
-	private Integer exchangeForSex;
+	private EntryRHYcountOfExchangeForSexpEnum exchangeForSex;
 	/** Field mapping. */
-	private Integer exchangeForSexPastThreeMonths;
+	private EntryRHYExchangeForSexPastThreeMonthsEnum exchangeForSexPastThreeMonths;
 	/** Field mapping. */
-	private Integer formerlyWardChildWelfrForestCare;
+	private EntryRHYFormerWardChildWelfareEnum formerlyWardChildWelfrForestCare;
 	/** Field mapping. */
-	private Integer formerlyWardOfJuvenileJustice;
+	private EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice;
 	/** Field mapping. */
-	private Integer healthIssuesFamilyMbr;
+	private EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr;
 	/** Field mapping. */
-	private Integer healthIssuesYouth;
+	private EntryRHYHealthIssuesYouthEnum healthIssuesYouth;
 	/** Field mapping. */
-	private Integer houseHoldDynamics;
+	private EntryRHYHouseholdDynamicsEnum houseHoldDynamics;
 	/** Field mapping. */
-	private Integer housingIssuesFamilyMbr;
+	private EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr;
 	/** Field mapping. */
-	private Integer housingIssuesYouth;
+	private EntryRHYHousingIssuesYouthEnum housingIssuesYouth;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private Integer incarceratedParent;
+	private EntryRHYIncarceratedParentEnum incarceratedParent;
 	/** Field mapping. */
-	private Integer incarceratedParentStatus;
+	private EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus;
 	/** Field mapping. */
-	private Integer insufficientIncomeToSupportYouth;
+	private EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth;
 	/** Field mapping. */
-	private Integer laborExploitPastThreeMonths;
+	private EntryRHYLaborExploitPastThreeMonthsEnum laborExploitPastThreeMonths;
 	/** Field mapping. */
-	private Integer mentalDisabilityFamilyMbr;
+	private EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private Integer mentalDisabilityYouth;
+	private EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth;
 	/** Field mapping. */
-	private Integer mentalHealthIssuesFamilyMbr;
+	private EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr;
 	/** Field mapping. */
-	private Integer mentalHealthIssuesYouth;
+	private EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth;
 	/** Field mapping. */
 	private Integer monthsChildWelfrForestCare;
 	/** Field mapping. */
-	private Integer physicalDisabilityFamilyMbr;
+	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private Integer physicalDisabilityYouth;
+	private EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth;
 	/** Field mapping. */
 	private Integer referralSource;
 	/** Field mapping. */
-	private Integer schoolEducationIssuesFamilyMbr;
+	private EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr;
 	/** Field mapping. */
-	private Integer schoolEducationIssuesYouth;
+	private EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth;
 	/** Field mapping. */
-	private Integer sexualOrientatiionGenderIdentityFamilyMbr;
+	private EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr;
 	/** Field mapping. */
-	private Integer sexualOrientatiionGenderIdentityYouth;
+	private EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth;
 	/** Field mapping. */
-	private Integer sexualOrientation;
+	private SexualorientationSexualorientationEnum sexualOrientation;
 	/** Field mapping. */
-	private Integer unemployementFamilyMbr;
+	private EntryRHYUnemploymentFamEnum unemployementFamilyMbr;
 	/** Field mapping. */
-	private Integer unemployementYouth;
+	private EntryRHYUnemploymentYouthEnum unemployementYouth;
 	/** Field mapping. */
-	private Integer workPlacePromiseDifference;
+	private EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference;
 	/** Field mapping. */
-	private Integer workPlaceViolenceThreat;
+	private EntryRHYWorkPlaceViolenceThreatsEnum workPlaceViolenceThreat;
 	/** Field mapping. */
-	private Integer yearsChildWelfrForestCare;
+	private EntryRHYChildWelfareYearsEnum yearsChildWelfrForestCare;
 	/** Field mapping. */
-	private Integer yearsJuvenileJustice;
+	private EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -161,9 +202,10 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: abuseAndNeglectFamilyMbr.
 	 * @return A Integer object (this.abuseAndNeglectFamilyMbr)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectFamEnum")
 	@Basic( optional = true )
-	@Column( name = "abuse_and_neglect_family_mbr"  )
-	public Integer getAbuseAndNeglectFamilyMbr() {
+	@Column
+	public EntryRHYAbuseAndNeglectFamEnum getAbuseAndNeglectFamilyMbr() {
 		return this.abuseAndNeglectFamilyMbr;
 
 	}
@@ -174,7 +216,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: abuseAndNeglectFamilyMbr.
 	 * @param abuseAndNeglectFamilyMbr the abuseAndNeglectFamilyMbr value you wish to set
 	 */
-	public void setAbuseAndNeglectFamilyMbr(final Integer abuseAndNeglectFamilyMbr) {
+	public void setAbuseAndNeglectFamilyMbr(final EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr) {
 		this.abuseAndNeglectFamilyMbr = abuseAndNeglectFamilyMbr;
 	}
 
@@ -182,9 +224,10 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: abuseAndNeglectYouth.
 	 * @return A Integer object (this.abuseAndNeglectYouth)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectYouthEnum")
 	@Basic( optional = true )
-	@Column( name = "abuse_and_neglect_youth"  )
-	public Integer getAbuseAndNeglectYouth() {
+	@Column
+	public EntryRHYAbuseAndNeglectYouthEnum getAbuseAndNeglectYouth() {
 		return this.abuseAndNeglectYouth;
 
 	}
@@ -195,7 +238,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: abuseAndNeglectYouth.
 	 * @param abuseAndNeglectYouth the abuseAndNeglectYouth value you wish to set
 	 */
-	public void setAbuseAndNeglectYouth(final Integer abuseAndNeglectYouth) {
+	public void setAbuseAndNeglectYouth(final EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth) {
 		this.abuseAndNeglectYouth = abuseAndNeglectYouth;
 	}
 
@@ -203,9 +246,10 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: activeMilitaryParent.
 	 * @return A Integer object (this.activeMilitaryParent)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYActiveMilitaryParentEnum")
 	@Basic( optional = true )
-	@Column( name = "active_military_parent"  )
-	public Integer getActiveMilitaryParent() {
+	@Column
+	public EntryRHYActiveMilitaryParentEnum getActiveMilitaryParent() {
 		return this.activeMilitaryParent;
 
 	}
@@ -216,156 +260,11 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: activeMilitaryParent.
 	 * @param activeMilitaryParent the activeMilitaryParent value you wish to set
 	 */
-	public void setActiveMilitaryParent(final Integer activeMilitaryParent) {
+	public void setActiveMilitaryParent(final EntryRHYActiveMilitaryParentEnum activeMilitaryParent) {
 		this.activeMilitaryParent = activeMilitaryParent;
 	}
 
-	 /**
-	 * Return the value associated with the column: alcoholDrugAbuseFamilyMbr.
-	 * @return A Integer object (this.alcoholDrugAbuseFamilyMbr)
-	 */
-	@Basic( optional = true )
-	@Column( name = "alcohol_drug_abuse_family_mbr"  )
-	public Integer getAlcoholDrugAbuseFamilyMbr() {
-		return this.alcoholDrugAbuseFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: alcoholDrugAbuseFamilyMbr.
-	 * @param alcoholDrugAbuseFamilyMbr the alcoholDrugAbuseFamilyMbr value you wish to set
-	 */
-	public void setAlcoholDrugAbuseFamilyMbr(final Integer alcoholDrugAbuseFamilyMbr) {
-		this.alcoholDrugAbuseFamilyMbr = alcoholDrugAbuseFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: alcoholDrugAbuseYouth.
-	 * @return A Integer object (this.alcoholDrugAbuseYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "alcohol_drug_abuse_youth"  )
-	public Integer getAlcoholDrugAbuseYouth() {
-		return this.alcoholDrugAbuseYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: alcoholDrugAbuseYouth.
-	 * @param alcoholDrugAbuseYouth the alcoholDrugAbuseYouth value you wish to set
-	 */
-	public void setAlcoholDrugAbuseYouth(final Integer alcoholDrugAbuseYouth) {
-		this.alcoholDrugAbuseYouth = alcoholDrugAbuseYouth;
-	}
-
-	 /**
-	 * Return the value associated with the column: askedOfForcedToExchangeForSex.
-	 * @return A Integer object (this.askedOfForcedToExchangeForSex)
-	 */
-	@Basic( optional = true )
-	@Column( name = "asked_of_forced_to_exchange_for_sex"  )
-	public Integer getAskedOfForcedToExchangeForSex() {
-		return this.askedOfForcedToExchangeForSex;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: askedOfForcedToExchangeForSex.
-	 * @param askedOfForcedToExchangeForSex the askedOfForcedToExchangeForSex value you wish to set
-	 */
-	public void setAskedOfForcedToExchangeForSex(final Integer askedOfForcedToExchangeForSex) {
-		this.askedOfForcedToExchangeForSex = askedOfForcedToExchangeForSex;
-	}
-
-	 /**
-	 * Return the value associated with the column: askedOfForcedToExchangeForSexPastThreeMonths.
-	 * @return A Integer object (this.askedOfForcedToExchangeForSexPastThreeMonths)
-	 */
-	@Basic( optional = true )
-	@Column( name = "asked_of_forced_to_exchange_for_sex_past_3_months"  )
-	public Integer getAskedOfForcedToExchangeForSexPastThreeMonths() {
-		return this.askedOfForcedToExchangeForSexPastThreeMonths;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: askedOfForcedToExchangeForSexPastThreeMonths.
-	 * @param askedOfForcedToExchangeForSexPastThreeMonths the askedOfForcedToExchangeForSexPastThreeMonths value you wish to set
-	 */
-	public void setAskedOfForcedToExchangeForSexPastThreeMonths(final Integer askedOfForcedToExchangeForSexPastThreeMonths) {
-		this.askedOfForcedToExchangeForSexPastThreeMonths = askedOfForcedToExchangeForSexPastThreeMonths;
-	}
-
-	 /**
-	 * Return the value associated with the column: coercedToContinueWork.
-	 * @return A Integer object (this.coercedToContinueWork)
-	 */
-	@Basic( optional = true )
-	@Column( name = "coerced_to_continue_work"  )
-	public Integer getCoercedToContinueWork() {
-		return this.coercedToContinueWork;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: coercedToContinueWork.
-	 * @param coercedToContinueWork the coercedToContinueWork value you wish to set
-	 */
-	public void setCoercedToContinueWork(final Integer coercedToContinueWork) {
-		this.coercedToContinueWork = coercedToContinueWork;
-	}
-
-	 /**
-	 * Return the value associated with the column: countOfExchangeForSex.
-	 * @return A Integer object (this.countOfExchangeForSex)
-	 */
-	@Basic( optional = true )
-	@Column( name = "count_of_exchange_for_sex"  )
-	public Integer getCountOfExchangeForSex() {
-		return this.countOfExchangeForSex;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: countOfExchangeForSex.
-	 * @param countOfExchangeForSex the countOfExchangeForSex value you wish to set
-	 */
-	public void setCountOfExchangeForSex(final Integer countOfExchangeForSex) {
-		this.countOfExchangeForSex = countOfExchangeForSex;
-	}
-
-	 /**
-	 * Return the value associated with the column: countOutReachReferralApproaches.
-	 * @return A Integer object (this.countOutReachReferralApproaches)
-	 */
-	@Basic( optional = true )
-	@Column( name = "count_out_reach_referral_approaches"  )
-	public Integer getCountOutReachReferralApproaches() {
-		return this.countOutReachReferralApproaches;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: countOutReachReferralApproaches.
-	 * @param countOutReachReferralApproaches the countOutReachReferralApproaches value you wish to set
-	 */
-	public void setCountOutReachReferralApproaches(final Integer countOutReachReferralApproaches) {
-		this.countOutReachReferralApproaches = countOutReachReferralApproaches;
-	}
+	 
 
 	 /**
 	 * Return the value associated with the column: enrollmentid.
@@ -390,193 +289,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.enrollmentid = enrollmentid;
 	}
 
-	 /**
-	 * Return the value associated with the column: exchangeForSex.
-	 * @return A Integer object (this.exchangeForSex)
-	 */
-	@Basic( optional = true )
-	@Column( name = "exchange_for_sex"  )
-	public Integer getExchangeForSex() {
-		return this.exchangeForSex;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: exchangeForSex.
-	 * @param exchangeForSex the exchangeForSex value you wish to set
-	 */
-	public void setExchangeForSex(final Integer exchangeForSex) {
-		this.exchangeForSex = exchangeForSex;
-	}
-
-	 /**
-	 * Return the value associated with the column: exchangeForSexPastThreeMonths.
-	 * @return A Integer object (this.exchangeForSexPastThreeMonths)
-	 */
-	@Basic( optional = true )
-	@Column( name = "exchange_for_sex_past_three_months"  )
-	public Integer getExchangeForSexPastThreeMonths() {
-		return this.exchangeForSexPastThreeMonths;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: exchangeForSexPastThreeMonths.
-	 * @param exchangeForSexPastThreeMonths the exchangeForSexPastThreeMonths value you wish to set
-	 */
-	public void setExchangeForSexPastThreeMonths(final Integer exchangeForSexPastThreeMonths) {
-		this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
-	}
-	 /**
-	 * Return the value associated with the column: formerlyWardChildWelfrForestCare.
-	 * @return A Integer object (this.formerlyWardChildWelfrForestCare)
-	 */
-	@Basic( optional = true )
-	@Column( name = "formerly_ward_child_welfr_forest_care"  )
-	public Integer getFormerlyWardChildWelfrForestCare() {
-		return this.formerlyWardChildWelfrForestCare;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: formerlyWardChildWelfrForestCare.
-	 * @param formerlyWardChildWelfrForestCare the formerlyWardChildWelfrForestCare value you wish to set
-	 */
-	public void setFormerlyWardChildWelfrForestCare(final Integer formerlyWardChildWelfrForestCare) {
-		this.formerlyWardChildWelfrForestCare = formerlyWardChildWelfrForestCare;
-	}
-
-	 /**
-	 * Return the value associated with the column: formerlyWardOfJuvenileJustice.
-	 * @return A Integer object (this.formerlyWardOfJuvenileJustice)
-	 */
-	@Basic( optional = true )
-	@Column( name = "formerly_ward_of_juvenile_justice"  )
-	public Integer getFormerlyWardOfJuvenileJustice() {
-		return this.formerlyWardOfJuvenileJustice;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: formerlyWardOfJuvenileJustice.
-	 * @param formerlyWardOfJuvenileJustice the formerlyWardOfJuvenileJustice value you wish to set
-	 */
-	public void setFormerlyWardOfJuvenileJustice(final Integer formerlyWardOfJuvenileJustice) {
-		this.formerlyWardOfJuvenileJustice = formerlyWardOfJuvenileJustice;
-	}
-
-	 /**
-	 * Return the value associated with the column: healthIssuesFamilyMbr.
-	 * @return A Integer object (this.healthIssuesFamilyMbr)
-	 */
-	@Basic( optional = true )
-	@Column( name = "health_issues_family_mbr"  )
-	public Integer getHealthIssuesFamilyMbr() {
-		return this.healthIssuesFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: healthIssuesFamilyMbr.
-	 * @param healthIssuesFamilyMbr the healthIssuesFamilyMbr value you wish to set
-	 */
-	public void setHealthIssuesFamilyMbr(final Integer healthIssuesFamilyMbr) {
-		this.healthIssuesFamilyMbr = healthIssuesFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: healthIssuesYouth.
-	 * @return A Integer object (this.healthIssuesYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "health_issues_youth"  )
-	public Integer getHealthIssuesYouth() {
-		return this.healthIssuesYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: healthIssuesYouth.
-	 * @param healthIssuesYouth the healthIssuesYouth value you wish to set
-	 */
-	public void setHealthIssuesYouth(final Integer healthIssuesYouth) {
-		this.healthIssuesYouth = healthIssuesYouth;
-	}
-
-	 /**
-	 * Return the value associated with the column: houseHoldDynamics.
-	 * @return A Integer object (this.houseHoldDynamics)
-	 */
-	@Basic( optional = true )
-	@Column( name = "house_hold_dynamics"  )
-	public Integer getHouseHoldDynamics() {
-		return this.houseHoldDynamics;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: houseHoldDynamics.
-	 * @param houseHoldDynamics the houseHoldDynamics value you wish to set
-	 */
-	public void setHouseHoldDynamics(final Integer houseHoldDynamics) {
-		this.houseHoldDynamics = houseHoldDynamics;
-	}
-
-	 /**
-	 * Return the value associated with the column: housingIssuesFamilyMbr.
-	 * @return A Integer object (this.housingIssuesFamilyMbr)
-	 */
-	@Basic( optional = true )
-	@Column( name = "housing_issues_family_mbr"  )
-	public Integer getHousingIssuesFamilyMbr() {
-		return this.housingIssuesFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: housingIssuesFamilyMbr.
-	 * @param housingIssuesFamilyMbr the housingIssuesFamilyMbr value you wish to set
-	 */
-	public void setHousingIssuesFamilyMbr(final Integer housingIssuesFamilyMbr) {
-		this.housingIssuesFamilyMbr = housingIssuesFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: housingIssuesYouth.
-	 * @return A Integer object (this.housingIssuesYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "housing_issues_youth"  )
-	public Integer getHousingIssuesYouth() {
-		return this.housingIssuesYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: housingIssuesYouth.
-	 * @param housingIssuesYouth the housingIssuesYouth value you wish to set
-	 */
-	public void setHousingIssuesYouth(final Integer housingIssuesYouth) {
-		this.housingIssuesYouth = housingIssuesYouth;
-	}
+	 
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -608,174 +321,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.id = id;
 	}
 
-	 /**
-	 * Return the value associated with the column: incarceratedParent.
-	 * @return A Integer object (this.incarceratedParent)
-	 */
-	@Basic( optional = true )
-	@Column( name = "incarcerated_parent"  )
-	public Integer getIncarceratedParent() {
-		return this.incarceratedParent;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: incarceratedParent.
-	 * @param incarceratedParent the incarceratedParent value you wish to set
-	 */
-	public void setIncarceratedParent(final Integer incarceratedParent) {
-		this.incarceratedParent = incarceratedParent;
-	}
-
-	 /**
-	 * Return the value associated with the column: incarceratedParentStatus.
-	 * @return A Integer object (this.incarceratedParentStatus)
-	 */
-	@Basic( optional = true )
-	@Column( name = "incarcerated_parent_status"  )
-	public Integer getIncarceratedParentStatus() {
-		return this.incarceratedParentStatus;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: incarceratedParentStatus.
-	 * @param incarceratedParentStatus the incarceratedParentStatus value you wish to set
-	 */
-	public void setIncarceratedParentStatus(final Integer incarceratedParentStatus) {
-		this.incarceratedParentStatus = incarceratedParentStatus;
-	}
-
-	 /**
-	 * Return the value associated with the column: insufficientIncomeToSupportYouth.
-	 * @return A Integer object (this.insufficientIncomeToSupportYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "insufficient_income_to_support_youth"  )
-	public Integer getInsufficientIncomeToSupportYouth() {
-		return this.insufficientIncomeToSupportYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: insufficientIncomeToSupportYouth.
-	 * @param insufficientIncomeToSupportYouth the insufficientIncomeToSupportYouth value you wish to set
-	 */
-	public void setInsufficientIncomeToSupportYouth(final Integer insufficientIncomeToSupportYouth) {
-		this.insufficientIncomeToSupportYouth = insufficientIncomeToSupportYouth;
-	}
-
-	 /**
-	 * Return the value associated with the column: laborExploitPastThreeMonths.
-	 * @return A Integer object (this.laborExploitPastThreeMonths)
-	 */
-	@Basic( optional = true )
-	@Column( name = "labor_exploit_past_three_months"  )
-	public Integer getLaborExploitPastThreeMonths() {
-		return this.laborExploitPastThreeMonths;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: laborExploitPastThreeMonths.
-	 * @param laborExploitPastThreeMonths the laborExploitPastThreeMonths value you wish to set
-	 */
-	public void setLaborExploitPastThreeMonths(final Integer laborExploitPastThreeMonths) {
-		this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
-	}
-
-	 /**
-	 * Return the value associated with the column: mentalDisabilityFamilyMbr.
-	 * @return A Integer object (this.mentalDisabilityFamilyMbr)
-	 */
-	@Basic( optional = true )
-	@Column( name = "mental_disability_family_mbr"  )
-	public Integer getMentalDisabilityFamilyMbr() {
-		return this.mentalDisabilityFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: mentalDisabilityFamilyMbr.
-	 * @param mentalDisabilityFamilyMbr the mentalDisabilityFamilyMbr value you wish to set
-	 */
-	public void setMentalDisabilityFamilyMbr(final Integer mentalDisabilityFamilyMbr) {
-		this.mentalDisabilityFamilyMbr = mentalDisabilityFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: mentalDisabilityYouth.
-	 * @return A Integer object (this.mentalDisabilityYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "mental_disability_youth"  )
-	public Integer getMentalDisabilityYouth() {
-		return this.mentalDisabilityYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: mentalDisabilityYouth.
-	 * @param mentalDisabilityYouth the mentalDisabilityYouth value you wish to set
-	 */
-	public void setMentalDisabilityYouth(final Integer mentalDisabilityYouth) {
-		this.mentalDisabilityYouth = mentalDisabilityYouth;
-	}
-
-	 /**
-	 * Return the value associated with the column: mentalHealthIssuesFamilyMbr.
-	 * @return A Integer object (this.mentalHealthIssuesFamilyMbr)
-	 */
-	@Basic( optional = true )
-	@Column( name = "mental_health_issues_family_mbr"  )
-	public Integer getMentalHealthIssuesFamilyMbr() {
-		return this.mentalHealthIssuesFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: mentalHealthIssuesFamilyMbr.
-	 * @param mentalHealthIssuesFamilyMbr the mentalHealthIssuesFamilyMbr value you wish to set
-	 */
-	public void setMentalHealthIssuesFamilyMbr(final Integer mentalHealthIssuesFamilyMbr) {
-		this.mentalHealthIssuesFamilyMbr = mentalHealthIssuesFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: mentalHealthIssuesYouth.
-	 * @return A Integer object (this.mentalHealthIssuesYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "mental_health_issues_youth"  )
-	public Integer getMentalHealthIssuesYouth() {
-		return this.mentalHealthIssuesYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: mentalHealthIssuesYouth.
-	 * @param mentalHealthIssuesYouth the mentalHealthIssuesYouth value you wish to set
-	 */
-	public void setMentalHealthIssuesYouth(final Integer mentalHealthIssuesYouth) {
-		this.mentalHealthIssuesYouth = mentalHealthIssuesYouth;
-	}
-
+	 
 	 /**
 	 * Return the value associated with the column: monthsChildWelfrForestCare.
 	 * @return A Integer object (this.monthsChildWelfrForestCare)
@@ -797,47 +343,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.monthsChildWelfrForestCare = monthsChildWelfrForestCare;
 	}
 
-	 /**
-	 * Return the value associated with the column: physicalDisabilityFamilyMbr.
-	 * @return A Integer object (this.physicalDisabilityFamilyMbr)
-	 */
-	@Basic( optional = true )
-	@Column( name = "physical_disability_family_mbr"  )
-	public Integer getPhysicalDisabilityFamilyMbr() {
-		return this.physicalDisabilityFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: physicalDisabilityFamilyMbr.
-	 * @param physicalDisabilityFamilyMbr the physicalDisabilityFamilyMbr value you wish to set
-	 */
-	public void setPhysicalDisabilityFamilyMbr(final Integer physicalDisabilityFamilyMbr) {
-		this.physicalDisabilityFamilyMbr = physicalDisabilityFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: physicalDisabilityYouth.
-	 * @return A Integer object (this.physicalDisabilityYouth)
-	 */
-	@Basic( optional = true )
-	@Column( name = "physical_disability_youth"  )
-	public Integer getPhysicalDisabilityYouth() {
-		return this.physicalDisabilityYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: physicalDisabilityYouth.
-	 * @param physicalDisabilityYouth the physicalDisabilityYouth value you wish to set
-	 */
-	public void setPhysicalDisabilityYouth(final Integer physicalDisabilityYouth) {
-		this.physicalDisabilityYouth = physicalDisabilityYouth;
-	}
+	 
 
 	 /**
 	 * Return the value associated with the column: referralSource.
@@ -860,233 +366,588 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.referralSource = referralSource;
 	}
 
-	 /**
+	/**
+	 * Return the value associated with the column: alcoholDrugAbuseFamilyMbr.
+	 * @return A Integer object (this.alcoholDrugAbuseFamilyMbr)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseFamEnum")
+	@Basic( optional = true )
+	@Column
+   public EntryRHYAlcoholDrugAbuseFamEnum getAlcoholDrugAbuseFamilyMbr() {
+		return alcoholDrugAbuseFamilyMbr;
+	}
+
+	public void setAlcoholDrugAbuseFamilyMbr(
+			EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr) {
+		this.alcoholDrugAbuseFamilyMbr = alcoholDrugAbuseFamilyMbr;
+	}
+
+	/**
+	 * Return the value associated with the column: alcoholDrugAbuseYouth.
+	 * @return A Integer object (this.alcoholDrugAbuseYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseYouthEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYAlcoholDrugAbuseYouthEnum getAlcoholDrugAbuseYouth() {
+		return alcoholDrugAbuseYouth;
+	}
+
+	public void setAlcoholDrugAbuseYouth(
+			EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth) {
+		this.alcoholDrugAbuseYouth = alcoholDrugAbuseYouth;
+	}
+	
+	/**
+	 * Return the value associated with the column: askedOfForcedToExchangeForSex.
+	 * @return A Integer object (this.askedOfForcedToExchangeForSex)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYAskedOrForcedToExchangeForSexEnum getAskedOfForcedToExchangeForSex() {
+		return askedOfForcedToExchangeForSex;
+	}
+
+	public void setAskedOfForcedToExchangeForSex(
+			EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex) {
+		this.askedOfForcedToExchangeForSex = askedOfForcedToExchangeForSex;
+	}
+	
+	/**
+	 * Return the value associated with the column: askedOfForcedToExchangeForSexPastThreeMonths.
+	 * @return A Integer object (this.askedOfForcedToExchangeForSexPastThreeMonths)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum getAskedOfForcedToExchangeForSexPastThreeMonths() {
+		return askedOfForcedToExchangeForSexPastThreeMonths;
+	}
+
+	public void setAskedOfForcedToExchangeForSexPastThreeMonths(
+			EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum askedOfForcedToExchangeForSexPastThreeMonths) {
+		this.askedOfForcedToExchangeForSexPastThreeMonths = askedOfForcedToExchangeForSexPastThreeMonths;
+	}
+	
+	/**
+	 * Return the value associated with the column: coercedToContinueWork.
+	 * @return A Integer object (this.coercedToContinueWork)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYCoercedToContinueWorkEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYCoercedToContinueWorkEnum getCoercedToContinueWork() {
+		return coercedToContinueWork;
+	}
+
+	public void setCoercedToContinueWork(
+			EntryRHYCoercedToContinueWorkEnum coercedToContinueWork) {
+		this.coercedToContinueWork = coercedToContinueWork;
+	}
+	
+	/**
+	 * Return the value associated with the column: countOfExchangeForSex.
+	 * @return A Integer object (this.countOfExchangeForSex)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYcountOfExchangeForSexpEnum getCountOfExchangeForSex() {
+		return countOfExchangeForSex;
+	}
+
+	public void setCountOfExchangeForSex(
+			EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex) {
+		this.countOfExchangeForSex = countOfExchangeForSex;
+	}
+	
+	
+	public Integer getCountOutReachReferralApproaches() {
+		return countOutReachReferralApproaches;
+	}
+
+	public void setCountOutReachReferralApproaches(
+			Integer countOutReachReferralApproaches) {
+		this.countOutReachReferralApproaches = countOutReachReferralApproaches;
+	}
+	
+	/**
+	 * Return the value associated with the column: exchangeForSex.
+	 * @return A Integer object (this.exchangeForSex)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYcountOfExchangeForSexpEnum getExchangeForSex() {
+		return exchangeForSex;
+	}
+
+	public void setExchangeForSex(EntryRHYcountOfExchangeForSexpEnum exchangeForSex) {
+		this.exchangeForSex = exchangeForSex;
+	}
+	
+	/**
+	 * Return the value associated with the column: exchangeForSexPastThreeMonths.
+	 * @return A Integer object (this.exchangeForSexPastThreeMonths)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYExchangeForSexPastThreeMonthsEnum getExchangeForSexPastThreeMonths() {
+		return exchangeForSexPastThreeMonths;
+	}
+
+	public void setExchangeForSexPastThreeMonths(
+			EntryRHYExchangeForSexPastThreeMonthsEnum exchangeForSexPastThreeMonths) {
+		this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
+	}
+	
+	/**
+	 * Return the value associated with the column: formerlyWardChildWelfrForestCare.
+	 * @return A Integer object (this.formerlyWardChildWelfrForestCare)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardChildWelfareEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYFormerWardChildWelfareEnum getFormerlyWardChildWelfrForestCare() {
+		return formerlyWardChildWelfrForestCare;
+	}
+
+	public void setFormerlyWardChildWelfrForestCare(
+			EntryRHYFormerWardChildWelfareEnum formerlyWardChildWelfrForestCare) {
+		this.formerlyWardChildWelfrForestCare = formerlyWardChildWelfrForestCare;
+	}
+	
+	/**
+	 * Return the value associated with the column: formerlyWardOfJuvenileJustice.
+	 * @return A Integer object (this.formerlyWardOfJuvenileJustice)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardJuvenileJusticeEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYFormerWardJuvenileJusticeEnum getFormerlyWardOfJuvenileJustice() {
+		return formerlyWardOfJuvenileJustice;
+	}
+
+	public void setFormerlyWardOfJuvenileJustice(
+			EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice) {
+		this.formerlyWardOfJuvenileJustice = formerlyWardOfJuvenileJustice;
+	}
+	
+	/**
+	 * Return the value associated with the column: healthIssuesFamilyMbr.
+	 * @return A Integer object (this.healthIssuesFamilyMbr)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesFamEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYHealthIssuesFamEnum getHealthIssuesFamilyMbr() {
+		return healthIssuesFamilyMbr;
+	}
+
+	public void setHealthIssuesFamilyMbr(
+			EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr) {
+		this.healthIssuesFamilyMbr = healthIssuesFamilyMbr;
+	}
+	
+	/**
+	 * Return the value associated with the column: healthIssuesYouth.
+	 * @return A Integer object (this.healthIssuesYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesYouthEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYHealthIssuesYouthEnum getHealthIssuesYouth() {
+		return healthIssuesYouth;
+	}
+
+	public void setHealthIssuesYouth(EntryRHYHealthIssuesYouthEnum healthIssuesYouth) {
+		this.healthIssuesYouth = healthIssuesYouth;
+	}
+	
+	/**
+	 * Return the value associated with the column: houseHoldDynamics.
+	 * @return A Integer object (this.houseHoldDynamics)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHouseholdDynamicsEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYHouseholdDynamicsEnum getHouseHoldDynamics() {
+		return houseHoldDynamics;
+	}
+
+	public void setHouseHoldDynamics(EntryRHYHouseholdDynamicsEnum houseHoldDynamics) {
+		this.houseHoldDynamics = houseHoldDynamics;
+	}
+	
+	/**
+	 * Return the value associated with the column: housingIssuesFamilyMbr.
+	 * @return A Integer object (this.housingIssuesFamilyMbr)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesFamEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYHousingIssuesFamEnum getHousingIssuesFamilyMbr() {
+		return housingIssuesFamilyMbr;
+	}
+
+	public void setHousingIssuesFamilyMbr(
+			EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr) {
+		this.housingIssuesFamilyMbr = housingIssuesFamilyMbr;
+	}
+	
+	/**
+	 * Return the value associated with the column: housingIssuesYouth.
+	 * @return A Integer object (this.housingIssuesYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesYouthEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYHousingIssuesYouthEnum getHousingIssuesYouth() {
+		return housingIssuesYouth;
+	}
+
+	public void setHousingIssuesYouth(
+			EntryRHYHousingIssuesYouthEnum housingIssuesYouth) {
+		this.housingIssuesYouth = housingIssuesYouth;
+	}
+	
+	/**
+	 * Return the value associated with the column: incarceratedParent.
+	 * @return A Integer object (this.incarceratedParent)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYIncarceratedParentEnum getIncarceratedParent() {
+		return incarceratedParent;
+	}
+
+	public void setIncarceratedParent(
+			EntryRHYIncarceratedParentEnum incarceratedParent) {
+		this.incarceratedParent = incarceratedParent;
+	}
+	
+	/**
+	 * Return the value associated with the column: incarceratedParentStatus.
+	 * @return A Integer object (this.incarceratedParentStatus)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentStatusEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYIncarceratedParentStatusEnum getIncarceratedParentStatus() {
+		return incarceratedParentStatus;
+	}
+
+	public void setIncarceratedParentStatus(
+			EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus) {
+		this.incarceratedParentStatus = incarceratedParentStatus;
+	}
+	
+	/**
+	 * Return the value associated with the column: insufficientIncomeToSupportYouth.
+	 * @return A Integer object (this.insufficientIncomeToSupportYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYInsufficientIncomeEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYInsufficientIncomeEnum getInsufficientIncomeToSupportYouth() {
+		return insufficientIncomeToSupportYouth;
+	}
+
+	public void setInsufficientIncomeToSupportYouth(
+			EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth) {
+		this.insufficientIncomeToSupportYouth = insufficientIncomeToSupportYouth;
+	}
+	
+	/**
+	 * Return the value associated with the column: laborExploitPastThreeMonths.
+	 * @return A Integer object (this.laborExploitPastThreeMonths)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYLaborExploitPastThreeMonthsEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYLaborExploitPastThreeMonthsEnum getLaborExploitPastThreeMonths() {
+		return laborExploitPastThreeMonths;
+	}
+
+	public void setLaborExploitPastThreeMonths(
+			EntryRHYLaborExploitPastThreeMonthsEnum laborExploitPastThreeMonths) {
+		this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
+	}
+	
+	/**
+	 * Return the value associated with the column: mentalDisabilityFamilyMbr.
+	 * @return A Integer object (this.mentalDisabilityFamilyMbr)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityFamEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYMentalDisabilityFamEnum getMentalDisabilityFamilyMbr() {
+		return mentalDisabilityFamilyMbr;
+	}
+
+	public void setMentalDisabilityFamilyMbr(
+			EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr) {
+		this.mentalDisabilityFamilyMbr = mentalDisabilityFamilyMbr;
+	}
+	
+	/**
+	 * Return the value associated with the column: mentalDisabilityYouth.
+	 * @return A Integer object (this.mentalDisabilityYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityYouthEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYMentalDisabilityYouthEnum getMentalDisabilityYouth() {
+		return mentalDisabilityYouth;
+	}
+
+	public void setMentalDisabilityYouth(
+			EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth) {
+		this.mentalDisabilityYouth = mentalDisabilityYouth;
+	}
+	
+	/**
+	 * Return the value associated with the column: mentalHealthIssuesFamilyMbr.
+	 * @return A Integer object (this.mentalHealthIssuesFamilyMbr)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYMentalHealthIssuesFamEnum getMentalHealthIssuesFamilyMbr() {
+		return mentalHealthIssuesFamilyMbr;
+	}
+
+	public void setMentalHealthIssuesFamilyMbr(
+			EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr) {
+		this.mentalHealthIssuesFamilyMbr = mentalHealthIssuesFamilyMbr;
+	}
+	
+	/**
+	 * Return the value associated with the column: mentalHealthIssuesYouth.
+	 * @return A Integer object (this.mentalHealthIssuesYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesYouthEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYMentalHealthIssuesYouthEnum getMentalHealthIssuesYouth() {
+		return mentalHealthIssuesYouth;
+	}
+
+	public void setMentalHealthIssuesYouth(
+			EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth) {
+		this.mentalHealthIssuesYouth = mentalHealthIssuesYouth;
+	}
+	
+	/**
+	 * Return the value associated with the column: physicalDisabilityFamilyMbr.
+	 * @return A Integer object (this.physicalDisabilityFamilyMbr)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYPhysicalDisabilityFamEnum getPhysicalDisabilityFamilyMbr() {
+		return physicalDisabilityFamilyMbr;
+	}
+
+	public void setPhysicalDisabilityFamilyMbr(
+			EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr) {
+		this.physicalDisabilityFamilyMbr = physicalDisabilityFamilyMbr;
+	}
+	
+	/**
+	 * Return the value associated with the column: physicalDisabilityYouth.
+	 * @return A Integer object (this.physicalDisabilityYouth)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityYouthEnum")
+	@Basic( optional = true )
+	@Column
+	public EntryRHYPhysicalDisabilityYouthEnum getPhysicalDisabilityYouth() {
+		return physicalDisabilityYouth;
+	}
+
+	public void setPhysicalDisabilityYouth(
+			EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth) {
+		this.physicalDisabilityYouth = physicalDisabilityYouth;
+	}
+	
+	/**
 	 * Return the value associated with the column: schoolEducationIssuesFamilyMbr.
 	 * @return A Integer object (this.schoolEducationIssuesFamilyMbr)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesFamEnum")
 	@Basic( optional = true )
-	@Column( name = "school_education_issues_family_mbr"  )
-	public Integer getSchoolEducationIssuesFamilyMbr() {
-		return this.schoolEducationIssuesFamilyMbr;
-
+	@Column
+	public EntryRHYSchoolEducationalIssuesFamEnum getSchoolEducationIssuesFamilyMbr() {
+		return schoolEducationIssuesFamilyMbr;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: schoolEducationIssuesFamilyMbr.
-	 * @param schoolEducationIssuesFamilyMbr the schoolEducationIssuesFamilyMbr value you wish to set
-	 */
-	public void setSchoolEducationIssuesFamilyMbr(final Integer schoolEducationIssuesFamilyMbr) {
+	public void setSchoolEducationIssuesFamilyMbr(
+			EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr) {
 		this.schoolEducationIssuesFamilyMbr = schoolEducationIssuesFamilyMbr;
 	}
-
-	 /**
+	
+	
+	/**
 	 * Return the value associated with the column: schoolEducationIssuesYouth.
 	 * @return A Integer object (this.schoolEducationIssuesYouth)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesYouthEnum")
 	@Basic( optional = true )
-	@Column( name = "school_education_issues_youth"  )
-	public Integer getSchoolEducationIssuesYouth() {
-		return this.schoolEducationIssuesYouth;
-
+	@Column
+	public EntryRHYSchoolEducationalIssuesYouthEnum getSchoolEducationIssuesYouth() {
+		return schoolEducationIssuesYouth;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: schoolEducationIssuesYouth.
-	 * @param schoolEducationIssuesYouth the schoolEducationIssuesYouth value you wish to set
-	 */
-	public void setSchoolEducationIssuesYouth(final Integer schoolEducationIssuesYouth) {
+	public void setSchoolEducationIssuesYouth(
+			EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth) {
 		this.schoolEducationIssuesYouth = schoolEducationIssuesYouth;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: sexualOrientatiionGenderIdentityFamilyMbr.
 	 * @return A Integer object (this.sexualOrientatiionGenderIdentityFamilyMbr)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIDFamEnum")
 	@Basic( optional = true )
-	@Column( name = "sexual_orientatiion_gender_identity_family_mbr"  )
-	public Integer getSexualOrientatiionGenderIdentityFamilyMbr() {
-		return this.sexualOrientatiionGenderIdentityFamilyMbr;
-
+	@Column
+	public EntryRHYSexualOrientationGenderIDFamEnum getSexualOrientatiionGenderIdentityFamilyMbr() {
+		return sexualOrientatiionGenderIdentityFamilyMbr;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: sexualOrientatiionGenderIdentityFamilyMbr.
-	 * @param sexualOrientatiionGenderIdentityFamilyMbr the sexualOrientatiionGenderIdentityFamilyMbr value you wish to set
-	 */
-	public void setSexualOrientatiionGenderIdentityFamilyMbr(final Integer sexualOrientatiionGenderIdentityFamilyMbr) {
+	public void setSexualOrientatiionGenderIdentityFamilyMbr(
+			EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr) {
 		this.sexualOrientatiionGenderIdentityFamilyMbr = sexualOrientatiionGenderIdentityFamilyMbr;
 	}
-
-	 /**
+	
+	
+	/**
 	 * Return the value associated with the column: sexualOrientatiionGenderIdentityYouth.
 	 * @return A Integer object (this.sexualOrientatiionGenderIdentityYouth)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIdentityYouthEnum")
 	@Basic( optional = true )
-	@Column( name = "sexual_orientatiion_gender_identity_youth"  )
-	public Integer getSexualOrientatiionGenderIdentityYouth() {
-		return this.sexualOrientatiionGenderIdentityYouth;
-
+	@Column
+	public EntryRHYSexualOrientationGenderIdentityYouthEnum getSexualOrientatiionGenderIdentityYouth() {
+		return sexualOrientatiionGenderIdentityYouth;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: sexualOrientatiionGenderIdentityYouth.
-	 * @param sexualOrientatiionGenderIdentityYouth the sexualOrientatiionGenderIdentityYouth value you wish to set
-	 */
-	public void setSexualOrientatiionGenderIdentityYouth(final Integer sexualOrientatiionGenderIdentityYouth) {
+	public void setSexualOrientatiionGenderIdentityYouth(
+			EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth) {
 		this.sexualOrientatiionGenderIdentityYouth = sexualOrientatiionGenderIdentityYouth;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: sexualOrientation.
 	 * @return A Integer object (this.sexualOrientation)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum")
 	@Basic( optional = true )
-	@Column( name = "sexual_orientation"  )
-	public Integer getSexualOrientation() {
-		return this.sexualOrientation;
-
+	@Column
+	public SexualorientationSexualorientationEnum getSexualOrientation() {
+		return sexualOrientation;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: sexualOrientation.
-	 * @param sexualOrientation the sexualOrientation value you wish to set
-	 */
-	public void setSexualOrientation(final Integer sexualOrientation) {
+	public void setSexualOrientation(
+			SexualorientationSexualorientationEnum sexualOrientation) {
 		this.sexualOrientation = sexualOrientation;
 	}
-	 /**
+	
+	/**
 	 * Return the value associated with the column: unemployementFamilyMbr.
 	 * @return A Integer object (this.unemployementFamilyMbr)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum")
 	@Basic( optional = true )
-	@Column( name = "unemployement_family_mbr"  )
-	public Integer getUnemployementFamilyMbr() {
-		return this.unemployementFamilyMbr;
-
+	@Column
+	public EntryRHYUnemploymentFamEnum getUnemployementFamilyMbr() {
+		return unemployementFamilyMbr;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: unemployementFamilyMbr.
-	 * @param unemployementFamilyMbr the unemployementFamilyMbr value you wish to set
-	 */
-	public void setUnemployementFamilyMbr(final Integer unemployementFamilyMbr) {
+	public void setUnemployementFamilyMbr(
+			EntryRHYUnemploymentFamEnum unemployementFamilyMbr) {
 		this.unemployementFamilyMbr = unemployementFamilyMbr;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: unemployementYouth.
 	 * @return A Integer object (this.unemployementYouth)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentYouthEnum")
 	@Basic( optional = true )
-	@Column( name = "unemployement_youth"  )
-	public Integer getUnemployementYouth() {
-		return this.unemployementYouth;
-
+	@Column
+	public EntryRHYUnemploymentYouthEnum getUnemployementYouth() {
+		return unemployementYouth;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: unemployementYouth.
-	 * @param unemployementYouth the unemployementYouth value you wish to set
-	 */
-	public void setUnemployementYouth(final Integer unemployementYouth) {
+	public void setUnemployementYouth(
+			EntryRHYUnemploymentYouthEnum unemployementYouth) {
 		this.unemployementYouth = unemployementYouth;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: workPlacePromiseDifference.
 	 * @return A Integer object (this.workPlacePromiseDifference)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum")
 	@Basic( optional = true )
-	@Column( name = "work_place_promise_difference"  )
-	public Integer getWorkPlacePromiseDifference() {
-		return this.workPlacePromiseDifference;
-
+	@Column
+	public EntryRHYWorkplacePromiseDifferenceEnum getWorkPlacePromiseDifference() {
+		return workPlacePromiseDifference;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: workPlacePromiseDifference.
-	 * @param workPlacePromiseDifference the workPlacePromiseDifference value you wish to set
-	 */
-	public void setWorkPlacePromiseDifference(final Integer workPlacePromiseDifference) {
+	public void setWorkPlacePromiseDifference(
+			EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference) {
 		this.workPlacePromiseDifference = workPlacePromiseDifference;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: workPlaceViolenceThreat.
 	 * @return A Integer object (this.workPlaceViolenceThreat)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum")
 	@Basic( optional = true )
-	@Column( name = "work_place_violence_threat"  )
-	public Integer getWorkPlaceViolenceThreat() {
-		return this.workPlaceViolenceThreat;
-
+	@Column
+	public EntryRHYWorkPlaceViolenceThreatsEnum getWorkPlaceViolenceThreat() {
+		return workPlaceViolenceThreat;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: workPlaceViolenceThreat.
-	 * @param workPlaceViolenceThreat the workPlaceViolenceThreat value you wish to set
-	 */
-	public void setWorkPlaceViolenceThreat(final Integer workPlaceViolenceThreat) {
+	public void setWorkPlaceViolenceThreat(
+			EntryRHYWorkPlaceViolenceThreatsEnum workPlaceViolenceThreat) {
 		this.workPlaceViolenceThreat = workPlaceViolenceThreat;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: yearsChildWelfrForestCare.
 	 * @return A Integer object (this.yearsChildWelfrForestCare)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYChildWelfareYearsEnum")
 	@Basic( optional = true )
-	@Column( name = "years_child_welfr_forest_care"  )
-	public Integer getYearsChildWelfrForestCare() {
-		return this.yearsChildWelfrForestCare;
-
+	@Column
+	public EntryRHYChildWelfareYearsEnum getYearsChildWelfrForestCare() {
+		return yearsChildWelfrForestCare;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: yearsChildWelfrForestCare.
-	 * @param yearsChildWelfrForestCare the yearsChildWelfrForestCare value you wish to set
-	 */
-	public void setYearsChildWelfrForestCare(final Integer yearsChildWelfrForestCare) {
+	public void setYearsChildWelfrForestCare(
+			EntryRHYChildWelfareYearsEnum yearsChildWelfrForestCare) {
 		this.yearsChildWelfrForestCare = yearsChildWelfrForestCare;
 	}
-
-	 /**
+	
+	/**
 	 * Return the value associated with the column: yearsJuvenileJustice.
 	 * @return A Integer object (this.yearsJuvenileJustice)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnum")
 	@Basic( optional = true )
-	@Column( name = "years_juvenile_justice"  )
-	public Integer getYearsJuvenileJustice() {
-		return this.yearsJuvenileJustice;
-
+	@Column
+	public EntryRHYJuvenileJusticeYearsEnum getYearsJuvenileJustice() {
+		return yearsJuvenileJustice;
 	}
 
-
-
-	 /**
-	 * Set the value related to the column: yearsJuvenileJustice.
-	 * @param yearsJuvenileJustice the yearsJuvenileJustice value you wish to set
-	 */
-	public void setYearsJuvenileJustice(final Integer yearsJuvenileJustice) {
+	public void setYearsJuvenileJustice(
+			EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice) {
 		this.yearsJuvenileJustice = yearsJuvenileJustice;
 	}
 

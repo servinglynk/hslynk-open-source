@@ -33,8 +33,8 @@ public class BaseProcessor<T> extends Logging {
 			Map<String, Map<String, Object>> toUpdate = new HashMap<>();
 			Map<String, Map<String, Object>> toInsert = new HashMap<>();
 
-			String tblName = class1.getSimpleName() + "_" + upload.getProjectGroupCode() + "_2014";
-			HTable table = new HTable(HbaseUtil.getConfiguration(), tblName);
+			String tblName = class1.getSimpleName() + "_" + upload.getProjectGroupCode();
+			HTable table = new HTable(HbaseUtil.getConfiguration(), tblName.trim());
 			HBaseImport hBaseImport = new HBaseImport();
 			List<String> rowKeys = hBaseImport.getAllKeyRecords(table);
 			for (T pojo : pojoList) {
@@ -247,6 +247,16 @@ public class BaseProcessor<T> extends Logging {
 
 		return null;
 	}
+	/***
+	 * This method returns schema name from year.
+	 * @return
+	 */
+	public String getSchemeFromYear(BulkUpload upload) {
+		if(upload.getYear() != 0L) {
+			return "v"+upload.getYear();	
+		}
+		return "v2014";
+	}
 
 	/***
 	 * Gets the type from hmis_type table so we can store readable values in HBASE.
@@ -260,13 +270,14 @@ public class BaseProcessor<T> extends Logging {
 		List<BulkUpload> uploads = new ArrayList<BulkUpload>();
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("SELECT export_id,project_group_code,id FROM base.bulk_upload where status='STAGING'");
+			statement = connection.prepareStatement("SELECT export_id,project_group_code,id,year FROM base.bulk_upload where status='STAGING'");
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
 				BulkUpload upload = new BulkUpload();
 				upload.setExportId(UUID.fromString(resultSet.getString(1)));
 				upload.setProjectGroupCode(resultSet.getString(2));
 				upload.setId(resultSet.getLong(3));
+				upload.setYear(resultSet.getLong(4));
 				uploads.add(upload);
 			}
 			return uploads.get(0);
@@ -289,14 +300,14 @@ public class BaseProcessor<T> extends Logging {
 	}
 
 
-	private Timestamp getCUrrentTimestamp() {
+	private static  Timestamp getCUrrentTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
 		return currentTimestamp;
 
 	}
 
-	public UUID insertSyncStartTime() {
+	public static UUID insertSyncStartTime() {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		try {
@@ -360,7 +371,7 @@ public class BaseProcessor<T> extends Logging {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE v2014.sync SET date_updated=?, status=? where id =?");
+			statement = connection.prepareStatement("UPDATE base.bulk_upload SET date_updated=?, status=? where id =?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setString(2, "LIVE");

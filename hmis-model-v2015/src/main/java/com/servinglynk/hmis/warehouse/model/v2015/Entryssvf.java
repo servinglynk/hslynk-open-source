@@ -16,7 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 
 
 /** 
@@ -61,9 +64,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/** Field mapping. */
 	private String lastPermanentZip;
 	/** Field mapping. */
-	/** Field mapping. */
-	private Integer percentami;
-	/** Field mapping. */
+	private EntrySSVFPercentAMIEnum percentami;
 	/** Field mapping. */
 	private String vamcStation;
 	/**
@@ -270,25 +271,27 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 		this.lastPermanentZip = lastPermanentZip;
 	}
 
-	 /**
+	/**
 	 * Return the value associated with the column: percentami.
 	 * @return A Integer object (this.percentami)
 	 */
-	public Integer getPercentami() {
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum")
+	@Basic( optional = true )
+	@Column
+	public EntrySSVFPercentAMIEnum getPercentami() {
 		return this.percentami;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: percentami.
 	 * @param percentami the percentami value you wish to set
 	 */
-	public void setPercentami(final Integer percentami) {
+	public void setPercentami(final EntrySSVFPercentAMIEnum percentami) {
 		this.percentami = percentami;
 	}
-
 
 	 /**
 	 * Return the value associated with the column: vamcStation.

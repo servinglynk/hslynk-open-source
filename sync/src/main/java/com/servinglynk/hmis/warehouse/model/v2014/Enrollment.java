@@ -46,8 +46,10 @@ public class Enrollment extends BaseModel{
 	public String yearshomeless;
 	@Column(name="client_id")
 	public UUID client_id;
+	@Column(name="ageAtEntry")
+	public Integer ageAtEntry;
 	/**
-	 * @return the continuouslyhomelessoneyear
+	 * @return the continuouslyhomele"2015-09-13 00:00:00"ssoneyear
 	 */
 	public String getContinuouslyhomelessoneyear() {
 		return continuouslyhomelessoneyear;
@@ -257,5 +259,10 @@ public class Enrollment extends BaseModel{
 	public void setClient_id(UUID client_id) {
 		this.client_id = client_id;
 	}
-	
+	public Integer getAgeAtEntry() {
+		return ageAtEntry;
+	}
+	public void setAgeAtEntry(Integer ageAtEntry) {
+		this.ageAtEntry = ageAtEntry;
+	}
 }

@@ -16,7 +16,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYFamilyReunificationAchievedEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYFurtherFollowUpServicesEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYOtherAftercarePlanOrActionEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYPermanentHousingPlacementEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYResourcePackageEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnum;
+import com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
+import com.servinglynk.hmis.warehouse.model.v2015.Exit;
 
 /** 
  * Object mapping for hibernate-handled table: exitrhy.
@@ -43,33 +58,33 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 	
 
 	/** Field mapping. */
-	private Integer assistanceMainStreamBenefits;
+	private ExitRHYAssistanceMainstreamBenefitsEnum assistanceMainStreamBenefits;
 	/** Field mapping. */
-	private Integer earlyExitReason;
+	private ExitRHYEarlyExitReasonEnum earlyExitReason;
 	/** Field mapping. */
 	private Exit exitid;
 	/** Field mapping. */
-	private Integer exitCounseling;
+	private ExitRHYExitCounselingEnum exitCounseling;
 	/** Field mapping. */
-	private Integer familyReunificationAchieved;
+	private ExitRHYFamilyReunificationAchievedEnum familyReunificationAchieved;
 	/** Field mapping. */
-	private Integer furtherFollowupServices;
+	private ExitRHYFurtherFollowUpServicesEnum furtherFollowupServices;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private Integer otherAftercarePlanOrAction;
+	private ExitRHYOtherAftercarePlanOrActionEnum otherAftercarePlanOrAction;
 	/** Field mapping. */
-	private Integer permenantHousingPlacement;
+	private ExitRHYPermanentHousingPlacementEnum permenantHousingPlacement;
 	/** Field mapping. */
-	private Integer projectCompletionStatus;
+	private ProjectcompletionstatusProjectcompletionstatusEnum projectCompletionStatus;
 	/** Field mapping. */
-	private Integer resourcePackage;
+	private ExitRHYResourcePackageEnum resourcePackage;
 	/** Field mapping. */
-	private Integer scheduledFollowupContacts;
+	private ExitRHYScheduledFollowUpContactsEnum scheduledFollowupContacts;
 	/** Field mapping. */
-	private Integer tempShelterPlacement;
+	private ExitRHYTemporaryShelterPlacementEnum tempShelterPlacement;
 	/** Field mapping. */
-	private Integer writtenAfterCarePlan;
+	private ExitRHYWrittenAfterCarePlanEnum writtenAfterCarePlan;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -98,309 +113,321 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
  
 
 	 /**
-	 * Return the value associated with the column: assistanceMainStreamBenefits.
-	 * @return A Integer object (this.assistanceMainStreamBenefits)
-	 */
-	@Basic( optional = true )
-	@Column( name = "assistance_main_stream_benefits"  )
-	public Integer getAssistanceMainStreamBenefits() {
-		return this.assistanceMainStreamBenefits;
-		
-	}
-	
+		 * Return the value associated with the column: assistanceMainStreamBenefits.
+		 * @return A Integer object (this.assistanceMainStreamBenefits)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYAssistanceMainstreamBenefitsEnum getAssistanceMainStreamBenefits() {
+			return this.assistanceMainStreamBenefits;
 
-  
-	 /**  
-	 * Set the value related to the column: assistanceMainStreamBenefits.
-	 * @param assistanceMainStreamBenefits the assistanceMainStreamBenefits value you wish to set
-	 */
-	public void setAssistanceMainStreamBenefits(final Integer assistanceMainStreamBenefits) {
-		this.assistanceMainStreamBenefits = assistanceMainStreamBenefits;
-	}
-
-	 /**
-	 * Return the value associated with the column: earlyExitReason.
-	 * @return A Integer object (this.earlyExitReason)
-	 */
-	@Basic( optional = true )
-	@Column( name = "early_exit_reason"  )
-	public Integer getEarlyExitReason() {
-		return this.earlyExitReason;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: earlyExitReason.
-	 * @param earlyExitReason the earlyExitReason value you wish to set
-	 */
-	public void setEarlyExitReason(final Integer earlyExitReason) {
-		this.earlyExitReason = earlyExitReason;
-	}
-
-	 /**
-	 * Return the value associated with the column: exitid.
-	 * @return A Exit object (this.exitid)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "exitid", nullable = true )
-	public Exit getExitid() {
-		return this.exitid;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: exitid.
-	 * @param exitid the exitid value you wish to set
-	 */
-	public void setExitid(final Exit exitid) {
-		this.exitid = exitid;
-	}
-
-	 /**
-	 * Return the value associated with the column: exitCounseling.
-	 * @return A Integer object (this.exitCounseling)
-	 */
-	@Basic( optional = true )
-	@Column( name = "exit_counseling"  )
-	public Integer getExitCounseling() {
-		return this.exitCounseling;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: exitCounseling.
-	 * @param exitCounseling the exitCounseling value you wish to set
-	 */
-	public void setExitCounseling(final Integer exitCounseling) {
-		this.exitCounseling = exitCounseling;
-	}
-
-	 /**
-	 * Return the value associated with the column: familyReunificationAchieved.
-	 * @return A Integer object (this.familyReunificationAchieved)
-	 */
-	@Basic( optional = true )
-	@Column( name = "family_reunification_achieved"  )
-	public Integer getFamilyReunificationAchieved() {
-		return this.familyReunificationAchieved;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: familyReunificationAchieved.
-	 * @param familyReunificationAchieved the familyReunificationAchieved value you wish to set
-	 */
-	public void setFamilyReunificationAchieved(final Integer familyReunificationAchieved) {
-		this.familyReunificationAchieved = familyReunificationAchieved;
-	}
-
-	 /**
-	 * Return the value associated with the column: furtherFollowupServices.
-	 * @return A Integer object (this.furtherFollowupServices)
-	 */
-	@Basic( optional = true )
-	@Column( name = "further_followup_services"  )
-	public Integer getFurtherFollowupServices() {
-		return this.furtherFollowupServices;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: furtherFollowupServices.
-	 * @param furtherFollowupServices the furtherFollowupServices value you wish to set
-	 */
-	public void setFurtherFollowupServices(final Integer furtherFollowupServices) {
-		this.furtherFollowupServices = furtherFollowupServices;
-	}
-
-	 /**
-	 * Return the value associated with the column: id.
-	 * @return A java.util.UUID object (this.id)
-	 */
-	@Id 
-	 @Basic( optional = false )
-   @Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-	public java.util.UUID getId() {
-		return this.id;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: id.
-	 * @param id the id value you wish to set
-	 */
-	public void setId(final java.util.UUID id) {
-		// If we've just been persisted and hashCode has been
-		// returned then make sure other entities with this
-		// ID return the already returned hash code
-		if ( (this.id == null ) &&
-				(id != null) &&
-				(this.hashCode != null) ) {
-		SAVED_HASHES.put( id, this.hashCode );
 		}
-		this.id = id;
-	}
-
-	 /**
-	 * Return the value associated with the column: otherAftercarePlanOrAction.
-	 * @return A Integer object (this.otherAftercarePlanOrAction)
-	 */
-	@Basic( optional = true )
-	@Column( name = "other_aftercare_plan_or_action"  )
-	public Integer getOtherAftercarePlanOrAction() {
-		return this.otherAftercarePlanOrAction;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: otherAftercarePlanOrAction.
-	 * @param otherAftercarePlanOrAction the otherAftercarePlanOrAction value you wish to set
-	 */
-	public void setOtherAftercarePlanOrAction(final Integer otherAftercarePlanOrAction) {
-		this.otherAftercarePlanOrAction = otherAftercarePlanOrAction;
-	}
 
 
-	 /**
-	 * Return the value associated with the column: permenantHousingPlacement.
-	 * @return A Integer object (this.permenantHousingPlacement)
-	 */
-	@Basic( optional = true )
-	@Column( name = "permenant_housing_placement"  )
-	public Integer getPermenantHousingPlacement() {
-		return this.permenantHousingPlacement;
-		
-	}
-  
-	 /**  
-	 * Set the value related to the column: permenantHousingPlacement.
-	 * @param permenantHousingPlacement the permenantHousingPlacement value you wish to set
-	 */
-	public void setPermenantHousingPlacement(final Integer permenantHousingPlacement) {
-		this.permenantHousingPlacement = permenantHousingPlacement;
-	}
 
-	 /**
-	 * Return the value associated with the column: projectCompletionStatus.
-	 * @return A Integer object (this.projectCompletionStatus)
-	 */
-	@Basic( optional = true )
-	@Column( name = "project_completion_status"  )
-	public Integer getProjectCompletionStatus() {
-		return this.projectCompletionStatus;
-		
-	}
-	
+		 /**
+		 * Set the value related to the column: assistanceMainStreamBenefits.
+		 * @param assistanceMainStreamBenefits the assistanceMainStreamBenefits value you wish to set
+		 */
+		public void setAssistanceMainStreamBenefits(final ExitRHYAssistanceMainstreamBenefitsEnum assistanceMainStreamBenefits) {
+			this.assistanceMainStreamBenefits = assistanceMainStreamBenefits;
+		}
 
-  
-	 /**  
-	 * Set the value related to the column: projectCompletionStatus.
-	 * @param projectCompletionStatus the projectCompletionStatus value you wish to set
-	 */
-	public void setProjectCompletionStatus(final Integer projectCompletionStatus) {
-		this.projectCompletionStatus = projectCompletionStatus;
-	}
+		 /**
+		 * Return the value associated with the column: earlyExitReason.
+		 * @return A Integer object (this.earlyExitReason)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYEarlyExitReasonEnum getEarlyExitReason() {
+			return this.earlyExitReason;
 
-	 /**
-	 * Return the value associated with the column: resourcePackage.
-	 * @return A Integer object (this.resourcePackage)
-	 */
-	@Basic( optional = true )
-	@Column( name = "resource_package"  )
-	public Integer getResourcePackage() {
-		return this.resourcePackage;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: resourcePackage.
-	 * @param resourcePackage the resourcePackage value you wish to set
-	 */
-	public void setResourcePackage(final Integer resourcePackage) {
-		this.resourcePackage = resourcePackage;
-	}
-
-	 /**
-	 * Return the value associated with the column: scheduledFollowupContacts.
-	 * @return A Integer object (this.scheduledFollowupContacts)
-	 */
-	@Basic( optional = true )
-	@Column( name = "scheduled_followup_contacts"  )
-	public Integer getScheduledFollowupContacts() {
-		return this.scheduledFollowupContacts;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: scheduledFollowupContacts.
-	 * @param scheduledFollowupContacts the scheduledFollowupContacts value you wish to set
-	 */
-	public void setScheduledFollowupContacts(final Integer scheduledFollowupContacts) {
-		this.scheduledFollowupContacts = scheduledFollowupContacts;
-	}
+		}
 
 
-	 /**
-	 * Return the value associated with the column: tempShelterPlacement.
-	 * @return A Integer object (this.tempShelterPlacement)
-	 */
-	@Basic( optional = true )
-	@Column( name = "temp_shelter_placement"  )
-	public Integer getTempShelterPlacement() {
-		return this.tempShelterPlacement;
-		
-	}
-	
 
-  
-	 /**  
-	 * Set the value related to the column: tempShelterPlacement.
-	 * @param tempShelterPlacement the tempShelterPlacement value you wish to set
-	 */
-	public void setTempShelterPlacement(final Integer tempShelterPlacement) {
-		this.tempShelterPlacement = tempShelterPlacement;
-	}
+		 /**
+		 * Set the value related to the column: earlyExitReason.
+		 * @param earlyExitReason the earlyExitReason value you wish to set
+		 */
+		public void setEarlyExitReason(final ExitRHYEarlyExitReasonEnum earlyExitReason) {
+			this.earlyExitReason = earlyExitReason;
+		}
 
-	 /**
-	 * Return the value associated with the column: writtenAfterCarePlan.
-	 * @return A Integer object (this.writtenAfterCarePlan)
-	 */
-	@Basic( optional = true )
-	@Column( name = "written_after_care_plan"  )
-	public Integer getWrittenAfterCarePlan() {
-		return this.writtenAfterCarePlan;
-		
-	}
-	
+		 /**
+		 * Return the value associated with the column: exitid.
+		 * @return A Exit object (this.exitid)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "exitid", nullable = true )
+		public Exit getExitid() {
+			return this.exitid;
 
-  
-	 /**  
-	 * Set the value related to the column: writtenAfterCarePlan.
-	 * @param writtenAfterCarePlan the writtenAfterCarePlan value you wish to set
-	 */
-	public void setWrittenAfterCarePlan(final Integer writtenAfterCarePlan) {
-		this.writtenAfterCarePlan = writtenAfterCarePlan;
-	}
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: exitid.
+		 * @param exitid the exitid value you wish to set
+		 */
+		public void setExitid(final Exit exitid) {
+			this.exitid = exitid;
+		}
+
+		 /**
+		 * Return the value associated with the column: exitCounseling.
+		 * @return A Integer object (this.exitCounseling)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYExitCounselingEnum getExitCounseling() {
+			return this.exitCounseling;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: exitCounseling.
+		 * @param exitCounseling the exitCounseling value you wish to set
+		 */
+		public void setExitCounseling(final ExitRHYExitCounselingEnum exitCounseling) {
+			this.exitCounseling = exitCounseling;
+		}
+
+		 /**
+		 * Return the value associated with the column: familyReunificationAchieved.
+		 * @return A Integer object (this.familyReunificationAchieved)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYFamilyReunificationAchievedEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYFamilyReunificationAchievedEnum getFamilyReunificationAchieved() {
+			return this.familyReunificationAchieved;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: familyReunificationAchieved.
+		 * @param familyReunificationAchieved the familyReunificationAchieved value you wish to set
+		 */
+		public void setFamilyReunificationAchieved(final ExitRHYFamilyReunificationAchievedEnum familyReunificationAchieved) {
+			this.familyReunificationAchieved = familyReunificationAchieved;
+		}
+
+		 /**
+		 * Return the value associated with the column: furtherFollowupServices.
+		 * @return A Integer object (this.furtherFollowupServices)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYFurtherFollowUpServicesEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYFurtherFollowUpServicesEnum getFurtherFollowupServices() {
+			return this.furtherFollowupServices;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: furtherFollowupServices.
+		 * @param furtherFollowupServices the furtherFollowupServices value you wish to set
+		 */
+		public void setFurtherFollowupServices(final ExitRHYFurtherFollowUpServicesEnum furtherFollowupServices) {
+			this.furtherFollowupServices = furtherFollowupServices;
+		}
+
+		 /**
+		 * Return the value associated with the column: id.
+		 * @return A java.util.UUID object (this.id)
+		 */
+		@Id
+		 @Basic( optional = false )
+	   @Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+		public java.util.UUID getId() {
+			return this.id;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: id.
+		 * @param id the id value you wish to set
+		 */
+		public void setId(final java.util.UUID id) {
+			// If we've just been persisted and hashCode has been
+			// returned then make sure other entities with this
+			// ID return the already returned hash code
+			if ( (this.id == null ) &&
+					(id != null) &&
+					(this.hashCode != null) ) {
+			SAVED_HASHES.put( id, this.hashCode );
+			}
+			this.id = id;
+		}
+
+		 /**
+		 * Return the value associated with the column: otherAftercarePlanOrAction.
+		 * @return A Integer object (this.otherAftercarePlanOrAction)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYOtherAftercarePlanOrActionEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYOtherAftercarePlanOrActionEnum getOtherAftercarePlanOrAction() {
+			return this.otherAftercarePlanOrAction;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: otherAftercarePlanOrAction.
+		 * @param otherAftercarePlanOrAction the otherAftercarePlanOrAction value you wish to set
+		 */
+		public void setOtherAftercarePlanOrAction(final ExitRHYOtherAftercarePlanOrActionEnum otherAftercarePlanOrAction) {
+			this.otherAftercarePlanOrAction = otherAftercarePlanOrAction;
+		}
+
+
+		 /**
+		 * Return the value associated with the column: permenantHousingPlacement.
+		 * @return A Integer object (this.permenantHousingPlacement)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYPermanentHousingPlacementEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYPermanentHousingPlacementEnum getPermenantHousingPlacement() {
+			return this.permenantHousingPlacement;
+
+		}
+
+		 /**
+		 * Set the value related to the column: permenantHousingPlacement.
+		 * @param permenantHousingPlacement the permenantHousingPlacement value you wish to set
+		 */
+		public void setPermenantHousingPlacement(final ExitRHYPermanentHousingPlacementEnum permenantHousingPlacement) {
+			this.permenantHousingPlacement = permenantHousingPlacement;
+		}
+
+		 /**
+		 * Return the value associated with the column: projectCompletionStatus.
+		 * @return A Integer object (this.projectCompletionStatus)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum")
+		@Basic( optional = true )
+		@Column
+		public ProjectcompletionstatusProjectcompletionstatusEnum getProjectCompletionStatus() {
+			return this.projectCompletionStatus;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: projectCompletionStatus.
+		 * @param projectCompletionStatus the projectCompletionStatus value you wish to set
+		 */
+		public void setProjectCompletionStatus(final ProjectcompletionstatusProjectcompletionstatusEnum projectCompletionStatus) {
+			this.projectCompletionStatus = projectCompletionStatus;
+		}
+
+		 /**
+		 * Return the value associated with the column: resourcePackage.
+		 * @return A Integer object (this.resourcePackage)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYResourcePackageEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYResourcePackageEnum getResourcePackage() {
+			return this.resourcePackage;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: resourcePackage.
+		 * @param resourcePackage the resourcePackage value you wish to set
+		 */
+		public void setResourcePackage(final ExitRHYResourcePackageEnum resourcePackage) {
+			this.resourcePackage = resourcePackage;
+		}
+
+		 /**
+		 * Return the value associated with the column: scheduledFollowupContacts.
+		 * @return A Integer object (this.scheduledFollowupContacts)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYScheduledFollowUpContactsEnum getScheduledFollowupContacts() {
+			return this.scheduledFollowupContacts;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: scheduledFollowupContacts.
+		 * @param scheduledFollowupContacts the scheduledFollowupContacts value you wish to set
+		 */
+		public void setScheduledFollowupContacts(final ExitRHYScheduledFollowUpContactsEnum scheduledFollowupContacts) {
+			this.scheduledFollowupContacts = scheduledFollowupContacts;
+		}
+
+
+		 /**
+		 * Return the value associated with the column: tempShelterPlacement.
+		 * @return A Integer object (this.tempShelterPlacement)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYTemporaryShelterPlacementEnum getTempShelterPlacement() {
+			return this.tempShelterPlacement;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: tempShelterPlacement.
+		 * @param tempShelterPlacement the tempShelterPlacement value you wish to set
+		 */
+		public void setTempShelterPlacement(final ExitRHYTemporaryShelterPlacementEnum tempShelterPlacement) {
+			this.tempShelterPlacement = tempShelterPlacement;
+		}
+
+		 /**
+		 * Return the value associated with the column: writtenAfterCarePlan.
+		 * @return A Integer object (this.writtenAfterCarePlan)
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum")
+		@Basic( optional = true )
+		@Column
+		public ExitRHYWrittenAfterCarePlanEnum getWrittenAfterCarePlan() {
+			return this.writtenAfterCarePlan;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: writtenAfterCarePlan.
+		 * @param writtenAfterCarePlan the writtenAfterCarePlan value you wish to set
+		 */
+		public void setWrittenAfterCarePlan(final ExitRHYWrittenAfterCarePlanEnum writtenAfterCarePlan) {
+			this.writtenAfterCarePlan = writtenAfterCarePlan;
+		}
 
 
    /**

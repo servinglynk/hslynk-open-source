@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Exitpath;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -29,7 +30,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 				com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
 				UUID exitpathUUID = UUID.randomUUID();
 				exitpathModel.setId(exitpathUUID);
-				exitpathModel.setConnectionWithSoar(new Integer(exitpaths.getConnectionWithSOAR()).intValue());
+				exitpathModel.setConnectionWithSoar(ExitPathConnectionWithSOAREnum.lookupEnum(BasicDataGenerator.getStringValue(exitpaths.getConnectionWithSOAR())));
 				com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) get(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, domain.getExitMap().get(exitpaths.getExitID()));
 				exitpathModel.setExitid(exit);
 				exitpathModel.setDeleted(false);

@@ -6,6 +6,7 @@ public class BulkUpload {
 	private UUID exportId;
 	private String projectGroupCode;
 	private Long id;
+	private Long year;
 
 	public UUID getExportId() {
 		return exportId;
@@ -31,4 +32,11 @@ public class BulkUpload {
 		this.id = id;
 	}
 
+	public Long getYear() {
+		return year;
+	}
+
+	public void setYear(Long year) {
+		this.year = year;
+	}
 }
