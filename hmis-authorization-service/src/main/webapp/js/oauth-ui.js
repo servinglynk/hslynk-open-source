@@ -79,7 +79,7 @@ function getConsentMsgs(clientId, token, callback){
          },
 		
 		type: "GET",
-		url: "/hmis-authorization-service/rest/trustedapps/"+clientId+"/consentmessages",
+		url: "/hmis-authorization-service-v2015/rest/trustedapps/"+clientId+"/consentmessages",
 		dataType: "json",
 		success: callback,
 		error: function (res) {
@@ -107,7 +107,7 @@ function getDetailedConsentMsgs(clientId, token, callback){
          },
 		
 		type: "GET",
-		url: "/hmis-authorization-service/rest/trustedapps/"+clientId+"/detailedconsentmessages",
+		url: "/hmis-authorization-service-v2015/rest/trustedapps/"+clientId+"/detailedconsentmessages",
 		dataType: "json",
 		success: callback,
 		error: function (res) {
@@ -133,7 +133,7 @@ $('#submit-otp').click(function (){
 			},
 			
 			type: "POST",
-			url: "/hmis-authorization-service/rest/authorize/validateotp?otp="+$.trim($('#otp').val())+"&authKey="+jQuery("#authKey").val(),
+			url: "/hmis-authorization-service-v2015/rest/authorize/validateotp?otp="+$.trim($('#otp').val())+"&authKey="+jQuery("#authKey").val(),
 			dataType: "json",
 			success: function(data){
 				//set cookie here
@@ -161,7 +161,7 @@ function submitLoginForWeb(userName, password){
 			},
 			cache :false,
 			type: "POST",
-			url: "/hmis-authorization-service/rest/authorize/session?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt"),
+			url: "/hmis-authorization-service-v2015/rest/authorize/session?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt"),
 			dataType: "json",
 			success: function(res){
 				//set cookie here
@@ -256,7 +256,7 @@ function loginError(jqXHR, errorElement, userName) {
 	switch (jqXHR.status) {
 	case 404:
 		//toastr.error('User not found');
-		window.location.href ="/hmis-authorization-service/login-web.html?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
+		window.location.href ="/hmis-authorization-service-v2015/login-web.html?trustedApp_id="+getURLParameter("trustedApp_id")+"&redirect_uri="+getURLParameter("redirect_uri")+"&response_type="+getURLParameter("response_type")+"&state="+getURLParameter("state")+"&username="+userName+"&password="+password+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
 		break;
 	case 403:
 		toastr.error('Some other error');
