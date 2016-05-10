@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
@@ -33,7 +35,7 @@ public class FileUploadController  extends ControllerBase {
 	 	@RequestMapping(method = RequestMethod.POST,headers = "content-type=multipart/*")
 	 	@APIMapping(value="USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
-		String uploadFileHandler(@RequestParam(value ="name", required = false) String name,
+		String uploadFileHandler(@RequestParam(value ="year", required = false) String year,
 				@RequestParam("file") MultipartFile file,HttpServletRequest request) {
 
 			if (!file.isEmpty()) {
@@ -60,16 +62,22 @@ public class FileUploadController  extends ControllerBase {
 					com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new BulkUpload();
 					upload.setInputpath(serverFile.getAbsolutePath());
 					upload.setSize(file.getSize());
-					//upload.setProjectGroupCode(projGrpCode);
-					//upload.setUser(user);(session.getAccount().getUsername());
-					serviceFactory.getBulkUploadService().createBulkUploadEntry(upload );
+					if(StringUtils.isEmpty(year)) {
+						throw new IllegalArgumentException("Year cannot be null.");
+					}else{
+						Long parseInt = Long.parseLong(year);
+						upload.setYear(parseInt);
+					}
+					Account account = session.getAccount();
+					serviceFactory.getBulkUploadService().createBulkUploadEntry(upload,account);
 
-					return "You successfully uploaded file=" + name;
+					return "You successfully uploaded file=" +  file.getOriginalFilename();
 				} catch (Exception e) {
-					return "You failed to upload " + name + " => " + e.getMessage();
+					logger.error("Error while uploading file {}",e.getMessage());
+					return "You failed to upload " +  file.getOriginalFilename() + " => " + e.getMessage();
 				}
 			} else {
-				return "You failed to upload " + name
+				return "You failed to upload " +  file.getOriginalFilename()
 						+ " because the file was empty.";
 			}
 		}

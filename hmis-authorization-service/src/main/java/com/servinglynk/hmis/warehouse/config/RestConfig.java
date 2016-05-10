@@ -25,6 +25,8 @@ import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.AuthorizationsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentMessagesController;
 import com.servinglynk.hmis.warehouse.rest.PropertyController;
+import com.servinglynk.hmis.warehouse.rest.RevocationsController;
+import com.servinglynk.hmis.warehouse.rest.TokensController;
 
 
 @Configuration
@@ -80,6 +82,15 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return new ConsentMessagesController();
 	}
 	
+	@Bean
+	public TokensController tokensController(){
+		return new TokensController();
+	}
+	
+	@Bean
+	public RevocationsController revocationsController() {
+		return new RevocationsController();
+	}
 	@Autowired
 	Environment env;
 	

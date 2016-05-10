@@ -18,9 +18,13 @@
             <label><span class="required">*</span>File Upload:</label>
             <input type="file" required name="file" file-model="form.inputfile">
           </li>
-          <li>
-            <label><span class="required">*</span>Name: </label>
-            <input type="text" required name="name" ng-model="form.name">
+             <li>
+            <label><span class="required">*</span>Year: </label>
+            <select required  ng-model="form.year" name="year">
+             <option value="">Select Year</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+            </select>
           </li>
           <li>
             <label> </label>

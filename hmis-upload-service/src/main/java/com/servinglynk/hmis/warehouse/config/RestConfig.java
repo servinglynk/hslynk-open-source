@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.BulkUploadController;
 import com.servinglynk.hmis.warehouse.rest.FileUploadController;
 
 
@@ -89,7 +90,10 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	public FileUploadController fileUploadController() {
 		return new FileUploadController();
 	}
-	
+	@Bean
+	public BulkUploadController bulkUploadController() {
+		return new BulkUploadController();
+	}
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_AUTHORIZATION_SERVICE");

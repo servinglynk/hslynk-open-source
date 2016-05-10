@@ -6,7 +6,7 @@
   <display-name>Authorization Service</display-name>
   
   <servlet>
-    <servlet-name>authorization-service</servlet-name>
+    <servlet-name>hmis-authorization-service</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <!-- we'll use AnnotationConfigWebApplicationContext instead of the default XmlWebApplicationContext... -->
     <init-param>
@@ -25,7 +25,7 @@
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>authorization-service</servlet-name>
+    <servlet-name>hmis-authorization-service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   

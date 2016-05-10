@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse;
 
-import com.servinglynk.hmis.warehouse.model.v2014.BaseModel;
 import org.apache.hadoop.hbase.client.HTable;
 
 import java.util.Map;

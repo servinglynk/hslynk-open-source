@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse.model.v2014;
+package com.servinglynk.hmis.warehouse;
 import java.sql.Timestamp;
 import java.util.UUID;
 

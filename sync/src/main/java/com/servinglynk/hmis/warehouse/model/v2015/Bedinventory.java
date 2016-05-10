@@ -2,6 +2,8 @@ package com.servinglynk.hmis.warehouse.model.v2015;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.servinglynk.hmis.warehouse.BaseModel;
+
 public class Bedinventory extends BaseModel{
 	@Column(name="bed_inventory")		
 	public String bed_inventory;

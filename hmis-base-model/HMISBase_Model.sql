@@ -1115,6 +1115,7 @@ WITH (
   OIDS=FALSE
 );
 -- Table: "base"."client"
+CREATE SEQUENCE "base".bulk_upload_id_seq START 1;
 
 CREATE TABLE base.bulk_upload
 (

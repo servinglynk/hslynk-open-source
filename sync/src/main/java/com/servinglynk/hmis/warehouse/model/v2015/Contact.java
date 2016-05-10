@@ -6,6 +6,8 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.servinglynk.hmis.warehouse.BaseModel;
+
 
 @Entity
 public class Contact extends BaseModel{

@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.model.v2014;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.servinglynk.hmis.warehouse.BaseModel;
+
 @Entity
 public class Organization extends BaseModel{
 	@Column(name = "organizationcommonname")

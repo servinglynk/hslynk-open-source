@@ -1,15 +1,11 @@
 package com.servinglynk.hmis.warehouse;
 
-import java.sql.Timestamp;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import com.servinglynk.hmis.warehouse.model.v2014.*;
-import com.servinglynk.hmis.warehouse.model.v2015.Pathstatus;
-import com.servinglynk.hmis.warehouse.model.v2015.Project;
 
 public class FromPostgres extends Logging{
 
@@ -24,17 +20,18 @@ public class FromPostgres extends Logging{
 		long startNanos = System.nanoTime();
 		// Sync Table Start
 		BaseProcessor baseProcessor = new BaseProcessor();
-		UUID syncUid = baseProcessor.insertSyncStartTime();
 		log.info("Get list of bulkupload");
 		final BulkUpload upload = BaseProcessor.getExportIDFromBulkUpload();
+		String schema = baseProcessor.getSchemaFromYear(upload);
 		log.info("Get map of hmisTypes");
-		final Map<String, String> hmisTypes = BaseProcessor.loadHmisTypeMap();
+		UUID syncUid = baseProcessor.insertSyncStartTime(schema);
+		final Map<String, String> hmisTypes = BaseProcessor.loadHmisTypeMap(schema);
 		java.util.Map<String, Integer> tableSyncList = new HashMap<>();
 
 
 		log.info("Create tables in HBASE");
 		long startCreateTables = System.nanoTime();
-		CreateTable.createTables(upload.getProjectGroupCode());
+		CreateTable.createTables(upload);
 		log.info("Time taken to complete create table in seconds: " +
 				TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startCreateTables) / 1000);
 
@@ -42,7 +39,7 @@ public class FromPostgres extends Logging{
 		int availableCores = Runtime.getRuntime().availableProcessors();
 		int cores = (availableCores > 5) ? 5 : availableCores -1;
 		ExecutorService executor = Executors.newFixedThreadPool(cores);
-		final Map<String, Class<? extends BaseModel>> tables = BaseProcessor.getAlltablesV2014();
+		final Map<String, Class<? extends BaseModel>> tables = upload.getYear() == 2015 ? BaseProcessor.getAlltablesV2015() : BaseProcessor.getAlltablesV2014();
 		int count = 0;
 		for (final String tableName : tables.keySet()) {
 			final String tempName = tableName;
@@ -73,7 +70,7 @@ public class FromPostgres extends Logging{
 				TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startSyncTables) / 1000);
 
 		try {
-			baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid);
+			baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid,schema);
 			baseProcessor.updateBulkUpload( upload.getId());
 			log.info("Time taken to run the program in seconds: " +
 					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);

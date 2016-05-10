@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -22,57 +24,17 @@ public class CreateTable {
 //	  conf.set("hbase.zookeeper.property.clientPort","2181");
 //	 }
 	public static void main(String args[]) {
-	//	createTables();
+		//createTables();
 	}
 
-	public static HTable createTables(String projectGroup) {
-		
+	public static HTable createTables(BulkUpload upload) {
+		String projectGroup = upload.getProjectGroupCode();
 		List<String> tablesList =new ArrayList<String>();
-		tablesList.add("Affiliation_"+projectGroup);
-		tablesList.add("Bedinventory_"+projectGroup);
-		tablesList.add("Client_"+projectGroup);
-		tablesList.add("Commercialsexualexploitation_"+projectGroup);
-		tablesList.add("Connectionwithsoar_"+projectGroup);
-		tablesList.add("Dateofengagement_"+projectGroup);
-		tablesList.add("Disabilities_"+projectGroup);
-		tablesList.add("Domesticviolence_"+projectGroup);
-		tablesList.add("Employment_"+projectGroup);
-		tablesList.add("Enrollment_"+projectGroup);
-		tablesList.add("EnrollmentCoc_"+projectGroup);
-		tablesList.add("Exit_"+projectGroup);
-		tablesList.add("Exithousingassessment_"+projectGroup);
-		tablesList.add("Exitplansactions_"+projectGroup);
-		tablesList.add("Export_"+projectGroup);
-		tablesList.add("Familyreunification_"+projectGroup);
-		tablesList.add("Formerwardchildwelfare_"+projectGroup);
-		tablesList.add("Formerwardjuvenilejustice_"+projectGroup);
-		tablesList.add("Funder_"+projectGroup);
-		tablesList.add("Healthinsurance_"+projectGroup);
-		tablesList.add("HealthStatus_"+projectGroup);
-		tablesList.add("Housingassessmentdisposition_"+projectGroup);
-		tablesList.add("Incomeandsources_"+projectGroup);
-		tablesList.add("Inventory_"+projectGroup);
-		tablesList.add("Lastgradecompleted_"+projectGroup);
-		tablesList.add("Lastpermanentaddress_"+projectGroup);
-		tablesList.add("Medicalassistance_"+projectGroup);
-		tablesList.add("Noncashbenefits_"+projectGroup);
-		tablesList.add("Organization_"+projectGroup);
-		tablesList.add("Pathstatus_"+projectGroup);
-		tablesList.add("Percentami_"+projectGroup);
-		tablesList.add("Project_"+projectGroup);
-		tablesList.add("Projectcoc_"+projectGroup);
-		tablesList.add("Projectcompletionstatus_"+projectGroup);
-		tablesList.add("Referralsource_"+projectGroup);
-		tablesList.add("Residentialmoveindate_"+projectGroup);
-		tablesList.add("Rhybcpstatus_"+projectGroup);
-		tablesList.add("Schoolstatus_"+projectGroup);
-		tablesList.add("Services_"+projectGroup);
-		tablesList.add("Sexualorientation_"+projectGroup);
-		tablesList.add("Site_"+projectGroup);
-		tablesList.add("Source_"+projectGroup);
-		tablesList.add("VeteranInfo_"+projectGroup);
-		tablesList.add("Worsthousingsituation_"+projectGroup);
-		tablesList.add("Youthcriticalissues_"+projectGroup);
+		if(upload.getYear() == 2015) {
+			populateTablesListFor2015(tablesList,projectGroup);
+		}else{
+			populateTablesListFor2014(tablesList,projectGroup);
+		}
 		
 			  HTable table = null;
 			  try {
@@ -93,5 +55,21 @@ public class CreateTable {
 			e.printStackTrace();
 		}
 		return table;
+	}
+	
+	public static void populateTablesListFor2014(List<String> tablesList,String projectGroup) {
+		Map<String, Class<? extends BaseModel>> alltablesV2014 = BaseProcessor.getAlltablesV2014();
+		Collection<Class<? extends BaseModel>> values = alltablesV2014.values();
+		for(Class<? extends BaseModel> model : values) {
+			tablesList.add(model.getSimpleName()+"_"+projectGroup);
+		}
+	}
+	
+	private static void populateTablesListFor2015(List<String> tablesList,String projectGroup) {
+		Map<String, Class<? extends BaseModel>> alltablesV2015 = BaseProcessor.getAlltablesV2015();
+		Collection<Class<? extends BaseModel>> values = alltablesV2015.values();
+		for(Class<? extends BaseModel> model : values) {
+			tablesList.add(model.getSimpleName()+"_"+projectGroup);
+		}
 	}
 }

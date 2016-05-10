@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.servinglynk.hmis.warehouse.BaseModel;
+
 
 @Entity
 public class ServiceFaReferral extends BaseModel{

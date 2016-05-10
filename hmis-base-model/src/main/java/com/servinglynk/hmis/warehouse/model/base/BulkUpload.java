@@ -9,7 +9,10 @@ import java.util.WeakHashMap;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -72,9 +75,9 @@ public class BulkUpload extends HmisBaseModel {
 	 * Return the value associated with the column: id.
 	 * @return A Long object (this.id)
 	 */
-    @Id 
-	@Basic( optional = false )
-	@Column( name = "id", nullable = false  )
+	@Id
+	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="base.bulk_upload_id_seq", name="base.bulk_upload_id_seq" , catalog = "hmis", schema = "base")
+	@GeneratedValue(generator="base.bulk_upload_id_seq", strategy=GenerationType.SEQUENCE )
 	public Long getId() {
 		return this.id;
 		
