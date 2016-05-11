@@ -26,7 +26,7 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEnrollmentCoc.setEnrollmentid(pEnrollment); 
        pEnrollmentCoc.setDateCreated(LocalDateTime.now());
-  //     pEnrollmentCoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEnrollmentCoc.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEnrollmentCocDao().createEnrollmentCoc(pEnrollmentCoc);
        enrollmentCoc.setEnrollmentCocId(pEnrollmentCoc.getId());
        return enrollmentCoc;
@@ -43,7 +43,7 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
        EnrollmentCocConverter.modelToEntity(enrollmentCoc, pEnrollmentCoc);
        pEnrollmentCoc.setEnrollmentid(pEnrollment); 
        pEnrollmentCoc.setDateUpdated(LocalDateTime.now());
-   //    pEnrollmentCoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEnrollmentCoc.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEnrollmentCocDao().updateEnrollmentCoc(pEnrollmentCoc);
        enrollmentCoc.setEnrollmentCocId(pEnrollmentCoc.getId());
        return enrollmentCoc;

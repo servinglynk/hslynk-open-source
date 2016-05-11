@@ -16,7 +16,17 @@ public class Project extends ClientModel {
     private Integer residentialAffiliation;
     private Integer targetPopulation;
     private Integer trackingMethod;
+    private UUID organizationId;
     
+    
+	public UUID getOrganizationId() {
+		return organizationId;
+	}
+
+	public void setOrganizationId(UUID organizationId) {
+		this.organizationId = organizationId;
+	}
+
 	public Project() {
 		
 	}

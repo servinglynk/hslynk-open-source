@@ -26,7 +26,7 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pMedicalassistance.setEnrollmentid(pEnrollment); 
        pMedicalassistance.setDateCreated(LocalDateTime.now());
- //      pMedicalassistance.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pMedicalassistance.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getMedicalassistanceDao().createMedicalassistance(pMedicalassistance);
        medicalassistance.setMedicalassistanceId(pMedicalassistance.getId());
        return medicalassistance;
@@ -43,7 +43,7 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
        MedicalassistanceConverter.modelToEntity(medicalassistance, pMedicalassistance);
        pMedicalassistance.setEnrollmentid(pEnrollment); 
        pMedicalassistance.setDateUpdated(LocalDateTime.now());
-   //    pMedicalassistance.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pMedicalassistance.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getMedicalassistanceDao().updateMedicalassistance(pMedicalassistance);
        medicalassistance.setMedicalassistanceId(pMedicalassistance.getId());
        return medicalassistance;

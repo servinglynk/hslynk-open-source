@@ -201,6 +201,17 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		return countRows(criteria);
 	}
 
-
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Contact> getAllEnrollmentContacts(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Contact.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Contact>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentContactsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Contact.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 }

@@ -120,7 +120,8 @@ public class QueryExecutorImpl  implements QueryExecutor{
         	  // looking for deleted field in entity class. 
         	  // If field is available deleted field will be updated to true.
         	  // If field is not available catch block will be executed then regular delete operation will be performed.  
-        	  if(entity instanceof HmisBaseModel) {
+ 			 Field deletedField = entity.getClass().getSuperclass().getDeclaredField("deleted");
+        	  if(deletedField!=null) {
                   BeanUtils.setProperty(entity, "deleted",true);
                   BeanUtils.setProperty(entity, "sync",false);
                   BeanUtils.setProperty(entity, "dateUpdated",LocalDateTime.now());

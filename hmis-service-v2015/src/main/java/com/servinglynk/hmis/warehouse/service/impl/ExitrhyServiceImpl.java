@@ -27,7 +27,7 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
        if(pExit == null) throw new ExitNotFoundException(); 
        pExitrhy.setExitid(pExit); 
        pExitrhy.setDateCreated(LocalDateTime.now());
-//       pExitrhy.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pExitrhy.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getExitrhyDao().createExitrhy(pExitrhy);
        exitrhy.setExitrhyId(pExitrhy.getId());
        return exitrhy;
@@ -44,7 +44,7 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
        ExitrhyConverter.modelToEntity(exitrhy, pExitrhy);
        pExitrhy.setExitid(pExit); 
        pExitrhy.setDateUpdated(LocalDateTime.now());
-//       pExitrhy.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pExitrhy.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getExitrhyDao().updateExitrhy(pExitrhy);
        exitrhy.setExitrhyId(pExitrhy.getId());
        return exitrhy;

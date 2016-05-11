@@ -26,7 +26,7 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pHealthinsurance.setEnrollmentid(pEnrollment); 
        pHealthinsurance.setDateCreated(LocalDateTime.now());
-   //    pHealthinsurance.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pHealthinsurance.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getHealthinsuranceDao().createHealthInsurance(pHealthinsurance);
        healthinsurance.setHealthinsuranceId(pHealthinsurance.getId());
        return healthinsurance;
@@ -43,7 +43,7 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
        HealthinsuranceConverter.modelToEntity(healthinsurance, pHealthinsurance);
        pHealthinsurance.setEnrollmentid(pEnrollment); 
        pHealthinsurance.setDateUpdated(LocalDateTime.now());
- //      pHealthinsurance.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pHealthinsurance.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getHealthinsuranceDao().updateHealthInsurance(pHealthinsurance);
        healthinsurance.setHealthinsuranceId(pHealthinsurance.getId());
        return healthinsurance;

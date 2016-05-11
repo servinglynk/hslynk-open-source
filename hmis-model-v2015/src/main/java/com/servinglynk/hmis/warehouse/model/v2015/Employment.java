@@ -110,7 +110,7 @@ public class Employment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: employmentType.
 	 * @return A EmploymentEmploymentTypeEnum object (this.employmentType)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnumType")
 	@Basic( optional = true )
 	@Column( name = "employment_type" )
 	public EmploymentEmploymentTypeEnum getEmploymentType() {
@@ -205,7 +205,7 @@ public class Employment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: notEmployedReason.
 	 * @return A EmploymentNotEmployedReasonEnum object (this.notEmployedReason)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnumType")
 	@Basic( optional = true )
 	@Column( name = "not_employed_reason" )
 	public EmploymentNotEmployedReasonEnum getNotEmployedReason() {

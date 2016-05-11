@@ -8,6 +8,8 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
+import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
+import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 
 public class EnrollmentConveter extends BaseConverter {
@@ -37,7 +39,17 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(enrollment.getTimeshomelesspastthreeyears().toString()));
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
-		
+		if(enrollment.getResidenceprior()!=null)
+		pEnrollment.setResidenceprior(EnrollmentResidencepriorEnum.lookupEnum(enrollment.getResidenceprior().toString()));
+		if(enrollment.getResidencepriorlengthofstay()!=null)
+		pEnrollment.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(enrollment.getResidencepriorlengthofstay().toString()));
+		if(enrollment.getHousingstatus()!=null)
+		pEnrollment.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(enrollment.getHousingstatus().toString()));
+		if(enrollment.getEntryfromstreetessh()!=null)
+		pEnrollment.setEntryfromstreetessh(enrollment.getEntryfromstreetessh());
+		if(enrollment.getDatetostreetessh()!=null)
+		pEnrollment.setEntryfromstreetessh(enrollment.getDatetostreetessh());
+					
 		return pEnrollment;
 	}
 	
@@ -53,6 +65,16 @@ public class EnrollmentConveter extends BaseConverter {
 /*		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
 */		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
 		if(pEnrollment.getTimeshomelesspastthreeyears()!=null) enrollment.setTimeshomelesspastthreeyears(Integer.parseInt(pEnrollment.getTimeshomelesspastthreeyears().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getResidenceprior()!=null) enrollment.setResidenceprior(Integer.parseInt(pEnrollment.getResidenceprior().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getResidencepriorlengthofstay()!=null) enrollment.setResidencepriorlengthofstay(Integer.parseInt(pEnrollment.getResidencepriorlengthofstay().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getHousingstatus()!=null) enrollment.setHousingstatus(Integer.parseInt(pEnrollment.getHousingstatus().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getEntryfromstreetessh()!=null) enrollment.setEntryfromstreetessh(Integer.parseInt(pEnrollment.getEntryfromstreetessh().toString()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getDatetostreetessh()!=null) enrollment.setDatetostreetessh(Integer.parseInt(pEnrollment.getDatetostreetessh().toString()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		copyBeanProperties(pEnrollment, enrollment);
 		

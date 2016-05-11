@@ -26,7 +26,7 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEntryrhy.setEnrollmentid(pEnrollment); 
        pEntryrhy.setDateCreated(LocalDateTime.now());
-  //     pEntryrhy.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEntryrhy.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEntryrhyDao().createEntryrhy(pEntryrhy);
        entryrhy.setEntryrhyId(pEntryrhy.getId());
        return entryrhy;
@@ -43,7 +43,7 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
        EntryrhyConverter.modelToEntity(entryrhy, pEntryrhy);
        pEntryrhy.setEnrollmentid(pEnrollment); 
        pEntryrhy.setDateUpdated(LocalDateTime.now());
- //      pEntryrhy.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEntryrhy.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEntryrhyDao().updateEntryrhy(pEntryrhy);
        entryrhy.setEntryrhyId(pEntryrhy.getId());
        return entryrhy;

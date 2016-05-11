@@ -19,7 +19,8 @@ public class NoncashbenefitsConverter  extends BaseConverter {
        entity.setBenefitsfromanysource(NoncashbenefitsBenefitsfromanysourceEnum.lookupEnum(model.getBenefitsfromanysource().toString()));
  if(model.getOthersource()!=null)
        entity.setOthersource(NoncashbenefitsOthersourceEnum.lookupEnum(model.getOthersource().toString()));
-       entity.setOthersourceidentify(model.getOthersourceidentify());
+ if(model.getOthersourceidentify()!=null)    
+ entity.setOthersourceidentify(model.getOthersourceidentify());
  if(model.getOthertanf()!=null)
        entity.setOthertanf(NoncashbenefitsOthertanfEnum.lookupEnum(model.getOthertanf().toString()));
  if(model.getRentalassistanceongoing()!=null)

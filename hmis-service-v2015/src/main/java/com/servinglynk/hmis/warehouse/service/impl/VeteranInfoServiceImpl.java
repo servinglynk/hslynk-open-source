@@ -29,7 +29,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
 
        pVeteranInfo.setClient(client);
        pVeteranInfo.setDateCreated(LocalDateTime.now());
-  //     pVeteranInfo.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pVeteranInfo.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getVeteranInfoDao().createVeteranInfo(pVeteranInfo);
        veteranInfo.setVeteranInfoId(pVeteranInfo.getId());
        return veteranInfo;
@@ -50,7 +50,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
        VeteranInfoConverter.modelToEntity(veteranInfo, pVeteranInfo);
        pVeteranInfo.setClient(client);
        pVeteranInfo.setDateUpdated(LocalDateTime.now());
-//       pVeteranInfo.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pVeteranInfo.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getVeteranInfoDao().updateVeteranInfo(pVeteranInfo);
        veteranInfo.setVeteranInfoId(pVeteranInfo.getId());
        return veteranInfo;

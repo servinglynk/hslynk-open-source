@@ -24,6 +24,16 @@ public class InventoryConverter extends BaseConverter {
        entity.setInventorystartdate(model.getInventorystartdate());
        if(model.getUnitinventory()!=null)
        entity.setUnitinventory(model.getUnitinventory());
+     //  if(model.getBedinventory()!=null)
+     //  entity.setBedinventory(model.getBedinventory()); 
+       if(model.getChbedinventory()!=null)
+       entity.setChBedInventory(model.getChbedinventory());
+       if(model.getVetbedinventory()!=null)
+       entity.setVetBedInventory(model.getVetbedinventory());
+       if(model.getYouthbedinventory()!=null)
+       entity.setYouthBedInventory(model.getYouthbedinventory());
+       if(model.getYouthagegroup()!=null)
+       entity.setYouthAgeGroup(model.getYouthagegroup());
        return entity;    
    }
 
@@ -47,7 +57,17 @@ public class InventoryConverter extends BaseConverter {
        model.setInventorystartdate(entity.getInventorystartdate());
        if(entity.getUnitinventory()!=null)
        model.setUnitinventory(entity.getUnitinventory());
-       copyBeanProperties(entity, model);
+   /*    if(entity.getBedinventory()!=null)
+       model.setBedinventory(entity.getBedinventory());*/
+       if(entity.getChBedInventory()!=null)
+       model.setchbedinventory(entity.getChBedInventory());
+       if(entity.getYouthBedInventory()!=null)
+       model.setYouthbedinventory(entity.getYouthBedInventory());
+       if(entity.getYouthAgeGroup()!=null)
+       model.setYouthagegroup(entity.getYouthAgeGroup());
+       if(entity.getVetBedInventory()!=null)
+       model.setVetbedinventory(entity.getVetBedInventory());
+       copyBeanProperties(entity, model); 
        return model;
    }
 

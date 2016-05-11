@@ -4,13 +4,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ContactServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DisabilitiesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DomesticviolenceServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EducationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
@@ -18,6 +20,7 @@ import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryssvfServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitpathServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
@@ -181,7 +184,8 @@ public class ServiceConfig  {
 	 public ExitrhyServiceImpl exitrhyService(){
 		 return new ExitrhyServiceImpl();
 	 }
-	 	@Bean
+	
+	@Bean
 	public EntryrhspServiceImpl entryrhspService(){
 		return new EntryrhspServiceImpl();
 	}
@@ -204,5 +208,19 @@ public class ServiceConfig  {
 	@Bean
 	public ClientServiceImpl clientService(){
 		return new ClientServiceImpl();
+	}
+	
+	@Bean
+	public ContactServiceImpl contactService(){
+		return new ContactServiceImpl();
+	}
+	
+	@Bean
+	public EducationServiceImpl educationService(){
+		return new EducationServiceImpl();
+	}
+	@Bean
+	public ExithousingassessmentServiceImpl exithousingassessmentService(){
+		return new ExithousingassessmentServiceImpl();
 	}
 }

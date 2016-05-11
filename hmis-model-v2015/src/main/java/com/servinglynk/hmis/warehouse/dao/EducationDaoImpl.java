@@ -107,29 +107,29 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	   public com.servinglynk.hmis.warehouse.model.v2015.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2015.Employment employment){
-	       employment.setId(UUID.randomUUID());
-	       insert(employment);
-	       return employment;
+	   public com.servinglynk.hmis.warehouse.model.v2015.Education createEducation(com.servinglynk.hmis.warehouse.model.v2015.Education education){
+	       education.setId(UUID.randomUUID()); 
+	       insert(education);
+	       return education;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2015.Employment updateEmployment(com.servinglynk.hmis.warehouse.model.v2015.Employment employment){
-	       update(employment);
-	       return employment;
+	   public com.servinglynk.hmis.warehouse.model.v2015.Education updateEducation(com.servinglynk.hmis.warehouse.model.v2015.Education education){
+	       update(education);
+	       return education;
 	   }
-	   public void deleteEmployment(com.servinglynk.hmis.warehouse.model.v2015.Employment employment){
-	       delete(employment);
+	   public void deleteEducation(com.servinglynk.hmis.warehouse.model.v2015.Education education){
+	       delete(education);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2015.Employment getEmploymentById(UUID employmentId){
-	       return (com.servinglynk.hmis.warehouse.model.v2015.Employment) get(com.servinglynk.hmis.warehouse.model.v2015.Employment.class, employmentId);
+	   public com.servinglynk.hmis.warehouse.model.v2015.Education getEducationById(UUID educationId){ 
+	       return (com.servinglynk.hmis.warehouse.model.v2015.Education) get(com.servinglynk.hmis.warehouse.model.v2015.Education.class, educationId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2015.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Employment.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Education> getAllEnrollmentEducations(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Education.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Employment>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Education>) findByCriteria(criteria,startIndex,maxItems);
 	   }
-	   public long getEnrollmentEmploymentsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Employment.class);
+	   public long getEnrollmentEducationsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Education.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

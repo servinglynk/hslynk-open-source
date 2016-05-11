@@ -26,7 +26,7 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pDomesticviolence.setEnrollmentid(pEnrollment); 
        pDomesticviolence.setDateCreated(LocalDateTime.now());
-  //     pDomesticviolence.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pDomesticviolence.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getDomesticviolenceDao().createDomesticViolence(pDomesticviolence);
        domesticviolence.setDomesticviolenceId(pDomesticviolence.getId());
        return domesticviolence;
@@ -43,7 +43,7 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
        DomesticviolenceConverter.modelToEntity(domesticviolence, pDomesticviolence);
        pDomesticviolence.setEnrollmentid(pEnrollment); 
        pDomesticviolence.setDateUpdated(LocalDateTime.now());
- //      pDomesticviolence.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pDomesticviolence.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getDomesticviolenceDao().updateDomesticViolence(pDomesticviolence);
        domesticviolence.setDomesticviolenceId(pDomesticviolence.getId());
        return domesticviolence;

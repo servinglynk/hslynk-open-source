@@ -23,6 +23,38 @@ public class Inventory extends ClientModel{
       private Integer hmisparticipatingbeds;
 
       private Integer householdtype;
+      
+      private Integer chbedinventory;
+      
+      private Integer vetbedinventory;
+      private Integer youthbedinventory;
+      private Integer youthagegroup;
+      
+      public Integer getChbedinventory() {
+		return chbedinventory;
+	}
+	public void setchbedinventory(Integer chbedinventory) {
+		this.chbedinventory = chbedinventory;
+	}
+	public Integer getVetbedinventory() {
+		return vetbedinventory;
+	}
+	public void setVetbedinventory(Integer vetbedinventory) {
+		this.vetbedinventory = vetbedinventory;
+	}
+	public Integer getYouthbedinventory() {
+		return youthbedinventory;
+	}
+	public void setYouthbedinventory(Integer youthbedinventory) {
+		this.youthbedinventory = youthbedinventory;
+	}
+	public Integer getYouthagegroup() {
+		return youthagegroup;
+	}
+	public void setYouthagegroup(Integer youthagegroup) {
+		this.youthagegroup = youthagegroup;
+	}
+	
 
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)

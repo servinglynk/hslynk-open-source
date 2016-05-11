@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Entryssvf;
+import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 public class EntryssvfConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2015.Entryssvf modelToEntity (Entryssvf model ,com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entity) {
@@ -8,7 +9,7 @@ public class EntryssvfConverter  extends BaseConverter {
        if(model.getEntryssvfId()!=null)
        entity.setId(model.getEntryssvfId());
        if(model.getPercentami()!=null)
-       entity.setPercentami(model.getPercentami());
+       entity.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(model.getPercentami()+""));
        if(model.getLastPermanentStreet()!=null)
        entity.setLastPermanentStreet(model.getLastPermanentStreet());
        if(model.getLastPermanentCity()!=null)
@@ -32,7 +33,7 @@ public class EntryssvfConverter  extends BaseConverter {
        if(entity.getId()!=null)
        model.setEntryssvfId(entity.getId());
        if(entity.getPercentami()!=null)
-       model.setPercentami(entity.getPercentami());
+       model.setPercentami(Integer.parseInt(entity.getPercentami().getValue()));
        if(entity.getLastPermanentStreet()!=null)
        model.setLastPermanentStreet(entity.getLastPermanentStreet());
        if(entity.getLastPermanentCity()!=null)

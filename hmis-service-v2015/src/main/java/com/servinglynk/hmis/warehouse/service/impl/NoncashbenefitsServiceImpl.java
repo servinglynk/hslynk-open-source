@@ -26,7 +26,7 @@ public class NoncashbenefitsServiceImpl extends ServiceBase implements Noncashbe
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pNoncashbenefits.setEnrollmentid(pEnrollment); 
        pNoncashbenefits.setDateCreated(LocalDateTime.now());
- //      pNoncashbenefits.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pNoncashbenefits.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getNoncashbenefitsDao().createNoncashbenefits(pNoncashbenefits);
        noncashbenefits.setNoncashbenefitsID(pNoncashbenefits.getId());
        return noncashbenefits;
@@ -43,7 +43,7 @@ public class NoncashbenefitsServiceImpl extends ServiceBase implements Noncashbe
        NoncashbenefitsConverter.modelToEntity(noncashbenefits, pNoncashbenefits);
        pNoncashbenefits.setEnrollmentid(pEnrollment); 
        pNoncashbenefits.setDateUpdated(LocalDateTime.now());
-  //     pNoncashbenefits.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pNoncashbenefits.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getNoncashbenefitsDao().updateNoncashbenefits(pNoncashbenefits);
        noncashbenefits.setNoncashbenefitsID(pNoncashbenefits.getId());
        return noncashbenefits;

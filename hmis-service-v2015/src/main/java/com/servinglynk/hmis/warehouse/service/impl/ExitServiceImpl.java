@@ -25,7 +25,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pExit.setEnrollmentid(pEnrollment);
        pExit.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-   //    pExit.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pExit.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getExitDao().createExit(pExit);
        exit.setExitId(pExit.getId());
        return exit;
@@ -43,7 +43,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
        ExitConverter.modelToEntity(exit, pExit);
        pExit.setEnrollmentid(pEnrollment);       
        pExit.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-  //     pExit.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pExit.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getExitDao().updateExit(pExit);
        exit.setExitId(pExit.getId());
        return exit;

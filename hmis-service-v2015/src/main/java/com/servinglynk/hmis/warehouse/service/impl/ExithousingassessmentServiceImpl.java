@@ -1,21 +1,18 @@
 package com.servinglynk.hmis.warehouse.service.impl; 
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.core.model.Exithousingassessments;
 import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.converter.ExithousingassessmentConverter;
-import com.servinglynk.hmis.warehouse.core.model.Exithousingassessments;
-import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ExitNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ExithousingassessmentNotFoundException;
-import com.servinglynk.hmis.warehouse.SortedPagination;
 
 
 public class ExithousingassessmentServiceImpl extends ServiceBase implements ExithousingassessmentService  {
@@ -27,7 +24,7 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
        if(pExit == null) throw new ExitNotFoundException(); 
        pExithousingassessment.setExitid(pExit); 
        pExithousingassessment.setDateCreated(LocalDateTime.now());
-//       pExithousingassessment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pExithousingassessment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getExithousingassessmentDao().createExithousingassessment(pExithousingassessment);
        exithousingassessment.setExithousingassessmentId(pExithousingassessment.getId());
        return exithousingassessment;
@@ -44,7 +41,7 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
        ExithousingassessmentConverter.modelToEntity(exithousingassessment, pExithousingassessment);
        pExithousingassessment.setExitid(pExit); 
        pExithousingassessment.setDateUpdated(LocalDateTime.now());
-//       pExithousingassessment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pExithousingassessment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getExithousingassessmentDao().updateExithousingassessment(pExithousingassessment);
        exithousingassessment.setExithousingassessmentId(pExithousingassessment.getId());
        return exithousingassessment;

@@ -24,7 +24,7 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEntryrhsp.setEnrollmentid(pEnrollment); 
        pEntryrhsp.setDateCreated(LocalDateTime.now());
-//       pEntryrhsp.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEntryrhsp.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEntryrhspDao().createEntryrhsp(pEntryrhsp);
        entryrhsp.setEntryrhspId(pEntryrhsp.getId());
        return entryrhsp;
@@ -41,7 +41,7 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
        EntryrhspConverter.modelToEntity(entryrhsp, pEntryrhsp);
        pEntryrhsp.setEnrollmentid(pEnrollment); 
        pEntryrhsp.setDateUpdated(LocalDateTime.now());
- //      pEntryrhsp.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEntryrhsp.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEntryrhspDao().updateEntryrhsp(pEntryrhsp);
        entryrhsp.setEntryrhspId(pEntryrhsp.getId());
        return entryrhsp;

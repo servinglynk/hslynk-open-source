@@ -26,7 +26,7 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEntryssvf.setEnrollmentid(pEnrollment); 
        pEntryssvf.setDateCreated(LocalDateTime.now());
-   //    pEntryssvf.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEntryssvf.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEntryssvfDao().createEntryssvf(pEntryssvf);
        entryssvf.setEntryssvfId(pEntryssvf.getId());
        return entryssvf;
@@ -43,7 +43,7 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
        EntryssvfConverter.modelToEntity(entryssvf, pEntryssvf);
        pEntryssvf.setEnrollmentid(pEnrollment); 
        pEntryssvf.setDateUpdated(LocalDateTime.now());
-    //   pEntryssvf.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pEntryssvf.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getEntryssvfDao().updateEntryssvf(pEntryssvf);
        entryssvf.setEntryssvfId(pEntryssvf.getId());
        return entryssvf;

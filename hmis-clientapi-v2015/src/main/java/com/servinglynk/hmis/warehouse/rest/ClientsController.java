@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
+import com.servinglynk.hmis.warehouse.core.model.Contact;
+import com.servinglynk.hmis.warehouse.core.model.Contacts;
 import com.servinglynk.hmis.warehouse.core.model.Dateofengagement;
 import com.servinglynk.hmis.warehouse.core.model.Dateofengagements;
 import com.servinglynk.hmis.warehouse.core.model.Disabilities;
 import com.servinglynk.hmis.warehouse.core.model.DisabilitiesList;
 import com.servinglynk.hmis.warehouse.core.model.Domesticviolence;
 import com.servinglynk.hmis.warehouse.core.model.Domesticviolences;
+import com.servinglynk.hmis.warehouse.core.model.Education;
+import com.servinglynk.hmis.warehouse.core.model.Educations;
 import com.servinglynk.hmis.warehouse.core.model.Employment;
 import com.servinglynk.hmis.warehouse.core.model.Employments;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
@@ -34,6 +38,8 @@ import com.servinglynk.hmis.warehouse.core.model.Entryrhys;
 import com.servinglynk.hmis.warehouse.core.model.Entryssvf;
 import com.servinglynk.hmis.warehouse.core.model.Entryssvfs;
 import com.servinglynk.hmis.warehouse.core.model.Exit;
+import com.servinglynk.hmis.warehouse.core.model.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.core.model.Exithousingassessments;
 import com.servinglynk.hmis.warehouse.core.model.Exitpath;
 import com.servinglynk.hmis.warehouse.core.model.Exitpaths;
 import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
@@ -973,7 +979,7 @@ public class ClientsController extends ControllerBase {
 				maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuss", method = RequestMethod.POST)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuses", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_RHYBCPSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public Rhybcpstatus createRhybcpstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Rhybcpstatus rhybcpstatus,
@@ -987,7 +993,7 @@ public class ClientsController extends ControllerBase {
 		return returnrhybcpstatus;
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuss/{rhybcpstatusid}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuses/{rhybcpstatusid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_RHYBCPSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public void updateRhybcpstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("rhybcpstatusid") UUID rhybcpstatusId,
@@ -999,7 +1005,7 @@ public class ClientsController extends ControllerBase {
 				session.getAccount().getUsername());
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuss/{rhybcpstatusid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuses/{rhybcpstatusid}", method = RequestMethod.DELETE)
 	@APIMapping(value = "CLIENT_API_DELETE_RHYBCPSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public void deleteRhybcpstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("rhybcpstatusid") UUID rhybcpstatusId,
@@ -1011,7 +1017,7 @@ public class ClientsController extends ControllerBase {
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuss/{rhybcpstatusid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuses/{rhybcpstatusid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_RHYBCPSTATUS_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 	public Rhybcpstatus getRhybcpstatusById(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("rhybcpstatusid") UUID rhybcpstatusId,
@@ -1021,7 +1027,7 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getRhybcpstatusService().getRhybcpstatusById(rhybcpstatusId);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuss", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/rhybcpstatuses", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_RHYBCPSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public Rhybcpstatuses getAllEnrollmentRhybcpstatuss(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId,
@@ -1646,5 +1652,160 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getServicefareferralService().getAllEnrollmentServicefareferrals(enrollmentId, startIndex,
 				maxItems);
 	}
+	
+	
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/contacts",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_CONTACT",checkTrustedApp=true,checkSessionToken=true)
+	   public Contact createContact(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Contact contact,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getContactService().createContact(contact,enrollmentId,session.getAccount().getUsername()); 
+	         Contact returncontact = new Contact();
+	         returncontact.setContactId(contact.getContactId());
+	         return returncontact;
+	   }
 
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/contacts/{contactid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_CONTACT",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateContact(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "contactid" ) UUID contactId,@RequestBody Contact contact,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getContactService().updateContact(contact,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/contacts/{contactid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_CONTACT",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteContact(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "contactid" ) UUID contactId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getContactService().deleteContact(contactId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/contacts/{contactid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_CONTACT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Contact getContactById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "contactid" ) UUID contactId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getContactService().getContactById(contactId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/contacts",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_CONTACT",checkTrustedApp=true,checkSessionToken=true)
+	   public Contacts getAllEnrollmentContacts(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getContactService().getAllEnrollmentContacts(enrollmentId,startIndex,maxItems); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/educations",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_EDUCATION",checkTrustedApp=true,checkSessionToken=true)
+	   public Education createEducation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Education education,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEducationService().createEducation(education,enrollmentId,session.getAccount().getUsername()); 
+	         Education returneducation = new Education();
+	         returneducation.setEducationId(education.getEducationId());
+	         return returneducation;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/educations/{educationid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_EDUCATION",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateEducation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "educationid" ) UUID educationId,@RequestBody Education education,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEducationService().updateEducation(education,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/educations/{educationid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_EDUCATION",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteEducation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "educationid" ) UUID educationId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getEducationService().deleteEducation(educationId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/educations/{educationid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_EDUCATION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Education getEducationById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "educationid" ) UUID educationId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEducationService().getEducationById(educationId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/educations",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_EDUCATION",checkTrustedApp=true,checkSessionToken=true)
+	   public Educations getAllEnrollmentEducations(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getEducationService().getAllEnrollmentEducations(enrollmentId,startIndex,maxItems); 
+	   }
+	   
+	   
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments",method=RequestMethod.POST)
+	   @APIMapping(value="CLIENT_API_CREATE_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
+	   public Exithousingassessment createExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Exithousingassessment exithousingassessment,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getExithousingassessmentService().createExithousingassessment(exithousingassessment,enrollmentId,session.getAccount().getUsername()); 
+	         Exithousingassessment returnexithousingassessment = new Exithousingassessment();
+	         returnexithousingassessment.setExithousingassessmentId(exithousingassessment.getExithousingassessmentId());
+	         return returnexithousingassessment;
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments/{exithousingassessmentid}",method=RequestMethod.PUT)
+	   @APIMapping(value="CLIENT_API_UPDATE_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
+	   public void updateExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,@RequestBody Exithousingassessment exithousingassessment,HttpServletRequest request) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        exithousingassessment.setExithousingassessmentId(exithousingassessmentId);
+	        serviceFactory.getExithousingassessmentService().updateExithousingassessment(exithousingassessment,enrollmentId,session.getAccount().getUsername()); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments/{exithousingassessmentid}",method=RequestMethod.DELETE)
+	   @APIMapping(value="CLIENT_API_DELETE_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
+	   public void deleteExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	        Session session = sessionHelper.getSession(request); 
+	        serviceFactory.getClientService().getClientById(clientId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        serviceFactory.getExithousingassessmentService().deleteExithousingassessment(exithousingassessmentId,session.getAccount().getUsername()); 
+	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments/{exithousingassessmentid}",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_EXITHOUSINGASSESSMENT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
+	   public Exithousingassessment getExithousingassessmentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request) throws Exception{
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getExithousingassessmentService().getExithousingassessmentById(exithousingassessmentId); 
+	   }
+
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments",method=RequestMethod.GET)
+	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
+	   public Exithousingassessments getAllEnrollmentExithousingassessments(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+	                       HttpServletRequest request) throws Exception {
+	           if (startIndex == null) startIndex =0;
+	           if (maxItems == null) maxItems =30;
+	 
+	         serviceFactory.getClientService().getClientById(clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	        return serviceFactory.getExithousingassessmentService().getAllEnrollmentExithousingassessments(enrollmentId,startIndex,maxItems); 
+	   }
 }

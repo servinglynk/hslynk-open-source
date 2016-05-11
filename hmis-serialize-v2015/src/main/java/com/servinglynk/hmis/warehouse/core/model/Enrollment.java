@@ -29,7 +29,25 @@ public class Enrollment extends ClientModel {
 	private Integer  timeshomelesspastthreeyears;
 	private int  yearshomeless;
 	private UUID  clientId;
+	private Integer entryfromstreetessh;
 	
+	public Integer getEntryfromstreetessh() {
+		return entryfromstreetessh;
+	}
+
+	public void setEntryfromstreetessh(Integer entryfromstreetessh) {
+		this.entryfromstreetessh = entryfromstreetessh;
+	}
+
+	public Integer getDatetostreetessh() {
+		return datetostreetessh;
+	}
+
+	public void setDatetostreetessh(Integer datetostreetessh) {
+		this.datetostreetessh = datetostreetessh;
+	}
+
+	private Integer datetostreetessh;
 
 	public Enrollment(){
 		

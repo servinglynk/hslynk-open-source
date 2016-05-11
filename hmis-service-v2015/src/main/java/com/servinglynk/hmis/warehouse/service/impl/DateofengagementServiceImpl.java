@@ -26,7 +26,7 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pDateofengagement.setEnrollmentid(pEnrollment); 
        pDateofengagement.setDateCreated(LocalDateTime.now());
-     //  pDateofengagement.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pDateofengagement.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getDateofengagementDao().createDateofengagement(pDateofengagement);
        dateofengagement.setDateofengagementId(pDateofengagement.getId());
        return dateofengagement;
@@ -43,7 +43,7 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
        DateofengagementConverter.modelToEntity(dateofengagement, pDateofengagement);
        pDateofengagement.setEnrollmentid(pEnrollment); 
        pDateofengagement.setDateUpdated(LocalDateTime.now());
-  //     pDateofengagement.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pDateofengagement.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getDateofengagementDao().updateDateofengagement(pDateofengagement);
        dateofengagement.setDateofengagementId(pDateofengagement.getId());
        return dateofengagement;

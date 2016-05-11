@@ -10,6 +10,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 
 public class ClientConverter {
 
@@ -41,7 +42,8 @@ public class ClientConverter {
 		pClient.setSsn(client.getSsn());
 	    if(client.getSsnDataQuality()!=null)
 		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.lookupEnum(client.getSsnDataQuality()+""));
-		
+	    if(client.getVeteranStatus()!=null)
+		pClient.setVeteranStatus(ClientVeteranStatusEnum.lookupEnum(client.getVeteranStatus()));
 		return pClient;
 	}
 	
@@ -75,6 +77,8 @@ public class ClientConverter {
 		client.setSsnDataQuality(Integer.parseInt(pClient.getSsnDataQuality().getValue()));
 	    if(pClient.getId()!=null)
 		client.setClientId(pClient.getId());
+	    if(pClient.getVeteranStatus()!=null)
+		client.setVeteranStatus(pClient.getVeteranStatus().getValue());
 
 //		copyBeanProperties(pClient,client);
 	return client;

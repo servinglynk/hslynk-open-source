@@ -3,9 +3,11 @@ package com.servinglynk.hmis.warehouse.service.core;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.ContactService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticviolenceService;
+import com.servinglynk.hmis.warehouse.service.EducationService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
@@ -13,6 +15,7 @@ import com.servinglynk.hmis.warehouse.service.EntryrhspService;
 import com.servinglynk.hmis.warehouse.service.EntryrhyService;
 import com.servinglynk.hmis.warehouse.service.EntryssvfService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
+import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
@@ -69,4 +72,7 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	EntryssvfService getEntryssvfService();
 	ServicefareferralService getServicefareferralService();
 	ClientService getClientService();
+	ContactService getContactService();
+	EducationService getEducationService();
+	ExithousingassessmentService getExithousingassessmentService();
 }

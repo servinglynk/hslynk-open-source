@@ -6,9 +6,11 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.ContactService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticviolenceService;
+import com.servinglynk.hmis.warehouse.service.EducationService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
@@ -16,6 +18,7 @@ import com.servinglynk.hmis.warehouse.service.EntryrhspService;
 import com.servinglynk.hmis.warehouse.service.EntryrhyService;
 import com.servinglynk.hmis.warehouse.service.EntryssvfService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
+import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
@@ -65,8 +68,9 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public EntryssvfService entryssvfService;
 	@Autowired public ServicefareferralService servicefareferralService;
 	@Autowired public ClientService clientService;
-	
-
+	@Autowired public ContactService contactService;
+	@Autowired public EducationService educationService;
+	@Autowired public ExithousingassessmentService exithousingassessmentService;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
 		return rhybcpstatusService;
@@ -329,5 +333,28 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setClientService(ClientService clientService) {
 		this.clientService = clientService;
 	}
-	
+
+	public ContactService getContactService() {
+		return contactService;
+	}
+
+	public void setContactService(ContactService contactService) {
+		this.contactService = contactService;
+	}
+
+	public EducationService getEducationService() {
+		return educationService;
+	}
+
+	public void setEducationService(EducationService educationService) {
+		this.educationService = educationService;
+	}
+
+	public ExithousingassessmentService getExithousingassessmentService() {
+		return exithousingassessmentService;
+	}
+
+	public void setExithousingassessmentService(ExithousingassessmentService exithousingassessmentService) {
+		this.exithousingassessmentService = exithousingassessmentService;
+	}
 }

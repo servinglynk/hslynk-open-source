@@ -63,7 +63,9 @@ public class HealthinsuranceConverter extends BaseConverter {
 		if (model.getNostatehealthinsreason() != null)
 			entity.setNostatehealthinsreason(
 					HealthinsuranceNostatehealthinsreasonEnum.lookupEnum(model.getNostatehealthinsreason().toString()));
+		if (model.getOtherSource() != null)
 		entity.setOtherSource(model.getOtherSource());
+		if (model.getOtherSourceIdentify() != null)
 		entity.setOtherSourceIdentify(model.getOtherSourceIdentify());
 		return entity;
 	}
@@ -103,7 +105,9 @@ public class HealthinsuranceConverter extends BaseConverter {
 			model.setStatehealthins(Integer.parseInt(entity.getStatehealthins().getValue()));
 		if (entity.getNostatehealthinsreason() != null)
 			model.setNostatehealthinsreason(Integer.parseInt(entity.getNostatehealthinsreason().getValue()));
+		if (entity.getOtherSource() != null)
 		model.setOtherSource(entity.getOtherSource());
+		if (entity.getOtherSourceIdentify() != null)
 		model.setOtherSourceIdentify(entity.getOtherSourceIdentify());
 		return model;
 	}

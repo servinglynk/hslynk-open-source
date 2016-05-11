@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
@@ -22,11 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.rest.AuthorizationsController;
-import com.servinglynk.hmis.warehouse.rest.ConsentMessagesController;
-import com.servinglynk.hmis.warehouse.rest.PropertyController;
-import com.servinglynk.hmis.warehouse.rest.RevocationsController;
-import com.servinglynk.hmis.warehouse.rest.TokensController;
 
 
 @Configuration
@@ -36,6 +32,7 @@ import com.servinglynk.hmis.warehouse.rest.TokensController;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
+@ComponentScan("com.servinglynk.hmis.warehouse.rest")
 public class RestConfig extends WebMvcConfigurerAdapter {
 
 	public void configureMessageConverters(
@@ -72,7 +69,7 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return restTemplate;
 	}
 
-	@Bean
+	/*@Bean
 	public AuthorizationsController authorizationsController() {
 		return new AuthorizationsController();
 	}
@@ -80,17 +77,8 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ConsentMessagesController consentMessagesController(){
 		return new ConsentMessagesController();
-	}
+	}*/
 	
-	@Bean
-	public TokensController tokensController(){
-		return new TokensController();
-	}
-	
-	@Bean
-	public RevocationsController revocationsController() {
-		return new RevocationsController();
-	}
 	@Autowired
 	Environment env;
 	
@@ -99,10 +87,20 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return new PropertyReaderServiceImpl();
 	}
 	
-	@Bean
+	/*@Bean
 	PropertyController propertyController(){
 		return new PropertyController();
+	}*/
+	
+/*	@Bean
+	TokensController tokensController(){
+		return new TokensController();
 	}
+	
+	@Bean
+	RevocationsController revocationsController(){
+		return new RevocationsController();
+	}*/
 	
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {

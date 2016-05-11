@@ -10,6 +10,7 @@ public class MedicalassistanceConverter  extends BaseConverter {
    public static com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance modelToEntity (Medicalassistance model ,com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance();
        entity.setId(model.getMedicalassistanceId());
+ if(model.getInformationDate()!=null)
        entity.setInformationDate(model.getInformationDate());
  if(model.getHivaidsassistance()!=null)
        entity.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(model.getHivaidsassistance().toString()));
@@ -26,6 +27,7 @@ public class MedicalassistanceConverter  extends BaseConverter {
    public static Medicalassistance entityToModel (com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance entity) {
        Medicalassistance model = new Medicalassistance();
        model.setMedicalassistanceId(entity.getId());
+if(entity.getInformationDate()!=null)
        model.setInformationDate(entity.getInformationDate());
 if(entity.getHivaidsassistance()!=null)
        model.setHivaidsassistance(Integer.parseInt(entity.getHivaidsassistance().getValue()));

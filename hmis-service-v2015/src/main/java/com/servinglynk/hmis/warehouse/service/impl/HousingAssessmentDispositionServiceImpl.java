@@ -26,7 +26,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
        if(pExit == null) throw new ExitNotFoundException(); 
        pHousingAssessmentDisposition.setExitid(pExit); 
        pHousingAssessmentDisposition.setDateCreated(LocalDateTime.now());
-  //     pHousingAssessmentDisposition.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pHousingAssessmentDisposition.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getHousingassessmentdispositionDao().createHousingAssessmentDisposition(pHousingAssessmentDisposition);
        housingAssessmentDisposition.setHousingAssessmentDispositionId(pHousingAssessmentDisposition.getId());
        return housingAssessmentDisposition;
@@ -43,7 +43,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
        HousingAssessmentDispositionConverter.modelToEntity(housingAssessmentDisposition, pHousingAssessmentDisposition);
        pHousingAssessmentDisposition.setExitid(pExit); 
        pHousingAssessmentDisposition.setDateUpdated(LocalDateTime.now());
-   //    pHousingAssessmentDisposition.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       pHousingAssessmentDisposition.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getHousingassessmentdispositionDao().updateHousingAssessmentDisposition(pHousingAssessmentDisposition);
        housingAssessmentDisposition.setHousingAssessmentDispositionId(pHousingAssessmentDisposition.getId());
        return housingAssessmentDisposition;
