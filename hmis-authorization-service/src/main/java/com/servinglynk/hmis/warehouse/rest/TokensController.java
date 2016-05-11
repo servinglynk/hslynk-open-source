@@ -120,7 +120,7 @@ public class TokensController extends ControllerBase {
 	}
 	
 	public static void main(String args[]) throws Exception {
-		String test = "MASTER_TRUSTED_APP:HMIS";
+		String test = "16631CFE-6909-4AC1-B4EB-57902AC7AF0A:e7052d2a000447c8bd51cb88ab10ca17";
 		System.out.println(new String(Base64.encodeBase64(test.getBytes())));
 	}
 		

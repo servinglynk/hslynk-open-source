@@ -207,10 +207,10 @@ public class AuthorizationsController extends ControllerBase {
 		 
 		 String otpUri="";
 		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
-			  otpUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+			  otpUri="/hmis-authorization-service-v2015/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 			 
 		 }else{
-			 otpUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+			 otpUri = "/hmis-authorization-service-v2015/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 			 response.addCookie(new Cookie("authentication_token",session.getToken()));
 		 }
 			 
@@ -270,7 +270,7 @@ public class AuthorizationsController extends ControllerBase {
 		
 		
 		
-		String effectiveRedirectUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+		String effectiveRedirectUri = "/hmis-authorization-service-v2015/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 		
 		 if (state != null)	{
 			 effectiveRedirectUri = effectiveRedirectUri + "&state=" + urlEncode(state);
