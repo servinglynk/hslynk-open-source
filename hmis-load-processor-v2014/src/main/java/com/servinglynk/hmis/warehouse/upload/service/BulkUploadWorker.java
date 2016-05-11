@@ -44,7 +44,7 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatus(UploadStatus.INITIAL.getStatus());
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					/** Perform full refresh base on Project group */

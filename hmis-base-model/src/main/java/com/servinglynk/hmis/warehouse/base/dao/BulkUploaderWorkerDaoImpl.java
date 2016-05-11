@@ -25,7 +25,13 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
-	
+	public List<BulkUpload> findBulkUploadByStatusAndYear(String status,Long year) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+		query.add(Restrictions.eq("status",status));
+		query.add(Restrictions.eq("year",year));
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
+		return list;
+	}
 	public List<BulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));

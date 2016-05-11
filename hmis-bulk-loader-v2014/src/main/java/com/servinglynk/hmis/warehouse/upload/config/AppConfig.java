@@ -12,15 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
-
 
 @Configuration 
 @ComponentScan("com.servinglynk.hmis.warehouse.upload") 
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
+	com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
+	com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 	com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-	DatabaseConfig.class,
-	com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class})
+	com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+
 @EnableWebMvc   
 @EnableTransactionManagement
 @EnableScheduling

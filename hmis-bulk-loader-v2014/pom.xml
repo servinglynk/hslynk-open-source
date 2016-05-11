@@ -14,6 +14,7 @@
 	<properties>
 			<java-version>1.8</java-version>
 			<parent-version>0.0.2-SNAPSHOT</parent-version>
+			<spring.version>4.0.0.RELEASE</spring.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -55,32 +56,7 @@
 			<version>1.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-solr</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-velocity</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-websocket</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-load-processor-v2014</artifactId>
@@ -106,12 +82,34 @@
 			<artifactId>spring-xml</artifactId>
 			<version>1.5.9</version>
 		</dependency>
-
-
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+   <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -182,7 +180,7 @@
       <id>central</id>
       <name>Maven Repository Switchboard</name>
       <layout>default</layout>
-      <url>http://52.37.76.153:8080/nexus/content/groups/public</url>
+      <url>http://52.33.12.237:8080/nexus/content/groups/public</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -193,7 +191,7 @@
     <pluginRepository>
       <id>central</id>
       <name>Maven Plugin Repository</name>
-      <url>http://52.37.76.153:8080/nexus/content/groups/public</url>
+      <url>http://52.33.12.237:8080/nexus/content/groups/public</url>
       <layout>default</layout>
       <snapshots>
         <enabled>true</enabled>
@@ -207,12 +205,12 @@
   <repository>
      <id>deployment</id>
      <name>Internal Releases</name>
-     <url>http://52.37.76.153:8080/nexus/content/repositories/releases/</url>
+     <url>http://52.33.12.237:8080/nexus/content/repositories/releases/</url>
   </repository>
   <snapshotRepository>
      <id>deployment</id>
      <name>Internal Releases</name>
-     <url>http://52.37.76.153:8080/nexus/content/repositories/snapshots/</url>
+     <url>http://52.33.12.237:8080/nexus/content/repositories/snapshots/</url>
   </snapshotRepository>
 </distributionManagement>
 </project>
