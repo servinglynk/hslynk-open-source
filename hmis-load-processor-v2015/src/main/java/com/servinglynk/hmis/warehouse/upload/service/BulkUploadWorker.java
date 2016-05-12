@@ -24,13 +24,12 @@ import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.upload.business.exception.ReportCreationException;
-import com.servinglynk.hmis.warehouse.upload.business.service.core.ParentService;
 import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
 
 
 @Component
 @Service
-public class BulkUploadWorker  extends ParentService implements IBulkUploadWorker  {
+public class BulkUploadWorker implements IBulkUploadWorker  {
 	
 	final static Logger logger = Logger.getLogger(BulkUploadWorker.class);
 
@@ -49,15 +48,15 @@ public class BulkUploadWorker  extends ParentService implements IBulkUploadWorke
 				for(BulkUpload upload : uploadEntities) {
 					/** Perform full refresh base on Project group */
 					if(upload.getProjectGroupCode() !=null) {
-						List<BulkUpload> uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(upload.getProjectGroupCode());
+						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode(upload.getProjectGroupCode());
 						for(BulkUpload  bulkUpload : uploads) {
-							daoFactory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExportId());
+							factory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExportId());
 							bulkUpload.setStatus("DELETED");
-							daoFactory.getBulkUploaderWorkerDao().delete(bulkUpload);
+							factory.getBulkUploaderWorkerDao().delete(bulkUpload);
 						}
 					}
 					File file = new File(upload.getInputpath());
-					ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
 					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity);
 					if (file.isFile()) {
 				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());

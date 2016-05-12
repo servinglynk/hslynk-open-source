@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -31,7 +31,7 @@ public class Disabilities extends BaseModel{
 	private Integer indefiniteandimpairs;
 	
 	@Column( name = "information_date")
-	private Timestamp informationDate;
+	private LocalDateTime informationDate;
 	
 	@Column( name = "pathhowconfirmed")
 	private Integer pathhowconfirmed;
@@ -109,11 +109,11 @@ public class Disabilities extends BaseModel{
 		this.indefiniteandimpairs = indefiniteandimpairs;
 	}
 
-	public Timestamp getInformationDate() {
+	public LocalDateTime getInformationDate() {
 		return informationDate;
 	}
 
-	public void setInformationDate(Timestamp informationDate) {
+	public void setInformationDate(LocalDateTime informationDate) {
 		this.informationDate = informationDate;
 	}
 

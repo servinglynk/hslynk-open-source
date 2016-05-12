@@ -1,6 +1,6 @@
 	package com.servinglynk.hmis.warehouse.model.v2015;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +40,7 @@ public class ServiceFaReferral extends BaseModel{
 	private Integer type_provided;
 	
 	@Column( name = "dateProvided")
-	private Timestamp dateprovided;
+	private LocalDateTime dateprovided;
 
 	public Enrollment getEnrollmentid() {
 		return enrollmentid;
@@ -114,11 +114,11 @@ public class ServiceFaReferral extends BaseModel{
 		this.type_provided = type_provided;
 	}
 
-	public Timestamp getDateprovided() {
+	public LocalDateTime getDateprovided() {
 		return dateprovided;
 	}
 
-	public void setDateprovided(Timestamp dateprovided) {
+	public void setDateprovided(LocalDateTime dateprovided) {
 		this.dateprovided = dateprovided;
 	}
 

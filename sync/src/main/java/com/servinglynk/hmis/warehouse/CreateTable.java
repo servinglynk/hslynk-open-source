@@ -30,12 +30,7 @@ public class CreateTable {
 	public static HTable createTables(BulkUpload upload) {
 		String projectGroup = upload.getProjectGroupCode();
 		List<String> tablesList =new ArrayList<String>();
-		if(upload.getYear() == 2015) {
-			populateTablesListFor2015(tablesList,projectGroup);
-		}else{
-			populateTablesListFor2014(tablesList,projectGroup);
-		}
-		
+		populateTablesList(tablesList,projectGroup);
 			  HTable table = null;
 			  try {
 			   HBaseAdmin admin = HbaseUtil.getAdmin();
@@ -57,17 +52,9 @@ public class CreateTable {
 		return table;
 	}
 	
-	public static void populateTablesListFor2014(List<String> tablesList,String projectGroup) {
-		Map<String, Class<? extends BaseModel>> alltablesV2014 = BaseProcessor.getAlltablesV2014();
+	public static void populateTablesList(List<String> tablesList,String projectGroup) {
+		Map<String, Class<? extends BaseModel>> alltablesV2014 = BaseProcessor.getAlltables();
 		Collection<Class<? extends BaseModel>> values = alltablesV2014.values();
-		for(Class<? extends BaseModel> model : values) {
-			tablesList.add(model.getSimpleName()+"_"+projectGroup);
-		}
-	}
-	
-	private static void populateTablesListFor2015(List<String> tablesList,String projectGroup) {
-		Map<String, Class<? extends BaseModel>> alltablesV2015 = BaseProcessor.getAlltablesV2015();
-		Collection<Class<? extends BaseModel>> values = alltablesV2015.values();
 		for(Class<? extends BaseModel> model : values) {
 			tablesList.add(model.getSimpleName()+"_"+projectGroup);
 		}

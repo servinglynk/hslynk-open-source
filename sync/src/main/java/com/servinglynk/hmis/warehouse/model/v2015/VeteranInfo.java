@@ -9,7 +9,7 @@ import com.servinglynk.hmis.warehouse.BaseModel;
 
 
 @Entity
-public class ClientVeteranInfo extends BaseModel{
+public class VeteranInfo extends BaseModel{
 	
 
 	@Column( name = "afghanistan_oef")

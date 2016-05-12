@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -14,7 +14,7 @@ public class Contact extends BaseModel{
 
 	
 	@Column( name = "contact_date")
-	private Timestamp contact_date;
+	private LocalDateTime contact_date;
 	
 	@Column( name = "contact_location")
 	private Integer contact_location;
@@ -25,11 +25,11 @@ public class Contact extends BaseModel{
 	@Column( name = "id")
 	private java.util.UUID id;
 
-	public Timestamp getContact_date() {
+	public LocalDateTime getContact_date() {
 		return contact_date;
 	}
 
-	public void setContact_date(Timestamp contact_date) {
+	public void setContact_date(LocalDateTime contact_date) {
 		this.contact_date = contact_date;
 	}
 

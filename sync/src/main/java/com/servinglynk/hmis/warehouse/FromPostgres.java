@@ -39,7 +39,7 @@ public class FromPostgres extends Logging{
 		int availableCores = Runtime.getRuntime().availableProcessors();
 		int cores = (availableCores > 5) ? 5 : availableCores -1;
 		ExecutorService executor = Executors.newFixedThreadPool(cores);
-		final Map<String, Class<? extends BaseModel>> tables = upload.getYear() == 2015 ? BaseProcessor.getAlltablesV2015() : BaseProcessor.getAlltablesV2014();
+		final Map<String, Class<? extends BaseModel>> tables = BaseProcessor.getAlltables();
 		int count = 0;
 		for (final String tableName : tables.keySet()) {
 			final String tempName = tableName;
