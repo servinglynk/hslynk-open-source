@@ -54,6 +54,7 @@
 		<module>hmis-service-v2015</module>
 		<module>hmis-serialize-v2015</module>
 		<module>hmis-upload-service</module>
+		<module>hmis-client-dedup</module>
 		<module>hmis-load-processor-v2014</module>
 		<module>hmis-bulk-loader-v2014</module>
 		<module>hmis-load-processor-v2015</module>
