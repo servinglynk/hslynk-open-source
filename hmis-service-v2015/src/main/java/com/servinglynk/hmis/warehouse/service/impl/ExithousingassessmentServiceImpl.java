@@ -68,7 +68,7 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
 
 
    @Transactional
-   public Exithousingassessments getAllEnrollmentExithousingassessments(UUID exitId,Integer startIndex, Integer maxItems){
+   public Exithousingassessments getAllExitExithousingassessments(UUID exitId,Integer startIndex, Integer maxItems){
        Exithousingassessments exithousingassessments = new Exithousingassessments();
         List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment> entities = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(exitId,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment entity : entities){

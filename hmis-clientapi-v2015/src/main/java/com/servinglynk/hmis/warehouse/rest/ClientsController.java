@@ -1670,6 +1670,7 @@ public class ClientsController extends ControllerBase {
 	   public void updateContact(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "contactid" ) UUID contactId,@RequestBody Contact contact,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId); 
+	        contact.setContactId(contactId);
 	        serviceFactory.getContactService().updateContact(contact,enrollmentId,session.getAccount().getUsername()); 
 	   }
 
@@ -1721,6 +1722,7 @@ public class ClientsController extends ControllerBase {
 	   public void updateEducation(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "educationid" ) UUID educationId,@RequestBody Education education,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId); 
+	        education.setEducationId(educationId);
 	        serviceFactory.getEducationService().updateEducation(education,enrollmentId,session.getAccount().getUsername()); 
 	   }
 
@@ -1759,10 +1761,12 @@ public class ClientsController extends ControllerBase {
 	   
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments",method=RequestMethod.POST)
 	   @APIMapping(value="CLIENT_API_CREATE_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
-	   public Exithousingassessment createExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@RequestBody Exithousingassessment exithousingassessment,HttpServletRequest request) throws Exception{
+	   public Exithousingassessment createExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitid ,
+			   @RequestBody Exithousingassessment exithousingassessment,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getExithousingassessmentService().createExithousingassessment(exithousingassessment,enrollmentId,session.getAccount().getUsername()); 
+	         serviceFactory.getExithousingassessmentService().createExithousingassessment(exithousingassessment,exitid,session.getAccount().getUsername()); 
 	         Exithousingassessment returnexithousingassessment = new Exithousingassessment();
 	         returnexithousingassessment.setExithousingassessmentId(exithousingassessment.getExithousingassessmentId());
 	         return returnexithousingassessment;
@@ -1770,34 +1774,43 @@ public class ClientsController extends ControllerBase {
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments/{exithousingassessmentid}",method=RequestMethod.PUT)
 	   @APIMapping(value="CLIENT_API_UPDATE_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
-	   public void updateExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,@RequestBody Exithousingassessment exithousingassessment,HttpServletRequest request) throws Exception{
+	   public void updateExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
+			   @PathVariable("exitid") UUID exitid ,
+			   @PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,@RequestBody Exithousingassessment exithousingassessment,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        exithousingassessment.setExithousingassessmentId(exithousingassessmentId);
-	        serviceFactory.getExithousingassessmentService().updateExithousingassessment(exithousingassessment,enrollmentId,session.getAccount().getUsername()); 
+	        serviceFactory.getExithousingassessmentService().updateExithousingassessment(exithousingassessment,exitid,session.getAccount().getUsername()); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments/{exithousingassessmentid}",method=RequestMethod.DELETE)
 	   @APIMapping(value="CLIENT_API_DELETE_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
-	   public void deleteExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	   public void deleteExithousingassessment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
+			   @PathVariable("exitid") UUID exitid ,
+			   @PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+			serviceFactory.getExitService().getExitById(exitid);
 	        serviceFactory.getExithousingassessmentService().deleteExithousingassessment(exithousingassessmentId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments/{exithousingassessmentid}",method=RequestMethod.GET)
 	   @APIMapping(value="CLIENT_API_GET_EXITHOUSINGASSESSMENT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
-	   public Exithousingassessment getExithousingassessmentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request) throws Exception{
+	   public Exithousingassessment getExithousingassessmentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
+			   @PathVariable("exitid") UUID exitid ,
+			   @PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	 		 serviceFactory.getExitService().getExitById(exitid);
 	        return serviceFactory.getExithousingassessmentService().getExithousingassessmentById(exithousingassessmentId); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments",method=RequestMethod.GET)
 	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_EXITHOUSINGASSESSMENT",checkTrustedApp=true,checkSessionToken=true)
 	   public Exithousingassessments getAllEnrollmentExithousingassessments(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable("exitid") UUID exitid ,
 	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
 	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
 	                       HttpServletRequest request) throws Exception {
@@ -1806,6 +1819,7 @@ public class ClientsController extends ControllerBase {
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	        return serviceFactory.getExithousingassessmentService().getAllEnrollmentExithousingassessments(enrollmentId,startIndex,maxItems); 
+   	 		 serviceFactory.getExitService().getExitById(exitid);
+	        return serviceFactory.getExithousingassessmentService().getAllExitExithousingassessments(exitid,startIndex,maxItems); 
 	   }
 }

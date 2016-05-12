@@ -128,7 +128,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment getExithousingassessmentById(UUID exithousingassessmentId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class);
 		criteria.add(Restrictions.eq("id", exithousingassessmentId));
 		List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment>) findByCriteria(criteria);
 		if(exithousingassessment.size()>0) return exithousingassessment.get(0);
