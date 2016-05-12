@@ -32,6 +32,7 @@
 		</pluginManagement>
 	</build>
 	<modules>
+		<module>hmis-admin</module>
 		<module>hmis-core-client</module>
 		<module>hmis-core-common</module>
 		<module>hmis-base-model</module>
