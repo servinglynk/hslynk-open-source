@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.upload.service.IBulkUploadWorker;
 
 
 @Configuration 
-@ComponentScan("com.servinglynk.hmis.warehouse") 
+@ComponentScan("com.servinglynk.hmis.warehouse.upload") 
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
 	com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
 	com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,

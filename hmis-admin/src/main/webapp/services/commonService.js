@@ -366,7 +366,7 @@ GetProjectGroups: function ($http,$scope, success) {
         }).error(error);
         },
     getToken: function ($http, $scope, success, error) {
-        var apiurl = "/hmis-authorization-service-v2015-v2015/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=http://127.0.0.1:8081/hmis-admin/#/admin/dashboard";
+        var apiurl = "/hmis-authorization-service-v2015/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-admin/#/admin/dashboard";
         $http({
             method: 'POST',
             url: apiurl,
