@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("com.servinglynk.hmis.warehouse.upload") 
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
 	com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
+	LoadProcessorSpringConfig.class,
 	com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 	com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
 	com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
