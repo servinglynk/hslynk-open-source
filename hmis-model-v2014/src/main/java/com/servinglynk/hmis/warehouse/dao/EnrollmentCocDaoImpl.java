@@ -19,6 +19,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -37,6 +38,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) {
 		
 		List<EnrollmentCoC> enrollmentCoCs = domain.getExport().getEnrollmentCoC();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 		if(enrollmentCoCs!=null)
 		{
 			int i=0;
@@ -45,15 +47,14 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			{
 				EnrollmentCoc enrollmentCocModel = new EnrollmentCoc();
 				enrollmentCocModel.setId(UUID.randomUUID());
-				//enrollmentCocModel.setCocCode(enrollmentCoc.get;
-				//enrollmentCocModel.setProjectCoId(projectCoId);
-				//enrollmentCocModel.setProjectCoId(projectCoId);
+				enrollmentCocModel.setExport(exportEntity);
 				enrollmentCocModel.setDateCreated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
 				enrollmentCocModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(enrollmentCoc.getProjectEntryID()));
 				enrollmentCocModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
-				enrollmentCocModel.setExport(exportEntity);
+				Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,domain.getProjectCocMap().get(enrollmentCoc.getProjectCoCID()));
+				enrollmentCocModel.setProjectCoc(projectCoc);
+				//enrollmentCocModel.setCocCode(enrollmentCoc.get);
 				exportEntity.addEnrollmentCoc(enrollmentCocModel);
 				i++;
 				hydrateCommonFields(enrollmentCocModel, domain, String.valueOf(enrollmentCoc.getEnrollmentCoCID()), i);

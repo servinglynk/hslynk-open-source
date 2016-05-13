@@ -7190,7 +7190,7 @@ public class Sources {
                 @XmlElement(name = "ProjectEntryID" , required = true)
                 protected String projectEntryID;
                 @XmlElement(name = "ProjectCoCID" )
-                protected short projectCoCID;
+                protected String projectCoCID;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
                 @XmlAttribute
@@ -7246,7 +7246,7 @@ public class Sources {
                  * Gets the value of the projectCoCID property.
                  * 
                  */
-                public short getProjectCoCID() {
+                public String getProjectCoCID() {
                     return projectCoCID;
                 }
 
@@ -7254,7 +7254,7 @@ public class Sources {
                  * Sets the value of the projectCoCID property.
                  * 
                  */
-                public void setProjectCoCID(short value) {
+                public void setProjectCoCID(String value) {
                     this.projectCoCID = value;
                 }
 
@@ -11285,7 +11285,7 @@ public class Sources {
                 @XmlElement(name = "InventoryID" , required = true)
                 protected String inventoryID;
                 @XmlElement(name = "ProjectCoCID" )
-                protected short projectCoCID;
+                protected String projectCoCID;
                 @XmlElement(name = "HouseholdType" )
                 protected byte householdType;
                 @XmlElement(name = "BedType" )
@@ -11339,7 +11339,7 @@ public class Sources {
                  * Gets the value of the projectCoCID property.
                  * 
                  */
-                public short getProjectCoCID() {
+                public String getProjectCoCID() {
                     return projectCoCID;
                 }
 
@@ -11347,7 +11347,7 @@ public class Sources {
                  * Sets the value of the projectCoCID property.
                  * 
                  */
-                public void setProjectCoCID(short value) {
+                public void setProjectCoCID(String value) {
                     this.projectCoCID = value;
                 }
 
@@ -13916,7 +13916,7 @@ public class Sources {
             public static class ProjectCoC {
 
                 @XmlElement(name = "ProjectCoCID" )
-                protected short projectCoCID;
+                protected String projectCoCID;
                 @XmlElement(name = "CoCCode" , required = true)
                 protected String coCCode;
                 @XmlElement(name = "ProjectID" , required = true)
@@ -13932,7 +13932,7 @@ public class Sources {
                  * Gets the value of the projectCoCID property.
                  * 
                  */
-                public short getProjectCoCID() {
+                public String getProjectCoCID() {
                     return projectCoCID;
                 }
 
@@ -13940,7 +13940,7 @@ public class Sources {
                  * Sets the value of the projectCoCID property.
                  * 
                  */
-                public void setProjectCoCID(short value) {
+                public void setProjectCoCID(String value) {
                     this.projectCoCID = value;
                 }
 
@@ -15760,7 +15760,7 @@ public class Sources {
                 @XmlElement(name = "SiteID" )
                 protected short siteID;
                 @XmlElement(name = "ProjectCoCID" )
-                protected short projectCoCID;
+                protected String projectCoCID;
                 @XmlElement(name = "PrincipalSite" )
                 protected byte principalSite;
                 @XmlElement(name = "Address" , required = true)
@@ -15800,7 +15800,7 @@ public class Sources {
                  * Gets the value of the projectCoCID property.
                  * 
                  */
-                public short getProjectCoCID() {
+                public String getProjectCoCID() {
                     return projectCoCID;
                 }
 
@@ -15808,7 +15808,7 @@ public class Sources {
                  * Sets the value of the projectCoCID property.
                  * 
                  */
-                public void setProjectCoCID(short value) {
+                public void setProjectCoCID(String value) {
                     this.projectCoCID = value;
                 }
 

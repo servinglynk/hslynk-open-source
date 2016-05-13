@@ -12,13 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
-import com.servinglynk.hmis.warehouse.upload.service.IBulkUploadWorker;
-
 
 @Configuration 
-@ComponentScan("com.servinglynk.hmis.warehouse") 
-@Import({ UploadProcessorSpringConfig.class})
+@ComponentScan("com.servinglynk.hmis.warehouse.upload") 
+@Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
+	com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
+	LoadProcessorSpringConfig.class,
+	com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
+	com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
+	com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
 
 @EnableWebMvc   
 @EnableTransactionManagement
@@ -41,9 +43,4 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         resolver.setViewClass(JstlView.class);
         return resolver;  
     }
-	
-	@Bean
-	public IBulkUploadWorker bulkUploadWorker() {
-		return new BulkUploadWorker();
-	}
 }

@@ -699,7 +699,7 @@ public class BulkUploadHelper {
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 	    	  enrollmentCocModel.setEnrollmentCoCID(Integer.parseInt(enrollCoC.getEnrollmentCOCID()));
 	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
-	    	  enrollmentCocModel.setProjectCoCID(Short.valueOf(enrollCoC.getProjectID()));
+	    	  enrollmentCocModel.setProjectCoCID(String.valueOf(enrollCoC.getProjectID()));
 	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
 	    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
 	    	  sources.getSource().getExport().getEnrollmentCoC().add(enrollmentCocModel);
@@ -1117,7 +1117,7 @@ public class BulkUploadHelper {
 	    	  inventoryModel.setInventoryID(invntry.getInventoryID());
 	    	  inventoryModel.setInventoryStartDate(getXMLGregorianCalendar(invntry.getInventoryStartDate()));
 	    	  if(invntry.getProjectID() !=null && !"".equals(invntry.getProjectID()))
-	    		  inventoryModel.setProjectCoCID(Short.valueOf(invntry.getProjectID()));
+	    		  inventoryModel.setProjectCoCID(String.valueOf(invntry.getProjectID()));
 	    	  if(invntry.getUnitInventory() !=null && !"".equals(invntry.getUnitInventory()))
 	    		  inventoryModel.setUnitInventory(Integer.parseInt(invntry.getUnitInventory()));
 	    	  inventoryModel.setUserID(invntry.getUserID());
@@ -1238,7 +1238,7 @@ public class BulkUploadHelper {
 	    	 projectCoCModel.setDateCreated(getXMLGregorianCalendar(prjtCoC.getDateCreated()));
 	    	 projectCoCModel.setDateUpdated(getXMLGregorianCalendar(prjtCoC.getDateUpdated()));
 	    	 if(prjtCoC.getProjectCocID()!=null && !"".equals(prjtCoC.getProjectCocID())){
-	    		 projectCoCModel.setProjectCoCID(Short.valueOf(prjtCoC.getProjectCocID()));
+	    		 projectCoCModel.setProjectCoCID(String.valueOf(prjtCoC.getProjectCocID()));
 	    	 }
 	    	 projectCoCModel.setProjectID(prjtCoC.getProjectID());
 	    	 projectCoCModel.setUserID(prjtCoC.getUserID());
@@ -1314,7 +1314,7 @@ public class BulkUploadHelper {
 	    	  siteModel.setPrincipalSite(getByte(ste.getPrincipalSite()));
 	    	  
 	    	  if(ste.getProjectID()!=null && !"".equals(ste.getProjectID())){
-	    		  siteModel.setProjectCoCID(Short.valueOf(ste.getProjectID()));
+	    		  siteModel.setProjectCoCID(String.valueOf(ste.getProjectID()));
 	    	  }
 	    	  
 	    	  if(ste.getSiteID()!=null && !"".equals(ste.getSiteID())){

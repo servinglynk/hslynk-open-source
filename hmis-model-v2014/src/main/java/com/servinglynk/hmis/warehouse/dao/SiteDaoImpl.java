@@ -9,7 +9,6 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
@@ -17,6 +16,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
+import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
@@ -37,8 +37,8 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					siteModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 					siteModel.setGeocode(site.getGeocode());
 					siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
-//					Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,domain.getProjectCocMap().get(site.getProjectCoCID()));
-//					siteModel.setProjectCoc(projectCoc);
+					Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,domain.getProjectCocMap().get(site.getProjectCoCID()));
+					siteModel.setProjectCoc(projectCoc);
 					siteModel.setState(StateEnum.lookupEnum(site.getState()));
 					siteModel.setExport(exportEntity);
 					siteModel.setId(UUID.randomUUID());

@@ -52,7 +52,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private java.util.UUID projectCoId;
+	private Projectcoc projectCoc;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -178,24 +178,26 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	}
 
 	 /**
-	 * Return the value associated with the column: projectCoId.
-	 * @return A java.util.UUID object (this.projectCoId)
+	 * Return the value associated with the column: projectCoc.
+	 * @return A Projectcoc object (this.projectCoc)
 	 */
+	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = true )
-	@Column( name = "project_co_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getProjectCoId() {
-		return this.projectCoId;
+	@JoinColumn(name = "project_coc_id", nullable = true )
+	public Projectcoc getProjectCoc() {
+		return this.projectCoc;
 
 	}
 
 
 
 	 /**
-	 * Set the value related to the column: projectCoId.
-	 * @param projectCoId the projectCoId value you wish to set
+	 * Set the value related to the column: projectCoc.
+	 * @param projectCoc the projectCoc value you wish to set
 	 */
-	public void setProjectCoId(final java.util.UUID projectCoId) {
-		this.projectCoId = projectCoId;
+	public void setProjectCoc(final Projectcoc projectCoc) {
+		this.projectCoc = projectCoc;
 	}
 
 
@@ -214,7 +216,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setId(this.getId());
-		copy.setProjectCoId(this.getProjectCoId());
+		copy.setProjectCoc(this.getProjectCoc());
 		copy.setUserId(this.getUserId());
 		return copy;
 	}
@@ -232,7 +234,6 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("id: " + this.getId() + ", ");
-		sb.append("projectCoId: " + this.getProjectCoId() + ", ");
 		return sb.toString();
 	}
 
@@ -282,7 +283,6 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getProjectCoId() == null) && (that.getProjectCoId() == null)) || (getProjectCoId() != null && getProjectCoId().equals(that.getProjectCoId())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;
 	}
