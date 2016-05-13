@@ -188,10 +188,10 @@ public class BaseProcessor<T> extends Logging {
 	private static Connection getConnection() throws SQLException {
 		if (connection == null) {
 			connection = DriverManager.getConnection(
-//					"jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
-//					"hmisdb1234");
-				"jdbc:postgresql://localhost:5432/hmis", "postgres",
-				"postgres");
+					"jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
+					"hmisdb1234");
+//				"jdbc:postgresql://localhost:5432/hmis", "postgres",
+//				"postgres");
 		}
 		if (connection.isClosed()) {
 			throw new SQLException("connection could not initiated");
@@ -520,7 +520,7 @@ public class BaseProcessor<T> extends Logging {
 		tables.put("site", Site.class);
 		tables.put("source", Source.class);
 		tables.put("veteran_info", VeteranInfo.class);
-		tables.put("worsthousingsituation", Worsthousingsituation.class);
+		 tables.put("worsthousingsituation", Worsthousingsituation.class);
 		tables.put("youthcriticalissues", Youthcriticalissues.class);
 		
 		tables.put("coc",Coc.class);

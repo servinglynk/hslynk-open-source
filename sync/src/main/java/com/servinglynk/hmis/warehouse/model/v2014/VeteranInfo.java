@@ -33,8 +33,8 @@ public class VeteranInfo extends BaseModel {
 	public String military_branch;	
 	@Column(name = "discharge_status")
 	public String discharge_status;
-	@Column(name = "cliend_id")
-	public UUID cliend_id;
+	@Column(name = "client_id")
+	public UUID client_id;
 	/**
 	 * @return the year_entrd_service
 	 */
@@ -182,14 +182,14 @@ public class VeteranInfo extends BaseModel {
 	/**
 	 * @return the cliend_id
 	 */
-	public UUID getCliend_id() {
-		return cliend_id;
+	public UUID getClient_id() {
+		return client_id;
 	}
 	/**
 	 * @param cliend_id the cliend_id to set
 	 */
-	public void setCliend_id(UUID cliend_id) {
-		this.cliend_id = cliend_id;
+	public void setClient_id(UUID client_id) {
+		this.client_id = client_id;
 	}
 
 }
