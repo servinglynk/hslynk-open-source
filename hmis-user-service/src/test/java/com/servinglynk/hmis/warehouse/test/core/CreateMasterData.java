@@ -241,9 +241,9 @@ public class CreateMasterData {
 //			UUID methodId =	data.createApiMethod();
 //			data.assignToAdmonProfile(methodId);	
 	
-		    String[] methods = {"CLIENT_API_CREATE_FUNDER","CLIENT_API_UPDATE_FUNDER","CLIENT_API_DELETE_FUNDER","CLIENT_API_GET_FUNDER_BY_ID","CLIENT_API_GET_ALL_ENROLLMENT_FUNDER"};
+		    String[] methods = {"CLIENT_API_UPDATE_EDUCATION","CLIENT_API_DELETE_EDUCATION","CLIENT_API_GET_EDUCATION_BY_ID"};
 
-		    String[] methodTypes = {"POST","PUT","DELETE","GET","GET"};
+		    String[] methodTypes = {"PUT","DELETE","GET"};
 
 			int i=0;
 			while(i< methods.length){
