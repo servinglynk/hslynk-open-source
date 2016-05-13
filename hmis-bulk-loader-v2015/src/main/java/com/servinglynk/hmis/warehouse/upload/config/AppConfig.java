@@ -17,11 +17,8 @@ import com.servinglynk.hmis.warehouse.upload.service.IBulkUploadWorker;
 
 
 @Configuration 
-@ComponentScan("com.servinglynk.hmis.warehouse.upload") 
-@Import({ SpringConfig.class,
-	com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
-	com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-	com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+@ComponentScan("com.servinglynk.hmis.warehouse") 
+@Import({ UploadProcessorSpringConfig.class})
 
 @EnableWebMvc   
 @EnableTransactionManagement

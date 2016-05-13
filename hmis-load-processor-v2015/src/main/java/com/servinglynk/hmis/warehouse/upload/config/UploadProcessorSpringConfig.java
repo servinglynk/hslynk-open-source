@@ -36,7 +36,7 @@ import com.servinglynk.hmis.warehouse.upload.service.LiveWorker;
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.upload.service"})
 @PropertySource("classpath:com/servinglynk/hmis/warehouse/upload/upload.properties")
 
-public class SpringConfig {
+public class UploadProcessorSpringConfig {
 
 	@Autowired
 	Environment env;

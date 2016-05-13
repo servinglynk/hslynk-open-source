@@ -234,7 +234,7 @@
 			  <version>${parent-version}</version>
 			</dependency>
 	</dependencies>
-		<build>
+			<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
