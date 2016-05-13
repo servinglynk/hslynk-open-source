@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -47,15 +48,15 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 	   public ProjectGroups getAllProjectGroups(Integer startIndex, Integer maxItems){
 	       ProjectGroups projects = new ProjectGroups();
 	       ProjectGroup projectGroup = new ProjectGroup();
-	       /* List<com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity> entities = daoFactory.getProjectGroupDao().getAllProjectGroups(startIndex,maxItems);
-	        for(com.servinglynk.hmis.warehouse.model.live.ProjectGroupEntity entity : entities){
+	        List<ProjectGroupEntity> entities = daoFactory.getProjectGroupDao().getAllProjectGroups(startIndex,maxItems);
+	        for(ProjectGroupEntity entity : entities){
 	        	projectGroup = ProjectGroupConverter.entityToModel(entity);
 	        	
-	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
-	    			projectGroup.addProject(ProjectConverter.entityToModel(ppgme.getProject()));
-	    		}
+//	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
+//	    			projectGroup.addProject(ProjectConverter.entityToModel(ppgme.getProject()));
+//	    		}
 	        	projects.addProjectGroup(projectGroup);
-	        }*/
+	        }
 	        long count = daoFactory.getProjectGroupDao().getProjectGroupCount();
 	        SortedPagination pagination = new SortedPagination();
 	 
