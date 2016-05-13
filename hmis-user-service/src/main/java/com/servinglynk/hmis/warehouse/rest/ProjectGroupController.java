@@ -29,7 +29,7 @@ public class ProjectGroupController extends ControllerBase {
 	
 	
 	@RequestMapping(method=RequestMethod.GET)
-	@APIMapping(value="USR_GET_ALL_PROJECTGROUP",checkSessionToken=false, checkTrustedApp=false)
+	@APIMapping(value="USR_GET_ALL_PROJECTGROUP",checkSessionToken=true, checkTrustedApp=true)
 	public ProjectGroups getAllProjectGroups(HttpServletRequest request,@RequestParam(value="startIndex", required=false) Integer startIndex,
 				@RequestParam(value="maxItems", required=false) Integer maxItems) throws Exception {
 		if (startIndex == null)	{
