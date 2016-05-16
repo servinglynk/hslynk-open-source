@@ -1624,7 +1624,7 @@ with (
 CREATE TABLE "v2014".enrollment_coc
 (
   id uuid NOT NULL,
-  project_co_id uuid,
+  project_coc_id uuid,
   enrollmentid uuid,
   coc_code character(20),
   project_group_code character varying(8),
@@ -1645,7 +1645,7 @@ CREATE TABLE "v2014".enrollment_coc
   CONSTRAINT "enrollment_coc_project_co_fk_key" FOREIGN KEY ("enrollmentid")
       REFERENCES v2014.enrollment ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-   CONSTRAINT "project_coc_enrollment_coc_fkey" FOREIGN KEY ("project_co_id")
+   CONSTRAINT "project_coc_enrollment_coc_fkey" FOREIGN KEY ("project_coc_id")
       REFERENCES v2014.projectcoc ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )

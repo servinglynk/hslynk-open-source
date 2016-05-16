@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS organization;
 DROP TABLE IF EXISTS path_status;
 DROP TABLE IF EXISTS percent_ami;
 DROP TABLE IF EXISTS project;
-DROP TABLE IF EXISTS projectcoc;
+DROP TABLE IF EXISTS project_coc;
 DROP TABLE IF EXISTS projectcompletionstatus;
 DROP TABLE IF EXISTS referralsource;
 DROP TABLE IF EXISTS residentialmoveindate;
