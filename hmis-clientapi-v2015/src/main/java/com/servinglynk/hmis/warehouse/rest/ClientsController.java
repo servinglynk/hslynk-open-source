@@ -711,7 +711,7 @@ public class ClientsController extends ControllerBase {
 				maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefitss", method = RequestMethod.POST)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefits", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_NONCASHBENEFITS", checkTrustedApp = true, checkSessionToken = true)
 	public Noncashbenefits createNoncashbenefits(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Noncashbenefits noncashbenefits,
@@ -725,7 +725,7 @@ public class ClientsController extends ControllerBase {
 		return returnnoncashbenefits;
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefitss/{noncashbenefitsid}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitsid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_NONCASHBENEFITS", checkTrustedApp = true, checkSessionToken = true)
 	public void updateNoncashbenefits(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("noncashbenefitsid") UUID noncashbenefitsId,
@@ -737,7 +737,7 @@ public class ClientsController extends ControllerBase {
 				session.getAccount().getUsername());
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefitss/{noncashbenefitsid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitsid}", method = RequestMethod.DELETE)
 	@APIMapping(value = "CLIENT_API_DELETE_NONCASHBENEFITS", checkTrustedApp = true, checkSessionToken = true)
 	public void deleteNoncashbenefits(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("noncashbenefitsid") UUID noncashbenefitsId,
@@ -750,7 +750,7 @@ public class ClientsController extends ControllerBase {
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefitss/{noncashbenefitsid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitsid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_NONCASHBENEFITS_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 	public Noncashbenefits getNoncashbenefitsById(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("noncashbenefitsid") UUID noncashbenefitsId,
@@ -760,7 +760,7 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getNoncashbenefitsService().getNoncashbenefitsById(noncashbenefitsId);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefitss", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/noncashbenefits", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_NONCASHBENEFITS", checkTrustedApp = true, checkSessionToken = true)
 	public NoncashbenefitsList getAllEnrollmentNoncashbenefitss(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId,
@@ -778,7 +778,7 @@ public class ClientsController extends ControllerBase {
 				maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuss", method = RequestMethod.POST)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuses", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_PATHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public Pathstatus createPathstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Pathstatus pathstatus,
@@ -792,7 +792,7 @@ public class ClientsController extends ControllerBase {
 		return returnpathstatus;
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuss/{pathstatusid}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuses/{pathstatusid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_PATHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public void updatePathstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("pathstatusid") UUID pathstatusId,
@@ -804,7 +804,7 @@ public class ClientsController extends ControllerBase {
 				session.getAccount().getUsername());
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuss/{pathstatusid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuses/{pathstatusid}", method = RequestMethod.DELETE)
 	@APIMapping(value = "CLIENT_API_DELETE_PATHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public void deletePathstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("pathstatusid") UUID pathstatusId,
@@ -816,7 +816,7 @@ public class ClientsController extends ControllerBase {
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuss/{pathstatusid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuses/{pathstatusid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_PATHSTATUS_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 	public Pathstatus getPathstatusById(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("pathstatusid") UUID pathstatusId,
@@ -826,7 +826,7 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getPathstatusService().getPathstatusById(pathstatusId);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuss", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/pathstatuses", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_PATHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public Pathstatuses getAllEnrollmentPathstatuss(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId,
@@ -913,7 +913,7 @@ public class ClientsController extends ControllerBase {
 				startIndex, maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuss", method = RequestMethod.POST)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuses", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_HEALTHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public Healthstatus createHealthstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Healthstatus healthstatus,
@@ -927,7 +927,7 @@ public class ClientsController extends ControllerBase {
 		return returnhealthstatus;
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuss/{healthstatusid}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_HEALTHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public void updateHealthstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("healthstatusid") UUID healthstatusId,
@@ -939,7 +939,7 @@ public class ClientsController extends ControllerBase {
 				session.getAccount().getUsername());
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuss/{healthstatusid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}", method = RequestMethod.DELETE)
 	@APIMapping(value = "CLIENT_API_DELETE_HEALTHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public void deleteHealthstatus(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("healthstatusid") UUID healthstatusId,
@@ -951,7 +951,7 @@ public class ClientsController extends ControllerBase {
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuss/{healthstatusid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_HEALTHSTATUS_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 	public Healthstatus getHealthstatusById(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("healthstatusid") UUID healthstatusId,
@@ -961,7 +961,7 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getHealthstatusService().getHealthstatusById(healthstatusId);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuss", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/healthstatuses", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_HEALTHSTATUS", checkTrustedApp = true, checkSessionToken = true)
 	public Healthstatuses getAllEnrollmentHealthstatuss(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId,
