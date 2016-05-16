@@ -86,7 +86,7 @@ $(document).ready(function() {
 		})
 	})
 	$("#detailed-msg-link").click(function(){
-		window.open("/hmis-authorization-service-v2015/detailed-consent.html?authentication_token="+getURLParameter("authentication_token")+"&trustedApp_id="+(getURLParameter("trustedApp_id")));
+		window.open("/hmis-authorization-service/detailed-consent.html?authentication_token="+getURLParameter("authentication_token")+"&trustedApp_id="+(getURLParameter("trustedApp_id")));
 	})
 });
 </script>
@@ -121,7 +121,7 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<form id="authorize-form" method="GET" action="/hmis-authorization-service-v2015/rest/authorize">
+<form id="authorize-form" method="GET" action="/hmis-authorization-service/rest/authorize">
 	<input type=hidden value="" name="response_type" id="response_type" />
 	<input type=hidden value="" name="trustedApp_id" id="trustedApp_id" />
 	<input type=hidden value="" name="redirect_uri" id="redirect_uri" />

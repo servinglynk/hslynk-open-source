@@ -121,12 +121,12 @@ public class BaseDatabaseConfig {
 	
 	@Bean
 	public String loginUri(){
-		return new String("/hmis-authorization-service-v2015/login.html");
+		return new String("/hmis-authorization-service/login.html");
 	}
 	
 	@Bean
 	public String consentUri(){
-		return new String("/hmis-authorization-service-v2015/consent.html");
+		return new String("/hmis-authorization-service/consent.html");
 	}
 	
 	
