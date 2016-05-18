@@ -475,7 +475,7 @@ public class BaseProcessor<T> extends Logging {
 		}
 	}
 
-	public static Map<String, Class<? extends BaseModel>> getAlltables() {
+	public static Map<String, Class<? extends BaseModel>> getAlltablesV2014() {
 		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
 		tables.put("affiliation", Affiliation.class);
 		tables.put("bedinventory", Bedinventory.class);
@@ -520,20 +520,53 @@ public class BaseProcessor<T> extends Logging {
 		tables.put("site", Site.class);
 		tables.put("source", Source.class);
 		tables.put("veteran_info", VeteranInfo.class);
-		 tables.put("worsthousingsituation", Worsthousingsituation.class);
+		tables.put("worsthousingsituation", Worsthousingsituation.class);
 		tables.put("youthcriticalissues", Youthcriticalissues.class);
-		
-		tables.put("coc",Coc.class);
-		tables.put("contact",Contact.class);
-		tables.put("client_veteran_info",com.servinglynk.hmis.warehouse.model.v2015.VeteranInfo.class);
-		tables.put("education",Education.class);
-	    tables.put("exitpath",Exitpath.class);
-	    tables.put("exitrhy",Exitrhy.class);
-	    tables.put("entryrhsp",Entryrhsp.class);
-	    tables.put("entryrhsp",Entryrhy.class);
-	    tables.put("entryssvf",Entryssvf.class);
 		return tables;
 	}
 	
+	public static Map<String, Class<? extends BaseModel>> getAlltablesV2015() {
+		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
+		tables.put("affiliation",com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
+		tables.put("bedinventory",com.servinglynk.hmis.warehouse.model.v2015.Bedinventory.class);
+		tables.put("client",com.servinglynk.hmis.warehouse.model.v2015.Client.class);
+	    tables.put("client_veteran_info",com.servinglynk.hmis.warehouse.model.v2015.VeteranInfo.class);
+	    tables.put("coc",Coc.class);
+	    tables.put("contact",Contact.class);
+	    tables.put("dateofengagement",com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class);
+	    tables.put("disabilities",com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class);
+	    tables.put("domesticviolence",com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class);
+	    tables.put("education",Education.class);
+	    tables.put("employment",com.servinglynk.hmis.warehouse.model.v2015.Employment.class);
+	    tables.put("enrollment",com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class);
+	    tables.put("enrollment_coc",com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+	    tables.put("entryrhsp",Entryrhsp.class);
+	    tables.put("entryrhy",Entryrhy.class);
+	    tables.put("entryssvf",Entryssvf.class);
+	    tables.put("exit", com.servinglynk.hmis.warehouse.model.v2015.Exit.class);
+	    tables.put("exithousingassessment",com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class);
+	    tables.put("exitpath",Exitpath.class);
+	    tables.put("exitrhy",Exitrhy.class);
+	    tables.put("export",com.servinglynk.hmis.warehouse.model.v2015.Export.class);
+	    tables.put("funder",com.servinglynk.hmis.warehouse.model.v2015.Funder.class);
+	    tables.put("health_status",com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class);
+	    tables.put("healthinsurance",com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class);
+	    tables.put("housingassessmentdisposition",com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class);
+	    tables.put("incomeandsources",com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class);
+	    tables.put("inventory",com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
+	    tables.put("medicalassistance",com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class);
+	    tables.put("noncashbenefits",com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class);
+	    tables.put("organization",com.servinglynk.hmis.warehouse.model.v2015.Organization.class);
+	    tables.put("path_status",com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class);
+	    tables.put("project",com.servinglynk.hmis.warehouse.model.v2015.Project.class);
+	    tables.put("residentialmoveindate",com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class);
+	    tables.put("rhybcp_status",com.servinglynk.hmis.warehouse.model.v2015.Rhybcpstatus.class);
+	    tables.put("schoolstatus",Schoolstatus.class);
+	    tables.put("service_fa_referral",ServiceFaReferral.class);
+	    tables.put("site",com.servinglynk.hmis.warehouse.model.v2015.Site.class);
+	    tables.put("source",com.servinglynk.hmis.warehouse.model.v2015.Source.class);
+
+		return tables;
+	}
 
 }

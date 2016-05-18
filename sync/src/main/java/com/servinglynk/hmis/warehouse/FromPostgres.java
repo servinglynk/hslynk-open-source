@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class FromPostgres extends Logging{
 
 	public static void main(String args[]) throws Exception {
@@ -39,7 +41,7 @@ public class FromPostgres extends Logging{
 		int availableCores = Runtime.getRuntime().availableProcessors();
 		int cores = (availableCores > 5) ? 5 : availableCores -1;
 		ExecutorService executor = Executors.newFixedThreadPool(cores);
-		final Map<String, Class<? extends BaseModel>> tables = BaseProcessor.getAlltables();
+		final Map<String, Class<? extends BaseModel>> tables = StringUtils.equals(schema, "v2014") ? BaseProcessor.getAlltablesV2014() : BaseProcessor.getAlltablesV2015();
 		int count = 0;
 		for (final String tableName : tables.keySet()) {
 			final String tempName = tableName;
