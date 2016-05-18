@@ -6,7 +6,7 @@
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>hmis-bulk-loader-v2014</name>
-	<description>Hmis Bulk Loader V2014</description>
+	<description>Hmis Bulk Loader v2014</description>
 
 	  <scm>
 	  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>

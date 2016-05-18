@@ -82,7 +82,7 @@ public class LoadProcessorSpringConfig {
 		LocalSessionFactoryBean sessionFactory= new LocalSessionFactoryBean();
 		
 		sessionFactory.setDataSource(relationalDataSource());
-		sessionFactory.setPackagesToScan("com.servinglynk.hmis.warehouse.");
+		sessionFactory.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2014");
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		
 		
