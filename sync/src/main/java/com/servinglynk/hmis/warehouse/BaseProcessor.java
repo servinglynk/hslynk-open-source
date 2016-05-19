@@ -306,7 +306,7 @@ public class BaseProcessor<T> extends Logging {
 	 * This method returns schema name from year.
 	 * @return
 	 */
-	public String getSchemaFromYear(BulkUpload upload) {
+	public static String getSchemaFromYear(BulkUpload upload) {
 		if(upload.getYear() != 0L) {
 			return "v"+upload.getYear();	
 		}

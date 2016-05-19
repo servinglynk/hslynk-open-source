@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -30,7 +31,7 @@ public class CreateTable {
 	public static HTable createTables(BulkUpload upload) {
 		String projectGroup = upload.getProjectGroupCode();
 		List<String> tablesList =new ArrayList<String>();
-		populateTablesList(tablesList,projectGroup);
+		populateTablesList(tablesList,projectGroup,upload);
 			  HTable table = null;
 			  try {
 			   HBaseAdmin admin = HbaseUtil.getAdmin();
@@ -52,8 +53,9 @@ public class CreateTable {
 		return table;
 	}
 	
-	public static void populateTablesList(List<String> tablesList,String projectGroup) {
-		Map<String, Class<? extends BaseModel>> alltablesV2014 = BaseProcessor.getAlltables();
+	public static void populateTablesList(List<String> tablesList,String projectGroup,BulkUpload upload) {
+		String schema = BaseProcessor.getSchemaFromYear(upload);
+		final Map<String, Class<? extends BaseModel>> alltablesV2014 = StringUtils.equals(schema, "v2014") ? BaseProcessor.getAlltablesV2014() : BaseProcessor.getAlltablesV2015();
 		Collection<Class<? extends BaseModel>> values = alltablesV2014.values();
 		for(Class<? extends BaseModel> model : values) {
 			tablesList.add(model.getSimpleName()+"_"+projectGroup);

@@ -30,7 +30,7 @@ public class SyncController {
 			try {
 				connection = getConnection();
 
-				String queryString = "SELECT * FROM live.sync order by date_created desc" ;
+				String queryString = "SELECT * FROM v2014.sync order by date_created desc" ;
 				PreparedStatement statement = connection.prepareStatement(queryString);
 				resultSet = statement.executeQuery();
 				
@@ -51,7 +51,7 @@ public class SyncController {
 	}
 		private Connection getConnection() throws SQLException {
 			Connection connection = DriverManager.getConnection(
-					"jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
+					"jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
 					"hmisdb1234");
 			return connection;
 		}
