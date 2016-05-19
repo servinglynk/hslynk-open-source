@@ -258,3 +258,8 @@ hmis-report-core/.idea
 hmis-report-core/*.iml
 hmis-report-core/target
 hmis-report-core/bin
+hmis-global-household/target/
+hmis-global-household/.settings/
+hmis-global-household/logs.logs
+hmis-global-household/mvnw
+hmis-global-household/mvnw.cmd
