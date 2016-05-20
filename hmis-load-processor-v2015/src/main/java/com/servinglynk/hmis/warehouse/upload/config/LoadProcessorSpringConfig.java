@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -34,9 +33,6 @@ import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
 
 public class LoadProcessorSpringConfig {
 
-	@Autowired
-	Environment env;
-	
 	@Bean
     public static PropertyPlaceholderConfigurer properties(){
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
