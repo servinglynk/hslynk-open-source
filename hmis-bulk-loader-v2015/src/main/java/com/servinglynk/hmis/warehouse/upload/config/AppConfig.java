@@ -12,6 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.servinglynk.hmis.warehouse.upload.endpoint.ReportMasterController;
+import com.servinglynk.hmis.warehouse.upload.endpoint.SyncController;
+
 
 @Configuration 
 @ComponentScan("com.servinglynk.hmis.warehouse.upload") 
@@ -43,4 +46,14 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         resolver.setViewClass(JstlView.class);
         return resolver;  
     }
+	
+	@Bean
+	public SyncController syncController() {
+		return new SyncController();
+	}
+	
+	@Bean
+	public ReportMasterController reportMasterController() {
+		return new ReportMasterController();
+	}
 }
