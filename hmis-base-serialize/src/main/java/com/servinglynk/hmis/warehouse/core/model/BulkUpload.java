@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class BulkUpload extends ClientModel{
 	private String inputPath;
 	private Long fileSize;
+	private Long year;
 	private String username;
 	private String projectGroupCode;
 	private String status;
@@ -16,6 +17,13 @@ public class BulkUpload extends ClientModel{
 	}
 	public void setInputPath(String inputPath) {
 		this.inputPath = inputPath;
+	}
+	
+	public Long getYear() {
+		return year;
+	}
+	public void setYear(Long year) {
+		this.year = year;
 	}
 	public Long getFileSize() {
 		return fileSize;

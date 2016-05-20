@@ -68,6 +68,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				bulkUpload.setFileSize(upload.getSize());
 				bulkUpload.setInputPath(upload.getInputpath());
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
+				bulkUpload.setYear(upload.getYear());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
 				bulkUpload.setStatus(upload.getStatus());
 				bulkUpload.setDescription(upload.getDescription());

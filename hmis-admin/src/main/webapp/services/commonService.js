@@ -96,7 +96,7 @@ var Service= ({
              });
        },        
  GetSyncFilesList: function ($http, success) {
-        $http.get('/hmis-bulk-loader/sync').success(function (data) {
+        $http.get('/hmis-bulk-loader-v2014/sync').success(function (data) {
 				if(success)success(data)
 			});
     },
