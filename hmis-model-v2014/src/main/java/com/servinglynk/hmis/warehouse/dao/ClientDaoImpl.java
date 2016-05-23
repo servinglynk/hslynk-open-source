@@ -320,7 +320,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	        QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(com.servinglynk.hmis.warehouse.model.v2014.Client.class).get();
 	       org.apache.lucene.search.Query luceneQuery = queryBuilder.keyword().wildcard().onField("firstName").andField("lastName").andField("middleName").matching("*"+searchterm+"*").createQuery();
 	        org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery, com.servinglynk.hmis.warehouse.model.v2014.Client.class);
-	         
+	        fullTextQuery.setMaxResults(30);
 	        clientList = fullTextQuery.list();
 		 }catch(Exception ex){
 			 
