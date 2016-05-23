@@ -2,23 +2,19 @@ package com.servinglynk.hmis.warehouse.config;
 
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
@@ -104,7 +100,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
     @SuppressWarnings("unused")
 	private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA = "hibernate.default.schema";
-    private static final String SOLR_SEARCH_INDEXING_LOCATION ="solr.search.indexing.location";
     
 	@Resource
 	private Environment env;
@@ -130,8 +125,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		properties.put("databasePlatform", "PostgreSQLDialectUuid");
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
-		properties.put("hibernate.search.default.directory_provider", "filesystem");
-		properties.put("hibernate.search.default.indexBase",env.getRequiredProperty(SOLR_SEARCH_INDEXING_LOCATION));	
 		return properties;	
 	}
 	
@@ -151,6 +144,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		return sessionFactoryBean;
 	}
 	
+<<<<<<< HEAD
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -167,6 +161,8 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 //	 }
 	
 	
+=======
+>>>>>>> parent of 18f64fe... client search implementation changes
 	@Bean
 	public ClientVeteranInfoDao veteranInfoDao() {
 		return new ClientVeteranInfoDaoImpl();

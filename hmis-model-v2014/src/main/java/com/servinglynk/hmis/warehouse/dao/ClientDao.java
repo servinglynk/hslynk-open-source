@@ -15,5 +15,4 @@ public interface ClientDao extends ParentDao {
 	List<Client> getAllClients(Integer startIndex, Integer maxItems);
 	long getClientsCount();
 	public com.servinglynk.hmis.warehouse.model.v2014.Client getClientByDedupCliendId(UUID id,String projectGroupCode);
-	List<com.servinglynk.hmis.warehouse.model.v2014.Client> searchClients(String searchterm) throws Exception;
 }

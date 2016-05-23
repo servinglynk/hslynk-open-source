@@ -24,11 +24,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
 
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -47,7 +42,6 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
  */
 @Entity (name = "client")
 @Table(name = "client", catalog = "hmis", schema = "v2014")
-@Indexed
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -241,7 +235,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "first_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES)
 	public String getFirstName() {
 		return this.firstName;
 		
@@ -320,7 +313,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "last_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES)
 	public String getLastName() {
 		return this.lastName;
 		
@@ -342,7 +334,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "middle_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES)
 	public String getMiddleName() {
 		return this.middleName;
 		
