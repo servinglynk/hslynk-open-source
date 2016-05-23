@@ -304,32 +304,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		return clients;
 	}
 	
-<<<<<<< HEAD
-	@SuppressWarnings("unchecked")
-	public List<com.servinglynk.hmis.warehouse.model.v2014.Client> searchClients(String searchterm) throws Exception {
-		 Session session = this.getCurrentSession();
-		 FullTextSession fullTextSession=null;
-		 List<com.servinglynk.hmis.warehouse.model.v2014.Client> clientList = new ArrayList<com.servinglynk.hmis.warehouse.model.v2014.Client>();
-		 try{
-	         fullTextSession = Search.getFullTextSession(session);
-	        
-	        QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(com.servinglynk.hmis.warehouse.model.v2014.Client.class).get();
-	       org.apache.lucene.search.Query luceneQuery = queryBuilder.keyword().wildcard().onField("firstName").andField("lastName").andField("middleName").matching("*"+searchterm+"*").createQuery();
-	        org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery, com.servinglynk.hmis.warehouse.model.v2014.Client.class);
-	        fullTextQuery.setMaxResults(30);
-	        clientList = fullTextQuery.list();
-		 }catch(Exception ex){
-			 
-		 }finally {
-			
-		}
-		return clientList;
-	}
-
-	
-=======
->>>>>>> parent of 18f64fe... client search implementation changes
-	
 	public long getClientsCount(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);	
 		return countRows(criteria);

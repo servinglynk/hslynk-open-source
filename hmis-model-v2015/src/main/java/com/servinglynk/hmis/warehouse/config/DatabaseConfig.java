@@ -144,25 +144,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		return sessionFactoryBean;
 	}
 	
-<<<<<<< HEAD
-	
-	@Autowired
-	SessionFactory sessionFactory;
-	
-//	 @PostConstruct
-//	 @Transactional
-//	 public void dabaseIndexing() {
-//		 try{
-//		 FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.openSession());
-//		 fullTextSession.createIndexer().startAndWait();
-//		 }catch(Exception e){
-//			 e.printStackTrace();
-//		 }
-//	 }
-	
-	
-=======
->>>>>>> parent of 18f64fe... client search implementation changes
 	@Bean
 	public ClientVeteranInfoDao veteranInfoDao() {
 		return new ClientVeteranInfoDaoImpl();
