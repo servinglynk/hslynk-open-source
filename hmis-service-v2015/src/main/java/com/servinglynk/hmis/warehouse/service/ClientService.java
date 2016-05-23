@@ -13,5 +13,6 @@ public interface ClientService {
 	Client deleteClient(UUID clientId,String caller);
 	Client getClientById(UUID clientId);
 	Clients getAllClients(String caller,Integer startIndex, Integer maxItems);
+	Clients searchClients(String searchterm) throws Exception ;
 	
 }

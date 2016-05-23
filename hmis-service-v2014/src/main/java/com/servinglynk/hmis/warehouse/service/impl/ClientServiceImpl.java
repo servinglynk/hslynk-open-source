@@ -80,5 +80,16 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		
 		return clients;
 	}
+	
+	@Transactional
+	public Clients searchClients(String searchterm) throws Exception {
+		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clientsList = daoFactory.getClientDao().searchClients(searchterm);
+		Clients clients= new Clients();
+		for(com.servinglynk.hmis.warehouse.model.v2014.Client pClient : clientsList){
+			clients.addClient(ClientConverter.entityToModel(pClient));
+		}
+		
+		return clients;
+	}
 
 }

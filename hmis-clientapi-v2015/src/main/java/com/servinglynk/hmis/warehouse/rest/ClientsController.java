@@ -122,6 +122,14 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getClientService().getAllClients(session.getAccount().getUsername(), startIndex,
 				maxItems);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET,value="/search")
+	@APIMapping(value = "CLIENT_API_GET_ALL_CLIENTS", checkSessionToken = true, checkTrustedApp = true)
+	public Clients searchClients(@RequestParam(value = "searchterm", required = true) String searchterm,
+			 HttpServletRequest request)
+					throws Exception {
+		return serviceFactory.getClientService().searchClients(searchterm);
+	}
 
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_ENROLLMENT", checkSessionToken = true, checkTrustedApp = true)

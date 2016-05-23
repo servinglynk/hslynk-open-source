@@ -8,14 +8,20 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.apache.lucene.search.WildcardQuery;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -302,6 +308,26 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		return clients;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<com.servinglynk.hmis.warehouse.model.v2015.Client> searchClients(String searchterm) throws Exception {
+		 Session session = this.getCurrentSession();
+		 FullTextSession fullTextSession=null;
+		 List<com.servinglynk.hmis.warehouse.model.v2015.Client> clientList = new ArrayList<com.servinglynk.hmis.warehouse.model.v2015.Client>();
+		 try{
+	         fullTextSession = Search.getFullTextSession(session);
+	        
+	        QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(com.servinglynk.hmis.warehouse.model.v2015.Client.class).get();
+	       org.apache.lucene.search.Query luceneQuery = queryBuilder.keyword().wildcard().onField("firstName").andField("lastName").andField("middleName").matching("*"+searchterm+"*").createQuery();
+	        org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery, com.servinglynk.hmis.warehouse.model.v2015.Client.class);
+	         
+	        clientList = fullTextQuery.list();
+		 }catch(Exception ex){
+			 
+		 }finally {
+			
+		}
+		return clientList;
+	}
 	
 	public long getClientsCount(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Client.class);	
