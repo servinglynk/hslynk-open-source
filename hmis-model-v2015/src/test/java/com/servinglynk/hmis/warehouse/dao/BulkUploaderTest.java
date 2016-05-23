@@ -251,8 +251,10 @@ public class BulkUploaderTest {
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
 			bullkUpload.setInputpath(path.getPath());
+			bullkUpload.setProjectGroupCode("PG0001");
 			bullkUpload.setId(3L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+			bullkUpload.setProjectGroupCode("PG0001");
 			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, upload.getExportId());

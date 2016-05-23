@@ -50,7 +50,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					if(upload.getProjectGroupCode() !=null) {
 						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2015));
 						for(BulkUpload  bulkUpload : uploads) {
-							factory.getBulkUploaderDao().deleteStagingByExportId(bulkUpload.getExportId());
+							factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
 							bulkUpload.setStatus("DELETED");
 							factory.getBulkUploaderWorkerDao().delete(bulkUpload);
 						}
