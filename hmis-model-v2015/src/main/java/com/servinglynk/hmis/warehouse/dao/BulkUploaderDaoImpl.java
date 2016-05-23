@@ -142,7 +142,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(e.getMessage());
 			insertOrUpdate(upload);
-			logger.error("Error executing the bulk upload process::",e.getMessage());
+			logger.error("Error executing the bulk upload process::",e.getLocalizedMessage());
+			e.printStackTrace();
 		}
 		return upload;
 	}

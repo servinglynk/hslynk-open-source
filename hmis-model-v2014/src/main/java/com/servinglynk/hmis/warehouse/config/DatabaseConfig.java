@@ -203,16 +203,16 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	 @PostConstruct
-	 @Transactional
-	 public void dabaseIndexing() {
-		 try{
-		 FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.openSession());
-		 fullTextSession.createIndexer().startAndWait();
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }
-	 }
+//	 @PostConstruct
+//	 @Transactional
+//	 public void dabaseIndexing() {
+//		 try{
+//		 FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.openSession());
+//		 fullTextSession.createIndexer().startAndWait();
+//		 }catch(Exception e){
+//			 e.printStackTrace();
+//		 }
+//	 }
 
 	@Bean
 	public SyncListDao syncListDao()
