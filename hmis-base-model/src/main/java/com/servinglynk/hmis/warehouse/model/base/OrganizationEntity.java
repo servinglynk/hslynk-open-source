@@ -24,7 +24,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 
 @Entity
-@Table(name = "hmis_organization",schema="base")
+@Table(name = "organization",schema="base")
 public class OrganizationEntity extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
