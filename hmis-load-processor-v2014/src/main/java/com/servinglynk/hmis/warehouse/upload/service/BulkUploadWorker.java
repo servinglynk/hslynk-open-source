@@ -39,6 +39,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	private ParentDaoFactory factory;
 	
 	@Transactional
+	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
