@@ -779,7 +779,7 @@ public class BulkUploaderTest {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
-				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode());		
+				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
 			}
 		}
 		

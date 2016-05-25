@@ -28,7 +28,6 @@ import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
 
 
 @Component
-@Service
 public class BulkUploadWorker implements IBulkUploadWorker  {
 	
 	final static Logger logger = Logger.getLogger(BulkUploadWorker.class);
@@ -40,7 +39,6 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	private ParentDaoFactory factory;
 	
 	@Transactional
-	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
@@ -50,7 +48,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					if(upload.getProjectGroupCode() !=null) {
 						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2014));
 						for(BulkUpload  bulkUpload : uploads) {
-							factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode());
+							factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode(),bulkUpload.getExportId());
 							bulkUpload.setStatus("DELETED");
 							factory.getBulkUploaderWorkerDao().delete(bulkUpload);
 						}

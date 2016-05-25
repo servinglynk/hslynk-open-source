@@ -281,35 +281,35 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 	
 	@Override
-	public void deleteLiveByProjectGroupCode(String projectGroupCode) {
-		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Client.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Domesticviolence.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Employment.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Enrollment.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(EnrollmentCoc.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Exit.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Exithousingassessment.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Export.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Funder.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Healthinsurance.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(HealthStatus.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Housingassessmentdisposition.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Incomeandsources.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Inventory.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Medicalassistance.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Noncashbenefits.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Organization.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Pathstatus.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Project.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Residentialmoveindate.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(RhybcpStatus.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode);
-		softDeleteByProjectGroupCode(ClientVeteranInfo.class.getName(), projectGroupCode);
+	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId) {
+		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Client.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Domesticviolence.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Employment.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Enrollment.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(EnrollmentCoc.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Exit.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Exithousingassessment.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Export.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Funder.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Healthinsurance.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(HealthStatus.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Housingassessmentdisposition.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Incomeandsources.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Inventory.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Medicalassistance.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Noncashbenefits.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Organization.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Pathstatus.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Project.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Residentialmoveindate.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(RhybcpStatus.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(ClientVeteranInfo.class.getName(), projectGroupCode,exportId);
 	}
 	
 }
