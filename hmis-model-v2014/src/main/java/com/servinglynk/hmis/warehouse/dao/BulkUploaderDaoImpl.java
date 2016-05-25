@@ -330,7 +330,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId) {
 		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode, exportId);
-		softDeleteByProjectGroupCode(Client.class.getName(), projectGroupCode, exportId);
+		softDeleteByProjectGroupCode(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Commercialsexualexploitation.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Connectionwithsoar.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode, exportId);
