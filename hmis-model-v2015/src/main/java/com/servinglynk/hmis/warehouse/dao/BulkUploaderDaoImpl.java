@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,20 +16,27 @@ import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
-import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2015.Bedinventory;
+import com.servinglynk.hmis.warehouse.model.v2015.Client;
 import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
+import com.servinglynk.hmis.warehouse.model.v2015.Coc;
+import com.servinglynk.hmis.warehouse.model.v2015.Contact;
 import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2015.Disabilities;
 import com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2015.Education;
 import com.servinglynk.hmis.warehouse.model.v2015.Employment;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2015.Entryrhy;
+import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.model.v2015.Exit;
 import com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
 import com.servinglynk.hmis.warehouse.model.v2015.Funder;
 import com.servinglynk.hmis.warehouse.model.v2015.HealthStatus;
 import com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance;
@@ -44,6 +50,7 @@ import com.servinglynk.hmis.warehouse.model.v2015.Pathstatus;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
+import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.model.v2015.Site;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -284,7 +291,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId) {
 		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode,exportId);
-		softDeleteByProjectGroupCode(Client.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(com.servinglynk.hmis.warehouse.model.v2015.Client.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Domesticviolence.class.getName(), projectGroupCode,exportId);
@@ -310,6 +317,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(ClientVeteranInfo.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Coc.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Contact.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Education.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Entryrhsp.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Entryrhy.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Entryssvf.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Exitrhy.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(ServiceFaReferral.class.getName(), projectGroupCode,exportId);
 	}
 	
 }
