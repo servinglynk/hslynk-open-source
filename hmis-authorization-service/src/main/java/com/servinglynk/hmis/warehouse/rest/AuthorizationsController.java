@@ -111,7 +111,7 @@ public class AuthorizationsController extends ControllerBase {
 		// Surya 05.26.2015 - below we are appending the optional parameters to the redirectUri if they were provided initially
 		
 		if (state != null)	{
-			effectiveRedirectUri = effectiveRedirectUri + "&state=" + urlEncode(state);
+			effectiveRedirectUri = effectiveRedirectUri + "&state=" + state;
 			logger.debug("state is provided {}, append it to the redirect uri", state);
 		}
 		
