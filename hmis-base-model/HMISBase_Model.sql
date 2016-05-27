@@ -698,7 +698,7 @@ INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('6973c91c-79ac-41a2-8aa5-a55a3745b51f', 'CLIENT_API_UPDATE_EDUCATION', 'CLIENT_API_UPDATE_EDUCATION', 'CLIENT_API_UPDATE_EDUCATION', 'PUT',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('c01241e0-90ae-4081-ba49-3b4f2ba05167', 'CLIENT_API_DELETE_EDUCATION', 'CLIENT_API_DELETE_EDUCATION', 'CLIENT_API_DELETE_EDUCATION', 'DELETE',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('146d9934-aae6-42fe-b3ea-960754794887', 'CLIENT_API_GET_EDUCATION_BY_ID', 'CLIENT_API_GET_EDUCATION_BY_ID', 'CLIENT_API_GET_EDUCATION_BY_ID', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
-
+INSERT INTO base.hmis_api_method(id,external_id,friendly_name, description,type,created_at,created_by,api_group_id,deprecated,requires_access_token) VALUES ('647673a4-a052-4d3f-bb9f-bef12863695c', 'CLIENT_API_SEARCH', 'CLIENT_API_SEARCH', 'CLIENT_API_SEARCH', 'GET',current_timestamp, 'MASTER DATA', '55269f08-273f-4f68-ae9b-f98467b4d091', 0, TRUE);
 
 CREATE TABLE base.hmis_developer_company
 (

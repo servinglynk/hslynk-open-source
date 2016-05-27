@@ -41,6 +41,7 @@ import com.servinglynk.hmis.warehouse.service.impl.ReferralsourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SchoolstatusServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ServicesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SexualorientationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SharingRuleServiceImpl;
@@ -263,5 +264,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public ClientServiceImpl clientService(){
 		 return new ClientServiceImpl();
+	 }
+	 
+	 @Bean
+	 public SearchServiceImpl searchService(){
+		 return new SearchServiceImpl();
 	 }
 }

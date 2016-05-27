@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.base.dao.PropertyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RedirectUriDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RefreshTokenDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RoleDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.SearchDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ServiceApiMethodDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ServiceDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ServiceStatusDaoImpl;
@@ -200,5 +201,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public BulkUploaderWorkerDao bulkUploaderWorkerDao() {
 		return new BulkUploaderWorkerDaoImpl();
+	}
+	
+	@Bean
+	public SearchDaoImpl searchDao(){
+		return new SearchDaoImpl();
 	}
 }

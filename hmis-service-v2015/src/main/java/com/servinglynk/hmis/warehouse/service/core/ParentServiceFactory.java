@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.core;
 
+import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
@@ -75,4 +76,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	ContactService getContactService();
 	EducationService getEducationService();
 	ExithousingassessmentService getExithousingassessmentService();
+	SearchService getSearchService();
 }
