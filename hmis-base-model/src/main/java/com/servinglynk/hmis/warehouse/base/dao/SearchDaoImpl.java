@@ -68,8 +68,8 @@ public class SearchDaoImpl
     
     FullTextSession fullTextSession = Search.getFullTextSession(session);
     
-    String indexClassList = "com.servinglynk.hmis.warehouse.model.v2015.Client";
-    System.out.println(indexClassList);
+    String indexClassList = "com.servinglynk.hmis.warehouse.model.v2015.Client,com.servinglynk.hmis.warehouse.model.v2014.Client";
+
     if (indexClassList != null)
     {
       String[] indexClasses = indexClassList.split(",");
