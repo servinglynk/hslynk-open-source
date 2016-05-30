@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
@@ -45,6 +46,7 @@ import com.servinglynk.hmis.warehouse.service.SiteService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 import com.servinglynk.hmis.warehouse.service.WorstHousingSituationService;
 import com.servinglynk.hmis.warehouse.service.YouthCriticalIssuesService;
+import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 
 @Component
 public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements ParentServiceFactory {
@@ -59,6 +61,9 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	
 	@Autowired
 	private BulkUploadService bulkUploadService;
+	
+	@Autowired
+	private SearchService searchService;
 	
 	
 	public BulkUploadService getBulkUploadService() {
@@ -523,6 +528,12 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setClientService(ClientService clientService) {
 		this.clientService = clientService;
 	}
-	
-	
+
+	public SearchService getSearchService() {
+		return searchService;
+	}
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 }

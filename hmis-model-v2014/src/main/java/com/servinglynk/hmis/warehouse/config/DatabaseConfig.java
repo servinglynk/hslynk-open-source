@@ -128,6 +128,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
     @SuppressWarnings("unused")
 	private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA = "hibernate.default.schema";
+    private static final String SOLR_SEARCH_INDEXING_LOCATION = "solr.search.indexing.location";
     
 	@Resource
 	private Environment env;
@@ -173,6 +174,8 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
+	    properties.put("hibernate.search.default.directory_provider", "filesystem");
+        properties.put("hibernate.search.default.indexBase", this.env.getRequiredProperty(SOLR_SEARCH_INDEXING_LOCATION));
 		return properties;	
 	}
 	
