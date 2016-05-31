@@ -47,14 +47,14 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					/** Perform full refresh base on Project group */
-//					if(upload.getProjectGroupCode() !=null) {
-//						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2015));
-//						for(BulkUpload  bulkUpload : uploads) {
-//							factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode(),upload.getExportId());
-//							bulkUpload.setStatus("DELETED");
-//							factory.getBulkUploaderWorkerDao().delete(bulkUpload);
-//						}
-//					}
+					if(upload.getProjectGroupCode() !=null) {
+						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2015));
+						for(BulkUpload  bulkUpload : uploads) {
+						//	factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode(),upload.getExportId());
+							bulkUpload.setStatus("DELETED");
+							factory.getBulkUploaderWorkerDao().delete(bulkUpload);
+						}
+					}
 					File file = new File(upload.getInputpath());
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
 					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity);
