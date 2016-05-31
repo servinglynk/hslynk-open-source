@@ -7,5 +7,5 @@ public interface SearchDao
 {
   public abstract List<?> search(SearchRequest paramSearchRequest);
   
-  public abstract boolean indexing();
+  public abstract boolean indexing(String indexClassList);
 }
