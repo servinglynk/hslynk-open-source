@@ -20,7 +20,9 @@ public class SearchServiceImpl
   @Transactional
   public void indexing()
   {
-    this.daoFactory.getSearchDao().indexing();
+	  
+	  String indexClassList = "com.servinglynk.hmis.warehouse.model.v2015.Client";
+    this.daoFactory.getSearchDao().indexing(indexClassList);
   }
   
   @Transactional
@@ -33,7 +35,7 @@ public class SearchServiceImpl
     sorting.setField(sort);
     searchVo.setSort(sorting);
     
-    searchVo.setDbfileds(new String[] { "firstName", "lastName", "middleName" });
+    searchVo.setDbfileds(new String[] { "firstName","lastName","middleName" });
     searchVo.setFreeText(freeText);
     searchVo.setSearchEntity(Client.class);
     

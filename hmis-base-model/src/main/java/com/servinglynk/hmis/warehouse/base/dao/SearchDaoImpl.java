@@ -53,14 +53,14 @@ public class SearchDaoImpl
         if ("desc".equalsIgnoreCase(order)) {
           reverse = true;
         }
-        org.apache.lucene.search.Sort sort = new org.apache.lucene.search.Sort(new SortField(searchVO.getPagination().getSort().getField(), 3, reverse));
+        org.apache.lucene.search.Sort sort = new org.apache.lucene.search.Sort(new SortField(searchVO.getPagination().getSort().getField(), SortField.STRING, reverse));
         hibernateQuery.setSort(sort);
       }
     }
     return hibernateQuery.list();
   }
   
-  public boolean indexing()
+  public boolean indexing(String indexClassList)
   {
     boolean status = true;
     
@@ -68,7 +68,7 @@ public class SearchDaoImpl
     
     FullTextSession fullTextSession = Search.getFullTextSession(session);
     
-    String indexClassList = "com.servinglynk.hmis.warehouse.model.v2015.Client,com.servinglynk.hmis.warehouse.model.v2014.Client";
+   // String indexClassList = "com.servinglynk.hmis.warehouse.model.v2015.Client,com.servinglynk.hmis.warehouse.model.v2014.Client";
 
     if (indexClassList != null)
     {
@@ -87,7 +87,7 @@ public class SearchDaoImpl
     }
     else
     {
-      indexing();
+      indexing(indexClassList);
     }
     return status;
   }

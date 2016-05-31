@@ -32,7 +32,7 @@ public class SearchController
   }
   
   @RequestMapping(method=RequestMethod.POST, value="/index")
-  @APIMapping(value="CLIENT_API_INDEX", checkSessionToken=false, checkTrustedApp=true)
+  @APIMapping(value="CLIENT_API_INDEX", checkSessionToken=false, checkTrustedApp=false)
   public void indexing()
   {
     this.serviceFactory.getSearchService().indexing();

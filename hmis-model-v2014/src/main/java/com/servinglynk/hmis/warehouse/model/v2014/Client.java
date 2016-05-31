@@ -26,6 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -245,7 +246,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "first_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES)
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getFirstName() {
 		return this.firstName;
 		
@@ -324,7 +325,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "last_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES)
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getLastName() {
 		return this.lastName;
 		
@@ -346,7 +347,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "middle_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES)
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getMiddleName() {
 		return this.middleName;
 		

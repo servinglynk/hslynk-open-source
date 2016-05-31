@@ -20,7 +20,8 @@ public class SearchServiceImpl
   @Transactional
   public void indexing()
   {
-    this.daoFactory.getSearchDao().indexing();
+	  String indexClassList = "com.servinglynk.hmis.warehouse.model.v2014.Client";
+	    this.daoFactory.getSearchDao().indexing(indexClassList);
   }
   
   @Transactional

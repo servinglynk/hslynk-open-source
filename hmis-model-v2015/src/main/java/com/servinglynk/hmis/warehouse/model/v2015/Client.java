@@ -216,7 +216,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "first_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.YES, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getFirstName() {
 		return this.firstName;
 		
@@ -295,7 +295,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "last_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.YES, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getLastName() {
 		return this.lastName;
 		
@@ -317,7 +317,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "middle_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.YES, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getMiddleName() {
 		return this.middleName;
 		
