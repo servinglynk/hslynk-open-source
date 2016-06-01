@@ -161,8 +161,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain);
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
-			upload.setExportId(exportLive.getId());
+			upload.setExportId(exportId);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
