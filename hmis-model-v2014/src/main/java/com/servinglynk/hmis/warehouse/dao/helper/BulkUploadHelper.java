@@ -164,7 +164,7 @@ public class BulkUploadHelper {
 				     out.close();
 			}catch (IOException e) {
 				        //Simple exception handling, replace with what's necessary for your use case!
-				        throw new RuntimeException("Generating file failed", e);
+				        throw new RuntimeException("Generating file failed::"+e.getMessage(), e);
 				     }
 			JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
