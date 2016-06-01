@@ -10,6 +10,52 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
 	}
     //$scope.sessionToken= $window.localStorage.getItem('sessionToken');
     //$window.localStorage.setItem('authToken',$scope.authToken);
+		var checkservice = function(){
+    Service.CheckServiceAvailableBulkUpload($http,$scope,
+        //success
+        function(data) {
+            $("#divBulkUpload .button-success").css("display", "inline");
+        },
+        //error
+        function() {
+            $("#divBulkUpload .button-error").css("display", "inline");
+        })
+
+
+
+    Service.CheckServiceAvailableUploadFile($http,$scope,
+        //success
+        function(data) {
+            $("#divUploadFile .button-success").css("display", "inline");
+        },
+        //error
+        function() {
+            $("#divUploadFile .button-success").css("display", "inline");
+        })
+
+
+    Service.CheckServiceAvailableAuthenticate($http,$scope,
+        //success
+        function(data) {
+            $("#divAuthenticate .button-success").css("display", "inline");
+        },
+        //error
+        function() {
+            $("#divAuthenticate .button-success").css("display", "inline");
+        })
+
+
+
+
+    Service.LoadStatistics($http,$scope,
+        //success
+        function(filesCollection) {
+            $scope.managefiles = filesCollection;
+
+        })
+		}
+	
+	
     $sessionStorage.authToken = $scope.authToken;
 	 var sessionToken = $sessionStorage.sessionToken;
     if (!sessionToken) {
@@ -22,7 +68,7 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
                 $scope.sessionToken = data.oAuthAuthorization.accessToken;
                 $scope.expiresIn = data.oAuthAuthorization.expiresIn;
                 $scope.tokenType = data.oAuthAuthorization.tokenType;
-                
+                checkservice();
                 Service.GetUserInfo($http, $scope, function(data) {
                         //$window.localStorage.setItem('account',data.account);
                         $sessionStorage.account = data.account;
@@ -37,6 +83,7 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
                 		{
                 			$(".dashboard").hide();
                 		}
+						
                     },
                     function() {
                         if ($sessionStorage.isLoggedIn) {
@@ -112,50 +159,9 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
 			$(".dashboard").hide();
 		}
     }
+	else{
     $scope.sessionToken = $sessionStorage.sessionToken;
-
-    Service.CheckServiceAvailableBulkUpload($http,$scope,
-        //success
-        function(data) {
-            $("#divBulkUpload .button-success").css("display", "inline");
-        },
-        //error
-        function() {
-            $("#divBulkUpload .button-error").css("display", "inline");
-        })
-
-
-
-    Service.CheckServiceAvailableUploadFile($http,$scope,
-        //success
-        function(data) {
-            $("#divUploadFile .button-success").css("display", "inline");
-        },
-        //error
-        function() {
-            $("#divUploadFile .button-success").css("display", "inline");
-        })
-
-
-    Service.CheckServiceAvailableAuthenticate($http,$scope,
-        //success
-        function(data) {
-            $("#divAuthenticate .button-success").css("display", "inline");
-        },
-        //error
-        function() {
-            $("#divAuthenticate .button-success").css("display", "inline");
-        })
-
-
-
-
-    Service.LoadStatistics($http,$scope,
-        //success
-        function(filesCollection) {
-            $scope.managefiles = filesCollection;
-
-        })
-
+	checkservice();
+	}
 
 });
