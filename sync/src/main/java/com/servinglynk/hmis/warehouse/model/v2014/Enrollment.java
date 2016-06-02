@@ -50,6 +50,8 @@ public class Enrollment extends BaseModel{
 	public UUID client_id;
 	@Column(name="ageAtEntry")
 	public Integer ageAtEntry;
+	@Column(name="chronicHomeless")
+	public boolean chronicHomeless;
 	/**
 	 * @return the continuouslyhomele"2015-09-13 00:00:00"ssoneyear
 	 */
@@ -267,4 +269,11 @@ public class Enrollment extends BaseModel{
 	public void setAgeAtEntry(Integer ageAtEntry) {
 		this.ageAtEntry = ageAtEntry;
 	}
+	public boolean isChronicHomeless() {
+		return chronicHomeless;
+	}
+	public void setChronicHomeless(boolean chronicHomeless) {
+		this.chronicHomeless = chronicHomeless;
+	}
+	
 }

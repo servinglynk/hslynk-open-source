@@ -47,8 +47,9 @@ public class Enrollment extends BaseModel{
 	public String yearshomeless;
 	@Column(name="client_id")
 	public UUID client_id;
-	@Column(name="id")
-	public UUID id;
+	@Column(name="chronicHomeless")
+	private boolean chronicHomeless;
+	
 	public String getDisablingcondition() {
 		return disablingcondition;
 	}
@@ -145,12 +146,10 @@ public class Enrollment extends BaseModel{
 	public void setClient_id(UUID client_id) {
 		this.client_id = client_id;
 	}
-	public UUID getId() {
-		return id;
+	public boolean isChronicHomeless() {
+		return chronicHomeless;
 	}
-	public void setId(UUID id) {
-		this.id = id;
+	public void setChronicHomeless(boolean chronicHomeless) {
+		this.chronicHomeless = chronicHomeless;
 	}
-	
-	
 }
