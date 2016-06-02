@@ -82,7 +82,7 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	 public CommonsMultipartResolver commonsMultipartResolver(){
 	     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 	     commonsMultipartResolver.setDefaultEncoding("utf-8");
-	     commonsMultipartResolver.setMaxUploadSize(2097152);
+	     commonsMultipartResolver.setMaxUploadSize(403006744);
 	     return commonsMultipartResolver;
 	 }
 	 
@@ -94,7 +94,8 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	public BulkUploadController bulkUploadController() {
 		return new BulkUploadController();
 	}
-	 @PostConstruct
+
+	@PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_AUTHORIZATION_SERVICE");
 	 }
