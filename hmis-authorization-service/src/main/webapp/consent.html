@@ -8,14 +8,16 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var ua = navigator.userAgent.toLowerCase();
-	if(ua.indexOf("android") > -1 || ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("kindle") > -1 || ua.indexOf("silk") > -1 || ua.indexOf("windows phone") > -1) {
+	/* if(ua.indexOf("android") > -1 || ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("kindle") > -1 || ua.indexOf("silk") > -1 || ua.indexOf("windows phone") > -1) {
 	
 		//redirect to mobile
 		window.location = "consent-mobile.html?authentication_token="+getURLParameter("authentication_token")+"&consent_token="+getURLParameter("consent_token")+"&response_type="+getURLParameter("response_type")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
 	}else{
 		//redirect to web
 		window.location ="consent-web.html?authentication_token="+getURLParameter("authentication_token")+"&consent_token="+getURLParameter("consent_token")+"&response_type="+getURLParameter("response_type")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
-	}
+	} */
+	
+	window.location ="consent-web.html?authentication_token="+getURLParameter("authentication_token")+"&consent_token="+getURLParameter("consent_token")+"&response_type="+getURLParameter("response_type")+"&trustedApp_id="+getURLParameter("trustedApp_id")+"&state="+getURLParameter("state")+"&redirect_uri="+getURLParameter("redirect_uri")+"&access_type="+getURLParameter("access_type")+"&approval_prompt="+getURLParameter("approval_prompt");
 });
 </script>
 </head>
