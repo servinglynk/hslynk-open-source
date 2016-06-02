@@ -173,7 +173,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private Integer ageAtEntry;
 	/** Field mapping. */
 	private Set<Youthcriticalissues> youthcriticalissueses = new HashSet<Youthcriticalissues>();
-
+	private boolean chronicHomeless;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -744,7 +744,15 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		return this.incomeandsourceses;
 		
 	}
-	
+ 	@Column(name="chronicHomeless")
+	public boolean isChronicHomeless() {
+		return chronicHomeless;
+	}
+
+	public void setChronicHomeless(boolean chronicHomeless) {
+		this.chronicHomeless = chronicHomeless;
+	}
+
 	/**
 	 * Adds a bi-directional link of type Incomeandsources to the incomeandsourceses set.
 	 * @param incomeandsources item to add

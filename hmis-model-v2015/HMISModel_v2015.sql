@@ -1611,6 +1611,7 @@ CREATE TABLE "v2015".enrollment
 	user_id uuid,
 	export_id uuid,
 	parent_id uuid,
+	chronicHomeless boolean DEFAULT false,
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,

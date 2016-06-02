@@ -111,6 +111,7 @@ import com.servinglynk.hmis.warehouse.dao.WorsthousingsituationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.YouthcriticalissuesDao;
 import com.servinglynk.hmis.warehouse.dao.YouthcriticalissuesDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 @Configuration
 @EnableTransactionManagement
@@ -419,6 +420,11 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public ClientDaoImpl clientDao(){
 		return new ClientDaoImpl();
+	}
+	
+	@Bean
+	public ChronicHomelessCalcHelper chronicHomelessCalcHelper() {
+		return new ChronicHomelessCalcHelper();
 	}
 	
 }

@@ -14,7 +14,9 @@ public enum EnrollmentContinuouslyhomelessoneyearEnum {
 	/** Enum Constant. */
 	TWO("2"),
 	/** Enum Constant. */
-	THREE("3");
+	THREE("3"),
+	/** Enum Constant. */
+	FOUR("4");
 	/**
 	 * Internal storage of status field value, see the Enum spec for
  	 * clarification.

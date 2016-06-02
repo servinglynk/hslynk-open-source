@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -79,6 +80,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Autowired
 	BulkUploadHelper bulkUploadHelper;
 	
+	@Autowired
+	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
@@ -128,12 +132,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getProjectcocDao().hydrateStaging(domain);
 			parentDaoFactory.getFunderDao().hydrateStaging(domain);
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain);
-			
 			parentDaoFactory.getInventoryDao().hydrateStaging(domain);
 			parentDaoFactory.getSiteDao().hydrateStaging(domain);
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
 			parentDaoFactory.getServicesDao().hydrateStaging(domain);
 			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain);
+			
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain);
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain);
 			parentDaoFactory.getExitDao().hydrateStaging(domain);
@@ -208,6 +212,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getServicesDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getDateofengagementDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getDisabilitiesDao().hydrateLive(export,bulkUpload.getId());
+		
 		parentDaoFactory.getDomesticviolenceDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getEmploymentDao().hydrateLive(export,bulkUpload.getId());
 		parentDaoFactory.getExitDao().hydrateLive(export,bulkUpload.getId());

@@ -136,12 +136,13 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private Set<Residentialmoveindate> residentialmoveindates = new HashSet<Residentialmoveindate>();
 
-	/** Field mapping. */
+	/** Field mapping. */             
 	private Set<RhybcpStatus> rhybcpStatuses = new HashSet<RhybcpStatus>();
 
 	/** Field mapping. */
 	private Set<ServiceFaReferral> serviceFaReferrals = new HashSet<ServiceFaReferral>();
-
+	
+	private boolean chronicHomeless;
 
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -670,7 +671,14 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		}
 		this.id = id;
 	}
+ 	@Column(name="chronicHomeless")
+	public boolean isChronicHomeless() {
+		return chronicHomeless;
+	}
 
+	public void setChronicHomeless(boolean chronicHomeless) {
+		this.chronicHomeless = chronicHomeless;
+	}
 	 /**
 	 * Return the value associated with the column: incomeandsources.
 	 * @return A Set&lt;Incomeandsources&gt; object (this.incomeandsources)

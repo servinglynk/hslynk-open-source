@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -12,8 +13,10 @@ import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
@@ -33,6 +36,10 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
+	
+	@Autowired
+	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
+	
 	public void hydrateStaging(ExportDomain domain) 
 	{
 		
@@ -72,6 +79,15 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				hydrateCommonFields(disabilitiesModel, domain, disabilities.getDisabilitiesID(),i);
 				exportEntity.addDisabilities(disabilitiesModel);
 				insert(disabilitiesModel);
+			}
+			Collection<UUID> values = domain.getEnrollmentProjectEntryIDMap().values();
+			for(UUID enrollmentId : values) {
+				if(enrollmentId !=null) {
+					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, enrollmentId);
+					boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
+						enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
+						insertOrUpdate(enrollmentModel);
+				}
 			}
 		}
 	}
