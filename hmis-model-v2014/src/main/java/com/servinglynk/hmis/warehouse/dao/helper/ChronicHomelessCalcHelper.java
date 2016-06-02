@@ -34,7 +34,7 @@ public class ChronicHomelessCalcHelper{
 		if(enrollment !=null) {
 			if(enrollment.getAgeAtEntry()>=18) {
 				if( (EnrollmentDisablingconditionEnum.ONE.equals(enrollment.getDisablingcondition()) || isChronicDisAbilities(enrollment))
-					&& (enrollment.getResidenceprior().equals(EnrollmentResidencepriorEnum.ONE) || EnrollmentResidencepriorEnum.SIXTEEN.equals(enrollment.getResidenceprior()) || 
+					&& (EnrollmentResidencepriorEnum.ONE.equals(enrollment.getResidenceprior()) || EnrollmentResidencepriorEnum.SIXTEEN.equals(enrollment.getResidenceprior()) || 
 							EnrollmentResidencepriorEnum.EIGHTEEN.equals(enrollment.getResidenceprior())) 
 					&&
 					(EnrollmentContinuouslyhomelessoneyearEnum.ONE.equals(enrollment.getContinuouslyhomelessoneyear())||
