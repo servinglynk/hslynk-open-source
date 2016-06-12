@@ -24,6 +24,8 @@ public class BaseModel {
 	public String project_group_code;
 	@Column(name="source_system_id")
 	public String source_system_id;
+	@Column(name="year")
+	public String year;
 	
 	/**
 	 * @return the id
@@ -104,5 +106,10 @@ public class BaseModel {
 	public void setSource_system_id(String source_system_id) {
 		this.source_system_id = source_system_id;
 	}
-	
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 }

@@ -48,7 +48,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		hydrateBulkUploadActivityStaging(inventories, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain);
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
-				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);
 				com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
 				UUID inventoryUUID = UUID.randomUUID();
 				inventoryModel.setId(inventoryUUID);

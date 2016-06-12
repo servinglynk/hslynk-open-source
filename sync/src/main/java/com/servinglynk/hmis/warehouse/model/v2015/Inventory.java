@@ -31,6 +31,8 @@ public class Inventory extends BaseModel {
 	public UUID id;
 	@Column(name = "unitinventory")
 	public String unitinventory;
+	@Column(name="bed_inventory")		
+	public String bed_inventory;
 	@Column(name="ch_bed_inventory")
 	public String ch_bed_inventory;
 	@Column(name="vet_bed_inventory")
@@ -100,6 +102,18 @@ public class Inventory extends BaseModel {
 	}
 	public void setUnitinventory(String unitinventory) {
 		this.unitinventory = unitinventory;
+	}
+	/**
+	 * @return the bed_inventory
+	 */
+	public String getBed_inventory() {
+		return bed_inventory;
+	}
+	/**
+	 * @param bed_inventory the bed_inventory to set
+	 */
+	public void setBed_inventory(String bed_inventory) {
+		this.bed_inventory = bed_inventory;
 	}
 	public String getCh_bed_inventory() {
 		return ch_bed_inventory;

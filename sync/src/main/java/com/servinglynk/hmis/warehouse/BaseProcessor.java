@@ -21,7 +21,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.client.HTable;
 
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2014.Client;
 import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
 import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
@@ -105,11 +104,10 @@ public class BaseProcessor<T> extends Logging {
 							if (rowKey == null) {
 								rowKey = UUID.randomUUID().toString();
 								data.put("export_id", rowKey);
-								data.put("year", upload.getYear());
 							}
-
 							data.remove("class");
 							populateHmisType(data, hmisTypes);
+							data.put("year",String.valueOf(upload.getYear()));
 							// Check if the record exist in the table
 //							boolean exists = HBaseImport.isDataExist(table, id);
 							if (rowKeys.contains(id)) {
@@ -479,7 +477,6 @@ public class BaseProcessor<T> extends Logging {
 	public static Map<String, Class<? extends BaseModel>> getAlltablesV2014() {
 		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
 		tables.put("affiliation", Affiliation.class);
-		tables.put("bedinventory", Bedinventory.class);
 		tables.put("client", Client.class);
 		tables.put("commercialsexualexploitation", Commercialsexualexploitation.class);
 		tables.put("connectionwithsoar", Connectionwithsoar.class);
@@ -529,7 +526,6 @@ public class BaseProcessor<T> extends Logging {
 	public static Map<String, Class<? extends BaseModel>> getAlltablesV2015() {
 		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
 		tables.put("affiliation",com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
-		tables.put("bedinventory",com.servinglynk.hmis.warehouse.model.v2015.Bedinventory.class);
 		tables.put("client",com.servinglynk.hmis.warehouse.model.v2015.Client.class);
 	    tables.put("client_veteran_info",com.servinglynk.hmis.warehouse.model.v2015.VeteranInfo.class);
 	    tables.put("coc",Coc.class);

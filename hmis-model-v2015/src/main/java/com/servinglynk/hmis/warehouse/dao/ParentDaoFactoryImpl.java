@@ -14,8 +14,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private AffiliationDao affiliationDao;
 	@Autowired
-	private BedinventoryDao bedinventoryDao;
-	@Autowired
 	private DisabilitiesDao disabilitiesDao;
 	@Autowired
 	private DomesticviolenceDao domesticviolenceDao;
@@ -134,20 +132,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 		this.affiliationDao = affiliationDao;
 	}
 
-	/**
-	 * @return the bedinventoryDao
-	 */
-	public BedinventoryDao getBedinventoryDao() {
-		return bedinventoryDao;
-	}
-
-	/**
-	 * @param bedinventoryDao
-	 *            the bedinventoryDao to set
-	 */
-	public void setBedinventoryDao(BedinventoryDao bedinventoryDao) {
-		this.bedinventoryDao = bedinventoryDao;
-	}
 	
 	/**
 	 * @return the disabilitiesDao

@@ -41,6 +41,8 @@ public class CreateTable {
 						HTableDescriptor tableDescriptor = new HTableDescriptor(
 								tableName);
 						tableDescriptor.addFamily(new HColumnDescriptor("CF"));
+						admin.disableTable(tableName);
+						admin.deleteTable(tableName);
 						admin.createTable(tableDescriptor);
 						System.out.println("Table ::" + tableName + " created.");
 					} catch (TableExistsException ex) {
