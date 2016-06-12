@@ -50,8 +50,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	/** Field mapping. */
 	private InventoryAvailabiltyEnum availabilty;
 	/** Field mapping. */
-	private Bedinventory bedinventory;
-	/** Field mapping. */
 	private InventoryBedtypeEnum bedtype;
 	/** Field mapping. */
 	private Integer chBedInventory;
@@ -126,28 +124,7 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		this.availabilty = availabilty;
 	}
 
-	 /**
-	 * Return the value associated with the column: bedinventory.
-	 * @return A Bedinventory object (this.bedinventory)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "bedinventory", nullable = true )
-	public Bedinventory getBedinventory() {
-		return this.bedinventory;
-		
-	}
 	
-
-  
-	 /**  
-	 * Set the value related to the column: bedinventory.
-	 * @param bedinventory the bedinventory value you wish to set
-	 */
-	public void setBedinventory(final Bedinventory bedinventory) {
-		this.bedinventory = bedinventory;
-	}
 
 	/**
 	 * Return the value associated with the column: bedtype.
@@ -441,7 +418,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
         final Inventory copy = (Inventory)super.clone();
 
 		copy.setAvailabilty(this.getAvailabilty());
-		copy.setBedinventory(this.getBedinventory());
 		copy.setBedtype(this.getBedtype());
 		copy.setChBedInventory(this.getChBedInventory());
 		copy.setCoc(this.getCoc());
@@ -548,7 +524,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getAvailabilty() == null) && (that.getAvailabilty() == null)) || (getAvailabilty() != null && getAvailabilty().equals(that.getAvailabilty())));
-		result = result && (((getBedinventory() == null) && (that.getBedinventory() == null)) || (getBedinventory() != null && getBedinventory().getId().equals(that.getBedinventory().getId())));	
 		result = result && (((getBedtype() == null) && (that.getBedtype() == null)) || (getBedtype() != null && getBedtype().equals(that.getBedtype())));
 		result = result && (((getChBedInventory() == null) && (that.getChBedInventory() == null)) || (getChBedInventory() != null && getChBedInventory().equals(that.getChBedInventory())));
 		result = result && (((getCoc() == null) && (that.getCoc() == null)) || (getCoc() != null && getCoc().getId().equals(that.getCoc().getId())));	

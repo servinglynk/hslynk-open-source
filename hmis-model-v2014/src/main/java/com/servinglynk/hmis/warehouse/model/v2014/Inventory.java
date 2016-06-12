@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.BedinventoryYouthAgeGroupEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
@@ -50,8 +51,6 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 	/** Field mapping. */
 	private InventoryAvailabiltyEnum availabilty;
 	/** Field mapping. */
-	private Bedinventory bedinventory;
-	/** Field mapping. */
 	private InventoryBedtypeEnum bedtype;
 	/** Field mapping. */
 	private Integer hmisparticipatingbeds;
@@ -67,6 +66,7 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 	private Projectcoc projectCoc;
 	/** Field mapping. */
 	private Integer unitinventory;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -140,29 +140,6 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 	 */
 	public void setAvailabilty(final InventoryAvailabiltyEnum availabilty) {
 		this.availabilty = availabilty;
-	}
-
-	 /**
-	 * Return the value associated with the column: bedinventory.
-	 * @return A Integer object (this.bedinventory)
-	 */
-	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = true )
-	@JoinColumn(name = "bedinventory", nullable = true )
-	public Bedinventory getBedinventory() {
-		return this.bedinventory;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: bedinventory.
-	 * @param bedinventory the bedinventory value you wish to set
-	 */
-	public void setBedinventory(final Bedinventory bedinventory) {
-		this.bedinventory = bedinventory;
 	}
 
 	 /**
@@ -346,6 +323,123 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 	}
 
 
+	/** Field mapping. */
+	private Integer bedInventory;
+	/** Field mapping. */
+	private Integer chBedInventory;
+	/** Field mapping. */
+	private Integer vetBedInventory;
+	/** Field mapping. */
+	private BedinventoryYouthAgeGroupEnum youthAgeGroup;
+	/** Field mapping. */
+	private Long youthBedInventory;
+
+	 /**
+	 * Return the value associated with the column: bedInventory.
+	 * @return A Integer object (this.bedInventory)
+	 */
+	@Basic( optional = true )
+	@Column( name = "bed_inventory"  )
+	public Integer getBedInventory() {
+		return this.bedInventory;
+		
+	}
+	
+  
+	 /**  
+	 * Set the value related to the column: bedInventory.
+	 * @param bedInventory the bedInventory value you wish to set
+	 */
+	public void setBedInventory(final Integer bedInventory) {
+		this.bedInventory = bedInventory;
+	}
+
+	 /**
+	 * Return the value associated with the column: chBedInventory.
+	 * @return A Integer object (this.chBedInventory)
+	 */
+	@Basic( optional = true )
+	@Column( name = "ch_bed_inventory"  )
+	public Integer getChBedInventory() {
+		return this.chBedInventory;
+		
+	}
+	
+
+  
+	 /**  
+	 * Set the value related to the column: chBedInventory.
+	 * @param chBedInventory the chBedInventory value you wish to set
+	 */
+	public void setChBedInventory(final Integer chBedInventory) {
+		this.chBedInventory = chBedInventory;
+	}
+
+
+	 /**
+	 * Return the value associated with the column: vetBedInventory.
+	 * @return A Integer object (this.vetBedInventory)
+	 */
+	@Basic( optional = true )
+	@Column( name = "vet_bed_inventory"  )
+	public Integer getVetBedInventory() {
+		return this.vetBedInventory;
+		
+	}
+	
+
+  
+	 /**  
+	 * Set the value related to the column: vetBedInventory.
+	 * @param vetBedInventory the vetBedInventory value you wish to set
+	 */
+	public void setVetBedInventory(final Integer vetBedInventory) {
+		this.vetBedInventory = vetBedInventory;
+	}
+
+	 /**
+	 * Return the value associated with the column: youthAgeGroup.
+	 * @return A BedinventoryYouthAgeGroupEnum object (this.youthAgeGroup)
+	 */
+	@Type(type="com.servinglynk.hmis.warehouse.enums.BedinventoryYouthAgeGroupEnumType")
+	@Basic( optional = true )
+	@Column( name = "youth_age_group"  )
+	public BedinventoryYouthAgeGroupEnum getYouthAgeGroup() {
+		return this.youthAgeGroup;
+		
+	}
+	
+
+  
+	 /**  
+	 * Set the value related to the column: youthAgeGroup.
+	 * @param youthAgeGroup the youthAgeGroup value you wish to set
+	 */
+	public void setYouthAgeGroup(final BedinventoryYouthAgeGroupEnum youthAgeGroup) {
+		this.youthAgeGroup = youthAgeGroup;
+	}
+
+	 /**
+	 * Return the value associated with the column: youthBedInventory.
+	 * @return A Long object (this.youthBedInventory)
+	 */
+	@Basic( optional = true )
+	@Column( name = "youth_bed_inventory"  )
+	public Long getYouthBedInventory() {
+		return this.youthBedInventory;
+		
+	}
+	
+
+  
+	 /**  
+	 * Set the value related to the column: youthBedInventory.
+	 * @param youthBedInventory the youthBedInventory value you wish to set
+	 */
+	public void setYouthBedInventory(final Long youthBedInventory) {
+		this.youthBedInventory = youthBedInventory;
+	}
+	
 
    /**
     * Deep copy.
@@ -358,7 +452,6 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
         final Inventory copy = (Inventory)super.clone();
 
 		copy.setAvailabilty(this.getAvailabilty());
-		copy.setBedinventory(this.getBedinventory());
 		copy.setBedtype(this.getBedtype());
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
@@ -384,7 +477,6 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 		StringBuffer sb = new StringBuffer();
 
 		sb.append("availabilty: " + this.getAvailabilty() + ", ");
-		sb.append("bedinventory: " + this.getBedinventory() + ", ");
 		sb.append("bedtype: " + this.getBedtype() + ", ");
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
@@ -440,7 +532,6 @@ public class Inventory extends HmisBaseModel  implements Cloneable, Serializable
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getAvailabilty() == null) && (that.getAvailabilty() == null)) || (getAvailabilty() != null && getAvailabilty().equals(that.getAvailabilty())));
-		result = result && (((getBedinventory() == null) && (that.getBedinventory() == null)) || (getBedinventory() != null && getBedinventory().equals(that.getBedinventory())));
 		result = result && (((getBedtype() == null) && (that.getBedtype() == null)) || (getBedtype() != null && getBedtype().equals(that.getBedtype())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));

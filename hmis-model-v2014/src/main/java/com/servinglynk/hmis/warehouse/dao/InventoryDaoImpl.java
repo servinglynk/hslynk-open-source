@@ -13,13 +13,13 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.BedinventoryYouthAgeGroupEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
-import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -47,14 +47,19 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 			{
 				
 				UUID id = UUID.randomUUID();
-				parentDaoFactory.getBedinventoryDao().hydrateBedInventory(domain,inventory);
 				com.servinglynk.hmis.warehouse.model.v2014.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
 				inventoryModel.setId(id);
 				inventoryModel.setDateCreated(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
 				inventoryModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailabilty())));
-				Bedinventory bedInventory = (Bedinventory) get(Bedinventory.class, domain.getBedInventoryMap().get(String.valueOf(inventory.getBedInventory().getBedInventory())));
-				inventoryModel.setBedinventory(bedInventory);
+				BedInventory bedInventory = inventory.getBedInventory();
+				if(bedInventory !=null) {
+					inventoryModel.setBedInventory(new Integer(bedInventory.getBedInventory()));
+					inventoryModel.setChBedInventory(new Integer(bedInventory.getCHBedInventory()));
+					inventoryModel.setVetBedInventory(new Integer(bedInventory.getVetBedInventory()));
+					inventoryModel.setYouthAgeGroup(BedinventoryYouthAgeGroupEnum.lookupEnum(BasicDataGenerator.getStringValue(bedInventory.getYouthAgeGroup())));
+					inventoryModel.setYouthBedInventory(new Long(bedInventory.getYouthBedInventory()));
+				}
 				Projectcoc projectCocModel = (Projectcoc) get(Projectcoc.class, domain.getProjectCocMap().get(String.valueOf(inventory.getProjectCoCID())));
 				inventoryModel.setProjectCoc(projectCocModel);
 				inventoryModel.setExport(exportEntity);
@@ -74,8 +79,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				if(inventory !=null) {
 					com.servinglynk.hmis.warehouse.model.v2014.Inventory target = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
 					BeanUtils.copyProperties(inventory, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Bedinventory bedInventory = (com.servinglynk.hmis.warehouse.model.v2014.Bedinventory) get(com.servinglynk.hmis.warehouse.model.v2014.Bedinventory.class, inventory.getId());
-					target.setBedinventory(bedInventory);
 					com.servinglynk.hmis.warehouse.model.v2014.Projectcoc projectCocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) get(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class,inventory.getProjectCoc().getId() );
 					target.setProjectCoc(projectCocModel);
 					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, inventory.getExport().getId());

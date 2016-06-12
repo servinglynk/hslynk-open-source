@@ -11,7 +11,7 @@ public class HbaseUtil {
 
     //private static HBaseAdmin admin = null;
     private static Configuration conf = null;
-    private static String host = "ec2-52-34-38-188.us-west-2.compute.amazonaws.com";
+    private static String host = "52.25.176.93";
 
     public static HBaseAdmin getAdmin() throws Exception {
 //        if(admin == null) {

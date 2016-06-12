@@ -44,7 +44,6 @@ public class InventoryConverter extends BaseConverter {
        model.setInventoryId(entity.getId());
 		if(entity.getAvailabilty()!=null)
        model.setAvailabilty(Integer.parseInt(entity.getAvailabilty().getValue()));
-       if(entity.getBedinventory() != null)   model.setBedinventory(entity.getBedinventory().getId());
  		if(entity.getBedtype()!=null)
        model.setBedtype(Integer.parseInt(entity.getBedtype().getValue()));
        if(entity.getHmisparticipatingbeds()!=null)

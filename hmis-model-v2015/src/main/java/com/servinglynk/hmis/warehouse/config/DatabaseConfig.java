@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.Properties;
 
 import javax.annotation.Resource;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -19,8 +17,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.BedinventoryDao;
-import com.servinglynk.hmis.warehouse.dao.BedinventoryDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
@@ -179,10 +175,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public AffiliationDao affiliationDao() { 
 		return new AffiliationDaoImpl();
-	}
-	@Bean
-	public BedinventoryDao bedinventoryDao() {
-		return new BedinventoryDaoImpl();
 	}
 	@Bean
 	public DisabilitiesDao disabilitiesDao() { 

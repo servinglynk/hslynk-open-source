@@ -21,7 +21,6 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
-import com.servinglynk.hmis.warehouse.model.v2015.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2015.Coc;
 import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -54,8 +53,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				UUID inventoryUUID = UUID.randomUUID();
 				inventoryModel.setId(inventoryUUID);
 				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
-				Bedinventory bedInventory = (Bedinventory) get(Bedinventory.class, domain.getBedInventoryMap().get(String.valueOf(inventory.getBedInventory().getBedInventory())));
-				inventoryModel.setBedinventory(bedInventory);
 				inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
 				inventoryModel.setChBedInventory(inventory.getChBedInventory());
 				inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
@@ -101,8 +98,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				if(inventory !=null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Inventory target = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
 					BeanUtils.copyProperties(inventory, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Bedinventory bedInventory = (com.servinglynk.hmis.warehouse.model.v2015.Bedinventory) get(com.servinglynk.hmis.warehouse.model.v2015.Bedinventory.class, inventory.getId());
-					target.setBedinventory(bedInventory);
 				//	com.servinglynk.hmis.warehouse.model.v2015.Projectcoc projectCocModel = (com.servinglynk.hmis.warehouse.model.v2015.Projectcoc) get(com.servinglynk.hmis.warehouse.model.v2015.Projectcoc.class,inventory.getProjectCoc().getId() );
 				//	target.setProjectCoc(projectCocModel);
 					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, inventory.getExport().getId());

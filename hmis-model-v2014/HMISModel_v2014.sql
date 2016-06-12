@@ -44,7 +44,6 @@ DROP TABLE IF EXISTS "v2014".connectionwithsoar;
 DROP TABLE IF EXISTS "v2014".projectcompletionstatus;
 DROP  table IF EXISTS  "v2014".worsthousingsituation;
 DROP TABLE IF EXISTS "v2014".exit;
-DROP TABLE IF EXISTS "v2014".bedinventory;
 DROP TABLE IF EXISTS "v2014".projectcoc;
 DROP TABLE IF EXISTS "v2014".project; 
 DROP TABLE IF EXISTS "v2014".enrollment;
@@ -1565,33 +1564,6 @@ WITH (
 );
 
 
-
-CREATE TABLE "v2014".bedinventory
-(
-  id uuid NOT NULL,
-  bed_inventory integer,
-  ch_bed_inventory integer,
-  vet_bed_inventory integer,
-  youth_age_group "v2014".youth_age_group,
-  youth_bed_inventory bigint,
-  "project_group_code" character varying(8),
-   "date_created" timestamp,"date_created_from_source" timestamp,"date_updated_from_source" timestamp,
-  "date_updated" timestamp,
-  "user_id" uuid,
-  export_id uuid,
-  parent_id uuid,
-  version integer,source_system_id text,
-  deleted boolean DEFAULT false,active boolean DEFAULT true,
-  sync boolean DEFAULT false,  
-      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2014.export (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "bedinventory_pkey" PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-
 -- table: "projectcoc"
 
 -- drop table "projectcoc";
@@ -1694,7 +1666,6 @@ create table "v2014".inventory
 (
    id uuid not null,
   availabilty "v2014".availability,
-  bedinventory uuid,
   bedtype "v2014".bed_type,
   hmisparticipatingbeds integer,
   householdtype "v2014".house_hold_type,
@@ -1702,6 +1673,11 @@ create table "v2014".inventory
   inventorystartdate timestamp,
   project_coc_id uuid,
   unitinventory integer,
+  bed_inventory integer,
+  ch_bed_inventory integer,
+  vet_bed_inventory integer,
+  youth_age_group "v2014".youth_age_group,
+  youth_bed_inventory bigint,
   "project_group_code" character varying(8),
   date_created timestamp,
   date_updated timestamp,
@@ -1719,10 +1695,7 @@ create table "v2014".inventory
   constraint "inventory_pkey" primary key (id),
   constraint "inventory_projectcocid_fkey" foreign key (project_coc_id)
       references v2014."projectcoc" (id) match simple
-      on update no action on delete no action,
-      CONSTRAINT "bed_inventory_fkey" FOREIGN KEY (bedinventory)
-      REFERENCES v2014.bedinventory (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      on update no action on delete no action
 )
 with (
   oids=false

@@ -59,9 +59,6 @@ public class Export implements Cloneable, Serializable {
 	private Set<Affiliation> affiliations = new HashSet<Affiliation>();
 
 	/** Field mapping. */
-	private Set<Bedinventory> bedinventories = new HashSet<Bedinventory>();
-
-	/** Field mapping. */
 	private Set<BulkUpload> bulkUploads = new HashSet<BulkUpload>();
 
 	/** Field mapping. */
@@ -233,37 +230,6 @@ public class Export implements Cloneable, Serializable {
 	 */
 	public void setAffiliations(final Set<Affiliation> affiliation) {
 		this.affiliations = affiliation;
-	}
-
-	 /**
-	 * Return the value associated with the column: bedinventory.
-	 * @return A Set&lt;Bedinventory&gt; object (this.bedinventory)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Bedinventory> getBedinventories() {
-		return this.bedinventories;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type Bedinventory to the bedinventories set.
-	 * @param bedinventory item to add
-	 */
-	public void addBedinventory(Bedinventory bedinventory) {
-		bedinventory.setExport(this);
-		this.bedinventories.add(bedinventory);
-	}
-
-
-	 /**
-	 * Set the value related to the column: bedinventory.
-	 * @param bedinventory the bedinventory value you wish to set
-	 */
-	public void setBedinventories(final Set<Bedinventory> bedinventory) {
-		this.bedinventories = bedinventory;
 	}
 
 	 /**
@@ -1684,9 +1650,6 @@ public class Export implements Cloneable, Serializable {
 
 		if (this.getAffiliations() != null) {
 			copy.getAffiliations().addAll(this.getAffiliations());
-		}
-		if (this.getBedinventories() != null) {
-			copy.getBedinventories().addAll(this.getBedinventories());
 		}
 		if (this.getBulkUploads() != null) {
 			copy.getBulkUploads().addAll(this.getBulkUploads());

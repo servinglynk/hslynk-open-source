@@ -19,8 +19,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private AffiliationDao affiliationDao;
 	@Autowired
-	private BedinventoryDao bedinventoryDao;
-	@Autowired
 	private ConnectionwithsoarDao connectionwithsoarDao;
 	@Autowired
 	private DisabilitiesDao disabilitiesDao;
@@ -139,12 +137,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setAffiliationDao(AffiliationDao affiliationDao) {
 		this.affiliationDao = affiliationDao;
-	}
-	public BedinventoryDao getBedinventoryDao() {
-		return bedinventoryDao;
-	}
-	public void setBedinventoryDao(BedinventoryDao bedinventoryDao) {
-		this.bedinventoryDao = bedinventoryDao;
 	}
 	public ConnectionwithsoarDao getConnectionwithsoarDao() {
 		return connectionwithsoarDao;

@@ -6,11 +6,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +23,6 @@ import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2014.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
 import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
@@ -283,7 +279,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 //		com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,exportId);
 //		unDeleteFromDB(exportEntity);
 		undoSoftDeleteByExportId(Affiliation.class.getName(), exportId);
-		undoSoftDeleteByExportId(Bedinventory.class.getName(), exportId);
 		undoSoftDeleteByExportId(Commercialsexualexploitation.class.getName(), exportId);
 		undoSoftDeleteByExportId(Connectionwithsoar.class.getName(), exportId);
 		undoSoftDeleteByExportId(Dateofengagement.class.getName(), exportId);
@@ -333,7 +328,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId) {
 		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode, exportId);
-		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Commercialsexualexploitation.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Connectionwithsoar.class.getName(), projectGroupCode, exportId);

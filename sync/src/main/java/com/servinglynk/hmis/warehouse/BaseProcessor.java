@@ -105,6 +105,7 @@ public class BaseProcessor<T> extends Logging {
 							if (rowKey == null) {
 								rowKey = UUID.randomUUID().toString();
 								data.put("export_id", rowKey);
+								data.put("year", upload.getYear());
 							}
 
 							data.remove("class");

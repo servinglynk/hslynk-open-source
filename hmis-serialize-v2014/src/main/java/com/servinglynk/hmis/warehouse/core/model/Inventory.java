@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonRootName("inventory")
 public class Inventory extends ClientModel{
 
-
       private UUID inventoryId;
 
       private String availabilty;
@@ -22,7 +21,19 @@ public class Inventory extends ClientModel{
       private Integer hmisparticipatingbeds;
 
       private Integer householdtype;
+      
+      /** Field mapping. */
+  	private Integer bedInventory;
+  	/** Field mapping. */
+  	private Integer chBedInventory;
+  	/** Field mapping. */
+  	private Integer vetBedInventory;
+  	/** Field mapping. */
+  	private String youthAgeGroup;
+  	/** Field mapping. */
+  	private Long youthBedInventory;
 
+      
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime inventoryenddate;
@@ -89,5 +100,34 @@ public class Inventory extends ClientModel{
       public void setUnitinventory(Integer unitinventory){
           this.unitinventory = unitinventory;
       }
-
+	public Integer getBedInventory() {
+		return bedInventory;
+	}
+	public void setBedInventory(Integer bedInventory) {
+		this.bedInventory = bedInventory;
+	}
+	public Integer getChBedInventory() {
+		return chBedInventory;
+	}
+	public void setChBedInventory(Integer chBedInventory) {
+		this.chBedInventory = chBedInventory;
+	}
+	public Integer getVetBedInventory() {
+		return vetBedInventory;
+	}
+	public void setVetBedInventory(Integer vetBedInventory) {
+		this.vetBedInventory = vetBedInventory;
+	}
+	public String getYouthAgeGroup() {
+		return youthAgeGroup;
+	}
+	public void setYouthAgeGroup(String youthAgeGroup) {
+		this.youthAgeGroup = youthAgeGroup;
+	}
+	public Long getYouthBedInventory() {
+		return youthBedInventory;
+	}
+	public void setYouthBedInventory(Long youthBedInventory) {
+		this.youthBedInventory = youthBedInventory;
+	}
  }

@@ -19,8 +19,6 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.BedinventoryDao;
-import com.servinglynk.hmis.warehouse.dao.BedinventoryDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
@@ -226,11 +224,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public AffiliationDao affiliationDao() { 
 		return new AffiliationDaoImpl();
-	}
-	@Bean
-	public BedinventoryDao bedinventoryDao() {
-		return new BedinventoryDaoImpl();
-		
 	}
 	@Bean
 	public ConnectionwithsoarDao connectionwithsoarDao() {

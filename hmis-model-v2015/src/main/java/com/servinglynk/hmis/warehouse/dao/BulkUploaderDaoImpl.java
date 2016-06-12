@@ -19,7 +19,6 @@ import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2015.Bedinventory;
 import com.servinglynk.hmis.warehouse.model.v2015.Client;
 import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.model.v2015.Coc;
@@ -258,7 +257,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 //		com.servinglynk.hmis.warehouse.model.live.Export exportEntity = (com.servinglynk.hmis.warehouse.model.live.Export) get(com.servinglynk.hmis.warehouse.model.live.Export.class,exportId);
 //		unDeleteFromDB(exportEntity);
 		undoSoftDeleteByExportId(Affiliation.class.getName(), exportId);
-		undoSoftDeleteByExportId(Bedinventory.class.getName(), exportId);
 		undoSoftDeleteByExportId(Dateofengagement.class.getName(), exportId);
 		undoSoftDeleteByExportId(Disabilities.class.getName(), exportId);
 		undoSoftDeleteByExportId(Domesticviolence.class.getName(), exportId);
@@ -290,7 +288,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId) {
 		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode,exportId);
-		softDeleteByProjectGroupCode(Bedinventory.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(com.servinglynk.hmis.warehouse.model.v2015.Client.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode,exportId);
