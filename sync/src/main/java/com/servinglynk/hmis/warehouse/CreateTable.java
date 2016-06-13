@@ -17,7 +17,7 @@ import org.apache.hadoop.hbase.client.HTable;
 public class CreateTable {
 //	 HBaseAdmin admin = null;
 //	 Configuration conf = null;
-//	    String host = "ec2-52-34-38-188.us-west-2.compute.amazonaws.com";
+//	    String host = "ec2-52-25-176-93.us-west-2.compute.amazonaws.com";
 //	 public CreateTable() {
 //	  conf = HBaseConfiguration.create();
 //	  conf.set("hbase.master", host);

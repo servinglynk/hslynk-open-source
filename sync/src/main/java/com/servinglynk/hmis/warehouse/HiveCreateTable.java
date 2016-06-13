@@ -17,7 +17,7 @@ public class HiveCreateTable {
       e.printStackTrace();
       System.exit(1);
     }
-    Connection con = DriverManager.getConnection("jdbc:hive://ec2-52-34-38-188.us-west-2.compute.amazonaws.com:10000/default", "hdfs", "hdfs");
+    Connection con = DriverManager.getConnection("jdbc:hive://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/default", "hdfs", "hdfs");
     Statement stmt = con.createStatement();
     String tableName = "testHiveDriverTable";
     stmt.executeQuery("drop table " + tableName);
