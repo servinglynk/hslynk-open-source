@@ -317,7 +317,7 @@ public class BaseProcessor<T> extends Logging {
 	 *
 	 * @return
 	 */
-	public static BulkUpload getExportIDFromBulkUpload() {
+	public static List<BulkUpload> getExportIDFromBulkUpload() {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
@@ -326,7 +326,7 @@ public class BaseProcessor<T> extends Logging {
 			connection = getConnection();
 			statement = connection.prepareStatement("SELECT export_id,project_group_code,id,year FROM base.bulk_upload where status='STAGING'");
 			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				BulkUpload upload = new BulkUpload();
 				upload.setExportId(UUID.fromString(resultSet.getString(1)));
 				upload.setProjectGroupCode(resultSet.getString(2));
@@ -334,7 +334,7 @@ public class BaseProcessor<T> extends Logging {
 				upload.setYear(resultSet.getLong(4));
 				uploads.add(upload);
 			}
-			return uploads.get(0);
+			return uploads;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -446,6 +446,38 @@ public class BaseProcessor<T> extends Logging {
 			}
 		}
 	}
+
+	public void updateCreateFlag(String tableName, String schema, String groupCode, VERSION version) {
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			switch (version) {
+				case V2015:
+					statement = connection.prepareStatement("UPDATE base.hmis_project_group SET tables_v2015_in_hbase=TRUE where project_group_code=?");
+					statement.setString(1, groupCode);
+
+				case V2014:
+					statement = connection.prepareStatement("UPDATE base.hmis_project_group SET tables_v2014_in_hbase=TRUE where project_group_code=?");
+					statement.setString(1, groupCode);
+			}
+			int status = statement.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	public void updateSyncFlag(String tableName, UUID id, String schema) {
 		PreparedStatement statement = null;
 		Connection connection = null;
