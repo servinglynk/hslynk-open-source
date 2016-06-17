@@ -15,6 +15,7 @@
 	<properties>
 		<parent-version>0.0.2-SNAPSHOT</parent-version>
 		<java-version>1.8</java-version>
+						<hibernate.version>4.2.0.Final</hibernate.version>
 		<log4j-version>1.2.17</log4j-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 	</properties>
@@ -35,6 +36,11 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.0.0.RELEASE</version>
 		</dependency>
+			<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>	
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

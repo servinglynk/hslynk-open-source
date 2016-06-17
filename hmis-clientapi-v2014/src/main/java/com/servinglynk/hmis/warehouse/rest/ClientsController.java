@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,7 +83,7 @@ public class ClientsController extends ControllerBase {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@APIMapping(value="CLIENT_API_CREATE_CLIENT",checkSessionToken=true,checkTrustedApp=true)
-	public Client createClient(@RequestBody Client client , HttpServletRequest request) throws Exception {
+	public Client createClient(@Valid @RequestBody Client client , HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getClientService().createClient(client, session.getAccount().getUsername());	
 		Client returnClient = new Client();
@@ -93,7 +94,7 @@ public class ClientsController extends ControllerBase {
 	
 	@RequestMapping(value="/{clientid}", method=RequestMethod.PUT)
 	@APIMapping(value="CLIENT_API_UPDATE_CLIENT",checkSessionToken=true,checkTrustedApp=true)
-	public void updateClient(@PathVariable("clientid") UUID clientId ,@RequestBody Client client , HttpServletRequest request) throws Exception {
+	public void updateClient(@PathVariable("clientid") UUID clientId ,@Valid @RequestBody Client client , HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		client.setClientId(clientId);
 		serviceFactory.getClientService().updateClient(client, session.getAccount().getUsername());
