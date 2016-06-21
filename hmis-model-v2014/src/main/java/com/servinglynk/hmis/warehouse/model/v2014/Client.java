@@ -100,9 +100,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Enrollment> enrollments = new HashSet<Enrollment>();
 
 	
-	private String sourceSystemId;
-
-	
 	/** Field mapping. */
 	private ClientVeteranStatusEnum veteranStatus;
 	/**
@@ -578,17 +575,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			this.enrollments = enrollment;
 		}
 		
-		
-		@Column(name="source_system_id")
-		@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
-		public String getSourceSystemId() {
-			return sourceSystemId;
-		}
-
-		public void setSourceSystemId(String sourceSystemId) {
-			this.sourceSystemId = sourceSystemId;
-		}
-
    /**
     * Deep copy.
 	* @return cloned object
