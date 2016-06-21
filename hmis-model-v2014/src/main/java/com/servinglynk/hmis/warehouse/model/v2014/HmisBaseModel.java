@@ -11,6 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
@@ -155,6 +160,7 @@ public abstract class HmisBaseModel implements Entity{
 			
 			@Basic( optional = true )
 			@Column( name = "source_system_id", nullable = true  )
+			@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 			public String getSourceSystemId() {
 				return sourceSystemId;
 			}
