@@ -31,6 +31,7 @@ public class Client extends ClientModel {
 	private Integer gender;
 	private String otherGender;
 	private String veteranStatus;
+	private String sourceSystemId;
 	public UUID getClientId() {
 		return clientId;
 	}
@@ -150,5 +151,11 @@ public class Client extends ClientModel {
 	}
 	public void setVeteranStatus(String veteranStatus) {
 		this.veteranStatus = veteranStatus;
+	}	
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
 	}	
 }

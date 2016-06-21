@@ -92,6 +92,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	private String ssn;
 	/** Field mapping. */
 	private ClientSsnDataQualityEnum ssnDataQuality;
+	
+	private String sourceSystemId;
+	
 	/** Field mapping. */
 	private Set<ClientVeteranInfo> veteranInfoes = new HashSet<ClientVeteranInfo>();
 	/** Field mapping. */
@@ -423,7 +426,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.ssn)
 	 */
 	@Basic( optional = true )
-	@Column( length = 9  )
+	@Column
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;
 		
@@ -544,7 +548,19 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		public void setEnrollments(final Set<Enrollment> enrollment) {
 			this.enrollments = enrollment;
 		}
-   /**
+
+		
+		@Column(name="source_system_id")
+		@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+		public String getSourceSystemId() {
+			return sourceSystemId;
+		}
+
+		public void setSourceSystemId(String sourceSystemId) {
+			this.sourceSystemId = sourceSystemId;
+		}
+
+/**
     * Deep copy.
 	* @return cloned object
 	* @throws CloneNotSupportedException on error
@@ -571,6 +587,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
 		copy.setUserId(this.getUserId());
+		copy.setSourceSystemId(this.sourceSystemId);
 		if (this.getVeteranInfoes() != null) {
 			copy.getVeteranInfoes().addAll(this.getVeteranInfoes());
 		}
@@ -608,6 +625,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("ssn: " + this.getSsn() + ", ");
 		sb.append("ssnDataQuality: " + this.getSsnDataQuality() + ", ");
 		sb.append("veteranStatus: " + this.getVeteranStatus());
+		sb.append("sourceSystemId: "+this.getSourceSystemId());
 		return sb.toString();		
 	}
 
@@ -670,6 +688,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		result = result && (((getVeteranStatus() == null) && (that.getVeteranStatus() == null)) || (getVeteranStatus() != null && getVeteranStatus().equals(that.getVeteranStatus())));
+		result = result && (((getSourceSystemId() == null) && (that.getSourceSystemId() == null)) || (getSourceSystemId() != null && getSourceSystemId().equals(that.getSourceSystemId()))); 
 		return result;
 	}
 

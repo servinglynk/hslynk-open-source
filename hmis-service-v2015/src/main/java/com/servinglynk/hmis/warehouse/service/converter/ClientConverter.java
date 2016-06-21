@@ -44,6 +44,8 @@ public class ClientConverter {
 		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.lookupEnum(client.getSsnDataQuality()+""));
 	    if(client.getVeteranStatus()!=null)
 		pClient.setVeteranStatus(ClientVeteranStatusEnum.lookupEnum(client.getVeteranStatus()));
+	    if(client.getSourceSystemId()!=null)
+	    	pClient.setSourceSystemId(client.getSourceSystemId());
 		return pClient;
 	}
 	
@@ -79,6 +81,8 @@ public class ClientConverter {
 		client.setClientId(pClient.getId());
 	    if(pClient.getVeteranStatus()!=null)
 		client.setVeteranStatus(pClient.getVeteranStatus().getValue());
+	    if(pClient.getSourceSystemId()!=null)
+	    	client.setSourceSystemId(pClient.getSourceSystemId());
 
 //		copyBeanProperties(pClient,client);
 	return client;
