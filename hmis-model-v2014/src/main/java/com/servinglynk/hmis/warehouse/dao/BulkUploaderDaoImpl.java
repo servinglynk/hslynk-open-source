@@ -186,66 +186,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 	*/
 	
-	@Override
-	@Transactional
-	public void moveFromStagingToLive(BulkUpload bulkUpload) {
-		try {
-		UUID exportId = bulkUpload.getExportId();
-		com.servinglynk.hmis.warehouse.model.v2014.Export export = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, exportId);
-		parentDaoFactory.getClientDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getVeteranInfoDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getEnrollmentDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getCommercialsexualexploitationDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getOrganizationDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getProjectDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getAffiliationDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getFunderDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getEnrollmentCocDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getProjectcocDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getInventoryDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getSiteDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getResidentialmoveindateDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getServicesDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getDateofengagementDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getDisabilitiesDao().hydrateLive(export,bulkUpload.getId());
-		
-		parentDaoFactory.getDomesticviolenceDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getEmploymentDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getExitDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getFamilyreunificationDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getExithousingassessmentDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getHousingassessmentdispositionDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getExitplansactionsDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getConnectionwithsoarDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getProjectcompletionstatusDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getFormerwardchildwelfareDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getFormerwardjuvenilejusticeDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getHealthinsuranceDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getHealthStatusDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getIncomeandsourcesDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getLastgradecompletedDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getLastPermAddressDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getMedicalassistanceDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getNoncashbenefitsDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getPathstatusDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getPercentamiDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getReferralsourceDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getRhybcpstatusDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getSchoolstatusDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getSexualorientationDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getWorsthousingsituationDao().hydrateLive(export,bulkUpload.getId());
-		parentDaoFactory.getYouthcriticalissuesDao().hydrateLive(export,bulkUpload.getId());
-		bulkUpload.setStatus(UploadStatus.LIVE.getStatus());
-		parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
-		}
-		catch (Exception e) {
-			bulkUpload.setStatus(UploadStatus.ERROR.getStatus());
-			bulkUpload.setDescription(e.getMessage());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(bulkUpload);
-		}
-	}
-	
-	
 	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
@@ -259,19 +199,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		hardDelete(exportEntity);
 	}
 
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	@Transactional

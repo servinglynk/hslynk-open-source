@@ -5,22 +5,16 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCompletionStatus;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusEarlyexitreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Exit;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -58,49 +52,8 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
 				i++;
 				hydrateCommonFields(projectcompletionstatusModel, domain, projectCompletionStatus.getProjectCompletionStatusID(),i);
-				insert(projectcompletionstatusModel);
 			}
 		}
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Projectcompletionstatus> projectcompletionstatuses = export.getProjectcompletionstatuses();
-		hydrateBulkUploadActivity(projectcompletionstatuses, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), export,id);
-		if(projectcompletionstatuses != null && !projectcompletionstatuses.isEmpty()) {
-			for(Projectcompletionstatus projectcompletionstatus : projectcompletionstatuses) {
-				if(projectcompletionstatus != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus target = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
-					BeanUtils.copyProperties(projectcompletionstatus, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, projectcompletionstatus.getExitid().getId());
-					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addProjectcompletionstatus(target);
-					 target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus){

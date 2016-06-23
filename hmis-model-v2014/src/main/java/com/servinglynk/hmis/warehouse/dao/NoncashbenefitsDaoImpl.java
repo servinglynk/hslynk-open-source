@@ -5,18 +5,13 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsBenefitsfromanysourceEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsOthersourceEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsOthertanfEnum;
@@ -27,7 +22,6 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -79,55 +73,11 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				exportEntity.addNoncashbenefits(noncashbenefitsModel);
 				i++;
 				hydrateCommonFields(noncashbenefitsModel, domain, nonCashBenefits.getNonCashBenefitsID(),i);
-				insert(noncashbenefitsModel);
 			}
 		}
 
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Noncashbenefits> noncashbenefitss = export.getNoncashbenefitss();
-		hydrateBulkUploadActivity(noncashbenefitss, com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class.getSimpleName(), export,id);
-		if(noncashbenefitss != null && !noncashbenefitss.isEmpty()) {
-			for(Noncashbenefits noncashbenefits : noncashbenefitss) {
-				if(noncashbenefits != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits target = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
-					BeanUtils.copyProperties(noncashbenefits, target,getNonCollectionFields(target));
-					if(noncashbenefits.getEnrollmentid() !=null && noncashbenefits.getEnrollmentid().getId() !=null) {
-						com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, noncashbenefits.getEnrollmentid().getId());
-						target.setEnrollmentid(enrollmentModel);
-					}
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addNoncashbenefits(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits noncashbenefits){
 	       noncashbenefits.setId(UUID.randomUUID()); 
 	       insert(noncashbenefits);

@@ -60,51 +60,9 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				exportEntity.addRhybcpstatus(rhybcpstatusModel);
 				i++;
 				hydrateCommonFields(rhybcpstatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),i);
-				insert(rhybcpstatusModel);
 			}
 		}
 
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Rhybcpstatus> rhybcpstatuses = export.getRhybcpstatuses();
-		hydrateBulkUploadActivity(rhybcpstatuses, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), export,id);
-		if(rhybcpstatuses !=null && !rhybcpstatuses.isEmpty()) {
-			for(Rhybcpstatus rhybcpstatus : rhybcpstatuses) {
-				if(rhybcpstatus !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus target = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
-					BeanUtils.copyProperties(rhybcpstatus, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, rhybcpstatus.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addRhybcpstatus(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-		
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){

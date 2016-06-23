@@ -5,18 +5,13 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesActivemilitaryparentEnum;
@@ -43,7 +38,6 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -105,51 +99,9 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
 				i++;
 				hydrateCommonFields(youthcriticalissuesModel, domain, youthCriticalIssues.getYouthCriticalIssuesID(),i);
-				insert(youthcriticalissuesModel);
 			}
 		}
 	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Youthcriticalissues> youthcriticalissueses = export.getYouthcriticalissueses();
-		hydrateBulkUploadActivity(youthcriticalissueses, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), export,id);
-		if(youthcriticalissueses !=null && !youthcriticalissueses.isEmpty()) {
-			for(Youthcriticalissues youthcriticalissues : youthcriticalissueses) {
-				if(youthcriticalissues != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues target = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
-					BeanUtils.copyProperties(youthcriticalissues, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, youthcriticalissues.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addYouthcriticalissues(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){
 	       youthCriticalIssues.setId(UUID.randomUUID()); 

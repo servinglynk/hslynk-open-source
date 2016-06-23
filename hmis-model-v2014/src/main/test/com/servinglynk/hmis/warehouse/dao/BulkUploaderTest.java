@@ -51,7 +51,7 @@ public class BulkUploaderTest {
 		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
 		bullkUpload.setInputpath(path.getPath());
-		bullkUpload.setId(3L);
+		bullkUpload.setId(7L);
 		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
@@ -62,11 +62,11 @@ public class BulkUploaderTest {
 	public void testxmlBigFile() throws Exception
 	{
 		BulkUpload bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\Files\\HUD_4_0_1_3101_13.xml");
+		bullkUpload.setInputpath("C:\\AWS\\HUD_4_0_4012_48.xml");
 		bullkUpload.setId(2L);
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		projectGrpEntity.setProjectGroupCode("CP0004");
-		bullkUpload.setProjectGroupCode("CP0004");
+		projectGrpEntity.setProjectGroupCode("PG0001");
+		bullkUpload.setProjectGroupCode("PG0001");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 	}
 	@Test
@@ -115,17 +115,6 @@ public class BulkUploaderTest {
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
-			}
-		}
-		
-	}
-	
-	@Test
-	public void moveToLive() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
-		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExportId() !=null) {
-				dao.moveFromStagingToLive(upload);		
 			}
 		}
 		

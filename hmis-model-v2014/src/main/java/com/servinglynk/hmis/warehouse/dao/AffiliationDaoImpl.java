@@ -2,19 +2,14 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -49,47 +44,8 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					affiliationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
 					i++;
 					hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),i);
-					insert(affiliationModel);
 				}
 			}
-		}
-
-		@Override
-		public void hydrateLive(
-				com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
-			Set<com.servinglynk.hmis.warehouse.model.v2014.Affiliation> affiliations = export.getAffiliations();
-			hydrateBulkUploadActivity(affiliations, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), export,id);
-			if(affiliations !=null && !affiliations.isEmpty()) {
-				for(com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliation : affiliations ) {
-					 com.servinglynk.hmis.warehouse.model.v2014.Affiliation target = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();
-					 BeanUtils.copyProperties(affiliation, target,getNonCollectionFields(target));
-					 com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					 target.setExport(exportEntity);
-					 com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2014.Project) get(com.servinglynk.hmis.warehouse.model.v2014.Project.class,affiliation.getProjectid().getId());
-					 target.setProjectid(projectModel);
-					 target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					 insert(target);
-				}
-			}
-		}
-
-		@Override
-		public void hydrateHBASE(SyncDomain syncDomain) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		protected void performSave(Iface client, Object entity) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		protected List performGet(Iface client, Object entity) {
-			// TODO Auto-generated method stub
-			return null;
 		}
 		
 		   public com.servinglynk.hmis.warehouse.model.v2014.Affiliation createAffiliation(com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliation){

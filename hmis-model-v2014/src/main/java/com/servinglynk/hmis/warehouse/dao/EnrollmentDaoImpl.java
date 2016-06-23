@@ -152,105 +152,14 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				enrollmentModel.setDateUpdated(LocalDateTime.now());
 				//enrollmentModel.setUser(exportEntity.getUser());
 				exportEntity.addEnrollment(enrollmentModel);
-				
 				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID(),i);
-				insert(enrollmentModel);
 			}
 		}
 		
 	}
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
-		Set<Enrollment> enrollments = export.getEnrollments();
-		hydrateBulkUploadActivity(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), export,id);
-		if(enrollments != null && !enrollments.isEmpty()) {
-			for(Enrollment enrollment : enrollments) {
-				if(enrollment !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment target = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
-					BeanUtils.copyProperties(enrollment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = parentDaoFactory.getClientDao().getClientByDedupCliendId(enrollment.getClient().getDedupClientId(),enrollment.getProjectGroupCode());
-					if(clientByDedupCliendId == null) {
-						com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getClient().getId());
-						target.setClient(client);	
-					}else{
-						target.setClient(clientByDedupCliendId);
-					}
-				//	parentDaoFactory.getClientDao().hydrateLive(enrollment.getClient());
-				//	parentDaoFactory.getVeteranInfoDao().hydrateLive(enrollment.getClient());
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insert(target);
-				}
-			}
-		}
-	}
-
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentById(UUID enrollmentId) {
 	return (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class,enrollmentId);
-	}
-
-	
-	
-	
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollment = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) entity;
-		ByteBuffer table = ByteBuffer.wrap("hbase_hmis_user".getBytes());
-		String columnFamily = enrollment.getClass().getSimpleName();
-		TPut put = new TPut();
-		put.setRow(String.valueOf(enrollment.getId()).getBytes());
-		List<TColumnValue> columnValues = new ArrayList<TColumnValue>();
-			for (String column : getNonCollectionFieldsForObject(entity)) {
-				if(column !=null && !"serialVersionUID".equals(column) && !"SAVED_HASHES".equals(column) && !"hashCode".equals(column)) {
-				TColumnValue columnValue = new TColumnValue();
-				columnValue.setFamily(columnFamily.getBytes());
-				columnValue.setQualifier(column.getBytes());
-				Object value = null;
-				Object columnFamilyObject = null;
-				try {
-					try {
-						value = PropertyUtils.getProperty(enrollment,
-								column);
-//						if (columnFamilyObject != null) {
-//							value = PropertyUtils.getProperty(
-//									columnFamilyObject, column);
-//						}
-					} catch (IllegalAccessException | InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (value != null && !(value instanceof java.util.Set)) {
-					columnValue.setValue(String.valueOf(value).getBytes());
-					columnValue.setTimestamp(System.currentTimeMillis());
-					columnValues.add(columnValue);
-				}
-			 }
-			}
-		put.setColumnValues(columnValues);
-		try {
-			client.put(table, put);
-		} catch (TIOError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -303,12 +212,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		return countRows(criteria);
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

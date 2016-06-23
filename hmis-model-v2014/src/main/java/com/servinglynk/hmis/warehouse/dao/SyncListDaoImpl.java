@@ -36,11 +36,6 @@ public class SyncListDaoImpl  extends ParentDaoImpl implements SyncListDao{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		// TODO Auto-generated method stub
-	}
 	
 	@Override
 	public Sync findLastSync(String status) {
@@ -50,24 +45,6 @@ public class SyncListDaoImpl  extends ParentDaoImpl implements SyncListDao{
 		if(criteria.getExecutableCriteria(getCurrentSession()).list() != null) {
 			return (Sync) criteria.getExecutableCriteria(getCurrentSession()).list().get(0);
 		}
-		return null;
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

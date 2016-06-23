@@ -110,7 +110,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				i++;
-				hydrateCommonFields(clientModel, domain, client.getPersonalID(),i);
 				clientModel.setExport(exportEntity);
 				//TODO: Sandeep need to get the project group from the base schema.
 				// Need to change S.O.P to logger.
@@ -155,10 +154,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						clientUUID = dedupedClient.getId();
 					}
 					else {
-						insert(clientModel);	
+						//insert(clientModel);
+						hydrateCommonFields(clientModel, domain, client.getPersonalID(),i);
 					}	
 				}else{
-					insert(clientModel);
+				//	insert(clientModel);
+					hydrateCommonFields(clientModel, domain, client.getPersonalID(),i);
 				}
 				
 				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
@@ -166,47 +167,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 	}
 	
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = export.getClients();
-		hydrateBulkUploadActivity(clients, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), export,id);
-		if(clients !=null && !clients.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2014.Client client : clients) {
-				//com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
-				//if(clientByDedupCliendId ==null) {
-				//TODO : Sandeep need to take a look at this later.
-					com.servinglynk.hmis.warehouse.model.v2014.Client target = new com.servinglynk.hmis.warehouse.model.v2014.Client();
-					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					exportEntity.addClient(target);
-					target.setExport(exportEntity);
-					insertOrUpdate(target);
-				//}
-			}
-		}
-	}
 	
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
-			if(client !=null) {
-				com.servinglynk.hmis.warehouse.model.v2014.Client target = new com.servinglynk.hmis.warehouse.model.v2014.Client();
-				BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, client.getExport().getId());
-				exportEntity.addClient(target);
-				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
-				if(clientByDedupCliendId ==null) {
-					insert(target);	
-				}
-			}
-	}
-	
-	
-	
-    
 	private Date getDateInFormat(String dob) {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
@@ -219,26 +180,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
             e.printStackTrace();
         }
         return date;
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

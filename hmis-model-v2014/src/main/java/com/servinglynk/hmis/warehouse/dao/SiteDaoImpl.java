@@ -1,21 +1,15 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -47,50 +41,12 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 					exportEntity.addSite(siteModel);
 					i++;
 					hydrateCommonFields(siteModel, domain,String.valueOf(site.getSiteID()),i);
-					insert(siteModel);
 				}
 			}
 			
 		}
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2014.Site> sites = export.getSites();
-		hydrateBulkUploadActivity(sites,com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), export,id);
-		if(sites !=null && !sites.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2014.Site site : sites) {
-				if(site !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Site target = new com.servinglynk.hmis.warehouse.model.v2014.Site();
-					BeanUtils.copyProperties(site, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, site.getExport().getId());
-					target.setExport(exportEntity);
-					 target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					insert(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Site createSite(com.servinglynk.hmis.warehouse.model.v2014.Site site){
 	       site.setId(UUID.randomUUID()); 
 	       insert(site);

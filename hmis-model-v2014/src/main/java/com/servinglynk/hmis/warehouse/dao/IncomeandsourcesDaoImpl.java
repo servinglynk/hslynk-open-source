@@ -6,18 +6,13 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesAlimonyEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesChildsupportEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesEarnedEnum;
@@ -35,7 +30,6 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonservi
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -108,53 +102,9 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
 				i++;
 				hydrateCommonFields(incomeAndSourcesModel, domain, incomeAndSources.getIncomeAndSourcesID(),i);
-				insert(incomeAndSourcesModel);
 			}
 		}
 	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Incomeandsources> incomeandsourceses = export.getIncomeandsourceses();
-		hydrateBulkUploadActivity(incomeandsourceses, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), export,id);
-		if(incomeandsourceses !=null && !incomeandsourceses.isEmpty()) {
-			for(Incomeandsources incomeandsources : incomeandsourceses) {
-				if(incomeandsources != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources target = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();
-					BeanUtils.copyProperties(incomeandsources, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, incomeandsources.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addIncomeandsources(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-		
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeAndSource){
 	       incomeAndSource.setId(UUID.randomUUID()); 
 	       insert(incomeAndSource);

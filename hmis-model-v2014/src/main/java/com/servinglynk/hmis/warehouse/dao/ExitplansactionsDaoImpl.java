@@ -5,18 +5,13 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPlansActions;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsAssistancemainstreambenefitsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsExitcounselingEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitplansactionsFurtherfollowupservicesEnum;
@@ -72,52 +67,9 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				exportEntity.addExitplansactions(exitplansactionsModel);
 				i++;
 				hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID(),i);
-				insert(exitplansactionsModel);
 			}
 		}
 	}
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2014.Export export,Long id) {
-		Set<Exitplansactions> exitplansactionss = export.getExitplansactionss();
-		hydrateBulkUploadActivity(exitplansactionss, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), export,id);
-		if(exitplansactionss !=null && !exitplansactionss.isEmpty()) {
-			for(Exitplansactions exitplansactions : exitplansactionss) {
-				if(exitplansactions != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions target = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();
-					BeanUtils.copyProperties(exitplansactions, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) get(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, exitplansactions.getExitid().getId());
-					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addExitplansactions(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	   public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions){
 	       exitPlansActions.setId(UUID.randomUUID()); 
 	       insert(exitPlansActions);

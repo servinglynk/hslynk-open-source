@@ -3,22 +3,15 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -63,49 +56,9 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			exportEntity.addProjectcoc(projectcocModel);
 			i++;
 			hydrateCommonFields(projectcocModel, domain, String.valueOf(projectCoc.getProjectCoCID()),i);
-			insert(projectcocModel);
 		}
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Projectcoc> projectcocs = export.getProjectcocs();
-		hydrateBulkUploadActivity(projectcocs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), export,id);
-		if(projectcocs != null && !projectcocs.isEmpty()) {
-			for(Projectcoc projectcoc : projectcocs) {
-				if(projectcoc != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Projectcoc target = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
-					BeanUtils.copyProperties(projectcoc, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class,projectcoc.getExport().getId());
-					target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.v2014.Project projectEntity = (com.servinglynk.hmis.warehouse.model.v2014.Project) get(com.servinglynk.hmis.warehouse.model.v2014.Project.class,projectcoc.getProjectid().getId());
-					target.setProjectid(projectEntity);
-					 target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					insert(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Project createProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){
 	       insert(project);
 	       return project;

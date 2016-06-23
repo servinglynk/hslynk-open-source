@@ -5,20 +5,13 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardJuvenileJustice;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeFormerwardjuvenilejusticeEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeJuvenilejusticeyearsEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -57,48 +50,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
 				i++;
 				hydrateCommonFields(formerWardJuvenileJusticeModel, domain, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(),i);
-				insert(formerWardJuvenileJusticeModel);
 			}
 		}
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Formerwardjuvenilejustice> formerwardjuvenilejustices = export.getFormerwardjuvenilejustices();
-		hydrateBulkUploadActivity(formerwardjuvenilejustices, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), export,id);
-		if(formerwardjuvenilejustices != null && !formerwardjuvenilejustices.isEmpty()) {
-			for(Formerwardjuvenilejustice formerwardjuvenilejustice : formerwardjuvenilejustices) {
-				if(formerwardjuvenilejustice != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice target = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();
-					BeanUtils.copyProperties(formerwardjuvenilejustice, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, formerwardjuvenilejustice.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addFormerwardjuvenilejustice(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insert(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

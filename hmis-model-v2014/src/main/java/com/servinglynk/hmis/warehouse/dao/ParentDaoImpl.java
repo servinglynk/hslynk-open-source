@@ -3,30 +3,21 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
-import org.apache.hadoop.hbase.thrift2.generated.TIOError;
-import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.dialect.Dialect;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2014.Sync;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
@@ -85,6 +76,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 		baseModel.setActive(false);
 		baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
+		// Lets write a logic to update if a recored with that source system Id already exists.
+		peromSaveOrUpdate(baseModel);
 //		  if(i % batchSize() == 0 && i > 0) {
 //              getCurrentSession().flush();
 //              getCurrentSession().clear();
@@ -103,8 +96,30 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		insertOrUpdate(activity);
 		*/
 	}
-	protected abstract void performSave(THBaseService.Iface client, Object entity);
-	protected abstract List<T> performGet(THBaseService.Iface client, Object entity);
+	
+	protected void peromSaveOrUpdate(HmisBaseModel model) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(model.getClass());
+		//criteria.createAlias("export","export");
+		//criteria.add(Restrictions.eq("export.id",clientId));
+		criteria.add(Restrictions.eq("sourceSystemId",model.getSourceSystemId()));
+		List<HmisBaseModel> models = (List<HmisBaseModel>) findByCriteria(criteria);
+		if(CollectionUtils.isNotEmpty(models)) {
+			HmisBaseModel existingModel = models.get(0);
+			String[] excludedArgs = getNonCollectionFields(existingModel);
+			BeanUtils.copyProperties(model, existingModel,append(excludedArgs,"id"));
+			insertOrUpdate(existingModel);
+		}else{
+			insert(model);
+		}
+		
+	}
+	
+	private <String> String[] append(String[] arr, String element) {
+	    final int N = arr.length;
+	    arr = Arrays.copyOf(arr, N + 1);
+	    arr[N] = element;
+	    return arr;
+	}
 	
 	protected String[] getNonCollectionFields(Object obj) {
 		Field[] declaredFields = obj.getClass().getDeclaredFields();

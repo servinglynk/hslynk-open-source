@@ -87,51 +87,10 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				exportEntity.addHealthinsurance(healthinsuranceModel);
 				i++;
 				hydrateCommonFields(healthinsuranceModel, domain, healthInsurance.getHealthInsuranceID(),i);
-				insert(healthinsuranceModel);
 			}
 		}
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Healthinsurance> healthinsurances = export.getHealthinsurances();
-		hydrateBulkUploadActivity(healthinsurances, com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class.getSimpleName(), export,id);
-		if(healthinsurances !=null && !healthinsurances.isEmpty()) {
-			for(Healthinsurance healthinsurance : healthinsurances) {
-				com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance target = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();
-				BeanUtils.copyProperties(healthinsurance, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, healthinsurance.getEnrollmentid().getId());
-				target.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-				target.setExport(exportEntity);
-				exportEntity.addHealthinsurance(target);
-				target.setDateCreated(LocalDateTime.now());
-				target.setDateUpdated(LocalDateTime.now());
-				insertOrUpdate(target);
-			}
-		}
-		
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance createHealthInsurance(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance healthInsurance){
 	       healthInsurance.setId(UUID.randomUUID()); 
 	       insert(healthInsurance);

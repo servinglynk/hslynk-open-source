@@ -5,21 +5,15 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -58,50 +52,9 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				exportEntity.addSexualorientation(sexualorientationModel);
 				i++;
 				hydrateCommonFields(sexualorientationModel, domain,sexualOrientation.getSexualOrientationID(),i++);
-				insert(sexualorientationModel);
 			}
 		}
 
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Sexualorientation> sexualorientations = export.getSexualorientations();
-		hydrateBulkUploadActivity(sexualorientations,com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), export,id);
-		if(sexualorientations !=null && !sexualorientations.isEmpty()) {
-			for(Sexualorientation sexualorientation : sexualorientations) {
-				if(sexualorientation != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation target = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
-					BeanUtils.copyProperties(sexualorientation,target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, sexualorientation.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addSexualorientation(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){

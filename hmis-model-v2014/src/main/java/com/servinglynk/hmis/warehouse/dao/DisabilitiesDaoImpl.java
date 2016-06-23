@@ -6,21 +6,16 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
@@ -76,9 +71,8 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				
 				disabilitiesModel.setExport(exportEntity);
 				i++;
-				hydrateCommonFields(disabilitiesModel, domain, disabilities.getDisabilitiesID(),i);
 				exportEntity.addDisabilities(disabilitiesModel);
-				insert(disabilitiesModel);
+				hydrateCommonFields(disabilitiesModel, domain, disabilities.getDisabilitiesID(),i);
 			}
 			Collection<UUID> values = domain.getEnrollmentProjectEntryIDMap().values();
 			for(UUID enrollmentId : values) {
@@ -91,47 +85,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			}
 		}
 	}
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2014.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2014.Disabilities> disabilitieses = export.getDisabilitieses();
-		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), export,id);
-		if(disabilitieses !=null && !disabilitieses.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities : disabilitieses) {
-				com.servinglynk.hmis.warehouse.model.v2014.Disabilities target = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
-				BeanUtils.copyProperties(disabilities, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, disabilities.getEnrollmentid().getId());
-				 target.setEnrollmentid(enrollmentModel);
-				 com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-				 target.setExport(exportEntity);
-				 exportEntity.addDisabilities(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-				 insertOrUpdate(target);
-			}
-		}
 		
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities){
 	       disabilities.setId(UUID.randomUUID()); 
 	       insert(disabilities);

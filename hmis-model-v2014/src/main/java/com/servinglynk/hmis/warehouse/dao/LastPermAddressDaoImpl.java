@@ -64,50 +64,9 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				exportEntity.addLastPermAddress(lastPermAddressModel);
 				i++;
 				hydrateCommonFields(lastPermAddressModel, domain, lastPermanentAddress.getLastPermanentAddressID(),i);
-				insert(lastPermAddressModel);
 			}
 		}
 
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<LastPermAddress> lastPermAddresses = export.getLastPermAddresses();
-		hydrateBulkUploadActivity(lastPermAddresses, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), export,id);
-		if(lastPermAddresses != null) {
-			for(LastPermAddress lastPermAddress : lastPermAddresses) {
-				if(lastPermAddress != null) {
-					com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress target = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
-					BeanUtils.copyProperties(lastPermAddress,target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, lastPermAddress.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-					target.setExport(exportEntity);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					exportEntity.addLastPermAddress(target);
-					insertOrUpdate(target);
-				}
- 			}
-		}
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress createLastPermanentAddress(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermanentAddress){
 			       lastPermanentAddress.setId(UUID.randomUUID()); 

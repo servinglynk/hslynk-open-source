@@ -2,22 +2,17 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
@@ -48,49 +43,9 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				exportEntity.addDomesticviolence(domesticviolenceModel);
 				i++;
 				hydrateCommonFields(domesticviolenceModel, domain, domesticViolence.getDomesticViolenceID(),i);
-				insert(domesticviolenceModel);
 			}
 		}
 
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Domesticviolence> domesticviolences = export.getDomesticviolences();
-		hydrateBulkUploadActivity(domesticviolences, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), export,id);
-		if(domesticviolences != null && !domesticviolences.isEmpty()) {
-			for(Domesticviolence domesticviolence : domesticviolences) {
-				com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence target = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();
-				 BeanUtils.copyProperties(domesticviolence, target,getNonCollectionFields(target));
-				 com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, domesticviolence.getEnrollmentid().getId());
-				 target.setEnrollmentid(enrollmentModel);
-				 com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getId());
-				 target.setExport(exportEntity);
-				 exportEntity.addDomesticviolence(target);
-				 target.setDateCreated(LocalDateTime.now());
-				target.setDateUpdated(LocalDateTime.now());
-				 insertOrUpdate(target);
-			}
-		}
-		
-	}
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence createDomesticViolence(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolence){
