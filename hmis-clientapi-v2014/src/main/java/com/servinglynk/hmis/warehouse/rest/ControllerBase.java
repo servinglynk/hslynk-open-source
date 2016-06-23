@@ -10,7 +10,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.servinglynk.hmis.warehouse.core.model.Error;
 import com.servinglynk.hmis.warehouse.core.model.Errors;
@@ -56,6 +60,22 @@ public abstract class ControllerBase {
 		this.sessionHelper = sessionHelper;
 	}
 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public Errors processValidationError(MethodArgumentNotValidException ex,HttpServletRequest request,HttpServletResponse response) {
+		Errors errors = new Errors();
+		
+        BindingResult result = ex.getBindingResult();
+        List<FieldError> fieldErrors = result.getFieldErrors();
+        for(FieldError fieldError : fieldErrors){
+        	Error error = new Error();
+        	error.setMessage(fieldError.getDefaultMessage());
+        	errors.addError(error);
+        }
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return errors;
+    }
+	
 	@ExceptionHandler(Throwable.class)
 	private Errors handleException(Throwable t, HttpServletRequest request, HttpServletResponse response) {
 		

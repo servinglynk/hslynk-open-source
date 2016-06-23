@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.validation.constraints.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("client")
@@ -14,6 +16,7 @@ public class Client extends ClientModel {
 	private String lastName;
 	private String nameSuffix;
 	private Integer nameDataQuality;
+	@Pattern(regexp="(^\\d{3}-?\\d{2}-?\\d{4}$|^XXX-XX-XXXX$)",message="Invalid SSN. Valid format is XXX-XX-XXXX")
 	private String ssn;
 	private Integer ssnDataQuality;
 	private Date dob;
@@ -28,6 +31,7 @@ public class Client extends ClientModel {
 	private Integer gender;
 	private String otherGender;
 	private String veteranStatus;
+	private String sourceSystemId;
 	public UUID getClientId() {
 		return clientId;
 	}
@@ -147,5 +151,11 @@ public class Client extends ClientModel {
 	}
 	public void setVeteranStatus(String veteranStatus) {
 		this.veteranStatus = veteranStatus;
+	}	
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
 	}	
 }

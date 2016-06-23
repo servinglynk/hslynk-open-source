@@ -13,7 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.solr.analysis.LowerCaseTokenizerFactory;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.annotations.Analyze;
@@ -101,6 +99,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Set<Enrollment> enrollments = new HashSet<Enrollment>();
 
+	
 	/** Field mapping. */
 	private ClientVeteranStatusEnum veteranStatus;
 	/**
@@ -453,7 +452,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.ssn)
 	 */
 	@Basic( optional = true )
-	@Column( length = 9  )
+	@Column
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;
 		
@@ -574,6 +574,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		public void setEnrollments(final Set<Enrollment> enrollment) {
 			this.enrollments = enrollment;
 		}
+		
    /**
     * Deep copy.
 	* @return cloned object
@@ -608,6 +609,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			copy.getEnrollments().addAll(this.getEnrollments());
 		}
 		copy.setVeteranStatus(this.getVeteranStatus());
+		copy.setSourceSystemId(this.getSourceSystemId());
 		return copy;
 	}
 	
@@ -638,6 +640,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("ssn: " + this.getSsn() + ", ");
 		sb.append("ssnDataQuality: " + this.getSsnDataQuality() + ", ");
 		sb.append("veteranStatus: " + this.getVeteranStatus());
+		sb.append("sourceSystemId: "+this.getSourceSystemId());
 		return sb.toString();		
 	}
 
@@ -700,6 +703,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
 		result = result && (((getVeteranStatus() == null) && (that.getVeteranStatus() == null)) || (getVeteranStatus() != null && getVeteranStatus().equals(that.getVeteranStatus())));
+		result = result && (((getSourceSystemId() == null) && (that.getSourceSystemId() == null)) || (getSourceSystemId() != null && getSourceSystemId().equals(that.getSourceSystemId()))); 
 		return result;
 	}
 

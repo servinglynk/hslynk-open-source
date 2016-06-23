@@ -1151,7 +1151,7 @@ CREATE TABLE "v2014".client
   "last_name" character(50),
   "name_suffix" character(50),
   "name_data_quality" "v2014".name_data_quality,
-  "ssn" character(9),
+  "ssn" character(12),
   "ssn_data_quality" "v2014".ssn_data_quality,
   "dob" timestamp,
   "dob_data_quality" "v2014".dob_data_quality,

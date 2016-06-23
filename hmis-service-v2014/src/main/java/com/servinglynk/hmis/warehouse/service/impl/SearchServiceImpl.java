@@ -34,7 +34,7 @@ public class SearchServiceImpl
     sorting.setField(sort);
     searchVo.setSort(sorting);
     
-    searchVo.setDbfileds(new String[] { "firstName", "lastName", "middleName" });
+    searchVo.setDbfileds(new String[] { "firstName","lastName","middleName","sourceSystemId","ssn"});
     searchVo.setFreeText(freeText);
     searchVo.setSearchEntity(Client.class);
     
