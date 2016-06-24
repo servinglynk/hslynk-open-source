@@ -12,7 +12,7 @@ import java.util.zip.ZipFile;
 
 public class ExtractZipContents {
 
-	public static void main(String[] args) {
+	public void test() {
 
 		try {
 			URL path = ExtractZipContents.class.getResource("CSV_files.rar");

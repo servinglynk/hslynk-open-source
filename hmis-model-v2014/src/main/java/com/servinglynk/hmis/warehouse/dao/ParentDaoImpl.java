@@ -102,12 +102,13 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		//criteria.createAlias("export","export");
 		//criteria.add(Restrictions.eq("export.id",clientId));
 		criteria.add(Restrictions.eq("sourceSystemId",model.getSourceSystemId()));
+		criteria.add(Restrictions.eq("projectGroupCode",model.getProjectGroupCode()));
 		List<HmisBaseModel> models = (List<HmisBaseModel>) findByCriteria(criteria);
 		if(CollectionUtils.isNotEmpty(models)) {
 			HmisBaseModel existingModel = models.get(0);
 			String[] excludedArgs = getNonCollectionFields(existingModel);
 			BeanUtils.copyProperties(model, existingModel,append(excludedArgs,"id"));
-			insertOrUpdate(existingModel);
+			update(existingModel);
 		}else{
 			insert(model);
 		}

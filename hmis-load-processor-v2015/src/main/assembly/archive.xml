@@ -19,13 +19,13 @@
             <directory>${project.build.directory}</directory>
             <outputDirectory>/target/</outputDirectory>
             <includes>
-                <include>hmis-load-processor-v2014-0.0.2-SNAPSHOT.jar</include>
+                <include>hmis-load-processor-v2015-0.0.2-SNAPSHOT.jar</include>
             </includes>
         </fileSet>
     </fileSets>
     <files>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-processor-2014.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-processor-2015.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
     </files>

@@ -23,10 +23,10 @@
 	</parent>
 
 	<dependencies>
-	<dependency>
-        <groupId>com.googlecode.jcsv</groupId>
-        <artifactId>jcsv</artifactId>
-        <version>1.4.0</version>
+		<dependency>
+			<groupId>com.googlecode.jcsv</groupId>
+			<artifactId>jcsv</artifactId>
+			<version>1.4.0</version>
 		</dependency>
 			<dependency>
 			    <groupId>org.apache.solr</groupId>
@@ -98,18 +98,19 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 		</dependency>
-	<dependency>
-		<groupId>org.apache.poi</groupId>
-		<artifactId>poi</artifactId>
-		<version>3.12-beta1</version>
-	</dependency>
-<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.3-1101-jdbc41</version>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12-beta1</version>
 		</dependency>
-		</dependencies>
-<build>
+		<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.3-1101-jdbc41</version>
+		</dependency>
+	</dependencies>
+
+    <build>
 	<sourceDirectory>src/main/java</sourceDirectory>
 	<resources>
 		<resource>
@@ -143,7 +144,6 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-		
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -156,28 +156,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-antrun-plugin</artifactId>
-    <executions>
-     <execution>
-      <phase>package</phase>
-      <goals>
-       <goal>run</goal>
-      </goals>
-      <configuration>
-       <tasks>
-        <chmod file="${basedir}/target/temp_build/bin/main-processor.sh"
-            perm="ugo+rx"/>
-        <chmod file="${basedir}/target/temp_build/bin/main-processor.bat"
-            perm="ugo+rx"/>
-        <chmod file="${basedir}/src/main/scripts/start-processor.sh"
-            perm="ugo+rx"/>
-       </tasks>
-      </configuration>
-     </execution>
-    </executions>
-   </plugin>
+
 			<!-- executable part -->
 
 
@@ -222,7 +201,7 @@
 								<transformer
 										implementaton="org.springframework.boot"
 										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
+									<mainClass>com.servinglynk.hmis.warehouse.upload.com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
@@ -238,8 +217,8 @@
 
 					<programs>
 						<program>
-							<mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
-							<name>main-processor.sh</name>
+							<mainClass>com.servinglynk.hmis.warehouse.upload.com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
+							<name>main-processor-2014.sh</name>
 						</program>
 					</programs>
 
@@ -262,7 +241,28 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<chmod file="${basedir}/target/temp_build/bin/main-processor-2014.sh"
+									   perm="ugo+rx"/>
+								<chmod file="${basedir}/target/temp_build/bin/main-processor-2014.bat"
+									   perm="ugo+rx"/>
+								<chmod file="${basedir}/src/main/scripts/start-processor-2014.sh"
+									   perm="ugo+rx"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
