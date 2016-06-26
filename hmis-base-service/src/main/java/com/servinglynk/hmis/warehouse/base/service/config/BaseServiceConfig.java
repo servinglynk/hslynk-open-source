@@ -18,8 +18,8 @@ import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChe
 import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
-import com.servinglynk.hmis.warehouse.base.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
@@ -58,13 +58,7 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	public LocalApiAuthChecker apiAuthChecker(){
 		return new LocalApiAuthChecker();
 	}
-	
-	@Bean
-	public ClientServiceImpl hmisClientService(){
-		return new ClientServiceImpl();
-	}
-	
-	 @Override
+		 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(apiAuthCheckInterceptor());
 	    }
@@ -188,5 +182,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public BulkUploadService bulkUploadService() {
 		 return new BulkUploadServiceImpl();
+	 }
+	 
+	 @Bean
+	 public BaseSearchServiceImpl baseSearchService(){
+		 return new BaseSearchServiceImpl();
 	 }
 }

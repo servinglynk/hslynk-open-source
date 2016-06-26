@@ -13,8 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.solr.analysis.LowerCaseTokenizerFactory;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TokenizerDef;
 
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -33,6 +42,8 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
  */
 @Entity
 @Table(name = "client", catalog = "hmis", schema = "base")
+@Indexed
+@AnalyzerDef(name="baseClientAnalyzer", tokenizer=@TokenizerDef(factory=LowerCaseTokenizerFactory.class))
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -78,6 +89,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private ClientVeteranStatusEnum veteranStatus;
 	private LocalDateTime dob;
+	private String sourceSystemId;
+	private String schemaYear;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -196,6 +209,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "first_name", length = 50  )
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="baseClientAnalyzer"))
 	public String getFirstName() {
 		return this.firstName;
 
@@ -269,6 +283,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "last_name", length = 50  )
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="baseClientAnalyzer"))
 	public String getLastName() {
 		return this.lastName;
 
@@ -290,6 +305,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "middle_name", length = 50  )
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="baseClientAnalyzer"))
 	public String getMiddleName() {
 		return this.middleName;
 
@@ -396,7 +412,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A String object (this.ssn)
 	 */
 	@Basic( optional = true )
-	@Column( length = 9  )
+	@Column
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="baseClientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;
 
@@ -457,8 +474,25 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		this.veteranStatus = veteranStatus;
 	}
 
+	@Column(name="source_system_id")
+	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="baseClientAnalyzer"))
+   public String getSourceSystemId() {
+		return sourceSystemId;
+	}
 
-   /**
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}
+	@Column(name="schema_year")
+	public String getSchemaYear() {
+		return schemaYear;
+	}
+
+	public void setSchemaYear(String schemaYear) {
+		this.schemaYear = schemaYear;
+	}
+
+/**
     * Deep copy.
 	* @return cloned object
 	* @throws CloneNotSupportedException on error
