@@ -47,6 +47,12 @@ public class SearchController
 	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems);
 	  }
   
+  @RequestMapping(method=RequestMethod.POST, value="/searchall/index")
+  @APIMapping(value="CLIENT_API_INDEX", checkSessionToken=false, checkTrustedApp=false)
+  public void baseIndexing()
+  {
+    this.serviceFactory.getBaseSearchService().indexing();
+  }
   
   @RequestMapping(method=RequestMethod.POST, value="/search/index")
   @APIMapping(value="CLIENT_API_INDEX", checkSessionToken=false, checkTrustedApp=false)
