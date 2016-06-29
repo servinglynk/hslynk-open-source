@@ -1157,6 +1157,8 @@ CREATE TABLE "base".client
   export_id uuid,
   parent_id uuid,
   version integer,
+  schema_year character varying(10),
+  source_system_id character varying(50),
   deleted boolean DEFAULT false, 
   sync boolean DEFAULT false,
   CONSTRAINT client_pk PRIMARY KEY ("id")
@@ -1215,6 +1217,11 @@ ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (pro
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES base.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROJECT_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES base.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 update base.hmis_user set two_factor_authentication =false;
+
+create index idx_client_sourcesystemid on base.client(source_system_id);
+create index idx_client_ssn on base.client(ssn);
+create index idx_lastname on base.client(first_name);
+create index idx_lastname on base.client(last_name);
 
 INSERT INTO base.hmis_project_group(
             id, project_group_name, project_group_desc, project_group_code,is_project_group_in_hive,

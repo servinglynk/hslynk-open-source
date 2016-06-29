@@ -76,7 +76,7 @@ public class ClientConverter {
 	    if(pClient.getId()!=null)
 		client.setClientId(pClient.getId());
 	    if(pClient.getSchemaYear()!=null)
-	    		client.setLink("/hmis-clientapi/v"+pClient.getSchemaYear()+"/rest/clients/"+pClient.getId());
+	    		client.setLink("/hmis-clientapi/rest/v"+pClient.getSchemaYear()+"/clients/"+pClient.getId());
 //		copyBeanProperties(pClient,client);
 	return client;
 	}

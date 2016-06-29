@@ -44,7 +44,7 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	    pagination.setSort(sorting);
 	    searchVo.setPagination(pagination);
 	    
-	    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo);
+	    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo,false);
 	    
 	    BaseClients clients = new BaseClients();
 	    for (Client pClient : searchItems) {
