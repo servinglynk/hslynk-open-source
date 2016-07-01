@@ -15235,7 +15235,7 @@ public class Sources {
                 @XmlElement(name = "DateProvided" , required = true)
                 protected XMLGregorianCalendar dateProvided;
                 @XmlElement(name = "RecordType" )
-                protected byte recordType;
+                protected String recordType;
                 @XmlElement(name = "TypeProvided" )
                 protected byte typeProvided;
                 @XmlElement(name = "OtherTypeProvided" , required = true)
@@ -15329,7 +15329,7 @@ public class Sources {
                  * Gets the value of the recordType property.
                  * 
                  */
-                public byte getRecordType() {
+                public String getRecordType() {
                     return recordType;
                 }
 
@@ -15337,7 +15337,7 @@ public class Sources {
                  * Sets the value of the recordType property.
                  * 
                  */
-                public void setRecordType(byte value) {
+                public void setRecordType(String value) {
                     this.recordType = value;
                 }
 

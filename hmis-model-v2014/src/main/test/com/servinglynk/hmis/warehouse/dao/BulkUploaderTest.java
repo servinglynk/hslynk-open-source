@@ -48,10 +48,10 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception
 	{
-		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath(path.getPath());
-		bullkUpload.setId(7L);
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
+		bullkUpload.setId(3L);
 		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");

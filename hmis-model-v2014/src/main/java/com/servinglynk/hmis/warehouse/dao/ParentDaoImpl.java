@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
@@ -57,62 +58,37 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	public void hydrateCommonFields(HmisBaseModel baseModel,com.servinglynk.hmis.warehouse.model.base.HmisUser user) {
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		baseModel.setProjectGroupCode( projectGroupEntity !=null ? projectGroupEntity.getProjectGroupCode(): "PG0001");
-//		BulkUploadActivity activity = new BulkUploadActivity();
-//	//	activity.setBulkUpload(domain.getUpload());
-//		activity.setDateCreated(LocalDateTime.now());
-//		activity.setDateUpdated(LocalDateTime.now());
-//		activity.setTableName(baseModel.getClass().getSimpleName());
-//		activity.setDeleted(false);
-//	//	activity.setUser(user);
-//		activity.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
-//		//activity.setExport(domain.getExport());
-//		activity.setRecordsProcessed(1L);
-//		activity.setDescription("Saving "+baseModel.getClass().getSimpleName() +" to staging" );
-//		insertOrUpdate(activity);
-		
 	}
 	public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,int i) {
 		String projectGroupCode = domain.getUpload().getProjectGroupCode();
 		baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 		baseModel.setActive(false);
 		baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
+		peromSaveOrUpdate(baseModel, true);
 		// Lets write a logic to update if a recored with that source system Id already exists.
-		peromSaveOrUpdate(baseModel);
 //		  if(i % batchSize() == 0 && i > 0) {
 //              getCurrentSession().flush();
 //              getCurrentSession().clear();
 //          }
-	/*	BulkUploadActivity activity = new BulkUploadActivity();
-		activity.setBulkUpload(domain.getUpload());
-		activity.setDateCreated(LocalDateTime.now());
-		activity.setDateUpdated(LocalDateTime.now());
-		activity.setTableName(baseModel.getClass().getSimpleName());
-		activity.setDeleted(false);
-		activity.setUser(domain.getUpload().getUser());
-		activity.setProjectGroupCode(projectGroupCode);
-		//activity.setExport(domain.getExport());
-		activity.setRecordsProcessed(1L);
-		activity.setDescription("Saving "+baseModel.getClass().getSimpleName() +" to staging" );
-		insertOrUpdate(activity);
-		*/
 	}
-	
-	protected void peromSaveOrUpdate(HmisBaseModel model) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(model.getClass());
+	protected HmisBaseModel getModel(HmisBaseModel model) {
+		Criteria criteria = getCurrentSession().createCriteria(model.getClass());
 		//criteria.createAlias("export","export");
 		//criteria.add(Restrictions.eq("export.id",clientId));
 		criteria.add(Restrictions.eq("sourceSystemId",model.getSourceSystemId()));
 		criteria.add(Restrictions.eq("projectGroupCode",model.getProjectGroupCode()));
-		List<HmisBaseModel> models = (List<HmisBaseModel>) findByCriteria(criteria);
+		List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
 		if(CollectionUtils.isNotEmpty(models)) {
-			HmisBaseModel existingModel = models.get(0);
-			String[] excludedArgs = getNonCollectionFields(existingModel);
-			BeanUtils.copyProperties(model, existingModel,append(excludedArgs,"id"));
-			update(existingModel);
+			return models.get(0);
+		}
+		return null;
+	}
+	protected void peromSaveOrUpdate(HmisBaseModel model,boolean isInsert) {
+		if(!isInsert) {
+			getCurrentSession().update(model);
 		}else{
 			insert(model);
 		}
-		
 	}
 	
 	private <String> String[] append(String[] arr, String element) {

@@ -45,9 +45,9 @@ public class BulkUploadHelperTest1 {
 
 	@Test
 	public void testCVSUpload() {
-		URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
+		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
-		upload.setInputpath(path.getPath());
+		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
 		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp);

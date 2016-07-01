@@ -1,3 +1,4 @@
+
 package com.servinglynk.hmis.warehouse.dao.helper;
 
 import java.io.BufferedReader;
@@ -215,7 +216,7 @@ public class BulkUploadHelper {
 		                new InputStreamReader(zf.getInputStream(ze)));
 		            
 		            switch(ze.getName()) {
-		            	case "Client.csv":
+		             	case "Client.csv":
 		            		hydradeClient(csvFile, sources);
 		            		break;
 		            	case "Disabilities.csv":
@@ -295,7 +296,9 @@ public class BulkUploadHelper {
 	    	  for(Client client : clients) {
 	    		   com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client clientModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client();
 	    		   clientModel.setEthnicity(getByte(client.getEthnicity()));
-	    		   clientModel.setDOB(getXMLGregorianCalendar(client.getDob()));
+	    		   if(client.getDob() !=null) {
+	    			   clientModel.setDOB(getXMLGregorianCalendar(client.getDob()));
+	    		   }
 	    		   clientModel.setDOBDataQuality(getByte(client.getDobDataQuality()));
 	    		   clientModel.setFirstName(client.getFirstName());
 	    		   clientModel.setLastName(client.getLastName());
@@ -1273,7 +1276,7 @@ public class BulkUploadHelper {
 	    	  }
 	    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
 	    	  servicesModel.setProjectEntryID(srvcs.getProjectEntryID());
-	    	  servicesModel.setRecordType(getByte(srvcs.getRecordType()));
+	    	  servicesModel.setRecordType(srvcs.getRecordType());
 	    	  servicesModel.setReferralOutcome(getByte(srvcs.getReferralOutcome()));
 	    	  servicesModel.setServicesID(srvcs.getServicesID());
 	    	  servicesModel.setSubTypeProvided(getByte(srvcs.getSubTypeProvided()));
@@ -1341,7 +1344,7 @@ public class BulkUploadHelper {
 	  }
 	  protected byte getByte(String value) {
 		  if(value !=null && !"".equals(value)) {
-			  return Byte.valueOf(value);
+			  return Byte.parseByte(value);
 		  }
 		  return 0;
 	  }
@@ -1363,11 +1366,15 @@ public class BulkUploadHelper {
 		  }
 		  
 		  GregorianCalendar cal = new GregorianCalendar();
-
-		  cal.setTime(dob);
+		  if(dob !=null) {
+			  cal.setTime(dob);  
+		  }
+		  
 		  XMLGregorianCalendar xmlDate2=null;
 		try {
-			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
+			if(dob !=null) {
+				xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
+			}
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

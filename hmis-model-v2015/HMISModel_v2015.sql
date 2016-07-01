@@ -2011,7 +2011,7 @@ create table "v2015".coc
    deleted boolean DEFAULT false,active boolean DEFAULT true, 
    sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2015.expinort (id) MATCH SIMPLE
+      REFERENCES v2015.export_id (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   constraint "coc_pkey" primary key (id),
   constraint "coc_projectid_fkey" foreign key (projectid)

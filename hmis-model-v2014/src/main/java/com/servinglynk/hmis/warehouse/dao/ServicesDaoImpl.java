@@ -42,7 +42,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				servicesModel.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
 				servicesModel.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
 				servicesModel.setOthertypeprovided(services.getOtherTypeProvided());
-				servicesModel.setRecordtype(ServicesRecordtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getRecordType())));
+				servicesModel.setRecordtype(ServicesRecordtypeEnum.lookupEnum(services.getRecordType()));
 				servicesModel.setReferraloutcome(ServicesReferraloutcomeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getReferralOutcome())));
 				servicesModel.setSubtypeprovided(BasicDataGenerator.getIntegerValue(services.getSubTypeProvided()));
 				servicesModel.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
