@@ -122,8 +122,8 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		properties.put("databasePlatform", "PostgreSQLDialectUuid");
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
-	    properties.put("hibernate.search.default.directory_provider", "filesystem");
-        properties.put("hibernate.search.default.indexBase", this.env.getRequiredProperty(SOLR_SEARCH_INDEXING_LOCATION));
+	//    properties.put("hibernate.search.default.directory_provider", "filesystem");
+     //   properties.put("hibernate.search.default.indexBase", this.env.getRequiredProperty(SOLR_SEARCH_INDEXING_LOCATION));
 		return properties;	
 	}
 	
