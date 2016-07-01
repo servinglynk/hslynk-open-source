@@ -7,17 +7,18 @@ import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
-import com.servinglynk.hmis.warehouse.base.service.ClientService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
+import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
+import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 
 @Component
 public class BaseServiceFactoryImpl  implements BaseServiceFactory {
@@ -60,10 +61,10 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	private PermissionSetService permissionSetService;
 	
 	@Autowired
-	private ClientService hmisClientService;
+	private BulkUploadService bulkUploadService;
 	
 	@Autowired
-	private BulkUploadService bulkUploadService;
+	private SearchService baseSearchService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -173,15 +174,6 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setProjectGroupService(ProjectGroupService projectGroupService) {
 		this.projectGroupService = projectGroupService;
 	}
-
-	public ClientService getHmisClientService() {
-		return hmisClientService;
-	}
-
-	public void setHmisClientService(ClientService hmisClientService) {
-		this.hmisClientService = hmisClientService;
-	}
-
 	public BulkUploadService getBulkUploadService() {
 		return bulkUploadService;
 	}
@@ -189,5 +181,12 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setBulkUploadService(BulkUploadService bulkUploadService) {
 		this.bulkUploadService = bulkUploadService;
 	}
-	
+
+	public SearchService getBaseSearchService() {
+		return baseSearchService;
+	}
+
+	public void setBaseSearchService(SearchService baseSearchService) {
+		this.baseSearchService = baseSearchService;
+	}
 }

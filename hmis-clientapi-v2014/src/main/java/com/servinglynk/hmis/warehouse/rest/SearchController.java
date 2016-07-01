@@ -10,11 +10,10 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 
 @RestController
-@RequestMapping("/search")
 public class SearchController
   extends ControllerBase
 {
-  @RequestMapping(method=RequestMethod.GET,value="/{searchentity}")
+  @RequestMapping(method=RequestMethod.GET,value="/search/{searchentity}")
   @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
   public SearchResults searchClients(
 		  @PathVariable("searchentity") String searchentity,
@@ -31,7 +30,31 @@ public class SearchController
     return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems);
   }
   
-  @RequestMapping(method=RequestMethod.POST, value="/index")
+  @RequestMapping(method=RequestMethod.GET,value="/searchall/{searchentity}")
+  @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
+	  public SearchResults baseSearch( @PathVariable("searchentity") String searchentity,
+			  @RequestParam(value="q", required=true) String searchterm, 
+			  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, 
+			  @RequestParam(value="startIndex", required=false) Integer startIndex, @RequestParam(value="maxItems", required=false) Integer maxItems)
+					  	throws Exception
+					  {
+					    if (startIndex == null) {
+					      startIndex = Integer.valueOf(0);
+					    }
+					    if (maxItems == null || maxItems >50 ) {
+					      maxItems = Integer.valueOf(50);
+					    }
+	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems);
+	  }
+  
+  @RequestMapping(method=RequestMethod.POST, value="/searchall/index")
+  @APIMapping(value="CLIENT_API_INDEX", checkSessionToken=false, checkTrustedApp=false)
+  public void baseIndexing()
+  {
+    this.serviceFactory.getBaseSearchService().indexing();
+  }
+  
+  @RequestMapping(method=RequestMethod.POST, value="/search/index")
   @APIMapping(value="CLIENT_API_INDEX", checkSessionToken=false, checkTrustedApp=false)
   public void indexing()
   {

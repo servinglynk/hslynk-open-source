@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.base.service.converter;
 import java.time.ZoneId;
 import java.util.Date;
 
-import com.servinglynk.hmis.warehouse.core.model.Client;
+import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
@@ -13,7 +13,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 
 public class ClientConverter {
 
-	public static com.servinglynk.hmis.warehouse.model.base.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.base.Client pClient){
+	public static com.servinglynk.hmis.warehouse.model.base.Client modelToEntity(BaseClient client,com.servinglynk.hmis.warehouse.model.base.Client pClient){
 		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.base.Client(); 
 	    if(client.getDob()!=null)
 		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
@@ -45,8 +45,8 @@ public class ClientConverter {
 		return pClient;
 	}
 	
-	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.base.Client pClient){
-		Client client = new Client();
+	public static BaseClient entityToModel(com.servinglynk.hmis.warehouse.model.base.Client pClient){
+		BaseClient client = new BaseClient();
 	    if(pClient.getDob()!=null)
 		client.setDob(Date.from(pClient.getDob().atZone(ZoneId.systemDefault()).toInstant()));
 	    if(pClient.getDobDataQuality()!=null)
@@ -75,7 +75,8 @@ public class ClientConverter {
 		client.setSsnDataQuality(Integer.parseInt(pClient.getSsnDataQuality().getValue()));
 	    if(pClient.getId()!=null)
 		client.setClientId(pClient.getId());
-
+	    if(pClient.getSchemaYear()!=null)
+	    		client.setLink("/hmis-clientapi/rest/v"+pClient.getSchemaYear()+"/clients/"+pClient.getId());
 //		copyBeanProperties(pClient,client);
 	return client;
 	}

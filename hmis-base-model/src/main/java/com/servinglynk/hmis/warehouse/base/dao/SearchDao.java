@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface SearchDao
 {
-  public abstract List<?> search(SearchRequest paramSearchRequest);
+  public List<?> search(SearchRequest searchVO,boolean isIndexSearch);
   
   public abstract boolean indexing(String indexClassList);
 }

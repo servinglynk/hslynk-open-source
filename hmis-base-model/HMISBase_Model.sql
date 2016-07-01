@@ -409,6 +409,7 @@ INSERT INTO base.hmis_api_method VALUES ('659ebd34-999a-4611-ab9f-966ef8822a29',
 INSERT INTO base.hmis_api_method VALUES ('b04e67bf-9729-443a-aa27-6fa228c7be6b', 'ACL_CREATE_USER_ROLE', 'ACL_CREATE_USER_ROLE', 'ACL_CREATE_USER_ROLE', 'POST', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '38c0c9b6-e73c-6de8-4c69-b0d0e7a454be', 0, NULL, NULL, NULL, true, true);
 INSERT INTO base.hmis_api_method VALUES ('d61b2d9e-bfd4-4b02-9a6f-d6884f502539', 'ACL_UPDATE_USER_ROLE', 'ACL_UPDATE_USER_ROLE', 'ACL_UPDATE_USER_ROLE', 'PUT', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '38c0c9b6-e73c-6de8-4c69-b0d0e7a454be', 0, NULL, NULL, NULL, true, true);
 INSERT INTO base.hmis_api_method VALUES ('1264d1d4-0fe4-4f29-a3bc-62102f420a11', 'USR_CREATE_ACCOUNT', 'USR_CREATE_ACCOUNT', 'USR_CREATE_ACCOUNT', 'POST', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
+INSERT INTO base.hmis_api_method VALUES ((SELECT uuid_in(md5(random()::text || now()::text)::cstring)), 'USR_GET_ALL_PROJECTGROUP', 'USR_GET_ALL_PROJECTGROUP', 'USR_GET_ALL_PROJECTGROUP', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
 INSERT INTO base.hmis_api_method VALUES ('c1befc78-01b0-4de9-8ac9-eb34a9c78bb0', 'USR_GET_ACCOUNT_EMAIL_ADDRESS', 'USR_GET_ACCOUNT_EMAIL_ADDRESS', 'USR_GET_ACCOUNT_EMAIL_ADDRESS', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
 INSERT INTO base.hmis_api_method VALUES ('0e17ff09-8ab1-4913-9dde-0552193fcbf6', 'USR_GET_ACCOUNT_BASIC_INFO', 'USR_GET_ACCOUNT_BASIC_INFO', 'USR_GET_ACCOUNT_BASIC_INFO', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
 INSERT INTO base.hmis_api_method VALUES ('e0ca45cc-33e3-4e9d-b5f9-537d4b88c459', 'USR_GET_AUTHORIZED_TRUSTEDAPPS', 'USR_GET_AUTHORIZED_TRUSTEDAPPS', 'USR_GET_AUTHORIZED_TRUSTEDAPPS', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
@@ -1157,6 +1158,8 @@ CREATE TABLE "base".client
   export_id uuid,
   parent_id uuid,
   version integer,
+  schema_year character varying(10),
+  source_system_id character varying(50),
   deleted boolean DEFAULT false, 
   sync boolean DEFAULT false,
   CONSTRAINT client_pk PRIMARY KEY ("id")
@@ -1215,6 +1218,11 @@ ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROFILE_ID" FOREIGN KEY (pro
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_VERIFICATION_ID" FOREIGN KEY (verification_id) REFERENCES base.hmis_verification (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE  base.hmis_user ADD CONSTRAINT "FK_USER_PROJECT_GROUP_ID" FOREIGN KEY (project_group_id) REFERENCES base.hmis_project_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 update base.hmis_user set two_factor_authentication =false;
+
+create index idx_client_sourcesystemid on base.client(source_system_id);
+create index idx_client_ssn on base.client(ssn);
+create index idx_lastname on base.client(first_name);
+create index idx_lastname on base.client(last_name);
 
 INSERT INTO base.hmis_project_group(
             id, project_group_name, project_group_desc, project_group_code,is_project_group_in_hive,

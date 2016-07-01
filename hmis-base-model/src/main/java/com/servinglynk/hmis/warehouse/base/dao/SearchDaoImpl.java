@@ -1,6 +1,17 @@
 package com.servinglynk.hmis.warehouse.base.dao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
@@ -9,6 +20,11 @@ import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -16,6 +32,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermMatchingContext;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
+import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class SearchDaoImpl
   extends QueryExecutorImpl
@@ -58,6 +75,54 @@ public class SearchDaoImpl
       }
     }
     return hibernateQuery.list();
+  }
+  
+  
+  public List<?> search(SearchRequest searchVO,boolean isIndexSearch){
+	  if(isIndexSearch){
+		  return this.search(searchVO);
+	  }else{
+		  return this.searchData(searchVO);
+	  }
+  }
+  
+  
+  public List<?> searchData(SearchRequest searchRequest){
+	  
+	  Pattern pattern = Pattern.compile("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
+	  Matcher matcher = pattern.matcher(searchRequest.getFreeText());
+	  
+	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+	  
+	  if(!matcher.matches()) {
+			  Criterion firstName = Restrictions.like("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion lastName = Restrictions.like("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion middleName = Restrictions.like("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion sourceSystemId = Restrictions.like("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion ssn = Restrictions.like("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  
+			  criteria.add(Restrictions.or(firstName,lastName,middleName,sourceSystemId,ssn));
+	  }else{
+		  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		  Date date=null;
+		try {
+			date = formatter.parse(searchRequest.getFreeText());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(" "+date);
+		System.out.println("  "+LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
+		  criteria.add(Restrictions.eq("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
+	  }
+	  searchRequest.getPagination().setTotal((int) countRows(criteria));
+	  
+	  if(searchRequest.getSort().getOrder().equals("asc"))
+		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
+	  else
+		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
+	  
+	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
   
   public boolean indexing(String indexClassList)

@@ -6,5 +6,5 @@ public abstract interface SearchService
 {
   public  void indexing();
   
-  public  SearchResults performSearch(String paramString1, String paramString2, String paramString3, Integer paramInteger1, Integer paramInteger2);
+  public  SearchResults performSearch(String freeText, String sort, String order, Integer startIndex, Integer maxItems);
 }

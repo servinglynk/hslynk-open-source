@@ -44,7 +44,7 @@ public class SearchServiceImpl
     pagination.setSort(sorting);
     searchVo.setPagination(pagination);
     
-    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo);
+    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo,true);
     
     Clients clients = new Clients();
     for (Client pClient : searchItems) {
