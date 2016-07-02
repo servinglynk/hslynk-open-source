@@ -220,7 +220,7 @@ public class Export extends HmisBaseModel  implements Cloneable, Serializable {
 	 * @return A Set&lt;Organization&gt; object (this.organization)
 	 */
 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@Basic( optional = false )
 	@Column( nullable = false  )
 	public Set<Organization> getOrganizations() {

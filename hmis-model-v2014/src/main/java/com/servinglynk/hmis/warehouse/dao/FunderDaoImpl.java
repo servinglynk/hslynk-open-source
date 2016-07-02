@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -47,9 +48,14 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				funderModel.setDateUpdated(LocalDateTime.now());
 				funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
 				funderModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
-				Project project = (Project) get(Project.class,domain.getAffiliationProjectMap().get(funder.getProjectID()));
-				funderModel.setExport(exportEntity);
-				funderModel.setProjectid(project);
+				if(StringUtils.isNotBlank(funder.getProjectID())) {
+					UUID uuid = domain.getAffiliationProjectMap().get(funder.getProjectID());
+					if(uuid != null ) {
+						Project project = (Project) get(Project.class,uuid);
+						funderModel.setExport(exportEntity);
+						funderModel.setProjectid(project);
+					}
+				}
 				i++;
 				exportEntity.addFunder(funderModel);
 				hydrateCommonFields(funderModel, domain, funder.getFunderID(),i);

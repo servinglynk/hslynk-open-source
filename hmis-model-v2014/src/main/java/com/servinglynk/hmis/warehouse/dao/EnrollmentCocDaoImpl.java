@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,9 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		EnrollmentCocDao {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(EnrollmentDaoImpl.class);
 	@Autowired
 	private ParentDaoFactory factory;
 
@@ -50,8 +56,15 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				enrollmentCocModel.setExport(exportEntity);
 				enrollmentCocModel.setDateCreated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
 				enrollmentCocModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(enrollmentCoc.getProjectEntryID()));
-				enrollmentCocModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(enrollmentCoc.getProjectEntryID())) {
+					UUID id = domain.getEnrollmentProjectEntryIDMap().get(enrollmentCoc.getProjectEntryID());
+					if(id != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,id);
+						enrollmentCocModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("EnrollmentCoc : A match was not found for Project EntryID:{}",enrollmentCoc.getProjectEntryID());
+					}
+				}
 				UUID projectCocId = domain.getProjectCocMap().get(enrollmentCoc.getProjectCoCID());
 				if(projectCocId !=null) {
 					Projectcoc projectCoc = (Projectcoc) get(Projectcoc.class,projectCocId);
