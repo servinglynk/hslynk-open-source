@@ -6660,7 +6660,7 @@ public class Sources {
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
-                protected Short userID;
+                protected String userID;
 
                 /**
                  * Gets the value of the entrySSVFID property.
@@ -6926,7 +6926,7 @@ public class Sources {
                  *     {@link Short }
                  *     
                  */
-                public Short getUserID() {
+                public String getUserID() {
                     return userID;
                 }
 
@@ -6938,7 +6938,7 @@ public class Sources {
                  *     {@link Short }
                  *     
                  */
-                public void setUserID(Short value) {
+                public void setUserID(String value) {
                     this.userID = value;
                 }
 
