@@ -7,8 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ReferralSource;
@@ -23,6 +26,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		ReferralsourceDao {
+	private static final Logger logger = LoggerFactory
+			.getLogger(ReferralsourceDaoImpl.class);
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -45,9 +50,15 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 				referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
 				referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
 				referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
-				
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(referralSource.getProjectEntryID()));
-				referralsourceModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(referralSource.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(referralSource.getProjectEntryID());
+					if(uuid != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid);
+						referralsourceModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("ReferralSource : A match was not found for Project EntryID:{}",referralSource.getProjectEntryID());
+					}
+				}
 				referralsourceModel.setExport(exportEntity);
 				exportEntity.addReferralsource(referralsourceModel);
 				i++;

@@ -7,8 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
@@ -23,6 +26,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		SexualorientationDao {
+	private static final Logger logger = LoggerFactory
+			.getLogger(SexualorientationDaoImpl.class);
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -45,9 +50,15 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				sexualorientationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
 				sexualorientationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
 				sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
-				
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID()));
-				sexualorientationModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(sexualOrientation.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID());
+					if(uuid != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,id);
+						sexualorientationModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("SexualOrientation : A match was not found for Project EntryID:{}",sexualOrientation.getProjectEntryID());
+					}
+				}
 				sexualorientationModel.setExport(exportEntity);
 				exportEntity.addSexualorientation(sexualorientationModel);
 				i++;

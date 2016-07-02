@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -57,9 +58,14 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				lastPermAddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
 				lastPermAddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());
 				lastPermAddressModel.setZip(String.valueOf(lastPermanentAddress.getLastPermanentZIP()));
-				
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(lastPermanentAddress.getProjectEntryID()));
-				lastPermAddressModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(lastPermanentAddress.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((lastPermanentAddress.getProjectEntryID()));
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						lastPermAddressModel.setEnrollmentid(enrollmentModel);
+					}
+						
+				}
 				lastPermAddressModel.setExport(exportEntity);
 				exportEntity.addLastPermAddress(lastPermAddressModel);
 				i++;

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -51,9 +52,14 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
 				medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
 				medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
-				
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(medicalAssistance.getProjectEntryID()));
-				medicalassistanceModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(medicalAssistance.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((medicalAssistance.getProjectEntryID()));
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						medicalassistanceModel.setEnrollmentid(enrollmentModel);
+					}
+						
+				}
 				medicalassistanceModel.setExport(exportEntity);
 				exportEntity.addMedicalassistance(medicalassistanceModel);
 				i++;

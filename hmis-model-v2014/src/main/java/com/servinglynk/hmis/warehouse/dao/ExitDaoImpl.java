@@ -28,14 +28,6 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	@Autowired
 	private ParentDaoFactory factory;
 	
-
-	public List<com.servinglynk.hmis.warehouse.model.v2014.Exit> findUnProcessedUploads(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Exit.class);
-		query.add(Restrictions.eq("dateCreated", new Date())); 
-		List<com.servinglynk.hmis.warehouse.model.v2014.Exit> list = (List<com.servinglynk.hmis.warehouse.model.v2014.Exit>) findByCriteria(query);
-		return list;
-	}
-
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
@@ -68,9 +60,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
 					exitModel.setEnrollmentid(enrollmentModel);
 				}
-					
 			}
-			
 				exitModel.setExport(exportEntity);
 				exportEntity.addExit(exitModel);
 				hydrateCommonFields(exitModel, domain, exit.getExitID(),i);

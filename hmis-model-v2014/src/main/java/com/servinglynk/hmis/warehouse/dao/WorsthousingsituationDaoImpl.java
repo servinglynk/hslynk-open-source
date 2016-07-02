@@ -7,8 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
@@ -23,7 +26,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		WorsthousingsituationDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(WorsthousingsituationDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
@@ -46,8 +50,15 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 				worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
 				worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
 				worsthousingsituationModel.setExport(exportEntity);
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID()));
-				worsthousingsituationModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(worstHousingSituation.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID());
+					if(uuid != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid);
+						worsthousingsituationModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("Worsthousingsituation : A match was not found for Project EntryID:{}",worstHousingSituation.getProjectEntryID());
+					}
+				}
 				exportEntity.addWorsthousingsituation(worsthousingsituationModel);
 				i++;
 				hydrateCommonFields(worsthousingsituationModel, domain, worstHousingSituation.getWorstHousingSituationID(),i);

@@ -33,7 +33,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		EnrollmentCocDao {
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(EnrollmentDaoImpl.class);
+			.getLogger(EnrollmentCocDaoImpl.class);
 	@Autowired
 	private ParentDaoFactory factory;
 

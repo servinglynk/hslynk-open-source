@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +46,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		HealthinsuranceDao {
+	private static final Logger logger = LoggerFactory
+			.getLogger(HealthinsuranceDaoImpl.class);
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -81,8 +86,15 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
 				healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
 				
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(healthInsurance.getProjectEntryID()));
-				healthinsuranceModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(healthInsurance.getProjectEntryID())) {
+					UUID id = domain.getEnrollmentProjectEntryIDMap().get(healthInsurance.getProjectEntryID());
+					if(id != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,id);
+						healthinsuranceModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("EnrollmentCoc : A match was not found for Project EntryID:{}",healthInsurance.getProjectEntryID());
+					}
+				}
 				healthinsuranceModel.setExport(exportEntity);
 				exportEntity.addHealthinsurance(healthinsuranceModel);
 				i++;

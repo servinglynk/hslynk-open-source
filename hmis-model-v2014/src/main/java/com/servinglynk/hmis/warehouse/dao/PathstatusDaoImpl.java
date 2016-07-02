@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -45,8 +46,13 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				pathstatusModel.setDateUpdated(LocalDateTime.now());
 				pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 				pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(pathStatus.getProjectEntryID()));
-				pathstatusModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(pathStatus.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((pathStatus.getProjectEntryID()));
+					if(uuid !=null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+						pathstatusModel.setEnrollmentid(enrollmentModel);
+					}
+				}
 				pathstatusModel.setExport(exportEntity);
 				exportEntity.addPathstatus(pathstatusModel);
 				i++;

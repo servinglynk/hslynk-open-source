@@ -21,7 +21,7 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		DomesticviolenceDao {
 	private static final Logger logger = LoggerFactory
-			.getLogger(EnrollmentDaoImpl.class);
+			.getLogger(DomesticviolenceDaoImpl.class);
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		

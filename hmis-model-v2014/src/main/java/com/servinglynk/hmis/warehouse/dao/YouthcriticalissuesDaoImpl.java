@@ -7,8 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
@@ -47,6 +50,9 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		YouthcriticalissuesDao {
+	private static final Logger logger = LoggerFactory
+			.getLogger(YouthcriticalissuesDaoImpl.class);
+
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
@@ -94,8 +100,15 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				youthcriticalissuesModel.setUnemploymentfam(YouthcriticalissuesUnemploymentfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentFam())));
 				youthcriticalissuesModel.setUnemploymentyouth(YouthcriticalissuesUnemploymentyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentYouth())));
 				youthcriticalissuesModel.setExport(exportEntity);
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(youthCriticalIssues.getProjectEntryID()));
-				youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
+				if(StringUtils.isNotBlank(youthCriticalIssues.getProjectEntryID())) {
+					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(youthCriticalIssues.getProjectEntryID());
+					if(uuid != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid);
+						youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("Youthcriticalissues : A match was not found for Project EntryID:{}",youthCriticalIssues.getProjectEntryID());
+					}
+				}
 				exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
 				i++;
 				hydrateCommonFields(youthcriticalissuesModel, domain, youthCriticalIssues.getYouthCriticalIssuesID(),i);
