@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources;
@@ -40,6 +42,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		IncomeandsourcesDao {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(IncomeandsourcesDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
@@ -53,6 +57,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
 			{
+				try {
 				Incomeandsources incomeAndSourcesModel = new Incomeandsources();
 				incomeAndSourcesModel.setId(UUID.randomUUID());
 				incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getAlimony())));
@@ -78,7 +83,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setSsiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
 				incomeAndSourcesModel.setTanf(IncomeandsourcesTanfEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getTANF())));
 				incomeAndSourcesModel.setTanfamount(new BigDecimal(incomeAndSources.getTANFAmount()));
-				incomeAndSourcesModel.setTotalmonthlyincome(new BigDecimal(incomeAndSources.getTotalMonthlyIncome()));
+				incomeAndSourcesModel.setTotalmonthlyincome(BigDecimal.valueOf(incomeAndSources.getTotalMonthlyIncome()));
 				incomeAndSourcesModel.setUnemployment(IncomeandsourcesUnemploymentEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getUnemployment())));
 				incomeAndSourcesModel.setUnemploymentamount(new BigDecimal(incomeAndSources.getUnemploymentAmount()));
 				incomeAndSourcesModel.setVadisabilitynonservice(IncomeandsourcesVadisabilitynonserviceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getVADisabilityNonService())));
@@ -102,7 +107,12 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				exportEntity.addIncomeandsources(incomeAndSourcesModel);
 				i++;
 				hydrateCommonFields(incomeAndSourcesModel, domain, incomeAndSources.getIncomeAndSourcesID(),i);
-			}
+				}
+				catch(Exception e){
+					logger.error("Failure in Incomeandsources:::"+incomeAndSources.toString()+ " with exception"+e.getLocalizedMessage());
+					throw new IllegalArgumentException(e);
+			    	}
+				}
 		}
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeAndSource){

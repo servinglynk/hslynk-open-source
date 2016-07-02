@@ -91,13 +91,8 @@ public class BulkUploaderTest {
 		}
 	}
 	@Test
-	public void deleteExportFromStaging() {
-		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
-		dao.deleteStagingByExportId(id);
-	}
-	@Test
 	public void deleteExportFromLive() {
-		UUID id = UUID.fromString("b5953a57-e753-43a5-a721-27950324dae1");
+		UUID id = UUID.fromString("7a061420-2e9e-40d3-8dce-e0d2b220cdd1");
 		dao.deleteLiveByExportId(id);
 	}
 	@Test
