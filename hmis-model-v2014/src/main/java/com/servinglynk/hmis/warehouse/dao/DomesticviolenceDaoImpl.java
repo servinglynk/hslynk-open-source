@@ -4,8 +4,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
@@ -17,7 +20,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		DomesticviolenceDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(EnrollmentDaoImpl.class);
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		
@@ -37,9 +41,16 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				domesticviolenceModel.setDateUpdated(LocalDateTime.now());
 				domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 				domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(domesticViolence.getProjectEntryID()));
+				if(StringUtils.isNotBlank(domesticViolence.getProjectEntryID())) {
+					UUID id = domain.getEnrollmentProjectEntryIDMap().get(domesticViolence.getProjectEntryID());
+					if(id != null) {
+						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,id);
+						domesticviolenceModel.setEnrollmentid(enrollmentModel);
+					}else {
+						logger.warn("EnrollmentCoc : A match was not found for Project EntryID:{}",domesticViolence.getProjectEntryID());
+					}
+				}
 				domesticviolenceModel.setExport(exportEntity);
-				domesticviolenceModel.setEnrollmentid(enrollmentModel);
 				exportEntity.addDomesticviolence(domesticviolenceModel);
 				i++;
 				hydrateCommonFields(domesticviolenceModel, domain, domesticViolence.getDomesticViolenceID(),i);
