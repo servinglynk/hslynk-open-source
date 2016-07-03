@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -57,8 +58,14 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				domain.getAffiliationProjectMap().put(project.getProjectID(), id);
 				domain.getProjectCocMap().put(project.getProjectID(), id);
 				//projectModel.setProjectcocs(projectcoc);
-				Organization organization = (Organization)get(Organization.class, domain.getOrganizationProjectMap().get(project.getOrganizationID()));
-				projectModel.setOrganizationid(organization);
+				
+				if(StringUtils.isNotBlank(project.getOrganizationID())) {
+					UUID uuid = domain.getOrganizationProjectMap().get(project.getOrganizationID());
+					if(uuid !=null) {
+						Organization organization = (Organization) get(Organization.class, uuid);
+						projectModel.setOrganizationid(organization);
+					}
+				}
 				projectModel.setProjectname(project.getProjectName());
 				projectModel.setProjectcommonname(project.getProjectCommonName());
 				projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
