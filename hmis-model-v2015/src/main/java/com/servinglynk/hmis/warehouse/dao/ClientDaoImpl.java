@@ -62,7 +62,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
-				clientModel.setFirstName(client.getFirstName().getValue());
+				if(client.getFirstName() != null){
+					clientModel.setFirstName(client.getFirstName().getValue());
+				}
+					
 				clientModel.setDateCreated(BasicDataGenerator
 						.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
@@ -76,8 +79,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						.lookupEnum(String.valueOf(client.getEthnicity())));
 				clientModel.setGender(ClientGenderEnum.lookupEnum(String
 						.valueOf(client.getGender())));
-				clientModel.setLastName(client.getLastName().getValue());
-				clientModel.setMiddleName(client.getMiddleName().getValue());
+				if(client.getLastName() != null) {
+					clientModel.setLastName(client.getLastName().getValue());
+				}
+				if(client.getMiddleName() != null) {
+					clientModel.setMiddleName(client.getMiddleName().getValue());	
+				}
+				
 				clientModel
 						.setNameDataQuality(ClientNameDataQualityEnum
 								.lookupEnum(BasicDataGenerator
@@ -88,7 +96,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				clientModel.setRace(ClientRaceEnum
 						.lookupEnum(BasicDataGenerator
 								.getStringValue(client.getRace())));
-				clientModel.setSsn(client.getSSN().getValue());
+				if(client.getSSN() != null) {
+					clientModel.setSsn(client.getSSN().getValue());	
+				}
 				clientModel
 						.setSsnDataQuality(ClientSsnDataQualityEnum
 								.lookupEnum(BasicDataGenerator
