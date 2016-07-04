@@ -117,7 +117,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				//export.getExportPeriod()
 				insert(exportModel);
 			}
+			logger.debug(" Bulk Upload Processing client Table Begin.....");
 			parentDaoFactory.getClientDao().hydrateStaging(domain);
+			logger.debug(" Bulk Upload Processing client Table Ends.....");
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
 			parentDaoFactory.getProjectDao().hydrateStaging(domain);

@@ -111,7 +111,7 @@ CREATE TYPE "v2015".address_data_quality AS ENUM ('1', '2', '8','9','99');
 
 CREATE TYPE "v2015".veteran_status AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "v2015".race AS ENUM ('1', '2','3','4','5','8','9','99');
-CREATE TYPE "v2015".gender AS ENUM ('1', '2','3','4','8','9','99');
+CREATE TYPE "v2015".gender AS ENUM ('0','1', '2','3','4','8','9','99');
 CREATE TYPE "v2015".ethnicity AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "v2015".afghanistanoef AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "v2015".desertstorm AS ENUM ('0', '1', '8','9','99');
@@ -2011,7 +2011,7 @@ create table "v2015".coc
    deleted boolean DEFAULT false,active boolean DEFAULT true, 
    sync boolean DEFAULT false,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2015.export_id (id) MATCH SIMPLE
+      REFERENCES v2015.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   constraint "coc_pkey" primary key (id),
   constraint "coc_projectid_fkey" foreign key (projectid)

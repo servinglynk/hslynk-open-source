@@ -208,7 +208,7 @@ public class BulkUploaderTest {
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
-		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
+		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -236,9 +236,10 @@ public class BulkUploaderTest {
 	@Test
 	public void testPersistIntoStaging() throws Exception
 	{
-				URL path = BulkUploaderTest.class.getResource("2015.xml");
+				//URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload bullkUpload = new BulkUpload();
-				bullkUpload.setInputpath(path.getPath());
+				//bullkUpload.setInputpath(upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml"););
+				bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
 				bullkUpload.setProjectGroupCode("PG0001");
 				bullkUpload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
