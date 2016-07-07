@@ -3,12 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FamilyReunification;
@@ -23,38 +24,57 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		FamilyreunificationDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(FamilyreunificationDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<FamilyReunification> familyReunifications = domain.getExport().getFamilyReunification();
-		hydrateBulkUploadActivityStaging(familyReunifications, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i = new Long(0L);
+		Data data=new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(familyReunifications!=null && familyReunifications.size() >0 ) 
 		{
 			for(FamilyReunification familyReunification : familyReunifications)
 			{
-				Familyreunification familyreunificationModel = new Familyreunification();
-				familyreunificationModel.setId(UUID.randomUUID());
-
-				familyreunificationModel.setDateCreated(LocalDateTime.now());
-				familyreunificationModel.setDateUpdated(LocalDateTime.now());
-				familyreunificationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
-				familyreunificationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
-				familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
-				Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(familyReunification.getExitID()));
-				familyreunificationModel.setExitid(exit);
-				familyreunificationModel.setExport(exportEntity);
-				exportEntity.addFamilyreunification(familyreunificationModel);
-				i++;
-				hydrateCommonFields(familyreunificationModel, domain, familyReunification.getFamilyReunificationID(),i);
+				try {
+					Familyreunification familyreunificationModel = getModelObject(domain, familyReunification,data);
+					familyreunificationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
+					familyreunificationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
+					familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
+					Exit exit = (Exit) getModel(Exit.class, familyReunification.getExitID(),getProjectGroupCode(domain));
+					familyreunificationModel.setExitid(exit);
+					familyreunificationModel.setExport(exportEntity);
+					if(exportEntity != null)
+						exportEntity.addFamilyreunification(familyreunificationModel);
+					performSaveOrUpdate(familyreunificationModel);
+				}catch (Exception e) {
+					logger.error("Exception in:"+familyReunification.getFamilyReunificationID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
+				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain,exportEntity);
 	}
-
+	public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification getModelObject(ExportDomain domain, FamilyReunification familyReunification ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunificationModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			familyReunificationModel = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain));
+		
+		if(familyReunificationModel == null) {
+			familyReunificationModel = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
+			familyReunificationModel.setId(UUID.randomUUID());
+			familyReunificationModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(familyReunificationModel, domain,familyReunification.getFamilyReunificationID(),data.i+data.j);
+		return familyReunificationModel;
+	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification createFamilyReunification(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunification){
 	       familyReunification.setId(UUID.randomUUID()); 
 	       insert(familyReunification);

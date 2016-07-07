@@ -3,7 +3,7 @@
               xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <hmis:Source>
-      <hmis:SourceID>SAMPLE DATA </hmis:SourceID>
+      <hmis:SourceID>SAMPLE DATA</hmis:SourceID>
       <hmis:SoftwareVendor>Bowman Systems L.L.C.</hmis:SoftwareVendor>
       <hmis:SoftwareVersion/>
       <hmis:SourceName>11.153</hmis:SourceName>

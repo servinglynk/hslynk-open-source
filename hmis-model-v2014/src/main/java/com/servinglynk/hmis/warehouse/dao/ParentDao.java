@@ -5,5 +5,5 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 
 
 public interface ParentDao extends BaseDao{
-	public void hydrateStaging(ExportDomain domain);
+	public void hydrateStaging(ExportDomain domain) throws Exception;
 }

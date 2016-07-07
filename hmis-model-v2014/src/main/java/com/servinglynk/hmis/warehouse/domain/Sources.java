@@ -2001,7 +2001,7 @@ public class Sources {
     public static class Source {
 
         @XmlElement(name = "SourceID" )
-        protected short sourceID;
+        protected String sourceID;
         @XmlElement(name = "SoftwareVendor" , required = true)
         protected String softwareVendor;
         @XmlElement(name = "SoftwareVersion" )
@@ -2025,7 +2025,7 @@ public class Sources {
          * Gets the value of the sourceID property.
          * 
          */
-        public short getSourceID() {
+        public String getSourceID() {
             return sourceID;
         }
 
@@ -2033,7 +2033,7 @@ public class Sources {
          * Sets the value of the sourceID property.
          * 
          */
-        public void setSourceID(short value) {
+        public void setSourceID(String value) {
             this.sourceID = value;
         }
 
@@ -3223,7 +3223,7 @@ public class Sources {
         public static class Export {
 
             @XmlElement(name = "ExportID" )
-            protected byte exportID;
+            protected String exportID;
             @XmlElement(name = "ExportDate" , required = true)
             protected XMLGregorianCalendar exportDate;
             @XmlElement(name = "ExportPeriod" , required = true)
@@ -3321,7 +3321,7 @@ public class Sources {
              * Gets the value of the exportID property.
              * 
              */
-            public byte getExportID() {
+            public String getExportID() {
                 return exportID;
             }
 
@@ -3329,7 +3329,7 @@ public class Sources {
              * Sets the value of the exportID property.
              * 
              */
-            public void setExportID(byte value) {
+            public void setExportID(String value) {
                 this.exportID = value;
             }
 
@@ -7186,7 +7186,7 @@ public class Sources {
             public static class EnrollmentCoC {
 
                 @XmlElement(name = "EnrollmentCoCID" )
-                protected int enrollmentCoCID;
+                protected String enrollmentCoCID;
                 @XmlElement(name = "ProjectEntryID" , required = true)
                 protected String projectEntryID;
                 @XmlElement(name = "ProjectCoCID" )
@@ -7206,7 +7206,7 @@ public class Sources {
                  * Gets the value of the enrollmentCoCID property.
                  * 
                  */
-                public int getEnrollmentCoCID() {
+                public String getEnrollmentCoCID() {
                     return enrollmentCoCID;
                 }
 
@@ -7214,7 +7214,7 @@ public class Sources {
                  * Sets the value of the enrollmentCoCID property.
                  * 
                  */
-                public void setEnrollmentCoCID(int value) {
+                public void setEnrollmentCoCID(String value) {
                     this.enrollmentCoCID = value;
                 }
 
@@ -7656,7 +7656,7 @@ public class Sources {
             public static class ExitHousingAssessment {
 
                 @XmlElement(name = "ExitHousingAssessmentID" )
-                protected short exitHousingAssessmentID;
+                protected String exitHousingAssessmentID;
                 @XmlElement(name = "ExitID" , required = true)
                 protected String exitID;
                 @XmlElement(name = "HousingAssessment" )
@@ -7674,7 +7674,7 @@ public class Sources {
                  * Gets the value of the exitHousingAssessmentID property.
                  * 
                  */
-                public short getExitHousingAssessmentID() {
+                public String getExitHousingAssessmentID() {
                     return exitHousingAssessmentID;
                 }
 
@@ -7682,7 +7682,7 @@ public class Sources {
                  * Sets the value of the exitHousingAssessmentID property.
                  * 
                  */
-                public void setExitHousingAssessmentID(short value) {
+                public void setExitHousingAssessmentID(String value) {
                     this.exitHousingAssessmentID = value;
                 }
 
@@ -13200,7 +13200,7 @@ public class Sources {
             public static class PATHStatus {
 
                 @XmlElement(name = "PathStatusID" )
-                protected int pathStatusID;
+                protected String pathStatusID;
                 @XmlElement(name = "ProjectEntryID" , required = true)
                 protected String projectEntryID;
                 @XmlElement(name = "DateOfStatus" , required = true)
@@ -13220,7 +13220,7 @@ public class Sources {
                  * Gets the value of the pathStatusID property.
                  * 
                  */
-                public int getPathStatusID() {
+                public String getPathStatusID() {
                     return pathStatusID;
                 }
 
@@ -13228,7 +13228,7 @@ public class Sources {
                  * Sets the value of the pathStatusID property.
                  * 
                  */
-                public void setPathStatusID(int value) {
+                public void setPathStatusID(String value) {
                     this.pathStatusID = value;
                 }
 
@@ -15758,7 +15758,7 @@ public class Sources {
             public static class Site {
 
                 @XmlElement(name = "SiteID" )
-                protected short siteID;
+                protected String siteID;
                 @XmlElement(name = "ProjectCoCID" )
                 protected String projectCoCID;
                 @XmlElement(name = "PrincipalSite" )
@@ -15784,7 +15784,7 @@ public class Sources {
                  * Gets the value of the siteID property.
                  * 
                  */
-                public short getSiteID() {
+                public String getSiteID() {
                     return siteID;
                 }
 
@@ -15792,7 +15792,7 @@ public class Sources {
                  * Sets the value of the siteID property.
                  * 
                  */
-                public void setSiteID(short value) {
+                public void setSiteID(String value) {
                     this.siteID = value;
                 }
 

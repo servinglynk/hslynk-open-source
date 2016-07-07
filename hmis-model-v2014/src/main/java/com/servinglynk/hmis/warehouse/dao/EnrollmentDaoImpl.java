@@ -3,31 +3,19 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.lang.reflect.InvocationTargetException;
-import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.hadoop.hbase.thrift2.generated.TColumnValue;
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.apache.hadoop.hbase.thrift2.generated.TIOError;
-import org.apache.hadoop.hbase.thrift2.generated.TPut;
-import org.apache.thrift.TException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
@@ -56,29 +44,19 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		Export export =  domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
-		hydrateBulkUploadActivityStaging(enrollments, com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class.getSimpleName(), domain);
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+	
 		if (enrollments != null && enrollments.size() > 0) {
-			int i=0;
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
-				i++;
-				UUID enrollmentID = UUID.randomUUID();
-				String projectEntryID = enrollment.getProjectEntryID();
-				domain.getEnrollmentProjectEntryIDMap().put(projectEntryID,
-						enrollmentID);
-				domain.getEnrollmentProjectEntryIDMap().put(
-						enrollment.getProjectID(), enrollmentID);
-				domain.getEnrollmentProjectEntryIDMap().put(
-						enrollment.getHouseholdID(), enrollmentID);
-				domain.getEnrollmentProjectEntryIDMap().put(
-						enrollment.getPersonalID(), enrollmentID);
-				Enrollment enrollmentModel = new Enrollment();
-				enrollmentModel.setId(enrollmentID);
+				try {
+				Enrollment enrollmentModel = getModelObject(domain, enrollment,data);
 				enrollmentModel
 						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 								.getContinuouslyHomelessOneYear())));
@@ -126,36 +104,53 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 										.getMonthsHomelessThisTime())));
 				enrollmentModel.setOtherresidenceprior(enrollment
 						.getOtherResidencePrior());
-				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) get(com.servinglynk.hmis.warehouse.model.v2014.Project.class,domain.getAffiliationProjectMap().get(enrollment.getProjectID()));
+				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain));
 				enrollmentModel.setProject(project);
 				enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
-				UUID clientId = domain.getClientPersonalIDMap().get(enrollment.getPersonalID());
-				if(clientId !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, clientId);
+				if(enrollment.getPersonalID() != null ) {
+					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain));
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					LocalDateTime entryDate = enrollmentModel.getEntrydate();
 					LocalDateTime dob = client.getDob();
-					if(entryDate !=null && dob!=null) {
+					if(entryDate !=null && dob!= null) {
 						LocalDateTime tempDateTime = LocalDateTime.from( dob );
 						long years = tempDateTime.until( entryDate, ChronoUnit.YEARS);
 						enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
 					}
-					
 					enrollmentModel.setClient(client);
-				}else{
-					logger.warn("A match was not found with the PersonID:{}",enrollment.getPersonalID());
 				}
 				enrollmentModel.setExport(exportEntity);
-
-				enrollmentModel.setDateCreated(LocalDateTime.now());
-				enrollmentModel.setDateUpdated(LocalDateTime.now());
 				//enrollmentModel.setUser(exportEntity.getUser());
+					if(exportEntity !=null)
 				exportEntity.addEnrollment(enrollmentModel);
-				hydrateCommonFields(enrollmentModel, domain, enrollment.getProjectEntryID(),i);
+				performSaveOrUpdate(enrollmentModel);
+				} catch(Exception e ){
+					logger.error("Exception in Enrollment:"+enrollment.getProjectEntryID()+ "Exception ::"+e.getLocalizedMessage());
+					throw new Exception(e);
+				}
 			}
+			hydrateBulkUploadActivityStaging(data.i,data.j, Enrollment.class.getSimpleName(), domain, exportEntity);
 		}
 		
+	}
+	
+	public  com.servinglynk.hmis.warehouse.model.v2014.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain));
+		
+		if(enrollmentModel == null) {
+			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
+			enrollmentModel.setId(UUID.randomUUID());
+			enrollmentModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data.i+data.j);
+		return enrollmentModel;
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentById(UUID enrollmentId) {

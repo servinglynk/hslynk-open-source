@@ -2,13 +2,11 @@ package com.servinglynk.hmis.warehouse.model.v2014;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyze;
@@ -168,4 +166,14 @@ public abstract class HmisBaseModel implements Entity{
 			public void setSourceSystemId(String sourceId) {
 				this.sourceSystemId = sourceId;
 			}
+			private boolean inserted;
+			
+			@Transient
+			public boolean isInserted() {
+				return inserted;
+			}
+			public void setInserted(boolean inserted) {
+				this.inserted = inserted;
+			}
+			
 }

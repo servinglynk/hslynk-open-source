@@ -9,9 +9,12 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
@@ -26,7 +29,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProjectDaoImpl.class);
 	@Autowired
 	private ParentDaoFactory factory;
 	
@@ -34,44 +38,58 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<Project> projects = domain.getExport().getProject();
-		hydrateBulkUploadActivityStaging(projects, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(projects !=null && projects.size() > 0)
 		{
-			
 			for(Project project : projects)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = new com.servinglynk.hmis.warehouse.model.v2014.Project();
-				UUID id = UUID.randomUUID();
-				projectModel.setId(id);
-				//projectModel.setAffiliations(affiliation);
-				projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
-				//projectModel.setFunders(funder);
-				domain.getAffiliationProjectMap().put(project.getProjectID(), id);
-				domain.getProjectCocMap().put(project.getProjectID(), id);
-				//projectModel.setProjectcocs(projectcoc);
-				projectModel.setProjectname(project.getProjectName());
-				Organization organization = (Organization)get(Organization.class, domain.getOrganizationProjectMap().get(project.getOrganizationID()));
-				projectModel.setOrganizationid(organization);
-				projectModel.setProjectcommonname(project.getProjectCommonName());
-				projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
-				projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
-				projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
-				projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
-				projectModel.setDateCreated(LocalDateTime.now());
-				projectModel.setDateUpdated(LocalDateTime.now());
-				projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
-				projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
-				projectModel.setExport(exportEntity);
-				exportEntity.addProject(projectModel);
-				i++;
-				hydrateCommonFields(projectModel, domain, project.getProjectID(),i);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = getModelObject(domain, project,data);
+					//projectModel.setAffiliations(affiliation);
+					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
+					projectModel.setProjectname(project.getProjectName());
+					Organization organization = (Organization)getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain));
+					projectModel.setOrganizationid(organization);
+					projectModel.setProjectcommonname(project.getProjectCommonName());
+					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
+					projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
+					projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
+					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
+					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
+					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
+					projectModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addProject(projectModel);
+					performSaveOrUpdate(projectModel);
+				} catch(Exception e) {
+					logger.error("Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage());
+					throw new Exception(e);
+				}
+    		  }
 			}
-			}
-
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain,exportEntity);
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.Project getModelObject(ExportDomain domain,Project project ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			projectModel = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class, project.getProjectID(), getProjectGroupCode(domain));
+		
+		if(projectModel == null) {
+			projectModel = new com.servinglynk.hmis.warehouse.model.v2014.Project();
+			projectModel.setId(UUID.randomUUID());
+			projectModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(projectModel, domain,project.getProjectID(),data.i+data.j);
+		return projectModel;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Project createProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){

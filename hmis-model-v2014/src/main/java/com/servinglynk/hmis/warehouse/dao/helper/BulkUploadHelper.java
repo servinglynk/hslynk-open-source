@@ -700,7 +700,7 @@ public class BulkUploadHelper {
 	    	  enrollmentCocModel.setDataCollectionStage(getByte(enrollCoC.getDataCollectionStage()));
 	    	  enrollmentCocModel.setDateCreated(getXMLGregorianCalendar(enrollCoC.getDateCreated()));
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
-	    	  enrollmentCocModel.setEnrollmentCoCID(Integer.parseInt(enrollCoC.getEnrollmentCOCID()));
+	    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
 	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
 	    	  enrollmentCocModel.setProjectCoCID(String.valueOf(enrollCoC.getProjectID()));
 	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
@@ -1321,7 +1321,7 @@ public class BulkUploadHelper {
 	    	  }
 	    	  
 	    	  if(ste.getSiteID()!=null && !"".equals(ste.getSiteID())){
-	    		  siteModel.setSiteID(Short.valueOf(ste.getSiteID()));
+	    		  siteModel.setSiteID(ste.getSiteID());
 	    	  }
 	    	  
 	    	  siteModel.setState(ste.getState());

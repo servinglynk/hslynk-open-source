@@ -9,9 +9,13 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
+import com.servinglynk.hmis.warehouse.model.v2014.Commercialsexualexploitation;
 import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -22,33 +26,54 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		DateofengagementDao {
+	private static final Logger logger = LoggerFactory
+			.getLogger(DateofengagementDao.class);
 	
-	public void hydrateStaging(ExportDomain domain) 
+	public void hydrateStaging(ExportDomain domain) throws Exception 
 	{
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
-		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i =new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
 			{
-				Dateofengagement dateOfEngagementModel = new Dateofengagement();
-				dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
-				dateOfEngagementModel.setId(UUID.randomUUID());
-				dateOfEngagementModel.setDateCreated(LocalDateTime.now());
-				dateOfEngagementModel.setDateUpdated(LocalDateTime.now());
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
-				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
-				dateOfEngagementModel.setExport(exportEntity);
-				exportEntity.addDateofengagement(dateOfEngagementModel);
-				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
-				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-				i++;
-				hydrateCommonFields(dateOfEngagementModel, domain, dateOfEngagement.getDateOfEngagementID(),i);
+				try {
+					Dateofengagement dateOfEngagementModel = getModelObject(domain, dateOfEngagement,data);
+					dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain));
+					dateOfEngagementModel.setEnrollmentid(enrollmentModel);
+					dateOfEngagementModel.setExport(exportEntity);
+					if(exportEntity  != null)
+						exportEntity.addDateofengagement(dateOfEngagementModel);
+					dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
+					dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
+				} catch(Exception e) {
+					logger.error("Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
+				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, Dateofengagement.class.getSimpleName(), domain, exportEntity);
 	}
+	
+	  public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement DateOfEngagement,Data data) {
+		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagementModel = null;
+		  if(!isFullRefresh(domain))
+			  dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, DateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain));
+		
+		  if(dateofengagementModel == null) {
+			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
+			dateofengagementModel.setId(UUID.randomUUID());
+			dateofengagementModel.setInserted(true);
+			++data.i;
+		  }else{
+			  ++data.j;
+		  }
+		  hydrateCommonFields(dateofengagementModel, domain,DateOfEngagement.getDateOfEngagementID(),data.i+data.j);
+		  return dateofengagementModel;
+      }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagement){
 	       dateofengagement.setId(UUID.randomUUID()); 
 	       insert(dateofengagement);

@@ -8,13 +8,14 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
 import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
-import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
  * @author Sandeep
@@ -26,37 +27,55 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProjectcocDaoImpl.class);
+
+	
 	@Autowired
 	private ParentDaoFactory factory;
 	
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
-		hydrateBulkUploadActivityStaging(projectCoCs, com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
-			UUID id = UUID.randomUUID();
-			Projectcoc projectcocModel = new Projectcoc();
-			projectcocModel.setId(id);
-			projectcocModel.setCoccode(projectCoc.getCoCCode());
-			projectcocModel.setDateCreated(BasicDataGenerator.getLocalDateTime(projectCoc.getDateCreated()));
-			projectcocModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(projectCoc.getDateUpdated()));
-			if(projectCoc.getProjectID()!=null && !"".equals(projectCoc.getProjectID())) {
-				UUID uuid = domain.getProjectCocMap().get(projectCoc.getProjectID());
-				if(uuid !=null) {
-					Project projectModel = (Project) get(Project.class, uuid);
-					projectcocModel.setProjectid(projectModel);
-					domain.getProjectCocMap().put(String.valueOf(projectCoc.getProjectCoCID()), id);
-				}
+			try {
+				Projectcoc projectcocModel = getModelObject(domain, projectCoc,data);
+				projectcocModel.setCoccode(projectCoc.getCoCCode());
+				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain));
+				projectcocModel.setProjectid(projectModel);
+				projectcocModel.setExport(exportEntity);
+				if(exportEntity !=null)
+					exportEntity.addProjectcoc(projectcocModel);
+				performSaveOrUpdate(projectcocModel);
+			} catch(Exception e) {
+				logger.error("Failure in Projectcoc:::"+projectCoc.toString()+ " with exception"+e.getLocalizedMessage());
+				throw new Exception(e);
 			}
-			projectcocModel.setExport(exportEntity);
-			exportEntity.addProjectcoc(projectcocModel);
-			i++;
-			hydrateCommonFields(projectcocModel, domain, String.valueOf(projectCoc.getProjectCoCID()),i);
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, Projectcoc.class.getSimpleName(), domain, exportEntity);
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc getModelObject(ExportDomain domain,ProjectCoC projectcoc ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Projectcoc ProjectcocModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain));
+		
+		if(ProjectcocModel == null) {
+			ProjectcocModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
+			ProjectcocModel.setId(UUID.randomUUID());
+			ProjectcocModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(ProjectcocModel, domain,projectcoc.getProjectCoCID(),data.i+data.j);
+		return ProjectcocModel;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Project createProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){

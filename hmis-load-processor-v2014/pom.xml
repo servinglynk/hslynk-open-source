@@ -217,7 +217,7 @@
 
 					<programs>
 						<program>
-							<mainClass>com.servinglynk.hmis.warehouse.upload.com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
+							<mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
 							<name>main-processor-2014.sh</name>
 						</program>
 					</programs>

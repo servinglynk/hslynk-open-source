@@ -3,12 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardChildWelfare;
@@ -24,37 +25,59 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		FormerwardchildwelfareDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(FormerwardchildwelfareDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<FormerWardChildWelfare> formerWardChildWelfares = domain.getExport().getFormerWardChildWelfare();
-		hydrateBulkUploadActivityStaging(formerWardChildWelfares, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data=new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(formerWardChildWelfares !=null && !formerWardChildWelfares.isEmpty() ) 
 		{
 			for(FormerWardChildWelfare formerWardChildWelfare : formerWardChildWelfares)
 			{
-				Formerwardchildwelfare formerwardchildwelfareModel = new Formerwardchildwelfare();
-				formerwardchildwelfareModel.setId(UUID.randomUUID());
-				formerwardchildwelfareModel.setChildwelfaremonths(BasicDataGenerator.getIntegerValue(formerWardChildWelfare.getChildWelfareMonths()));
-				formerwardchildwelfareModel.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getChildWelfareYears())));
-				formerwardchildwelfareModel.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
-				formerwardchildwelfareModel.setDateCreated(LocalDateTime.now());
-				formerwardchildwelfareModel.setDateUpdated(LocalDateTime.now());
-				formerwardchildwelfareModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
-				formerwardchildwelfareModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(formerWardChildWelfare.getProjectEntryID()));
-				formerwardchildwelfareModel.setExport(exportEntity);
-				formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
-				exportEntity.addFormerwardchildwelfare(formerwardchildwelfareModel);
-				i++;
-				hydrateCommonFields(formerwardchildwelfareModel, domain, formerWardChildWelfare.getFormerWardChildWelfareID(),i);
+				try {
+					Formerwardchildwelfare formerwardchildwelfareModel = getModelObject(domain, formerWardChildWelfare,data);
+					formerwardchildwelfareModel.setChildwelfaremonths(BasicDataGenerator.getIntegerValue(formerWardChildWelfare.getChildWelfareMonths()));
+					formerwardchildwelfareModel.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getChildWelfareYears())));
+					formerwardchildwelfareModel.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
+					formerwardchildwelfareModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
+					formerwardchildwelfareModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardChildWelfare.getProjectEntryID(),getProjectGroupCode(domain));
+					formerwardchildwelfareModel.setExport(exportEntity);
+					formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
+					if(exportEntity != null)
+						exportEntity.addFormerwardchildwelfare(formerwardchildwelfareModel);	
+					performSaveOrUpdate(formerwardchildwelfareModel);
+				}catch(Exception e) {
+					logger.error("Exception in:"+formerWardChildWelfare.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
+				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), domain, exportEntity);
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare getModelObject(ExportDomain domain, FormerWardChildWelfare formerWardChildWelfare ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerwardchildwelfareModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			formerwardchildwelfareModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare) getModel(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class, formerWardChildWelfare.getFormerWardChildWelfareID(), getProjectGroupCode(domain));
+		
+		if(formerwardchildwelfareModel == null) {
+			formerwardchildwelfareModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
+			formerwardchildwelfareModel.setId(UUID.randomUUID());
+			formerwardchildwelfareModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(formerwardchildwelfareModel, domain,formerWardChildWelfare.getFormerWardChildWelfareID(),data.i+data.j);
+		return formerwardchildwelfareModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare createFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerWardChildWelfare){
 	       formerWardChildWelfare.setId(UUID.randomUUID()); 
