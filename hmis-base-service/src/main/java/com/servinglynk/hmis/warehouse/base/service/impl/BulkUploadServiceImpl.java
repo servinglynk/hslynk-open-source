@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.base.service.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,13 +66,14 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 			BulkUploads bulkUploads = new BulkUploads();
 			for(BulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
-				bulkUpload.setFileSize(upload.getSize());
+				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
 				bulkUpload.setInputPath(upload.getInputpath());
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
 				bulkUpload.setStatus(upload.getStatus());
 				bulkUpload.setDescription(upload.getDescription());
+				bulkUpload.setDateCreated(upload.getDateCreated());
 				bulkUploads.addBulkUpload(bulkUpload);
 			}
 		        SortedPagination pagination = new SortedPagination();

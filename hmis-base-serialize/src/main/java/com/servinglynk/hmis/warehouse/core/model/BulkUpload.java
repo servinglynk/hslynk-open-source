@@ -1,11 +1,13 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.time.LocalTime;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("bulkupload")
 public class BulkUpload extends ClientModel{
 	private String inputPath;
-	private Long fileSize;
+	private String fileSize;
 	private Long year;
 	private String username;
 	private String projectGroupCode;
@@ -25,10 +27,10 @@ public class BulkUpload extends ClientModel{
 	public void setYear(Long year) {
 		this.year = year;
 	}
-	public Long getFileSize() {
+	public String getFileSize() {
 		return fileSize;
 	}
-	public void setFileSize(Long fileSize) {
+	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
 	public String getUsername() {
@@ -55,5 +57,4 @@ public class BulkUpload extends ClientModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 }
