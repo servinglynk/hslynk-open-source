@@ -47,8 +47,8 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
  */
 @Entity (name = "client")
 @Table(name = "client", catalog = "hmis", schema = "v2015")
-@Indexed
-@AnalyzerDef(name="clientAnalyzer", tokenizer=@TokenizerDef(factory=LowerCaseTokenizerFactory.class))
+/*@Indexed
+@AnalyzerDef(name="clientAnalyzer", tokenizer=@TokenizerDef(factory=LowerCaseTokenizerFactory.class))*/
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -219,7 +219,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "first_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+//	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getFirstName() {
 		return this.firstName;
 		
@@ -298,7 +298,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "last_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+//	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getLastName() {
 		return this.lastName;
 		
@@ -320,7 +320,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "middle_name", length = 50  )
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getMiddleName() {
 		return this.middleName;
 		
@@ -427,7 +427,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column
-	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;
 		
@@ -551,7 +551,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 		
 		@Column(name="source_system_id")
-		@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+		//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 		public String getSourceSystemId() {
 			return sourceSystemId;
 		}

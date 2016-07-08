@@ -158,7 +158,7 @@ public abstract class HmisBaseModel implements Entity{
 			
 			@Basic( optional = true )
 			@Column( name = "source_system_id", nullable = true  )
-			@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+		//	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 			public String getSourceSystemId() {
 				return sourceSystemId;
 			}
