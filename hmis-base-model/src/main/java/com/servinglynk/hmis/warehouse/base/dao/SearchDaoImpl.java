@@ -20,6 +20,7 @@ import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
@@ -94,15 +95,15 @@ public class SearchDaoImpl
 	  
 	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
 	  
-	  if(!matcher.matches()) {
-			  Criterion firstName = Restrictions.like("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion lastName = Restrictions.like("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion middleName = Restrictions.like("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion sourceSystemId = Restrictions.like("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion ssn = Restrictions.like("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+//	  if(!matcher.matches()) {
+			  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  
 			  criteria.add(Restrictions.or(firstName,lastName,middleName,sourceSystemId,ssn));
-	  }else{
+	/*  }else{
 		  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		  Date date=null;
 		try {
@@ -114,7 +115,7 @@ public class SearchDaoImpl
 		System.out.println(" "+date);
 		System.out.println("  "+LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
 		  criteria.add(Restrictions.eq("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
-	  }
+	  }*/
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))
@@ -178,4 +179,11 @@ public class SearchDaoImpl
       }
     }
   }
+  public void doIndex(Object indexObject){
+	  FullTextSession fullTextSession = Search.getFullTextSession(getCurrentSession());
+	  Transaction tx = fullTextSession.beginTransaction();
+	  fullTextSession.index(indexObject);
+	  tx.commit();
+  }
+  
 }
