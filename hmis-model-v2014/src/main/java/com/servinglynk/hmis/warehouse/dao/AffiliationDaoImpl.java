@@ -27,14 +27,14 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			List<Affiliation> affiliations = export.getAffiliation();
 			Long i=new Long(0L);
 			Data data =new Data();
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 			if(affiliations!=null && !affiliations.isEmpty())
 			{
 				for(Affiliation affiliation :affiliations )
 				{
 					try {
 						com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliationModel = getModelObject(domain, affiliation,data);
-						Project project = (Project) getModel(Project.class, affiliation.getProjectID(), affiliationModel.getProjectGroupCode());
+						Project project = (Project) getModel(Project.class, affiliation.getProjectID(), affiliationModel.getProjectGroupCode(),true);
 						affiliationModel.setProjectid(project);
 						affiliationModel.setExport(exportEntity);
 						if(exportEntity !=null)
@@ -54,7 +54,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliationModel = null;
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
-				affiliationModel = (com.servinglynk.hmis.warehouse.model.v2014.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain));
+				affiliationModel = (com.servinglynk.hmis.warehouse.model.v2014.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false);
 			
 			if(affiliationModel == null) {
 				affiliationModel = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();

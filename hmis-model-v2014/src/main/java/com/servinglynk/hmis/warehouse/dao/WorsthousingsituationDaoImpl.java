@@ -34,7 +34,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
@@ -45,7 +45,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 					worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
 					worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
 					worsthousingsituationModel.setExport(exportEntity);
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true);
 					worsthousingsituationModel.setEnrollmentid(enrollmentModel);
 					if(exportEntity != null)
 						exportEntity.addWorsthousingsituation(worsthousingsituationModel);
@@ -64,7 +64,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			worsthousingsituationModel = (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituation.getWorstHousingSituationID(), getProjectGroupCode(domain));
+			worsthousingsituationModel = (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituation.getWorstHousingSituationID(), getProjectGroupCode(domain),false);
 		
 		if(worsthousingsituationModel == null) {
 			worsthousingsituationModel = new com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation();

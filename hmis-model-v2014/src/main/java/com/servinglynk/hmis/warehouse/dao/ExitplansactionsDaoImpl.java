@@ -42,7 +42,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		List<ExitPlansActions> exitPlansActionsList = domain.getExport().getExitPlansActions();
 		Long i= new Long(0L);
 		Data data=new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(exitPlansActionsList !=null && !exitPlansActionsList.isEmpty()) 
 		{
 			for(ExitPlansActions exitPlansActions : exitPlansActionsList)
@@ -60,7 +60,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 					exitplansactionsModel.setScheduledfollowupcontacts(ExitplansactionsScheduledfollowupcontactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getScheduledFollowUpContacts())));
 					exitplansactionsModel.setTemporaryshelterplacement(ExitplansactionsTemporaryshelterplacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getTemporaryShelterPlacement())));
 					exitplansactionsModel.setWrittenaftercareplan(ExitplansactionsWrittenaftercareplanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getWrittenAftercarePlan())));
-					Exit exit = (Exit) getModel(Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain));
+					Exit exit = (Exit) getModel(Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain),false);
 					exitplansactionsModel.setExitid(exit);
 					exitplansactionsModel.setExport(exportEntity);
 					if(exportEntity != null)
@@ -78,7 +78,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitplansactionsModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitplansactionsModel = (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions) getModel(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, exitPlansActions.getExitPlansActionsID(), getProjectGroupCode(domain));
+			exitplansactionsModel = (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions) getModel(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, exitPlansActions.getExitPlansActionsID(), getProjectGroupCode(domain),false);
 		
 		if(exitplansactionsModel == null) {
 			exitplansactionsModel = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();

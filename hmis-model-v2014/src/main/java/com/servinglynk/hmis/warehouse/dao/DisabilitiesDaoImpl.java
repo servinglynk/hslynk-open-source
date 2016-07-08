@@ -46,7 +46,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
@@ -62,7 +62,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain),true);
 					if(enrollmentModel != null ){
 						 boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
 						 enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
@@ -86,7 +86,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain));
+			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false);
 		
 		if(disabilitiesModel == null) {
 			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();

@@ -7,14 +7,11 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableExistsException;
+import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
 
-public class CreateTable {
+public class CreateTable extends Logging{
 //	 HBaseAdmin admin = null;
 //	 Configuration conf = null;
 //	    String host = "ec2-52-25-176-93.us-west-2.compute.amazonaws.com";
@@ -28,29 +25,33 @@ public class CreateTable {
 		//createTables();
 	}
 
-	public static HTable createTables(BulkUpload upload) {
+	public HTable createTables(BulkUpload upload) throws Exception {
 		String projectGroup = upload.getProjectGroupCode();
-		List<String> tablesList =new ArrayList<String>();
-		populateTablesList(tablesList,projectGroup,upload);
-			  HTable table = null;
-			  try {
-			   HBaseAdmin admin = HbaseUtil.getAdmin();
-			   //if (!admin.isTableAvailable(tableName)) {
-				for(String tableName : tablesList) {
+		List<String> tablesList = new ArrayList<String>();
+		populateTablesList(tablesList, projectGroup, upload);
+		HTable table = null;
+		try {
+			HBaseAdmin admin = HbaseUtil.getAdmin();
+			//if (!admin.isTableAvailable(tableName)) {
+			for (String tableName : tablesList) {
+				try {
+					HTableDescriptor tableDescriptor = new HTableDescriptor(
+							tableName);
+					tableDescriptor.addFamily(new HColumnDescriptor("CF"));
 					try {
-						HTableDescriptor tableDescriptor = new HTableDescriptor(
-								tableName);
-						tableDescriptor.addFamily(new HColumnDescriptor("CF"));
 						admin.disableTable(tableName);
 						admin.deleteTable(tableName);
-						admin.createTable(tableDescriptor);
-						System.out.println("Table ::" + tableName + " created.");
-					} catch (TableExistsException ex) {
-						System.out.println("Table :: " + tableName + " already exists.");
+					} catch (TableNotFoundException ex) {
+						log.warn("Table :: " + tableName + " does not exists.");
 					}
+					admin.createTable(tableDescriptor);
+					log.info("Table ::" + tableName + " created.");
+				} catch (TableExistsException ex) {
+					log.warn("Table :: " + tableName + " already exists.");
 				}
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 		return table;
 	}

@@ -35,7 +35,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
@@ -49,7 +49,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 							SchoolStatusEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(schoolStatus.getSchoolStatus())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain),true);
 					schoolstatusModel.setEnrollmentid(enrollmentModel);
 					schoolstatusModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -68,7 +68,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus SchoolstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SchoolstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain));
+			SchoolstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain),false);
 		
 		if(SchoolstatusModel == null) {
 			SchoolstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();

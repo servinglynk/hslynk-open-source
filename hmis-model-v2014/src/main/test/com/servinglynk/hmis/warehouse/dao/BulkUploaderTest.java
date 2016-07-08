@@ -50,7 +50,7 @@ public class BulkUploaderTest {
 	{
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV1.zip");
 		bullkUpload.setId(3L);
 		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();

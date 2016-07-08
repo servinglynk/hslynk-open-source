@@ -34,7 +34,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
 		Long i= new Long(0L);
 		Data data=new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty()) 
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
@@ -45,7 +45,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 						exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
 						exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
 						exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
-						Exit exit = (Exit) getModel(Exit.class,exitHousingAssessment.getExitID(),getProjectGroupCode(domain));
+						Exit exit = (Exit) getModel(Exit.class,exitHousingAssessment.getExitID(),getProjectGroupCode(domain),false);
 						exithousingassessmentModel.setExitid(exit);
 						exithousingassessmentModel.setExport(exportEntity);
 						if(exportEntity != null)
@@ -65,7 +65,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment ExitHousingAssessmentModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ExitHousingAssessmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class, exitHousingAssessment.getExitHousingAssessmentID(), getProjectGroupCode(domain));
+			ExitHousingAssessmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class, exitHousingAssessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false);
 		
 		if(ExitHousingAssessmentModel == null) {
 			ExitHousingAssessmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment();

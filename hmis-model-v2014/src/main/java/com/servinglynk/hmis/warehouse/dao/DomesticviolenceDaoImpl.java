@@ -26,7 +26,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
 		Long i=new Long(0L);
 		Data data=new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
@@ -37,7 +37,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
 					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,domesticViolence.getProjectEntryID(),getProjectGroupCode(domain));;
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true);;
 					domesticviolenceModel.setEnrollmentid(enrollmentModel);
 					domesticviolenceModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -57,7 +57,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolenceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			domesticViolenceModel = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain));
+			domesticViolenceModel = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false);
 		
 		if(domesticViolenceModel == null) {
 			domesticViolenceModel = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();

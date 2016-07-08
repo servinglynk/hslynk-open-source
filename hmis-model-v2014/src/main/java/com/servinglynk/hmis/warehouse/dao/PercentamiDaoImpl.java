@@ -32,7 +32,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		List<PercentAMI> percentAMIs = domain.getExport().getPercentAMI();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(percentAMIs !=null && !percentAMIs.isEmpty())
 		{
 			for(PercentAMI percentAMI :percentAMIs)
@@ -42,7 +42,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 					percentamoModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
 					percentamoModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
 					percentamoModel.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true);
 					percentamoModel.setEnrollmentid(enrollmentModel);
 					percentamoModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -60,7 +60,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Percentami percentamiModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain));
+			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false);
 		
 		if(percentamiModel == null) {
 			percentamiModel = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();

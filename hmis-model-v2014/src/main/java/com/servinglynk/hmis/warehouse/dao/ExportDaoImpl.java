@@ -18,7 +18,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		exportModel.setExportperiodtype(export.getExportPeriodType());
 //		com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
 	//	exportModel.setUser(user);
-		com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSource().getSourceID(),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSource().getSourceID(),getProjectGroupCode(domain),false);
 		exportModel.setSource(sourceEntity);
 		performSaveOrUpdate(exportModel);		
 		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2014.Export.class.getSimpleName(), domain, exportModel);
@@ -28,7 +28,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exportModel = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getExportID(), getProjectGroupCode(domain));
+			exportModel = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getExportID(), getProjectGroupCode(domain),false);
 		
 		if(exportModel == null) {
 			exportModel = new com.servinglynk.hmis.warehouse.model.v2014.Export();

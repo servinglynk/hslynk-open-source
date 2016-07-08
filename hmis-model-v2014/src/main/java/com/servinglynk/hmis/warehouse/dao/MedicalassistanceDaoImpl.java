@@ -35,7 +35,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			Long i=new Long(0L);
@@ -50,7 +50,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
 					medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
 					medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getMedicalAssistanceID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getMedicalAssistanceID(),getProjectGroupCode(domain),false);
 					medicalassistanceModel.setEnrollmentid(enrollmentModel);
 					medicalassistanceModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -68,7 +68,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance MedicalassistanceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			MedicalassistanceModel = (com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance) getModel(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain));
+			MedicalassistanceModel = (com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance) getModel(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false);
 		
 		if(MedicalassistanceModel == null) {
 			MedicalassistanceModel = new com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance();

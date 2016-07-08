@@ -35,7 +35,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		List<FormerWardChildWelfare> formerWardChildWelfares = domain.getExport().getFormerWardChildWelfare();
 		Long i=new Long(0L);
 		Data data=new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(formerWardChildWelfares !=null && !formerWardChildWelfares.isEmpty() ) 
 		{
 			for(FormerWardChildWelfare formerWardChildWelfare : formerWardChildWelfares)
@@ -47,7 +47,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 					formerwardchildwelfareModel.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
 					formerwardchildwelfareModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
 					formerwardchildwelfareModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardChildWelfare.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardChildWelfare.getProjectEntryID(),getProjectGroupCode(domain),true);
 					formerwardchildwelfareModel.setExport(exportEntity);
 					formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
 					if(exportEntity != null)
@@ -66,7 +66,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerwardchildwelfareModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			formerwardchildwelfareModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare) getModel(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class, formerWardChildWelfare.getFormerWardChildWelfareID(), getProjectGroupCode(domain));
+			formerwardchildwelfareModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare) getModel(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class, formerWardChildWelfare.getFormerWardChildWelfareID(), getProjectGroupCode(domain),false);
 		
 		if(formerwardchildwelfareModel == null) {
 			formerwardchildwelfareModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();

@@ -33,7 +33,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		List<FormerWardJuvenileJustice> formerWardJuvenileJustices = domain.getExport().getFormerWardJuvenileJustice();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(formerWardJuvenileJustices !=null && !formerWardJuvenileJustices.isEmpty()) 
 		{
 			for(FormerWardJuvenileJustice formerWardJuvenileJustice : formerWardJuvenileJustices )
@@ -45,7 +45,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 					formerWardJuvenileJusticeModel.setJuvenilejusticeyears(FormerwardjuvenilejusticeJuvenilejusticeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getJuvenileJusticeYears())));
 					formerWardJuvenileJusticeModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateCreated()));
 					formerWardJuvenileJusticeModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardJuvenileJustice.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardJuvenileJustice.getProjectEntryID(),getProjectGroupCode(domain),true);
 					formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
 					formerWardJuvenileJusticeModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -64,7 +64,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice formerwardjuvenilejusticeModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			formerwardjuvenilejusticeModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice) getModel(com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(), getProjectGroupCode(domain));
+			formerwardjuvenilejusticeModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice) getModel(com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(), getProjectGroupCode(domain),false);
 		
 		if(formerwardjuvenilejusticeModel == null) {
 			formerwardjuvenilejusticeModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();

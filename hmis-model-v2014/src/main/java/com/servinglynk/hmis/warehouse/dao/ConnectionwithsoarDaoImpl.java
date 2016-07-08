@@ -34,7 +34,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain) throws Exception {
 		java.util.List<ConnectionWithSOAR> connectionWithSOARList = domain.getExport().getConnectionWithSOAR();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		Long i = new Long(0L);
 		Data data =new Data();
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
@@ -46,7 +46,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 					connectionwithsoarModel.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionWithSOAR()));
 					connectionwithsoarModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
 					connectionwithsoarModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
-					Exit exit = (Exit) getModel(Exit.class, connectionWithSOAR.getExitID(), getProjectGroupCode(domain));
+					Exit exit = (Exit) getModel(Exit.class, connectionWithSOAR.getExitID(), getProjectGroupCode(domain),false);
 					connectionwithsoarModel.setExitid(exit);
 					connectionwithsoarModel.setExport(exportEntity);
 					if(exportEntity != null)
@@ -64,7 +64,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar connectionwithsoarModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			connectionwithsoarModel = (com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar) getModel(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, connectionWithSOAR.getConnectionWithSOARID(), getProjectGroupCode(domain));
+			connectionwithsoarModel = (com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar) getModel(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, connectionWithSOAR.getConnectionWithSOARID(), getProjectGroupCode(domain),false);
 		
 		if(connectionwithsoarModel == null) {
 			connectionwithsoarModel = new com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar();

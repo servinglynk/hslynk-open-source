@@ -50,7 +50,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				.getEnrollment();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 	
 		if (enrollments != null && enrollments.size() > 0) {
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
@@ -104,21 +104,23 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 										.getMonthsHomelessThisTime())));
 				enrollmentModel.setOtherresidenceprior(enrollment
 						.getOtherResidencePrior());
-				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain));
+				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),false);
 				enrollmentModel.setProject(project);
 				enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
 				if(enrollment.getPersonalID() != null ) {
-					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain));
+					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain),false);
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					LocalDateTime entryDate = enrollmentModel.getEntrydate();
-					LocalDateTime dob = client.getDob();
-					if(entryDate !=null && dob!= null) {
-						LocalDateTime tempDateTime = LocalDateTime.from( dob );
-						long years = tempDateTime.until( entryDate, ChronoUnit.YEARS);
-						enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+					if(client != null) {
+						LocalDateTime dob = client.getDob();
+						if(entryDate !=null && dob!= null) {
+							LocalDateTime tempDateTime = LocalDateTime.from( dob );
+							long years = tempDateTime.until( entryDate, ChronoUnit.YEARS);
+							enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+						}
+						enrollmentModel.setClient(client);
 					}
-					enrollmentModel.setClient(client);
 				}
 				enrollmentModel.setExport(exportEntity);
 				//enrollmentModel.setUser(exportEntity.getUser());
@@ -139,7 +141,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain));
+			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false);
 		
 		if(enrollmentModel == null) {
 			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();

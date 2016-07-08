@@ -34,7 +34,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		List<FamilyReunification> familyReunifications = domain.getExport().getFamilyReunification();
 		Long i = new Long(0L);
 		Data data=new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(familyReunifications!=null && familyReunifications.size() >0 ) 
 		{
 			for(FamilyReunification familyReunification : familyReunifications)
@@ -44,7 +44,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 					familyreunificationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
 					familyreunificationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
 					familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
-					Exit exit = (Exit) getModel(Exit.class, familyReunification.getExitID(),getProjectGroupCode(domain));
+					Exit exit = (Exit) getModel(Exit.class, familyReunification.getExitID(),getProjectGroupCode(domain),false);
 					familyreunificationModel.setExitid(exit);
 					familyreunificationModel.setExport(exportEntity);
 					if(exportEntity != null)
@@ -62,7 +62,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunificationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			familyReunificationModel = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain));
+			familyReunificationModel = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain),false);
 		
 		if(familyReunificationModel == null) {
 			familyReunificationModel = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();

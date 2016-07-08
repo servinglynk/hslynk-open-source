@@ -35,7 +35,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		List<SexualOrientation> sexualOrientations = domain.getExport().getSexualOrientation();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(sexualOrientations !=null && !sexualOrientations.isEmpty())
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)
@@ -45,7 +45,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 					sexualorientationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
 					sexualorientationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
 					sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,sexualOrientation.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,sexualOrientation.getProjectEntryID(),getProjectGroupCode(domain),true);
 					sexualorientationModel.setEnrollmentid(enrollmentModel);
 					sexualorientationModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -63,7 +63,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation SexualorientationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SexualorientationModel = (com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class, sexualorientation.getSexualOrientationID(), getProjectGroupCode(domain));
+			SexualorientationModel = (com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class, sexualorientation.getSexualOrientationID(), getProjectGroupCode(domain),false);
 		
 		if(SexualorientationModel == null) {
 			SexualorientationModel = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();

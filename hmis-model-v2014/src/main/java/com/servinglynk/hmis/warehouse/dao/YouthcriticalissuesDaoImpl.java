@@ -60,7 +60,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		List<YouthCriticalIssues> youthCriticalIssuesList = domain.getExport().getYouthCriticalIssues();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(youthCriticalIssuesList !=null && !youthCriticalIssuesList.isEmpty())
 		{
 			for(YouthCriticalIssues youthCriticalIssues : youthCriticalIssuesList)
@@ -95,7 +95,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					youthcriticalissuesModel.setUnemploymentfam(YouthcriticalissuesUnemploymentfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentFam())));
 					youthcriticalissuesModel.setUnemploymentyouth(YouthcriticalissuesUnemploymentyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentYouth())));
 					youthcriticalissuesModel.setExport(exportEntity);
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,youthCriticalIssues.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,youthCriticalIssues.getProjectEntryID(),getProjectGroupCode(domain),true);
 					youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
 					if(exportEntity != null)
 						exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
@@ -113,7 +113,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthcriticalissuesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			youthcriticalissuesModel = (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) getModel(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthcriticalissues.getYouthCriticalIssuesID(), getProjectGroupCode(domain));
+			youthcriticalissuesModel = (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) getModel(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthcriticalissues.getYouthCriticalIssuesID(), getProjectGroupCode(domain),false);
 		
 		if(youthcriticalissuesModel == null) {
 			youthcriticalissuesModel = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();

@@ -34,7 +34,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
 		Long i =new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
@@ -42,7 +42,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				try {
 					Dateofengagement dateOfEngagementModel = getModelObject(domain, dateOfEngagement,data);
 					dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true);
 					dateOfEngagementModel.setEnrollmentid(enrollmentModel);
 					dateOfEngagementModel.setExport(exportEntity);
 					if(exportEntity  != null)
@@ -61,7 +61,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 	  public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement DateOfEngagement,Data data) {
 		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagementModel = null;
 		  if(!isFullRefresh(domain))
-			  dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, DateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain));
+			  dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, DateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain),false);
 		
 		  if(dateofengagementModel == null) {
 			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();

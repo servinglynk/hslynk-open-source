@@ -42,7 +42,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)
@@ -61,7 +61,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 					noncashbenefitsModel.setTanfchildcare(NoncashbenefitsTanfchildcareEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFChildCare())));
 					noncashbenefitsModel.setTanftransportation(NoncashbenefitsTanftransportationEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFTransportation())));
 					noncashbenefitsModel.setWic(NoncashbenefitsWicEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getWIC())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, nonCashBenefits.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, nonCashBenefits.getProjectEntryID(),getProjectGroupCode(domain),true);
 					noncashbenefitsModel.setEnrollmentid(enrollmentModel);
 					noncashbenefitsModel.setExport(exportEntity);
 					if (exportEntity !=null)
@@ -79,7 +79,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits NoncashbenefitsModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			NoncashbenefitsModel = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain));
+			NoncashbenefitsModel = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false);
 		
 		if(NoncashbenefitsModel == null) {
 			NoncashbenefitsModel = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();

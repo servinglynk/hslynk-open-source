@@ -23,7 +23,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		List<Site> sites = domain.getExport().getSite();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(sites !=null && !sites.isEmpty()) {
 			for(Site site :sites) {
 				if(site !=null) {
@@ -35,7 +35,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 						siteModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 						siteModel.setGeocode(site.getGeocode());
 						siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
-						Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain));
+						Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain),false);
 						siteModel.setProjectCoc(projectCoc);
 						siteModel.setState(StateEnum.lookupEnum(site.getState()));
 						siteModel.setExport(exportEntity);
@@ -57,7 +57,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Site SiteModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SiteModel = (com.servinglynk.hmis.warehouse.model.v2014.Site) getModel(com.servinglynk.hmis.warehouse.model.v2014.Site.class, Site.getSiteID(), getProjectGroupCode(domain));
+			SiteModel = (com.servinglynk.hmis.warehouse.model.v2014.Site) getModel(com.servinglynk.hmis.warehouse.model.v2014.Site.class, Site.getSiteID(), getProjectGroupCode(domain),false);
 		
 		if(SiteModel == null) {
 			SiteModel = new com.servinglynk.hmis.warehouse.model.v2014.Site();

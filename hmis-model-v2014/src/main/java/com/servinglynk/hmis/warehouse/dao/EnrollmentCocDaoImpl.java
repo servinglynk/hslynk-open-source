@@ -36,7 +36,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 		List<EnrollmentCoC> enrollmentCoCs = domain.getExport().getEnrollmentCoC();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		Long i =new Long(0L);
 		Data data =new Data();
 		if(enrollmentCoCs!=null)
@@ -47,9 +47,9 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					EnrollmentCoc enrollmentCocModel = getModelObject(domain, enrollmentCoc,data);
 					enrollmentCocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
 					enrollmentCocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,enrollmentCoc.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,enrollmentCoc.getProjectEntryID(),getProjectGroupCode(domain),true);
 					enrollmentCocModel.setEnrollmentid(enrollmentModel);
-     				Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,enrollmentCoc.getProjectCoCID(),getProjectGroupCode(domain));
+     				Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,enrollmentCoc.getProjectCoCID(),getProjectGroupCode(domain),false);
 					enrollmentCocModel.setProjectCoc(projectCoc);	
 					//enrollmentCocModel.setCocCode(enrollmentCoc.get);
 					enrollmentCocModel.setExport(exportEntity);
@@ -68,7 +68,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc enrollmentCocModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			enrollmentCocModel = (com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain));
+			enrollmentCocModel = (com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false);
 		
 		if(enrollmentCocModel == null) {
 			enrollmentCocModel = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();

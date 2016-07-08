@@ -52,7 +52,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		{
 			Long i=new Long(0L);
 			Data data =new Data();
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 			if(CollectionUtils.isNotEmpty(healthInsurances)) {
 				for(HealthInsurance healthInsurance : healthInsurances)
 				{
@@ -77,7 +77,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
 						healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
 						healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
-						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthInsurance.getHealthInsuranceID(),getProjectGroupCode(domain));
+						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthInsurance.getHealthInsuranceID(),getProjectGroupCode(domain),false);
 						healthinsuranceModel.setEnrollmentid(enrollmentModel);
 						healthinsuranceModel.setExport(exportEntity);
 						if(exportEntity != null)
@@ -96,7 +96,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance healthinsuranceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsurance.getHealthInsuranceID(), getProjectGroupCode(domain));
+			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false);
 		
 		if(healthinsuranceModel == null) {
 			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();

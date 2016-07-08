@@ -35,7 +35,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)
@@ -47,7 +47,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
 					rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
 					rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true);
 					rhybcpstatusModel.setEnrollmentid(enrollmentModel);
 					rhybcpstatusModel.setExport(exportEntity);
 					if(exportEntity != null)
@@ -66,7 +66,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			rhybcpstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class, rhybcpstatus.getRHYBCPStatusID(), getProjectGroupCode(domain));
+			rhybcpstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class, rhybcpstatus.getRHYBCPStatusID(), getProjectGroupCode(domain),false);
 		
 		if(rhybcpstatusModel == null) {
 			rhybcpstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();

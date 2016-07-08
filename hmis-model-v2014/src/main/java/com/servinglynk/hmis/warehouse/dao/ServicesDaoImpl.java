@@ -32,7 +32,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<Services> servicesList = domain.getExport().getServices();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		Long i=new Long(0L);
 		Data data =new Data();
 		if(servicesList != null && !servicesList.isEmpty())
@@ -50,7 +50,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 					servicesModel.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
 					servicesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
 					servicesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain));
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain),true);
 					servicesModel.setEnrollmentid(enrollment);
 					servicesModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -68,7 +68,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			servicesModel = (com.servinglynk.hmis.warehouse.model.v2014.Services) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class, Services.getServicesID(), getProjectGroupCode(domain));
+			servicesModel = (com.servinglynk.hmis.warehouse.model.v2014.Services) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class, Services.getServicesID(), getProjectGroupCode(domain),false);
 		
 		if(servicesModel == null) {
 			servicesModel = new com.servinglynk.hmis.warehouse.model.v2014.Services();

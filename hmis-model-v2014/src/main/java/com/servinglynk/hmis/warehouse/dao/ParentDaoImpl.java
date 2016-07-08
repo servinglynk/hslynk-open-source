@@ -91,7 +91,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	     * @return
 	     */
 	    protected HmisBaseModel getModel(HmisBaseModel model) {
-	    	return getModel(model.getClass(), model.getSourceSystemId(), model.getProjectGroupCode());
+	    	return getModel(model.getClass(), model.getSourceSystemId(), model.getProjectGroupCode(),false);
 	    }
 	/***
 	 * Get a Model object with Source system ID and project group.
@@ -100,12 +100,14 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param projectGroupCode
 	 * @return
 	 */
-	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode) {
+	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode,boolean showWarning) {
 		    List<HmisBaseModel> models = getModels(className, sourceId, projectGroupCode);
 			if(CollectionUtils.isNotEmpty(models)) {
 				return models.get(0);
 			}
-			logger.warn("{} : A match was not found in the database for SourceSystemId:{}",className,sourceId);
+			if(showWarning){
+				logger.warn("{} : A match was not found in the database for SourceSystemId:{}",className,sourceId);
+			}
 			return null;
 	}
 	/***

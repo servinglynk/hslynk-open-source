@@ -51,7 +51,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
@@ -92,7 +92,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
 				incomeAndSourcesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
 				incomeAndSourcesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain) );
+				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true);
 				incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
 				incomeAndSourcesModel.setExport(exportEntity);
 				if(exportEntity != null)
@@ -112,7 +112,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 			com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeandsourcesModel = null;
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
-				incomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, incomeAndSources.getIncomeAndSourcesID(), getProjectGroupCode(domain));
+				incomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, incomeAndSources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false);
 			
 			if(incomeandsourcesModel == null) {
 				incomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();

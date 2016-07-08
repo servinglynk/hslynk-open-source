@@ -40,13 +40,13 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
 			try {
 				Projectcoc projectcocModel = getModelObject(domain, projectCoc,data);
 				projectcocModel.setCoccode(projectCoc.getCoCCode());
-				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain));
+				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),false);
 				projectcocModel.setProjectid(projectModel);
 				projectcocModel.setExport(exportEntity);
 				if(exportEntity !=null)
@@ -64,7 +64,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Projectcoc ProjectcocModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain));
+			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false);
 		
 		if(ProjectcocModel == null) {
 			ProjectcocModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
