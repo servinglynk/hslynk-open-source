@@ -3,16 +3,12 @@ package com.servinglynk.hmis.warehouse.base.dao;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
 import org.hibernate.CacheMode;
@@ -89,33 +85,23 @@ public class SearchDaoImpl
   
   
   public List<?> searchData(SearchRequest searchRequest){
-	  
-	  Pattern pattern = Pattern.compile("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
-	  Matcher matcher = pattern.matcher(searchRequest.getFreeText());
-	  
+	  	
 	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
-	  
-//	  if(!matcher.matches()) {
+		  DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		  Date date=null;
+		try {
+			date = formatter.parse(searchRequest.getFreeText());
+			
+			  criteria.add(Restrictions.ge("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
+			  criteria.add(Restrictions.lt("dob", LocalDateTime.ofInstant(DateUtils.addDays(date,1).toInstant(), ZoneId.systemDefault())));
+		} catch (ParseException e) {
 			  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  
 			  criteria.add(Restrictions.or(firstName,lastName,middleName,sourceSystemId,ssn));
-	/*  }else{
-		  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		  Date date=null;
-		try {
-			date = formatter.parse(searchRequest.getFreeText());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(" "+date);
-		System.out.println("  "+LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
-		  criteria.add(Restrictions.eq("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
-	  }*/
+	  }
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))

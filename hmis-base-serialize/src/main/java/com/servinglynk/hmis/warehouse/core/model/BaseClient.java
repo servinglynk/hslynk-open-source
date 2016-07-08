@@ -20,7 +20,6 @@ public class BaseClient extends ClientModel {
 	@Pattern(regexp="(^\\d{3}-?\\d{2}-?\\d{4}$|^XXX-XX-XXXX$)",message="Invalid SSN. Valid format is XXX-XX-XXXX")
 	private String ssn;
 	private Integer ssnDataQuality;
-    @JsonFormat(pattern="MM-dd-yyyy")
 	private Date dob;
 	private Integer dobDataQuality;
 	private String amIndAKNative;
