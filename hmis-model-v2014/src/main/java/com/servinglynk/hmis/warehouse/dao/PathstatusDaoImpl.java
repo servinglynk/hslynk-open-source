@@ -3,13 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
@@ -23,45 +23,58 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(PathstatusDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
-		hydrateBulkUploadActivityStaging(pathStatusList, com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)
 			{
-				Pathstatus pathstatusModel = new Pathstatus();
-				UUID id = UUID.randomUUID();
-				pathstatusModel.setId(id);
-				pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
-				pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
-				pathstatusModel.setDateCreated(LocalDateTime.now());
-				pathstatusModel.setDateUpdated(LocalDateTime.now());
-				pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
-				pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
-				if(StringUtils.isNotBlank(pathStatus.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((pathStatus.getProjectEntryID()));
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
-						pathstatusModel.setEnrollmentid(enrollmentModel);
-					}
+				try {
+					Pathstatus pathstatusModel = getModelObject(domain, pathStatus,data);
+					pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
+					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
+					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
+					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain));
+					pathstatusModel.setEnrollmentid(enrollmentModel);
+					pathstatusModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addPathstatus(pathstatusModel);
+					performSaveOrUpdate(pathstatusModel);
+				} catch(Exception e) {
+					logger.error("Failure in PATHStatus:::"+pathStatus.toString()+ " with exception"+e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-				pathstatusModel.setExport(exportEntity);
-				exportEntity.addPathstatus(pathstatusModel);
-				i++;
-				hydrateCommonFields(pathstatusModel, domain,String.valueOf(pathStatus.getPathStatusID()),i);
 			}
 		}
 	}
 
-	
+	public com.servinglynk.hmis.warehouse.model.v2014.Pathstatus getModelObject(ExportDomain domain,PATHStatus pathstatus ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Pathstatus PathstatusModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			PathstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Pathstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain));
+		
+		if(PathstatusModel == null) {
+			PathstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Pathstatus();
+			PathstatusModel.setId(UUID.randomUUID());
+			PathstatusModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(PathstatusModel, domain,pathstatus.getPathStatusID(),data.i+data.j);
+		return PathstatusModel;
+	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Pathstatus createPathstatus(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus pathstatus){
 	       pathstatus.setId(UUID.randomUUID()); 

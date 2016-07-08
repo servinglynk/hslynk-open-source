@@ -10,11 +10,14 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
@@ -31,61 +34,72 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(DisabilitiesDaoImpl.class);
 	@Autowired
 	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	
-	public void hydrateStaging(ExportDomain domain) 
+	public void hydrateStaging(ExportDomain domain) throws Exception 
 	{
 		
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
-		hydrateBulkUploadActivityStaging(disabilitiesList, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
-				disabilitiesModel.setId(UUID.randomUUID());
-				disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
-				disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
-				disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
-				disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
-				disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
-				disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
-				disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
-				disabilitiesModel.setDateCreated(LocalDateTime.now());
-				disabilitiesModel.setDateUpdated(LocalDateTime.now());
-				disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
-				disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-				if(disabilities.getProjectEntryID() !=null && !"".equals(disabilities.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((disabilities.getProjectEntryID()));
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
-						disabilitiesModel.setEnrollmentid(enrollmentModel);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = getModelObject(domain, disabilities,data);
+					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
+					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
+					disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
+					disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
+					disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
+					disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
+					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
+					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
+					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain));
+					if(enrollmentModel != null ){
+						 boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
+						 enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
+						 insertOrUpdate(enrollmentModel);
+						 disabilitiesModel.setEnrollmentid(enrollmentModel);
 					}
-						
-				}
-				
-				disabilitiesModel.setExport(exportEntity);
-				i++;
-				exportEntity.addDisabilities(disabilitiesModel);
-				hydrateCommonFields(disabilitiesModel, domain, disabilities.getDisabilitiesID(),i);
-			}
-			Collection<UUID> values = domain.getEnrollmentProjectEntryIDMap().values();
-			for(UUID enrollmentId : values) {
-				if(enrollmentId !=null) {
-					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, enrollmentId);
-					boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
-						enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
-						insertOrUpdate(enrollmentModel);
+					disabilitiesModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addDisabilities(disabilitiesModel);
+					performSaveOrUpdate(disabilitiesModel);
+				}catch(Exception e) {
+					logger.error("Exception in:"+disabilities.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
 				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 		
+	public com.servinglynk.hmis.warehouse.model.v2014.Disabilities getModelObject(ExportDomain domain, Disabilities disabilities ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain));
+		
+		if(disabilitiesModel == null) {
+			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
+			disabilitiesModel.setId(UUID.randomUUID());
+			disabilitiesModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(disabilitiesModel, domain,disabilities.getDisabilitiesID(),data.i+data.j);
+		return disabilitiesModel;
+	}
+	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities){
 	       disabilities.setId(UUID.randomUUID()); 
 	       insert(disabilities);

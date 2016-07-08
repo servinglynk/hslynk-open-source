@@ -3,11 +3,9 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -33,40 +31,51 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<ReferralSource> referralSources = domain.getExport().getReferralSource();
-		hydrateBulkUploadActivityStaging(referralSources, com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(referralSources !=null && !referralSources.isEmpty())
 		{
 			for(ReferralSource referralSource : referralSources) {
-				Referralsource referralsourceModel = new Referralsource();
-				UUID id = UUID.randomUUID();
-				referralsourceModel.setId(id);
-				referralsourceModel.setDateCreated(LocalDateTime.now());
-				referralsourceModel.setDateUpdated(LocalDateTime.now());
-				referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
-				referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
-				referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
-				referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
-				if(StringUtils.isNotBlank(referralSource.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(referralSource.getProjectEntryID());
-					if(uuid != null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid);
-						referralsourceModel.setEnrollmentid(enrollmentModel);
-					}else {
-						logger.warn("ReferralSource : A match was not found for Project EntryID:{}",referralSource.getProjectEntryID());
-					}
+				try {
+					Referralsource referralsourceModel = getModelObject(domain, referralSource,data);
+					referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
+					referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
+					referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
+					referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain));
+					referralsourceModel.setEnrollmentid(enrollmentModel);
+					referralsourceModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addReferralsource(referralsourceModel);
+					performSaveOrUpdate(referralsourceModel);
+				}catch(Exception e) {
+					logger.error("Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage());
+					 throw new Exception(e);
 				}
-				referralsourceModel.setExport(exportEntity);
-				exportEntity.addReferralsource(referralsourceModel);
-				i++;
-				hydrateCommonFields(referralsourceModel, domain, referralSource.getReferralSourceID(),i);
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, Referralsource.class.getSimpleName(), domain, exportEntity);
 	}
-
+	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource getModelObject(ExportDomain domain,ReferralSource referralsource ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsourceModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			referralsourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain));
+		
+		if(referralsourceModel == null) {
+			referralsourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
+			referralsourceModel.setId(UUID.randomUUID());
+			referralsourceModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(referralsourceModel, domain,referralsource.getReferralSourceID(),data.i+data.j);
+		return referralsourceModel;
+	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource createReferralsource(com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsource){
 	       referralsource.setId(UUID.randomUUID()); 
 	       insert(referralsource);

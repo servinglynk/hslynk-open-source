@@ -53,7 +53,7 @@ CREATE TYPE "base".ssn_data_quality AS ENUM ('1', '2', '8','9','99');
 CREATE TYPE "base".veteran_status AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "base".race AS ENUM ('1', '2','3','4','5','8','9','99');
 CREATE TYPE "base".ethnicity AS ENUM ('0', '1', '8','9','99');
-CREATE TYPE "base".gender AS ENUM ('1', '2','3','4','8','9','99');
+CREATE TYPE "base".gender AS ENUM ('0','1', '2','3','4','8','9','99');
 
 -- DROP TABLE "base"."client";
 CREATE TABLE base.hmis_user
@@ -1221,7 +1221,7 @@ update base.hmis_user set two_factor_authentication =false;
 
 create index idx_client_sourcesystemid on base.client(source_system_id);
 create index idx_client_ssn on base.client(ssn);
-create index idx_lastname on base.client(first_name);
+create index idx_firstname on base.client(first_name);
 create index idx_lastname on base.client(last_name);
 
 INSERT INTO base.hmis_project_group(

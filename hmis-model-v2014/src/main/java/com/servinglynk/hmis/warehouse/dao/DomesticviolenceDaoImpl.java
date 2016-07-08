@@ -1,10 +1,8 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -23,40 +21,54 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	private static final Logger logger = LoggerFactory
 			.getLogger(DomesticviolenceDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
-		hydrateBulkUploadActivityStaging(domesticViolenceList, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data=new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
 			{
-				Domesticviolence domesticviolenceModel = new Domesticviolence();
-				domesticviolenceModel.setId(UUID.randomUUID());
-				domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
-				domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
-				domesticviolenceModel.setDateCreated(LocalDateTime.now());
-				domesticviolenceModel.setDateUpdated(LocalDateTime.now());
-				domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
-				domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
-				if(StringUtils.isNotBlank(domesticViolence.getProjectEntryID())) {
-					UUID id = domain.getEnrollmentProjectEntryIDMap().get(domesticViolence.getProjectEntryID());
-					if(id != null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,id);
-						domesticviolenceModel.setEnrollmentid(enrollmentModel);
-					}else {
-						logger.warn("EnrollmentCoc : A match was not found for Project EntryID:{}",domesticViolence.getProjectEntryID());
-					}
+				try {
+					Domesticviolence domesticviolenceModel = getModelObject(domain, domesticViolence,data);
+					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
+					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
+					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
+					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,domesticViolence.getProjectEntryID(),getProjectGroupCode(domain));;
+					domesticviolenceModel.setEnrollmentid(enrollmentModel);
+					domesticviolenceModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addDomesticviolence(domesticviolenceModel);
+					performSaveOrUpdate(domesticviolenceModel);
+				}catch (Exception e) {
+					logger.error("Exception in:"+domesticViolence.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-				domesticviolenceModel.setExport(exportEntity);
-				exportEntity.addDomesticviolence(domesticviolenceModel);
-				i++;
-				hydrateCommonFields(domesticviolenceModel, domain, domesticViolence.getDomesticViolenceID(),i);
+				
 			}
 		}
 
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolenceModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			domesticViolenceModel = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain));
+		
+		if(domesticViolenceModel == null) {
+			domesticViolenceModel = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();
+			domesticViolenceModel.setId(UUID.randomUUID());
+			domesticViolenceModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(domesticViolenceModel, domain,domesticViolence.getDomesticViolenceID(),data.i+data.j);
+		return domesticViolenceModel;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence createDomesticViolence(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolence){

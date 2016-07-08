@@ -3,11 +3,9 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -32,39 +30,54 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
-		hydrateBulkUploadActivityStaging(worstHousingSituationList, com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
 			{
-				Worsthousingsituation worsthousingsituationModel= new Worsthousingsituation();
-				UUID id = UUID.randomUUID();
-				worsthousingsituationModel.setId(id);
-				worsthousingsituationModel.setDateCreated(LocalDateTime.now());
-				worsthousingsituationModel.setDateUpdated(LocalDateTime.now());
-				worsthousingsituationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
-				worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
-				worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
-				worsthousingsituationModel.setExport(exportEntity);
-				if(StringUtils.isNotBlank(worstHousingSituation.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(worstHousingSituation.getProjectEntryID());
-					if(uuid != null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid);
-						worsthousingsituationModel.setEnrollmentid(enrollmentModel);
-					}else {
-						logger.warn("Worsthousingsituation : A match was not found for Project EntryID:{}",worstHousingSituation.getProjectEntryID());
-					}
+				try {
+					Worsthousingsituation worsthousingsituationModel= getModelObject(domain, worstHousingSituation,data);
+					worsthousingsituationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
+					worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
+					worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
+					worsthousingsituationModel.setExport(exportEntity);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain));
+					worsthousingsituationModel.setEnrollmentid(enrollmentModel);
+					if(exportEntity != null)
+						exportEntity.addWorsthousingsituation(worsthousingsituationModel);
+					performSaveOrUpdate(worsthousingsituationModel);
+				}catch(Exception e) {
+					logger.error("Exception in worstHousingSituation:"+worstHousingSituation.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-				exportEntity.addWorsthousingsituation(worsthousingsituationModel);
-				i++;
-				hydrateCommonFields(worsthousingsituationModel, domain, worstHousingSituation.getWorstHousingSituationID(),i);
+			
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, Worsthousingsituation.class.getSimpleName(), domain, exportEntity);
 	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation getModelObject(ExportDomain domain, WorstHousingSituation worsthousingsituation ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituationModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			worsthousingsituationModel = (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituation.getWorstHousingSituationID(), getProjectGroupCode(domain));
+		
+		if(worsthousingsituationModel == null) {
+			worsthousingsituationModel = new com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation();
+			worsthousingsituationModel.setId(UUID.randomUUID());
+			worsthousingsituationModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(worsthousingsituationModel, domain,worsthousingsituation.getWorstHousingSituationID(),data.i+data.j);
+		return worsthousingsituationModel;
+	}
+
 	   public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation createWorsthousingsituation(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituation){
 	       worsthousingsituation.setId(UUID.randomUUID()); 
 	       insert(worsthousingsituation);

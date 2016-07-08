@@ -2701,6 +2701,8 @@ create table "v2014".bulk_upload_activity
  bulk_upload_id bigint not null,
  table_name character varying(100),
  records_processed bigint,
+ inserted bigint,
+ updated bigint,
  description text,
   "project_group_code" character varying(8),
   "date_created" timestamp,

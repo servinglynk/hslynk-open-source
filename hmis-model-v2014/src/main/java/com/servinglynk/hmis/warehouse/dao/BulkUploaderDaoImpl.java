@@ -96,27 +96,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			UUID exportId = UUID.randomUUID();
 			ExportDomain domain = new ExportDomain();
 			domain.setExport(export);
-			domain.setExportId(exportId);
 			domain.setUpload(upload);
 			domain.setSource(source);
 			parentDaoFactory.getSourceDao().hydrateStaging(domain);
-			if(export != null)
-			{
-				com.servinglynk.hmis.warehouse.model.v2014.Export exportModel  = new com.servinglynk.hmis.warehouse.model.v2014.Export();
-				exportModel.setExportDate(BasicDataGenerator.getLocalDateTime(export.getExportDate()));
-				exportModel.setExportdirective(export.getExportDirective());
-				exportModel.setExportperiodtype(export.getExportPeriodType());
-				exportModel.setId(exportId);
-				exportModel.setDateCreated(LocalDateTime.now());
-				exportModel.setDateUpdated(LocalDateTime.now());
-//				com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
-			//	exportModel.setUser(user);
-				com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) get(com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSourceId());
-				exportModel.setSource(sourceEntity);
-				exportModel.setProjectGroupCode(upload.getProjectGroupCode());
-				//export.getExportPeriod()
-				insert(exportModel);
-			}
+			parentDaoFactory.getExportDao().hydrateStaging(domain);
 			logger.debug(" Bulk Upload Processing client Table Begin.....");
 			parentDaoFactory.getClientDao().hydrateStaging(domain);
 			logger.debug(" Bulk Upload Processing client Table Ends.....");

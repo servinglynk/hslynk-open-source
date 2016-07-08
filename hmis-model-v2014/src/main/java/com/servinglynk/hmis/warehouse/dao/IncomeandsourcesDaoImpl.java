@@ -4,7 +4,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,18 +47,17 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
-		hydrateBulkUploadActivityStaging(incomeAndSourceses, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
 			{
 				try {
-				Incomeandsources incomeAndSourcesModel = new Incomeandsources();
-				incomeAndSourcesModel.setId(UUID.randomUUID());
+				Incomeandsources incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data);
 				incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getAlimony())));
 				incomeAndSourcesModel.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
 				incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getChildSupport())));
@@ -92,29 +90,41 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setVadisabilityserviceamount(new BigDecimal(incomeAndSources.getVADisabilityServiceAmount()));
 				incomeAndSourcesModel.setWorkerscomp(IncomeandsourcesWorkerscompEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getWorkersComp())));
 				incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
-				incomeAndSourcesModel.setDateCreated(LocalDateTime.now());
-				incomeAndSourcesModel.setDateUpdated(LocalDateTime.now());
 				incomeAndSourcesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
 				incomeAndSourcesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
-				if(incomeAndSources.getProjectEntryID()!=null && !"".equals(incomeAndSources.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(incomeAndSources.getProjectEntryID());
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid );
-						incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
-					}
-				}
+				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain) );
+				incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
 				incomeAndSourcesModel.setExport(exportEntity);
-				exportEntity.addIncomeandsources(incomeAndSourcesModel);
-				i++;
-				hydrateCommonFields(incomeAndSourcesModel, domain, incomeAndSources.getIncomeAndSourcesID(),i);
+				if(exportEntity != null)
+					exportEntity.addIncomeandsources(incomeAndSourcesModel);
+				performSaveOrUpdate(incomeAndSourcesModel);
 				}
 				catch(Exception e){
 					logger.error("Failure in Incomeandsources:::"+incomeAndSources.toString()+ " with exception"+e.getLocalizedMessage());
-					throw new IllegalArgumentException(e);
+					throw new Exception(e);
 			    	}
 				}
+				hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class.getSimpleName(), domain,exportEntity);
 		}
 	}
+		
+		public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources getModelObject(ExportDomain domain,IncomeAndSources incomeAndSources ,Data data) {
+			com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeandsourcesModel = null;
+			// We always insert for a Full refresh and update if the record exists for Delta refresh
+			if(!isFullRefresh(domain))
+				incomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, incomeAndSources.getIncomeAndSourcesID(), getProjectGroupCode(domain));
+			
+			if(incomeandsourcesModel == null) {
+				incomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();
+				incomeandsourcesModel.setId(UUID.randomUUID());
+				incomeandsourcesModel.setInserted(true);
+				++data.i;
+			}else{
+				++data.j;
+			}
+			hydrateCommonFields(incomeandsourcesModel, domain,incomeAndSources.getIncomeAndSourcesID(),data.i+data.j);
+			return incomeandsourcesModel;
+		}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeAndSource){
 	       incomeAndSource.setId(UUID.randomUUID()); 
 	       insert(incomeAndSource);

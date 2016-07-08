@@ -24,8 +24,8 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		Source source = domain.getSource();
 		List<Source> sources = new ArrayList<>();
 		sources.add(source);
-		hydrateBulkUploadActivityStaging(sources, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Source();
+		Data data = new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = getModelObject(domain, source, data);
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
 		sourceModel.setSourcecontactemail(source.getSourceContactEmail());
@@ -34,11 +34,28 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		sourceModel.setSourcecontactlast(source.getSourceContactLast());
 		sourceModel.setSourceid(String.valueOf(source.getSourceID()));
 		sourceModel.setSourcename(source.getSourceName());
-		UUID id = UUID.randomUUID();
-		domain.setSourceId(id);
-		sourceModel.setId(id);
-		//hydrateCommonFields(sourceModel, domain, String.valueOf(source.getSourceID()),0);
-            //  getCurrentSession().flush();
-          //    getCurrentSession().clear();
+		hydrateCommonFields(sourceModel, domain, source.getSourceID(), data.i+data.j);
+		performSaveOrUpdate(sourceModel);
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain,null);
 	}
+	
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.Source getModelObject(ExportDomain domain, Source source ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			sourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(com.servinglynk.hmis.warehouse.model.v2014.Source.class, source.getSourceID(), getProjectGroupCode(domain));
+		
+		if(sourceModel == null) {
+			sourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Source();
+			sourceModel.setId(UUID.randomUUID());
+			sourceModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data.i+data.j);
+		return sourceModel;
+	}
+
 }

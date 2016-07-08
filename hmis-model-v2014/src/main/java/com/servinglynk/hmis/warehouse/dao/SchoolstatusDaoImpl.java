@@ -3,12 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
@@ -23,47 +24,62 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		SchoolstatusDao {
+	private static final Logger logger = LoggerFactory
+			.getLogger(SchoolstatusDaoImpl.class);
 
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
-		hydrateBulkUploadActivityStaging(schoolStatusList, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
 			{
-			Schoolstatus schoolstatusModel = new Schoolstatus();
-			UUID id = UUID.randomUUID();
-			schoolstatusModel.setId(id);
-			schoolstatusModel.setDateCreated(LocalDateTime.now());
-			schoolstatusModel.setDateUpdated(LocalDateTime.now());
-			schoolstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
-			schoolstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
-			schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
-			schoolstatusModel.setSchoolStatus(
-			SchoolStatusEnum
-			.lookupEnum(BasicDataGenerator
-					.getStringValue(schoolStatus.getSchoolStatus())));
-			if(schoolStatus.getProjectEntryID() !=null && !"".equals(schoolStatus.getProjectEntryID())) {
-				UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((schoolStatus.getProjectEntryID()));
-				if(uuid !=null) {
-					Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
+				try {
+					Schoolstatus schoolstatusModel = getModelObject(domain, schoolStatus,data);
+					schoolstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
+					schoolstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
+					schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
+					schoolstatusModel.setSchoolStatus(
+							SchoolStatusEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(schoolStatus.getSchoolStatus())));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain));
 					schoolstatusModel.setEnrollmentid(enrollmentModel);
+					schoolstatusModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addSchoolstatus(schoolstatusModel);
+					performSaveOrUpdate(schoolstatusModel);
+				}catch(Exception e) {
+					logger.error("Failure in Schoolstatus:::"+schoolStatus.toString()+ " with exception"+e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-					
-			}
-			schoolstatusModel.setExport(exportEntity);
-			exportEntity.addSchoolstatus(schoolstatusModel);
-			i++;
-			hydrateCommonFields(schoolstatusModel, domain, schoolStatus.getSchoolStatusID(),i);
+			
 			}
 		}
-
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain,exportEntity);
+	}
+	public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus getModelObject(ExportDomain domain,SchoolStatus schoolstatus ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus SchoolstatusModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			SchoolstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain));
+		
+		if(SchoolstatusModel == null) {
+			SchoolstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();
+			SchoolstatusModel.setId(UUID.randomUUID());
+			SchoolstatusModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(SchoolstatusModel, domain,schoolstatus.getSchoolStatusID(),data.i+data.j);
+		return SchoolstatusModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){
 	       schoolstatus.setId(UUID.randomUUID()); 

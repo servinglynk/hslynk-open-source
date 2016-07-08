@@ -3,11 +3,9 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -33,41 +31,51 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<SexualOrientation> sexualOrientations = domain.getExport().getSexualOrientation();
-		hydrateBulkUploadActivityStaging(sexualOrientations, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain);
-		int i=0;
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		Long i=new Long(0L);
+		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(sexualOrientations !=null && !sexualOrientations.isEmpty())
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)
 			{
-				Sexualorientation sexualorientationModel = new Sexualorientation();
-				UUID id = UUID.randomUUID();
-				sexualorientationModel.setId(id);
-				sexualorientationModel.setDateCreated(LocalDateTime.now());
-				sexualorientationModel.setDateUpdated(LocalDateTime.now());
-				sexualorientationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
-				sexualorientationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
-				sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
-				if(StringUtils.isNotBlank(sexualOrientation.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(sexualOrientation.getProjectEntryID());
-					if(uuid != null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,id);
-						sexualorientationModel.setEnrollmentid(enrollmentModel);
-					}else {
-						logger.warn("SexualOrientation : A match was not found for Project EntryID:{}",sexualOrientation.getProjectEntryID());
-					}
+				try {
+					Sexualorientation sexualorientationModel = getModelObject(domain, sexualOrientation,data);
+					sexualorientationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
+					sexualorientationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
+					sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,sexualOrientation.getProjectEntryID(),getProjectGroupCode(domain));
+					sexualorientationModel.setEnrollmentid(enrollmentModel);
+					sexualorientationModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addSexualorientation(sexualorientationModel);
+					performSaveOrUpdate(sexualorientationModel);
+				} catch(Exception e) {
+					logger.error("Failure in Sexualorientation:::"+sexualOrientation.toString()+ " with exception"+e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-				sexualorientationModel.setExport(exportEntity);
-				exportEntity.addSexualorientation(sexualorientationModel);
-				i++;
-				hydrateCommonFields(sexualorientationModel, domain,sexualOrientation.getSexualOrientationID(),i++);
 			}
 		}
-
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain,exportEntity);
 	}
-	
+	public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation getModelObject(ExportDomain domain,SexualOrientation sexualorientation ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation SexualorientationModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			SexualorientationModel = (com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class, sexualorientation.getSexualOrientationID(), getProjectGroupCode(domain));
+		
+		if(SexualorientationModel == null) {
+			SexualorientationModel = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
+			SexualorientationModel.setId(UUID.randomUUID());
+			SexualorientationModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(SexualorientationModel, domain,sexualorientation.getSexualOrientationID(),data.i+data.j);
+		return SexualorientationModel;
+	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){
 	       sexualorientation.setId(UUID.randomUUID()); 
 	       insert(sexualorientation);

@@ -3,7 +3,6 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoAfghanistanOefEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoDesertStormEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoDischargeStatusEnum;
@@ -24,7 +24,6 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-import com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -40,77 +39,96 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 			.getLogger(VeteranInfoDaoImpl.class);
 	
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo> veteranInfoList = export
 				.getVeteranInfo();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
-		hydrateBulkUploadActivityStaging(veteranInfoList, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain);
-		int i=0;
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
+		Long i=new Long(0L);
+		Data data =new Data();
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo veteranInfo : veteranInfoList) {
 				
-				VeteranInfo vInfo = new VeteranInfo();
-				vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(veteranInfo
-										.getAfghanistanOEF())));
-				vInfo.setDesertStorm(VeteranInfoDesertStormEnum
-						.lookupEnum(String.valueOf(veteranInfo
-								.getDesertStorm())));
-				vInfo.setDischargeStatus(VeteranInfoDischargeStatusEnum
-						.lookupEnum(String.valueOf(veteranInfo
-								.getDischargeStatus())));
-				vInfo.setIraqOif(VeteranInfoIraqOifEnum
-						.lookupEnum(String.valueOf(veteranInfo
-								.getIraqOIF())));
-				vInfo.setIraqOnd(VeteranInfoIraqOndEnum
-						.lookupEnum(String.valueOf(veteranInfo
-								.getIraqOND())));
-				vInfo.setOtherTheater(VeteranInfoOtherTheaterEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(veteranInfo
-										.getOtherTheater())));
-				vInfo.setKoreanWar(VeteranInfoKoreanWarEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(veteranInfo
-										.getVietnamWar())));
-				vInfo.setMilitaryBranch(VeteranInfoMilitaryBranchEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(veteranInfo
-										.getMilitaryBranch())));
-				vInfo.setVietnamWar(VeteranInfoVietnamWarEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(veteranInfo
-										.getVietnamWar())));
-				vInfo.setWorldWar2(VeteranInfoWorldWar2Enum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(veteranInfo
-										.getWorldWarII())));
-				vInfo.setYearEntrdService(new Integer(veteranInfo
-						.getYearEnteredService()));
-				vInfo.setYearSeperated(new Integer(veteranInfo
-						.getYearSeparated()));
-				vInfo.setId(UUID.randomUUID());
-				vInfo.setDateCreated(LocalDateTime.now());
-				vInfo.setDateUpdated(LocalDateTime.now());
-				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
-				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
-				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
-				if(clientId !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) get(com.servinglynk.hmis.warehouse.model.v2014.Client.class, clientId);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo vInfo = getModelObject(domain, veteranInfo,data);
+					vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(veteranInfo
+											.getAfghanistanOEF())));
+					vInfo.setDesertStorm(VeteranInfoDesertStormEnum
+							.lookupEnum(String.valueOf(veteranInfo
+									.getDesertStorm())));
+					vInfo.setDischargeStatus(VeteranInfoDischargeStatusEnum
+							.lookupEnum(String.valueOf(veteranInfo
+									.getDischargeStatus())));
+					vInfo.setIraqOif(VeteranInfoIraqOifEnum
+							.lookupEnum(String.valueOf(veteranInfo
+									.getIraqOIF())));
+					vInfo.setIraqOnd(VeteranInfoIraqOndEnum
+							.lookupEnum(String.valueOf(veteranInfo
+									.getIraqOND())));
+					vInfo.setOtherTheater(VeteranInfoOtherTheaterEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(veteranInfo
+											.getOtherTheater())));
+					vInfo.setKoreanWar(VeteranInfoKoreanWarEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(veteranInfo
+											.getVietnamWar())));
+					vInfo.setMilitaryBranch(VeteranInfoMilitaryBranchEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(veteranInfo
+											.getMilitaryBranch())));
+					vInfo.setVietnamWar(VeteranInfoVietnamWarEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(veteranInfo
+											.getVietnamWar())));
+					vInfo.setWorldWar2(VeteranInfoWorldWar2Enum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(veteranInfo
+											.getWorldWarII())));
+					vInfo.setYearEntrdService(new Integer(veteranInfo
+							.getYearEnteredService()));
+					vInfo.setYearSeperated(new Integer(veteranInfo
+							.getYearSeparated()));
+					vInfo.setId(UUID.randomUUID());
+					vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
+					vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
+					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain));
 					vInfo.setClient(client);
-				}else{
-					logger.warn("A match was not found with the PersonID:{}",veteranInfo.getPersonalID());
+					vInfo.setExport(exportEntity);
+					//vInfo.setUser(exportEntity.getUser());
+					if(exportEntity !=null)
+						exportEntity.addVeteranInfo(vInfo);
+					performSaveOrUpdate(vInfo);
+				}catch(Exception e) {
+					logger.error("Exception in veteranInfo:"+veteranInfo.getVeteranInfoID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-				vInfo.setExport(exportEntity);
-				//vInfo.setUser(exportEntity.getUser());
-				exportEntity.addVeteranInfo(vInfo);
-				i++;
-				hydrateCommonFields(vInfo, domain,veteranInfo.getVeteranInfoID(),i);
+				
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain,exportEntity);
 	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo getModelObject(ExportDomain domain, VeteranInfo veteranInfo ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo veteranInfoModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			veteranInfoModel = (com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class, veteranInfo.getVeteranInfoID(), getProjectGroupCode(domain));
+		
+		if(veteranInfoModel == null) {
+			veteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo();
+			veteranInfoModel.setId(UUID.randomUUID());
+			veteranInfoModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(veteranInfoModel, domain,veteranInfo.getVeteranInfoID(),data.i+data.j);
+		return veteranInfoModel;
+	}
+
 	
 	   public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo veteranInfo){
 	       veteranInfo.setId(UUID.randomUUID()); 

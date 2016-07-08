@@ -9,8 +9,11 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
@@ -23,45 +26,61 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		HealthStatusDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(HealthStatusDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<HealthStatus> healthStatuses = domain.getExport().getHealthStatus();
-		hydrateBulkUploadActivityStaging(healthStatuses, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain);
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) get(com.servinglynk.hmis.warehouse.model.v2014.Export.class, domain.getExportId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain));
 		if(healthStatuses !=null &&  !healthStatuses.isEmpty())
 		{
-			int i=0;
+			Long i=new Long(0L);
+			Data data =new Data();
 			for(HealthStatus healthStatus : healthStatuses )
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.HealthStatus healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2014.HealthStatus();
-				healthStatusModel.setId(UUID.randomUUID());
-				healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
-				healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthCategory())));
-				healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthStatus())));
-				healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
-				healthStatusModel.setDateCreated(LocalDateTime.now());
-				healthStatusModel.setDateUpdated(LocalDateTime.now());
-				healthStatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
-				healthStatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
-				if(healthStatus.getProjectEntryID()!=null && !"".equals(healthStatus.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(healthStatus.getProjectEntryID());
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class,uuid );
-						healthStatusModel.setEnrollmentid(enrollmentModel);
-					}
-					
+				try {
+					com.servinglynk.hmis.warehouse.model.v2014.HealthStatus healthStatusModel = getModelObject(domain, healthStatus,data);
+					healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
+					healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthCategory())));
+					healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthStatus())));
+					healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
+					healthStatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
+					healthStatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthStatus.getHealthStatusID(),getProjectGroupCode(domain) );
+					healthStatusModel.setEnrollmentid(enrollmentModel);
+					healthStatusModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addHealthStatus(healthStatusModel);
+					performSaveOrUpdate(healthStatusModel);
+				}catch(Exception e) {
+					logger.error("Exception in:"+healthStatus.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
+					throw new Exception(e);
 				}
-				healthStatusModel.setExport(exportEntity);
-				exportEntity.addHealthStatus(healthStatusModel);
-				i++;
-				hydrateCommonFields(healthStatusModel, domain, healthStatus.getHealthStatusID(),i);
 			}
+			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain,exportEntity);
       	  }
 		}
+	
+	public com.servinglynk.hmis.warehouse.model.v2014.HealthStatus getModelObject(ExportDomain domain,HealthStatus healthStatus ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2014.HealthStatus healthStatusModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			healthStatusModel = (com.servinglynk.hmis.warehouse.model.v2014.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain));
+		
+		if(healthStatusModel == null) {
+			healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2014.HealthStatus();
+			healthStatusModel.setId(UUID.randomUUID());
+			healthStatusModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(healthStatusModel, domain,healthStatus.getHealthStatusID(),data.i+data.j);
+		return healthStatusModel;
+	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus HealthStatus){
 	       HealthStatus.setId(UUID.randomUUID()); 
 	       insert(HealthStatus);
