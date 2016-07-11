@@ -3,22 +3,19 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -27,68 +24,61 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		DateofengagementDao {
-	public void hydrateStaging(ExportDomain domain)
+	private static final Logger logger = LoggerFactory
+			.getLogger(DateofengagementDaoImpl.class);
+	public void hydrateStaging(ExportDomain domain) throws Exception
 	{
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
-		hydrateBulkUploadActivityStaging(dateOfEngagements, com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class.getSimpleName(), domain);
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
 			{
-				Dateofengagement dateOfEngagementModel = new Dateofengagement();
-				dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
-				dateOfEngagementModel.setId(UUID.randomUUID());
-				dateOfEngagementModel.setDateCreated(LocalDateTime.now());
-				dateOfEngagementModel.setDateUpdated(LocalDateTime.now());
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(dateOfEngagement.getProjectEntryID()));
-				dateOfEngagementModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				dateOfEngagementModel.setExport(exportEntity);
-				exportEntity.addDateofengagement(dateOfEngagementModel);
-				dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
-				dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-				hydrateCommonFields(dateOfEngagementModel, domain);
-				insertOrUpdate(dateOfEngagementModel);
+			 try {
+				 Dateofengagement dateOfEngagementModel = getModelObject(domain, dateOfEngagement, data);
+				 dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
+				 Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true);
+				 dateOfEngagementModel.setEnrollmentid(enrollmentModel);
+				 dateOfEngagementModel.setExport(exportEntity);
+				 if(exportEntity !=null)
+					 exportEntity.addDateofengagement(dateOfEngagementModel);
+				 dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
+				 dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
+				 performSaveOrUpdate(dateOfEngagementModel);
+			 } catch(Exception e) {
+				 logger.error("Exception beause of the Dateofengagement::"+dateOfEngagement.getDateOfEngagementID() +" Exception ::"+e.getMessage());
+				 throw new Exception(e);
+			 }
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain,exportEntity);
+
+	}
+	
+	public com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateofengagement ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement dateofengagementModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false);
+		
+		if(dateofengagementModel == null) {
+			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
+			dateofengagementModel.setId(UUID.randomUUID());
+			dateofengagementModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(dateofengagementModel, domain,dateofengagement.getDateOfEngagementID(),data.i+data.j);
+		return dateofengagementModel;
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Dateofengagement> dateofengagements = export.getDateofengagements();
-		hydrateBulkUploadActivity(dateofengagements, com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class.getSimpleName(), export,id);
-		if(dateofengagements != null && !dateofengagements.isEmpty()) {
-			for(Dateofengagement dateofengagement : dateofengagements) {
-				com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement target = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
-				BeanUtils.copyProperties(dateofengagement, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, dateofengagement.getEnrollmentid().getId());
-				target.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-				target.setExport(exportEntity);
-				exportEntity.addDateofengagement(target);
-				target.setDateCreated(LocalDateTime.now());
-				target.setDateUpdated(LocalDateTime.now());
-				insertOrUpdate(target);
-			}
-		}
-	}
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement dateofengagement){

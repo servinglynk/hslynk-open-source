@@ -78,7 +78,7 @@ public class Sources {
     public static class Source {
 
         @XmlElement(name = "SourceID")
-        protected short sourceID;
+        protected String sourceID;
         @XmlElement(name = "SoftwareVendor", required = true)
         protected String softwareVendor;
         @XmlElement(name = "SoftwareVersion")
@@ -102,7 +102,7 @@ public class Sources {
          * Gets the value of the sourceID property.
          * 
          */
-        public short getSourceID() {
+        public String getSourceID() {
             return sourceID;
         }
 
@@ -110,7 +110,7 @@ public class Sources {
          * Sets the value of the sourceID property.
          * 
          */
-        public void setSourceID(short value) {
+        public void setSourceID(String value) {
             this.sourceID = value;
         }
 
@@ -354,7 +354,7 @@ public class Sources {
         public static class Export {
 
             @XmlElement(name = "ExportID")
-            protected byte exportID;
+            protected String exportID;
             @XmlElement(name = "ExportDate", required = true)
             protected XMLGregorianCalendar exportDate;
             @XmlElement(name = "ExportPeriod", required = true)
@@ -439,7 +439,7 @@ public class Sources {
              * Gets the value of the exportID property.
              * 
              */
-            public byte getExportID() {
+            public String getExportID() {
                 return exportID;
             }
 
@@ -447,7 +447,7 @@ public class Sources {
              * Sets the value of the exportID property.
              * 
              */
-            public void setExportID(byte value) {
+            public void setExportID(String value) {
                 this.exportID = value;
             }
 
@@ -5335,7 +5335,7 @@ public class Sources {
             public static class EnrollmentCoC {
 
                 @XmlElement(name = "EnrollmentCoCID")
-                protected int enrollmentCoCID;
+                protected String enrollmentCoCID;
                 @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
                 @XmlElement(name = "clientCoC", required = true)
@@ -5355,7 +5355,7 @@ public class Sources {
                  * Gets the value of the enrollmentCoCID property.
                  * 
                  */
-                public int getEnrollmentCoCID() {
+                public String getEnrollmentCoCID() {
                     return enrollmentCoCID;
                 }
 
@@ -5363,7 +5363,7 @@ public class Sources {
                  * Sets the value of the enrollmentCoCID property.
                  * 
                  */
-                public void setEnrollmentCoCID(int value) {
+                public void setEnrollmentCoCID(String value) {
                     this.enrollmentCoCID = value;
                 }
 
@@ -11647,7 +11647,7 @@ public class Sources {
             public static class Organization {
 
                 @XmlElement(name = "OrganizationID")
-                protected byte organizationID;
+                protected String organizationID;
                 @XmlElement(name = "OrganizationName", required = true)
                 protected String organizationName;
                 @XmlElement(name = "OrganizationCommonName", required = true)
@@ -11663,7 +11663,7 @@ public class Sources {
                  * Gets the value of the organizationID property.
                  * 
                  */
-                public byte getOrganizationID() {
+                public String getOrganizationID() {
                     return organizationID;
                 }
 
@@ -11671,7 +11671,7 @@ public class Sources {
                  * Sets the value of the organizationID property.
                  * 
                  */
-                public void setOrganizationID(byte value) {
+                public void setOrganizationID(String value) {
                     this.organizationID = value;
                 }
 
@@ -11835,7 +11835,7 @@ public class Sources {
             public static class PATHStatus {
 
                 @XmlElement(name = "PathStatusID")
-                protected int pathStatusID;
+                protected String pathStatusID;
                 @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
                 @XmlElement(name = "DateOfStatus", required = true)
@@ -11855,7 +11855,7 @@ public class Sources {
                  * Gets the value of the pathStatusID property.
                  * 
                  */
-                public int getPathStatusID() {
+                public String getPathStatusID() {
                     return pathStatusID;
                 }
 
@@ -11863,7 +11863,7 @@ public class Sources {
                  * Sets the value of the pathStatusID property.
                  * 
                  */
-                public void setPathStatusID(int value) {
+                public void setPathStatusID(String value) {
                     this.pathStatusID = value;
                 }
 
@@ -13145,7 +13145,7 @@ public class Sources {
             public static class Site {
 
                 @XmlElement(name = "SiteID")
-                protected short siteID;
+                protected String siteID;
                 @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
                 @XmlElement(name = "PrincipalSite")
@@ -13171,7 +13171,7 @@ public class Sources {
                  * Gets the value of the siteID property.
                  * 
                  */
-                public short getSiteID() {
+                public String getSiteID() {
                     return siteID;
                 }
 
@@ -13179,7 +13179,7 @@ public class Sources {
                  * Sets the value of the siteID property.
                  * 
                  */
-                public void setSiteID(short value) {
+                public void setSiteID(String value) {
                     this.siteID = value;
                 }
 

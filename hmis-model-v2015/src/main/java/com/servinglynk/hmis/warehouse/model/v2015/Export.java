@@ -39,7 +39,7 @@ import com.servinglynk.hmis.warehouse.model.v2015.Organization;
 
 @Entity(name = "export_v2015")
 @Table(name = "export", catalog = "hmis", schema = "v2015")
-public class Export implements Cloneable, Serializable {
+public class Export extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 42126664696688958L;
@@ -1518,122 +1518,6 @@ public class Export implements Cloneable, Serializable {
 	public void setOrganizations(final Set<Organization> organization) {
 		this.organizations = organization;
 	}
-
-		/** Field mapping. */
-		private LocalDateTime dateCreated;
-		/** Field mapping. */
-		private LocalDateTime dateUpdated;
-		/** Field mapping. */
-		private LocalDateTime dateCreatedFromSource;
-		/** Field mapping. */
-		private LocalDateTime dateUpdatedFromSource;
-		/** Field mapping. */
-		private String projectGroupCode;
-		private UUID userId;
-		 /**
-			 * Return the value associated with the column: dateCreated.
-			 * @return A LocalDateTime object (this.dateCreated)
-			 */
-			@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-			@Basic( optional = true )
-			@Column( name = "date_created"  )
-			public LocalDateTime getDateCreated() {
-				return this.dateCreated;
-			}
-			 /**  
-			 * Set the value related to the column: dateCreated.
-			 * @param dateCreated the dateCreated value you wish to set
-			 */
-			public void setDateCreated(final LocalDateTime dateCreated) {
-				this.dateCreated = dateCreated;
-			}
-
-			 /**
-			 * Return the value associated with the column: dateUpdated.
-			 * @return A LocalDateTime object (this.dateUpdated)
-			 */
-			@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-			@Basic( optional = true )
-			@Column( name = "date_updated"  )
-			public LocalDateTime getDateUpdated() {
-				return this.dateUpdated;
-			}
-			 /**  
-			 * Set the value related to the column: dateUpdated.
-			 * @param dateUpdated the dateUpdated value you wish to set
-			 */
-			public void setDateUpdated(final LocalDateTime dateUpdated) {
-				this.dateUpdated = dateUpdated;
-			}
-		
-			
-			@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-			@Basic( optional = true )
-			@Column( name = "date_created_from_source"  )
-			  public LocalDateTime getDateCreatedFromSource() {
-				return dateCreatedFromSource;
-			}
-			public void setDateCreatedFromSource(LocalDateTime dateCreatedFromSource) {
-				this.dateCreatedFromSource = dateCreatedFromSource;
-			}
-			@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-			@Basic( optional = true )
-			@Column( name = "date_updated_from_source"  )
-			public LocalDateTime getDateUpdatedFromSource() {
-				return dateUpdatedFromSource;
-			}
-			public void setDateUpdatedFromSource(LocalDateTime dateUpdatedFromSource) {
-				this.dateUpdatedFromSource = dateUpdatedFromSource;
-			}
-			@Column(name="project_group_code")
-				public String getProjectGroupCode() {
-					return projectGroupCode;
-				}
-				public void setProjectGroupCode(String projectGroupCode) {
-					this.projectGroupCode = projectGroupCode;
-				}
-				
-				
-				
-				private boolean deleted;
-				private boolean sync;
-				
-				
-				@Column(name="sync")
-				public boolean isSync() {
-					return sync;
-				}
-				public void setSync(boolean sync) {
-					this.sync = sync;
-				}
-				@Column(name="deleted")
-				public boolean isDeleted() {
-					return deleted;
-				}
-
-				public void setDeleted(boolean deleted) {
-					this.deleted = deleted;
-				}
-				
-				private Long version;
-				@Basic( optional = true )
-				@Column( name = "version", nullable = true  )
-				public Long getVersion() {
-					return version;
-				}
-
-				public void setVersion(Long version) {
-					this.version = version;
-				}
-				@Basic( optional = true )
-				@Column( name = "user_id", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-				public UUID getUserId() {
-					return userId;
-				}
-
-				public void setUserId(UUID userId) {
-					this.userId = userId;
-				}
 				
 
 				/** Field mapping. */

@@ -11,9 +11,12 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
@@ -28,83 +31,63 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(EmploymentDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
-		hydrateBulkUploadActivityStaging(employmentList, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2015.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
-				employmentModel.setId(UUID.randomUUID());
-
-				employmentModel.setDateCreated(LocalDateTime.now());
-				employmentModel.setDateUpdated(LocalDateTime.now());
-				employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
-				employmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
-				employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmployed())));
-				employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
-				employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));
-				employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
-
-				if(employment.getProjectEntryID() !=null && !"".equals(employment.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((employment.getProjectEntryID()));
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
-						employmentModel.setEnrollmentid(enrollmentModel);
-					}
-
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
+					employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
+					employmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
+					employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmployed())));
+					employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
+					employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));
+					employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, employment.getProjectEntryID(),getProjectGroupCode(domain),true);
+					employmentModel.setEnrollmentid(enrollmentModel);
+					employmentModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addEmployment(employmentModel);
+					performSaveOrUpdate(employmentModel);
+				}catch(Exception e) {
+					logger.error("Exception beause of the Employment::"+employment.getEmploymentID() +" Exception ::"+e.getMessage());
+					 throw new Exception(e);
 				}
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				employmentModel.setExport(exportEntity);
-				hydrateCommonFields(employmentModel, domain);
-				exportEntity.addEmployment(employmentModel);
-				insertOrUpdate(employmentModel);
 			}
+			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), domain,exportEntity);
 		}
 	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Employment> employments = export.getEmployments();
-		hydrateBulkUploadActivity(employments, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), export, id);
-		if(employments != null && !employments.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Employment employment : employments) {
-				com.servinglynk.hmis.warehouse.model.v2015.Employment target = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
-				BeanUtils.copyProperties(employment, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, employment.getEnrollmentid().getId());
-				target.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-				target.setExport(exportEntity);
-				exportEntity.addEmployment(target);
-				target.setDateCreated(LocalDateTime.now());
-				target.setDateUpdated(LocalDateTime.now());
-				insertOrUpdate(target);
-			}
+	public com.servinglynk.hmis.warehouse.model.v2015.Employment getModelObject(ExportDomain domain, Employment Employment ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Employment employmentModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			employmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Employment.class, Employment.getEmploymentID(), getProjectGroupCode(domain),false);
+		
+		if(employmentModel == null) {
+			employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
+			employmentModel.setId(UUID.randomUUID());
+			employmentModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
+		hydrateCommonFields(employmentModel, domain,Employment.getEmploymentID(),data.i+data.j);
+		return employmentModel;
 	}
-
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2015.Employment employment){
 	       employment.setId(UUID.randomUUID());

@@ -785,14 +785,4 @@ public class BulkUploaderTest {
 		}
 		
 	}
-	@Test
-	public void moveToLive() throws Exception {
-		List<BulkUpload> uploads = baseFactory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
-		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExportId() !=null) {
-				dao.moveFromStagingToLive(upload);		
-			}
-		}
-		
-	}
 }

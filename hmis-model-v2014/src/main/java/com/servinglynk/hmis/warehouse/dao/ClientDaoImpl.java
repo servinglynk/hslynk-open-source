@@ -61,7 +61,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		Boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
-		Long i=new Long(0L);
 		Data data =new Data();
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
@@ -148,6 +147,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
 					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 					 */
+					if(dedupedClient !=null) {
+						clientModel.setId(dedupedClient.getId());
+					}
 				}
 					performSaveOrUpdate(clientModel);
 				} catch(Exception e ){

@@ -1,13 +1,12 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -19,65 +18,64 @@ import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(EntryssvfDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
-		hydrateBulkUploadActivityStaging(entrySSVFs, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain);
 		if (entrySSVFs != null && entrySSVFs.size() > 0) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
-				com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
-				UUID entrySSVFUUID = UUID.randomUUID();
-				entrySsvfModel.setId(entrySSVFUUID);
-				entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
-				entrySsvfModel.setDeleted(false);
-				entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
-				entrySsvfModel.setLastPermanentCity(entrySSVF.getLastPermanentCity());
-				entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
-				entrySsvfModel.setLastPermanentStreet(entrySSVF.getLastPermanentStreet());
-				entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
-				entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(BasicDataGenerator.getStringValue(entrySSVF.getPercentAMI())));
-				entrySsvfModel.setDateCreated(LocalDateTime.now());
-				entrySsvfModel.setDateUpdated(LocalDateTime.now());
-				entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entrySSVF.getProjectEntryID()));
-				entrySsvfModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				exportEntity.addEntryssvf(entrySsvfModel);
-				entrySsvfModel.setUserId(exportEntity.getUserId());
-				entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateCreated()));
-				entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
-				hydrateCommonFields(entrySsvfModel, domain);
-				entrySsvfModel.setExport(exportEntity);
-				entrySsvfModel.setSync(false);
-				insertOrUpdate(entrySsvfModel);
-			}
-	}
-	
-	}
-
-
-	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Entryssvf> entrySsvf = export.getEntryssvfs();
-		hydrateBulkUploadActivity(entrySsvf, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), export, id);
-		if(entrySsvf !=null && !entrySsvf.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfs : entrySsvf) {
-			//	com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvfs.getId(),entrySsvfs.getProjectGroupCode());
-			//	if(entryssvfByDedupCliendId ==null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf target = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
-					BeanUtils.copyProperties(entrySsvfs, target, new String[] {"enrollments","veteranInfoes"});
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					exportEntity.addEntryssvf(target);
-					target.setExport(exportEntity);
-					insertOrUpdate(target);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = getModelObject(domain, entrySSVF, data);
+					entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
+					entrySsvfModel.setDeleted(false);
+					entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
+					entrySsvfModel.setLastPermanentCity(entrySSVF.getLastPermanentCity());
+					entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
+					entrySsvfModel.setLastPermanentStreet(entrySSVF.getLastPermanentStreet());
+					entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
+					entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(BasicDataGenerator.getStringValue(entrySSVF.getPercentAMI())));
+					entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true);
+					entrySsvfModel.setEnrollmentid(enrollmentModel);
+					exportEntity.addEntryssvf(entrySsvfModel);
+					entrySsvfModel.setUserId(exportEntity.getUserId());
+					entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateCreated()));
+					entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
+					entrySsvfModel.setExport(exportEntity);
+					entrySsvfModel.setSync(false);
+					performSaveOrUpdate(entrySsvfModel);
+				} catch(Exception e) {
+					logger.error("Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
-			//}
-		}
+			}
+	  }
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain,exportEntity);
 	}
-	
+
+	public com.servinglynk.hmis.warehouse.model.v2015.Entryssvf getModelObject(ExportDomain domain, EntrySSVF entryssvf ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			entryssvfModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false);
+		
+		if(entryssvfModel == null) {
+			entryssvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
+			entryssvfModel.setId(UUID.randomUUID());
+			entryssvfModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(entryssvfModel, domain,entryssvf.getEntrySSVFID(),data.i+data.j);
+		return entryssvfModel;
+	}
+
 	@Override
 	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvf) {
 			if(entrySsvf !=null) {
@@ -98,20 +96,6 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	@Override
-	protected void performSave(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

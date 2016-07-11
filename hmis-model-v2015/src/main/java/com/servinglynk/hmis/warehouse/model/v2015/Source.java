@@ -60,6 +60,8 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private String sourcename;
 	/** Field mapping. */
+	/** Field mapping. */
+	private String export;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -307,7 +309,26 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	public void setSourcename(final String sourcename) {
 		this.sourcename = sourcename;
 	}
+	 /**
+	 * Return the value associated with the column: export.
+	 * @return A String object (this.export)
+	 */
+	@Basic( optional = true )
+	@Column( length = 2147483647  )
+	public String getExport() {
+		return this.export;
 
+	}
+
+
+
+	 /**
+	 * Set the value related to the column: export.
+	 * @param export the export value you wish to set
+	 */
+	public void setExport(final String export) {
+		this.export = export;
+	}
 
 
    /**

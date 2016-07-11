@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -137,7 +139,31 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			this.dedupClientId = dedupClientId;
 		}
 	 
- 
+
+		/** Field mapping. */
+		protected Export export;
+		 /**
+		 * Return the value associated with the column: export.
+		 * @return A Export object (this.export)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "export_id", nullable = true )
+		public Export getExport() {
+			return this.export;
+			
+		}
+		
+
+	 
+		 /**  
+		 * Set the value related to the column: export.
+		 * @param export the export value you wish to set
+		 */
+		public void setExport(final Export export) {
+			this.export = export;
+		}
 	/** Return the type of this class. Useful for when dealing with proxies.
 	* @return Defining class.
 	*/

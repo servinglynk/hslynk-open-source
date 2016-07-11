@@ -3,18 +3,11 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.rmi.server.ExportException;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
-
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
 
 /**
  * @author Sandeep
@@ -28,6 +21,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
+		Data data = new Data();
 		com.servinglynk.hmis.warehouse.model.v2015.Source sourceModel = new com.servinglynk.hmis.warehouse.model.v2015.Source();
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
@@ -38,41 +32,35 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		sourceModel.setSourceid(String.valueOf(source.getSourceID()));
 		sourceModel.setSourcename(source.getSourceName());
 		UUID id = UUID.randomUUID();
-		domain.setSourceId(id);
 		sourceModel.setId(id);
-		insertOrUpdate(sourceModel);
+		performSaveOrUpdate(sourceModel);
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), domain,null);
+	}
+	
+	
+	public com.servinglynk.hmis.warehouse.model.v2015.Source getModelObject(ExportDomain domain, Source source ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Source sourceModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			sourceModel = (com.servinglynk.hmis.warehouse.model.v2015.Source) getModel(com.servinglynk.hmis.warehouse.model.v2015.Source.class, source.getSourceID(), getProjectGroupCode(domain),false);
+		
+		if(sourceModel == null) {
+			sourceModel = new com.servinglynk.hmis.warehouse.model.v2015.Source();
+			sourceModel.setId(UUID.randomUUID());
+			sourceModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data.i+data.j);
+		return sourceModel;
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		// TODO Auto-generated method stub
-		com.servinglynk.hmis.warehouse.model.v2015.Source source = export.getSource();
-		//hydrateBulkUploadActivity(source, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), export);
-		if(source !=null) {
-			com.servinglynk.hmis.warehouse.model.v2015.Source target = new com.servinglynk.hmis.warehouse.model.v2015.Source();
-			BeanUtils.copyProperties(source, target, getNonCollectionFields(target));
-			target.setDateCreated(LocalDateTime.now());
-			target.setDateUpdated(LocalDateTime.now());
-			insertOrUpdate(target);
-		}
-	}
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

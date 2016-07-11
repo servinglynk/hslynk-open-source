@@ -25,7 +25,6 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		{
 			Export export = domain.getExport();
 			List<Affiliation> affiliations = export.getAffiliation();
-			Long i=new Long(0L);
 			Data data =new Data();
 			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
 			if(affiliations!=null && !affiliations.isEmpty())
@@ -42,7 +41,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
 						performSaveOrUpdate(affiliationModel);
 					}catch(Exception e) {
-						logger.error("Error occured with "+affiliation.toString() + " Execption :::"+e.getLocalizedMessage());
+						logger.error("Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage());
 						throw new Exception(e);
 					}
 				}

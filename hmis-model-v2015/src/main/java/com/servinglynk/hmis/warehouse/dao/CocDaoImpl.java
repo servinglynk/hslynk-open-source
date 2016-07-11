@@ -7,12 +7,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,69 +25,62 @@ import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(CocDaoImpl.class);
 	@Autowired
 	private ParentDaoFactory factory;
 	
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 	    Export export = domain.getExport();
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<CoC> cocs = export.getCoC();
-		hydrateBulkUploadActivityStaging(cocs, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), domain);
 		if (cocs != null && cocs.size() > 0) {
 			for (CoC coc : cocs) {
-				com.servinglynk.hmis.warehouse.model.v2015.Coc cocModel = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
-				UUID cocUUID = UUID.randomUUID();
-				cocModel.setId(cocUUID);
-				cocModel.setCoccode(coc.getCoCCode());
-				cocModel.setDateCreated(LocalDateTime.now());
-				cocModel.setDateUpdated(LocalDateTime.now());
-				UUID uuid = domain.getAffiliationProjectMap().get(coc.getProjectID());
-				if(uuid !=null) {
-					Project project = (Project) get(Project.class,uuid);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Coc cocModel = getModelObject(domain, coc, data);
+					cocModel.setCoccode(coc.getCoCCode());
+					cocModel.setDateCreated(LocalDateTime.now());
+					cocModel.setDateUpdated(LocalDateTime.now());
+					Project project = (Project) getModel(Project.class,coc.getProjectID(),getProjectGroupCode(domain),true);
 					cocModel.setProjectid(project);
+					if(exportEntity !=null)
+						exportEntity.addCoc(cocModel);
+					cocModel.setUserId(exportEntity.getUserId());
+					cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
+					cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
+					cocModel.setExport(exportEntity);
+					performSaveOrUpdate(cocModel);
+				}catch(Exception e) {
+					logger.error("Exception beause of the Coc::"+coc.getCoCCode() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				exportEntity.addCoc(cocModel);
-				cocModel.setUserId(exportEntity.getUserId());
-				cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
-				cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
-				hydrateCommonFields(cocModel, domain);
-				cocModel.setExport(exportEntity);
-				domain.getCocCodeMap().put(coc.getCoCCode(), cocUUID);
-				insertOrUpdate(cocModel);
 			}
 	}
+		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), domain, exportEntity);
 	
 	}
-
-
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Coc> coc = export.getCocs();
-		hydrateBulkUploadActivity(coc, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), export,id);
-		if(coc !=null && !coc.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Coc cocs : coc) {
-				//com.servinglynk.hmis.warehouse.model.v2015.Coc cocByDedupCliendId = getCocByDedupCliendId(cocs.getId(),cocs.getProjectGroupCode());
-			//	if(cocByDedupCliendId ==null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Coc target = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
-					BeanUtils.copyProperties(cocs, target, new String[] {"inventories","sites"});
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					exportEntity.addCoc(target);
-					 if(cocs.getProjectid() !=null) {
-						 com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class,cocs.getProjectid().getId());
-						 target.setProjectid(projectModel);
-					 }
-					target.setExport(exportEntity);
-					insertOrUpdate(target);
-			//	}
-			}
+	
+	public  com.servinglynk.hmis.warehouse.model.v2015.Coc getModelObject(ExportDomain domain, CoC coc,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Coc CocModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			CocModel = (com.servinglynk.hmis.warehouse.model.v2015.Coc) getModel(com.servinglynk.hmis.warehouse.model.v2015.Coc.class, coc.getCoCCode(), getProjectGroupCode(domain),false);
+		
+		if(CocModel == null) {
+			CocModel = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
+			CocModel.setId(UUID.randomUUID());
+			CocModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
+		hydrateCommonFields(CocModel, domain,coc.getCoCCode(),data.i+data.j);
+		return CocModel;
 	}
-	
+
 	@Override
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.v2015.Coc coc) {
@@ -103,9 +96,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				}
 			}
 	}
-	
-	
-	
     
 	private Date getDateInFormat(String dob) {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -125,20 +115,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	@Override
-	protected void performSave(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2015.Project createProject(com.servinglynk.hmis.warehouse.model.v2015.Project project){

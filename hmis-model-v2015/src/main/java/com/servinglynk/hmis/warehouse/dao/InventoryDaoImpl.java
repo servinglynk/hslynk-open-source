@@ -12,10 +12,13 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
@@ -30,7 +33,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(InventoryDaoImpl.class);
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
 
@@ -41,89 +45,73 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	private ParentDaoFactory parentDaoFactory;*/
 
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<Inventory> inventories = export.getInventory();
-		hydrateBulkUploadActivityStaging(inventories, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain);
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
-				com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
-				UUID inventoryUUID = UUID.randomUUID();
-				inventoryModel.setId(inventoryUUID);
-				inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
-				inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
-				inventoryModel.setChBedInventory(inventory.getChBedInventory());
-				inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
-				inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
-				inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
-				inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
-				inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
-				inventoryModel.setUnitinventory(inventory.getUnitInventory());
-				inventoryModel.setVetBedInventory(inventory.getVetBedInventory());
-				inventoryModel.setYouthAgeGroup(inventory.getYouthAgeGroup());
-				inventoryModel.setYouthBedInventory(inventory.getYouthBedInventory());
-				inventoryModel.setDeleted(false);
-				inventoryModel.setDateCreated(LocalDateTime.now());
-				inventoryModel.setDateUpdated(LocalDateTime.now());
-				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = getModelObject(domain, inventory, data);
+					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
+					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
+					inventoryModel.setChBedInventory(inventory.getChBedInventory());
+					inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
+					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
+					inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
+					inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
+					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
+					inventoryModel.setUnitinventory(inventory.getUnitInventory());
+					inventoryModel.setVetBedInventory(inventory.getVetBedInventory());
+					inventoryModel.setYouthAgeGroup(inventory.getYouthAgeGroup());
+					inventoryModel.setYouthBedInventory(inventory.getYouthBedInventory());
+					inventoryModel.setDeleted(false);
+					/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				exportEntity.addInventory(inventoryModel);
-				inventoryModel.setUserId(exportEntity.getUserId());
-				inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
-				inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
-				hydrateCommonFields(inventoryModel, domain);
-				inventoryModel.setExport(exportEntity);
-				inventoryModel.setSync(false);
-				UUID uuid = domain.getCocCodeMap().get(inventory.getCoCCode());
-				if(uuid !=null) {
-					Coc coc = (Coc) get(Coc.class,uuid);
+					exportEntity.addInventory(inventoryModel);
+					inventoryModel.setUserId(exportEntity.getUserId());
+					inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
+					inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
+					inventoryModel.setExport(exportEntity);
+					inventoryModel.setSync(false);
+					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true);
 					inventoryModel.setCoc(coc);
-				}
-				insertOrUpdate(inventoryModel);
-			}
-		}
-	
-	}
-
-	
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Inventory> inventories = export.getInventories();
-		hydrateBulkUploadActivity(inventories, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), export,id);
-		if(inventories != null && !inventories.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Inventory inventory : inventories) {
-				if(inventory !=null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Inventory target = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
-					BeanUtils.copyProperties(inventory, target,getNonCollectionFields(target));
-				//	com.servinglynk.hmis.warehouse.model.v2015.Projectcoc projectCocModel = (com.servinglynk.hmis.warehouse.model.v2015.Projectcoc) get(com.servinglynk.hmis.warehouse.model.v2015.Projectcoc.class,inventory.getProjectCoc().getId() );
-				//	target.setProjectCoc(projectCocModel);
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, inventory.getExport().getId());
-					target.setExport(exportEntity);
-					exportEntity.addInventory(target);
-					target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					insert(target);
+					performSaveOrUpdate(inventoryModel);
+				} catch(Exception e) {
+					logger.error("Exception beause of the inventory::"+inventory.getInventoryID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain,exportEntity);
 	}
+	public com.servinglynk.hmis.warehouse.model.v2015.Inventory getModelObject(ExportDomain domain, Inventory Inventory ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2015.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, Inventory.getInventoryID(), getProjectGroupCode(domain),false);
+		
+		if(inventoryModel == null) {
+			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
+			inventoryModel.setId(UUID.randomUUID());
+			inventoryModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(inventoryModel, domain,Inventory.getInventoryID(),data.i+data.j);
+		return inventoryModel;
+	}
+	
+	
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
 	}
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Inventory createInventory(com.servinglynk.hmis.warehouse.model.v2015.Inventory inventory) {
 		inventory.setId(UUID.randomUUID());

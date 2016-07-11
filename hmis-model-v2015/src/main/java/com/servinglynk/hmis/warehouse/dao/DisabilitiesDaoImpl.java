@@ -3,23 +3,21 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
@@ -32,86 +30,66 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
-
-	public void hydrateStaging(ExportDomain domain)
+	private static final Logger logger = LoggerFactory
+			.getLogger(DisabilitiesDaoImpl.class);
+	public void hydrateStaging(ExportDomain domain) throws Exception
 	{
-
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
-		hydrateBulkUploadActivityStaging(disabilitiesList, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain);
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
-				disabilitiesModel.setId(UUID.randomUUID());
-				disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
-				disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
-				disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
-				//disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
-				disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
-				disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
-				disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
-				disabilitiesModel.setDateCreated(LocalDateTime.now());
-				disabilitiesModel.setDateUpdated(LocalDateTime.now());
-				disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
-				disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-				if(disabilities.getProjectEntryID() !=null && !"".equals(disabilities.getProjectEntryID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get((disabilities.getProjectEntryID()));
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
-						disabilitiesModel.setEnrollmentid(enrollmentModel);
-					}
-
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = getModelObject(domain, disabilities, data);
+					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
+					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
+					disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
+					//disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
+					disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
+					disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
+					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
+					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
+					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getProjectEntryID(),getProjectGroupCode(domain),true);
+					disabilitiesModel.setEnrollmentid(enrollmentModel);
+					disabilitiesModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addDisabilities(disabilitiesModel);
+					performSaveOrUpdate(disabilitiesModel);
+				}catch(Exception e) {
+					logger.error("Exception beause of the Disabilities::"+disabilities.getDisabilitiesID() +" Exception ::"+e.getMessage());
+					 throw new Exception(e);
 				}
-
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				disabilitiesModel.setExport(exportEntity);
-				hydrateCommonFields(disabilitiesModel, domain);
-				exportEntity.addDisabilities(disabilitiesModel);
-				insertOrUpdate(disabilitiesModel);
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2015.Export export,Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Disabilities> disabilitieses = export.getDisabilitieses();
-		hydrateBulkUploadActivity(disabilitieses, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), export,id);
-		if(disabilitieses !=null && !disabilitieses.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilities : disabilitieses) {
-				com.servinglynk.hmis.warehouse.model.v2015.Disabilities target = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
-				BeanUtils.copyProperties(disabilities, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, disabilities.getEnrollmentid().getId());
-				 target.setEnrollmentid(enrollmentModel);
-				 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-				 target.setExport(exportEntity);
-				 exportEntity.addDisabilities(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-				 insertOrUpdate(target);
-			}
+	public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getModelObject(ExportDomain domain, Disabilities Disabilities ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2015.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, Disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false);
+		
+		if(disabilitiesModel == null) {
+			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
+			disabilitiesModel.setId(UUID.randomUUID());
+			disabilitiesModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
-
+		hydrateCommonFields(disabilitiesModel, domain,Disabilities.getDisabilitiesID(),data.i+data.j);
+		return disabilitiesModel;
 	}
-
+	
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2015.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilities){

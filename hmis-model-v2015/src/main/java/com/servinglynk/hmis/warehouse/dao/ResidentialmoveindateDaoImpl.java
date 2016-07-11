@@ -5,20 +5,18 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -28,77 +26,66 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		ResidentialmoveindateDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(ResidentialmoveindateDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<ResidentialMoveInDate> residentialMoveInDates = domain.getExport().getResidentialMoveInDate();
-		hydrateBulkUploadActivityStaging(residentialMoveInDates, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(residentialMoveInDates != null && !residentialMoveInDates.isEmpty())
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)
 			{
-				UUID id = UUID.randomUUID();
-				Residentialmoveindate residentialmoveindateModel = new Residentialmoveindate();
-				residentialmoveindateModel.setId(id);
-				residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
-				residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
-				residentialmoveindateModel.setDateCreated(LocalDateTime.now());
-				residentialmoveindateModel.setDateUpdated(LocalDateTime.now());
-				residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
-				residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
-				Enrollment enrollment = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(residentialMoveInDate.getProjectEntryID()));
-				residentialmoveindateModel.setEnrollmentid(enrollment);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				residentialmoveindateModel.setExport(exportEntity);
-				exportEntity.addResidentialmoveindate(residentialmoveindateModel);
-				hydrateCommonFields(residentialmoveindateModel, domain);
-				insertOrUpdate(residentialmoveindateModel);
-			}
-		}
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Residentialmoveindate> residentialmoveindates = export.getResidentialmoveindates();
-		hydrateBulkUploadActivity(residentialmoveindates, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), export,id);
-		if(residentialmoveindates != null && !residentialmoveindates.isEmpty()) {
-			for(Residentialmoveindate residentialmoveindate : residentialmoveindates) {
-				if(residentialmoveindate != null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate target = new com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate();
-					BeanUtils.copyProperties(residentialmoveindate, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, residentialmoveindate.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addResidentialmoveindate(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
+				try {
+					Residentialmoveindate residentialmoveindateModel = getModelObject(domain, residentialMoveInDate, data);
+					residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
+					residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
+					residentialmoveindateModel.setDateCreated(LocalDateTime.now());
+					residentialmoveindateModel.setDateUpdated(LocalDateTime.now());
+					residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
+					residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, residentialMoveInDate.getResidentialMoveInDateID(),getProjectGroupCode(domain),true);
+					residentialmoveindateModel.setEnrollmentid(enrollment);
+					residentialmoveindateModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addResidentialmoveindate(residentialmoveindateModel);
+					performSaveOrUpdate(residentialmoveindateModel);
+				}catch(Exception e) {
+					logger.error("Exception beause of the residentialMoveInDate::"+residentialMoveInDate.getResidentialMoveInDateID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
 			}
+			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), domain,exportEntity);
 		}
 	}
 
+	public com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate getModelObject(ExportDomain domain, ResidentialMoveInDate residentialmoveindate ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate residentialmoveindateModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			residentialmoveindateModel = (com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate) getModel(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false);
+		
+		if(residentialmoveindateModel == null) {
+			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate();
+			residentialmoveindateModel.setId(UUID.randomUUID());
+			residentialmoveindateModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data.i+data.j);
+		return residentialmoveindateModel;
+	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate residentialmoveindate){
 	       residentialmoveindate.setId(UUID.randomUUID());

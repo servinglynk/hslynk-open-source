@@ -3,18 +3,17 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoAfghanistanOefEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoDesertStormEnum;
@@ -26,8 +25,6 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-import com.servinglynk.hmis.warehouse.model.v2015.Client;
-import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -36,19 +33,22 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVeteranInfoDao {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ClientVeteranInfoDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo> veteranInfoList = export
 				.getClientVeteranInfo();
-		hydrateBulkUploadActivityStaging(veteranInfoList, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo veteranInfo : veteranInfoList) {
-
-				ClientVeteranInfo vInfo = new ClientVeteranInfo();
+				try {
+				com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo vInfo = getModelObject(domain, veteranInfo, data);
 				vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
 						.lookupEnum(BasicDataGenerator
 								.getStringValue(veteranInfo
@@ -89,62 +89,40 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 						.getYearEnteredService()));
 				vInfo.setYearSeperated(new Integer(veteranInfo
 						.getYearSeparated()));
-				vInfo.setId(UUID.randomUUID());
-				vInfo.setDateCreated(LocalDateTime.now());
-				vInfo.setDateUpdated(LocalDateTime.now());
 				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
-				UUID clientId = domain.getClientPersonalIDMap().get(veteranInfo.getPersonalID());
-				com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, clientId);
+				com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),true);
 				vInfo.setClient(client);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
 				vInfo.setExport(exportEntity);
 				vInfo.setUserId(exportEntity.getUserId());
-				exportEntity.addClientVeteranInfo(vInfo);
-				hydrateCommonFields(vInfo, domain);
-				insert(vInfo);
-			}
-		}
-	}
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo> veteranInfos = export.getClientVeteranInfoes();
-		hydrateBulkUploadActivity(veteranInfos, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), export, id);
-		if(veteranInfos !=null && !veteranInfos.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo veteranInfo : veteranInfos) {
-				com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
-				BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, veteranInfo.getExport().getId());
-				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, veteranInfo.getClient().getId());
-				target.setClient(clientModel);
-				target.setDateCreated(LocalDateTime.now());
-				target.setDateUpdated(LocalDateTime.now());
-				insert(target);
-			}
-		}
-	}
-
-	@Override
-	public void hydrateLive(Client client) {
-		Set<ClientVeteranInfo> veteranInfoes = client.getVeteranInfoes();
-		if(veteranInfoes !=null && !veteranInfoes.isEmpty()) {
-			for(ClientVeteranInfo veteranInfo : veteranInfoes) {
-				if(veteranInfo !=null) {
-					com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo target = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
-					BeanUtils.copyProperties(veteranInfo, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, client.getExport().getId());
-					target.setExport(exportEntity);
-					com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) get(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getId());
-					target.setClient(clientModel);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insert(target);
+				if(exportEntity !=null)
+					exportEntity.addClientVeteranInfo(vInfo);
+				performSaveOrUpdate(vInfo);
+				} catch(Exception e ){
+					logger.error("Exception beause of the client::"+veteranInfo.getClientVeteranInfoID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), domain, exportEntity);
+	}
+	
+	public  com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo clientVeteranInfoModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			clientVeteranInfoModel = (com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false);
+		
+		if(clientVeteranInfoModel == null) {
+			clientVeteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
+			clientVeteranInfoModel.setId(UUID.randomUUID());
+			clientVeteranInfoModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(clientVeteranInfoModel, domain,clientVeteranInfo.getClientVeteranInfoID(),data.i+data.j);
+		return clientVeteranInfoModel;
 	}
 
 	@Override
@@ -152,20 +130,6 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 	   public com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo veteranInfo){
 	       veteranInfo.setId(UUID.randomUUID());
 	       insert(veteranInfo);

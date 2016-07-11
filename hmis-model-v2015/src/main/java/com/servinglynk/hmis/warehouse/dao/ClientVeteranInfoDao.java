@@ -13,8 +13,6 @@ import com.servinglynk.hmis.warehouse.model.v2015.Client;
  *
  */
 public interface ClientVeteranInfoDao extends ParentDao {
-	public void hydrateLive(Client client);
-
 	   com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo veteranInfo);
 	   com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo updateVeteranInfo(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo veteranInfo);
 	   void deleteVeteranInfo(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo veteranInfo);

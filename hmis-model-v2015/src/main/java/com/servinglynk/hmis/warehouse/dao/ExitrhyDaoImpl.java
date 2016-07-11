@@ -1,13 +1,12 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -29,75 +28,50 @@ import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(ExitrhyDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<ExitRHY> exitrhy = export.getExitRHY();
-		hydrateBulkUploadActivityStaging(exitrhy, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), domain);
 		if (exitrhy != null && exitrhy.size() > 0) {
 			for (ExitRHY exitrhys : exitrhy) {
-				com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
-				UUID exitrhyUUID = UUID.randomUUID();
-				exitrhyModel.setId(exitrhyUUID);
-				exitrhyModel.setAssistanceMainStreamBenefits(ExitRHYAssistanceMainstreamBenefitsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getAssistanceMainstreamBenefits())));
-				exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getEarlyExitReason())));
-				exitrhyModel.setExitCounseling(ExitRHYExitCounselingEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getExitCounseling())));
-				/*com.servinglynk.hmis.warehouse.model.stagv2015.Export exports = (com.servinglynk.hmis.warehouse.model.stagv2015.Export) get(com.servinglynk.hmis.warehouse.model.stagv2015.Exit.class, domain.getExitMap().get(exitrhys.getExitID()));
-				exitrhyModel.setExport(exports);*/
-				exitrhyModel.setFamilyReunificationAchieved(ExitRHYFamilyReunificationAchievedEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getFamilyReunificationAchieved())));
-				exitrhyModel.setFurtherFollowupServices(ExitRHYFurtherFollowUpServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getFurtherFollowUpServices())));
-				exitrhyModel.setOtherAftercarePlanOrAction(ExitRHYOtherAftercarePlanOrActionEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getOtherAftercarePlanOrAction())));
-				exitrhyModel.setPermenantHousingPlacement(ExitRHYPermanentHousingPlacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getPermanentHousingPlacement())));
-				exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( BasicDataGenerator.getStringValue(exitrhys.getProjectCompletionStatus())));
-				exitrhyModel.setResourcePackage(ExitRHYResourcePackageEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getResourcePackage())));
-				exitrhyModel.setScheduledFollowupContacts(ExitRHYScheduledFollowUpContactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getScheduledFollowUpContacts())));
-				exitrhyModel.setTempShelterPlacement(ExitRHYTemporaryShelterPlacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getTemporaryShelterPlacement())));
-				exitrhyModel.setWrittenAfterCarePlan(ExitRHYWrittenAfterCarePlanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getWrittenAftercarePlan())));
-				
-				com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) get(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, domain.getExitMap().get(exitrhys.getExitID()));
-				exitrhyModel.setExitid(exit);
-				
-				exitrhyModel.setDeleted(false);
-				exitrhyModel.setDateCreated(LocalDateTime.now());
-				exitrhyModel.setDateUpdated(LocalDateTime.now());
-				/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
-				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				exportEntity.addExitrhy(exitrhyModel);
-				exitrhyModel.setUserId(exportEntity.getUserId());
-				exitrhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateCreated()));
-				exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateUpdated()));
-				hydrateCommonFields(exitrhyModel, domain);
-				exitrhyModel.setExport(exportEntity);
-				exitrhyModel.setSync(false);
-				insertOrUpdate(exitrhyModel);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyModel = getModelObject(domain, exitrhys, data);
+					exitrhyModel.setAssistanceMainStreamBenefits(ExitRHYAssistanceMainstreamBenefitsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getAssistanceMainstreamBenefits())));
+					exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getEarlyExitReason())));
+					exitrhyModel.setExitCounseling(ExitRHYExitCounselingEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getExitCounseling())));
+					exitrhyModel.setFamilyReunificationAchieved(ExitRHYFamilyReunificationAchievedEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getFamilyReunificationAchieved())));
+					exitrhyModel.setFurtherFollowupServices(ExitRHYFurtherFollowUpServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getFurtherFollowUpServices())));
+					exitrhyModel.setOtherAftercarePlanOrAction(ExitRHYOtherAftercarePlanOrActionEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getOtherAftercarePlanOrAction())));
+					exitrhyModel.setPermenantHousingPlacement(ExitRHYPermanentHousingPlacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getPermanentHousingPlacement())));
+					exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( BasicDataGenerator.getStringValue(exitrhys.getProjectCompletionStatus())));
+					exitrhyModel.setResourcePackage(ExitRHYResourcePackageEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getResourcePackage())));
+					exitrhyModel.setScheduledFollowupContacts(ExitRHYScheduledFollowUpContactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getScheduledFollowUpContacts())));
+					exitrhyModel.setTempShelterPlacement(ExitRHYTemporaryShelterPlacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getTemporaryShelterPlacement())));
+					exitrhyModel.setWrittenAfterCarePlan(ExitRHYWrittenAfterCarePlanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getWrittenAftercarePlan())));
+					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class,exitrhys.getExitID(),getProjectGroupCode(domain),true);
+					exitrhyModel.setExitid(exit);
+					exitrhyModel.setDeleted(false);
+					exportEntity.addExitrhy(exitrhyModel);
+					exitrhyModel.setUserId(exportEntity.getUserId());
+					exitrhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateCreated()));
+					exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateUpdated()));
+					exitrhyModel.setExport(exportEntity);
+					exitrhyModel.setSync(false);
+					performSaveOrUpdate(exitrhyModel);
+				} catch(Exception e) {
+					logger.error("Exception beause of the exitrhy::"+exitrhys.getExitRHYID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
+				}
 			}
 		}
-	
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), domain,exportEntity);
 	}
 
-
-	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Exitrhy> exitrhy = export.getExitrhies();
-		hydrateBulkUploadActivity(exitrhy, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), export, id);
-		if(exitrhy !=null && !exitrhy.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhys : exitrhy) {
-				//com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyByDedupCliendId = getExitrhyByDedupExitrhyId(exitrhys.getId(),exitrhys.getProjectGroupCode());
-				//if(exitrhyByDedupCliendId ==null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Exitrhy target = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
-					BeanUtils.copyProperties(exitrhys, target, new String[] {"enrollments","veteranInfoes"});
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					exportEntity.addExitrhy(target);
-					target.setExport(exportEntity);
-					insertOrUpdate(target);
-				}
-		//	}
-		}
-	}
-	
 	@Override
 	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhy) {
 			if(exitrhy !=null) {
@@ -113,25 +87,28 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 			}
 	}
 	
+	public com.servinglynk.hmis.warehouse.model.v2015.Exitrhy getModelObject(ExportDomain domain, ExitRHY exitrhy ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Exitrhy exitrhyModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			exitrhyModel = (com.servinglynk.hmis.warehouse.model.v2015.Exitrhy) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class, exitrhy.getExitRHYID(), getProjectGroupCode(domain),false);
+		
+		if(exitrhyModel == null) {
+			exitrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
+			exitrhyModel.setId(UUID.randomUUID());
+			exitrhyModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(exitrhyModel, domain,exitrhy.getExitRHYID(),data.i+data.j);
+		return exitrhyModel;
+	}
 	
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	@Override
-	protected void performSave(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

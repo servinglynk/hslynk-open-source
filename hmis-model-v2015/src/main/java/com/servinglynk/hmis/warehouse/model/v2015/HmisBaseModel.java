@@ -1,4 +1,5 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -26,7 +28,8 @@ public abstract class HmisBaseModel implements Entity{
 	protected LocalDateTime dateUpdatedFromSource;
 	/** Field mapping. */
 	protected String projectGroupCode;
-	protected UUID userId;
+	private UUID userId;
+	private String sourceSystemId;
 	 /**
 		 * Return the value associated with the column: dateCreated.
 		 * @return A LocalDateTime object (this.dateCreated)
@@ -92,8 +95,9 @@ public abstract class HmisBaseModel implements Entity{
 			
 			
 			
-			protected boolean deleted;
-			protected boolean sync;
+			private boolean deleted;
+			private boolean active;
+			private boolean sync;
 			
 			
 			@Column(name="sync")
@@ -111,8 +115,15 @@ public abstract class HmisBaseModel implements Entity{
 			public void setDeleted(boolean deleted) {
 				this.deleted = deleted;
 			}
+			@Column(name="active")
+			public boolean isActive() {
+				return active;
+			}
 
-			protected UUID parentId;
+			public void setActive(boolean active) {
+				this.active = active;
+			}
+			private UUID parentId;
 			
 			@Basic( optional = true )
 			@Column( name = "parent_id", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
@@ -124,7 +135,7 @@ public abstract class HmisBaseModel implements Entity{
 				this.parentId = parentId;
 			}
 			
-			protected Long version;
+			private Long version;
 			@Basic( optional = true )
 			@Column( name = "version", nullable = true  )
 			public Long getVersion() {
@@ -140,33 +151,27 @@ public abstract class HmisBaseModel implements Entity{
 				return userId;
 			}
 
-			public void setUserId(UUID userId) {
-				this.userId = userId;
+			public void setUserId(UUID user) {
+				this.userId = user;
 			}
 			
-
-			/** Field mapping. */
-			protected Export export;
-			 /**
-			 * Return the value associated with the column: export.
-			 * @return A Export object (this.export)
-			 */
-			@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-			@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 			@Basic( optional = true )
-			@JoinColumn(name = "export_id", nullable = true )
-			public Export getExport() {
-				return this.export;
-				
+			@Column( name = "source_system_id", nullable = true  )
+		//	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
+			public String getSourceSystemId() {
+				return sourceSystemId;
 			}
-			
 
-		 
-			 /**  
-			 * Set the value related to the column: export.
-			 * @param export the export value you wish to set
-			 */
-			public void setExport(final Export export) {
-				this.export = export;
+			public void setSourceSystemId(String sourceId) {
+				this.sourceSystemId = sourceId;
+			}
+			private boolean inserted;
+			
+			@Transient
+			public boolean isInserted() {
+				return inserted;
+			}
+			public void setInserted(boolean inserted) {
+				this.inserted = inserted;
 			}
 }

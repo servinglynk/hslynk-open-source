@@ -54,14 +54,16 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	ParentDaoFactory daoFactory;
 	
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 	
 		Export export = domain.getExport();
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<Client> clients = export.getClient();
-		hydrateBulkUploadActivityStaging(clients, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain);
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
-				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
+				try{
+				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = getModelObject(domain, client, data);
 				if(client.getFirstName() != null){
 					clientModel.setFirstName(client.getFirstName().getValue());
 				}
@@ -109,15 +111,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(client
 												.getVeteranStatus())));
-				UUID clientUUID = UUID.randomUUID();
-				clientModel.setId(clientUUID);
-				UUID exportId = domain.getExportId();
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
-				exportEntity.addClient(clientModel);
+				if(exportEntity !=null)
+					exportEntity.addClient(clientModel);
 				clientModel.setUserId(exportEntity.getUserId());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
-				hydrateCommonFields(clientModel, domain);
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
 				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
@@ -160,41 +158,41 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 					 */
 					if(dedupedClient !=null) {
-						clientUUID = dedupedClient.getId();
+						clientModel.setId(dedupedClient.getId());
 					}
 					else {
-						insert(clientModel);	
+						performSaveOrUpdate(clientModel);	
 					}	
 				}else{
-					insert(clientModel);
+					performSaveOrUpdate(clientModel);
 				}
-				
-				domain.getClientPersonalIDMap().put(client.getPersonalID(), clientUUID);
+			} catch(Exception e ){
+				logger.error("Exception beause of the client::"+client.toString() +" Exception ::"+e.getMessage());
+				throw new Exception(e);
+			}
 			}
 	}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain, exportEntity);
 	}
 	
-
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Client> clients = export.getClients();
-		hydrateBulkUploadActivity(clients, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), export, id);
-		if(clients !=null && !clients.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Client client : clients) {
-				com.servinglynk.hmis.warehouse.model.v2015.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
-				if(clientByDedupCliendId ==null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Client target = new com.servinglynk.hmis.warehouse.model.v2015.Client();
-					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					exportEntity.addClient(target);
-					target.setExport(exportEntity);
-					insertOrUpdate(target);
-				}
-			}
+	
+	public com.servinglynk.hmis.warehouse.model.v2015.Client getModelObject(ExportDomain domain, Client client ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false);
+		
+		if(clientModel == null) {
+			clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
+			clientModel.setId(UUID.randomUUID());
+			clientModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
+		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data.i+data.j);
+		return clientModel;
 	}
-	
 	@Override
 	public void hydrateLive(
 			com.servinglynk.hmis.warehouse.model.v2015.Client client) {
@@ -232,20 +230,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

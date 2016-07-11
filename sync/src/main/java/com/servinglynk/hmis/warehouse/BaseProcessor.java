@@ -94,7 +94,7 @@ public class BaseProcessor<T> extends Logging {
 			for (T pojo : pojoList) {
 				if (pojo != null) {
 					// Insert data into an HBASE table  with in a column Family called Client
-					//TOOD: Need to verify Exception Handling
+					//TODO: Need to verify Exception Handling
 					try {
 						Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(pojo);
 						String id = (String) data.get("id");

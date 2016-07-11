@@ -1,14 +1,13 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -18,63 +17,65 @@ import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFaReferralDao{
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(ServiceFaReferralDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		List<Services> services = export.getServices();
-		hydrateBulkUploadActivityStaging(services, com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class.getSimpleName(), domain);
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
-				com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralModel = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
-				UUID serviceFaReferralUUID = UUID.randomUUID();
-				serviceFaReferralModel.setId(serviceFaReferralUUID);
-				serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-				serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
-				//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
-				serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
-				serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
-			//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
-				serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
-				serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
-								
-				serviceFaReferralModel.setDeleted(false);
-				serviceFaReferralModel.setDateCreated(LocalDateTime.now());
-				serviceFaReferralModel.setDateUpdated(LocalDateTime.now());
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				exportEntity.addServiceFaReferral(serviceFaReferralModel);
-				serviceFaReferralModel.setUserId(exportEntity.getUserId());
-				serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-				serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
-				hydrateCommonFields(serviceFaReferralModel, domain);
-				serviceFaReferralModel.setExport(exportEntity);
-				serviceFaReferralModel.setSync(false);
-				insertOrUpdate(serviceFaReferralModel);
+				try{
+					
+					com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralModel = getModelObject(domain, serviceFaReferrals, data);
+					serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+					serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
+					//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
+					serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
+					serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
+					//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
+					serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
+					serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
+					
+					serviceFaReferralModel.setDeleted(false);
+					if(exportEntity !=null)
+						exportEntity.addServiceFaReferral(serviceFaReferralModel);
+					serviceFaReferralModel.setUserId(exportEntity.getUserId());
+					serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+					serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
+					serviceFaReferralModel.setExport(exportEntity);
+					serviceFaReferralModel.setSync(false);
+					performSaveOrUpdate(serviceFaReferralModel);
+				} catch (Exception e){
+					logger.error("Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
+				}
 			}
 		}
 	
 	}
 
-
-	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral> serviceFaReferral = export.getServiceFaReferrals();
-		hydrateBulkUploadActivity(serviceFaReferral, com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class.getSimpleName(), export, id);
-		if(serviceFaReferral !=null && !serviceFaReferral.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferrals : serviceFaReferral) {
-			//	com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralByDedupCliendId = getServiceFaReferralByDedupServiceFaReferralId(serviceFaReferrals.getId(),serviceFaReferrals.getProjectGroupCode());
-			//	if(serviceFaReferralByDedupCliendId ==null) {
-					com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral target = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
-					BeanUtils.copyProperties(serviceFaReferrals, target, new String[] {"enrollments","veteranInfoes"});
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					exportEntity.addServiceFaReferral(target);
-					target.setExport(exportEntity);
-					insertOrUpdate(target);
-				}
-		//	}
+	public com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral getModelObject(ExportDomain domain, Services services ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral ServiceFaReferralModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			ServiceFaReferralModel = (com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false);
+		
+		if(ServiceFaReferralModel == null) {
+			ServiceFaReferralModel = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
+			ServiceFaReferralModel.setId(UUID.randomUUID());
+			ServiceFaReferralModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
+		hydrateCommonFields(ServiceFaReferralModel, domain,services.getServicesID(),data.i+data.j);
+		return ServiceFaReferralModel;
 	}
+	
 	
 	@Override
 	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferral) {
@@ -96,20 +97,6 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	@Override
-	protected void performSave(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -178,7 +165,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 
 	@Override
 	public long getEnrollmentServiceFaReferralsCount(UUID enrollmentId) {
-		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class);
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

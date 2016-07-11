@@ -12,10 +12,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
@@ -32,7 +35,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProjectDaoImpl.class);
 	@Autowired
 	private ParentDaoFactory factory;
 
@@ -40,82 +44,61 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 
 		List<Project> projects = domain.getExport().getProject();
-		hydrateBulkUploadActivityStaging(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(projects !=null && projects.size() > 0)
 		{
 			for(Project project : projects)
 			{
-				com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = new com.servinglynk.hmis.warehouse.model.v2015.Project();
-				UUID id = UUID.randomUUID();
-				projectModel.setId(id);
-				//projectModel.setAffiliations(affiliation);
-				projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
-				//projectModel.setFunders(funder);
-				
-				domain.getAffiliationProjectMap().put(project.getProjectID(), id);
-				domain.getProjectCocMap().put(project.getProjectID(), id);
-				//projectModel.setProjectcocs(projectcoc);
-				
-				if(StringUtils.isNotBlank(project.getOrganizationID())) {
-					UUID uuid = domain.getOrganizationProjectMap().get(project.getOrganizationID());
-					if(uuid !=null) {
-						Organization organization = (Organization) get(Organization.class, uuid);
-						projectModel.setOrganizationid(organization);
-					}
-				}
-				projectModel.setProjectname(project.getProjectName());
-				projectModel.setProjectcommonname(project.getProjectCommonName());
-				projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
-				//projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
-				projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
-				projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
-				projectModel.setDateCreated(LocalDateTime.now());
-				projectModel.setDateUpdated(LocalDateTime.now());
-				projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
-				projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
-				if(project.getProjectID() !=null && !"".equals(project.getProjectID())) {
-					UUID uuid = domain.getEnrollmentProjectEntryIDMap().get(project.getProjectID());
-					if(uuid !=null) {
-						Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, uuid);
-						projectModel.addEnrollment(enrollmentModel);
-					}
-				}
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				projectModel.setExport(exportEntity);
-				exportEntity.addProject(projectModel);
-				hydrateCommonFields(projectModel, domain);
-				insertOrUpdate(projectModel);
-			}
-		}
-
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Project> projects = export.getProjects();
-		hydrateBulkUploadActivity(projects, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), export,id);
-		if(projects != null && !projects.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Project project : projects) {
-				if(project != null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Project target = new com.servinglynk.hmis.warehouse.model.v2015.Project();
-					BeanUtils.copyProperties(project, target,getNonCollectionFields(target));
-					//com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, project.getEnrollments().get(0).getId());
-//					target.addEnrollment(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					target.setExport(exportEntity);
-					//Sandeep TODO Need to fix this.
-//					com.servinglynk.hmis.warehouse.model.v2015.Organization orgEntity = (com.servinglynk.hmis.warehouse.model.v2015.Organization) get(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, project.getOrganizationid().getId());
-//					target.setOrganizationid(orgEntity);
-					target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					insert(target);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = getModelObject(domain, project, data);
+					//projectModel.setAffiliations(affiliation);
+					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
+					Organization organization = (Organization) getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true);
+					projectModel.setOrganizationid(organization);
+					projectModel.setProjectname(project.getProjectName());
+					projectModel.setProjectcommonname(project.getProjectCommonName());
+					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
+					//projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
+					projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
+					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
+					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
+					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, project.getProjectID(),getProjectGroupCode(domain),true);
+					projectModel.addEnrollment(enrollmentModel);
+					projectModel.setExport(exportEntity);
+					exportEntity.addProject(projectModel);
+					performSaveOrUpdate(projectModel);
+				}catch(Exception e) {
+					logger.error("Exception beause of the project::"+project.getProjectID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), domain,exportEntity);
 	}
+
+	public com.servinglynk.hmis.warehouse.model.v2015.Project getModelObject(ExportDomain domain, Project Project ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) getModel(com.servinglynk.hmis.warehouse.model.v2015.Project.class, Project.getProjectID(), getProjectGroupCode(domain),false);
+		
+		if(projectModel == null) {
+			projectModel = new com.servinglynk.hmis.warehouse.model.v2015.Project();
+			projectModel.setId(UUID.randomUUID());
+			projectModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(projectModel, domain,Project.getProjectID(),data.i+data.j);
+		return projectModel;
+	}
+	
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
@@ -123,17 +106,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 
 	}
 
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.Project createProject(com.servinglynk.hmis.warehouse.model.v2015.Project project){
 		   project.setId(UUID.randomUUID());
 	       insert(project);

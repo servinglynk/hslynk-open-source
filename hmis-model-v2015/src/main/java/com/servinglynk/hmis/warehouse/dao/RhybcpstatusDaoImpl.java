@@ -3,15 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
@@ -19,7 +17,6 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -29,79 +26,66 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		RhybcpstatusDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(RhybcpstatusDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<RHYBCPStatus> rhybcpStatusList = domain.getExport().getRHYBCPStatus();
-		hydrateBulkUploadActivityStaging(rhybcpStatusList, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(rhybcpStatusList !=null && !rhybcpStatusList.isEmpty())
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)
 			{
-				RhybcpStatus rhybcpstatusModel = new RhybcpStatus();
-				UUID id = UUID.randomUUID();
-				rhybcpstatusModel.setId(id);
-				rhybcpstatusModel.setDateCreated(LocalDateTime.now());
-				rhybcpstatusModel.setDateUpdated(LocalDateTime.now());
-				rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
-				rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
-				rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
-				rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
-				rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(rhybcpStatus.getProjectEntryID()));
-				rhybcpstatusModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				rhybcpstatusModel.setExport(exportEntity);
-				exportEntity.addRhybcpStatus(rhybcpstatusModel);
-				hydrateCommonFields(rhybcpstatusModel, domain);
-				insertOrUpdate(rhybcpstatusModel);
-			}
-		}
-
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<RhybcpStatus> rhybcpstatuses = export.getRhybcpStatuses();
-		hydrateBulkUploadActivity(rhybcpstatuses, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), export,id);
-		if(rhybcpstatuses !=null && !rhybcpstatuses.isEmpty()) {
-			for(RhybcpStatus rhybcpstatus : rhybcpstatuses) {
-				if(rhybcpstatus !=null) {
-					com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus target = new com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus();
-					BeanUtils.copyProperties(rhybcpstatus, target, getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, rhybcpstatus.getEnrollmentid().getId());
-					target.setEnrollmentid(enrollmentModel);
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addRhybcpStatus(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
+				try {
+					
+					RhybcpStatus rhybcpstatusModel = getModelObject(domain, rhybcpStatus, data);
+					rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
+					rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
+					rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
+					rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
+					rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true);
+					rhybcpstatusModel.setEnrollmentid(enrollmentModel);
+					rhybcpstatusModel.setExport(exportEntity);
+					if(exportEntity != null)
+						exportEntity.addRhybcpStatus(rhybcpstatusModel);
+					performSaveOrUpdate(rhybcpstatusModel);
+				}catch(Exception e) {
+					logger.error("Exception beause of the rhybcpStatus::"+rhybcpStatus.getRHYBCPStatusID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
 			}
+			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), domain,exportEntity);
 		}
-		
+
 	}
 
+	public com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus getModelObject(ExportDomain domain, RHYBCPStatus rhybcpStatus ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus rhybcpStatusModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			rhybcpStatusModel = (com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus) getModel(com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class, rhybcpStatus.getRHYBCPStatusID(), getProjectGroupCode(domain),false);
+		
+		if(rhybcpStatusModel == null) {
+			rhybcpStatusModel = new com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus();
+			rhybcpStatusModel.setId(UUID.randomUUID());
+			rhybcpStatusModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(rhybcpStatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),data.i+data.j);
+		return rhybcpStatusModel;
+	}
+	
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus rhybcpstatus){

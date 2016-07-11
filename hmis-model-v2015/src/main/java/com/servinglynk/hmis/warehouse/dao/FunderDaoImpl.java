@@ -11,9 +11,12 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
@@ -26,79 +29,59 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  *
  */
 public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(FunderDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<Funder> funders = domain.getExport().getFunder();
-		hydrateBulkUploadActivityStaging(funders, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), domain);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(funders!=null && funders.size() > 0)
 		{
 			for(Funder funder : funders)
 			{
-				com.servinglynk.hmis.warehouse.model.v2015.Funder funderModel = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
-				UUID id = UUID.randomUUID();
-				funderModel.setId(id);
-				funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
-				//funderModel.setGrantid(funder.getGrantID());
-				funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
-				funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
-
-				funderModel.setDateCreated(LocalDateTime.now());
-				funderModel.setDateUpdated(LocalDateTime.now());
-				funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
-				funderModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
-				UUID uuid = domain.getAffiliationProjectMap().get(funder.getProjectID());
-				if(uuid !=null) {
-					Project project = (Project) get(Project.class,uuid);
+				try {
+					com.servinglynk.hmis.warehouse.model.v2015.Funder funderModel = getModelObject(domain, funder, data);
+					funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
+					//funderModel.setGrantid(funder.getGrantID());
+					funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
+					funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
+					funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
+					funderModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
+					Project project = (Project) getModel(Project.class,funder.getProjectID(),getProjectGroupCode(domain),true);
 					funderModel.setProjectid(project);
-				}
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				funderModel.setExport(exportEntity);
-				
-				hydrateCommonFields(funderModel, domain);
-				exportEntity.addFunder(funderModel);
-				insertOrUpdate(funderModel);
-			}
-		}
-
-	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Funder> funders = export.getFunders();
-		hydrateBulkUploadActivity(funders, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), export, id);
-		if(funders !=null && !funders.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Funder funder : funders) {
-				if(funder != null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Funder target = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
-					BeanUtils.copyProperties(funder, target,getNonCollectionFields(target));
-					 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					 target.setExport(exportEntity);
-					 if(funder.getProjectid() !=null) {
-						 com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class,funder.getProjectid().getId());
-						 target.setProjectid(projectModel);
-					 }
-					 target.setDateCreated(LocalDateTime.now());
-					 target.setDateUpdated(LocalDateTime.now());
-					insert(target);
+					funderModel.setExport(exportEntity);
+					if(exportEntity !=null)
+						exportEntity.addFunder(funderModel);
+					performSaveOrUpdate(funderModel);
+				} catch(Exception e) {
+					logger.error("Exception beause of the funder::"+funder.getFunderID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
 				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), domain,exportEntity);
 	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public com.servinglynk.hmis.warehouse.model.v2015.Funder getModelObject(ExportDomain domain, Funder funder ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Funder funderModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			funderModel = (com.servinglynk.hmis.warehouse.model.v2015.Funder) getModel(com.servinglynk.hmis.warehouse.model.v2015.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false);
+		
+		if(funderModel == null) {
+			funderModel = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
+			funderModel.setId(UUID.randomUUID());
+			funderModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
+		}
+		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data.i+data.j);
+		return funderModel;
 	}
 
 	public void hydrateHBASE(SyncDomain domain) {

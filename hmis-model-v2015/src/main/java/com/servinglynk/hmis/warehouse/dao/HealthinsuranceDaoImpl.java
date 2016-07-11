@@ -3,15 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
@@ -32,7 +30,6 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
 import com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -42,72 +39,73 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		HealthinsuranceDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(HealthinsuranceDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<HealthInsurance> healthInsurances = domain.getExport().getHealthInsurance();
-		hydrateBulkUploadActivityStaging(healthInsurances, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(healthInsurances!=null && healthInsurances.size() >0 )
 		{
 			for(HealthInsurance healthInsurance : healthInsurances)
 			{
-				Healthinsurance healthinsuranceModel = new Healthinsurance();
-				healthinsuranceModel.setId(UUID.randomUUID());
-				healthinsuranceModel.setCobra(BasicDataGenerator.getIntegerValue(healthInsurance.getCOBRA()));
-				healthinsuranceModel.setEmployerprovided(BasicDataGenerator.getIntegerValue(healthInsurance.getEmployerProvided()));
-				healthinsuranceModel.setInsurancefromanysource(HealthinsuranceInsurancefromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getInsuranceFromAnySource())));
-				healthinsuranceModel.setMedicaid(HealthinsuranceMedicaidEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getMedicaid())));
-				healthinsuranceModel.setMedicare(HealthinsuranceMedicareEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getMedicare())));
-				healthinsuranceModel.setNocobrareason(HealthinsuranceNocobrareasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoCOBRAReason())));
-				healthinsuranceModel.setNoemployerprovidedreason(HealthinsuranceNoemployerprovidedreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoEmployerProvidedReason())));
-				healthinsuranceModel.setNomedicaidreason(HealthinsuranceNomedicaidreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoMedicaidReason())));
-				healthinsuranceModel.setNomedicarereason(HealthinsuranceNomedicarereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoMedicareReason())));
-				healthinsuranceModel.setNoprivatepayreason(HealthinsuranceNoprivatepayreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoPrivatePayReason())));
-				healthinsuranceModel.setNoschipreason(HealthinsuranceNoschipreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoSCHIPReason())));
-				healthinsuranceModel.setNostatehealthinsreason(HealthinsuranceNostatehealthinsreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoStateHealthInsReason())));
-				healthinsuranceModel.setNovamedreason(HealthinsuranceNovamedreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoVAMedReason())));
-				healthinsuranceModel.setPrivatepay(HealthinsurancePrivatepayEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getPrivatePay())));
-				healthinsuranceModel.setSchip(HealthinsuranceSchipEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getSCHIP())));
-				healthinsuranceModel.setStatehealthins(HealthinsuranceStatehealthinsEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getStateHealthIns())));
-				healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
-				healthinsuranceModel.setDateCreated(LocalDateTime.now());
-				healthinsuranceModel.setDateUpdated(LocalDateTime.now());
-				healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
-				healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
-
-				Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(healthInsurance.getProjectEntryID()));
-				healthinsuranceModel.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				healthinsuranceModel.setExport(exportEntity);
-				exportEntity.addHealthinsurance(healthinsuranceModel);
-				hydrateCommonFields(healthinsuranceModel, domain);
-				insertOrUpdate(healthinsuranceModel);
+				try {
+					Healthinsurance healthinsuranceModel = getModelObject(domain, healthInsurance, data);
+					healthinsuranceModel.setCobra(BasicDataGenerator.getIntegerValue(healthInsurance.getCOBRA()));
+					healthinsuranceModel.setEmployerprovided(BasicDataGenerator.getIntegerValue(healthInsurance.getEmployerProvided()));
+					healthinsuranceModel.setInsurancefromanysource(HealthinsuranceInsurancefromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getInsuranceFromAnySource())));
+					healthinsuranceModel.setMedicaid(HealthinsuranceMedicaidEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getMedicaid())));
+					healthinsuranceModel.setMedicare(HealthinsuranceMedicareEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getMedicare())));
+					healthinsuranceModel.setNocobrareason(HealthinsuranceNocobrareasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoCOBRAReason())));
+					healthinsuranceModel.setNoemployerprovidedreason(HealthinsuranceNoemployerprovidedreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoEmployerProvidedReason())));
+					healthinsuranceModel.setNomedicaidreason(HealthinsuranceNomedicaidreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoMedicaidReason())));
+					healthinsuranceModel.setNomedicarereason(HealthinsuranceNomedicarereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoMedicareReason())));
+					healthinsuranceModel.setNoprivatepayreason(HealthinsuranceNoprivatepayreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoPrivatePayReason())));
+					healthinsuranceModel.setNoschipreason(HealthinsuranceNoschipreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoSCHIPReason())));
+					healthinsuranceModel.setNostatehealthinsreason(HealthinsuranceNostatehealthinsreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoStateHealthInsReason())));
+					healthinsuranceModel.setNovamedreason(HealthinsuranceNovamedreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getNoVAMedReason())));
+					healthinsuranceModel.setPrivatepay(HealthinsurancePrivatepayEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getPrivatePay())));
+					healthinsuranceModel.setSchip(HealthinsuranceSchipEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getSCHIP())));
+					healthinsuranceModel.setStatehealthins(HealthinsuranceStatehealthinsEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getStateHealthIns())));
+					healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
+					healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
+					healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
+					
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true);
+					healthinsuranceModel.setEnrollmentid(enrollmentModel);
+					healthinsuranceModel.setExport(exportEntity);
+					if(exportEntity != null)
+						exportEntity.addHealthinsurance(healthinsuranceModel);
+					performSaveOrUpdate(healthinsuranceModel);
+				} catch(Exception e){
+					logger.error("Exception beause of the healthInsurance::"+healthInsurance.getHealthInsuranceID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
+				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), domain, exportEntity);
 	}
 
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<Healthinsurance> healthinsurances = export.getHealthinsurances();
-		hydrateBulkUploadActivity(healthinsurances, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), export,id);
-		if(healthinsurances !=null && !healthinsurances.isEmpty()) {
-			for(Healthinsurance healthinsurance : healthinsurances) {
-				com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance target = new com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance();
-				BeanUtils.copyProperties(healthinsurance, target,getNonCollectionFields(target));
-				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, healthinsurance.getEnrollmentid().getId());
-				target.setEnrollmentid(enrollmentModel);
-				com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-				target.setExport(exportEntity);
-				exportEntity.addHealthinsurance(target);
-				target.setDateCreated(LocalDateTime.now());
-				target.setDateUpdated(LocalDateTime.now());
-				insertOrUpdate(target);
-			}
+	public com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance getModelObject(ExportDomain domain, HealthInsurance healthinsurance ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance healthinsuranceModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class, healthinsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false);
+		
+		if(healthinsuranceModel == null) {
+			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance();
+			healthinsuranceModel.setId(UUID.randomUUID());
+			healthinsuranceModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
-
+		hydrateCommonFields(healthinsuranceModel, domain,healthinsurance.getHealthInsuranceID(),data.i+data.j);
+		return healthinsuranceModel;
 	}
 
 	@Override
@@ -115,19 +113,6 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	   public com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance createHealthInsurance(com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance healthInsurance){
 	       healthInsurance.setId(UUID.randomUUID());

@@ -11,6 +11,8 @@ import java.util.UUID;
 import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -28,60 +30,45 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		ExithousingassessmentDao {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(ExithousingassessmentDaoImpl.class);
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
-		hydrateBulkUploadActivityStaging(exitHousingAssessments, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), domain);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Data data =new Data();
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty())
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
 				{
-					Exithousingassessment exithousingassessmentModel = new Exithousingassessment();
-					exithousingassessmentModel.setId(UUID.randomUUID());
-					exithousingassessmentModel.setDateCreated(LocalDateTime.now());
-					exithousingassessmentModel.setDateUpdated(LocalDateTime.now());
-					exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
-					exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
-					exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
-					exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
-					Exit exit = (Exit) get(Exit.class, domain.getExitMap().get(exitHousingAssessment.getExitID()));
-					exithousingassessmentModel.setExitid(exit);
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-					exithousingassessmentModel.setExport(exportEntity);
-					exportEntity.addExithousingassessment(exithousingassessmentModel);
-					hydrateCommonFields(exithousingassessmentModel, domain);
-					insertOrUpdate(exithousingassessmentModel);
+					try {
+						
+						Exithousingassessment exithousingassessmentModel = new Exithousingassessment();
+						exithousingassessmentModel.setId(UUID.randomUUID());
+						exithousingassessmentModel.setDateCreated(LocalDateTime.now());
+						exithousingassessmentModel.setDateUpdated(LocalDateTime.now());
+						exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
+						exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
+						exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
+						exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
+						Exit exit = (Exit) getModel(Exit.class, exitHousingAssessment.getExitID(),getProjectGroupCode(domain),true);
+						exithousingassessmentModel.setExitid(exit);
+						exithousingassessmentModel.setExport(exportEntity);
+						if(exportEntity !=null)
+							exportEntity.addExithousingassessment(exithousingassessmentModel);
+						performSaveOrUpdate(exithousingassessmentModel);
+					}catch(Exception e ){
+						logger.error("Exception beause of the exitHousingAssessment::"+exitHousingAssessment.getExitHousingAssessmentID() +" Exception ::"+e.getMessage());
+						throw new Exception(e);
+					}
 				}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), domain,exportEntity);
 	}
 
-	@Override
-	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2015.Export export, Long id) {
-		Set<Exithousingassessment> exithousingassessments = export.getExithousingassessments();
-		hydrateBulkUploadActivity(exithousingassessments, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), export, id);
-		if(exithousingassessments !=null && !exithousingassessments.isEmpty()) {
-			for(Exithousingassessment exithousingassessment : exithousingassessments) {
-				if(exithousingassessment !=null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment target = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();
-					BeanUtils.copyProperties(exithousingassessment, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Exit exitModel = (com.servinglynk.hmis.warehouse.model.v2015.Exit) get(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exithousingassessment.getExitid().getId());
-					target.setExitid(exitModel);
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					target.setExport(exportEntity);
-					exportEntity.addExithousingassessment(target);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-				}
-			}
-		}
-
-	}
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
@@ -90,18 +77,6 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	}
 
 
-	@Override
-	protected void performSave(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected List performGet(Iface coc, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment createExithousingassessment(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment exithousingassessment) {

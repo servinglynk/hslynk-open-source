@@ -3,13 +3,12 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,8 +16,6 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
-import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -27,7 +24,8 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class OrganizationDaoImpl extends ParentDaoImpl implements
 		OrganizationDao {
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(OrganizationDaoImpl.class);
 	@Autowired
 	private ParentDaoFactory factory;
 
@@ -35,76 +33,49 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) {
+	public void hydrateStaging(ExportDomain domain) throws Exception {
 		 List<Organization> organizations = domain.getExport().getOrganization();
-		 hydrateBulkUploadActivityStaging(organizations, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), domain);
+		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		 Data data =new Data();
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
 			 {
-				 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();
-				 UUID id = UUID.randomUUID();
-				 organizationModel.setId(id);
-				 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
-				 organizationModel.setOrganizationname(organization.getOrganizationName());
-				 domain.getOrganizationProjectMap().put(BasicDataGenerator.getStringValue(organization.getOrganizationID()),id);
-				  organizationModel.setDateCreated(LocalDateTime.now());
-				  organizationModel.setDateUpdated(LocalDateTime.now());
-				 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
-				 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
-				 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, domain.getExportId());
-				 organizationModel.setExport(exportEntity);
-				 exportEntity.addOrganization(organizationModel);
-				 hydrateCommonFields(organizationModel, domain);
-				 insertOrUpdate(organizationModel);
+				 try {
+					 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = getModelObject(domain, organization, data);
+					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
+					 organizationModel.setOrganizationname(organization.getOrganizationName());
+					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
+					 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
+					 organizationModel.setExport(exportEntity);
+					 exportEntity.addOrganization(organizationModel);
+					 performSaveOrUpdate(organizationModel);
+				 } catch(Exception e){
+					 logger.error("Exception beause of the organization::"+organization.getOrganizationID() +" Exception ::"+e.getMessage());
+					throw new Exception(e);
+				 }
 			 }
 		 }
+		 hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), domain,exportEntity);
 	}
-
-	@Override
-	public void hydrateLive(Export export, Long id) {
-		Set<com.servinglynk.hmis.warehouse.model.v2015.Organization> organizations = export.getOrganizations();
-		hydrateBulkUploadActivity(organizations, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), export,id);
-		if(organizations != null && !organizations.isEmpty()) {
-			for(com.servinglynk.hmis.warehouse.model.v2015.Organization organization : organizations) {
-				if(organization != null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Organization target = new com.servinglynk.hmis.warehouse.model.v2015.Organization();
-					BeanUtils.copyProperties(organization, target,getNonCollectionFields(target));
-					com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, export.getId());
-					target.setExport(exportEntity);
-					target.setDateCreated(LocalDateTime.now());
-					target.setDateUpdated(LocalDateTime.now());
-					insertOrUpdate(target);
-					hydrateCommonFields(target);
-				//	factory.getProjectDao().hydrateLive(export);
-				}
-			}
+	
+	public com.servinglynk.hmis.warehouse.model.v2015.Organization getModelObject(ExportDomain domain, Organization organization ,Data data) {
+		com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = null;
+		// We always insert for a Full refresh and update if the record exists for Delta refresh
+		if(!isFullRefresh(domain))
+			organizationModel = (com.servinglynk.hmis.warehouse.model.v2015.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false);
+		
+		if(organizationModel == null) {
+			organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();
+			organizationModel.setId(UUID.randomUUID());
+			organizationModel.setInserted(true);
+			++data.i;
+		}else{
+			++data.j;
 		}
+		hydrateCommonFields(organizationModel, domain,organization.getOrganizationID(),data.i+data.j);
+		return organizationModel;
 	}
-	
-	
-/*	public com.servinglynk.hmis.warehouse.model.live.Organization getOrganizationByYd(UUID organizationId){
-		return (com.servinglynk.hmis.warehouse.model.live.Organization) get(com.servinglynk.hmis.warehouse.model.live.Organization.class,organizationId);
-	}*/
-
-	@Override
-	public void hydrateHBASE(SyncDomain syncDomain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void performSave(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List performGet(Iface client, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){
 		   organization.setId(UUID.randomUUID());
 	       insert(organization);
@@ -131,5 +102,11 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Organization.class);
 	       return countRows(criteria);
 	   }
+
+	@Override
+	public void hydrateHBASE(SyncDomain syncDomain) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

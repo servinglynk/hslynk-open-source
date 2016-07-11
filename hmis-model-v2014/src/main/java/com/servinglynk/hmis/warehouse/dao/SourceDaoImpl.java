@@ -34,7 +34,6 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		sourceModel.setSourcecontactlast(source.getSourceContactLast());
 		sourceModel.setSourceid(String.valueOf(source.getSourceID()));
 		sourceModel.setSourcename(source.getSourceName());
-		hydrateCommonFields(sourceModel, domain, source.getSourceID(), data.i+data.j);
 		performSaveOrUpdate(sourceModel);
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain,null);
 	}
