@@ -75,6 +75,8 @@ public class ClientConverter {
 		client.setSsnDataQuality(Integer.parseInt(pClient.getSsnDataQuality().getValue()));
 	    if(pClient.getId()!=null)
 		client.setClientId(pClient.getId());
+	    if(pClient.getSourceSystemId()!=null)
+	    		client.setSourceSystemId(pClient.getSourceSystemId());
 	    if(pClient.getSchemaYear()!=null)
 	    		client.setLink("/hmis-clientapi/rest/v"+pClient.getSchemaYear()+"/clients/"+pClient.getId());
 //		copyBeanProperties(pClient,client);
