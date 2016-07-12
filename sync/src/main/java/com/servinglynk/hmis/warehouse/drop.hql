@@ -1,6 +1,7 @@
 
 use CTA;
 DROP TABLE IF EXISTS affiliation; 
+DROP TABLE IF EXISTS bedinventory;
 DROP TABLE IF EXISTS client;
 DROP TABLE IF EXISTS commercialsexualexploitation;
 DROP TABLE IF EXISTS connectionwithsoar;

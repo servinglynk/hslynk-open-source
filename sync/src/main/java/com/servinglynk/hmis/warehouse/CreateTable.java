@@ -10,6 +10,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
+import org.apache.log4j.Logger;
 
 public class CreateTable extends Logging{
 //	 HBaseAdmin admin = null;
@@ -25,7 +26,7 @@ public class CreateTable extends Logging{
 		//createTables();
 	}
 
-	public HTable createTables(BulkUpload upload) throws Exception {
+	public HTable createTables(BulkUpload upload, Logger logger) throws Exception {
 		String projectGroup = upload.getProjectGroupCode();
 		List<String> tablesList = new ArrayList<String>();
 		populateTablesList(tablesList, projectGroup, upload);
@@ -38,19 +39,14 @@ public class CreateTable extends Logging{
 					HTableDescriptor tableDescriptor = new HTableDescriptor(
 							tableName);
 					tableDescriptor.addFamily(new HColumnDescriptor("CF"));
-					try {
-						admin.disableTable(tableName);
-						admin.deleteTable(tableName);
-					} catch (TableNotFoundException ex) {
-						log.warn("Table :: " + tableName + " does not exists.");
-					}
 					admin.createTable(tableDescriptor);
-					log.info("Table ::" + tableName + " created.");
+					logger.info("Table ::" + tableName + " created.");
 				} catch (TableExistsException ex) {
-					log.warn("Table :: " + tableName + " already exists.");
+					logger.warn("Table :: " + tableName + " already exists.");
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e);
 			throw e;
 		}
 		return table;

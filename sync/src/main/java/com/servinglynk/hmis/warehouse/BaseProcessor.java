@@ -9,12 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
@@ -73,19 +68,21 @@ import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
 import com.servinglynk.hmis.warehouse.model.v2015.Exitpath;
 import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
 import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
+import org.apache.log4j.Logger;
 
 public class BaseProcessor<T> extends Logging {
 
-	public void syncToHBASE(Class<T> class1, String tableName, Timestamp lastSyncDate, BulkUpload upload, Map<String, String> hmisTypes) throws Exception {
-		log.info("[" + tableName + "] Run SyncToHBASE for class: " + class1.getName());
+	public void syncToHBASE(Class<T> class1, String tableName, Timestamp lastSyncDate, BulkUpload upload, Map<String, String> hmisTypes, Logger logger) throws Exception {
+		logger.info("[" + tableName + "] Run SyncToHBASE for class: " + class1.getName());
 		long startNanos = System.nanoTime();
 		String schema = getSchemaFromYear(upload);
-		List<T> pojoList = getPojoData(upload, tableName, class1,schema);
+		List<T> pojoList = getPojoData(upload, tableName, class1, schema);
 
 		// print out the list retrieved from database
 		if (pojoList != null) {
 			Map<String, Map<String, Object>> toUpdate = new HashMap<>();
 			Map<String, Map<String, Object>> toInsert = new HashMap<>();
+			List<String> toDelete = new ArrayList<>();
 
 			String tblName = class1.getSimpleName() + "_" + upload.getProjectGroupCode();
 			HTable table = new HTable(HbaseUtil.getConfiguration(), tblName.trim());
@@ -94,26 +91,34 @@ public class BaseProcessor<T> extends Logging {
 			for (T pojo : pojoList) {
 				if (pojo != null) {
 					// Insert data into an HBASE table  with in a column Family called Client
-					//TODO: Need to verify Exception Handling
+					//TOOD: Need to verify Exception Handling
 					try {
 						Map<String, Object> data = org.apache.commons.beanutils.BeanUtils.describe(pojo);
 						String id = (String) data.get("id");
-						if (id != null) {
-							// Update the sync to true;
-							String rowKey = (String) data.get("export_id");
-							if (rowKey == null) {
-								rowKey = UUID.randomUUID().toString();
-								data.put("export_id", rowKey);
-							}
-							data.remove("class");
-							populateHmisType(data, hmisTypes);
-							data.put("year",String.valueOf(upload.getYear()));
-							// Check if the record exist in the table
-//							boolean exists = HBaseImport.isDataExist(table, id);
+						Boolean markForDelete = Boolean.valueOf((String) data.get("deleted"));
+						if (markForDelete) {
 							if (rowKeys.contains(id)) {
-								toUpdate.put(id, data);
+								toDelete.add(id);
 							} else {
-								toInsert.put(id, data);
+								logger.warn("Skip row with id: " + id);
+							}
+						} else {
+							if (id != null) {
+								// Update the sync to true;
+								String rowKey = (String) data.get("export_id");
+								if (rowKey == null) {
+									rowKey = UUID.randomUUID().toString();
+									data.put("export_id", rowKey);
+								}
+								data.remove("class");
+								populateHmisType(data, hmisTypes);
+								data.put("year", String.valueOf(upload.getYear()));
+
+								if (rowKeys.contains(id)) {
+									toUpdate.put(id, data);
+								} else {
+									toInsert.put(id, data);
+								}
 							}
 						}
 					} catch (IllegalAccessException e) {
@@ -128,34 +133,56 @@ public class BaseProcessor<T> extends Logging {
 					}
 				}
 			}
-			log.info("[" + tableName + "] Time taken to generate insert and update maps in seconds: " +
+
+			logger.info("[" + tableName + "] Time taken to generate inserts and updates in seconds: " +
 					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
-			log.info("[" + tableName + "] Insertions for " + class1.getName() + " : " + toInsert.size());
-			log.info("[" + tableName + "] Updates for " + class1.getName() + " : " + toUpdate.size());
-			if (toUpdate.size() > 0) {
-				hBaseImport.updateDataInBatch(table, toUpdate);
-			}
+
+			logger.info("[" + tableName + "] Insertions for " + class1.getName() + " : " + toInsert.size());
+			logger.info("[" + tableName + "] Updates for " + class1.getName() + " : " + toUpdate.size());
+			logger.info("[" + tableName + "] Deletes for " + class1.getName() + " : " + toDelete.size());
+
+			startNanos = System.nanoTime();
 			if (toInsert.size() > 0) {
 				hBaseImport.insertDataInBatch(table, "CF", toInsert);
 			}
+			logger.info("[" + tableName + "] Time taken to run insert in seconds: " +
+					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
+
+			startNanos = System.nanoTime();
+			if (toUpdate.size() > 0) {
+				hBaseImport.updateDataInBatch(table, toUpdate);
+			}
+			logger.info("[" + tableName + "] Time taken to run update in seconds: " +
+					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
+
+			startNanos = System.nanoTime();
+			if (toDelete.size() > 0) {
+				hBaseImport.deleteDataInBatch(table, toDelete);
+			}
+			logger.info("[" + tableName + "] Time taken to run delete in seconds: " +
+					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
+
 			//updateSyncFlag(tableName, upload.getExportId());
 			table.close();
 			hBaseImport.closeAdmin();
 		}
-		updateSyncFlag(tableName, upload.getExportId(),schema);
+		updateSyncFlag(tableName, upload.getExportId(), schema);
 	}
 
-	private List<T> getPojoData(BulkUpload upload, String tableName, Class<T> class1,String schema) {
+	private List<T> getPojoData(BulkUpload upload, String tableName, Class<T> class1, String schema) {
 		List<T> pojoList = null;
 		UUID exportId = upload.getExportId();
-		Connection connection = null;
+		Connection connection;
 		PreparedStatement statement = null;
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
-		ResultSet resultSet = null;
+		ResultSet resultSet;
+
+		ResultSetMapper<T> resultSetMapperNull = new ResultSetMapper<T>();
+		ResultSet resultSetNull;
 		try {
 			connection = getConnection();
 
-			String queryString = "SELECT * FROM "+schema+"."+tableName;
+			String queryString = "SELECT * FROM " + schema + "." + tableName;
 			queryString = queryString + " where export_id = ?";
 			statement = connection.prepareStatement(queryString);
 			statement.setObject(1, exportId);
@@ -163,7 +190,38 @@ public class BaseProcessor<T> extends Logging {
 
 			// simple JDBC code to run SQL query and populate resultSet - END
 			if (resultSet != null) {
-				pojoList = resultSetMapper.mapRersultSetToObject(resultSet, class1);
+				List<T> tempPojoList = resultSetMapper.mapRersultSetToObject(resultSet, class1);
+
+
+
+				if(pojoList == null){
+					if(tempPojoList != null){
+						pojoList = tempPojoList;
+					}
+				}else{
+					if(tempPojoList != null){
+						pojoList.addAll(tempPojoList);
+					}
+				}
+			}
+
+			// logic to retrieve rows with null export_id
+			queryString = "SELECT * FROM " + schema + "." + tableName;
+			queryString = queryString + " where export_id IS NULL AND project_group_code = ?";
+			statement = connection.prepareStatement(queryString);
+			statement.setObject(1, upload.getProjectGroupCode());
+			resultSetNull = statement.executeQuery();
+			if (resultSetNull != null) {
+				List<T> tempPojoList =resultSetMapperNull.mapRersultSetToObject(resultSetNull, class1);
+				if(pojoList == null){
+					if(tempPojoList != null){
+						pojoList = tempPojoList;
+					}
+				}else{
+					if(tempPojoList != null){
+						pojoList.addAll(tempPojoList);
+					}
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -187,10 +245,10 @@ public class BaseProcessor<T> extends Logging {
 	private static Connection getConnection() throws SQLException {
 		if (connection == null) {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
-					"hmisdb1234");
-//				"jdbc:postgresql://localhost:5432/hmis", "postgres",
-//				"postgres");
+					"jdbc:postgresql://" + Properties.POSTGRESQL_DB_HOST + ":" + Properties.POSTGRESQL_DB_PORT + "/" + Properties.POSTGRESQL_DB_DATABASE,
+					Properties.POSTGRESQL_DB_USERNAME,
+					Properties.POSTGRESQL_DB_USERNAME);
+
 		}
 		if (connection.isClosed()) {
 			throw new SQLException("connection could not initiated");
@@ -219,7 +277,7 @@ public class BaseProcessor<T> extends Logging {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE "+schema+".sync SET date_created=?, status=? where date_created=?");
+			statement = connection.prepareStatement("UPDATE " + schema + ".sync SET date_created=?, status=? where date_created=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setString(2, "Initial");
@@ -261,7 +319,6 @@ public class BaseProcessor<T> extends Logging {
 				data.put(key, (String) descMap.get(key));
 			}
 		}
-
 	}
 
 	/***
@@ -276,7 +333,7 @@ public class BaseProcessor<T> extends Logging {
 		Map<String, String> hmisTypeMap = new HashMap<String, String>();
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("SELECT name, value,description FROM "+schema+".hmis_type");
+			statement = connection.prepareStatement("SELECT name, value,description FROM " + schema + ".hmis_type");
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				String name = resultSet.getString(1);
@@ -298,16 +355,17 @@ public class BaseProcessor<T> extends Logging {
 				}
 			}
 		}
-
 		return null;
 	}
+
 	/***
 	 * This method returns schema name from year.
+	 *
 	 * @return
 	 */
 	public static String getSchemaFromYear(BulkUpload upload) {
-		if(upload.getYear() != 0L) {
-			return "v"+upload.getYear();	
+		if (upload.getYear() != 0L) {
+			return "v" + upload.getYear();
 		}
 		return "v2014";
 	}
@@ -324,16 +382,28 @@ public class BaseProcessor<T> extends Logging {
 		List<BulkUpload> uploads = new ArrayList<BulkUpload>();
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("SELECT export_id,project_group_code,id,year FROM base.bulk_upload where status='STAGING'");
+			statement = connection.prepareStatement("SELECT export_id,project_group_code,id,year,status FROM base.bulk_upload");
 			resultSet = statement.executeQuery();
+			int count = 0;
 			while (resultSet.next()) {
+				count++;
+				if (!validateBulkUploadId(resultSet)) {
+					continue;
+				}
+				Status status = Status.getEnum(resultSet.getString(5));
+				if (status == null) {
+					continue;
+				}
 				BulkUpload upload = new BulkUpload();
 				upload.setExportId(UUID.fromString(resultSet.getString(1)));
 				upload.setProjectGroupCode(resultSet.getString(2));
 				upload.setId(resultSet.getLong(3));
 				upload.setYear(resultSet.getLong(4));
+				upload.setStatus(status);
 				uploads.add(upload);
 			}
+
+			System.out.println(count);
 			return uploads;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -349,12 +419,22 @@ public class BaseProcessor<T> extends Logging {
 				}
 			}
 		}
-
 		return null;
 	}
 
+	private static boolean validateBulkUploadId(ResultSet resultSet) throws SQLException {
+		boolean valid = true;
+		for (int i = 1; i < 6; i++) {
+			if (resultSet.getString(1) == null) {
+				valid = false;
+				break;
+			}
+		}
+		// TODO: if 'valid' is false set detailed error description
+		return valid;
+	}
 
-	private static  Timestamp getCUrrentTimestamp() {
+	private static Timestamp getCUrrentTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
 		return currentTimestamp;
@@ -367,7 +447,7 @@ public class BaseProcessor<T> extends Logging {
 		try {
 			UUID syncID = UUID.randomUUID();
 			connection = getConnection();
-			statement = connection.prepareStatement("INSERT INTO "+schema+".sync (id, date_created, status) VALUES (?, ?, ?)");
+			statement = connection.prepareStatement("INSERT INTO " + schema + ".sync (id, date_created, status) VALUES (?, ?, ?)");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setObject(1, syncID);
 			statement.setTimestamp(2, currentTimestamp);
@@ -393,12 +473,12 @@ public class BaseProcessor<T> extends Logging {
 
 	}
 
-	public void updateSyncEndDate(String jsonString, UUID id,String schema) {
+	public void updateSyncEndDate(String jsonString, UUID id, String schema) {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE "+schema+".sync SET date_updated=?, status=?, json=? where id=?");
+			statement = connection.prepareStatement("UPDATE " + schema + ".sync SET date_updated=?, status=?, json=? where id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setString(2, "COMPLETE");
@@ -420,6 +500,7 @@ public class BaseProcessor<T> extends Logging {
 			}
 		}
 	}
+
 	public void updateBulkUpload(Long id) {
 		PreparedStatement statement = null;
 		Connection connection = null;
@@ -483,7 +564,7 @@ public class BaseProcessor<T> extends Logging {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement("UPDATE "+schema+"."+ tableName + " SET date_updated=?, sync=?,active=? where export_id=?");
+			statement = connection.prepareStatement("UPDATE " + schema + "." + tableName + " SET date_updated=?, sync=?,active=? where export_id=?");
 			Timestamp currentTimestamp = getCUrrentTimestamp();
 			statement.setTimestamp(1, currentTimestamp);
 			statement.setBoolean(2, true);
@@ -554,48 +635,72 @@ public class BaseProcessor<T> extends Logging {
 		tables.put("youthcriticalissues", Youthcriticalissues.class);
 		return tables;
 	}
-	
+
 	public static Map<String, Class<? extends BaseModel>> getAlltablesV2015() {
 		Map<String, Class<? extends BaseModel>> tables = new HashMap<String, Class<? extends BaseModel>>();
-		tables.put("affiliation",com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
-		tables.put("client",com.servinglynk.hmis.warehouse.model.v2015.Client.class);
-	    tables.put("client_veteran_info",com.servinglynk.hmis.warehouse.model.v2015.VeteranInfo.class);
-	    tables.put("coc",Coc.class);
-	    tables.put("contact",Contact.class);
-	    tables.put("dateofengagement",com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class);
-	    tables.put("disabilities",com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class);
-	    tables.put("domesticviolence",com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class);
-	    tables.put("education",Education.class);
-	    tables.put("employment",com.servinglynk.hmis.warehouse.model.v2015.Employment.class);
-	    tables.put("enrollment",com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class);
-	    tables.put("enrollment_coc",com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
-	    tables.put("entryrhsp",Entryrhsp.class);
-	    tables.put("entryrhy",Entryrhy.class);
-	    tables.put("entryssvf",Entryssvf.class);
-	    tables.put("exit", com.servinglynk.hmis.warehouse.model.v2015.Exit.class);
-	    tables.put("exithousingassessment",com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class);
-	    tables.put("exitpath",Exitpath.class);
-	    tables.put("exitrhy",Exitrhy.class);
-	    tables.put("export",com.servinglynk.hmis.warehouse.model.v2015.Export.class);
-	    tables.put("funder",com.servinglynk.hmis.warehouse.model.v2015.Funder.class);
-	    tables.put("health_status",com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class);
-	    tables.put("healthinsurance",com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class);
-	    tables.put("housingassessmentdisposition",com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class);
-	    tables.put("incomeandsources",com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class);
-	    tables.put("inventory",com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
-	    tables.put("medicalassistance",com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class);
-	    tables.put("noncashbenefits",com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class);
-	    tables.put("organization",com.servinglynk.hmis.warehouse.model.v2015.Organization.class);
-	    tables.put("path_status",com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class);
-	    tables.put("project",com.servinglynk.hmis.warehouse.model.v2015.Project.class);
-	    tables.put("residentialmoveindate",com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class);
-	    tables.put("rhybcp_status",com.servinglynk.hmis.warehouse.model.v2015.Rhybcpstatus.class);
-	    tables.put("schoolstatus",Schoolstatus.class);
-	    tables.put("service_fa_referral",ServiceFaReferral.class);
-	    tables.put("site",com.servinglynk.hmis.warehouse.model.v2015.Site.class);
-	    tables.put("source",com.servinglynk.hmis.warehouse.model.v2015.Source.class);
+		tables.put("affiliation", com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
+		tables.put("client", com.servinglynk.hmis.warehouse.model.v2015.Client.class);
+		tables.put("client_veteran_info", com.servinglynk.hmis.warehouse.model.v2015.VeteranInfo.class);
+		tables.put("coc", Coc.class);
+		tables.put("contact", Contact.class);
+		tables.put("dateofengagement", com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class);
+		tables.put("disabilities", com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class);
+		tables.put("domesticviolence", com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class);
+		tables.put("education", Education.class);
+		tables.put("employment", com.servinglynk.hmis.warehouse.model.v2015.Employment.class);
+		tables.put("enrollment", com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class);
+		tables.put("enrollment_coc", com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+		tables.put("entryrhsp", Entryrhsp.class);
+		tables.put("entryrhy", Entryrhy.class);
+		tables.put("entryssvf", Entryssvf.class);
+		tables.put("exit", com.servinglynk.hmis.warehouse.model.v2015.Exit.class);
+		tables.put("exithousingassessment", com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class);
+		tables.put("exitpath", Exitpath.class);
+		tables.put("exitrhy", Exitrhy.class);
+		tables.put("export", com.servinglynk.hmis.warehouse.model.v2015.Export.class);
+		tables.put("funder", com.servinglynk.hmis.warehouse.model.v2015.Funder.class);
+		tables.put("health_status", com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class);
+		tables.put("healthinsurance", com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class);
+		tables.put("housingassessmentdisposition", com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class);
+		tables.put("incomeandsources", com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class);
+		tables.put("inventory", com.servinglynk.hmis.warehouse.model.v2015.Inventory.class);
+		tables.put("medicalassistance", com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class);
+		tables.put("noncashbenefits", com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class);
+		tables.put("organization", com.servinglynk.hmis.warehouse.model.v2015.Organization.class);
+		tables.put("path_status", com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class);
+		tables.put("project", com.servinglynk.hmis.warehouse.model.v2015.Project.class);
+		tables.put("residentialmoveindate", com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class);
+		tables.put("rhybcp_status", com.servinglynk.hmis.warehouse.model.v2015.Rhybcpstatus.class);
+		tables.put("schoolstatus", Schoolstatus.class);
+		tables.put("service_fa_referral", ServiceFaReferral.class);
+		tables.put("site", com.servinglynk.hmis.warehouse.model.v2015.Site.class);
+		tables.put("source", com.servinglynk.hmis.warehouse.model.v2015.Source.class);
 
 		return tables;
+	}
+
+	public static void markRowsForDeletion(String fullTableName, String exportId) {
+		PreparedStatement statement = null;
+		Connection connection;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement("UPDATE " + fullTableName + " SET deleted=TRUE where export_id =?");
+			statement.setObject(1, UUID.fromString(exportId));
+			int status = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 }

@@ -33,7 +33,6 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 	public void hydrateStaging(ExportDomain domain) throws Exception {
 		List<Services> servicesList = domain.getExport().getServices();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
-		Long i=new Long(0L);
 		Data data =new Data();
 		if(servicesList != null && !servicesList.isEmpty())
 		{

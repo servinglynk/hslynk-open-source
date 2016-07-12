@@ -2,11 +2,35 @@ package com.servinglynk.hmis.warehouse;
 
 import java.util.UUID;
 
+enum Status {
+	STAGING,
+	LIVE,
+	DELETED,
+	ERROR,
+	PURGED;
+
+	public static Status getEnum(String s){
+		if(STAGING.name().equals(s.trim())){
+			return STAGING;
+		}else if(LIVE.name().equals(s.trim())){
+			return LIVE;
+		}else if(DELETED.name().equals(s.trim())){
+			return DELETED;
+		}else if (ERROR.name().equals(s.trim())){
+			return ERROR;
+		}else if (PURGED.name().equals(s.trim())){
+			return PURGED;
+		}
+		return null;
+	}
+}
+
 public class BulkUpload {
 	private UUID exportId;
 	private String projectGroupCode;
 	private Long id;
 	private Long year;
+	private Status status;
 
 	public UUID getExportId() {
 		return exportId;
@@ -38,5 +62,13 @@ public class BulkUpload {
 
 	public void setYear(Long year) {
 		this.year = year;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

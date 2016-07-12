@@ -166,6 +166,19 @@ public class HBaseImport extends Logging{
 		}
 	}
 
+	public void deleteDataInBatch(HTable table, List<String> dataIds){
+		List<Delete> deletes = new ArrayList<>();
+		for(String id : dataIds){
+			deletes.add(new Delete(Bytes.toBytes(id)));
+		}
+		try {
+			table.delete(deletes);
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+	}
+
+
 	public void updateDataInBatch(HTable table, Map<String, Map<String, Object>> dataList) {
 		try {
 			List<Put> puts = new ArrayList<>();

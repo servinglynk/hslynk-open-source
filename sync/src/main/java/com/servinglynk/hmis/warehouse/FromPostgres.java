@@ -1,25 +1,32 @@
 package com.servinglynk.hmis.warehouse;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 
-public class FromPostgres extends Logging{
+public class FromPostgres extends Logging {
 
 	public static void main(String args[]) throws Exception {
-		while(true)
-		{
-			new FromPostgres().RunSync();
+		Logger logger = Logger.getLogger(FromPostgres.class.getName());
+		new Properties().generatePropValues();
+		System.out.println(Properties.POSTGRESQL_DB_HOST);
+		System.out.println(Properties.POSTGRESQL_DB_PORT);
+		System.out.println(Properties.POSTGRESQL_DB_USERNAME);
+		System.out.println(Properties.POSTGRESQL_DB_PASSWORD);
+		System.out.println(Properties.HBASE_MASTER);
+		System.out.println(Properties.HBASE_ZOOKEEPER_QUORUM);
+		System.out.println(Properties.HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
+		while (true) {
+			new FromPostgres().RunSync(logger);
 		}
 	}
 
-	public void RunSync() throws Exception {
+	public void RunSync(Logger logger) throws Exception {
 		//	syncClient(date,Client.class);
 		log.info("Start a new sync");
 		log.info("-------- PostgreSQL "
@@ -29,27 +36,43 @@ public class FromPostgres extends Logging{
 		BaseProcessor baseProcessor = new BaseProcessor();
 		log.info("Get list of bulkupload");
 		// list of than 10 uploads
-		final List<BulkUpload> uploads = BaseProcessor.getExportIDFromBulkUpload();
+		List<BulkUpload> allUploads = BaseProcessor.getExportIDFromBulkUpload();
+		final List<BulkUpload> uploads = new ArrayList<>();
+		for (BulkUpload el : allUploads) {
+			if (el.getStatus() == Status.STAGING || el.getStatus() == Status.LIVE) {
+				uploads.add(el);
+			}
+		}
 
 		log.info("Upload list size: " + uploads.size());
 		for (BulkUpload upload : uploads) {
+			FileAppender appender = new FileAppender();
+			appender.setName("sync-" + upload.getId());
+			appender.setFile("logs/sync-" + upload.getId() + ".log");
+			appender.setImmediateFlush(true);
+			appender.setAppend(true);
+			appender.setLayout(new PatternLayout());
+			appender.activateOptions();
+
+			logger.addAppender(appender);
+			logger.info("\n\n\n\n\n\nStart new sync for id: " + upload.getId());
+
 
 			try {
-
 				String schema = baseProcessor.getSchemaFromYear(upload);
-				log.info("Get map of hmisTypes");
+				logger.info("Get map of hmisTypes");
 				UUID syncUid = baseProcessor.insertSyncStartTime(schema);
 				final Map<String, String> hmisTypes = BaseProcessor.loadHmisTypeMap(schema);
 				java.util.Map<String, Integer> tableSyncList = new HashMap<>();
 
-				log.info("Create tables in HBASE");
+				logger.info("Create tables in HBASE");
 				long startCreateTables = System.nanoTime();
-				new CreateTable().createTables(upload);
-				log.info("Time taken to complete create table in seconds: " +
+				new CreateTable().createTables(upload, logger);
+				logger.info("Time taken to complete create table in seconds: " +
 						TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startCreateTables) / 1000);
 
 				VERSION version = StringUtils.equals(schema, "v2014") ? VERSION.V2014 : VERSION.V2015;
-				log.info("set flag in postgres that tables are created for version " + version.name());
+				logger.info("set flag in postgres that tables are created for version " + version.name());
 				baseProcessor.updateCreateFlag("", "", upload.getProjectGroupCode(), version);
 
 
@@ -61,18 +84,18 @@ public class FromPostgres extends Logging{
 				int count = 0;
 				for (final String tableName : tables.keySet()) {
 					final String tempName = tableName;
-					log.info("[" + tempName + "] Processing table number: " + count);
+					logger.info("[" + tempName + "] Processing table number: " + count);
 					count++;
 					executor.submit(() -> {
 						try {
-							log.info("[" + tableName + "] Start thread  for: " + tableName);
+							logger.info("[" + tableName + "] Start thread  for: " + tableName);
 							Class<? extends BaseModel> temp = tables.get(tempName);
 							long startNanosTable = System.nanoTime();
 							BaseProcessor aff = new BaseProcessor<>();
-							aff.syncToHBASE(temp, tempName, null, upload, hmisTypes);
-							log.info("[" + tableName + "]Time taken to complete Sync for '" + tempName + "' in seconds: " +
+							aff.syncToHBASE(temp, tempName, null, upload, hmisTypes, logger);
+							logger.info("[" + tableName + "]Time taken to complete Sync for '" + tempName + "' in seconds: " +
 									TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanosTable) / 1000);
-							log.info("[" + tableName + "]End thread for: " + tableName);
+							logger.info("[" + tableName + "]End thread for: " + tableName);
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
@@ -81,13 +104,13 @@ public class FromPostgres extends Logging{
 
 				executor.shutdown();
 				executor.awaitTermination(10, TimeUnit.HOURS);
-				log.info("Time taken to complete sync on all tables in seconds: " +
+				logger.info("Time taken to complete sync on all tables in seconds: " +
 						TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startSyncTables) / 1000);
 
 				try {
 					baseProcessor.updateSyncEndDate(tableSyncList.toString(), syncUid, schema);
 					baseProcessor.updateBulkUpload(upload.getId());
-					log.info("Time taken to run the program in seconds: " +
+					logger.info("Time taken to run the program in seconds: " +
 							TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -95,11 +118,69 @@ public class FromPostgres extends Logging{
 				}
 				threadSleep(1000);
 			} catch (Exception ex) {
-				log.error(ex);
+				logger.error(ex);
+			} finally {
+				logger.removeAppender(appender);
+			}
+
+		}
+
+		log.info("\n\n\n\n Mark rows as deleted");
+		final Set<String> toPurge = new HashSet<>();
+		for (BulkUpload el : allUploads) {
+			if (el.getStatus() == Status.DELETED || el.getStatus() == Status.ERROR) {
+				toPurge.add(el.getExportId().toString());
 			}
 		}
-		log.info("Sleep 1 min before next sync");
-		threadSleep(60000);
+		cleanTables(toPurge);
+		log.info("Delete mark is done");
+
+		//log.info("Sleep 1 min before next sync");
+		//threadSleep(60000);
+	}
+
+	public void cleanTables(Set<String> toClean) {
+		try {
+			int availableCores = Runtime.getRuntime().availableProcessors();
+			int cores = (availableCores > 5) ? 5 : availableCores - 1;
+			ExecutorService executor = Executors.newFixedThreadPool(cores);
+			final Set<String> tables = new HashSet<>();
+			for (String tblName : BaseProcessor.getAlltablesV2014().keySet()) {
+				tables.add("v2014." + tblName);
+			}
+			for (String tblName : BaseProcessor.getAlltablesV2015().keySet()) {
+				tables.add("v2015." + tblName);
+			}
+
+			int count = 0;
+			for (final String tableName : tables) {
+				final String tempName = tableName;
+				log.info("[" + tempName + "] Processing table number: " + count);
+				count++;
+				executor.submit(() -> {
+					try {
+						log.info("[" + tableName + "] Start thread  for: " + tableName);
+						long startNanosTable = System.nanoTime();
+
+						for (String exportId : toClean) {
+							log.info("[" + tableName + "] Process export_id: " + exportId);
+							BaseProcessor.markRowsForDeletion(tempName, exportId);
+						}
+
+						log.info("[" + tableName + "]Time taken to mark for delete rows for '" + tempName + "' in seconds: " +
+								TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanosTable) / 1000);
+						log.info("[" + tableName + "]End thread for: " + tableName);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				});
+			}
+
+			executor.shutdown();
+			executor.awaitTermination(10, TimeUnit.HOURS);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 
