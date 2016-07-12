@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
@@ -24,9 +26,15 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        com.servinglynk.hmis.warehouse.model.v2014.Project pProject = ProjectConverter.modelToEntity(project, null);
        pProject.setOrganizationid(pOrganization);
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-   //    pProject.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+      pProject.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getProjectDao().createProject(pProject);
        project.setProjectId(pProject.getId());
+       
+       BaseProject baseProject = new BaseProject();
+       BeanUtils.copyProperties(project, baseProject);
+       baseProject.setSchemaYear(2014);
+       serviceFactory.getBaseProjectService().createProject(baseProject, organizationId, caller);
+       
        return project;
    }
 

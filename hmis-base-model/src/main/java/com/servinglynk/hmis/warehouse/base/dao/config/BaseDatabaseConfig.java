@@ -22,6 +22,8 @@ import com.servinglynk.hmis.warehouse.base.dao.PasswordResetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PermissionSetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileAclDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ProjectDao;
+import com.servinglynk.hmis.warehouse.base.dao.ProjectDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProjectGroupDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PropertyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RedirectUriDaoImpl;
@@ -206,5 +208,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public SearchDaoImpl searchDao(){
 		return new SearchDaoImpl();
+	}
+	
+	@Bean
+	public ProjectDaoImpl baseProjectDao(){
+		return new ProjectDaoImpl();
 	}
 }

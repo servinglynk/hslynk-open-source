@@ -16,8 +16,8 @@ public class ProjectGroup extends ClientModel {
 	private String projectGroupCode;
 	private boolean skipuseridentifers;
 	
-/*	@JsonProperty("projects")
-	List<Project> projects = new ArrayList<Project>();*/
+	@JsonProperty("projects")
+	List<BaseProject> projects = new ArrayList<BaseProject>();
 
 	public String getProjectGroupName() {
 		return projectGroupName;
@@ -43,17 +43,17 @@ public class ProjectGroup extends ClientModel {
 		this.projectGroupId = projectGroupId;
 	}
 
-	/*public List<Project> getProjects() {
+	public List<BaseProject> getProjects() {
 		return projects;
 	}
 
-	public void setProjects(List<Project> projects) {
+	public void setProjects(List<BaseProject> projects) {
 		this.projects = projects;
 	}	
 	
-	public void addProject(Project project){
+	public void addProject(BaseProject project){
 		this.projects.add(project);
-	}*/
+	}
 
 	public String getProjectGroupCode() {
 		return projectGroupCode;

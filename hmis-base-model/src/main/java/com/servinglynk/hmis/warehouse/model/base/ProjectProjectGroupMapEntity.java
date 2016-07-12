@@ -1,5 +1,6 @@
-package com.servinglynk.hmis.warehouse.model.v2015;
+package com.servinglynk.hmis.warehouse.model.base;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -14,12 +15,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-
 
 @Entity
-@Table(name="hmis_project_projectgroup_map")
-public class ProjectProjectGroupMapEntity {
+@Table(name="hmis_project_projectgroup_map", catalog = "hmis", schema = "base")
+public class ProjectProjectGroupMapEntity  implements Cloneable, Serializable {
 
 	@javax.persistence.Id
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")

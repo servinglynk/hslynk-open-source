@@ -95,7 +95,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private ClientSsnDataQualityEnum ssnDataQuality;
 	
-	private String sourceSystemId;
+	//private String sourceSystemId;
 	
 	/** Field mapping. */
 	private Set<ClientVeteranInfo> veteranInfoes = new HashSet<ClientVeteranInfo>();
@@ -576,7 +576,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		}
 
 		
-		@Column(name="source_system_id")
+/*		@Column(name="source_system_id")
 		//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 		public String getSourceSystemId() {
 			return sourceSystemId;
@@ -584,7 +584,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 		public void setSourceSystemId(String sourceSystemId) {
 			this.sourceSystemId = sourceSystemId;
-		}
+		}*/
 
 /**
     * Deep copy.
@@ -613,7 +613,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
 		copy.setUserId(this.getUserId());
-		copy.setSourceSystemId(this.sourceSystemId);
 		if (this.getVeteranInfoes() != null) {
 			copy.getVeteranInfoes().addAll(this.getVeteranInfoes());
 		}

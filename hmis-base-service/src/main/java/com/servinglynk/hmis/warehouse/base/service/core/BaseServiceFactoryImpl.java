@@ -12,13 +12,13 @@ import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
-import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 
 @Component
 public class BaseServiceFactoryImpl  implements BaseServiceFactory {
@@ -65,6 +65,9 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired
 	private SearchService baseSearchService;
+	
+	@Autowired
+	private ProjectService baseProjectService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -188,5 +191,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setBaseSearchService(SearchService baseSearchService) {
 		this.baseSearchService = baseSearchService;
+	}
+
+	public ProjectService getBaseProjectService() {
+		return baseProjectService;
+	}
+
+	public void setBaseProjectService(ProjectService baseProjectService) {
+		this.baseProjectService = baseProjectService;
 	}
 }

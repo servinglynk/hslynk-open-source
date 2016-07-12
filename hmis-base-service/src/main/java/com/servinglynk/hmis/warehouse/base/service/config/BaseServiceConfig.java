@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
@@ -25,6 +26,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProfileServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProjectGroupServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SessionServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.TrustedAppServiceImpl;
@@ -187,5 +189,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public BaseSearchServiceImpl baseSearchService(){
 		 return new BaseSearchServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ProjectServiceImpl baseProjectService(){
+		 return new ProjectServiceImpl();
 	 }
 }

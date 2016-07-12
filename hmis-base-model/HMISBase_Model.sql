@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS  base.hmis_verification;
 DROP TABLE IF EXISTS  base.client;
 DROP TABLE IF EXISTS  base.bulk_upload;
 DROP TABLE IF EXISTS  base.bulk_upload_activity;
+drop table if exists "base".project;
 
 DROP TYPE IF EXISTS "base".gender;
 
@@ -46,6 +47,7 @@ DROP TYPE IF EXISTS "base".gender;
 DROP TYPE IF EXISTS "base".ethnicity;
 DROP TYPE IF EXISTS "base".veteran_status;
 DROP TYPE IF EXISTS "base".race;
+
 
 CREATE TYPE "base".name_data_quality AS ENUM ('1', '2', '8','9','99');
 CREATE TYPE "base".dob_data_quality AS ENUM ('1', '2', '8','9','99');
@@ -1192,6 +1194,37 @@ CREATE TABLE base.bulk_upload
   CONSTRAINT bulk_upload_pk PRIMARY KEY (id),
    CONSTRAINT "FK_BULK_UPLOAD_USERID" FOREIGN KEY (user_id)
       REFERENCES base.hmis_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE  "base".project
+(
+  id uuid NOT NULL,
+  continuumproject "base".no_yes,
+  organizationid uuid,
+  projectcommonname text,
+  projectname text,
+  projecttype "base".project_type,
+  residentialaffiliation "base".no_yes,
+  targetpopulation "base".target_population_type,
+  trackingmethod "base".tracking_method,
+  project_group_code character varying(8),
+  date_created timestamp,
+  date_updated timestamp,
+   "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  user_id uuid,
+  parent_id uuid,
+  schema_year integer,
+  version integer,source_system_id text,
+  deleted boolean DEFAULT false,active boolean DEFAULT true,
+  sync boolean DEFAULT false,
+  CONSTRAINT "project_pk" PRIMARY KEY (id),
+        CONSTRAINT "organization_project_fkey" FOREIGN KEY (organizationid)
+      REFERENCES base.organization (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (

@@ -1,10 +1,14 @@
 package com.servinglynk.hmis.warehouse.model.base;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -26,6 +30,9 @@ public class ProjectGroupEntity  {
     private String projectGroupCode;
     
     private boolean skipuseridentifers;
+    
+    List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
+
    
     @javax.persistence.Id
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
@@ -69,5 +76,11 @@ public class ProjectGroupEntity  {
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
 	}
-	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="projectGroupEntity")
+	public List<ProjectProjectGroupMapEntity> getProjectGroupMapEntities() {
+		return projectGroupMapEntities;
+	}
+	public void setProjectGroupMapEntities(List<ProjectProjectGroupMapEntity> projectGroupMapEntities) {
+		this.projectGroupMapEntities = projectGroupMapEntities;
+	}
 }

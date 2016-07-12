@@ -150,7 +150,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Organization> organizations = new HashSet<Organization>();
 
 	/** Field mapping. */
-	private java.util.UUID parentId;
+	//private java.util.UUID parentId;
 	/** Field mapping. */
 	private Set<Pathstatus> pathStatuses = new HashSet<Pathstatus>();
 
@@ -1175,10 +1175,10 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 		this.organizations = organization;
 	}*/
 
-	 /**
+/*	 *//**
 	 * Return the value associated with the column: parentId.
 	 * @return A java.util.UUID object (this.parentId)
-	 */
+	 *//*
 	@Basic( optional = true )
 	@Column( name = "parent_id"  ) @org.hibernate.annotations.Type(type="pg-uuid")
 	public java.util.UUID getParentId() {
@@ -1188,14 +1188,14 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 
 
 
-	 /**
+	 *//**
 	 * Set the value related to the column: parentId.
 	 * @param parentId the parentId value you wish to set
-	 */
+	 *//*
 	public void setParentId(final java.util.UUID parentId) {
 		this.parentId = parentId;
 	}
-
+*/
 	 /**
 	 * Return the value associated with the column: pathStatus.
 	 * @return A Set&lt;PathStatus&gt; object (this.pathStatus)

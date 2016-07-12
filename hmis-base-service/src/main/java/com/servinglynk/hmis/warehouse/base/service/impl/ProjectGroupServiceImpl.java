@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,11 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.ProjectGroupConverter;
+import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProjectProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 
 public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroupService {
 
@@ -27,16 +32,16 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
 		
 		
-/*		for(Project project : projectGroup.getProjects()){
+		for(BaseProject baseProject : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
 			entity.setProjectGroupEntity(projectGroupEntity);
-			com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+			com.servinglynk.hmis.warehouse.model.base.Project pProject = daoFactory.getBaseProjectDao().getProjectById(baseProject.getProjectId());
 			if(pProject == null) throw new ProjectNotFoundException();
 			entity.setProject(pProject);
 			entity.setInsertAt(LocalDateTime.now());
 			entity.setInsertBy(caller);
 			daoFactory.getProjectGroupDao().addProjectToProjectGroup(entity);
-		}*/
+		}
 		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;
@@ -52,9 +57,9 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 	        for(ProjectGroupEntity entity : entities){
 	        	projectGroup = ProjectGroupConverter.entityToModel(entity);
 	        	
-//	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
-//	    			projectGroup.addProject(ProjectConverter.entityToModel(ppgme.getProject()));
-//	    		}
+	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
+	    			projectGroup.addProject(ProjectConverter.entityToModel(ppgme.getProject()));
+ 		}
 	        	projects.addProjectGroup(projectGroup);
 	        }
 	        long count = daoFactory.getProjectGroupDao().getProjectGroupCount();
@@ -78,21 +83,21 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		//projectGroupEntity.setInsertBy(caller);
 		daoFactory.getProjectGroupDao().updateProjectGroup(projectGroupEntity);
 		
-		/*for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
+		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
 			daoFactory.getProjectGroupDao().deleteProjectGroupMap(entity);
-		}*/
+		}
 		
 		
-		/*for(Project project : projectGroup.getProjects()){
+		for(BaseProject baseProject : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
 			entity.setProjectGroupEntity(projectGroupEntity);
-			com.servinglynk.hmis.warehouse.model.live.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+			com.servinglynk.hmis.warehouse.model.base.Project pProject = daoFactory.getBaseProjectDao().getProjectById(baseProject.getProjectId());
 			if(pProject == null) throw new ProjectNotFoundException();
 			entity.setProject(pProject);
 			entity.setInsertAt(LocalDateTime.now());
 			entity.setInsertBy(caller);
 			daoFactory.getProjectGroupDao().addProjectToProjectGroup(entity);
-		}*/
+		}
 		
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;
@@ -105,9 +110,9 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectGroupId);
 		if(projectGroupEntity == null) throw new ProjectGroupNotFoundException();	
 		
-		/*for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
+		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
 			daoFactory.getProjectGroupDao().deleteProjectGroupMap(entity);
-		}*/
+		}
 		
 		daoFactory.getProjectGroupDao().deleteProjectGroup(projectGroupEntity);
 		
@@ -120,9 +125,9 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectgroupid);
 		if(projectGroupEntity == null) throw new ProjectGroupNotFoundException();	
 		projectGroup = ProjectGroupConverter.entityToModel(projectGroupEntity);
-		/*for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
+		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
 			projectGroup.addProject(ProjectConverter.entityToModel(entity.getProject()));
-		}*/
+		}
 		
 		return projectGroup;
 	}
