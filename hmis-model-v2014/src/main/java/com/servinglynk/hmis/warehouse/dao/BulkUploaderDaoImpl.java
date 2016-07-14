@@ -87,7 +87,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			try {
 				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity);
 			} catch (Exception ex) {
-				throw new Exception("Unable to get sources from files", ex);
+				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
 			}
 			logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 
@@ -95,13 +95,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			try {
 				source = sources.getSource();
 			} catch (Exception ex) {
-				throw new Exception("Unable to get source from sources", ex);
+				throw new Exception("HUD File Uploaded is in an invalid Format :Unable to get source from sources", ex);
 			}
 			Export export = null;
 			try {
 				export = source.getExport();
 			} catch (Exception ex) {
-				throw new Exception("Unable to get export from source", ex);
+				throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
 			}
 			UUID exportId = UUID.randomUUID();
 			ExportDomain domain = new ExportDomain();

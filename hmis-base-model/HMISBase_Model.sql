@@ -47,7 +47,10 @@ DROP TYPE IF EXISTS "base".gender;
 DROP TYPE IF EXISTS "base".ethnicity;
 DROP TYPE IF EXISTS "base".veteran_status;
 DROP TYPE IF EXISTS "base".race;
-
+DROP TYPE IF EXISTS "base".no_yes;
+DROP TYPE IF EXISTS "base".project_type;
+DROP TYPE IF EXISTS  "base".target_population_type;
+DROP TYPE IF EXISTS  "base".tracking_method ;
 
 CREATE TYPE "base".name_data_quality AS ENUM ('1', '2', '8','9','99');
 CREATE TYPE "base".dob_data_quality AS ENUM ('1', '2', '8','9','99');
@@ -56,7 +59,33 @@ CREATE TYPE "base".veteran_status AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "base".race AS ENUM ('1', '2','3','4','5','8','9','99');
 CREATE TYPE "base".ethnicity AS ENUM ('0', '1', '8','9','99');
 CREATE TYPE "base".gender AS ENUM ('0','1', '2','3','4','8','9','99');
+CREATE TYPE "base".no_yes  AS ENUM (	
+'0',
+'1',
+'99');
+CREATE TYPE "base".project_type AS ENUM (
+'1',
+'2',
+'3',
+'4',
+'6',
+'7',
+'8',
+'9',
+'10',
+'11',
+'12',
+'13',
+'14');
 
+CREATE TYPE "base".target_population_type  AS ENUM ( 	
+'1',
+'3',
+'4');
+
+CREATE TYPE "base".tracking_method  AS ENUM ( 	
+'0',
+'3');
 -- DROP TABLE "base"."client";
 CREATE TABLE base.hmis_user
 (

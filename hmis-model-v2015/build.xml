@@ -1,13 +1,19 @@
 <project name="Database creation" basedir=".">
    <property name="sql.driver" value="org.postgresql.Driver"/>
+	<property name="sql.url" value="jdbc:postgresql://hmis-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis"/>
+   <property name="sql.user" value="hmisdb1"/>
+   <property name="sql.pass" value="hmisdb1234"/>
 	<!--
 	<property name="sql.url" value="jdbc:postgresql://hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com:5432/hmis"/>
    <property name="sql.user" value="hmisdb1"/>
    <property name="sql.pass" value="hmisdb1234"/>
 	-->
+	
+	<!--
 	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
 	   <property name="sql.user" value="postgres"/>
 	   <property name="sql.pass" value="postgres"/>
+	   -->
 	<property name="sql.driver" value="org.postgresql.Driver"/>
 	   <target name="setupDB2015">
 	      <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}" >
