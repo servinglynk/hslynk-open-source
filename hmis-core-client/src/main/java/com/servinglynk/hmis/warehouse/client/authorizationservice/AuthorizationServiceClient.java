@@ -35,16 +35,13 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 	CoreClientConfig coreClientConfig;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ApiMethodAuthorizationCheck checkApiAuthorization(ApiMethodAuthorizationCheck authCheck) {
+	public ApiMethodAuthorizationCheck checkApiAuthorization(ApiMethodAuthorizationCheck authCheck) throws Exception {
 		
 		HttpHeaders headers = getHttpHeaders();
 		headers.add("X-HMIS-TrustedApp-Id", authCheck.getTrustedAppId());
 		headers.add("Authorization","HMISUserAuth session_token="+authCheck.getAccessToken());
 	
 		logger.debug(authCheck.toString());
-		/*
-		JSONHttpMessageConverter jhmc = new JSONHttpMessageConverter();
-		jhmc.setObjectMapper(new JSONObjectMapper());*/
 		
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		
@@ -63,7 +60,7 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 		restTemplate.setMessageConverters(messageConverters);
 
 		HttpEntity entity = new HttpEntity(headers);
-		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange("http://hmislynk.com/hmis-user-service-v2015/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
+		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange("http://52.38.189.237:8080/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
 
 		return response.getBody();
 	}
@@ -80,7 +77,7 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
         return xmlConverter;
 	}
 
-	public static void main(String args[]){
+/*	public static void main(String args[]){
 		ApiMethodAuthorizationCheck apiMethodAuthorizationCheck = new ApiMethodAuthorizationCheck();
 		apiMethodAuthorizationCheck.setAccessToken("F0BB42B1D131427BA53F1C25106841E658FB0D80F9394D5F86313492F3293277");
 		apiMethodAuthorizationCheck.setApiMethodId("CLIENT_API_CREATE_SEXUALORIENTATION");
@@ -88,5 +85,5 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 		
 		AuthorizationServiceClient client = new AuthorizationServiceClient();
 		client.checkApiAuthorization(apiMethodAuthorizationCheck);
-	}
+	}*/
 }

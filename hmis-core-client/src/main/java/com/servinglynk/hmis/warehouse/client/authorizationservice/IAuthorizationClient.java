@@ -8,7 +8,7 @@ import com.servinglynk.hmis.warehouse.client.model.ApiMethodAuthorizationCheck;
 
 public interface IAuthorizationClient {
 
-	public ApiMethodAuthorizationCheck checkApiAuthorization(ApiMethodAuthorizationCheck authCheck) throws RestClientHttpException;
+	public ApiMethodAuthorizationCheck checkApiAuthorization(ApiMethodAuthorizationCheck authCheck) throws Exception;
 	
 	
 }
