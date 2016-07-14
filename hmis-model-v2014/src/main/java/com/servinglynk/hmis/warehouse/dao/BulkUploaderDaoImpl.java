@@ -1,13 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Appender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,12 +59,10 @@ import com.servinglynk.hmis.warehouse.model.v2014.Site;
 import com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo;
 import com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation;
 import com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues;
-import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
-	private static final Logger logger = LoggerFactory
-			.getLogger(BulkUploaderDaoImpl.class);
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(BulkUploaderDaoImpl.class);
 	
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
@@ -81,18 +75,34 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender) {
 		try {
-			
+			if (appender != null) {
+				logger.addAppender(appender);
+			}
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 			long startNanos = System.nanoTime();
-			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
-			logger.info("{}.File reading took {} millis",
-	                getClass().getSimpleName(),
-	                TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos));
-			Source source = sources.getSource();
-			Export export = source.getExport();
+			Sources sources = null;
+			try {
+				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity);
+			} catch (Exception ex) {
+				throw new Exception("Unable to get sources from files", ex);
+			}
+			logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+
+			Source source = null;
+			try {
+				source = sources.getSource();
+			} catch (Exception ex) {
+				throw new Exception("Unable to get source from sources", ex);
+			}
+			Export export = null;
+			try {
+				export = source.getExport();
+			} catch (Exception ex) {
+				throw new Exception("Unable to get export from source", ex);
+			}
 			UUID exportId = UUID.randomUUID();
 			ExportDomain domain = new ExportDomain();
 			domain.setExport(export);
@@ -118,7 +128,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
 			parentDaoFactory.getServicesDao().hydrateStaging(domain);
 			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain);
-			
+
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain);
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain);
 			parentDaoFactory.getExitDao().hydrateStaging(domain);
@@ -147,12 +157,20 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			upload.setExportId(exportId);
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload); 
+			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(e.getMessage());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			e.printStackTrace();
+			logger.error("Error executing the bulk upload process:: ", e);
+			try {
+				parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			} catch (Exception ex) {
+				logger.error(ex);
+			}
+		} finally {
+			if (appender != null) {
+				logger.removeAppender(appender);
+			}
 		}
 		return upload;
 	}

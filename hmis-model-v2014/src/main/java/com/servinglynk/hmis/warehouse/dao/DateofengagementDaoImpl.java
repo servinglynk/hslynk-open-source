@@ -50,8 +50,9 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 					dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
 					dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
 				} catch(Exception e) {
-					logger.error("Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());
-					throw new Exception(e);
+					String msg = "Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
+					logger.error(msg);
+					throw new Exception(msg,e);
 				}
 			}
 		}

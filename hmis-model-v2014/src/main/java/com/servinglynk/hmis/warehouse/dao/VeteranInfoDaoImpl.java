@@ -101,8 +101,9 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 						exportEntity.addVeteranInfo(vInfo);
 					performSaveOrUpdate(vInfo);
 				}catch(Exception e) {
-					logger.error("Exception in veteranInfo:"+veteranInfo.getVeteranInfoID()+  ":: Exception" +e.getLocalizedMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception in veteranInfo:"+veteranInfo.getVeteranInfoID()+  ":: Exception" +e.getLocalizedMessage();
+					logger.error(errorMessage);
+					throw new Exception(errorMessage, e);
 				}
 				
 			}

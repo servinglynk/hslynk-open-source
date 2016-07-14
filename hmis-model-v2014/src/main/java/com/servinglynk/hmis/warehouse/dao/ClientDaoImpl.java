@@ -153,8 +153,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				}
 					performSaveOrUpdate(clientModel);
 				} catch(Exception e ){
-					logger.error("Exception beause of the client::"+client.toString() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the client::"+client.toString() +" Exception ::"+e.getMessage();
+					logger.error(errorMessage);
+					throw new Exception(errorMessage, e);
 				}
 			}
 	}

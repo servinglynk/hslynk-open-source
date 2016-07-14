@@ -66,8 +66,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 						exportEntity.addProject(projectModel);
 					performSaveOrUpdate(projectModel);
 				} catch(Exception e) {
-					logger.error("Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage());
-					throw new Exception(e);
+					String errorMessage = "Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage();
+					logger.error(errorMessage);
+					throw new Exception(errorMessage, e);
 				}
     		  }
 			}

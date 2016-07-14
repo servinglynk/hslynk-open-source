@@ -48,8 +48,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 						 exportEntity.addOrganization(organizationModel);
 					 performSaveOrUpdate(organizationModel);
 				 }catch(Exception e) {
-					 logger.error("Failure in Organization:::"+organization.toString()+ " with exception"+e.getLocalizedMessage());
-					 throw new Exception(e);
+					 String errorMessage = "Failure in Organization:::"+organization.toString()+ " with exception"+e.getLocalizedMessage();
+					 logger.error(errorMessage);
+					 throw new Exception(errorMessage, e);
 				 }
 			 }
 		 }

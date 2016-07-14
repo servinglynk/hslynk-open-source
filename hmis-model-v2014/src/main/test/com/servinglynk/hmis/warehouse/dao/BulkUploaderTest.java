@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.PatternLayout;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +52,19 @@ public class BulkUploaderTest {
 	{
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV1.zip");
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
 		bullkUpload.setId(3L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
 		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender);
 	}
 	
 	@Test
@@ -67,7 +76,7 @@ public class BulkUploaderTest {
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
 		bullkUpload.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,null);
 	}
 	@Test
 	public void testAnotherxmlBigFile() throws Exception
@@ -78,7 +87,7 @@ public class BulkUploaderTest {
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("JP0005");
 		bullkUpload.setProjectGroupCode("JP0005");
-		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,null);
 	}
 	
 	@Test

@@ -41,8 +41,9 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
 						performSaveOrUpdate(affiliationModel);
 					}catch(Exception e) {
-						logger.error("Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage());
-						throw new Exception(e);
+						String msg = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
+						logger.error(msg);
+						throw new Exception(msg, e);
 					}
 				}
 				hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), domain, exportEntity);
