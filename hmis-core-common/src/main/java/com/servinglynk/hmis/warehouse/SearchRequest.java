@@ -4,6 +4,7 @@ public class SearchRequest
 {
   SortedPagination pagination;
   String[] dbfileds;
+  String[] excludeFields=new String[]{};
   Sort sort;
   Class<?> searchEntity;
   String freeText;
@@ -57,4 +58,12 @@ public class SearchRequest
   {
     this.freeText = freeText;
   }
+
+public String[] getExcludeFields() {
+	return excludeFields;
+}
+
+public void setExcludeFields(String[] excludeFields) {
+	this.excludeFields = excludeFields;
+} 
 }
