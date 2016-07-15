@@ -44,8 +44,6 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 					Residentialmoveindate residentialmoveindateModel = getModelObject(domain, residentialMoveInDate, data);
 					residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
 					residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
-					residentialmoveindateModel.setDateCreated(LocalDateTime.now());
-					residentialmoveindateModel.setDateUpdated(LocalDateTime.now());
 					residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
 					residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
 					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, residentialMoveInDate.getResidentialMoveInDateID(),getProjectGroupCode(domain),true);

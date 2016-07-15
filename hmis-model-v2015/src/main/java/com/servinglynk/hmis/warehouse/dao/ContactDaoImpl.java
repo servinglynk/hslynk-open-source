@@ -45,7 +45,6 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
 					contactModel.setContactLocation(ContactLocationEnum.lookupEnum(BasicDataGenerator.getStringValue(contacts
 							.getContactLocation())));
-					contactModel.setDateCreated(LocalDateTime.now());
 					contactModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateCreated()));
 					contactModel.setDateUpdated(LocalDateTime.now());
 					contactModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateUpdated()));

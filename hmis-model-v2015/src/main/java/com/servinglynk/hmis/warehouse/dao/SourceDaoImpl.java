@@ -22,7 +22,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	public void hydrateStaging(ExportDomain domain) {
 		Source source = domain.getSource();
 		Data data = new Data();
-		com.servinglynk.hmis.warehouse.model.v2015.Source sourceModel = new com.servinglynk.hmis.warehouse.model.v2015.Source();
+		com.servinglynk.hmis.warehouse.model.v2015.Source sourceModel = getModelObject(domain, source, data);
 		sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 		//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
 		sourceModel.setSourcecontactemail(source.getSourceContactEmail());
@@ -31,8 +31,6 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		sourceModel.setSourcecontactlast(source.getSourceContactLast());
 		sourceModel.setSourceid(String.valueOf(source.getSourceID()));
 		sourceModel.setSourcename(source.getSourceName());
-		UUID id = UUID.randomUUID();
-		sourceModel.setId(id);
 		performSaveOrUpdate(sourceModel);
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), domain,null);
 	}

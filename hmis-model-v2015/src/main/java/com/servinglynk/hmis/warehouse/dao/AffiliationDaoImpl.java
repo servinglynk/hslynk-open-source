@@ -38,8 +38,6 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					try {
 						com.servinglynk.hmis.warehouse.model.v2015.Affiliation affiliationModel = getModelObject(domain, affiliation, data);
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
-						affiliationModel.setDateCreated(LocalDateTime.now());
-						affiliationModel.setDateUpdated(LocalDateTime.now());
 						Project project = (Project) getModel(Project.class,affiliation.getProjectID(),getProjectGroupCode(domain),true);
 						affiliationModel.setExport(exportEntity);
 						affiliationModel.setProjectid(project);

@@ -42,8 +42,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				try {
 					com.servinglynk.hmis.warehouse.model.v2015.Coc cocModel = getModelObject(domain, coc, data);
 					cocModel.setCoccode(coc.getCoCCode());
-					cocModel.setDateCreated(LocalDateTime.now());
-					cocModel.setDateUpdated(LocalDateTime.now());
 					Project project = (Project) getModel(Project.class,coc.getProjectID(),getProjectGroupCode(domain),true);
 					cocModel.setProjectid(project);
 					if(exportEntity !=null)

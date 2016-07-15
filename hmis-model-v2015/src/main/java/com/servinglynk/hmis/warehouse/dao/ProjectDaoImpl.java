@@ -68,9 +68,11 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, project.getProjectID(),getProjectGroupCode(domain),true);
-					projectModel.addEnrollment(enrollmentModel);
+					if(enrollmentModel !=null)
+						projectModel.addEnrollment(enrollmentModel);
 					projectModel.setExport(exportEntity);
-					exportEntity.addProject(projectModel);
+					if(exportEntity !=null)
+						exportEntity.addProject(projectModel);
 					performSaveOrUpdate(projectModel);
 				}catch(Exception e) {
 					logger.error("Exception beause of the project::"+project.getProjectID() +" Exception ::"+e.getMessage());

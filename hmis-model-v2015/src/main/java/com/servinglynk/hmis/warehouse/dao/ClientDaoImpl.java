@@ -125,6 +125,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
 					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
+					if(clientModel.isInserted()) {
+						target.setDateCreated(LocalDateTime.now());
+						insert(target);
+					}
 					String dedupedId = dedupHelper.getDedupedClient(target);
 					System.out.println("Dedup Id is ##### "+dedupedId);
 					if(dedupedId != null) {
@@ -146,8 +150,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					}
 					
 				}
-				clientModel.setDateCreated(LocalDateTime.now());
-				clientModel.setDateUpdated(LocalDateTime.now());
 				
 				if(clientModel.getDedupClientId() !=null) {
 					com.servinglynk.hmis.warehouse.model.v2015.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId(),clientModel.getProjectGroupCode());

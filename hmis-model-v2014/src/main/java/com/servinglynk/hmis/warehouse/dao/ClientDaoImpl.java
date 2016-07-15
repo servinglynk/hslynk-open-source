@@ -110,9 +110,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				//TODO: Sandeep need to get the project group from the base schema.
 				com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 				BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
-				if(!clientModel.isInserted()) {
-					getCurrentSession().update(target);
-				}else{
+				if(clientModel.isInserted()) {
 					target.setDateCreated(LocalDateTime.now());
 					insert(target);
 				}
