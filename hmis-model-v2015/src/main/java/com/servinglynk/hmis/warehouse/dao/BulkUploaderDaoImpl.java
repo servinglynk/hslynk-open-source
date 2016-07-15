@@ -131,7 +131,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
-			upload.setDescription(e.getMessage());
+			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
 			insertOrUpdate(upload);
 			logger.error("Error executing the bulk upload process::",e.getLocalizedMessage());
 			e.printStackTrace();

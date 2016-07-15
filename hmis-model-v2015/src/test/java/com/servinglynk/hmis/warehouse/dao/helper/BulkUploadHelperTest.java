@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import java.net.URL;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,7 +57,7 @@ public class BulkUploadHelperTest {
 
 
 	@Test
-	public void testXMLUpload() {
+	public void testXMLUpload() throws JAXBException {
 	//	URL path = BulkUploadHelperTest.class.getResource("2015.xml");
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();

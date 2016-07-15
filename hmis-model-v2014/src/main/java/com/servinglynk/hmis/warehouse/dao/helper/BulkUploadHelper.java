@@ -94,8 +94,9 @@ public class BulkUploadHelper {
 	 * Gets the source object from the upload location.
 	 * @param upload
 	 * @return sources
+	 * @throws JAXBException 
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException {
 		String inputPath = upload.getInputpath();
 		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
 			return getSourcesForZipFile(upload);
@@ -109,9 +110,9 @@ public class BulkUploadHelper {
 	 * Gets the Sources XML object when the file to be bulk uploaded is an XML file.
 	 * @param upload
 	 * @return
+	 * @throws JAXBException 
 	 */
-	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) {
-		try {
+	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException {
 			File file = new File(upload.getInputpath());
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
 //				System.out.println("XML is valid");
@@ -154,6 +155,10 @@ public class BulkUploadHelper {
 				      }
 				    }
 				      if(StringUtils.isNotEmpty(aLine.trim())) {
+				    	  if(aLine.contains(":Sources")) {
+				    		  aLine = aLine.replaceAll("hmis_0:", "");
+				    		  aLine = aLine.replaceAll("hmis_1:", "");
+				    	  }
 				    	  aLine = aLine.replaceAll("hmis:", "");
 				    	  out.write(aLine);
 				    	  out.newLine();
@@ -171,11 +176,6 @@ public class BulkUploadHelper {
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Sources sources = (Sources) jaxbUnmarshaller.unmarshal(tempFile);
 			return sources;
-			}
-			 catch (JAXBException e) {
-					e.printStackTrace();
-				}
-		return null;
 	}
 	
 	 private boolean validateXMLSchema(String xsdPath, String xmlPath){

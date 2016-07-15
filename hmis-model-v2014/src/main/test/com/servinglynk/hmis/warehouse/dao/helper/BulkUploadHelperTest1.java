@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import java.net.URL;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +46,7 @@ public class BulkUploadHelperTest1 {
 
 
 	@Test
-	public void testCVSUpload() {
+	public void testCVSUpload() throws JAXBException {
 		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
 		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
@@ -288,11 +290,12 @@ public class BulkUploadHelperTest1 {
 	}
 	
 	@Test
-	public void testXMLUpload() {
+	public void testXMLUpload() throws JAXBException {
 		URL path = BulkUploadHelperTest1.class.getResource("HUD_4_0__6.xml");
 //		System.out.println(path);
 		BulkUpload upload = new BulkUpload();
-		upload.setInputpath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
+	//	upload.setInputpath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
+		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\test.xml");
 		upload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);

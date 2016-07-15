@@ -239,7 +239,7 @@ public class BulkUploaderTest {
 				//URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload bullkUpload = new BulkUpload();
 				//bullkUpload.setInputpath(upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml"););
-				bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
+				bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_65.xml");
 				bullkUpload.setProjectGroupCode("PG0001");
 				bullkUpload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();

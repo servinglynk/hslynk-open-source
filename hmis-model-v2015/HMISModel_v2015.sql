@@ -2773,6 +2773,8 @@ create table "v2015".bulk_upload_activity
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_updated" timestamp,
+  inserted  bigint,
+  updated bigint,
   "user_id" uuid,
   export_id uuid,
   parent_id uuid,

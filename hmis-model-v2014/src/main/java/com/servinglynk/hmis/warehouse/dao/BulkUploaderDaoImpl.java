@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.bind.UnmarshalException;
+
 import org.apache.log4j.Appender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -86,7 +88,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Sources sources = null;
 			try {
 				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity);
-			} catch (Exception ex) {
+			} catch (UnmarshalException ex) {
+				logger.error("Error executing the bulk upload process:: ", ex);
 				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
 			}
 			logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
@@ -160,7 +163,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
-			upload.setDescription(e.getMessage());
+			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
 			logger.error("Error executing the bulk upload process:: ", e);
 			try {
 				parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
