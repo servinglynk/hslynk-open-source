@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -12,6 +13,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -19,23 +21,23 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(SiteDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<Site> sites = domain.getExport().getSite();
-		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Site.class, getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		if(sites !=null && !sites.isEmpty()) {
 			for(Site site :sites) {
 				if(site !=null) {
 					try {
-						com.servinglynk.hmis.warehouse.model.v2014.Site siteModel = getModelObject(domain, site,data);
+						com.servinglynk.hmis.warehouse.model.v2014.Site siteModel = getModelObject(domain, site,data,modelMap);
 						siteModel.setAddress(site.getAddress());
 						siteModel.setCity(site.getCity());
 						siteModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateCreated()));
 						siteModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 						siteModel.setGeocode(site.getGeocode());
 						siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
-						Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain),false);
+						Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain),false,modelMap);
 						siteModel.setProjectCoc(projectCoc);
 						siteModel.setState(StateEnum.lookupEnum(site.getState()));
 						siteModel.setExport(exportEntity);
@@ -53,11 +55,11 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2014.Site getModelObject(ExportDomain domain, Site Site ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2014.Site getModelObject(ExportDomain domain, Site Site ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Site SiteModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SiteModel = (com.servinglynk.hmis.warehouse.model.v2014.Site) getModel(com.servinglynk.hmis.warehouse.model.v2014.Site.class, Site.getSiteID(), getProjectGroupCode(domain),false);
+			SiteModel = (com.servinglynk.hmis.warehouse.model.v2014.Site) getModel(com.servinglynk.hmis.warehouse.model.v2014.Site.class, Site.getSiteID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(SiteModel == null) {
 			SiteModel = new com.servinglynk.hmis.warehouse.model.v2014.Site();

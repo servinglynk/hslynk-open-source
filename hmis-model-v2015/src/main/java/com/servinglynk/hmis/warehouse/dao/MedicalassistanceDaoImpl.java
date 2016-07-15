@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -19,6 +20,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEn
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -34,16 +36,17 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class, getProjectGroupCode(domain));
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			for(MedicalAssistance medicalAssistance : medicalAssistanceList)
 			{
 				try {
-					Medicalassistance medicalassistanceModel = getModelObject(domain, medicalAssistance, data);
+					Medicalassistance medicalassistanceModel = getModelObject(domain, medicalAssistance,data,modelMap);
 					medicalassistanceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
 					medicalassistanceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
 					medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getADAP())));
@@ -51,7 +54,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
 					medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
 					
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getProjectEntryID(),getProjectGroupCode(domain),true);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					medicalassistanceModel.setEnrollmentid(enrollmentModel);
 					medicalassistanceModel.setExport(exportEntity);
 					if(exportEntity != null)
@@ -66,11 +69,11 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance getModelObject(ExportDomain domain, MedicalAssistance medicalassistance ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance getModelObject(ExportDomain domain, MedicalAssistance medicalassistance ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance medicalassistanceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			medicalassistanceModel = (com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance) getModel(com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false);
+			medicalassistanceModel = (com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance) getModel(com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(medicalassistanceModel == null) {
 			medicalassistanceModel = new com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance();

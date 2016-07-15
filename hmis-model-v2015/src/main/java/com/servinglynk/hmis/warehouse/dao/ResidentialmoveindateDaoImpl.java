@@ -3,8 +3,8 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMo
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -32,21 +33,22 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<ResidentialMoveInDate> residentialMoveInDates = domain.getExport().getResidentialMoveInDate();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, getProjectGroupCode(domain));
 		if(residentialMoveInDates != null && !residentialMoveInDates.isEmpty())
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)
 			{
 				try {
-					Residentialmoveindate residentialmoveindateModel = getModelObject(domain, residentialMoveInDate, data);
+					Residentialmoveindate residentialmoveindateModel = getModelObject(domain, residentialMoveInDate,data,modelMap);
 					residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
 					residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
 					residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
 					residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, residentialMoveInDate.getResidentialMoveInDateID(),getProjectGroupCode(domain),true);
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, residentialMoveInDate.getResidentialMoveInDateID(),getProjectGroupCode(domain),true,relatedModelMap);
 					residentialmoveindateModel.setEnrollmentid(enrollment);
 					residentialmoveindateModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -61,11 +63,11 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		}
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate getModelObject(ExportDomain domain, ResidentialMoveInDate residentialmoveindate ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate getModelObject(ExportDomain domain, ResidentialMoveInDate residentialmoveindate ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate residentialmoveindateModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			residentialmoveindateModel = (com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate) getModel(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false);
+			residentialmoveindateModel = (com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate) getModel(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(residentialmoveindateModel == null) {
 			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate();

@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -16,6 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssess
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Exit;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -31,21 +33,22 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, getProjectGroupCode(domain));
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty())
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
 			{
 				try {
-					Housingassessmentdisposition housingassessmentdispositionModel = getModelObject(domain, housingAssessmentDisposition, data);
+					Housingassessmentdisposition housingassessmentdispositionModel = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
 					housingassessmentdispositionModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
 					housingassessmentdispositionModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
 					housingassessmentdispositionModel.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
 					housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
-					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true);
+					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					housingassessmentdispositionModel.setExitid(exit);
 					housingassessmentdispositionModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -60,11 +63,11 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition getModelObject(ExportDomain domain, HousingAssessmentDisposition housingassessmentdisposition ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition getModelObject(ExportDomain domain, HousingAssessmentDisposition housingassessmentdisposition ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition housingassessmentdispositionModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			housingassessmentdispositionModel = (com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false);
+			housingassessmentdispositionModel = (com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(housingassessmentdispositionModel == null) {
 			housingassessmentdispositionModel = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();

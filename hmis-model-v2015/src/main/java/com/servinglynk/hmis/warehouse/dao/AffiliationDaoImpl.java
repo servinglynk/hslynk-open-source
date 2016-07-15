@@ -1,10 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -14,6 +13,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -25,20 +25,21 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AffiliationDaoImpl.class);
 		@Override
-		public void hydrateStaging(ExportDomain domain) throws Exception 
+		public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception 
 		{
 			Export export = domain.getExport();
 			List<Affiliation> affiliations = export.getAffiliation();
 			Data data =new Data();
-			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class, getProjectGroupCode(domain));
+			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap);
 			if(affiliations!=null && !affiliations.isEmpty())
 			{
 				for(Affiliation affiliation :affiliations )
 				{
 					try {
-						com.servinglynk.hmis.warehouse.model.v2015.Affiliation affiliationModel = getModelObject(domain, affiliation, data);
+						com.servinglynk.hmis.warehouse.model.v2015.Affiliation affiliationModel = getModelObject(domain, affiliation,data,modelMap);
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
-						Project project = (Project) getModel(Project.class,affiliation.getProjectID(),getProjectGroupCode(domain),true);
+						Project project = (Project) getModel(Project.class,affiliation.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 						affiliationModel.setExport(exportEntity);
 						affiliationModel.setProjectid(project);
 						exportEntity.addAffiliation(affiliationModel);
@@ -55,11 +56,11 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		}
 
 		
-		public  com.servinglynk.hmis.warehouse.model.v2015.Affiliation getModelObject(ExportDomain domain, Affiliation affiliation,Data data) {
+		public  com.servinglynk.hmis.warehouse.model.v2015.Affiliation getModelObject(ExportDomain domain, Affiliation affiliation,Data data, Map<String,HmisBaseModel> modelMap) {
 			com.servinglynk.hmis.warehouse.model.v2015.Affiliation affiliationModel = null;
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
-				affiliationModel = (com.servinglynk.hmis.warehouse.model.v2015.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false);
+				affiliationModel = (com.servinglynk.hmis.warehouse.model.v2015.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap);
 			
 			if(affiliationModel == null) {
 				affiliationModel = new com.servinglynk.hmis.warehouse.model.v2015.Affiliation();

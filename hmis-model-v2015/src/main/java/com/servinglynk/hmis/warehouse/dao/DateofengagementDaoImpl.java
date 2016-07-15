@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -16,6 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagem
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -26,19 +28,20 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		DateofengagementDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DateofengagementDaoImpl.class);
-	public void hydrateStaging(ExportDomain domain) throws Exception
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception
 	{
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class, getProjectGroupCode(domain));
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
 		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
 			{
 			 try {
-				 Dateofengagement dateOfEngagementModel = getModelObject(domain, dateOfEngagement, data);
+				 Dateofengagement dateOfEngagementModel = getModelObject(domain, dateOfEngagement,data,modelMap);
 				 dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
-				 Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true);
+				 Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 				 dateOfEngagementModel.setEnrollmentid(enrollmentModel);
 				 dateOfEngagementModel.setExport(exportEntity);
 				 if(exportEntity !=null)
@@ -56,11 +59,11 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateofengagement ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateofengagement ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement dateofengagementModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false);
+			dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(dateofengagementModel == null) {
 			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();

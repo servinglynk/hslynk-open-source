@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -19,24 +20,26 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	private static final Logger logger = LoggerFactory
 			.getLogger(EntryrhspDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class, getProjectGroupCode(domain));
 		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
 		if (entryRhsps != null && entryRhsps.size() > 0) {
 			for (EntryRHSP entryRhsp : entryRhsps) {
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryRhspModel = getModelObject(domain, entryRhsp, data);
+					com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryRhspModel = getModelObject(domain, entryRhsp,data,modelMap);
 					entryRhspModel.setWorstHousingSituation(Integer.parseInt(entryRhsp.getWorstHousingSituation()));
 					//Sandeep TODO: Why am I seeing projectID here it should be projectEntryID.
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getProjectID(),getProjectGroupCode(domain),true);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 					entryRhspModel.setEnrollmentid(enrollmentModel);
 					if(exportEntity !=null)
 						exportEntity.addEntryrhsp(entryRhspModel);
@@ -71,11 +74,11 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	}
 	
 	
-	public com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp getModelObject(ExportDomain domain, EntryRHSP entryrhsp ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp getModelObject(ExportDomain domain, EntryRHSP entryrhsp ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryrhspModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			entryrhspModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false);
+			entryrhspModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(entryrhspModel == null) {
 			entryrhspModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();

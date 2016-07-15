@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -31,6 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -45,16 +47,17 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<HealthInsurance> healthInsurances = domain.getExport().getHealthInsurance();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class, getProjectGroupCode(domain));
 		if(healthInsurances!=null && healthInsurances.size() >0 )
 		{
 			for(HealthInsurance healthInsurance : healthInsurances)
 			{
 				try {
-					Healthinsurance healthinsuranceModel = getModelObject(domain, healthInsurance, data);
+					Healthinsurance healthinsuranceModel = getModelObject(domain, healthInsurance,data,modelMap);
 					healthinsuranceModel.setCobra(BasicDataGenerator.getIntegerValue(healthInsurance.getCOBRA()));
 					healthinsuranceModel.setEmployerprovided(BasicDataGenerator.getIntegerValue(healthInsurance.getEmployerProvided()));
 					healthinsuranceModel.setInsurancefromanysource(HealthinsuranceInsurancefromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getInsuranceFromAnySource())));
@@ -75,7 +78,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
 					healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
 					
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					healthinsuranceModel.setEnrollmentid(enrollmentModel);
 					healthinsuranceModel.setExport(exportEntity);
 					if(exportEntity != null)
@@ -90,11 +93,11 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), domain, exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance getModelObject(ExportDomain domain, HealthInsurance healthinsurance ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance getModelObject(ExportDomain domain, HealthInsurance healthinsurance ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance healthinsuranceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class, healthinsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false);
+			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class, healthinsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(healthinsuranceModel == null) {
 			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance();

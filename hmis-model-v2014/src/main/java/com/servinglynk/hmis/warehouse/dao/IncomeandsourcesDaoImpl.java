@@ -5,6 +5,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -31,6 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonservi
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -47,17 +49,17 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
-		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
 			{
 				try {
-				Incomeandsources incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data);
+				Incomeandsources incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data,modelMap);
 				incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getAlimony())));
 				incomeAndSourcesModel.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
 				incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getChildSupport())));
@@ -92,7 +94,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
 				incomeAndSourcesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
 				incomeAndSourcesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
-				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true);
+				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 				incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
 				incomeAndSourcesModel.setExport(exportEntity);
 				if(exportEntity != null)
@@ -108,11 +110,11 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		}
 	}
 		
-		public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources getModelObject(ExportDomain domain,IncomeAndSources incomeAndSources ,Data data) {
+		public com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources getModelObject(ExportDomain domain,IncomeAndSources incomeAndSources ,Data data, Map<String,HmisBaseModel> modelMap) {
 			com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources incomeandsourcesModel = null;
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
-				incomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, incomeAndSources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false);
+				incomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources.class, incomeAndSources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false,modelMap);
 			
 			if(incomeandsourcesModel == null) {
 				incomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();

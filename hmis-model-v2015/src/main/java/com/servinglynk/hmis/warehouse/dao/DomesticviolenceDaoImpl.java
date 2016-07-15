@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,6 +16,7 @@ import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevict
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
@@ -22,21 +24,22 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	private static final Logger logger = LoggerFactory
 			.getLogger(DomesticviolenceDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class, getProjectGroupCode(domain));
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
 			{
 				try {
-					Domesticviolence domesticviolenceModel = getModelObject(domain, domesticViolence, data);
+					Domesticviolence domesticviolenceModel = getModelObject(domain, domesticViolence,data,modelMap);
 					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
 					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
 					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					domesticviolenceModel.setExport(exportEntity);
 					domesticviolenceModel.setEnrollmentid(enrollmentModel);
 					if(exportEntity !=null)
@@ -51,11 +54,11 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence domesticviolenceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			domesticviolenceModel = (com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false);
+			domesticviolenceModel = (com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(domesticviolenceModel == null) {
 			domesticviolenceModel = new com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence();

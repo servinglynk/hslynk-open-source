@@ -1,10 +1,8 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +37,7 @@ import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
 import com.servinglynk.hmis.warehouse.model.v2015.Funder;
 import com.servinglynk.hmis.warehouse.model.v2015.HealthStatus;
 import com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources;
 import com.servinglynk.hmis.warehouse.model.v2015.Inventory;
@@ -51,7 +50,6 @@ import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.model.v2015.Site;
-import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
@@ -73,6 +71,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.debug("Bulk Uploader Process Begins..........");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			insertOrUpdate(upload);
+		    getCurrentSession().flush();
+            getCurrentSession().clear();
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
 			
 			Source source = sources.getSource();
@@ -82,45 +82,53 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
-			parentDaoFactory.getSourceDao().hydrateStaging(domain);
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,null);
 			logger.debug("Staging Source table.........");
-			parentDaoFactory.getExportDao().hydrateStaging(domain);
-			parentDaoFactory.getClientDao().hydrateStaging(domain);
-			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain);
+			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,null);
+			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null);
+			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
+			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
-			parentDaoFactory.getOrganizationDao().hydrateStaging(domain);
-			parentDaoFactory.getProjectDao().hydrateStaging(domain);
-			parentDaoFactory.getAffiliationDao().hydrateStaging(domain);
-			parentDaoFactory.getCocDao().hydrateStaging(domain);
-			parentDaoFactory.getFunderDao().hydrateStaging(domain);
-			parentDaoFactory.getSiteDao().hydrateStaging(domain);
-			parentDaoFactory.getInventoryDao().hydrateStaging(domain);
+			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null);
+			Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, getProjectGroupCode(domain));
+			parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap, orgModelMap);
+			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Project.class, getProjectGroupCode(domain));
+			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap);
+			parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap);
+			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap);
+			Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Coc.class, getProjectGroupCode(domain));
+			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,cocModelMap);
+			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap);
 			
+			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap);
+			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
+			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getEntryrhspDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getEntryrhyDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getEntryssvfDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getContactDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getServiceFaReferralDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getHealthStatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			
-			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain);
-			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain);
-			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain);
-			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain);
-			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain);
-			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain);
-			parentDaoFactory.getEmploymentDao().hydrateStaging(domain);
-			parentDaoFactory.getExitDao().hydrateStaging(domain);
-			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain);
-			parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain);
-			parentDaoFactory.getEntryrhspDao().hydrateStaging(domain);
-			parentDaoFactory.getEntryrhyDao().hydrateStaging(domain);
-			parentDaoFactory.getEntryssvfDao().hydrateStaging(domain);
-			parentDaoFactory.getExitpathDao().hydrateStaging(domain);
-			parentDaoFactory.getExitrhyDao().hydrateStaging(domain);
-			parentDaoFactory.getContactDao().hydrateStaging(domain);
-			parentDaoFactory.getServiceFaReferralDao().hydrateStaging(domain);
-			parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain);
-			parentDaoFactory.getHealthStatusDao().hydrateStaging(domain);
-			parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain);
-			parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain);
-			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain);
-			parentDaoFactory.getPathstatusDao().hydrateStaging(domain);
-			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain);
+			Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, getProjectGroupCode(domain));
+			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap);
+			parentDaoFactory.getExitpathDao().hydrateStaging(domain,exportModelMap,exitModelMap);
+			parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap);
+			
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);

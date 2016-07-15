@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -32,18 +33,19 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DisabilitiesDaoImpl.class);
-	public void hydrateStaging(ExportDomain domain) throws Exception
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception
 	{
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, getProjectGroupCode(domain));
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = getModelObject(domain, disabilities, data);
+					com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = getModelObject(domain, disabilities,data,modelMap);
 					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
 					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
 					disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
@@ -53,7 +55,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getProjectEntryID(),getProjectGroupCode(domain),true);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					disabilitiesModel.setEnrollmentid(enrollmentModel);
 					disabilitiesModel.setExport(exportEntity);
 					if(exportEntity !=null)
@@ -68,11 +70,11 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getModelObject(ExportDomain domain, Disabilities Disabilities ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getModelObject(ExportDomain domain, Disabilities Disabilities ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2015.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, Disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false);
+			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2015.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, Disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(disabilitiesModel == null) {
 			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();

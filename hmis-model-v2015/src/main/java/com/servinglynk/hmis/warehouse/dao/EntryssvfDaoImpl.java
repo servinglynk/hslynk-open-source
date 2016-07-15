@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,22 +16,24 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	private static final Logger logger = LoggerFactory
 			.getLogger(EntryssvfDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, getProjectGroupCode(domain));
 		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
 		if (entrySSVFs != null && entrySSVFs.size() > 0) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = getModelObject(domain, entrySSVF, data);
+					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
 					entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
 					entrySsvfModel.setDeleted(false);
 					entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
@@ -40,7 +43,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
 					entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(BasicDataGenerator.getStringValue(entrySSVF.getPercentAMI())));
 					entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					entrySsvfModel.setEnrollmentid(enrollmentModel);
 					exportEntity.addEntryssvf(entrySsvfModel);
 					entrySsvfModel.setUserId(exportEntity.getUserId());
@@ -58,11 +61,11 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Entryssvf getModelObject(ExportDomain domain, EntrySSVF entryssvf ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Entryssvf getModelObject(ExportDomain domain, EntrySSVF entryssvf ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			entryssvfModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false);
+			entryssvfModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(entryssvfModel == null) {
 			entryssvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();

@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -85,14 +87,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 //              getCurrentSession().clear();
 //          }
 	    }
-	    /***
-	     * Gets the Model object by System Source Id and Project group code
-	     * @param model
-	     * @return
-	     */
-	    protected HmisBaseModel getModel(HmisBaseModel model) {
-	    	return getModel(model.getClass(), model.getSourceSystemId(), model.getProjectGroupCode(),false);
-	    }
 	/***
 	 * Get a Model object with Source system ID and project group.
 	 * @param className
@@ -100,10 +94,12 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param projectGroupCode
 	 * @return
 	 */
-	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode,boolean showWarning) {
-		    List<HmisBaseModel> models = getModels(className, sourceId, projectGroupCode);
-			if(CollectionUtils.isNotEmpty(models)) {
-				return models.get(0);
+	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode,boolean showWarning, Map<String, HmisBaseModel> modelMap) {
+		if(StringUtils.isBlank(sourceId)) {
+			return null;
+		}
+		if(modelMap !=null && modelMap.size() >0) {
+				return modelMap.get(sourceId);
 			}
 			if(showWarning){
 				logger.warn("{} : A match was not found in the database for SourceSystemId:{}",className,sourceId);
@@ -132,6 +128,31 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			return null;
 		}
 		return null;
+	}
+	/***
+	 * Get Models by source system id and project group code.
+	 * @param className
+	 * @param sourceId
+	 * @param projectGroupCode
+	 * @return
+	 */
+	protected Map<String,HmisBaseModel> getModelMap(Class className ,String projectGroupCode) {
+		Map<String,HmisBaseModel> resultsMap = new HashMap<String, HmisBaseModel>();
+		if(projectGroupCode !=null) {
+			Criteria criteria = getCurrentSession().createCriteria(className);
+			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
+			criteria.add(Restrictions.eq("deleted",false));
+			criteria.addOrder( Order.desc("dateCreated") );
+			@SuppressWarnings("unchecked")
+			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
+			if(CollectionUtils.isNotEmpty(models)) {
+				 for(HmisBaseModel model : models ){
+					 if(StringUtils.isNotBlank(model.getSourceSystemId()))
+						 resultsMap.put(model.getSourceSystemId(), model);
+				 }
+			}
+		}
+		return resultsMap;
 	}
 	/***
 	 * Perform a Save or Update depending on the pojo.

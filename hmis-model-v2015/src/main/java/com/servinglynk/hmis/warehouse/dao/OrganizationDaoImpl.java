@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -16,6 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -33,16 +35,17 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		 List<Organization> organizations = domain.getExport().getOrganization();
-		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		 Data data =new Data();
+		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, getProjectGroupCode(domain));
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
 			 {
 				 try {
-					 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = getModelObject(domain, organization, data);
+					 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = getModelObject(domain, organization,data,modelMap);
 					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 					 organizationModel.setOrganizationname(organization.getOrganizationName());
 					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
@@ -59,11 +62,11 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		 hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2015.Organization getModelObject(ExportDomain domain, Organization organization ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Organization getModelObject(ExportDomain domain, Organization organization ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			organizationModel = (com.servinglynk.hmis.warehouse.model.v2015.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false);
+			organizationModel = (com.servinglynk.hmis.warehouse.model.v2015.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(organizationModel == null) {
 			organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();

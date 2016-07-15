@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -14,23 +15,25 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Exitpath;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	private static final Logger logger = LoggerFactory
 			.getLogger(ExitpathDaoImpl.class);
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, getProjectGroupCode(domain));
 		List<ExitPATH> exitpath = export.getExitPATH();
 		if (exitpath != null && exitpath.size() > 0) {
 			for (ExitPATH exitpaths : exitpath) {
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = getModelObject(domain, exitpaths, data);
+					com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = getModelObject(domain, exitpaths,data,modelMap);
 					exitpathModel.setConnectionWithSoar(ExitPathConnectionWithSOAREnum.lookupEnum(BasicDataGenerator.getStringValue(exitpaths.getConnectionWithSOAR())));
-					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true);
+					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					exitpathModel.setExitid(exit);
 					exitpathModel.setDeleted(false);
 					if(exportEntity !=null)
@@ -50,11 +53,11 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Exitpath getModelObject(ExportDomain domain, ExitPATH exitpath ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Exitpath getModelObject(ExportDomain domain, ExitPATH exitpath ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitpathModel = (com.servinglynk.hmis.warehouse.model.v2015.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false);
+			exitpathModel = (com.servinglynk.hmis.warehouse.model.v2015.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(exitpathModel == null) {
 			exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();

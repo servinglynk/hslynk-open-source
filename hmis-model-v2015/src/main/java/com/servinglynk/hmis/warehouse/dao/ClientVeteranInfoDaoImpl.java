@@ -4,6 +4,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,6 +26,7 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -39,16 +41,17 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo> veteranInfoList = export
 				.getClientVeteranInfo();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, getProjectGroupCode(domain));
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo veteranInfo : veteranInfoList) {
 				try {
-				com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo vInfo = getModelObject(domain, veteranInfo, data);
+				com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo vInfo = getModelObject(domain, veteranInfo,data,modelMap);
 				vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
 						.lookupEnum(BasicDataGenerator
 								.getStringValue(veteranInfo
@@ -91,7 +94,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 						.getYearSeparated()));
 				vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 				vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
-				com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),true);
+				com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap);
 				vInfo.setClient(client);
 				vInfo.setExport(exportEntity);
 				vInfo.setUserId(exportEntity.getUserId());
@@ -107,11 +110,11 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), domain, exportEntity);
 	}
 	
-	public  com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data) {
+	public  com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo clientVeteranInfoModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			clientVeteranInfoModel = (com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false);
+			clientVeteranInfoModel = (com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(clientVeteranInfoModel == null) {
 			clientVeteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();

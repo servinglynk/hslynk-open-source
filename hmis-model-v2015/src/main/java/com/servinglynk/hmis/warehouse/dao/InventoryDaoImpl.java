@@ -3,29 +3,25 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Coc;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -45,16 +41,17 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	private ParentDaoFactory parentDaoFactory;*/
 
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, getProjectGroupCode(domain));
 		List<Inventory> inventories = export.getInventory();
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = getModelObject(domain, inventory, data);
+					com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = getModelObject(domain, inventory,data,modelMap);
 					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
 					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
 					inventoryModel.setChBedInventory(inventory.getChBedInventory());
@@ -76,7 +73,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 					inventoryModel.setExport(exportEntity);
 					inventoryModel.setSync(false);
-					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true);
+					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap);
 					inventoryModel.setCoc(coc);
 					performSaveOrUpdate(inventoryModel);
 				} catch(Exception e) {
@@ -87,11 +84,11 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain,exportEntity);
 	}
-	public com.servinglynk.hmis.warehouse.model.v2015.Inventory getModelObject(ExportDomain domain, Inventory Inventory ,Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Inventory getModelObject(ExportDomain domain, Inventory Inventory ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2015.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, Inventory.getInventoryID(), getProjectGroupCode(domain),false);
+			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2015.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, Inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(inventoryModel == null) {
 			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();

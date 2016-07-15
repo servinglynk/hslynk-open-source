@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -21,6 +22,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
@@ -32,16 +34,17 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 	private ParentDaoFactory factory;
 	
 	@Override
-	public void hydrateStaging(ExportDomain domain) throws Exception {
+	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 		com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<Contact> contact = export.getContact();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, getProjectGroupCode(domain));
 		Data data =new Data();
 		if (contact != null && contact.size() > 0) {
 			for (Contact contacts : contact) {
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = getModelObject(domain, contacts, data);
+					com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = getModelObject(domain, contacts,data,modelMap);
 					contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
 					contactModel.setContactLocation(ContactLocationEnum.lookupEnum(BasicDataGenerator.getStringValue(contacts
 							.getContactLocation())));
@@ -50,7 +53,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					contactModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateUpdated()));
 					contactModel.setDeleted(false);
 					
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class,contacts.getProjectEntryID(),getProjectGroupCode(domain),true);
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class,contacts.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					contactModel.setExport(exportEntity);
 					exportEntity.addContact(contactModel);
 					contactModel.setEnrollmentid(enrollment);
@@ -83,11 +86,11 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			}
 	}
 	
-	public  com.servinglynk.hmis.warehouse.model.v2015.Contact getModelObject(ExportDomain domain, Contact Contact,Data data) {
+	public  com.servinglynk.hmis.warehouse.model.v2015.Contact getModelObject(ExportDomain domain, Contact Contact,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			contactModel = (com.servinglynk.hmis.warehouse.model.v2015.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, Contact.getContactID(), getProjectGroupCode(domain),false);
+			contactModel = (com.servinglynk.hmis.warehouse.model.v2015.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, Contact.getContactID(), getProjectGroupCode(domain),false,modelMap);
 		
 		if(contactModel == null) {
 			contactModel = new com.servinglynk.hmis.warehouse.model.v2015.Contact();

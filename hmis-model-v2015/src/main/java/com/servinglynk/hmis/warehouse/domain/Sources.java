@@ -7220,7 +7220,7 @@ public class Sources {
             public static class ExitHousingAssessment {
 
                 @XmlElement(name = "ExitHousingAssessmentID")
-                protected short exitHousingAssessmentID;
+                protected String exitHousingAssessmentID;
                 @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
                 @XmlElement(name = "HousingAssessment")
@@ -7238,7 +7238,7 @@ public class Sources {
                  * Gets the value of the exitHousingAssessmentID property.
                  * 
                  */
-                public short getExitHousingAssessmentID() {
+                public String getExitHousingAssessmentID() {
                     return exitHousingAssessmentID;
                 }
 
@@ -7246,7 +7246,7 @@ public class Sources {
                  * Sets the value of the exitHousingAssessmentID property.
                  * 
                  */
-                public void setExitHousingAssessmentID(short value) {
+                public void setExitHousingAssessmentID(String value) {
                     this.exitHousingAssessmentID = value;
                 }
 
