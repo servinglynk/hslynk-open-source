@@ -69,12 +69,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		try {
 			//upload.setId(UUID.randomUUID());
 			logger.debug("Bulk Uploader Process Begins..........");
-			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			insertOrUpdate(upload);
-		    getCurrentSession().flush();
-            getCurrentSession().clear();
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
-			
 			Source source = sources.getSource();
 			Export export = source.getExport();
 			UUID exportId = UUID.randomUUID();
@@ -82,11 +77,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
-			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
-			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,null);
+			
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null);
 			logger.debug("Staging Source table.........");
-			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,null);
+			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null);
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null);
+			
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.

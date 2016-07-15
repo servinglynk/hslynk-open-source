@@ -60,6 +60,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
+		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
+		Boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
@@ -114,15 +116,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 												.getVeteranStatus())));
 				if(exportEntity !=null)
 					exportEntity.addClient(clientModel);
-				clientModel.setUserId(exportEntity.getUserId());
+					clientModel.setUserId(exportEntity.getUserId());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				clientModel.setExport(exportEntity);
 				//Lets make a microservice all to the dedup micro service
-				ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 				//TODO: Sandeep need to get the project group from the base schema.
 				// Need to change S.O.P to logger.
-				if(!projectGroupEntity.isSkipuseridentifers()) {
+				if(!skipClientIdentifier) {
 					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
 					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});

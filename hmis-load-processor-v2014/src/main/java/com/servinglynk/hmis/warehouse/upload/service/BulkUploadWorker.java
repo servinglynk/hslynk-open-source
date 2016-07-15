@@ -67,6 +67,8 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 						}
 					}
 					File file = new File(upload.getInputpath());
+					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
 					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender);
 					if (file.isFile()) {
