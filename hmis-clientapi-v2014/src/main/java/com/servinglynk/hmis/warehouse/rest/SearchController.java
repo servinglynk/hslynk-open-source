@@ -18,7 +18,10 @@ public class SearchController
   public SearchResults searchClients(
 		  @PathVariable("searchentity") String searchentity,
 		  @RequestParam(value="q", required=true) String searchterm, 
-		  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, @RequestParam(value="startIndex", required=false) Integer startIndex, @RequestParam(value="maxItems", required=false) Integer maxItems)
+		  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, 
+		  @RequestParam(value="startIndex", required=false) Integer startIndex, 
+		  @RequestParam(value="maxItems", required=false) Integer maxItems,
+		  @RequestParam(value="exclude",required=false) String exclude)
     throws Exception
   {
     if (startIndex == null) {
@@ -27,7 +30,7 @@ public class SearchController
     if (maxItems == null) {
       maxItems = Integer.valueOf(50);
     }
-    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems);
+    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude);
   }
   
   @RequestMapping(method=RequestMethod.GET,value="/searchall/{searchentity}")
@@ -35,7 +38,9 @@ public class SearchController
 	  public SearchResults baseSearch( @PathVariable("searchentity") String searchentity,
 			  @RequestParam(value="q", required=true) String searchterm, 
 			  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, 
-			  @RequestParam(value="startIndex", required=false) Integer startIndex, @RequestParam(value="maxItems", required=false) Integer maxItems)
+			  @RequestParam(value="startIndex", required=false) Integer startIndex, 
+			  @RequestParam(value="maxItems", required=false) Integer maxItems,
+			  @RequestParam(value="exclude",required=false) String exclude)
 					  	throws Exception
 					  {
 					    if (startIndex == null) {
@@ -44,7 +49,7 @@ public class SearchController
 					    if (maxItems == null || maxItems >50 ) {
 					      maxItems = Integer.valueOf(50);
 					    }
-	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems);
+	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude);
 	  }
   
   @RequestMapping(method=RequestMethod.POST, value="/searchall/index")

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -98,9 +99,12 @@ public class SearchDaoImpl
 			  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+			 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  criteria.add(Restrictions.or(firstName,lastName,middleName,sourceSystemId,ssn));
+			  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
+				  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn));
+			  else
+				  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId));
 	  }
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  

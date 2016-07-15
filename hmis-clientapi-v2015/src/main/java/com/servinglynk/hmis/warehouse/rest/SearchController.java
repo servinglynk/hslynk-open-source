@@ -28,7 +28,7 @@ public class SearchController
     if (maxItems == null) {
       maxItems = Integer.valueOf(50);
     }
-    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems);
+    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,null);
   }
   
   @RequestMapping(method=RequestMethod.POST, value="/index")
