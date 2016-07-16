@@ -51,8 +51,6 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 					Project project = (Project) getModel(Project.class,funder.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 					funderModel.setProjectid(project);
 					funderModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addFunder(funderModel);
 					performSaveOrUpdate(funderModel);
 				} catch(Exception e) {
 					logger.error("Exception beause of the funder::"+funder.getFunderID() +" Exception ::"+e.getMessage());

@@ -74,12 +74,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
 			Source source = sources.getSource();
 			Export export = source.getExport();
-			UUID exportId = UUID.randomUUID();
 			ExportDomain domain = new ExportDomain();
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
-			
+			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null);
 			logger.info("Staging Source table.........");
 			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null);

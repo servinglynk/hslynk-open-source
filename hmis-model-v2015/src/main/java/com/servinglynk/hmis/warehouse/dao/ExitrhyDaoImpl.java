@@ -59,8 +59,6 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class,exitrhys.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					exitrhyModel.setExitid(exit);
 					exitrhyModel.setDeleted(false);
-					exportEntity.addExitrhy(exitrhyModel);
-					exitrhyModel.setUserId(exportEntity.getUserId());
 					exitrhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateCreated()));
 					exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateUpdated()));
 					exitrhyModel.setExport(exportEntity);

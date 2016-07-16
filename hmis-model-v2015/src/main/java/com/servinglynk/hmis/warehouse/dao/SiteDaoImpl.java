@@ -45,8 +45,6 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 						siteModel.setExport(exportEntity);
 						//site.getUserID()
 						siteModel.setZip(String.valueOf(site.getZIP()));
-						if(exportEntity !=null)
-							exportEntity.addSite(siteModel);
 						performSaveOrUpdate(siteModel);
 					} catch(Exception e){
 						logger.error("Exception beause of the site::"+site.getSiteID() +" Exception ::"+e.getMessage());

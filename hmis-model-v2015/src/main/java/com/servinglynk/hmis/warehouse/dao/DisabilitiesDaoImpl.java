@@ -58,8 +58,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					disabilitiesModel.setEnrollmentid(enrollmentModel);
 					disabilitiesModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addDisabilities(disabilitiesModel);
 					performSaveOrUpdate(disabilitiesModel);
 				}catch(Exception e) {
 					logger.error("Exception beause of the Disabilities::"+disabilities.getDisabilitiesID() +" Exception ::"+e.getMessage());

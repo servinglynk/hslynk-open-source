@@ -46,9 +46,6 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 					cocModel.setCoccode(coc.getCoCCode());
 					Project project = (Project) getModel(Project.class,coc.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 					cocModel.setProjectid(project);
-					if(exportEntity !=null)
-						exportEntity.addCoc(cocModel);
-					cocModel.setUserId(exportEntity.getUserId());
 					cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
 					cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 					cocModel.setExport(exportEntity);

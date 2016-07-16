@@ -114,9 +114,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(client
 												.getVeteranStatus())));
-				if(exportEntity !=null)
-					exportEntity.addClient(clientModel);
-					clientModel.setUserId(exportEntity.getUserId());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				clientModel.setExport(exportEntity);

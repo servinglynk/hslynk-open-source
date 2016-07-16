@@ -57,8 +57,6 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					medicalassistanceModel.setEnrollmentid(enrollmentModel);
 					medicalassistanceModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addMedicalassistance(medicalassistanceModel);
 					performSaveOrUpdate(medicalassistanceModel);
 				}catch(Exception e){
 					logger.error("Exception beause of the medicalAssistance::"+medicalAssistance.getMedicalAssistanceID() +" Exception ::"+e.getMessage());

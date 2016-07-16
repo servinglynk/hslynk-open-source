@@ -54,8 +54,6 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 						Exit exit = (Exit) getModel(Exit.class, exitHousingAssessment.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 						exithousingassessmentModel.setExitid(exit);
 						exithousingassessmentModel.setExport(exportEntity);
-						if(exportEntity !=null)
-							exportEntity.addExithousingassessment(exithousingassessmentModel);
 						performSaveOrUpdate(exithousingassessmentModel);
 					}catch(Exception e ){
 						logger.error("Exception beause of the exitHousingAssessment::"+exitHousingAssessment.getExitHousingAssessmentID() +" Exception ::"+e.getMessage());

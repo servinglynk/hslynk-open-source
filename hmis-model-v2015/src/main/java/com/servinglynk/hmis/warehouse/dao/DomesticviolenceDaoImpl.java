@@ -42,8 +42,6 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					domesticviolenceModel.setExport(exportEntity);
 					domesticviolenceModel.setEnrollmentid(enrollmentModel);
-					if(exportEntity !=null)
-						exportEntity.addDomesticviolence(domesticviolenceModel);
 					performSaveOrUpdate(domesticviolenceModel);
 				}catch(Exception e) {
 					logger.error("Exception beause of the Domesticviolence::"+domesticViolence.getDomesticViolenceID() +" Exception ::"+e.getMessage());

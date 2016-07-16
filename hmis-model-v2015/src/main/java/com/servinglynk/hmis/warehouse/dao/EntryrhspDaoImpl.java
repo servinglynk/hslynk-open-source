@@ -41,8 +41,6 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 					//Sandeep TODO: Why am I seeing projectID here it should be projectEntryID.
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 					entryRhspModel.setEnrollmentid(enrollmentModel);
-					if(exportEntity !=null)
-						exportEntity.addEntryrhsp(entryRhspModel);
 					entryRhspModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateCreated()));
 					entryRhspModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateUpdated()));
 					entryRhspModel.setExport(exportEntity);

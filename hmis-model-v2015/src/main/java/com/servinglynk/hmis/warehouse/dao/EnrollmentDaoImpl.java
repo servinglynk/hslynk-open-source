@@ -107,10 +107,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
 					enrollmentModel.setExport(exportEntity);
-					
-					enrollmentModel.setUserId(exportEntity.getUserId());
-					if(exportEntity !=null)
-						exportEntity.addEnrollment(enrollmentModel);
 					performSaveOrUpdate(enrollmentModel);
 				} catch(Exception e) {
 					logger.error("Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage());

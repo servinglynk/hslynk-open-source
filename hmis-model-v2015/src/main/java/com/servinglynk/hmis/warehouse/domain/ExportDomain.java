@@ -22,7 +22,7 @@ public class ExportDomain {
 	private Export export;
 	private Source source;
 	private BulkUpload upload;
-	
+	private UUID userId;
 	public Export getExport() {
 		return export;
 	}
@@ -41,6 +41,14 @@ public class ExportDomain {
 
 	public void setUpload(BulkUpload upload) {
 		this.upload = upload;
+	}
+
+	public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 	
 }

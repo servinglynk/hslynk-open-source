@@ -67,8 +67,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setDeleted(false);
 					/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
-					exportEntity.addInventory(inventoryModel);
-					inventoryModel.setUserId(exportEntity.getUserId());
 					inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
 					inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 					inventoryModel.setExport(exportEntity);

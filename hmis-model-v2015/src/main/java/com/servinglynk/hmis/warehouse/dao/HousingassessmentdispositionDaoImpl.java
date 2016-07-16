@@ -51,8 +51,6 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					housingassessmentdispositionModel.setExitid(exit);
 					housingassessmentdispositionModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
 					performSaveOrUpdate(housingassessmentdispositionModel);
 				}catch(Exception e){
 					logger.error("Exception beause of the housingAssessmentDisposition::"+housingAssessmentDisposition.getHousingAssessmentDispositionID() +" Exception ::"+e.getMessage());

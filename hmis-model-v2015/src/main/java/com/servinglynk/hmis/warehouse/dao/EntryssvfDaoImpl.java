@@ -45,8 +45,6 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					entrySsvfModel.setEnrollmentid(enrollmentModel);
-					exportEntity.addEntryssvf(entrySsvfModel);
-					entrySsvfModel.setUserId(exportEntity.getUserId());
 					entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateCreated()));
 					entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
 					entrySsvfModel.setExport(exportEntity);

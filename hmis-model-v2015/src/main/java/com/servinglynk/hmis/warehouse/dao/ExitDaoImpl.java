@@ -67,8 +67,6 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					exitModel.setEnrollmentid(enrollmentModel);
 					exitModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addExit(exitModel);
 					performSaveOrUpdate(exitModel);
 				}catch(Exception e) {
 					logger.error("Exception beause of the exit::"+exit.getExitID() +" Exception ::"+e.getMessage());

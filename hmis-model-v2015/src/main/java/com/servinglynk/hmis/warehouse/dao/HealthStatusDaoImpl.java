@@ -53,8 +53,6 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap );
 					healthStatusModel.setEnrollmentid(enrollmentModel);
 					healthStatusModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addHealthStatus(healthStatusModel);
 					performSaveOrUpdate(healthStatusModel);
 				}catch(Exception e){
 					logger.error("Exception beause of the healthStatus::"+healthStatus.getHealthStatusID() +" Exception ::"+e.getMessage());

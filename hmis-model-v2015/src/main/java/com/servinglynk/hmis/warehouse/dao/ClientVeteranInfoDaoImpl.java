@@ -97,9 +97,6 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap);
 				vInfo.setClient(client);
 				vInfo.setExport(exportEntity);
-				vInfo.setUserId(exportEntity.getUserId());
-				if(exportEntity !=null)
-					exportEntity.addClientVeteranInfo(vInfo);
 				performSaveOrUpdate(vInfo);
 				} catch(Exception e ){
 					logger.error("Exception beause of the client::"+veteranInfo.getClientVeteranInfoID() +" Exception ::"+e.getMessage());

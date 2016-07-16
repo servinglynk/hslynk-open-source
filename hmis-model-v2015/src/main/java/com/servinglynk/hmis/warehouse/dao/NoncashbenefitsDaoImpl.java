@@ -67,8 +67,6 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, nonCashBenefits.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					noncashbenefitsModel.setEnrollmentid(enrollmentModel);
 					noncashbenefitsModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addNoncashbenefits(noncashbenefitsModel);
 					performSaveOrUpdate(noncashbenefitsModel);
 				} catch(Exception e){
 					logger.error("Exception beause of the nonCashBenefits::"+nonCashBenefits.getNonCashBenefitsID() +" Exception ::"+e.getMessage());

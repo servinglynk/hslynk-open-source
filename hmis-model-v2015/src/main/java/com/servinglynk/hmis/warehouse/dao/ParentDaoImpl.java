@@ -106,6 +106,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 			baseModel.setActive(false);
 			baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
+			baseModel.setUserId(domain.getUserId());
 			// Lets write a logic to update if a recored with that source system Id already exists.
 		  if(i % batchSize() == 0 && i > 0) {
               getCurrentSession().flush();

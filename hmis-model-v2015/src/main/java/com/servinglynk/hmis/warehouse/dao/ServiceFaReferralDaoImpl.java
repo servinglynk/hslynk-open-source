@@ -44,9 +44,6 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
 					
 					serviceFaReferralModel.setDeleted(false);
-					if(exportEntity !=null)
-						exportEntity.addServiceFaReferral(serviceFaReferralModel);
-					serviceFaReferralModel.setUserId(exportEntity.getUserId());
 					serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 					serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
 					serviceFaReferralModel.setExport(exportEntity);

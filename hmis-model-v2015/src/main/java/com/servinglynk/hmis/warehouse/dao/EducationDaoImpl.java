@@ -56,8 +56,6 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, education.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
-				if(exportEntity !=null)
-					exportEntity.addEducation(educationModel);
 				performSaveOrUpdate(educationModel);
 			}
 		}

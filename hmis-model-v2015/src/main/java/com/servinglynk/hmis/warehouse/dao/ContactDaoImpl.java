@@ -55,11 +55,8 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					
 					Enrollment enrollment = (Enrollment) getModel(Enrollment.class,contacts.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					contactModel.setExport(exportEntity);
-					exportEntity.addContact(contactModel);
 					contactModel.setEnrollmentid(enrollment);
-					
 					contactModel.setSync(false);
-					contactModel.setUserId(exportEntity.getUserId());
 					performSaveOrUpdate(contactModel);
 				 } catch(Exception e) {
 					 logger.error("Exception beause of the Contact::"+contacts.getContactID() +" Exception ::"+e.getMessage());

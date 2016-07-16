@@ -53,8 +53,6 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, employment.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					employmentModel.setEnrollmentid(enrollmentModel);
 					employmentModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addEmployment(employmentModel);
 					performSaveOrUpdate(employmentModel);
 				}catch(Exception e) {
 					logger.error("Exception beause of the Employment::"+employment.getEmploymentID() +" Exception ::"+e.getMessage());

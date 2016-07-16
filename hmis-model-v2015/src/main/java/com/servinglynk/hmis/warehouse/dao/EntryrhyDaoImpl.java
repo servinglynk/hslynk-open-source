@@ -119,7 +119,6 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					entryRhyModel.setSexualOrientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSexualOrientation())));
 					entryRhyModel.setUnemployementFamilyMbr(EntryRHYUnemploymentFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getUnemploymentFam())));  ;
 					entryRhyModel.setUnemployementYouth(EntryRHYUnemploymentYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getUnemploymentYouth())));
-					entryRhyModel.setUserId(exportEntity.getUserId());
 //				entryRhyModel.setVersion(version);
 					entryRhyModel.setWorkPlacePromiseDifference(EntryRHYWorkplacePromiseDifferenceEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getWorkplacePromiseDifference())));
 					entryRhyModel.setWorkPlaceViolenceThreat(EntryRHYWorkPlaceViolenceThreatsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getWorkPlaceViolenceThreats())));
@@ -128,8 +127,6 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhys.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					entryRhyModel.setEnrollmentid(enrollmentModel);
 					entryRhyModel.setExport(exportEntity);
-					if(exportEntity !=null) 
-						exportEntity.addEntryrhy(entryRhyModel);
 					entryRhyModel.setSync(false);
 					entryRhyModel.setDeleted(false);
 					performSaveOrUpdate(entryRhyModel);

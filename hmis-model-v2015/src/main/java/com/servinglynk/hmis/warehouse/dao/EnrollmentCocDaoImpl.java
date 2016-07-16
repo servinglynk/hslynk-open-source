@@ -54,9 +54,6 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					enrollmentCocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, enrollmentCoc.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					enrollmentCocModel.setEnrollmentid(enrollmentModel);
-					if(exportEntity !=null)
-						exportEntity.addEnrollmentCoc(enrollmentCocModel);
-					enrollmentCocModel.setUserId(exportEntity.getUserId());
 					enrollmentCocModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentCocModel);
 				} catch(Exception e) {

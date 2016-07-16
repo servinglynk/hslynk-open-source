@@ -36,9 +36,6 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					exitpathModel.setExitid(exit);
 					exitpathModel.setDeleted(false);
-					if(exportEntity !=null)
-						exportEntity.addExitpath(exitpathModel);
-					exitpathModel.setUserId(exportEntity.getUserId());
 					exitpathModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitpaths.getDateCreated()));
 					exitpathModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitpaths.getDateUpdated()));
 					exitpathModel.setExport(exportEntity);
