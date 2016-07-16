@@ -43,7 +43,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			for(Employment employment : employmentList)
 			{
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Employment employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
+					com.servinglynk.hmis.warehouse.model.v2015.Employment employmentModel = getModelObject(domain, employment, data, modelMap);
 					employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
 					employmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 					employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmployed())));

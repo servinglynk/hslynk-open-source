@@ -12,7 +12,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -46,6 +48,13 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2015));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
+					FileAppender appender = new FileAppender();
+					appender.setName("" + upload.getId());
+					appender.setFile("logs/" + upload.getId() + ".log");
+					appender.setImmediateFlush(true);
+					appender.setAppend(true);
+					appender.setLayout(new PatternLayout());
+					appender.activateOptions();
 					/** Perform full refresh base on Project group */
 					if(upload.getProjectGroupCode() !=null) {
 						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2015));
@@ -59,7 +68,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					File file = new File(upload.getInputpath());
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity);
+					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity,appender);
 					if (file.isFile()) {
 				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
 				      //  new File(bullkUpload.getInputPath()).delete();

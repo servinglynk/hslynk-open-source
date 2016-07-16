@@ -39,7 +39,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
 		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class, getProjectGroupCode(domain));
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty())
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
@@ -47,9 +47,6 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					try {
 						
 						Exithousingassessment exithousingassessmentModel = getModelObject(domain, exitHousingAssessment, data, modelMap);
-						exithousingassessmentModel.setId(UUID.randomUUID());
-						exithousingassessmentModel.setDateCreated(LocalDateTime.now());
-						exithousingassessmentModel.setDateUpdated(LocalDateTime.now());
 						exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
 						exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
 						exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));

@@ -2,9 +2,9 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Appender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,8 +54,7 @@ import com.servinglynk.hmis.warehouse.model.v2015.Site;
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
 	
-	private static final Logger logger = LoggerFactory
-			.getLogger(BulkUploaderDaoImpl.class);
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(BulkUploaderDaoImpl.class);
 	
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
@@ -65,8 +64,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity) {
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender) {
 		try {
+			if (appender != null) {
+				logger.addAppender(appender);
+			}
 			//upload.setId(UUID.randomUUID());
 			logger.debug("Bulk Uploader Process Begins..........");
 			Sources sources = bulkUploadHelper.getSourcesFromFiles(upload,projectGroupdEntity);
@@ -79,11 +81,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setSource(source);
 			
 			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null);
-			logger.debug("Staging Source table.........");
+			logger.info("Staging Source table.........");
 			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null);
-			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
-			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null);
 			
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
+			long startNanos = System.nanoTime();
+			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null);
+			logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap);
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
@@ -97,13 +101,16 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Coc.class, getProjectGroupCode(domain));
 			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,cocModelMap);
 			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap);
-			
+			startNanos = System.nanoTime();
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap);
+			logger.info("Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			startNanos = System.nanoTime();
 			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			logger.info("Disabilities table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
@@ -128,17 +135,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
-			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
-			logger.debug("Live Source table.........");
-			com.servinglynk.hmis.warehouse.model.v2015.Export exportLive = (com.servinglynk.hmis.warehouse.model.v2015.Export) get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, exportId);
-			upload.setExportId(exportLive.getId());
 			insertOrUpdate(upload); 
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
 			insertOrUpdate(upload);
-			logger.error("Error executing the bulk upload process::",e.getLocalizedMessage());
+			logger.error("Error executing the bulk upload process::",e.getCause());
 			e.printStackTrace();
 		}
 		return upload;

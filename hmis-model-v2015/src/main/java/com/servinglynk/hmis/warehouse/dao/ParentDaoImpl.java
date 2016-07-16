@@ -132,12 +132,16 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			return null;
 		}
 		if(modelMap !=null && modelMap.size() >0) {
-				return modelMap.get(sourceId);
+			HmisBaseModel model = modelMap.get(sourceId);
+			if(model == null) {
+				if(showWarning){
+					logger.warn("{} : A match was not found in the database for SourceSystemId:{}",className,sourceId);
+				}
+			 }
+			return model;
+			
 			}
-			if(showWarning){
-				logger.warn("{} : A match was not found in the database for SourceSystemId:{}",className,sourceId);
-			}
-			return null;
+		return null;
 	}
 	/***
 	 * Get Models by source system id and project group code.

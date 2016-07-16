@@ -17,6 +17,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.PatternLayout;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -188,7 +190,7 @@ public class BulkUploaderTest {
 		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
 		upload.setInputpath(path.getFile());
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity);
+		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity,null);
 		File file = new File(
 				path.getFile());
 		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
@@ -237,26 +239,43 @@ public class BulkUploaderTest {
 	public void testPersistIntoStaging() throws Exception
 	{
 				//URL path = BulkUploaderTest.class.getResource("2015.xml");
-				BulkUpload bullkUpload = new BulkUpload();
+				BulkUpload upload = new BulkUpload();
+				FileAppender appender = new FileAppender();
+				appender.setName("" + upload.getId());
+				appender.setFile("logs/" + upload.getId() + ".log");
+				appender.setImmediateFlush(true);
+				appender.setAppend(true);
+				appender.setLayout(new PatternLayout());
+				appender.activateOptions();
 				//bullkUpload.setInputpath(upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml"););
-				bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_65.xml");
-				bullkUpload.setProjectGroupCode("PG0001");
-				bullkUpload.setId(3L);
+				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
+				URL path = BulkUploaderTest.class.getResource("2015.xml");
+				upload.setInputpath(path.getPath());
+				upload.setProjectGroupCode("PG0001");
+				upload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender);
 	}
 		@Test
 		public void testCSVZip() throws Exception
 		{
 			URL path = BulkUploaderTest.class.getResource("2015.xml");
+			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
 			bullkUpload.setInputpath(path.getPath());
 			bullkUpload.setProjectGroupCode("PG0001");
+			FileAppender appender = new FileAppender();
+			appender.setName("" + bullkUpload.getId());
+			appender.setFile("logs/" + bullkUpload.getId() + ".log");
+			appender.setImmediateFlush(true);
+			appender.setAppend(true);
+			appender.setLayout(new PatternLayout());
+			appender.activateOptions();
 			bullkUpload.setId(3L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 			bullkUpload.setProjectGroupCode("PG0001");
-			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,appender);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, upload.getExportId());
 			assertNotNull(exportEntity);

@@ -39,6 +39,13 @@ public class BulkUploaderTest {
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
+		FileAppender appender = new FileAppender();
+		appender.setName("" + upload.getId());
+		appender.setFile("logs/" + upload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
 		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
@@ -70,24 +77,40 @@ public class BulkUploaderTest {
 	@Test
 	public void testxmlBigFile() throws Exception
 	{
-		BulkUpload bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("C:\\AWS\\HUD_4_0_4012_48.xml");
-		bullkUpload.setId(2L);
+		
+		BulkUpload upload = new BulkUpload();
+		upload.setId(2L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + upload.getId());
+		appender.setFile("logs/" + upload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		upload.setInputpath("C:\\AWS\\HUD_4_0_4012_48.xml");
+		
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
-		bullkUpload.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,null);
+		upload.setProjectGroupCode("PG0001");
+		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender);
 	}
 	@Test
 	public void testAnotherxmlBigFile() throws Exception
 	{
-		BulkUpload bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
-		bullkUpload.setId(5L);
+		BulkUpload upload = new BulkUpload();
+		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
+		upload.setId(5L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + upload.getId());
+		appender.setFile("logs/" + upload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("JP0005");
-		bullkUpload.setProjectGroupCode("JP0005");
-		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,null);
+		upload.setProjectGroupCode("JP0005");
+		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender);
 	}
 	
 	@Test

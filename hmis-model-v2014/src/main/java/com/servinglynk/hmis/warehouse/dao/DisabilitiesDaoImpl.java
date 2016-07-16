@@ -65,7 +65,8 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					if(enrollmentModel != null ){
 						 boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
 						 enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
-						 insertOrUpdate(enrollmentModel);
+						 enrollmentModel.setInserted(false);
+						 performSaveOrUpdate(enrollmentModel);
 						 disabilitiesModel.setEnrollmentid(enrollmentModel);
 					}
 					disabilitiesModel.setExport(exportEntity);
