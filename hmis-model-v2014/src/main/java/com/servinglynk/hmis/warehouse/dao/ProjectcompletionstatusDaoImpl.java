@@ -50,11 +50,9 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 					projectcompletionstatusModel.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
 					projectcompletionstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
 					projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
-					Exit exit = (Exit) getModel(Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),false,modelMap);
+					Exit exit = (Exit) getModel(Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					projectcompletionstatusModel.setExitid(exit);
 					projectcompletionstatusModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addProjectcompletionstatus(projectcompletionstatusModel);
 					performSaveOrUpdate(projectcompletionstatusModel);
 				} catch(Exception e) {
 					 logger.error("Failure in Projectcompletionstatus:::"+projectCompletionStatus.toString()+ " with exception"+e.getLocalizedMessage());

@@ -97,8 +97,6 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 				incomeAndSourcesModel.setEnrollmentid(enrollmentModel);	
 				incomeAndSourcesModel.setExport(exportEntity);
-				if(exportEntity != null)
-					exportEntity.addIncomeandsources(incomeAndSourcesModel);
 				performSaveOrUpdate(incomeAndSourcesModel);
 				}
 				catch(Exception e){

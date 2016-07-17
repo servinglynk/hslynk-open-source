@@ -49,8 +49,6 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 					worsthousingsituationModel.setExport(exportEntity);
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					worsthousingsituationModel.setEnrollmentid(enrollmentModel);
-					if(exportEntity != null)
-						exportEntity.addWorsthousingsituation(worsthousingsituationModel);
 					performSaveOrUpdate(worsthousingsituationModel);
 				}catch(Exception e) {
 					logger.error("Exception in worstHousingSituation:"+worstHousingSituation.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());

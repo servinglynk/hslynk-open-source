@@ -54,8 +54,6 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					schoolstatusModel.setEnrollmentid(enrollmentModel);
 					schoolstatusModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addSchoolstatus(schoolstatusModel);
 					performSaveOrUpdate(schoolstatusModel);
 				}catch(Exception e) {
 					logger.error("Failure in Schoolstatus:::"+schoolStatus.toString()+ " with exception"+e.getLocalizedMessage());

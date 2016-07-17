@@ -50,8 +50,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(Exit.class, connectionWithSOAR.getExitID(), getProjectGroupCode(domain),true,relatedModelMap);
 					connectionwithsoarModel.setExitid(exit);
 					connectionwithsoarModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addConnectionwithsoar(connectionwithsoarModel);
+					performSaveOrUpdate(connectionwithsoarModel);
 				} catch(Exception e) {
 					logger.error("Exception in:"+connectionWithSOAR.getConnectionWithSOARID()+ ":: Exception" +e.getLocalizedMessage());
 					throw new Exception(e);

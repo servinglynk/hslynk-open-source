@@ -55,8 +55,6 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					servicesModel.setEnrollmentid(enrollment);
 					servicesModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addServices(servicesModel);
 					performSaveOrUpdate(servicesModel);
 				} catch(Exception e) {
 					logger.error("Failure in services:::"+services.toString()+ " with exception"+e.getLocalizedMessage());

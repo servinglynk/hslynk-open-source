@@ -52,11 +52,9 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
 					medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
 					medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getMedicalAssistanceID(),getProjectGroupCode(domain),false,modelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getMedicalAssistanceID(),getProjectGroupCode(domain),true,relatedModelMap);
 					medicalassistanceModel.setEnrollmentid(enrollmentModel);
 					medicalassistanceModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addMedicalassistance(medicalassistanceModel);
 					performSaveOrUpdate(medicalassistanceModel);
 				}catch(Exception e) {
 					logger.error("Failure in MedicalAssistance:::"+medicalAssistance.toString()+ " with exception"+e.getLocalizedMessage());

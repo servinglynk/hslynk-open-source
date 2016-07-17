@@ -37,13 +37,11 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 						siteModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 						siteModel.setGeocode(site.getGeocode());
 						siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
-						Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain),false,modelMap);
+						Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain),true,relatedModelMap);
 						siteModel.setProjectCoc(projectCoc);
 						siteModel.setState(StateEnum.lookupEnum(site.getState()));
 						siteModel.setExport(exportEntity);
 						siteModel.setZip(String.valueOf(site.getZIP()));
-						if(exportEntity !=null)
-						  exportEntity.addSite(siteModel);
 						performSaveOrUpdate(siteModel);
 					} catch(Exception e) {
 						logger.error("Exception in Site:"+site.getSiteID()+  ":: Exception" +e.getLocalizedMessage());

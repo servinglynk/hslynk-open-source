@@ -103,13 +103,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(client
 												.getVeteranStatus())));
-				if(exportEntity !=null)
-					exportEntity.addClient(clientModel);
 			//	clientModel.setUser(exportEntity.getUser());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				clientModel.setExport(exportEntity);
-				//TODO: Sandeep need to get the project group from the base schema.
+				//TODO: Sandeep need to get the project group from STAGINGthe base schema.
 				com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 				BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 				if(clientModel.isInserted()) {

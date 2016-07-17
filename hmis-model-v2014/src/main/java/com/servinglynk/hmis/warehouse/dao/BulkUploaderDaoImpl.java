@@ -132,8 +132,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getProjectcocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap);
+			parentDaoFactory.getProjectcocDao().hydrateStaging(domain,exportModelMap,projectModelMap);
 			
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
 			Map<String, HmisBaseModel> projectCocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));

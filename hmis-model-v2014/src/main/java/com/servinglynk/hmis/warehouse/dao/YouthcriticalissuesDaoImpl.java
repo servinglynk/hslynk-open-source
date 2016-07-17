@@ -99,8 +99,6 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					youthcriticalissuesModel.setExport(exportEntity);
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,youthCriticalIssues.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
-					if(exportEntity != null)
-						exportEntity.addYouthcriticalissues(youthcriticalissuesModel);
 					performSaveOrUpdate(youthcriticalissuesModel);
 				}catch(Exception e) {
 					logger.error("Exception in youthCriticalIssues:"+youthCriticalIssues.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());

@@ -95,12 +95,10 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 							.getYearSeparated()));
 					vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 					vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
-					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),false,modelMap);
+					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap);
 					vInfo.setClient(client);
 					vInfo.setExport(exportEntity);
 					//vInfo.setUser(exportEntity.getUser());
-					if(exportEntity !=null)
-						exportEntity.addVeteranInfo(vInfo);
 					performSaveOrUpdate(vInfo);
 				}catch(Exception e) {
 					String errorMessage = "Exception in veteranInfo:"+veteranInfo.getVeteranInfoID()+  ":: Exception" +e.getLocalizedMessage();

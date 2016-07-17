@@ -47,8 +47,6 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					percentamoModel.setEnrollmentid(enrollmentModel);
 					percentamoModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addPercentami(percentamoModel);
 					performSaveOrUpdate(percentamoModel);
 				} catch(Exception e) {
 					 logger.error("Failure in Percentami:::"+percentAMI.toString()+ " with exception"+e.getLocalizedMessage());

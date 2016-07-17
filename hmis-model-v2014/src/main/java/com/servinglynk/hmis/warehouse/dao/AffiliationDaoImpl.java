@@ -39,8 +39,6 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 						Project project = (Project) getModel(Project.class, affiliation.getProjectID(), affiliationModel.getProjectGroupCode(),true,relatedModelMap);
 						affiliationModel.setProjectid(project);
 						affiliationModel.setExport(exportEntity);
-						if(exportEntity !=null)
-							exportEntity.addAffiliation(affiliationModel);
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
 						performSaveOrUpdate(affiliationModel);
 					}catch(Exception e) {

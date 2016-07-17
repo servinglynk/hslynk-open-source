@@ -26,7 +26,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		exportModel.setExportperiodtype(export.getExportPeriodType());
 //		com.servinglynk.hmis.warehouse.model.staging.HmisUser user = (com.servinglynk.hmis.warehouse.model.staging.HmisUser) get(com.servinglynk.hmis.warehouse.model.staging.HmisUser.class, upload.getUser().getId());
 	//	exportModel.setUser(user);
-		com.servinglynk.hmis.warehouse.model.v2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2015.Source) getModel(com.servinglynk.hmis.warehouse.model.v2015.Source.class, domain.getSource().getSourceID(),getProjectGroupCode(domain),false,modelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2015.Source) getModel(com.servinglynk.hmis.warehouse.model.v2015.Source.class, domain.getSource().getSourceID(),getProjectGroupCode(domain),true,relatedModelMap);
 		exportModel.setSource(sourceEntity);
 		performSaveOrUpdate(exportModel);		
 		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Export.class.getSimpleName(), domain, exportModel);

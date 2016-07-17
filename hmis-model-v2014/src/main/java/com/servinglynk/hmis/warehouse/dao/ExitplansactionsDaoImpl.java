@@ -62,11 +62,9 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 					exitplansactionsModel.setScheduledfollowupcontacts(ExitplansactionsScheduledfollowupcontactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getScheduledFollowUpContacts())));
 					exitplansactionsModel.setTemporaryshelterplacement(ExitplansactionsTemporaryshelterplacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getTemporaryShelterPlacement())));
 					exitplansactionsModel.setWrittenaftercareplan(ExitplansactionsWrittenaftercareplanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getWrittenAftercarePlan())));
-					Exit exit = (Exit) getModel(Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain),false,modelMap);
+					Exit exit = (Exit) getModel(Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					exitplansactionsModel.setExitid(exit);
 					exitplansactionsModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addExitplansactions(exitplansactionsModel);
 					performSaveOrUpdate(exitplansactionsModel);
 				} catch(Exception e) {
 					logger.error("Exception in:"+exitPlansActions.getExitPlansActionsID()+  ":: Exception" +e.getLocalizedMessage());

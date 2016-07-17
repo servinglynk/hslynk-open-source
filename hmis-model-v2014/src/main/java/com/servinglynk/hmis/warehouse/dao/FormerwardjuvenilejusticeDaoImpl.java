@@ -50,8 +50,6 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardJuvenileJustice.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
 					formerWardJuvenileJusticeModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addFormerwardjuvenilejustice(formerWardJuvenileJusticeModel);
 					performSaveOrUpdate(formerWardJuvenileJusticeModel);
 				}catch (Exception e) {
 					logger.error("Exception in:"+formerWardJuvenileJustice.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());

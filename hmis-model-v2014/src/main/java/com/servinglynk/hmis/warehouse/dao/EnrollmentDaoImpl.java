@@ -127,8 +127,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				}
 				enrollmentModel.setExport(exportEntity);
 				//enrollmentModel.setUser(exportEntity.getUser());
-					if(exportEntity !=null)
-				exportEntity.addEnrollment(enrollmentModel);
 				performSaveOrUpdate(enrollmentModel);
 				} catch(Exception e ){
 					String msg = "Exception in Enrollment:"+enrollment.getProjectEntryID()+ "Exception ::"+e.getLocalizedMessage();

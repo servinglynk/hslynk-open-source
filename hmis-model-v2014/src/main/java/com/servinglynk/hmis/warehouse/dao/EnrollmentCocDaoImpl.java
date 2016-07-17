@@ -41,6 +41,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> projectCocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
 		if(enrollmentCoCs!=null)
 		{
 			for(EnrollmentCoC enrollmentCoc : enrollmentCoCs)
@@ -51,12 +52,10 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					enrollmentCocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,enrollmentCoc.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					enrollmentCocModel.setEnrollmentid(enrollmentModel);
-     				Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,enrollmentCoc.getProjectCoCID(),getProjectGroupCode(domain),false,modelMap);
+     				Projectcoc projectCoc = (Projectcoc) getModel(Projectcoc.class,enrollmentCoc.getProjectCoCID(),getProjectGroupCode(domain),false,projectCocModelMap);
 					enrollmentCocModel.setProjectCoc(projectCoc);	
-					//enrollmentCocModel.setCocCode(enrollmentCoc.get);
+					//enrollmentCocModel.setCocCode(enrollmentCoc.get
 					enrollmentCocModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addEnrollmentCoc(enrollmentCocModel);
 					performSaveOrUpdate(enrollmentCocModel);
 				} catch (Exception e) {
 					logger.error("Error occured with "+enrollmentCoc.toString() + " Execption :::"+e.getLocalizedMessage());

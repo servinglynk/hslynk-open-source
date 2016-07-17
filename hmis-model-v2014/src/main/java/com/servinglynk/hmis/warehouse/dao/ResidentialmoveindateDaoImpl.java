@@ -50,8 +50,6 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollment = (Enrollment) getModel(Enrollment.class,residentialMoveInDate.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					residentialmoveindateModel.setExport(exportEntity);
 					residentialmoveindateModel.setEnrollmentid(enrollment);
-					if(exportEntity != null)
-						exportEntity.addResidentialmoveindate(residentialmoveindateModel);
 					performSaveOrUpdate(residentialmoveindateModel);
 				} catch(Exception e) {
 					logger.error("Failure in ResidentialMoveInDate:::"+residentialMoveInDate.toString()+ " with exception"+e.getLocalizedMessage());

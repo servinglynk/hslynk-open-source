@@ -82,8 +82,6 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthInsurance.getHealthInsuranceID(),getProjectGroupCode(domain),true,relatedModelMap);
 						healthinsuranceModel.setEnrollmentid(enrollmentModel);
 						healthinsuranceModel.setExport(exportEntity);
-						if(exportEntity != null)
-							exportEntity.addHealthinsurance(healthinsuranceModel);
 						performSaveOrUpdate(healthinsuranceModel);
 					}catch(Exception e) {
 						logger.error("Exception in:"+healthInsurance.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());

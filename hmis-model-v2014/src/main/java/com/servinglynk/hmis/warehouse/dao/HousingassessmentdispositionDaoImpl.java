@@ -47,11 +47,9 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 					housingassessmentdispositionModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
 					housingassessmentdispositionModel.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
 					housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
-					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),false,modelMap);
+					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
 					housingassessmentdispositionModel.setExitid(exit);
 					housingassessmentdispositionModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addHousingassessmentdisposition(housingassessmentdispositionModel);
 					performSaveOrUpdate(housingassessmentdispositionModel);
 				}catch(Exception e) {
 					logger.error("Exception in:"+housingAssessmentDisposition.getHousingAssessmentDispositionID()+  ":: Exception" +e.getLocalizedMessage());

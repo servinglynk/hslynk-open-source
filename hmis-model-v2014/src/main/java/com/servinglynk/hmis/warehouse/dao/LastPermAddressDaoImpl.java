@@ -51,11 +51,9 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 					lastPermAddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
 					lastPermAddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());
 					lastPermAddressModel.setZip(String.valueOf(lastPermanentAddress.getLastPermanentZIP()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastPermanentAddress.getLastPermanentAddressID(),getProjectGroupCode(domain),false,modelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastPermanentAddress.getLastPermanentAddressID(),getProjectGroupCode(domain),true,relatedModelMap);
 					lastPermAddressModel.setEnrollmentid(enrollmentModel);
 					lastPermAddressModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addLastPermAddress(lastPermAddressModel);
 					performSaveOrUpdate(lastPermAddressModel);
 				} catch(Exception e) {
 					logger.error("Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage());

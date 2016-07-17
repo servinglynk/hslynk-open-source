@@ -53,8 +53,6 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, formerWardChildWelfare.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					formerwardchildwelfareModel.setExport(exportEntity);
 					formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
-					if(exportEntity != null)
-						exportEntity.addFormerwardchildwelfare(formerwardchildwelfareModel);	
 					performSaveOrUpdate(formerwardchildwelfareModel);
 				}catch(Exception e) {
 					logger.error("Exception in:"+formerWardChildWelfare.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());

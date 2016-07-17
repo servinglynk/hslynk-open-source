@@ -70,8 +70,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 						 disabilitiesModel.setEnrollmentid(enrollmentModel);
 					}
 					disabilitiesModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addDisabilities(disabilitiesModel);
 					performSaveOrUpdate(disabilitiesModel);
 				}catch(Exception e) {
 					logger.error("Exception in:"+disabilities.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage());

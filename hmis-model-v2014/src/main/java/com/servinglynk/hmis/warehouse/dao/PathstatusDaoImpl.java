@@ -49,8 +49,6 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					pathstatusModel.setEnrollmentid(enrollmentModel);
 					pathstatusModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addPathstatus(pathstatusModel);
 					performSaveOrUpdate(pathstatusModel);
 				} catch(Exception e) {
 					logger.error("Failure in PATHStatus:::"+pathStatus.toString()+ " with exception"+e.getLocalizedMessage());

@@ -50,8 +50,6 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,sexualOrientation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					sexualorientationModel.setEnrollmentid(enrollmentModel);
 					sexualorientationModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addSexualorientation(sexualorientationModel);
 					performSaveOrUpdate(sexualorientationModel);
 				} catch(Exception e) {
 					logger.error("Failure in Sexualorientation:::"+sexualOrientation.toString()+ " with exception"+e.getLocalizedMessage());

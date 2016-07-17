@@ -52,7 +52,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					//projectModel.setAffiliations(affiliation);
 					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
 					projectModel.setProjectname(project.getProjectName());
-					Organization organization = (Organization)getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),false,modelMap);
+					Organization organization = (Organization)getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap);
 					projectModel.setOrganizationid(organization);
 					projectModel.setProjectcommonname(project.getProjectCommonName());
 					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
@@ -62,8 +62,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addProject(projectModel);
 					performSaveOrUpdate(projectModel);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage();

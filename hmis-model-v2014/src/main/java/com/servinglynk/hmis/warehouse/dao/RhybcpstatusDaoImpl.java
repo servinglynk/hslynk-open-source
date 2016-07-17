@@ -52,8 +52,6 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					rhybcpstatusModel.setEnrollmentid(enrollmentModel);
 					rhybcpstatusModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addRhybcpstatus(rhybcpstatusModel);
 					performSaveOrUpdate(rhybcpstatusModel);
 				} catch(Exception e) {
 					logger.error("Failure in Rhybcpstatus:::"+rhybcpStatus.toString()+ " with exception"+e.getLocalizedMessage());

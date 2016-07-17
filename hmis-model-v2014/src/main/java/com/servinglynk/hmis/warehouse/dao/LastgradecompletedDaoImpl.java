@@ -57,8 +57,6 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastGradeCompleted.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					lastGradeCompletedModel.setEnrollmentid(enrollmentModel);
 					lastGradeCompletedModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addLastgradecompleted(lastGradeCompletedModel);
 					performSaveOrUpdate(lastGradeCompletedModel);
 				}catch(Exception e) {
 					logger.error("Failure in LastGradeCompleted:::"+lastGradeCompleted.toString()+ " with exception"+e.getLocalizedMessage());

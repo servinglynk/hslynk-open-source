@@ -50,8 +50,6 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
 					referralsourceModel.setEnrollmentid(enrollmentModel);
 					referralsourceModel.setExport(exportEntity);
-					if(exportEntity !=null)
-						exportEntity.addReferralsource(referralsourceModel);
 					performSaveOrUpdate(referralsourceModel);
 				}catch(Exception e) {
 					logger.error("Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage());

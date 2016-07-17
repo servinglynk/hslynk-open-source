@@ -48,11 +48,9 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			try {
 				Projectcoc projectcocModel = getModelObject(domain, projectCoc,data,modelMap);
 				projectcocModel.setCoccode(projectCoc.getCoCCode());
-				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),false,modelMap);
+				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap);
 				projectcocModel.setProjectid(projectModel);
 				projectcocModel.setExport(exportEntity);
-				if(exportEntity !=null)
-					exportEntity.addProjectcoc(projectcocModel);
 				performSaveOrUpdate(projectcocModel);
 			} catch(Exception e) {
 				logger.error("Failure in Projectcoc:::"+projectCoc.toString()+ " with exception"+e.getLocalizedMessage());

@@ -70,8 +70,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					Projectcoc projectCocModel = (Projectcoc) getModel(Projectcoc.class,inventory.getProjectCoCID(),getProjectGroupCode(domain),true,relatedModelMap);
 					inventoryModel.setProjectCoc(projectCocModel);
 					inventoryModel.setExport(exportEntity);
-					if(exportEntity != null)
-						exportEntity.addInventory(inventoryModel);
 					performSaveOrUpdate(inventoryModel);
 				}catch(Exception e) {
 					logger.error("Failure in Inventory:::"+inventory.toString()+ " with exception"+e.getLocalizedMessage());
