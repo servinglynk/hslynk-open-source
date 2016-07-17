@@ -13,6 +13,19 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
 	$scope.sessionToken = $sessionStorage.sessionToken;
+    Service.GetFilesListRECENT($http,
+    	    //success
+    	    function(data){
+    	        $scope.listRECENT = data;
+    	        $scope.currentPageRECENT = 1; //current page
+    	        $scope.entryLimitRECENT = 10; //max no of items to display in a page
+    	        $scope.filteredItemsRECENT = $scope.listRECENT.length; //Initially for no filter  
+    	        $scope.totalItemsRECENT = $scope.listRECENT.length;
+    	    },$scope)
+    	  
+    	    $scope.setPageRECENT = function (pageNo) {
+    	        $scope.currentPageRECENT = pageNo;
+    	    };
     Service.GetFilesListSTAGING($http,
     //success
     function(data){

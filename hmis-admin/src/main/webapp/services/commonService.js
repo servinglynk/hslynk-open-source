@@ -40,6 +40,20 @@ var Service= ({
 				if(success)success(data)
 			});
     },
+    GetFilesListRECENT: function ($http, success, $scope) {
+        var apiurl = "/hmis-upload-service/rest/bulkupload?status=RECENT";
+      	 console.log('Session Token..'+$scope.sessionToken);
+            $http({
+                method: 'GET',
+                url: apiurl,
+                headers: {
+                  'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                    'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                    'Accept': 'application/json;odata=verbose'}
+            }).success(function (data) {
+                if(success)success(data.BulkUploads.bulkUploads)
+            });
+      },
     GetFilesListSTAGING: function ($http, success, $scope) {
         var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
       	 console.log('Session Token..'+$scope.sessionToken);

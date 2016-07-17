@@ -14,4 +14,5 @@ public interface BulkUploaderWorkerDao extends BaseDao{
 	public List<BulkUpload> findBulkUploadForDevelopers(String status,UUID userId,String projectGroup) throws Exception;
 	public List<BulkUpload> findBulkUploadByProjectGroupCode(String projectGroupCode) throws Exception;
 	public List<BulkUpload> findBulkUploadByProjectGroupCodeAndYear(String projectGroupCode,Long year) throws Exception;
+	public List<BulkUpload> getRecentUploads(String projectGroupCode,UUID userId,Integer startIndex, Integer maxItems) throws Exception;
 	}

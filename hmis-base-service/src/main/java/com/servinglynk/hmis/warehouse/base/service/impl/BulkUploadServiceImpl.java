@@ -25,7 +25,6 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 	@Transactional
 	public void createBulkUploadEntry(BulkUpload uploadModel, Account account) throws Exception {
 		try{
-			
 			BulkUpload upload = new BulkUpload();
 			upload.setInputpath(uploadModel.getInputpath());
 			upload.setStatus("INITIAL");
@@ -71,6 +70,45 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
+				bulkUpload.setStatus(upload.getStatus());
+				bulkUpload.setDescription(upload.getDescription());
+				bulkUpload.setDateCreated(upload.getDateCreated());
+				bulkUploads.addBulkUpload(bulkUpload);
+			}
+		        SortedPagination pagination = new SortedPagination();
+		        pagination.setFrom(startIndex);
+		        pagination.setReturned(bulkUploads.getBulkUploads().size());
+		        //pagination.setTotal((int)count);
+		        bulkUploads.setPagination(pagination);
+		        return bulkUploads;
+	}
+	
+	@Transactional
+	public BulkUploads getRecentUploads(Account account, Integer startIndex, Integer maxItems) {
+		if(maxItems == null) {
+			maxItems =  new Integer(20);
+		}
+		if(startIndex == null) {
+			startIndex =  new Integer(0);
+		}
+		HmisUser user = daoFactory.getAccountDao().findByUsername(account.getUsername());
+		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
+		List<BulkUpload> uploads = null; 
+		try {
+				uploads = daoFactory.getBulkUploaderWorkerDao().getRecentUploads(projectGroupCode, user.getId(),startIndex,maxItems);
+			}
+		  catch(Exception e)  {
+			  // Eating exception here, need to do something about it
+			}
+			BulkUploads bulkUploads = new BulkUploads();
+			for(BulkUpload upload : uploads ){
+				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
+				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
+				bulkUpload.setInputPath(upload.getInputpath());
+				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
+				bulkUpload.setYear(upload.getYear());
+				bulkUpload.setUsername(upload.getUser()!=null ? upload.getUser().getUsername() :"");
 				bulkUpload.setStatus(upload.getStatus());
 				bulkUpload.setDescription(upload.getDescription());
 				bulkUpload.setDateCreated(upload.getDateCreated());
