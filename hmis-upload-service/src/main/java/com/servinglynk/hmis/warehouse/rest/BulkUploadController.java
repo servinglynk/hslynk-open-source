@@ -39,7 +39,7 @@ public class BulkUploadController extends ControllerBase{
                 @RequestParam(value="maxItems", required=false) Integer maxItems,
 				HttpServletRequest request) {
 		  if (startIndex == null) startIndex =0;
-          if (maxItems == null) maxItems =30;
+          if (maxItems == null) maxItems =20;
 	 		try {
 	 			Session session = sessionHelper.getSession(request);
 	 			BulkUploads uploads = null;
@@ -56,7 +56,7 @@ public class BulkUploadController extends ControllerBase{
 	 		return null;
 		}
 
-	@RequestMapping(value="/downloadLogFile")
+	@RequestMapping(value="/downloadLogFile",method = RequestMethod.POST)
 	public void downloadFile(@RequestParam(value ="fileName", required = false) String fileName,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {

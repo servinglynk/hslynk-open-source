@@ -67,7 +67,8 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 			for(BulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
-				bulkUpload.setInputPath(upload.getInputpath());
+				if(upload.getInputpath() !=null)
+					bulkUpload.setInputPath(StringUtils.substringAfterLast(upload.getInputpath(), "/"));
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
@@ -86,12 +87,6 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 	
 	@Transactional
 	public BulkUploads getRecentUploads(Account account, Integer startIndex, Integer maxItems) {
-		if(maxItems == null) {
-			maxItems =  new Integer(20);
-		}
-		if(startIndex == null) {
-			startIndex =  new Integer(0);
-		}
 		HmisUser user = daoFactory.getAccountDao().findByUsername(account.getUsername());
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
