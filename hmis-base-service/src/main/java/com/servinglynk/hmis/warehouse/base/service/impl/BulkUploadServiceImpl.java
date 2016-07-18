@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -105,7 +106,8 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 			for(BulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
-				bulkUpload.setInputPath(upload.getInputpath());
+				if(upload.getInputpath() !=null)
+					bulkUpload.setInputPath(StringUtils.substringAfterLast(upload.getInputpath(), "/"));
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 				bulkUpload.setUsername(upload.getUser()!=null ? upload.getUser().getUsername() :"");
