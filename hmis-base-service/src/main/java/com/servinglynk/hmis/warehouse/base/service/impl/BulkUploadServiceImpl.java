@@ -67,8 +67,9 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 			for(BulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
-				if(upload.getInputpath() !=null)
+				if(upload.getInputpath() !=null){
 					bulkUpload.setInputPath(StringUtils.substringAfterLast(upload.getInputpath(), "/"));
+				}
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
@@ -101,8 +102,9 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 			for(BulkUpload upload : uploads ){
 				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
-				if(upload.getInputpath() !=null)
+				if(upload.getInputpath() !=null) {
 					bulkUpload.setInputPath(StringUtils.substringAfterLast(upload.getInputpath(), "/"));
+				}
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 				bulkUpload.setUsername(upload.getUser()!=null ? upload.getUser().getUsername() :"");
