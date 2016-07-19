@@ -70,6 +70,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 				if(upload.getInputpath() !=null){
 					bulkUpload.setInputPath(StringUtils.substringAfterLast(upload.getInputpath(), "/"));
 				}
+				bulkUpload.setInputPath("abc.xml");
 				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
 				bulkUpload.setYear(upload.getYear());
 			//	bulkUpload.setUsername(upload.getUser().getUsername());
