@@ -82,10 +82,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			baseModel.setActive(false);
 			baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
 			// Lets write a logic to update if a recored with that source system Id already exists.
-//		  if(i % batchSize() == 0 && i > 0) {
-//              getCurrentSession().flush();
-//              getCurrentSession().clear();
-//          }
+		  if(i % batchSize() == 0 && i > 0) {
+              getCurrentSession().flush();
+              getCurrentSession().clear();
+          }
 	    }
 	/***
 	 * Get a Model object with Source system ID and project group.

@@ -107,7 +107,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 										.getMonthsHomelessThisTime())));
 				enrollmentModel.setOtherresidenceprior(enrollment
 						.getOtherResidencePrior());
-				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),false,projectModelMap);
+				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap);
 				enrollmentModel.setProject(project);
 				enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
 				if(enrollment.getPersonalID() != null ) {

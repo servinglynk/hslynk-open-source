@@ -4,9 +4,9 @@ import org.apache.commons.lang.StringUtils;
 
 public class TestSample {
 	public static void main(String args[]) {
-		String aLine =  "<hmis_0:Sources xmlns:hmis=\"http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd";
+		String aLine =  "/usr/share/tomcat7/tmpFiles/HUD_4_0_4012_65.xml";
 	    //aLine = StringUtils.substring(aLine, StringUtils.indexOf(aLine, ":Sources")+1);
-	    		aLine =		StringUtils.remove(aLine, "hmis_0:");
+	    		aLine =		StringUtils.substringAfterLast(aLine, "/");
 	    System.out.println(aLine);
 	}
 	
