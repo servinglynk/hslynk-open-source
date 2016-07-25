@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -37,13 +39,14 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		List<LastPermanentAddress> lastPermanentAddresses = domain.getExport().getLastPermanentAddress();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(lastPermanentAddresses !=null && !lastPermanentAddresses.isEmpty())
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)
 			{
+				LastPermAddress lastPermAddressModel = null;
 				try {
-					LastPermAddress lastPermAddressModel = getModelObject(domain, lastPermanentAddress,data,modelMap);
+					lastPermAddressModel = getModelObject(domain, lastPermanentAddress,data,modelMap);
 					lastPermAddressModel.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(lastPermanentAddress.getAddressDataQuality())));
 					lastPermAddressModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateCreated()));
 					lastPermAddressModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateUpdated()));
@@ -51,13 +54,24 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 					lastPermAddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
 					lastPermAddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());
 					lastPermAddressModel.setZip(String.valueOf(lastPermanentAddress.getLastPermanentZIP()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastPermanentAddress.getLastPermanentAddressID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastPermanentAddress.getLastPermanentAddressID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					lastPermAddressModel.setEnrollmentid(enrollmentModel);
 					lastPermAddressModel.setExport(exportEntity);
 					performSaveOrUpdate(lastPermAddressModel);
 				} catch(Exception e) {
-					logger.error("Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage());
-					throw new Exception(e);
+					String errorMessage = "Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage();
+					if (lastPermAddressModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = lastPermAddressModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = lastPermAddressModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = lastPermAddressModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -68,7 +82,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermAddressModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			lastPermAddressModel = (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) getModel(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermAddress.getLastPermanentAddressID(), getProjectGroupCode(domain),false,modelMap);
+			lastPermAddressModel = (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) getModel(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermAddress.getLastPermanentAddressID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(lastPermAddressModel == null) {
 			lastPermAddressModel = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();

@@ -115,61 +115,65 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setUpload(upload);
 			domain.setSource(source);
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
-			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,null);
-			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,null);
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,null); // Done
+			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,null); // Done
 			logger.debug(" Bulk Upload Processing client Table Begin.....");
-			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null);
+			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DOne
 			logger.debug(" Bulk Upload Processing client Table Ends.....");
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
-			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap);
-			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null);
+			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
+			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
 			Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Organization.class, getProjectGroupCode(domain));
-			parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap,orgModelMap);
+			parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap,orgModelMap); // Done
 			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
-			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap);
+			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			
-			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap);
+			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap);
-			parentDaoFactory.getProjectcocDao().hydrateStaging(domain,exportModelMap,projectModelMap);
+			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+			parentDaoFactory.getProjectcocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			
-			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			Map<String, HmisBaseModel> projectCocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
-			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,projectCocModelMap);
-			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,projectCocModelMap);
-			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getServicesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,projectCocModelMap); // Done
+			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,projectCocModelMap); // Done
+			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getServicesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 
-			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, getProjectGroupCode(domain));
-			parentDaoFactory.getFamilyreunificationDao().hydrateStaging(domain,exportModelMap,exitModelMap);
-			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap);
-			parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain,exportModelMap,exitModelMap);
-			parentDaoFactory.getExitplansactionsDao().hydrateStaging(domain,exportModelMap,exitModelMap);
-			parentDaoFactory.getConnectionwithsoarDao().hydrateStaging(domain,exportModelMap,exitModelMap);
-			parentDaoFactory.getProjectcompletionstatusDao().hydrateStaging(domain,exportModelMap,exitModelMap);
-			parentDaoFactory.getFormerwardchildwelfareDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getFormerwardjuvenilejusticeDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getHealthStatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getLastgradecompletedDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getLastPermAddressDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getPercentamiDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getReferralsourceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getSchoolstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getSexualorientationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
-			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
+			parentDaoFactory.getFamilyreunificationDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+			parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+			parentDaoFactory.getExitplansactionsDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+			parentDaoFactory.getConnectionwithsoarDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+			parentDaoFactory.getProjectcompletionstatusDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+
+
+			parentDaoFactory.getFormerwardchildwelfareDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getFormerwardjuvenilejusticeDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getHealthStatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getLastgradecompletedDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getLastPermAddressDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+
+
+			parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getPercentamiDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getReferralsourceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getSchoolstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getSexualorientationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			upload.setExportId(exportId);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);

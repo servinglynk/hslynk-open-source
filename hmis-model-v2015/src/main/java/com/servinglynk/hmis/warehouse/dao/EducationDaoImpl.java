@@ -34,7 +34,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) {
 		List<Education> educationList  = domain.getExport().getEducation();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Education.class, getProjectGroupCode(domain));
 		if(educationList!=null && !educationList.isEmpty())
@@ -53,7 +53,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 						SchoolStatusEnum
 						.lookupEnum(BasicDataGenerator
 								.getStringValue(education.getSchoolStatus())));
-				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, education.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, education.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
 				performSaveOrUpdate(educationModel);
@@ -65,7 +65,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Education educationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			educationModel = (com.servinglynk.hmis.warehouse.model.v2015.Education) getModel(com.servinglynk.hmis.warehouse.model.v2015.Education.class, education.getEducationID(), getProjectGroupCode(domain),false,modelMap);
+			educationModel = (com.servinglynk.hmis.warehouse.model.v2015.Education) getModel(com.servinglynk.hmis.warehouse.model.v2015.Education.class, education.getEducationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(educationModel == null) {
 			educationModel = new com.servinglynk.hmis.warehouse.model.v2015.Education();

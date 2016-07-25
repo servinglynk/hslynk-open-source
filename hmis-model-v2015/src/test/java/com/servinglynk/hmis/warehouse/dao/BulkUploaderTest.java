@@ -7,6 +7,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
@@ -130,39 +133,6 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2015.Client;
-import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
-import com.servinglynk.hmis.warehouse.model.v2015.Coc;
-import com.servinglynk.hmis.warehouse.model.v2015.Contact;
-import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.v2015.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.v2015.Education;
-import com.servinglynk.hmis.warehouse.model.v2015.Employment;
-import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc;
-import com.servinglynk.hmis.warehouse.model.v2015.Entryrhy;
-import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2015.Exit;
-import com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment;
-import com.servinglynk.hmis.warehouse.model.v2015.Exitpath;
-import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
-import com.servinglynk.hmis.warehouse.model.v2015.Export;
-import com.servinglynk.hmis.warehouse.model.v2015.Funder;
-import com.servinglynk.hmis.warehouse.model.v2015.HealthStatus;
-import com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance;
-import com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition;
-import com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources;
-import com.servinglynk.hmis.warehouse.model.v2015.Inventory;
-import com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance;
-import com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits;
-import com.servinglynk.hmis.warehouse.model.v2015.Organization;
-import com.servinglynk.hmis.warehouse.model.v2015.Pathstatus;
-import com.servinglynk.hmis.warehouse.model.v2015.Project;
-import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
-import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
-import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
-import com.servinglynk.hmis.warehouse.model.v2015.Site;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -803,5 +773,30 @@ public class BulkUploaderTest {
 			}
 		}
 		
+	}
+
+	@Test
+	public void insertErrorInBulkErrorTable(){
+		Error2015 error2015 = new Error2015();
+		error2015.model_id = UUID.randomUUID();
+		error2015.bulk_upload_ui = 3L;
+		error2015.project_group_code = "CODE009";
+		error2015.source_system_id = UUID.randomUUID().toString();
+		error2015.type = ErrorType.ERROR;
+		error2015.error_description = "invalid model";
+		error2015.date_created = LocalDateTime.now();
+		factory.getBulkUploaderWorkerDao().insert(error2015);
+
+		Error2015 error2015_2 = new Error2015();
+		error2015_2.model_id = UUID.randomUUID();
+		error2015_2.bulk_upload_ui = 4L;
+		error2015_2.project_group_code = "CODE001";
+		error2015_2.source_system_id = UUID.randomUUID().toString();
+		error2015_2.type = ErrorType.WARN;
+		error2015_2.error_description = "warning";
+		error2015_2.date_created = LocalDateTime.now();
+
+		factory.getBulkUploaderWorkerDao().insert(error2015_2);
+
 	}
 }

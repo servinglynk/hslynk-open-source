@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -37,23 +39,35 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		List<ReferralSource> referralSources = domain.getExport().getReferralSource();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(referralSources !=null && !referralSources.isEmpty())
 		{
 			for(ReferralSource referralSource : referralSources) {
+				Referralsource referralsourceModel = null;
 				try {
-					Referralsource referralsourceModel = getModelObject(domain, referralSource,data,modelMap);
+					referralsourceModel = getModelObject(domain, referralSource,data,modelMap);
 					referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
 					referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
 					referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
 					referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					referralsourceModel.setEnrollmentid(enrollmentModel);
 					referralsourceModel.setExport(exportEntity);
 					performSaveOrUpdate(referralsourceModel);
 				}catch(Exception e) {
-					logger.error("Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage());
-					 throw new Exception(e);
+					String errorMessage = "Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage();
+					if (referralsourceModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = referralsourceModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = referralsourceModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = referralsourceModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -63,7 +77,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsourceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			referralsourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain),false,modelMap);
+			referralsourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(referralsourceModel == null) {
 			referralsourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();

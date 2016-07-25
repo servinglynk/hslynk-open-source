@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -51,16 +53,16 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<IncomeAndSources> incomeAndSourceses = domain.getExport().getIncomeAndSources();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class, getProjectGroupCode(domain));
 		if(incomeAndSourceses !=null && !incomeAndSourceses.isEmpty())
 		{
 			for(IncomeAndSources incomeAndSources : incomeAndSourceses)
 			{
+				Incomeandsources incomeAndSourcesModel = null;
 				try {
-					
-					Incomeandsources incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data,modelMap);
+					incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data,modelMap);
 					incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getAlimony())));
 					incomeAndSourcesModel.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
 					incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getChildSupport())));
@@ -95,13 +97,24 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
 					incomeAndSourcesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
 					incomeAndSourcesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					incomeAndSourcesModel.setEnrollmentid(enrollmentModel);
 					incomeAndSourcesModel.setExport(exportEntity);
 					performSaveOrUpdate(incomeAndSourcesModel);
 				} catch(Exception e) {
-					logger.error("Exception beause of the incomeAndSources::"+incomeAndSources.getIncomeAndSourcesID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the incomeAndSources::"+incomeAndSources.getIncomeAndSourcesID() +" Exception ::"+e.getMessage();
+					if(incomeAndSourcesModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = incomeAndSourcesModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = incomeAndSourcesModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = incomeAndSourcesModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -112,7 +125,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources IncomeandsourcesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			IncomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class, incomeandsources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false,modelMap);
+			IncomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class, incomeandsources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(IncomeandsourcesModel == null) {
 			IncomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources();

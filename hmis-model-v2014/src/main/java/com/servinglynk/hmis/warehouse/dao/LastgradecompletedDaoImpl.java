@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,11 +41,12 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				.getLastGradeCompleted();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if (lastGradeCompletedList != null && !lastGradeCompletedList.isEmpty()) {
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
+				Lastgradecompleted lastGradeCompletedModel = null;
 				try {
-					Lastgradecompleted lastGradeCompletedModel = new Lastgradecompleted();
+					lastGradeCompletedModel = new Lastgradecompleted();
 					lastGradeCompletedModel
 					.setLastgradecompleted(LastgradecompletedLastgradecompletedEnum
 							.lookupEnum(BasicDataGenerator
@@ -54,13 +57,24 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 							.getLocalDateTime(lastGradeCompleted.getDateCreated()));
 					lastGradeCompletedModel.setDateUpdatedFromSource(BasicDataGenerator
 							.getLocalDateTime(lastGradeCompleted.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastGradeCompleted.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastGradeCompleted.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					lastGradeCompletedModel.setEnrollmentid(enrollmentModel);
 					lastGradeCompletedModel.setExport(exportEntity);
 					performSaveOrUpdate(lastGradeCompletedModel);
 				}catch(Exception e) {
-					logger.error("Failure in LastGradeCompleted:::"+lastGradeCompleted.toString()+ " with exception"+e.getLocalizedMessage());
-					throw new Exception(e);
+					String errorMessage = "Failure in LastGradeCompleted:::"+lastGradeCompleted.toString()+ " with exception"+e.getLocalizedMessage();
+					if (lastGradeCompletedModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = lastGradeCompletedModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = lastGradeCompletedModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = lastGradeCompletedModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -71,7 +85,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted lastGradeCompletedModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			lastGradeCompletedModel = (com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted) getModel(com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class, lastGradeCompleted.getLastGradeCompletedID(), getProjectGroupCode(domain),false,modelMap);
+			lastGradeCompletedModel = (com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted) getModel(com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class, lastGradeCompleted.getLastGradeCompletedID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(lastGradeCompletedModel == null) {
 			lastGradeCompletedModel = new com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted();

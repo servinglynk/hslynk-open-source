@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,7 +36,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, getProjectGroupCode(domain));
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
@@ -42,19 +44,31 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
 			{
+				Housingassessmentdisposition housingassessmentdispositionModel = null;
 				try {
-					Housingassessmentdisposition housingassessmentdispositionModel = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
+					housingassessmentdispositionModel = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
 					housingassessmentdispositionModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
 					housingassessmentdispositionModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
 					housingassessmentdispositionModel.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
 					housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
-					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					housingassessmentdispositionModel.setExitid(exit);
 					housingassessmentdispositionModel.setExport(exportEntity);
 					performSaveOrUpdate(housingassessmentdispositionModel);
 				}catch(Exception e){
-					logger.error("Exception beause of the housingAssessmentDisposition::"+housingAssessmentDisposition.getHousingAssessmentDispositionID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the housingAssessmentDisposition::"+housingAssessmentDisposition.getHousingAssessmentDispositionID() +" Exception ::"+e.getMessage();
+					if(housingassessmentdispositionModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = housingassessmentdispositionModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = housingassessmentdispositionModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = housingassessmentdispositionModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -65,7 +79,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition housingassessmentdispositionModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			housingassessmentdispositionModel = (com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap);
+			housingassessmentdispositionModel = (com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(housingassessmentdispositionModel == null) {
 			housingassessmentdispositionModel = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();

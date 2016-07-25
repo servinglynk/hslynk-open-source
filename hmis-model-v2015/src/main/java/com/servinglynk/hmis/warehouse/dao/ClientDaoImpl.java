@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -55,125 +57,136 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-	
+
 		Export export = domain.getExport();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
-		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
+		Data data = new Data();
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
-		Boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
+		Boolean skipClientIdentifier = projectGroupEntity != null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
-				try{
-				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = getModelObject(domain, client,data,modelMap);
-				if(client.getFirstName() != null){
-					clientModel.setFirstName(client.getFirstName().getValue());
-				}
-					
-				clientModel.setDateCreated(BasicDataGenerator
-						.getLocalDateTime(client.getDateCreated()));
-				clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
-						.getDOB()));
-				clientModel
-						.setDobDataQuality(ClientDobDataQualityEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getDOBDataQuality())));
-				clientModel.setEthnicity(ClientEthnicityEnum
-						.lookupEnum(String.valueOf(client.getEthnicity())));
-				clientModel.setGender(ClientGenderEnum.lookupEnum(String
-						.valueOf(client.getGender())));
-				if(client.getLastName() != null) {
-					clientModel.setLastName(client.getLastName().getValue());
-				}
-				if(client.getMiddleName() != null) {
-					clientModel.setMiddleName(client.getMiddleName().getValue());	
-				}
-				
-				clientModel
-						.setNameDataQuality(ClientNameDataQualityEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getNameDataQuality())));
-				clientModel.setNameSuffix(client.getNameSuffix());
-				clientModel.setOtherGender(client.getOtherGender());
-				clientModel.setRace(ClientRaceEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(client.getRace())));
-				if(client.getSSN() != null) {
-					clientModel.setSsn(client.getSSN().getValue());	
-				}
-				clientModel
-						.setSsnDataQuality(ClientSsnDataQualityEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getSSNDataQuality())));
-				clientModel
-						.setVeteranStatus(ClientVeteranStatusEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getVeteranStatus())));
-				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
-				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
-				clientModel.setExport(exportEntity);
-				//Lets make a microservice all to the dedup micro service
-				//TODO: Sandeep need to get the project group from the base schema.
-				// Need to change S.O.P to logger.
-				if(!skipClientIdentifier) {
-					System.out.println("Calling Dedup Service for "+clientModel.getFirstName());
-					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
-					BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
-					if(clientModel.isInserted()) {
-						target.setDateCreated(LocalDateTime.now());
-						insert(target);
+				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = null;
+				try {
+					clientModel = getModelObject(domain, client, data, modelMap);
+					if (client.getFirstName() != null) {
+						clientModel.setFirstName(client.getFirstName().getValue());
 					}
-					String dedupedId = dedupHelper.getDedupedClient(target);
-					System.out.println("Dedup Id is ##### "+dedupedId);
-					if(dedupedId != null) {
-						clientModel.setDedupClientId(UUID.fromString(dedupedId));	
+
+					clientModel.setDateCreated(BasicDataGenerator
+							.getLocalDateTime(client.getDateCreated()));
+					clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
+							.getDOB()));
+					clientModel
+							.setDobDataQuality(ClientDobDataQualityEnum
+									.lookupEnum(BasicDataGenerator
+											.getStringValue(client
+													.getDOBDataQuality())));
+					clientModel.setEthnicity(ClientEthnicityEnum
+							.lookupEnum(String.valueOf(client.getEthnicity())));
+					clientModel.setGender(ClientGenderEnum.lookupEnum(String
+							.valueOf(client.getGender())));
+					if (client.getLastName() != null) {
+						clientModel.setLastName(client.getLastName().getValue());
 					}
-				}else {
-					clientModel.setFirstName("");
-					clientModel.setLastName("");
-					clientModel.setSsn("");
-					clientModel.setMiddleName("");
-					try {
-						LocalDateTime dob = clientModel.getDob();
-						if(dob !=null) {
-							LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
-							clientModel.setDob(newDob);
+					if (client.getMiddleName() != null) {
+						clientModel.setMiddleName(client.getMiddleName().getValue());
+					}
+
+					clientModel
+							.setNameDataQuality(ClientNameDataQualityEnum
+									.lookupEnum(BasicDataGenerator
+											.getStringValue(client
+													.getNameDataQuality())));
+					clientModel.setNameSuffix(client.getNameSuffix());
+					clientModel.setOtherGender(client.getOtherGender());
+					clientModel.setRace(ClientRaceEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(client.getRace())));
+					if (client.getSSN() != null) {
+						clientModel.setSsn(client.getSSN().getValue());
+					}
+					clientModel
+							.setSsnDataQuality(ClientSsnDataQualityEnum
+									.lookupEnum(BasicDataGenerator
+											.getStringValue(client
+													.getSSNDataQuality())));
+					clientModel
+							.setVeteranStatus(ClientVeteranStatusEnum
+									.lookupEnum(BasicDataGenerator
+											.getStringValue(client
+													.getVeteranStatus())));
+					clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
+					clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
+					clientModel.setExport(exportEntity);
+					//Lets make a microservice all to the dedup micro service
+					//TODO: Sandeep need to get the project group from the base schema.
+					// Need to change S.O.P to logger.
+					if (!skipClientIdentifier) {
+						System.out.println("Calling Dedup Service for " + clientModel.getFirstName());
+						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
+						BeanUtils.copyProperties(client, target, new String[]{"enrollments", "veteranInfoes"});
+						if (clientModel.isInserted()) {
+							target.setDateCreated(LocalDateTime.now());
+							insert(target);
 						}
-					}catch(Exception e) {
-						// Eat this exception.
+						String dedupedId = dedupHelper.getDedupedClient(target);
+						System.out.println("Dedup Id is ##### " + dedupedId);
+						if (dedupedId != null) {
+							clientModel.setDedupClientId(UUID.fromString(dedupedId));
+						}
+					} else {
+						clientModel.setFirstName("");
+						clientModel.setLastName("");
+						clientModel.setSsn("");
+						clientModel.setMiddleName("");
+						try {
+							LocalDateTime dob = clientModel.getDob();
+							if (dob != null) {
+								LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(), dob.getMinute(), dob.getSecond());
+								clientModel.setDob(newDob);
+							}
+						} catch (Exception e) {
+							// Eat this exception.
+						}
+
 					}
-					
-				}
-				
-				if(clientModel.getDedupClientId() !=null) {
-					com.servinglynk.hmis.warehouse.model.v2015.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId(),clientModel.getProjectGroupCode());
-					/**
-					 * This is where the deduping happens We check if a client with the same information exists and
-					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
-					 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
-					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
-					 */
-					if(dedupedClient !=null) {
-						clientModel.setId(dedupedClient.getId());
+
+					if (clientModel.getDedupClientId() != null) {
+						com.servinglynk.hmis.warehouse.model.v2015.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId(), clientModel.getProjectGroupCode());
+						/**
+						 * This is where the deduping happens We check if a client with the same information exists and
+						 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
+						 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
+						 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
+						 */
+						if (dedupedClient != null) {
+							clientModel.setId(dedupedClient.getId());
+						} else {
+							performSaveOrUpdate(clientModel);
+						}
+					} else {
+						performSaveOrUpdate(clientModel);
 					}
-					else {
-						performSaveOrUpdate(clientModel);	
-					}	
-				}else{
-					performSaveOrUpdate(clientModel);
+				} catch (Exception e) {
+					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();
+					if(clientModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = clientModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = clientModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = clientModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
-			} catch(Exception e ){
-				logger.error("Exception beause of the client::"+client.toString() +" Exception ::"+e.getMessage());
-				throw new Exception(e);
 			}
-			}
-	}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain, exportEntity);
+		}
+		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	
@@ -181,7 +194,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap);
+			clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(clientModel == null) {
 			clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();

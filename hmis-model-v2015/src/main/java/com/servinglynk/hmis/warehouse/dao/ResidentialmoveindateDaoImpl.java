@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -35,26 +37,38 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<ResidentialMoveInDate> residentialMoveInDates = domain.getExport().getResidentialMoveInDate();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, getProjectGroupCode(domain));
 		if(residentialMoveInDates != null && !residentialMoveInDates.isEmpty())
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)
 			{
+				Residentialmoveindate residentialmoveindateModel = null;
 				try {
-					Residentialmoveindate residentialmoveindateModel = getModelObject(domain, residentialMoveInDate,data,modelMap);
+					residentialmoveindateModel = getModelObject(domain, residentialMoveInDate,data,modelMap);
 					residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
 					residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
 					residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
 					residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, residentialMoveInDate.getResidentialMoveInDateID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, residentialMoveInDate.getResidentialMoveInDateID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					residentialmoveindateModel.setEnrollmentid(enrollment);
 					residentialmoveindateModel.setExport(exportEntity);
 					performSaveOrUpdate(residentialmoveindateModel);
 				}catch(Exception e) {
-					logger.error("Exception beause of the residentialMoveInDate::"+residentialMoveInDate.getResidentialMoveInDateID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the residentialMoveInDate::"+residentialMoveInDate.getResidentialMoveInDateID() +" Exception ::"+e.getMessage();
+					if(residentialmoveindateModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = residentialmoveindateModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = residentialmoveindateModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = residentialmoveindateModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), domain,exportEntity);
@@ -65,7 +79,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate residentialmoveindateModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			residentialmoveindateModel = (com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate) getModel(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false,modelMap);
+			residentialmoveindateModel = (com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate) getModel(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(residentialmoveindateModel == null) {
 			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate();

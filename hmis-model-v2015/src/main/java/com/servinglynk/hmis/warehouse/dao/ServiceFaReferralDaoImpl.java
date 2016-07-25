@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -25,15 +27,15 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class, getProjectGroupCode(domain));
 		List<Services> services = export.getServices();
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
+				com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralModel = null;
 				try{
-					
-					com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral serviceFaReferralModel = getModelObject(domain, serviceFaReferrals,data,modelMap);
+					serviceFaReferralModel = getModelObject(domain, serviceFaReferrals,data,modelMap);
 					serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 					serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
 					//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
@@ -50,19 +52,30 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					serviceFaReferralModel.setSync(false);
 					performSaveOrUpdate(serviceFaReferralModel);
 				} catch (Exception e){
-					logger.error("Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage();
+					if(serviceFaReferralModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = serviceFaReferralModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = serviceFaReferralModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = serviceFaReferralModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
-	
+
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral getModelObject(ExportDomain domain, Services services ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral ServiceFaReferralModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ServiceFaReferralModel = (com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap);
+			ServiceFaReferralModel = (com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(ServiceFaReferralModel == null) {
 			ServiceFaReferralModel = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();

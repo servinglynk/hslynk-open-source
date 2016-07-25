@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -41,18 +43,19 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 
 		List<Project> projects = domain.getExport().getProject();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Project.class, getProjectGroupCode(domain));
 		if(projects !=null && projects.size() > 0)
 		{
 			for(Project project : projects)
 			{
+				com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = getModelObject(domain, project,data,modelMap);
+					projectModel = getModelObject(domain, project,data,modelMap);
 					//projectModel.setAffiliations(affiliation);
 					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
-					Organization organization = (Organization) getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Organization organization = (Organization) getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					projectModel.setOrganizationid(organization);
 					projectModel.setProjectname(project.getProjectName());
 					projectModel.setProjectcommonname(project.getProjectCommonName());
@@ -68,8 +71,19 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setExport(exportEntity);
 					performSaveOrUpdate(projectModel);
 				}catch(Exception e) {
-					logger.error("Exception beause of the project::"+project.getProjectID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
+					if(projectModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = projectModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = projectModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = projectModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -80,7 +94,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Project projectModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) getModel(com.servinglynk.hmis.warehouse.model.v2015.Project.class, Project.getProjectID(), getProjectGroupCode(domain),false,modelMap);
+			projectModel = (com.servinglynk.hmis.warehouse.model.v2015.Project) getModel(com.servinglynk.hmis.warehouse.model.v2015.Project.class, Project.getProjectID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(projectModel == null) {
 			projectModel = new com.servinglynk.hmis.warehouse.model.v2015.Project();

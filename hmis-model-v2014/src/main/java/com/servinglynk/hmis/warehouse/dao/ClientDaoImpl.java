@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -61,13 +63,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		Boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
 		if (clients != null && clients.size() > 0) {
+			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = null;
 			for (Client client : clients) {
 				try {
-				com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = getModelObject(domain, client,data,modelMap);
+				clientModel = getModelObject(domain, client,data,modelMap);
 				clientModel.setFirstName(client.getFirstName());
 				clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
 						.getDOB()));
@@ -150,10 +153,20 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					}
 				}
 					performSaveOrUpdate(clientModel);
-				} catch(Exception e ){
-					String errorMessage = "Exception beause of the client::"+client.getPersonalID() +" Exception ::"+e.getMessage();
+				} catch(Exception ex ){
+					String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
+					if(clientModel != null){
+						Error2014 error = new Error2014();
+						error.model_id = clientModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = clientModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = clientModel.getDateCreated();
+						performSave(error);
+					}
 					logger.error(errorMessage);
-					throw new Exception(errorMessage, e);
 				}
 			}
 	}
@@ -164,7 +177,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			clientModel = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap);
+			clientModel = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(clientModel == null) {
 			clientModel = new com.servinglynk.hmis.warehouse.model.v2014.Client();

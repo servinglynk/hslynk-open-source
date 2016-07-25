@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -42,7 +44,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		Export export =  domain.getExport();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
@@ -51,8 +53,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		if (enrollments != null && enrollments.size() > 0) {
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
+				com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
+					enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
 //				enrollmentModel
 //						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 //								.getContinuouslyHomelessOneYear())));
@@ -99,18 +102,29 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //										.getMonthsHomelessThisTime())));
 					enrollmentModel.setOtherresidenceprior(enrollment
 							.getOtherResidencePrior());
-					com.servinglynk.hmis.warehouse.model.v2015.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2015.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap);
+					com.servinglynk.hmis.warehouse.model.v2015.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2015.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					enrollmentModel.setProject(project);
 					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
-					com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap);
+					com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel);
 				} catch(Exception e) {
-					logger.error("Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage());
-					 throw new Exception(e);
+					String errorMessage = "Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage();
+					if(enrollmentModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = enrollmentModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = enrollmentModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = enrollmentModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -121,7 +135,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollmentModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap);
+			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(enrollmentModel == null) {
 			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Enrollment();

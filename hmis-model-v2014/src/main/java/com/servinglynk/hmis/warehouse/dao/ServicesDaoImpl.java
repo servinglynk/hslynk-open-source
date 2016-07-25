@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,15 +36,16 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<Services> servicesList = domain.getExport().getServices();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Services.class, getProjectGroupCode(domain));
 		if(servicesList != null && !servicesList.isEmpty())
 		{
 			for(Services services : servicesList)
 			{
+				com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = getModelObject(domain, services,data,modelMap);
+					servicesModel = getModelObject(domain, services,data,modelMap);
 					servicesModel.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
 					servicesModel.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
 					servicesModel.setOthertypeprovided(services.getOtherTypeProvided());
@@ -52,13 +55,24 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 					servicesModel.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
 					servicesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
 					servicesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					servicesModel.setEnrollmentid(enrollment);
 					servicesModel.setExport(exportEntity);
 					performSaveOrUpdate(servicesModel);
 				} catch(Exception e) {
-					logger.error("Failure in services:::"+services.toString()+ " with exception"+e.getLocalizedMessage());
-					throw new Exception(e);
+					String errorMessage = "Failure in services:::"+services.toString()+ " with exception"+e.getLocalizedMessage();
+					if (servicesModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = servicesModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = servicesModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = servicesModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -68,7 +82,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			servicesModel = (com.servinglynk.hmis.warehouse.model.v2014.Services) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class, Services.getServicesID(), getProjectGroupCode(domain),false,modelMap);
+			servicesModel = (com.servinglynk.hmis.warehouse.model.v2014.Services) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class, Services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(servicesModel == null) {
 			servicesModel = new com.servinglynk.hmis.warehouse.model.v2014.Services();

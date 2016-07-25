@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,23 +36,35 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		List<PercentAMI> percentAMIs = domain.getExport().getPercentAMI();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(percentAMIs !=null && !percentAMIs.isEmpty())
 		{
 			for(PercentAMI percentAMI :percentAMIs)
 			{
+				Percentami percentamoModel = null;
 				try {
-					Percentami percentamoModel = getModelObject(domain, percentAMI,data,modelMap);
+					percentamoModel = getModelObject(domain, percentAMI,data,modelMap);
 					percentamoModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
 					percentamoModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
 					percentamoModel.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					percentamoModel.setEnrollmentid(enrollmentModel);
 					percentamoModel.setExport(exportEntity);
 					performSaveOrUpdate(percentamoModel);
 				} catch(Exception e) {
-					 logger.error("Failure in Percentami:::"+percentAMI.toString()+ " with exception"+e.getLocalizedMessage());
-					 throw new Exception(e);
+					 String errorMessage = "Failure in Percentami:::"+percentAMI.toString()+ " with exception"+e.getLocalizedMessage();
+					if (percentamoModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = percentamoModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = percentamoModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = percentamoModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -60,7 +74,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Percentami percentamiModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false,modelMap);
+			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(percentamiModel == null) {
 			percentamiModel = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -49,28 +51,39 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, getProjectGroupCode(domain));
 		if(exits !=null && exits.size() > 0)
 		{
 			for(Exit exit : exits)
 			{
+				com.servinglynk.hmis.warehouse.model.v2015.Exit exitModel = null;
 				try {
-					
-					com.servinglynk.hmis.warehouse.model.v2015.Exit exitModel = getModelObject(domain, exit, data, modelMap);
+					exitModel = getModelObject(domain, exit, data, modelMap);
 					exitModel.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
 					exitModel.setOtherdestination(exit.getOtherDestination());
 					exitModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
 					exitModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 					exitModel.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitModel.setEnrollmentid(enrollmentModel);
 					exitModel.setExport(exportEntity);
 					performSaveOrUpdate(exitModel);
 				}catch(Exception e) {
-					logger.error("Exception beause of the exit::"+exit.getExitID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the exit::"+exit.getExitID() +" Exception ::"+e.getMessage();
+					if(exitModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = exitModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = exitModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = exitModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			 }
 			}
@@ -81,7 +94,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Exit exitModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitModel = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap);
+			exitModel = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(exitModel == null) {
 			exitModel = new com.servinglynk.hmis.warehouse.model.v2015.Exit();

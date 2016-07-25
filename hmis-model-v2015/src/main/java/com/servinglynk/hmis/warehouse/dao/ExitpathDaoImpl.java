@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -24,16 +26,17 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, getProjectGroupCode(domain));
 		List<ExitPATH> exitpath = export.getExitPATH();
 		if (exitpath != null && exitpath.size() > 0) {
 			for (ExitPATH exitpaths : exitpath) {
+				com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = getModelObject(domain, exitpaths,data,modelMap);
+					exitpathModel = getModelObject(domain, exitpaths,data,modelMap);
 					exitpathModel.setConnectionWithSoar(ExitPathConnectionWithSOAREnum.lookupEnum(BasicDataGenerator.getStringValue(exitpaths.getConnectionWithSOAR())));
-					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
+					com.servinglynk.hmis.warehouse.model.v2015.Exit exit = (com.servinglynk.hmis.warehouse.model.v2015.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitpathModel.setExitid(exit);
 					exitpathModel.setDeleted(false);
 					exitpathModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitpaths.getDateCreated()));
@@ -42,8 +45,19 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 					exitpathModel.setSync(false);
 					performSaveOrUpdate(exitpathModel);
 				} catch(Exception e) {
-					logger.error("Exception beause of the exitpath::"+exitpaths.getExitPATHID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the exitpath::"+exitpaths.getExitPATHID() +" Exception ::"+e.getMessage();
+					if(exitpathModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = exitpathModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = exitpathModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = exitpathModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -54,7 +68,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitpathModel = (com.servinglynk.hmis.warehouse.model.v2015.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap);
+			exitpathModel = (com.servinglynk.hmis.warehouse.model.v2015.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(exitpathModel == null) {
 			exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();

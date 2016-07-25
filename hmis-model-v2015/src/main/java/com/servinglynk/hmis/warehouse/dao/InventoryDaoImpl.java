@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -44,14 +46,15 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, getProjectGroupCode(domain));
 		List<Inventory> inventories = export.getInventory();
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
+				com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = getModelObject(domain, inventory,data,modelMap);
+					inventoryModel = getModelObject(domain, inventory,data,modelMap);
 					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
 					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
 					inventoryModel.setChBedInventory(inventory.getChBedInventory());
@@ -71,12 +74,23 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 					inventoryModel.setExport(exportEntity);
 					inventoryModel.setSync(false);
-					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap);
+					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					inventoryModel.setCoc(coc);
 					performSaveOrUpdate(inventoryModel);
 				} catch(Exception e) {
-					logger.error("Exception beause of the inventory::"+inventory.getInventoryID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the inventory::"+inventory.getInventoryID() +" Exception ::"+e.getMessage();
+					if(inventoryModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = inventoryModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = inventoryModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = inventoryModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -86,7 +100,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2015.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, Inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap);
+			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2015.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2015.Inventory.class, Inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(inventoryModel == null) {
 			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();

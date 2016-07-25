@@ -1,10 +1,12 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigInteger;
-import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
 import org.junit.Test;
@@ -145,6 +147,31 @@ public class BulkUploaderTest {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
 			}
 		}
-		
 	}
+
+	@Test
+	public void insertErrorInBulkErrorTable(){
+		Error2014 error2014 = new Error2014();
+		error2014.model_id = UUID.randomUUID();
+		error2014.bulk_upload_ui = 3L;
+		error2014.project_group_code = "CODE007";
+		error2014.source_system_id = UUID.randomUUID().toString();
+		error2014.type = ErrorType.ERROR;
+		error2014.error_description = "invalid model";
+		error2014.date_created = LocalDateTime.now();
+		factory.getBulkUploaderWorkerDao().insert(error2014);
+
+		Error2014 error2014_2 = new Error2014();
+		error2014_2.model_id = UUID.randomUUID();
+		error2014_2.bulk_upload_ui = 4L;
+		error2014_2.project_group_code = "CODE008";
+		error2014_2.source_system_id = UUID.randomUUID().toString();
+		error2014_2.type = ErrorType.WARN;
+		error2014_2.error_description = "warning";
+		error2014_2.date_created = LocalDateTime.now();
+
+		factory.getBulkUploaderWorkerDao().insert(error2014_2);
+
+	}
+
 }

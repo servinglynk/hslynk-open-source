@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -38,25 +40,37 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		List<ProjectCompletionStatus> projectCompletionStatusList = domain.getExport().getProjectCompletionStatus();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(projectCompletionStatusList !=null && !projectCompletionStatusList.isEmpty()) 
 		{
 			for(ProjectCompletionStatus projectCompletionStatus : projectCompletionStatusList)
 			{
+				Projectcompletionstatus projectcompletionstatusModel = null;
 				try {
-					Projectcompletionstatus projectcompletionstatusModel = getModelObject(domain, projectCompletionStatus,data,modelMap);
+					projectcompletionstatusModel = getModelObject(domain, projectCompletionStatus,data,modelMap);
 					projectcompletionstatusModel.setId(UUID.randomUUID());
 					projectcompletionstatusModel.setEarlyexitreason(ProjectcompletionstatusEarlyexitreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getEarlyExitReason())));
 					projectcompletionstatusModel.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
 					projectcompletionstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
 					projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
-					Exit exit = (Exit) getModel(Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Exit exit = (Exit) getModel(Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					projectcompletionstatusModel.setExitid(exit);
 					projectcompletionstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(projectcompletionstatusModel);
 				} catch(Exception e) {
-					 logger.error("Failure in Projectcompletionstatus:::"+projectCompletionStatus.toString()+ " with exception"+e.getLocalizedMessage());
-					 throw new Exception(e);
+					 String errorMessage = "Failure in Projectcompletionstatus:::"+projectCompletionStatus.toString()+ " with exception"+e.getLocalizedMessage();
+					if (projectcompletionstatusModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = projectcompletionstatusModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = projectcompletionstatusModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = projectcompletionstatusModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 		}
@@ -66,7 +80,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectcompletionstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			projectcompletionstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectcompletionstatus.getProjectCompletionStatusID(), getProjectGroupCode(domain),false,modelMap);
+			projectcompletionstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectcompletionstatus.getProjectCompletionStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(projectcompletionstatusModel == null) {
 			projectcompletionstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();

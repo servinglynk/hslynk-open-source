@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -26,14 +28,15 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, getProjectGroupCode(domain));
 		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
 		if (entrySSVFs != null && entrySSVFs.size() > 0) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
+				com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
+					entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
 					entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
 					entrySsvfModel.setDeleted(false);
 					entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
@@ -43,7 +46,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
 					entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(BasicDataGenerator.getStringValue(entrySSVF.getPercentAMI())));
 					entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					entrySsvfModel.setEnrollmentid(enrollmentModel);
 					entrySsvfModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateCreated()));
 					entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
@@ -51,8 +54,19 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setSync(false);
 					performSaveOrUpdate(entrySsvfModel);
 				} catch(Exception e) {
-					logger.error("Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage();
+					if(entrySsvfModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = entrySsvfModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = entrySsvfModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = entrySsvfModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 	  }
@@ -63,7 +77,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		com.servinglynk.hmis.warehouse.model.v2015.Entryssvf entryssvfModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			entryssvfModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false,modelMap);
+			entryssvfModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(entryssvfModel == null) {
 			entryssvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();

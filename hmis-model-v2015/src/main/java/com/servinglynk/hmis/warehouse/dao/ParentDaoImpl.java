@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
@@ -52,7 +55,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		/***
 		 * Get Models by source system id and project group code.
 		 * @param className
-		 * @param sourceId
 		 * @param projectGroupCode
 		 * @return
 		 */
@@ -128,20 +130,39 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param projectGroupCode
 	 * @return
 	 */
-	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode,boolean showWarning,Map<String, HmisBaseModel> modelMap) {
-		if(StringUtils.isBlank(sourceId)) {
+	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode,boolean showWarning,Map<String, HmisBaseModel> modelMap, Long uploadId) {
+		if (StringUtils.isBlank(sourceId)) {
 			return null;
 		}
-		if(modelMap !=null && modelMap.size() >0) {
+		Boolean found = true;
+		if (modelMap != null && modelMap.size() > 0) {
 			HmisBaseModel model = modelMap.get(sourceId);
-			if(model == null) {
-				if(showWarning){
-					logger.warn("{} : A match was not found in the database for SourceSystemId:{}",className,sourceId);
-				}
-			 }
-			return model;
-			
+			if (model == null) {
+				found = false;
+			} else {
+				return model;
 			}
+		} else {
+			found = false;
+		}
+
+		if (!found) {
+			if (showWarning) {
+				String warnMessage = className + " : A match was not found in the database for SourceSystemId: " + sourceId ;
+
+				Error2015 error = new Error2015();
+				error.model_id = null;
+				error.bulk_upload_ui = uploadId;
+				error.project_group_code = projectGroupCode;
+				error.source_system_id = sourceId;
+				error.type = ErrorType.WARN;
+				error.error_description = warnMessage;
+				error.date_created = LocalDateTime.now();
+				logger.warn(warnMessage);
+
+
+			}
+		}
 		return null;
 	}
 	/***
@@ -178,6 +199,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			model.setDateCreated(LocalDateTime.now());
 			insert(model);
 		}
+	}
+
+	protected void performSave(ErrorWarn errorWarn){
+		insert(errorWarn);
 	}
 	/***
 	 * Gets the batch size.

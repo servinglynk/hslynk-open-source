@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -47,103 +49,112 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		Export export =  domain.getExport();
+		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
-		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
-	
+		Data data = new Data();
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
+		Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
+
 		if (enrollments != null && enrollments.size() > 0) {
-			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
-			{
+			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment : enrollments) {
+				Enrollment enrollmentModel = null;
 				try {
-				Enrollment enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
-				enrollmentModel
-						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
-								.getContinuouslyHomelessOneYear())));
-				enrollmentModel
-						.setHousingstatus(EnrollmentHousingstatusEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(enrollment
-												.getHousingStatus())));
-				enrollmentModel
-						.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
-								.getStringValue(enrollment
-										.getDisablingCondition())));
-				enrollmentModel.setYearshomeless(new Integer(
-						BasicDataGenerator.getStringValue(enrollment
-								.getYearsHomeless())));
-				enrollmentModel
-						.setResidenceprior(EnrollmentResidencepriorEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(enrollment
-												.getResidencePrior())));
-				enrollmentModel
-						.setStatusdocumented(EnrollmentStatusdocumentedEnum.lookupEnum(BasicDataGenerator
-								.getStringValue(enrollment
-										.getStatusDocumented())));
-				enrollmentModel
-						.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
-								.getResidencePriorLengthOfStay())));
-				enrollmentModel
-						.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
-								.getStringValue(enrollment
-										.getRelationshipToHoH())));
-				enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
-						.getLocalDateTime(enrollment.getDateCreated()));
-				enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator
-						.getLocalDateTime(enrollment.getDateUpdated()));
-				enrollmentModel.setEntrydate(BasicDataGenerator
-						.getLocalDateTime(enrollment.getEntryDate()));
-				
-				enrollmentModel
-						.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
-								.getMonthsHomelessPastThreeYears())));
-				enrollmentModel
-						.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
-								.getStringValue(enrollment
-										.getMonthsHomelessThisTime())));
-				enrollmentModel.setOtherresidenceprior(enrollment
-						.getOtherResidencePrior());
-				com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap);
-				enrollmentModel.setProject(project);
-				enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
-				if(enrollment.getPersonalID() != null ) {
-					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain),true,relatedModelMap);
-					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
-					// Very important logic needs to come here via a Microservice call.
-					LocalDateTime entryDate = enrollmentModel.getEntrydate();
-					if(client != null) {
-						LocalDateTime dob = client.getDob();
-						if(entryDate !=null && dob!= null) {
-							LocalDateTime tempDateTime = LocalDateTime.from( dob );
-							long years = tempDateTime.until( entryDate, ChronoUnit.YEARS);
-							enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+					enrollmentModel = getModelObject(domain, enrollment, data, modelMap);
+					enrollmentModel
+							.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
+									.getContinuouslyHomelessOneYear())));
+					enrollmentModel
+							.setHousingstatus(EnrollmentHousingstatusEnum
+									.lookupEnum(BasicDataGenerator
+											.getStringValue(enrollment
+													.getHousingStatus())));
+					enrollmentModel
+							.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
+									.getStringValue(enrollment
+											.getDisablingCondition())));
+					enrollmentModel.setYearshomeless(new Integer(
+							BasicDataGenerator.getStringValue(enrollment
+									.getYearsHomeless())));
+					enrollmentModel
+							.setResidenceprior(EnrollmentResidencepriorEnum
+									.lookupEnum(BasicDataGenerator
+											.getStringValue(enrollment
+													.getResidencePrior())));
+					enrollmentModel
+							.setStatusdocumented(EnrollmentStatusdocumentedEnum.lookupEnum(BasicDataGenerator
+									.getStringValue(enrollment
+											.getStatusDocumented())));
+					enrollmentModel
+							.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
+									.getResidencePriorLengthOfStay())));
+					enrollmentModel
+							.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
+									.getStringValue(enrollment
+											.getRelationshipToHoH())));
+					enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
+							.getLocalDateTime(enrollment.getDateCreated()));
+					enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator
+							.getLocalDateTime(enrollment.getDateUpdated()));
+					enrollmentModel.setEntrydate(BasicDataGenerator
+							.getLocalDateTime(enrollment.getEntryDate()));
+
+					enrollmentModel
+							.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
+									.getMonthsHomelessPastThreeYears())));
+					enrollmentModel
+							.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
+									.getStringValue(enrollment
+											.getMonthsHomelessThisTime())));
+					enrollmentModel.setOtherresidenceprior(enrollment
+							.getOtherResidencePrior());
+					com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class, enrollment.getProjectID(), getProjectGroupCode(domain), true, projectModelMap, domain.getUpload().getId());
+					enrollmentModel.setProject(project);
+					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
+					if (enrollment.getPersonalID() != null) {
+						com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
+						//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
+						// Very important logic needs to come here via a Microservice call.
+						LocalDateTime entryDate = enrollmentModel.getEntrydate();
+						if (client != null) {
+							LocalDateTime dob = client.getDob();
+							if (entryDate != null && dob != null) {
+								LocalDateTime tempDateTime = LocalDateTime.from(dob);
+								long years = tempDateTime.until(entryDate, ChronoUnit.YEARS);
+								enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+							}
+							enrollmentModel.setClient(client);
 						}
-						enrollmentModel.setClient(client);
 					}
-				}
-				enrollmentModel.setExport(exportEntity);
-				//enrollmentModel.setUser(exportEntity.getUser());
-				performSaveOrUpdate(enrollmentModel);
-				} catch(Exception e ){
-					String msg = "Exception in Enrollment:"+enrollment.getProjectEntryID()+ "Exception ::"+e.getLocalizedMessage();
-					logger.error(msg);
-					throw new Exception(msg, e);
+					enrollmentModel.setExport(exportEntity);
+					//enrollmentModel.setUser(exportEntity.getUser());
+					performSaveOrUpdate(enrollmentModel);
+				} catch (Exception e) {
+					String errorMessage = "Exception in Enrollment:" + enrollment.getProjectEntryID() + "Exception ::" + e.getLocalizedMessage();
+					if (enrollmentModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = enrollmentModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = enrollmentModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = enrollmentModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, Enrollment.class.getSimpleName(), domain, exportEntity);
+			hydrateBulkUploadActivityStaging(data.i, data.j, Enrollment.class.getSimpleName(), domain, exportEntity);
 		}
-		
 	}
 	
 	public  com.servinglynk.hmis.warehouse.model.v2014.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment enrollmentModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap);
+			enrollmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(enrollmentModel == null) {
 			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();

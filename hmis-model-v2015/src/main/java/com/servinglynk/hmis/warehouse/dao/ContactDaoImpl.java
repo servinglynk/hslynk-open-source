@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -35,16 +37,17 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 	
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		
+
 		com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 		List<Contact> contact = export.getContact();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, getProjectGroupCode(domain));
-		Data data =new Data();
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, getProjectGroupCode(domain));
+		Data data = new Data();
 		if (contact != null && contact.size() > 0) {
 			for (Contact contacts : contact) {
+				com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = getModelObject(domain, contacts,data,modelMap);
+					contactModel = getModelObject(domain, contacts, data, modelMap);
 					contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
 					contactModel.setContactLocation(ContactLocationEnum.lookupEnum(BasicDataGenerator.getStringValue(contacts
 							.getContactLocation())));
@@ -52,18 +55,29 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					contactModel.setDateUpdated(LocalDateTime.now());
 					contactModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateUpdated()));
 					contactModel.setDeleted(false);
-					
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class,contacts.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, contacts.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 					contactModel.setExport(exportEntity);
 					contactModel.setEnrollmentid(enrollment);
 					contactModel.setSync(false);
 					performSaveOrUpdate(contactModel);
-				 } catch(Exception e) {
-					 logger.error("Exception beause of the Contact::"+contacts.getContactID() +" Exception ::"+e.getMessage());
-					 throw new Exception(e);
-				 }
+				} catch (Exception e) {
+					String errorMessage = "Exception beause of the Contact::" + contacts.getContactID() + " Exception ::" + e.getMessage();
+					if (contactModel != null) {
+						Error2015 error = new Error2015();
+						error.model_id = contactModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = contactModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = contactModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
+		}
 		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), domain, exportEntity);
 	}
 
@@ -87,7 +101,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			contactModel = (com.servinglynk.hmis.warehouse.model.v2015.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, Contact.getContactID(), getProjectGroupCode(domain),false,modelMap);
+			contactModel = (com.servinglynk.hmis.warehouse.model.v2015.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, Contact.getContactID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(contactModel == null) {
 			contactModel = new com.servinglynk.hmis.warehouse.model.v2015.Contact();

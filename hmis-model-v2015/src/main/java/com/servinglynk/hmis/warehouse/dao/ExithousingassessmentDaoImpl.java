@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -37,27 +39,38 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class, getProjectGroupCode(domain));
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty())
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
 				{
+					Exithousingassessment exithousingassessmentModel = null;
 					try {
-						
-						Exithousingassessment exithousingassessmentModel = getModelObject(domain, exitHousingAssessment, data, modelMap);
+						exithousingassessmentModel = getModelObject(domain, exitHousingAssessment, data, modelMap);
 						exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
 						exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
 						exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
 						exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
-						Exit exit = (Exit) getModel(Exit.class, exitHousingAssessment.getExitID(),getProjectGroupCode(domain),true,relatedModelMap);
+						Exit exit = (Exit) getModel(Exit.class, exitHousingAssessment.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						exithousingassessmentModel.setExitid(exit);
 						exithousingassessmentModel.setExport(exportEntity);
 						performSaveOrUpdate(exithousingassessmentModel);
 					}catch(Exception e ){
-						logger.error("Exception beause of the exitHousingAssessment::"+exitHousingAssessment.getExitHousingAssessmentID() +" Exception ::"+e.getMessage());
-						throw new Exception(e);
+						String errorMessage = "Exception beause of the exitHousingAssessment::"+exitHousingAssessment.getExitHousingAssessmentID() +" Exception ::"+e.getMessage();
+						if(exithousingassessmentModel != null){
+							Error2015 error = new Error2015();
+							error.model_id = exithousingassessmentModel.getId();
+							error.bulk_upload_ui = domain.getUpload().getId();
+							error.project_group_code = domain.getUpload().getProjectGroupCode();
+							error.source_system_id = exithousingassessmentModel.getSourceSystemId();
+							error.type = ErrorType.ERROR;
+							error.error_description = errorMessage;
+							error.date_created = exithousingassessmentModel.getDateCreated();
+							performSave(error);
+						}
+						logger.error(errorMessage);
 					}
 				}
 		}
@@ -68,7 +81,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment exithousingassessmentModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exithousingassessmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap);
+			exithousingassessmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(exithousingassessmentModel == null) {
 			exithousingassessmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();

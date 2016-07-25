@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,15 +39,16 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		 List<Organization> organizations = domain.getExport().getOrganization();
-		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		 com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		 Data data =new Data();
 		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, getProjectGroupCode(domain));
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
 			 {
+				 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = null;
 				 try {
-					 com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = getModelObject(domain, organization,data,modelMap);
+					 organizationModel = getModelObject(domain, organization,data,modelMap);
 					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 					 organizationModel.setOrganizationname(organization.getOrganizationName());
 					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
@@ -53,8 +56,19 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					 organizationModel.setExport(exportEntity);
 					 performSaveOrUpdate(organizationModel);
 				 } catch(Exception e){
-					 logger.error("Exception beause of the organization::"+organization.getOrganizationID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					 String errorMessage = "Exception because of the organization::"+organization.getOrganizationID() +" Exception ::"+e.getMessage();
+					 if(organizationModel != null){
+						 Error2015 error = new Error2015();
+						 error.model_id = organizationModel.getId();
+						 error.bulk_upload_ui = domain.getUpload().getId();
+						 error.project_group_code = domain.getUpload().getProjectGroupCode();
+						 error.source_system_id = organizationModel.getSourceSystemId();
+						 error.type = ErrorType.ERROR;
+						 error.error_description = errorMessage;
+						 error.date_created = organizationModel.getDateCreated();
+						 performSave(error);
+					 }
+					 logger.error(errorMessage);
 				 }
 			 }
 		 }
@@ -65,7 +79,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2015.Organization organizationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			organizationModel = (com.servinglynk.hmis.warehouse.model.v2015.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap);
+			organizationModel = (com.servinglynk.hmis.warehouse.model.v2015.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(organizationModel == null) {
 			organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();

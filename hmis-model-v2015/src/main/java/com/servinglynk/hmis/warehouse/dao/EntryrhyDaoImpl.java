@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -68,15 +70,15 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+	    com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class, getProjectGroupCode(domain));
 		List<EntryRHY> entryRhy = export.getEntryRHY();
 		if (entryRhy != null && entryRhy.size() > 0) {
 			for (EntryRHY entryRhys : entryRhy) {
+				com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryRhyModel = null;
 				try {
-					
-					com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryRhyModel = getModelObject(domain, entryRhys,data,modelMap);
+					entryRhyModel = getModelObject(domain, entryRhys,data,modelMap);
 					entryRhyModel.setAbuseAndNeglectFamilyMbr(EntryRHYAbuseAndNeglectFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAbuseAndNeglectFam())));
 					entryRhyModel.setAbuseAndNeglectYouth(EntryRHYAbuseAndNeglectYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAbuseAndNeglectYouth())));
 					entryRhyModel.setActiveMilitaryParent(EntryRHYActiveMilitaryParentEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getActiveMilitaryParent())));
@@ -124,15 +126,26 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					entryRhyModel.setWorkPlaceViolenceThreat(EntryRHYWorkPlaceViolenceThreatsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getWorkPlaceViolenceThreats())));
 					entryRhyModel.setYearsChildWelfrForestCare(EntryRHYChildWelfareYearsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getChildWelfareYears())));
 					entryRhyModel.setYearsJuvenileJustice(EntryRHYJuvenileJusticeYearsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getJuvenileJusticeYears())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhys.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhys.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					entryRhyModel.setEnrollmentid(enrollmentModel);
 					entryRhyModel.setExport(exportEntity);
 					entryRhyModel.setSync(false);
 					entryRhyModel.setDeleted(false);
 					performSaveOrUpdate(entryRhyModel);
 				} catch(Exception e) {
-					logger.error("Exception beause of the entryRhy::"+entryRhys.getEntryRHYID() +" Exception ::"+e.getMessage());
-					 throw new Exception(e);
+					String errorMessage = "Exception beause of the entryRhy::"+entryRhys.getEntryRHYID() +" Exception ::"+e.getMessage();
+					if(entryRhyModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = entryRhyModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = entryRhyModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = entryRhyModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 	  }
@@ -143,7 +156,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		com.servinglynk.hmis.warehouse.model.v2015.Entryrhy entryrhyModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			entryrhyModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryrhy) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class, entryrhy.getEntryRHYID(), getProjectGroupCode(domain),false,modelMap);
+			entryrhyModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryrhy) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class, entryrhy.getEntryRHYID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(entryrhyModel == null) {
 			entryrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();

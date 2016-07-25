@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -42,19 +44,31 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
+			Projectcoc projectcocModel = null;
 			try {
-				Projectcoc projectcocModel = getModelObject(domain, projectCoc,data,modelMap);
+				projectcocModel = getModelObject(domain, projectCoc,data,modelMap);
 				projectcocModel.setCoccode(projectCoc.getCoCCode());
-				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap);
+				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap, domain.getUpload().getId());
 				projectcocModel.setProjectid(projectModel);
 				projectcocModel.setExport(exportEntity);
 				performSaveOrUpdate(projectcocModel);
 			} catch(Exception e) {
-				logger.error("Failure in Projectcoc:::"+projectCoc.toString()+ " with exception"+e.getLocalizedMessage());
-				throw new Exception(e);
+				String errorMessage = "Failure in Projectcoc:::"+projectCoc.toString()+ " with exception"+e.getLocalizedMessage();
+				if (projectcocModel != null) {
+					Error2014 error = new Error2014();
+					error.model_id = projectcocModel.getId();
+					error.bulk_upload_ui = domain.getUpload().getId();
+					error.project_group_code = domain.getUpload().getProjectGroupCode();
+					error.source_system_id = projectcocModel.getSourceSystemId();
+					error.type = ErrorType.ERROR;
+					error.error_description = errorMessage;
+					error.date_created = projectcocModel.getDateCreated();
+					performSave(error);
+				}
+				logger.error(errorMessage);
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j, Projectcoc.class.getSimpleName(), domain, exportEntity);
@@ -64,7 +78,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Projectcoc ProjectcocModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false,modelMap);
+			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(ProjectcocModel == null) {
 			ProjectcocModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();

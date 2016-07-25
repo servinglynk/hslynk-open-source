@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -42,17 +44,18 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		List<Project> projects = domain.getExport().getProject();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(projects !=null && projects.size() > 0)
 		{
 			for(Project project : projects)
 			{
+				com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = null;
 				try {
-					com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = getModelObject(domain, project,data,modelMap);
+					projectModel = getModelObject(domain, project,data,modelMap);
 					//projectModel.setAffiliations(affiliation);
 					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
 					projectModel.setProjectname(project.getProjectName());
-					Organization organization = (Organization)getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Organization organization = (Organization)getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					projectModel.setOrganizationid(organization);
 					projectModel.setProjectcommonname(project.getProjectCommonName());
 					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
@@ -65,8 +68,18 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					performSaveOrUpdate(projectModel);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage();
+					if (projectModel != null) {
+						Error2014 error = new Error2014();
+						error.model_id = projectModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = projectModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = projectModel.getDateCreated();
+						performSave(error);
+					}
 					logger.error(errorMessage);
-					throw new Exception(errorMessage, e);
 				}
     		  }
 			}
@@ -77,7 +90,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			projectModel = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class, project.getProjectID(), getProjectGroupCode(domain),false,modelMap);
+			projectModel = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Project.class, project.getProjectID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(projectModel == null) {
 			projectModel = new com.servinglynk.hmis.warehouse.model.v2014.Project();

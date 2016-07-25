@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,26 +36,38 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
-		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap);
+		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class, getProjectGroupCode(domain));
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)
 			{
+				Pathstatus pathstatusModel = null;
 				try {
-					Pathstatus pathstatusModel = getModelObject(domain, pathStatus,data,modelMap);
+					pathstatusModel = getModelObject(domain, pathStatus,data,modelMap);
 					pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
 					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
 					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap);
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					pathstatusModel.setEnrollmentid(enrollmentModel);
 					pathstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(pathstatusModel);
 				}catch(Exception e) {
-					logger.error("Exception beause of the pathStatus::"+pathStatus.getPathStatusID() +" Exception ::"+e.getMessage());
-					throw new Exception(e);
+					String errorMessage = "Exception beause of the pathStatus::"+pathStatus.getPathStatusID() +" Exception ::"+e.getMessage();
+					if(pathstatusModel != null){
+						Error2015 error = new Error2015();
+						error.model_id = pathstatusModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = pathstatusModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = errorMessage;
+						error.date_created = pathstatusModel.getDateCreated();
+						performSave(error);
+					}
+					logger.error(errorMessage);
 				}
 			}
 			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class.getSimpleName(), domain,exportEntity);
@@ -64,7 +78,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Pathstatus pathstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			pathstatusModel = (com.servinglynk.hmis.warehouse.model.v2015.Pathstatus) getModel(com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain),false,modelMap);
+			pathstatusModel = (com.servinglynk.hmis.warehouse.model.v2015.Pathstatus) getModel(com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(pathstatusModel == null) {
 			pathstatusModel = new com.servinglynk.hmis.warehouse.model.v2015.Pathstatus();
