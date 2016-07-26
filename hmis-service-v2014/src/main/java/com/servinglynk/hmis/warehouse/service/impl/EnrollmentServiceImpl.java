@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 
 public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentService {
 
@@ -25,8 +26,12 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
+		com.servinglynk.hmis.warehouse.model.v2014.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
+		if(pProject==null) throw new ProjectNotFoundException();
+		
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
 		pEnrollment.setClient(pClient);		
+		pEnrollment.setProject(pProject);
 		//pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
@@ -42,11 +47,15 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
+		com.servinglynk.hmis.warehouse.model.v2014.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
+		if(pProject==null) throw new ProjectNotFoundException();
+
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
-		
 		if(pEnrollment == null) throw new EnrollmentNotFound();
+
 		EnrollmentConveter.modelToEntity(enrollment, pEnrollment);
 		pEnrollment.setClient(pClient);		
+		pEnrollment.setProject(pProject);
 	//	pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);

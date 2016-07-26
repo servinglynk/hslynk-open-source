@@ -73,6 +73,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getStatusdocumented()!=null) enrollment.setStatusdocumented(Integer.parseInt(pEnrollment.getStatusdocumented().getValue()));
 		if(pEnrollment.getTimeshomelesspastthreeyears()!=null) enrollment.setTimeshomelesspastthreeyears(Integer.parseInt(pEnrollment.getTimeshomelesspastthreeyears().getValue()));
 		if(pEnrollment.getYearshomeless()!=null) enrollment.setYearshomeless(pEnrollment.getYearshomeless());
+		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		copyBeanProperties(pEnrollment, enrollment);
 		

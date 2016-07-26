@@ -76,6 +76,7 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		if(pEnrollment.getDatetostreetessh()!=null) enrollment.setDatetostreetessh(Integer.parseInt(pEnrollment.getDatetostreetessh().toString()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		copyBeanProperties(pEnrollment, enrollment);
 		
 		return enrollment;
