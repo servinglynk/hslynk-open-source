@@ -56,8 +56,8 @@ public class GlobalHouseholdService {
         }
         List<GlobalHousehold> globalHouseholds = globalHouseholdMapper.globalHouseholdDTOsToGlobalHouseholds(lgolobalHouseholdDTOs);
         globalHouseholdRepository.save(globalHouseholds);
-        List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
-        return result;
+//        List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
+        return lgolobalHouseholdDTOs;
     }
     
     @Transactional
@@ -70,8 +70,8 @@ public class GlobalHouseholdService {
         }
         List<GlobalHousehold> globalHouseholds = globalHouseholdMapper.globalHouseholdDTOsToGlobalHouseholds(lgolobalHouseholdDTOs);
         globalHouseholdRepository.save(globalHouseholds);
-        List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
-        return result;
+    //    List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
+        return lgolobalHouseholdDTOs;
     }
     
     

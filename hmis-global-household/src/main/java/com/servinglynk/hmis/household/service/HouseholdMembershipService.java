@@ -63,8 +63,8 @@ public class HouseholdMembershipService {
         }
         List<HouseholdMembership> householdMembers = householdMembershipMapper.householdMembershipDTOsToHouseholdMemberships(lhouseholdmembersDTOs);
         householdMembers = householdMembershipRepository.save(householdMembers);
-        List<HouseholdMembershipDTO> result = householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(householdMembers);
-        return result;
+    //    List<HouseholdMembershipDTO> result = householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(householdMembers);
+        return lhouseholdmembersDTOs;
     }
     
     @Transactional
@@ -74,8 +74,8 @@ public class HouseholdMembershipService {
         householdMembershipDTO.setGlobalHouseholdId(householdId);
         HouseholdMembership householdMember = householdMembershipMapper.householdMembershipDTOToHouseholdMembership(householdMembershipDTO);
         householdMember = householdMembershipRepository.save(householdMember);
-        HouseholdMembershipDTO result = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMember);
-        return result;
+      //  HouseholdMembershipDTO result = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMember);
+        return householdMembershipDTO;
     }
 
     /**
