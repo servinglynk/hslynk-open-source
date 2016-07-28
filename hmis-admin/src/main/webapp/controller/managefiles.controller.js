@@ -8,7 +8,12 @@ app.filter('startFrom', function() {
         return [];
     }
 });
-app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+
+app.controller('ModalInstanceLogCtrl', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+    $scope.datajson = datajson;
+});
+
+app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -81,4 +86,24 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
     		    $scope.setPageDELETED = function (pageNo) {
     		        $scope.currentPageDELETED = pageNo;
     		    };
+    
+    		    $scope.openlog = function (id) {
+    		        $scope.idForLog = id
+    		Service.GetFilesLogList($http,
+            //success
+            function (data) {
+                var modalInstance = $modal.open({
+                    templateUrl: 'templates/partial/syncfilelogpopopup.html',
+                    controller: 'ModalInstanceLogCtrl',
+                    resolve: {
+                        datajson: function () {
+                            return data;
+                        }
+                    }
+                });
+
+            }, $scope)
+
+
+      };
 });

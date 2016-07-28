@@ -96,7 +96,7 @@ var Service= ({
        });
  },        
     GetFilesListERROR: function ($http, success,$scope) {
-    	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
+         var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
        	 console.log('Session Token..'+$scope.sessionToken);
              $http({
                  method: 'GET',
@@ -108,7 +108,37 @@ var Service= ({
              }).success(function (data) {
                  if(success)success(data.BulkUploads.bulkUploads)
              });
-       },        
+    },
+    GetFilesLogList: function ($http,success, $scope) {
+        var apiurl = "/json/popup.json?id="+$scope.idForLog;
+        console.log('Session Token..' + $scope.sessionToken);
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token=' + $scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'
+            }
+        }).success(function (data) {
+            if (success) success(data)
+        });
+    },
+    GetErrorMessage: function ($http, success, $scope) {
+        var apiurl = "/json/ErrorMessage.json?id=" + $scope.id;
+        console.log('Session Token..' + $scope.sessionToken);
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token=' + $scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'
+            }
+        }).success(function (data) {
+            if (success) success(data)
+        });
+    },
  GetSyncFilesList: function ($http, success) {
         $http.get('/hmis-bulk-loader-v2014/sync').success(function (data) {
 				if(success)success(data)

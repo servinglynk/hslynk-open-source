@@ -70,7 +70,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			   
 			    .when('/admin/createuser',      's2.createuser')
 			   .when('/admin/manageuser',      's2.manageuser')
-			     .when('/admin/onboardfellow',      's2.onboardfellow')
+			     .when('/admin/onboardfellow', 's2.onboardfellow')
+                 .when('/admin/errormessage/:id', 's2.errormessage')
 				 
 				  .when('/admin/onboardfellowgroup',      's2.onboardfellow.onboardfellowgroup')
    			    .when('/admin/onboardfellowuser',      's2.onboardfellow.onboardfellowuser')
@@ -87,6 +88,10 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 templateUrl: 'templates/partial/dashboard.html', controller: 'dashboardCtrl'})   
 		  .segment('managefiles', {
                 templateUrl: 'templates/partial/managefiles.html', controller: 'managefilesCtrl'})
+          .segment('errormessage', {
+              templateUrl: 'templates/partial/errormessage.html', controller: 'errormessageCtrl'
+             
+          } )
                 .segment('manageuser', {
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})   
 		   .segment('managereport', {
@@ -127,6 +132,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 
                  .segment('onboardfellow', {
                 templateUrl: 'templates/partial/onboardfellow.html', controller: 'onboardfellowCtrl'})
+        
 			
            .within()
 			 // nested states 
