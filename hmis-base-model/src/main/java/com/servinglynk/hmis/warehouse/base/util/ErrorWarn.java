@@ -14,7 +14,7 @@ public abstract class ErrorWarn {
     public UUID model_id;
 
     @Basic( optional = true )
-    @Column( name = "bulk_upload_ui", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+    @Column( name = "bulk_upload_ui", nullable = true  )
     public Long bulk_upload_ui;
 
     @Basic( optional = true )
