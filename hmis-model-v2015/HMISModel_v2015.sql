@@ -2820,3 +2820,31 @@ total_leavers bigint ,
 del_flag char(3),
 status_flag char(3)
 );
+
+DROP TABLE IF EXISTS v2015.bulk_upload_error;
+
+CREATE TABLE v2015.bulk_upload_error
+(
+  id bigint NOT NULL,
+  model_id uuid,
+  bulk_upload_ui bigint,
+  table_name text,
+  project_group_code character varying(8),
+  source_system_id text,
+  type character varying(8),
+  error_description text,
+  date_created timestamp without time zone,
+  CONSTRAINT bulk_upload_error_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+  DROP SEQUENCE v2015.error_sequence;
+
+CREATE SEQUENCE v2015.error_sequence
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;

@@ -2720,3 +2720,30 @@ create table "v2014".bulk_upload_activity
 );
 
 CREATE SEQUENCE "v2014".bulk_upload_activity_id_seq START 1;
+
+
+DROP TABLE IF EXISTS v2014.bulk_upload_error;
+
+CREATE TABLE v2014.bulk_upload_error
+(
+  id bigint NOT NULL,
+  model_id uuid,
+  bulk_upload_ui bigint,
+  table_name text,
+  project_group_code character varying(8),
+  source_system_id text,
+  type character varying(8),
+  error_description text,
+  date_created timestamp without time zone,
+  CONSTRAINT bulk_upload_error_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE SEQUENCE v2014.error_sequence
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;

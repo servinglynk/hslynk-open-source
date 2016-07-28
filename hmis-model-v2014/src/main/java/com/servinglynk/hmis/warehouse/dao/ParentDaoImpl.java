@@ -4,17 +4,18 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -24,9 +25,7 @@ import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(ParentDaoImpl.class);
+	private static final Logger logger = Logger.getLogger(ParentDaoImpl.class);
 	
 		/***
 		 * Populates the Bulk_upload_activity table with essential statistics for the bulk upload process.
@@ -115,9 +114,9 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 
 		if (!found) {
 			if (showWarning) {
-				String warnMessage = className + " : A match was not found in the database for SourceSystemId: " + sourceId ;
-
+				String warnMessage =" A match was not found in "+className+" with SourceSystemId: " + sourceId ;
 				Error2014 error = new Error2014();
+				error.table_name = className.getSimpleName();
 				error.model_id = null;
 				error.bulk_upload_ui = uploadId;
 				error.project_group_code = projectGroupCode;
@@ -125,9 +124,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				error.type = ErrorType.WARN;
 				error.error_description = warnMessage;
 				error.date_created = LocalDateTime.now();
+				performSave(error);
 				logger.warn(warnMessage);
-
-
 			}
 		}
 		return null;
@@ -190,6 +188,34 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		}else{
 			model.setDateCreated(LocalDateTime.now());
 			insert(model);
+		}
+	}
+
+	protected void performSave(HmisBaseModel model, ExportDomain domain, String tableName, UUID id, String errorMessage, Appender appender) {
+		if(appender != null){
+			logger.addAppender(appender);
+		}
+		
+		try {
+			getCurrentSession().flush();
+		    getCurrentSession().clear();
+			logger.warn(errorMessage);
+			Error2014 error = new Error2014();
+			error.table_name = tableName;
+			error.model_id = id;
+			error.bulk_upload_ui = domain.getUpload().getId();
+			error.project_group_code = domain.getUpload().getProjectGroupCode();
+			error.source_system_id = model.getSourceSystemId();
+			error.type = ErrorType.ERROR;
+			error.error_description = errorMessage;
+			error.date_created = model.getDateCreated();
+			performSave(error);
+		}catch(Exception e){
+			// Want to eat exception here
+		}
+		
+		if(appender != null){
+			logger.removeAppender(appender);
 		}
 	}
 

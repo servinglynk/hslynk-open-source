@@ -1176,7 +1176,7 @@ CREATE TABLE "base".client
   "dob" timestamp,
   "dob_data_quality" "base".dob_data_quality,
   "gender" "base".gender,
-  "other_gender" character(10),
+  "other_gender" text,
   "ethnicity" "base".ethnicity,
   "race"  "base".race,
   "veteran_status" "base".veteran_status,

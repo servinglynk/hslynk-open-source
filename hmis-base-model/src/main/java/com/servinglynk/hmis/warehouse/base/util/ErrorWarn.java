@@ -20,7 +20,11 @@ public abstract class ErrorWarn {
     @Basic( optional = true )
     @Column( name = "project_group_code", nullable = true )
     public String project_group_code;
-
+    
+    @Basic( optional = true )
+    @Column( name = "table_name", nullable = true )
+    public String table_name;
+    
     @Basic( optional = true )
     @Column( name = "source_system_id", nullable = true )
     public String source_system_id;
