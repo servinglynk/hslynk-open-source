@@ -9,13 +9,16 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ExportDaoImpl.class);
 	@Override
+	@Transactional
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) {
 		Export export = domain.getExport();
 		Data data = new Data();

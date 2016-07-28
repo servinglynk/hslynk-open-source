@@ -78,7 +78,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender) {
 		try {
 			if (appender != null) {
@@ -127,18 +127,20 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap,orgModelMap); // Done
 			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
 			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+			parentDaoFactory.getProjectcocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+			
+			Map<String, HmisBaseModel> projectCocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
+			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,projectCocModelMap); // Done
+			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,projectCocModelMap); // Done
 			
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getCommercialsexualexploitationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
-			parentDaoFactory.getProjectcocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-			Map<String, HmisBaseModel> projectCocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
-			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,projectCocModelMap); // Done
-			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,projectCocModelMap); // Done
+			
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getServicesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
