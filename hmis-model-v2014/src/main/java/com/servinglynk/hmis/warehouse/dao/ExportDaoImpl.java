@@ -18,7 +18,6 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ExportDaoImpl.class);
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) {
 		Export export = domain.getExport();
 		Data data = new Data();

@@ -65,7 +65,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	BulkUploadHelper bulkUploadHelper;
 	
 	@Override
-	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender) {
 		try {
 			if (appender != null) {

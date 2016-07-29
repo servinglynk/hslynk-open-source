@@ -55,7 +55,6 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	ParentDaoFactory daoFactory;
 	
 	@Override
-	@Transactional
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	
 		Export export = domain.getExport();
