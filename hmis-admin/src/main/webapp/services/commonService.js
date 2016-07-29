@@ -110,7 +110,7 @@ var Service= ({
              });
     },
     GetFilesLogList: function ($http,success, $scope) {
-        var apiurl = "/json/popup.json?id="+$scope.idForLog;
+        var apiurl = "/clientapi-v2014/rest/bulkupload/activities/"+$scope.idForLog;
         console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
@@ -125,7 +125,7 @@ var Service= ({
         });
     },
     GetErrorMessage: function ($http, success, $scope) {
-        var apiurl = "/json/ErrorMessage.json?id=" + $scope.id;
+        var apiurl = "/clientapi-v2014/rest/bulkupload/errors/"+$scope.id;
         console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
