@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
+import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.CommercialSexualExploitationService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
@@ -456,6 +457,7 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	
 	@Autowired private FunderService funderService;
 	@Autowired private AffiliationService affiliationService;
+	@Autowired private BulkUploadErrorActivityService bulkUploadErrorActivityService;
 
 
 	public FunderService getFunderService() {
@@ -474,6 +476,16 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 		this.affiliationService = affiliationService;
 	}
 	
+	public BulkUploadErrorActivityService getBulkUploadErrorActivityService() {
+		return bulkUploadErrorActivityService;
+	}
+
+	public void setBulkUploadErrorActivityService(
+			BulkUploadErrorActivityService bulkUploadErrorActivityService) {
+		this.bulkUploadErrorActivityService = bulkUploadErrorActivityService;
+	}
+
+
 	@Autowired ProjectGroupService projectGroupService;
 
 

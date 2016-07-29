@@ -55,6 +55,8 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	ExportDao getExportDao();
 	OrganizationDao getOrganizationDao();
 	ClientDao getClientDao();
+	BulkUploadActivityDao getBulkUploadActivityDao();
+	BulkUploadErrorDao getBulkUploadErrorDao();
 
 	InformationReleasesDao getInformationReleasesDao();
 }

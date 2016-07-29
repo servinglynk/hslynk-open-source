@@ -19,6 +19,8 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.BulkUploadActivityDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.BulkUploadErrorDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
@@ -169,7 +171,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		properties.put("hibernate.order_updates", "true");
 		properties.put("hibernate.jdbc.batch_versioned_data", "true");
 	//	properties.put("hibernate.cache.use_second_level_cache", "false");
-	//	properties.put("hibernate.connection.autocommit", "true");
+		properties.put("hibernate.connection.autocommit", "true");
 		
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
@@ -420,4 +422,13 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		return new ChronicHomelessCalcHelper();
 	}
 	
+	@Bean
+	public BulkUploadActivityDaoImpl bulkUploadActivityDao() {
+		return new BulkUploadActivityDaoImpl();
+	}
+	
+	@Bean
+	public BulkUploadErrorDaoImpl bulkUploadErrorDao() {
+		return new BulkUploadErrorDaoImpl();
+	}
 }
