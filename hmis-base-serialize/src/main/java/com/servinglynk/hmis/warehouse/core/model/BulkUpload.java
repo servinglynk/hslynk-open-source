@@ -13,6 +13,7 @@ public class BulkUpload extends ClientModel{
 	private String projectGroupCode;
 	private String status;
 	private String description;
+	private Long id;
 	
 	public String getInputPath() {
 		return inputPath;
@@ -57,4 +58,11 @@ public class BulkUpload extends ClientModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 }
