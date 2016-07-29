@@ -97,7 +97,7 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
                     controller: 'ModalInstanceLogCtrl',
                     resolve: {
                         datajson: function () {
-                            return data;
+                            return data.bulkUploadActivities.bulkUploadActivities;
                         }
                     }
                 });

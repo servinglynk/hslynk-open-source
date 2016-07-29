@@ -15,10 +15,10 @@
       </thead>
         <tbody>
             <tr ng-repeat="data in datajson">
-                <td>{{data["TableName"]}}</td>
-                <td>{{data["Records"]}}</td>
-                <td>{{data["Inserted"]}}</td>
-                <td>{{data["Updated"]}}</td>
+                <td>{{data.tableName}}</td>
+                <td>{{data.recordsProcessed}}</td>
+                <td>{{data.inserted}}</td>
+                <td>{{data.updated}}</td>
             </tr>
             <tr>
                 <td></td>
