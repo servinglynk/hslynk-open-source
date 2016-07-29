@@ -35,7 +35,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		Long i=new Long(0L);
 		Data data=new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Domesticviolence.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
@@ -47,7 +47,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
 					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());;
+					Enrollment enrollmentModel = (Enrollment) getModel(Domesticviolence.class.getSimpleName(),Enrollment.class,domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());;
 					domesticviolenceModel.setEnrollmentid(enrollmentModel);
 					domesticviolenceModel.setExport(exportEntity);
 					performSaveOrUpdate(domesticviolenceModel);
@@ -76,7 +76,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolenceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			domesticViolenceModel = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			domesticViolenceModel = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(Domesticviolence.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domesticViolenceModel == null) {
 			domesticViolenceModel = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();

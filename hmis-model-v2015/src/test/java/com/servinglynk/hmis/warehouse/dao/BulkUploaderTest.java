@@ -208,7 +208,7 @@ public class BulkUploaderTest {
 	@Test
 	public void testPersistIntoStaging() throws Exception
 	{
-				//URL path = BulkUploaderTest.class.getResource("2015.xml");
+			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload upload = new BulkUpload();
 				FileAppender appender = new FileAppender();
 				appender.setName("" + upload.getId());
@@ -217,8 +217,8 @@ public class BulkUploaderTest {
 				appender.setAppend(true);
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
-				//bullkUpload.setInputpath(upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml"););
-				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
+				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
+				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 				//URL path = BulkUploaderTest.class.getResource("2015.xml");
 				//upload.setInputpath(path.getPath());
 				upload.setProjectGroupCode("PG0001");

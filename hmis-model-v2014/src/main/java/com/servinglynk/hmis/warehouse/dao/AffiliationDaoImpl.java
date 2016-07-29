@@ -35,7 +35,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			List<Affiliation> affiliations = export.getAffiliation();
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, getProjectGroupCode(domain));
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 			if(affiliations!=null && !affiliations.isEmpty())
 			{
 				for(Affiliation affiliation :affiliations )
@@ -43,7 +43,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliationModel = null;
 					try {
 						affiliationModel = getModelObject(domain, affiliation,data,modelMap);
-						Project project = (Project) getModel(Project.class, affiliation.getProjectID(), affiliationModel.getProjectGroupCode(),true,relatedModelMap, domain.getUpload().getId());
+						Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),Project.class, affiliation.getProjectID(), affiliationModel.getProjectGroupCode(),true,relatedModelMap, domain.getUpload().getId());
 						affiliationModel.setProjectid(project);
 						affiliationModel.setExport(exportEntity);
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
@@ -72,7 +72,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliationModel = null;
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
-				affiliationModel = (com.servinglynk.hmis.warehouse.model.v2014.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+				affiliationModel = (com.servinglynk.hmis.warehouse.model.v2014.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 			
 			if(affiliationModel == null) {
 				affiliationModel = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();

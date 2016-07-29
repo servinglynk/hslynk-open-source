@@ -41,7 +41,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		List<PATHStatus> pathStatusList = domain.getExport().getPATHStatus();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Pathstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(pathStatusList !=null && !pathStatusList.isEmpty())
 		{
 			for(PATHStatus pathStatus : pathStatusList)
@@ -53,7 +53,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
 					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Pathstatus.class.getSimpleName(),Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					pathstatusModel.setEnrollmentid(enrollmentModel);
 					pathstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(pathstatusModel);
@@ -80,7 +80,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Pathstatus PathstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			PathstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Pathstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			PathstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Pathstatus) getModel(Pathstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(PathstatusModel == null) {
 			PathstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Pathstatus();

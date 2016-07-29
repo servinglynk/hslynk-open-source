@@ -60,7 +60,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		{
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, getProjectGroupCode(domain));
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Healthinsurance.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 			if(CollectionUtils.isNotEmpty(healthInsurances)) {
 				for(HealthInsurance healthInsurance : healthInsurances)
 				{
@@ -86,7 +86,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
 						healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
 						healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
-						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthInsurance.getHealthInsuranceID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						Enrollment enrollmentModel = (Enrollment) getModel(Healthinsurance.class.getSimpleName(),Enrollment.class,healthInsurance.getHealthInsuranceID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						healthinsuranceModel.setEnrollmentid(enrollmentModel);
 						healthinsuranceModel.setExport(exportEntity);
 						performSaveOrUpdate(healthinsuranceModel);
@@ -114,7 +114,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance healthinsuranceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) getModel(Healthinsurance.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(healthinsuranceModel == null) {
 			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();

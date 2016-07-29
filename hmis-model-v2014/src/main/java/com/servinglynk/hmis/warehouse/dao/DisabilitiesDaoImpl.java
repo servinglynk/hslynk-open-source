@@ -50,7 +50,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
 		{
 			for(Disabilities disabilities : disabilitiesList)
@@ -66,7 +66,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					if(enrollmentModel != null ){
 						 boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
 						 enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
@@ -77,7 +77,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					disabilitiesModel.setExport(exportEntity);
 					performSaveOrUpdate(disabilitiesModel);
 				}catch(Exception e) {
-					String errorMessage = "Exception in:"+disabilities.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
+					String errorMessage = "Exception in Disabilities :"+disabilities.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
 					if (disabilitiesModel != null) {
 						Error2014 error = new Error2014();
 						error.model_id = disabilitiesModel.getId();
@@ -100,7 +100,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(disabilitiesModel == null) {
 			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();

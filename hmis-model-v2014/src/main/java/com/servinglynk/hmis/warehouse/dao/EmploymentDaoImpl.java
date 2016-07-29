@@ -43,7 +43,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Employment.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(employmentList!=null && !employmentList.isEmpty())
 		{
 			for(Employment employment : employmentList)
@@ -57,7 +57,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
 					employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));
 					employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, employment.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),Enrollment.class, employment.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					employmentModel.setEnrollmentid(enrollmentModel);
 					employmentModel.setExport(exportEntity);
 					performSaveOrUpdate(employmentModel);
@@ -84,7 +84,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Employment employmentModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			employmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			employmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(employmentModel == null) {
 			employmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Employment();

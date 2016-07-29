@@ -73,7 +73,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			sourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(com.servinglynk.hmis.warehouse.model.v2014.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			sourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(Source.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(sourceModel == null) {
 			sourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Source();

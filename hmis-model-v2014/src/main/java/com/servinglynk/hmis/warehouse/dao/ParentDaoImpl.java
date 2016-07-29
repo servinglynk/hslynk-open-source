@@ -96,7 +96,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param projectGroupCode
 	 * @return
 	 */
-	protected HmisBaseModel getModel(Class className,String sourceId,String projectGroupCode,boolean showWarning, Map<String, HmisBaseModel> modelMap, Long uploadId) {
+	protected HmisBaseModel getModel(String tableName,Class className,String sourceId,String projectGroupCode,boolean showWarning, Map<String, HmisBaseModel> modelMap, Long uploadId) {
 		if (StringUtils.isBlank(sourceId)) {
 			return null;
 		}
@@ -114,9 +114,9 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 
 		if (!found) {
 			if (showWarning) {
-				String warnMessage =" A match was not found in "+className+" with SourceSystemId: " + sourceId ;
+				String warnMessage =" A match was not found in "+className.getSimpleName()+" with SourceSystemId: " + sourceId ;
 				Error2014 error = new Error2014();
-				error.table_name = className.getSimpleName();
+				error.table_name = tableName;
 				error.model_id = null;
 				error.bulk_upload_ui = uploadId;
 				error.project_group_code = projectGroupCode;

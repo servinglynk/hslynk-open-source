@@ -49,7 +49,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, getProjectGroupCode(domain));
 		Long i=new Long(0L);
 		Data data =new Data();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(inventories != null && !inventories.isEmpty())
 		{
 			for(Inventory inventory : inventories)
@@ -74,7 +74,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 						inventoryModel.setYouthAgeGroup(BedinventoryYouthAgeGroupEnum.lookupEnum(BasicDataGenerator.getStringValue(bedInventory.getYouthAgeGroup())));
 						inventoryModel.setYouthBedInventory(new Long(bedInventory.getYouthBedInventory()));
 					}
-					Projectcoc projectCocModel = (Projectcoc) getModel(Projectcoc.class,inventory.getProjectCoCID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Projectcoc projectCocModel = (Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),Projectcoc.class,inventory.getProjectCoCID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					inventoryModel.setProjectCoc(projectCocModel);
 					inventoryModel.setExport(exportEntity);
 					performSaveOrUpdate(inventoryModel);
@@ -102,7 +102,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Inventory inventoryModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2014.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2014.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(inventoryModel == null) {
 			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();

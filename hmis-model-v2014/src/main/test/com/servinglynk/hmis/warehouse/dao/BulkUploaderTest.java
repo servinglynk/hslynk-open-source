@@ -34,7 +34,7 @@ public class BulkUploaderTest {
 	ParentDaoFactory factory;
 	
 	
-	@Transactional
+	@Test
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
@@ -102,7 +102,7 @@ public class BulkUploaderTest {
 	{
 		BulkUpload upload = new BulkUpload();
 		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
-		upload.setId(5L);
+		upload.setId(3L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + upload.getId());
 		appender.setFile("logs/" + upload.getId() + ".log");

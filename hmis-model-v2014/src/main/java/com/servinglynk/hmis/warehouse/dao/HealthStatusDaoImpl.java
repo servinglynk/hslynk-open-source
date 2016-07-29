@@ -40,7 +40,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 	
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<HealthStatus> healthStatuses = domain.getExport().getHealthStatus();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(healthStatuses !=null &&  !healthStatuses.isEmpty())
 		{
 			Data data =new Data();
@@ -56,7 +56,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 					healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
 					healthStatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
 					healthStatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,healthStatus.getHealthStatusID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(),Enrollment.class,healthStatus.getHealthStatusID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					healthStatusModel.setEnrollmentid(enrollmentModel);
 					healthStatusModel.setExport(exportEntity);
 					performSaveOrUpdate(healthStatusModel);
@@ -84,7 +84,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.HealthStatus healthStatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			healthStatusModel = (com.servinglynk.hmis.warehouse.model.v2014.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			healthStatusModel = (com.servinglynk.hmis.warehouse.model.v2014.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(healthStatusModel == null) {
 			healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2014.HealthStatus();

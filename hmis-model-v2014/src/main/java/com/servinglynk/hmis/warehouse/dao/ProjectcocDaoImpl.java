@@ -48,14 +48,14 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		List<ProjectCoC> projectCoCs = domain.getExport().getProjectCoC();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Projectcoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
 			Projectcoc projectcocModel = null;
 			try {
 				projectcocModel = getModelObject(domain, projectCoc,data,modelMap);
 				projectcocModel.setCoccode(projectCoc.getCoCCode());
-				Project projectModel = (Project) getModel(Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap, domain.getUpload().getId());
+				Project projectModel = (Project) getModel(Projectcoc.class.getSimpleName(),Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap, domain.getUpload().getId());
 				projectcocModel.setProjectid(projectModel);
 				projectcocModel.setExport(exportEntity);
 				performSaveOrUpdate(projectcocModel);
@@ -82,7 +82,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Projectcoc ProjectcocModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(Projectcoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(ProjectcocModel == null) {
 			ProjectcocModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();

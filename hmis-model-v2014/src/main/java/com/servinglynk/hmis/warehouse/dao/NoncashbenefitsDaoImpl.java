@@ -50,7 +50,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Noncashbenefits.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)
@@ -70,7 +70,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 					noncashbenefitsModel.setTanfchildcare(NoncashbenefitsTanfchildcareEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFChildCare())));
 					noncashbenefitsModel.setTanftransportation(NoncashbenefitsTanftransportationEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFTransportation())));
 					noncashbenefitsModel.setWic(NoncashbenefitsWicEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getWIC())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, nonCashBenefits.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Noncashbenefits.class.getSimpleName(),Enrollment.class, nonCashBenefits.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					noncashbenefitsModel.setEnrollmentid(enrollmentModel);
 					noncashbenefitsModel.setExport(exportEntity);
 					performSaveOrUpdate(noncashbenefitsModel);
@@ -97,7 +97,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits NoncashbenefitsModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			NoncashbenefitsModel = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			NoncashbenefitsModel = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(Noncashbenefits.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(NoncashbenefitsModel == null) {
 			NoncashbenefitsModel = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();

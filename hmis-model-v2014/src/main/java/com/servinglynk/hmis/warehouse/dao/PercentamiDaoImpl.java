@@ -7,19 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PercentAMI;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Percentami;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -40,7 +37,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		List<PercentAMI> percentAMIs = domain.getExport().getPercentAMI();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Percentami.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(percentAMIs !=null && !percentAMIs.isEmpty())
 		{
 			for(PercentAMI percentAMI :percentAMIs)
@@ -51,7 +48,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 					percentamoModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
 					percentamoModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
 					percentamoModel.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Percentami.class.getSimpleName(),Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					percentamoModel.setEnrollmentid(enrollmentModel);
 					percentamoModel.setExport(exportEntity);
 					performSaveOrUpdate(percentamoModel);
@@ -78,7 +75,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Percentami percentamiModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(Percentami.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(percentamiModel == null) {
 			percentamiModel = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();

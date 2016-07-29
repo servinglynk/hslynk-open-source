@@ -15,6 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -41,11 +42,11 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	@Transactional
+	
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Exit.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, getProjectGroupCode(domain));
 		if(exits !=null && exits.size() > 0)
@@ -60,7 +61,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					exitModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
 					exitModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 					exitModel.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Exit.class.getSimpleName(),Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitModel.setEnrollmentid(enrollmentModel);
 					exitModel.setExport(exportEntity);
 					performSaveOrUpdate(exitModel);
@@ -87,7 +88,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, Exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) getModel(Exit.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exit.class, Exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(exitModel == null) {
 			exitModel = new com.servinglynk.hmis.warehouse.model.v2014.Exit();

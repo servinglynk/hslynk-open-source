@@ -42,7 +42,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Housingassessmentdisposition.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty()) 
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
@@ -54,7 +54,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 					housingassessmentdispositionModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
 					housingassessmentdispositionModel.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
 					housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
-					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Exit exit = (Exit) getModel(Housingassessmentdisposition.class.getSimpleName(),Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					housingassessmentdispositionModel.setExitid(exit);
 					housingassessmentdispositionModel.setExport(exportEntity);
 					performSaveOrUpdate(housingassessmentdispositionModel);
@@ -81,7 +81,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition housingAssessmentDispositionModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			housingAssessmentDispositionModel = (com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, HousingAssessmentDisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			housingAssessmentDispositionModel = (com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition) getModel(Housingassessmentdisposition.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, HousingAssessmentDisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(housingAssessmentDispositionModel == null) {
 			housingAssessmentDispositionModel = new com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition();

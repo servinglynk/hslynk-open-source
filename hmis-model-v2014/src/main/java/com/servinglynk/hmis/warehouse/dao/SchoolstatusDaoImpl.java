@@ -43,7 +43,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		List<SchoolStatus> schoolStatusList = domain.getExport().getSchoolStatus();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Schoolstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(schoolStatusList!=null && !schoolStatusList.isEmpty())
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
@@ -58,7 +58,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 							SchoolStatusEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(schoolStatus.getSchoolStatus())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Schoolstatus.class.getSimpleName(),Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					schoolstatusModel.setEnrollmentid(enrollmentModel);
 					schoolstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(schoolstatusModel);
@@ -86,7 +86,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus SchoolstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SchoolstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			SchoolstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(Schoolstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(SchoolstatusModel == null) {
 			SchoolstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();

@@ -43,7 +43,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		List<ProjectCompletionStatus> projectCompletionStatusList = domain.getExport().getProjectCompletionStatus();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Projectcompletionstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(projectCompletionStatusList !=null && !projectCompletionStatusList.isEmpty()) 
 		{
 			for(ProjectCompletionStatus projectCompletionStatus : projectCompletionStatusList)
@@ -56,7 +56,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 					projectcompletionstatusModel.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
 					projectcompletionstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
 					projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
-					Exit exit = (Exit) getModel(Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Exit exit = (Exit) getModel(Projectcompletionstatus.class.getSimpleName(),Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					projectcompletionstatusModel.setExitid(exit);
 					projectcompletionstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(projectcompletionstatusModel);
@@ -83,7 +83,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectcompletionstatusModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			projectcompletionstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) getModel(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectcompletionstatus.getProjectCompletionStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			projectcompletionstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) getModel(Projectcompletionstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectcompletionstatus.getProjectCompletionStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(projectcompletionstatusModel == null) {
 			projectcompletionstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();

@@ -68,7 +68,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		List<YouthCriticalIssues> youthCriticalIssuesList = domain.getExport().getYouthCriticalIssues();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Youthcriticalissues.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(youthCriticalIssuesList !=null && !youthCriticalIssuesList.isEmpty())
 		{
 			for(YouthCriticalIssues youthCriticalIssues : youthCriticalIssuesList)
@@ -104,7 +104,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					youthcriticalissuesModel.setUnemploymentfam(YouthcriticalissuesUnemploymentfamEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentFam())));
 					youthcriticalissuesModel.setUnemploymentyouth(YouthcriticalissuesUnemploymentyouthEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getUnemploymentYouth())));
 					youthcriticalissuesModel.setExport(exportEntity);
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,youthCriticalIssues.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Youthcriticalissues.class.getSimpleName(),Enrollment.class,youthCriticalIssues.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
 					performSaveOrUpdate(youthcriticalissuesModel);
 				}catch(Exception e) {
@@ -131,7 +131,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthcriticalissuesModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			youthcriticalissuesModel = (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) getModel(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthcriticalissues.getYouthCriticalIssuesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			youthcriticalissuesModel = (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) getModel(Youthcriticalissues.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthcriticalissues.getYouthCriticalIssuesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(youthcriticalissuesModel == null) {
 			youthcriticalissuesModel = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();

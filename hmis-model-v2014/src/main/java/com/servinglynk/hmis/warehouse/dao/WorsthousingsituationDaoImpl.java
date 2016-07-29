@@ -42,7 +42,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		List<WorstHousingSituation> worstHousingSituationList = domain.getExport().getWorstHousingSituation();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Worsthousingsituation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(worstHousingSituationList !=null && !worstHousingSituationList.isEmpty())
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
@@ -54,7 +54,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 					worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
 					worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
 					worsthousingsituationModel.setExport(exportEntity);
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Worsthousingsituation.class.getSimpleName(),Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					worsthousingsituationModel.setEnrollmentid(enrollmentModel);
 					performSaveOrUpdate(worsthousingsituationModel);
 				}catch(Exception e) {
@@ -82,7 +82,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation worsthousingsituationModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			worsthousingsituationModel = (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) getModel(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituation.getWorstHousingSituationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			worsthousingsituationModel = (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) getModel(Worsthousingsituation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituation.getWorstHousingSituationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(worsthousingsituationModel == null) {
 			worsthousingsituationModel = new com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation();

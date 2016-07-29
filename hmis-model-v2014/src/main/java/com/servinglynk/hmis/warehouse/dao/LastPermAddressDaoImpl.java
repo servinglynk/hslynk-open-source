@@ -43,7 +43,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		List<LastPermanentAddress> lastPermanentAddresses = domain.getExport().getLastPermanentAddress();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(LastPermAddress.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(lastPermanentAddresses !=null && !lastPermanentAddresses.isEmpty())
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)
@@ -58,7 +58,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 					lastPermAddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
 					lastPermAddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());
 					lastPermAddressModel.setZip(String.valueOf(lastPermanentAddress.getLastPermanentZIP()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, lastPermanentAddress.getLastPermanentAddressID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(LastPermAddress.class.getSimpleName(),Enrollment.class, lastPermanentAddress.getLastPermanentAddressID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					lastPermAddressModel.setEnrollmentid(enrollmentModel);
 					lastPermAddressModel.setExport(exportEntity);
 					performSaveOrUpdate(lastPermAddressModel);
@@ -86,7 +86,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermAddressModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			lastPermAddressModel = (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) getModel(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermAddress.getLastPermanentAddressID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			lastPermAddressModel = (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) getModel(LastPermAddress.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermAddress.getLastPermanentAddressID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(lastPermAddressModel == null) {
 			lastPermAddressModel = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();

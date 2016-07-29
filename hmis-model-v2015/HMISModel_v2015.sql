@@ -2840,7 +2840,7 @@ WITH (
   OIDS=FALSE
 );
 
-  DROP SEQUENCE v2015.error_sequence;
+-- DROP SEQUENCE v2015.error_sequence;
 
 CREATE SEQUENCE v2015.error_sequence
   INCREMENT 1

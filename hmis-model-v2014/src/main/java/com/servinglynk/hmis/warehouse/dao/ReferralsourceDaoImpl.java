@@ -43,7 +43,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		List<ReferralSource> referralSources = domain.getExport().getReferralSource();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Referralsource.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(referralSources !=null && !referralSources.isEmpty())
 		{
 			for(ReferralSource referralSource : referralSources) {
@@ -54,7 +54,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 					referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
 					referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
 					referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Referralsource.class.getSimpleName(),Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					referralsourceModel.setEnrollmentid(enrollmentModel);
 					referralsourceModel.setExport(exportEntity);
 					performSaveOrUpdate(referralsourceModel);
@@ -81,7 +81,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsourceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			referralsourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			referralsourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(Referralsource.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(referralsourceModel == null) {
 			referralsourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
