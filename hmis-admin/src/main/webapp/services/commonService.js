@@ -125,7 +125,7 @@ var Service= ({
         });
     },
     GetErrorMessage: function ($http, success, $scope) {
-        var apiurl = "/hmis-clientapi-v2014/rest/bulkupload/errors/"+$scope.id;
+        var apiurl = "/hmis-client-api/v2014/rest/bulkupload/errors/"+$scope.id;
         console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
