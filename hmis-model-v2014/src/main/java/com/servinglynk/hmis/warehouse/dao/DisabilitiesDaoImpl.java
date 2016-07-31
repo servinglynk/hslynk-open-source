@@ -40,12 +40,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		DisabilitiesDao {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DisabilitiesDaoImpl.class);
-	@Autowired
-	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception 
 	{
-		
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		Data data =new Data();
@@ -55,8 +52,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = null;
+				com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = getModelObject(domain, disabilities, data, modelMap);
 				try {
+					disabilitiesModel = getModelObject(domain, disabilities, data, modelMap);
 					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
 					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
 					disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
@@ -67,13 +65,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					if(enrollmentModel != null ){
-						 boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollmentModel);
-						 enrollmentModel.setChronicHomeless(enrollmentChronicHomeless);
-						 enrollmentModel.setInserted(false);
-						 performSaveOrUpdate(enrollmentModel);
-						 disabilitiesModel.setEnrollmentid(enrollmentModel);
-					}
+					disabilitiesModel.setEnrollmentid(enrollmentModel);
 					disabilitiesModel.setExport(exportEntity);
 					performSaveOrUpdate(disabilitiesModel);
 				}catch(Exception e) {

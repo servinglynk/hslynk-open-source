@@ -46,7 +46,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = null;
+				com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = getModelObject(domain, disabilities, data, modelMap);
 				try {
 					disabilitiesModel = getModelObject(domain, disabilities,data,modelMap);
 					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
