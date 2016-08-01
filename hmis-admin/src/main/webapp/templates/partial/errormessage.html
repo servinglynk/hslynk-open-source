@@ -1,4 +1,4 @@
-﻿
+
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="row">
@@ -37,10 +37,10 @@
 									  </thead>
 									  <tbody>
 										<tr ng-repeat="data in filtered = (listErrorMessage | filter:search | orderBy : predicate :reverse) | startFrom:(currentPageErrorMessage-1)*entryLimitErrorMessage | limitTo:entryLimitErrorMessage">
-										  <td>{{data.TableName}}</td>
-										  <td>{{data.status}}</td>
-										  <td>{{data.sourceID }}</td>
-										   <td>{{data.description }}</td>
+										  <td>{{data.table_name}}</td>
+										  <td>{{data.type}}</td>
+										  <td>{{data.source_system_id }}</td>
+										   <td>{{data.error_description }}</td>
 										</tr>
 									  </tbody>
 									</table>
