@@ -110,7 +110,7 @@ var Service= ({
              });
     },
     GetFilesLogList: function ($http,success, $scope) {
-        var apiurl = "http://52.38.189.237:8080/hmis-clientapi-v2014/rest/bulkupload/activities/"+$scope.idForLog;
+        var apiurl = "/hmis-clientapi-v2014/rest/bulkupload/activities/"+$scope.idForLog;
         console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
@@ -125,7 +125,7 @@ var Service= ({
         });
     },
     GetErrorMessage: function ($http, success, $scope) {
-        var apiurl = "http://52.38.189.237:8080/hmis-clientapi-v2014/rest/bulkupload/errors/"+$scope.id;
+        var apiurl = "/hmis-clientapi-v2014/rest/bulkupload/errors/"+$scope.id;
         console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
