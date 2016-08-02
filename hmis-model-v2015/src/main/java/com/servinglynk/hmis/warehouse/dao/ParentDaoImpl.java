@@ -50,7 +50,9 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				activity.setInserted(i);
 				activity.setUpdated(u);
 				activity.setDescription("Saving "+className +" to staging" );
-				insertOrUpdate(activity); 		
+				insertOrUpdate(activity); 	
+				getCurrentSession().flush();
+		        getCurrentSession().clear();
 			}catch(Exception e){
 				logger.warn(e.getCause());
 				// Want to eat exception here

@@ -57,6 +57,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			activity.setUpdated(u);
 			activity.setDescription("Saving "+className +" to staging" );
 			insertOrUpdate(activity); 		
+			getCurrentSession().flush();
+	        getCurrentSession().clear();
 		}
 		/***
 		 * Gets the project group code for a Bulk Upload
