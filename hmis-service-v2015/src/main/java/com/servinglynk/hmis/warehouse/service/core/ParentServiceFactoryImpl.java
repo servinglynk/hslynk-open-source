@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
+import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.ContactService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
@@ -73,6 +74,7 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public EducationService educationService;
 	@Autowired public ExithousingassessmentService exithousingassessmentService;
 	@Autowired public SearchService searchService;
+	@Autowired public BulkUploadErrorActivityService bulkUploadErrorActivityService;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
 		return rhybcpstatusService;
@@ -366,5 +368,14 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
+	}
+
+	public BulkUploadErrorActivityService getBulkUploadErrorActivityService() {
+		return bulkUploadErrorActivityService;
+	}
+
+	public void setBulkUploadErrorActivityService(
+			BulkUploadErrorActivityService bulkUploadErrorActivityService) {
+		this.bulkUploadErrorActivityService = bulkUploadErrorActivityService;
 	}
 }
