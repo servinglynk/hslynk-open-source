@@ -88,12 +88,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if (appender != null) {
 				logger.addAppender(appender);
 			}
-			Session session = getSessionFactory().openSession();
-			Transaction transacton = session.beginTransaction();
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			session.saveOrUpdate(upload);
-			transacton.commit();
-			session.close();
+			insertOrUpdate(upload);
+			getCurrentSession().getTransaction().commit();
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
