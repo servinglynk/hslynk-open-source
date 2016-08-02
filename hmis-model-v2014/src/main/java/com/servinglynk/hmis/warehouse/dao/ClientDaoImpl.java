@@ -156,21 +156,21 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 					}
 				}
 			
-				Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Client>> constraintViolations = validator.validate(clientModel);
-				if(constraintViolations.isEmpty()){
+				//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Client>> constraintViolations = validator.validate(clientModel);
+				//if(constraintViolations.isEmpty()){
 					performSaveOrUpdate(clientModel);
 					insertOrUpdate(target);	
-				}else{
-					Error2014 error = new Error2014();
-					error.model_id = clientModel.getId();
-					error.bulk_upload_ui = domain.getUpload().getId();
-					error.project_group_code = domain.getUpload().getProjectGroupCode();
-					error.source_system_id = clientModel.getSourceSystemId();
-					error.type = ErrorType.ERROR;
-					error.error_description = constraintViolations.toString();
-					error.date_created = clientModel.getDateCreated();
-					performSave(error);
-				}
+//				}else{
+//					Error2014 error = new Error2014();
+//					error.model_id = clientModel.getId();
+//					error.bulk_upload_ui = domain.getUpload().getId();
+//					error.project_group_code = domain.getUpload().getProjectGroupCode();
+//					error.source_system_id = clientModel.getSourceSystemId();
+//					error.type = ErrorType.ERROR;
+//					error.error_description = constraintViolations.toString();
+//					error.date_created = clientModel.getDateCreated();
+//					performSave(error);
+//				}
 				} catch(Exception ex ){
 					String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
 					if(clientModel != null){
