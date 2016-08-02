@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -47,7 +49,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
 				Lastgradecompleted lastGradeCompletedModel = null;
 				try {
-					lastGradeCompletedModel = new Lastgradecompleted();
+					lastGradeCompletedModel =  getModelObject(domain, lastGradeCompleted,data,modelMap);
 					lastGradeCompletedModel
 					.setLastgradecompleted(LastgradecompletedLastgradecompletedEnum
 							.lookupEnum(BasicDataGenerator

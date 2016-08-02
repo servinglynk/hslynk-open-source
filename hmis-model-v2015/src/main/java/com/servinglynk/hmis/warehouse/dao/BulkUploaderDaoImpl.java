@@ -1,13 +1,17 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Appender;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
@@ -31,6 +35,7 @@ import com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhy;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.Exit;
 import com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
@@ -71,10 +76,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				logger.addAppender(appender);
 			}
 			logger.debug("Bulk Uploader Process Begins..........");
-			//upload.setId(UUID.randomUUID());
+			Session session = getSessionFactory().openSession();
+			Transaction transacton = session.beginTransaction();
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			insertOrUpdate(upload);
-			getCurrentSession().flush();
+			session.saveOrUpdate(upload);
+			transacton.commit();
+			session.close();
 
 			long startNanos = System.nanoTime();
 			Sources sources = null;
@@ -169,11 +176,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
-			try {
-				insertOrUpdate(upload);
-			} catch (Exception ex) {
-				logger.error(ex);
-			}
+			saveError(upload);
 		}
 		finally {
 			if (appender != null) {
@@ -181,6 +184,21 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 		}
 		return upload;
+	}
+	public void saveError(BulkUpload upload) {
+		try {
+			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			Error2015 error = new Error2015();
+			error.setBulk_upload_ui(upload.getId());
+			error.setDate_created(LocalDateTime.now());
+			error.setError_description(upload.getDescription());
+			error.setProject_group_code(upload.getProjectGroupCode());
+			error.setTable_name("BulkUpload");
+			error.setType(ErrorType.ERROR);
+			performSave(error);
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
 	}
 	
 //	public HmisUser getHmisUser(String id) {

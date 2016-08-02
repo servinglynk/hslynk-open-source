@@ -1,15 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao.helper;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
-import org.apache.hadoop.hbase.thrift2.generated.THBaseService.Iface;
 import org.springframework.stereotype.Component;
 
-import com.servinglynk.hmis.warehouse.dao.ParentDaoImpl;
-import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
@@ -19,6 +13,7 @@ import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 
 @Component
 public class ChronicHomelessCalcHelper{
+	
 	/*
 	 * [Age @ Entry]>=18 AND ( [DisablingCondition] = 1 or [expected to be of
 	 * long–continued and indefinite duration and substantially impairs ability

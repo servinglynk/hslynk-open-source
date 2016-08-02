@@ -3,10 +3,19 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.AssertTrue;
+
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
+
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
 import org.junit.Test;
@@ -62,7 +71,7 @@ public class BulkUploaderTest {
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
 		//bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_47.xml");
 		bullkUpload.setId(3L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
@@ -101,7 +110,7 @@ public class BulkUploaderTest {
 	public void testAnotherxmlBigFile() throws Exception
 	{
 		BulkUpload upload = new BulkUpload();
-		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
+		upload.setInputpath("C:\\Users\\sdolia\\Downloads\\HUD_4_0_1_4012_64.xml");
 		upload.setId(3L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + upload.getId());
@@ -172,6 +181,16 @@ public class BulkUploaderTest {
 
 		factory.getBulkUploaderWorkerDao().insert(error2014_2);
 
+	}
+	
+	@Test
+	public void testValidation() {
+		Client clientModel = new Client();
+		clientModel.setSsn("123456789");
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = (Validator) factory.getValidator();
+		Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Client>> constraintViolations = validator.validate(clientModel);
+		System.out.println(constraintViolations.toString());
 	}
 
 }

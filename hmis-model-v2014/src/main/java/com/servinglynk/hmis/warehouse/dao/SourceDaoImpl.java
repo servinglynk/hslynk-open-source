@@ -6,18 +6,24 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Sandeep
@@ -27,6 +33,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(SourceDaoImpl.class);
+	
 	/* (non-Javadoc)
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
@@ -49,7 +56,14 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel.setSourcecontactlast(source.getSourceContactLast());
 			sourceModel.setSourceid(String.valueOf(source.getSourceID()));
 			sourceModel.setSourcename(source.getSourceName());
-			performSaveOrUpdate(sourceModel);
+			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+			Validator validator = (Validator) factory.getValidator();
+			//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validateProperty(sourceModel, "manufacturer");
+			Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validate(sourceModel);
+			if(constraintViolations.isEmpty()){
+				performSaveOrUpdate(sourceModel);	
+			}
+			
 		} catch (Exception ex) {
 			String errorMessage = "Exception because of the source::"+source.getSourceID() +" Exception ::"+ex.getMessage();
 			if(sourceModel != null){

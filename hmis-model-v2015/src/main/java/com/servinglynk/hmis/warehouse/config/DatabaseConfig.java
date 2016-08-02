@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.BulkUploadActivityDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.BulkUploadErrorDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
@@ -330,5 +332,15 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public ClientDaoImpl clientDao(){
 		return new ClientDaoImpl();
+	}
+	
+	@Bean
+	public BulkUploadActivityDaoImpl bulkUploadActivityDao() {
+		return new BulkUploadActivityDaoImpl();
+	}
+	
+	@Bean
+	public BulkUploadErrorDaoImpl bulkUploadErrorDao() {
+		return new BulkUploadErrorDaoImpl();
 	}
 }

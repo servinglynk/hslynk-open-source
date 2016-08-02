@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
@@ -111,6 +112,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	 */
 	@Basic( optional = true )
 	@Column( name = "coc_code", length = 20  )
+	@Size(max=20)
 	public String getCocCode() {
 		return this.cocCode;
 

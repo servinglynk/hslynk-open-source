@@ -87,8 +87,9 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
     		        $scope.currentPageDELETED = pageNo;
     		    };
     
-    		    $scope.openlog = function (id) {
+    		    $scope.openlog = function (id,year) {
     		        $scope.idForLog = id
+    		        $scope.year = year;
     		Service.GetFilesLogList($http,
             //success
             function (data) {

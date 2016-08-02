@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.BulkUploadErrorActivityServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ContactServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
@@ -229,4 +230,8 @@ public class ServiceConfig  {
 	public SearchServiceImpl searchService(){
 		return new SearchServiceImpl();
 	}
+	 
+	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
+		 return new BulkUploadErrorActivityServiceImpl();
+	 }
 }

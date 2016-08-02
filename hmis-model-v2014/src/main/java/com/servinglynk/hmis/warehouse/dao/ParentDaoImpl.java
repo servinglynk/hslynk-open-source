@@ -4,11 +4,14 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Appender;
@@ -16,17 +19,22 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	private static final Logger logger = Logger.getLogger(ParentDaoImpl.class);
-	
+	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	private Validator validator = (Validator) factory.getValidator();
 		/***
 		 * Populates the Bulk_upload_activity table with essential statistics for the bulk upload process.
 		 * @param i
@@ -85,8 +93,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
 			// Lets write a logic to update if a recored with that source system Id already exists.
 		  if(i % batchSize() == 0 && i > 0) {
-              getCurrentSession().flush();
-              getCurrentSession().clear();
+			    getCurrentSession().flush();
+	            getCurrentSession().clear();
           }
 	    }
 	/***
@@ -159,6 +167,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param projectGroupCode
 	 * @return
 	 */
+	@Transactional
 	protected Map<String,HmisBaseModel> getModelMap(Class className ,String projectGroupCode) {
 		Map<String,HmisBaseModel> resultsMap = new HashMap<String, HmisBaseModel>();
 		if(projectGroupCode !=null) {
@@ -182,6 +191,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param model
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model) {
+//		Set<ConstraintViolation<HmisBaseModel>> constraintViolations = validator.validate(model);
+//		if(constraintViolations.isEmpty()) {
+//			
+//		}
 		model.setDateUpdated(LocalDateTime.now());
 		if(!model.isInserted()) {
 			getCurrentSession().update(model);
@@ -228,6 +241,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @return
 	 */
 	 protected int batchSize() {
-	        return Integer.valueOf(100);
+	        return Integer.valueOf(500);
 	    }
 }

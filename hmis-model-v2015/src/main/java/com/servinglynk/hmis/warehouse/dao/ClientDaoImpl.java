@@ -11,10 +11,14 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -23,6 +27,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -35,6 +40,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -61,6 +67,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		Export export = domain.getExport();
 		com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) getModel(com.servinglynk.hmis.warehouse.model.v2015.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Data data = new Data();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = (Validator) factory.getValidator();
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		Boolean skipClientIdentifier = projectGroupEntity != null && !projectGroupEntity.isSkipuseridentifers();
@@ -122,17 +130,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setExport(exportEntity);
 					//Lets make a microservice all to the dedup micro service
 					//TODO: Sandeep need to get the project group from the base schema.
-					// Need to change S.O.P to logger.
+					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 					if (!skipClientIdentifier) {
-						System.out.println("Calling Dedup Service for " + clientModel.getFirstName());
-						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
+						logger.info("Calling Dedup Service for " + clientModel.getFirstName());
 						BeanUtils.copyProperties(client, target, new String[]{"enrollments", "veteranInfoes"});
-						if (clientModel.isInserted()) {
-							target.setDateCreated(LocalDateTime.now());
-							insert(target);
-						}
 						String dedupedId = dedupHelper.getDedupedClient(target);
-						System.out.println("Dedup Id is ##### " + dedupedId);
+						logger.info("Dedup Id is ##### " + dedupedId);
 						if (dedupedId != null) {
 							clientModel.setDedupClientId(UUID.fromString(dedupedId));
 						}
@@ -163,11 +166,22 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						 */
 						if (dedupedClient != null) {
 							clientModel.setId(dedupedClient.getId());
-						} else {
-							performSaveOrUpdate(clientModel);
 						}
-					} else {
+					}
+					Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2015.Client>> constraintViolations = validator.validate(clientModel);
+					if(constraintViolations.isEmpty()){
 						performSaveOrUpdate(clientModel);
+						insertOrUpdate(target);	
+					}else{
+						Error2015 error = new Error2015();
+						error.model_id = clientModel.getId();
+						error.bulk_upload_ui = domain.getUpload().getId();
+						error.project_group_code = domain.getUpload().getProjectGroupCode();
+						error.source_system_id = clientModel.getSourceSystemId();
+						error.type = ErrorType.ERROR;
+						error.error_description = constraintViolations.toString();
+						error.date_created = clientModel.getDateCreated();
+						performSave(error);
 					}
 				} catch (Exception e) {
 					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();

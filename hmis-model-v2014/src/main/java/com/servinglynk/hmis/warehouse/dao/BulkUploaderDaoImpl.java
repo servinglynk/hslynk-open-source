@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -7,10 +9,12 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.bind.UnmarshalException;
 
 import org.apache.log4j.Appender;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -30,6 +34,7 @@ import com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence;
 import com.servinglynk.hmis.warehouse.model.v2014.Employment;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.Exit;
 import com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions;
@@ -78,15 +83,17 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	
 	@Override
-	
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender) {
 		try {
 			if (appender != null) {
 				logger.addAppender(appender);
 			}
+			Session session = getSessionFactory().openSession();
+			Transaction transacton = session.beginTransaction();
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			getCurrentSession().flush();
+			session.saveOrUpdate(upload);
+			transacton.commit();
+			session.close();
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
@@ -176,6 +183,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getSexualorientationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+		//	System.out.println("Session Statistics "+getCurrentSession().getStatistics().toString());
+		    calculateChronicHomeless(enrollmentModelMap);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			upload.setExportId(exportId);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
@@ -183,11 +192,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
 			logger.error("Error executing the bulk upload process:: ", e);
-			try {
-				parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			} catch (Exception ex) {
-				logger.error(ex);
-			}
 		} finally {
 			if (appender != null) {
 				logger.removeAppender(appender);
@@ -195,6 +199,23 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		return upload;
 	}
+	
+	public void saveError(BulkUpload upload) {
+		try {
+			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			Error2014 error = new Error2014();
+			error.setBulk_upload_ui(upload.getId());
+			error.setDate_created(LocalDateTime.now());
+			error.setError_description(upload.getDescription());
+			error.setProject_group_code(upload.getProjectGroupCode());
+			error.setTable_name("BulkUpload");
+			error.setType(ErrorType.ERROR);
+			performSave(error);
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+	}
+	
 	/*
 	public HmisUser getHmisUser(String id) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
@@ -322,6 +343,19 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		softDeleteByProjectGroupCode(VeteranInfo.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Worsthousingsituation.class.getName(), projectGroupCode, exportId);
 		softDeleteByProjectGroupCode(Youthcriticalissues.class.getName(), projectGroupCode, exportId);
+	}
+	
+	public void calculateChronicHomeless(Map<String,HmisBaseModel> enrollmentModelMap) {
+		if(!enrollmentModelMap.isEmpty()) {
+			Collection<HmisBaseModel> enrollments = enrollmentModelMap.values();
+			for(HmisBaseModel model : enrollments) {
+				Enrollment enrollmentModel = (Enrollment) model;
+				Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
+				enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
+				enrollment.setInserted(false);
+				getCurrentSession().merge(enrollment);
+			}
+		}
 	}
 	
 }

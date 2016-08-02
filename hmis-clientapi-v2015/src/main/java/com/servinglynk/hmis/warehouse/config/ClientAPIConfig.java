@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.BulkUploadErrorActivityController;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
@@ -93,5 +94,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public SearchController searchController(){
 		 return new SearchController();
+	 }
+	 
+	 @Bean
+	 public BulkUploadErrorActivityController bulkUploadErrorActivityController() {
+		 return new BulkUploadErrorActivityController();
 	 }
 }

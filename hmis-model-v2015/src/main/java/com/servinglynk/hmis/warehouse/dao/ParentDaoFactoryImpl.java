@@ -85,6 +85,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	
 	@Autowired
 	private ClientDao clientDao;
+	
+	@Autowired
+	private BulkUploadActivityDao bulkUploadActivityDao;
+	
+	@Autowired
+	private BulkUploadErrorDao bulkUploadErrorDao;
 
 	/**
 	 * @return the bulkUploaderDao
@@ -562,6 +568,22 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	public void setClientDao(ClientDao clientDao) {
 		this.clientDao = clientDao;
+	}
+
+	public BulkUploadActivityDao getBulkUploadActivityDao() {
+		return bulkUploadActivityDao;
+	}
+
+	public void setBulkUploadActivityDao(BulkUploadActivityDao bulkUploadActivityDao) {
+		this.bulkUploadActivityDao = bulkUploadActivityDao;
+	}
+
+	public BulkUploadErrorDao getBulkUploadErrorDao() {
+		return bulkUploadErrorDao;
+	}
+
+	public void setBulkUploadErrorDao(BulkUploadErrorDao bulkUploadErrorDao) {
+		this.bulkUploadErrorDao = bulkUploadErrorDao;
 	}
 	
 }

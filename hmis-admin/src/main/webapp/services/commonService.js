@@ -110,7 +110,10 @@ var Service= ({
              });
     },
     GetFilesLogList: function ($http,success, $scope) {
-        var apiurl = "/hmis-clientapi-v2014/rest/bulkupload/activities/"+$scope.idForLog;
+    	var apiurl = "/hmis-clientapi-v2014/rest/bulkupload/activities/"+$scope.idForLog;
+    	if($scope.year == 2015) {
+    		apiurl = "/hmis-clientapi-v2015/rest/bulkupload/activities/"+$scope.idForLog;
+    	}
         console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',

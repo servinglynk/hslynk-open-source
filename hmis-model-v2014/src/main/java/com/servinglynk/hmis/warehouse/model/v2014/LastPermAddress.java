@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
@@ -259,6 +260,7 @@ public class LastPermAddress extends HmisBaseModel  implements Cloneable, Serial
 	 */
 	@Basic( optional = true )
 	@Column( length = 10  )
+	@Size(max=10)
 	public String getZip() {
 		return this.zip;
 
