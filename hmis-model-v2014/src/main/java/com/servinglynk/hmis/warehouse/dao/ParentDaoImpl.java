@@ -112,7 +112,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		}
 		Boolean found = true;
 		if (modelMap != null && modelMap.size() > 0) {
-			HmisBaseModel model = modelMap.get(sourceId);
+			HmisBaseModel model = modelMap.get(sourceId.trim());
 			if (model == null) {
 				found = false;
 			} else {
@@ -182,7 +182,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			if(CollectionUtils.isNotEmpty(models)) {
 				 for(HmisBaseModel model : models ){
 					 if(StringUtils.isNotBlank(model.getSourceSystemId()))
-						 resultsMap.put(model.getSourceSystemId(), model);
+						 resultsMap.put(model.getSourceSystemId().trim(), model);
 				 }
 			}
 		}
