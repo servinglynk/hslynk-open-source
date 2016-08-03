@@ -86,7 +86,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
 						healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
 						healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
-						Enrollment enrollmentModel = (Enrollment) getModel(Healthinsurance.class.getSimpleName(),Enrollment.class,healthInsurance.getHealthInsuranceID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						Enrollment enrollmentModel = (Enrollment) getModel(Healthinsurance.class.getSimpleName(),Enrollment.class,healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						healthinsuranceModel.setEnrollmentid(enrollmentModel);
 						healthinsuranceModel.setExport(exportEntity);
 						performSaveOrUpdate(healthinsuranceModel);
