@@ -52,7 +52,6 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				Projectcompletionstatus projectcompletionstatusModel = null;
 				try {
 					projectcompletionstatusModel = getModelObject(domain, projectCompletionStatus,data,modelMap);
-					projectcompletionstatusModel.setId(UUID.randomUUID());
 					projectcompletionstatusModel.setEarlyexitreason(ProjectcompletionstatusEarlyexitreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getEarlyExitReason())));
 					projectcompletionstatusModel.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
 					projectcompletionstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
