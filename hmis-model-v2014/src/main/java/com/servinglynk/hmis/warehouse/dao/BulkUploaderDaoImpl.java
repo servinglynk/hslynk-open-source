@@ -12,6 +12,7 @@ import org.apache.log4j.Appender;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
@@ -90,9 +91,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				logger.addAppender(appender);
 			}
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			insertOrUpdate(upload);
-			getCurrentSession().flush();
-			getCurrentSession().clear();
+			saveUpload(upload);
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
@@ -184,7 +183,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		 //   calculateChronicHomeless(enrollmentModelMap);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			upload.setExportId(exportId);
-			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+			insertOrUpdate(upload);
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
@@ -228,6 +227,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 	*/
 	
+	@Transactional(readOnly = false)
+	public void saveUpload(BulkUpload upload) {
+		insertOrUpdate(upload);
+		getCurrentSession().getTransaction().commit();
+		getCurrentSession().flush();
+		getCurrentSession().clear();
+	}
 	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
