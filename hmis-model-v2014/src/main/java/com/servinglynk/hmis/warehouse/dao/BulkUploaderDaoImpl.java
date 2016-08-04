@@ -179,7 +179,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 		//	System.out.println("Session Statistics "+getCurrentSession().getStatistics().toString());
-		    calculateChronicHomeless(enrollmentModelMap);
+		 //   calculateChronicHomeless(enrollmentModelMap);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			upload.setExportId(exportId);
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
