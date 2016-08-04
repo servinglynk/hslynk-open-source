@@ -59,6 +59,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			insertOrUpdate(activity); 		
 			getCurrentSession().flush();
 	        getCurrentSession().clear();
+	        Long totalProcessed = i+u;
+	        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+i+" updates");
 		}
 		/***
 		 * Gets the project group code for a Bulk Upload

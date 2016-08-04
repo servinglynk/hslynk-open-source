@@ -347,7 +347,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				Enrollment enrollmentModel = (Enrollment) model;
 				Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
 				enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
-				enrollment.setInserted(false);
 				getCurrentSession().merge(enrollment);
 			}
 		}

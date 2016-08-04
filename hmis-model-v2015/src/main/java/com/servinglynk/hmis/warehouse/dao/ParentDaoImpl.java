@@ -9,6 +9,7 @@ import java.util.UUID;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Appender;
@@ -37,7 +38,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 */
 		public void hydrateBulkUploadActivityStaging(Long i, Long u,String className,ExportDomain domain,Export export ) {
 			try {
-				
 				BulkUploadActivity activity = new BulkUploadActivity();
 				activity.setBulkUploadId(domain.getUpload().getId());
 				activity.setDateCreated(LocalDateTime.now());
@@ -53,6 +53,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				insertOrUpdate(activity); 	
 				getCurrentSession().flush();
 		        getCurrentSession().clear();
+		        Long totalProcessed = i+u;
+		        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+i+" updates");
 			}catch(Exception e){
 				logger.warn(e.getCause());
 				// Want to eat exception here
