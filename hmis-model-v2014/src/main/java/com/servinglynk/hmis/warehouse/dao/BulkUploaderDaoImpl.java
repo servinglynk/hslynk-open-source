@@ -91,7 +91,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			insertOrUpdate(upload);
-			getCurrentSession().getTransaction().commit();
+			getCurrentSession().flush();
+			getCurrentSession().clear();
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
