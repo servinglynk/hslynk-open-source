@@ -34,6 +34,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		pEnrollment.setProject(pProject);
 		//pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, caller);
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
 
 		enrollment.setEnrollmentId(pEnrollment.getId());

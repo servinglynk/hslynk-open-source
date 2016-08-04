@@ -25,6 +25,7 @@ public class DomesticViolenceServiceImpl extends ServiceBase implements Domestic
        pDomesticViolence.setEnrollmentid(pEnrollment); 
        pDomesticViolence.setDateCreated(LocalDateTime.now());
     //   pDomesticViolence.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pDomesticViolence, caller);
        daoFactory.getDomesticviolenceDao().createDomesticViolence(pDomesticViolence);
        domesticViolence.setDomesticViolenceId(pDomesticViolence.getId());
        return domesticViolence;

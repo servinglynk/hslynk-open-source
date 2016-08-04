@@ -83,6 +83,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	
 	@Override
+	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender) {
 		try {
 			if (appender != null) {

@@ -28,6 +28,7 @@ public class ExitPlansActionsServiceImpl extends ServiceBase implements ExitPlan
        pExitPlansActions.setExitid(pExit);
        pExitPlansActions.setDateCreated(LocalDateTime.now());
    //    pExitPlansActions.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pExitPlansActions, caller);
        daoFactory.getExitplansactionsDao().createExitPlansActions(pExitPlansActions);
        exitPlansActions.setExitPlansActionsId(pExitPlansActions.getId());
        return exitPlansActions;

@@ -25,6 +25,7 @@ public class FormerWardChildWelfareServiceImpl extends ServiceBase implements Fo
        pFormerWardChildWelfare.setEnrollmentid(pEnrollment); 
        pFormerWardChildWelfare.setDateCreated(LocalDateTime.now());
   //     pFormerWardChildWelfare.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pFormerWardChildWelfare, caller);
        daoFactory.getFormerwardchildwelfareDao().createFormerWardChildWelfare(pFormerWardChildWelfare);
        formerWardChildWelfare.setFormerWardChildWelfareId(pFormerWardChildWelfare.getId());
        return formerWardChildWelfare;

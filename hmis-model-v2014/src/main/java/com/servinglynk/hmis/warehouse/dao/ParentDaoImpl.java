@@ -19,12 +19,16 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
@@ -35,6 +39,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	private static final Logger logger = Logger.getLogger(ParentDaoImpl.class);
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private Validator validator = (Validator) factory.getValidator();
+	@Autowired
+	ParentDaoFactory parentDaoFactory;
 		/***
 		 * Populates the Bulk_upload_activity table with essential statistics for the bulk upload process.
 		 * @param i

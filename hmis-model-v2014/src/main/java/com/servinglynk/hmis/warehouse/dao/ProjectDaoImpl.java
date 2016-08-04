@@ -23,6 +23,8 @@ import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Organization;
@@ -134,4 +136,24 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	       criteria.add(Restrictions.eq("organizationid.id", organizationId));
 	       return countRows(criteria);
 	   }
+	   
+	   /***
+		 * Get Models by source system id and project group code.
+		 * @param className
+		 * @param projectGroupCode
+		 * @return
+		 */
+		public void populateUserProjectGroupCode(HmisBaseModel model,String caller) {
+			if(model != null && caller != null) {
+				HmisUser user = parentDaoFactory.getHmisUserDao().findByUsername(caller);
+				if(user != null) {
+					model.setUserId(user.getId());
+					ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+					if(projectGroupEntity != null) {
+						model.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
+					}
+				}
+			}
+				
+		}
 }

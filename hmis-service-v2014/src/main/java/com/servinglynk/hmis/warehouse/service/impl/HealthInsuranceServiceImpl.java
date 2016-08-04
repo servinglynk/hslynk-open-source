@@ -25,6 +25,7 @@ public class HealthInsuranceServiceImpl extends ServiceBase implements HealthIns
        pHealthInsurance.setEnrollmentid(pEnrollment); 
        pHealthInsurance.setDateCreated(LocalDateTime.now());
    //    pHealthInsurance.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pHealthInsurance, caller);
        daoFactory.getHealthinsuranceDao().createHealthInsurance(pHealthInsurance);
        healthInsurance.setHealthInsuranceId(pHealthInsurance.getId());
        return healthInsurance;

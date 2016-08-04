@@ -25,6 +25,7 @@ public class NonCashBenefitServiceImpl extends ServiceBase implements NonCashBen
        pNonCashBenefit.setEnrollmentid(pEnrollment); 
        pNonCashBenefit.setDateCreated(LocalDateTime.now());
   //     pNonCashBenefit.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pNonCashBenefit, caller);
        daoFactory.getNoncashbenefitsDao().createNoncashbenefits(pNonCashBenefit);
        nonCashBenefit.setNonCashBenefitId(pNonCashBenefit.getId());
        return nonCashBenefit;

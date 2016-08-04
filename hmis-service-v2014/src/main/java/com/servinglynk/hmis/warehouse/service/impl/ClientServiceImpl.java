@@ -22,6 +22,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = ClientConverter.modelToEntity(client, null);
 		pClient.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 	//	pClient.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+		daoFactory.getProjectDao().populateUserProjectGroupCode(pClient,caller);
 		daoFactory.getClientDao().createClient(pClient);
 		client.setClientId(pClient.getId());
 		return client;

@@ -25,6 +25,7 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
        pInventory.setProjectCoc(pProjectcoc);
        pInventory.setDateCreated(LocalDateTime.now());
     //   pInventory.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pInventory, caller);
        daoFactory.getInventoryDao().createInventory(pInventory);
        inventory.setInventoryId(pInventory.getId());
        return inventory;

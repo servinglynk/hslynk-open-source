@@ -25,6 +25,7 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
        pAffiliation.setProjectid(pProject); 
        pAffiliation.setDateCreated(LocalDateTime.now());
     //   pAffiliation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pAffiliation, caller);
        daoFactory.getAffiliationDao().createAffiliation(pAffiliation);
        affiliation.setAffiliationId(pAffiliation.getId());
        return affiliation;

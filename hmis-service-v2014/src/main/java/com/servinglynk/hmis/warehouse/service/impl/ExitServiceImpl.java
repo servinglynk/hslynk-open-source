@@ -26,6 +26,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
        pExit.setEnrollmentid(pEnrollment);
        pExit.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
    //    pExit.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pExit, caller);
        daoFactory.getExitDao().createExit(pExit);
        exit.setExitId(pExit.getId());
        return exit;

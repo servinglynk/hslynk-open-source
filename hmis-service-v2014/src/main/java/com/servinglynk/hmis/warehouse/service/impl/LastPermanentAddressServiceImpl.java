@@ -25,6 +25,7 @@ public class LastPermanentAddressServiceImpl extends ServiceBase implements Last
        pLastPermanentAddress.setEnrollmentid(pEnrollment); 
        pLastPermanentAddress.setDateCreated(LocalDateTime.now());
     //   pLastPermanentAddress.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pLastPermanentAddress, caller);
        daoFactory.getLastPermAddressDao().createLastPermanentAddress(pLastPermanentAddress);
        lastPermanentAddress.setLastPermanentAddressId(pLastPermanentAddress.getId());
        return lastPermanentAddress;

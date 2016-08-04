@@ -27,6 +27,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
        pHousingAssessmentDisposition.setExitid(pExit); 
        pHousingAssessmentDisposition.setDateCreated(LocalDateTime.now());
   //     pHousingAssessmentDisposition.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pHousingAssessmentDisposition, caller);
        daoFactory.getHousingassessmentdispositionDao().createHousingAssessmentDisposition(pHousingAssessmentDisposition);
        housingAssessmentDisposition.setHousingAssessmentDispositionId(pHousingAssessmentDisposition.getId());
        return housingAssessmentDisposition;

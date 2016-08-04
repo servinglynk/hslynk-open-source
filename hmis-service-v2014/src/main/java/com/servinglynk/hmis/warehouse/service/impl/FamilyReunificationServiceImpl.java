@@ -25,6 +25,7 @@ public class FamilyReunificationServiceImpl extends ServiceBase implements Famil
        pFamilyReunification.setExitid(pExit); 
        pFamilyReunification.setDateCreated(LocalDateTime.now());
    //    pFamilyReunification.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pFamilyReunification, caller);
        daoFactory.getFamilyreunificationDao().createFamilyReunification(pFamilyReunification);
        familyReunification.setFamilyReunificationId(pFamilyReunification.getId());
        return familyReunification;
