@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
+import com.servinglynk.hmis.warehouse.enums.UploadStatus;
+import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 
@@ -44,6 +46,9 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		List<Source> sources = new ArrayList<>();
 		sources.add(source);
 		Data data = new Data();
+		BulkUpload upload = domain.getUpload();
+		upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+		insertOrUpdate(upload);
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Source.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = null;
 		try {
