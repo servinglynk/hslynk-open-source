@@ -145,6 +145,7 @@ public class HouseholdMembershipResource {
     // for updte
     @RequestMapping(value = "{householdId}/members/{memberId}",
             method = RequestMethod.PUT,
+            consumes=MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
         //@Timed
         public ResponseEntity<HouseholdMembershipDTO> updateHouseholdMembership(

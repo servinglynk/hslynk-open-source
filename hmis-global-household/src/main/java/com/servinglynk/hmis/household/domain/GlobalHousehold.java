@@ -29,7 +29,7 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
     @Column(name = "head_of_household_id")
     private String headOfHouseholdId;
 
-    @OneToMany(mappedBy = "globalHousehold")
+    @OneToMany(mappedBy = "globalHousehold",cascade=CascadeType.ALL)
     @JsonIgnore
     private Set<HouseholdMembership> members = new HashSet<>();
 
