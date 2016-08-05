@@ -230,7 +230,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Transactional(readOnly = false)
 	public void saveUpload(BulkUpload upload) {
 		insertOrUpdate(upload);
-		getCurrentSession().getTransaction().commit();
 		getCurrentSession().flush();
 		getCurrentSession().clear();
 	}
