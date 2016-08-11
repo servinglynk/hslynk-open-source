@@ -24,7 +24,7 @@ public class WorstHousingSituationServiceImpl extends ServiceBase implements Wor
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pWorstHousingSituation.setEnrollmentid(pEnrollment); 
        pWorstHousingSituation.setDateCreated(LocalDateTime.now());
-  //     pWorstHousingSituation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pWorstHousingSituation, caller);
        daoFactory.getWorsthousingsituationDao().createWorsthousingsituation(pWorstHousingSituation);
        worstHousingSituation.setWorstHousingSituationId(pWorstHousingSituation.getId());
        return worstHousingSituation;

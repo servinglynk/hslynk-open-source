@@ -24,7 +24,7 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pContact.setEnrollmentid(pEnrollment); 
        pContact.setDateCreated(LocalDateTime.now());
-       pContact.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pContact, caller);
        daoFactory.getContactDao().createContact(pContact);
        contact.setContactId(pContact.getId());
        return contact;
@@ -41,7 +41,7 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
        ContactConverter.modelToEntity(contact, pContact);
        pContact.setEnrollmentid(pEnrollment); 
        pContact.setDateUpdated(LocalDateTime.now());
-       pContact.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pContact, caller);
        daoFactory.getContactDao().updateContact(pContact);
        contact.setContactId(pContact.getId());
        return contact;

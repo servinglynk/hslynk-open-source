@@ -26,7 +26,7 @@ public class RhybcpstatusServiceImpl extends ServiceBase implements Rhybcpstatus
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pRhybcpstatus.setEnrollmentid(pEnrollment); 
        pRhybcpstatus.setDateCreated(LocalDateTime.now());
-       pRhybcpstatus.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pRhybcpstatus, caller);
        daoFactory.getRhybcpstatusDao().createRhybcpstatus(pRhybcpstatus);
        rhybcpstatus.setRhybcpstatusId(pRhybcpstatus.getId());
        return rhybcpstatus;

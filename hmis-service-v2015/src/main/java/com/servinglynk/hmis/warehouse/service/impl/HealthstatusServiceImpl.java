@@ -26,7 +26,7 @@ public class HealthstatusServiceImpl extends ServiceBase implements Healthstatus
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pHealthstatus.setEnrollmentid(pEnrollment); 
        pHealthstatus.setDateCreated(LocalDateTime.now());
-       pHealthstatus.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pHealthstatus, caller);
        daoFactory.getHealthStatusDao().createHealthStatus(pHealthstatus);
        healthstatus.setHealthstatusId(pHealthstatus.getId());
        return healthstatus;

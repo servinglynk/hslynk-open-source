@@ -26,7 +26,7 @@ public class ServicefareferralServiceImpl extends ServiceBase implements Service
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pServicefareferral.setEnrollmentid(pEnrollment); 
        pServicefareferral.setDateCreated(LocalDateTime.now());
-       pServicefareferral.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pServicefareferral, caller);
        daoFactory.getServiceFaReferralDao().createServiceFaReferral(pServicefareferral);
        servicefareferral.setServicefareferralId(pServicefareferral.getId());
        return servicefareferral;

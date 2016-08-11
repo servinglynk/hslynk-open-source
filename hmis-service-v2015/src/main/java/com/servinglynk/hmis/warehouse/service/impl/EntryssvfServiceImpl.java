@@ -26,7 +26,7 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEntryssvf.setEnrollmentid(pEnrollment); 
        pEntryssvf.setDateCreated(LocalDateTime.now());
-       pEntryssvf.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pEntryssvf, caller);
        daoFactory.getEntryssvfDao().createEntryssvf(pEntryssvf);
        entryssvf.setEntryssvfId(pEntryssvf.getId());
        return entryssvf;

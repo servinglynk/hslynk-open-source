@@ -26,7 +26,7 @@ public class MedicalassistanceServiceImpl extends ServiceBase implements Medical
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pMedicalassistance.setEnrollmentid(pEnrollment); 
        pMedicalassistance.setDateCreated(LocalDateTime.now());
-       pMedicalassistance.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pMedicalassistance, caller);
        daoFactory.getMedicalassistanceDao().createMedicalassistance(pMedicalassistance);
        medicalassistance.setMedicalassistanceId(pMedicalassistance.getId());
        return medicalassistance;

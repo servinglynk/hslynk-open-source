@@ -24,7 +24,7 @@ public class ResidentialmoveindateServiceImpl extends ServiceBase implements Res
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pResidentialmoveindate.setEnrollmentid(pEnrollment); 
        pResidentialmoveindate.setDateCreated(LocalDateTime.now());
-   //    pResidentialmoveindate.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pResidentialmoveindate, caller);
        daoFactory.getResidentialmoveindateDao().createResidentialmoveindate(pResidentialmoveindate);
        residentialmoveindate.setResidentialmoveindateId(pResidentialmoveindate.getId());
        return residentialmoveindate;

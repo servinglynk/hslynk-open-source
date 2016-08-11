@@ -24,7 +24,7 @@ public class SexualorientationServiceImpl extends ServiceBase implements Sexualo
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pSexualorientation.setEnrollmentid(pEnrollment); 
        pSexualorientation.setDateCreated(LocalDateTime.now());
-  //     pSexualorientation.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pSexualorientation, caller);
        daoFactory.getSexualorientationDao().createSexualorientation(pSexualorientation);
        sexualorientation.setSexualorientationId(pSexualorientation.getId());
        return sexualorientation;

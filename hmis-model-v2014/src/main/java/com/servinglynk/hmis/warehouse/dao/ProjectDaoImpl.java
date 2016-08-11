@@ -138,7 +138,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	   }
 	   
 	   /***
-		 * Get Models by source system id and project group code.
+		 * populates User Id and project group code.
 		 * @param className
 		 * @param projectGroupCode
 		 * @return

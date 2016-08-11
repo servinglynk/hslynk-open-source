@@ -24,7 +24,7 @@ public class YouthCriticalIssuesServiceImpl extends ServiceBase implements Youth
 	       if(pEnrollment == null) throw new EnrollmentNotFound(); 
 	       pYouthCriticalIssues.setEnrollmentid(pEnrollment); 
 	       pYouthCriticalIssues.setDateCreated(LocalDateTime.now());
-	  //     pYouthCriticalIssues.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+	       daoFactory.getProjectDao().populateUserProjectGroupCode(pYouthCriticalIssues, caller);
 	       daoFactory.getYouthcriticalissuesDao().createYouthCriticalIssues(pYouthCriticalIssues);
 	       youthCriticalIssues.setYouthCriticalIssuesId(pYouthCriticalIssues.getId());
 	       return youthCriticalIssues;

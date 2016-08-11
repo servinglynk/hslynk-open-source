@@ -24,7 +24,7 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
        if(pProjectcoc == null) throw new CocNotFoundException(); 
        pInventory.setCoc(pProjectcoc);
        pInventory.setDateCreated(LocalDateTime.now());
-       pInventory.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pInventory, caller);
        daoFactory.getInventoryDao().createInventory(pInventory);
        inventory.setInventoryId(pInventory.getId());
        return inventory;

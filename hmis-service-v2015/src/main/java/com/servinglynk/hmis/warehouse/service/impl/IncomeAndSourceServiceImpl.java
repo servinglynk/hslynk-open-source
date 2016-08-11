@@ -24,7 +24,7 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pIncomeAndSource.setEnrollmentid(pEnrollment); 
        pIncomeAndSource.setDateCreated(LocalDateTime.now());
-       pIncomeAndSource.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pIncomeAndSource, caller);
        daoFactory.getIncomeandsourcesDao().createIncomeAndSource(pIncomeAndSource);
        incomeAndSource.setIncomeAndSourceId(pIncomeAndSource.getId());
        return incomeAndSource;

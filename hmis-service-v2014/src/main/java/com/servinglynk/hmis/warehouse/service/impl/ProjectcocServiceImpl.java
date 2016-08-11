@@ -24,7 +24,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
        if(pProject == null) throw new ProjectNotFoundException(); 
        pProjectcoc.setProjectid(pProject); 
        pProjectcoc.setDateCreated(LocalDateTime.now());
- //      pProjectcoc.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pProjectcoc, caller);
        daoFactory.getProjectcocDao().createProjectcoc(pProjectcoc);
        projectcoc.setProjectcocId(pProjectcoc.getId());
        return projectcoc;

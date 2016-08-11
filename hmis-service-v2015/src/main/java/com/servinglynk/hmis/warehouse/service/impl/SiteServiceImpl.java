@@ -24,7 +24,7 @@ public class SiteServiceImpl extends ServiceBase implements SiteService  {
        if(pProjectcoc == null) throw new CocNotFoundException(); 
        pSite.setCoc(pProjectcoc);
        pSite.setDateCreated(LocalDateTime.now());
-       pSite.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pSite, caller);
        daoFactory.getSiteDao().createSite(pSite);
        site.setSiteId(pSite.getId());
        return site;

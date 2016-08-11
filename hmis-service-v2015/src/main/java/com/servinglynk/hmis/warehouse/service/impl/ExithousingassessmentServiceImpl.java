@@ -24,7 +24,7 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
        if(pExit == null) throw new ExitNotFoundException(); 
        pExithousingassessment.setExitid(pExit); 
        pExithousingassessment.setDateCreated(LocalDateTime.now());
-       pExithousingassessment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pExithousingassessment, caller);
        daoFactory.getExithousingassessmentDao().createExithousingassessment(pExithousingassessment);
        exithousingassessment.setExithousingassessmentId(pExithousingassessment.getId());
        return exithousingassessment;

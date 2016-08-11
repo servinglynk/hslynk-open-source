@@ -26,7 +26,7 @@ public class PathstatusServiceImpl extends ServiceBase implements PathstatusServ
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pPathstatus.setEnrollmentid(pEnrollment); 
        pPathstatus.setDateCreated(LocalDateTime.now());
-       pPathstatus.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pPathstatus, caller);
        daoFactory.getPathstatusDao().createPathstatus(pPathstatus);
        pathstatus.setPathstatusId(pPathstatus.getId());
        return pathstatus;

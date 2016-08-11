@@ -24,7 +24,7 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEmployment.setEnrollmentid(pEnrollment); 
        pEmployment.setDateCreated(LocalDateTime.now());
-       pEmployment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pEmployment, caller);
        daoFactory.getEmploymentDao().createEmployment(pEmployment);
        employment.setEmploymentId(pEmployment.getId());
        return employment;

@@ -26,7 +26,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        com.servinglynk.hmis.warehouse.model.v2015.Project pProject = ProjectConverter.modelToEntity(project, null);
        pProject.setOrganizationid(pOrganization);
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-       pProject.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pProject, caller);
        daoFactory.getProjectDao().createProject(pProject);
        project.setProjectId(pProject.getId());
        

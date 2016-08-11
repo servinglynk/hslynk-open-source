@@ -27,7 +27,7 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
        if(pExit == null) throw new ExitNotFoundException(); 
        pExitrhy.setExitid(pExit); 
        pExitrhy.setDateCreated(LocalDateTime.now());
-       pExitrhy.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pExitrhy, caller);
        daoFactory.getExitrhyDao().createExitrhy(pExitrhy);
        exitrhy.setExitrhyId(pExitrhy.getId());
        return exitrhy;

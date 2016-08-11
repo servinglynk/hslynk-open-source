@@ -34,7 +34,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setProject(pProject);
-		pEnrollment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, caller);
 		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
 

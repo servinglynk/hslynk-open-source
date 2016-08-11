@@ -24,7 +24,7 @@ public class ServicesServiceImpl extends ServiceBase implements ServicesService 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pServices.setEnrollmentid(pEnrollment); 
        pServices.setDateCreated(LocalDateTime.now());
- //      pServices.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pServices, caller);
        daoFactory.getServicesDao().createServices(pServices);
        services.setServicesId(pServices.getId());
        return services;

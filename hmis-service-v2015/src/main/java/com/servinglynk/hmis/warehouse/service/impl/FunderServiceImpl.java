@@ -24,7 +24,7 @@ public class FunderServiceImpl extends ServiceBase implements FunderService  {
        if(pProject == null) throw new ProjectNotFoundException(); 
        pFunder.setProjectid(pProject); 
        pFunder.setDateCreated(LocalDateTime.now());
-       pFunder.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pFunder, caller);
        daoFactory.getFunderDao().createFunder(pFunder);
        funder.setFunderId(pFunder.getId());
        return funder;

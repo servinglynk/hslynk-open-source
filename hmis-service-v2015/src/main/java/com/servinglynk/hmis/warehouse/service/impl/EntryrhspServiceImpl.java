@@ -24,7 +24,7 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEntryrhsp.setEnrollmentid(pEnrollment); 
        pEntryrhsp.setDateCreated(LocalDateTime.now());
-       pEntryrhsp.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pEntryrhsp, caller);
        daoFactory.getEntryrhspDao().createEntryrhsp(pEntryrhsp);
        entryrhsp.setEntryrhspId(pEntryrhsp.getId());
        return entryrhsp;

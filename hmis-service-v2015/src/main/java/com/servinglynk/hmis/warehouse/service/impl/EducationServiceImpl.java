@@ -24,7 +24,7 @@ public class EducationServiceImpl extends ServiceBase implements EducationServic
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEducation.setEnrollmentid(pEnrollment); 
        pEducation.setDateCreated(LocalDateTime.now());
-       pEducation.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pEducation, caller);
        daoFactory.getEducationDao().createEducation(pEducation);
        education.setEducationId(pEducation.getId());
        return education;

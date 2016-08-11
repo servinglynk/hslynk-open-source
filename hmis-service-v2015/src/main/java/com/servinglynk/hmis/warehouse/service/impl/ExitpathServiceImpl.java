@@ -24,7 +24,7 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
        if(pExit == null) throw new ExitNotFoundException(); 
        pExitpath.setExitid(pExit); 
        pExitpath.setDateCreated(LocalDateTime.now());
-       pExitpath.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pExitpath, caller);
        daoFactory.getExitpathDao().createExitpath(pExitpath);
        exitpath.setExitpathId(pExitpath.getId());
        return exitpath;

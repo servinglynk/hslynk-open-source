@@ -26,7 +26,7 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pDateofengagement.setEnrollmentid(pEnrollment); 
        pDateofengagement.setDateCreated(LocalDateTime.now());
-       pDateofengagement.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pDateofengagement, caller);
        daoFactory.getDateofengagementDao().createDateofengagement(pDateofengagement);
        dateofengagement.setDateofengagementId(pDateofengagement.getId());
        return dateofengagement;

@@ -24,7 +24,7 @@ public class SchoolstatusServiceImpl extends ServiceBase implements Schoolstatus
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pSchoolstatus.setEnrollmentid(pEnrollment); 
        pSchoolstatus.setDateCreated(LocalDateTime.now());
- //      pSchoolstatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pSchoolstatus, caller);
        daoFactory.getSchoolstatusDao().createSchoolstatus(pSchoolstatus);
        schoolstatus.setSchoolstatusId(pSchoolstatus.getId());
        return schoolstatus;

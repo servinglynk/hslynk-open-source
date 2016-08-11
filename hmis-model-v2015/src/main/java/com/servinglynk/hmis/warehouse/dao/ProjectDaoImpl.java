@@ -8,7 +8,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -142,4 +145,23 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	       criteria.add(Restrictions.eq("organizationid.id", organizationId));
 	       return countRows(criteria);
 	   }
+	   
+	   /***
+		 * populates User Id and project group code.
+		 * @param className
+		 * @param projectGroupCode
+		 * @return
+		 */
+		public void populateUserProjectGroupCode(HmisBaseModel model,String caller) {
+			if(model != null && caller != null) {
+				HmisUser user = factory.getHmisUserDao().findByUsername(caller);
+				if(user != null) {
+					model.setUserId(user.getId());
+					ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
+					if(projectGroupEntity != null) {
+						model.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
+					}
+				}
+			}
+		}
 }

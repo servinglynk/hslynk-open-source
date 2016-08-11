@@ -26,7 +26,7 @@ public class HousingAssessmentDispositionServiceImpl extends ServiceBase impleme
        if(pExit == null) throw new ExitNotFoundException(); 
        pHousingAssessmentDisposition.setExitid(pExit); 
        pHousingAssessmentDisposition.setDateCreated(LocalDateTime.now());
-       pHousingAssessmentDisposition.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pHousingAssessmentDisposition, caller);
        daoFactory.getHousingassessmentdispositionDao().createHousingAssessmentDisposition(pHousingAssessmentDisposition);
        housingAssessmentDisposition.setHousingAssessmentDispositionId(pHousingAssessmentDisposition.getId());
        return housingAssessmentDisposition;

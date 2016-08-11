@@ -29,7 +29,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
 
        pVeteranInfo.setClient(client);
        pVeteranInfo.setDateCreated(LocalDateTime.now());
-       pVeteranInfo.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pVeteranInfo, caller);
        daoFactory.getVeteranInfoDao().createVeteranInfo(pVeteranInfo);
        veteranInfo.setVeteranInfoId(pVeteranInfo.getId());
        return veteranInfo;

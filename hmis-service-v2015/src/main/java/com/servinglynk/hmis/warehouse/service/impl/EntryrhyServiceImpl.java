@@ -26,7 +26,7 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEntryrhy.setEnrollmentid(pEnrollment); 
        pEntryrhy.setDateCreated(LocalDateTime.now());
-       pEntryrhy.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pEntryrhy, caller);
        daoFactory.getEntryrhyDao().createEntryrhy(pEntryrhy);
        entryrhy.setEntryrhyId(pEntryrhy.getId());
        return entryrhy;

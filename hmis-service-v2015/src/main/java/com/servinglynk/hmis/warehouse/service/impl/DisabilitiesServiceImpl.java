@@ -24,7 +24,7 @@ public class DisabilitiesServiceImpl extends ServiceBase implements Disabilities
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pDisabilities.setEnrollmentid(pEnrollment); 
        pDisabilities.setDateCreated(LocalDateTime.now());
-       pDisabilities.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pDisabilities, caller);
        daoFactory.getDisabilitiesDao().createDisabilities(pDisabilities);
        disabilities.setDisabilitiesId(pDisabilities.getId());
        return disabilities;

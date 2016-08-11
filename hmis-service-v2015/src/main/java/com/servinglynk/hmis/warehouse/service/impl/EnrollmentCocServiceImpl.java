@@ -26,7 +26,7 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pEnrollmentCoc.setEnrollmentid(pEnrollment); 
        pEnrollmentCoc.setDateCreated(LocalDateTime.now());
-       pEnrollmentCoc.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollmentCoc, caller);
        daoFactory.getEnrollmentCocDao().createEnrollmentCoc(pEnrollmentCoc);
        enrollmentCoc.setEnrollmentCocId(pEnrollmentCoc.getId());
        return enrollmentCoc;

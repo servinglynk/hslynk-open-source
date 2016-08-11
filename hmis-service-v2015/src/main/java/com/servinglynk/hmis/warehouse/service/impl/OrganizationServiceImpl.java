@@ -21,7 +21,7 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
    public Organization createOrganization(Organization organization,String caller){
        com.servinglynk.hmis.warehouse.model.v2015.Organization pOrganization = OrganizationConverter.modelToEntity(organization, null);
        pOrganization.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-       pOrganization.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pOrganization, caller);
        daoFactory.getOrganizationDao().createOrganization(pOrganization);
        organization.setOrganizationId(pOrganization.getId());
        return organization;

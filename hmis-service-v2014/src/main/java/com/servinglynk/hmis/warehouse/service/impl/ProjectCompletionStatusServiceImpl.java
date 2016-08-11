@@ -24,7 +24,7 @@ public class ProjectCompletionStatusServiceImpl extends ServiceBase implements P
        if(pExit == null) throw new ExitNotFoundException(); 
        pProjectCompletionStatus.setExitid(pExit); 
        pProjectCompletionStatus.setDateCreated(LocalDateTime.now());
-     //  pProjectCompletionStatus.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pExit, caller);
        daoFactory.getProjectcompletionstatusDao().createProjectCompletionStatus(pProjectCompletionStatus);
        projectCompletionStatus.setProjectCompletionStatusId(pProjectCompletionStatus.getId());
        return projectCompletionStatus;

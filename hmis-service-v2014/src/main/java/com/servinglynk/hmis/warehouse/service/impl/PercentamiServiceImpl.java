@@ -24,7 +24,7 @@ public class PercentamiServiceImpl extends ServiceBase implements PercentamiServ
        if(pEnrollment == null) throw new EnrollmentNotFound(); 
        pPercentami.setEnrollmentid(pEnrollment); 
        pPercentami.setDateCreated(LocalDateTime.now());
-   //    pPercentami.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
+       daoFactory.getProjectDao().populateUserProjectGroupCode(pPercentami, caller);
        daoFactory.getPercentamiDao().createPercentami(pPercentami);
        percentami.setPercentamiId(pPercentami.getId());
        return percentami;
