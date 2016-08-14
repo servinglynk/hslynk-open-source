@@ -13,6 +13,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
 import com.servinglynk.hmis.warehouse.client.authorizationservice.IAuthorizationClient;
+import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientService;
+import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientServiceImpl;
 import com.servinglynk.hmis.warehouse.client.notificationservice.INotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.reportservice.IReportServiceClient;
@@ -60,7 +62,10 @@ public class SpringConfig {
 		 return new CoreClientConfig();
 	 }
 	
-	
+	 @Bean
+	public BaseClientServiceImpl baseClientService(){
+		return new BaseClientServiceImpl();
+	}
 	
 	
 }
