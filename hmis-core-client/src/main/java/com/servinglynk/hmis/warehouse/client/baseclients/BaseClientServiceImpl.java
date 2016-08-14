@@ -30,6 +30,7 @@ public class BaseClientServiceImpl extends CoreClientBase implements BaseClientS
 	
 	final static Logger logger = Logger.getLogger(AuthorizationServiceClient.class);
 		
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BaseClients getClients(Session session) throws Exception {
 		HttpHeaders headers = getHttpHeaders();
 		headers.add("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
