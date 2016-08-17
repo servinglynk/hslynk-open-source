@@ -266,7 +266,7 @@ SendRequestReport: function ($http,$scope, success,error) {
 bulkupload: function ($http, $scope,file, success, error) {
     var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();
-     formData.append("file", $scope.form.inputfile);
+    // formData.append("file", $scope.form.inputfile);
      formData.append("year", $scope.form.year);
 
     $http.post(apiurl, formData, {

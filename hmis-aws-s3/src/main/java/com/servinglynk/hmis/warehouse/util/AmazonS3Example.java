@@ -22,8 +22,8 @@ public class AmazonS3Example {
 		// user must have AWSConnector and AmazonS3FullAccess for 
 		// this example to work
 		AWSCredentials credentials = new BasicAWSCredentials(
-				"sfagdsfg", 
-				"sdfgsdgsdfg/u+zWLd5");
+				"AKIAJI47X3DA7MI6QO7A", 
+				"vlHugRFVBxz00wp6Jng945gAZeMfQ1YL/u+zWLd5");
 		
 		// create a client connection based on credentials
 		AmazonS3 s3client = new AmazonS3Client(credentials);
