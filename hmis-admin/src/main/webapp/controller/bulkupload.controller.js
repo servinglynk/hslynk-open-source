@@ -36,7 +36,9 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
     }).send(function(err, data) {
    // alert("File uploaded successfully.");
  
-      
+        $scope.fileName = file1.name;
+        $scope.bucketName = 'sdolia-2015';
+      //  $scope.fileSize = file1.size;
         Service.bulkupload($http, $scope,file,
  //success
             function () {

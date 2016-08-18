@@ -268,7 +268,8 @@ bulkupload: function ($http, $scope,file, success, error) {
      var formData = new FormData();
     // formData.append("file", $scope.form.inputfile);
      formData.append("year", $scope.form.year);
-
+     formData.append("fileName", $scope.fileName);
+     formData.append("bucketName", $scope.bucketName);
     $http.post(apiurl, formData, {
          transformRequest: angular.identity,
     headers: {
