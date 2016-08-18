@@ -36,7 +36,7 @@ public class FileUploadController  extends ControllerBase {
 	 	@APIMapping(value="USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
 		String uploadFileHandler(@RequestParam(value ="year", required = false) String year,
-				@RequestParam("fileName") String fileName,@RequestParam("bucketName") String bucketName,@RequestParam("fileSize") String fileSize, HttpServletRequest request) {
+				@RequestParam(value="fileName", required = false) String fileName,@RequestParam(value="bucketName", required = false) String bucketName,@RequestParam(value="fileSize", required = false) String fileSize, HttpServletRequest request) {
 				try {
 					logger.info("Server File Location=");
 					Session session = sessionHelper.getSession(request);
