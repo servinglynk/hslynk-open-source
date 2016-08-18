@@ -239,7 +239,11 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.servinglynk.hmis.warehouse.FromPostgres</mainClass>
+                                    <mainClass>com.servinglynk.hmis.warehouse.FromPostgresStaging</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.servinglynk.hmis.warehouse.FromPostgresLive</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -255,8 +259,12 @@
 
                     <programs>
                         <program>
-                            <mainClass>com.servinglynk.hmis.warehouse.FromPostgres</mainClass>
-                            <name>main-sync.sh</name>
+                            <mainClass>com.servinglynk.hmis.warehouse.FromPostgresStaging</mainClass>
+                            <name>main-sync-staging.sh</name>
+                        </program>
+                        <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.FromPostgresLive</mainClass>
+                            <name>main-sync-live.sh</name>
                         </program>
                     </programs>
 
@@ -291,11 +299,21 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <chmod file="${basedir}/target/temp_build/bin/main-sync.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging.sh"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/target/temp_build/bin/main-sync.bat"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging.bat"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/start-sync.sh"
+                                <chmod file="${basedir}/src/main/scripts/start-sync-staging.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-staging.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live.bat"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-sync-live.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-live.sh"
                                        perm="ugo+rx"/>
                             </tasks>
                         </configuration>

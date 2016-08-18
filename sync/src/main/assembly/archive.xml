@@ -25,7 +25,19 @@
     </fileSets>
     <files>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-staging.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-live.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-live.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-staging.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
     </files>

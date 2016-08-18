@@ -22,6 +22,7 @@ public class ExportDomain {
 	private Export export;
 	private Source source;
 	private BulkUpload upload;
+	private UUID userId;
 	
 	public Export getExport() {
 		return export;

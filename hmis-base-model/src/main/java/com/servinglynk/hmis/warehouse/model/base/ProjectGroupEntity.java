@@ -26,7 +26,7 @@ public class ProjectGroupEntity  {
 
     private String projectGroupDesc;
     
-
+    private String bucketName;
     private String projectGroupCode;
     
     private boolean skipuseridentifers;
