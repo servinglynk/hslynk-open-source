@@ -155,6 +155,22 @@ public class HouseholdMembershipResource {
             return new ResponseEntity<HouseholdMembershipDTO>(result,HttpStatus.OK);
         }
     
+    
+    // for updte
+    @RequestMapping(value = "{householdId}/members",
+            method = RequestMethod.PUT,
+            consumes=MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        //@Timed
+        public ResponseEntity<HouseholdMembershipDTO> updateHouseholdMemberships(
+        		@PathVariable UUID householdId, @RequestBody List<HouseholdMembershipDTO> householdMembershipDTOs, @PathVariable UUID memberId) throws URISyntaxException {
+            log.debug("REST request to update HouseholdMembership : {}", householdMembershipDTOs);
+            for(HouseholdMembershipDTO householdMembershipDTO : householdMembershipDTOs) {
+            	HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO);
+            }
+            return new ResponseEntity<HouseholdMembershipDTO>(HttpStatus.OK);
+        }
+    
 
     /**
      * DELETE  /household-memberships/:id : delete the "id" householdMembership.
