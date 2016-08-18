@@ -36,32 +36,13 @@ public class FileUploadController  extends ControllerBase {
 	 	@APIMapping(value="USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
 		String uploadFileHandler(@RequestParam(value ="year", required = false) String year,
-				@RequestParam("file") MultipartFile file,HttpServletRequest request) {
-
-			if (!file.isEmpty()) {
+				@RequestParam("fileName") String fileName,@RequestParam("bucketName") String bucketName,@RequestParam("fileSize") String fileSize, HttpServletRequest request) {
 				try {
-					byte[] bytes = file.getBytes();
-
-					// Creating the directory to store file
-					String rootPath = System.getProperty("catalina.home");
-					File dir = new File(rootPath + File.separator + "tmpFiles");
-					if (!dir.exists())
-						dir.mkdirs();
-
-					// Create the file on server
-					File serverFile = new File(dir.getAbsolutePath()
-							+ File.separator + file.getOriginalFilename());
-					BufferedOutputStream stream = new BufferedOutputStream(
-							new FileOutputStream(serverFile));
-					stream.write(bytes);
-					stream.close();
-
-					logger.info("Server File Location="
-							+ serverFile.getAbsolutePath());
+					logger.info("Server File Location=");
 					Session session = sessionHelper.getSession(request);
 					com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new BulkUpload();
-					upload.setInputpath(serverFile.getAbsolutePath());
-					upload.setSize(file.getSize());
+					upload.setInputpath("");
+					upload.setSize(0L);
 					if(StringUtils.isEmpty(year)) {
 						throw new IllegalArgumentException("Year cannot be null.");
 					}else{
@@ -71,14 +52,11 @@ public class FileUploadController  extends ControllerBase {
 					Account account = session.getAccount();
 					serviceFactory.getBulkUploadService().createBulkUploadEntry(upload,account);
 
-					return "You successfully uploaded file=" +  file.getOriginalFilename();
+					return "You successfully uploaded file=" + fileName;
 				} catch (Exception e) {
 					logger.error("Error while uploading file {}",e.getMessage());
-					return "You failed to upload " +  file.getOriginalFilename() + " => " + e.getMessage();
 				}
-			} else {
-				return "You failed to upload " +  file.getOriginalFilename()
-						+ " because the file was empty.";
+			 	return null;
 			}
+	
 		}
-}
