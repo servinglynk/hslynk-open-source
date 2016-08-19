@@ -20,7 +20,7 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
     });
     AWS.config.region = 'us-east-1';
      
-  var bucket = new AWS.S3({params: {Bucket: 'sdolia-2015',Prefix:'testfolder'}});
+  var bucket = new AWS.S3({params: {Bucket: $sessionStorage.account.projectGroup.bucketName,Prefix:'testfolder'}});
     var fileChooser = $("input[type='file'")[0];
     var file1 = fileChooser.files[0];
     if (file1) {
