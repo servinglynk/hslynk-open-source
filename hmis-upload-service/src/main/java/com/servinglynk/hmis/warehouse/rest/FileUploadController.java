@@ -41,7 +41,7 @@ public class FileUploadController  extends ControllerBase {
 					logger.info("Server File Location=");
 					Session session = sessionHelper.getSession(request);
 					com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new BulkUpload();
-					upload.setInputpath("");
+					upload.setInputpath(fileName);
 					upload.setSize(0L);
 					if(StringUtils.isEmpty(year)) {
 						throw new IllegalArgumentException("Year cannot be null.");

@@ -1194,6 +1194,7 @@ CREATE TABLE base.hmis_project_group
    project_group_name character varying(32), 
    project_group_desc character varying(256),
    project_group_code character varying(8),
+   bucket_name text,
    is_project_group_in_hive boolean,
    skip_user_identifers boolean default false,
    INSERT_AT timestamp without time zone, 

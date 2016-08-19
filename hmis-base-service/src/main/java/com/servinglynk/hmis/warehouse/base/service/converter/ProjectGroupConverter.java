@@ -11,6 +11,7 @@ public class ProjectGroupConverter {
 		projectGroup.setProjectGroupDesc(projectGroupEntity.getProjectGroupDesc());
 		projectGroup.setProjectGroupName(projectGroupEntity.getProjectGroupName());
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
+		projectGroup.setBucketName(projectGroupEntity.getBucketName());
 		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
 		return projectGroup;
 	}

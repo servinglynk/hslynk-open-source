@@ -15,6 +15,7 @@ public class ProjectGroup extends ClientModel {
 	private UUID projectGroupId;
 	private String projectGroupCode;
 	private boolean skipuseridentifers;
+	private String bucketName;
 	
 	@JsonProperty("projects")
 	List<BaseProject> projects = new ArrayList<BaseProject>();
@@ -41,6 +42,14 @@ public class ProjectGroup extends ClientModel {
 
 	public void setProjectGroupId(UUID projectGroupId) {
 		this.projectGroupId = projectGroupId;
+	}
+
+	public String getBucketName() {
+		return bucketName;
+	}
+
+	public void setBucketName(String bucketName) {
+		this.bucketName = bucketName;
 	}
 
 	public List<BaseProject> getProjects() {
