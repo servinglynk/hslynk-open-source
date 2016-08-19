@@ -46,7 +46,14 @@ public class ProjectGroupEntity  {
 		this.id = id;
 	}
 	
-    @Column(name="project_group_name")
+	@Column(name="bucket_name")
+    public String getBucketName() {
+		return bucketName;
+	}
+	public void setBucketName(String bucketName) {
+		this.bucketName = bucketName;
+	}
+	@Column(name="project_group_name")
 	public String getProjectGroupName() {
 		return projectGroupName;
 	}

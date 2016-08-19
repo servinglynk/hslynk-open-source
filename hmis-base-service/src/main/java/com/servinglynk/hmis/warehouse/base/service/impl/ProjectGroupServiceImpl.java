@@ -29,6 +29,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		projectGroupEntity.setProjectGroupCode(generateProjectGroupCode(projectGroup.getProjectGroupName(),pgCount));
 		//projectGroupEntity.setInsertAt(new Date());
 		//projectGroupEntity.setInsertBy(caller);
+		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode()+"-"+UUID.randomUUID());
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
 		
 		

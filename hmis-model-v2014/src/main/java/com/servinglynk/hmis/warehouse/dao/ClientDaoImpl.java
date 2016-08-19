@@ -159,6 +159,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Client>> constraintViolations = validator.validate(clientModel);
 				//if(constraintViolations.isEmpty()){
 					performSaveOrUpdate(clientModel);
+					target.setDedupClientId(clientModel.getDedupClientId());
 					insertOrUpdate(target);	
 //				}else{
 //					Error2014 error = new Error2014();

@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by sandeep
+ * Created by Sandeep
  */
 public class FromPostgres extends Logging{
 
