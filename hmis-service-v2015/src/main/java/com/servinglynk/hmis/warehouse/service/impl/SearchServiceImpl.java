@@ -10,6 +10,7 @@ import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.v2015.Client;
 import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 
@@ -26,7 +27,7 @@ public class SearchServiceImpl
   }
   
   @Transactional
-  public SearchResults performSearch(String freeText, String sort, String order, Integer startIndex, Integer maxItems,String exclude)
+  public SearchResults performSearch(String freeText, String sort, String order, Integer startIndex, Integer maxItems,String exclude,Session session)
   {
     SearchRequest searchVo = new SearchRequest();
     

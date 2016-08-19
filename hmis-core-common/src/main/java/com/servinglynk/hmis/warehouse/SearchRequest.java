@@ -1,5 +1,9 @@
 package com.servinglynk.hmis.warehouse;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class SearchRequest
 {
   SortedPagination pagination;
@@ -8,6 +12,7 @@ public class SearchRequest
   Sort sort;
   Class<?> searchEntity;
   String freeText;
+String projectGroupCode;
   
   public SortedPagination getPagination()
   {
@@ -65,5 +70,15 @@ public String[] getExcludeFields() {
 
 public void setExcludeFields(String[] excludeFields) {
 	this.excludeFields = excludeFields;
-} 
+}
+
+public String getProjectGroupCode() {
+	return projectGroupCode;
+}
+
+public void setProjectGroupCode(String projectGroupCode) {
+	this.projectGroupCode = projectGroupCode;
+}
+
+
 }

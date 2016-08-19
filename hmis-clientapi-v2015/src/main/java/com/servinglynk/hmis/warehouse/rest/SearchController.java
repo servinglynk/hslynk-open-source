@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.rest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
 @RequestMapping("/search")
@@ -19,16 +22,21 @@ public class SearchController
   public SearchResults searchClients(
 		  @PathVariable("searchentity") String searchentity,
 		  @RequestParam(value="q", required=true) String searchterm, 
-		  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, @RequestParam(value="startIndex", required=false) Integer startIndex, @RequestParam(value="maxItems", required=false) Integer maxItems)
+		  @RequestParam(value="sort", required=false) String sort,
+		  @RequestParam(value="order", required=false) String order,
+		  @RequestParam(value="startIndex", required=false) Integer startIndex, 
+		  @RequestParam(value="maxItems", required=false) Integer maxItems,
+		  HttpServletRequest request)
     throws Exception
   {
+	  Session session = sessionHelper.getSession(request);
     if (startIndex == null) {
       startIndex = Integer.valueOf(0);
     }
     if (maxItems == null) {
       maxItems = Integer.valueOf(50);
     }
-    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,null);
+    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,null,session);
   }
   
   @RequestMapping(method=RequestMethod.POST, value="/index")

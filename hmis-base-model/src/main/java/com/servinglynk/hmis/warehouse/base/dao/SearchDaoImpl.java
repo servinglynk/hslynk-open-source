@@ -86,7 +86,7 @@ public class SearchDaoImpl
   
   
   public List<?> searchData(SearchRequest searchRequest){
-	  	
+
 	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
 		  DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		  Date date=null;
@@ -103,9 +103,12 @@ public class SearchDaoImpl
 			  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 			  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
 				  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn));
-			  else
+			  else if(Arrays.asList(searchRequest.getExcludeFields()).contains("all")){
+				  
+			  }	 else
 				  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId));
 	  }
+		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))
