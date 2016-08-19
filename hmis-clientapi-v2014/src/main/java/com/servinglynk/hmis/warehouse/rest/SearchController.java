@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.rest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
 public class SearchController
@@ -18,38 +21,45 @@ public class SearchController
   public SearchResults searchClients(
 		  @PathVariable("searchentity") String searchentity,
 		  @RequestParam(value="q", required=true) String searchterm, 
-		  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, 
-		  @RequestParam(value="startIndex", required=false) Integer startIndex, 
-		  @RequestParam(value="maxItems", required=false) Integer maxItems,
-		  @RequestParam(value="exclude",required=false) String exclude)
+		  @RequestParam(value="sort", required=false,defaultValue="firstName") String sort, 
+		  @RequestParam(value="order", required=false,defaultValue="asc") String order, 
+		  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
+		  @RequestParam(value="maxItems", required=false,defaultValue="50") Integer maxItems,
+		  @RequestParam(value="exclude",required=false) String exclude,
+		  HttpServletRequest request)
     throws Exception
   {
-    if (startIndex == null) {
+	  
+	  Session session = sessionHelper.getSession(request);
+	  
+/*    if (startIndex == null) {
       startIndex = Integer.valueOf(0);
     }
     if (maxItems == null) {
       maxItems = Integer.valueOf(50);
-    }
-    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude);
+    }*/
+
+	  if(maxItems>50) maxItems =50;
+	  
+	  return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude,session);
   }
   
   @RequestMapping(method=RequestMethod.GET,value="/searchall/{searchentity}")
   @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
 	  public SearchResults baseSearch( @PathVariable("searchentity") String searchentity,
 			  @RequestParam(value="q", required=true) String searchterm, 
-			  @RequestParam(value="sort", required=false) String sort, @RequestParam(value="order", required=false) String order, 
-			  @RequestParam(value="startIndex", required=false) Integer startIndex, 
-			  @RequestParam(value="maxItems", required=false) Integer maxItems,
-			  @RequestParam(value="exclude",required=false) String exclude)
+			  @RequestParam(value="sort", required=false,defaultValue="firstName") String sort, 
+			  @RequestParam(value="order", required=false,defaultValue="asc") String order, 
+			  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
+			  @RequestParam(value="maxItems", required=false,defaultValue="50") Integer maxItems,
+			  @RequestParam(value="exclude",required=false) String exclude,
+			  HttpServletRequest request)
 					  	throws Exception
 					  {
-					    if (startIndex == null) {
-					      startIndex = Integer.valueOf(0);
-					    }
-					    if (maxItems == null || maxItems >50 ) {
-					      maxItems = Integer.valueOf(50);
-					    }
-	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude);
+					   if( maxItems >50 )  maxItems = 50;
+				
+						  Session session = sessionHelper.getSession(request);
+	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude,session);
 	  }
   
   @RequestMapping(method=RequestMethod.POST, value="/searchall/index")
