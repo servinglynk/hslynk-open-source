@@ -67,6 +67,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		Boolean skipClientIdentifier = projectGroupEntity !=null && !projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
+		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = (Validator) factory.getValidator();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
@@ -76,7 +77,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = null;
 			for (Client client : clients) {
 				try {
-				clientModel = getModelObject(domain, client,data,modelMap);
+				clientModel = getModelObject(domain, client,data,modelMap,dedupSessionKey,skipClientIdentifier);
 				clientModel.setFirstName(client.getFirstName());
 				clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
 						.getDOB()));
@@ -112,66 +113,14 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 								.lookupEnum(BasicDataGenerator
 										.getStringValue(client
 												.getVeteranStatus())));
-			//	clientModel.setUser(exportEntity.getUser());
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				clientModel.setExport(exportEntity);
-				//TODO: Sandeep need to get the project group from STAGINGthe base schema.
 				com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 				BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 				target.setDateCreated(LocalDateTime.now());
-				if(skipClientIdentifier) {
-					logger.info("Calling Dedup Service for "+clientModel.getFirstName());
-					String dedupedId = dedupHelper.getDedupedClient(target);
-					logger.info("Dedup Id is ##### "+dedupedId);
-					if(dedupedId != null) {
-						clientModel.setDedupClientId(UUID.fromString(dedupedId));	
-					}
-				}else {
-					clientModel.setFirstName("");
-					clientModel.setLastName("");
-					clientModel.setSsn("");
-					clientModel.setMiddleName("");
-					try {
-						LocalDateTime dob = clientModel.getDob();
-						if(dob !=null) {
-							LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
-							clientModel.setDob(newDob);
-						}
-					}catch(Exception e) {
-						// Eat this exception.
-					}
-				}
-				//clientModel.setProjectGroupCode(clientModel.getUser());
-				if(clientModel.getDedupClientId() !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Client dedupedClient = getClientByDedupCliendId(clientModel.getDedupClientId(),clientModel.getProjectGroupCode());
-					/**
-					 * This is where the deduping happens We check if a client with the same information exists and
-					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
-					 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
-					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
-					 */
-					if(dedupedClient !=null) {
-						clientModel.setId(dedupedClient.getId());
-					}
-				}
-			
-				//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Client>> constraintViolations = validator.validate(clientModel);
-				//if(constraintViolations.isEmpty()){
-					performSaveOrUpdate(clientModel);
-					target.setDedupClientId(clientModel.getDedupClientId());
-					insertOrUpdate(target);	
-//				}else{
-//					Error2014 error = new Error2014();
-//					error.model_id = clientModel.getId();
-//					error.bulk_upload_ui = domain.getUpload().getId();
-//					error.project_group_code = domain.getUpload().getProjectGroupCode();
-//					error.source_system_id = clientModel.getSourceSystemId();
-//					error.type = ErrorType.ERROR;
-//					error.error_description = constraintViolations.toString();
-//					error.date_created = clientModel.getDateCreated();
-//					performSave(error);
-//				}
+				performSaveOrUpdate(clientModel);
+				insertOrUpdate(target);	
 				} catch(Exception ex ){
 					String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
 					if(clientModel != null){
@@ -191,12 +140,69 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	}
 		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain, exportEntity);
 	}
+	/**
+	 * This is where the deduping happens We check if a client with the same information exists and
+	 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
+	 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
+	 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
+	 */
+	public com.servinglynk.hmis.warehouse.model.v2014.Client getUniqueClient(String dedupSessionKey,Boolean skipClientIdentifier,Client client,com.servinglynk.hmis.warehouse.model.v2014.Client clientModel) {
+		com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
+		
+		if(clientModel == null)
+			clientModel = new com.servinglynk.hmis.warehouse.model.v2014.Client();
+		
+		if(client != null) {
+			clientModel.setFirstName(client.getFirstName());
+			clientModel.setLastName(client.getLastName());
+			clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
+					.getDOB()));
+			clientModel.setGender(ClientGenderEnum.lookupEnum(String
+					.valueOf(client.getGender())));
+			clientModel
+			.setSsnDataQuality(ClientSsnDataQualityEnum
+					.lookupEnum(BasicDataGenerator
+							.getStringValue(client
+									.getSSNDataQuality())));
+		}
+		BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
+		if(skipClientIdentifier) {
+			logger.info("Calling Dedup Service for "+client.getFirstName());
+			String dedupedId = dedupHelper.getDedupedClient(target,dedupSessionKey);
+			logger.info("Dedup Id is ##### "+dedupedId);
+			if(dedupedId != null) {
+				target.setDedupClientId(UUID.fromString(dedupedId));	
+				clientModel.setDedupClientId(target.getDedupClientId());
+			}
+			clientModel.setFirstName(target.getFirstName());
+			clientModel.setLastName(target.getLastName());
+			clientModel.setSsn(target.getSsn());
+			clientModel.setMiddleName(target.getMiddleName());
+		}else {
+			clientModel.setFirstName("");
+			clientModel.setLastName("");
+			clientModel.setSsn("");
+			clientModel.setMiddleName("");
+			try {
+				LocalDateTime dob = clientModel.getDob();
+				if(dob !=null) {
+					LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
+					clientModel.setDob(newDob);
+				}
+			}catch(Exception e) {
+				// Eat this exception.
+			}
+		}
+		return clientModel;
+	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2014.Client getModelObject(ExportDomain domain, Client client ,Data data, Map<String,HmisBaseModel> modelMap) {
+	public com.servinglynk.hmis.warehouse.model.v2014.Client getModelObject(ExportDomain domain, Client client ,Data data, Map<String,HmisBaseModel> modelMap, String dedupSessionKey, Boolean skipClientIdentifier) {
 		com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
-		if(!isFullRefresh(domain))
+		if(!isFullRefresh(domain)) {
 			clientModel = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		}
+		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel);
 		
 		if(clientModel == null) {
 			clientModel = new com.servinglynk.hmis.warehouse.model.v2014.Client();
@@ -229,6 +235,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	public com.servinglynk.hmis.warehouse.model.v2014.Client createClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			client.setId(UUID.randomUUID());
+			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
+			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = getUniqueClient(dedupSessionKey, false, null, client);
 			insert(client);
 			com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
 			BeanUtils.copyProperties(client, baseClient);

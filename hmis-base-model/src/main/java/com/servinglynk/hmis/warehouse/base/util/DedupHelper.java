@@ -37,35 +37,19 @@ public class DedupHelper {
 	final static Logger logger = Logger.getLogger(DedupHelper.class);
 	private static final String OPENEMPI_HOST = "openempi.host";
 	
-	public String getDedupedClient(Client client) {
+	public String getDedupedClient(Client client,String sessionKey) {
 		try {
 		 	RestTemplate restTemplate = new RestTemplate();
-		 	
-		 	//String url = "http://ec2-52-34-4-204.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
-	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";       
-	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
-	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
-	        AuthenticationRequest.setPassword("admin");
-	        AuthenticationRequest.setUsername("admin");
-	        AppRequest request  = new AppRequest();
-	        request.setAuthenticationRequest(AuthenticationRequest);
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
-	        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
-	        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
-	        // check the response, e.g. Location header,  Status, and body
-	        response.getHeaders().getLocation();
-	        response.getStatusCode();
-	        LinkedHashMap<String, String> responseBody = (LinkedHashMap<String, String>) response.getBody();        
-	        //String sessionKey = (String) responseBody.entrySet().iterator().next();
-	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
-	        headers.set("OPENEMPI_SESSION_KEY", responseBody.get("String"));
-	        url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
+	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
+	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
+	      //  String url = "http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/dedup";
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
 	        person.setSsn(client.getSsn());
-	        if(client.getSsnDataQuality().getValue() !=null &&  !"1".equals(client.getSsnDataQuality().getValue())) {
+	        if(client.getSsnDataQuality().getValue() !=null &&  "2".equals(client.getSsnDataQuality().getValue())) {
 	        	person.setCustom10(client.getSsnDataQuality().getValue() );	
 	        }
 	        java.util.Date dob = null;
@@ -82,11 +66,11 @@ public class DedupHelper {
 	        
 	        if(client.getGender() !=null) {
 	        	Gender gender = new Gender();
-	        	 gender.setGenderCode(client.getGender().getValue());
+	        	 gender.setGenderCode(String.valueOf(client.getGender().getValue()));
 	   	        //gender.setGenderCd(genderCd);
 	   	        person.setGender(gender);
 	        }
-	        requestBody = parsePersonObjectToXMLString(person);
+	        String requestBody = parsePersonObjectToXMLString(person);
 	        HttpEntity<String> entityHttp = new HttpEntity<String>(requestBody, headers); 
 	        ResponseEntity<Object> responseObject = restTemplate.exchange(url, HttpMethod.POST, entityHttp, Object.class);
 	        LinkedHashMap<Object, Object> persons = (LinkedHashMap<Object, Object>) responseObject.getBody();
@@ -111,24 +95,28 @@ public class DedupHelper {
 			logger.error("Error Occured while calling the dedup logic"+ex.getMessage());
 			return null;
 		}
-		}
+	}
+	public String getAuthenticationHeader() {
+			RestTemplate restTemplate = new RestTemplate();
+		    String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
+			//String url = "http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
+	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
+	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
+	        AuthenticationRequest.setPassword("admin");
+	        AuthenticationRequest.setUsername("admin");
+	        AppRequest request  = new AppRequest();
+	        request.setAuthenticationRequest(AuthenticationRequest);
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
+	        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
+	        ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
+	        // check the response, e.g. Location header,  Status, and body
+	        LinkedHashMap<String, String> responseBody = (LinkedHashMap<String, String>) response.getBody();   
+	        return responseBody.get("String");
+	}
 	
     private Person hydradePerson(LinkedHashMap<Object, Object> linkedPersons) {
     	Person person = new Person();
-//    	Long dob = (Long)linkedPersons.get("dateOfBirth");
-//    	if(dob !=null && !"".equals(dob)) {
-//    		//dob.substring(0, 9);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            Date date;
-//            try {
-//                date = (Date)((DateFormat) formatter).parse(String.valueOf(dob));
-//                person.setDateOfBirth(date);
-//                formatter = new SimpleDateFormat("yyyy-MM-dd");
-//                String s = formatter.format(date);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//    	}
 		person.setSsn((String)linkedPersons.get("ssn"));
 		person.setGivenName((String)linkedPersons.get("givenName"));
 		person.setFamilyName((String)linkedPersons.get("familyName"));
@@ -136,10 +124,9 @@ public class DedupHelper {
 		LinkedHashMap<Object, Object>  genderLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("gender");
 		if(genderLinkedList !=null) {
 			Gender gender = new Gender();
-			String genderCd = (String)genderLinkedList.get("genderCd");
+			Integer genderCd = (Integer)genderLinkedList.get("genderCd");
 			if(genderCd !=null && !"".equals(genderCd)) {
-				Integer genderCdInt = Integer.parseInt(genderCd);
-				gender.setGenderCd(genderCdInt);
+				gender.setGenderCd(genderCd);
 			}
 			String genderCode = (String)genderLinkedList.get("genderCode");
 			if(genderCode !=null && !"".equals(genderCode)) {
@@ -167,7 +154,7 @@ public class DedupHelper {
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
 		requestBody = requestBody+"}}";
-		System.out.println("Request Body"+requestBody);
+		logger.info("Request Body:::"+requestBody);
 		//logger.info("Request Body"+requestBody);
 		return requestBody;	
 	}
@@ -182,7 +169,7 @@ public class DedupHelper {
     	client.setGender(ClientGenderEnum.ONE);
     	client.setSsn("111111111");
     	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);
-    	String abc = impl.getDedupedClient(client);
+    	String abc = impl.getDedupedClient(client,impl.getAuthenticationHeader());
     	System.out.println("Identifier "+abc);
     }
 }

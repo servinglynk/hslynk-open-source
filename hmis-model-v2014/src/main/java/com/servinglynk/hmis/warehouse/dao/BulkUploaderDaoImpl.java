@@ -125,6 +125,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.debug(" Bulk Upload Processing client Table Begin.....");
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DOne
 			logger.debug(" Bulk Upload Processing client Table Ends.....");
+		/**
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
@@ -179,7 +180,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getSexualorientationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getWorsthousingsituationDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getYouthcriticalissuesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			**/
 		//	System.out.println("Session Statistics "+getCurrentSession().getStatistics().toString());
+			
 		 //   calculateChronicHomeless(enrollmentModelMap);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			upload.setExportId(exportId);

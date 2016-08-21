@@ -100,6 +100,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			String projectGroupCode = domain.getUpload().getProjectGroupCode();
 			baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 			baseModel.setActive(false);
+			baseModel.setSync(false);
 			HmisUser user = domain.getUpload().getUser();
 			if(user != null)
 				baseModel.setUserId(user.getId());
