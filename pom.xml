@@ -34,6 +34,7 @@
 	<modules>
 		<module>hmis-admin</module>
 		<module>hmis-core-client</module>
+		<module>hmis-s3-client</module>
 		<module>hmis-core-common</module>
 		<module>hmis-base-model</module>
 		<module>hmis-model-v2014</module>

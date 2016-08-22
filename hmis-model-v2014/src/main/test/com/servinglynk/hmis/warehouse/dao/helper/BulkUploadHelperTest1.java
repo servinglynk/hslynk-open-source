@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.dao.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class BulkUploadHelperTest1 {
 
 
 	@Test
-	public void testCVSUpload() throws JAXBException {
+	public void testCVSUpload() throws JAXBException, IOException {
 		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
 		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
@@ -290,7 +291,7 @@ public class BulkUploadHelperTest1 {
 	}
 	
 	@Test
-	public void testXMLUpload() throws JAXBException {
+	public void testXMLUpload() throws JAXBException, IOException {
 		URL path = BulkUploadHelperTest1.class.getResource("HUD_4_0__6.xml");
 //		System.out.println(path);
 		BulkUpload upload = new BulkUpload();

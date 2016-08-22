@@ -1,0 +1,82 @@
+package com.servinglynk.hmis.warehouse;
+
+
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.*;
+import com.amazonaws.util.IOUtils;
+import com.amazonaws.util.StringUtils;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class AwsS3Client {
+    private AmazonS3Client s3Client;
+    public AwsS3Client(String accessKey, String secretKey)
+    {
+        System.setProperty("aws.accessKeyId", accessKey);
+        System.setProperty("aws.secretKey", secretKey);
+        DefaultAWSCredentialsProviderChain credentialProviderChain = new DefaultAWSCredentialsProviderChain();
+        s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
+    }
+
+    public AwsS3Client()
+    {
+        DefaultAWSCredentialsProviderChain credentialProviderChain = new DefaultAWSCredentialsProviderChain();
+        s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
+    }
+
+    /**
+     * retrieve the list of keys in a specific bucket with a specific prefix
+     * @param bucketName
+     * @param prefix
+     * @return
+     */
+    public List<String> listBucket(String bucketName, String prefix)
+    {
+        ObjectListing objects = s3Client.listObjects(bucketName, prefix);
+
+        List<S3ObjectSummary> objectSummaries = objects.getObjectSummaries();
+        List<String> results = new ArrayList<String>();
+        for(S3ObjectSummary object : objectSummaries)
+        {
+                results.add(object.getKey());
+        }
+        return results;
+    }
+
+    /**
+     * Download a file (keyName) from a bucket (bucketName)
+     * @param bucketName
+     * @param keyName
+     * @return
+     */
+    public String downloadFile(String bucketName, String keyName, String tmpPath) throws IOException
+    {
+        S3Object object = s3Client.getObject(
+                new GetObjectRequest(bucketName, keyName));
+        InputStream objectData = object.getObjectContent();
+        String name = keyName.contains("/") ? keyName.substring(keyName.lastIndexOf('/') + 1) : keyName;
+        
+        String localPath = (StringUtils.isNullOrEmpty(tmpPath) ? "" : tmpPath + "/")+ UUID.randomUUID() + "-" + name;
+        String path = saveFile(objectData, localPath);
+        objectData.close();
+        return path;
+    }
+
+    private String saveFile(InputStream input, String name)
+            throws IOException {
+        File file = new File(name);
+        OutputStream outputStream = new FileOutputStream(file);
+        IOUtils.copy(input, outputStream);
+        outputStream.close();
+        return file.getAbsolutePath();
+    }
+}

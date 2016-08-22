@@ -243,6 +243,11 @@
 			  <artifactId>hmis-base-model</artifactId>
 			  <version>${parent-version}</version>
 			</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-s3-client</artifactId>
+			<version>${parent-version}</version>
+		</dependency>
 	</dependencies>
 			<build>
 		<plugins>

@@ -28,6 +28,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.servinglynk.hmis.warehouse.AwsS3Client;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -96,31 +97,34 @@ public class BulkUploadHelper {
 	 * @return sources
 	 * @throws JAXBException 
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException, IOException {
 		String inputPath = upload.getInputpath();
+		// download file to temp folder
+		AwsS3Client client = new AwsS3Client();
+		String tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
-			return getSourcesForZipFile(upload);
+			return getSourcesForZipFile(tempFile);
 		}
 		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
-			return getSourcesForXml(upload,projectGroupEntity);
+			return getSourcesForXml(tempFile,projectGroupEntity);
 		}
 		return null;
 	}
 	/**
 	 * Gets the Sources XML object when the file to be bulk uploaded is an XML file.
-	 * @param upload
+	 * @param fileName
 	 * @return
 	 * @throws JAXBException 
 	 */
-	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException {
-			File file = new File(upload.getInputpath());
+	public Sources getSourcesForXml(String fileName,ProjectGroupEntity projectGroupEntity) throws JAXBException {
+			File file = new File(fileName);
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
 //				System.out.println("XML is valid");
 //			}else{
 //				System.out.println("XML is NOT valid");
 //			}
 			
-		    File tempFile = new File(upload.getInputpath()+System.currentTimeMillis()+"temp.xml");
+		    File tempFile = new File(fileName + System.currentTimeMillis()+"-temp.xml");
 			try {
 				
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
@@ -195,10 +199,10 @@ public class BulkUploadHelper {
 	/**
 	 * Gets the Sources XML object when the file to be bulk uploaded is an Zip file 
 	 * containing csv files.
-	 * @param upload
+	 * @param fileName
 	 * @return
 	 */
-	public Sources getSourcesForZipFile(BulkUpload upload) {
+	public Sources getSourcesForZipFile(String fileName) {
 		Sources sources = new Sources();
 		Source source = sources.getSource();
 		if(source == null) {
@@ -207,7 +211,7 @@ public class BulkUploadHelper {
 			newSource.setExport(new Sources.Source.Export());
 		}
 		try {
-			ZipFile zf = new ZipFile(upload.getInputpath());
+			ZipFile zf = new ZipFile(fileName);
 		      Enumeration entries = zf.entries();
 		      while (entries.hasMoreElements()) {
 		        ZipEntry ze = (ZipEntry) entries.nextElement();
@@ -712,7 +716,7 @@ public class BulkUploadHelper {
 	  /**
 	   * Hydrate Exit with in Sources Object from Exit CSV Pojos.
 	   * @param csvFile
-	   * @param sourcesoe
+	   * @param sources
 	   * @throws IOException
 	   */
 	  protected void hydradeExit(BufferedReader csvFile, Sources sources) throws IOException {

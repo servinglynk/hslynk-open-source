@@ -29,6 +29,11 @@
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-s3-client</artifactId>
+			<version>${parent-version}</version>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
