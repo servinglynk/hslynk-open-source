@@ -29,22 +29,13 @@ public class AmazonS3Example {
 		// credentials object identifying user for authentication
 		// user must have AWSConnector and AmazonS3FullAccess for 
 		// this example to work
-		AWSCredentials credentials = new BasicAWSCredentials(
-				"AKIAJH6EMBEDW342TOAQ", 
-				"7SbPwlS+tnEES/qdWF2Fdt9AuamobzND09Q7W5/V");
-		
-		// create a client connection based on credentials
-		AmazonS3 s3client = new AmazonS3Client(credentials);
 		
 		// create bucket - name must be unique for all S3 users
 		String bucketName = "sdolia-2015";
 	//	s3client.createBucket(bucketName);
 		
 		// list buckets
-		for (Bucket bucket : s3client.listBuckets()) {
-			System.out.println(" - " + bucket.getName());
-			listKeys(bucket.getName());
-		}
+			listKeys(bucketName);
 ////		createFolder(bucketName, folderName, s3client);
 //		
 //		// upload file to folder and set it to public

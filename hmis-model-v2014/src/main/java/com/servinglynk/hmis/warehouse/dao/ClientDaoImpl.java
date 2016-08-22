@@ -146,11 +146,17 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
 	 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 	 */
-	public com.servinglynk.hmis.warehouse.model.v2014.Client getUniqueClient(String dedupSessionKey,Boolean skipClientIdentifier,Client client,com.servinglynk.hmis.warehouse.model.v2014.Client clientModel) {
+	public com.servinglynk.hmis.warehouse.model.v2014.Client getUniqueClient(String dedupSessionKey,Boolean skipClientIdentifier,Client client,com.servinglynk.hmis.warehouse.model.v2014.Client clientModel, Data data) {
 		com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
 		
-		if(clientModel == null)
+		if(clientModel == null) {
 			clientModel = new com.servinglynk.hmis.warehouse.model.v2014.Client();
+			clientModel.setId(UUID.randomUUID());
+			clientModel.setInserted(true);
+			++data.i;
+		} else{
+		  ++data.j;
+		}
 		
 		if(client != null) {
 			clientModel.setFirstName(client.getFirstName());
@@ -167,7 +173,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		}
 		BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 		if(skipClientIdentifier) {
-			logger.info("Calling Dedup Service for "+client.getFirstName());
+			logger.info("Calling Dedup Service for "+clientModel.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(target,dedupSessionKey);
 			logger.info("Dedup Id is ##### "+dedupedId);
 			if(dedupedId != null) {
@@ -202,16 +208,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		if(!isFullRefresh(domain)) {
 			clientModel = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		}
-		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel);
-		
-		if(clientModel == null) {
-			clientModel = new com.servinglynk.hmis.warehouse.model.v2014.Client();
-			clientModel.setId(UUID.randomUUID());
-			clientModel.setInserted(true);
-			++data.i;
-		}else{
-			++data.j;
-		}
+		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel,data);
 		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data.i+data.j);
 		return clientModel;
 	}
@@ -236,7 +233,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			client.setId(UUID.randomUUID());
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = getUniqueClient(dedupSessionKey, false, null, client);
+			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = getUniqueClient(dedupSessionKey, false, null, client,new Data());
 			insert(client);
 			com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
 			BeanUtils.copyProperties(client, baseClient);
