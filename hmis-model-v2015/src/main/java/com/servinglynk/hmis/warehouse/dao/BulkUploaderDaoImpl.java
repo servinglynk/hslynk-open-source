@@ -78,7 +78,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.debug("Bulk Uploader Process Begins..........");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			insertOrUpdate(upload);
-			getCurrentSession().getTransaction().commit();
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
