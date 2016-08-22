@@ -93,7 +93,7 @@ public class HouseholdMembershipService {
     public Page<HouseholdMembership> getAllHouseholdMembersByHouseholdId(UUID householdId, Pageable pageable) {
         log.debug("Request to get all HouseholdMemberships");
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
-    	Page<HouseholdMembership> members = householdMembershipRepository.fidByGlobalHousehold(globalHousehold, pageable);
+    	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHousehold(globalHousehold, pageable);
         return members;
     }
     

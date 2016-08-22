@@ -17,6 +17,6 @@ import java.util.UUID;
  */
 public interface HouseholdMembershipRepository extends JpaRepository<HouseholdMembership,Serializable> {
 	
-   Page<HouseholdMembership> fidByGlobalHousehold(GlobalHousehold globalHousehold,Pageable pageable);
+   Page<HouseholdMembership> findByGlobalHousehold(GlobalHousehold globalHousehold,Pageable pageable);
 
 }
