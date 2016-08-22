@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -91,11 +93,9 @@ public class GlobalHouseholdService {
      *  @return the list of entities
      */
     @Transactional(readOnly = true) 
-    public List<GlobalHouseholdDTO> findAll() {
+    public Page<GlobalHousehold> findAll(Pageable pageable) {
         log.debug("Request to get all GlobalHouseholds");
-        List<GlobalHouseholdDTO> result = globalHouseholdRepository.findAll().stream()
-            .map(globalHouseholdMapper::globalHouseholdToGlobalHouseholdDTO)
-            .collect(Collectors.toCollection(LinkedList::new));
+        Page<GlobalHousehold> result = globalHouseholdRepository.findAll(pageable);
         return result;
     }
 

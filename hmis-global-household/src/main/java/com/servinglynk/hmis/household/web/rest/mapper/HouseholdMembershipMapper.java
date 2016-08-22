@@ -1,20 +1,19 @@
 package com.servinglynk.hmis.household.web.rest.mapper;
 
-import com.servinglynk.hmis.household.domain.*;
-import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
-
-import org.mapstruct.*;
-import org.springframework.context.annotation.ComponentScan;
-
 import java.util.List;
 import java.util.UUID;
+
+import org.mapstruct.Mapping;
+
+import com.servinglynk.hmis.household.domain.GlobalHousehold;
+import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 
 /**
  * Mapper for the entity HouseholdMembership and its DTO HouseholdMembershipDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
 public interface HouseholdMembershipMapper {
-
+	
     @Mapping(source = "globalHousehold.globalHouseholdId", target = "globalHouseholdId")
     HouseholdMembershipDTO householdMembershipToHouseholdMembershipDTO(HouseholdMembership householdMembership);
 

@@ -1,38 +1,43 @@
 package com.servinglynk.hmis.household.web.rest;
 
-import com.servinglynk.hmis.household.domain.HouseholdMembership;
-import com.servinglynk.hmis.household.service.HouseholdMembershipService;
-import com.servinglynk.hmis.household.web.rest.util.HeaderUtil;
-import com.servinglynk.hmis.household.web.rest.util.PaginationUtil;
-import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
-import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import com.servinglynk.hmis.household.domain.GlobalHousehold;
+import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import com.servinglynk.hmis.household.service.HouseholdMembershipService;
+import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
+import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
+import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
+import com.servinglynk.hmis.household.web.rest.util.HeaderUtil;
+import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 /**
  * REST controller for managing HouseholdMembership.
  */
 @RestController
 @RequestMapping("/global-households")
-public class HouseholdMembershipResource {
+public class HouseholdMembershipResource  extends BaseResource {
 
     private final Logger log = LoggerFactory.getLogger(HouseholdMembershipResource.class);
         
@@ -43,6 +48,27 @@ public class HouseholdMembershipResource {
    // @Inject
     @Autowired
     private HouseholdMembershipMapper householdMembershipMapper;
+    
+    
+	@Autowired
+	private PagedResourcesAssembler assembler;
+	
+
+	private ResourceAssembler<HouseholdMembership, Resource<HouseholdMembershipDTO>> householdMembershipAssembler = new HouseholdMembershipResource.HouseholdMembershipAssembler();
+	
+	private class HouseholdMembershipAssembler implements ResourceAssembler<HouseholdMembership, Resource<HouseholdMembershipDTO>> {
+
+		@Override
+		public Resource<HouseholdMembershipDTO> toResource(HouseholdMembership arg0) {
+			
+			Resource<HouseholdMembershipDTO> resource=null;
+				resource = new Resource<HouseholdMembershipDTO>(householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(arg0));
+			return resource;
+		}
+	}
+
+    
+    
     
     /**
      * POST  /household-memberships : Create a new householdMembership.
@@ -67,10 +93,11 @@ public class HouseholdMembershipResource {
     }*/
     @RequestMapping(value = "{householdId}/members",
             method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-        //@Timed
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes= MediaType.APPLICATION_JSON_VALUE)
+    	@APIMapping(value="GLOBAL_HOUSE_HOLD_CREATE_MEMBERS")
         public ResponseEntity<List<HouseholdMembershipDTO>> createHouseholdMembership(
-        		@PathVariable UUID householdId, @RequestBody List<HouseholdMembershipDTO> householdMembershipDTOs) throws URISyntaxException {
+        		@PathVariable UUID householdId, @RequestBody List<HouseholdMembershipDTO> householdMembershipDTOs) throws Exception {
             log.debug("REST request to save HouseholdMembership : {}", householdMembershipDTOs);
             List<HouseholdMembershipDTO> result = householdMembershipService.save(householdId,householdMembershipDTOs);
             return new ResponseEntity<List<HouseholdMembershipDTO>>(result,HttpStatus.OK);
@@ -111,15 +138,13 @@ public class HouseholdMembershipResource {
     @RequestMapping(value = "/{householdId}/members",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-   // @Timed
+	@APIMapping(value="GLOBAL_HOUSE_HOLD_GET_MEMBERS")
     @Transactional(readOnly = true)
-    public ResponseEntity<List<HouseholdMembershipDTO>> getAllHouseholdMemberships(@PathVariable UUID householdId, Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<Resources<Resource>> getAllHouseholdMemberships(@PathVariable UUID householdId, Pageable pageable)
+    		throws Exception {
         log.debug("REST request to get a page of HouseholdMemberships");
-       // Page<HouseholdMembership> page = householdMembershipService.findAll(pageable);
-        List<HouseholdMembership> results=householdMembershipService.getAllHouseholdMembersByHouseholdId(householdId,pageable);
-       // HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/household-memberships");
-        return new ResponseEntity<>(householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(results), HttpStatus.OK);
+        return new ResponseEntity<>(assembler.toResource(householdMembershipService.getAllHouseholdMembersByHouseholdId(householdId,pageable),householdMembershipAssembler),
+				HttpStatus.OK);
     }
 
     /**
@@ -131,8 +156,8 @@ public class HouseholdMembershipResource {
     @RequestMapping(value = "/{householdId}/members/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-   // @Timed
-    public ResponseEntity<HouseholdMembershipDTO> getHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) {
+	@APIMapping(value="GLOBAL_HOUSE_HOLD_GET_MEMBERS_ID")
+    public ResponseEntity<HouseholdMembershipDTO> getHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) throws Exception {
         log.debug("REST request to get HouseholdMembership : {}", id);
         HouseholdMembershipDTO householdMembershipDTO = householdMembershipService.findOne(id);
         return Optional.ofNullable(householdMembershipDTO)
@@ -147,10 +172,11 @@ public class HouseholdMembershipResource {
             method = RequestMethod.PUT,
             consumes=MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-        //@Timed
+    	@APIMapping(value="GLOBAL_HOUSE_HOLD_UPDATE_MEMBER_BY_ID")
         public ResponseEntity<HouseholdMembershipDTO> updateHouseholdMembership(
-        		@PathVariable UUID householdId, @RequestBody HouseholdMembershipDTO householdMembershipDTO, @PathVariable UUID memberId) throws URISyntaxException {
+        		@PathVariable UUID householdId, @RequestBody HouseholdMembershipDTO householdMembershipDTO, @PathVariable UUID memberId) throws Exception {
             log.debug("REST request to update HouseholdMembership : {}", householdMembershipDTO);
+            householdMembershipDTO.setHouseholdMembershipId(memberId);
             HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO);
             return new ResponseEntity<HouseholdMembershipDTO>(result,HttpStatus.OK);
         }
@@ -161,9 +187,9 @@ public class HouseholdMembershipResource {
             method = RequestMethod.PUT,
             consumes=MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-        //@Timed
+	@APIMapping(value="GLOBAL_HOUSE_HOLD_UPDATE_MEMBERS")
         public ResponseEntity<HouseholdMembershipDTO> updateHouseholdMemberships(
-        		@PathVariable UUID householdId, @RequestBody List<HouseholdMembershipDTO> householdMembershipDTOs, @PathVariable UUID memberId) throws URISyntaxException {
+        		@PathVariable UUID householdId, @RequestBody List<HouseholdMembershipDTO> householdMembershipDTOs) throws Exception {
             log.debug("REST request to update HouseholdMembership : {}", householdMembershipDTOs);
             for(HouseholdMembershipDTO householdMembershipDTO : householdMembershipDTOs) {
             	HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO);
@@ -181,8 +207,8 @@ public class HouseholdMembershipResource {
     @RequestMapping(value = "/{householdId}/members/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-   // @Timed
-    public ResponseEntity<Void> deleteHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) {
+	@APIMapping(value="GLOBAL_HOUSE_HOLD_DELETE_MEMBER_BY_ID")
+    public ResponseEntity<Void> deleteHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) throws Exception {
         log.debug("REST request to delete HouseholdMembership : {}", id);
         householdMembershipService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("householdMembership", id.toString())).build();

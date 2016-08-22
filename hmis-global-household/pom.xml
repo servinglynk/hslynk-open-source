@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.servinglynk.hmis.household</groupId>
-	<artifactId>hmis-global-household</artifactId>
+	<artifactId>global-household-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -30,10 +30,32 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+			<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-core-common</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+				<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency>
+				<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -94,8 +116,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.6.Final</version>
-		</dependency>
+			</dependency>
 
 		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-core</artifactId> 
 			<version>1.2.2</version> </dependency> -->
@@ -139,6 +160,11 @@
 			<artifactId>json-smart</artifactId>
 			<version>2.1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>core-client</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -148,7 +174,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<plugin>
+<!-- 			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
 				<version>2.2.4</version>
@@ -161,7 +187,7 @@
 					</processors>
 					<options>
 						<mapstruct.suppressGeneratorTimestamp>true</mapstruct.suppressGeneratorTimestamp>
-						<mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel>
+						<mapstruct.defaultComponentModel>cdi</mapstruct.defaultComponentModel>
 					</options>
 				</configuration>
 				<executions>
@@ -180,7 +206,7 @@
 						<version>${mapstruct.version}</version>
 					</dependency>
 				</dependencies>
-			</plugin>
+			</plugin> -->
 
 		</plugins>
 	</build>

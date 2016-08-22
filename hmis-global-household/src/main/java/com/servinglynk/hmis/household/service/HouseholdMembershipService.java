@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.household.service;
 
+import com.servinglynk.hmis.household.domain.GlobalHousehold;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
@@ -37,7 +39,10 @@ public class HouseholdMembershipService {
     @Inject
     private HouseholdMembershipRepository householdMembershipRepository;
     
-    @Inject
+    @Autowired
+    private GlobalHouseholdRepository globalHouseholdRepository;
+    
+    @Autowired
     private HouseholdMembershipMapper householdMembershipMapper;
     
     @Autowired
@@ -85,13 +90,10 @@ public class HouseholdMembershipService {
      *  @return the list of entities
      */
     @Transactional(readOnly = true) 
-    public List<HouseholdMembership> getAllHouseholdMembersByHouseholdId(UUID householdId, Pageable pageable) {
+    public Page<HouseholdMembership> getAllHouseholdMembersByHouseholdId(UUID householdId, Pageable pageable) {
         log.debug("Request to get all HouseholdMemberships");
-        DetachedCriteria crit=DetachedCriteria.forClass(HouseholdMembership.class);
-        crit.add(Restrictions.eq("globalHousehold.globalHouseholdId",householdId ));
-        List<HouseholdMembership> members=new ArrayList<HouseholdMembership>();
-        members=(List<HouseholdMembership>)hibernateTemplate.findByCriteria(crit);
-        //Page<HouseholdMembership> result = householdMembershipRepository.findAll(pageable); 
+    	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
+    	Page<HouseholdMembership> members = householdMembershipRepository.fidByGlobalHousehold(globalHousehold, pageable);
         return members;
     }
     
