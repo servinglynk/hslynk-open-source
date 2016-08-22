@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.servinglynk.hmis.warehouse</groupId>
     <artifactId>hmis-s3-client</artifactId>
+    <name>hmis-s3-client</name>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <scm>
