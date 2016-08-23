@@ -116,10 +116,13 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				clientModel.setExport(exportEntity);
+				performSaveOrUpdate(clientModel);		
+				
+				// Inserting client in base schema				
 				com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 				BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
-				target.setDateCreated(LocalDateTime.now());
-				performSaveOrUpdate(clientModel);
+				target.setDateUpdated(LocalDateTime.now());
+				target.setSchemaYear("2014");
 				insertOrUpdate(target);	
 				} catch(Exception ex ){
 					String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
