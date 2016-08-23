@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.dao.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class BulkUploadHelperTest {
 
 
 	@Test
-	public void testXMLUpload() throws JAXBException {
+	public void testXMLUpload() throws JAXBException, IOException {
 	//	URL path = BulkUploadHelperTest.class.getResource("2015.xml");
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
