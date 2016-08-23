@@ -31,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
+import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
@@ -44,15 +45,19 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return sources
 	 * @throws JAXBException 
+	 * @throws IOException 
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException {
-		String inputPath = upload.getInputpath();
-		if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
-			return getSourcesForZipFile(upload);
-		}
-		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
-			return getSourcesForXml(upload,projectGroupEntity);
-		}
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException, IOException {
+			String inputPath = upload.getInputpath();
+			// download file to temp folder
+			AwsS3Client client = new AwsS3Client();
+			String tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
+			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
+				return getSourcesForZipFile(tempFile);
+			}
+			else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
+				return getSourcesForXml(tempFile,projectGroupEntity);
+			}
 		return null;
 	}
 	/**
@@ -61,15 +66,15 @@ public class BulkUploadHelper {
 	 * @return
 	 * @throws JAXBException 
 	 */
-	public Sources getSourcesForXml(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException {
-			File file = new File(upload.getInputpath());
+	public Sources getSourcesForXml(String fileName,ProjectGroupEntity projectGroupEntity) throws JAXBException {
+			File file = new File(fileName);
 //			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
 //				System.out.println("XML is valid");
 //			}else{
 //				System.out.println("XML is NOT valid");
 //			}
 			
-		    File tempFile = new File(upload.getInputpath()+System.currentTimeMillis()+"temp.xml");
+		    File tempFile = new File(fileName+System.currentTimeMillis()+"temp.xml");
 			try {
 				
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
@@ -147,7 +152,7 @@ public class BulkUploadHelper {
 	 * @param upload
 	 * @return
 	 */
-	public Sources getSourcesForZipFile(BulkUpload upload) {
+	public Sources getSourcesForZipFile(String fileName) {
 		Sources sources = new Sources();
 		Source source = sources.getSource();
 		if(source == null) {
