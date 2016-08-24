@@ -20,6 +20,7 @@ import com.servinglynk.hmis.warehouse.core.model.Funders;
 import com.servinglynk.hmis.warehouse.core.model.Inventories;
 import com.servinglynk.hmis.warehouse.core.model.Inventory;
 import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Projectcoc;
 import com.servinglynk.hmis.warehouse.core.model.Projectcocs;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
@@ -71,7 +72,8 @@ public class ProjectsController extends ControllerBase {
            if (startIndex == null) startIndex =0;
            if (maxItems == null) maxItems =30;
            Session session = sessionHelper.getSession(request);
-        return serviceFactory.getProjectService().getAllProjects(session.getAccount().getOrganizationId(),startIndex,maxItems); 
+           ProjectGroup projectGroup = session.getAccount().getProjectGroup();
+        return serviceFactory.getProjectService().getAllProjects(projectGroup.getProjectGroupCode(),startIndex,maxItems); 
    }
 
    // ProjectCOC API start
