@@ -163,6 +163,12 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId,clientId);
 	}
 
+	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
+	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
+	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId);
+	}
+
 	@RequestMapping(value="/{clientid}/enrollments",method=RequestMethod.GET)
 	@APIMapping(value="CLIENT_API_GET_ALL_CLIENT_ENROLLMENTS",checkSessionToken=true,checkTrustedApp=true)
 	public Enrollments getAllClientEnrollments(@PathVariable("clientid") UUID clientId,

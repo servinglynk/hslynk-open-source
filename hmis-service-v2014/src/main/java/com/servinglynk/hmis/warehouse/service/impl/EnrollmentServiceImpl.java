@@ -85,6 +85,16 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 
 		return EnrollmentConveter.entityToModel(pEnrollment);
 	}
+	
+	@Override
+	@Transactional
+	public com.servinglynk.hmis.warehouse.core.model.Enrollment getEnrollmentByEnrollmentId(
+			UUID enrollmentId) {
+		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+		if(pEnrollment == null) throw new EnrollmentNotFound();
+
+		return EnrollmentConveter.entityToModel(pEnrollment);
+	}
 
 	@Override
 	@Transactional
