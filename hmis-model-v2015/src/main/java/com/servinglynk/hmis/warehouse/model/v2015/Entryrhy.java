@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -19,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYActiveMilitaryParentEnum;
@@ -172,6 +174,19 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	private EntryRHYChildWelfareYearsEnum yearsChildWelfrForestCare;
 	/** Field mapping. */
 	private EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice;
+	/** Field mapping. */
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */

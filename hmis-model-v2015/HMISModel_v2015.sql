@@ -101,6 +101,7 @@ DROP TYPE IF EXISTS "v2015".youth_age_group;
 DROP TYPE IF EXISTS "v2015".housing_status;
 DROP TYPE IF EXISTS "v2015".state;
 DROP TYPE IF EXISTS "v2015".contact_location;
+DROP TYPE IF EXISTS "v2015".datacollectionstage;
 
 
 
@@ -498,6 +499,7 @@ CREATE TYPE "v2015".work_place_violence_threats AS ENUM ('0','1','8','9','99');
 
 CREATE TYPE "v2015".count_of_exchange_for_sex AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2015".asked_of_forced_to_exchange_for_sex AS ENUM ('0','1','8','9','99');
+CREATE TYPE "v2015".datacollectionstage AS ENUM('1','2','3','5');
 
 CREATE TABLE "v2015".hmis_type
 (
@@ -1744,6 +1746,8 @@ CREATE TABLE "v2015".entryRHY
 	"work_place_promise_difference" "v2015".work_place_promise_difference,
 	"coerced_to_continue_work" "v2015".coerced_to_continue_work,
 	labor_exploit_past_three_months integer,
+	 information_date timestamp,
+ 	 "datacollectionstage" "v2015".datacollectionstage,
 	"project_group_code" character varying(8),
   	"date_created" timestamp,
   	"date_created_from_source" timestamp,
@@ -1773,6 +1777,7 @@ CREATE TABLE "v2015".enrollment_coc
   	  enrollmentid uuid,
 	  client_code character(20),
 	  information_date timestamp,
+	  "datacollectionstage" "v2015".datacollectionstage,
 	  project_group_code character varying(8),
 	  date_created timestamp,
 	  date_updated timestamp,
@@ -1868,6 +1873,7 @@ CREATE TABLE "v2015".employment
 (
   "id" uuid NOT NULL,
   "information_date" timestamp,
+  "datacollectionstage" "v2015".datacollectionstage,
   "employed" "v2015".five_val_dk_refused,
   "employment_type" "v2015".employment_type,
   "not_employed_reason" "v2015".not_employed_reason,
@@ -1901,6 +1907,7 @@ CREATE TABLE "v2015".health_status
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
   "information_date" timestamp,
+   "datacollectionstage" "v2015".datacollectionstage,
   "health_category" "v2015".health_category,
   "health_status" "v2015".health_status_type,
   "due_date" timestamp,
@@ -2178,6 +2185,7 @@ create table "v2015".medicalassistance
   	adap "v2015".five_val_dk_refused,
   	noadapreason "v2015".no_medical_assistance_reason,
   	information_date timestamp,
+  	"datacollectionstage" "v2015".datacollectionstage,
 	enrollmentid uuid,
     "project_group_code" character varying(8),
     "date_created" timestamp,
@@ -2214,6 +2222,8 @@ create table "v2015".domesticviolence
   "enrollmentid" uuid,
   "whenoccurred" "v2015".when_dom_violence_occurred,
   currently_fleeing integer,
+  information_date timestamp,
+  "datacollectionstage" "v2015".datacollectionstage,
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,
@@ -2259,6 +2269,7 @@ create table "v2015".disabilities
   viral_load integer,
   viral_load_source character(8),
   information_date timestamp,
+  "datacollectionstage" "v2015".datacollectionstage,
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,
@@ -2380,6 +2391,8 @@ create table  "v2015".education
 	lastgradecompleted "v2015".last_grade_completed,
 	"school_status" "v2015".school_status,
 	"enrollmentid" uuid,
+	 information_date timestamp,
+     "datacollectionstage" "v2015".datacollectionstage,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2442,6 +2455,8 @@ create table "v2015".incomeandsources
   vadisabilityserviceamount numeric(15,3),
   workerscomp "v2015".no_yes,
   workerscompamount numeric(15,3),
+   information_date timestamp,
+  "datacollectionstage" "v2015".datacollectionstage,
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,
@@ -2483,6 +2498,8 @@ create table "v2015".noncashbenefits
   	tanfchildcare "v2015".no_yes,
   	tanftransportation "v2015".no_yes,
   	wic "v2015".no_yes,
+  	information_date timestamp,
+    "datacollectionstage" "v2015".datacollectionstage,
   	"project_group_code" character varying(8),
   	"date_created" timestamp,
   	"date_created_from_source" timestamp,
@@ -2533,6 +2550,8 @@ create table "v2015".healthinsurance
   other_source integer,
   other_source_identify character(8),
   "enrollmentid" uuid,
+   information_date timestamp,
+  "datacollectionstage" "v2015".datacollectionstage,
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,

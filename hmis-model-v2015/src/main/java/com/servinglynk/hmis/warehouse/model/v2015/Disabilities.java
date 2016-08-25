@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
@@ -81,6 +82,8 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	private Integer viralLoadAvailable;
 	/** Field mapping. */
 	private String viralLoadSource;
+	/** Field mapping. */
+	private DataCollectionStageEnum dataCollectionStage;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -95,10 +98,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		this.id = id;
 	}
 	
- 
-
-
- 
 	/** Return the type of this class. Useful for when dealing with proxies.
 	* @return Defining class.
 	*/
@@ -116,8 +115,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: disabilityresponse.
 	 * @param disabilityresponse the disabilityresponse value you wish to set
@@ -138,8 +135,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		
 	}
 	
-
-  
 	 /**  
 	 * Set the value related to the column: disabilitytype.
 	 * @param disabilitytype the disabilitytype value you wish to set
@@ -149,6 +144,16 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	}
 
 
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 	 /**
 	 * Return the value associated with the column: documentationonfile.
 	 * @return A DisabilitiesDocumentationonfileEnum object (this.documentationonfile)
@@ -205,10 +210,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		return this.id;
 		
 	}
-	
-
-  
-	 /**  
+	/**  
 	 * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */

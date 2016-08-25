@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Education;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
@@ -56,6 +57,9 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, education.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
+				educationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(education.getInformationDate()));
+				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(education.getDataCollectionStage())));
+				
 				performSaveOrUpdate(educationModel);
 			}
 		}

@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceInsurancefromanysourceEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicaidEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicareEnum;
@@ -83,6 +85,9 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					healthinsuranceModel.setEnrollmentid(enrollmentModel);
+					healthinsuranceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
+					healthinsuranceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getDataCollectionStage())));
+					
 					healthinsuranceModel.setExport(exportEntity);
 					performSaveOrUpdate(healthinsuranceModel);
 				} catch(Exception e){

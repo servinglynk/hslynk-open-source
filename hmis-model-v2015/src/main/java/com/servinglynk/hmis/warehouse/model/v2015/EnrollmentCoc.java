@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
+
 
 /**
  * Object mapping for hibernate-handled table: enrollment_coc.
@@ -52,6 +54,18 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	/** Field mapping. */
 	private java.util.UUID id;
 	private LocalDateTime informationDate;
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
