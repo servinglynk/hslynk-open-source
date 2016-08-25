@@ -10,5 +10,5 @@ public interface ProjectService {
    Project updateProject(Project project,String caller);
    Project deleteProject(UUID projectId,String caller);
    Project getProjectById(UUID projectId);
-   Projects getAllProjects(UUID organizationId,Integer startIndex, Integer maxItems);
+   Projects getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems);
 }

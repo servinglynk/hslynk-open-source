@@ -69,13 +69,13 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    }
 
    @Transactional
-   public Projects getAllProjects(UUID organizationId,Integer startIndex, Integer maxItems){
+   public Projects getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
        Projects projects = new Projects();
-        List<com.servinglynk.hmis.warehouse.model.v2015.Project> entities = daoFactory.getProjectDao().getAllProjects(organizationId,startIndex,maxItems);
+        List<com.servinglynk.hmis.warehouse.model.v2015.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2015.Project entity : entities){
            projects.addProject(ProjectConverter.entityToModel(entity));
         }
-        long count = daoFactory.getProjectDao().getProjectCount(organizationId);
+        long count = daoFactory.getProjectDao().getProjectCount(projectGroupCode);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);

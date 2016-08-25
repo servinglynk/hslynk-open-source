@@ -133,16 +133,14 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	   public com.servinglynk.hmis.warehouse.model.v2015.Project getProjectById(UUID projectId){
 	       return (com.servinglynk.hmis.warehouse.model.v2015.Project) get(com.servinglynk.hmis.warehouse.model.v2015.Project.class, projectId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2015.Project> getAllProjects(UUID organizationId,Integer startIndex, Integer maxItems){
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Project> getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Project.class);
-	       criteria.createAlias("organizationid", "organizationid");
-	       criteria.add(Restrictions.eq("organizationid.id", organizationId));
+	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Project>) findByCriteria(criteria,startIndex,maxItems);
 	   }
-	   public long getProjectCount(UUID organizationId){
+	   public long getProjectCount(String projectGroupCode){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Project.class);
-	       criteria.createAlias("organizationid", "organizationid");
-	       criteria.add(Restrictions.eq("organizationid.id", organizationId));
+	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return countRows(criteria);
 	   }
 	   
