@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Affiliation;
 import com.servinglynk.hmis.warehouse.core.model.Affiliations;
 import com.servinglynk.hmis.warehouse.core.model.Funder;
@@ -72,9 +73,8 @@ public class ProjectsController extends ControllerBase {
            if (startIndex == null) startIndex =0;
            if (maxItems == null) maxItems =30;
            Session session = sessionHelper.getSession(request);
-           ProjectGroup projectGroup = session.getAccount().getProjectGroup();
-           ProjectGroup projectGroupById = serviceFactory.getProjectGroupService().getProjectGroupById(projectGroup.getProjectGroupId());
-        return serviceFactory.getProjectService().getAllProjects(projectGroupById.getProjectGroupCode(),startIndex,maxItems); 
+            Account account = serviceFactory.getAccountService().loadAccountBasicInfoByUsername(session.getAccount().getUsername());
+        return serviceFactory.getProjectService().getAllProjects(account.getProjectGroup().getProjectGroupCode(),startIndex,maxItems); 
    }
 
    // ProjectCOC API start
