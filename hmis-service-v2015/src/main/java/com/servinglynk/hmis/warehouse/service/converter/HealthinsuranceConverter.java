@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Healthinsurance;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceInsurancefromanysourceEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicaidEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicareEnum;
@@ -67,6 +68,13 @@ public class HealthinsuranceConverter extends BaseConverter {
 		entity.setOtherSource(model.getOtherSource());
 		if (model.getOtherSourceIdentify() != null)
 		entity.setOtherSourceIdentify(model.getOtherSourceIdentify());
+		 if(model.getDataCollectionStage() !=null)
+			   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+
+		 if(model.getInformationDate()!=null)
+			    entity.setInformationDate(model.getInformationDate());
+			       
+			       
 		return entity;
 	}
 
@@ -109,6 +117,10 @@ public class HealthinsuranceConverter extends BaseConverter {
 		model.setOtherSource(entity.getOtherSource());
 		if (entity.getOtherSourceIdentify() != null)
 		model.setOtherSourceIdentify(entity.getOtherSourceIdentify());
+	    if(entity.getInformationDate()!=null)
+	        model.setInformationDate(entity.getInformationDate());
+	     if(entity.getDataCollectionStage() !=null)
+	         model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
 		return model;
 	}
 

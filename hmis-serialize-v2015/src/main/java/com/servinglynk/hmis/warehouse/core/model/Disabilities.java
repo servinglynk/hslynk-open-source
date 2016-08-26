@@ -42,6 +42,8 @@ public class Disabilities extends ClientModel{
       private Integer viralLoadAvailable;
 
       private Integer viralLoad;
+      
+      private Integer dataCollectionStage;
 
       private String viralLoadSource;
 
@@ -137,5 +139,10 @@ public class Disabilities extends ClientModel{
       public void setViralLoadSource(String viralLoadSource){
           this.viralLoadSource = viralLoadSource;
       }
-
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
  }

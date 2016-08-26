@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Entryrhy;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYActiveMilitaryParentEnum;
@@ -129,6 +130,11 @@ public class EntryrhyConverter  extends BaseConverter {
        entity.setCoercedToContinueWork(EntryRHYCoercedToContinueWorkEnum.lookupEnum(model.getCoercedToContinueWork()+""));
        if(model.getLaborExploitPastThreeMonths()!=null)
        entity.setLaborExploitPastThreeMonths(model.getLaborExploitPastThreeMonths());
+       if(model.getDataCollectionStage() !=null)
+    	  entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+
+       if(model.getInformationDate()!=null)
+    	  entity.setInformationDate(model.getInformationDate());
        return entity;    
    }
 

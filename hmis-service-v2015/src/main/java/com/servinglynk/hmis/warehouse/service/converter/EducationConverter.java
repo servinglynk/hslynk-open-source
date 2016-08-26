@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Education;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 public class EducationConverter  extends BaseConverter {
@@ -12,6 +13,11 @@ public class EducationConverter  extends BaseConverter {
        entity.setLastgradecompleted(LastgradecompletedLastgradecompletedEnum.lookupEnum(model.getLastgradecompleted().toString()));
        if(model.getSchoolStatus()!=null)
        entity.setSchoolStatus(SchoolStatusEnum.lookupEnum(model.getSchoolStatus().toString()));
+       if(model.getDataCollectionStage() !=null)
+    	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	    entity.setInformationDate(model.getInformationDate());
+
        return entity;    
    }
 
@@ -23,6 +29,10 @@ public class EducationConverter  extends BaseConverter {
        model.setLastgradecompleted(Integer.parseInt(entity.getLastgradecompleted().getValue()));
        if(entity.getSchoolStatus()!=null)
        model.setSchoolStatus(Integer.parseInt(entity.getSchoolStatus().getValue()));
+       if(entity.getInformationDate()!=null)
+           model.setInformationDate(entity.getInformationDate());
+        if(entity.getDataCollectionStage() !=null)
+            model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
        return model;
    }
 

@@ -176,6 +176,8 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	private EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice;
 	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
+	/** Field mapping. */
+	private LocalDateTime informationDate;
 	
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -201,7 +203,27 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * Return the value associated with the column: informationDate.
+	 * @return A LocalDateTime object (this.informationDate)
+	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "information_date"  )
+	public LocalDateTime getInformationDate() {
+		return this.informationDate;
+		
+	}
+	
 
+  
+	 /**  
+	 * Set the value related to the column: informationDate.
+	 * @param informationDate the informationDate value you wish to set
+	 */
+	public void setInformationDate(final LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
 
 
 

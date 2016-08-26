@@ -25,7 +25,7 @@ public class Employment extends ClientModel{
 
       private Integer notEmployedReason;
 
-
+      private Integer dataCollectionStage;
 
       public UUID getEmploymentId(){
           return employmentId;
@@ -57,5 +57,11 @@ public class Employment extends ClientModel{
       public void setNotEmployedReason(Integer notEmployedReason){
           this.notEmployedReason = notEmployedReason;
       }
+		public Integer getDataCollectionStage() {
+			return dataCollectionStage;
+		}
+		public void setDataCollectionStage(Integer dataCollectionStage) {
+			this.dataCollectionStage = dataCollectionStage;
+		}
 
  }

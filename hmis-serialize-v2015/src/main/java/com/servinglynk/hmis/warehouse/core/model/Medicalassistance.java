@@ -18,7 +18,7 @@ public class Medicalassistance extends ClientModel{
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
-
+      private Integer dataCollectionStage;
       private Integer hivaidsassistance;
 
       private Integer nohivaidsassistancereason;
@@ -27,9 +27,15 @@ public class Medicalassistance extends ClientModel{
 
       private Integer noadapreason;
 
+      
 
-
-      public UUID getMedicalassistanceId(){
+      public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+	public UUID getMedicalassistanceId(){
           return medicalassistanceId;
       }
       public void setMedicalassistanceId(UUID medicalassistanceId){

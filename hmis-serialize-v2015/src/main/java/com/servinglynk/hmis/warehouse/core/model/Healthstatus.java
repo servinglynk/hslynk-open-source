@@ -20,7 +20,7 @@ public class Healthstatus extends ClientModel{
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
-
+      private Integer dataCollectionStage;
       private Integer healthCategory;
 
       private Integer healthStatus;
@@ -61,5 +61,11 @@ public class Healthstatus extends ClientModel{
       public void setDueDate(LocalDateTime dueDate){
           this.dueDate = dueDate;
       }
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 
  }

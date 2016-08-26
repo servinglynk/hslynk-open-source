@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Employment;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
@@ -10,6 +11,8 @@ public class EmploymentConverter  extends BaseConverter {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
        entity.setId(model.getEmploymentId());
        entity.setInformationDate(model.getInformationDate());
+       if(model.getDataCollectionStage() !=null)
+    	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
        if(model.getEmployed()!=null)
        entity.setEmployed(EmploymentEmployedEnum.lookupEnum(model.getEmployed().toString()));
        if(model.getEmploymentType()!=null)
@@ -23,7 +26,11 @@ public class EmploymentConverter  extends BaseConverter {
    public static Employment entityToModel (com.servinglynk.hmis.warehouse.model.v2015.Employment entity) {
        Employment model = new Employment();
        model.setEmploymentId(entity.getId());
-       model.setInformationDate(entity.getInformationDate());
+       if(entity.getInformationDate()!=null)
+           model.setInformationDate(entity.getInformationDate());
+        if(entity.getDataCollectionStage() !=null)
+            model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+        	   
        if(entity.getEmployed()!=null)
        model.setEmployed(Integer.parseInt(entity.getEmployed().getValue()));
        if(entity.getEmploymentType()!=null)

@@ -18,7 +18,7 @@ public class EnrollmentCoc extends ClientModel{
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
-
+      private Integer dataCollectionStage;
       private String clientCode;
 
 
@@ -35,7 +35,13 @@ public class EnrollmentCoc extends ClientModel{
       public void setInformationDate(LocalDateTime informationDate){
           this.informationDate = informationDate;
       }
-      public String getClientCode(){
+      public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+	public String getClientCode(){
           return clientCode;
       }
       public void setClientCode(String clientCode){

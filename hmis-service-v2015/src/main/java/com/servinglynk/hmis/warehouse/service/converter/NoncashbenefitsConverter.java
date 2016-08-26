@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsBenefitsfromanysourceEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsOthersourceEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsOthertanfEnum;
@@ -35,6 +36,11 @@ public class NoncashbenefitsConverter  extends BaseConverter {
        entity.setTanftransportation(NoncashbenefitsTanftransportationEnum.lookupEnum(model.getTanftransportation().toString()));
  if(model.getWic()!=null)
        entity.setWic(NoncashbenefitsWicEnum.lookupEnum(model.getWic().toString()));
+ if(model.getDataCollectionStage() !=null)
+	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+
+ if(model.getInformationDate()!=null)
+    entity.setInformationDate(model.getInformationDate());
        return entity;    
    }
 
@@ -61,6 +67,10 @@ if(entity.getTanftransportation()!=null)
        model.setTanftransportation(Integer.parseInt(entity.getTanftransportation().getValue()));
 if(entity.getWic()!=null)
        model.setWic(Integer.parseInt(entity.getWic().getValue()));
+if(entity.getInformationDate()!=null)
+    model.setInformationDate(entity.getInformationDate());
+ if(entity.getDataCollectionStage() !=null)
+     model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
        return model;
    }
 

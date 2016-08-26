@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Disabilities;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
@@ -37,6 +38,10 @@ public class DisabilitiesConverter  extends BaseConverter {
        entity.setViralLoadAvailable(model.getViralLoadAvailable());
  if(model.getViralLoad()!=null)
        entity.setViralLoad(model.getViralLoad());
+ if(model.getInformationDate() !=null)
+	  entity.setInformationDate(model.getInformationDate());
+ if(model.getDataCollectionStage() !=null)
+	  entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
  if(model.getViralLoadSource()!=null)
        entity.setViralLoadSource(model.getViralLoadSource());
        return entity;    
@@ -48,6 +53,8 @@ public class DisabilitiesConverter  extends BaseConverter {
        model.setDisabilitiesId(entity.getId());
        if(entity.getInformationDate()!=null)
        model.setInformationDate(entity.getInformationDate());
+       if(entity.getDataCollectionStage() !=null)
+    	   model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
 if(entity.getDisabilitytype()!=null)
        model.setDisabilitytype(Integer.parseInt(entity.getDisabilitytype().getValue()));
        model.setDisabilityresponse(entity.getDisabilityresponse());
