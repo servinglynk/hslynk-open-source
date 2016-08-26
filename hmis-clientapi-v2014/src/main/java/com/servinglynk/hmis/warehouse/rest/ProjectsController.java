@@ -73,7 +73,8 @@ public class ProjectsController extends ControllerBase {
            if (maxItems == null) maxItems =30;
            Session session = sessionHelper.getSession(request);
            ProjectGroup projectGroup = session.getAccount().getProjectGroup();
-        return serviceFactory.getProjectService().getAllProjects(projectGroup.getProjectGroupCode(),startIndex,maxItems); 
+           ProjectGroup projectGroupById = serviceFactory.getProjectGroupService().getProjectGroupById(projectGroup.getProjectGroupId());
+        return serviceFactory.getProjectService().getAllProjects(projectGroupById.getProjectGroupCode(),startIndex,maxItems); 
    }
 
    // ProjectCOC API start
