@@ -67,6 +67,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private SearchDao searchDao;
 	
+	@Autowired private HealthDao healthDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -246,5 +248,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setBaseProjectDao(ProjectDao projectDao) {
 		this.baseProjectDao = projectDao;
+	}
+	public HealthDao getHealthDao() {
+		return healthDao;
+	}
+	public void setHealthDao(HealthDao healthDao) {
+		this.healthDao = healthDao;
 	}
 }

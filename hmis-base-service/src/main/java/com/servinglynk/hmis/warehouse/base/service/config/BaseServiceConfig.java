@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl
 import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.HealthServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProfileServiceImpl;
@@ -194,5 +195,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public ProjectServiceImpl baseProjectService(){
 		 return new ProjectServiceImpl();
+	 }
+	 
+	 @Bean
+	 public HealthServiceImpl healthService(){
+		 return new HealthServiceImpl();
 	 }
 }

@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
@@ -38,4 +39,5 @@ public interface BaseServiceFactory {
 	BulkUploadService getBulkUploadService();
 	SearchService getBaseSearchService();
 	ProjectService getBaseProjectService();
+	HealthService getHealthService();
 }

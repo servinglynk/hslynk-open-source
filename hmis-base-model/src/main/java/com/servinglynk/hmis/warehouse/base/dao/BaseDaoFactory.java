@@ -24,4 +24,5 @@ public interface BaseDaoFactory {
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	SearchDao getSearchDao();
 	ProjectDao getBaseProjectDao();
+	HealthDao getHealthDao();	
 }

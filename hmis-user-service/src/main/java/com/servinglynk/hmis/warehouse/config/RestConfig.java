@@ -26,6 +26,7 @@ import com.servinglynk.hmis.warehouse.rest.AccountsController;
 import com.servinglynk.hmis.warehouse.rest.ApiMethodAuthorizationChecksController;
 import com.servinglynk.hmis.warehouse.rest.ApiMethodController;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
+import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.PermissionSetsController;
 import com.servinglynk.hmis.warehouse.rest.ProfilesController;
 import com.servinglynk.hmis.warehouse.rest.ProjectGroupController;
@@ -150,5 +151,10 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_USER_SERVICE");
+	 }
+	 
+	 @Bean
+	 public HealthController healthController(){
+		 return new HealthController();
 	 }
 }

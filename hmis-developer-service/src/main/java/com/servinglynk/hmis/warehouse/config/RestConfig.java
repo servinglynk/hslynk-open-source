@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImp
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.DeveloperCompaniesController;
 import com.servinglynk.hmis.warehouse.rest.DeveloperServicesController;
+import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.TrustedAppsController;
 
 
@@ -109,5 +110,10 @@ public void configureMessageConverters(List<HttpMessageConverter<?>> messageConv
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_DEVELOPER_SERVICE");
+	 }
+	 
+	 @Bean
+	 public HealthController healthController(){
+		 return new HealthController();
 	 }
 }

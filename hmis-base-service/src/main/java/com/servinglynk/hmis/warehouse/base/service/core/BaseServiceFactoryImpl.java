@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
@@ -68,6 +69,8 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired
 	private ProjectService baseProjectService;
+	
+	@Autowired private HealthService healthService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -199,5 +202,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setBaseProjectService(ProjectService baseProjectService) {
 		this.baseProjectService = baseProjectService;
+	}
+
+	public HealthService getHealthService() {
+		return healthService;
+	}
+
+	public void setHealthService(HealthService healthService) {
+		this.healthService = healthService;
 	}
 }
