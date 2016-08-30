@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,11 +23,10 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.model.BaseProject;
 import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
-import com.servinglynk.hmis.warehouse.client.model.SearchResults;
 
 public class SearchServiceClient extends CoreClientBase implements ISearchServiceClient {
 
-	@Override
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<?> search(SearchRequest request) throws Exception {
 		
 		List<?> searchElements = new ArrayList<>();
