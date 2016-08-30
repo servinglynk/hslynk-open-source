@@ -13,6 +13,7 @@ import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 
@@ -21,12 +22,14 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project createProject(Project project,UUID organizationId,String caller){
+	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
+	   project.setProjectGroup(user.getProjectGroupEntity().getProjectGroupCode());
 	   com.servinglynk.hmis.warehouse.model.v2014.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
 	   
        com.servinglynk.hmis.warehouse.model.v2014.Project pProject = ProjectConverter.modelToEntity(project, null);
        pProject.setOrganizationid(pOrganization);
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-       daoFactory.getProjectDao().populateUserProjectGroupCode(pProject, caller);
+       pProject.setUserId(user.getId());       
        daoFactory.getProjectDao().createProject(pProject);
        project.setProjectId(pProject.getId());
        

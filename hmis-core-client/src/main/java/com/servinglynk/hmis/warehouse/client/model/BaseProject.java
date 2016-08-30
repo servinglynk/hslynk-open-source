@@ -1,13 +1,10 @@
-package com.servinglynk.hmis.warehouse.core.model;
+package com.servinglynk.hmis.warehouse.client.model;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
+public class BaseProject extends ClientModel {
 
 
-@JsonRootName("project")
-public class Project extends ClientModel {
-	
 	private UUID projectId;
     private String projectName;
     private String projectCommonName;
@@ -16,9 +13,11 @@ public class Project extends ClientModel {
     private Integer residentialAffiliation;
     private Integer targetPopulation;
     private Integer trackingMethod;
+    private Integer schemaYear;
+    private String link;
     private String projectGroup;
     
-	public Project() {
+	public BaseProject() {
 		
 	}
 	
@@ -30,7 +29,7 @@ public class Project extends ClientModel {
 		this.projectName = projectName;
 	}
 
-	public Project(UUID projectId) {
+	public BaseProject(UUID projectId) {
 		this.projectId = projectId;
 	}
 
@@ -90,6 +89,22 @@ public class Project extends ClientModel {
 		this.trackingMethod = trackingMethod;
 	}
 
+	public Integer getSchemaYear() {
+		return schemaYear;
+	}
+
+	public void setSchemaYear(Integer schemaYear) {
+		this.schemaYear = schemaYear;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	public String getProjectGroup() {
 		return projectGroup;
 	}
@@ -97,4 +112,5 @@ public class Project extends ClientModel {
 	public void setProjectGroup(String projectGroup) {
 		this.projectGroup = projectGroup;
 	}
+	
 }

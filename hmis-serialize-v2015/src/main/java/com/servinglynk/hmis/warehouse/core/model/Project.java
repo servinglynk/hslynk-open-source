@@ -17,6 +17,7 @@ public class Project extends ClientModel {
     private Integer targetPopulation;
     private Integer trackingMethod;
     private UUID organizationId;
+    private String projectGroup;
     
     
 	public UUID getOrganizationId() {
@@ -98,4 +99,13 @@ public class Project extends ClientModel {
 	public void setTrackingMethod(Integer trackingMethod) {
 		this.trackingMethod = trackingMethod;
 	}
+
+	public String getProjectGroup() {
+		return projectGroup;
+	}
+
+	public void setProjectGroup(String projectGroup) {
+		this.projectGroup = projectGroup;
+	}
+
 }

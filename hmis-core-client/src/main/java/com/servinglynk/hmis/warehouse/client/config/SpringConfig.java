@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.client.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -15,57 +17,62 @@ import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationS
 import com.servinglynk.hmis.warehouse.client.authorizationservice.IAuthorizationClient;
 import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientService;
 import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientServiceImpl;
+import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.client.notificationservice.INotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.reportservice.IReportServiceClient;
 import com.servinglynk.hmis.warehouse.client.reportservice.ReportServiceClient;
-
+import com.servinglynk.hmis.warehouse.client.search.ISearchServiceClient;
+import com.servinglynk.hmis.warehouse.client.search.SearchServiceClient;
 
 @Configuration
 @EnableScheduling
-@ImportResource({"classpath:com/notification-service-client-config.xml"})
-@ComponentScan(value={"com.servinglynk.hmis.warehouse.client.notificationservice","com.servinglynk.hmis.warehouse.client.reportservice"})
+@ImportResource({ "classpath:com/notification-service-client-config.xml" })
+@ComponentScan(value = { "com.servinglynk.hmis.warehouse.client.notificationservice",
+		"com.servinglynk.hmis.warehouse.client.reportservice" })
 @PropertySource("classpath:com/core-client.properties")
 public class SpringConfig {
-	
-	
+
 	@Bean
-    public static PropertyPlaceholderConfigurer properties(){
-        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-        ClassPathResource[] resources = new ClassPathResource[ ]
-                { new ClassPathResource( "com/core-client.properties" ) };
-        ppc.setLocations( resources );
-        ppc.setIgnoreUnresolvablePlaceholders( true );
-        return ppc;
-    }
+	public static PropertyPlaceholderConfigurer properties() {
+		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+		ClassPathResource[] resources = new ClassPathResource[] { new ClassPathResource("com/core-client.properties") };
+		ppc.setLocations(resources);
+		ppc.setIgnoreUnresolvablePlaceholders(true);
+		return ppc;
+	}
 
 	@Autowired
 	Environment env;
-	
+
 	@Bean
-	public INotificationServiceClient notificationServiceClient(){
+	public INotificationServiceClient notificationServiceClient() {
 		return new NotificationServiceClient();
 	}
-	
+
 	@Bean
-	public IReportServiceClient reportServiceClient(){
+	public IReportServiceClient reportServiceClient() {
 		return new ReportServiceClient();
 	}
+
 	@Bean
-	public IAuthorizationClient authorizationClient(){
+	public IAuthorizationClient authorizationClient() {
 		return new AuthorizationServiceClient();
 	}
-	
-	
-	 @Bean
-	 public CoreClientConfig coreClientConfig(){
-		 return new CoreClientConfig();
-	 }
-	
-	 @Bean
-	public BaseClientServiceImpl baseClientService(){
+
+	@Bean
+	public CoreClientConfig coreClientConfig() {
+		return new CoreClientConfig();
+	}
+
+	@Bean
+	public BaseClientServiceImpl baseClientService() {
 		return new BaseClientServiceImpl();
 	}
-	
-	
+
+	@Bean
+	public ISearchServiceClient searchServiceClient() {
+		return new SearchServiceClient();
+	}
+
 }
