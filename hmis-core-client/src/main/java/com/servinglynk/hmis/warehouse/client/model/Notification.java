@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.client.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.servinglynk.hmis.warehouse.ClientModel;
 
 
 @JsonRootName("notification")

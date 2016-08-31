@@ -7,6 +7,8 @@ public class SearchRequest {
 	
 	private String trustedAppId;
 	private String sessionToken;
+	private String searchEntity;
+	
 	private Map<String, Object> searchParams= new HashMap<String,Object>();
 
 	public String getTrustedAppId() {
@@ -31,5 +33,10 @@ public class SearchRequest {
 	public void addSearchParam(String paramName,Object paramValue){
 		this.searchParams.put(paramName, paramValue);
 	}
-
+	public String getSearchEntity() {
+		return searchEntity;
+	}
+	public void setSearchEntity(String searchEntity) {
+		this.searchEntity = searchEntity;
+	}
 }
