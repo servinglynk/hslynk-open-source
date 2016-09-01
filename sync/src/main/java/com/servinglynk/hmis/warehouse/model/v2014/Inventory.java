@@ -40,6 +40,36 @@ public class Inventory extends BaseModel {
 	public String youth_age_group;
 	@Column(name="youth_bed_inventory")
 	public String youth_bed_inventory;
+	
+	@Column(name="datacollectionstage")
+	public String datacollectionstage;
+	@Column(name="information_date")
+	private Date information_date;
+	
+	/**
+	 * @return the datacollectionstage
+	 */
+	public String getDatacollectionstage() {
+		return datacollectionstage;
+	}
+	/**
+	 * @param datacollectionstage the datacollectionstage to set
+	 */
+	public void setDatacollectionstage(String datacollectionstage) {
+		this.datacollectionstage = datacollectionstage;
+	}
+	/**
+	 * @return the information_date
+	 */
+	public Date getInformation_date() {
+		return information_date;
+	}
+	/**
+	 * @param information_date the information_date to set
+	 */
+	public void setInformation_date(Date information_date) {
+		this.information_date = information_date;
+	}
 	/**
 	 * @return the bed_inventory
 	 */

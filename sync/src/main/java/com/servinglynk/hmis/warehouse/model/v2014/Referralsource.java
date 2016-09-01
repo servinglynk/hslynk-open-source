@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -15,6 +16,35 @@ public class Referralsource extends BaseModel {
 	public UUID enrollmentid;
 	@Column(name = "referralsource")
 	public String referralsource;
+	@Column(name="datacollectionstage")
+	public String datacollectionstage;
+	@Column(name="information_date")
+	private Date information_date;
+	
+	/**
+	 * @return the datacollectionstage
+	 */
+	public String getDatacollectionstage() {
+		return datacollectionstage;
+	}
+	/**
+	 * @param datacollectionstage the datacollectionstage to set
+	 */
+	public void setDatacollectionstage(String datacollectionstage) {
+		this.datacollectionstage = datacollectionstage;
+	}
+	/**
+	 * @return the information_date
+	 */
+	public Date getInformation_date() {
+		return information_date;
+	}
+	/**
+	 * @param information_date the information_date to set
+	 */
+	public void setInformation_date(Date information_date) {
+		this.information_date = information_date;
+	}
 	/**
 	 * @return the countoutreachreferralapproaches
 	 */

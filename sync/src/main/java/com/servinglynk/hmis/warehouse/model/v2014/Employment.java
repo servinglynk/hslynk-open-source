@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -11,8 +10,6 @@ import com.servinglynk.hmis.warehouse.BaseModel;
 @Entity
 public class Employment extends BaseModel{
 	
-	@Column(name="information_date")
-	public Timestamp information_date;
 	@Column(name="employed")		
 	public String employed;
 	@Column(name="employment_type")
@@ -21,16 +18,33 @@ public class Employment extends BaseModel{
 	public String not_employed_reason;
 	@Column(name="enrollmentid")
 	public UUID enrollmentid;
+	@Column(name="datacollectionstage")
+	public String datacollectionstage;
+	@Column(name="information_date")
+	private Date information_date;
+	
+	/**
+	 * @return the datacollectionstage
+	 */
+	public String getDatacollectionstage() {
+		return datacollectionstage;
+	}
+	/**
+	 * @param datacollectionstage the datacollectionstage to set
+	 */
+	public void setDatacollectionstage(String datacollectionstage) {
+		this.datacollectionstage = datacollectionstage;
+	}
 	/**
 	 * @return the information_date
 	 */
-	public Timestamp getInformation_date() {
+	public Date getInformation_date() {
 		return information_date;
 	}
 	/**
 	 * @param information_date the information_date to set
 	 */
-	public void setInformation_date(Timestamp information_date) {
+	public void setInformation_date(Date information_date) {
 		this.information_date = information_date;
 	}
 	/**

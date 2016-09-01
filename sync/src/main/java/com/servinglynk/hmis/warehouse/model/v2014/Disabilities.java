@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -25,6 +26,23 @@ public class Disabilities extends BaseModel {
 	public UUID enrollmentid;
 	@Column(name="receivingservices")
 	public String receivingservices;
+	@Column(name="datacollectionstage")
+	public String datacollectionstage;
+	@Column(name="information_date")
+	private Date information_date;
+	
+	public String getDatacollectionstage() {
+		return datacollectionstage;
+	}
+	public void setDatacollectionstage(String datacollectionstage) {
+		this.datacollectionstage = datacollectionstage;
+	}
+	public Date getInformation_date() {
+		return information_date;
+	}
+	public void setInformation_date(Date information_date) {
+		this.information_date = information_date;
+	}
 	/**
 	 * @return the disabilityresponse
 	 */
