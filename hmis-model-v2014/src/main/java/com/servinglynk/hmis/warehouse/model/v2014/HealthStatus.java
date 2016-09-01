@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
 
@@ -75,7 +76,19 @@ public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializa
 		this.id = id;
 	}
 
+	/** Field mapping. */
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
 
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 
 
 	/** Field mapping. */

@@ -4,6 +4,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import com.servinglynk.hmis.warehouse.core.model.Employment;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
@@ -18,7 +19,10 @@ public class EmploymentConverter extends BaseConverter {
        if(model.getNotEmployedReason()!=null)
        entity.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(model.getNotEmployedReason().toString()));
        if(model.getInformationDate()!=null)
-       entity.setInformationDate(model.getInformationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    	   entity.setInformationDate(model.getInformationDate());
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+    
        return entity;    
    }
 
@@ -32,9 +36,14 @@ public class EmploymentConverter extends BaseConverter {
        if(entity.getEmploymentType()!=null)
        employment.setEmploymentType(Integer.parseInt(entity.getEmploymentType().getValue()));
        if(entity.getInformationDate()!=null)
-       employment.setInformationDate(Date.from(entity.getInformationDate().atZone(ZoneId.systemDefault()).toInstant()));
+       employment.setInformationDate(entity.getInformationDate());
        if(entity.getNotEmployedReason()!=null)
        employment.setNotEmployedReason(Integer.parseInt(entity.getNotEmployedReason().getValue()));
+       if(entity.getInformationDate()!=null)
+	       employment.setInformationDate(entity.getInformationDate());
+       if(entity.getDataCollectionStage() !=null)
+    	   	employment.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+
        copyBeanProperties(entity, employment);
        return employment;
    }

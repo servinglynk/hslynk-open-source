@@ -411,7 +411,7 @@ public class TestData {
 		   employment.setEmployed(getRandamFromEnum("EmploymentEmployedEnum"));
 	
 	       employment.setEmploymentType(getRandamFromEnum("EmploymentEmploymentTypeEnum"));
-	       employment.setInformationDate(new Date());
+	       employment.setInformationDate(LocalDateTime.now());
 	       employment.setNotEmployedReason(getRandamFromEnum("EmploymentNotEmployedReasonEnum"));
 		return employment;
 	}
@@ -563,7 +563,7 @@ public class TestData {
 	       healthStatus.setHealthCategory(getRandamFromEnum("HealthStatusHealthCategoryEnum"));
 	       healthStatus.setHealthStatus(getRandamFromEnum("HealthStatusHealthStatusEnum"));
 	       healthStatus.setDueDate(new Date());
-	       healthStatus.setInformationDate(new Date());
+	       healthStatus.setInformationDate(LocalDateTime.now());
 	       return healthStatus;
 	}
 	 

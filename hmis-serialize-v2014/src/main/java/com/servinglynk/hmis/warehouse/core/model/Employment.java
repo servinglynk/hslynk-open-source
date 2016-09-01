@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -17,7 +17,16 @@ public class Employment extends ClientModel{
 
        private Integer notEmployedReason;
        
-       private Date informationDate;
+       private LocalDateTime informationDate;
+       private Integer dataCollectionStage;
+       
+       
+ 	public Integer getDataCollectionStage() {
+ 		return dataCollectionStage;
+ 	}
+ 	public void setDataCollectionStage(Integer dataCollectionStage) {
+ 		this.dataCollectionStage = dataCollectionStage;
+ 	}
 
 	public UUID getEmploymentId() {
 		return employmentId;
@@ -51,11 +60,11 @@ public class Employment extends ClientModel{
 		this.notEmployedReason = notEmployedReason;
 	}
 
-	public Date getInformationDate() {
+	public LocalDateTime getInformationDate() {
 		return informationDate;
 	}
 
-	public void setInformationDate(Date informationDate) {
+	public void setInformationDate(LocalDateTime informationDate) {
 		this.informationDate = informationDate;
 	}
  }

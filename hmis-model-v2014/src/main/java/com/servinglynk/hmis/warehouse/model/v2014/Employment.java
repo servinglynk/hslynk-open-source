@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
@@ -77,8 +78,19 @@ public class Employment extends HmisBaseModel  implements Cloneable, Serializabl
 	}
 
 
+	/** Field mapping. */
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
 
-
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 
 	/** Field mapping. */
 	private Export export;

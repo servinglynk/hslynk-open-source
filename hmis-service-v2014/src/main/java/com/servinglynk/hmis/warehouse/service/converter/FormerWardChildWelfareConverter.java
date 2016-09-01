@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.FormerWardChildWelfare;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardchildwelfareChildwelfareyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardchildwelfareFormerwardchildwelfareEnum;
 public class FormerWardChildWelfareConverter extends BaseConverter {
@@ -13,6 +14,11 @@ public class FormerWardChildWelfareConverter extends BaseConverter {
        entity.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(model.getChildwelfareyears().toString()));
        if(model.getFormerwardchildwelfare()!=null)
        entity.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(model.getFormerwardchildwelfare().toString()));
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
+    	   
        return entity;    
    }
 
@@ -27,6 +33,11 @@ public class FormerWardChildWelfareConverter extends BaseConverter {
        model.setChildwelfareyears(Integer.parseInt(entity.getChildwelfareyears().getValue()));
        if(entity.getFormerwardchildwelfare()!=null)
        model.setFormerwardchildwelfare(Integer.parseInt(entity.getFormerwardchildwelfare().getValue()));
+       if(entity.getInformationDate()!=null)
+  	       model.setInformationDate(entity.getInformationDate());
+         if(entity.getDataCollectionStage() !=null)
+      	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+      
        copyBeanProperties(entity, model);
        return model;
    }

@@ -16,21 +16,26 @@ public class Schoolstatus extends ClientModel {
     @JsonDeserialize(using=JsonDateDeserializer.class)
 	private LocalDateTime informationDate;
 	private Integer schoolStatus;
-
+	 private Integer dataCollectionStage;
+     
+     public LocalDateTime getInformationDate() {
+		return informationDate;
+	}
+	public void setInformationDate(LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 	public UUID getSchoolstatusId() {
 		return schoolstatusId;
 	}
 
 	public void setSchoolstatusId(UUID schoolstatusId) {
 		this.schoolstatusId = schoolstatusId;
-	}
-
-	public LocalDateTime getInformationDate() {
-		return informationDate;
-	}
-
-	public void setInformationDate(LocalDateTime informationDate) {
-		this.informationDate = informationDate;
 	}
 
 	public Integer getSchoolStatus() {

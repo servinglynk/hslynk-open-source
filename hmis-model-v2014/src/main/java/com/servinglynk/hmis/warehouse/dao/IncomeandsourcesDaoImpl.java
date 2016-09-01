@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesAlimonyEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesChildsupportEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesEarnedEnum;
@@ -102,6 +103,8 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Incomeandsources.class.getSimpleName(),Enrollment.class, incomeAndSources.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 					incomeAndSourcesModel.setEnrollmentid(enrollmentModel);
 					incomeAndSourcesModel.setExport(exportEntity);
+					incomeAndSourcesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(incomeAndSources.getInformationDate()));
+					incomeAndSourcesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getDataCollectionStage())));
 					performSaveOrUpdate(incomeAndSourcesModel);
 				} catch (Exception e) {
 					String errorMessage = "Failure in Incomeandsources:::" + incomeAndSources.toString() + " with exception" + e.getLocalizedMessage();

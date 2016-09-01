@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -59,6 +60,8 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					enrollmentCocModel.setProjectCoc(projectCoc);	
 					//enrollmentCocModel.setCocCode(enrollmentCoc.get
 					enrollmentCocModel.setExport(exportEntity);
+					enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getInformationDate()));
+					enrollmentCocModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollmentCoc.getDataCollectionStage())));
 					performSaveOrUpdate(enrollmentCocModel);
 				} catch (Exception e) {
 					String errorMessage = "Error occured with "+enrollmentCoc.toString() + " Execption :::"+e.getLocalizedMessage();

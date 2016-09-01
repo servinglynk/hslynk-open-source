@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.YouthCriticalIssue;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesActivemilitaryparentEnum;
@@ -82,6 +83,10 @@ public class YouthCriticalIssuesConverter extends BaseConverter {
        entity.setUnemploymentfam(YouthcriticalissuesUnemploymentfamEnum.lookupEnum(model.getUnemploymentfam().toString()));
        if(model.getUnemploymentyouth()!=null)
        entity.setUnemploymentyouth(YouthcriticalissuesUnemploymentyouthEnum.lookupEnum(model.getUnemploymentyouth().toString()));
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
        return entity;    
    }
 
@@ -140,6 +145,10 @@ public class YouthCriticalIssuesConverter extends BaseConverter {
        model.setUnemploymentfam(Integer.parseInt(entity.getUnemploymentfam().getValue()));
        if(entity.getUnemploymentyouth()!=null)
        model.setUnemploymentyouth(Integer.parseInt(entity.getUnemploymentyouth().getValue()));
+       if(entity.getInformationDate()!=null)
+  	       model.setInformationDate(entity.getInformationDate());
+         if(entity.getDataCollectionStage() !=null)
+      	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
        copyBeanProperties(entity, model);
        return model;
    }

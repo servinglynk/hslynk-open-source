@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
@@ -57,6 +58,8 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Sexualorientation.class.getSimpleName(),Enrollment.class,sexualOrientation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					sexualorientationModel.setEnrollmentid(enrollmentModel);
 					sexualorientationModel.setExport(exportEntity);
+					sexualorientationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(sexualOrientation.getInformationDate()));
+					sexualorientationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getDataCollectionStage())));
 					performSaveOrUpdate(sexualorientationModel);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Sexualorientation:::"+sexualOrientation.toString()+ " with exception"+e.getLocalizedMessage();

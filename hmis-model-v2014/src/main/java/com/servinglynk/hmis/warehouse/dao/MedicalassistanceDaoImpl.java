@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.MedicalAssistance;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
@@ -62,6 +63,8 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Medicalassistance.class.getSimpleName(),Enrollment.class, medicalAssistance.getMedicalAssistanceID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					medicalassistanceModel.setEnrollmentid(enrollmentModel);
 					medicalassistanceModel.setExport(exportEntity);
+					medicalassistanceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(medicalAssistance.getInformationDate()));
+					medicalassistanceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getDataCollectionStage())));
 					performSaveOrUpdate(medicalassistanceModel);
 				}catch(Exception e) {
 					String errorMessage = "Failure in MedicalAssistance:::"+medicalAssistance.toString()+ " with exception"+e.getLocalizedMessage();

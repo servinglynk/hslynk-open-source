@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesAbuseandneglectyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesActivemilitaryparentEnum;
@@ -106,6 +107,8 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					youthcriticalissuesModel.setExport(exportEntity);
 					Enrollment enrollmentModel = (Enrollment) getModel(Youthcriticalissues.class.getSimpleName(),Enrollment.class,youthCriticalIssues.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					youthcriticalissuesModel.setEnrollmentid(enrollmentModel);
+					youthcriticalissuesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getInformationDate()));
+					youthcriticalissuesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getDataCollectionStage())));
 					performSaveOrUpdate(youthcriticalissuesModel);
 				}catch(Exception e) {
 					String errorMessage = "Exception in youthCriticalIssues:"+youthCriticalIssues.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();

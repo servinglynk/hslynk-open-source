@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import java.math.BigDecimal;
 
 import com.servinglynk.hmis.warehouse.core.model.IncomeAndSource;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesAlimonyEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesChildsupportEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesEarnedEnum;
@@ -76,6 +77,10 @@ public class IncomeAndSourceConverter extends BaseConverter {
        if(model.getWorkerscomp()!=null)
        entity.setWorkerscomp(IncomeandsourcesWorkerscompEnum.lookupEnum(model.getWorkerscomp().toString()));
        entity.setWorkerscompamount(new BigDecimal(model.getWorkerscompamount()));
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
        return entity;    
    }
 
@@ -150,6 +155,11 @@ public class IncomeAndSourceConverter extends BaseConverter {
        model.setWorkerscomp(Integer.parseInt(entity.getWorkerscomp().getValue()));
        if(entity.getWorkerscompamount()!=null)
        model.setWorkerscompamount(entity.getWorkerscompamount().floatValue());
+       if(entity.getInformationDate()!=null)
+  	       model.setInformationDate(entity.getInformationDate());
+         if(entity.getDataCollectionStage() !=null)
+      	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+      
        copyBeanProperties(entity, model);
        return model;
    }

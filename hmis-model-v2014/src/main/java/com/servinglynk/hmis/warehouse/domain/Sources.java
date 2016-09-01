@@ -11309,6 +11309,8 @@ public class Sources {
                 @XmlAttribute
                 protected XMLGregorianCalendar informationDate;
                 @XmlAttribute
+                protected Byte dataCollectionStage;
+                @XmlAttribute
                 protected String userID;
 
                 /**
@@ -11575,7 +11577,15 @@ public class Sources {
                     this.informationDate = value;
                 }
 
-                /**
+                public Byte getDataCollectionStage() {
+					return dataCollectionStage;
+				}
+
+				public void setDataCollectionStage(Byte dataCollectionStage) {
+					this.dataCollectionStage = dataCollectionStage;
+				}
+
+				/**
                  * Gets the value of the userID property.
                  * 
                  * @return
@@ -14549,6 +14559,8 @@ public class Sources {
                 @XmlAttribute
                 protected Byte dataCollectionStage;
                 @XmlAttribute
+                protected XMLGregorianCalendar informationDate;
+                @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
@@ -14659,7 +14671,15 @@ public class Sources {
                     this.dataCollectionStage = value;
                 }
 
-                /**
+                public XMLGregorianCalendar getInformationDate() {
+					return informationDate;
+				}
+
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
+					this.informationDate = informationDate;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return
@@ -15546,6 +15566,8 @@ public class Sources {
                 @XmlAttribute
                 protected Byte dataCollectionStage;
                 @XmlAttribute
+                protected XMLGregorianCalendar informationDate;
+                @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
@@ -15639,8 +15661,15 @@ public class Sources {
                 public void setDataCollectionStage(Byte value) {
                     this.dataCollectionStage = value;
                 }
+                public XMLGregorianCalendar getInformationDate() {
+					return informationDate;
+				}
 
-                /**
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
+					this.informationDate = informationDate;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return
@@ -16733,6 +16762,8 @@ public class Sources {
                 @XmlAttribute
                 protected Byte dataCollectionStage;
                 @XmlAttribute
+                protected XMLGregorianCalendar informationDate;
+                @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
@@ -17210,8 +17241,15 @@ public class Sources {
                 public void setDataCollectionStage(Byte value) {
                     this.dataCollectionStage = value;
                 }
+                public XMLGregorianCalendar getInformationDate() {
+					return informationDate;
+				}
 
-                /**
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
+					this.informationDate = informationDate;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return

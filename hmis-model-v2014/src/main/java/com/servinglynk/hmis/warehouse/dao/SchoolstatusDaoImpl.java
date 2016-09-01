@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SchoolStatus;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
@@ -61,6 +62,8 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Schoolstatus.class.getSimpleName(),Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					schoolstatusModel.setEnrollmentid(enrollmentModel);
 					schoolstatusModel.setExport(exportEntity);
+					schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
+					schoolstatusModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(schoolStatus.getDataCollectionStage())));
 					performSaveOrUpdate(schoolstatusModel);
 				}catch(Exception e) {
 					String errorMessage = "Failure in Schoolstatus:::"+schoolStatus.toString()+ " with exception"+e.getLocalizedMessage();

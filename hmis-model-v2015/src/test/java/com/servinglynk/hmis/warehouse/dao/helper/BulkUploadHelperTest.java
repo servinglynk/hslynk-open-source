@@ -67,7 +67,7 @@ public class BulkUploadHelperTest {
 		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
-		sources = helper.getSourcesFromFiles(upload,projectGrp);
+		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
 		assertNotNull(sources);
 		
 		List<Client> clients = sources.getSource().getExport().getClient();

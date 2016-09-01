@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -17,7 +18,23 @@ public class FormerWardChildWelfare extends ClientModel{
       private Integer formerwardchildwelfare;
 
 
+      private LocalDateTime informationDate;
+      private Integer dataCollectionStage;
 
+
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+}
+
+         public LocalDateTime getInformationDate() {
+    		return informationDate;
+    	}
+    	public void setInformationDate(LocalDateTime informationDate) {
+    		this.informationDate = informationDate;
+	}
       public UUID getFormerWardChildWelfareId(){
           return formerWardChildWelfareId;
       }

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
@@ -60,6 +61,8 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),Enrollment.class, employment.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					employmentModel.setEnrollmentid(enrollmentModel);
 					employmentModel.setExport(exportEntity);
+					employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
+					employmentModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getDataCollectionStage())));
 					performSaveOrUpdate(employmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+employment.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();

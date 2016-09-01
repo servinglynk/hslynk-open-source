@@ -95,7 +95,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
-				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity);
+				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,true);
 			} catch (UnmarshalException ex) {
 				logger.error("Error executing the bulk upload process:: ", ex);
 				throw new Exception("HUD File Uploaded is in an invalid Format", ex);

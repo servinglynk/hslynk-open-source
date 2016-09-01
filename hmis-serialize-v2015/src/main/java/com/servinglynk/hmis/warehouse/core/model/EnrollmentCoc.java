@@ -21,8 +21,6 @@ public class EnrollmentCoc extends ClientModel{
       private Integer dataCollectionStage;
       private String clientCode;
 
-
-
       public UUID getEnrollmentCocId(){
           return enrollmentCocId;
       }

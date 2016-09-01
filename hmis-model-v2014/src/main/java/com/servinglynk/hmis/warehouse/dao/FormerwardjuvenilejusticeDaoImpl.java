@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FormerWardJuvenileJustice;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeFormerwardjuvenilejusticeEnum;
 import com.servinglynk.hmis.warehouse.enums.FormerwardjuvenilejusticeJuvenilejusticeyearsEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
@@ -57,6 +58,8 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Formerwardjuvenilejustice.class.getSimpleName(),Enrollment.class, formerWardJuvenileJustice.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
 					formerWardJuvenileJusticeModel.setExport(exportEntity);
+					formerWardJuvenileJusticeModel.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getInformationDate()));
+					formerWardJuvenileJusticeModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getDataCollectionStage())));
 					performSaveOrUpdate(formerWardJuvenileJusticeModel);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+formerWardJuvenileJustice.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();

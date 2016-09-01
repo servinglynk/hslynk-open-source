@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Inventory;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
@@ -24,6 +25,11 @@ public class InventoryConverter extends BaseConverter {
        entity.setInventorystartdate(model.getInventorystartdate());
        if(model.getUnitinventory()!=null)
        entity.setUnitinventory(model.getUnitinventory());
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
+       
        return entity;    
    }
 
@@ -56,7 +62,11 @@ public class InventoryConverter extends BaseConverter {
        model.setYouthAgeGroup(entity.getYouthAgeGroup().getValue());
        if(entity.getYouthBedInventory() !=null)
        model.setYouthBedInventory(entity.getYouthBedInventory());
-       
+       if(entity.getInformationDate()!=null)
+  	       model.setInformationDate(entity.getInformationDate());
+         if(entity.getDataCollectionStage() !=null)
+      	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+    
        copyBeanProperties(entity, model);
        return model;
    }

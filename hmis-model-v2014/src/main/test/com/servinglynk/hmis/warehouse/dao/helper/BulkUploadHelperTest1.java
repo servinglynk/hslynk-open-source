@@ -50,10 +50,10 @@ public class BulkUploadHelperTest1 {
 	public void testCVSUpload() throws JAXBException, IOException {
 		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
-		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV.zip");
+		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV_files.zip");
 		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
-		sources = helper.getSourcesFromFiles(upload,projectGrp);
+		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
 		assertNotNull(sources);
 		
 		List<Client> clients = sources.getSource().getExport().getClient();
@@ -137,8 +137,8 @@ public class BulkUploadHelperTest1 {
 		assertNotNull(enrollCoc);
 		assertEquals(enrollCoc.size(), 13);
 		EnrollmentCoC enrollmentCoC = enrollCoc.get(0);
-		assertEquals(enrollmentCoC.getEnrollmentCoCID(),2006);
-		assertEquals(enrollmentCoC.getProjectCoCID(),240);
+		assertEquals(enrollmentCoC.getEnrollmentCoCID(),"2006");
+		assertEquals(enrollmentCoC.getProjectCoCID(),"240");
 		assertEquals(enrollmentCoC.getProjectEntryID(), "116");
 		assertEquals(enrollmentCoC.getUserID(), "mmccomas");
 		enrollCoc.size();
@@ -295,12 +295,12 @@ public class BulkUploadHelperTest1 {
 		URL path = BulkUploadHelperTest1.class.getResource("HUD_4_0__6.xml");
 //		System.out.println(path);
 		BulkUpload upload = new BulkUpload();
-	//	upload.setInputpath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
-		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\test.xml");
+//		upload.setInputpath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
+	//	upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
 		upload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
-		sources = helper.getSourcesFromFiles(upload,projectGrp);
+		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
 		assertNotNull(sources);
 		
 		List<Client> clients = sources.getSource().getExport().getClient();

@@ -87,7 +87,6 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					healthinsuranceModel.setEnrollmentid(enrollmentModel);
 					healthinsuranceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
 					healthinsuranceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getDataCollectionStage())));
-					
 					healthinsuranceModel.setExport(exportEntity);
 					performSaveOrUpdate(healthinsuranceModel);
 				} catch(Exception e){

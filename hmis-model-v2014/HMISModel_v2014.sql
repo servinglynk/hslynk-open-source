@@ -2747,3 +2747,39 @@ CREATE SEQUENCE v2014.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+
+  
+CREATE TYPE "v2014".datacollectionstage AS ENUM('1','2','3','5');
+
+alter table v2014.commercialSexualExploitation  add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.disabilities  add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.domesticViolence add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.schoolStatus  add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.employment add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.enrollment_CoC add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.formerWardChildWelfare add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.formerWardJuvenileJustice add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.healthInsurance add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.health_Status add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.incomeAndSources add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.inventory add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.medicalAssistance add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.nonCashBenefits add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.referralSource add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.sexualOrientation add column datacollectionstage  "v2014".datacollectionstage;
+alter table v2014.youthCriticalIssues add column datacollectionstage  "v2014".datacollectionstage;
+
+alter table v2014.commercialSexualExploitation add column information_date  timestamp;
+alter table v2014.disabilities add column information_date  timestamp;
+alter table v2014.domesticViolence add column information_date  timestamp;
+alter table v2014.enrollment_CoC add column information_date  timestamp;
+alter table v2014.formerWardChildWelfare add column information_date  timestamp;
+alter table v2014.formerWardJuvenileJustice add column information_date  timestamp;
+alter table v2014.healthInsurance add column information_date  timestamp;
+alter table v2014.incomeAndSources add column information_date  timestamp;
+alter table v2014.inventory add column information_date  timestamp;
+alter table v2014.medicalAssistance add column information_date  timestamp;
+alter table v2014.nonCashBenefits add column information_date  timestamp;
+alter table v2014.referralSource add column information_date  timestamp;
+alter table v2014.sexualOrientation add column information_date  timestamp;
+alter table v2014.youthCriticalIssues add column information_date  timestamp;

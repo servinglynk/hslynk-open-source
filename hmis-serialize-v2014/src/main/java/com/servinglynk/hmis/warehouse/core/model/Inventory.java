@@ -32,7 +32,23 @@ public class Inventory extends ClientModel{
   	private String youthAgeGroup;
   	/** Field mapping. */
   	private Long youthBedInventory;
+  	 private LocalDateTime informationDate;
+     private Integer dataCollectionStage;
 
+
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+}
+
+        public LocalDateTime getInformationDate() {
+   		return informationDate;
+   	}
+   	public void setInformationDate(LocalDateTime informationDate) {
+   		this.informationDate = informationDate;
+}
       
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)

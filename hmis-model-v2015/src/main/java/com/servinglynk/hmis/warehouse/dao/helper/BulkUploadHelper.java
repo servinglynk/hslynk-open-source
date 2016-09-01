@@ -27,6 +27,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
@@ -47,11 +48,14 @@ public class BulkUploadHelper {
 	 * @throws JAXBException 
 	 * @throws IOException 
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity) throws JAXBException, IOException {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity,Boolean isFileFromS3) throws JAXBException, IOException {
 			String inputPath = upload.getInputpath();
 			// download file to temp folder
-			AwsS3Client client = new AwsS3Client();
-			String tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
+			String tempFile = upload.getInputpath();
+			if(BooleanUtils.isTrue(isFileFromS3)) {
+				AwsS3Client client = new AwsS3Client();
+				tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
+			}
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
 				return getSourcesForZipFile(tempFile);
 			}

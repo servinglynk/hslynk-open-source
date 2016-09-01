@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 
 
@@ -95,7 +96,19 @@ public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializa
 	}
 
 
+	/** Field mapping. */
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
 
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 
 	/** Return the type of this class. Useful for when dealing with proxies.
 	* @return Defining class.

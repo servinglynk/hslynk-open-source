@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2014;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -19,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
@@ -82,7 +84,41 @@ public class Disabilities extends HmisBaseModel  implements Cloneable, Serializa
 	}
 
 
+	/** Field mapping. */
+	private LocalDateTime informationDate;
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
 
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+	/**
+	 * Return the value associated with the column: informationDate.
+	 * @return A LocalDateTime object (this.informationDate)
+	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "information_date"  )
+	public LocalDateTime getInformationDate() {
+		return this.informationDate;
+		
+	}
+	
+
+  
+	 /**  
+	 * Set the value related to the column: informationDate.
+	 * @param informationDate the informationDate value you wish to set
+	 */
+	public void setInformationDate(final LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
 
 	/** Field mapping. */
 	private Export export;

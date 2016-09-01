@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.HealthInsurance;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceInsurancefromanysourceEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicaidEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicareEnum;
@@ -56,6 +57,11 @@ public class HealthInsuranceConverter extends BaseConverter {
        entity.setStatehealthins(HealthinsuranceStatehealthinsEnum.lookupEnum(model.getStatehealthins().toString()));
        if(model.getVamedicalservices()!=null)
        entity.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(model.getVamedicalservices().toString()));
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
+ 
        return entity;    
    }
 
@@ -98,6 +104,11 @@ public class HealthInsuranceConverter extends BaseConverter {
        model.setStatehealthins(Integer.parseInt(entity.getStatehealthins().getValue()));
        if(entity.getVamedicalservices()!=null)
        model.setVamedicalservices(Integer.parseInt(entity.getVamedicalservices().getValue()));
+       if(entity.getInformationDate()!=null)
+  	       model.setInformationDate(entity.getInformationDate());
+         if(entity.getDataCollectionStage() !=null)
+      	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+   
        copyBeanProperties(entity, model);
        return model;
    }

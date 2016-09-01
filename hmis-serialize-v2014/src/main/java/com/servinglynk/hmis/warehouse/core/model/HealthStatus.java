@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ public class HealthStatus extends ClientModel{
 
       private UUID healthStatusId;
 
-      private Date informationDate;
+      private LocalDateTime informationDate;
 
       private Integer healthCategory;
 
@@ -19,18 +20,25 @@ public class HealthStatus extends ClientModel{
 
       private Date dueDate;
 
+      private Integer dataCollectionStage;
 
 
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
       public UUID getHealthStatusId(){
           return healthStatusId;
       }
       public void setHealthStatusId(UUID healthStatusId){
           this.healthStatusId = healthStatusId;
       }
-      public Date getInformationDate(){
+      public LocalDateTime getInformationDate(){
           return informationDate;
       }
-      public void setInformationDate(Date informationDate){
+      public void setInformationDate(LocalDateTime informationDate){
           this.informationDate = informationDate;
       }
       public Integer getHealthCategory(){

@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Disabilities;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
@@ -27,6 +28,10 @@ public class DisabilitiesConverter extends BaseConverter {
        entity.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(model.getReceivingservices().toString()));
        if(model.getPathsmiinformation()!=null)
        entity.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(model.getPathsmiinformation().toString()));
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
        return entity;    
    }
 
@@ -49,6 +54,11 @@ public class DisabilitiesConverter extends BaseConverter {
        model.setReceivingservices(Integer.parseInt(entity.getReceivingservices().getValue()));
        if(entity.getPathsmiinformation()!=null)
        model.setPathsmiinformation(Integer.parseInt(entity.getPathsmiinformation().getValue()));       
+       if(entity.getInformationDate()!=null)
+	       model.setInformationDate(entity.getInformationDate());
+       if(entity.getDataCollectionStage() !=null)
+    	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+      
        copyBeanProperties(entity, model);
        return model;
    }

@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
+import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -26,6 +29,9 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class OrganizationDaoImpl extends ParentDaoImpl implements
 		OrganizationDao {
+	
+	@Autowired
+	private ParentDaoFactory factory;
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(OrganizationDaoImpl.class);
@@ -52,6 +58,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 					 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 					 organizationModel.setExport(exportEntity);
+					 OrganizationEntity baseOrganization = new OrganizationEntity();
+					 BeanUtils.copyProperties(baseOrganization, organizationModel);
+					 factory.getHmisOrganizationDao().createOrganization(baseOrganization);
 					 performSaveOrUpdate(organizationModel);
 				 }catch(Exception e) {
 					 String errorMessage = "Failure in Organization:::"+organization.toString()+ " with exception"+e.getLocalizedMessage();

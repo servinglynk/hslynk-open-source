@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ReferralSource;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
@@ -57,6 +58,8 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Referralsource.class.getSimpleName(),Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					referralsourceModel.setEnrollmentid(enrollmentModel);
 					referralsourceModel.setExport(exportEntity);
+					referralsourceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(referralSource.getInformationDate()));
+					referralsourceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getDataCollectionStage())));
 					performSaveOrUpdate(referralsourceModel);
 				}catch(Exception e) {
 					String errorMessage = "Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage();

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceInsurancefromanysourceEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicaidEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceMedicareEnum;
@@ -88,6 +89,8 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
 						Enrollment enrollmentModel = (Enrollment) getModel(Healthinsurance.class.getSimpleName(),Enrollment.class,healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						healthinsuranceModel.setEnrollmentid(enrollmentModel);
+						healthinsuranceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
+						healthinsuranceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getDataCollectionStage())));
 						healthinsuranceModel.setExport(exportEntity);
 						performSaveOrUpdate(healthinsuranceModel);
 					}catch(Exception e) {

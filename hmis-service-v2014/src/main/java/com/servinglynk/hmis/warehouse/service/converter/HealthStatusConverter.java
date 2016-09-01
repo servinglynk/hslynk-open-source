@@ -4,6 +4,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import com.servinglynk.hmis.warehouse.core.model.HealthStatus;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
 public class HealthStatusConverter extends BaseConverter {
@@ -13,13 +14,17 @@ public class HealthStatusConverter extends BaseConverter {
        if(model.getHealthStatusId()!=null)
        entity.setId(model.getHealthStatusId());
        if(model.getInformationDate()!=null)
-       entity.setInformationDate(model.getInformationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+       entity.setInformationDate(model.getInformationDate());
        if(model.getHealthCategory()!=null)
        entity.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(model.getHealthCategory().toString()));
        if(model.getHealthStatus()!=null)
        entity.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(model.getHealthStatus().toString()));
        if(model.getDueDate()!=null)
        entity.setDueDate(model.getDueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+       if(model.getDataCollectionStage() !=null)
+    	   entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
+       if(model.getInformationDate()!=null)
+    	   entity.setInformationDate(model.getInformationDate());
        return entity;    
    }
 
@@ -29,13 +34,18 @@ public class HealthStatusConverter extends BaseConverter {
        if(entity.getId()!=null)
        model.setHealthStatusId(entity.getId());
        if(entity.getInformationDate()!=null)
-       model.setInformationDate(Date.from(entity.getInformationDate().atZone(ZoneId.systemDefault()).toInstant()));
+       model.setInformationDate(entity.getInformationDate());
        if(entity.getHealthCategory()!=null)
        model.setHealthCategory(Integer.parseInt(entity.getHealthCategory().getValue()));
        if(entity.getHealthStatus()!=null)
        model.setHealthStatus(Integer.parseInt(entity.getHealthStatus().getValue()));
        if(entity.getDueDate()!=null)
        model.setDueDate(Date.from(entity.getDueDate().atZone(ZoneId.systemDefault()).toInstant()));
+       if(entity.getInformationDate()!=null)
+  	       model.setInformationDate(entity.getInformationDate());
+         if(entity.getDataCollectionStage() !=null)
+      	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+      
        copyBeanProperties(entity, model);
        return model;
    }

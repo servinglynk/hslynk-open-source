@@ -21,6 +21,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
+
 
 /**
  * Object mapping for hibernate-handled table: enrollment_coc.
@@ -68,7 +70,41 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 		this.id = id;
 	}
 
+	/** Field mapping. */
+	private LocalDateTime informationDate;
+	private DataCollectionStageEnum dataCollectionStage;
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
 
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+	/**
+	 * Return the value associated with the column: informationDate.
+	 * @return A LocalDateTime object (this.informationDate)
+	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "information_date"  )
+	public LocalDateTime getInformationDate() {
+		return this.informationDate;
+		
+	}
+	
+
+  
+	 /**  
+	 * Set the value related to the column: informationDate.
+	 * @param informationDate the informationDate value you wish to set
+	 */
+	public void setInformationDate(final LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
 
 
 
