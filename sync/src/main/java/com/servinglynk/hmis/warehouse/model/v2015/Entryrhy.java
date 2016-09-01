@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -97,6 +99,35 @@ public class Entryrhy extends BaseModel {
 	private Integer years_child_welfr_forest_care;
 	@Column( name = "years_juvenile_justice")
 	private Integer years_juvenile_justice;
+	@Column(name="datacollectionstage")
+	public String datacollectionstage;
+	@Column(name="information_date")
+	private Date information_date;
+	
+	/**
+	 * @return the datacollectionstage
+	 */
+	public String getDatacollectionstage() {
+		return datacollectionstage;
+	}
+	/**
+	 * @param datacollectionstage the datacollectionstage to set
+	 */
+	public void setDatacollectionstage(String datacollectionstage) {
+		this.datacollectionstage = datacollectionstage;
+	}
+	/**
+	 * @return the information_date
+	 */
+	public Date getInformation_date() {
+		return information_date;
+	}
+	/**
+	 * @param information_date the information_date to set
+	 */
+	public void setInformation_date(Date information_date) {
+		this.information_date = information_date;
+	}
 	public Integer getAbuse_and_neglect_family_mbr() {
 		return abuse_and_neglect_family_mbr;
 	}
