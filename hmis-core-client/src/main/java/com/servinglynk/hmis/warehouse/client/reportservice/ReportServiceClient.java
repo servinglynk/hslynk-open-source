@@ -15,8 +15,9 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
 import com.servinglynk.hmis.warehouse.client.exception.RestClientHttpException;
-import com.servinglynk.hmis.warehouse.client.model.JSONObjectMapper;
-import com.servinglynk.hmis.warehouse.client.model.ReportRequest;
+import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.core.model.ReportRequest;
+
 
 
 

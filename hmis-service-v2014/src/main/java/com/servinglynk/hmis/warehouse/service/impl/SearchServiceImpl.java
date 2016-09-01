@@ -8,9 +8,12 @@ import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
+import com.servinglynk.hmis.warehouse.base.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
+import com.servinglynk.hmis.warehouse.core.model.Projects;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.model.base.Project;
 import com.servinglynk.hmis.warehouse.model.v2014.Client;
 import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 
@@ -60,5 +63,11 @@ public class SearchServiceImpl
     result.addItems(clients.getClients());
     
     return result;
+  }
+
+  @Transactional
+  public SearchResults performProjectSearch(String searchterm, String sort, String order, Integer startIndex,
+		Integer maxItems, String exclude, Session session) {
+	  return null;
   }
 }

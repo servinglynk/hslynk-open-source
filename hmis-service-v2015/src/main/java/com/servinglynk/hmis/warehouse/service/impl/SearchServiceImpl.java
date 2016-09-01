@@ -62,4 +62,11 @@ public class SearchServiceImpl
     
     return result;
   }
+
+@Override
+public SearchResults performProjectSearch(String searchterm, String sort, String order, Integer startIndex,
+		Integer maxItems, String exclude, Session session) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

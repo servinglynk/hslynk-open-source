@@ -22,6 +22,8 @@ public class ProjectConverter  {
        entity.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(model.getTrackingMethod().toString()));
        if(model.getTargetPopulation()!=null)
        entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
+       
+       entity.setProjectGroupCode(model.getProjectGroup());
        return entity;    
    }
 
@@ -42,7 +44,10 @@ public class ProjectConverter  {
        project.setTargetPopulation(Integer.parseInt(entity.getTargetpopulation().getValue()));
        
        if(entity.getTrackingmethod()!=null)
-       project.setTrackingMethod(Integer.parseInt(entity.getTrackingmethod().getValue()));
+       project.setTrackingMethod(Integer.parseInt(entity.getTrackingmethod().getValue()));       
+       project.setProjectGroup(entity.getProjectGroupCode());
+       if(entity.getSchemaYear()!=null)
+       project.setSchemaYear(entity.getSchemaYear());
        
        if(entity.getSchemaYear()!=null)
     	   	project.setLink("/hmis-clientapi/rest/v"+entity.getSchemaYear()+"/projects/"+entity.getId());

@@ -16,6 +16,7 @@ public class Project extends ClientModel {
     private Integer residentialAffiliation;
     private Integer targetPopulation;
     private Integer trackingMethod;
+    private String projectGroup;
     
 	public Project() {
 		
@@ -87,5 +88,13 @@ public class Project extends ClientModel {
 
 	public void setTrackingMethod(Integer trackingMethod) {
 		this.trackingMethod = trackingMethod;
+	}
+
+	public String getProjectGroup() {
+		return projectGroup;
+	}
+
+	public void setProjectGroup(String projectGroup) {
+		this.projectGroup = projectGroup;
 	}
 }

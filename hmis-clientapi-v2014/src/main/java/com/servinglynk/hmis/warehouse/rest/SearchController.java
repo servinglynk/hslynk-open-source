@@ -47,8 +47,8 @@ public class SearchController
   @RequestMapping(method=RequestMethod.GET,value="/searchall/{searchentity}")
   @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
 	  public SearchResults baseSearch( @PathVariable("searchentity") String searchentity,
-			  @RequestParam(value="q", required=true) String searchterm, 
-			  @RequestParam(value="sort", required=false,defaultValue="firstName") String sort, 
+			  @RequestParam(value="q", required=false,defaultValue="") String searchterm, 
+			  @RequestParam(value="sort", required=false,defaultValue="id") String sort, 
 			  @RequestParam(value="order", required=false,defaultValue="asc") String order, 
 			  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
 			  @RequestParam(value="maxItems", required=false,defaultValue="50") Integer maxItems,
@@ -59,7 +59,11 @@ public class SearchController
 					   if( maxItems >50 )  maxItems = 50;
 				
 						  Session session = sessionHelper.getSession(request);
-	    return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude,session);
+		if(searchentity.equalsIgnoreCase("projects")){
+			return serviceFactory.getBaseSearchService().performProjectSearch(searchterm, sort, order, startIndex, maxItems, exclude, session);
+		}
+		return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude,session);
+		
 	  }
   
   @RequestMapping(method=RequestMethod.POST, value="/searchall/index")

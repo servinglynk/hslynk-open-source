@@ -14,8 +14,8 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
-import com.servinglynk.hmis.warehouse.client.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.client.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 
 
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.servinglynk.hmis.warehouse.ClientModel;
 
 
 @JsonRootName("parameter")

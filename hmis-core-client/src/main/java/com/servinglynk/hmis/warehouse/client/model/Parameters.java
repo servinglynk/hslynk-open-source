@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.client.model;
 
-import java.util.ArrayList;import java.util.List;import org.apache.commons.lang.builder.ToStringBuilder;import com.fasterxml.jackson.annotation.JsonProperty;import com.fasterxml.jackson.annotation.JsonRootName;
+import java.util.ArrayList;import java.util.List;import org.apache.commons.lang.builder.ToStringBuilder;import com.fasterxml.jackson.annotation.JsonProperty;import com.fasterxml.jackson.annotation.JsonRootName;import com.servinglynk.hmis.warehouse.ClientModel;
 
 @JsonRootName("parameters")public class Parameters extends ClientModel{
 	@JsonProperty("parameter")	protected List<Parameter> parameters;

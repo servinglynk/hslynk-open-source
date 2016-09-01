@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.client.baseclients;
 
-import com.servinglynk.hmis.warehouse.client.model.BaseClients;
-import com.servinglynk.hmis.warehouse.client.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.BaseClients;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 public interface BaseClientService {
 

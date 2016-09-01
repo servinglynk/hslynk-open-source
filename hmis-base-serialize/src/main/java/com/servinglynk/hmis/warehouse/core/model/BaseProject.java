@@ -15,6 +15,7 @@ public class BaseProject extends ClientModel {
     private Integer trackingMethod;
     private Integer schemaYear;
     private String link;
+    private String projectGroup;
     
 	public BaseProject() {
 		
@@ -102,6 +103,14 @@ public class BaseProject extends ClientModel {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public String getProjectGroup() {
+		return projectGroup;
+	}
+
+	public void setProjectGroup(String projectGroup) {
+		this.projectGroup = projectGroup;
 	}
 	
 }

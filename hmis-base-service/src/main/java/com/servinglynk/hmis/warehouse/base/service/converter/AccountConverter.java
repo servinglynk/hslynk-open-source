@@ -10,11 +10,15 @@ public class AccountConverter {
 	public static com.servinglynk.hmis.warehouse.core.model.Account convertToAccount(com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount) {
 		com.servinglynk.hmis.warehouse.core.model.Account account = convertToBasicAccount(pAccount);
 		
+		account.setAccountId(pAccount.getId());
+		account.setFirstName(pAccount.getFirstName());
+		account.setMiddleName(pAccount.getMiddleName());
+		account.setLastName(pAccount.getLastName());
 		account.setUsername(pAccount.getUsername());
+		account.setEmailAddress(pAccount.getUsername());
 		account.setStatus(pAccount.getStatus());
-//		account.setGender(pAccount.getGender());
-		account.setPassword(pAccount.getPassword());
-		account.setOrganizationId(pAccount.getOrganization().getId());				return account;
+		account.setOrganizationId(pAccount.getOrganization().getId());
+		account.setProjectGroup(ProjectGroupConverter.entityToModel(pAccount.getProjectGroupEntity()));				return account;
 	}
 	
 

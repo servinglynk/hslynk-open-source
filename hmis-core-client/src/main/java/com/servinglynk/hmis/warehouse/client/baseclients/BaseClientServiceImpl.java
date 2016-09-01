@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,7 +12,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +20,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
-import com.servinglynk.hmis.warehouse.client.model.ApiMethodAuthorizationCheck;
-import com.servinglynk.hmis.warehouse.client.model.BaseClients;
-import com.servinglynk.hmis.warehouse.client.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.BaseClients;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+
 
 public class BaseClientServiceImpl extends CoreClientBase implements BaseClientService {
 	
