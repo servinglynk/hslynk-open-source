@@ -36,4 +36,6 @@ public interface AccountService {
 	
 	boolean checkApiAuthorizationForUser(String accessToken,String apiMethodId);
 
+	void extendUserSession(String accessToken);
+
 }

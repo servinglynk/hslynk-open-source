@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthChecker;
 
 
@@ -39,7 +40,14 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 	
 	
 	public boolean checkApiAuthForUser(String accessToken, String apiMethodId){
-		return serviceFactory.getAccountService().checkApiAuthorizationForUser(accessToken, apiMethodId);
+		boolean flag = serviceFactory.getAccountService().checkApiAuthorizationForUser(accessToken, apiMethodId);
+		if(flag) this.extendUserSession(accessToken);
+		return flag;
+	}
+	
+	public void extendUserSession(String accessToken){
+		serviceFactory.getAccountService().extendUserSession(accessToken);
+		
 	}
 	
 	

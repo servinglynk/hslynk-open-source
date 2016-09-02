@@ -164,6 +164,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	public Account createAccount(Account account, String auditUser,
 			String purpose) {
 		
+			HmisUser pAuditUser = daoFactory.getAccountDao().findByUsername(auditUser);
+		
 				// validate the username
 				String gender = account.getGender();
 				String username = account.getUsername();
@@ -193,6 +195,11 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 					throw new MissingParameterException("password is required.");
 				}
 
+				if(password.length()<8){
+					throw new InvalidParameterException("Please choose a password with at least 8 characters");
+				}
+				
+				
 				// validate the first name
 				String firstName = account.getFirstName();
 				if (ValidationUtil.isEmpty(firstName)) {
@@ -209,10 +216,16 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 					throw new MissingParameterException("Organization details is required.");
 				}
 				
+				// If roe is not avaialble in request assigning standard role
 				if(account.getRole() == null || ValidationUtil.isNull(account.getRole().getId())) {
-					throw new MissingParameterException("Role details is required");
+					Role role = new Role();
+					role.setId(UUID.fromString("6b5857d9-bc16-4706-acde-17be5d530631"));
+					account.setRole(role);					
 				}
-				
+				RoleEntity pRole = daoFactory.getRoleDao().getRoleByid(account.getRole().getId());
+				if(pRole ==  null) {
+					pRole = daoFactory.getRoleDao().getRoleByid(UUID.fromString("6b5857d9-bc16-4706-acde-17be5d530631"));
+				}
 
 				validateAccount(account);
 
@@ -275,7 +288,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				if(purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")){
 					pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 				}else{	
-					pAccount.setStatus(ACCOUNT_STATUS_PENDING);
+					pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 					
 				}
 				
@@ -290,9 +303,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				}else{
 				 profileEntity = daoFactory.getProfileDao().getProfileById(account.getProfile().getId());
 				 if(profileEntity==null) {
-					profileEntity = ProfileConverter.modelToEntity(null, account.getProfile());
-					 daoFactory.getProfileDao().createProfile(profileEntity);
+						profileEntity = daoFactory.getProfileDao().getProfileById(UUID.fromString("004aed07-b4d4-4696-b8f6-1607f6f49bac"));	
 				 }
+				}
+				
+				if(profileEntity.getProfileName().equalsIgnoreCase("Super Admin Profile")){
+						if(!pAuditUser.getProfileEntity().getProfileName().equalsIgnoreCase("Super Admin Profile")){
+							throw new AccessDeniedException("Only Super admin can create a user with super admin profile");
+						}
 				}
 				
 				pAccount.setProfileEntity(profileEntity);
@@ -302,10 +320,6 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				if(pOrganization==null) throw new OrganizationNotFound();
 
 				pAccount.setOrganization(pOrganization);
-				
-				
-				RoleEntity pRole = daoFactory.getRoleDao().getRoleByid(account.getRole().getId());
-				if(pRole ==  null) throw new RoleNotFoundException();
 				
 				UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
 				userRoleMapEntity.setAccountEntity(pAccount);
@@ -621,6 +635,20 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 			logger.debug("user having permission to access API method {} ", apiMethodEntity.getFriendlyName());
 
 		return true;
+	}
+
+	@Transactional
+	public void extendUserSession(String accessToken) {
+		SessionEntity sessionEntity = null;
+				if (ValidationUtil.isEmpty(accessToken) == false)	{
+			sessionEntity = daoFactory.getSessionDao().findBySessionTokenForInterceptor(accessToken);
+			if(sessionEntity == null){
+				sessionEntity = daoFactory.getSessionDao().findBySessionToken(accessToken);
+			}
+		}
+		sessionEntity.setExpiresAt(new Date(sessionEntity.getExpiresAt().getTime() + (20000 * 1000)));
+		daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
+		
 	}
 	
 }

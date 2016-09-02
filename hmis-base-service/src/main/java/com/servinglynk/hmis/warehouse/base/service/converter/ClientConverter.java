@@ -74,7 +74,9 @@ public class ClientConverter {
 	    if(pClient.getSsnDataQuality()!=null)
 		client.setSsnDataQuality(Integer.parseInt(pClient.getSsnDataQuality().getValue()));
 	    if(pClient.getId()!=null)
-		client.setClientId(pClient.getId());
+	    	client.setClientId(pClient.getId());
+	    if(pClient.getProjectGroupCode()!=null)
+	    	client.setProjectGroupCode(pClient.getProjectGroupCode());
 	    if(pClient.getSourceSystemId()!=null)
 	    		client.setSourceSystemId(pClient.getSourceSystemId());
 	    if(pClient.getSchemaYear()!=null)

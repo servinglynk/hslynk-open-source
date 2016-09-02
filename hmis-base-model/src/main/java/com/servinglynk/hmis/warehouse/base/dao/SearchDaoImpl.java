@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.hadoop.hbase.thrift.generated.Hbase.createTable_args;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
 import org.hibernate.CacheMode;
@@ -87,28 +88,38 @@ public class SearchDaoImpl
   }
   
   
+  // If search Keyword is in date format -> search will be done on date of birth field only
+  // If search Keyword is in UUID format -> search will be done on id field only.
+  // If search keyword is string         -> search will be done on remaining fields.
+  // In all the scenarios search results will be filtered on login user project group
+  
   public List<?> searchData(SearchRequest searchRequest){
 
 	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
 		  DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		  Date date=null;
+		  
 		try {
 			date = formatter.parse(searchRequest.getFreeText());
 			
 			  criteria.add(Restrictions.ge("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
 			  criteria.add(Restrictions.lt("dob", LocalDateTime.ofInstant(DateUtils.addDays(date,1).toInstant(), ZoneId.systemDefault())));
 		} catch (ParseException e) {
-			  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-			  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
-				  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn));
-			  else if(Arrays.asList(searchRequest.getExcludeFields()).contains("all")){
-				  
-			  }	 else
-				  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId));
+			try{
+				  UUID clientId = UUID.fromString(searchRequest.getFreeText());
+				  criteria.add(Restrictions.eq("id", clientId));
+			  }catch (Exception ex) {
+					  
+					  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
+						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn));
+					  else
+						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId));
+			  } 
 	  }
 		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));

@@ -34,6 +34,8 @@ public class BaseClient extends ClientModel {
 	private String veteranStatus;
 	private String sourceSystemId;
 	private String link;
+	private String projectGroupCode;
+	
 	public UUID getClientId() {
 		return clientId;
 	}
@@ -165,6 +167,11 @@ public class BaseClient extends ClientModel {
 	}
 	public void setLink(String link) {
 		this.link = link;
+	}
+	public String getProjectGroupCode() {
+		return projectGroupCode;
+	}
+	public void setProjectGroupCode(String projectGroupCode) {
+		this.projectGroupCode = projectGroupCode;
 	}	
-	
 }
