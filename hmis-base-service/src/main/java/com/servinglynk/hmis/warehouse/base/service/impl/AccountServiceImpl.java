@@ -317,7 +317,10 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				
 				OrganizationEntity pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(account.getOrganizationId());
 
-				if(pOrganization==null) throw new OrganizationNotFound();
+				// If organization not found inserting default organization (Developer Oranization)
+				if(pOrganization==null) {
+					pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(UUID.fromString("b5598c6c-d021-4f5f-9695-77f7f4685ed2"));
+				}
 
 				pAccount.setOrganization(pOrganization);
 				
