@@ -38,4 +38,6 @@ public interface AccountService {
 
 	void extendUserSession(String accessToken);
 
+	Accounts getUsersByProjectGroup(String projectGroupCode);
+
 }

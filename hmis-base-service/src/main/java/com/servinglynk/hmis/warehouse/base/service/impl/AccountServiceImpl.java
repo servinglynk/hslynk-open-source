@@ -170,6 +170,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				String gender = account.getGender();
 				String username = account.getUsername();
 				
+				
 				if (ValidationUtil.isEmpty(gender)) {
 					throw new MissingParameterException("Gender is required.");
 				}
@@ -194,6 +195,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				if (ValidationUtil.isEmpty(password)) {
 					throw new MissingParameterException("password is required.");
 				}
+				
+				if(ValidationUtil.isEmpty(account.getConfirmPassword())){
+					throw new MissingParameterException("Confirm password is required.");
+				}
+				
+				if(!account.getConfirmPassword().equals(account.getPassword())){
+					throw new InvalidParameterException("Password & Confirm Passwords are different");
+				}
 
 				if(password.length()<8){
 					throw new InvalidParameterException("Please choose a password with at least 8 characters");
@@ -211,11 +220,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				if (ValidationUtil.isEmpty(lastName)) {
 					throw new MissingParameterException("last name is required.");
 				}
-				
-				if(ValidationUtil.isNull(account.getOrganizationId())){
-					throw new MissingParameterException("Organization details is required.");
-				}
-				
+								
 				// If roe is not avaialble in request assigning standard role
 				if(account.getRole() == null || ValidationUtil.isNull(account.getRole().getId())) {
 					Role role = new Role();
@@ -314,16 +319,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				}
 				
 				pAccount.setProfileEntity(profileEntity);
-				
-				OrganizationEntity pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(account.getOrganizationId());
-
-				// If organization not found inserting default organization (Developer Oranization)
-				if(pOrganization==null) {
-					pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(UUID.fromString("b5598c6c-d021-4f5f-9695-77f7f4685ed2"));
-				}
-
-				pAccount.setOrganization(pOrganization);
-				
+								
 				UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
 				userRoleMapEntity.setAccountEntity(pAccount);
 				userRoleMapEntity.setRoleEntity(pRole);
@@ -383,12 +379,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 	@Transactional
 	public Account updateAccount(Account account, String auditUser) {
+		ProfileEntity profileEntity=null;
+		if(account.getProfile()!=null && account.getProfile().getId()!=null){
+			profileEntity = daoFactory.getProfileDao().getProfileById(account.getProfile().getId());
+			if(profileEntity==null) throw new ProfileNotFoundException();
+		}
+
 		
-		ProfileEntity profileEntity = daoFactory.getProfileDao().getProfileById(account.getProfile().getId());
-		
-		if(profileEntity==null) throw new ProfileNotFoundException();
-		
-		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(account.getUsername());
+		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 
 		if (!ValidationUtil.isValidMaxLen(account.getFirstName(), new Integer(validationBean.getFnMaxLength()))) {
 			throw new InvalidParameterException("First Name cannot be greater than 128 characters");
@@ -432,7 +430,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		boolean twoFactorEnabled = pAccount.isTwoFactorAuthentication();
 		pAccount.setModifiedBy(auditUser);
 		pAccount.setModifiedAt(new Date());
-		pAccount.setProfileEntity(profileEntity);
+		if(profileEntity!=null)
+			pAccount.setProfileEntity(profileEntity);
 		pAccount.setTwoFactorAuthentication(account.isTwoFactorAuthentication());
 		com.servinglynk.hmis.warehouse.model.base.HmisUser upAccount= daoFactory.getAccountDao().updateAccount(pAccount);
 		if(account.isTwoFactorAuthentication()){
@@ -652,6 +651,18 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		sessionEntity.setExpiresAt(new Date(sessionEntity.getExpiresAt().getTime() + (20000 * 1000)));
 		daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
 		
+	}
+
+	@Transactional
+	public Accounts getUsersByProjectGroup(String projectGroupCode) {
+		Accounts accounts = new Accounts(); 
+		List<HmisUser> accountEntities =daoFactory.getAccountDao().findUsersByProjectGroup(projectGroupCode);
+		
+		for(HmisUser accountEntity : accountEntities){
+			accounts.addAccount(convertUserBasicInfo(accountEntity));
+		}
+		
+		return accounts;
 	}
 	
 }

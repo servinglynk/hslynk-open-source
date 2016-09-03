@@ -120,4 +120,17 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 		return (List<HmisUser>) findByCriteria(criteria);
 	}
 
+
+	@Override
+	public List<HmisUser> findUsersByProjectGroup(String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
+		criteria.createAlias("projectGroupEntity","projectGroupEntity");
+		
+		criteria.add(Restrictions.eq("projectGroupEntity.projectGroupCode", projectGroupCode));
+		
+		return (List<HmisUser>) findByCriteria(criteria);
+
+		
+	}
+
 }

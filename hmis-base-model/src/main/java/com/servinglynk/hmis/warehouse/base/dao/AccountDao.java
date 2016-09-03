@@ -21,4 +21,5 @@ public interface AccountDao {
 	public void daeleteUserRole(UserRoleMapEntity userRoleMapEntity);
 	public List<UserRoleMapEntity> getUserMapByUserId(UUID userId);
 	List<HmisUser> getAllUsersByOranization(UUID organizationId);
+	public List<HmisUser> findUsersByProjectGroup(String projectGroupCode);
 }

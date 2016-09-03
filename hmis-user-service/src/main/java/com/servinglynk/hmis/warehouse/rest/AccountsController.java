@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.hadoop.hbase.generated.thrift.thrift_jsp;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,6 @@ public class AccountsController extends ControllerBase {
 	public Account createDeveloperAccount(@RequestBody Account account, @RequestParam(value="purpose",required= false,defaultValue="" ) String purpose, HttpServletRequest request) throws Exception {
 		Session session = new Session();
 		session.setAccount(account);
-		account.setOrganizationId(UUID.fromString("b5598c6c-d021-4f5f-9695-77f7f4685ed2"));
 		Profile profile = new Profile();
 		profile.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
 		account.setProfile(profile);
@@ -148,18 +148,29 @@ public class AccountsController extends ControllerBase {
 	/**
 	 * HTTP PUT handler for /accounts/{username} REST requests. It updates the account for the currently logged-in user.
 	 */
-	@RequestMapping(value = "/{username}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{username:.*}", method = RequestMethod.PUT)
 	@APIMapping(value="USR_UPDATE_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 	public Account updateAccount(@PathVariable("username") String username, @RequestBody Account account, HttpServletRequest request)
 			throws Exception {
-		if (!username.equalsIgnoreCase("self")) {
-			throw new AccessDeniedException("only self is allowed as the username in the URI");
-		}
-		// Retrieve the accountId and the username from session
 		Session session = sessionHelper.getSession(request);
-		account.setAccountId(session.getAccount().getAccountId());
-		account.setUsername(session.getAccount().getUsername());
+/*		if(!session.getAccount().getProfile().getProfileName().equalsIgnoreCase("Customer Admin Profile")){
+			if(!username.equals(session.getAccount().getUsername())){
+				throw new AccessDeniedException("You are not authorized to update this account");
+			}
+		}*/
+		
+		if(username.equals("self")){
+			account.setAccountId(session.getAccount().getAccountId());
+		}else{
+			try{
+				UUID.fromString(username);
+			}catch (Exception e) {
+				throw new AccountNotFoundException("Invalida user identification");
+			}
+			account.setAccountId(UUID.fromString(username));
+		}
 
+		
 		return serviceFactory.getAccountService().updateAccount(account, USER_SERVICE);
 	}
 
@@ -286,9 +297,10 @@ public class AccountsController extends ControllerBase {
 		serviceFactory.getAccountService().updateUserRole(username,role);
 	}
 	
-	@RequestMapping(value = "/{organizationId}/users", method = RequestMethod.GET)
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	@APIMapping(value="USR_GET_ORGANIZATION_USERS",checkSessionToken=true, checkTrustedApp=true)	
-	public Accounts getUserByOrganization(@PathVariable("organizationId") UUID organizationId,HttpServletRequest request) throws Exception {
-		return serviceFactory.getAccountService().getUsersByOrganization(organizationId);
+	public Accounts getUserByOrganization(HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getAccountService().getUsersByProjectGroup(session.getAccount().getProjectGroup().getProjectGroupCode());
 	}
 }

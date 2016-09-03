@@ -17,8 +17,8 @@ public class AccountConverter {
 		account.setUsername(pAccount.getUsername());
 		account.setEmailAddress(pAccount.getUsername());
 		account.setStatus(pAccount.getStatus());
-		account.setOrganizationId(pAccount.getOrganization().getId());
-		account.setProjectGroup(ProjectGroupConverter.entityToModel(pAccount.getProjectGroupEntity()));				return account;
+		account.setProjectGroup(ProjectGroupConverter.entityToModel(pAccount.getProjectGroupEntity()));
+		account.setProfile(ProfileConverter.entityToModel(pAccount.getProfileEntity()));				return account;
 	}
 	
 
@@ -30,7 +30,6 @@ public class AccountConverter {
 		account.setLastName(pAccount.getLastName());
 		account.setEmailAddress(pAccount.getUsername());
 		account.setStatus(pAccount.getStatus());
-		account.setOrganizationId(pAccount.getOrganization().getId());
 		return account;
 	}
 	
