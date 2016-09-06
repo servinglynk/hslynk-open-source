@@ -72,7 +72,7 @@ public class ProjectsController extends ControllerBase {
            if (startIndex == null) startIndex =0;
            if (maxItems == null) maxItems =30;
            Session session = sessionHelper.getSession(request);
-            Account account = serviceFactory.getAccountService().loadAccountBasicInfoByUsername(session.getAccount().getUsername());
+            Account account = serviceFactory.getAccountService().getAccount(session.getAccount(),true);
         return serviceFactory.getProjectService().getAllProjects(account.getProjectGroup().getProjectGroupCode(),startIndex,maxItems); 
    }
 

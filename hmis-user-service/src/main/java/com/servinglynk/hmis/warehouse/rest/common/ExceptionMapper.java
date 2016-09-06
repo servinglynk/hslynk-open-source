@@ -8,6 +8,7 @@ import static com.servinglynk.hmis.warehouse.common.ErrorCodes.ERR_CODE_INVALID_
 import static com.servinglynk.hmis.warehouse.common.ErrorCodes.ERR_CODE_MISSING_PARAMETER;
 import static com.servinglynk.hmis.warehouse.common.ErrorCodes.ERR_CODE_UNKNOWN;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.servinglynk.hmis.warehouse.core.model.Error;
+import com.servinglynk.hmis.warehouse.core.model.Errors;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.IllegalBusinessStateException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
@@ -110,7 +115,7 @@ public class ExceptionMapper {
 		try {
 
 			throw th;
-		}  catch (InvalidParameterException ex) {
+		} catch (InvalidParameterException ex) {
 
 			logger.info("InvalidParameterException: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);

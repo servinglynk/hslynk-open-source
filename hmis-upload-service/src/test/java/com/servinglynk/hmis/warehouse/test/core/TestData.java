@@ -26,7 +26,7 @@ public class TestData {
 		Account account=new Account();
 		account.setEmailAddress("test@test.com");
 		account.setFirstName("First Name");
-		account.setGender("Male");
+	//	account.setGender("Male");
 		account.setLastName("Last Name");
 		account.setMiddleName("Middle Name");
 		account.setPassword("password");
@@ -45,7 +45,7 @@ public class TestData {
 		String uName = userName+"_"+System.currentTimeMillis()+"@hmis.com";
 		account.setEmailAddress(uName);
 		account.setFirstName("First Name");
-		account.setGender("Male");
+	//	account.setGender("Male");
 		account.setLastName("Last Name");
 		account.setMiddleName("Middle Name");
 		account.setPassword("password");

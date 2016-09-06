@@ -327,8 +327,8 @@ public class TestAccountsRestEndpoint  {
 		executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
 		
 		PasswordChange pwdChange = new PasswordChange();
-		pwdChange.setcurrentPassword(newAccount.getPassword());
-		pwdChange.setnewPasswordd("newPassword");
+	//	pwdChange.setcurrentPassword(newAccount.getPassword());
+	//	pwdChange.setnewPasswordd("newPassword");
 		
 		Account resp = executor.executePost("/accounts/self/passwordchanges", pwdChange , Account.class);
 	}
@@ -425,8 +425,8 @@ public class TestAccountsRestEndpoint  {
 		executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
 		
 		PasswordChange pwdChange = new PasswordChange();
-		pwdChange.setcurrentPassword("TestPassword");
-		pwdChange.setnewPasswordd("newPassword");
+	//	pwdChange.setcurrentPassword("TestPassword");
+	//	pwdChange.setnewPasswordd("newPassword");
 		
 		Errors errors = executor.executePost("/accounts/self/passwordchanges", pwdChange , Errors.class);
 		

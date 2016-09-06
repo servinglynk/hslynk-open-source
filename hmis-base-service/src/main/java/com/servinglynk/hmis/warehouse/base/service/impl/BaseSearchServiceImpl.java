@@ -36,7 +36,7 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 			  Integer maxItems,String exclude,Session session)
 	  {
 	    SearchRequest searchVo = new SearchRequest();
-	    Account account = serviceFactory.getAccountService().loadAccountBasicInfoByUsername(session.getAccount().getEmailAddress());
+	    Account account = serviceFactory.getAccountService().getAccount(session.getAccount(),false);
 	    
 	    	searchVo.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
 	    Sort sorting = new Sort();
@@ -78,7 +78,7 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	public SearchResults performProjectSearch(String searchterm, String sort, String order, Integer startIndex,
 			Integer maxItems, String exclude, Session session) {
 	    SearchRequest searchVo = new SearchRequest();
-	    Account account = serviceFactory.getAccountService().loadAccountBasicInfoByUsername(session.getAccount().getEmailAddress());
+	    Account account = serviceFactory.getAccountService().getAccount(session.getAccount(),true);
 	    
 	    	searchVo.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
 	    Sort sorting = new Sort();
