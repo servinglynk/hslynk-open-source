@@ -344,8 +344,6 @@ GetProjectGroups: function ($http,$scope, success) {
                     "firstName":data.firstName,
                     "middleName":data.middleName,
                     "lastName":data.lastName,
-                    "gender":data.gender,
-                    "organizationId":"b5598c6c-d021-4f5f-9695-77f7f4685ed2",
                     "role" : {
                     	"id": data.role.id
                     },
