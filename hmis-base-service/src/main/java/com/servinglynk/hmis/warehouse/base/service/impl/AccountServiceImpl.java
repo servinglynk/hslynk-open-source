@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.ProfileConverter;
+import com.servinglynk.hmis.warehouse.base.service.converter.RoleConverter;
 import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticator;
 import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticatorKey;
 import com.servinglynk.hmis.warehouse.common.Constants;
@@ -21,6 +22,7 @@ import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Role;
+import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.model.base.AccountLockoutEntity;
@@ -215,6 +217,12 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (pAccount == null)
 			throw new AccountNotFoundException();
 		account = AccountConverter.convertToAccount(pAccount);
+		List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(pAccount.getId());
+		Roles roles = new Roles();
+		for(UserRoleMapEntity entity : userroles){
+			  roles.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
+		}
+		account.setRoles(roles);
 		return account;
 	}
 

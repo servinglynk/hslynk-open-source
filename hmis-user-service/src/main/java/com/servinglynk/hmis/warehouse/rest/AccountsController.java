@@ -121,6 +121,14 @@ public class AccountsController extends ControllerBase {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getAccountService().getUsersByProjectGroup(session.getAccount().getProjectGroup().getProjectGroupCode());
 	}
+	
+	
+	@RequestMapping(value="/{organizationid}/users",method = RequestMethod.GET)
+	@APIMapping(value="USR_GET_USERS",checkSessionToken=true, checkTrustedApp=true)	
+	public Accounts getOrganizationUsera(@PathVariable("organizationid") UUID organizationid,HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getAccountService().getUsersByProjectGroup(session.getAccount().getProjectGroup().getProjectGroupCode());
+	}
 
 
 /*	@RequestMapping(value = "/{userid}/passwordresets", method = RequestMethod.POST)
