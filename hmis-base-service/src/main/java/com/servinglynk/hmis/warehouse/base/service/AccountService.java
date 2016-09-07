@@ -1,9 +1,12 @@
 package com.servinglynk.hmis.warehouse.base.service;
 
+import java.util.UUID;
+
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Role;
+import com.servinglynk.hmis.warehouse.core.model.Roles;
 
 public interface AccountService {
 	
@@ -20,9 +23,8 @@ public interface AccountService {
 	void deleteAccount(Account account,Account auditAccount);
 	Account activateAccount(Account account,String auditUser);
 	
-	void addUserRole(Account account, Role role);
-	void removeUserRole(Account account, Role role);
-	
+	void addRoleToUser(UUID userid, Role role) ;
+	void removeRoleFromUser(UUID userid, UUID roleid);
 	boolean checkApiAuthorizationForUser(String accessToken,String apiMethodId);
 
 	void extendUserSession(String accessToken);

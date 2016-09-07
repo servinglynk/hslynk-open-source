@@ -16,7 +16,7 @@ public interface SessionService {
 	
 	public void validateUserCredentials(Session session, String trustedAppId, String auditUser );
 	
-	public void createSession(Session session,String auditUser) throws Exception;
+//	public void createSession(Session session,String auditUser) throws Exception;
 
 	public Session validateSession(String sessionToken);
 

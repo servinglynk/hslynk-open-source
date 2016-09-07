@@ -5,6 +5,7 @@ import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -164,7 +165,9 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		}
 
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
-
+		pAccount.setFirstName(account.getFirstName());
+		pAccount.setLastName(account.getLastName());
+		pAccount.setMiddleName(account.getMiddleName());
 		pAccount.setModifiedBy(auditUser);
 		pAccount.setModifiedAt(new Date());
 		if (profileEntity != null)
@@ -205,7 +208,15 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		List<HmisUser> accountEntities = daoFactory.getAccountDao().findUsersByProjectGroup(projectGroupCode);
 
 		for (HmisUser accountEntity : accountEntities) {
-			accounts.addAccount(AccountConverter.convertToAccount(accountEntity));
+			Account account =  AccountConverter.convertToAccount(accountEntity);
+			List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(accountEntity.getId());
+			Roles roles = new Roles();
+			for(UserRoleMapEntity entity : userroles){
+				  roles.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
+			}
+			account.setRoles(roles);
+			accounts.addAccount(account);
+
 		}
 
 		return accounts;
@@ -225,6 +236,35 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		account.setRoles(roles);
 		return account;
 	}
+	
+	
+	@Transactional
+	public void addRoleToUser(UUID userid, Role role) {
+		HmisUser accountEntity= daoFactory.getAccountDao().findByUserId(userid);
+		if(accountEntity==null) throw new AccountNotFoundException();
+		
+		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
+		if(roleEntity==null) throw new RoleNotFoundException();
+
+		UserRoleMapEntity entity = new UserRoleMapEntity();
+		entity.setAccountEntity(accountEntity);
+		entity.setRoleEntity(roleEntity);
+		
+		daoFactory.getAccountDao().createUserRole(entity);
+	}
+	
+	@Transactional
+	public void removeRoleFromUser(UUID userid, UUID roleid) {
+		HmisUser accountEntity= daoFactory.getAccountDao().findByUserId(userid);
+		if(accountEntity==null) throw new AccountNotFoundException();
+		
+
+		UserRoleMapEntity entity = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleid);
+		if(entity==null) throw new RoleNotFoundException("Role is not assiciated with user");
+		daoFactory.getAccountDao().daeleteUserRole(entity);
+	}
+	
+	
 
 	@Transactional
 	public void deleteAccount(Account account, Account auditAccount) {
@@ -328,8 +368,12 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				sessionEntity = daoFactory.getSessionDao().findBySessionToken(accessToken);
 			}
 		}
-		sessionEntity.setExpiresAt(new Date(sessionEntity.getExpiresAt().getTime() + (20000 * 1000)));
-		daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
-
+		
+		long diff = sessionEntity.getExpiresAt().getTime()  - System.currentTimeMillis();
+		
+		if(diff < (60 * 1000)) {
+			sessionEntity.setExpiresAt(new Date(System.currentTimeMillis() +  (sessionEntity.getTrustedApp().getExpirationTime() * 1000) ));
+			daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
+		}
 	}
 }

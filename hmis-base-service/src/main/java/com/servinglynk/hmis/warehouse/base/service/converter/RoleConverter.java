@@ -18,11 +18,11 @@ public class RoleConverter {
 		role.setId(roleEntity.getId());
 		role.setRoleDescription(roleEntity.getRoleDescription());
 		role.setRoleName(roleEntity.getRoleName());
-			
+/*					
 			if(roleEntity.getParentRoleEntity()!= null){
 				Role parentRole = entityToModel(roleEntity.getParentRoleEntity());
 				role.setParentRole(parentRole);
-			}
+			}*/
 			
 		return role;
 	}

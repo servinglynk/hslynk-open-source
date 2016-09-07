@@ -26,20 +26,7 @@ public class AccountConverter {
 		account.setProjectGroup(ProjectGroupConverter.entityToModel(pAccount.getProjectGroupEntity()));
 		account.setProfile(ProfileConverter.entityToModel(pAccount.getProfileEntity()));		return account;
 	}
-	
-
-	public static com.servinglynk.hmis.warehouse.core.model.Account convertToBasicAccount(com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount) {
-		com.servinglynk.hmis.warehouse.core.model.Account account = new com.servinglynk.hmis.warehouse.core.model.Account();
-		account.setAccountId(pAccount.getId());
-		account.setFirstName(pAccount.getFirstName());
-		account.setMiddleName(pAccount.getMiddleName());
-		account.setLastName(pAccount.getLastName());
-		account.setEmailAddress(pAccount.getUsername());
-		account.setStatus(pAccount.getStatus());
-		return account;
-	}
-	
-
+		
 	public static HmisUser convertToPersistentAccount(Account account, HmisUser pAccount) {		
 		if (pAccount == null) {
 			pAccount = new HmisUser();

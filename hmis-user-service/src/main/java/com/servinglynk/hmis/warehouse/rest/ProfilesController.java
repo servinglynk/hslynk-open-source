@@ -31,6 +31,7 @@ public class ProfilesController extends ControllerBase {
 	@RequestMapping(value="/{profileId}",method=RequestMethod.PUT)
 	@APIMapping(value="ACL_UPDATE_PROFILE",checkTrustedApp=true,checkSessionToken=true)	
 	public Profile updateProfile(@PathVariable("profileId") UUID profileId,@RequestBody Profile profile,HttpServletRequest request){
+		profile.setId(profileId);
 		return serviceFactory.getProfileService().updateProfile(profile,USER_SERVICE);
 	}
 	

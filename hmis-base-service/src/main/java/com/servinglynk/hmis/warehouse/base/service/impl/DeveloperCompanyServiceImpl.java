@@ -716,7 +716,7 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 
 		for (DeveloperCompanyAccountEntity pDeveloperCompanyAccount : pDeveloperAccounts) {
 			com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyAccount developerAccount = new com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyAccount();
-			developerAccount.setAccount(AccountConverter.convertToBasicAccount(pDeveloperCompanyAccount.getAccount()));
+			developerAccount.setAccount(AccountConverter.convertToAccount(pDeveloperCompanyAccount.getAccount()));
 			developerAccount.getAccount().setUsername(pDeveloperCompanyAccount.getAccount().getUsername());
 			developerAccount.setRole(pDeveloperCompanyAccount.getRole());
 

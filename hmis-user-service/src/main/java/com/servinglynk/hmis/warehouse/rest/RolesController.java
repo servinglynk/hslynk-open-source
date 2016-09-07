@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Roles;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 
 @RestController
 @RequestMapping("/roles")
@@ -42,18 +44,14 @@ public class RolesController extends ControllerBase {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@APIMapping(value="ACL_GET_ALL_ROLES",checkTrustedApp=true,checkSessionToken=true)
-	public Roles getAllRoles( @RequestParam(value="startIndex", required=false) Integer startIndex,
-				@RequestParam(value="maxItems", required=false) Integer maxItems,
+	public Roles getAllRoles( @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex,
+				@RequestParam(value="maxItems", required=false,defaultValue="30") Integer maxItems,
 				HttpServletRequest request) throws Exception {
-
-			if (startIndex == null)	{
-			startIndex = 0;
-			}
 			
-			if (maxItems == null)	{
-			maxItems = 2;
-			}
+			if (maxItems > 50)  maxItems = 50;
 			
-			return serviceFactory.getRoleService().getAllRoles(startIndex,maxItems);
+			Session session = sessionHelper.getSession(request);
+			
+			return serviceFactory.getRoleService().getAllRoles(session.getAccount(),startIndex,maxItems);
 	}
 }

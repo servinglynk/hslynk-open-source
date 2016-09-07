@@ -89,8 +89,9 @@ public class SessionsController {
 		account.setOtp(otp);
 		session.setAccount(account);
 		
+		String trustedAppId = trustedAppHelper.getTrustedApp(request).getTrustedAppId();
 		
-		serviceFactory.getSessionService().createSession(session, USER_SERVICE);
+		serviceFactory.getSessionService().createSession(session,trustedAppId ,USER_SERVICE);
 		
 		Session returnSession = new Session();
 		returnSession.setToken(session.getToken());
