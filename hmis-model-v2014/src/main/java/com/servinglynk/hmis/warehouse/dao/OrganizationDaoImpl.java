@@ -58,9 +58,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 					 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 					 organizationModel.setExport(exportEntity);
-					 OrganizationEntity baseOrganization = new OrganizationEntity();
-					 BeanUtils.copyProperties(baseOrganization, organizationModel);
-					 factory.getHmisOrganizationDao().createOrganization(baseOrganization);
+				//	 OrganizationEntity baseOrganization = new OrganizationEntity();
+					// BeanUtils.copyProperties(baseOrganization, organizationModel);
+					// factory.getHmisOrganizationDao().createOrganization(baseOrganization);
 					 performSaveOrUpdate(organizationModel);
 				 }catch(Exception e) {
 					 String errorMessage = "Failure in Organization:::"+organization.toString()+ " with exception"+e.getLocalizedMessage();
