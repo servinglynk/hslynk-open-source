@@ -183,7 +183,7 @@ public class HmisUser  {
 	
 	private AccountPreferenceEntity accountPreference;
 
-	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL,optional=true)
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL,optional=true,fetch=FetchType.LAZY)
 	@JoinColumn(name="id")
 	public AccountPreferenceEntity getAccountPreference() {
 		return this.accountPreference;
@@ -196,7 +196,7 @@ public class HmisUser  {
 
 	private AccountLockoutEntity accountLockout;
 
-	@OneToOne( mappedBy = "account", cascade = CascadeType.ALL,optional=true)
+	@OneToOne( mappedBy = "account", cascade = CascadeType.ALL,optional=true,fetch=FetchType.LAZY)
 	@JoinColumn(name="id")
 	public AccountLockoutEntity getAccountLockout() {
 		return this.accountLockout;

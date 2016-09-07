@@ -108,10 +108,9 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			sessionEntity.setCreatedBy(auditUser);
 			sessionEntity.setCreatedAt(new Date());
 			sessionEntity.setSessionToken(SessionEntity.generateSessionToken());
-			sessionEntity.setExpiresAt(new Date(System.currentTimeMillis() + (20000 * 1000)));
+			sessionEntity.setExpiresAt(new Date(System.currentTimeMillis() + (trustedAppEntity.getExpirationTime() * 1000)));
 		
 		 	daoFactory.getSessionDao().create(sessionEntity);
-		 	//session.getAccount().setOrganizationId(pAccount.getOrganization().getId());
 		 	session.setToken(sessionEntity.getSessionToken());
 			
 	}
@@ -164,9 +163,9 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		if (ValidationUtil.isEmpty(username)) {
 			throw new MissingParameterException("username is required.");
 		}
-		if (!ValidationUtil.isValidEmail(username)) {
+/*		if (!ValidationUtil.isValidEmail(username)) {
 			throw new InvalidParameterException("invalid username: " + username);
-		}
+		}*/
 		// validate the password
 		String password = session.getAccount().getPassword();
 		if (ValidationUtil.isEmpty(password)) {
@@ -210,7 +209,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			sessionEntity.setCreatedBy(auditUser);
 			sessionEntity.setCreatedAt(new Date());
 			sessionEntity.setAuthCode(SessionEntity.generateSessionToken());
-			sessionEntity.setAuthCodeExpiresAt(new Date(System.currentTimeMillis() + (20000 * 1000)));
+			sessionEntity.setAuthCodeExpiresAt(new Date(System.currentTimeMillis() + (trustedAppEntity.getExpirationTime() * 1000)));
 		
 		 	daoFactory.getSessionDao().create(sessionEntity);
 		 	session.setAuthCode(sessionEntity.getAuthCode());
@@ -219,7 +218,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	}
 	
 	
-	@Transactional
+/*	@Transactional
 	public void createSession(Session session,String auditUser) throws Exception {
 		GoogleAuthenticator auth = new GoogleAuthenticator();
 		
@@ -237,7 +236,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
 		session.setToken(sessionEntity.getSessionToken());
 	}
-
+*/	
 	@Transactional
 	public Session validateSession(String sessionToken) {
 		SessionEntity sessionEntity = daoFactory.getSessionDao().findBySessionToken(sessionToken);

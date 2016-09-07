@@ -35,7 +35,10 @@ public class RoleEntity  extends BaseModel {
 	@ManyToOne
 	@JoinColumn(name = "parent_role_id", referencedColumnName="id")
 	private RoleEntity parentRoleEntity;
-
+	
+	@Column(name="role_level")
+	private Integer roleLevel;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -74,5 +77,13 @@ public class RoleEntity  extends BaseModel {
 
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
-	}	
+	}
+
+	public Integer getRoleLevel() {
+		return roleLevel;
+	}
+
+	public void setRoleLevel(Integer roleLevel) {
+		this.roleLevel = roleLevel;
+	}
 }

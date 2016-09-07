@@ -102,8 +102,9 @@ public class AccountsController extends ControllerBase {
 	@APIMapping(value="USR_GET_ACCOUNT",checkSessionToken=true, checkTrustedApp=true)
 	public Account getAccount(@PathVariable("userid") String userid, HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
-		validateAccess(new Account(), session.getAccount(), userid);
-		return serviceFactory.getAccountService().getAccount(session.getAccount(),false);
+		Account account = new Account();
+		validateAccess(account, session.getAccount(), userid);
+		return serviceFactory.getAccountService().getAccount(account,false);
 	}
 	
 	@RequestMapping(value = "/{userid}", method = RequestMethod.DELETE)
@@ -142,6 +143,20 @@ public class AccountsController extends ControllerBase {
 		PasswordReset returnPasswordReset = new PasswordReset();
 		return returnPasswordReset;
 	}*/
+	
+	
+	@RequestMapping(value="/{userid}/roles",method=RequestMethod.PUT)
+	@APIMapping(value="ACL_ADD_USER_ROLE",checkSessionToken=true,checkTrustedApp=true)
+	public void addRoleToUser(@PathVariable("userid") UUID userid,Role role) throws Exception {
+		serviceFactory.getAccountService().addRoleToUser(userid, role);
+	}
+	
+	@RequestMapping(value="/{userid}/roles/{roleid}",method=RequestMethod.DELETE)
+	@APIMapping(value="ACL_DELETE_USER_ROLE",checkSessionToken=true,checkTrustedApp=true)	
+	public void removeRoleFromUser(@PathVariable("userid") UUID userid,UUID roleid) throws Exception {
+	serviceFactory.getAccountService().removeRoleFromUser(userid, roleid);	
+	}
+	
 
 	@RequestMapping(value = "/{userid}/passwordchanges", method = RequestMethod.PUT)
 	@APIMapping(value="USR_PASSWORD_UPDATE",checkSessionToken=true, checkTrustedApp=true)
@@ -149,8 +164,9 @@ public class AccountsController extends ControllerBase {
 			HttpServletRequest request) throws Exception {
 
 		Session session = sessionHelper.getSession(request);
-		validateAccess(new Account(), session.getAccount(),userid);
-		serviceFactory.getAccountService().updatePassword(session.getAccount(), passwordChange, USER_SERVICE);
+		Account account = new Account();
+		validateAccess(account, session.getAccount(),userid);
+		serviceFactory.getAccountService().updatePassword(account, passwordChange, session.getAccount().getUsername());
 		return new PasswordChange();
 	}
 				

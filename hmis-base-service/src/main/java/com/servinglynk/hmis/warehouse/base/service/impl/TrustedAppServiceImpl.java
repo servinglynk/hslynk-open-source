@@ -582,8 +582,9 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 
 				// if access token exists include the account in the response
 				if (pSessionToken != null)	{
-
-					apiAuthCheck.setAccount(AccountConverter.convertToAccount(pSessionToken.getAccount()));
+						Account account = new Account();
+						account.setAccountId(pSessionToken.getAccount().getId());
+					apiAuthCheck.setAccount(serviceFactory.getAccountService().getAccount(account, true));
 				}
 				apiAuthCheck.setTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(trustedAppEntity, logoPath()));
 

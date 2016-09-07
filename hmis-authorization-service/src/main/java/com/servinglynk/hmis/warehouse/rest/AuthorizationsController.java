@@ -263,9 +263,8 @@ public class AuthorizationsController extends ControllerBase {
 		Account account = new Account();
 		account.setOtp(otp);
 		session.setAccount(account);
-		
-		
-		serviceFactory.getSessionService().createSession(session, USER_SERVICE);
+	
+		serviceFactory.getSessionService().createSession(session,trustedAppId ,USER_SERVICE);
 		
 		
 		

@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
+import com.servinglynk.hmis.warehouse.domain.Criteria;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProfileACLEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
@@ -92,6 +93,18 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	public UserRoleMapEntity createUserRole(UserRoleMapEntity userRoleMapEntity) {
 		insert(userRoleMapEntity);
 		return userRoleMapEntity;
+	}
+	
+	public UserRoleMapEntity getUserRoleByUserIdAndRoleId(UUID userid,UUID roleid) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(UserRoleMapEntity.class);
+		criteria.createAlias("roleEntity", "roleEntity");
+		criteria.createAlias("accountEntity", "accountEntity");
+		criteria.add(Restrictions.eq("roleEntity.id",roleid));
+		criteria.add(Restrictions.eq("accountEntity.id", userid));
+		
+		List<UserRoleMapEntity> entities = (List<UserRoleMapEntity>) findByCriteria(criteria);
+		if(!entities.isEmpty()) return entities.get(0);
+		return null;
 	}
 
 

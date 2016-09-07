@@ -47,10 +47,5 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 	
 	public void extendUserSession(String accessToken){
 		serviceFactory.getAccountService().extendUserSession(accessToken);
-		
 	}
-	
-	
-	
-
 }
