@@ -341,7 +341,7 @@ GetProjectGroups: function ($http,$scope, success) {
                     "username": data.username,
                     "emailAddress":data.emailAddress,
                     "password":data.password,
-                    "password" : data.confirmPassword,
+                    "confirmPassword" : data.confirmPassword,
                     "firstName":data.firstName,
                     "middleName":data.middleName,
                     "lastName":data.lastName,
