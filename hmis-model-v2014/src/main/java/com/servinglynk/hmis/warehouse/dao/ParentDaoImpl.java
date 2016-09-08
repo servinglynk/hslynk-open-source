@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,6 +166,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			criteria.add(Restrictions.eq("sourceSystemId",sourceId.trim()));
 			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
 			criteria.add(Restrictions.eq("deleted",false));
+			criteria.add(Restrictions.isNull("parentId"));
 			criteria.addOrder( Order.desc("dateCreated") );
 			@SuppressWarnings("unchecked")
 			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
@@ -188,6 +190,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			Criteria criteria = getCurrentSession().createCriteria(className);
 			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
 			criteria.add(Restrictions.eq("deleted",false));
+			criteria.add(Restrictions.isNull("parentId"));
 			criteria.addOrder( Order.desc("dateCreated") );
 			@SuppressWarnings("unchecked")
 			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
@@ -209,6 +212,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 //		if(constraintViolations.isEmpty()) {
 //			
 //		}
+		if(model.isIgnored()) {
+			logger.info("Igonring this record because is already exists:::"+model.toString());
+			return;
+		}
 		model.setDateUpdated(LocalDateTime.now());
 		if(!model.isInserted()) {
 			getCurrentSession().update(model);
@@ -257,4 +264,27 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 protected int batchSize() {
 	        return Integer.valueOf(500);
 	    }
+	 
+		@SuppressWarnings("unused")
+		@Override
+		public void softDeleteByProjectGroupCode(String className,String projectGroupCode,UUID exportId) {
+			DetachedCriteria criteria = null;
+			try {
+				criteria = DetachedCriteria.forClass(Class.forName(className));
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+			criteria.add(Restrictions.eq("deleted", false));
+		//	criteria.createAlias("export", "exp").add(Restrictions.eq("exp.id", exportId));
+			List<Object> objects = criteria.getExecutableCriteria(getCurrentSession()).list();
+			if(objects !=null) {
+				for(Object entity : objects) {
+					 if(entity instanceof HmisBaseModel) {
+						 delete(entity);
+					 }
+				}
+			}
+		}
 }

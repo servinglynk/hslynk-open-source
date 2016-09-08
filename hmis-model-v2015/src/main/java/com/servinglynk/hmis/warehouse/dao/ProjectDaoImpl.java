@@ -9,9 +9,11 @@ import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -71,6 +73,14 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 //					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, project.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 //					if(enrollmentModel !=null)
 //						projectModel.addEnrollment(enrollmentModel);
+					if(projectModel.isInserted()) {
+						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
+						BeanUtils.copyProperties(baseProject, projectModel);
+						OrganizationEntity organizationEntity = factory.getHmisOrganizationDao().getOrganizationById(organization.getId());
+						baseProject.setOrganizationid(organizationEntity);
+						baseProject.setSchemaYear(2014);
+						factory.getBaseProjectDao().createProject(baseProject);
+					}
 					projectModel.setExport(exportEntity);
 					performSaveOrUpdate(projectModel);
 				}catch(Exception e) {

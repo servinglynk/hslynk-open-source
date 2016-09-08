@@ -176,4 +176,20 @@ public abstract class HmisBaseModel implements Entity{
 				this.inserted = inserted;
 			}
 			
+			private boolean ignored;
+			/**
+			 * @return the ignored
+			 */
+			@Transient
+			public boolean isIgnored() {
+				return ignored;
+			}
+			/**
+			 * @param ignored the ignored to set
+			 */
+			public void setIgnored(boolean ignored) {
+				this.ignored = ignored;
+			}
+			
+			
 }

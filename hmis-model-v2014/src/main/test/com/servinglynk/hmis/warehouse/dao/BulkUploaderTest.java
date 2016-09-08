@@ -66,12 +66,12 @@ public class BulkUploaderTest {
 		//dao.performBulkUpload(upload);
 	}
 	@Test
-	public void testCSVZip() throws Exception
+	public void testCSVZip() throws Exception                                         
 	{
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		//bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_47._old.xml");
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
+		//bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_47._old.xml");
 		bullkUpload.setId(3L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
@@ -83,7 +83,7 @@ public class BulkUploaderTest {
 		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender);
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
 	}
 	
 	@Test
@@ -104,7 +104,7 @@ public class BulkUploaderTest {
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
 		upload.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender);
+		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}
 	@Test
 	public void testAnotherxmlBigFile() throws Exception
@@ -122,7 +122,7 @@ public class BulkUploaderTest {
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("JP0005");
 		upload.setProjectGroupCode("JP0005");
-		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender);
+		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}
 	
 	@Test
@@ -150,7 +150,7 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void softDeleteProjectGroup() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCode("MO0010");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		

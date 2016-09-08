@@ -146,7 +146,7 @@ public class QueryExecutorImpl  implements QueryExecutor{
 		}
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		criteria.add(Restrictions.eq("deleted", false));
-		criteria.createAlias("export", "exp").add(Restrictions.eq("exp.id", exportId));
+	//	criteria.createAlias("export", "exp").add(Restrictions.eq("exp.id", exportId));
 		List<Object> objects = criteria.getExecutableCriteria(getCurrentSession()).list();
 		if(objects !=null) {
 			for(Object entity : objects) {
