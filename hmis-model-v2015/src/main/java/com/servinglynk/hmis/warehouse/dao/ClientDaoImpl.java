@@ -340,8 +340,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		return clients;
 	}
 	
-	public long getClientsCount(){
+	public long getClientsCount(String projectGroupCode){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Client.class);	
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		return countRows(criteria);
 	}
 }

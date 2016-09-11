@@ -69,7 +69,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 			clients.addClient(ClientConverter.entityToModel(pClient));
 		}
 		
-        long count = daoFactory.getHmisClientDao().getClientsCount(String projectGroupCode);
+        long count = daoFactory.getClientDao().getClientsCount(projectGroupCode);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);
