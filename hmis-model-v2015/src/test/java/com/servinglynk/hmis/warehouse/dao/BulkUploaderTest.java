@@ -17,8 +17,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2015.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
@@ -32,6 +30,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -133,6 +132,39 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2015.Client;
+import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
+import com.servinglynk.hmis.warehouse.model.v2015.Coc;
+import com.servinglynk.hmis.warehouse.model.v2015.Contact;
+import com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2015.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2015.Education;
+import com.servinglynk.hmis.warehouse.model.v2015.Employment;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2015.Entryrhy;
+import com.servinglynk.hmis.warehouse.model.v2015.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2015.Exit;
+import com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2015.Exitpath;
+import com.servinglynk.hmis.warehouse.model.v2015.Exitrhy;
+import com.servinglynk.hmis.warehouse.model.v2015.Funder;
+import com.servinglynk.hmis.warehouse.model.v2015.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2015.Inventory;
+import com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2015.Organization;
+import com.servinglynk.hmis.warehouse.model.v2015.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.v2015.Project;
+import com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate;
+import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
+import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2015.Site;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -160,7 +192,7 @@ public class BulkUploaderTest {
 		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
 		upload.setInputpath(path.getFile());
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity,null);
+		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity,null,false);
 		File file = new File(
 				path.getFile());
 		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
@@ -224,7 +256,7 @@ public class BulkUploaderTest {
 				upload.setProjectGroupCode("PG0001");
 				upload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender);
+				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}
 		@Test
 		public void testCSVZip() throws Exception
@@ -245,7 +277,7 @@ public class BulkUploaderTest {
 			bullkUpload.setId(3L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 			bullkUpload.setProjectGroupCode("PG0001");
-			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,appender);
+			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,appender,false);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 			com.servinglynk.hmis.warehouse.model.v2015.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.v2015.Export.class, upload.getExportId());
 			assertNotNull(exportEntity);

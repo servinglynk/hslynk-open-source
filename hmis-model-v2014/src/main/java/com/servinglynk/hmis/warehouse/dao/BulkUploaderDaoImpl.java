@@ -9,10 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.bind.UnmarshalException;
 
 import org.apache.log4j.Appender;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
@@ -114,18 +111,18 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			} catch (Exception ex) {
 				throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
 			}
-			UUID exportId = UUID.randomUUID();
 			ExportDomain domain = new ExportDomain();
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
+			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
-			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,null); // Done
-			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,null); // Done
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
+			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
 			exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
-			logger.debug(" Bulk Upload Processing client Table Begin.....");
+			logger.info(" Bulk Upload Processing client Table Begin.....");
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DOne
-			logger.debug(" Bulk Upload Processing client Table Ends.....");
+			logger.info(" Bulk Upload Processing client Table Ends.....");
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
@@ -184,7 +181,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			
 		 //   calculateChronicHomeless(enrollmentModelMap);
 			upload.setStatus(UploadStatus.STAGING.getStatus());
-			upload.setExportId(exportId);
+			upload.setExportId(domain.getExportId());
 			insertOrUpdate(upload);
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
@@ -231,6 +228,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Transactional(readOnly = false)
 	public void saveUpload(BulkUpload upload) {
+		getCurrentSession().evict(upload);
 		insertOrUpdate(upload);
 		getCurrentSession().flush();
 		getCurrentSession().clear();

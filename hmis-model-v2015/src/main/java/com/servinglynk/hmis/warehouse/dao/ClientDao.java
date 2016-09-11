@@ -12,7 +12,7 @@ public interface ClientDao extends ParentDao {
 	Client updateClient(Client client);
 	void deleteClient(Client client);
 	Client getClientById(UUID clientId);
-	List<Client> getAllClients(Integer startIndex, Integer maxItems);
+	List<Client> getAllClients(String username,Integer startIndex, Integer maxItems);
 	long getClientsCount();
 	public com.servinglynk.hmis.warehouse.model.v2015.Client getClientByDedupCliendId(UUID id,String projectGroupCode);
 }

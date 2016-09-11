@@ -46,33 +46,37 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 		{
 			for(Services services : servicesList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = null;
+				com.servinglynk.hmis.warehouse.model.v2014.Services model = null;
 				try {
-					servicesModel = getModelObject(domain, services,data,modelMap);
-					servicesModel.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
-					servicesModel.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
-					servicesModel.setOthertypeprovided(services.getOtherTypeProvided());
-					servicesModel.setRecordtype(ServicesRecordtypeEnum.lookupEnum(services.getRecordType()));
-					servicesModel.setReferraloutcome(ServicesReferraloutcomeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getReferralOutcome())));
-					servicesModel.setSubtypeprovided(BasicDataGenerator.getIntegerValue(services.getSubTypeProvided()));
-					servicesModel.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
-					servicesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
-					servicesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
+					model = getModelObject(domain, services,data,modelMap);
+					model.setDateprovided(BasicDataGenerator.getLocalDateTime(services.getDateProvided()));
+					model.setFaamount(new BigDecimal(String.valueOf(services.getFAAmount())));
+					model.setOthertypeprovided(services.getOtherTypeProvided());
+					model.setRecordtype(ServicesRecordtypeEnum.lookupEnum(services.getRecordType()));
+					model.setReferraloutcome(ServicesReferraloutcomeEnum.lookupEnum(BasicDataGenerator.getStringValue(services.getReferralOutcome())));
+					model.setSubtypeprovided(BasicDataGenerator.getIntegerValue(services.getSubTypeProvided()));
+					model.setTypeprovided(BasicDataGenerator.getIntegerValue(services.getTypeProvided()));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 					Enrollment enrollment = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(),Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					servicesModel.setEnrollmentid(enrollment);
-					servicesModel.setExport(exportEntity);
-					performSaveOrUpdate(servicesModel);
+					model.setEnrollmentid(enrollment);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in services:::"+services.toString()+ " with exception"+e.getLocalizedMessage();
-					if (servicesModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = servicesModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = servicesModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = servicesModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -90,7 +94,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 		if(servicesModel == null) {
 			servicesModel = new com.servinglynk.hmis.warehouse.model.v2014.Services();
 			servicesModel.setId(UUID.randomUUID());
-			servicesModel.setInserted(true);
+			servicesModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

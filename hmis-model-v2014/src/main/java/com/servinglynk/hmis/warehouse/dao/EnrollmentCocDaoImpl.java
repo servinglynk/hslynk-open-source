@@ -49,31 +49,35 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		{
 			for(EnrollmentCoC enrollmentCoc : enrollmentCoCs)
 			{
-				EnrollmentCoc enrollmentCocModel = null;
+				EnrollmentCoc model = null;
 				try {
-					enrollmentCocModel = getModelObject(domain, enrollmentCoc,data,modelMap);
-					enrollmentCocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
-					enrollmentCocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
+					model = getModelObject(domain, enrollmentCoc,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(EnrollmentCoc.class.getSimpleName(),Enrollment.class,enrollmentCoc.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					enrollmentCocModel.setEnrollmentid(enrollmentModel);
+					model.setEnrollmentid(enrollmentModel);
      				Projectcoc projectCoc = (Projectcoc) getModel(EnrollmentCoc.class.getSimpleName(),Projectcoc.class,enrollmentCoc.getProjectCoCID(),getProjectGroupCode(domain),false,projectCocModelMap, domain.getUpload().getId());
-					enrollmentCocModel.setProjectCoc(projectCoc);	
+					model.setProjectCoc(projectCoc);	
 					//enrollmentCocModel.setCocCode(enrollmentCoc.get
-					enrollmentCocModel.setExport(exportEntity);
-					enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getInformationDate()));
-					enrollmentCocModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollmentCoc.getDataCollectionStage())));
-					performSaveOrUpdate(enrollmentCocModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollmentCoc.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Error occured with "+enrollmentCoc.toString() + " Execption :::"+e.getLocalizedMessage();
-					if (enrollmentCocModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = enrollmentCocModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = enrollmentCocModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = enrollmentCocModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -91,7 +95,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		if(enrollmentCocModel == null) {
 			enrollmentCocModel = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
 			enrollmentCocModel.setId(UUID.randomUUID());
-			enrollmentCocModel.setInserted(true);
+			enrollmentCocModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

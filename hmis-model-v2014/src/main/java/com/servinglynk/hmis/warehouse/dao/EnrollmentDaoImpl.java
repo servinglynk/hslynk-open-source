@@ -12,6 +12,7 @@ import java.util.UUID;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 
+import org.apache.hadoop.hdfs.client.ClientMmap;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -63,88 +64,91 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 		if (enrollments != null && enrollments.size() > 0) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment : enrollments) {
-				Enrollment enrollmentModel = null;
+				Enrollment model = null;
 				try {
-					enrollmentModel = getModelObject(domain, enrollment, data, modelMap);
-					enrollmentModel
+					model = getModelObject(domain, enrollment, data, modelMap);
+					model
 							.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 									.getContinuouslyHomelessOneYear())));
-					enrollmentModel
+					model
 							.setHousingstatus(EnrollmentHousingstatusEnum
 									.lookupEnum(BasicDataGenerator
 											.getStringValue(enrollment
 													.getHousingStatus())));
-					enrollmentModel
+					model
 							.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
 									.getStringValue(enrollment
 											.getDisablingCondition())));
-					enrollmentModel.setYearshomeless(new Integer(
+					model.setYearshomeless(new Integer(
 							BasicDataGenerator.getStringValue(enrollment
 									.getYearsHomeless())));
-					enrollmentModel
+					model
 							.setResidenceprior(EnrollmentResidencepriorEnum
 									.lookupEnum(BasicDataGenerator
 											.getStringValue(enrollment
 													.getResidencePrior())));
-					enrollmentModel
+					model
 							.setStatusdocumented(EnrollmentStatusdocumentedEnum.lookupEnum(BasicDataGenerator
 									.getStringValue(enrollment
 											.getStatusDocumented())));
-					enrollmentModel
+					model
 							.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 									.getResidencePriorLengthOfStay())));
-					enrollmentModel
+					model
 							.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
 									.getStringValue(enrollment
 											.getRelationshipToHoH())));
-					enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
+					model.setDateCreatedFromSource(BasicDataGenerator
 							.getLocalDateTime(enrollment.getDateCreated()));
-					enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator
+					model.setDateUpdatedFromSource(BasicDataGenerator
 							.getLocalDateTime(enrollment.getDateUpdated()));
-					enrollmentModel.setEntrydate(BasicDataGenerator
+					model.setEntrydate(BasicDataGenerator
 							.getLocalDateTime(enrollment.getEntryDate()));
 
-					enrollmentModel
+					model
 							.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 									.getMonthsHomelessPastThreeYears())));
-					enrollmentModel
+					model
 							.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
 									.getStringValue(enrollment
 											.getMonthsHomelessThisTime())));
-					enrollmentModel.setOtherresidenceprior(enrollment
+					model.setOtherresidenceprior(enrollment
 							.getOtherResidencePrior());
 					com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Project.class, enrollment.getProjectID(), getProjectGroupCode(domain), true, projectModelMap, domain.getUpload().getId());
-					enrollmentModel.setProject(project);
-					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
+					model.setProject(project);
+					model.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
 					if (enrollment.getPersonalID() != null) {
 						com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 						//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 						// Very important logic needs to come here via a Microservice call.
-						LocalDateTime entryDate = enrollmentModel.getEntrydate();
+						LocalDateTime entryDate = model.getEntrydate();
 						if (client != null) {
 							LocalDateTime dob = client.getDob();
 							if (entryDate != null && dob != null) {
 								LocalDateTime tempDateTime = LocalDateTime.from(dob);
 								long years = tempDateTime.until(entryDate, ChronoUnit.YEARS);
-								enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+								model.setAgeAtEntry(new Integer(String.valueOf(years)));
 							}
-							enrollmentModel.setClient(client);
+							model.setClient(client);
 						}
 					}
-					enrollmentModel.setExport(exportEntity);
-					//enrollmentModel.setUser(exportEntity.getUser());
-					performSaveOrUpdate(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Exception in Enrollment:" + enrollment.getProjectEntryID() + "Exception ::" + e.getLocalizedMessage();
-					if (enrollmentModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = enrollmentModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = enrollmentModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = enrollmentModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -163,7 +167,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		if(enrollmentModel == null) {
 			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
 			enrollmentModel.setId(UUID.randomUUID());
-			enrollmentModel.setInserted(true);
+			enrollmentModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

@@ -35,32 +35,36 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		if(sites !=null && !sites.isEmpty()) {
 			for(Site site :sites) {
 				if(site !=null) {
-					com.servinglynk.hmis.warehouse.model.v2014.Site siteModel = null;
+					com.servinglynk.hmis.warehouse.model.v2014.Site model = null;
 					try {
-						siteModel = getModelObject(domain, site,data,modelMap);
-						siteModel.setAddress(site.getAddress());
-						siteModel.setCity(site.getCity());
-						siteModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateCreated()));
-						siteModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
-						siteModel.setGeocode(site.getGeocode());
-						siteModel.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
+						model = getModelObject(domain, site,data,modelMap);
+						model.setAddress(site.getAddress());
+						model.setCity(site.getCity());
+						model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateCreated()));
+						model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
+						model.setGeocode(site.getGeocode());
+						model.setPrincipalSite(SitePrincipalSiteEnum.lookupEnum(BasicDataGenerator.getStringValue(site.getPrincipalSite())));
 						Projectcoc projectCoc = (Projectcoc) getModel(Site.class.getSimpleName(),Projectcoc.class,site.getProjectCoCID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-						siteModel.setProjectCoc(projectCoc);
-						siteModel.setState(StateEnum.lookupEnum(site.getState()));
-						siteModel.setExport(exportEntity);
-						siteModel.setZip(String.valueOf(site.getZIP()));
-						performSaveOrUpdate(siteModel);
+						model.setProjectCoc(projectCoc);
+						model.setState(StateEnum.lookupEnum(site.getState()));
+						model.setExport(exportEntity);
+						model.setZip(String.valueOf(site.getZIP()));
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null ) {
+							modelMatch(hmisBaseModel, model);
+						}
+						performSaveOrUpdate(model);
 					} catch(Exception e) {
 						String errorMessage = "Exception in Site:"+site.getSiteID()+  ":: Exception" +e.getLocalizedMessage();
-						if (siteModel != null) {
+						if (model != null) {
 							Error2014 error = new Error2014();
-							error.model_id = siteModel.getId();
+							error.model_id = model.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();
-							error.source_system_id = siteModel.getSourceSystemId();
+							error.source_system_id = model.getSourceSystemId();
 							error.type = ErrorType.ERROR;
 							error.error_description = errorMessage;
-							error.date_created = siteModel.getDateCreated();
+							error.date_created = model.getDateCreated();
 							performSave(error);
 						}
 						logger.error(errorMessage);
@@ -80,7 +84,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		if(SiteModel == null) {
 			SiteModel = new com.servinglynk.hmis.warehouse.model.v2014.Site();
 			SiteModel.setId(UUID.randomUUID());
-			SiteModel.setInserted(true);
+			SiteModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

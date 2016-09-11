@@ -23,6 +23,7 @@ public class ExportDomain {
 	private Source source;
 	private BulkUpload upload;
 	private UUID userId;
+	private UUID exportId;
 	
 	public Export getExport() {
 		return export;
@@ -43,5 +44,34 @@ public class ExportDomain {
 	public void setUpload(BulkUpload upload) {
 		this.upload = upload;
 	}
+
+	/**
+	 * @return the exportId
+	 */
+	public UUID getExportId() {
+		return exportId;
+	}
+
+	/**
+	 * @param exportId the exportId to set
+	 */
+	public void setExportId(UUID exportId) {
+		this.exportId = exportId;
+	}
+
+	/**
+	 * @return the userId
+	 */
+	public UUID getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(UUID userId) {
+		this.userId = userId;
+	}
+	
 	
 }

@@ -56,22 +56,22 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		{
 			for(Project project : projects)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Project projectModel = null;
+				com.servinglynk.hmis.warehouse.model.v2014.Project model = null;
 				try {
-					projectModel = getModelObject(domain, project,data,modelMap);
+					model = getModelObject(domain, project,data,modelMap);
 					//projectModel.setAffiliations(affiliation);
-					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
-					projectModel.setProjectname(project.getProjectName());
+					model.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getContinuumProject())));
+					model.setProjectname(project.getProjectName());
 					Organization organization = (Organization)getModel(Project.class.getSimpleName(),Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					projectModel.setOrganizationid(organization);
-					projectModel.setProjectcommonname(project.getProjectCommonName());
-					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
-					projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
-					projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
-					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
-					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
-					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
-					projectModel.setExport(exportEntity);
+					model.setOrganizationid(organization);
+					model.setProjectcommonname(project.getProjectCommonName());
+					model.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
+					model.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
+					model.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
+					model.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
+					model.setExport(exportEntity);
 //					if(projectModel.isInserted()) {
 //						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 //						BeanUtils.copyProperties(baseProject, projectModel);
@@ -80,18 +80,22 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 //						baseProject.setSchemaYear(2014);
 //						factory.getBaseProjectDao().createProject(baseProject);
 //					}
-					performSaveOrUpdate(projectModel);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage();
-					if (projectModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = projectModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = projectModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = projectModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -110,7 +114,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		if(projectModel == null) {
 			projectModel = new com.servinglynk.hmis.warehouse.model.v2014.Project();
 			projectModel.setId(UUID.randomUUID());
-			projectModel.setInserted(true);
+			projectModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

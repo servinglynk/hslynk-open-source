@@ -47,27 +47,31 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		{
 			for(WorstHousingSituation worstHousingSituation : worstHousingSituationList)
 			{
-				Worsthousingsituation worsthousingsituationModel = null;
+				Worsthousingsituation model = null;
 				try {
-					worsthousingsituationModel = getModelObject(domain, worstHousingSituation,data,modelMap);
-					worsthousingsituationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
-					worsthousingsituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
-					worsthousingsituationModel.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
-					worsthousingsituationModel.setExport(exportEntity);
+					model = getModelObject(domain, worstHousingSituation,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worstHousingSituation.getDateUpdated()));
+					model.setWorsthousingsituation(WorsthousingsituationWorsthousingsituationEnum.lookupEnum(BasicDataGenerator.getStringValue(worstHousingSituation.getWorstHousingSituation())));
+					model.setExport(exportEntity);
 					Enrollment enrollmentModel = (Enrollment) getModel(Worsthousingsituation.class.getSimpleName(),Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					worsthousingsituationModel.setEnrollmentid(enrollmentModel);
-					performSaveOrUpdate(worsthousingsituationModel);
+					model.setEnrollmentid(enrollmentModel);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in worstHousingSituation:"+worstHousingSituation.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (worsthousingsituationModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = worsthousingsituationModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = worsthousingsituationModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = worsthousingsituationModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -87,7 +91,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		if(worsthousingsituationModel == null) {
 			worsthousingsituationModel = new com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation();
 			worsthousingsituationModel.setId(UUID.randomUUID());
-			worsthousingsituationModel.setInserted(true);
+			worsthousingsituationModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

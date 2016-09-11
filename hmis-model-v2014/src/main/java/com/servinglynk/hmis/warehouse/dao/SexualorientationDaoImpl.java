@@ -49,29 +49,33 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		{
 			for(SexualOrientation sexualOrientation : sexualOrientations)
 			{
-				Sexualorientation sexualorientationModel = null;
+				Sexualorientation model = null;
 				try {
-					sexualorientationModel = getModelObject(domain, sexualOrientation,data,modelMap);
-					sexualorientationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
-					sexualorientationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
-					sexualorientationModel.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
+					model = getModelObject(domain, sexualOrientation,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualOrientation.getDateUpdated()));
+					model.setSexualorientation(SexualorientationSexualorientationEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getSexualOrientation())));
 					Enrollment enrollmentModel = (Enrollment) getModel(Sexualorientation.class.getSimpleName(),Enrollment.class,sexualOrientation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					sexualorientationModel.setEnrollmentid(enrollmentModel);
-					sexualorientationModel.setExport(exportEntity);
-					sexualorientationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(sexualOrientation.getInformationDate()));
-					sexualorientationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getDataCollectionStage())));
-					performSaveOrUpdate(sexualorientationModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(sexualOrientation.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Sexualorientation:::"+sexualOrientation.toString()+ " with exception"+e.getLocalizedMessage();
-					if (sexualorientationModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = sexualorientationModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = sexualorientationModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = sexualorientationModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -89,7 +93,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		if(SexualorientationModel == null) {
 			SexualorientationModel = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
 			SexualorientationModel.setId(UUID.randomUUID());
-			SexualorientationModel.setInserted(true);
+			SexualorientationModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

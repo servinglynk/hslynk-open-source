@@ -43,30 +43,34 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Funder.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		if (funders != null && funders.size() > 0) {
 			for (Funder funder : funders) {
-				com.servinglynk.hmis.warehouse.model.v2014.Funder funderModel = null;
+				com.servinglynk.hmis.warehouse.model.v2014.Funder model = null;
 				try {
-					funderModel = getModelObject(domain, funder, data, modelMap);
-					funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
-					funderModel.setGrantid(funder.getGrantID());
-					funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
-					funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
-					funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
-					funderModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
+					model = getModelObject(domain, funder, data, modelMap);
+					model.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
+					model.setGrantid(funder.getGrantID());
+					model.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
+					model.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
 					Project project = (Project) getModel(Funder.class.getSimpleName(),Project.class, funder.getFunderID(), getProjectGroupCode(domain), false, relatedModelMap, domain.getUpload().getId());
-					funderModel.setExport(exportEntity);
-					funderModel.setProjectid(project);
-					performSaveOrUpdate(funderModel);
+					model.setExport(exportEntity);
+					model.setProjectid(project);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Exception in Funder :" + funder.getFunderID() + ":: Exception" + e.getLocalizedMessage();
-					if (funderModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = funderModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = funderModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = funderModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -85,7 +89,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		if(funderModel == null) {
 			funderModel = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
 			funderModel.setId(UUID.randomUUID());
-			funderModel.setInserted(true);
+			funderModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

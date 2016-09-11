@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
 import com.servinglynk.hmis.warehouse.core.model.Contact;
@@ -120,7 +121,8 @@ public class ClientsController extends ControllerBase {
 			maxItems = 30;
 
 		Session session = sessionHelper.getSession(request);
-		return serviceFactory.getClientService().getAllClients(session.getAccount().getUsername(), startIndex,
+         Account account = serviceFactory.getAccountService().getAccount(session.getAccount(),false);
+		return serviceFactory.getClientService().getAllClients(account.getProjectGroup().getProjectGroupCode(), startIndex,
 				maxItems);
 	}
 

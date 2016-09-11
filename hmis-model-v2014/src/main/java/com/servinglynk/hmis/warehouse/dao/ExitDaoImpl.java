@@ -53,29 +53,33 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		{
 			for(Exit exit : exits)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = null;
+				com.servinglynk.hmis.warehouse.model.v2014.Exit model = null;
 				try {
-					exitModel = getModelObject(domain, exit,data,modelMap);
-					exitModel.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
-					exitModel.setOtherdestination(exit.getOtherDestination());
-					exitModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
-					exitModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
-					exitModel.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
+					model = getModelObject(domain, exit,data,modelMap);
+					model.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
+					model.setOtherdestination(exit.getOtherDestination());
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
+					model.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Exit.class.getSimpleName(),Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					exitModel.setEnrollmentid(enrollmentModel);
-					exitModel.setExport(exportEntity);
-					performSaveOrUpdate(exitModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in:"+exit.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (exitModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = exitModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = exitModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = exitModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -93,7 +97,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		if(exitModel == null) {
 			exitModel = new com.servinglynk.hmis.warehouse.model.v2014.Exit();
 			exitModel.setId(UUID.randomUUID());
-			exitModel.setInserted(true);
+			exitModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

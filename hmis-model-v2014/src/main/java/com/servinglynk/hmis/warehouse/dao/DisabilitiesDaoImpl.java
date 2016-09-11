@@ -53,35 +53,39 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = getModelObject(domain, disabilities, data, modelMap);
+				com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = getModelObject(domain, disabilities, data, modelMap);
 				try {
-					disabilitiesModel = getModelObject(domain, disabilities, data, modelMap);
-					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
-					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
-					disabilitiesModel.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
-					disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
-					disabilitiesModel.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
-					disabilitiesModel.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
-					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
-					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
-					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+					model = getModelObject(domain, disabilities, data, modelMap);
+					model.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
+					model.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
+					model.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
+					model.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
+					model.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
+					model.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
+					model.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),Enrollment.class, disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					disabilitiesModel.setEnrollmentid(enrollmentModel);
-					disabilitiesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
-					disabilitiesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
-					disabilitiesModel.setExport(exportEntity);
-					performSaveOrUpdate(disabilitiesModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in Disabilities :"+disabilities.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (disabilitiesModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = disabilitiesModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = disabilitiesModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = disabilitiesModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -100,7 +104,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		if(disabilitiesModel == null) {
 			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
 			disabilitiesModel.setId(UUID.randomUUID());
-			disabilitiesModel.setInserted(true);
+			disabilitiesModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

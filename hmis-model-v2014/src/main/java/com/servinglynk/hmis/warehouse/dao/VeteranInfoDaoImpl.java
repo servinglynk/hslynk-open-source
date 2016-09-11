@@ -55,67 +55,71 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class, getProjectGroupCode(domain));
 		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VeteranInfo veteranInfo : veteranInfoList) {
-				com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo vInfo = null;
+				com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo model = null;
 				try {
-					vInfo = getModelObject(domain, veteranInfo,data,modelMap);
-					vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
+					model = getModelObject(domain, veteranInfo,data,modelMap);
+					model.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(veteranInfo
 											.getAfghanistanOEF())));
-					vInfo.setDesertStorm(VeteranInfoDesertStormEnum
+					model.setDesertStorm(VeteranInfoDesertStormEnum
 							.lookupEnum(String.valueOf(veteranInfo
 									.getDesertStorm())));
-					vInfo.setDischargeStatus(VeteranInfoDischargeStatusEnum
+					model.setDischargeStatus(VeteranInfoDischargeStatusEnum
 							.lookupEnum(String.valueOf(veteranInfo
 									.getDischargeStatus())));
-					vInfo.setIraqOif(VeteranInfoIraqOifEnum
+					model.setIraqOif(VeteranInfoIraqOifEnum
 							.lookupEnum(String.valueOf(veteranInfo
 									.getIraqOIF())));
-					vInfo.setIraqOnd(VeteranInfoIraqOndEnum
+					model.setIraqOnd(VeteranInfoIraqOndEnum
 							.lookupEnum(String.valueOf(veteranInfo
 									.getIraqOND())));
-					vInfo.setOtherTheater(VeteranInfoOtherTheaterEnum
+					model.setOtherTheater(VeteranInfoOtherTheaterEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(veteranInfo
 											.getOtherTheater())));
-					vInfo.setKoreanWar(VeteranInfoKoreanWarEnum
+					model.setKoreanWar(VeteranInfoKoreanWarEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(veteranInfo
 											.getVietnamWar())));
-					vInfo.setMilitaryBranch(VeteranInfoMilitaryBranchEnum
+					model.setMilitaryBranch(VeteranInfoMilitaryBranchEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(veteranInfo
 											.getMilitaryBranch())));
-					vInfo.setVietnamWar(VeteranInfoVietnamWarEnum
+					model.setVietnamWar(VeteranInfoVietnamWarEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(veteranInfo
 											.getVietnamWar())));
-					vInfo.setWorldWar2(VeteranInfoWorldWar2Enum
+					model.setWorldWar2(VeteranInfoWorldWar2Enum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(veteranInfo
 											.getWorldWarII())));
-					vInfo.setYearEntrdService(new Integer(veteranInfo
+					model.setYearEntrdService(new Integer(veteranInfo
 							.getYearEnteredService()));
-					vInfo.setYearSeperated(new Integer(veteranInfo
+					model.setYearSeperated(new Integer(veteranInfo
 							.getYearSeparated()));
-					vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
-					vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
 					com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, veteranInfo.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					vInfo.setClient(client);
-					vInfo.setExport(exportEntity);
+					model.setClient(client);
+					model.setExport(exportEntity);
 					//vInfo.setUser(exportEntity.getUser());
-					performSaveOrUpdate(vInfo);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in veteranInfo:"+veteranInfo.getVeteranInfoID()+ ":: Exception" +e.getMessage();
-					if (vInfo != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = vInfo.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = vInfo.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = vInfo.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -134,7 +138,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		if(veteranInfoModel == null) {
 			veteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo();
 			veteranInfoModel.setId(UUID.randomUUID());
-			veteranInfoModel.setInserted(true);
+			veteranInfoModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

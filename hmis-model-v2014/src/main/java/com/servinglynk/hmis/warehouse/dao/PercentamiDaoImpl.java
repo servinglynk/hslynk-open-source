@@ -44,27 +44,31 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		{
 			for(PercentAMI percentAMI :percentAMIs)
 			{
-				Percentami percentamoModel = null;
+				Percentami model = null;
 				try {
-					percentamoModel = getModelObject(domain, percentAMI,data,modelMap);
-					percentamoModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
-					percentamoModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
-					percentamoModel.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
+					model = getModelObject(domain, percentAMI,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentAMI.getDateUpdated()));
+					model.setPercentage(BasicDataGenerator.getIntegerValue(percentAMI.getPercentAMI()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Percentami.class.getSimpleName(),Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					percentamoModel.setEnrollmentid(enrollmentModel);
-					percentamoModel.setExport(exportEntity);
-					performSaveOrUpdate(percentamoModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					 String errorMessage = "Failure in Percentami:::"+percentAMI.toString()+ " with exception"+e.getLocalizedMessage();
-					if (percentamoModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = percentamoModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = percentamoModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = percentamoModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -82,7 +86,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		if(percentamiModel == null) {
 			percentamiModel = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();
 			percentamiModel.setId(UUID.randomUUID());
-			percentamiModel.setInserted(true);
+			percentamiModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

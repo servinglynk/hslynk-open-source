@@ -41,30 +41,34 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
 			{
-				Domesticviolence domesticviolenceModel = null;
+				Domesticviolence model = null;
 				try {
-					domesticviolenceModel = getModelObject(domain, domesticViolence,data,modelMap);
-					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
-					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
-					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
-					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
+					model = getModelObject(domain, domesticViolence,data,modelMap);
+					model.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
+					model.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Domesticviolence.class.getSimpleName(),Enrollment.class,domesticViolence.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());;
-					domesticviolenceModel.setEnrollmentid(enrollmentModel);
-					domesticviolenceModel.setExport(exportEntity);
-					domesticviolenceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(domesticViolence.getInformationDate()));
-					domesticviolenceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDataCollectionStage())));
-					performSaveOrUpdate(domesticviolenceModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(domesticViolence.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+domesticViolence.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (domesticviolenceModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = domesticviolenceModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = domesticviolenceModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = domesticviolenceModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -84,7 +88,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		if(domesticViolenceModel == null) {
 			domesticViolenceModel = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();
 			domesticViolenceModel.setId(UUID.randomUUID());
-			domesticViolenceModel.setInserted(true);
+			domesticViolenceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

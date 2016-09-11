@@ -50,29 +50,33 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		 {
 			 for(Organization organization : organizations)
 			 {
-				 com.servinglynk.hmis.warehouse.model.v2014.Organization organizationModel = null;
+				 com.servinglynk.hmis.warehouse.model.v2014.Organization model = null;
 				 try {
-					 organizationModel = getModelObject(domain, organization,data,modelMap);
-					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
-					 organizationModel.setOrganizationname(organization.getOrganizationName());
-					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
-					 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
-					 organizationModel.setExport(exportEntity);
+					 model = getModelObject(domain, organization,data,modelMap);
+					 model.setOrganizationcommonname(organization.getOrganizationCommonName());
+					 model.setOrganizationname(organization.getOrganizationName());
+					 model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
+					 model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
+					 model.setExport(exportEntity);
 				//	 OrganizationEntity baseOrganization = new OrganizationEntity();
 					// BeanUtils.copyProperties(baseOrganization, organizationModel);
 					// factory.getHmisOrganizationDao().createOrganization(baseOrganization);
-					 performSaveOrUpdate(organizationModel);
+					 HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null ) {
+							modelMatch(hmisBaseModel, model);
+						}
+					 performSaveOrUpdate(model);
 				 }catch(Exception e) {
 					 String errorMessage = "Failure in Organization:::"+organization.toString()+ " with exception"+e.getLocalizedMessage();
-					 if (organizationModel != null) {
+					 if (model != null) {
 						 Error2014 error = new Error2014();
-						 error.model_id = organizationModel.getId();
+						 error.model_id = model.getId();
 						 error.bulk_upload_ui = domain.getUpload().getId();
 						 error.project_group_code = domain.getUpload().getProjectGroupCode();
-						 error.source_system_id = organizationModel.getSourceSystemId();
+						 error.source_system_id = model.getSourceSystemId();
 						 error.type = ErrorType.ERROR;
 						 error.error_description = errorMessage;
-						 error.date_created = organizationModel.getDateCreated();
+						 error.date_created = model.getDateCreated();
 						 performSave(error);
 					 }
 					 logger.error(errorMessage);
@@ -91,7 +95,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		if(organizationModel == null) {
 			organizationModel = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
 			organizationModel.setId(UUID.randomUUID());
-			organizationModel.setInserted(true);
+			organizationModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

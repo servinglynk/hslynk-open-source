@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -89,6 +91,40 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				return true;
 			}
 			return false;
+		}
+		
+		protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel model) {
+				if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) == 0) {
+					model.setIgnored(true);	
+				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) > 0) {
+					model.setRecordToBeInserted(false); //record already inserted , We need to update this.
+				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) < 0) {
+					 Method method;
+					try {
+						 // model = record in the file. modelFromDB = record in DB.
+						// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
+						method = model.getClass().getDeclaredMethod("getId");
+						modelFromDB.setParentId(UUID.fromString(method.invoke(model).toString()));
+						getCurrentSession().evict(modelFromDB);
+						getCurrentSession().update(modelFromDB);
+					    model.setRecordToBeInserted(true);
+					} catch (NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 		}
 		/**
 		 * Hydrates all the common fields related to a data model.
@@ -213,12 +249,12 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 //			
 //		}
 		if(model.isIgnored()) {
-			logger.info("Igonring this record because is already exists:::"+model.toString());
+			logger.info("Ignoring this record because is already exists:::"+model.toString());
 			return;
 		}
 		model.setDateUpdated(LocalDateTime.now());
-		if(!model.isInserted()) {
-			getCurrentSession().update(model);
+		if(!model.isRecordToBoInserted()) {
+			update(model);
 		}else{
 			model.setDateCreated(LocalDateTime.now());
 			insert(model);

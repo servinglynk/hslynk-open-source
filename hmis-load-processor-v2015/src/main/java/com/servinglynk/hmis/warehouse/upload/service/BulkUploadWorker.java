@@ -68,7 +68,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					File file = new File(upload.getInputpath());
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity,appender);
+					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity,appender,true);
 					if (file.isFile()) {
 				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
 				      //  new File(bullkUpload.getInputPath()).delete();

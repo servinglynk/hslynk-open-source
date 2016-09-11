@@ -47,28 +47,32 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
 				{
-					Exithousingassessment exithousingassessmentModel = null;
+					Exithousingassessment model = null;
 					try {
-						exithousingassessmentModel = getModelObject(domain, exitHousingAssessment,data,modelMap);
-						exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
-						exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
-						exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
-						exithousingassessmentModel.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
+						model = getModelObject(domain, exitHousingAssessment,data,modelMap);
+						model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
+						model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
+						model.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getHousingAssessment())));
+						model.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(BasicDataGenerator.getStringValue(exitHousingAssessment.getSubsidyInformation())));
 						Exit exit = (Exit) getModel(Exithousingassessment.class.getSimpleName(),Exit.class,exitHousingAssessment.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-						exithousingassessmentModel.setExitid(exit);
-						exithousingassessmentModel.setExport(exportEntity);
-						performSaveOrUpdate(exithousingassessmentModel);
+						model.setExitid(exit);
+						model.setExport(exportEntity);
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null ) {
+							modelMatch(hmisBaseModel, model);
+						}
+						performSaveOrUpdate(model);
 					} catch(Exception e) {
 						String errorMessage = "Exception in:"+exitHousingAssessment.getExitHousingAssessmentID()+  ":: Exception" +e.getLocalizedMessage();
-						if (exithousingassessmentModel != null) {
+						if (model != null) {
 							Error2014 error = new Error2014();
-							error.model_id = exithousingassessmentModel.getId();
+							error.model_id = model.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();
-							error.source_system_id = exithousingassessmentModel.getSourceSystemId();
+							error.source_system_id = model.getSourceSystemId();
 							error.type = ErrorType.ERROR;
 							error.error_description = errorMessage;
-							error.date_created = exithousingassessmentModel.getDateCreated();
+							error.date_created = model.getDateCreated();
 							performSave(error);
 						}
 						logger.error(errorMessage);
@@ -88,7 +92,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		if(ExitHousingAssessmentModel == null) {
 			ExitHousingAssessmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment();
 			ExitHousingAssessmentModel.setId(UUID.randomUUID());
-			ExitHousingAssessmentModel.setInserted(true);
+			ExitHousingAssessmentModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

@@ -46,28 +46,32 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		{
 			for( ResidentialMoveInDate residentialMoveInDate : residentialMoveInDates)
 			{
-				Residentialmoveindate residentialmoveindateModel = null;
+				Residentialmoveindate model = null;
 				try {
-					residentialmoveindateModel = getModelObject(domain, residentialMoveInDate,data,modelMap);
-					residentialmoveindateModel.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
-					residentialmoveindateModel.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
-					residentialmoveindateModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
-					residentialmoveindateModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
+					model = getModelObject(domain, residentialMoveInDate,data,modelMap);
+					model.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(residentialMoveInDate.getInPermanentHousing())));
+					model.setResidentialmoveindate(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getResidentialMoveInDate()));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialMoveInDate.getDateUpdated()));
 					Enrollment enrollment = (Enrollment) getModel(Residentialmoveindate.class.getSimpleName(),Enrollment.class,residentialMoveInDate.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					residentialmoveindateModel.setExport(exportEntity);
-					residentialmoveindateModel.setEnrollmentid(enrollment);
-					performSaveOrUpdate(residentialmoveindateModel);
+					model.setExport(exportEntity);
+					model.setEnrollmentid(enrollment);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in ResidentialMoveInDate:::"+residentialMoveInDate.toString()+ " with exception"+e.getLocalizedMessage();
-					if (residentialmoveindateModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = residentialmoveindateModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = residentialmoveindateModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = residentialmoveindateModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -86,7 +90,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		if(residentialmoveindateModel == null) {
 			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate();
 			residentialmoveindateModel.setId(UUID.randomUUID());
-			residentialmoveindateModel.setInserted(true);
+			residentialmoveindateModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

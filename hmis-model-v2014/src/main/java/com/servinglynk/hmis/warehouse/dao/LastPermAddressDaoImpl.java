@@ -48,31 +48,35 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		{
 			for(LastPermanentAddress lastPermanentAddress : lastPermanentAddresses)
 			{
-				LastPermAddress lastPermAddressModel = null;
+				LastPermAddress model = null;
 				try {
-					lastPermAddressModel = getModelObject(domain, lastPermanentAddress,data,modelMap);
-					lastPermAddressModel.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(lastPermanentAddress.getAddressDataQuality())));
-					lastPermAddressModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateCreated()));
-					lastPermAddressModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateUpdated()));
-					lastPermAddressModel.setCity(lastPermanentAddress.getLastPermanentCity());
-					lastPermAddressModel.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
-					lastPermAddressModel.setStreet(lastPermanentAddress.getLastPermanentStreet());
-					lastPermAddressModel.setZip(String.valueOf(lastPermanentAddress.getLastPermanentZIP()));
+					model = getModelObject(domain, lastPermanentAddress,data,modelMap);
+					model.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(BasicDataGenerator.getStringValue(lastPermanentAddress.getAddressDataQuality())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermanentAddress.getDateUpdated()));
+					model.setCity(lastPermanentAddress.getLastPermanentCity());
+					model.setState(StateEnum.lookupEnum(lastPermanentAddress.getLastPermanentState()));
+					model.setStreet(lastPermanentAddress.getLastPermanentStreet());
+					model.setZip(String.valueOf(lastPermanentAddress.getLastPermanentZIP()));
 					Enrollment enrollmentModel = (Enrollment) getModel(LastPermAddress.class.getSimpleName(),Enrollment.class, lastPermanentAddress.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					lastPermAddressModel.setEnrollmentid(enrollmentModel);
-					lastPermAddressModel.setExport(exportEntity);
-					performSaveOrUpdate(lastPermAddressModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage();
-					if (lastPermAddressModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = lastPermAddressModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = lastPermAddressModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = lastPermAddressModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -91,7 +95,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 		if(lastPermAddressModel == null) {
 			lastPermAddressModel = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
 			lastPermAddressModel.setId(UUID.randomUUID());
-			lastPermAddressModel.setInserted(true);
+			lastPermAddressModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

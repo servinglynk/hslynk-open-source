@@ -333,8 +333,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2015.Client> getAllClients(Integer startIndex, Integer maxItems) {
+	public List<com.servinglynk.hmis.warehouse.model.v2015.Client> getAllClients(String projectGroupCode, Integer startIndex, Integer maxItems) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Client.class);	
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2015.Client>) findByCriteria(criteria,startIndex,maxItems);
 		return clients;
 	}

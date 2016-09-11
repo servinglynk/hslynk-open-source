@@ -48,30 +48,34 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		if(referralSources !=null && !referralSources.isEmpty())
 		{
 			for(ReferralSource referralSource : referralSources) {
-				Referralsource referralsourceModel = null;
+				Referralsource model = null;
 				try {
-					referralsourceModel = getModelObject(domain, referralSource,data,modelMap);
-					referralsourceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
-					referralsourceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
-					referralsourceModel.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
-					referralsourceModel.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
+					model = getModelObject(domain, referralSource,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralSource.getDateUpdated()));
+					model.setReferralsource(ReferralsourceReferralsourceEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getReferralSource())));
+					model.setCountoutreachreferralapproaches(BasicDataGenerator.getIntegerValue(referralSource.getCountOutreachReferralApproaches()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Referralsource.class.getSimpleName(),Enrollment.class,referralSource.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					referralsourceModel.setEnrollmentid(enrollmentModel);
-					referralsourceModel.setExport(exportEntity);
-					referralsourceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(referralSource.getInformationDate()));
-					referralsourceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getDataCollectionStage())));
-					performSaveOrUpdate(referralsourceModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(referralSource.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage();
-					if (referralsourceModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = referralsourceModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = referralsourceModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = referralsourceModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -89,7 +93,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		if(referralsourceModel == null) {
 			referralsourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
 			referralsourceModel.setId(UUID.randomUUID());
-			referralsourceModel.setInserted(true);
+			referralsourceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

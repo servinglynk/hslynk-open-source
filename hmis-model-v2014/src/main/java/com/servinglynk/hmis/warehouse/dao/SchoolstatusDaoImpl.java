@@ -49,33 +49,37 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		{
 			for(SchoolStatus schoolStatus : schoolStatusList)
 			{
-				Schoolstatus schoolstatusModel = null;
+				Schoolstatus model = null;
 				try {
-					schoolstatusModel = getModelObject(domain, schoolStatus,data,modelMap);
-					schoolstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
-					schoolstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
-					schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
-					schoolstatusModel.setSchoolStatus(
+					model = getModelObject(domain, schoolStatus,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolStatus.getDateUpdated()));
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
+					model.setSchoolStatus(
 							SchoolStatusEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(schoolStatus.getSchoolStatus())));
 					Enrollment enrollmentModel = (Enrollment) getModel(Schoolstatus.class.getSimpleName(),Enrollment.class, schoolStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					schoolstatusModel.setEnrollmentid(enrollmentModel);
-					schoolstatusModel.setExport(exportEntity);
-					schoolstatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
-					schoolstatusModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(schoolStatus.getDataCollectionStage())));
-					performSaveOrUpdate(schoolstatusModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(schoolStatus.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in Schoolstatus:::"+schoolStatus.toString()+ " with exception"+e.getLocalizedMessage();
-					if (schoolstatusModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = schoolstatusModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = schoolstatusModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = schoolstatusModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -94,7 +98,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		if(SchoolstatusModel == null) {
 			SchoolstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();
 			SchoolstatusModel.setId(UUID.randomUUID());
-			SchoolstatusModel.setInserted(true);
+			SchoolstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

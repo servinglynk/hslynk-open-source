@@ -51,25 +51,29 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Projectcoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		for(ProjectCoC projectCoc : projectCoCs)
 		{
-			Projectcoc projectcocModel = null;
+			Projectcoc model = null;
 			try {
-				projectcocModel = getModelObject(domain, projectCoc,data,modelMap);
-				projectcocModel.setCoccode(projectCoc.getCoCCode());
+				model = getModelObject(domain, projectCoc,data,modelMap);
+				model.setCoccode(projectCoc.getCoCCode());
 				Project projectModel = (Project) getModel(Projectcoc.class.getSimpleName(),Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap, domain.getUpload().getId());
-				projectcocModel.setProjectid(projectModel);
-				projectcocModel.setExport(exportEntity);
-				performSaveOrUpdate(projectcocModel);
+				model.setProjectid(projectModel);
+				model.setExport(exportEntity);
+				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+				if(hmisBaseModel !=null ) {
+					modelMatch(hmisBaseModel, model);
+				}
+				performSaveOrUpdate(model);
 			} catch(Exception e) {
 				String errorMessage = "Failure in Projectcoc:::"+projectCoc.toString()+ " with exception"+e.getLocalizedMessage();
-				if (projectcocModel != null) {
+				if (model != null) {
 					Error2014 error = new Error2014();
-					error.model_id = projectcocModel.getId();
+					error.model_id = model.getId();
 					error.bulk_upload_ui = domain.getUpload().getId();
 					error.project_group_code = domain.getUpload().getProjectGroupCode();
-					error.source_system_id = projectcocModel.getSourceSystemId();
+					error.source_system_id = model.getSourceSystemId();
 					error.type = ErrorType.ERROR;
 					error.error_description = errorMessage;
-					error.date_created = projectcocModel.getDateCreated();
+					error.date_created = model.getDateCreated();
 					performSave(error);
 				}
 				logger.error(errorMessage);
@@ -87,7 +91,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		if(ProjectcocModel == null) {
 			ProjectcocModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
 			ProjectcocModel.setId(UUID.randomUUID());
-			ProjectcocModel.setInserted(true);
+			ProjectcocModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

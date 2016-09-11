@@ -63,60 +63,64 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Incomeandsources.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		if (incomeAndSourceses != null && !incomeAndSourceses.isEmpty()) {
 			for (IncomeAndSources incomeAndSources : incomeAndSourceses) {
-				Incomeandsources incomeAndSourcesModel = null;
+				Incomeandsources model = null;
 				try {
-					incomeAndSourcesModel = getModelObject(domain, incomeAndSources, data, modelMap);
-					incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getAlimony())));
-					incomeAndSourcesModel.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
-					incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getChildSupport())));
-					incomeAndSourcesModel.setChildsupportamount(new BigDecimal(incomeAndSources.getChildSupportAmount()));
-					incomeAndSourcesModel.setEarned(IncomeandsourcesEarnedEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getEarned())));
-					incomeAndSourcesModel.setGa(IncomeandsourcesGaEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getGA())));
-					incomeAndSourcesModel.setGaamount(new BigDecimal(incomeAndSources.getGAAmount()));
-					incomeAndSourcesModel.setIncomefromanysource(IncomeandsourcesIncomefromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getIncomeFromAnySource())));
-					incomeAndSourcesModel.setOthersource(IncomeandsourcesOthersourceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getOtherSource())));
-					incomeAndSourcesModel.setOthersourceamount(new BigDecimal(incomeAndSources.getOtherSourceAmount()));
-					incomeAndSourcesModel.setOthersourceidentify(incomeAndSources.getOtherSourceIdentify());
-					incomeAndSourcesModel.setPension(IncomeandsourcesPensionEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getPension())));
-					incomeAndSourcesModel.setPensionamount(new BigDecimal(incomeAndSources.getPensionAmount()));
-					incomeAndSourcesModel.setPrivatedisability(IncomeandsourcesPrivatedisabilityEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getPrivateDisability())));
-					incomeAndSourcesModel.setPrivatedisabilityamount(new BigDecimal(incomeAndSources.getPrivateDisabilityAmount()));
-					incomeAndSourcesModel.setSocsecretirement(IncomeandsourcesSocsecretirementEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getSocSecRetirement())));
-					incomeAndSourcesModel.setSocsecretirementamount(new BigDecimal(incomeAndSources.getSocSecRetirementAmount()));
-					incomeAndSourcesModel.setSsdi(IncomeandsourcesSsdiEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getSSDI())));
-					incomeAndSourcesModel.setSsdiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
-					incomeAndSourcesModel.setSsi(IncomeandsourcesSsiEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getSSI())));
-					incomeAndSourcesModel.setSsiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
-					incomeAndSourcesModel.setTanf(IncomeandsourcesTanfEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getTANF())));
-					incomeAndSourcesModel.setTanfamount(new BigDecimal(incomeAndSources.getTANFAmount()));
-					incomeAndSourcesModel.setTotalmonthlyincome(BigDecimal.valueOf(incomeAndSources.getTotalMonthlyIncome()));
-					incomeAndSourcesModel.setUnemployment(IncomeandsourcesUnemploymentEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getUnemployment())));
-					incomeAndSourcesModel.setUnemploymentamount(new BigDecimal(incomeAndSources.getUnemploymentAmount()));
-					incomeAndSourcesModel.setVadisabilitynonservice(IncomeandsourcesVadisabilitynonserviceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getVADisabilityNonService())));
-					incomeAndSourcesModel.setVadisabilitynonserviceamount(new BigDecimal(incomeAndSources.getVADisabilityNonServiceAmount()));
-					incomeAndSourcesModel.setVadisabilityservice(IncomeandsourcesVadisabilityserviceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getVADisabilityService())));
-					incomeAndSourcesModel.setVadisabilityserviceamount(new BigDecimal(incomeAndSources.getVADisabilityServiceAmount()));
-					incomeAndSourcesModel.setWorkerscomp(IncomeandsourcesWorkerscompEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getWorkersComp())));
-					incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
-					incomeAndSourcesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
-					incomeAndSourcesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
+					model = getModelObject(domain, incomeAndSources, data, modelMap);
+					model.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getAlimony())));
+					model.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
+					model.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getChildSupport())));
+					model.setChildsupportamount(new BigDecimal(incomeAndSources.getChildSupportAmount()));
+					model.setEarned(IncomeandsourcesEarnedEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getEarned())));
+					model.setGa(IncomeandsourcesGaEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getGA())));
+					model.setGaamount(new BigDecimal(incomeAndSources.getGAAmount()));
+					model.setIncomefromanysource(IncomeandsourcesIncomefromanysourceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getIncomeFromAnySource())));
+					model.setOthersource(IncomeandsourcesOthersourceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getOtherSource())));
+					model.setOthersourceamount(new BigDecimal(incomeAndSources.getOtherSourceAmount()));
+					model.setOthersourceidentify(incomeAndSources.getOtherSourceIdentify());
+					model.setPension(IncomeandsourcesPensionEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getPension())));
+					model.setPensionamount(new BigDecimal(incomeAndSources.getPensionAmount()));
+					model.setPrivatedisability(IncomeandsourcesPrivatedisabilityEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getPrivateDisability())));
+					model.setPrivatedisabilityamount(new BigDecimal(incomeAndSources.getPrivateDisabilityAmount()));
+					model.setSocsecretirement(IncomeandsourcesSocsecretirementEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getSocSecRetirement())));
+					model.setSocsecretirementamount(new BigDecimal(incomeAndSources.getSocSecRetirementAmount()));
+					model.setSsdi(IncomeandsourcesSsdiEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getSSDI())));
+					model.setSsdiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
+					model.setSsi(IncomeandsourcesSsiEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getSSI())));
+					model.setSsiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
+					model.setTanf(IncomeandsourcesTanfEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getTANF())));
+					model.setTanfamount(new BigDecimal(incomeAndSources.getTANFAmount()));
+					model.setTotalmonthlyincome(BigDecimal.valueOf(incomeAndSources.getTotalMonthlyIncome()));
+					model.setUnemployment(IncomeandsourcesUnemploymentEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getUnemployment())));
+					model.setUnemploymentamount(new BigDecimal(incomeAndSources.getUnemploymentAmount()));
+					model.setVadisabilitynonservice(IncomeandsourcesVadisabilitynonserviceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getVADisabilityNonService())));
+					model.setVadisabilitynonserviceamount(new BigDecimal(incomeAndSources.getVADisabilityNonServiceAmount()));
+					model.setVadisabilityservice(IncomeandsourcesVadisabilityserviceEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getVADisabilityService())));
+					model.setVadisabilityserviceamount(new BigDecimal(incomeAndSources.getVADisabilityServiceAmount()));
+					model.setWorkerscomp(IncomeandsourcesWorkerscompEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getWorkersComp())));
+					model.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Incomeandsources.class.getSimpleName(),Enrollment.class, incomeAndSources.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
-					incomeAndSourcesModel.setEnrollmentid(enrollmentModel);
-					incomeAndSourcesModel.setExport(exportEntity);
-					incomeAndSourcesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(incomeAndSources.getInformationDate()));
-					incomeAndSourcesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getDataCollectionStage())));
-					performSaveOrUpdate(incomeAndSourcesModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(incomeAndSources.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(incomeAndSources.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Failure in Incomeandsources:::" + incomeAndSources.toString() + " with exception" + e.getLocalizedMessage();
-					if (incomeAndSourcesModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = incomeAndSourcesModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = incomeAndSourcesModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = incomeAndSourcesModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -135,7 +139,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 			if(incomeandsourcesModel == null) {
 				incomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();
 				incomeandsourcesModel.setId(UUID.randomUUID());
-				incomeandsourcesModel.setInserted(true);
+				incomeandsourcesModel.setRecordToBeInserted(true);
 				++data.i;
 			}else{
 				++data.j;

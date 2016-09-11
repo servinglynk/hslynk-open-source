@@ -50,36 +50,40 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 		insertOrUpdate(upload);
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Source.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Source model = null;
 		try {
-			sourceModel = getModelObject(domain, source, data, modelMap);
-			sourceModel.setSoftwarevendor(source.getSoftwareVendor());
+			model = getModelObject(domain, source, data, modelMap);
+			model.setSoftwarevendor(source.getSoftwareVendor());
 			//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
-			sourceModel.setSourcecontactemail(source.getSourceContactEmail());
-			sourceModel.setSourcecontactextension(String.valueOf(source.getSourceContactExtension()));
-			sourceModel.setSourcecontactfirst(source.getSourceContactFirst());
-			sourceModel.setSourcecontactlast(source.getSourceContactLast());
-			sourceModel.setSourceid(String.valueOf(source.getSourceID()));
-			sourceModel.setSourcename(source.getSourceName());
+			model.setSourcecontactemail(source.getSourceContactEmail());
+			model.setSourcecontactextension(String.valueOf(source.getSourceContactExtension()));
+			model.setSourcecontactfirst(source.getSourceContactFirst());
+			model.setSourcecontactlast(source.getSourceContactLast());
+			model.setSourceid(String.valueOf(source.getSourceID()));
+			model.setSourcename(source.getSourceName());
 			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 			Validator validator = (Validator) factory.getValidator();
 			//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validateProperty(sourceModel, "manufacturer");
-			Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validate(sourceModel);
+			Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validate(model);
+			HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+			if(hmisBaseModel !=null ) {
+				modelMatch(hmisBaseModel, model);
+			}
 			if(constraintViolations.isEmpty()){
-				performSaveOrUpdate(sourceModel);	
+				performSaveOrUpdate(model);	
 			}
 			
 		} catch (Exception ex) {
 			String errorMessage = "Exception because of the source::"+source.getSourceID() +" Exception ::"+ex.getMessage();
-			if(sourceModel != null){
+			if(model != null){
 				Error2014 error = new Error2014();
-				error.model_id = sourceModel.getId();
+				error.model_id = model.getId();
 				error.bulk_upload_ui = domain.getUpload().getId();
 				error.project_group_code = domain.getUpload().getProjectGroupCode();
-				error.source_system_id = sourceModel.getSourceSystemId();
+				error.source_system_id = model.getSourceSystemId();
 				error.type = ErrorType.ERROR;
 				error.error_description = errorMessage;
-				error.date_created = sourceModel.getDateCreated();
+				error.date_created = model.getDateCreated();
 				performSave(error);
 			}
 			logger.error(errorMessage);
@@ -97,7 +101,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		if(sourceModel == null) {
 			sourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Source();
 			sourceModel.setId(UUID.randomUUID());
-			sourceModel.setInserted(true);
+			sourceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

@@ -49,31 +49,35 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		{
 			for(FormerWardChildWelfare formerWardChildWelfare : formerWardChildWelfares)
 			{
-				Formerwardchildwelfare formerwardchildwelfareModel = null;
+				Formerwardchildwelfare model = null;
 				try {
-					formerwardchildwelfareModel = getModelObject(domain, formerWardChildWelfare,data,modelMap);
-					formerwardchildwelfareModel.setChildwelfaremonths(BasicDataGenerator.getIntegerValue(formerWardChildWelfare.getChildWelfareMonths()));
-					formerwardchildwelfareModel.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getChildWelfareYears())));
-					formerwardchildwelfareModel.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
-					formerwardchildwelfareModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
-					formerwardchildwelfareModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
+					model = getModelObject(domain, formerWardChildWelfare,data,modelMap);
+					model.setChildwelfaremonths(BasicDataGenerator.getIntegerValue(formerWardChildWelfare.getChildWelfareMonths()));
+					model.setChildwelfareyears(FormerwardchildwelfareChildwelfareyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getChildWelfareYears())));
+					model.setFormerwardchildwelfare(FormerwardchildwelfareFormerwardchildwelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getFormerWardChildWelfare())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Formerwardchildwelfare.class.getSimpleName(),Enrollment.class, formerWardChildWelfare.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					formerwardchildwelfareModel.setExport(exportEntity);
-					formerwardchildwelfareModel.setEnrollmentid(enrollmentModel);
-					formerwardchildwelfareModel.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getInformationDate()));
-					formerwardchildwelfareModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getDataCollectionStage())));
-					performSaveOrUpdate(formerwardchildwelfareModel);
+					model.setExport(exportEntity);
+					model.setEnrollmentid(enrollmentModel);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in:"+formerWardChildWelfare.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (formerwardchildwelfareModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = formerwardchildwelfareModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = formerwardchildwelfareModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = formerwardchildwelfareModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -92,7 +96,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 		if(formerwardchildwelfareModel == null) {
 			formerwardchildwelfareModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
 			formerwardchildwelfareModel.setId(UUID.randomUUID());
-			formerwardchildwelfareModel.setInserted(true);
+			formerwardchildwelfareModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

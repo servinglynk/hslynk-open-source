@@ -47,29 +47,33 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		{
 			for(RHYBCPStatus rhybcpStatus : rhybcpStatusList)
 			{
-				Rhybcpstatus rhybcpstatusModel = null;
+				Rhybcpstatus model = null;
 				try {
-					rhybcpstatusModel = getModelObject(domain, rhybcpStatus,data,modelMap);
-					rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
-					rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
-					rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
-					rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
-					rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
+					model = getModelObject(domain, rhybcpStatus,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
+					model.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
+					model.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
+					model.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Rhybcpstatus.class.getSimpleName(),Enrollment.class,rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					rhybcpstatusModel.setEnrollmentid(enrollmentModel);
-					rhybcpstatusModel.setExport(exportEntity);
-					performSaveOrUpdate(rhybcpstatusModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Rhybcpstatus:::"+rhybcpStatus.toString()+ " with exception"+e.getLocalizedMessage();
-					if (rhybcpstatusModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = rhybcpstatusModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = rhybcpstatusModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = rhybcpstatusModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -88,7 +92,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		if(rhybcpstatusModel == null) {
 			rhybcpstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
 			rhybcpstatusModel.setId(UUID.randomUUID());
-			rhybcpstatusModel.setInserted(true);
+			rhybcpstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

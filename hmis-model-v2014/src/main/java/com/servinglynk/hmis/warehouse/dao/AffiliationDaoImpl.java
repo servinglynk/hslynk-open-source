@@ -40,25 +40,29 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			{
 				for(Affiliation affiliation :affiliations )
 				{
-					com.servinglynk.hmis.warehouse.model.v2014.Affiliation affiliationModel = null;
+					com.servinglynk.hmis.warehouse.model.v2014.Affiliation model = null;
 					try {
-						affiliationModel = getModelObject(domain, affiliation,data,modelMap);
-						Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),Project.class, affiliation.getProjectID(), affiliationModel.getProjectGroupCode(),true,relatedModelMap, domain.getUpload().getId());
-						affiliationModel.setProjectid(project);
-						affiliationModel.setExport(exportEntity);
-						affiliationModel.setResprojectid(affiliation.getResProjectID());
-						performSaveOrUpdate(affiliationModel);
+						model = getModelObject(domain, affiliation,data,modelMap);
+						Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),Project.class, affiliation.getProjectID(), model.getProjectGroupCode(),true,relatedModelMap, domain.getUpload().getId());
+						model.setProjectid(project);
+						model.setExport(exportEntity);
+						model.setResprojectid(affiliation.getResProjectID());
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null ) {
+							modelMatch(hmisBaseModel, model);
+						}
+						performSaveOrUpdate(model);
 					}catch(Exception e) {
 						String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
-						if (affiliationModel != null) {
+						if (model != null) {
 							Error2014 error = new Error2014();
-							error.model_id = affiliationModel.getId();
+							error.model_id = model.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();
-							error.source_system_id = affiliationModel.getSourceSystemId();
+							error.source_system_id = model.getSourceSystemId();
 							error.type = ErrorType.ERROR;
 							error.error_description = errorMessage;
-							error.date_created = affiliationModel.getDateCreated();
+							error.date_created = model.getDateCreated();
 							performSave(error);
 						}
 						logger.error(errorMessage);
@@ -77,7 +81,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			if(affiliationModel == null) {
 				affiliationModel = new com.servinglynk.hmis.warehouse.model.v2014.Affiliation();
 				affiliationModel.setId(UUID.randomUUID());
-				affiliationModel.setInserted(true);
+				affiliationModel.setRecordToBeInserted(true);
 				++data.i;
 			}else{
 				++data.j;

@@ -9,8 +9,6 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -47,34 +45,38 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Lastgradecompleted.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if (lastGradeCompletedList != null && !lastGradeCompletedList.isEmpty()) {
 			for (LastGradeCompleted lastGradeCompleted : lastGradeCompletedList) {
-				Lastgradecompleted lastGradeCompletedModel = null;
+				Lastgradecompleted model = null;
 				try {
-					lastGradeCompletedModel =  getModelObject(domain, lastGradeCompleted,data,modelMap);
-					lastGradeCompletedModel
+					model =  getModelObject(domain, lastGradeCompleted,data,modelMap);
+					model
 					.setLastgradecompleted(LastgradecompletedLastgradecompletedEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(lastGradeCompleted
 											.getLastGradeCompleted())));
 					
-					lastGradeCompletedModel.setDateCreatedFromSource(BasicDataGenerator
+					model.setDateCreatedFromSource(BasicDataGenerator
 							.getLocalDateTime(lastGradeCompleted.getDateCreated()));
-					lastGradeCompletedModel.setDateUpdatedFromSource(BasicDataGenerator
+					model.setDateUpdatedFromSource(BasicDataGenerator
 							.getLocalDateTime(lastGradeCompleted.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Lastgradecompleted.class.getSimpleName(),Enrollment.class, lastGradeCompleted.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					lastGradeCompletedModel.setEnrollmentid(enrollmentModel);
-					lastGradeCompletedModel.setExport(exportEntity);
-					performSaveOrUpdate(lastGradeCompletedModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in LastGradeCompleted:::"+lastGradeCompleted.toString()+ " with exception"+e.getLocalizedMessage();
-					if (lastGradeCompletedModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = lastGradeCompletedModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = lastGradeCompletedModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = lastGradeCompletedModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -93,7 +95,7 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 		if(lastGradeCompletedModel == null) {
 			lastGradeCompletedModel = new com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted();
 			lastGradeCompletedModel.setId(UUID.randomUUID());
-			lastGradeCompletedModel.setInserted(true);
+			lastGradeCompletedModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

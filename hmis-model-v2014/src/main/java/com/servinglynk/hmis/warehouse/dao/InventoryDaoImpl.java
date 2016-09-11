@@ -55,43 +55,47 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		{
 			for(Inventory inventory : inventories)
 			{
-				com.servinglynk.hmis.warehouse.model.v2014.Inventory inventoryModel = null;
+				com.servinglynk.hmis.warehouse.model.v2014.Inventory model = null;
 				try {
-					inventoryModel = getModelObject(domain, inventory,data,modelMap);
-					inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
-					inventoryModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
-					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailabilty())));
-					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
-					inventoryModel.setUnitinventory(inventory.getUnitInventory());
-					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
-					inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds());
-					inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
-					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
+					model = getModelObject(domain, inventory,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
+					model.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailabilty())));
+					model.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
+					model.setUnitinventory(inventory.getUnitInventory());
+					model.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
+					model.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds());
+					model.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
+					model.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
 					BedInventory bedInventory = inventory.getBedInventory();
 					if(bedInventory !=null) {
-						inventoryModel.setBedInventory(new Integer(bedInventory.getBedInventory()));
-						inventoryModel.setChBedInventory(new Integer(bedInventory.getCHBedInventory()));
-						inventoryModel.setVetBedInventory(new Integer(bedInventory.getVetBedInventory()));
-						inventoryModel.setYouthAgeGroup(BedinventoryYouthAgeGroupEnum.lookupEnum(BasicDataGenerator.getStringValue(bedInventory.getYouthAgeGroup())));
-						inventoryModel.setYouthBedInventory(new Long(bedInventory.getYouthBedInventory()));
+						model.setBedInventory(new Integer(bedInventory.getBedInventory()));
+						model.setChBedInventory(new Integer(bedInventory.getCHBedInventory()));
+						model.setVetBedInventory(new Integer(bedInventory.getVetBedInventory()));
+						model.setYouthAgeGroup(BedinventoryYouthAgeGroupEnum.lookupEnum(BasicDataGenerator.getStringValue(bedInventory.getYouthAgeGroup())));
+						model.setYouthBedInventory(new Long(bedInventory.getYouthBedInventory()));
 					}
 					Projectcoc projectCocModel = (Projectcoc) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),Projectcoc.class,inventory.getProjectCoCID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					inventoryModel.setProjectCoc(projectCocModel);
-					inventoryModel.setExport(exportEntity);
-					inventoryModel.setInformationDate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
-					inventoryModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getDataCollectionStage())));
-					performSaveOrUpdate(inventoryModel);
+					model.setProjectCoc(projectCocModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in Inventory:::"+inventory.toString()+ " with exception"+e.getLocalizedMessage();
-					if (inventoryModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = inventoryModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = inventoryModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = inventoryModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -110,7 +114,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		if(inventoryModel == null) {
 			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
 			inventoryModel.setId(UUID.randomUUID());
-			inventoryModel.setInserted(true);
+			inventoryModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

@@ -35,6 +35,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			//	exportModel.setUser(user);
 			com.servinglynk.hmis.warehouse.model.v2015.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2015.Source) getModel(com.servinglynk.hmis.warehouse.model.v2015.Source.class, domain.getSource().getSourceID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 			exportModel.setSource(sourceEntity);
+			domain.setExportId(exportModel.getId());
 			performSaveOrUpdate(exportModel);
 		}catch (Exception ex){
 			String errorMessage = "Exception because of the export::"+exportModel.getId() +" Exception ::"+ex.getMessage();

@@ -62,14 +62,14 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 
 	@Override
 	@Transactional
-	public Clients getAllClients(String caller,Integer startIndex, Integer maxItems) {
-		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clientsList = daoFactory.getClientDao().getAllClients(startIndex,maxItems);
+	public Clients getAllClients(String projectGroupCode,Integer startIndex, Integer maxItems) {
+		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clientsList = daoFactory.getClientDao().getAllClients(projectGroupCode,startIndex,maxItems);
 		Clients clients= new Clients();
 		for(com.servinglynk.hmis.warehouse.model.v2015.Client pClient : clientsList){
 			clients.addClient(ClientConverter.entityToModel(pClient));
 		}
 		
-        long count = daoFactory.getHmisClientDao().getClientsCount();
+        long count = daoFactory.getHmisClientDao().getClientsCount(String projectGroupCode);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);

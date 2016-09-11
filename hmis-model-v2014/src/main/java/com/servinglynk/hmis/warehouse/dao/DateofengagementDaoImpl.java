@@ -43,27 +43,31 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
 			{
-				Dateofengagement dateOfEngagementModel = null;
+				Dateofengagement model = null;
 				try {
-					dateOfEngagementModel = getModelObject(domain, dateOfEngagement,data,modelMap);
-					dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
+					model = getModelObject(domain, dateOfEngagement,data,modelMap);
+					model.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Dateofengagement.class.getSimpleName(),Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					dateOfEngagementModel.setEnrollmentid(enrollmentModel);
-					dateOfEngagementModel.setExport(exportEntity);
-					dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
-					dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-					performSaveOrUpdate(dateOfEngagementModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (dateOfEngagementModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = dateOfEngagementModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = dateOfEngagementModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = dateOfEngagementModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -81,7 +85,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		  if(dateofengagementModel == null) {
 			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
 			dateofengagementModel.setId(UUID.randomUUID());
-			dateofengagementModel.setInserted(true);
+			dateofengagementModel.setRecordToBeInserted(true);
 			++data.i;
 		  }else{
 			  ++data.j;

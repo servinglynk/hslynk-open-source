@@ -46,28 +46,32 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		{
 			for(PATHStatus pathStatus : pathStatusList)
 			{
-				Pathstatus pathstatusModel = null;
+				Pathstatus model = null;
 				try {
-					pathstatusModel = getModelObject(domain, pathStatus,data,modelMap);
-					pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
-					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
-					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
-					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
+					model = getModelObject(domain, pathStatus,data,modelMap);
+					model.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
+					model.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Pathstatus.class.getSimpleName(),Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					pathstatusModel.setEnrollmentid(enrollmentModel);
-					pathstatusModel.setExport(exportEntity);
-					performSaveOrUpdate(pathstatusModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in PATHStatus:::"+pathStatus.toString()+ " with exception"+e.getLocalizedMessage();
-					if (pathstatusModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = pathstatusModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = pathstatusModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = pathstatusModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -85,7 +89,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		if(PathstatusModel == null) {
 			PathstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Pathstatus();
 			PathstatusModel.setId(UUID.randomUUID());
-			PathstatusModel.setInserted(true);
+			PathstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

@@ -47,27 +47,31 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		{
 			for(FamilyReunification familyReunification : familyReunifications)
 			{
-				Familyreunification familyreunificationModel = null;
+				Familyreunification model = null;
 				try {
-					familyreunificationModel = getModelObject(domain, familyReunification,data,modelMap);
-					familyreunificationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
-					familyreunificationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
-					familyreunificationModel.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
+					model = getModelObject(domain, familyReunification,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
+					model.setFamilyreunificationachieved(FamilyreunificationFamilyreunificationachievedEnum.lookupEnum(BasicDataGenerator.getStringValue(familyReunification.getFamilyReunificationAchieved())));
 					Exit exit = (Exit) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),Exit.class, familyReunification.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					familyreunificationModel.setExitid(exit);
-					familyreunificationModel.setExport(exportEntity);
-					performSaveOrUpdate(familyreunificationModel);
+					model.setExitid(exit);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+familyReunification.getFamilyReunificationID()+  ":: Exception" +e.getLocalizedMessage();
-					if (familyreunificationModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = familyreunificationModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = familyreunificationModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = familyreunificationModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -85,7 +89,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		if(familyReunificationModel == null) {
 			familyReunificationModel = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
 			familyReunificationModel.setId(UUID.randomUUID());
-			familyReunificationModel.setInserted(true);
+			familyReunificationModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

@@ -12,7 +12,7 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 @Transactional(propagation = Propagation.REQUIRED) 
 public interface BulkUploaderDao {
 
-	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender);
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3);
 	public void deleteStagingByExportId(UUID exportId);
 	public void deleteLiveByExportId(UUID exportId);
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId);

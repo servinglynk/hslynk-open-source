@@ -47,28 +47,32 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		{
 			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
 			{
-				Housingassessmentdisposition housingassessmentdispositionModel = null;
+				Housingassessmentdisposition model = null;
 				try {
-					housingassessmentdispositionModel = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
-					housingassessmentdispositionModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
-					housingassessmentdispositionModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
-					housingassessmentdispositionModel.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
-					housingassessmentdispositionModel.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
+					model = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
+					model.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
+					model.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
 					Exit exit = (Exit) getModel(Housingassessmentdisposition.class.getSimpleName(),Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					housingassessmentdispositionModel.setExitid(exit);
-					housingassessmentdispositionModel.setExport(exportEntity);
-					performSaveOrUpdate(housingassessmentdispositionModel);
+					model.setExitid(exit);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in:"+housingAssessmentDisposition.getHousingAssessmentDispositionID()+  ":: Exception" +e.getLocalizedMessage();
-					if (housingassessmentdispositionModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = housingassessmentdispositionModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = housingassessmentdispositionModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = housingassessmentdispositionModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -86,7 +90,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		if(housingAssessmentDispositionModel == null) {
 			housingAssessmentDispositionModel = new com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition();
 			housingAssessmentDispositionModel.setId(UUID.randomUUID());
-			housingAssessmentDispositionModel.setInserted(true);
+			housingAssessmentDispositionModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

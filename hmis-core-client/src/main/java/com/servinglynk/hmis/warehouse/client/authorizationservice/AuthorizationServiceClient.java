@@ -21,7 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
-import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 
 
 

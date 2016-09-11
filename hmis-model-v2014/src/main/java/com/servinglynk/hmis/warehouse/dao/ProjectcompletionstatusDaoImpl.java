@@ -49,28 +49,32 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		{
 			for(ProjectCompletionStatus projectCompletionStatus : projectCompletionStatusList)
 			{
-				Projectcompletionstatus projectcompletionstatusModel = null;
+				Projectcompletionstatus model = null;
 				try {
-					projectcompletionstatusModel = getModelObject(domain, projectCompletionStatus,data,modelMap);
-					projectcompletionstatusModel.setEarlyexitreason(ProjectcompletionstatusEarlyexitreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getEarlyExitReason())));
-					projectcompletionstatusModel.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
-					projectcompletionstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
-					projectcompletionstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
+					model = getModelObject(domain, projectCompletionStatus,data,modelMap);
+					model.setEarlyexitreason(ProjectcompletionstatusEarlyexitreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getEarlyExitReason())));
+					model.setProjectcompletionstatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(projectCompletionStatus.getProjectCompletionStatus())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectCompletionStatus.getDateUpdated()));
 					Exit exit = (Exit) getModel(Projectcompletionstatus.class.getSimpleName(),Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					projectcompletionstatusModel.setExitid(exit);
-					projectcompletionstatusModel.setExport(exportEntity);
-					performSaveOrUpdate(projectcompletionstatusModel);
+					model.setExitid(exit);
+					model.setExport(exportEntity);
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					 String errorMessage = "Failure in Projectcompletionstatus:::"+projectCompletionStatus.toString()+ " with exception"+e.getLocalizedMessage();
-					if (projectcompletionstatusModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = projectcompletionstatusModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = projectcompletionstatusModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = projectcompletionstatusModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -88,7 +92,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		if(projectcompletionstatusModel == null) {
 			projectcompletionstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
 			projectcompletionstatusModel.setId(UUID.randomUUID());
-			projectcompletionstatusModel.setInserted(true);
+			projectcompletionstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

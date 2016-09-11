@@ -70,7 +70,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	BulkUploadHelper bulkUploadHelper;
 	
 	@Override
-	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender) {
+	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		try {
 			if (appender != null) {
 				logger.addAppender(appender);
@@ -81,7 +81,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
-				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,true);
+				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
 			} catch (UnmarshalException ex) {
 				logger.error("Error executing the bulk upload process:: ", ex);
 				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
@@ -163,7 +163,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 			parentDaoFactory.getExitpathDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 			parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
-			
+			upload.setExportId(domain.getExportId());
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			insertOrUpdate(upload); 

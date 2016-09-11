@@ -51,32 +51,36 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class, getProjectGroupCode(domain));
 			for(MedicalAssistance medicalAssistance : medicalAssistanceList)
 			{
-				Medicalassistance medicalassistanceModel = null;
+				Medicalassistance model = null;
 				try {
-					medicalassistanceModel = getModelObject(domain, medicalAssistance,data,modelMap);
-					medicalassistanceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
-					medicalassistanceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
-					medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getADAP())));
-					medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
-					medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
-					medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
+					model = getModelObject(domain, medicalAssistance,data,modelMap);
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
+					model.setAdap(MedicalassistanceAdapEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getADAP())));
+					model.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
+					model.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
+					model.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
 					Enrollment enrollmentModel = (Enrollment) getModel(Medicalassistance.class.getSimpleName(),Enrollment.class, medicalAssistance.getMedicalAssistanceID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					medicalassistanceModel.setEnrollmentid(enrollmentModel);
-					medicalassistanceModel.setExport(exportEntity);
-					medicalassistanceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(medicalAssistance.getInformationDate()));
-					medicalassistanceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getDataCollectionStage())));
-					performSaveOrUpdate(medicalassistanceModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(medicalAssistance.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in MedicalAssistance:::"+medicalAssistance.toString()+ " with exception"+e.getLocalizedMessage();
-					if (medicalassistanceModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = medicalassistanceModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = medicalassistanceModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = medicalassistanceModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -94,7 +98,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		if(MedicalassistanceModel == null) {
 			MedicalassistanceModel = new com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance();
 			MedicalassistanceModel.setId(UUID.randomUUID());
-			MedicalassistanceModel.setInserted(true);
+			MedicalassistanceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;

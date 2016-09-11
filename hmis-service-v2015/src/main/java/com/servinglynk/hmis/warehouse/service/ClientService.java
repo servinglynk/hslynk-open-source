@@ -12,6 +12,6 @@ public interface ClientService {
 	Client updateClient(Client client,String caller);
 	Client deleteClient(UUID clientId,String caller);
 	Client getClientById(UUID clientId);
-	Clients getAllClients(String caller,Integer startIndex, Integer maxItems);
+	Clients getAllClients(String projectGroupCode,Integer startIndex, Integer maxItems);
 	
 }

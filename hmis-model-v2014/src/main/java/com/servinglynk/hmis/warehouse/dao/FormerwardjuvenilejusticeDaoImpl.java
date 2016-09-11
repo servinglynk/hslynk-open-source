@@ -47,31 +47,35 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		{
 			for(FormerWardJuvenileJustice formerWardJuvenileJustice : formerWardJuvenileJustices )
 			{
-				Formerwardjuvenilejustice formerWardJuvenileJusticeModel = null;
+				Formerwardjuvenilejustice model = null;
 				try {
-					formerWardJuvenileJusticeModel = getModelObject(domain, formerWardJuvenileJustice,data,modelMap);
-					formerWardJuvenileJusticeModel.setFormerwardjuvenilejustice(FormerwardjuvenilejusticeFormerwardjuvenilejusticeEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getFormerWardJuvenileJustice())));
-					formerWardJuvenileJusticeModel.setJuvenilejusticemonths(BasicDataGenerator.getIntegerValue(formerWardJuvenileJustice.getJuvenileJusticeMonths()));
-					formerWardJuvenileJusticeModel.setJuvenilejusticeyears(FormerwardjuvenilejusticeJuvenilejusticeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getJuvenileJusticeYears())));
-					formerWardJuvenileJusticeModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateCreated()));
-					formerWardJuvenileJusticeModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
+					model = getModelObject(domain, formerWardJuvenileJustice,data,modelMap);
+					model.setFormerwardjuvenilejustice(FormerwardjuvenilejusticeFormerwardjuvenilejusticeEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getFormerWardJuvenileJustice())));
+					model.setJuvenilejusticemonths(BasicDataGenerator.getIntegerValue(formerWardJuvenileJustice.getJuvenileJusticeMonths()));
+					model.setJuvenilejusticeyears(FormerwardjuvenilejusticeJuvenilejusticeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getJuvenileJusticeYears())));
+					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateCreated()));
+					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Formerwardjuvenilejustice.class.getSimpleName(),Enrollment.class, formerWardJuvenileJustice.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					formerWardJuvenileJusticeModel.setEnrollmentid(enrollmentModel);
-					formerWardJuvenileJusticeModel.setExport(exportEntity);
-					formerWardJuvenileJusticeModel.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getInformationDate()));
-					formerWardJuvenileJusticeModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getDataCollectionStage())));
-					performSaveOrUpdate(formerWardJuvenileJusticeModel);
+					model.setEnrollmentid(enrollmentModel);
+					model.setExport(exportEntity);
+					model.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getInformationDate()));
+					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getDataCollectionStage())));
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null ) {
+						modelMatch(hmisBaseModel, model);
+					}
+					performSaveOrUpdate(model);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+formerWardJuvenileJustice.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (formerWardJuvenileJusticeModel != null) {
+					if (model != null) {
 						Error2014 error = new Error2014();
-						error.model_id = formerWardJuvenileJusticeModel.getId();
+						error.model_id = model.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = formerWardJuvenileJusticeModel.getSourceSystemId();
+						error.source_system_id = model.getSourceSystemId();
 						error.type = ErrorType.ERROR;
 						error.error_description = errorMessage;
-						error.date_created = formerWardJuvenileJusticeModel.getDateCreated();
+						error.date_created = model.getDateCreated();
 						performSave(error);
 					}
 					logger.error(errorMessage);
@@ -90,7 +94,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 		if(formerwardjuvenilejusticeModel == null) {
 			formerwardjuvenilejusticeModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();
 			formerwardjuvenilejusticeModel.setId(UUID.randomUUID());
-			formerwardjuvenilejusticeModel.setInserted(true);
+			formerwardjuvenilejusticeModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
