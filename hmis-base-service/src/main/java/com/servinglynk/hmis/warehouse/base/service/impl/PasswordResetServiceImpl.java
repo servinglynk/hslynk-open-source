@@ -86,7 +86,7 @@ public class PasswordResetServiceImpl extends ServiceBase implements PasswordRes
 		notification.setType("HMIS_USER_PASSWORD_RESET");
 		notification.getParameters().addParameter(new Parameter("name",pAccount.getFirstName()+" "+pAccount.getLastName()));
 		notification.getParameters().addParameter(new Parameter("password",newPassword));
-		notification.getRecipients().addToRecipient(pAccount.getUsername());
+		notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
 		notificationServiceClient.createNotification(notification);
 	}
 
