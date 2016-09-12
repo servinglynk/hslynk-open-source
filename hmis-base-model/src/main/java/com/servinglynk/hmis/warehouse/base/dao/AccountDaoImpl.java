@@ -19,7 +19,7 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	@SuppressWarnings("unchecked")
 	public HmisUser findByUsername(String userName){
 		DetachedCriteria criteria= DetachedCriteria.forClass(HmisUser.class);
-		criteria.add(Restrictions.eq("username",userName));
+		criteria.add(Restrictions.eq("username",userName.toLowerCase()));
 		List<HmisUser> accounts = (List<HmisUser>) findByCriteria(criteria);
 		if(accounts.size()>0) return accounts.get(0);
 		return null;
