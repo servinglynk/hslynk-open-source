@@ -48,7 +48,7 @@ import com.servinglynk.hmis.warehouse.notification.scheduler.dao.WorkerLineDao;
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.notification.business.service","com.servinglynk.hmis.warehouse.notification.framework","com.servinglynk.hmis.warehouse.notification.rest.endpoint"})
 @EnableScheduling
 @EnableTransactionManagement
-@PropertySource("notification.properties")
+@PropertySource("classpath:notification.properties")
 public class NotificationConfig  {
 	
 	@Autowired
