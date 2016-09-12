@@ -208,6 +208,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 
+		if(pAccount==null) throw new AccountNotFoundException();
+		
 		// validate current password
 		if (!pAccount.getPassword().equalsIgnoreCase(HMISCryptographer.Encrypt(passwordChange.getCurrentPassword()))) {
 			throw new InvalidCurrentPasswordException();
