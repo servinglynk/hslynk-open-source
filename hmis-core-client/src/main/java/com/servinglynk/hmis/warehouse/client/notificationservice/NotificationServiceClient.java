@@ -14,7 +14,7 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
-import com.servinglynk.hmis.warehouse.client.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 
 
@@ -52,7 +52,7 @@ public class NotificationServiceClient extends CoreClientBase implements INotifi
 		restTemplate.setMessageConverters(messageConverters);
 		
       	HttpEntity<Notification> requestEntity = new HttpEntity<Notification>(notification, headers);
-		Notification responseEntity = restTemplate.postForObject(coreClientConfig.getNotificationServiceUrl() + "/notifications", notification, Notification.class);
+		Notification responseEntity = restTemplate.postForObject("http://52.36.2.74:8080/hmis-notification-service/rest/notifications", notification, Notification.class);
 		
 		
 

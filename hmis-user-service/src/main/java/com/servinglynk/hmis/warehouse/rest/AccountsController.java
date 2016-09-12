@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
+import com.servinglynk.hmis.warehouse.core.model.PasswordReset;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Role;
@@ -132,17 +133,15 @@ public class AccountsController extends ControllerBase {
 	}
 
 
-/*	@RequestMapping(value = "/{userid}/passwordresets", method = RequestMethod.POST)
+	@RequestMapping(value = "/{username}/forgotpassword", method = RequestMethod.POST)
 	@APIMapping(value="USR_PASSWORD_RESET",checkSessionToken=false, checkTrustedApp=true)
-	public PasswordReset passwordReset(@PathVariable("userid") String userid,  HttpServletRequest request) throws Exception {
-
-		Session session = sessionHelper.getSession(request);
+	public PasswordReset passwordReset(@PathVariable("username") String username,  HttpServletRequest request) throws Exception {
 		Account account = new Account();
-		validateAccess(account, session.getAccount(), userid);
-		serviceFactory.getPasswordResetService().createPasswordReset(account, USER_SERVICE,session.getAccount().getUsername());
+		account.setUsername(username);
+		serviceFactory.getPasswordResetService().createPasswordReset(username, USER_SERVICE,"");
 		PasswordReset returnPasswordReset = new PasswordReset();
 		return returnPasswordReset;
-	}*/
+	}
 	
 	
 	@RequestMapping(value="/{userid}/roles",method=RequestMethod.PUT)

@@ -55,6 +55,8 @@ import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ServiceAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.ServiceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.SharingRuleNotFound;
+import com.servinglynk.hmis.warehouse.service.exception.VerificationNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.VerificationStatusAlreadyUpdatedException;
 
 
 public class ExceptionMapper {
@@ -283,6 +285,16 @@ public class ExceptionMapper {
 			logger.info("InvalidOnetimePasswordException "+ex.getMessage());
 			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
 			r.setErrorCode("ERR_CODE_INVALID_ONETIME_PASSWORD");
+			r.setErrorMessage(ex.getMessage());
+		}catch (VerificationStatusAlreadyUpdatedException ex) {
+			logger.info("InvalidOnetimePasswordException "+ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_CONFLICT);
+			r.setErrorCode("ERR_CODE_ACCOUNT_ALREADY_ACTIVATED");
+			r.setErrorMessage(ex.getMessage());
+		}catch (VerificationNotFoundException ex) {
+			logger.info("InvalidOnetimePasswordException "+ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("ERR_CODE_INVALID_VERIFICATION_CODE");
 			r.setErrorMessage(ex.getMessage());
 		}
 		catch (Throwable t) {

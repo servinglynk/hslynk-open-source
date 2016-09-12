@@ -80,8 +80,10 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter /*impleme
 		this.sessionHelper.setSession(session, request);
 		
 		// Check User Having Permission
-		
-		return this.apiAuthChecker.checkApiAuthForUser(accessToken, apiMethodId);
+		if(isSessionTokenCheckRequired)
+			return this.apiAuthChecker.checkApiAuthForUser(accessToken, apiMethodId);
+		else
+			return true;
 	}
 
 		

@@ -32,11 +32,11 @@ public class Notification extends ClientModel {
 	private List<String> recipients;*/
 	
 	@JsonProperty("recipients")
-	private Recipients recipients;
+	private Recipients recipients = new Recipients();
 	
 	
 	@JsonProperty("parameters")
-	Parameters parameters;
+	Parameters parameters=new Parameters();
 	
 	private Integer priority;
 

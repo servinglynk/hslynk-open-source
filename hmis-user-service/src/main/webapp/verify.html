@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>Account Verification</title>
+	<link type="text/css" rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/commen.css" ></link>
+	<link type="text/css" rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/styles-web.css" ></link>
+	<link type="text/css" rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/cw-theme.css" ></link>
+	<link type="text/css" rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/font-awesome.min.css" ></link>
+	<link type="text/css" rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/sl-admin.css" ></link>
+	<link type="text/css" rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/bootstrap.min.css" ></link>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://www.hmislynk.com/hmis-admin/js/jquery.cookie.js" type="text/javascript"></script>
+	<script src="https://www.hmislynk.com/hmis-admin/js/localized/oauth-ui.js.localized" type="text/javascript"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+	  <!--[if IE]>
+	  <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+	  <![endif]-->
+</head>
+<script type="text/javascript">
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
+    );
+}
+  $(document).ready(function() {	  
+	$('#success-msg').hide();
+    toastr.options.timeOut = 1500; // 1.5s
+    var token = getURLParameter("verificationToken");
+
+	$.ajax({
+		headers: {
+				  "Content-Type": "application/json;charset=UTF-8",
+				  "Accept-Language": "en-us,en;q=0.5",  
+				  "Accept":"application/json",
+				  "X-HMIS-TrustedApp-Id": "MASTER_TRUSTED_APP"
+		},
+		
+		type: "GET",
+		url:  "/hmis-user-service/rest/verifications?verificationtoken="+token,
+		dataType: "json",
+		success: function(data){
+		},
+		error: function (res) {
+			loginErrorHandler(res, "errorMsg"); 
+		}
+	
+	});
+	
+
+	$('#submit-confirm').click(function () {
+		$.ajax({
+			headers: {
+					  "Content-Type": "application/json;charset=UTF-8",
+					  "Accept-Language": "en-us,en;q=0.5",  
+					  "Accept":"application/json",
+					  "X-HMIS-TrustedApp-Id": "MASTER_TRUSTED_APP"
+			},
+			
+			type: "PUT",
+			url:  "/hmis-user-service/rest/verifications/"+token+"/status",
+			data: JSON.stringify({ verification: {status: "ACCEPTED" } }),
+			dataType: "json",
+			success: function(data){
+				$('#msg').hide();
+				$('#success-msg').show();
+				toastr.success("Your account has bean activated successfully.");
+			},
+			error: function (res) {
+				loginErrorHandler(res, "errorMsg"); 
+			}
+		
+		});
+
+	});
+
+	function loginErrorHandler(jqXHR, errorElement) {		
+		toastr.error(JSON.parse(jqXHR.responseText).errors.error[0].message);
+	}
+
+    
+    
+    
+  });
+  </script>
+<body>
+<div class="container-fluid header">
+  <div class="container">
+    <div class="col-md-6">
+      <div class="logo"><a href="index.html"><img src="https://www.hmislynk.com/hmis-admin/images/logoSite.png" alt="ServingLynk" /></a></div>
+    </div>
+    <div class="col-md-6">
+      <div class="whitehead"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid middle-part">
+  <div class="container">
+    <div class="row">
+     <div class="login-box" id="msg">
+     			Dear user, <br/> Please click on confirm button to activate your account. 
+			
+			
+	   <input class="btn btn-lg btn-primary btn-block" id="submit-confirm" value="Confirm" type="submit"/> 
+      </div>
+      <div class="login-box" id="success-msg">
+			 Congratulations!! Your account has been activated successfully.     
+      </div>
+    </div>
+  </div>
+</div>
+				
+</body>
+</html>

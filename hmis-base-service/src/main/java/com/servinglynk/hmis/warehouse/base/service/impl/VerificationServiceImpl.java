@@ -21,10 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
 import com.servinglynk.hmis.warehouse.base.service.converter.AccountConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.VerificationConverter;
+import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.Verification;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
@@ -46,10 +48,16 @@ public class VerificationServiceImpl extends ServiceBase implements
 	@Autowired
 	public ValidationBean validationBean;
 
-	 
+	
+	@Autowired
+	public NotificationServiceClient notificationServiceClient;
+	
+	@Transactional
 	public Account getAccountByVerfication(Verification verification) {
 		VerificationEntity pVerification = daoFactory.getVerificationDao().findByToken(verification.getToken());
+		if(pVerification==null) throw new VerificationNotFoundException("Invalid verification code. Please contact your administrator.");
 		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = daoFactory.getAccountDao().findByVerificationId(pVerification.getId());
+
 		return AccountConverter.convertToAccount(pAccount);
 	}
 
@@ -71,7 +79,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 		VerificationEntity pVerification = daoFactory.getVerificationDao().findByToken(verification.getToken());
 		// if there is no verification record found, throw an exception
 		if (pVerification == null) {
-			throw new VerificationNotFoundException();
+			throw new VerificationNotFoundException("Invalid verification code. Please contact your administrator.");
 		}
 		// if the status of the verification is already ACCEPTED or REJECTED, throw an exception
 		if (pVerification.isStatusAcceptedOrRejected()) {
@@ -91,6 +99,12 @@ public class VerificationServiceImpl extends ServiceBase implements
 				pAccount.setModifiedAt(new Date());
 				pAccount.setModifiedBy(auditServiceName);
 				daoFactory.getAccountDao().updateAccount(pAccount);
+				Notification notification = new Notification();
+				notification.setMethod("EMAIL");
+				notification.setType("HMIS_ACCOUNT_ACTIVATED");
+				notification.getParameters().addParameter(new Parameter("name", pAccount.getFirstName()+" "+pAccount.getLastName()));
+				notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
+				notificationServiceClient.createNotification(notification);
 			} else if (pVerification.getType().equalsIgnoreCase(VERIFICATION_TYPE_PASSWORD_RESET)) {
 				
 				String password = null;
@@ -207,7 +221,9 @@ public class VerificationServiceImpl extends ServiceBase implements
 
 			if (pAccount.getStatus() != null && pAccount.getStatus().equals(ACCOUNT_STATUS_ACTIVE))
 				throw new AlreadyVerifiedException();
-		
+			
+			pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
+			daoFactory.getAccountDao().updateAccount(pAccount);
 
 		// Send notification
 			
