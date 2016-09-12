@@ -12,8 +12,8 @@ public class NotificationServiceAppInitializer implements WebApplicationInitiali
 	public void onStartup(ServletContext servletContext) throws ServletException {  
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();  
         ctx.register(NotificationServiceConfig.class);  
-        servletContext.addListener(org.springframework.web.util.Log4jConfigListener.class);
-        servletContext.setInitParameter("log4jConfigLocation","classpath:com/servinglynk/hmis/warehouse/notification/log4j.xml");
+  //      servletContext.addListener(org.springframework.web.util.Log4jConfigListener.class);
+//        servletContext.setInitParameter("log4jConfigLocation","classpath:com/servinglynk/hmis/warehouse/notification/log4j.xml");
         
         
         ctx.setServletContext(servletContext);    
