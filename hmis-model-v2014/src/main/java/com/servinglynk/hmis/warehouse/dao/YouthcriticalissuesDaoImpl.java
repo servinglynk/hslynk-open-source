@@ -109,9 +109,11 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					model.setEnrollmentid(enrollmentModel);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getDataCollectionStage())));
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {

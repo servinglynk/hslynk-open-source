@@ -56,9 +56,11 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Pathstatus.class.getSimpleName(),Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {

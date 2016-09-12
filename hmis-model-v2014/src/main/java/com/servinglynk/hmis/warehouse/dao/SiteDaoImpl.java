@@ -49,9 +49,11 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 						model.setState(StateEnum.lookupEnum(site.getState()));
 						model.setExport(exportEntity);
 						model.setZip(String.valueOf(site.getZIP()));
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null ) {
-							modelMatch(hmisBaseModel, model);
+						if(!isFullRefresh(domain)) {
+							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+							if(hmisBaseModel !=null) {
+								modelMatch(hmisBaseModel, model);
+							}	
 						}
 						performSaveOrUpdate(model);
 					} catch(Exception e) {

@@ -59,9 +59,11 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(Projectcompletionstatus.class.getSimpleName(),Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {

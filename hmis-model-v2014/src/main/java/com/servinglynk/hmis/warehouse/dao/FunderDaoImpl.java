@@ -55,9 +55,11 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 					Project project = (Project) getModel(Funder.class.getSimpleName(),Project.class, funder.getFunderID(), getProjectGroupCode(domain), false, relatedModelMap, domain.getUpload().getId());
 					model.setExport(exportEntity);
 					model.setProjectid(project);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				} catch (Exception e) {

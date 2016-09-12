@@ -80,9 +80,11 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getDataCollectionStage())));
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {

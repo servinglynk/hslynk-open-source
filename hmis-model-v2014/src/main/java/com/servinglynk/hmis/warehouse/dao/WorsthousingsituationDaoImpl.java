@@ -56,9 +56,11 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					Enrollment enrollmentModel = (Enrollment) getModel(Worsthousingsituation.class.getSimpleName(),Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {

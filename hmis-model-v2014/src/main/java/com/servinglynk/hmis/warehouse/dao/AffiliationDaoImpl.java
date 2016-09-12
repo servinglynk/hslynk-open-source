@@ -47,9 +47,11 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 						model.setProjectid(project);
 						model.setExport(exportEntity);
 						model.setResprojectid(affiliation.getResProjectID());
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null ) {
-							modelMatch(hmisBaseModel, model);
+						if(!isFullRefresh(domain)) {
+							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+							if(hmisBaseModel !=null) {
+								modelMatch(hmisBaseModel, model);
+							}	
 						}
 						performSaveOrUpdate(model);
 					}catch(Exception e) {

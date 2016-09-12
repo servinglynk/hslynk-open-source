@@ -104,9 +104,11 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 					model.setClient(client);
 					model.setExport(exportEntity);
 					//vInfo.setUser(exportEntity.getUser());
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {

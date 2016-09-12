@@ -56,9 +56,11 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollment = (Enrollment) getModel(Residentialmoveindate.class.getSimpleName(),Enrollment.class,residentialMoveInDate.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExport(exportEntity);
 					model.setEnrollmentid(enrollment);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {

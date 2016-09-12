@@ -65,9 +65,11 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			Validator validator = (Validator) factory.getValidator();
 			//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validateProperty(sourceModel, "manufacturer");
 			Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validate(model);
-			HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-			if(hmisBaseModel !=null ) {
-				modelMatch(hmisBaseModel, model);
+			if(!isFullRefresh(domain)) {
+				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+				if(hmisBaseModel !=null) {
+					modelMatch(hmisBaseModel, model);
+				}	
 			}
 			if(constraintViolations.isEmpty()){
 				performSaveOrUpdate(model);	

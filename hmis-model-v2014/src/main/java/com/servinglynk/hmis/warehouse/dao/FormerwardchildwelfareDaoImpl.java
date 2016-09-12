@@ -62,9 +62,11 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 					model.setEnrollmentid(enrollmentModel);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getDataCollectionStage())));
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {

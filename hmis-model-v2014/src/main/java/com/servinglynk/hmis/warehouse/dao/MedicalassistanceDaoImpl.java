@@ -65,11 +65,12 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(medicalAssistance.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getDataCollectionStage())));
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
-					}
-					performSaveOrUpdate(model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
+					}					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in MedicalAssistance:::"+medicalAssistance.toString()+ " with exception"+e.getLocalizedMessage();
 					if (model != null) {

@@ -61,11 +61,12 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(LastPermAddress.class.getSimpleName(),Enrollment.class, lastPermanentAddress.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
-					}
-					performSaveOrUpdate(model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
+					}					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage();
 					if (model != null) {

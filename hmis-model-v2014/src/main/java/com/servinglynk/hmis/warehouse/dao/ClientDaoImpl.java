@@ -115,9 +115,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
-				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-				if(hmisBaseModel !=null ) {
-					modelMatch(hmisBaseModel, model);
+				if(!isFullRefresh(domain)) {
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null) {
+						modelMatch(hmisBaseModel, model);
+					}	
 				}
 				performSaveOrUpdate(model);		
 				

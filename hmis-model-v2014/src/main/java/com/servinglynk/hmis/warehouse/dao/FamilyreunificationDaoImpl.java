@@ -56,9 +56,11 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),Exit.class, familyReunification.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch (Exception e) {

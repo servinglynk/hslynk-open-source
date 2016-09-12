@@ -92,9 +92,11 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						model.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
 						model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getDataCollectionStage())));
 						model.setExport(exportEntity);
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null ) {
-							modelMatch(hmisBaseModel, model);
+						if(!isFullRefresh(domain)) {
+							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+							if(hmisBaseModel !=null) {
+								modelMatch(hmisBaseModel, model);
+							}	
 						}
 						performSaveOrUpdate(model);
 					}catch(Exception e) {

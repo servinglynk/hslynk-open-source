@@ -58,9 +58,11 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 				Project projectModel = (Project) getModel(Projectcoc.class.getSimpleName(),Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap, domain.getUpload().getId());
 				model.setProjectid(projectModel);
 				model.setExport(exportEntity);
-				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-				if(hmisBaseModel !=null ) {
-					modelMatch(hmisBaseModel, model);
+				if(!isFullRefresh(domain)) {
+					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+					if(hmisBaseModel !=null) {
+						modelMatch(hmisBaseModel, model);
+					}	
 				}
 				performSaveOrUpdate(model);
 			} catch(Exception e) {

@@ -57,9 +57,11 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 					Exit exit = (Exit) getModel(Housingassessmentdisposition.class.getSimpleName(),Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {

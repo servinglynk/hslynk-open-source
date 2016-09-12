@@ -61,9 +61,11 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				//	 OrganizationEntity baseOrganization = new OrganizationEntity();
 					// BeanUtils.copyProperties(baseOrganization, organizationModel);
 					// factory.getHmisOrganizationDao().createOrganization(baseOrganization);
-					 HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null ) {
-							modelMatch(hmisBaseModel, model);
+					 if(!isFullRefresh(domain)) {
+							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+							if(hmisBaseModel !=null) {
+								modelMatch(hmisBaseModel, model);
+							}	
 						}
 					 performSaveOrUpdate(model);
 				 }catch(Exception e) {

@@ -80,9 +80,11 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 //						baseProject.setSchemaYear(2014);
 //						factory.getBaseProjectDao().createProject(baseProject);
 //					}
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null ) {
-						modelMatch(hmisBaseModel, model);
+					if(!isFullRefresh(domain)) {
+						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+						if(hmisBaseModel !=null) {
+							modelMatch(hmisBaseModel, model);
+						}	
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
