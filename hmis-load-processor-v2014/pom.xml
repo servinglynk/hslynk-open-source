@@ -258,6 +258,8 @@
 									   perm="ugo+rx"/>
 								<chmod file="${basedir}/src/main/scripts/start-processor-2014.sh"
 									   perm="ugo+rx"/>
+							    <chmod file="${basedir}/src/main/scripts/stop-processor-2014.sh"
+                                       perm="ugo+rx"/>
 							</tasks>
 						</configuration>
 					</execution>
