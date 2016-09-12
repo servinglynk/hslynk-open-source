@@ -61,6 +61,9 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch (Exception e) {
@@ -93,8 +96,6 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 			familyReunificationModel.setId(UUID.randomUUID());
 			familyReunificationModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(familyReunificationModel, domain,familyReunification.getFamilyReunificationID(),data.i+data.j);
 		return familyReunificationModel;

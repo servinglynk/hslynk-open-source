@@ -64,6 +64,9 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -96,8 +99,6 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 			projectcompletionstatusModel.setId(UUID.randomUUID());
 			projectcompletionstatusModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(projectcompletionstatusModel, domain,projectcompletionstatus.getProjectCompletionStatusID(),data.i+data.j);
 		return projectcompletionstatusModel;

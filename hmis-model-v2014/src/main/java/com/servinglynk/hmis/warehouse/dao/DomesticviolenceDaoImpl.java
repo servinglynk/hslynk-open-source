@@ -58,6 +58,9 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch (Exception e) {
@@ -92,8 +95,6 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 			domesticViolenceModel.setId(UUID.randomUUID());
 			domesticViolenceModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(domesticViolenceModel, domain,domesticViolence.getDomesticViolenceID(),data.i+data.j);
 		return domesticViolenceModel;

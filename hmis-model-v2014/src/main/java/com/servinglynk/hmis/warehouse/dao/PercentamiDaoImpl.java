@@ -58,6 +58,9 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -90,8 +93,6 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 			percentamiModel.setId(UUID.randomUUID());
 			percentamiModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(percentamiModel, domain,percentami.getPercentAMIID(),data.i+data.j);
 		return percentamiModel;

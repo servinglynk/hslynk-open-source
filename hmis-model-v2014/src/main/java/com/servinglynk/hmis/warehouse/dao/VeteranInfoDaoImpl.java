@@ -109,6 +109,9 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -142,8 +145,6 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 			veteranInfoModel.setId(UUID.randomUUID());
 			veteranInfoModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(veteranInfoModel, domain,veteranInfo.getVeteranInfoID(),data.i+data.j);
 		return veteranInfoModel;

@@ -63,6 +63,9 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -96,8 +99,6 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 			rhybcpstatusModel.setId(UUID.randomUUID());
 			rhybcpstatusModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(rhybcpstatusModel, domain,rhybcpstatus.getRHYBCPStatusID(),data.i+data.j);
 		return rhybcpstatusModel;

@@ -75,6 +75,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -108,8 +111,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			disabilitiesModel.setId(UUID.randomUUID());
 			disabilitiesModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(disabilitiesModel, domain,disabilities.getDisabilitiesID(),data.i+data.j);
 		return disabilitiesModel;

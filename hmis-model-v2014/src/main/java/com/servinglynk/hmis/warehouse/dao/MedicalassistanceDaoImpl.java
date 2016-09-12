@@ -69,8 +69,12 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
-					}					performSaveOrUpdate(model);
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
+					}					
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in MedicalAssistance:::"+medicalAssistance.toString()+ " with exception"+e.getLocalizedMessage();
 					if (model != null) {
@@ -101,8 +105,6 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 			MedicalassistanceModel.setId(UUID.randomUUID());
 			MedicalassistanceModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(MedicalassistanceModel, domain,medicalassistance.getMedicalAssistanceID(),data.i+data.j);
 		return MedicalassistanceModel;

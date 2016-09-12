@@ -65,6 +65,9 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -97,8 +100,6 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 			SexualorientationModel.setId(UUID.randomUUID());
 			SexualorientationModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(SexualorientationModel, domain,sexualorientation.getSexualOrientationID(),data.i+data.j);
 		return SexualorientationModel;

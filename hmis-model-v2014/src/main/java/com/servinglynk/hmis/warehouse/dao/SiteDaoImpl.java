@@ -53,7 +53,10 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 							if(hmisBaseModel !=null) {
 								modelMatch(hmisBaseModel, model);
-							}	
+							}
+							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+								++data.j;
+							}
 						}
 						performSaveOrUpdate(model);
 					} catch(Exception e) {
@@ -88,8 +91,6 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 			SiteModel.setId(UUID.randomUUID());
 			SiteModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(SiteModel, domain,Site.getSiteID(),data.i+data.j);
 		return SiteModel;

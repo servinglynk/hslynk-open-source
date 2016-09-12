@@ -66,6 +66,9 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -98,8 +101,6 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 			servicesModel.setId(UUID.randomUUID());
 			servicesModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(servicesModel, domain,Services.getServicesID(),data.i+data.j);
 		return servicesModel;

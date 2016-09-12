@@ -85,6 +85,9 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -118,8 +121,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 			inventoryModel.setId(UUID.randomUUID());
 			inventoryModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(inventoryModel, domain,inventory.getInventoryID(),data.i+data.j);
 		return inventoryModel;

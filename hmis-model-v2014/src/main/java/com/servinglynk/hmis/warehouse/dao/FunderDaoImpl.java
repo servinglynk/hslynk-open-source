@@ -60,6 +60,9 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch (Exception e) {
@@ -93,8 +96,6 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 			funderModel.setId(UUID.randomUUID());
 			funderModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data.i+data.j);
 		return funderModel;

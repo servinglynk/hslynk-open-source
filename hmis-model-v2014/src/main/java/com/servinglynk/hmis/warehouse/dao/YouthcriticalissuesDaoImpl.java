@@ -113,7 +113,10 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -147,8 +150,6 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 			youthcriticalissuesModel.setId(UUID.randomUUID());
 			youthcriticalissuesModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(youthcriticalissuesModel, domain,youthcriticalissues.getYouthCriticalIssuesID(),data.i+data.j);
 		return youthcriticalissuesModel;

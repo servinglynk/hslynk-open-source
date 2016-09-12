@@ -68,7 +68,10 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -101,8 +104,6 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			exitModel.setId(UUID.randomUUID());
 			exitModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(exitModel, domain,Exit.getExitID(),data.i+data.j);
 		return exitModel;

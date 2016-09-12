@@ -61,6 +61,9 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -95,8 +98,6 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 			worsthousingsituationModel.setId(UUID.randomUUID());
 			worsthousingsituationModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(worsthousingsituationModel, domain,worsthousingsituation.getWorstHousingSituationID(),data.i+data.j);
 		return worsthousingsituationModel;

@@ -63,6 +63,9 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 					if(hmisBaseModel !=null) {
 						modelMatch(hmisBaseModel, model);
 					}	
+					if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+						++data.j;
+					}
 				}
 				performSaveOrUpdate(model);
 			} catch(Exception e) {
@@ -95,8 +98,6 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			ProjectcocModel.setId(UUID.randomUUID());
 			ProjectcocModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(ProjectcocModel, domain,projectcoc.getProjectCoCID(),data.i+data.j);
 		return ProjectcocModel;

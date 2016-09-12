@@ -110,6 +110,9 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch (Exception e) {
@@ -143,8 +146,6 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				incomeandsourcesModel.setId(UUID.randomUUID());
 				incomeandsourcesModel.setRecordToBeInserted(true);
 				++data.i;
-			}else{
-				++data.j;
 			}
 			hydrateCommonFields(incomeandsourcesModel, domain,incomeAndSources.getIncomeAndSourcesID(),data.i+data.j);
 			return incomeandsourcesModel;

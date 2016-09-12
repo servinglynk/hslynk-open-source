@@ -52,7 +52,11 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 							if(hmisBaseModel !=null) {
 								modelMatch(hmisBaseModel, model);
 							}	
+							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+								++data.j;
+							}
 						}
+						
 						performSaveOrUpdate(model);
 					}catch(Exception e) {
 						String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
@@ -85,8 +89,6 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 				affiliationModel.setId(UUID.randomUUID());
 				affiliationModel.setRecordToBeInserted(true);
 				++data.i;
-			}else{
-				++data.j;
 			}
 			hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),data.i+data.j);
 			return affiliationModel;

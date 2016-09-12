@@ -39,6 +39,9 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 				if(hmisBaseModel !=null) {
 					modelMatch(hmisBaseModel, model);
 				}	
+				if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+					++data.j;
+				}
 			}
 			performSaveOrUpdate(model);
 		} catch (Exception ex) {
@@ -70,8 +73,6 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			exportModel.setId(UUID.randomUUID());
 			exportModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(exportModel, domain,export.getExportID(),data.i+data.j);
 		return exportModel;

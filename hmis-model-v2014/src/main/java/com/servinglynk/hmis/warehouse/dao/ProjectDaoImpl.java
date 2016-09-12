@@ -85,7 +85,11 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage();
@@ -118,8 +122,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			projectModel.setId(UUID.randomUUID());
 			projectModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(projectModel, domain,project.getProjectID(),data.i+data.j);
 		return projectModel;

@@ -70,6 +70,9 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 				if(hmisBaseModel !=null) {
 					modelMatch(hmisBaseModel, model);
 				}	
+				if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+					++data.j;
+				}
 			}
 			if(constraintViolations.isEmpty()){
 				performSaveOrUpdate(model);	
@@ -105,8 +108,6 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel.setId(UUID.randomUUID());
 			sourceModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data.i+data.j);
 		return sourceModel;

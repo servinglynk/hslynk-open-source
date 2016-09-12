@@ -65,7 +65,10 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in LastGradeCompleted:::"+lastGradeCompleted.toString()+ " with exception"+e.getLocalizedMessage();
@@ -98,8 +101,6 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 			lastGradeCompletedModel.setId(UUID.randomUUID());
 			lastGradeCompletedModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(lastGradeCompletedModel, domain,lastGradeCompleted.getLastGradeCompletedID(),data.i+data.j);
 		return lastGradeCompletedModel;

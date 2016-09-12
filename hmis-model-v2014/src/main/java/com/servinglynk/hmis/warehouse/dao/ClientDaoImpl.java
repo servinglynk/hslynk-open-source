@@ -120,6 +120,9 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 					if(hmisBaseModel !=null) {
 						modelMatch(hmisBaseModel, model);
 					}	
+					if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+						++data.j;
+					}
 				}
 				performSaveOrUpdate(model);		
 				
@@ -259,8 +262,6 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			clientModel.setId(UUID.randomUUID());
 			clientModel.setRecordToBeInserted(true);
 			++data.i;
-		} else{
-		  ++data.j;
 		}
 		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier,clientModelFromDB,clientModel,false);
 		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data.i+data.j);

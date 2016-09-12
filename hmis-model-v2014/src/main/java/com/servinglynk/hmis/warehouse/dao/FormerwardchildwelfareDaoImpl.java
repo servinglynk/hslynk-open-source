@@ -67,6 +67,9 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -100,8 +103,6 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 			formerwardchildwelfareModel.setId(UUID.randomUUID());
 			formerwardchildwelfareModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(formerwardchildwelfareModel, domain,formerWardChildWelfare.getFormerWardChildWelfareID(),data.i+data.j);
 		return formerwardchildwelfareModel;

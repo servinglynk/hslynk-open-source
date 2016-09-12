@@ -66,7 +66,11 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
-					}					performSaveOrUpdate(model);
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
+					}					
+					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage();
 					if (model != null) {
@@ -98,8 +102,6 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 			lastPermAddressModel.setId(UUID.randomUUID());
 			lastPermAddressModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(lastPermAddressModel, domain,lastPermAddress.getLastPermanentAddressID(),data.i+data.j);
 		return lastPermAddressModel;

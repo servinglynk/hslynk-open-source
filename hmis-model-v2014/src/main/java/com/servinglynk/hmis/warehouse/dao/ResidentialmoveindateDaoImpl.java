@@ -60,7 +60,10 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -94,8 +97,6 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 			residentialmoveindateModel.setId(UUID.randomUUID());
 			residentialmoveindateModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data.i+data.j);
 		return residentialmoveindateModel;

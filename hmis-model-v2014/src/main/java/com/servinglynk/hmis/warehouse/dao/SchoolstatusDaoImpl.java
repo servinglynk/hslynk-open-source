@@ -69,6 +69,9 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -102,8 +105,6 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			SchoolstatusModel.setId(UUID.randomUUID());
 			SchoolstatusModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(SchoolstatusModel, domain,schoolstatus.getSchoolStatusID(),data.i+data.j);
 		return SchoolstatusModel;

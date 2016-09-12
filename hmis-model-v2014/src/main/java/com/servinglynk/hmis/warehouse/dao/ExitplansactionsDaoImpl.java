@@ -76,6 +76,9 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -108,8 +111,6 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 			exitplansactionsModel.setId(UUID.randomUUID());
 			exitplansactionsModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID(),data.i+data.j);
 		return exitplansactionsModel;

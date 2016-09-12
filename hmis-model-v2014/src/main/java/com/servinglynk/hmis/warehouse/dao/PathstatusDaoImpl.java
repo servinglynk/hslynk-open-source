@@ -61,6 +61,9 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -93,8 +96,6 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 			PathstatusModel.setId(UUID.randomUUID());
 			PathstatusModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(PathstatusModel, domain,pathstatus.getPathStatusID(),data.i+data.j);
 		return PathstatusModel;

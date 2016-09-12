@@ -61,7 +61,10 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -94,8 +97,6 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 			housingAssessmentDispositionModel.setId(UUID.randomUUID());
 			housingAssessmentDispositionModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(housingAssessmentDispositionModel, domain,HousingAssessmentDisposition.getHousingAssessmentDispositionID(),data.i+data.j);
 		return housingAssessmentDispositionModel;

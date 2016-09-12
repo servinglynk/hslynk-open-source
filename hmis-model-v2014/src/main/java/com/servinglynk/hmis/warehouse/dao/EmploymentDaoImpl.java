@@ -67,7 +67,10 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
-						}	
+						}
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -100,8 +103,6 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			employmentModel.setId(UUID.randomUUID());
 			employmentModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(employmentModel, domain,employment.getEmploymentID(),data.i+data.j);
 		return employmentModel;

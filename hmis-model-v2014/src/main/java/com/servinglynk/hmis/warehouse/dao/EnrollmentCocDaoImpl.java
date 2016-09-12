@@ -67,6 +67,9 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch (Exception e) {
@@ -99,8 +102,6 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			enrollmentCocModel.setId(UUID.randomUUID());
 			enrollmentCocModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data.i+data.j);
 		return enrollmentCocModel;

@@ -65,6 +65,9 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -97,8 +100,6 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 			referralsourceModel.setId(UUID.randomUUID());
 			referralsourceModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(referralsourceModel, domain,referralsource.getReferralSourceID(),data.i+data.j);
 		return referralsourceModel;

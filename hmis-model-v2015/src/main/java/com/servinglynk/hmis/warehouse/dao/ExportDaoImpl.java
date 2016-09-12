@@ -66,8 +66,6 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			exportModel.setId(UUID.randomUUID());
 			exportModel.setInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(exportModel, domain,export.getExportID(),data.i+data.j);
 		return exportModel;

@@ -61,7 +61,10 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
 							if(hmisBaseModel !=null) {
 								modelMatch(hmisBaseModel, model);
-							}	
+							}
+							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+								++data.j;
+							}
 						}
 						performSaveOrUpdate(model);
 					} catch(Exception e) {
@@ -96,8 +99,6 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 			ExitHousingAssessmentModel.setId(UUID.randomUUID());
 			ExitHousingAssessmentModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(ExitHousingAssessmentModel, domain,exitHousingAssessment.getExitHousingAssessmentID(),data.i+data.j);
 		return ExitHousingAssessmentModel;

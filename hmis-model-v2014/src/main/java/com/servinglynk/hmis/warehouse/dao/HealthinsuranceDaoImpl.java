@@ -97,6 +97,9 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 							if(hmisBaseModel !=null) {
 								modelMatch(hmisBaseModel, model);
 							}	
+							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+								++data.j;
+							}
 						}
 						performSaveOrUpdate(model);
 					}catch(Exception e) {
@@ -130,8 +133,6 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 			healthinsuranceModel.setId(UUID.randomUUID());
 			healthinsuranceModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(healthinsuranceModel, domain,healthInsurance.getHealthInsuranceID(),data.i+data.j);
 		return healthinsuranceModel;

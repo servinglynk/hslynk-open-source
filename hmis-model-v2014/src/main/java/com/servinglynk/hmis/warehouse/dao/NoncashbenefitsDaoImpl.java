@@ -81,6 +81,9 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
@@ -113,8 +116,6 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 			NoncashbenefitsModel.setId(UUID.randomUUID());
 			NoncashbenefitsModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(NoncashbenefitsModel, domain,noncashbenefits.getNonCashBenefitsID(),data.i+data.j);
 		return NoncashbenefitsModel;

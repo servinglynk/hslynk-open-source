@@ -62,6 +62,9 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 						if(hmisBaseModel !=null) {
 							modelMatch(hmisBaseModel, model);
 						}	
+						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+							++data.j;
+						}
 					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -95,8 +98,6 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 			connectionwithsoarModel.setId(UUID.randomUUID());
 			connectionwithsoarModel.setRecordToBeInserted(true);
 			++data.i;
-		}else{
-			++data.j;
 		}
 		hydrateCommonFields(connectionwithsoarModel, domain,connectionWithSOAR.getConnectionWithSOARID(),data.i+data.j);
 		return connectionwithsoarModel;

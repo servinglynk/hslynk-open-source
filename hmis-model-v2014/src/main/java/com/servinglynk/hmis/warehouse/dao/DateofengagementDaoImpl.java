@@ -58,6 +58,9 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 							modelMatch(hmisBaseModel, model);
 						}	
 					}
+					if(!model.isRecordToBoInserted() && !model.isIgnored()) {
+						++data.j;
+					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -89,8 +92,6 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			dateofengagementModel.setId(UUID.randomUUID());
 			dateofengagementModel.setRecordToBeInserted(true);
 			++data.i;
-		  }else{
-			  ++data.j;
 		  }
 		  hydrateCommonFields(dateofengagementModel, domain,DateOfEngagement.getDateOfEngagementID(),data.i+data.j);
 		  return dateofengagementModel;
