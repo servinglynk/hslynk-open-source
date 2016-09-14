@@ -171,7 +171,9 @@ public class TestProjectcocAPIMethods {
 	
 	public UUID createProject() throws Exception{
 		Project project = TestData.getProject();
-		project = serviceFactory.getProjectService().createProject(project, createOrganization(), "UNIT TESING");
+		UUID organizationId =  createOrganization();
+		project.setOrganizationId(organizationId);
+		project = serviceFactory.getProjectService().createProject(project, "UNIT TESING");
 		return project.getProjectId();
 	}
       

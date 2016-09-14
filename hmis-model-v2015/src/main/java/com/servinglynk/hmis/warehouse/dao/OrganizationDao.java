@@ -19,6 +19,6 @@ public interface OrganizationDao extends ParentDao {
 	   com.servinglynk.hmis.warehouse.model.v2015.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization);
 	   void deleteOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization);
 	   com.servinglynk.hmis.warehouse.model.v2015.Organization getOrganizationById(UUID organizationId);
-	   List<com.servinglynk.hmis.warehouse.model.v2015.Organization> getAllOrganizations(Integer startIndex, Integer maxItems);
-	   long getOrganizationCount();
+	   List<com.servinglynk.hmis.warehouse.model.v2015.Organization> getAllOrganizations(String projectGroupCode, Integer startIndex, Integer maxItems);
+	   long getOrganizationCount(String projectGroupCode);
 }

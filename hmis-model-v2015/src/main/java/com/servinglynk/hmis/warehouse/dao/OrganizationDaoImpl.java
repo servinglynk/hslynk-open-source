@@ -10,6 +10,7 @@ import java.util.UUID;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -110,12 +111,14 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization getOrganizationById(UUID organizationId){ 
 	       return (com.servinglynk.hmis.warehouse.model.v2015.Organization) get(com.servinglynk.hmis.warehouse.model.v2015.Organization.class, organizationId);
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2015.Organization> getAllOrganizations(Integer startIndex, Integer maxItems){
+	   public List<com.servinglynk.hmis.warehouse.model.v2015.Organization> getAllOrganizations(String projectGroupCode,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Organization.class);
+	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2015.Organization>) findByCriteria(criteria,startIndex,maxItems);
 	   }
-	   public long getOrganizationCount(){
+	   public long getOrganizationCount(String projectGroupCode){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Organization.class);
+	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return countRows(criteria);
 	   }
 

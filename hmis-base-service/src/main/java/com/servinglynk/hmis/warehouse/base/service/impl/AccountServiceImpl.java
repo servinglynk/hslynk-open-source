@@ -271,11 +271,13 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
 		if(roleEntity==null) throw new RoleNotFoundException();
 
-		UserRoleMapEntity entity = new UserRoleMapEntity();
-		entity.setAccountEntity(accountEntity);
-		entity.setRoleEntity(roleEntity);
-		
-		daoFactory.getAccountDao().createUserRole(entity);
+		UserRoleMapEntity userRoleMapEntity  = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleEntity.getId());
+		if(userRoleMapEntity==null) {		
+			UserRoleMapEntity entity = new UserRoleMapEntity();
+			entity.setAccountEntity(accountEntity);
+			entity.setRoleEntity(roleEntity);
+			daoFactory.getAccountDao().createUserRole(entity);
+		}
 	}
 	
 	@Transactional
@@ -285,7 +287,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 
 		UserRoleMapEntity entity = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleid);
-		if(entity==null) throw new RoleNotFoundException("Role is not assiciated with user");
+		if(entity==null) throw new RoleNotFoundException("Role is not assiciated to this user");
 		daoFactory.getAccountDao().daeleteUserRole(entity);
 	}
 	

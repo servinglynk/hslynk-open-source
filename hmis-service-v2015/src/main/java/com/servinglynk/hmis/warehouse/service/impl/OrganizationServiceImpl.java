@@ -56,13 +56,13 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
    }
 
    @Transactional
-   public Organizations getAllOrganizations(Integer startIndex, Integer maxItems){
+   public Organizations getAllOrganizations(String projectGroupCode,Integer startIndex, Integer maxItems){
        Organizations organizations = new Organizations();
-        List<com.servinglynk.hmis.warehouse.model.v2015.Organization> entities = daoFactory.getOrganizationDao().getAllOrganizations(startIndex,maxItems);
+        List<com.servinglynk.hmis.warehouse.model.v2015.Organization> entities = daoFactory.getOrganizationDao().getAllOrganizations(projectGroupCode,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2015.Organization entity : entities){
            organizations.addOrganization(OrganizationConverter.entityToModel(entity));
         }
-        long count = daoFactory.getOrganizationDao().getOrganizationCount();
+        long count = daoFactory.getOrganizationDao().getOrganizationCount(projectGroupCode);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);

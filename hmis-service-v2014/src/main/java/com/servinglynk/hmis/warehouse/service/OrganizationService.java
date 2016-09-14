@@ -10,5 +10,5 @@ public interface OrganizationService {
    Organization updateOrganization(Organization organization,String caller);
    Organization deleteOrganization(UUID organizationId,String caller);
    Organization getOrganizationById(UUID organizationId);
-   Organizations getAllOrganizations(Integer startIndex, Integer maxItems);
+   Organizations getAllOrganizations(String projectGroupCode, Integer startIndex, Integer maxItems);
 }

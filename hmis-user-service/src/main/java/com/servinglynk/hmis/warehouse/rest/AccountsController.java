@@ -146,13 +146,13 @@ public class AccountsController extends ControllerBase {
 	
 	@RequestMapping(value="/{userid}/roles",method=RequestMethod.PUT)
 	@APIMapping(value="ACL_ADD_USER_ROLE",checkSessionToken=true,checkTrustedApp=true)
-	public void addRoleToUser(@PathVariable("userid") UUID userid,Role role) throws Exception {
+	public void addRoleToUser(@PathVariable("userid") UUID userid,@RequestBody Role role) throws Exception {
 		serviceFactory.getAccountService().addRoleToUser(userid, role);
 	}
 	
 	@RequestMapping(value="/{userid}/roles/{roleid}",method=RequestMethod.DELETE)
 	@APIMapping(value="ACL_DELETE_USER_ROLE",checkSessionToken=true,checkTrustedApp=true)	
-	public void removeRoleFromUser(@PathVariable("userid") UUID userid,UUID roleid) throws Exception {
+	public void removeRoleFromUser(@PathVariable("userid") UUID userid,@PathVariable("roleid") UUID roleid) throws Exception {
 	serviceFactory.getAccountService().removeRoleFromUser(userid, roleid);	
 	}
 	
