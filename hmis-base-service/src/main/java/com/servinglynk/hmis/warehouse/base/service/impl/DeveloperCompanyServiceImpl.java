@@ -34,10 +34,10 @@ import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyAccounts;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanyStatus;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperService;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperServices;
-import com.servinglynk.hmis.warehouse.client.model.Notification;
-import com.servinglynk.hmis.warehouse.client.model.Parameter;
-import com.servinglynk.hmis.warehouse.client.model.Parameters;
-import com.servinglynk.hmis.warehouse.client.model.Recipients;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
+import com.servinglynk.hmis.warehouse.core.model.Parameters;
+import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.ServiceStatus;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.IllegalBusinessStateException;
@@ -570,10 +570,10 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 			throw new AccessDeniedException("Only admins can create/edit service/api mappings");
 		}
 
-		if (!Constants.SERVICE_STATUS_IN_DEVELOPMENT.equals(pService.getStatus())) {
+/*		if (!Constants.SERVICE_STATUS_IN_DEVELOPMENT.equals(pService.getStatus())) {
 			throw new AccessDeniedException(
 					"Service status is " + pService.getStatus() + ", only IN_DEVELOPMENT services can be updated");
-		}
+		}*/
 
 		// delete all service api methods first
 

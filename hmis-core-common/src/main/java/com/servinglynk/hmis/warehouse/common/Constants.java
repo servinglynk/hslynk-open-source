@@ -91,6 +91,11 @@ public interface Constants {
 	public static final String INTERNAL_USERNAME_DOMAIN_NAME="hmis.com";
 
 	public static final String AUDIT_USER_UNIT_TEST="unit-test";
+	
+	public static final String ALPHA_CAPS  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static final String ALPHA   = "abcdefghijklmnopqrstuvwxyz";
+	public static final String NUM     = "0123456789";
+	public static final String SPL_CHARS   = "!@#$*";
 
 
 }

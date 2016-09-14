@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
@@ -15,6 +16,9 @@ import com.servinglynk.hmis.warehouse.base.service.converter.ProfileConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.RoleConverter;
 import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticator;
 import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticatorKey;
+import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
@@ -44,6 +48,9 @@ import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundExce
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 public class AccountServiceImpl extends ServiceBase implements AccountService {
+	
+	@Autowired
+	NotificationServiceClient notificationServiceClient;
 
 	@Transactional
 	public Account findAccountByUsername(String username) {
@@ -116,7 +123,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")) {
 			pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 		} else {
-			pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
+			pAccount.setStatus(Constants.ACCOUNT_STATUS_PENDING);
 
 		}
 
@@ -152,6 +159,16 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		account.setProfile(ProfileConverter.entityToModel(profileEntity));
 		// send the account creation notification
 
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_USER_CREATION");
+		notification.getParameters().addParameter(new Parameter("username", account.getUsername()));
+		notification.getParameters().addParameter(new Parameter("password", account.getPassword()));
+		notification.getParameters().addParameter(new Parameter("name",account.getFirstName()+" "+account.getLastName()));
+		notification.getParameters().addParameter(new Parameter("verificationtoken", pVerification.getToken()));
+		notification.getRecipients().addToRecipient(account.getEmailAddress());
+		notificationServiceClient.createNotification(notification);		
+		
 		return account;
 	}
 
@@ -191,6 +208,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 
+		if(pAccount==null) throw new AccountNotFoundException();
+		
 		// validate current password
 		if (!pAccount.getPassword().equalsIgnoreCase(HMISCryptographer.Encrypt(passwordChange.getCurrentPassword()))) {
 			throw new InvalidCurrentPasswordException();
@@ -198,6 +217,12 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 		pAccount.setPassword(HMISCryptographer.Encrypt(passwordChange.getNewPassword()));
 		daoFactory.getAccountDao().updateAccount(pAccount);
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		notification.setType("HMIS_ACCOUNT_PASSWORD_CHANGE");
+		notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
+		notificationServiceClient.createNotification(notification);
+		
 		return AccountConverter.convertToAccount(pAccount);
 
 	}
@@ -246,11 +271,13 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
 		if(roleEntity==null) throw new RoleNotFoundException();
 
-		UserRoleMapEntity entity = new UserRoleMapEntity();
-		entity.setAccountEntity(accountEntity);
-		entity.setRoleEntity(roleEntity);
-		
-		daoFactory.getAccountDao().createUserRole(entity);
+		UserRoleMapEntity userRoleMapEntity  = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleEntity.getId());
+		if(userRoleMapEntity==null) {		
+			UserRoleMapEntity entity = new UserRoleMapEntity();
+			entity.setAccountEntity(accountEntity);
+			entity.setRoleEntity(roleEntity);
+			daoFactory.getAccountDao().createUserRole(entity);
+		}
 	}
 	
 	@Transactional
@@ -260,7 +287,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 
 		UserRoleMapEntity entity = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleid);
-		if(entity==null) throw new RoleNotFoundException("Role is not assiciated with user");
+		if(entity==null) throw new RoleNotFoundException("Role is not assiciated to this user");
 		daoFactory.getAccountDao().daeleteUserRole(entity);
 	}
 	

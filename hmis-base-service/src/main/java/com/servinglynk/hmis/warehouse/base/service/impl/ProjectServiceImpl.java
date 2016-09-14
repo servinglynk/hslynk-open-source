@@ -24,7 +24,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 	   OrganizationEntity pOrganization = daoFactory.getHmisOrganizationDao().getOrganizationById(organizationId);
 	   
        Project pBaseProject = ProjectConverter.modelToEntity(baseProject, null);
-       pBaseProject.setOrganizationid(pOrganization);
+       if(pOrganization!=null)  pBaseProject.setOrganizationid(pOrganization);
        pBaseProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pBaseProject.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
        pBaseProject.setId(baseProject.getProjectId());

@@ -13,6 +13,7 @@ public class Parameter extends ClientModel {
 	String key;
 	Object value;
 	String desc;
+	
 	public String getKey() {
 		return key;
 	}

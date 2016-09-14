@@ -274,7 +274,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			client.setId(UUID.randomUUID());
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = getUniqueClient(dedupSessionKey, false, null, client,true);
+//			com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = getUniqueClient(dedupSessionKey, false, null, client,true);
 			insert(client);
 			com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
 			BeanUtils.copyProperties(client, baseClient);

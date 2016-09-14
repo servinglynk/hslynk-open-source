@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class Project extends ClientModel {
 	
 	private UUID projectId;
+	private UUID organizationId;
     private String projectName;
     private String projectCommonName;
     private Integer continuumProject;
@@ -97,4 +98,13 @@ public class Project extends ClientModel {
 	public void setProjectGroup(String projectGroup) {
 		this.projectGroup = projectGroup;
 	}
+
+	public UUID getOrganizationId() {
+		return organizationId;
+	}
+
+	public void setOrganizationId(UUID organizationId) {
+		this.organizationId = organizationId;
+	}
+	
 }

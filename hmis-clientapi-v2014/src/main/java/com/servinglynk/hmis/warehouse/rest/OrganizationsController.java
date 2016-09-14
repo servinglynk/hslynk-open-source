@@ -60,8 +60,9 @@ public class OrganizationsController extends ControllerBase {
                        HttpServletRequest request) throws Exception {
            if (startIndex == null) startIndex =0;
            if (maxItems == null) maxItems =30;
- 
-        return serviceFactory.getOrganizationService().getAllOrganizations(startIndex,maxItems); 
+           Session session = sessionHelper.getSession(request);
+           
+        return serviceFactory.getOrganizationService().getAllOrganizations(session.getAccount().getProjectGroup().getProjectGroupCode(),startIndex,maxItems); 
    }
 
 }

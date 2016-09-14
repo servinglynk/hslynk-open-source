@@ -90,10 +90,10 @@ CREATE TYPE "base".tracking_method  AS ENUM (
 CREATE TABLE base.hmis_user
 (
   id uuid NOT NULL,
-  first_name character(50),
-  middle_name character(50),
-  last_name character(50),
-  name_suffix character(50),
+  first_name character varying(50),
+  middle_name character varying(50),
+  last_name character varying(50),
+  name_suffix character varying(50),
   ssn character(9),
   dob timestamp,
   gender base.gender,

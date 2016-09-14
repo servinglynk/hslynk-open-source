@@ -8,27 +8,30 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
-import com.servinglynk.hmis.warehouse.service.ProjectService;
-import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.service.ProjectService;
+import com.servinglynk.hmis.warehouse.service.converter.ProjectConverter;
+import com.servinglynk.hmis.warehouse.service.exception.OrganizationNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
-import com.servinglynk.hmis.warehouse.SortedPagination;
 
 
 public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
-   public Project createProject(Project project,UUID organizationId,String caller){
+   public Project createProject(Project project,String caller){
 	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
 	   project.setProjectGroup(user.getProjectGroupEntity().getProjectGroupCode());
-	   
-	   com.servinglynk.hmis.warehouse.model.v2015.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
-	   
        com.servinglynk.hmis.warehouse.model.v2015.Project pProject = ProjectConverter.modelToEntity(project, null);
-       pProject.setOrganizationid(pOrganization);
+
+	   if(project.getOrganizationId()!=null){
+		   com.servinglynk.hmis.warehouse.model.v2015.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(project.getOrganizationId());
+		   if(pOrganization==null) throw new OrganizationNotFoundException();
+		   pProject.setOrganizationid(pOrganization);
+	   }
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pProject.setUserId(user.getId());
        daoFactory.getProjectDao().createProject(pProject);
@@ -37,7 +40,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        BaseProject baseProject = new BaseProject();
        BeanUtils.copyProperties(project, baseProject);
        baseProject.setSchemaYear(2015);
-       serviceFactory.getBaseProjectService().createProject(baseProject, organizationId, caller);
+       serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
        
        return project;
    }
