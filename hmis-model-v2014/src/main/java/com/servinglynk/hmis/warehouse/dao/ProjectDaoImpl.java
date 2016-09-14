@@ -80,15 +80,6 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 //						baseProject.setSchemaYear(2014);
 //						factory.getBaseProjectDao().createProject(baseProject);
 //					}
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
@@ -108,7 +99,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				}
     		  }
 			}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Project getModelObject(ExportDomain domain,Project project ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -123,7 +114,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			projectModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(projectModel, domain,project.getProjectID(),data.i+data.j);
+		hydrateCommonFields(projectModel, domain,project.getProjectID(),data,modelMap);
 		return projectModel;
 	}
 

@@ -61,15 +61,8 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Lastgradecompleted.class.getSimpleName(),Enrollment.class, lastGradeCompleted.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}					performSaveOrUpdate(model);
+					
+					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in LastGradeCompleted:::"+lastGradeCompleted.toString()+ " with exception"+e.getLocalizedMessage();
 					if (model != null) {
@@ -87,22 +80,23 @@ public class LastgradecompletedDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted getModelObject(ExportDomain domain,LastGradeCompleted lastGradeCompleted ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted lastGradeCompletedModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			lastGradeCompletedModel = (com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted) getModel(Lastgradecompleted.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class, lastGradeCompleted.getLastGradeCompletedID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted) getModel(Lastgradecompleted.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted.class, lastGradeCompleted.getLastGradeCompletedID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(lastGradeCompletedModel == null) {
-			lastGradeCompletedModel = new com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted();
-			lastGradeCompletedModel.setId(UUID.randomUUID());
-			lastGradeCompletedModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Lastgradecompleted();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(lastGradeCompletedModel, domain,lastGradeCompleted.getLastGradeCompletedID(),data.i+data.j);
-		return lastGradeCompletedModel;
+		hydrateCommonFields(model, domain,lastGradeCompleted.getLastGradeCompletedID(),data,modelMap);
+		
+		return model;
 	}
 }

@@ -67,7 +67,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				}
 			}
 	   }
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class.getSimpleName(), domain,exportEntity);
 	}
 
 	@Override
@@ -95,12 +95,12 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		if(entryrhspModel == null) {
 			entryrhspModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
 			entryrhspModel.setId(UUID.randomUUID());
-			entryrhspModel.setInserted(true);
+			entryrhspModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(entryrhspModel, domain,entryrhsp.getEntryRHSPID(),data.i+data.j);
+		hydrateCommonFields(entryrhspModel, domain,entryrhsp.getEntryRHSPID(),data,modelMap);
 		return entryrhspModel;
 	}
 

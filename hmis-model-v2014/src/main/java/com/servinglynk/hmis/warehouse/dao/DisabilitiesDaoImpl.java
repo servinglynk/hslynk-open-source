@@ -70,15 +70,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in Disabilities :"+disabilities.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -97,23 +88,24 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 		
 	public com.servinglynk.hmis.warehouse.model.v2014.Disabilities getModelObject(ExportDomain domain, Disabilities disabilities ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilitiesModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(disabilitiesModel == null) {
-			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
-			disabilitiesModel.setId(UUID.randomUUID());
-			disabilitiesModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(disabilitiesModel, domain,disabilities.getDisabilitiesID(),data.i+data.j);
-		return disabilitiesModel;
+		hydrateCommonFields(model, domain,disabilities.getDisabilitiesID(),data,modelMap);
+		
+		return model;
 	}
 	
 	   public com.servinglynk.hmis.warehouse.model.v2014.Disabilities createDisabilities(com.servinglynk.hmis.warehouse.model.v2014.Disabilities disabilities){

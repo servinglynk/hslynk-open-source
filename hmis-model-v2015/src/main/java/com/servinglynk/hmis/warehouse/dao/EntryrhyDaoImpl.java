@@ -151,7 +151,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 				}
 			}
 	  }
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Entryrhy.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Entryrhy getModelObject(ExportDomain domain, EntryRHY entryrhy ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -163,12 +163,12 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		if(entryrhyModel == null) {
 			entryrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
 			entryrhyModel.setId(UUID.randomUUID());
-			entryrhyModel.setInserted(true);
+			entryrhyModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(entryrhyModel, domain,entryrhy.getEntryRHYID(),data.i+data.j);
+		hydrateCommonFields(entryrhyModel, domain,entryrhy.getEntryRHYID(),data,modelMap);
 		return entryrhyModel;
 	}
 

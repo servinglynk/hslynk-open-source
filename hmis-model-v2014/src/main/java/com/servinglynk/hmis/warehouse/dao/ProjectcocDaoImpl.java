@@ -58,15 +58,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 				Project projectModel = (Project) getModel(Projectcoc.class.getSimpleName(),Project.class, projectCoc.getProjectID(),getProjectGroupCode(domain),true ,relatedModelMap, domain.getUpload().getId());
 				model.setProjectid(projectModel);
 				model.setExport(exportEntity);
-				if(!isFullRefresh(domain)) {
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null) {
-						modelMatch(hmisBaseModel, model);
-					}	
-					if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-						++data.j;
-					}
-				}
+				
 				performSaveOrUpdate(model);
 			} catch(Exception e) {
 				String errorMessage = "Failure in Projectcoc:::"+projectCoc.toString()+ " with exception"+e.getLocalizedMessage();
@@ -84,7 +76,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 				logger.error(errorMessage);
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, Projectcoc.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Projectcoc.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc getModelObject(ExportDomain domain,ProjectCoC projectcoc ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -99,7 +91,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			ProjectcocModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(ProjectcocModel, domain,projectcoc.getProjectCoCID(),data.i+data.j);
+		hydrateCommonFields(ProjectcocModel, domain,projectcoc.getProjectCoCID(),data,modelMap);
 		return ProjectcocModel;
 	}
 

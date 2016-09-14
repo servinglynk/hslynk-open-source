@@ -58,15 +58,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Rhybcpstatus.class.getSimpleName(),Enrollment.class,rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Rhybcpstatus:::"+rhybcpStatus.toString()+ " with exception"+e.getLocalizedMessage();
@@ -85,7 +77,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class.getSimpleName(), domain,exportEntity);
 
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus getModelObject(ExportDomain domain,RHYBCPStatus rhybcpstatus ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -100,7 +92,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 			rhybcpstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(rhybcpstatusModel, domain,rhybcpstatus.getRHYBCPStatusID(),data.i+data.j);
+		hydrateCommonFields(rhybcpstatusModel, domain,rhybcpstatus.getRHYBCPStatusID(),data,modelMap);
 		return rhybcpstatusModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){

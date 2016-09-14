@@ -55,15 +55,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 					Project project = (Project) getModel(Funder.class.getSimpleName(),Project.class, funder.getFunderID(), getProjectGroupCode(domain), false, relatedModelMap, domain.getUpload().getId());
 					model.setExport(exportEntity);
 					model.setProjectid(project);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Exception in Funder :" + funder.getFunderID() + ":: Exception" + e.getLocalizedMessage();
@@ -82,23 +74,24 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public  com.servinglynk.hmis.warehouse.model.v2014.Funder getModelObject(ExportDomain domain, Funder funder ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Funder funderModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Funder model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			funderModel = (com.servinglynk.hmis.warehouse.model.v2014.Funder) getModel(Funder.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Funder) getModel(Funder.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(funderModel == null) {
-			funderModel = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
-			funderModel.setId(UUID.randomUUID());
-			funderModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data.i+data.j);
-		return funderModel;
+		hydrateCommonFields(model, domain,funder.getFunderID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Funder createFunder(com.servinglynk.hmis.warehouse.model.v2014.Funder funder){
 	       funder.setId(UUID.randomUUID()); 

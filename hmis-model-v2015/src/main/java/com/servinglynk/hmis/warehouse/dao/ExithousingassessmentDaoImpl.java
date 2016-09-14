@@ -74,7 +74,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					}
 				}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment getModelObject(ExportDomain domain, ExitHousingAssessment exithousingassessment ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -86,12 +86,12 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		if(exithousingassessmentModel == null) {
 			exithousingassessmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();
 			exithousingassessmentModel.setId(UUID.randomUUID());
-			exithousingassessmentModel.setInserted(true);
+			exithousingassessmentModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exithousingassessmentModel, domain,exithousingassessment.getExitHousingAssessmentID(),data.i+data.j);
+		hydrateCommonFields(exithousingassessmentModel, domain,exithousingassessment.getExitHousingAssessmentID(),data,modelMap);
 		return exithousingassessmentModel;
 	}
 	@Override

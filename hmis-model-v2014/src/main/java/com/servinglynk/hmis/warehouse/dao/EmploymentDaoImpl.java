@@ -63,15 +63,6 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+employment.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -90,22 +81,23 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Employment getModelObject(ExportDomain domain, Employment employment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Employment employmentModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Employment model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			employmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(employmentModel == null) {
-			employmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
-			employmentModel.setId(UUID.randomUUID());
-			employmentModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(employmentModel, domain,employment.getEmploymentID(),data.i+data.j);
-		return employmentModel;
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
+		hydrateCommonFields(model, domain,employment.getEmploymentID(),data,modelMap);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2014.Employment employment){
 	       employment.setId(UUID.randomUUID()); 

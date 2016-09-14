@@ -70,7 +70,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				}
 			}
 	  }
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Entryssvf.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Entryssvf getModelObject(ExportDomain domain, EntrySSVF entryssvf ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -82,12 +82,12 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		if(entryssvfModel == null) {
 			entryssvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
 			entryssvfModel.setId(UUID.randomUUID());
-			entryssvfModel.setInserted(true);
+			entryssvfModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(entryssvfModel, domain,entryssvf.getEntrySSVFID(),data.i+data.j);
+		hydrateCommonFields(entryssvfModel, domain,entryssvf.getEntrySSVFID(),data,modelMap);
 		return entryssvfModel;
 	}
 

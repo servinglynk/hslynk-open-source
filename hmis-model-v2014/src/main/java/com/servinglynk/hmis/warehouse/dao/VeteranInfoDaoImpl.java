@@ -104,15 +104,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 					model.setClient(client);
 					model.setExport(exportEntity);
 					//vInfo.setUser(exportEntity.getUser());
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in veteranInfo:"+veteranInfo.getVeteranInfoID()+ ":: Exception" +e.getMessage();
@@ -131,7 +123,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo getModelObject(ExportDomain domain, VeteranInfo veteranInfo ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -146,7 +138,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 			veteranInfoModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(veteranInfoModel, domain,veteranInfo.getVeteranInfoID(),data.i+data.j);
+		hydrateCommonFields(veteranInfoModel, domain,veteranInfo.getVeteranInfoID(),data,modelMap);
 		return veteranInfoModel;
 	}
 

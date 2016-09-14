@@ -67,7 +67,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -79,12 +79,12 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		if(domesticviolenceModel == null) {
 			domesticviolenceModel = new com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence();
 			domesticviolenceModel.setId(UUID.randomUUID());
-			domesticviolenceModel.setInserted(true);
+			domesticviolenceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(domesticviolenceModel, domain,domesticViolence.getDomesticViolenceID(),data.i+data.j);
+		hydrateCommonFields(domesticviolenceModel, domain,domesticViolence.getDomesticViolenceID(),data,modelMap);
 		return domesticviolenceModel;
 	}
 

@@ -92,7 +92,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits.class.getSimpleName(), domain,exportEntity);
 
 	}
 
@@ -105,12 +105,12 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		if(noncashbenefitsModel == null) {
 			noncashbenefitsModel = new com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits();
 			noncashbenefitsModel.setId(UUID.randomUUID());
-			noncashbenefitsModel.setInserted(true);
+			noncashbenefitsModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(noncashbenefitsModel, domain,noncashbenefits.getNonCashBenefitsID(),data.i+data.j);
+		hydrateCommonFields(noncashbenefitsModel, domain,noncashbenefits.getNonCashBenefitsID(),data,modelMap);
 		return noncashbenefitsModel;
 	}
 	

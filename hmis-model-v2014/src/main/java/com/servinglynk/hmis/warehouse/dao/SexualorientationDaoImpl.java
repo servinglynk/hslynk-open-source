@@ -60,15 +60,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(sexualOrientation.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(sexualOrientation.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Sexualorientation:::"+sexualOrientation.toString()+ " with exception"+e.getLocalizedMessage();
@@ -87,7 +79,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation getModelObject(ExportDomain domain,SexualOrientation sexualorientation ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation SexualorientationModel = null;
@@ -101,7 +93,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 			SexualorientationModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(SexualorientationModel, domain,sexualorientation.getSexualOrientationID(),data.i+data.j);
+		hydrateCommonFields(SexualorientationModel, domain,sexualorientation.getSexualOrientationID(),data,modelMap);
 		return SexualorientationModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){

@@ -81,7 +81,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance getModelObject(ExportDomain domain, MedicalAssistance medicalassistance ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -93,12 +93,12 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		if(medicalassistanceModel == null) {
 			medicalassistanceModel = new com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance();
 			medicalassistanceModel.setId(UUID.randomUUID());
-			medicalassistanceModel.setInserted(true);
+			medicalassistanceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(medicalassistanceModel, domain,medicalassistance.getMedicalAssistanceID(),data.i+data.j);
+		hydrateCommonFields(medicalassistanceModel, domain,medicalassistance.getMedicalAssistanceID(),data,modelMap);
 		return medicalassistanceModel;
 	}
 	

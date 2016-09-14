@@ -118,7 +118,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public  com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -130,12 +130,12 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		if(clientVeteranInfoModel == null) {
 			clientVeteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
 			clientVeteranInfoModel.setId(UUID.randomUUID());
-			clientVeteranInfoModel.setInserted(true);
+			clientVeteranInfoModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(clientVeteranInfoModel, domain,clientVeteranInfo.getClientVeteranInfoID(),data.i+data.j);
+		hydrateCommonFields(clientVeteranInfoModel, domain,clientVeteranInfo.getClientVeteranInfoID(),data,modelMap);
 		return clientVeteranInfoModel;
 	}
 

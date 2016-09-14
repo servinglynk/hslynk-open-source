@@ -80,15 +80,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in Inventory:::"+inventory.toString()+ " with exception"+e.getLocalizedMessage();
@@ -107,23 +99,24 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Inventory getModelObject(ExportDomain domain,Inventory inventory ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Inventory inventoryModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Inventory model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			inventoryModel = (com.servinglynk.hmis.warehouse.model.v2014.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(inventoryModel == null) {
-			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
-			inventoryModel.setId(UUID.randomUUID());
-			inventoryModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(inventoryModel, domain,inventory.getInventoryID(),data.i+data.j);
-		return inventoryModel;
+		hydrateCommonFields(model, domain,inventory.getInventoryID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Inventory createInventory(com.servinglynk.hmis.warehouse.model.v2014.Inventory inventory){
 	       inventory.setId(UUID.randomUUID()); 

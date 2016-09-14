@@ -52,7 +52,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			}
 			logger.error(errorMessage);
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Export.class.getSimpleName(), domain, exportModel);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Export.class.getSimpleName(), domain, exportModel);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Export getModelObject(ExportDomain domain, Export export ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -64,10 +64,10 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		if(exportModel == null) {
 			exportModel = new com.servinglynk.hmis.warehouse.model.v2015.Export();
 			exportModel.setId(UUID.randomUUID());
-			exportModel.setInserted(true);
+			exportModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(exportModel, domain,export.getExportID(),data.i+data.j);
+		hydrateCommonFields(exportModel, domain,export.getExportID(),data,modelMap);
 		return exportModel;
 	}
 

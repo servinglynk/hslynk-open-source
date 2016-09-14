@@ -63,7 +63,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				performSaveOrUpdate(educationModel);
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Education getModelObject(ExportDomain domain, Education education ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Education educationModel = null;
@@ -74,12 +74,12 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		if(educationModel == null) {
 			educationModel = new com.servinglynk.hmis.warehouse.model.v2015.Education();
 			educationModel.setId(UUID.randomUUID());
-			educationModel.setInserted(true);
+			educationModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(educationModel, domain,education.getEducationID(),data.i+data.j);
+		hydrateCommonFields(educationModel, domain,education.getEducationID(),data,modelMap);
 		return educationModel;
 	}
 

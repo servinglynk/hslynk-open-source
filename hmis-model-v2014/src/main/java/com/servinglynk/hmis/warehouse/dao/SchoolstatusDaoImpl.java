@@ -64,15 +64,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(schoolStatus.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(schoolStatus.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in Schoolstatus:::"+schoolStatus.toString()+ " with exception"+e.getLocalizedMessage();
@@ -92,7 +84,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus getModelObject(ExportDomain domain,SchoolStatus schoolstatus ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus SchoolstatusModel = null;
@@ -106,7 +98,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 			SchoolstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(SchoolstatusModel, domain,schoolstatus.getSchoolStatusID(),data.i+data.j);
+		hydrateCommonFields(SchoolstatusModel, domain,schoolstatus.getSchoolStatusID(),data,modelMap);
 		return SchoolstatusModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){

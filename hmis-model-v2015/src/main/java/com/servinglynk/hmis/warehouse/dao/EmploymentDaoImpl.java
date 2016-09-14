@@ -77,7 +77,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), domain,exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), domain,exportEntity);
 		}
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Employment getModelObject(ExportDomain domain, Employment Employment ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -89,12 +89,12 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		if(employmentModel == null) {
 			employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
 			employmentModel.setId(UUID.randomUUID());
-			employmentModel.setInserted(true);
+			employmentModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(employmentModel, domain,Employment.getEmploymentID(),data.i+data.j);
+		hydrateCommonFields(employmentModel, domain,Employment.getEmploymentID(),data,modelMap);
 		return employmentModel;
 	}
 	@Override

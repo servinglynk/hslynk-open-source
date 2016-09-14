@@ -52,15 +52,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
 					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-					}
-					if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-						++data.j;
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -79,22 +71,23 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, Dateofengagement.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Dateofengagement.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	  public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement DateOfEngagement,Data data, Map<String,HmisBaseModel> modelMap) {
-		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagementModel = null;
+		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement model = null;
 		  if(!isFullRefresh(domain))
-			  dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(Dateofengagement.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, DateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			  model = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(Dateofengagement.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, DateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		  if(dateofengagementModel == null) {
-			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
-			dateofengagementModel.setId(UUID.randomUUID());
-			dateofengagementModel.setRecordToBeInserted(true);
+		  if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		  }
-		  hydrateCommonFields(dateofengagementModel, domain,DateOfEngagement.getDateOfEngagementID(),data.i+data.j);
-		  return dateofengagementModel;
+		  hydrateCommonFields(model, domain,DateOfEngagement.getDateOfEngagementID(),data,modelMap);
+		  
+		  return model;
       }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement dateofengagement){
 	       dateofengagement.setId(UUID.randomUUID()); 

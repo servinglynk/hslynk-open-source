@@ -56,15 +56,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Pathstatus.class.getSimpleName(),Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in PATHStatus:::"+pathStatus.toString()+ " with exception"+e.getLocalizedMessage();
@@ -97,7 +89,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 			PathstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(PathstatusModel, domain,pathstatus.getPathStatusID(),data.i+data.j);
+		hydrateCommonFields(PathstatusModel, domain,pathstatus.getPathStatusID(),data,modelMap);
 		return PathstatusModel;
 	}
 

@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -28,39 +30,33 @@ import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	private static final Logger logger = Logger.getLogger(ParentDaoImpl.class);
-	
-		/***
-		 * Populates the Bulk_upload_activity table with essential statistics for the bulk upload process.
-		 * @param i
-		 * @param u
-		 * @param className
-		 * @param domain
-		 * @param export
-		 */
-		public void hydrateBulkUploadActivityStaging(Long i, Long u,String className,ExportDomain domain,Export export ) {
-			try {
-				BulkUploadActivity activity = new BulkUploadActivity();
-				activity.setBulkUploadId(domain.getUpload().getId());
-				activity.setDateCreated(LocalDateTime.now());
-				activity.setDateUpdated(LocalDateTime.now());
-				activity.setTableName(className);
-				activity.setDeleted(false);
-				activity.setProjectGroupCode(domain.getUpload().getProjectGroupCode());
-				activity.setExport(export);
-				activity.setRecordsProcessed(i+u);
-				activity.setInserted(i);
-				activity.setUpdated(u);
-				activity.setDescription("Saving "+className +" to staging" );
-				insertOrUpdate(activity); 	
-				getCurrentSession().flush();
-		        getCurrentSession().clear();
-		        Long totalProcessed = i+u;
-		        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+i+" updates");
-			}catch(Exception e){
-				logger.warn(e.getCause());
-				// Want to eat exception here
-			}
-		}
+	/***
+	 * Populates the Bulk_upload_activity table with essential statistics for the bulk upload process.
+	 * @param i
+	 * @param u
+	 * @param className
+	 * @param domain
+	 * @param export
+	 */
+	public void hydrateBulkUploadActivityStaging(Long i, Long j , Long ignore,String className,ExportDomain domain,Export export ) {
+		BulkUploadActivity activity = new BulkUploadActivity();
+		activity.setBulkUploadId(domain.getUpload().getId());
+		activity.setDateCreated(LocalDateTime.now());
+		activity.setDateUpdated(LocalDateTime.now());
+		activity.setTableName(className);
+		activity.setDeleted(false);
+		activity.setProjectGroupCode(domain.getUpload().getProjectGroupCode());
+		activity.setExport(export);
+		activity.setRecordsProcessed(i+j+ignore);
+		activity.setInserted(i);
+		activity.setUpdated(j);
+		activity.setDescription("Saving "+className +" to staging" );
+		insertOrUpdate(activity); 		
+		getCurrentSession().flush();
+        getCurrentSession().clear();
+        Long totalProcessed = i+j+ignore;
+        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+j+" updates and "+ignore+ " are ignored");
+	}
 		/***
 		 * Gets the project group code for a Bulk Upload
 		 * @param domain
@@ -89,20 +85,81 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 * @param sourceId
 		 * @param i
 		 */
-	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Long i) {
+	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Data data,Map<String,HmisBaseModel> modelMap) {
 			String projectGroupCode = domain.getUpload().getProjectGroupCode();
 			baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 			baseModel.setActive(false);
+			baseModel.setSync(false);
 			HmisUser user = domain.getUpload().getUser();
 			if(user != null)
 				baseModel.setUserId(user.getId());
 			baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
 			// Lets write a logic to update if a recored with that source system Id already exists.
-		  if(i % batchSize() == 0 && i > 0) {
-              getCurrentSession().flush();
-              getCurrentSession().clear();
+		  if(data.i % batchSize() == 0 && data.i > 0) {
+			    getCurrentSession().flush();
+	            getCurrentSession().clear();
           }
+		  performMatch(domain, modelMap, baseModel, data);
 	    }
+	    protected void performMatch(ExportDomain domain, Map<String,HmisBaseModel> modelMap, HmisBaseModel model, Data data) {
+			if(!isFullRefresh(domain) && StringUtils.isNotBlank(model.getSourceSystemId()) && modelMap !=null && !modelMap.isEmpty()) {
+				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+				if(hmisBaseModel != null) {
+					modelMatch(hmisBaseModel, model);
+				}	
+				if(!model.isIgnored()) {
+					if(!model.isRecordToBoInserted()) {
+						data.j++;
+					}
+					if(model.isRecordToBoInserted()) {
+						data.i++;
+					}
+				}
+				if(model.isIgnored()) {
+					data.ignore++;
+				}
+			}else {
+				data.ignore++;
+			}
+		}
+	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel model) {
+			if(model.getDateUpdatedFromSource() ==null || modelFromDB.getDateUpdatedFromSource() == null) {
+				model.setIgnored(true);
+				return;
+			}
+			if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) == 0) {
+					model.setIgnored(true);	
+				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) > 0) {
+					model.setRecordToBeInserted(false); //record already inserted , We need to update this.
+				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) < 0) {
+						 // model = record in the file. modelFromDB = record in DB.
+						// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
+					// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
+					UUID id = UUID.randomUUID();
+					try {
+						Method method = modelFromDB.getClass().getDeclaredMethod("getId");
+						org.apache.commons.beanutils.BeanUtils.copyProperty(model, "parentId",UUID.fromString(method.invoke(modelFromDB).toString()));
+						org.apache.commons.beanutils.BeanUtils.setProperty(model, "id",id);
+						getCurrentSession().evict(modelFromDB);
+						getCurrentSession().update(modelFromDB);
+					    model.setRecordToBeInserted(true);
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+					
+				}
+		}
 	/***
 	 * Get a Model object with Source system ID and project group.
 	 * @param className
@@ -197,7 +254,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model) {
 		model.setDateUpdated(LocalDateTime.now());
-		if(!model.isInserted()) {
+		if(!model.isRecordToBoInserted()) {
 			getCurrentSession().update(model);
 		}else{
 			model.setDateCreated(LocalDateTime.now());

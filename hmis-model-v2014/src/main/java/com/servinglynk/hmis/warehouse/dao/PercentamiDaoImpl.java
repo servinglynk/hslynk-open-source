@@ -53,15 +53,6 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Percentami.class.getSimpleName(),Enrollment.class, percentAMI.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					 String errorMessage = "Failure in Percentami:::"+percentAMI.toString()+ " with exception"+e.getLocalizedMessage();
@@ -80,7 +71,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, Percentami.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Percentami.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Percentami getModelObject(ExportDomain domain,PercentAMI percentami ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Percentami percentamiModel = null;
@@ -94,7 +85,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 			percentamiModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(percentamiModel, domain,percentami.getPercentAMIID(),data.i+data.j);
+		hydrateCommonFields(percentamiModel, domain,percentami.getPercentAMIID(),data,modelMap);
 		return percentamiModel;
 	}
 	 public com.servinglynk.hmis.warehouse.model.v2014.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami){

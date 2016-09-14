@@ -74,7 +74,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), domain,exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus.class.getSimpleName(), domain,exportEntity);
 		}
 
 	}
@@ -88,12 +88,12 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		if(rhybcpStatusModel == null) {
 			rhybcpStatusModel = new com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus();
 			rhybcpStatusModel.setId(UUID.randomUUID());
-			rhybcpStatusModel.setInserted(true);
+			rhybcpStatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(rhybcpStatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),data.i+data.j);
+		hydrateCommonFields(rhybcpStatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),data,modelMap);
 		return rhybcpStatusModel;
 	}
 	

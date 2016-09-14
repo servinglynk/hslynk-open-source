@@ -57,15 +57,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(Connectionwithsoar.class.getSimpleName(),Exit.class, connectionWithSOAR.getExitID(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+connectionWithSOAR.getConnectionWithSOARID()+ ":: Exception" +e.getLocalizedMessage();
@@ -85,22 +77,23 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 				
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, Connectionwithsoar.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Connectionwithsoar.class.getSimpleName(), domain, exportEntity);
 	}
 	public  com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar getModelObject(ExportDomain domain, ConnectionWithSOAR connectionWithSOAR ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar connectionwithsoarModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			connectionwithsoarModel = (com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar) getModel(Connectionwithsoar.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, connectionWithSOAR.getConnectionWithSOARID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar) getModel(Connectionwithsoar.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, connectionWithSOAR.getConnectionWithSOARID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(connectionwithsoarModel == null) {
-			connectionwithsoarModel = new com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar();
-			connectionwithsoarModel.setId(UUID.randomUUID());
-			connectionwithsoarModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(connectionwithsoarModel, domain,connectionWithSOAR.getConnectionWithSOARID(),data.i+data.j);
-		return connectionwithsoarModel;
+		hydrateCommonFields(model, domain,connectionWithSOAR.getConnectionWithSOARID(),data,modelMap);
+		
+		return model;
 	}
 	
 

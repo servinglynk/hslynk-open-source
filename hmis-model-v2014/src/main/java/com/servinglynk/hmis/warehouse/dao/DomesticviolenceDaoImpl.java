@@ -33,7 +33,6 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
-		Long i=new Long(0L);
 		Data data=new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Domesticviolence.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
@@ -53,15 +52,6 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(domesticViolence.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					performSaveOrUpdate(model);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+domesticViolence.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -81,23 +71,24 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				
 			}
 		}
-
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolenceModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			domesticViolenceModel = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(Domesticviolence.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence) getModel(Domesticviolence.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domesticViolenceModel == null) {
-			domesticViolenceModel = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();
-			domesticViolenceModel.setId(UUID.randomUUID());
-			domesticViolenceModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(domesticViolenceModel, domain,domesticViolence.getDomesticViolenceID(),data.i+data.j);
-		return domesticViolenceModel;
+		hydrateCommonFields(model, domain,domesticViolence.getDomesticViolenceID(),data,modelMap);
+		
+		return model;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence createDomesticViolence(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence domesticViolence){

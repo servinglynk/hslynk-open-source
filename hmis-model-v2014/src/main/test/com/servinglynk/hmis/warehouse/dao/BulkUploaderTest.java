@@ -57,7 +57,7 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
+		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -70,8 +70,8 @@ public class BulkUploaderTest {
 	{
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
-		//bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_47._old.xml");
+	//	bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
+		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4.0.xml");
 		bullkUpload.setId(3L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());

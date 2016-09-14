@@ -78,7 +78,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Contact.class.getSimpleName(), domain, exportEntity);
 	}
 
 
@@ -106,12 +106,12 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		if(contactModel == null) {
 			contactModel = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
 			contactModel.setId(UUID.randomUUID());
-			contactModel.setInserted(true);
+			contactModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(contactModel, domain,Contact.getContactID(),data.i+data.j);
+		hydrateCommonFields(contactModel, domain,Contact.getContactID(),data,modelMap);
 		return contactModel;
 	}
 

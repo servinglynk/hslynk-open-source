@@ -67,7 +67,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 			}
 
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Site.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Site.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Site getModelObject(ExportDomain domain, Site site ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -79,12 +79,12 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		if(SiteModel == null) {
 			SiteModel = new com.servinglynk.hmis.warehouse.model.v2015.Site();
 			SiteModel.setId(UUID.randomUUID());
-			SiteModel.setInserted(true);
+			SiteModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(SiteModel, domain,site.getSiteID(),data.i+data.j);
+		hydrateCommonFields(SiteModel, domain,site.getSiteID(),data,modelMap);
 		return SiteModel;
 	}
 	

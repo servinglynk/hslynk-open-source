@@ -133,15 +133,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 						}
 					}
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Exception in Enrollment:" + enrollment.getProjectEntryID() + "Exception ::" + e.getLocalizedMessage();
@@ -159,7 +150,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i, data.j, Enrollment.class.getSimpleName(), domain, exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Enrollment.class.getSimpleName(), domain, exportEntity);
 		}
 	}
 	
@@ -175,7 +166,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			enrollmentModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data.i+data.j);
+		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data,modelMap);
+		
 		return enrollmentModel;
 	}
 	

@@ -56,15 +56,7 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),Exit.class, familyReunification.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+familyReunification.getFamilyReunificationID()+  ":: Exception" +e.getLocalizedMessage();
@@ -83,22 +75,23 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification getModelObject(ExportDomain domain, FamilyReunification familyReunification ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunificationModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Familyreunification model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			familyReunificationModel = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(familyReunificationModel == null) {
-			familyReunificationModel = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
-			familyReunificationModel.setId(UUID.randomUUID());
-			familyReunificationModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(familyReunificationModel, domain,familyReunification.getFamilyReunificationID(),data.i+data.j);
-		return familyReunificationModel;
+		hydrateCommonFields(model, domain,familyReunification.getFamilyReunificationID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification createFamilyReunification(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunification){
 	       familyReunification.setId(UUID.randomUUID()); 

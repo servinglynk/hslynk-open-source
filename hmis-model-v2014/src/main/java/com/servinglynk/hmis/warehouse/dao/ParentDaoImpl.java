@@ -6,10 +6,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -23,7 +21,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
@@ -31,7 +28,6 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.BulkUploadActivity;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.Export;
@@ -52,7 +48,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 * @param domain
 		 * @param export
 		 */
-		public void hydrateBulkUploadActivityStaging(Long i, Long u,String className,ExportDomain domain,Export export ) {
+		public void hydrateBulkUploadActivityStaging(Long i, Long j , Long ignore,String className,ExportDomain domain,Export export ) {
 			BulkUploadActivity activity = new BulkUploadActivity();
 			activity.setBulkUploadId(domain.getUpload().getId());
 			activity.setDateCreated(LocalDateTime.now());
@@ -61,15 +57,15 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			activity.setDeleted(false);
 			activity.setProjectGroupCode(domain.getUpload().getProjectGroupCode());
 			activity.setExport(export);
-			activity.setRecordsProcessed(i+u);
+			activity.setRecordsProcessed(i+j+ignore);
 			activity.setInserted(i);
-			activity.setUpdated(u);
+			activity.setUpdated(j);
 			activity.setDescription("Saving "+className +" to staging" );
 			insertOrUpdate(activity); 		
 			getCurrentSession().flush();
 	        getCurrentSession().clear();
-	        Long totalProcessed = i+u;
-	        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+i+" updates");
+	        Long totalProcessed = i+j+ignore;
+	        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+j+" updates and "+ignore+ " are ignored");
 		}
 		/***
 		 * Gets the project group code for a Bulk Upload
@@ -94,36 +90,41 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		}
 		
 		protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel model) {
-				if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) == 0) {
+			if(model.getDateUpdatedFromSource() ==null || modelFromDB.getDateUpdatedFromSource() == null) {
+				model.setIgnored(true);
+				return;
+			}
+			if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) == 0) {
 					model.setIgnored(true);	
 				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) > 0) {
 					model.setRecordToBeInserted(false); //record already inserted , We need to update this.
 				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) < 0) {
-					 Method method;
-					try {
 						 // model = record in the file. modelFromDB = record in DB.
 						// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
-						method = model.getClass().getDeclaredMethod("getId");
-						modelFromDB.setParentId(UUID.fromString(method.invoke(model).toString()));
+					// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
+					UUID id = UUID.randomUUID();
+					try {
+						Method method = modelFromDB.getClass().getDeclaredMethod("getId");
+						org.apache.commons.beanutils.BeanUtils.copyProperty(model, "parentId",UUID.fromString(method.invoke(modelFromDB).toString()));
+						org.apache.commons.beanutils.BeanUtils.setProperty(model, "id",id);
 						getCurrentSession().evict(modelFromDB);
 						getCurrentSession().update(modelFromDB);
 					    model.setRecordToBeInserted(true);
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					} catch (NoSuchMethodException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SecurityException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
+				
+					
 				}
 		}
 		/**
@@ -133,7 +134,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 * @param sourceId
 		 * @param i
 		 */
-	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Long i) {
+	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Data data,Map<String,HmisBaseModel> modelMap) {
 			String projectGroupCode = domain.getUpload().getProjectGroupCode();
 			baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 			baseModel.setActive(false);
@@ -143,10 +144,11 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				baseModel.setUserId(user.getId());
 			baseModel.setSourceSystemId(sourceId !=null ? sourceId.trim(): null);
 			// Lets write a logic to update if a recored with that source system Id already exists.
-		  if(i % batchSize() == 0 && i > 0) {
+		  if(data.i % batchSize() == 0 && data.i > 0) {
 			    getCurrentSession().flush();
 	            getCurrentSession().clear();
           }
+		  performMatch(domain, modelMap, baseModel, data);
 	    }
 	/***
 	 * Get a Model object with Source system ID and project group.
@@ -238,6 +240,27 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			}
 		}
 		return resultsMap;
+	}
+	protected void performMatch(ExportDomain domain, Map<String,HmisBaseModel> modelMap, HmisBaseModel model, Data data) {
+		if(!isFullRefresh(domain) && StringUtils.isNotBlank(model.getSourceSystemId()) && modelMap !=null && !modelMap.isEmpty()) {
+			HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
+			if(hmisBaseModel != null) {
+				modelMatch(hmisBaseModel, model);
+			}	
+			if(!model.isIgnored()) {
+				if(!model.isRecordToBoInserted()) {
+					data.j++;
+				}
+				if(model.isRecordToBoInserted()) {
+					data.i++;
+				}
+			}
+			if(model.isIgnored()) {
+				data.ignore++;
+			}
+		}else {
+			data.ignore++;
+		}
 	}
 	/***
 	 * Perform a Save or Update depending on the pojo.

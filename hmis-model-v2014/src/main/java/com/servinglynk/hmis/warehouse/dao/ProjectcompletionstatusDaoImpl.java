@@ -59,15 +59,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(Projectcompletionstatus.class.getSimpleName(),Exit.class, projectCompletionStatus.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					 String errorMessage = "Failure in Projectcompletionstatus:::"+projectCompletionStatus.toString()+ " with exception"+e.getLocalizedMessage();
@@ -86,7 +78,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus getModelObject(ExportDomain domain,ProjectCompletionStatus projectcompletionstatus ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectcompletionstatusModel = null;
@@ -100,7 +92,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 			projectcompletionstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(projectcompletionstatusModel, domain,projectcompletionstatus.getProjectCompletionStatusID(),data.i+data.j);
+		hydrateCommonFields(projectcompletionstatusModel, domain,projectcompletionstatus.getProjectCompletionStatusID(),data,modelMap);
 		return projectcompletionstatusModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus){

@@ -57,15 +57,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 						Exit exit = (Exit) getModel(Exithousingassessment.class.getSimpleName(),Exit.class,exitHousingAssessment.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						model.setExitid(exit);
 						model.setExport(exportEntity);
-						if(!isFullRefresh(domain)) {
-							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-							if(hmisBaseModel !=null) {
-								modelMatch(hmisBaseModel, model);
-							}
-							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-								++data.j;
-							}
-						}
+						
 						performSaveOrUpdate(model);
 					} catch(Exception e) {
 						String errorMessage = "Exception in:"+exitHousingAssessment.getExitHousingAssessmentID()+  ":: Exception" +e.getLocalizedMessage();
@@ -85,22 +77,23 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 				
 				}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment getModelObject(ExportDomain domain, ExitHousingAssessment exitHousingAssessment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment ExitHousingAssessmentModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ExitHousingAssessmentModel = (com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment) getModel(Exithousingassessment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class, exitHousingAssessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment) getModel(Exithousingassessment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class, exitHousingAssessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(ExitHousingAssessmentModel == null) {
-			ExitHousingAssessmentModel = new com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment();
-			ExitHousingAssessmentModel.setId(UUID.randomUUID());
-			ExitHousingAssessmentModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(ExitHousingAssessmentModel, domain,exitHousingAssessment.getExitHousingAssessmentID(),data.i+data.j);
-		return ExitHousingAssessmentModel;
+		hydrateCommonFields(model, domain,exitHousingAssessment.getExitHousingAssessmentID(),data,modelMap);
+		
+		return model;
 	}
 }

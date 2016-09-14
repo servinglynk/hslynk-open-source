@@ -72,7 +72,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 }
 			 }
 		 }
-		 hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), domain,exportEntity);
+		 hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Organization.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Organization getModelObject(ExportDomain domain, Organization organization ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -84,12 +84,12 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		if(organizationModel == null) {
 			organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();
 			organizationModel.setId(UUID.randomUUID());
-			organizationModel.setInserted(true);
+			organizationModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(organizationModel, domain,organization.getOrganizationID(),data.i+data.j);
+		hydrateCommonFields(organizationModel, domain,organization.getOrganizationID(),data,modelMap);
 		return organizationModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){

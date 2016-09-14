@@ -61,15 +61,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 					Enrollment enrollment = (Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(),Enrollment.class, services.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollment);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in services:::"+services.toString()+ " with exception"+e.getLocalizedMessage();
@@ -88,7 +80,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Services getModelObject(ExportDomain domain,Services Services ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = null;
@@ -102,7 +94,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 			servicesModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(servicesModel, domain,Services.getServicesID(),data.i+data.j);
+		hydrateCommonFields(servicesModel, domain,Services.getServicesID(),data,modelMap);
 		return servicesModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Services createServices(com.servinglynk.hmis.warehouse.model.v2014.Services services){

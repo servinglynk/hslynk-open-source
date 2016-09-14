@@ -61,15 +61,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(LastPermAddress.class.getSimpleName(),Enrollment.class, lastPermanentAddress.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}					
+									
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in LastPermAddress:::"+lastPermanentAddress.toString()+ " with exception"+e.getLocalizedMessage();
@@ -88,23 +80,24 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress getModelObject(ExportDomain domain,LastPermanentAddress lastPermAddress ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermAddressModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			lastPermAddressModel = (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) getModel(LastPermAddress.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermAddress.getLastPermanentAddressID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) getModel(LastPermAddress.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermAddress.getLastPermanentAddressID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(lastPermAddressModel == null) {
-			lastPermAddressModel = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
-			lastPermAddressModel.setId(UUID.randomUUID());
-			lastPermAddressModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(lastPermAddressModel, domain,lastPermAddress.getLastPermanentAddressID(),data.i+data.j);
-		return lastPermAddressModel;
+		hydrateCommonFields(model, domain,lastPermAddress.getLastPermanentAddressID(),data,modelMap);
+		
+		return model;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress createLastPermanentAddress(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress lastPermanentAddress){
 			       lastPermanentAddress.setId(UUID.randomUUID()); 

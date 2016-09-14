@@ -71,7 +71,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), domain,exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class.getSimpleName(), domain,exportEntity);
 		}
 	}
 
@@ -84,12 +84,12 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		if(residentialmoveindateModel == null) {
 			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate();
 			residentialmoveindateModel.setId(UUID.randomUUID());
-			residentialmoveindateModel.setInserted(true);
+			residentialmoveindateModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data.i+data.j);
+		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data,modelMap);
 		return residentialmoveindateModel;
 	}
 	@Override

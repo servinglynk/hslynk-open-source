@@ -56,15 +56,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollment = (Enrollment) getModel(Residentialmoveindate.class.getSimpleName(),Enrollment.class,residentialMoveInDate.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExport(exportEntity);
 					model.setEnrollmentid(enrollment);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in ResidentialMoveInDate:::"+residentialMoveInDate.toString()+ " with exception"+e.getLocalizedMessage();
@@ -83,7 +75,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, Residentialmoveindate.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Residentialmoveindate.class.getSimpleName(), domain, exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate getModelObject(ExportDomain domain,ResidentialMoveInDate residentialmoveindate ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -98,7 +90,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 			residentialmoveindateModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data.i+data.j);
+		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data,modelMap);
 		return residentialmoveindateModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate){

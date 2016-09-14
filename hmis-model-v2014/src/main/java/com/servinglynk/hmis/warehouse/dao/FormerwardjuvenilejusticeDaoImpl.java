@@ -60,15 +60,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardJuvenileJustice.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch (Exception e) {
 					String errorMessage = "Exception in:"+formerWardJuvenileJustice.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -87,22 +79,23 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice getModelObject(ExportDomain domain, FormerWardJuvenileJustice formerWardJuvenileJustice ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice formerwardjuvenilejusticeModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			formerwardjuvenilejusticeModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice) getModel(Formerwardjuvenilejustice.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice) getModel(Formerwardjuvenilejustice.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice.class, formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(formerwardjuvenilejusticeModel == null) {
-			formerwardjuvenilejusticeModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();
-			formerwardjuvenilejusticeModel.setId(UUID.randomUUID());
-			formerwardjuvenilejusticeModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(formerwardjuvenilejusticeModel, domain,formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(),data.i+data.j);
-		return formerwardjuvenilejusticeModel;
+		hydrateCommonFields(model, domain,formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(),data,modelMap);
+		
+		return model;
 	}
 }

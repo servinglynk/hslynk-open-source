@@ -72,7 +72,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Funder.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Funder getModelObject(ExportDomain domain, Funder funder ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -84,12 +84,12 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		if(funderModel == null) {
 			funderModel = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
 			funderModel.setId(UUID.randomUUID());
-			funderModel.setInserted(true);
+			funderModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data.i+data.j);
+		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data,modelMap);
 		return funderModel;
 	}
 

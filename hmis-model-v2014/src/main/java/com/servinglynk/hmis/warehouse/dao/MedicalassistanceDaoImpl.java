@@ -65,15 +65,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(medicalAssistance.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}					
+									
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in MedicalAssistance:::"+medicalAssistance.toString()+ " with exception"+e.getLocalizedMessage();
@@ -95,19 +87,20 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance getModelObject(ExportDomain domain,MedicalAssistance medicalassistance ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance MedicalassistanceModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			MedicalassistanceModel = (com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance) getModel(Medicalassistance.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance) getModel(Medicalassistance.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(MedicalassistanceModel == null) {
-			MedicalassistanceModel = new com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance();
-			MedicalassistanceModel.setId(UUID.randomUUID());
-			MedicalassistanceModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(MedicalassistanceModel, domain,medicalassistance.getMedicalAssistanceID(),data.i+data.j);
-		return MedicalassistanceModel;
+		hydrateCommonFields(model, domain,medicalassistance.getMedicalAssistanceID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance createMedicalassistance(com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance medicalassistance){
 	       medicalassistance.setId(UUID.randomUUID()); 

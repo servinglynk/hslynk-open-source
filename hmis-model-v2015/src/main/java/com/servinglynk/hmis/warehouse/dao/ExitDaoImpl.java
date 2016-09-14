@@ -87,7 +87,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				}
 			 }
 			}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Exit.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Exit.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Exit getModelObject(ExportDomain domain, Exit exit ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -99,12 +99,12 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		if(exitModel == null) {
 			exitModel = new com.servinglynk.hmis.warehouse.model.v2015.Exit();
 			exitModel.setId(UUID.randomUUID());
-			exitModel.setInserted(true);
+			exitModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exitModel, domain,exit.getExitID(),data.i+data.j);
+		hydrateCommonFields(exitModel, domain,exit.getExitID(),data,modelMap);
 		return exitModel;
 	}
 

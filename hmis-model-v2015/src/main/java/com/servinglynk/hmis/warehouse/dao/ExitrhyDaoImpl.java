@@ -84,7 +84,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Exitrhy.class.getSimpleName(), domain,exportEntity);
 	}
 
 	@Override
@@ -111,12 +111,12 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		if(exitrhyModel == null) {
 			exitrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
 			exitrhyModel.setId(UUID.randomUUID());
-			exitrhyModel.setInserted(true);
+			exitrhyModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exitrhyModel, domain,exitrhy.getExitRHYID(),data.i+data.j);
+		hydrateCommonFields(exitrhyModel, domain,exitrhy.getExitRHYID(),data,modelMap);
 		return exitrhyModel;
 	}
 	

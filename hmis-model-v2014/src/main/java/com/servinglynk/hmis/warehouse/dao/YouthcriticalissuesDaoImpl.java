@@ -109,15 +109,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 					model.setEnrollmentid(enrollmentModel);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(youthCriticalIssues.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(youthCriticalIssues.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in youthCriticalIssues:"+youthCriticalIssues.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -136,7 +128,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues getModelObject(ExportDomain domain, YouthCriticalIssues youthcriticalissues ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -151,7 +143,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 			youthcriticalissuesModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(youthcriticalissuesModel, domain,youthcriticalissues.getYouthCriticalIssuesID(),data.i+data.j);
+		hydrateCommonFields(youthcriticalissuesModel, domain,youthcriticalissues.getYouthCriticalIssuesID(),data,modelMap);
 		return youthcriticalissuesModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){

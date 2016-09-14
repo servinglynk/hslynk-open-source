@@ -77,7 +77,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				}
 			}
       	  }
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class.getSimpleName(), domain, exportEntity);
 		}
 
 
@@ -95,12 +95,12 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		if(healthStatusModel == null) {
 			healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2015.HealthStatus();
 			healthStatusModel.setId(UUID.randomUUID());
-			healthStatusModel.setInserted(true);
+			healthStatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(healthStatusModel, domain,HealthStatus.getHealthStatusID(),data.i+data.j);
+		hydrateCommonFields(healthStatusModel, domain,HealthStatus.getHealthStatusID(),data,modelMap);
 		return healthStatusModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2015.HealthStatus HealthStatus){

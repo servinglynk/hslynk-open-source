@@ -154,7 +154,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Client.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	
@@ -165,7 +165,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel,data);
-		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data.i+data.j);
+		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data,modelMap);
 		return clientModel;
 	}
 	
@@ -181,7 +181,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		if(clientModel == null) {
 			clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
 			clientModel.setId(UUID.randomUUID());
-			clientModel.setInserted(true);
+			clientModel.setRecordToBeInserted(true);
 			++data.i;
 		} else{
 		  ++data.j;

@@ -92,15 +92,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 						model.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
 						model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getDataCollectionStage())));
 						model.setExport(exportEntity);
-						if(!isFullRefresh(domain)) {
-							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-							if(hmisBaseModel !=null) {
-								modelMatch(hmisBaseModel, model);
-							}	
-							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-								++data.j;
-							}
-						}
+						
 						performSaveOrUpdate(model);
 					}catch(Exception e) {
 						String errorMessage = "Exception in:"+healthInsurance.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -119,23 +111,24 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					}
 			  }
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class.getSimpleName(), domain, exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class.getSimpleName(), domain, exportEntity);
 		}
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance getModelObject(ExportDomain domain,HealthInsurance healthInsurance ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance healthinsuranceModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			healthinsuranceModel = (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) getModel(Healthinsurance.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) getModel(Healthinsurance.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(healthinsuranceModel == null) {
-			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();
-			healthinsuranceModel.setId(UUID.randomUUID());
-			healthinsuranceModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(healthinsuranceModel, domain,healthInsurance.getHealthInsuranceID(),data.i+data.j);
-		return healthinsuranceModel;
+		hydrateCommonFields(model, domain,healthInsurance.getHealthInsuranceID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance createHealthInsurance(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance healthInsurance){
 	       healthInsurance.setId(UUID.randomUUID()); 

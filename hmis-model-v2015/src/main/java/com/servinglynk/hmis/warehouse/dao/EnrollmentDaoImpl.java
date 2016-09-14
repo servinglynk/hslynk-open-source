@@ -128,7 +128,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -140,12 +140,12 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		if(enrollmentModel == null) {
 			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Enrollment();
 			enrollmentModel.setId(UUID.randomUUID());
-			enrollmentModel.setInserted(true);
+			enrollmentModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data.i+data.j);
+		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data,modelMap);
 		return enrollmentModel;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Enrollment getEnrollmentById(UUID enrollmentId) {

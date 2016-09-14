@@ -62,15 +62,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 					model.setEnrollmentid(enrollmentModel);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(formerWardChildWelfare.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in:"+formerWardChildWelfare.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -89,23 +81,24 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare getModelObject(ExportDomain domain, FormerWardChildWelfare formerWardChildWelfare ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerwardchildwelfareModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			formerwardchildwelfareModel = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare) getModel(Formerwardchildwelfare.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class, formerWardChildWelfare.getFormerWardChildWelfareID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare) getModel(Formerwardchildwelfare.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare.class, formerWardChildWelfare.getFormerWardChildWelfareID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(formerwardchildwelfareModel == null) {
-			formerwardchildwelfareModel = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
-			formerwardchildwelfareModel.setId(UUID.randomUUID());
-			formerwardchildwelfareModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(formerwardchildwelfareModel, domain,formerWardChildWelfare.getFormerWardChildWelfareID(),data.i+data.j);
-		return formerwardchildwelfareModel;
+		hydrateCommonFields(model, domain,formerWardChildWelfare.getFormerWardChildWelfareID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare createFormerWardChildWelfare(com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare formerWardChildWelfare){
 	       formerWardChildWelfare.setId(UUID.randomUUID()); 

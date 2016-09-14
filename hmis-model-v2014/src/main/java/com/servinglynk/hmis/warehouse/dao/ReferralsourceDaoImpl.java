@@ -60,15 +60,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(referralSource.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(referralSource.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in ReferralSource:::"+referralSource.toString()+ " with exception"+e.getLocalizedMessage();
@@ -87,7 +79,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, Referralsource.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Referralsource.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource getModelObject(ExportDomain domain,ReferralSource referralsource ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsourceModel = null;
@@ -101,7 +93,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 			referralsourceModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(referralsourceModel, domain,referralsource.getReferralSourceID(),data.i+data.j);
+		hydrateCommonFields(referralsourceModel, domain,referralsource.getReferralSourceID(),data,modelMap);
 		return referralsourceModel;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource createReferralsource(com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsource){

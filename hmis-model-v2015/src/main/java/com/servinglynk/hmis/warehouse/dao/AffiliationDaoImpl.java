@@ -66,7 +66,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					}
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class.getSimpleName(), domain, exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class.getSimpleName(), domain, exportEntity);
 		}
 
 		
@@ -79,12 +79,12 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			if(affiliationModel == null) {
 				affiliationModel = new com.servinglynk.hmis.warehouse.model.v2015.Affiliation();
 				affiliationModel.setId(UUID.randomUUID());
-				affiliationModel.setInserted(true);
+				affiliationModel.setRecordToBeInserted(true);
 				++data.i;
 			}else{
 				++data.j;
 			}
-			hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),data.i+data.j);
+			hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),data,modelMap);
 			return affiliationModel;
 		}
 

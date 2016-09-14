@@ -70,7 +70,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				}
 			}
 	}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Coc.class.getSimpleName(), domain, exportEntity);
 	
 	}
 	
@@ -83,12 +83,12 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		if(CocModel == null) {
 			CocModel = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
 			CocModel.setId(UUID.randomUUID());
-			CocModel.setInserted(true);
+			CocModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(CocModel, domain,coc.getCoCCode(),data.i+data.j);
+		hydrateCommonFields(CocModel, domain,coc.getCoCCode(),data,modelMap);
 		return CocModel;
 	}
 

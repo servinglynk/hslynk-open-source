@@ -72,7 +72,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition getModelObject(ExportDomain domain, HousingAssessmentDisposition housingassessmentdisposition ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -84,12 +84,12 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		if(housingassessmentdispositionModel == null) {
 			housingassessmentdispositionModel = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();
 			housingassessmentdispositionModel.setId(UUID.randomUUID());
-			housingassessmentdispositionModel.setInserted(true);
+			housingassessmentdispositionModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(housingassessmentdispositionModel, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data.i+data.j);
+		hydrateCommonFields(housingassessmentdispositionModel, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data,modelMap);
 		return housingassessmentdispositionModel;
 	}
 	@Override

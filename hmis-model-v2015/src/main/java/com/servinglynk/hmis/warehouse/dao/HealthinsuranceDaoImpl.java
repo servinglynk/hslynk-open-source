@@ -106,7 +106,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance.class.getSimpleName(), domain, exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance getModelObject(ExportDomain domain, HealthInsurance healthinsurance ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -118,12 +118,12 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		if(healthinsuranceModel == null) {
 			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance();
 			healthinsuranceModel.setId(UUID.randomUUID());
-			healthinsuranceModel.setInserted(true);
+			healthinsuranceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(healthinsuranceModel, domain,healthinsurance.getHealthInsuranceID(),data.i+data.j);
+		hydrateCommonFields(healthinsuranceModel, domain,healthinsurance.getHealthInsuranceID(),data,modelMap);
 		return healthinsuranceModel;
 	}
 

@@ -64,15 +64,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Exit.class.getSimpleName(),Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in:"+exit.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -91,7 +83,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Exit getModelObject(ExportDomain domain, Exit Exit ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = null;
@@ -105,7 +97,8 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			exitModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(exitModel, domain,Exit.getExitID(),data.i+data.j);
+		hydrateCommonFields(exitModel, domain,Exit.getExitID(),data,modelMap);
+		
 		return exitModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Exit createExit(com.servinglynk.hmis.warehouse.model.v2014.Exit exit){

@@ -65,15 +65,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			Validator validator = (Validator) factory.getValidator();
 			//Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validateProperty(sourceModel, "manufacturer");
 			Set<ConstraintViolation<com.servinglynk.hmis.warehouse.model.v2014.Source>> constraintViolations = validator.validate(model);
-			if(!isFullRefresh(domain)) {
-				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-				if(hmisBaseModel !=null) {
-					modelMatch(hmisBaseModel, model);
-				}	
-				if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-					++data.j;
-				}
-			}
+			
 			if(constraintViolations.isEmpty()){
 				performSaveOrUpdate(model);	
 			}
@@ -93,7 +85,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			}
 			logger.error(errorMessage);
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain, null);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Source.class.getSimpleName(), domain, null);
 	}
 	
 	
@@ -109,7 +101,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data.i+data.j);
+		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data,modelMap);
 		return sourceModel;
 	}
 

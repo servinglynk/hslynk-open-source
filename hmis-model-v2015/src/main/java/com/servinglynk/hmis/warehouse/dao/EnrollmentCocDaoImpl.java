@@ -79,7 +79,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getModelObject(ExportDomain domain, EnrollmentCoC enrollmentCoc ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -91,12 +91,12 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		if(enrollmentCocModel == null) {
 			enrollmentCocModel = new com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc();
 			enrollmentCocModel.setId(UUID.randomUUID());
-			enrollmentCocModel.setInserted(true);
+			enrollmentCocModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data.i+data.j);
+		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data,modelMap);
 		return enrollmentCocModel;
 	}
 	@Override

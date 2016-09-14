@@ -76,15 +76,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Failure in Noncashbenefits:::"+nonCashBenefits.toString()+ " with exception"+e.getLocalizedMessage();
@@ -106,19 +98,20 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits getModelObject(ExportDomain domain,NonCashBenefits noncashbenefits ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits NoncashbenefitsModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			NoncashbenefitsModel = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(Noncashbenefits.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(Noncashbenefits.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(NoncashbenefitsModel == null) {
-			NoncashbenefitsModel = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
-			NoncashbenefitsModel.setId(UUID.randomUUID());
-			NoncashbenefitsModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(NoncashbenefitsModel, domain,noncashbenefits.getNonCashBenefitsID(),data.i+data.j);
-		return NoncashbenefitsModel;
+		hydrateCommonFields(model, domain,noncashbenefits.getNonCashBenefitsID(),data,modelMap);
+		
+		return model;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits noncashbenefits){

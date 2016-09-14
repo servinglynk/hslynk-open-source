@@ -57,7 +57,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			}
 			logger.error(errorMessage);
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), domain,null);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Source.class.getSimpleName(), domain,null);
 	}
 	
 	
@@ -70,12 +70,12 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		if(sourceModel == null) {
 			sourceModel = new com.servinglynk.hmis.warehouse.model.v2015.Source();
 			sourceModel.setId(UUID.randomUUID());
-			sourceModel.setInserted(true);
+			sourceModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data.i+data.j);
+		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data,modelMap);
 		return sourceModel;
 	}
 

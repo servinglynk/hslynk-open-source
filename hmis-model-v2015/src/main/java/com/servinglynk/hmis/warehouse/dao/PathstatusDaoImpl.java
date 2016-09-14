@@ -70,7 +70,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class.getSimpleName(), domain,exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Pathstatus.class.getSimpleName(), domain,exportEntity);
 		}
 	}
 
@@ -83,12 +83,12 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		if(pathstatusModel == null) {
 			pathstatusModel = new com.servinglynk.hmis.warehouse.model.v2015.Pathstatus();
 			pathstatusModel.setId(UUID.randomUUID());
-			pathstatusModel.setInserted(true);
+			pathstatusModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(pathstatusModel, domain,pathstatus.getPathStatusID(),data.i+data.j);
+		hydrateCommonFields(pathstatusModel, domain,pathstatus.getPathStatusID(),data,modelMap);
 		return pathstatusModel;
 	}
 

@@ -56,15 +56,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					Enrollment enrollmentModel = (Enrollment) getModel(Worsthousingsituation.class.getSimpleName(),Enrollment.class,worstHousingSituation.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setEnrollmentid(enrollmentModel);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in worstHousingSituation:"+worstHousingSituation.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
@@ -84,7 +76,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 			
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, Worsthousingsituation.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Worsthousingsituation.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation getModelObject(ExportDomain domain, WorstHousingSituation worsthousingsituation ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -99,7 +91,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 			worsthousingsituationModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(worsthousingsituationModel, domain,worsthousingsituation.getWorstHousingSituationID(),data.i+data.j);
+		hydrateCommonFields(worsthousingsituationModel, domain,worsthousingsituation.getWorstHousingSituationID(),data,modelMap);
 		return worsthousingsituationModel;
 	}
 

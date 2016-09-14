@@ -115,15 +115,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
-				if(!isFullRefresh(domain)) {
-					HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-					if(hmisBaseModel !=null) {
-						modelMatch(hmisBaseModel, model);
-					}	
-					if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-						++data.j;
-					}
-				}
+				performMatch(domain, null , model, data);
 				performSaveOrUpdate(model);		
 				
 				// Inserting client in base schema		
@@ -152,7 +144,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				}
 			}
 	}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain, exportEntity);
 	}
 	/**
 	 * This is where the deduping happens We check if a client with the same information exists and
@@ -171,11 +163,10 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				UUID dedupId = UUID.fromString(dedupedId);
 				if(clientModelFromDB == null && forAPI && dedupedId != null && StringUtils.isNotBlank(clientModel.getProjectGroupCode())) {
 					com.servinglynk.hmis.warehouse.model.v2014.Client dedupClientFromDB = getClientByDedupCliendId(dedupId,clientModel.getProjectGroupCode());
-					clientMatch(dedupClientFromDB, clientModel);
+					modelMatch(dedupClientFromDB, clientModel);
 				}
 				if(!forAPI && clientModelFromDB !=null) {
-					clientMatch(clientModelFromDB, clientModel);
-					clientModel.setId(clientModelFromDB.getId());
+					modelMatch(clientModelFromDB, clientModel);
 				}
 				clientModel.setDedupClientId(dedupId);
 			}
@@ -213,67 +204,54 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		}
 		return clientModel;
 	}
-	/**
-	 * Performs a Client match between already existing client and client to be added,
-	 *  if(dedupIdFromDB == dedupIDOfClient) 
-	 *     if(dateUpdatedFromSourceDB == dateUpdatedFromSourcevia API/File)
-	 *          ignore inserting the record.
-	 *      else
-	 *        if(dateUpdatedFromSourceDB  < dateUpdatedFromSourcevia API/File)
-	 *            update the record.
-	 *      
-	 *      Otherwise we insert a new record.       
-	 * @param clientModelFromDB
-	 * @param clientModel
-	 */
-	private void clientMatch(com.servinglynk.hmis.warehouse.model.v2014.Client clientModelFromDB,com.servinglynk.hmis.warehouse.model.v2014.Client clientModel) {
-		//if(clientModelFromDB.getDedupClientId() != null && clientModel.getDedupClientId()!=null && clientModelFromDB.getDedupClientId().equals(clientModel.getDedupClientId())) {
-			if( clientModel.getDateUpdatedFromSource().compareTo(clientModelFromDB.getDateUpdatedFromSource()) == 0) {
-				clientModel.setIgnored(true);	
-			}else if( clientModel.getDateUpdatedFromSource().compareTo(clientModelFromDB.getDateUpdatedFromSource()) < 0) {
-				clientModel.setRecordToBeInserted(true); //record already inserted , We need to update this.
-			}else if( clientModel.getDateUpdatedFromSource().compareTo(clientModelFromDB.getDateUpdatedFromSource()) > 0) {
-				clientModel.setParentId(clientModelFromDB.getId()); // record to be inserted is older than the record already in DB.
-			}
-		//}
-	}
+	
 	public com.servinglynk.hmis.warehouse.model.v2014.Client getModelObject(ExportDomain domain, Client client ,Data data, Map<String,HmisBaseModel> modelMap, String dedupSessionKey, Boolean skipClientIdentifier) {
 		com.servinglynk.hmis.warehouse.model.v2014.Client clientModelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain)) {
 			clientModelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		}
-		com.servinglynk.hmis.warehouse.model.v2014.Client clientModel = new com.servinglynk.hmis.warehouse.model.v2014.Client(); 
+		com.servinglynk.hmis.warehouse.model.v2014.Client model = new com.servinglynk.hmis.warehouse.model.v2014.Client(); 
 		if(client != null) {
-			clientModel.setFirstName(client.getFirstName());
-			clientModel.setLastName(client.getLastName());
-			clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
+			model.setFirstName(client.getFirstName());
+			model.setLastName(client.getLastName());
+			model.setDob(BasicDataGenerator.getLocalDateTime(client
 					.getDOB()));
-			clientModel.setGender(ClientGenderEnum.lookupEnum(String
+			model.setGender(ClientGenderEnum.lookupEnum(String
 					.valueOf(client.getGender())));
-			clientModel
+			model
 			.setSsnDataQuality(ClientSsnDataQualityEnum
 					.lookupEnum(BasicDataGenerator
 							.getStringValue(client
 									.getSSNDataQuality())));
-			clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 		}
 		if(clientModelFromDB == null) {
-			clientModel.setId(UUID.randomUUID());
-			clientModel.setRecordToBeInserted(true);
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier,clientModelFromDB,clientModel,false);
-		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data.i+data.j);
-		if(clientModel.getId() == null) {
+		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,clientModelFromDB,model,false);
+		if(!isFullRefresh(domain)) {
+			if(!model.isIgnored()) {
+				if(!model.isRecordToBoInserted()) {
+					++data.j;
+				}
+				if(model.isRecordToBoInserted()) {
+					++data.i;
+				}
+			}
+		}
+		hydrateCommonFields(model, domain,client.getPersonalID(),data,modelMap);
+		if(model.getId() == null) {
 			if(clientModelFromDB != null && clientModelFromDB.getId() != null) {
-				clientModel.setId(clientModelFromDB.getId());
+				model.setId(clientModelFromDB.getId());
 			} else {
-				clientModel.setId(UUID.randomUUID());	
+				model.setId(UUID.randomUUID());	
 			}
 			
 		}
-		return clientModel;
+		return model;
 	}
 	
 	

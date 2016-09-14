@@ -34,15 +34,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			com.servinglynk.hmis.warehouse.model.v2014.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Source.class, domain.getSource().getSourceID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 			model.setSource(sourceEntity);
 			domain.setExportId(model.getId());
-			if(!isFullRefresh(domain)) {
-				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-				if(hmisBaseModel !=null) {
-					modelMatch(hmisBaseModel, model);
-				}	
-				if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-					++data.j;
-				}
-			}
+			
 			performSaveOrUpdate(model);
 		} catch (Exception ex) {
 			String errorMessage = "Exception because of the export::"+model.getId() +" Exception ::"+ex.getMessage();
@@ -59,22 +51,23 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			}
 			logger.error(errorMessage);
 		}
-		hydrateBulkUploadActivityStaging(data.i, data.j, com.servinglynk.hmis.warehouse.model.v2014.Export.class.getSimpleName(), domain, model);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Export.class.getSimpleName(), domain, model);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Export getModelObject(ExportDomain domain, Export export ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Export exportModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Export model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exportModel = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getExportID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Export.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, export.getExportID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(exportModel == null) {
-			exportModel = new com.servinglynk.hmis.warehouse.model.v2014.Export();
-			exportModel.setId(UUID.randomUUID());
-			exportModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Export();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(exportModel, domain,export.getExportID(),data.i+data.j);
-		return exportModel;
+		hydrateCommonFields(model, domain,export.getExportID(),data,modelMap);
+		
+		return model;
 	}
 }

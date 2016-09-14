@@ -67,7 +67,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			 }
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain,exportEntity);
 
 	}
 	
@@ -80,12 +80,12 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		if(dateofengagementModel == null) {
 			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
 			dateofengagementModel.setId(UUID.randomUUID());
-			dateofengagementModel.setInserted(true);
+			dateofengagementModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(dateofengagementModel, domain,dateofengagement.getDateOfEngagementID(),data.i+data.j);
+		hydrateCommonFields(dateofengagementModel, domain,dateofengagement.getDateOfEngagementID(),data,modelMap);
 		return dateofengagementModel;
 	}
 

@@ -62,15 +62,6 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					model.setExport(exportEntity);
 					model.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getInformationDate()));
 					model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollmentCoc.getDataCollectionStage())));
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
 					performSaveOrUpdate(model);
 				} catch (Exception e) {
 					String errorMessage = "Error occured with "+enrollmentCoc.toString() + " Execption :::"+e.getLocalizedMessage();
@@ -89,21 +80,21 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, EnrollmentCoc.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, EnrollmentCoc.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc getModelObject(ExportDomain domain, EnrollmentCoC enrollmentCoc ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc enrollmentCocModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			enrollmentCocModel = (com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc) getModel(EnrollmentCoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc) getModel(EnrollmentCoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(enrollmentCocModel == null) {
-			enrollmentCocModel = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
-			enrollmentCocModel.setId(UUID.randomUUID());
-			enrollmentCocModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data.i+data.j);
-		return enrollmentCocModel;
+		hydrateCommonFields(model, domain,enrollmentCoc.getEnrollmentCoCID(),data,modelMap);
+		return model;
 	}
 }

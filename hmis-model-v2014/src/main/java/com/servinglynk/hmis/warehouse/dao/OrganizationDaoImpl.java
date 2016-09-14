@@ -61,15 +61,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				//	 OrganizationEntity baseOrganization = new OrganizationEntity();
 					// BeanUtils.copyProperties(baseOrganization, organizationModel);
 					// factory.getHmisOrganizationDao().createOrganization(baseOrganization);
-					 if(!isFullRefresh(domain)) {
-							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-							if(hmisBaseModel !=null) {
-								modelMatch(hmisBaseModel, model);
-							}	
-							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-								++data.j;
-							}
-						}
+					 
 					 performSaveOrUpdate(model);
 				 }catch(Exception e) {
 					 String errorMessage = "Failure in Organization:::"+organization.toString()+ " with exception"+e.getLocalizedMessage();
@@ -88,23 +80,24 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 }
 			 }
 		 }
-		 hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), domain, exportEntity);
+		 hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Organization getModelObject(ExportDomain domain,Organization organization ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Organization organizationModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Organization model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			organizationModel = (com.servinglynk.hmis.warehouse.model.v2014.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2014.Organization.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(organizationModel == null) {
-			organizationModel = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
-			organizationModel.setId(UUID.randomUUID());
-			organizationModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Organization();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(organizationModel, domain,organization.getOrganizationID(),data.i+data.j);
-		return organizationModel;
+		hydrateCommonFields(model, domain,organization.getOrganizationID(),data,modelMap);
+		
+		return model;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2014.Organization organization){

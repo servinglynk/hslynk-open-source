@@ -73,7 +73,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 //					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, project.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
 //					if(enrollmentModel !=null)
 //						projectModel.addEnrollment(enrollmentModel);
-					if(projectModel.isInserted()) {
+					if(projectModel.isRecordToBoInserted()) {
 						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 						BeanUtils.copyProperties(baseProject, projectModel);
 						OrganizationEntity organizationEntity = factory.getHmisOrganizationDao().getOrganizationById(organization.getId());
@@ -100,7 +100,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Project.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Project getModelObject(ExportDomain domain, Project Project ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -112,12 +112,12 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		if(projectModel == null) {
 			projectModel = new com.servinglynk.hmis.warehouse.model.v2015.Project();
 			projectModel.setId(UUID.randomUUID());
-			projectModel.setInserted(true);
+			projectModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(projectModel, domain,Project.getProjectID(),data.i+data.j);
+		hydrateCommonFields(projectModel, domain,Project.getProjectID(),data,modelMap);
 		return projectModel;
 	}
 	

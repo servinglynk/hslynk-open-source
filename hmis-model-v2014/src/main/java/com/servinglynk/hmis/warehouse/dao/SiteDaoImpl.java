@@ -49,15 +49,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 						model.setState(StateEnum.lookupEnum(site.getState()));
 						model.setExport(exportEntity);
 						model.setZip(String.valueOf(site.getZIP()));
-						if(!isFullRefresh(domain)) {
-							HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-							if(hmisBaseModel !=null) {
-								modelMatch(hmisBaseModel, model);
-							}
-							if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-								++data.j;
-							}
-						}
+						
 						performSaveOrUpdate(model);
 					} catch(Exception e) {
 						String errorMessage = "Exception in Site:"+site.getSiteID()+  ":: Exception" +e.getLocalizedMessage();
@@ -77,7 +69,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain,exportEntity);
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Site getModelObject(ExportDomain domain, Site Site ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -92,7 +84,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 			SiteModel.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(SiteModel, domain,Site.getSiteID(),data.i+data.j);
+		hydrateCommonFields(SiteModel, domain,Site.getSiteID(),data,modelMap);
 		return SiteModel;
 	}
 

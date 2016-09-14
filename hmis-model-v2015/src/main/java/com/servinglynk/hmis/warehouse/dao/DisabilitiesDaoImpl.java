@@ -83,7 +83,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getModelObject(ExportDomain domain, Disabilities Disabilities ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -95,12 +95,12 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		if(disabilitiesModel == null) {
 			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
 			disabilitiesModel.setId(UUID.randomUUID());
-			disabilitiesModel.setInserted(true);
+			disabilitiesModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(disabilitiesModel, domain,Disabilities.getDisabilitiesID(),data.i+data.j);
+		hydrateCommonFields(disabilitiesModel, domain,Disabilities.getDisabilitiesID(),data,modelMap);
 		return disabilitiesModel;
 	}
 	

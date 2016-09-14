@@ -57,15 +57,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 					Exit exit = (Exit) getModel(Housingassessmentdisposition.class.getSimpleName(),Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				}catch(Exception e) {
 					String errorMessage = "Exception in:"+housingAssessmentDisposition.getHousingAssessmentDispositionID()+  ":: Exception" +e.getLocalizedMessage();
@@ -87,19 +79,20 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition getModelObject(ExportDomain domain,HousingAssessmentDisposition HousingAssessmentDisposition ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition housingAssessmentDispositionModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			housingAssessmentDispositionModel = (com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition) getModel(Housingassessmentdisposition.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, HousingAssessmentDisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition) getModel(Housingassessmentdisposition.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, HousingAssessmentDisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(housingAssessmentDispositionModel == null) {
-			housingAssessmentDispositionModel = new com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition();
-			housingAssessmentDispositionModel.setId(UUID.randomUUID());
-			housingAssessmentDispositionModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(housingAssessmentDispositionModel, domain,HousingAssessmentDisposition.getHousingAssessmentDispositionID(),data.i+data.j);
-		return housingAssessmentDispositionModel;
+		hydrateCommonFields(model, domain,HousingAssessmentDisposition.getHousingAssessmentDispositionID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition createHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition housingAssessmentDisposition){
 	       housingAssessmentDisposition.setId(UUID.randomUUID()); 

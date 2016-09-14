@@ -71,15 +71,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 					Exit exit = (Exit) getModel(Exitplansactions.class.getSimpleName(),Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					model.setExitid(exit);
 					model.setExport(exportEntity);
-					if(!isFullRefresh(domain)) {
-						HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-						if(hmisBaseModel !=null) {
-							modelMatch(hmisBaseModel, model);
-						}	
-						if(!model.isRecordToBoInserted() && !model.isIgnored()) {
-							++data.j;
-						}
-					}
+					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Exception in:"+exitPlansActions.getExitPlansActionsID()+  ":: Exception" +e.getLocalizedMessage();
@@ -98,22 +90,23 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions getModelObject(ExportDomain domain, ExitPlansActions exitPlansActions ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitplansactionsModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions model = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitplansactionsModel = (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions) getModel(Exitplansactions.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, exitPlansActions.getExitPlansActionsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			model = (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions) getModel(Exitplansactions.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, exitPlansActions.getExitPlansActionsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(exitplansactionsModel == null) {
-			exitplansactionsModel = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();
-			exitplansactionsModel.setId(UUID.randomUUID());
-			exitplansactionsModel.setRecordToBeInserted(true);
+		if(model == null) {
+			model = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
 			++data.i;
 		}
-		hydrateCommonFields(exitplansactionsModel, domain,exitPlansActions.getExitPlansActionsID(),data.i+data.j);
-		return exitplansactionsModel;
+		hydrateCommonFields(model, domain,exitPlansActions.getExitPlansActionsID(),data,modelMap);
+		
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions createExitPlansActions(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions exitPlansActions){
 	       exitPlansActions.setId(UUID.randomUUID()); 

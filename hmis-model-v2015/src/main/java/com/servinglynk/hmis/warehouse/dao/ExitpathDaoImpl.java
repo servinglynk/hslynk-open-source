@@ -73,12 +73,12 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		if(exitpathModel == null) {
 			exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
 			exitpathModel.setId(UUID.randomUUID());
-			exitpathModel.setInserted(true);
+			exitpathModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exitpathModel, domain,exitpath.getExitPATHID(),data.i+data.j);
+		hydrateCommonFields(exitpathModel, domain,exitpath.getExitPATHID(),data,modelMap);
 		return exitpathModel;
 	}
 

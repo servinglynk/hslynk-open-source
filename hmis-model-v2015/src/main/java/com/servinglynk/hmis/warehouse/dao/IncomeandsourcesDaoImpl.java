@@ -121,7 +121,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class.getSimpleName(), domain,exportEntity);
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources getModelObject(ExportDomain domain, IncomeAndSources incomeandsources ,Data data, Map<String,HmisBaseModel> modelMap) {
@@ -133,12 +133,12 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		if(IncomeandsourcesModel == null) {
 			IncomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources();
 			IncomeandsourcesModel.setId(UUID.randomUUID());
-			IncomeandsourcesModel.setInserted(true);
+			IncomeandsourcesModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(IncomeandsourcesModel, domain,incomeandsources.getIncomeAndSourcesID(),data.i+data.j);
+		hydrateCommonFields(IncomeandsourcesModel, domain,incomeandsources.getIncomeAndSourcesID(),data,modelMap);
 		return IncomeandsourcesModel;
 	}
 	

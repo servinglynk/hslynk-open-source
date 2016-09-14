@@ -94,7 +94,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Inventory.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Inventory getModelObject(ExportDomain domain, Inventory Inventory ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Inventory inventoryModel = null;
@@ -105,12 +105,12 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		if(inventoryModel == null) {
 			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
 			inventoryModel.setId(UUID.randomUUID());
-			inventoryModel.setInserted(true);
+			inventoryModel.setRecordToBeInserted(true);
 			++data.i;
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(inventoryModel, domain,Inventory.getInventoryID(),data.i+data.j);
+		hydrateCommonFields(inventoryModel, domain,Inventory.getInventoryID(),data,modelMap);
 		return inventoryModel;
 	}
 	
