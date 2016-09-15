@@ -84,7 +84,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 			CocModel = new com.servinglynk.hmis.warehouse.model.v2015.Coc();
 			CocModel.setId(UUID.randomUUID());
 			CocModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

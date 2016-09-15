@@ -100,7 +100,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			exitModel = new com.servinglynk.hmis.warehouse.model.v2015.Exit();
 			exitModel.setId(UUID.randomUUID());
 			exitModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

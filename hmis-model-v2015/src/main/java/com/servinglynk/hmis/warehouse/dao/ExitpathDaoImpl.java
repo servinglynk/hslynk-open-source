@@ -74,7 +74,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 			exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
 			exitpathModel.setId(UUID.randomUUID());
 			exitpathModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

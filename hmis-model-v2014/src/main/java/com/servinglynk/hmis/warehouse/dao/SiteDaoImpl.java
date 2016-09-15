@@ -72,20 +72,24 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Site.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2014.Site getModelObject(ExportDomain domain, Site Site ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Site SiteModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2014.Site getModelObject(ExportDomain domain, Site site ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2014.Site modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SiteModel = (com.servinglynk.hmis.warehouse.model.v2014.Site) getModel(Site.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Site.class, Site.getSiteID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Site) getModel(Site.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Site.class, site.getSiteID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(SiteModel == null) {
-			SiteModel = new com.servinglynk.hmis.warehouse.model.v2014.Site();
-			SiteModel.setId(UUID.randomUUID());
-			SiteModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Site();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(SiteModel, domain,Site.getSiteID(),data,modelMap);
-		return SiteModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Site model = new com.servinglynk.hmis.warehouse.model.v2014.Site();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,site.getSiteID(),data);
+		return model;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Site createSite(com.servinglynk.hmis.warehouse.model.v2014.Site site){

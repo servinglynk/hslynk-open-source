@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
@@ -30,6 +26,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -98,18 +95,22 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits getModelObject(ExportDomain domain,NonCashBenefits noncashbenefits ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits model = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			model = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(Noncashbenefits.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) getModel(Noncashbenefits.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(model == null) {
-			model = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
-			model.setId(UUID.randomUUID());
-			model.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(model, domain,noncashbenefits.getNonCashBenefitsID(),data,modelMap);
+		 com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits model = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(noncashbenefits.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(model, domain,noncashbenefits.getNonCashBenefitsID(),data);
 		
 		return model;
 	}

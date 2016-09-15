@@ -7,20 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCompletionStatus;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusEarlyexitreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.Exit;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus;
@@ -81,19 +78,23 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus getModelObject(ExportDomain domain,ProjectCompletionStatus projectcompletionstatus ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectcompletionstatusModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			projectcompletionstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) getModel(Projectcompletionstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectcompletionstatus.getProjectCompletionStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus) getModel(Projectcompletionstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus.class, projectcompletionstatus.getProjectCompletionStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(projectcompletionstatusModel == null) {
-			projectcompletionstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
-			projectcompletionstatusModel.setId(UUID.randomUUID());
-			projectcompletionstatusModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(projectcompletionstatusModel, domain,projectcompletionstatus.getProjectCompletionStatusID(),data,modelMap);
-		return projectcompletionstatusModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus model = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectcompletionstatus.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,projectcompletionstatus.getProjectCompletionStatusID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus createProjectCompletionStatus(com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus projectCompletionStatus){
 	       projectCompletionStatus.setId(UUID.randomUUID()); 

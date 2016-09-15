@@ -11,8 +11,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -79,19 +77,23 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate getModelObject(ExportDomain domain,ResidentialMoveInDate residentialmoveindate ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindateModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			residentialmoveindateModel = (com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate) getModel(Residentialmoveindate.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate) getModel(Residentialmoveindate.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate.class, residentialmoveindate.getResidentialMoveInDateID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(residentialmoveindateModel == null) {
-			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate();
-			residentialmoveindateModel.setId(UUID.randomUUID());
-			residentialmoveindateModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data,modelMap);
-		return residentialmoveindateModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate model = new com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialmoveindate.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,residentialmoveindate.getResidentialMoveInDateID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate createResidentialmoveindate(com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate residentialmoveindate){
 	       residentialmoveindate.setId(UUID.randomUUID()); 

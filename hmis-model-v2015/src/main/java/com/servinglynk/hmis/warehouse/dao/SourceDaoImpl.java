@@ -71,7 +71,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel = new com.servinglynk.hmis.warehouse.model.v2015.Source();
 			sourceModel.setId(UUID.randomUUID());
 			sourceModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

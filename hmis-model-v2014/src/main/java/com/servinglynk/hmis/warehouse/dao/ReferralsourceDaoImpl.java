@@ -7,21 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ReferralSource;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Referralsource;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -82,19 +79,23 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Referralsource.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource getModelObject(ExportDomain domain,ReferralSource referralsource ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsourceModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Referralsource modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			referralsourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(Referralsource.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) getModel(Referralsource.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsource.getReferralSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(referralsourceModel == null) {
-			referralsourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
-			referralsourceModel.setId(UUID.randomUUID());
-			referralsourceModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(referralsourceModel, domain,referralsource.getReferralSourceID(),data,modelMap);
-		return referralsourceModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Referralsource model = new com.servinglynk.hmis.warehouse.model.v2014.Referralsource();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralsource.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,referralsource.getReferralSourceID(),data);
+		return model;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource createReferralsource(com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsource){
 	       referralsource.setId(UUID.randomUUID()); 

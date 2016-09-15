@@ -112,7 +112,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 			exitrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitrhy();
 			exitrhyModel.setId(UUID.randomUUID());
 			exitrhyModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

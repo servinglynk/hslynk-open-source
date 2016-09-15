@@ -80,7 +80,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 			SiteModel = new com.servinglynk.hmis.warehouse.model.v2015.Site();
 			SiteModel.setId(UUID.randomUUID());
 			SiteModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

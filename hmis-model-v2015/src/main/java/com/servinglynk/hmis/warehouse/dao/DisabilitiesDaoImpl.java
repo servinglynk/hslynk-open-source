@@ -96,7 +96,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
 			disabilitiesModel.setId(UUID.randomUUID());
 			disabilitiesModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

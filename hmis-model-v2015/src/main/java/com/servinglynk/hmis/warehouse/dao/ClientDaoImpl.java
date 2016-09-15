@@ -164,7 +164,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		if(!isFullRefresh(domain))
 			clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel,data);
+		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel,data,modelMap);
 		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data,modelMap);
 		return clientModel;
 	}
@@ -182,7 +182,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
 			clientModel.setId(UUID.randomUUID());
 			clientModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		} else{
 		  ++data.j;
 		}

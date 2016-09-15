@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
@@ -24,6 +20,7 @@ import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -84,19 +81,22 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Employment getModelObject(ExportDomain domain, Employment employment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Employment model = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Employment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			model = (com.servinglynk.hmis.warehouse.model.v2014.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(model == null) {
-			model = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
-			model.setId(UUID.randomUUID());
-			model.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
+		com.servinglynk.hmis.warehouse.model.v2014.Employment model = new com.servinglynk.hmis.warehouse.model.v2014.Employment();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
-		hydrateCommonFields(model, domain,employment.getEmploymentID(),data,modelMap);
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(model, domain,employment.getEmploymentID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2014.Employment employment){

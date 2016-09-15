@@ -11,8 +11,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -81,19 +79,23 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus getModelObject(ExportDomain domain,RHYBCPStatus rhybcpstatus ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatusModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			rhybcpstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus) getModel(Rhybcpstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class, rhybcpstatus.getRHYBCPStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus) getModel(Rhybcpstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus.class, rhybcpstatus.getRHYBCPStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(rhybcpstatusModel == null) {
-			rhybcpstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
-			rhybcpstatusModel.setId(UUID.randomUUID());
-			rhybcpstatusModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(rhybcpstatusModel, domain,rhybcpstatus.getRHYBCPStatusID(),data,modelMap);
-		return rhybcpstatusModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus model = new com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpstatus.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,rhybcpstatus.getRHYBCPStatusID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){
 	       rhybcpstatus.setId(UUID.randomUUID()); 

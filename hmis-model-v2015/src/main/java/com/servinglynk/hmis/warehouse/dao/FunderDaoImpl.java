@@ -85,7 +85,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 			funderModel = new com.servinglynk.hmis.warehouse.model.v2015.Funder();
 			funderModel.setId(UUID.randomUUID());
 			funderModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

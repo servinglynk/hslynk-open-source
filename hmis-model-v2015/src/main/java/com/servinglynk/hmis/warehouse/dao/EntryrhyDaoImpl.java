@@ -164,7 +164,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 			entryrhyModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhy();
 			entryrhyModel.setId(UUID.randomUUID());
 			entryrhyModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

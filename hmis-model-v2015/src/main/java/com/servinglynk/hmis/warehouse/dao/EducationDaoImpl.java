@@ -75,7 +75,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 			educationModel = new com.servinglynk.hmis.warehouse.model.v2015.Education();
 			educationModel.setId(UUID.randomUUID());
 			educationModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

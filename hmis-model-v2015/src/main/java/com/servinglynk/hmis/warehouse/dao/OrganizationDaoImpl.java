@@ -86,7 +86,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 			organizationModel = new com.servinglynk.hmis.warehouse.model.v2015.Organization();
 			organizationModel.setId(UUID.randomUUID());
 			organizationModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

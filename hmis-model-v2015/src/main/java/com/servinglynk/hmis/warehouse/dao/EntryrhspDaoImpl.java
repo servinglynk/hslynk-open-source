@@ -96,7 +96,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 			entryrhspModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
 			entryrhspModel.setId(UUID.randomUUID());
 			entryrhspModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

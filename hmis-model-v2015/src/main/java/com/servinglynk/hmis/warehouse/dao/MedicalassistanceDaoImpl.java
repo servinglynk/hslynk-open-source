@@ -94,7 +94,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 			medicalassistanceModel = new com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance();
 			medicalassistanceModel.setId(UUID.randomUUID());
 			medicalassistanceModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

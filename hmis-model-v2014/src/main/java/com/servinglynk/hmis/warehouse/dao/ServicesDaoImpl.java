@@ -12,8 +12,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -82,20 +80,24 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(), domain, exportEntity);
 	}
-	public com.servinglynk.hmis.warehouse.model.v2014.Services getModelObject(ExportDomain domain,Services Services ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Services servicesModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2014.Services getModelObject(ExportDomain domain,Services services ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2014.Services modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			servicesModel = (com.servinglynk.hmis.warehouse.model.v2014.Services) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Services.class, Services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Services) getModel(com.servinglynk.hmis.warehouse.model.v2014.Services.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Services.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(servicesModel == null) {
-			servicesModel = new com.servinglynk.hmis.warehouse.model.v2014.Services();
-			servicesModel.setId(UUID.randomUUID());
-			servicesModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Services();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(servicesModel, domain,Services.getServicesID(),data,modelMap);
-		return servicesModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Services model = new com.servinglynk.hmis.warehouse.model.v2014.Services();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,services.getServicesID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Services createServices(com.servinglynk.hmis.warehouse.model.v2014.Services services){
 	       services.setId(UUID.randomUUID()); 

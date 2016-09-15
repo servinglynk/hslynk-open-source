@@ -7,19 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FamilyReunification;
 import com.servinglynk.hmis.warehouse.enums.FamilyreunificationFamilyreunificationachievedEnum;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.Exit;
 import com.servinglynk.hmis.warehouse.model.v2014.Familyreunification;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
@@ -78,19 +75,22 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification getModelObject(ExportDomain domain, FamilyReunification familyReunification ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Familyreunification model = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Familyreunification modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			model = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) getModel(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunification.getFamilyReunificationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(model == null) {
-			model = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
-			model.setId(UUID.randomUUID());
-			model.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(model, domain,familyReunification.getFamilyReunificationID(),data,modelMap);
-		
+		 com.servinglynk.hmis.warehouse.model.v2014.Familyreunification model = new com.servinglynk.hmis.warehouse.model.v2014.Familyreunification();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(familyReunification.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(model, domain,familyReunification.getFamilyReunificationID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification createFamilyReunification(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification familyReunification){

@@ -7,21 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.SexualOrientation;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -82,19 +79,23 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation getModelObject(ExportDomain domain,SexualOrientation sexualorientation ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation SexualorientationModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SexualorientationModel = (com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation) getModel(Sexualorientation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class, sexualorientation.getSexualOrientationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation) getModel(Sexualorientation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation.class, sexualorientation.getSexualOrientationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(SexualorientationModel == null) {
-			SexualorientationModel = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
-			SexualorientationModel.setId(UUID.randomUUID());
-			SexualorientationModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(SexualorientationModel, domain,sexualorientation.getSexualOrientationID(),data,modelMap);
-		return SexualorientationModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation model = new com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualorientation.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,sexualorientation.getSexualOrientationID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){
 	       sexualorientation.setId(UUID.randomUUID()); 

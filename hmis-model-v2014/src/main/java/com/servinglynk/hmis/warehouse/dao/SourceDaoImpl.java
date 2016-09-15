@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,19 +88,19 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Source getModelObject(ExportDomain domain, Source source ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Source sourceModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Source modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			sourceModel = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(Source.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Source) getModel(Source.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(sourceModel == null) {
-			sourceModel = new com.servinglynk.hmis.warehouse.model.v2014.Source();
-			sourceModel.setId(UUID.randomUUID());
-			sourceModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Source();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data,modelMap);
-		return sourceModel;
+		hydrateCommonFields(modelFromDB, domain,source.getSourceID(),data);
+		return modelFromDB;
 	}
 
 }

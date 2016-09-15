@@ -81,7 +81,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
 			dateofengagementModel.setId(UUID.randomUUID());
 			dateofengagementModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

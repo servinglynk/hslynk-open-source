@@ -85,7 +85,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 			residentialmoveindateModel = new com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate();
 			residentialmoveindateModel.setId(UUID.randomUUID());
 			residentialmoveindateModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

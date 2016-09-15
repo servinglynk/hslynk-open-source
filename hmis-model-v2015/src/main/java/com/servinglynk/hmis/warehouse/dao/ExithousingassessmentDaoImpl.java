@@ -87,7 +87,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 			exithousingassessmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();
 			exithousingassessmentModel.setId(UUID.randomUUID());
 			exithousingassessmentModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

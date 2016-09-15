@@ -141,7 +141,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			enrollmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Enrollment();
 			enrollmentModel.setId(UUID.randomUUID());
 			enrollmentModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

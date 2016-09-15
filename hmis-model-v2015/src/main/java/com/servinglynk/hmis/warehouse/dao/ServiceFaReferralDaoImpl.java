@@ -81,7 +81,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 			ServiceFaReferralModel = new com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral();
 			ServiceFaReferralModel.setId(UUID.randomUUID());
 			ServiceFaReferralModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

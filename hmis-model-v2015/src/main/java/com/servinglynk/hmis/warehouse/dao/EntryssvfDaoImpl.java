@@ -83,7 +83,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 			entryssvfModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
 			entryssvfModel.setId(UUID.randomUUID());
 			entryssvfModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

@@ -84,7 +84,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 			pathstatusModel = new com.servinglynk.hmis.warehouse.model.v2015.Pathstatus();
 			pathstatusModel.setId(UUID.randomUUID());
 			pathstatusModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

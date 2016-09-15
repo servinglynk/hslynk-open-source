@@ -134,7 +134,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 			IncomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources();
 			IncomeandsourcesModel.setId(UUID.randomUUID());
 			IncomeandsourcesModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

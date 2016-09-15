@@ -106,7 +106,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 			noncashbenefitsModel = new com.servinglynk.hmis.warehouse.model.v2015.Noncashbenefits();
 			noncashbenefitsModel.setId(UUID.randomUUID());
 			noncashbenefitsModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

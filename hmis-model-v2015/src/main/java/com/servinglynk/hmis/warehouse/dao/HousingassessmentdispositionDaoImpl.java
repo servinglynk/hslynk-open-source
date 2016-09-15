@@ -85,7 +85,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 			housingassessmentdispositionModel = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();
 			housingassessmentdispositionModel.setId(UUID.randomUUID());
 			housingassessmentdispositionModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

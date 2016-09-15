@@ -106,7 +106,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 			inventoryModel = new com.servinglynk.hmis.warehouse.model.v2015.Inventory();
 			inventoryModel.setId(UUID.randomUUID());
 			inventoryModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

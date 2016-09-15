@@ -96,7 +96,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 			healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2015.HealthStatus();
 			healthStatusModel.setId(UUID.randomUUID());
 			healthStatusModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

@@ -92,7 +92,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			enrollmentCocModel = new com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc();
 			enrollmentCocModel.setId(UUID.randomUUID());
 			enrollmentCocModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

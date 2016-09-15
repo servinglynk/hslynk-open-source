@@ -131,7 +131,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 			clientVeteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
 			clientVeteranInfoModel.setId(UUID.randomUUID());
 			clientVeteranInfoModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

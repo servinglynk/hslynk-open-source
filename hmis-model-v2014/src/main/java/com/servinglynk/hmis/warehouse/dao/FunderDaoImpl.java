@@ -78,18 +78,22 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	}
 	
 	public  com.servinglynk.hmis.warehouse.model.v2014.Funder getModelObject(ExportDomain domain, Funder funder ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Funder model = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Funder modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			model = (com.servinglynk.hmis.warehouse.model.v2014.Funder) getModel(Funder.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Funder) getModel(Funder.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(model == null) {
-			model = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
-			model.setId(UUID.randomUUID());
-			model.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(model, domain,funder.getFunderID(),data,modelMap);
+		 com.servinglynk.hmis.warehouse.model.v2014.Funder model = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(model, domain,funder.getFunderID(),data);
 		
 		return model;
 	}

@@ -11,8 +11,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -74,19 +72,22 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Percentami.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Percentami getModelObject(ExportDomain domain,PercentAMI percentami ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Percentami percentamiModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Percentami modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			percentamiModel = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(Percentami.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Percentami) getModel(Percentami.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentami.getPercentAMIID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(percentamiModel == null) {
-			percentamiModel = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();
-			percentamiModel.setId(UUID.randomUUID());
-			percentamiModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(percentamiModel, domain,percentami.getPercentAMIID(),data,modelMap);
-		return percentamiModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Percentami model = new com.servinglynk.hmis.warehouse.model.v2014.Percentami();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentami.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,percentami.getPercentAMIID(),data);
+		return model;
 	}
 	 public com.servinglynk.hmis.warehouse.model.v2014.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami){
 	       percentami.setId(UUID.randomUUID()); 

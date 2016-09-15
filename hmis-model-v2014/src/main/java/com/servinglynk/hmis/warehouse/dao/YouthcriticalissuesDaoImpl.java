@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.YouthCriticalIssues;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
@@ -46,6 +42,7 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -132,19 +129,22 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues getModelObject(ExportDomain domain, YouthCriticalIssues youthcriticalissues ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthcriticalissuesModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			youthcriticalissuesModel = (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) getModel(Youthcriticalissues.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthcriticalissues.getYouthCriticalIssuesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) getModel(Youthcriticalissues.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthcriticalissues.getYouthCriticalIssuesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(youthcriticalissuesModel == null) {
-			youthcriticalissuesModel = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
-			youthcriticalissuesModel.setId(UUID.randomUUID());
-			youthcriticalissuesModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(youthcriticalissuesModel, domain,youthcriticalissues.getYouthCriticalIssuesID(),data,modelMap);
-		return youthcriticalissuesModel;
+		com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues model = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(youthcriticalissues.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,youthcriticalissues.getYouthCriticalIssuesID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){
 	       youthCriticalIssues.setId(UUID.randomUUID()); 

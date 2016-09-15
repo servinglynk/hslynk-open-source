@@ -119,7 +119,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 			healthinsuranceModel = new com.servinglynk.hmis.warehouse.model.v2015.Healthinsurance();
 			healthinsuranceModel.setId(UUID.randomUUID());
 			healthinsuranceModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

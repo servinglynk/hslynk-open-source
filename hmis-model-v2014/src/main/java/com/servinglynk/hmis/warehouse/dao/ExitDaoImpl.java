@@ -7,22 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit;
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -85,21 +82,25 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain, exportEntity);
 	}
-	public com.servinglynk.hmis.warehouse.model.v2014.Exit getModelObject(ExportDomain domain, Exit Exit ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Exit exitModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2014.Exit getModelObject(ExportDomain domain, Exit exit ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2014.Exit modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitModel = (com.servinglynk.hmis.warehouse.model.v2014.Exit) getModel(Exit.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exit.class, Exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Exit) getModel(Exit.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(exitModel == null) {
-			exitModel = new com.servinglynk.hmis.warehouse.model.v2014.Exit();
-			exitModel.setId(UUID.randomUUID());
-			exitModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Exit();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(exitModel, domain,Exit.getExitID(),data,modelMap);
+		 com.servinglynk.hmis.warehouse.model.v2014.Exit model = new com.servinglynk.hmis.warehouse.model.v2014.Exit();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,exit.getExitID(),data);
 		
-		return exitModel;
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Exit createExit(com.servinglynk.hmis.warehouse.model.v2014.Exit exit){
 		   exit.setId(UUID.randomUUID());

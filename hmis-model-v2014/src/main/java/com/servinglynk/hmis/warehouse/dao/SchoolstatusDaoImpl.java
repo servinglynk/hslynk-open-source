@@ -87,19 +87,23 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus getModelObject(ExportDomain domain,SchoolStatus schoolstatus ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus SchoolstatusModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			SchoolstatusModel = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(Schoolstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus) getModel(Schoolstatus.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus.class, schoolstatus.getSchoolStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(SchoolstatusModel == null) {
-			SchoolstatusModel = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();
-			SchoolstatusModel.setId(UUID.randomUUID());
-			SchoolstatusModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(SchoolstatusModel, domain,schoolstatus.getSchoolStatusID(),data,modelMap);
-		return SchoolstatusModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus model = new com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolstatus.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,schoolstatus.getSchoolStatusID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){
 	       schoolstatus.setId(UUID.randomUUID()); 

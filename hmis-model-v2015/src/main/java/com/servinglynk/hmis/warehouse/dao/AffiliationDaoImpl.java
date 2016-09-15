@@ -80,7 +80,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 				affiliationModel = new com.servinglynk.hmis.warehouse.model.v2015.Affiliation();
 				affiliationModel.setId(UUID.randomUUID());
 				affiliationModel.setRecordToBeInserted(true);
-				++data.i;
+				
 			}else{
 				++data.j;
 			}

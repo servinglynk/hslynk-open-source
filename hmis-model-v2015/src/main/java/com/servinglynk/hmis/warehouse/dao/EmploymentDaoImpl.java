@@ -90,7 +90,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
 			employmentModel.setId(UUID.randomUUID());
 			employmentModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

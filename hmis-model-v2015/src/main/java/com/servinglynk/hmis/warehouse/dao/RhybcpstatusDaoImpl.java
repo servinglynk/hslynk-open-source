@@ -89,7 +89,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 			rhybcpStatusModel = new com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus();
 			rhybcpStatusModel.setId(UUID.randomUUID());
 			rhybcpStatusModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

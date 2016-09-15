@@ -12,7 +12,7 @@ public class TestSample {
 	
 	public static void increment(Data data) {
 		for(int j=0;j<10;j++) {
-			++data.i;
+			
 			System.out.println("::::Value of i::"+data.i);
 		}
 	}

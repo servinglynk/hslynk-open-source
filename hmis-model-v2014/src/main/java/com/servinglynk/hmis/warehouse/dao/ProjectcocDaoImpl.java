@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2014.Project;
 import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
+import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
  * @author Sandeep
@@ -80,19 +81,23 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc getModelObject(ExportDomain domain,ProjectCoC projectcoc ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.Projectcoc ProjectcocModel = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Projectcoc modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			ProjectcocModel = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(Projectcoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) getModel(Projectcoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcoc.getProjectCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(ProjectcocModel == null) {
-			ProjectcocModel = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
-			ProjectcocModel.setId(UUID.randomUUID());
-			ProjectcocModel.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(ProjectcocModel, domain,projectcoc.getProjectCoCID(),data,modelMap);
-		return ProjectcocModel;
+		 com.servinglynk.hmis.warehouse.model.v2014.Projectcoc model = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectcoc.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,projectcoc.getProjectCoCID(),data);
+		return model;
 	}
 
 	   public com.servinglynk.hmis.warehouse.model.v2014.Project createProject(com.servinglynk.hmis.warehouse.model.v2014.Project project){

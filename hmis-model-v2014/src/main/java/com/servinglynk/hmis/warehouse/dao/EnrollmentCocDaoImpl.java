@@ -7,18 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2014.Projectcoc;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -83,18 +84,22 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, EnrollmentCoc.class.getSimpleName(), domain, exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc getModelObject(ExportDomain domain, EnrollmentCoC enrollmentCoc ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc model = null;
+		com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			model = (com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc) getModel(EnrollmentCoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc) getModel(EnrollmentCoc.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(model == null) {
-			model = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
-			model.setId(UUID.randomUUID());
-			model.setRecordToBeInserted(true);
-			++data.i;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		}
-		hydrateCommonFields(model, domain,enrollmentCoc.getEnrollmentCoCID(),data,modelMap);
+		 com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(model, domain,enrollmentCoc.getEnrollmentCoCID(),data);
 		return model;
 	}
 }

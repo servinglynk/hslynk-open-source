@@ -107,7 +107,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			contactModel = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
 			contactModel.setId(UUID.randomUUID());
 			contactModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

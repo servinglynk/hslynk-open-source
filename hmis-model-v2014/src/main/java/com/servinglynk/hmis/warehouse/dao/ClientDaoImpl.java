@@ -206,10 +206,10 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Client getModelObject(ExportDomain domain, Client client ,Data data, Map<String,HmisBaseModel> modelMap, String dedupSessionKey, Boolean skipClientIdentifier) {
-		com.servinglynk.hmis.warehouse.model.v2014.Client clientModelFromDB = null;
+		com.servinglynk.hmis.warehouse.model.v2014.Client modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain)) {
-			clientModelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Client model = new com.servinglynk.hmis.warehouse.model.v2014.Client(); 
 		if(client != null) {
@@ -226,12 +226,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 									.getSSNDataQuality())));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 		}
-		if(clientModelFromDB == null) {
+		if(modelFromDB == null) {
 			model.setId(UUID.randomUUID());
 			model.setRecordToBeInserted(true);
-			++data.i;
 		}
-		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,clientModelFromDB,model,false);
+		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
 		if(!isFullRefresh(domain)) {
 			if(!model.isIgnored()) {
 				if(!model.isRecordToBoInserted()) {
@@ -242,15 +241,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				}
 			}
 		}
-		hydrateCommonFields(model, domain,client.getPersonalID(),data,modelMap);
-		if(model.getId() == null) {
-			if(clientModelFromDB != null && clientModelFromDB.getId() != null) {
-				model.setId(clientModelFromDB.getId());
-			} else {
-				model.setId(UUID.randomUUID());	
-			}
-			
-		}
+		hydrateCommonFields(model, domain,client.getPersonalID(),data);
+		performMatch(domain,modelFromDB,model,data);
 		return model;
 	}
 	

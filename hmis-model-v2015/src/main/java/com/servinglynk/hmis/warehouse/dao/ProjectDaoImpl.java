@@ -113,7 +113,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			projectModel = new com.servinglynk.hmis.warehouse.model.v2015.Project();
 			projectModel.setId(UUID.randomUUID());
 			projectModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}

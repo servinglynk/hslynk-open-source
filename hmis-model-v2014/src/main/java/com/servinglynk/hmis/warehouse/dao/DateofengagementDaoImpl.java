@@ -11,8 +11,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -74,18 +72,22 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Dateofengagement.class.getSimpleName(), domain, exportEntity);
 	}
 	
-	  public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement DateOfEngagement,Data data, Map<String,HmisBaseModel> modelMap) {
-		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement model = null;
+	  public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateOfEngagement,Data data, Map<String,HmisBaseModel> modelMap) {
+		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement modelFromDB = null;
 		  if(!isFullRefresh(domain))
-			  model = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(Dateofengagement.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, DateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			  modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement) getModel(Dateofengagement.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, dateOfEngagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		  if(model == null) {
-			model = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
-			model.setId(UUID.randomUUID());
-			model.setRecordToBeInserted(true);
-			++data.i;
+		  if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+			
 		  }
-		  hydrateCommonFields(model, domain,DateOfEngagement.getDateOfEngagementID(),data,modelMap);
+		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
+		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
+		  performMatch(domain, modelFromDB, model, data);
+		  hydrateCommonFields(model, domain,dateOfEngagement.getDateOfEngagementID(),data);
 		  
 		  return model;
       }

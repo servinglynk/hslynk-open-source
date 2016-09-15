@@ -80,7 +80,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 			domesticviolenceModel = new com.servinglynk.hmis.warehouse.model.v2015.Domesticviolence();
 			domesticviolenceModel.setId(UUID.randomUUID());
 			domesticviolenceModel.setRecordToBeInserted(true);
-			++data.i;
+			
 		}else{
 			++data.j;
 		}
