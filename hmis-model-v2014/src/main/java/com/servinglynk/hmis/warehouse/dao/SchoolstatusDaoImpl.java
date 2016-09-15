@@ -102,7 +102,7 @@ public class SchoolstatusDaoImpl extends ParentDaoImpl implements
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(schoolstatus.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,schoolstatus.getSchoolStatusID(),data);
+		hydrateCommonFields(model, domain,schoolstatus.getSchoolStatusID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus createSchoolstatus(com.servinglynk.hmis.warehouse.model.v2014.Schoolstatus schoolstatus){

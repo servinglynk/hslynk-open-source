@@ -123,7 +123,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthinsurance.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,healthinsurance.getHealthInsuranceID(),data);
+		hydrateCommonFields(model, domain,healthinsurance.getHealthInsuranceID(),data);
 		return model;
 	}
 

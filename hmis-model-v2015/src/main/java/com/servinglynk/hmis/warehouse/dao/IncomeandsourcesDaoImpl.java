@@ -139,7 +139,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeandsources.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,incomeandsources.getIncomeAndSourcesID(),data);
+		hydrateCommonFields(model, domain,incomeandsources.getIncomeAndSourcesID(),data);
 		return model;
 	}
 	

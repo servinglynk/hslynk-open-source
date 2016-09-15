@@ -112,7 +112,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contact.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,contact.getContactID(),data);
+		hydrateCommonFields(model, domain,contact.getContactID(),data);
 		return model;
 	}
 

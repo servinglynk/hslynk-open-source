@@ -97,7 +97,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,enrollmentCoc.getEnrollmentCoCID(),data);
+		hydrateCommonFields(model, domain,enrollmentCoc.getEnrollmentCoCID(),data);
 		return model;
 	}
 	@Override

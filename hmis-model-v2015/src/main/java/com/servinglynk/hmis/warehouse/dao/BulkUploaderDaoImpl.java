@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.bind.UnmarshalException;
+
 import org.apache.log4j.Appender;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,8 +56,6 @@ import com.servinglynk.hmis.warehouse.model.v2015.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.model.v2015.Site;
 
-import javax.xml.bind.UnmarshalException;
-
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
 	
@@ -70,6 +68,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	BulkUploadHelper bulkUploadHelper;
 	
 	@Override
+	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		try {
 			if (appender != null) {

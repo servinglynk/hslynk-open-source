@@ -166,7 +166,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,enrollment.getProjectEntryID(),data);
+		hydrateCommonFields(model, domain,enrollment.getProjectEntryID(),data);
 		
 		return model;
 	}

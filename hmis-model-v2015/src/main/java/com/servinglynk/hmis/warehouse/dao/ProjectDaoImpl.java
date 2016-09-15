@@ -117,7 +117,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,project.getProjectID(),data);
+		hydrateCommonFields(model, domain,project.getProjectID(),data);
 		return model;
 	}
 	

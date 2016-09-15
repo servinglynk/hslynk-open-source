@@ -89,7 +89,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,coc.getCoCCode(),data);
+		hydrateCommonFields(model, domain,coc.getCoCCode(),data);
 		return model;
 	}
 

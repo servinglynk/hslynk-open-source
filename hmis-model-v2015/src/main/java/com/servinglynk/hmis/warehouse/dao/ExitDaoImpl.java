@@ -104,7 +104,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,exit.getExitID(),data);
+		hydrateCommonFields(model, domain,exit.getExitID(),data);
 		return model;
 	}
 

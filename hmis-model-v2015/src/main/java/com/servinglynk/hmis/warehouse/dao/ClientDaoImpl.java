@@ -133,11 +133,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					performSaveOrUpdate(clientModel);
 					
 					// Inserting client in base schema	
-					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
-					BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
-					target.setDateUpdated(LocalDateTime.now());
-					target.setSchemaYear("2015");
-					insertOrUpdate(target);	
+					if(!clientModel.isIgnored()) {
+						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
+						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
+						target.setDateUpdated(LocalDateTime.now());
+						target.setSchemaYear("2015");
+						insertOrUpdate(target);	
+					}
 //					}
 				} catch (Exception e) {
 					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();

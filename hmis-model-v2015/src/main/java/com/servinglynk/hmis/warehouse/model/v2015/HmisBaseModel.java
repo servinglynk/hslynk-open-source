@@ -165,14 +165,14 @@ public abstract class HmisBaseModel implements Entity{
 			public void setSourceSystemId(String sourceId) {
 				this.sourceSystemId = sourceId;
 			}
-			private boolean recordToBoinserted;
+			private boolean recordToBoInserted=true;
 			
 			@Transient
 			public boolean isRecordToBoInserted() {
-				return recordToBoinserted;
+				return recordToBoInserted;
 			}
 			public void setRecordToBeInserted(boolean inserted) {
-				this.recordToBoinserted = inserted;
+				this.recordToBoInserted = inserted;
 			}
 			
 

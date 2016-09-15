@@ -117,7 +117,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,exitrhy.getExitRHYID(),data);
+		hydrateCommonFields(model, domain,exitrhy.getExitRHYID(),data);
 		return model;
 	}
 	

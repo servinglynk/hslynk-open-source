@@ -94,7 +94,7 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(referralsource.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,referralsource.getReferralSourceID(),data);
+		hydrateCommonFields(model, domain,referralsource.getReferralSourceID(),data);
 		return model;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Referralsource createReferralsource(com.servinglynk.hmis.warehouse.model.v2014.Referralsource referralsource){

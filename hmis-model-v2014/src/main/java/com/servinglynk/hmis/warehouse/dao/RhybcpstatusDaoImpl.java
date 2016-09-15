@@ -94,7 +94,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpstatus.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,rhybcpstatus.getRHYBCPStatusID(),data);
+		hydrateCommonFields(model, domain,rhybcpstatus.getRHYBCPStatusID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2014.Rhybcpstatus rhybcpstatus){

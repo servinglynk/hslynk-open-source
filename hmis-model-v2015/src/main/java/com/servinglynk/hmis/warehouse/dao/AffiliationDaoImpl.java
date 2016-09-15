@@ -85,7 +85,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
 			performMatch(domain, modelFromDB, model, data);
-			hydrateCommonFields(modelFromDB, domain,affiliation.getAffiliationID(),data);
+			hydrateCommonFields(model, domain,affiliation.getAffiliationID(),data);
 			return model;
 		}
 

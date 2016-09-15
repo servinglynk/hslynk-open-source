@@ -92,7 +92,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worsthousingsituation.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,worsthousingsituation.getWorstHousingSituationID(),data);
+		hydrateCommonFields(model, domain,worsthousingsituation.getWorstHousingSituationID(),data);
 		return model;
 	}
 

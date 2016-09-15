@@ -80,7 +80,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,education.getEducationID(),data);
+		hydrateCommonFields(model, domain,education.getEducationID(),data);
 		return model;
 	}
 

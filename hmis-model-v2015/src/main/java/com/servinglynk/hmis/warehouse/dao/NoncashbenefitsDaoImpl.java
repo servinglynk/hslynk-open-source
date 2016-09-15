@@ -110,7 +110,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(noncashbenefits.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,noncashbenefits.getNonCashBenefitsID(),data);
+		hydrateCommonFields(model, domain,noncashbenefits.getNonCashBenefitsID(),data);
 		return model;
 	}
 	

@@ -88,7 +88,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,site.getSiteID(),data);
+		hydrateCommonFields(model, domain,site.getSiteID(),data);
 		return model;
 	}
 

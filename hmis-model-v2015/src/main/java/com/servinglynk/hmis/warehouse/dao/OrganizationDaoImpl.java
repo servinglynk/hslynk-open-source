@@ -91,7 +91,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,organization.getOrganizationID(),data);
+		hydrateCommonFields(model, domain,organization.getOrganizationID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){

@@ -79,7 +79,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitpath.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,exitpath.getExitPATHID(),data);
+		hydrateCommonFields(model, domain,exitpath.getExitPATHID(),data);
 		return model;
 	}
 

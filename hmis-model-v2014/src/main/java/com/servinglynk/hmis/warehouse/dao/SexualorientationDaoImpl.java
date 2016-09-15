@@ -94,7 +94,7 @@ public class SexualorientationDaoImpl extends ParentDaoImpl implements
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(sexualorientation.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,sexualorientation.getSexualOrientationID(),data);
+		hydrateCommonFields(model, domain,sexualorientation.getSexualOrientationID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation createSexualorientation(com.servinglynk.hmis.warehouse.model.v2014.Sexualorientation sexualorientation){

@@ -90,7 +90,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,funder.getFunderID(),data);
+		hydrateCommonFields(model, domain,funder.getFunderID(),data);
 		return model;
 	}
 

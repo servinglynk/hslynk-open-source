@@ -101,7 +101,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhsp.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,entryrhsp.getEntryRHSPID(),data);
+		hydrateCommonFields(model, domain,entryrhsp.getEntryRHSPID(),data);
 		return model;
 	}
 

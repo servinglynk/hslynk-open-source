@@ -86,7 +86,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,services.getServicesID(),data);
+		hydrateCommonFields(model, domain,services.getServicesID(),data);
 		return model;
 	}
 	

@@ -140,7 +140,7 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,veteranInfo.getVeteranInfoID(),data);
+		hydrateCommonFields(model, domain,veteranInfo.getVeteranInfoID(),data);
 		return model;
 	}
 

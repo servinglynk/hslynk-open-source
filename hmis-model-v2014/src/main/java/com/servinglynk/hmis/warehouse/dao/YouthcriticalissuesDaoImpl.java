@@ -143,7 +143,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(youthcriticalissues.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,youthcriticalissues.getYouthCriticalIssuesID(),data);
+		hydrateCommonFields(model, domain,youthcriticalissues.getYouthCriticalIssuesID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues createYouthCriticalIssues(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues youthCriticalIssues){

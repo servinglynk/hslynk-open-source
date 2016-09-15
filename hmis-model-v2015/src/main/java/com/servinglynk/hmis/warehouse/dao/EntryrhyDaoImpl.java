@@ -169,7 +169,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhy.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,entryrhy.getEntryRHYID(),data);
+		hydrateCommonFields(model, domain,entryrhy.getEntryRHYID(),data);
 		return model;
 	}
 

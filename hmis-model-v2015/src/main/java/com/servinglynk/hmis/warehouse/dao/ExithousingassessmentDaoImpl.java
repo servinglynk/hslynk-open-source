@@ -91,7 +91,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exithousingassessment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,exithousingassessment.getExitHousingAssessmentID(),data);
+		hydrateCommonFields(model, domain,exithousingassessment.getExitHousingAssessmentID(),data);
 		return model;
 	}
 	@Override

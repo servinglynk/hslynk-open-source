@@ -86,7 +86,7 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(percentami.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,percentami.getPercentAMIID(),data);
+		hydrateCommonFields(model, domain,percentami.getPercentAMIID(),data);
 		return model;
 	}
 	 public com.servinglynk.hmis.warehouse.model.v2014.Percentami createPercentami(com.servinglynk.hmis.warehouse.model.v2014.Percentami percentami){

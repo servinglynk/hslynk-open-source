@@ -96,7 +96,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectcoc.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,projectcoc.getProjectCoCID(),data);
+		hydrateCommonFields(model, domain,projectcoc.getProjectCoCID(),data);
 		return model;
 	}
 

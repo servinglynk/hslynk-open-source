@@ -101,7 +101,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,healthStatus.getHealthStatusID(),data);
+		hydrateCommonFields(model, domain,healthStatus.getHealthStatusID(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2015.HealthStatus HealthStatus){

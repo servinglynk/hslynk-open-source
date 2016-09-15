@@ -86,7 +86,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateofengagement.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,dateofengagement.getDateOfEngagementID(),data);
+		hydrateCommonFields(model, domain,dateofengagement.getDateOfEngagementID(),data);
 		return model;
 	}
 

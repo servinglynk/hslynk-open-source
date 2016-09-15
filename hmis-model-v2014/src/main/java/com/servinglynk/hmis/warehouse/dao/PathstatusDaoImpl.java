@@ -90,7 +90,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathstatus.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,pathstatus.getPathStatusID(),data);
+		hydrateCommonFields(model, domain,pathstatus.getPathStatusID(),data);
 		return model;
 	}
 

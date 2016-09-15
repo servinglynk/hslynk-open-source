@@ -95,7 +95,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,employment.getEmploymentID(),data);
+		hydrateCommonFields(model, domain,employment.getEmploymentID(),data);
 		return model;
 	}
 	@Override

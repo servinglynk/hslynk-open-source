@@ -84,7 +84,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,domesticViolence.getDomesticViolenceID(),data);
+		hydrateCommonFields(model, domain,domesticViolence.getDomesticViolenceID(),data);
 		return model;
 	}
 

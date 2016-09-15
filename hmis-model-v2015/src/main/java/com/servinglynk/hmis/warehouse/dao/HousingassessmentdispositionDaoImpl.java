@@ -90,7 +90,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingassessmentdisposition.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data);
+		hydrateCommonFields(model, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data);
 		return model;
 	}
 	@Override

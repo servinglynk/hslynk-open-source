@@ -88,7 +88,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryssvf.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,entryssvf.getEntrySSVFID(),data);
+		hydrateCommonFields(model, domain,entryssvf.getEntrySSVFID(),data);
 		return model;
 	}
 

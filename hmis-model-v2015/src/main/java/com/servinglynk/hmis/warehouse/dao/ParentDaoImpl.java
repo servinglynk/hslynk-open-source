@@ -251,9 +251,13 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param model
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model) {
+		if(model.isIgnored()) {
+			logger.info("Ignoring this record because is already exists:::"+model.toString());
+			return;
+		}
 		model.setDateUpdated(LocalDateTime.now());
 		if(!model.isRecordToBoInserted()) {
-			getCurrentSession().update(model);
+			update(model);
 		}else{
 			model.setDateCreated(LocalDateTime.now());
 			insert(model);

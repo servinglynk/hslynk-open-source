@@ -101,7 +101,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,disabilities.getDisabilitiesID(),data);
+		hydrateCommonFields(model, domain,disabilities.getDisabilitiesID(),data);
 		return model;
 	}
 	

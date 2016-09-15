@@ -111,7 +111,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(modelFromDB, domain,inventory.getInventoryID(),data);
+		hydrateCommonFields(model, domain,inventory.getInventoryID(),data);
 		return model;
 	}
 	
