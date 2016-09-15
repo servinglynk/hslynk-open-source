@@ -104,7 +104,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exitModel, domain,exit.getExitID(),data,modelMap);
+		hydrateCommonFields(exitModel, domain,exit.getExitID(),data);
 		return exitModel;
 	}
 

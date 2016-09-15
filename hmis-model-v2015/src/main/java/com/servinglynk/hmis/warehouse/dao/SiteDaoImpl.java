@@ -84,7 +84,7 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(SiteModel, domain,site.getSiteID(),data,modelMap);
+		hydrateCommonFields(SiteModel, domain,site.getSiteID(),data);
 		return SiteModel;
 	}
 	

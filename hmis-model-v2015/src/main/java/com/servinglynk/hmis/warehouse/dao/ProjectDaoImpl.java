@@ -117,7 +117,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(projectModel, domain,Project.getProjectID(),data,modelMap);
+		hydrateCommonFields(projectModel, domain,Project.getProjectID(),data);
 		return projectModel;
 	}
 	

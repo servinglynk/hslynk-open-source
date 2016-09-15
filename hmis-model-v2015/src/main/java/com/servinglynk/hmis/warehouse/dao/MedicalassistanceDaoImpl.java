@@ -98,7 +98,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(medicalassistanceModel, domain,medicalassistance.getMedicalAssistanceID(),data,modelMap);
+		hydrateCommonFields(medicalassistanceModel, domain,medicalassistance.getMedicalAssistanceID(),data);
 		return medicalassistanceModel;
 	}
 	

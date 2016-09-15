@@ -96,7 +96,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data,modelMap);
+		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data);
 		return enrollmentCocModel;
 	}
 	@Override

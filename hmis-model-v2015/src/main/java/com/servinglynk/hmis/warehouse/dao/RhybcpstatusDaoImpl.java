@@ -93,7 +93,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(rhybcpStatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),data,modelMap);
+		hydrateCommonFields(rhybcpStatusModel, domain,rhybcpStatus.getRHYBCPStatusID(),data);
 		return rhybcpStatusModel;
 	}
 	

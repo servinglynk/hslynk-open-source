@@ -90,7 +90,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(organizationModel, domain,organization.getOrganizationID(),data,modelMap);
+		hydrateCommonFields(organizationModel, domain,organization.getOrganizationID(),data);
 		return organizationModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2015.Organization organization){

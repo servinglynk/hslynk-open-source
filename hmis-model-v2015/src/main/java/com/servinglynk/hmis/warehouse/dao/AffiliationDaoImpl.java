@@ -84,7 +84,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			}else{
 				++data.j;
 			}
-			hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),data,modelMap);
+			hydrateCommonFields(affiliationModel, domain,affiliation.getAffiliationID(),data);
 			return affiliationModel;
 		}
 

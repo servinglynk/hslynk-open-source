@@ -116,7 +116,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exitrhyModel, domain,exitrhy.getExitRHYID(),data,modelMap);
+		hydrateCommonFields(exitrhyModel, domain,exitrhy.getExitRHYID(),data);
 		return exitrhyModel;
 	}
 	

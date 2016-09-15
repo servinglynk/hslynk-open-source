@@ -145,7 +145,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data,modelMap);
+		hydrateCommonFields(enrollmentModel, domain,enrollment.getProjectEntryID(),data);
 		return enrollmentModel;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Enrollment getEnrollmentById(UUID enrollmentId) {

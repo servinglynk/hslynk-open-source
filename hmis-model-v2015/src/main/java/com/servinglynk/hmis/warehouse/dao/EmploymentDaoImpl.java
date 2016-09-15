@@ -94,7 +94,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(employmentModel, domain,Employment.getEmploymentID(),data,modelMap);
+		hydrateCommonFields(employmentModel, domain,Employment.getEmploymentID(),data);
 		return employmentModel;
 	}
 	@Override

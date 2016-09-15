@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -17,6 +18,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -158,16 +160,47 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 	
 	
-	public com.servinglynk.hmis.warehouse.model.v2015.Client getModelObject(ExportDomain domain, Client client ,Data data, Map<String,HmisBaseModel> modelMap,String dedupSessionKey, Boolean skipClientIdentifier) {
-		com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2015.Client getModelObject(ExportDomain domain, Client client ,Data data, Map<String,HmisBaseModel> modelMap, String dedupSessionKey, Boolean skipClientIdentifier) {
+		com.servinglynk.hmis.warehouse.model.v2015.Client modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
-		if(!isFullRefresh(domain))
-			clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-		
-		clientModel = getUniqueClient(dedupSessionKey, skipClientIdentifier, client,clientModel,data,modelMap);
-		hydrateCommonFields(clientModel, domain,client.getPersonalID(),data,modelMap);
-		return clientModel;
+		if(!isFullRefresh(domain)) {
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		}
+		com.servinglynk.hmis.warehouse.model.v2015.Client model = new com.servinglynk.hmis.warehouse.model.v2015.Client(); 
+		if(client != null) {
+			model.setFirstName(client.getFirstName() != null ?client.getFirstName().getValue():null);
+			model.setLastName(client.getLastName() != null ?client.getLastName().getValue():null);
+			model.setDob(BasicDataGenerator.getLocalDateTime(client
+					.getDOB()));
+			model.setGender(ClientGenderEnum.lookupEnum(String
+					.valueOf(client.getGender())));
+			model
+			.setSsnDataQuality(ClientSsnDataQualityEnum
+					.lookupEnum(BasicDataGenerator
+							.getStringValue(client
+									.getSSNDataQuality())));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
+		}
+		if(modelFromDB == null) {
+			model.setId(UUID.randomUUID());
+			model.setRecordToBeInserted(true);
+		}
+		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
+		if(!isFullRefresh(domain)) {
+			if(!model.isIgnored()) {
+				if(!model.isRecordToBoInserted()) {
+					++data.j;
+				}
+				if(model.isRecordToBoInserted()) {
+					++data.i;
+				}
+			}
+		}
+		hydrateCommonFields(model, domain,client.getPersonalID(),data);
+		performMatch(domain,modelFromDB,model,data);
+		return model;
 	}
+	
 	
 	/**
 	 * This is where the deduping happens We check if a client with the same information exists and
@@ -175,62 +208,55 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
 	 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 	 */
-	public com.servinglynk.hmis.warehouse.model.v2015.Client getUniqueClient(String dedupSessionKey,Boolean skipClientIdentifier,Client client,com.servinglynk.hmis.warehouse.model.v2015.Client clientModel, Data data) {
+	public com.servinglynk.hmis.warehouse.model.v2015.Client getUniqueClient(String dedupSessionKey,Boolean skipClientIdentifier,com.servinglynk.hmis.warehouse.model.v2015.Client clientModelFromDB,com.servinglynk.hmis.warehouse.model.v2015.Client clientModel,boolean forAPI) {
 		com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
-		
-		if(clientModel == null) {
-			clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
-			clientModel.setId(UUID.randomUUID());
-			clientModel.setRecordToBeInserted(true);
-			
-		} else{
-		  ++data.j;
-		}
-		
-		if(client != null) {
-			if (client.getFirstName() != null) {
-				clientModel.setFirstName(client.getFirstName().getValue());
-			}
-			if (client.getLastName() != null) {
-				clientModel.setLastName(client.getLastName().getValue());
-			}
-			clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
-					.getDOB()));
-			clientModel.setGender(ClientGenderEnum.lookupEnum(String
-					.valueOf(client.getGender())));
-			clientModel
-			.setSsnDataQuality(ClientSsnDataQualityEnum
-					.lookupEnum(BasicDataGenerator
-							.getStringValue(client
-									.getSSNDataQuality())));
-		}
 		BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
-		if(skipClientIdentifier) {
+		if(!skipClientIdentifier) {
 			logger.info("Calling Dedup Service for "+clientModel.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(target,dedupSessionKey);
 			logger.info("Dedup Id is ##### "+dedupedId);
 			if(dedupedId != null) {
-				target.setDedupClientId(UUID.fromString(dedupedId));	
-				clientModel.setDedupClientId(target.getDedupClientId());
-			}
-			clientModel.setFirstName(target.getFirstName());
-			clientModel.setLastName(target.getLastName());
-			clientModel.setSsn(target.getSsn());
-			clientModel.setMiddleName(target.getMiddleName());
-		}else {
-			clientModel.setFirstName("");
-			clientModel.setLastName("");
-			clientModel.setSsn("");
-			clientModel.setMiddleName("");
-			try {
-				LocalDateTime dob = clientModel.getDob();
-				if(dob !=null) {
-					LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
-					clientModel.setDob(newDob);
+				UUID dedupId = UUID.fromString(dedupedId);
+				if(clientModelFromDB == null && forAPI && dedupedId != null && StringUtils.isNotBlank(clientModel.getProjectGroupCode())) {
+					com.servinglynk.hmis.warehouse.model.v2015.Client dedupClientFromDB = getClientByDedupCliendId(dedupId,clientModel.getProjectGroupCode());
+					modelMatch(dedupClientFromDB, clientModel);
 				}
-			}catch(Exception e) {
-				// Eat this exception.
+				if(!forAPI && clientModelFromDB !=null) {
+					modelMatch(clientModelFromDB, clientModel);
+				}
+				clientModel.setDedupClientId(dedupId);
 			}
+		}else {
+			if(clientModelFromDB !=null) {
+				clientModelFromDB.setFirstName("");
+				clientModelFromDB.setLastName("");
+				clientModelFromDB.setSsn("");
+				clientModelFromDB.setMiddleName("");
+				try {
+					LocalDateTime dob = clientModelFromDB.getDob();
+					if(dob !=null) {
+						LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
+						clientModelFromDB.setDob(newDob);
+					}
+					return clientModelFromDB;
+				}catch(Exception e) {
+					// Eat this exception.
+				}
+			}else {
+				clientModel.setFirstName("");
+				clientModel.setLastName("");
+				clientModel.setSsn("");
+				clientModel.setMiddleName("");
+				try {
+					LocalDateTime dob = clientModel.getDob();
+					if(dob !=null) {
+						LocalDateTime newDob = LocalDateTime.of(dob.getYear(), dob.getMonth(), 01, dob.getHour(), dob.getHour(),dob.getMinute(),dob.getSecond());
+						clientModel.setDob(newDob);
+					}
+				}catch(Exception e) {
+					// Eat this exception.
+				}
+			 }
 		}
 		return clientModel;
 	}

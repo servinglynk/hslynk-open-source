@@ -89,7 +89,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data,modelMap);
+		hydrateCommonFields(funderModel, domain,funder.getFunderID(),data);
 		return funderModel;
 	}
 

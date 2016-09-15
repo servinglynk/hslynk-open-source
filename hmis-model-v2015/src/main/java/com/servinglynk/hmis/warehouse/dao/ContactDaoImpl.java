@@ -111,7 +111,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(contactModel, domain,Contact.getContactID(),data,modelMap);
+		hydrateCommonFields(contactModel, domain,Contact.getContactID(),data);
 		return contactModel;
 	}
 

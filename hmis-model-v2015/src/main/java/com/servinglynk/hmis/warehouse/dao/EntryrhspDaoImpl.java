@@ -100,7 +100,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(entryrhspModel, domain,entryrhsp.getEntryRHSPID(),data,modelMap);
+		hydrateCommonFields(entryrhspModel, domain,entryrhsp.getEntryRHSPID(),data);
 		return entryrhspModel;
 	}
 

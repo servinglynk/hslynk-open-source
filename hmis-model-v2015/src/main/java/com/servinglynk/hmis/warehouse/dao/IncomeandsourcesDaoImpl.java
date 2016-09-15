@@ -138,7 +138,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(IncomeandsourcesModel, domain,incomeandsources.getIncomeAndSourcesID(),data,modelMap);
+		hydrateCommonFields(IncomeandsourcesModel, domain,incomeandsources.getIncomeAndSourcesID(),data);
 		return IncomeandsourcesModel;
 	}
 	

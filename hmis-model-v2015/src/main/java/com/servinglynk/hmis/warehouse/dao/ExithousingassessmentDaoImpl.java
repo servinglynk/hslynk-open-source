@@ -91,7 +91,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exithousingassessmentModel, domain,exithousingassessment.getExitHousingAssessmentID(),data,modelMap);
+		hydrateCommonFields(exithousingassessmentModel, domain,exithousingassessment.getExitHousingAssessmentID(),data);
 		return exithousingassessmentModel;
 	}
 	@Override

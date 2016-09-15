@@ -87,7 +87,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(entryssvfModel, domain,entryssvf.getEntrySSVFID(),data,modelMap);
+		hydrateCommonFields(entryssvfModel, domain,entryssvf.getEntrySSVFID(),data);
 		return entryssvfModel;
 	}
 

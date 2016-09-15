@@ -84,7 +84,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(domesticviolenceModel, domain,domesticViolence.getDomesticViolenceID(),data,modelMap);
+		hydrateCommonFields(domesticviolenceModel, domain,domesticViolence.getDomesticViolenceID(),data);
 		return domesticviolenceModel;
 	}
 

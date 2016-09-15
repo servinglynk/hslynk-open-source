@@ -78,7 +78,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(exitpathModel, domain,exitpath.getExitPATHID(),data,modelMap);
+		hydrateCommonFields(exitpathModel, domain,exitpath.getExitPATHID(),data);
 		return exitpathModel;
 	}
 

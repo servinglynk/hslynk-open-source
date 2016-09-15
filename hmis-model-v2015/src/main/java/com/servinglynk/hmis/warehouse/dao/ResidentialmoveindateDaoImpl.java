@@ -89,7 +89,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data,modelMap);
+		hydrateCommonFields(residentialmoveindateModel, domain,residentialmoveindate.getResidentialMoveInDateID(),data);
 		return residentialmoveindateModel;
 	}
 	@Override

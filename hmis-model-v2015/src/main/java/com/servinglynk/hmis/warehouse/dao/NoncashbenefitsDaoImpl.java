@@ -110,7 +110,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(noncashbenefitsModel, domain,noncashbenefits.getNonCashBenefitsID(),data,modelMap);
+		hydrateCommonFields(noncashbenefitsModel, domain,noncashbenefits.getNonCashBenefitsID(),data);
 		return noncashbenefitsModel;
 	}
 	

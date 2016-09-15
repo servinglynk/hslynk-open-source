@@ -135,7 +135,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(clientVeteranInfoModel, domain,clientVeteranInfo.getClientVeteranInfoID(),data,modelMap);
+		hydrateCommonFields(clientVeteranInfoModel, domain,clientVeteranInfo.getClientVeteranInfoID(),data);
 		return clientVeteranInfoModel;
 	}
 

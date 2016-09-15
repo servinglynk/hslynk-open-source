@@ -100,7 +100,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(disabilitiesModel, domain,Disabilities.getDisabilitiesID(),data,modelMap);
+		hydrateCommonFields(disabilitiesModel, domain,Disabilities.getDisabilitiesID(),data);
 		return disabilitiesModel;
 	}
 	

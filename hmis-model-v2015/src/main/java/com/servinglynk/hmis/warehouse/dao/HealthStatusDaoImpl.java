@@ -100,7 +100,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(healthStatusModel, domain,HealthStatus.getHealthStatusID(),data,modelMap);
+		hydrateCommonFields(healthStatusModel, domain,HealthStatus.getHealthStatusID(),data);
 		return healthStatusModel;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2015.HealthStatus HealthStatus){

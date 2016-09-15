@@ -110,7 +110,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(inventoryModel, domain,Inventory.getInventoryID(),data,modelMap);
+		hydrateCommonFields(inventoryModel, domain,Inventory.getInventoryID(),data);
 		return inventoryModel;
 	}
 	

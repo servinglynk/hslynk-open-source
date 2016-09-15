@@ -88,7 +88,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(pathstatusModel, domain,pathstatus.getPathStatusID(),data,modelMap);
+		hydrateCommonFields(pathstatusModel, domain,pathstatus.getPathStatusID(),data);
 		return pathstatusModel;
 	}
 

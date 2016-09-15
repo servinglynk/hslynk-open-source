@@ -75,7 +75,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data,modelMap);
+		hydrateCommonFields(sourceModel, domain,source.getSourceID(),data);
 		return sourceModel;
 	}
 

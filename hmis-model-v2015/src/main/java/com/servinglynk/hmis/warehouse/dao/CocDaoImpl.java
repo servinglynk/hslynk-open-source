@@ -88,7 +88,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(CocModel, domain,coc.getCoCCode(),data,modelMap);
+		hydrateCommonFields(CocModel, domain,coc.getCoCCode(),data);
 		return CocModel;
 	}
 

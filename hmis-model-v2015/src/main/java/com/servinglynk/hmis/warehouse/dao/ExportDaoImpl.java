@@ -67,7 +67,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			exportModel.setRecordToBeInserted(true);
 			
 		}
-		hydrateCommonFields(exportModel, domain,export.getExportID(),data,modelMap);
+		hydrateCommonFields(exportModel, domain,export.getExportID(),data);
 		return exportModel;
 	}
 

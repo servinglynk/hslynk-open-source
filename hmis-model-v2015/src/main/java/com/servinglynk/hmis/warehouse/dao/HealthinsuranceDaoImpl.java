@@ -123,7 +123,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(healthinsuranceModel, domain,healthinsurance.getHealthInsuranceID(),data,modelMap);
+		hydrateCommonFields(healthinsuranceModel, domain,healthinsurance.getHealthInsuranceID(),data);
 		return healthinsuranceModel;
 	}
 

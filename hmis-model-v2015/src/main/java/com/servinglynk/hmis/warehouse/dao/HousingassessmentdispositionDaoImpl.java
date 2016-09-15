@@ -89,7 +89,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(housingassessmentdispositionModel, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data,modelMap);
+		hydrateCommonFields(housingassessmentdispositionModel, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data);
 		return housingassessmentdispositionModel;
 	}
 	@Override

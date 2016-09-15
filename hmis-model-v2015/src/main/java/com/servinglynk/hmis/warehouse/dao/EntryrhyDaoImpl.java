@@ -168,7 +168,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 		}else{
 			++data.j;
 		}
-		hydrateCommonFields(entryrhyModel, domain,entryrhy.getEntryRHYID(),data,modelMap);
+		hydrateCommonFields(entryrhyModel, domain,entryrhy.getEntryRHYID(),data);
 		return entryrhyModel;
 	}
 

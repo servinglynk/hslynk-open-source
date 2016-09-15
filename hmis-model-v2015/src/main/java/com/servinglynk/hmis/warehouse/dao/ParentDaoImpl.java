@@ -85,7 +85,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 * @param sourceId
 		 * @param i
 		 */
-	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Data data,Map<String,HmisBaseModel> modelMap) {
+	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Data data) {
 			String projectGroupCode = domain.getUpload().getProjectGroupCode();
 			baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
 			baseModel.setActive(false);
@@ -99,13 +99,11 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			    getCurrentSession().flush();
 	            getCurrentSession().clear();
           }
-		  performMatch(domain, modelMap, baseModel, data);
 	    }
-	    protected void performMatch(ExportDomain domain, Map<String,HmisBaseModel> modelMap, HmisBaseModel model, Data data) {
-			if(!isFullRefresh(domain) && StringUtils.isNotBlank(model.getSourceSystemId()) && modelMap !=null && !modelMap.isEmpty()) {
-				HmisBaseModel hmisBaseModel = modelMap.get(model.getSourceSystemId());
-				if(hmisBaseModel != null) {
-					modelMatch(hmisBaseModel, model);
+	    protected void performMatch(ExportDomain domain, HmisBaseModel modelFromDB, HmisBaseModel model, Data data) {
+			if(!isFullRefresh(domain) && StringUtils.isNotBlank(model.getSourceSystemId())){
+				if(modelFromDB != null) {
+					modelMatch(modelFromDB, model);
 				}	
 				if(!model.isIgnored()) {
 					if(!model.isRecordToBoInserted()) {
@@ -119,7 +117,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 					data.ignore++;
 				}
 			}else {
-				data.ignore++;
+				data.i++;
 			}
 		}
 	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel model) {
