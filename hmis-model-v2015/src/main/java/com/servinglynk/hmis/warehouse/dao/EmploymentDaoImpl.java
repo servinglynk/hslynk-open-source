@@ -80,22 +80,23 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Employment.class.getSimpleName(), domain,exportEntity);
 		}
 	}
-	public com.servinglynk.hmis.warehouse.model.v2015.Employment getModelObject(ExportDomain domain, Employment Employment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Employment employmentModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2015.Employment getModelObject(ExportDomain domain, Employment employment ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2015.Employment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			employmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Employment.class, Employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(employmentModel == null) {
-			employmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
-			employmentModel.setId(UUID.randomUUID());
-			employmentModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(employmentModel, domain,Employment.getEmploymentID(),data);
-		return employmentModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Employment model = new com.servinglynk.hmis.warehouse.model.v2015.Employment();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,employment.getEmploymentID(),data);
+		return model;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

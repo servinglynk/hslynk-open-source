@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -87,21 +87,22 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp getModelObject(ExportDomain domain, EntryRHSP entryrhsp ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp entryrhspModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			entryrhspModel = (com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(entryrhspModel == null) {
-			entryrhspModel = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
-			entryrhspModel.setId(UUID.randomUUID());
-			entryrhspModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(entryrhspModel, domain,entryrhsp.getEntryRHSPID(),data);
-		return entryrhspModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp model = new com.servinglynk.hmis.warehouse.model.v2015.Entryrhsp();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhsp.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,entryrhsp.getEntryRHSPID(),data);
+		return model;
 	}
 
     

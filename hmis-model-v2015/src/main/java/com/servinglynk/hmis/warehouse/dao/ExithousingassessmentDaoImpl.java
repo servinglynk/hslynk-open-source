@@ -3,23 +3,22 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.Exit;
 import com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
@@ -78,21 +77,22 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment getModelObject(ExportDomain domain, ExitHousingAssessment exithousingassessment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment exithousingassessmentModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exithousingassessmentModel = (com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(exithousingassessmentModel == null) {
-			exithousingassessmentModel = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();
-			exithousingassessmentModel.setId(UUID.randomUUID());
-			exithousingassessmentModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(exithousingassessmentModel, domain,exithousingassessment.getExitHousingAssessmentID(),data);
-		return exithousingassessmentModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment model = new com.servinglynk.hmis.warehouse.model.v2015.Exithousingassessment();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exithousingassessment.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,exithousingassessment.getExitHousingAssessmentID(),data);
+		return model;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

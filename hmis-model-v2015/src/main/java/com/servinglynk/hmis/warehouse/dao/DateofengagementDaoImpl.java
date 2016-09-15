@@ -72,21 +72,22 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateofengagement ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement dateofengagementModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			dateofengagementModel = (com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(dateofengagementModel == null) {
-			dateofengagementModel = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
-			dateofengagementModel.setId(UUID.randomUUID());
-			dateofengagementModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(dateofengagementModel, domain,dateofengagement.getDateOfEngagementID(),data);
-		return dateofengagementModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2015.Dateofengagement();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateofengagement.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,dateofengagement.getDateOfEngagementID(),data);
+		return model;
 	}
 
 

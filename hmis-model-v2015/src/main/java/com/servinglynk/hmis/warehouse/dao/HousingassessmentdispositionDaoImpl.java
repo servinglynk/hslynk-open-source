@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.Exit;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition;
@@ -76,21 +76,22 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition getModelObject(ExportDomain domain, HousingAssessmentDisposition housingassessmentdisposition ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition housingassessmentdispositionModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			housingassessmentdispositionModel = (com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(housingassessmentdispositionModel == null) {
-			housingassessmentdispositionModel = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();
-			housingassessmentdispositionModel.setId(UUID.randomUUID());
-			housingassessmentdispositionModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(housingassessmentdispositionModel, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data);
-		return housingassessmentdispositionModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition model = new com.servinglynk.hmis.warehouse.model.v2015.Housingassessmentdisposition();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingassessmentdisposition.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,housingassessmentdisposition.getHousingAssessmentDispositionID(),data);
+		return model;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

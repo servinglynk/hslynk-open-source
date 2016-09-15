@@ -125,21 +125,22 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources getModelObject(ExportDomain domain, IncomeAndSources incomeandsources ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources IncomeandsourcesModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			IncomeandsourcesModel = (com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class, incomeandsources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class, incomeandsources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(IncomeandsourcesModel == null) {
-			IncomeandsourcesModel = new com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources();
-			IncomeandsourcesModel.setId(UUID.randomUUID());
-			IncomeandsourcesModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(IncomeandsourcesModel, domain,incomeandsources.getIncomeAndSourcesID(),data);
-		return IncomeandsourcesModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources model = new com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeandsources.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,incomeandsources.getIncomeAndSourcesID(),data);
+		return model;
 	}
 	
 

@@ -97,22 +97,23 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			}
 	}
 	
-	public  com.servinglynk.hmis.warehouse.model.v2015.Contact getModelObject(ExportDomain domain, Contact Contact,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Contact contactModel = null;
+	public  com.servinglynk.hmis.warehouse.model.v2015.Contact getModelObject(ExportDomain domain, Contact contact,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2015.Contact modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			contactModel = (com.servinglynk.hmis.warehouse.model.v2015.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, Contact.getContactID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2015.Contact.class, contact.getContactID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(contactModel == null) {
-			contactModel = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
-			contactModel.setId(UUID.randomUUID());
-			contactModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(contactModel, domain,Contact.getContactID(),data);
-		return contactModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Contact model = new com.servinglynk.hmis.warehouse.model.v2015.Contact();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contact.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,contact.getContactID(),data);
+		return model;
 	}
 
 	

@@ -67,7 +67,6 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			
 		}
 		hydrateCommonFields(modelFromDB, domain,export.getExportID(),data);
-		
 		return modelFromDB;
 	}
 }

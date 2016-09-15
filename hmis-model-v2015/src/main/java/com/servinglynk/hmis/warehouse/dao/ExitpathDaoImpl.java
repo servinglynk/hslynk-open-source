@@ -65,21 +65,22 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.Exitpath getModelObject(ExportDomain domain, ExitPATH exitpath ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Exitpath exitpathModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Exitpath modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			exitpathModel = (com.servinglynk.hmis.warehouse.model.v2015.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2015.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(exitpathModel == null) {
-			exitpathModel = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
-			exitpathModel.setId(UUID.randomUUID());
-			exitpathModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(exitpathModel, domain,exitpath.getExitPATHID(),data);
-		return exitpathModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Exitpath model = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitpath.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,exitpath.getExitPATHID(),data);
+		return model;
 	}
 
 	

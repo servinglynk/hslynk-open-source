@@ -66,21 +66,22 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Education.class.getSimpleName(), domain,exportEntity);
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Education getModelObject(ExportDomain domain, Education education ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Education educationModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.Education modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			educationModel = (com.servinglynk.hmis.warehouse.model.v2015.Education) getModel(com.servinglynk.hmis.warehouse.model.v2015.Education.class, education.getEducationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Education) getModel(com.servinglynk.hmis.warehouse.model.v2015.Education.class, education.getEducationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(educationModel == null) {
-			educationModel = new com.servinglynk.hmis.warehouse.model.v2015.Education();
-			educationModel.setId(UUID.randomUUID());
-			educationModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Education();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(educationModel, domain,education.getEducationID(),data);
-		return educationModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Education model = new com.servinglynk.hmis.warehouse.model.v2015.Education();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,education.getEducationID(),data);
+		return model;
 	}
 
 	@Override

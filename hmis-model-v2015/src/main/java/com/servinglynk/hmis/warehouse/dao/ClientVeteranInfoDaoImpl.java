@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo;
@@ -28,6 +27,7 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -122,21 +122,22 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 	}
 	
 	public  com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo clientVeteranInfoModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			clientVeteranInfoModel = (com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(clientVeteranInfoModel == null) {
-			clientVeteranInfoModel = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
-			clientVeteranInfoModel.setId(UUID.randomUUID());
-			clientVeteranInfoModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(clientVeteranInfoModel, domain,clientVeteranInfo.getClientVeteranInfoID(),data);
-		return clientVeteranInfoModel;
+		com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(clientVeteranInfo.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,clientVeteranInfo.getClientVeteranInfoID(),data);
+		return model;
 	}
 
 	@Override

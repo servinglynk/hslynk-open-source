@@ -86,22 +86,23 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getModelObject(ExportDomain domain, Disabilities Disabilities ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.Disabilities disabilitiesModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getModelObject(ExportDomain domain, Disabilities disabilities ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2015.Disabilities modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			disabilitiesModel = (com.servinglynk.hmis.warehouse.model.v2015.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, Disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(disabilitiesModel == null) {
-			disabilitiesModel = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
-			disabilitiesModel.setId(UUID.randomUUID());
-			disabilitiesModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(disabilitiesModel, domain,Disabilities.getDisabilitiesID(),data);
-		return disabilitiesModel;
+		com.servinglynk.hmis.warehouse.model.v2015.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2015.Disabilities();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,disabilities.getDisabilitiesID(),data);
+		return model;
 	}
 	
 	@Override

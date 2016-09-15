@@ -86,22 +86,23 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 
 	}
-	public com.servinglynk.hmis.warehouse.model.v2015.HealthStatus getModelObject(ExportDomain domain, HealthStatus HealthStatus ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.HealthStatus healthStatusModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2015.HealthStatus getModelObject(ExportDomain domain, HealthStatus healthStatus ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2015.HealthStatus modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			healthStatusModel = (com.servinglynk.hmis.warehouse.model.v2015.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class, HealthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2015.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(healthStatusModel == null) {
-			healthStatusModel = new com.servinglynk.hmis.warehouse.model.v2015.HealthStatus();
-			healthStatusModel.setId(UUID.randomUUID());
-			healthStatusModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.HealthStatus();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(healthStatusModel, domain,HealthStatus.getHealthStatusID(),data);
-		return healthStatusModel;
+		com.servinglynk.hmis.warehouse.model.v2015.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2015.HealthStatus();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,healthStatus.getHealthStatusID(),data);
+		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2015.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2015.HealthStatus HealthStatus){
 	       HealthStatus.setId(UUID.randomUUID());

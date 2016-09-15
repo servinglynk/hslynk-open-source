@@ -83,21 +83,22 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	}
 
 	public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getModelObject(ExportDomain domain, EnrollmentCoC enrollmentCoc ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc enrollmentCocModel = null;
+		com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			enrollmentCocModel = (com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc) getModel(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc) getModel(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(enrollmentCocModel == null) {
-			enrollmentCocModel = new com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc();
-			enrollmentCocModel.setId(UUID.randomUUID());
-			enrollmentCocModel.setRecordToBeInserted(true);
-			
-		}else{
-			++data.j;
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 		}
-		hydrateCommonFields(enrollmentCocModel, domain,enrollmentCoc.getEnrollmentCoCID(),data);
-		return enrollmentCocModel;
+		com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc();
+		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
+		hydrateCommonFields(modelFromDB, domain,enrollmentCoc.getEnrollmentCoCID(),data);
+		return model;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
