@@ -75,8 +75,10 @@ public interface Constants {
 	public static final String VERIFICATION_STATUS_ACCEPTED="ACCEPTED";
 	public static final String ACCOUNT_STATUS_PENDING="PENDING";
 	public static final String ACCOUNT_STATUS_ACTIVE="ACTIVE";
+	public static final String ACCOUNT_STATUS_INACTIVE="INACTIVE";
 	public static final String ACCOUNT_STATUS_DISABLED="DISABLED";
 	public static final String ACCOUNT_STATUS_NONEXISTENT="NONEXISTENT";
+	public static final String ACCOUNT_STATUS_DELETED = "DELETED";
 	
 	public static final String DEVELOPER_CONSOLE_SERVICE="DEVELOPER_CONSOLE_SERVICE";
 	public static final String VERIFICATION_TYPE_PASSWORD_RESET="PASSWORD_RESET";
@@ -96,6 +98,7 @@ public interface Constants {
 	public static final String ALPHA   = "abcdefghijklmnopqrstuvwxyz";
 	public static final String NUM     = "0123456789";
 	public static final String SPL_CHARS   = "!@#$*";
+
 
 
 }

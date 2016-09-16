@@ -50,7 +50,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		HmisUser user = daoFactory.getAccountDao().findByUsername(account.getUsername());
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
-		 Role role = account.getRoles()!=null ? account.getRoles().getRoles().get(0):null;
+		 Role role = account.getRoles()!=null ? account.getRoles().get(0):null;
 			List<BulkUpload> uploads = null; 
 			try {
 		if(role != null) {

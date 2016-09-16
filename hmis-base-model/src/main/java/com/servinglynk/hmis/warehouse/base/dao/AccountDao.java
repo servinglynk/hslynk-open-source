@@ -24,4 +24,6 @@ public interface AccountDao {
 	public List<HmisUser> findUsersByProjectGroup(String projectGroupCode);
 	
 	UserRoleMapEntity getUserRoleByUserIdAndRoleId(UUID userid,UUID roleid);
+	
+	List<HmisUser> getCustomerAdmins(String projectGroup);
 }

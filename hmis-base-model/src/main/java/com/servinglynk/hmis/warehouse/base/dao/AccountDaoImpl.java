@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.servinglynk.hmis.warehouse.domain.Criteria;
+import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProfileACLEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
@@ -20,6 +20,7 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	public HmisUser findByUsername(String userName){
 		DetachedCriteria criteria= DetachedCriteria.forClass(HmisUser.class);
 		criteria.add(Restrictions.eq("username",userName.toLowerCase()));
+		criteria.add(Restrictions.ne("status", Constants.ACCOUNT_STATUS_DELETED));
 		List<HmisUser> accounts = (List<HmisUser>) findByCriteria(criteria);
 		if(accounts.size()>0) return accounts.get(0);
 		return null;
@@ -38,7 +39,12 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 		return (HmisUser) get(HmisUser.class,userId);
 	}
 	
-	
+	public List<HmisUser> getCustomerAdmins(String projectGroup) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
+		criteria.add(Restrictions.eq("profileEntity.profileName", "Customer Admin Profile"));
+		criteria.add(Restrictions.eq("projectGroupEntity.projectGroupCode",projectGroup));
+		return (List<HmisUser>) findByCriteria(criteria); 
+	}
 	
 	public HmisUser createAccount(HmisUser account){
 		String hiveUserName = account.getUsername().replaceAll("[^a-zA-Z0-9]+","3");

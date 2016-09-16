@@ -39,9 +39,9 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 	}
 	
 	
-	public boolean checkApiAuthForUser(String accessToken, String apiMethodId){
-		boolean flag = serviceFactory.getAccountService().checkApiAuthorizationForUser(accessToken, apiMethodId);
-		if(flag) this.extendUserSession(accessToken);
+	public boolean checkApiAuthForUser(Session session, String apiMethodId){
+		boolean flag = serviceFactory.getAccountService().checkApiAuthorizationForUser(session.getAccount(), apiMethodId);
+		if(flag) this.extendUserSession(session.getToken());
 		return flag;
 	}
 	

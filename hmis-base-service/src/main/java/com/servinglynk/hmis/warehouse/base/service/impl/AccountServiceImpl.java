@@ -17,25 +17,23 @@ import com.servinglynk.hmis.warehouse.base.service.converter.RoleConverter;
 import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticator;
 import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticatorKey;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
-import com.servinglynk.hmis.warehouse.core.model.Notification;
-import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
+import com.servinglynk.hmis.warehouse.core.model.Notification;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
-import com.servinglynk.hmis.warehouse.model.base.AccountLockoutEntity;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.PermissionSetEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProfileEntity;
-import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
@@ -44,7 +42,6 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidCurrentPasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 public class AccountServiceImpl extends ServiceBase implements AccountService {
@@ -54,13 +51,12 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 	@Transactional
 	public Account findAccountByUsername(String username) {
-		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = daoFactory.getAccountDao()
+		HmisUser pAccount = daoFactory.getAccountDao()
 				.findByUsername(username);
 
 		Account account = null;
 		if (pAccount != null) {
 			account = AccountConverter.convertToAccount(pAccount);
-			account.setProfile(ProfileConverter.entityToModel(pAccount.getProfileEntity()));
 		}
 		return account;
 	}
@@ -101,21 +97,10 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		pVerification.setCreatedAt(new Date());
 		daoFactory.getVerificationDao().create(pVerification);
 
-		/* Create AccountEntity Preference for the AccountEntity */
-
 		pAccount.setPassword(HMISCryptographer.Encrypt(account.getPassword()));
 		pAccount.setVerification(pVerification);
 		pAccount.setCreatedBy(auditUser);
 		pAccount.setCreatedAt(new Date());
-
-		/* Create a default AccountEntity Lockout for the AccountEntity */
-		AccountLockoutEntity pAccountLockout = new AccountLockoutEntity();
-		pAccountLockout.setCreatedBy(auditUser);
-		pAccountLockout.setCreatedAt(new Date());
-		pAccountLockout.setFailureCount(0);
-		pAccountLockout.setLastLoginStatus(1);
-		pAccountLockout.setAccount(pAccount);
-		pAccount.setAccountLockout(pAccountLockout);
 
 		GoogleAuthenticator authenticator = new GoogleAuthenticator();
 		GoogleAuthenticatorKey key = authenticator.createCredentials();
@@ -135,20 +120,11 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		userRoleMapEntity.setAccountEntity(pAccount);
 		userRoleMapEntity.setRoleEntity(pRole);
 
-		if (account.getProjectGroup() != null) {
-
-			ProjectGroupEntity pProjectGroup = daoFactory.getProjectGroupDao()
-					.getProjectGroupById(account.getProjectGroup().getProjectGroupId());
-			if (pProjectGroup == null)
-				throw new ProjectGroupNotFoundException();
-
-			pAccount.setProjectGroupEntity(pProjectGroup);
-		} else {
-			HmisUser loginUser = daoFactory.getAccountDao().findByUsername(auditUser);
-			if (loginUser.getProjectGroupEntity() != null) {
-				pAccount.setProjectGroupEntity(loginUser.getProjectGroupEntity());
+			if (pAuditUser.getProjectGroupEntity() != null) {
+				pAccount.setProjectGroupEntity(pAuditUser.getProjectGroupEntity());
+			}else{
+				throw new AccessDeniedException("Login user does not have project group.");
 			}
-		}
 
 		daoFactory.getAccountDao().createAccount(pAccount);
 		daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
@@ -169,11 +145,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		notification.getRecipients().addToRecipient(account.getEmailAddress());
 		notificationServiceClient.createNotification(notification);		
 		
-		return account;
+		return AccountConverter.convertToAccount(pAccount);
 	}
 
 	@Transactional
 	public Account updateAccount(Account account, String auditUser) {
+
+		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
+		
 		ProfileEntity profileEntity = null;
 		if (account.getProfile() != null && account.getProfile().getId() != null) {
 			profileEntity = daoFactory.getProfileDao().getProfileById(account.getProfile().getId());
@@ -181,7 +160,18 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				throw new ProfileNotFoundException();
 		}
 
-		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
+/*		ProfileEntity pProfile = pAccount.getProfileEntity();
+		if(pProfile.getProfileName().equalsIgnoreCase("Customer Admin Profile")){
+			if(pProfile.getId()!=profileEntity.getId()){
+			  List<HmisUser> customerAdmins = daoFactory.getAccountDao().getCustomerAdmins(pAccount.getProjectGroupEntity().getProjectGroupCode());
+			  if(customerAdmins.size()==1) throw new AccessDeniedException("Profile cannot be updated as this is the only user associated with Customer admin profile");
+			}
+		}*/
+	
+		if(account.getStatus().equalsIgnoreCase(Constants.ACCOUNT_STATUS_INACTIVE)){
+			pAccount.setStatus(Constants.ACCOUNT_STATUS_INACTIVE);
+		}
+
 		pAccount.setFirstName(account.getFirstName());
 		pAccount.setLastName(account.getLastName());
 		pAccount.setMiddleName(account.getMiddleName());
@@ -190,14 +180,16 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (profileEntity != null)
 			pAccount.setProfileEntity(profileEntity);
 		pAccount.setTwoFactorAuthentication(account.isTwoFactorAuthentication());
-		HmisUser upAccount = daoFactory.getAccountDao().updateAccount(pAccount);
-		return (Account) AccountConverter.convertToAccount(upAccount);
+		daoFactory.getAccountDao().updateAccount(pAccount);
+		return account;
 	}
-	
+		
 	@Transactional
 	public Account activateAccount(Account account,String auditUser) {
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 		if(pAccount==null) throw new AccountNotFoundException();
+		if(!pAccount.getStatus().equalsIgnoreCase(Constants.ACCOUNT_STATUS_INACTIVE)) 
+			throw new AccessDeniedException("Account cannot be activated from "+pAccount.getStatus()+" status");
 		pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 		daoFactory.getAccountDao().updateAccount(pAccount);
 		return account;
@@ -235,11 +227,9 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		for (HmisUser accountEntity : accountEntities) {
 			Account account =  AccountConverter.convertToAccount(accountEntity);
 			List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(accountEntity.getId());
-			Roles roles = new Roles();
 			for(UserRoleMapEntity entity : userroles){
-				  roles.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
+				  account.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
 			}
-			account.setRoles(roles);
 			accounts.addAccount(account);
 
 		}
@@ -254,29 +244,35 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 			throw new AccountNotFoundException();
 		account = AccountConverter.convertToAccount(pAccount);
 		List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(pAccount.getId());
-		Roles roles = new Roles();
+
 		for(UserRoleMapEntity entity : userroles){
-			  roles.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
+			account.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
 		}
-		account.setRoles(roles);
 		return account;
 	}
 	
 	
 	@Transactional
-	public void addRoleToUser(UUID userid, Role role) {
-		HmisUser accountEntity= daoFactory.getAccountDao().findByUserId(userid);
-		if(accountEntity==null) throw new AccountNotFoundException();
-		
-		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
-		if(roleEntity==null) throw new RoleNotFoundException();
+	public void addRoleToUser(UUID userid, Roles roles) {
+		HmisUser accountEntity = daoFactory.getAccountDao().findByUserId(userid);
+		if (accountEntity == null)
+			throw new AccountNotFoundException();
 
-		UserRoleMapEntity userRoleMapEntity  = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleEntity.getId());
-		if(userRoleMapEntity==null) {		
-			UserRoleMapEntity entity = new UserRoleMapEntity();
-			entity.setAccountEntity(accountEntity);
-			entity.setRoleEntity(roleEntity);
-			daoFactory.getAccountDao().createUserRole(entity);
+		for (Role role : roles.getRoles()) {
+
+			RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
+			if (roleEntity != null) {
+
+				UserRoleMapEntity userRoleMapEntity = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid,
+						roleEntity.getId());
+				if (userRoleMapEntity == null) {
+					UserRoleMapEntity entity = new UserRoleMapEntity();
+					entity.setAccountEntity(accountEntity);
+					entity.setRoleEntity(roleEntity);
+					daoFactory.getAccountDao().createUserRole(entity);
+				}
+			}
+
 		}
 	}
 	
@@ -285,9 +281,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		HmisUser accountEntity= daoFactory.getAccountDao().findByUserId(userid);
 		if(accountEntity==null) throw new AccountNotFoundException();
 		
-
 		UserRoleMapEntity entity = daoFactory.getAccountDao().getUserRoleByUserIdAndRoleId(userid, roleid);
 		if(entity==null) throw new RoleNotFoundException("Role is not assiciated to this user");
+		
+		List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(accountEntity.getId());
+		if(userroles.size()==1){
+			throw new AccessDeniedException("User should be associated with atleast one role");
+		}
+		
 		daoFactory.getAccountDao().daeleteUserRole(entity);
 	}
 	
@@ -298,54 +299,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 		if (pAccount == null)
 			throw new AccountNotFoundException();
-		pAccount.setStatus(Constants.ACCOUNT_STATUS_DISABLED);
+		pAccount.setStatus(Constants.ACCOUNT_STATUS_DELETED);
 		pAccount.setModifiedAt(new Date());
 		pAccount.setModifiedBy(account.getUsername());
 		daoFactory.getAccountDao().updateAccount(pAccount);
 	}
 
 	@Transactional
-	public void addUserRole(Account account, Role role) {
-
-		HmisUser accountEntity = daoFactory.getAccountDao().findByUserId(account.getAccountId());
-		if (accountEntity == null)
-			throw new AccountNotFoundException("Account not found");
-
-		RoleEntity roleEntity = daoFactory.getRoleDao().getRoleByid(role.getId());
-		if (roleEntity == null)
-			throw new RoleNotFoundException();
-
-		UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
-		userRoleMapEntity.setAccountEntity(accountEntity);
-		userRoleMapEntity.setRoleEntity(roleEntity);
-
-		userRoleMapEntity = daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
-	}
-
-	@Transactional
-	public void removeUserRole(Account account, Role role) {
-
-		/*
-		 * HmisUser accountEntity=
-		 * daoFactory.getAccountDao().findByUserId(account.getAccountId());
-		 * if(accountEntity==null) throw new
-		 * AccountNotFoundException("Account not found");
-		 * 
-		 * RoleEntity roleEntity =
-		 * daoFactory.getRoleDao().getRoleByid(role.getId());
-		 * if(roleEntity==null) throw new RoleNotFoundException();
-		 * 
-		 * UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
-		 * userRoleMapEntity.setAccountEntity(accountEntity);
-		 * userRoleMapEntity.setRoleEntity(roleEntity);
-		 * 
-		 * userRoleMapEntity =
-		 * daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
-		 */
-	}
-
-	@Transactional
-	public boolean checkApiAuthorizationForUser(String accessToken, String apiMethodId) {
+	public boolean checkApiAuthorizationForUser(Account account, String apiMethodId) {
 
 		ApiMethodEntity apiMethodEntity = daoFactory.getApiMethodDao().findByExternalId(apiMethodId);
 
@@ -355,24 +316,10 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		if (!apiMethodEntity.getRequiresAccessToken())
 			return true;
 
-		SessionEntity sessionEntity = null;
-
-		if (ValidationUtil.isEmpty(accessToken) == false) {
-			sessionEntity = daoFactory.getSessionDao().findBySessionTokenForInterceptor(accessToken);
-			if (sessionEntity == null) {
-				sessionEntity = daoFactory.getSessionDao().findBySessionToken(accessToken);
-			}
-		}
-
-		if (sessionEntity == null)
-			throw new AccessDeniedException();
-
-		ProfileEntity profileEntity = sessionEntity.getAccount().getProfileEntity();
-
-		if (!daoFactory.getAccountDao().checkApiMethodAccess(profileEntity.getId(), apiMethodEntity.getId())) {
+		if (!daoFactory.getAccountDao().checkApiMethodAccess(account.getProfile().getId(), apiMethodEntity.getId())) {
 
 			List<PermissionSetEntity> permissionSets = daoFactory.getPermissionSetDao()
-					.getAssignedPermissionSets(sessionEntity.getAccount().getId());
+					.getAssignedPermissionSets(account.getAccountId());
 			if (permissionSets.size() == 0)
 				throw new AccessDeniedException(
 						"User doesn't have permission for the method " + apiMethodEntity.getFriendlyName());

@@ -74,7 +74,7 @@ public class RoleServiceImpl extends ServiceBase implements RoleService {
 		Roles roles = new Roles();
 		List<UUID> loginUserRoles = new ArrayList<UUID>();
 		if(account.getRoles()!=null) {
-			for(Role role : account.getRoles().getRoles()){
+			for(Role role : account.getRoles()){
 				loginUserRoles.add(role.getId());
 			}
 		}
@@ -91,7 +91,7 @@ public class RoleServiceImpl extends ServiceBase implements RoleService {
 		pagination.setReturned(roles.getRoles().size());
 		pagination.setFrom(startIndex);
 		roles.setPagination(pagination);
-		pagination.setTotal(roles.getRoles().size());
+		pagination.setTotal((int) count);
 		return roles;
 	}
 

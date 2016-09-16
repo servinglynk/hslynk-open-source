@@ -35,7 +35,7 @@ public class ApiMethodAuthorizationChecksController extends ControllerBase {
 		if(apiMethod.getRequiresCheckTrustedApp()!=null & apiMethod.getRequiresCheckTrustedApp()){
 			apiAuthCheck = serviceFactory.getTrustedAppService().checkApiAuthorization(apiAuthCheck, Constants.USER_SERVICE);
 		}
-		serviceFactory.getAccountService().checkApiAuthorizationForUser(sessiontoken, apimethodid);
+		serviceFactory.getAccountService().checkApiAuthorizationForUser(apiAuthCheck.getAccount(), apimethodid);
 		//apiAuthCheck.setAccount(account);
 		return apiAuthCheck;
 	}

@@ -12,15 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
 import com.servinglynk.hmis.warehouse.base.service.converter.AccountConverter;
-import com.servinglynk.hmis.warehouse.base.service.core.security.GoogleAuthenticator;
 import com.servinglynk.hmis.warehouse.common.Constants;
+import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.common.util.DateUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
@@ -33,7 +32,6 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountLockedoutExceptio
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountPendingException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidAccountCredentialsException;
-import com.servinglynk.hmis.warehouse.service.exception.InvalidOnetimePasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.SessionNotFoundException;
 
 public class SessionServiceImpl extends ServiceBase implements SessionService  {
@@ -93,7 +91,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	@Transactional
 	public void createSession(Session session, String trustedAppId, String auditUser) {
 		SessionEntity sessionEntity = new SessionEntity();
-		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
 			if(pAccount== null) throw new InvalidSessionTokenException( session.getAccount().getUsername() +" is not a valid account username ");
 		
 			TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedAppId);
@@ -101,9 +99,6 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 				throw new InvalidTrustedAppException("invalid trustedAppId: " + trustedAppId);
 
 			sessionEntity.setTrustedApp(trustedAppEntity);
-
-			
-			
 			sessionEntity.setAccount(pAccount);
 			sessionEntity.setCreatedBy(auditUser);
 			sessionEntity.setCreatedAt(new Date());
@@ -155,34 +150,19 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 	@Transactional
 	public void validateUserCredentials(Session session, String trustedAppId, String auditUser ){
 		
+		if (ValidationUtil.isEmpty(session.getAccount().getPassword())) {
+			throw new MissingParameterException("password is required.");
+		}
+
+		if (ValidationUtil.isEmpty(session.getAccount().getUsername())) {
+			throw new MissingParameterException("username is required.");
+		}
+
 		TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedAppId);
 		if (trustedAppEntity == null || trustedAppEntity.getId() == null)
 			throw new InvalidTrustedAppException("invalid trustedAppId: " + trustedAppId);
 		
-		String username = session.getAccount().getUsername();
-		if (ValidationUtil.isEmpty(username)) {
-			throw new MissingParameterException("username is required.");
-		}
-/*		if (!ValidationUtil.isValidEmail(username)) {
-			throw new InvalidParameterException("invalid username: " + username);
-		}*/
-		// validate the password
-		String password = session.getAccount().getPassword();
-		if (ValidationUtil.isEmpty(password)) {
-			throw new MissingParameterException("password is required.");
-		}
-		
-		//check if passwordEncrypted
-		if(session.getPasswordEncrypted() != null){
-			if(!Boolean.parseBoolean(session.getPasswordEncrypted())){
-				//need to encrypt password
-				password = HMISCryptographer.Encrypt(password);
-			}
-		}else{
-			password = HMISCryptographer.Encrypt(password);
-		}
-		
-		com.servinglynk.hmis.warehouse.model.base.HmisUser pAccount = daoFactory.getAccountDao().findByUsername(username);
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(session.getAccount().getUsername());
 		if (pAccount == null ) {
 			throw new AccountNotFoundException();
 		}
@@ -191,7 +171,7 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		pLockout = pAccount.getAccountLockout();
 		if(pLockout!=null) 	validateAccountLockout(pLockout,trustedAppId);
 		
-		if(!pAccount.getPassword().equals(password)){
+		if(!pAccount.getPassword().equals(HMISCryptographer.Encrypt(session.getAccount().getPassword()))){
 			throw new InvalidAccountCredentialsException();
 		} else if (pAccount.getStatus().equals(ACCOUNT_STATUS_DISABLED)) {
 			throw new AccountDisabledException();

@@ -16,8 +16,6 @@ public class Session extends ClientModel {
 	private Date expiresAt;
 	private int nextAction;
 	
-	private String passwordEncrypted;
-	
 	public Account getAccount() {
 		return account;
 	}
@@ -64,13 +62,6 @@ public class Session extends ClientModel {
 
 	public void setExpiresAt(Date expiresAt) {
 		this.expiresAt = expiresAt;
-	}
-	public String getPasswordEncrypted() {
-		return passwordEncrypted;
-	}
-
-	public void setPasswordEncrypted(String isEncrypted) {
-		this.passwordEncrypted = isEncrypted;
 	}
 
 	public int getNextAction() {

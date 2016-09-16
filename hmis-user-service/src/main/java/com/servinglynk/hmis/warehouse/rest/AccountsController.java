@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.core.model.PasswordReset;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Role;
+import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.service.exception.AccountAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -146,8 +147,8 @@ public class AccountsController extends ControllerBase {
 	
 	@RequestMapping(value="/{userid}/roles",method=RequestMethod.PUT)
 	@APIMapping(value="ACL_ADD_USER_ROLE",checkSessionToken=true,checkTrustedApp=true)
-	public void addRoleToUser(@PathVariable("userid") UUID userid,@RequestBody Role role) throws Exception {
-		serviceFactory.getAccountService().addRoleToUser(userid, role);
+	public void addRoleToUser(@PathVariable("userid") UUID userid,@RequestBody Roles roles) throws Exception {
+		serviceFactory.getAccountService().addRoleToUser(userid, roles);
 	}
 	
 	@RequestMapping(value="/{userid}/roles/{roleid}",method=RequestMethod.DELETE)
