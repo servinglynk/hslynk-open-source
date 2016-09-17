@@ -20,6 +20,7 @@ import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.common.util.DateUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
@@ -167,9 +168,9 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			throw new AccountNotFoundException();
 		}
 
-		AccountLockoutEntity pLockout  = null;
+	/*	AccountLockoutEntity pLockout  = null;
 		pLockout = pAccount.getAccountLockout();
-		if(pLockout!=null) 	validateAccountLockout(pLockout,trustedAppId);
+		if(pLockout!=null) 	validateAccountLockout(pLockout,trustedAppId);*/
 		
 		if(!pAccount.getPassword().equals(HMISCryptographer.Encrypt(session.getAccount().getPassword()))){
 			throw new InvalidAccountCredentialsException();
@@ -177,7 +178,11 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			throw new AccountDisabledException();
 		} else if (pAccount.getStatus().equals(ACCOUNT_STATUS_PENDING)) {
 			throw new AccountPendingException();
-		} 
+		} else if(pAccount.getStatus().equals(Constants.ACCOUNT_STATUS_DELETED)){
+			throw new AccessDeniedException("Account is deleted");
+		} else if(pAccount.getStatus().equals(Constants.ACCOUNT_STATUS_INACTIVE)){
+			throw new AccessDeniedException("Account is inactive");
+		}
 		
 
 		if(!pAccount.isTwoFactorAuthentication()){

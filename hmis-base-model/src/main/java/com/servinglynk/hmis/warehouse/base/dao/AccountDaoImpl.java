@@ -5,10 +5,14 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProfileACLEntity;
+import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
 
 public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
@@ -36,9 +40,20 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	}
 	
 	public HmisUser findByUserId(UUID userId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
+		criteria.add(Restrictions.eq("id", userId));
+		try{
+			SecurityContext context =  SecurityContextHolder.getContext();
+			Authentication authentication =  context.getAuthentication();
+			SessionEntity entity = (SessionEntity) authentication.getPrincipal();
+			criteria.add(Restrictions.eq("projectGroupEntity", entity.getAccount().getProjectGroupEntity()));
+		}catch (Exception e) {
+
+		}
 		return (HmisUser) get(HmisUser.class,userId);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<HmisUser> getCustomerAdmins(String projectGroup) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 		criteria.add(Restrictions.eq("profileEntity.profileName", "Customer Admin Profile"));
@@ -101,6 +116,7 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 		return userRoleMapEntity;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public UserRoleMapEntity getUserRoleByUserIdAndRoleId(UUID userid,UUID roleid) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(UserRoleMapEntity.class);
 		criteria.createAlias("roleEntity", "roleEntity");
@@ -140,6 +156,7 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<HmisUser> findUsersByProjectGroup(String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);

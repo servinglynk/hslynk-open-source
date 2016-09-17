@@ -181,7 +181,7 @@ public class HmisUser  {
 		this.hiveUsername = hiveUsername;
 	}
 	
-	private AccountPreferenceEntity accountPreference;
+/*	private AccountPreferenceEntity accountPreference;
 
 	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL,optional=true,fetch=FetchType.LAZY)
 	@JoinColumn(name="id")
@@ -205,7 +205,7 @@ public class HmisUser  {
 	public void setAccountLockout(AccountLockoutEntity accountLockout) {
 		this.accountLockout = accountLockout;
 	}
-
+*/
 	@ManyToOne(optional = true,fetch = FetchType.LAZY)
 	@JoinColumn(name = "verification_id", nullable = true, referencedColumnName = "id")
 	public VerificationEntity getVerification() {

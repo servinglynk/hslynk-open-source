@@ -31,11 +31,16 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.model.base.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
 @Component
 public class QueryExecutorImpl  implements QueryExecutor{
@@ -141,7 +146,6 @@ public class QueryExecutorImpl  implements QueryExecutor{
 		try {
 			criteria = DetachedCriteria.forClass(Class.forName(className));
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
@@ -185,7 +189,6 @@ public class QueryExecutorImpl  implements QueryExecutor{
 		try {
 			criteria = DetachedCriteria.forClass(Class.forName(className));
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		criteria.createAlias("export", "export");
@@ -349,11 +352,19 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	@SuppressWarnings("unused")
 	public DetachedCriteria addingConditionsToCriteria(DetachedCriteria detachedCriteria) {
 		try{
-		CriteriaImpl criteriaImpl =(CriteriaImpl)detachedCriteria.getExecutableCriteria(getCurrentSession());
-		Class<?> clz = Class.forName(criteriaImpl.getEntityOrClassName());
-		Field deletedField = clz.getSuperclass().getDeclaredField("deleted");
-		detachedCriteria.add(Restrictions.eq("deleted", false));
-		detachedCriteria.add(Restrictions.isNull("parentId"));
+			SecurityContext context =  SecurityContextHolder.getContext();
+			Authentication authentication =  context.getAuthentication();
+			CriteriaImpl criteriaImpl =(CriteriaImpl)detachedCriteria.getExecutableCriteria(getCurrentSession());
+			Class<?> clz = Class.forName(criteriaImpl.getEntityOrClassName());
+			if(clz.getSuperclass().getSimpleName().equals("HmisBaseModel")){
+				if(authentication.getPrincipal()!=null){
+					SessionEntity entity = (SessionEntity) authentication.getPrincipal();
+					System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
+					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+					detachedCriteria.add(Restrictions.eq("deleted", false));
+					detachedCriteria.add(Restrictions.isNull("parentId"));
+				}
+			}
 		return detachedCriteria;
 		}catch(Exception e){
 			return detachedCriteria;

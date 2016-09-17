@@ -126,7 +126,7 @@ public class ClientsController extends ControllerBase {
          if (maxItems == null) maxItems =30;
          
 		Session session = sessionHelper.getSession(request);
-		return serviceFactory.getClientService().getAllClients(session.getAccount().getUsername(),startIndex,maxItems);
+		return serviceFactory.getClientService().getAllClients(session.getAccount().getProjectGroup().getProjectGroupCode(),startIndex,maxItems);
 	}
 	
 	@RequestMapping(value="/{clientid}/enrollments",method=RequestMethod.POST)

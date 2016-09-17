@@ -146,7 +146,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 				pAccount.setModifiedBy(auditServiceName);
 				daoFactory.getAccountDao().updateAccount(pAccount);
 				
-				AccountLockoutEntity pLockout = pAccount.getAccountLockout();
+/*				AccountLockoutEntity pLockout = pAccount.getAccountLockout();
 				if(pLockout!=null){
 					pLockout.setFailureCount(0);
 					pLockout.setLastLoginStatus(1);
@@ -156,7 +156,7 @@ public class VerificationServiceImpl extends ServiceBase implements
 					pAccount.setAccountLockout(pLockout);
 					pLockout.setAccount(pAccount);
 					daoFactory.getAccountDao().updateAccount(pAccount);
-				}
+				}*/
 				
 
 				List<PasswordResetEntity> pPasswordResetList=null; 

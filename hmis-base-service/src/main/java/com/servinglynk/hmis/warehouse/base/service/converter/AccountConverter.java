@@ -21,7 +21,7 @@ public class AccountConverter {
 		account.setMiddleName(pAccount.getMiddleName());
 		account.setLastName(pAccount.getLastName());
 		account.setUsername(pAccount.getUsername());
-		account.setEmailAddress(pAccount.getUsername());
+		account.setEmailAddress(pAccount.getEmailAddress());
 		account.setStatus(pAccount.getStatus());
 		account.setProjectGroup(ProjectGroupConverter.entityToModel(pAccount.getProjectGroupEntity()));
 		account.setProfile(ProfileConverter.entityToModel(pAccount.getProfileEntity()));		return account;

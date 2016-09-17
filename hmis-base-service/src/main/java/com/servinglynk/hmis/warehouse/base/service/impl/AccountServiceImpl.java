@@ -168,7 +168,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 			}
 		}*/
 	
-		if(account.getStatus().equalsIgnoreCase(Constants.ACCOUNT_STATUS_INACTIVE)){
+		if(account.getStatus()!=null && account.getStatus().equalsIgnoreCase(Constants.ACCOUNT_STATUS_INACTIVE)){
 			pAccount.setStatus(Constants.ACCOUNT_STATUS_INACTIVE);
 		}
 

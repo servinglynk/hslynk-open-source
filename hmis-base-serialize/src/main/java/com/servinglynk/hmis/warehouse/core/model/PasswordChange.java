@@ -1,9 +1,12 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.servinglynk.hmis.warehouse.common.Constants;
 
 @JsonRootName("passwordChange")
 public class PasswordChange  extends ClientModel {
@@ -12,7 +15,7 @@ public class PasswordChange  extends ClientModel {
 	private String currentPassword;
 	
 	@NotBlank
-	@Length(min=8,message="new password length required to be at least 8 characters")
+	@Pattern(regexp=Constants.PASSWORD_REG_EXP,message="The password must contain 8 to 16 characters long, It must contain at least one lowercase character, one uppercase character, one number, and one of the following special characters !@#$*")
 	private String newPassword;
 	
 	@NotBlank

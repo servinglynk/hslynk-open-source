@@ -98,6 +98,8 @@ public interface Constants {
 	public static final String ALPHA   = "abcdefghijklmnopqrstuvwxyz";
 	public static final String NUM     = "0123456789";
 	public static final String SPL_CHARS   = "!@#$*";
+	
+	public static final String PASSWORD_REG_EXP ="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$*]).{8,16})";
 
 
 
