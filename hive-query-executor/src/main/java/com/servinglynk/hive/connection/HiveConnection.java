@@ -1,3 +1,4 @@
+package com.servinglynk.hive.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -5,7 +6,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class HiveJdbcClient {
+public class HiveConnection {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
 
     public static void main(String[] args) throws SQLException {
@@ -51,4 +52,18 @@ public class HiveJdbcClient {
 
         con.close();
     }
+    
+    private static Connection connection = null;
+
+	public static Connection getConnection() throws SQLException {
+		if (connection == null) {
+			connection = DriverManager.getConnection("jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/", "hive", "#HIVE#2016%s3cur3");
+	        // create statement
+
+		}
+		if (connection.isClosed()) {
+			throw new SQLException("connection could not initiated");
+		}
+		return connection;
+	}
 }

@@ -62,7 +62,6 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Export();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
-			
 		}
 		hydrateCommonFields(modelFromDB, domain,export.getExportID(),data);
 		return modelFromDB;

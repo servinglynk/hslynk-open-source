@@ -1,0 +1,39 @@
+package com.servinglynk.hmis.warehouse.model.v2014;
+
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+import com.servinglynk.hmis.warehouse.BaseModel;
+@Entity
+public class Dateofengagement extends BaseModel{
+	@Column(name="dateofengagement")
+	public String dateofengagement;
+	@Column(name="enrollmentid")
+	public UUID enrollmentid;
+	/**
+	 * @return the dateofengagement
+	 */
+	public String getDateofengagement() {
+		return dateofengagement;
+	}
+	/**
+	 * @param dateofengagement the dateofengagement to set
+	 */
+	public void setDateofengagement(String dateofengagement) {
+		this.dateofengagement = dateofengagement;
+	}
+	/**
+	 * @return the enrollmentid
+	 */
+	public UUID getEnrollmentid() {
+		return enrollmentid;
+	}
+	/**
+	 * @param enrollmentid the enrollmentid to set
+	 */
+	public void setEnrollmentid(UUID enrollmentid) {
+		this.enrollmentid = enrollmentid;
+	}
+}
