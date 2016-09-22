@@ -3,11 +3,11 @@ package com.servinglynk.hive.report.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.servinglynk.hive.connection.HiveConnection;
-import com.servinglynk.hmis.warehouse.model.v2014.Project;
 
 
 public class ReportSummary {
@@ -17,7 +17,7 @@ public class ReportSummary {
 	 *
 	 * @return
 	 */
-	public static List<Project> getProject(String schema) {
+	public static void getProject(String schema) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
@@ -26,10 +26,14 @@ public class ReportSummary {
 			statement = connection.prepareStatement("SELECT * FROM "+schema+".project");
 			resultSet = statement.executeQuery();
 			int count = 0;
-		
+		 while(resultSet.next()) {
+				ResultSetMetaData metaData = resultSet.getMetaData();
+				for(int i=1;i<metaData.getColumnCount();i++) {
+					System.out.println(metaData.getColumnName(i)+":Field::"+resultSet.getString(i));
+				}
+		 }
 
-			System.out.println(count);
-			return null;
+			System.out.println(resultSet.getFetchSize());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,6 +48,9 @@ public class ReportSummary {
 				}
 			}
 		}
-		return null;
+	}
+	
+	public static void main(String args[]) {
+		getProject("ho0002");
 	}
 }

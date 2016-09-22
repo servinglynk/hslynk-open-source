@@ -56,6 +56,15 @@ public class HiveConnection {
     private static Connection connection = null;
 
 	public static Connection getConnection() throws SQLException {
+	     try {
+	            // Register driver and create driver instance
+	            Class.forName(driverName);
+	        } catch (ClassNotFoundException ex) {
+	            ex.printStackTrace();
+	        }
+
+	        // get connection
+	        System.out.println("connecting to db");
 		if (connection == null) {
 			connection = DriverManager.getConnection("jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/", "hive", "#HIVE#2016%s3cur3");
 	        // create statement
