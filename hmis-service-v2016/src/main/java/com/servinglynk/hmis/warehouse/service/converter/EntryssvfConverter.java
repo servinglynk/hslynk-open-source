@@ -1,7 +1,13 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Entryssvf;
+import com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnum;
+import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
+import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
+import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 public class EntryssvfConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2016.Entryssvf modelToEntity (Entryssvf model ,com.servinglynk.hmis.warehouse.model.v2016.Entryssvf entity) {
@@ -24,6 +30,34 @@ public class EntryssvfConverter  extends BaseConverter {
        entity.setHpScreeningScore(model.getHpScreenScore());
        if(model.getVamcStaction()!=null)
        entity.setVamcStation(model.getVamcStaction());
+       if(model.getTimeToHousingLoss()!=null)
+       entity.setTimeToHousingLoss(TimeToHousingLossEnum.lookupEnum(model.getTimeToHousingLoss()+""));
+       if(model.getZeroincome()!=null)
+       entity.setZeroincome(NoYesENum.lookupEnum(model.getZeroincome()+""));
+       if(model.getAnnualpercentami()!=null)
+       entity.setAnnualpercentami(AnnualpercentamiEnum.lookupEnum(model.getAnnualpercentami()+""));
+       /*private TimeToHousingLossEnum timeToHousingLoss;
+	private NoYesENum zeroincome;
+	private AnnualpercentamiEnum annualpercentami;
+	private NoYesENum financialchange;
+	private NoYesENum householdchange;
+	private EvictionhistoryEnum evictionhistory;
+	private NoYesENum subsidyatrisk;
+	private LiteralHomelessHistoryEnum literalhomelesshistory;
+	private NoYesENum disablehoh;
+	private NoYesENum criminalrecord;
+	private NoYesENum sexoffender;
+	private NoYesENum dependendunder6;
+	private NoYesENum singleparent;
+	private NoYesENum hh5plus;
+	private NoYesENum iraqafghanistan;
+	private NoYesENum femvet;
+	private Integer thresholdscore;
+	private CrisisServicesUseEnum ervisits;
+	private CrisisServicesUseEnum jailnights;
+	private CrisisServicesUseEnum hospitalnights;
+	*/
+       
        return entity;
    }
 

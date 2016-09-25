@@ -368,6 +368,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
    /**
 	 * @return the timeToHousingLoss
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnumType")
+	@Basic( optional = true )
+	@Column (name="timeToHousingLoss")
 	public TimeToHousingLossEnum getTimeToHousingLoss() {
 		return timeToHousingLoss;
 	}
@@ -382,6 +385,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the zeroincome
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="zeroincome")
 	public NoYesENum getZeroincome() {
 		return zeroincome;
 	}
@@ -396,6 +402,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the annualpercentami
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnumType")
+	@Basic( optional = true )
+	@Column (name="annualpercentami")
 	public AnnualpercentamiEnum getAnnualpercentami() {
 		return annualpercentami;
 	}
@@ -410,6 +419,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the financialchange
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="financialchange")
 	public NoYesENum getFinancialchange() {
 		return financialchange;
 	}
@@ -424,6 +436,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the householdchange
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="householdchange")
 	public NoYesENum getHouseholdchange() {
 		return householdchange;
 	}
@@ -438,6 +453,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the evictionhistory
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnumType")
+	@Basic( optional = true )
+	@Column (name="evictionhistory")
 	public EvictionhistoryEnum getEvictionhistory() {
 		return evictionhistory;
 	}
@@ -452,6 +470,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the subsidyatrisk
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="subsidyatrisk")
 	public NoYesENum getSubsidyatrisk() {
 		return subsidyatrisk;
 	}
@@ -466,6 +487,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the literalhomelesshistory
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnumType")
+	@Basic( optional = true )
+	@Column (name="literalhomelesshistory")
 	public LiteralHomelessHistoryEnum getLiteralhomelesshistory() {
 		return literalhomelesshistory;
 	}
@@ -481,6 +505,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the disablehoh
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="disablehoh")
 	public NoYesENum getDisablehoh() {
 		return disablehoh;
 	}
@@ -495,6 +522,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the criminalrecord
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="criminalrecord")
 	public NoYesENum getCriminalrecord() {
 		return criminalrecord;
 	}
@@ -509,6 +539,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the sexoffender
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="sexoffender")
 	public NoYesENum getSexoffender() {
 		return sexoffender;
 	}
@@ -523,6 +556,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the dependendunder6
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="dependendunder6")
 	public NoYesENum getDependendunder6() {
 		return dependendunder6;
 	}
@@ -537,6 +573,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the singleparent
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="singleparent")
 	public NoYesENum getSingleparent() {
 		return singleparent;
 	}
@@ -551,6 +590,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the hh5plus
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="hh5plus")
 	public NoYesENum getHh5plus() {
 		return hh5plus;
 	}
@@ -565,6 +607,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the iraqafghanistan
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="iraqafghanistan")
 	public NoYesENum getIraqafghanistan() {
 		return iraqafghanistan;
 	}
@@ -579,6 +624,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the femvet
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="femvet")
 	public NoYesENum getFemvet() {
 		return femvet;
 	}
@@ -593,6 +641,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the thresholdscore
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Basic( optional = true )
+	@Column (name="thresholdscore")
 	public Integer getThresholdscore() {
 		return thresholdscore;
 	}
@@ -607,6 +658,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the ervisits
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
+	@Basic( optional = true )
+	@Column (name="ervisits")
 	public CrisisServicesUseEnum getErvisits() {
 		return ervisits;
 	}
@@ -621,6 +675,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the jailnights
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
+	@Basic( optional = true )
+	@Column (name="jailnights")
 	public CrisisServicesUseEnum getJailnights() {
 		return jailnights;
 	}
@@ -635,6 +692,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the hospitalnights
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
+	@Basic( optional = true )
+	@Column (name="hospitalnights")
 	public CrisisServicesUseEnum getHospitalnights() {
 		return hospitalnights;
 	}

@@ -107,7 +107,7 @@ DROP TYPE IF EXISTS "v2016".literalHomelessHistory;
 CREATE TYPE "v2016".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2016".timeToHousingLoss as ENUM('0','1','2','3','99');
 CREATE TYPE "v2016".annualpercentami as ENUM('0','1','2','99');
-CREATE TYPE "v2016".crisisServicesUse as ENUM('0','1','2','3','4','5','8','9','99')
+CREATE TYPE "v2016".crisisServicesUse as ENUM('0','1','2','3','4','5','8','9','99');
 
 CREATE TYPE "v2016".name_data_quality AS ENUM ('1', '2', '8','9','99');
 CREATE TYPE "v2016".dob_data_quality AS ENUM ('1', '2', '8','9','99');
@@ -504,7 +504,7 @@ CREATE TYPE "v2016".work_place_violence_threats AS ENUM ('0','1','8','9','99');
 CREATE TYPE "v2016".count_of_exchange_for_sex AS ENUM ('1','2','3','4','8','9','99');
 CREATE TYPE "v2016".asked_of_forced_to_exchange_for_sex AS ENUM ('0','1','8','9','99');
 CREATE TYPE "v2016".datacollectionstage AS ENUM('1','2','3','5');
-CREATE TYPE "v2016".crisisServicesUse as ENUM('0','1','2','3','4','5','8','9','99')
+CREATE TYPE "v2016".evictionhistory as ENUM('0','1','2','3','99');
 CREATE TABLE "v2016".hmis_type
 (
   "id" serial NOT NULL ,
@@ -540,22 +540,97 @@ INSERT INTO "v2016".hmis_type (name,value,description,status) values ('timeToHou
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('timeToHousingLoss','3','More than 21 days (0 points)','ACTIVE');
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('timeToHousingLoss','99','Data not collected','ACTIVE');
 
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('zeroincome','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('zeroincome','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('zeroincome','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('financialchange','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('financialchange','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('financialchange','99','Data not collected','ACTIVE');
+
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('evictionhistory','0','4 or more prior rental evictions','ACTIVE');
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('evictionhistory','1','2-3 prior rental evictions','ACTIVE');
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('evictionhistory','2','1 prior rental eviction','ACTIVE');
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('evictionhistory','3','No prior rental evictions (0 points)','ACTIVE');
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('evictionhistory','99','Data not collected','ACTIVE');
 
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('householdchange','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('householdchange','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('householdchange','99','Data not collected','ACTIVE');
 
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','0','0','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','1','1-2','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','2','3-5','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','3','6-10','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','4','11-20','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','5','More than 20','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','8','Client doesn''t know','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','9','Client refused','ACTIVE');
-INSERT INTO "v2016".hmis_type (name,value,description,status) values ('crisisServicesUse','99','Data not collected','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('subsidyatrisk','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('subsidyatrisk','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('subsidyatrisk','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('disablehoh','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('disablehoh','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('disablehoh','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('criminalrecord','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('criminalrecord','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('criminalrecord','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('sexoffender','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('sexoffender','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('sexoffender','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('dependendunder6','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('dependendunder6','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('dependendunder6','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('singleparent','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('singleparent','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('singleparent','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hh5plus','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hh5plus','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hh5plus','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('iraqafghanistan','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('iraqafghanistan','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('iraqafghanistan','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('femvet','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('femvet','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('femvet','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('losunderthreshold','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('losunderthreshold','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('losunderthreshold','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('previousStreetESSH','0','No','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('previousStreetESSH','1','Yes','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('previousStreetESSH','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','0','0','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','1','1-2','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','2','3-5','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','3','6-10','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','4','11-20','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','5','More than 20','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','9','Client refused','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('ervisits','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','0','0','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','1','1-2','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','2','3-5','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','3','6-10','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','4','11-20','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','5','More than 20','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','9','Client refused','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('jailnights','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','0','0','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','1','1-2','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','2','3-5','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','3','6-10','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','4','11-20','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','5','More than 20','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','9','Client refused','ACTIVE');
+INSERT INTO "v2016".hmis_type (name,value,description,status) values ('hospitalnights','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('world_war_2','0','No','ACTIVE');
 INSERT INTO "v2016".hmis_type (name,value,description,status) values ('world_war_2','1','Yes','ACTIVE');
