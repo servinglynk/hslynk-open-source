@@ -22,6 +22,8 @@ public class Entryrhy extends ClientModel{
       private Integer formerlyWardOfJuvenileJustice;
 
       private Integer yearsJuvenileJustice;
+      
+      private Integer monthsJuvenileJustice;
 
       private Integer houseHoldDynamics;
 
@@ -369,5 +371,17 @@ public class Entryrhy extends ClientModel{
       public void setLaborExploitPastThreeMonths(Integer laborExploitPastThreeMonths){
           this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
       }
+	/**
+	 * @return the monthsJuvenileJustice
+	 */
+	public Integer getMonthsJuvenileJustice() {
+		return monthsJuvenileJustice;
+	}
+	/**
+	 * @param monthsJuvenileJustice the monthsJuvenileJustice to set
+	 */
+	public void setMonthsJuvenileJustice(Integer monthsJuvenileJustice) {
+		this.monthsJuvenileJustice = monthsJuvenileJustice;
+	}
 
  }

@@ -175,6 +175,8 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice;
 	/** Field mapping. */
+	private EntryRHYJuvenileJusticeYearsEnum monthsJuvenileJustice;
+	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
@@ -986,6 +988,24 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setYearsJuvenileJustice(
 			EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice) {
 		this.yearsJuvenileJustice = yearsJuvenileJustice;
+	}
+
+	/**
+	 * @return the monthsJuvenileJustice
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnumType")
+	@Basic( optional = true )
+	@Column (name="months_juvenile_justice")
+	public EntryRHYJuvenileJusticeYearsEnum getMonthsJuvenileJustice() {
+		return monthsJuvenileJustice;
+	}
+
+	/**
+	 * @param monthsJuvenileJustice the monthsJuvenileJustice to set
+	 */
+	public void setMonthsJuvenileJustice(
+			EntryRHYJuvenileJusticeYearsEnum monthsJuvenileJustice) {
+		this.monthsJuvenileJustice = monthsJuvenileJustice;
 	}
 
 	/** Field mapping. */

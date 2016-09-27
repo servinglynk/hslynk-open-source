@@ -41,13 +41,15 @@ public class Healthinsurance extends ClientModel{
 
       private Integer noprivatepayreason;
 
-      private Integer statehealthins;
-
+      private Integer statehealthinadults;
+      
       private Integer nostatehealthinsreason;
 
-      private Integer otherSource;
+      private Integer otherInsurance;
 
-      private String otherSourceIdentify;
+      private String otherInsuranceIdentify;
+      private Integer indianHealthServices;
+      private Integer noIndianHealthServicesReason;
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
 
@@ -161,29 +163,71 @@ public class Healthinsurance extends ClientModel{
       public void setNoprivatepayreason(Integer noprivatepayreason){
           this.noprivatepayreason = noprivatepayreason;
       }
-      public Integer getStatehealthins(){
-          return statehealthins;
-      }
-      public void setStatehealthins(Integer statehealthins){
-          this.statehealthins = statehealthins;
-      }
       public Integer getNostatehealthinsreason(){
           return nostatehealthinsreason;
       }
       public void setNostatehealthinsreason(Integer nostatehealthinsreason){
           this.nostatehealthinsreason = nostatehealthinsreason;
       }
-      public Integer getOtherSource(){
-          return otherSource;
-      }
-      public void setOtherSource(Integer otherSource){
-          this.otherSource = otherSource;
-      }
-      public String getOtherSourceIdentify(){
-          return otherSourceIdentify;
-      }
-      public void setOtherSourceIdentify(String otherSourceIdentify){
-          this.otherSourceIdentify = otherSourceIdentify;
-      }
+	/**
+	 * @return the statehealthinadults
+	 */
+	public Integer getStatehealthinadults() {
+		return statehealthinadults;
+	}
+	/**
+	 * @param statehealthinadults the statehealthinadults to set
+	 */
+	public void setStatehealthinadults(Integer statehealthinadults) {
+		this.statehealthinadults = statehealthinadults;
+	}
+	/**
+	 * @return the otherInsurance
+	 */
+	public Integer getOtherInsurance() {
+		return otherInsurance;
+	}
+	/**
+	 * @param otherInsurance the otherInsurance to set
+	 */
+	public void setOtherInsurance(Integer otherInsurance) {
+		this.otherInsurance = otherInsurance;
+	}
+	/**
+	 * @return the otherInsuranceIdentify
+	 */
+	public String getOtherInsuranceIdentify() {
+		return otherInsuranceIdentify;
+	}
+	/**
+	 * @param otherInsuranceIdentify the otherInsuranceIdentify to set
+	 */
+	public void setOtherInsuranceIdentify(String otherInsuranceIdentify) {
+		this.otherInsuranceIdentify = otherInsuranceIdentify;
+	}
+	/**
+	 * @return the indianHealthServices
+	 */
+	public Integer getIndianHealthServices() {
+		return indianHealthServices;
+	}
+	/**
+	 * @param indianHealthServices the indianHealthServices to set
+	 */
+	public void setIndianHealthServices(Integer indianHealthServices) {
+		this.indianHealthServices = indianHealthServices;
+	}
+	/**
+	 * @return the noIndianHealthServicesReason
+	 */
+	public Integer getNoIndianHealthServicesReason() {
+		return noIndianHealthServicesReason;
+	}
+	/**
+	 * @param noIndianHealthServicesReason the noIndianHealthServicesReason to set
+	 */
+	public void setNoIndianHealthServicesReason(Integer noIndianHealthServicesReason) {
+		this.noIndianHealthServicesReason = noIndianHealthServicesReason;
+	}
 
  }

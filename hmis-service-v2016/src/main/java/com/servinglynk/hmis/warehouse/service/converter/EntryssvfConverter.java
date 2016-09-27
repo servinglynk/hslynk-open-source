@@ -36,27 +36,40 @@ public class EntryssvfConverter  extends BaseConverter {
        entity.setZeroincome(NoYesENum.lookupEnum(model.getZeroincome()+""));
        if(model.getAnnualpercentami()!=null)
        entity.setAnnualpercentami(AnnualpercentamiEnum.lookupEnum(model.getAnnualpercentami()+""));
-       /*private TimeToHousingLossEnum timeToHousingLoss;
-	private NoYesENum zeroincome;
-	private AnnualpercentamiEnum annualpercentami;
-	private NoYesENum financialchange;
-	private NoYesENum householdchange;
-	private EvictionhistoryEnum evictionhistory;
-	private NoYesENum subsidyatrisk;
-	private LiteralHomelessHistoryEnum literalhomelesshistory;
-	private NoYesENum disablehoh;
-	private NoYesENum criminalrecord;
-	private NoYesENum sexoffender;
-	private NoYesENum dependendunder6;
-	private NoYesENum singleparent;
-	private NoYesENum hh5plus;
-	private NoYesENum iraqafghanistan;
-	private NoYesENum femvet;
-	private Integer thresholdscore;
-	private CrisisServicesUseEnum ervisits;
-	private CrisisServicesUseEnum jailnights;
-	private CrisisServicesUseEnum hospitalnights;
-	*/
+       if(model.getFinancialchange()!=null)
+    	   entity.setFinancialchange(NoYesENum.lookupEnum(model.getFinancialchange()+""));
+       if(model.getHouseholdchange()!=null)
+    	   entity.setHouseholdchange(NoYesENum.lookupEnum(model.getHouseholdchange()+""));
+       if(model.getEvictionhistory()!=null)
+    	   entity.setEvictionhistory(EvictionhistoryEnum.lookupEnum(model.getEvictionhistory()+""));
+       if(model.getSubsidyatrisk()!=null)
+    	   entity.setSubsidyatrisk(NoYesENum.lookupEnum(model.getSubsidyatrisk()+""));
+       if(model.getLiteralhomelesshistory()!=null)
+    	   entity.setLiteralhomelesshistory(LiteralHomelessHistoryEnum.lookupEnum(model.getLiteralhomelesshistory()+""));
+       if(model.getDisablehoh()!=null)
+    	   entity.setDisablehoh(NoYesENum.lookupEnum(model.getDisablehoh()+""));
+       if(model.getCriminalrecord()!=null)
+    	   entity.setCriminalrecord(NoYesENum.lookupEnum(model.getCriminalrecord()+""));
+       if(model.getSexoffender()!=null)
+    	   entity.setSexoffender(NoYesENum.lookupEnum(model.getSexoffender()+""));
+       if(model.getDependendunder6()!=null)
+    	   entity.setDependendunder6(NoYesENum.lookupEnum(model.getDependendunder6()+""));
+       if(model.getSingleparent()!=null)
+    	   entity.setSingleparent(NoYesENum.lookupEnum(model.getSingleparent()+""));
+       if(model.getHh5plus()!=null)
+    	   entity.setHh5plus(NoYesENum.lookupEnum(model.getHh5plus()+""));
+       if(model.getIraqafghanistan()!=null)
+    	   entity.setIraqafghanistan(NoYesENum.lookupEnum(model.getIraqafghanistan()+""));
+       if(model.getFemvet()!=null)
+    	   entity.setFemvet(NoYesENum.lookupEnum(model.getFemvet()+""));
+       if(model.getThresholdscore()!=null)
+    	   entity.setThresholdscore(model.getThresholdscore());
+       if(model.getErvisits()!=null)
+    	   entity.setErvisits(CrisisServicesUseEnum.lookupEnum(model.getErvisits()+""));
+       if(model.getJailnights()!=null)
+    	   entity.setJailnights(CrisisServicesUseEnum.lookupEnum(model.getJailnights()+""));
+       if(model.getHospitalnights()!=null)
+    	   entity.setHospitalnights(CrisisServicesUseEnum.lookupEnum(model.getHospitalnights()+""));
        
        return entity;
    }
@@ -82,6 +95,46 @@ public class EntryssvfConverter  extends BaseConverter {
        model.setHpScreenScore(entity.getHpScreeningScore());
        if(entity.getVamcStation()!=null)
        model.setVamcStaction(entity.getVamcStation());
+       if(entity.getTimeToHousingLoss()!=null)
+    	   model.setTimeToHousingLoss(Integer.parseInt(entity.getTimeToHousingLoss().getValue()));
+           if(entity.getZeroincome()!=null)
+        	   model.setZeroincome(Integer.parseInt(entity.getZeroincome().getValue()));
+           if(entity.getAnnualpercentami()!=null)
+        	   model.setAnnualpercentami(Integer.parseInt(entity.getAnnualpercentami().getValue()));
+           if(entity.getFinancialchange()!=null)
+        	   model.setFinancialchange(Integer.parseInt(entity.getFinancialchange().getValue()));
+           if(entity.getHouseholdchange()!=null)
+        	   model.setHouseholdchange(Integer.parseInt(entity.getHouseholdchange().getValue()));
+           if(entity.getEvictionhistory()!=null)
+        	   model.setEvictionhistory(Integer.parseInt(entity.getEvictionhistory().getValue()));
+           if(entity.getSubsidyatrisk()!=null)
+        	   model.setSubsidyatrisk(Integer.parseInt(entity.getSubsidyatrisk().getValue()));
+           if(entity.getLiteralhomelesshistory()!=null)
+        	   model.setLiteralhomelesshistory(Integer.parseInt(entity.getLiteralhomelesshistory().getValue()));
+           if(entity.getDisablehoh()!=null)
+        	   model.setDisablehoh(Integer.parseInt(entity.getDisablehoh().getValue()));
+           if(entity.getCriminalrecord()!=null)
+        	   model.setCriminalrecord(Integer.parseInt(entity.getCriminalrecord().getValue()));
+           if(entity.getSexoffender()!=null)
+        	   model.setSexoffender(Integer.parseInt(entity.getSexoffender().getValue()));
+           if(entity.getDependendunder6()!=null)
+        	   model.setDependendunder6(Integer.parseInt(entity.getDependendunder6().getValue()));
+           if(entity.getSingleparent()!=null)
+        	   model.setSingleparent(Integer.parseInt(entity.getSingleparent().getValue()));
+           if(entity.getHh5plus()!=null)
+        	   model.setHh5plus(Integer.parseInt(entity.getHh5plus().getValue()));
+           if(entity.getIraqafghanistan()!=null)
+        	   model.setIraqafghanistan(Integer.parseInt(entity.getIraqafghanistan().getValue()));
+           if(entity.getFemvet()!=null)
+        	   model.setFemvet(Integer.parseInt(entity.getFemvet().getValue()));
+           if(entity.getThresholdscore()!=null)
+        	   model.setThresholdscore(entity.getThresholdscore());
+           if(entity.getErvisits()!=null)
+        	   model.setErvisits(Integer.parseInt(entity.getErvisits().getValue()));
+           if(entity.getJailnights()!=null)
+        	   model.setJailnights(Integer.parseInt(entity.getJailnights().getValue()));
+           if(entity.getHospitalnights()!=null)
+        	   model.setHospitalnights(Integer.parseInt(entity.getHospitalnights().getValue()));
        return model;
    }
 

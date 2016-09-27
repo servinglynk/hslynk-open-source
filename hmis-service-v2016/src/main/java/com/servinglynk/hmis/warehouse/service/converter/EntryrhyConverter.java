@@ -132,7 +132,8 @@ public class EntryrhyConverter  extends BaseConverter {
        entity.setLaborExploitPastThreeMonths(model.getLaborExploitPastThreeMonths());
        if(model.getDataCollectionStage() !=null)
     	  entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
-
+       if(model.getMonthsChildWelfrForestCare()!=null)
+    	  entity.setMonthsJuvenileJustice(EntryRHYJuvenileJusticeYearsEnum.lookupEnum(model.getMonthsJuvenileJustice()+""));
        if(model.getInformationDate()!=null)
     	  entity.setInformationDate(model.getInformationDate());
        return entity;
@@ -227,6 +228,8 @@ public class EntryrhyConverter  extends BaseConverter {
        model.setCoercedToContinueWork(Integer.parseInt(entity.getCoercedToContinueWork().getValue()));
        if(entity.getLaborExploitPastThreeMonths()!=null)
        model.setLaborExploitPastThreeMonths(entity.getLaborExploitPastThreeMonths());
+       if(entity.getMonthsJuvenileJustice()!=null)
+    	   model.setMonthsJuvenileJustice(Integer.parseInt(entity.getMonthsJuvenileJustice().getValue()));
        return model;
    }
 

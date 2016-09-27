@@ -550,7 +550,7 @@ public class BulkUploaderTest {
 			assertEquals("", healthInsurance.getOtherSourceIdentify());*/
 			assertEquals(HealthinsurancePrivatepayEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("1"))), healthInsurance.getPrivatepay());
 			assertEquals(HealthinsuranceSchipEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("1"))), healthInsurance.getSchip());
-			assertEquals(HealthinsuranceStatehealthinsEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("0"))), healthInsurance.getStatehealthins());
+			assertEquals(HealthinsuranceStatehealthinsEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("0"))), healthInsurance.getStatehealthinadults());
 			assertEquals(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(Byte.valueOf("0"))), healthInsurance.getVamedicalservices());
 			
 			assertEquals(1, exportEntity.getHousingassessmentdispositions().size());
