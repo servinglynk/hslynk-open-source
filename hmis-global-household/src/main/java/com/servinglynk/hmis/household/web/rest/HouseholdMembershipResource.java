@@ -23,10 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.servinglynk.hmis.household.domain.GlobalHousehold;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.service.HouseholdMembershipService;
-import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
 import com.servinglynk.hmis.household.web.rest.util.HeaderUtil;

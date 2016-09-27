@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.servinglynk.hmis.household.web.rest.util.SessionHelper;
-import com.servinglynk.hmis.household.web.rest.util.TrustedAppHelper;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
-import com.servinglynk.hmis.warehouse.client.model.ApiMethodAuthorizationCheck;
-import com.servinglynk.hmis.warehouse.client.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
+
 
 
 public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter {

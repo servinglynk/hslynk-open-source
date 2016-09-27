@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @MappedSuperclass
@@ -15,10 +17,12 @@ public class GlobalHouseholdBaseEntity implements Serializable{
 
 	@Column(name="date_created")
 	@JsonFormat(pattern="MM-dd-yyyy HH:mm:ss")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	private LocalDateTime dateCreated;
 	
 	@Column(name="date_updated")
 	@JsonFormat(pattern="MM-dd-yyyy HH:mm:ss")
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	private LocalDateTime dateUpdated;
 	
 	@Column(name="user_create")

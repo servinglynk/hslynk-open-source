@@ -2,15 +2,8 @@ package com.servinglynk.hmis.household.web.rest.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.persistence.Column;
-
-import org.springframework.context.annotation.ComponentScan;
-
 import java.util.Objects;
+import java.util.UUID;
 
 
 /**
@@ -20,7 +13,7 @@ public class GlobalHouseholdDTO implements Serializable {
 
     private UUID globalHouseholdId;
 
-    private String headOfHouseholdId;
+    private UUID headOfHouseholdId;
     
 	private LocalDateTime dateCreated;
 	
@@ -42,11 +35,11 @@ public class GlobalHouseholdDTO implements Serializable {
 		this.globalHouseholdId = globalHouseholdId;
 	}
 
-	public String getHeadOfHouseholdId() {
+	public UUID getHeadOfHouseholdId() {
         return headOfHouseholdId;
     }
 
-    public void setHeadOfHouseholdId(String headOfHouseholdId) {
+    public void setHeadOfHouseholdId(UUID headOfHouseholdId) {
         this.headOfHouseholdId = headOfHouseholdId;
     }
 

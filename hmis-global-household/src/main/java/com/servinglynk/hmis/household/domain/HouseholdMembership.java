@@ -8,7 +8,7 @@ import java.util.UUID;
  * A HouseholdMembership.
  */
 @Entity
-@Table(name = "household_membership",schema="global_household")
+@Table(name = "household_membership",schema="housing_inventory")
 public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,10 +16,12 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="household_membership_id")
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
     private UUID householdMembershipId;
 
     @Column(name = "global_client_id")
-    private String globalClientId;
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+    private UUID globalClientId;
 
     @Column(name = "relationship_to_head_of_household")
     private String relationshipToHeadOfHousehold;
@@ -37,11 +39,11 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
 		this.householdMembershipId = householdMembershipId;
 	}
 
-	public String getGlobalClientId() {
+	public UUID getGlobalClientId() {
         return globalClientId;
     }
 
-    public void setGlobalClientId(String globalClientId) {
+    public void setGlobalClientId(UUID globalClientId) {
         this.globalClientId = globalClientId;
     }
 

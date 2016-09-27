@@ -13,7 +13,7 @@ public class HouseholdMembershipDTO implements Serializable {
 
     private UUID householdMembershipId;
 
-    private String globalClientId;
+    private UUID globalClientId;
     
     private LocalDateTime dateCreated;
 	
@@ -40,11 +40,11 @@ public class HouseholdMembershipDTO implements Serializable {
 		this.householdMembershipId = householdMembershipId;
 	}
 
-	public String getGlobalClientId() {
+	public UUID getGlobalClientId() {
         return globalClientId;
     }
 
-    public void setGlobalClientId(String globalClientId) {
+    public void setGlobalClientId(UUID globalClientId) {
         this.globalClientId = globalClientId;
     }
     public String getRelationshipToHeadOfHousehold() {

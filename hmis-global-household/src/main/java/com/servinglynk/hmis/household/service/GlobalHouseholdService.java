@@ -1,25 +1,22 @@
 package com.servinglynk.hmis.household.service;
 
-import com.servinglynk.hmis.household.domain.GlobalHousehold;
-import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
-import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
-import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapper;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import com.servinglynk.hmis.household.domain.GlobalHousehold;
+import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
+import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
+import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapper;
 
 /**
  * Service Implementation for managing GlobalHousehold.

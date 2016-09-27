@@ -37,8 +37,8 @@ public class DatabaseConfiguration {
 	@Value("${hibernate.show_sql}")
 	private String HIBERNATE_SHOW_SQL;
 
-	@Value("${hibernate.hbm2ddl.auto}")
-	private String HIBERNATE_HBM2DDL_AUTO;
+//	@Value("${hibernate.hbm2ddl.auto}")
+//	private String HIBERNATE_HBM2DDL_AUTO;
 
 	@Value("${entitymanager.packagesToScan}")
 	private String ENTITYMANAGER_PACKAGES_TO_SCAN;
@@ -53,7 +53,7 @@ public class DatabaseConfiguration {
 		hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
 		hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
 		hibernateProperties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
-		hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+//		hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
 		sessionFactoryBean.setHibernateProperties(hibernateProperties);
 
 		return sessionFactoryBean;

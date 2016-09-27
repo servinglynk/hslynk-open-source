@@ -1,16 +1,13 @@
 package com.servinglynk.hmis.household.repository;
 
-import com.servinglynk.hmis.household.domain.GlobalHousehold;
-import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import java.io.Serializable;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
-import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
+import com.servinglynk.hmis.household.domain.GlobalHousehold;
+import com.servinglynk.hmis.household.domain.HouseholdMembership;
 
 /**
  * Spring Data JPA repository for the HouseholdMembership entity.

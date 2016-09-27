@@ -1,22 +1,25 @@
 package com.servinglynk.hmis.household.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.boot.orm.jpa.EntityScan;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A GlobalHousehold.
  */
 @Entity
-@Table(name = "global_household",schema="global_household")
+@Table(name = "global_household",schema="housing_inventory")
 public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1573515448747014869L;
@@ -27,7 +30,8 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
     private UUID globalHouseholdId;
 
     @Column(name = "head_of_household_id")
-    private String headOfHouseholdId;
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+    private UUID headOfHouseholdId;
 
     @OneToMany(mappedBy = "globalHousehold",cascade=CascadeType.ALL)
     @JsonIgnore
@@ -42,11 +46,11 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
 		this.globalHouseholdId = globalHouseholdId;
 	}
 
-	public String getHeadOfHouseholdId() {
+	public UUID getHeadOfHouseholdId() {
         return headOfHouseholdId;
     }
 
-    public void setHeadOfHouseholdId(String headOfHouseholdId) {
+    public void setHeadOfHouseholdId(UUID  headOfHouseholdId) {
         this.headOfHouseholdId = headOfHouseholdId;
     }
 

@@ -17,8 +17,9 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.servinglynk.hmis.household.interceptor.ApiAuthCheckInterceptor;
-import com.servinglynk.hmis.household.web.rest.util.SessionHelper;
-import com.servinglynk.hmis.household.web.rest.util.TrustedAppHelper;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
+
 
 @Configuration
 public class JacksonConfig extends WebMvcConfigurerAdapter {
