@@ -15,7 +15,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -54,7 +54,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				} catch (Exception e){
 					String errorMessage = "Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage();
 					if(serviceFaReferralModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = serviceFaReferralModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

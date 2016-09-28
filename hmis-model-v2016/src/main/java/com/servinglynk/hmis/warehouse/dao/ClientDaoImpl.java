@@ -40,7 +40,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -144,7 +144,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				} catch (Exception e) {
 					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();
 					if(clientModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = clientModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

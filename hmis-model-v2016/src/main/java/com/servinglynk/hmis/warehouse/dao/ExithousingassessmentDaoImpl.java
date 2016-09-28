@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAs
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.Exit;
 import com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
@@ -59,7 +59,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the exitHousingAssessment::"+exitHousingAssessment.getExitHousingAssessmentID() +" Exception ::"+e.getMessage();
 						if(exithousingassessmentModel != null){
-							Error2015 error = new Error2015();
+							Error2016 error = new Error2016();
 							error.model_id = exithousingassessmentModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

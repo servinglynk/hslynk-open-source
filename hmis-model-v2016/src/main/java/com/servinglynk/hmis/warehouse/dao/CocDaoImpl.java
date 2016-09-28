@@ -22,7 +22,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2016.Coc;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -56,7 +56,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Coc::"+coc.getCoCCode() +" Exception ::"+e.getMessage();
 					if(cocModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = cocModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

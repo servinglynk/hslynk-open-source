@@ -25,7 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Organization;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -85,7 +85,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = projectModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

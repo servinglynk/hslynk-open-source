@@ -9,7 +9,7 @@ import com.servinglynk.hmis.warehouse.core.model.BulkUploadActivities;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploadError;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploadErrors;
 import com.servinglynk.hmis.warehouse.model.v2016.BulkUploadActivity;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 
 public class BulkUploadErrorActivityServiceImpl  extends ServiceBase implements BulkUploadErrorActivityService {
@@ -34,9 +34,9 @@ public class BulkUploadErrorActivityServiceImpl  extends ServiceBase implements 
 	@Transactional
 	public BulkUploadErrors getBulkUploadErrors(Long bulkUploadId) {
 		BulkUploadErrors errors = new BulkUploadErrors();
-		List<Error2015> bulkUploadErrors = daoFactory.getBulkUploadErrorDao().getBulkUploadErrorByUploadId(bulkUploadId);
+		List<Error2016> bulkUploadErrors = daoFactory.getBulkUploadErrorDao().getBulkUploadErrorByUploadId(bulkUploadId);
 		List<BulkUploadError> bulkErrors = new ArrayList<BulkUploadError>();
-		for(Error2015 error2015: bulkUploadErrors ){
+		for(Error2016 error2015: bulkUploadErrors ){
 			BulkUploadError error  = new BulkUploadError();
 			error.setBulk_upload_ui(error2015.getBulk_upload_ui());
 			error.setDate_created(error2015.getDate_created());

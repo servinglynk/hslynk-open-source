@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2016.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -56,7 +56,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage();
 					if(entrySsvfModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = entrySsvfModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

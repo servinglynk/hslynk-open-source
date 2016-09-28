@@ -35,7 +35,7 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilitynonservi
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Incomeandsources;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -107,7 +107,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the incomeAndSources::"+incomeAndSources.getIncomeAndSourcesID() +" Exception ::"+e.getMessage();
 					if(incomeAndSourcesModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = incomeAndSourcesModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

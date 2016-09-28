@@ -10,7 +10,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 
 import org.slf4j.Logger;
@@ -46,7 +46,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		}catch (Exception ex){
 			String errorMessage = "Exception because of the source::"+source.getSourceID() +" Exception ::"+ex.getMessage();
 			if(sourceModel != null){
-				Error2015 error = new Error2015();
+				Error2016 error = new Error2016();
 				error.model_id = sourceModel.getId();
 				error.bulk_upload_ui = domain.getUpload().getId();
 				error.project_group_code = domain.getUpload().getProjectGroupCode();

@@ -145,7 +145,7 @@ import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.model.v2016.Entryrhy;
 import com.servinglynk.hmis.warehouse.model.v2016.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.Exit;
 import com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2016.Exitpath;
@@ -809,7 +809,7 @@ public class BulkUploaderTest {
 
 	@Test
 	public void insertErrorInBulkErrorTable(){
-		Error2015 error2015 = new Error2015();
+		Error2016 error2015 = new Error2016();
 		error2015.model_id = UUID.randomUUID();
 		error2015.bulk_upload_ui = 3L;
 		error2015.project_group_code = "CODE009";
@@ -819,7 +819,7 @@ public class BulkUploaderTest {
 		error2015.date_created = LocalDateTime.now();
 		factory.getBulkUploaderWorkerDao().insert(error2015);
 
-		Error2015 error2015_2 = new Error2015();
+		Error2016 error2015_2 = new Error2016();
 		error2015_2.model_id = UUID.randomUUID();
 		error2015_2.bulk_upload_ui = 4L;
 		error2015_2.project_group_code = "CODE001";

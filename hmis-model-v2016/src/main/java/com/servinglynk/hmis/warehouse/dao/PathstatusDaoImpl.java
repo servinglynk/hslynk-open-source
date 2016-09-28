@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Pathstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -57,7 +57,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the pathStatus::"+pathStatus.getPathStatusID() +" Exception ::"+e.getMessage();
 					if(pathstatusModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = pathstatusModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

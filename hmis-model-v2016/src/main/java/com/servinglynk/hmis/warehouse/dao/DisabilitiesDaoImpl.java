@@ -25,7 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -69,7 +69,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Disabilities::"+disabilities.getDisabilitiesID() +" Exception ::"+e.getMessage();
 					if(disabilitiesModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = disabilitiesModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

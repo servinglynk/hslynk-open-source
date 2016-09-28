@@ -26,7 +26,7 @@ import com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnum
 import com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.Exitrhy;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -70,7 +70,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the exitrhy::"+exitrhys.getExitRHYID() +" Exception ::"+e.getMessage();
 					if(exitrhyModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = exitrhyModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

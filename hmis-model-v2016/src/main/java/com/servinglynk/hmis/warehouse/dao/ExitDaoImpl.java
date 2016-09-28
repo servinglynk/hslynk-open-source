@@ -21,7 +21,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -72,7 +72,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the exit::"+exit.getExitID() +" Exception ::"+e.getMessage();
 					if(exitModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = exitModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

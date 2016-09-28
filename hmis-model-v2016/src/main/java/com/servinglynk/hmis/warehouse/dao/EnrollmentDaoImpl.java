@@ -7,14 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -25,7 +24,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -115,7 +114,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
-						Error2015 error = new Error2015();
+						Error2016 error = new Error2016();
 						error.model_id = enrollmentModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

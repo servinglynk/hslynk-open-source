@@ -23,7 +23,7 @@ import org.hibernate.criterion.Restrictions;
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.v2016.BulkUploadActivity;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.Export;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 
@@ -184,7 +184,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		if (!found) {
 			if (showWarning) {
 				String warnMessage =" A match was not found in "+className+" with SourceSystemId: " + sourceId ;
-				Error2015 error = new Error2015();
+				Error2016 error = new Error2016();
 				error.table_name = className.getSimpleName();
 				error.model_id = null;
 				error.bulk_upload_ui = uploadId;
@@ -273,7 +273,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			getCurrentSession().flush();
 		    getCurrentSession().clear();
 			logger.warn(errorMessage);
-			Error2015 error = new Error2015();
+			Error2016 error = new Error2016();
 			error.table_name = tableName;
 			error.model_id = id;
 			error.bulk_upload_ui = domain.getUpload().getId();

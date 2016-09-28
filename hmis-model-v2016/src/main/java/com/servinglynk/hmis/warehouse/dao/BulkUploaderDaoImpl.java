@@ -35,7 +35,7 @@ import com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp;
 import com.servinglynk.hmis.warehouse.model.v2016.Entryrhy;
 import com.servinglynk.hmis.warehouse.model.v2016.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.Exit;
 import com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2016.Exitrhy;
@@ -182,7 +182,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void saveError(BulkUpload upload) {
 		try {
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			Error2015 error = new Error2015();
+			Error2016 error = new Error2016();
 			error.setBulk_upload_ui(upload.getId());
 			error.setDate_created(LocalDateTime.now());
 			error.setError_description(upload.getDescription());

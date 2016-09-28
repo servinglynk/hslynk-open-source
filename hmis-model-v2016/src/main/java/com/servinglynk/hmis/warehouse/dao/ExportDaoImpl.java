@@ -12,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2015;
+import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -42,7 +42,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		}catch (Exception ex){
 			String errorMessage = "Exception because of the export::"+exportModel.getId() +" Exception ::"+ex.getMessage();
 			if(exportModel != null){
-				Error2015 error = new Error2015();
+				Error2016 error = new Error2016();
 				error.model_id = exportModel.getId();
 				error.bulk_upload_ui = domain.getUpload().getId();
 				error.project_group_code = domain.getUpload().getProjectGroupCode();
