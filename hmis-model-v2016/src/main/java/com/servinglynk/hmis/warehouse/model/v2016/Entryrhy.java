@@ -70,8 +70,8 @@ import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
  */
 
 
-@Entity (name = "entryrhy_v2015")
-@Table(name = "entryrhy", catalog = "hmis", schema = "v2015")
+@Entity (name = "entryrhy_v2016")
+@Table(name = "entryrhy", catalog = "hmis", schema = "v2016")
 public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -180,7 +180,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	private DataCollectionStageEnum dataCollectionStage;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
-	
+
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
 	@Column
@@ -214,12 +214,12 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "information_date"  )
 	public LocalDateTime getInformationDate() {
 		return this.informationDate;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: informationDate.
 	 * @param informationDate the informationDate value you wish to set
 	 */
@@ -304,7 +304,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.activeMilitaryParent = activeMilitaryParent;
 	}
 
-	 
+
 
 	 /**
 	 * Return the value associated with the column: enrollmentid.
@@ -329,7 +329,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.enrollmentid = enrollmentid;
 	}
 
-	 
+
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -361,7 +361,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.id = id;
 	}
 
-	 
+
 	 /**
 	 * Return the value associated with the column: monthsChildWelfrForestCare.
 	 * @return A Integer object (this.monthsChildWelfrForestCare)
@@ -383,7 +383,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.monthsChildWelfrForestCare = monthsChildWelfrForestCare;
 	}
 
-	 
+
 
 	 /**
 	 * Return the value associated with the column: referralSource.
@@ -437,7 +437,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth) {
 		this.alcoholDrugAbuseYouth = alcoholDrugAbuseYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: askedOfForcedToExchangeForSex.
 	 * @return A Integer object (this.askedOfForcedToExchangeForSex)
@@ -453,7 +453,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex) {
 		this.askedOfForcedToExchangeForSex = askedOfForcedToExchangeForSex;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: askedOfForcedToExchangeForSexPastThreeMonths.
 	 * @return A Integer object (this.askedOfForcedToExchangeForSexPastThreeMonths)
@@ -469,7 +469,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum askedOfForcedToExchangeForSexPastThreeMonths) {
 		this.askedOfForcedToExchangeForSexPastThreeMonths = askedOfForcedToExchangeForSexPastThreeMonths;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: coercedToContinueWork.
 	 * @return A Integer object (this.coercedToContinueWork)
@@ -485,7 +485,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYCoercedToContinueWorkEnum coercedToContinueWork) {
 		this.coercedToContinueWork = coercedToContinueWork;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: countOfExchangeForSex.
 	 * @return A Integer object (this.countOfExchangeForSex)
@@ -501,7 +501,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex) {
 		this.countOfExchangeForSex = countOfExchangeForSex;
 	}
-	
+
 	@Column(name="count_out_reach_referral_approaches")
 	public Integer getCountOutReachReferralApproaches() {
 		return countOutReachReferralApproaches;
@@ -511,7 +511,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			Integer countOutReachReferralApproaches) {
 		this.countOutReachReferralApproaches = countOutReachReferralApproaches;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: exchangeForSex.
 	 * @return A Integer object (this.exchangeForSex)
@@ -526,7 +526,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setExchangeForSex(EntryRHYExchangeForSexEnum exchangeForSex) {
 		this.exchangeForSex = exchangeForSex;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: exchangeForSexPastThreeMonths.
 	 * @return A Integer object (this.exchangeForSexPastThreeMonths)
@@ -542,7 +542,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYExchangeForSexPastThreeMonthsEnum exchangeForSexPastThreeMonths) {
 		this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: formerlyWardChildWelfrForestCare.
 	 * @return A Integer object (this.formerlyWardChildWelfrForestCare)
@@ -558,7 +558,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYFormerWardChildWelfareEnum formerlyWardChildWelfrForestCare) {
 		this.formerlyWardChildWelfrForestCare = formerlyWardChildWelfrForestCare;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: formerlyWardOfJuvenileJustice.
 	 * @return A Integer object (this.formerlyWardOfJuvenileJustice)
@@ -574,7 +574,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice) {
 		this.formerlyWardOfJuvenileJustice = formerlyWardOfJuvenileJustice;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: healthIssuesFamilyMbr.
 	 * @return A Integer object (this.healthIssuesFamilyMbr)
@@ -590,7 +590,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr) {
 		this.healthIssuesFamilyMbr = healthIssuesFamilyMbr;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: healthIssuesYouth.
 	 * @return A Integer object (this.healthIssuesYouth)
@@ -605,7 +605,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setHealthIssuesYouth(EntryRHYHealthIssuesYouthEnum healthIssuesYouth) {
 		this.healthIssuesYouth = healthIssuesYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: houseHoldDynamics.
 	 * @return A Integer object (this.houseHoldDynamics)
@@ -620,7 +620,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setHouseHoldDynamics(EntryRHYHouseholdDynamicsEnum houseHoldDynamics) {
 		this.houseHoldDynamics = houseHoldDynamics;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: housingIssuesFamilyMbr.
 	 * @return A Integer object (this.housingIssuesFamilyMbr)
@@ -636,7 +636,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr) {
 		this.housingIssuesFamilyMbr = housingIssuesFamilyMbr;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: housingIssuesYouth.
 	 * @return A Integer object (this.housingIssuesYouth)
@@ -652,7 +652,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYHousingIssuesYouthEnum housingIssuesYouth) {
 		this.housingIssuesYouth = housingIssuesYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: incarceratedParent.
 	 * @return A Integer object (this.incarceratedParent)
@@ -668,7 +668,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYIncarceratedParentEnum incarceratedParent) {
 		this.incarceratedParent = incarceratedParent;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: incarceratedParentStatus.
 	 * @return A Integer object (this.incarceratedParentStatus)
@@ -684,7 +684,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus) {
 		this.incarceratedParentStatus = incarceratedParentStatus;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: insufficientIncomeToSupportYouth.
 	 * @return A Integer object (this.insufficientIncomeToSupportYouth)
@@ -700,7 +700,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth) {
 		this.insufficientIncomeToSupportYouth = insufficientIncomeToSupportYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: laborExploitPastThreeMonths.
 	 * @return A Integer object (this.laborExploitPastThreeMonths)
@@ -715,7 +715,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			Integer laborExploitPastThreeMonths) {
 		this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: mentalDisabilityFamilyMbr.
 	 * @return A Integer object (this.mentalDisabilityFamilyMbr)
@@ -731,7 +731,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr) {
 		this.mentalDisabilityFamilyMbr = mentalDisabilityFamilyMbr;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: mentalDisabilityYouth.
 	 * @return A Integer object (this.mentalDisabilityYouth)
@@ -747,7 +747,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth) {
 		this.mentalDisabilityYouth = mentalDisabilityYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: mentalHealthIssuesFamilyMbr.
 	 * @return A Integer object (this.mentalHealthIssuesFamilyMbr)
@@ -763,7 +763,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr) {
 		this.mentalHealthIssuesFamilyMbr = mentalHealthIssuesFamilyMbr;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: mentalHealthIssuesYouth.
 	 * @return A Integer object (this.mentalHealthIssuesYouth)
@@ -779,7 +779,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth) {
 		this.mentalHealthIssuesYouth = mentalHealthIssuesYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: physicalDisabilityFamilyMbr.
 	 * @return A Integer object (this.physicalDisabilityFamilyMbr)
@@ -795,7 +795,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr) {
 		this.physicalDisabilityFamilyMbr = physicalDisabilityFamilyMbr;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: physicalDisabilityYouth.
 	 * @return A Integer object (this.physicalDisabilityYouth)
@@ -811,7 +811,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth) {
 		this.physicalDisabilityYouth = physicalDisabilityYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: schoolEducationIssuesFamilyMbr.
 	 * @return A Integer object (this.schoolEducationIssuesFamilyMbr)
@@ -827,8 +827,8 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr) {
 		this.schoolEducationIssuesFamilyMbr = schoolEducationIssuesFamilyMbr;
 	}
-	
-	
+
+
 	/**
 	 * Return the value associated with the column: schoolEducationIssuesYouth.
 	 * @return A Integer object (this.schoolEducationIssuesYouth)
@@ -844,7 +844,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth) {
 		this.schoolEducationIssuesYouth = schoolEducationIssuesYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: sexualOrientatiionGenderIdentityFamilyMbr.
 	 * @return A Integer object (this.sexualOrientatiionGenderIdentityFamilyMbr)
@@ -860,8 +860,8 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr) {
 		this.sexualOrientatiionGenderIdentityFamilyMbr = sexualOrientatiionGenderIdentityFamilyMbr;
 	}
-	
-	
+
+
 	/**
 	 * Return the value associated with the column: sexualOrientatiionGenderIdentityYouth.
 	 * @return A Integer object (this.sexualOrientatiionGenderIdentityYouth)
@@ -877,7 +877,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth) {
 		this.sexualOrientatiionGenderIdentityYouth = sexualOrientatiionGenderIdentityYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: sexualOrientation.
 	 * @return A Integer object (this.sexualOrientation)
@@ -893,7 +893,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			SexualorientationSexualorientationEnum sexualOrientation) {
 		this.sexualOrientation = sexualOrientation;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: unemployementFamilyMbr.
 	 * @return A Integer object (this.unemployementFamilyMbr)
@@ -909,7 +909,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYUnemploymentFamEnum unemployementFamilyMbr) {
 		this.unemployementFamilyMbr = unemployementFamilyMbr;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: unemployementYouth.
 	 * @return A Integer object (this.unemployementYouth)
@@ -925,7 +925,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYUnemploymentYouthEnum unemployementYouth) {
 		this.unemployementYouth = unemployementYouth;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: workPlacePromiseDifference.
 	 * @return A Integer object (this.workPlacePromiseDifference)
@@ -941,7 +941,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference) {
 		this.workPlacePromiseDifference = workPlacePromiseDifference;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: workPlaceViolenceThreat.
 	 * @return A Integer object (this.workPlaceViolenceThreat)
@@ -957,7 +957,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYWorkPlaceViolenceThreatsEnum workPlaceViolenceThreat) {
 		this.workPlaceViolenceThreat = workPlaceViolenceThreat;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: yearsChildWelfrForestCare.
 	 * @return A Integer object (this.yearsChildWelfrForestCare)
@@ -973,7 +973,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 			EntryRHYChildWelfareYearsEnum yearsChildWelfrForestCare) {
 		this.yearsChildWelfrForestCare = yearsChildWelfrForestCare;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: yearsJuvenileJustice.
 	 * @return A Integer object (this.yearsJuvenileJustice)
@@ -1020,12 +1020,12 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	@JoinColumn(name = "export_id", nullable = true )
 	public Export getExport() {
 		return this.export;
-		
-	}
-	
 
- 
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: export.
 	 * @param export the export value you wish to set
 	 */

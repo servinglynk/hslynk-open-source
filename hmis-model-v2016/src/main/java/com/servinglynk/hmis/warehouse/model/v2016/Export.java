@@ -37,8 +37,8 @@ import com.servinglynk.hmis.warehouse.model.v2016.Organization;
  */
 
 
-@Entity(name = "export_v2015")
-@Table(name = "export", catalog = "hmis", schema = "v2015")
+@Entity(name = "export_v2016")
+@Table(name = "export", catalog = "hmis", schema = "v2016")
 public class Export extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -1457,7 +1457,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	public void setEnrollmentCocs(final Set<EnrollmentCoc> enrollmentCoc) {
 		this.enrollmentCocs = enrollmentCoc;
 	}
-	
+
 	/**
 	 * Return the value associated with the column: affiliation.
 	 * @return A Set&lt;Affiliation&gt; object (this.affiliation)
@@ -1518,7 +1518,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	public void setOrganizations(final Set<Organization> organization) {
 		this.organizations = organization;
 	}
-				
+
 
 				/** Field mapping. */
 

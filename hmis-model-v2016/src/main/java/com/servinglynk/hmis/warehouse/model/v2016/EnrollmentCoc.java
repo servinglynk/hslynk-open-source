@@ -31,8 +31,8 @@ import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
  */
 
 
-@Entity(name = "enrollment_coc__2015")
-@Table(name = "enrollment_coc", catalog = "hmis", schema = "v2015")
+@Entity(name = "enrollment_coc__2016")
+@Table(name = "enrollment_coc", catalog = "hmis", schema = "v2016")
 public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializable{
 
 	/** Serial Version UID. */
@@ -55,7 +55,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	private java.util.UUID id;
 	private LocalDateTime informationDate;
 	private DataCollectionStageEnum dataCollectionStage;
-	
+
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
 	@Column
@@ -89,7 +89,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	}
 
 
-	
+
 	@Basic( optional = true )
 	@Column( name = "client_code", length = 20  )
 	 public String getClientCode() {
@@ -174,12 +174,12 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	@JoinColumn(name = "export_id", nullable = true )
 	public Export getExport() {
 		return this.export;
-		
-	}
-	
 
- 
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: export.
 	 * @param export the export value you wish to set
 	 */

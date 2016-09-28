@@ -24,22 +24,22 @@ import org.hibernate.annotations.Type;
 
 
 @Entity (name = "bulk_upload_activity")
-@Table(name = "bulk_upload_activity", catalog = "hmis", schema = "v2015")
+@Table(name = "bulk_upload_activity", catalog = "hmis", schema = "v2016")
 public class BulkUploadActivity implements Cloneable, Serializable {
 
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3243148389368176233L;
 
-	/** Use a WeakHashMap so entries will be garbage collected once all entities 
+	/** Use a WeakHashMap so entries will be garbage collected once all entities
 		referring to a saved hash are garbage collected themselves. */
 	private static final Map<Serializable, java.util.UUID> SAVED_HASHES =
 		Collections.synchronizedMap(new WeakHashMap<Serializable, java.util.UUID>());
-	
+
 	private Long id;
 	/** Field mapping. */
 	private Export export;
-	
+
 	private Long bulkUploadId;
 	private String tableName;
 	private Long recordsProcessed;
@@ -56,17 +56,17 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	@JoinColumn(name = "export_id", nullable = true )
 	public Export getExport() {
 		return this.export;
-		
+
 	}
-	
-	 /**  
+
+	 /**
 	 * Set the value related to the column: export.
 	 * @param export the export value you wish to set
 	 */
 	public void setExport(final Export export) {
 		this.export = export;
 	}
-	
+
 	 /**
 		 * Return the value associated with the column: export.
 		 * @return A Export object (this.export)
@@ -74,19 +74,19 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 		@Column(name = "bulk_upload_id", nullable = true )
 		public Long getBulkUploadId() {
 			return this.bulkUploadId;
-			
+
 		}
-		 /**  
+		 /**
 		 * Set the value related to the column: export.
 		 * @param export the export value you wish to set
 		 */
 		public void setBulkUploadId(final Long bulkUpload) {
 			this.bulkUploadId = bulkUpload;
 		}
-	
+
 	@Id
-	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="v2015.bulk_upload_activity_id_seq", name="v2015.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "v2015")
-	@GeneratedValue(generator="v2015.bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
+	@SequenceGenerator(allocationSize=1, initialValue=1, sequenceName="v2016.bulk_upload_activity_id_seq", name="v2016.bulk_upload_activity_id_seq" , catalog = "hmis", schema = "v2016")
+	@GeneratedValue(generator="v2016.bulk_upload_activity_id_seq", strategy=GenerationType.SEQUENCE )
 	public Long getId() {
 		return id;
 	}
@@ -98,7 +98,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	public String getTableName() {
 		return tableName;
 	}
-	
+
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
@@ -106,7 +106,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	public Long getRecordsProcessed() {
 		return recordsProcessed;
 	}
-	
+
 	public void setRecordsProcessed(Long recordsProcessed) {
 		this.recordsProcessed = recordsProcessed;
 	}
@@ -114,7 +114,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	public Long getInserted() {
 		return inserted;
 	}
-	
+
 	public void setInserted(Long inserted) {
 		this.inserted = inserted;
 	}
@@ -122,7 +122,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	public Long getUpdated() {
 		return updated;
 	}
-	
+
 	public void setUpdated(Long updated) {
 		this.updated = updated;
 	}
@@ -134,7 +134,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/** Field mapping. */
 	protected LocalDateTime dateCreated;
 	/** Field mapping. */
@@ -152,7 +152,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 		public LocalDateTime getDateCreated() {
 			return this.dateCreated;
 		}
-		 /**  
+		 /**
 		 * Set the value related to the column: dateCreated.
 		 * @param dateCreated the dateCreated value you wish to set
 		 */
@@ -170,14 +170,14 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 		public LocalDateTime getDateUpdated() {
 			return this.dateUpdated;
 		}
-		 /**  
+		 /**
 		 * Set the value related to the column: dateUpdated.
 		 * @param dateUpdated the dateUpdated value you wish to set
 		 */
 		public void setDateUpdated(final LocalDateTime dateUpdated) {
 			this.dateUpdated = dateUpdated;
 		}
-	
+
 		@Column(name="project_group_code")
 			public String getProjectGroupCode() {
 				return projectGroupCode;
@@ -185,13 +185,13 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 			public void setProjectGroupCode(String projectGroupCode) {
 				this.projectGroupCode = projectGroupCode;
 			}
-			
-			
-			
+
+
+
 			private boolean deleted;
 			private boolean sync;
-			
-			
+
+
 			@Column(name="sync")
 			public boolean isSync() {
 				return sync;
@@ -209,7 +209,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 			}
 
 			private UUID parentId;
-			
+
 			@Basic( optional = true )
 			@Column( name = "parent_id", nullable = true  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 			public UUID getParentId() {
@@ -219,7 +219,7 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 			public void setParentId(UUID parentId) {
 				this.parentId = parentId;
 			}
-			
+
 			private Long version;
 			@Basic( optional = true )
 			@Column( name = "version", nullable = true  )
@@ -230,5 +230,5 @@ public class BulkUploadActivity implements Cloneable, Serializable {
 			public void setVersion(Long version) {
 				this.version = version;
 			}
-			
+
 }

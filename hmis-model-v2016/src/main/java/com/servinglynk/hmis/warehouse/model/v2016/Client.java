@@ -41,14 +41,14 @@ import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 
 
-/** 
+/**
  * Object mapping for hibernate-handled table: client.
- * 
+ *
  *
  * @author Sandeep Dolia
  */
 @Entity (name = "client")
-@Table(name = "client", catalog = "hmis", schema = "v2015")
+@Table(name = "client", catalog = "hmis", schema = "v2016")
 /*@Indexed
 @AnalyzerDef(name="clientAnalyzer", tokenizer=@TokenizerDef(factory=LowerCaseTokenizerFactory.class))*/
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
@@ -56,14 +56,14 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6304318647555713317L;
 
-	/** Use a WeakHashMap so entries will be garbage collected once all entities 
+	/** Use a WeakHashMap so entries will be garbage collected once all entities
 		referring to a saved hash are garbage collected themselves. */
 	private static final Map<Serializable, java.util.UUID> SAVED_HASHES =
 		Collections.synchronizedMap(new WeakHashMap<Serializable, java.util.UUID>());
-	
+
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
-	
+
 	/** Field mapping. */
 	private java.util.UUID dedupClientId;
 	/** Field mapping. */
@@ -94,9 +94,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	private String ssn;
 	/** Field mapping. */
 	private ClientSsnDataQualityEnum ssnDataQuality;
-	
+
 	//private String sourceSystemId;
-	
+
 	/** Field mapping. */
 	private Set<ClientVeteranInfo> veteranInfoes = new HashSet<ClientVeteranInfo>();
 	/** Field mapping. */
@@ -109,7 +109,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	public Client() {
 		// Default constructor
-	} 
+	}
 
 	/** Constructor taking a given ID.
 	 * @param id to set
@@ -117,7 +117,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	public Client(java.util.UUID id) {
 		this.id = id;
 	}
-	
+
 	 /**
 		 * Return the value associated with the column: dedupClientId.
 		 * @return A java.util.UUID object (this.dedupClientId)
@@ -126,19 +126,19 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		@Column( name = "dedup_client_id"  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 		public java.util.UUID getDedupClientId() {
 			return this.dedupClientId;
-			
-		}
-		
 
-	 
-		 /**  
+		}
+
+
+
+		 /**
 		 * Set the value related to the column: dedupClientId.
 		 * @param dedupClientId the dedupClientId value you wish to set
 		 */
 		public void setDedupClientId(final java.util.UUID dedupClientId) {
 			this.dedupClientId = dedupClientId;
 		}
-	 
+
 
 		/** Field mapping. */
 		protected Export export;
@@ -152,12 +152,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		@JoinColumn(name = "export_id", nullable = true )
 		public Export getExport() {
 			return this.export;
-			
-		}
-		
 
-	 
-		 /**  
+		}
+
+
+
+		 /**
 		 * Set the value related to the column: export.
 		 * @param export the export value you wish to set
 		 */
@@ -171,7 +171,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	public Class<?> getClassType() {
 		return Client.class;
 	}
- 
+
 
 	 /**
 	 * Return the value associated with the column: dob.
@@ -182,12 +182,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column
 	public LocalDateTime getDob() {
 		return this.dob;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: dob.
 	 * @param dob the dob value you wish to set
 	 */
@@ -204,12 +204,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "dob_data_quality"  )
 	public ClientDobDataQualityEnum getDobDataQuality() {
 		return this.dobDataQuality;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: dobDataQuality.
 	 * @param dobDataQuality the dobDataQuality value you wish to set
 	 */
@@ -226,12 +226,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Type(type="com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnumType")
 	public ClientEthnicityEnum getEthnicity() {
 		return this.ethnicity;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: ethnicity.
 	 * @param ethnicity the ethnicity value you wish to set
 	 */
@@ -248,12 +248,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 //	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getFirstName() {
 		return this.firstName;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: firstName.
 	 * @param firstName the firstName value you wish to set
 	 */
@@ -270,12 +270,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Type(type="com.servinglynk.hmis.warehouse.enums.ClientGenderEnumType")
 	public ClientGenderEnum getGender() {
 		return this.gender;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: gender.
 	 * @param gender the gender value you wish to set
 	 */
@@ -288,7 +288,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A java.util.UUID object (this.id)
 	 */
 
-	/*@Id 
+	/*@Id
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	*/
@@ -297,12 +297,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
@@ -327,12 +327,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 //	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getLastName() {
 		return this.lastName;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: lastName.
 	 * @param lastName the lastName value you wish to set
 	 */
@@ -349,12 +349,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getMiddleName() {
 		return this.middleName;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: middleName.
 	 * @param middleName the middleName value you wish to set
 	 */
@@ -371,12 +371,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "name_data_quality"  )
 	public ClientNameDataQualityEnum getNameDataQuality() {
 		return this.nameDataQuality;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: nameDataQuality.
 	 * @param nameDataQuality the nameDataQuality value you wish to set
 	 */
@@ -392,12 +392,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "name_suffix", length = 50  )
 	public String getNameSuffix() {
 		return this.nameSuffix;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: nameSuffix.
 	 * @param nameSuffix the nameSuffix value you wish to set
 	 */
@@ -413,12 +413,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "other_gender"  )
 	public String getOtherGender() {
 		return this.otherGender;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: otherGender.
 	 * @param otherGender the otherGender value you wish to set
 	 */
@@ -436,10 +436,10 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	public ClientRaceEnum getRace() {
 		return this.race;
 	}
-	
 
-  
-	 /**  
+
+
+	 /**
 	 * Set the value related to the column: race.
 	 * @param race the race value you wish to set
 	 */
@@ -456,12 +456,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: ssn.
 	 * @param ssn the ssn value you wish to set
 	 */
@@ -478,12 +478,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "ssn_data_quality"  )
 	public ClientSsnDataQualityEnum getSsnDataQuality() {
 		return this.ssnDataQuality;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: ssnDataQuality.
 	 * @param ssnDataQuality the ssnDataQuality value you wish to set
 	 */
@@ -501,9 +501,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( nullable = false  )
 	public Set<ClientVeteranInfo> getVeteranInfoes() {
 		return this.veteranInfoes;
-		
+
 	}
-	
+
 	/**
 	 * Adds a bi-directional link of type VeteranInfo to the veteranInfoes set.
 	 * @param veteranInfo item to add
@@ -513,8 +513,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		this.veteranInfoes.add(veteranInfo);
 	}
 
-  
-	 /**  
+
+	 /**
 	 * Set the value related to the column: veteranInfo.
 	 * @param veteranInfo the veteranInfo value you wish to set
 	 */
@@ -531,12 +531,12 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Column( name = "veteran_status"  )
 	public ClientVeteranStatusEnum getVeteranStatus() {
 		return this.veteranStatus;
-		
-	}
-	
 
-  
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: veteranStatus.
 	 * @param veteranStatus the veteranStatus value you wish to set
 	 */
@@ -554,9 +554,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		@Column( nullable = false  )
 		public Set<Enrollment> getEnrollments() {
 			return this.enrollments;
-			
+
 		}
-		
+
 		/**
 		 * Adds a bi-directional link of type Enrollment to the enrollments set.
 		 * @param enrollment item to add
@@ -566,8 +566,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			this.enrollments.add(enrollment);
 		}
 
-	  
-		 /**  
+
+		 /**
 		 * Set the value related to the column: enrollment.
 		 * @param enrollment the enrollment value you wish to set
 		 */
@@ -575,7 +575,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			this.enrollments = enrollment;
 		}
 
-		
+
 /*		@Column(name="source_system_id")
 		//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 		public String getSourceSystemId() {
@@ -593,7 +593,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
     */
     @Override
     public Client clone() throws CloneNotSupportedException {
-		
+
         final Client copy = (Client)super.clone();
 
 		copy.setDateCreated(this.getDateCreated());
@@ -622,7 +622,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setVeteranStatus(this.getVeteranStatus());
 		return copy;
 	}
-	
+
 
 
 	/** Provides toString implementation.
@@ -632,7 +632,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		
+
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("dob: " + this.getDob() + ", ");
@@ -651,11 +651,11 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("ssnDataQuality: " + this.getSsnDataQuality() + ", ");
 		sb.append("veteranStatus: " + this.getVeteranStatus());
 		sb.append("sourceSystemId: "+this.getSourceSystemId());
-		return sb.toString();		
+		return sb.toString();
 	}
 
 
-	/** Equals implementation. 
+	/** Equals implementation.
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 * @param aThat Object to compare with
 	 * @return true/false
@@ -663,16 +663,16 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Override
 	public boolean equals(final Object aThat) {
 		Object proxyThat = aThat;
-		
+
 		if ( this == aThat ) {
 			 return true;
 		}
 
-		
+
 		if (aThat instanceof HibernateProxy) {
  			// narrow down the proxy to the class we are dealing with.
  			try {
-				proxyThat = ((HibernateProxy) aThat).getHibernateLazyInitializer().getImplementation(); 
+				proxyThat = ((HibernateProxy) aThat).getHibernateLazyInitializer().getImplementation();
 			} catch (org.hibernate.ObjectNotFoundException e) {
 				return false;
 		   	}
@@ -680,8 +680,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		if (aThat == null)  {
 			 return false;
 		}
-		
-		final Client that; 
+
+		final Client that;
 		try {
 			that = (Client) proxyThat;
 			if ( !(that.getClassType().equals(this.getClassType()))){
@@ -692,8 +692,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		} catch (ClassCastException e) {
 				return false;
 		}
-		
-		
+
+
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
@@ -711,11 +711,11 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getRace() == null) && (that.getRace() == null)) || (getRace() != null && getRace().equals(that.getRace())));
 		result = result && (((getSsn() == null) && (that.getSsn() == null)) || (getSsn() != null && getSsn().equals(that.getSsn())));
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));
-		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));	
+		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVeteranStatus() == null) && (that.getVeteranStatus() == null)) || (getVeteranStatus() != null && getVeteranStatus().equals(that.getVeteranStatus())));
-		result = result && (((getSourceSystemId() == null) && (that.getSourceSystemId() == null)) || (getSourceSystemId() != null && getSourceSystemId().equals(that.getSourceSystemId()))); 
+		result = result && (((getSourceSystemId() == null) && (that.getSourceSystemId() == null)) || (getSourceSystemId() != null && getSourceSystemId().equals(that.getSourceSystemId())));
 		return result;
 	}
 
-	
+
 }

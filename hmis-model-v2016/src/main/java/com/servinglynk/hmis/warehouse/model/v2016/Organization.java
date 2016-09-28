@@ -35,7 +35,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 
 @Entity(name = "organization")
-@Table(name = "organization", catalog = "hmis", schema = "v2015")
+@Table(name = "organization", catalog = "hmis", schema = "v2016")
 public class Organization extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -85,7 +85,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */
-    @Id 
+    @Id
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
@@ -181,7 +181,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 	public void setProjects(final Set<Project> project) {
 		this.projects = project;
 	}
-	
+
 
 	/** Field mapping. */
 	protected Export export;
@@ -195,12 +195,12 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 	@JoinColumn(name = "export_id", nullable = true )
 	public Export getExport() {
 		return this.export;
-		
-	}
-	
 
- 
-	 /**  
+	}
+
+
+
+	 /**
 	 * Set the value related to the column: export.
 	 * @param export the export value you wish to set
 	 */

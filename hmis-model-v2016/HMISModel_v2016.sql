@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS "v2016".enrollment;
 DROP TABLE IF EXISTS "v2016".organization; 
 DROP TABLE IF EXISTS "v2016".client_veteran_info;
 DROP TABLE IF EXISTS "v2016".client;
-DROP TABLE IF EXISTS "v2016".bulk_upload;
 DROP TABLE IF EXISTS "v2016".bulk_upload_activity;
 DROP TABLE IF EXISTS "v2016".export; 
 DROP TABLE IF EXISTS "v2016".source;
@@ -2803,3 +2802,59 @@ total_leavers bigint ,
 del_flag char(3),
 status_flag char(3)
 );
+
+
+--CREATE SEQUENCE "v2015".bulk_upload_id_seq START 1;
+
+create table "v2015".bulk_upload_activity
+(
+ id serial not null,
+ bulk_upload_id bigint,
+ table_name character varying(100),
+ records_processed bigint,
+ description text,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_updated" timestamp,
+  inserted  bigint,
+  updated bigint,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,source_system_id text,
+  deleted boolean DEFAULT false,active boolean DEFAULT true,  
+  sync boolean DEFAULT false,
+     CONSTRAINT export_fkey FOREIGN KEY (export_id)
+      REFERENCES v2015.export (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT bulk_upload_activity_pk PRIMARY KEY ("id")
+);
+
+
+DROP TABLE IF EXISTS v2015.bulk_upload_error;
+
+CREATE TABLE v2015.bulk_upload_error
+(
+  id bigint NOT NULL,
+  model_id uuid,
+  bulk_upload_ui bigint,
+  table_name text,
+  project_group_code character varying(8),
+  source_system_id text,
+  type character varying(8),
+  error_description text,
+  date_created timestamp without time zone,
+  CONSTRAINT bulk_upload_error_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+-- DROP SEQUENCE v2015.error_sequence;
+
+CREATE SEQUENCE v2015.error_sequence
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
