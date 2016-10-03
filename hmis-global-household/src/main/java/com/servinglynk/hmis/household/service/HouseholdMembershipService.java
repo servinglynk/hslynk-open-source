@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,8 @@ public class HouseholdMembershipService {
     @Transactional
     public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTOs);
+        GlobalHousehold household =		globalHouseholdRepository.findOne(householdId);
+        if(household==null) throw new ResourceNotFoundException("Global household not found "+householdId);
         List<HouseholdMembershipDTO> lhouseholdmembersDTOs=new ArrayList<HouseholdMembershipDTO>(); 
         for(HouseholdMembershipDTO dto: householdMembershipDTOs){
         	dto.setDateCreated(LocalDateTime.now());
@@ -89,6 +92,7 @@ public class HouseholdMembershipService {
     public Page<HouseholdMembership> getAllHouseholdMembersByHouseholdId(UUID householdId, Pageable pageable) {
         log.debug("Request to get all HouseholdMemberships");
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
+    	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
     	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHousehold(globalHousehold, pageable);
         return members;
     }

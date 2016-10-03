@@ -5,18 +5,29 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.servinglynk.hmis.household.anntation.ValidateClient;
+import com.servinglynk.hmis.warehouse.core.model.JsonDateDeserializer;
+import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
+
 
 /**
  * A DTO for the HouseholdMembership entity.
  */
+@ValidateClient(clientIdField="globalClientId",linkField="link")
 public class HouseholdMembershipDTO implements Serializable {
 
     private UUID householdMembershipId;
 
     private UUID globalClientId;
     
+	@JsonDeserialize(using=JsonDateDeserializer.class)
+	@JsonSerialize(using=JsonDateTimeSerializer.class)
     private LocalDateTime dateCreated;
 	
+	@JsonDeserialize(using=JsonDateDeserializer.class)
+	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 	
 	private String userCreate;
@@ -28,6 +39,8 @@ public class HouseholdMembershipDTO implements Serializable {
     private String relationshipToHeadOfHousehold;
 
     private UUID globalHouseholdId;
+    
+    private String link;
     
     
     
@@ -104,6 +117,14 @@ public class HouseholdMembershipDTO implements Serializable {
 
 	public void setInactive(Boolean inactive) {
 		this.inactive = inactive;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	@Override

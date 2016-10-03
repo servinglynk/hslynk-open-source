@@ -29,6 +29,9 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     @ManyToOne
     @JoinColumn(name="global_household_id")
     private GlobalHousehold globalHousehold;
+    
+    @Column(name="client_link")
+    private String clientLink;
 
 
     public UUID getHouseholdMembershipId() {
@@ -62,8 +65,16 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     public void setGlobalHousehold(GlobalHousehold globalHousehold) {
         this.globalHousehold = globalHousehold;
     }
+    
+    public String getClientLink() {
+		return clientLink;
+	}
 
-    @Override
+	public void setClientLink(String clientLink) {
+		this.clientLink = clientLink;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

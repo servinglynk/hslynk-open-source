@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.hateoas.Resources;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.service.HouseholdMembershipService;
+import com.servinglynk.hmis.household.web.rest.dto.HouseHodMembersDto;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
 import com.servinglynk.hmis.household.web.rest.util.HeaderUtil;
@@ -61,7 +65,9 @@ public class HouseholdMembershipResource  extends BaseResource {
 			
 			Resource<HouseholdMembershipDTO> resource=null;
 				resource = new Resource<HouseholdMembershipDTO>(householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(arg0));
-			return resource;
+				if(arg0.getClientLink()!=null)
+					resource.add(new Link("client",arg0.getClientLink()));
+				return resource;
 		}
 	}
 
@@ -90,14 +96,15 @@ public class HouseholdMembershipResource  extends BaseResource {
             .body(result);
     }*/
     @RequestMapping(value = "{householdId}/members",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes= MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST
+         //   produces = MediaType.APPLICATION_JSON_VALUE,
+         //   consumes= MediaType.APPLICATION_JSON_VALUE
+            )
     	@APIMapping(value="GLOBAL_HOUSE_HOLD_CREATE_MEMBERS")
         public ResponseEntity<List<HouseholdMembershipDTO>> createHouseholdMembership(
-        		@PathVariable UUID householdId, @RequestBody List<HouseholdMembershipDTO> householdMembershipDTOs) throws Exception {
+        		@PathVariable UUID householdId, @Valid @RequestBody HouseHodMembersDto householdMembershipDTOs) throws Exception {
             log.debug("REST request to save HouseholdMembership : {}", householdMembershipDTOs);
-            List<HouseholdMembershipDTO> result = householdMembershipService.save(householdId,householdMembershipDTOs);
+            List<HouseholdMembershipDTO> result = householdMembershipService.save(householdId,householdMembershipDTOs.getMembers());
             return new ResponseEntity<List<HouseholdMembershipDTO>>(result,HttpStatus.OK);
         }
 

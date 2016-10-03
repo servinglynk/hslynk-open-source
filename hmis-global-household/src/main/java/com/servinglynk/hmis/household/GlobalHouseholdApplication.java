@@ -5,12 +5,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
+import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
+import com.servinglynk.hmis.warehouse.client.config.SpringConfig;
+
 @SpringBootApplication
 public class GlobalHouseholdApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(GlobalHouseholdApplication.class);
+        return application.sources(GlobalHouseholdApplication.class,SpringConfig.class);
     }
 	
 	public static void main(String[] args) {
