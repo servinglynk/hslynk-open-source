@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,6 +72,19 @@ public class GlobalHouseholdService {
         globalHouseholdRepository.save(globalHouseholds);
     //    List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
         return lgolobalHouseholdDTOs;
+    }
+    
+    
+    @Transactional
+    public GlobalHouseholdDTO update(GlobalHouseholdDTO globalHouseholdDTO) {
+        log.debug("Request to save GlobalHousehold : {}", globalHouseholdDTO);
+        GlobalHousehold globalHousehold = globalHouseholdRepository.findOne(globalHouseholdDTO.getGlobalHouseholdId());
+        if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+globalHouseholdDTO.getGlobalHouseholdId());
+        
+        globalHousehold = globalHouseholdMapper.globalHouseholdDTOToGlobalHousehold(globalHouseholdDTO);
+        globalHouseholdRepository.save(globalHousehold);
+    //    List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
+        return globalHouseholdDTO;
     }
     
     

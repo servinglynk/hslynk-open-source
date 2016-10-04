@@ -128,4 +128,10 @@ public class HouseholdMembershipService {
         HouseholdMembership householdMembership=householdMembershipRepository.findOne(id);
         householdMembershipRepository.delete(householdMembership);
     }
+    
+    public HouseholdMembershipDTO getMemberShipByclientid(UUID clientid){
+    	HouseholdMembership householdMembership =	householdMembershipRepository.findByGlobalClientId(clientid);
+    	if(householdMembership==null) throw new ResourceNotFoundException("Client not found");
+    	return householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
+    }
 }

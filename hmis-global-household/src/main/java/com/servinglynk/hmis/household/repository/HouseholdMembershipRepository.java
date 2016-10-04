@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.household.repository;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,5 +16,6 @@ import com.servinglynk.hmis.household.domain.HouseholdMembership;
 public interface HouseholdMembershipRepository extends JpaRepository<HouseholdMembership,Serializable> {
 	
    Page<HouseholdMembership> findByGlobalHousehold(GlobalHousehold globalHousehold,Pageable pageable);
+   HouseholdMembership findByGlobalClientId(UUID globalClientId);
 
 }

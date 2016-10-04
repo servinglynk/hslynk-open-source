@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.household.web.rest;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -101,6 +102,25 @@ public class GlobalHouseholdResource extends BaseResource  {
         List<GlobalHouseholdDTO> result = globalHouseholdService.update(globalHouseholdDTOs);
         return new ResponseEntity<List<GlobalHouseholdDTO>>(result, HttpStatus.OK);
     }
+    
+    
+    
+    @RequestMapping(value="/{householdid}",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    	@APIMapping(value="GLOBAL_HOUSE_HOLD_UPDATE_UNITS")
+        public ResponseEntity<Void> updateGlobalHousehold(@PathVariable UUID householdid ,@RequestBody GlobalHouseholdDTO globalHouseholdDTO) throws Exception {
+            log.debug("REST request to save GlobalHousehold : {}", globalHouseholdDTO);
+            /*if (globalHouseholdDTO.getGlobalHouseholdId() != null) {
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("globalHousehold", "idexists", "A new globalHousehold cannot already have an ID")).body(null);
+            }*/
+            globalHouseholdDTO.setGlobalHouseholdId(householdid);
+            List<GlobalHouseholdDTO> globalHouseholdDTOs = new ArrayList<>();
+            globalHouseholdDTOs.add(globalHouseholdDTO);
+            GlobalHouseholdDTO result = globalHouseholdService.update(globalHouseholdDTO);
+    //        return new ResponseEntity<GlobalHouseholdDTO>(result, HttpStatus.OK);
+            return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("globalHousehold",globalHouseholdDTO.getGlobalHouseholdId().toString())).build();
+        }
 
     /**
      * PUT  /global-households : Updates an existing globalHousehold.

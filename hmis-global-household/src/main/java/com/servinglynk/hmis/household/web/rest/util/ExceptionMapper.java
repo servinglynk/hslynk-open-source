@@ -45,6 +45,13 @@ public class ExceptionMapper {
 			r.setErrorCode("RESOURCE_NOT_FOUND");
 			r.setErrorMessage(ex.getMessage());
 			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+		}catch (org.springframework.web.bind.MissingServletRequestParameterException ex) {
+			logger.info(ex.getMessage());
+			logger.error(ex.getMessage(), ex);
+			r.setErrorCode("REQUEST_PARAMETER_MISSING");
+			r.setErrorMessage(ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+
 		}
 		catch (org.springframework.http.converter.HttpMessageNotReadableException ex) {
 			logger.info(ex.getMessage());
