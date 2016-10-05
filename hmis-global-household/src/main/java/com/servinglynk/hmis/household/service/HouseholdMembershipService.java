@@ -74,9 +74,12 @@ public class HouseholdMembershipService {
     @Transactional
     public HouseholdMembershipDTO update(UUID householdId, HouseholdMembershipDTO householdMembershipDTO) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTO);
+    	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
+    	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
         householdMembershipDTO.setDateUpdated(LocalDateTime.now());
         householdMembershipDTO.setGlobalHouseholdId(householdId);
         HouseholdMembership householdMember = householdMembershipMapper.householdMembershipDTOToHouseholdMembership(householdMembershipDTO);
+        if(householdMember.getHouseholdMembershipId()==null) householdMember.setHouseholdMembershipId(UUID.randomUUID());
         householdMember = householdMembershipRepository.save(householdMember);
       //  HouseholdMembershipDTO result = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMember);
         return householdMembershipDTO;
