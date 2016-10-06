@@ -132,9 +132,9 @@ public class HouseholdMembershipService {
         householdMembershipRepository.delete(householdMembership);
     }
     
-    public HouseholdMembershipDTO getMemberShipByclientid(UUID clientid){
-    	HouseholdMembership householdMembership =	householdMembershipRepository.findByGlobalClientId(clientid);
-    	if(householdMembership==null) throw new ResourceNotFoundException("Client not found");
-    	return householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
+    public Page<HouseholdMembership> getMemberShipByclientid(UUID clientid,Pageable pageable){
+    	Page<HouseholdMembership> householdMembership =	householdMembershipRepository.findByGlobalClientId(clientid,pageable);
+    	if(householdMembership.getSize()==0) throw new ResourceNotFoundException("Client not found");
+    	return householdMembership;
     }
 }
