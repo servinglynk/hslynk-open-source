@@ -5,18 +5,35 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.servinglynk.hmis.household.anntation.ValidateClient;
+import com.servinglynk.hmis.warehouse.core.model.JsonDateDeserializer;
+import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
+
 
 /**
  * A DTO for the GlobalHousehold entity.
  */
+
+@SuppressWarnings("serial")
+@ValidateClient(clientIdField="headOfHouseholdId",linkField="link")
 public class GlobalHouseholdDTO implements Serializable {
 
     private UUID globalHouseholdId;
 
+    
+    @NotNull(message=" Head of household is required.")
     private UUID headOfHouseholdId;
     
+	@JsonDeserialize(using=JsonDateDeserializer.class)
+	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateCreated;
 	
+	@JsonDeserialize(using=JsonDateDeserializer.class)
+	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 	
 	private String userCreate;
@@ -25,6 +42,7 @@ public class GlobalHouseholdDTO implements Serializable {
 	
 	private Boolean inactive;
 
+	private String link;
 
    
     public UUID getGlobalHouseholdId() {
@@ -84,6 +102,14 @@ public class GlobalHouseholdDTO implements Serializable {
 
 	public void setInactive(Boolean inactive) {
 		this.inactive = inactive;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.servinglynk.hmis.household.domain.GlobalHousehold;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
@@ -51,7 +50,11 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 		householdMembership.setDateUpdated(householdMembershipDTO.getDateUpdated());
 		householdMembership.setGlobalClientId(householdMembershipDTO.getGlobalClientId());
 		householdMembership.setGlobalHousehold(globalHouseholdRepository.findOne(householdMembershipDTO.getGlobalHouseholdId()));
-		householdMembership.setInactive(householdMembershipDTO.getInactive());
+		if(householdMembershipDTO.getInactive()==null)
+			householdMembership.setInactive(false);
+		else
+			householdMembership.setInactive(householdMembershipDTO.getInactive());
+		
 		householdMembership.setRelationshipToHeadOfHousehold(householdMembershipDTO.getRelationshipToHeadOfHousehold());
 		householdMembership.setUserCreate(householdMembershipDTO.getUserCreate());
 		householdMembership.setUserUpdate(householdMembershipDTO.getUserUpdate());

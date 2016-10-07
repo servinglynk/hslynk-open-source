@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.household.domain.GlobalHousehold;
+import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
 
 @Component("globalHouseholdMapper")
@@ -40,9 +41,22 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 		globalHousehold.setDateUpdated(globalHouseholdDTO.getDateUpdated());
 		globalHousehold.setGlobalHouseholdId(globalHouseholdDTO.getGlobalHouseholdId());
 		globalHousehold.setHeadOfHouseholdId(globalHouseholdDTO.getHeadOfHouseholdId());
-		globalHousehold.setInactive(globalHouseholdDTO.getInactive());
+		if(globalHouseholdDTO.getInactive()==null)
+			globalHousehold.setInactive(false);
+		else
+			globalHousehold.setInactive(globalHouseholdDTO.getInactive());
 		globalHousehold.setUserCreate(globalHouseholdDTO.getUserCreate());
 		globalHousehold.setUserUpdate(globalHouseholdDTO.getUserUpdate());
+		globalHousehold.setHeadOfHouseHoldLink(globalHouseholdDTO.getLink());
+		
+		if(globalHouseholdDTO.getGlobalHouseholdId()==null){
+			HouseholdMembership membership = new HouseholdMembership();
+			membership.setGlobalClientId(globalHouseholdDTO.getHeadOfHouseholdId());
+			membership.setInactive(false);
+			membership.setGlobalHousehold(globalHousehold);
+			membership.setClientLink(globalHouseholdDTO.getLink());
+			globalHousehold.getMembers().add(membership);
+		}
 	return globalHousehold;
 	}
 

@@ -42,15 +42,6 @@ public class HouseholdMembershipService {
     @Autowired
     private HouseholdMembershipMapper householdMembershipMapper;
     
-    @Autowired
-    HibernateTemplate hibernateTemplate;
-    
-    /**
-     * Save a householdMembership.
-     * 
-     * @param householdMembershipDTO the entity to save
-     * @return the persisted entity
-     */
     @Transactional
     public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTOs);
@@ -62,13 +53,12 @@ public class HouseholdMembershipService {
         	dto.setDateUpdated(LocalDateTime.now());
         	dto.setGlobalHouseholdId(householdId);
        // 	dto.setInactive(false);
-        	dto.setHouseholdMembershipId(UUID.randomUUID());
         	lhouseholdmembersDTOs.add(dto);
         }
         List<HouseholdMembership> householdMembers = householdMembershipMapper.householdMembershipDTOsToHouseholdMemberships(lhouseholdmembersDTOs);
         householdMembers = householdMembershipRepository.save(householdMembers);
-    //    List<HouseholdMembershipDTO> result = householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(householdMembers);
-        return lhouseholdmembersDTOs;
+       List<HouseholdMembershipDTO> result = householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(householdMembers);
+        return result;
     }
     
     @Transactional
@@ -79,7 +69,6 @@ public class HouseholdMembershipService {
         householdMembershipDTO.setDateUpdated(LocalDateTime.now());
         householdMembershipDTO.setGlobalHouseholdId(householdId);
         HouseholdMembership householdMember = householdMembershipMapper.householdMembershipDTOToHouseholdMembership(householdMembershipDTO);
-        if(householdMember.getHouseholdMembershipId()==null) householdMember.setHouseholdMembershipId(UUID.randomUUID());
         householdMember = householdMembershipRepository.save(householdMember);
       //  HouseholdMembershipDTO result = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMember);
         return householdMembershipDTO;

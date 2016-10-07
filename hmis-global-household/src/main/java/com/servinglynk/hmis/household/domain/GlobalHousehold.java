@@ -9,9 +9,12 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +29,8 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
 
 	@Id
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+    @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid-gen")
 	@Column(name="global_household_id")
     private UUID globalHouseholdId;
 
@@ -36,6 +41,9 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
     @OneToMany(mappedBy = "globalHousehold",cascade=CascadeType.ALL)
     @JsonIgnore
     private Set<HouseholdMembership> members = new HashSet<>();
+    
+    @Column(name="head_of_household_link")
+    private String headOfHouseHoldLink;
 
 
     public UUID getGlobalHouseholdId() {
@@ -62,7 +70,15 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
         this.members = householdMemberships;
     }
 
-    @Override
+    public String getHeadOfHouseHoldLink() {
+		return headOfHouseHoldLink;
+	}
+
+	public void setHeadOfHouseHoldLink(String headOfHouseHoldLink) {
+		this.headOfHouseHoldLink = headOfHouseHoldLink;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

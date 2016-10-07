@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.servinglynk.hmis.household.anntation.ValidateClient;
@@ -20,6 +22,7 @@ public class HouseholdMembershipDTO implements Serializable {
 
     private UUID householdMembershipId;
 
+    @NotNull(message="Global client is required.")
     private UUID globalClientId;
     
 	@JsonDeserialize(using=JsonDateDeserializer.class)

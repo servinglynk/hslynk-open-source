@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.household.domain;
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -14,9 +17,10 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     private static final long serialVersionUID = 1L;
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="household_membership_id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+    @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid-gen")
     private UUID householdMembershipId;
 
     @Column(name = "global_client_id")

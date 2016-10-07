@@ -4,11 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
 import com.servinglynk.hmis.warehouse.client.config.SpringConfig;
 
 @SpringBootApplication
+@EnableJpaRepositories("com.servinglynk.hmis.household.repository")
+@EnableTransactionManagement
 public class GlobalHouseholdApplication extends SpringBootServletInitializer {
 
     @Override

@@ -51,13 +51,13 @@ public class GlobalHouseholdService {
         	globalHouseholdDTO.setDateCreated(LocalDateTime.now());
         	globalHouseholdDTO.setDateUpdated(LocalDateTime.now());
         	//globalHouseholdDTO.setInactive(false);
-        	globalHouseholdDTO.setGlobalHouseholdId(UUID.randomUUID());
+//        	globalHouseholdDTO.setGlobalHouseholdId(UUID.randomUUID());
         	lgolobalHouseholdDTOs.add(globalHouseholdDTO);
         }
         List<GlobalHousehold> globalHouseholds = globalHouseholdMapper.globalHouseholdDTOsToGlobalHouseholds(lgolobalHouseholdDTOs);
         globalHouseholdRepository.save(globalHouseholds);
-//        List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
-        return lgolobalHouseholdDTOs;
+       List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
+        return result;
     }
     
     @Transactional
