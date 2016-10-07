@@ -61,7 +61,7 @@ public class HouseholdMembershipService {
         	dto.setDateCreated(LocalDateTime.now());
         	dto.setDateUpdated(LocalDateTime.now());
         	dto.setGlobalHouseholdId(householdId);
-        	dto.setInactive(false);
+       // 	dto.setInactive(false);
         	dto.setHouseholdMembershipId(UUID.randomUUID());
         	lhouseholdmembersDTOs.add(dto);
         }
@@ -129,6 +129,7 @@ public class HouseholdMembershipService {
     public void delete(UUID id) {
         log.debug("Request to delete HouseholdMembership : {}", id);
         HouseholdMembership householdMembership=householdMembershipRepository.findOne(id);
+        if(householdMembership==null) throw new ResourceNotFoundException("Global household membership not found "+id);
         householdMembershipRepository.delete(householdMembership);
     }
     

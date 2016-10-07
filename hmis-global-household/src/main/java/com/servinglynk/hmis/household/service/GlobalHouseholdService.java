@@ -50,7 +50,7 @@ public class GlobalHouseholdService {
         for(GlobalHouseholdDTO globalHouseholdDTO: globalHouseholdDTOs){
         	globalHouseholdDTO.setDateCreated(LocalDateTime.now());
         	globalHouseholdDTO.setDateUpdated(LocalDateTime.now());
-        	globalHouseholdDTO.setInactive(false);
+        	//globalHouseholdDTO.setInactive(false);
         	globalHouseholdDTO.setGlobalHouseholdId(UUID.randomUUID());
         	lgolobalHouseholdDTOs.add(globalHouseholdDTO);
         }
@@ -132,6 +132,7 @@ public class GlobalHouseholdService {
     public void delete(UUID id) {
         log.debug("Request to delete GlobalHousehold : {}", id);
         GlobalHousehold globalHouseHold=globalHouseholdRepository.findOne(id);
+        if(globalHouseHold==null) throw new ResourceNotFoundException("Global household not found "+id);
         globalHouseholdRepository.delete(globalHouseHold);
     }
 }

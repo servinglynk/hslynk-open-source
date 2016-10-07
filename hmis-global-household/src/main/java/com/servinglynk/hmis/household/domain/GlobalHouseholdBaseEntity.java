@@ -32,7 +32,7 @@ public class GlobalHouseholdBaseEntity implements Serializable{
 	private String userUpdate;
 	
 	@Column(name="inactive")
-	private Boolean inactive;
+	private Boolean inactive=false;
 	
 
 	public LocalDateTime getDateCreated() {
