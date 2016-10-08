@@ -128,11 +128,16 @@ public class GlobalHouseholdResource extends BaseResource  {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
 	@APIMapping(value="GLOBAL_HOUSE_HOLD_GET_UNIT_BY_ID")
-    public ResponseEntity<GlobalHouseholdDTO> getGlobalHousehold(@PathVariable UUID id) throws Exception{
+    public ResponseEntity<Resource> getGlobalHousehold(@PathVariable UUID id) throws Exception{
         log.debug("REST request to get GlobalHousehold : {}", id);
         GlobalHouseholdDTO globalHouseholdDTO = globalHouseholdService.findOne(id);
-        if(globalHouseholdDTO==null) throw new ResourceNotFoundException("Global household not found "+id);
-        return new ResponseEntity<GlobalHouseholdDTO>(globalHouseholdDTO,HttpStatus.OK);
+        Resource<GlobalHouseholdDTO> resource=null;
+       if(globalHouseholdDTO.getLink()!=null)
+    	    resource = new Resource<GlobalHouseholdDTO>(globalHouseholdDTO, new Link("client", globalHouseholdDTO.getLink()));
+       else
+    	   resource = new Resource<GlobalHouseholdDTO>(globalHouseholdDTO);
+       globalHouseholdDTO.setLink(null);
+        return new ResponseEntity<Resource>(resource,HttpStatus.OK);
     }
     
     

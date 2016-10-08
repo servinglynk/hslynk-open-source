@@ -162,14 +162,19 @@ public class HouseholdMembershipResource  extends BaseResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
 	@APIMapping(value="GLOBAL_HOUSE_HOLD_GET_MEMBERS_ID")
-    public ResponseEntity<HouseholdMembershipDTO> getHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) throws Exception {
+    public ResponseEntity<Resource> getHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) throws Exception {
         log.debug("REST request to get HouseholdMembership : {}", id);
         HouseholdMembershipDTO householdMembershipDTO = householdMembershipService.findOne(id);
-        return Optional.ofNullable(householdMembershipDTO)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        
+        Resource<HouseholdMembershipDTO> resource=null;
+        if(householdMembershipDTO.getLink()!=null)
+        	resource = new Resource<HouseholdMembershipDTO>(householdMembershipDTO, new Link("client",householdMembershipDTO.getLink()));
+        else
+        	resource = new Resource<HouseholdMembershipDTO>(householdMembershipDTO);
+        
+        householdMembershipDTO.setLink(null);
+        
+        return new ResponseEntity<Resource>(resource,HttpStatus.OK);
     }
    
     // for updte

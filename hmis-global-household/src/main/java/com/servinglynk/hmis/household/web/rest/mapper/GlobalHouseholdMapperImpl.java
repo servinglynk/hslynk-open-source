@@ -21,6 +21,7 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 			globalHouseholdDTO.setHeadOfHouseholdId(globalHousehold.getHeadOfHouseholdId());
 			globalHouseholdDTO.setInactive(globalHousehold.getInactive());
 			globalHouseholdDTO.setUserCreate(globalHousehold.getUserCreate());
+			globalHouseholdDTO.setLink(globalHousehold.getHeadOfHouseHoldLink());
 			globalHouseholdDTO.setUserUpdate(globalHousehold.getUserUpdate());
 		return globalHouseholdDTO;
 	}

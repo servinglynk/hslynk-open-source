@@ -120,6 +120,7 @@ public class GlobalHouseholdService {
     public GlobalHouseholdDTO findOne(UUID id) {
         log.debug("Request to get GlobalHousehold : {}", id);
         GlobalHousehold globalHousehold = globalHouseholdRepository.findOne(id);
+        if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+id);
         GlobalHouseholdDTO globalHouseholdDTO = globalHouseholdMapper.globalHouseholdToGlobalHouseholdDTO(globalHousehold);
         return globalHouseholdDTO;
     }

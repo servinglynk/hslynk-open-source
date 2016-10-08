@@ -106,6 +106,7 @@ public class HouseholdMembershipService {
     public HouseholdMembershipDTO findOne(UUID id) {
         log.debug("Request to get HouseholdMembership : {}", id);
         HouseholdMembership householdMembership = householdMembershipRepository.findOne(id);
+        if(householdMembership==null) throw new ResourceNotFoundException("Global household not found "+id);
         HouseholdMembershipDTO householdMembershipDTO = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
         return householdMembershipDTO;
     }

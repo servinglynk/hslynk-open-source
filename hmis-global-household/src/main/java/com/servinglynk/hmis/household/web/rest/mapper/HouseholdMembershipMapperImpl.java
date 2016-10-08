@@ -29,6 +29,7 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 			householdMembershipDTO.setUserCreate(householdMembership.getUserCreate());
 			householdMembershipDTO.setUserUpdate(householdMembership.getUserUpdate());
 			householdMembershipDTO.setHouseholdMembershipId(householdMembership.getHouseholdMembershipId());
+			householdMembershipDTO.setLink(householdMembership.getClientLink());
 		return householdMembershipDTO;
 	}
 
