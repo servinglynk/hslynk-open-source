@@ -171,9 +171,7 @@ public class HouseholdMembershipResource  extends BaseResource {
         	resource = new Resource<HouseholdMembershipDTO>(householdMembershipDTO, new Link("client",householdMembershipDTO.getLink()));
         else
         	resource = new Resource<HouseholdMembershipDTO>(householdMembershipDTO);
-        
-        householdMembershipDTO.setLink(null);
-        
+                
         return new ResponseEntity<Resource>(resource,HttpStatus.OK);
     }
    

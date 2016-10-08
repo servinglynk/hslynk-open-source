@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.servinglynk.hmis.household.anntation.ValidateClient;
@@ -17,7 +19,6 @@ import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
 /**
  * A DTO for the GlobalHousehold entity.
  */
-
 @SuppressWarnings("serial")
 @ValidateClient(clientIdField="headOfHouseholdId",linkField="link")
 public class GlobalHouseholdDTO implements Serializable {
@@ -42,6 +43,7 @@ public class GlobalHouseholdDTO implements Serializable {
 	
 	private Boolean inactive;
 
+	@JsonProperty(access=Access.WRITE_ONLY)
 	private String link;
 
    

@@ -136,7 +136,6 @@ public class GlobalHouseholdResource extends BaseResource  {
     	    resource = new Resource<GlobalHouseholdDTO>(globalHouseholdDTO, new Link("client", globalHouseholdDTO.getLink()));
        else
     	   resource = new Resource<GlobalHouseholdDTO>(globalHouseholdDTO);
-       globalHouseholdDTO.setLink(null);
         return new ResponseEntity<Resource>(resource,HttpStatus.OK);
     }
     
