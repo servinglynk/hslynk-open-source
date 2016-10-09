@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
+import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
@@ -46,7 +47,8 @@ public class PasswordResetServiceImpl extends ServiceBase implements PasswordRes
 				throw new AccountNotFoundException("Account not found with username "+ username);
 
 		if (pAccount.getStatus().equalsIgnoreCase(ACCOUNT_STATUS_PENDING)) {
-			throw new AccountPendingException();
+			pAccount.setStatus(Constants.ACCOUNT_STATUS_ACTIVE);
+//			throw new AccountPendingException();
 		}
 
 		if (pAccount.getStatus().equalsIgnoreCase(ACCOUNT_STATUS_DISABLED)) {
@@ -78,7 +80,7 @@ public class PasswordResetServiceImpl extends ServiceBase implements PasswordRes
 		// persist the password-reset object....
 		daoFactory.getPasswordResetDao().create(pPasswordReset);
 */
-		
+
 		daoFactory.getAccountDao().updateAccount(pAccount);
 		
 		Notification notification = new Notification();
