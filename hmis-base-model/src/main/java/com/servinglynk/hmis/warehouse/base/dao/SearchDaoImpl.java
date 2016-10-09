@@ -24,6 +24,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
@@ -122,13 +124,16 @@ public class SearchDaoImpl
 	  }
 		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
 		criteria.add(Restrictions.eq("deleted", false));
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.groupProperty("dedupClientId"));
+		criteria.setProjection(projectionList);
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))
 		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
 	  else
 		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
-	  
+	  criteria.addOrder(Order.desc("dateUpdated"));
 	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
   
