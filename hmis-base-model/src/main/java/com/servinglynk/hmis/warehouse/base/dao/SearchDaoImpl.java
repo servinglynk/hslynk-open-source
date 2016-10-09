@@ -101,7 +101,6 @@ public class SearchDaoImpl
 		  
 		try {
 			date = formatter.parse(searchRequest.getFreeText());
-			
 			  criteria.add(Restrictions.ge("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
 			  criteria.add(Restrictions.lt("dob", LocalDateTime.ofInstant(DateUtils.addDays(date,1).toInstant(), ZoneId.systemDefault())));
 		} catch (ParseException e) {
@@ -122,6 +121,7 @@ public class SearchDaoImpl
 			  } 
 	  }
 		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
+		criteria.add(Restrictions.eq("deleted", false));
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))
