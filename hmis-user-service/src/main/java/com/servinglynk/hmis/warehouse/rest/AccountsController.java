@@ -135,7 +135,7 @@ public class AccountsController extends ControllerBase {
 
 
 	@RequestMapping(value = "/{username}/forgotpassword", method = RequestMethod.POST)
-	@APIMapping(value="USR_PASSWORD_RESET",checkSessionToken=false, checkTrustedApp=true)
+	@APIMapping(value="USR_PASSWORD_RESET",checkSessionToken=false, checkTrustedApp=false)
 	public PasswordReset passwordReset(@PathVariable("username") String username,  HttpServletRequest request) throws Exception {
 		Account account = new Account();
 		account.setUsername(username);
