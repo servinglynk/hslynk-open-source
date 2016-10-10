@@ -79,6 +79,8 @@ public class ClientConverter {
 		client.setClientId(pClient.getId());
 	    if(pClient.getSourceSystemId()!=null)
 	    	client.setSourceSystemId(pClient.getSourceSystemId());
+	    if(pClient.getDedupClientId() !=null)
+	    	client.setDedupClientId(pClient.getDedupClientId());
 //		copyBeanProperties(pClient,client);
 	return client;
 	}
