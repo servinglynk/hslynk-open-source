@@ -1,10 +1,11 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.SortedPagination;
@@ -13,7 +14,6 @@ import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
-import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.BaseProjects;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
@@ -57,14 +57,23 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	    searchVo.setPagination(pagination);
 	    
 	    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo,false);
-	    
+	    List<UUID> distinctDedupIds = new ArrayList<UUID>();
 	    BaseClients clients = new BaseClients();
+	    int skipCount=0;
 	    for (Client pClient : searchItems) {
-	      clients.addClient(ClientConverter.entityToModel(pClient));
+	    	if(pClient!=null && pClient.getDedupClientId()!=null && !distinctDedupIds.contains(pClient.getDedupClientId())) {
+	    		clients.addClient(ClientConverter.entityToModel(pClient));
+	    	}else {
+	    		skipCount++;
+	    	}
+	    		
+	    	if(pClient.getDedupClientId()!=null) {
+	    		distinctDedupIds.add(pClient.getDedupClientId());
+	    	}
 	    }
 	    pagination.setFrom(startIndex);
 	    pagination.setReturned(Integer.valueOf(clients.getClients().size()));
-	    pagination.setTotal(Integer.valueOf(searchVo.getPagination().getTotal().intValue()));
+	    pagination.setTotal(Integer.valueOf(searchVo.getPagination().getTotal().intValue()-skipCount));
 	    
 	    SearchResults result = new SearchResults();
 	    result.setPagination(pagination);

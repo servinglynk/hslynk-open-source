@@ -125,7 +125,7 @@ public class SearchDaoImpl
 					  else
 						  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
 					
-				/*	  ProjectionList projectionList = Projections.projectionList();
+					/*ProjectionList projectionList = Projections.projectionList();
 					  projectionList.add(Projections.groupProperty("dedupClientId"));
 					  projectionList.add(Projections.groupProperty("firstName"));
 					  projectionList.add(Projections.groupProperty("lastName"));
@@ -133,8 +133,7 @@ public class SearchDaoImpl
 					  projectionList.add(Projections.groupProperty("sourceSystemId"));
 					  projectionList.add(Projections.groupProperty("ssn"));
 					  projectionList.add(Projections.groupProperty("dateUpdated"));
-					  criteria.setProjection(projectionList); 
-					  */
+					  criteria.setProjection(projectionList);  */
 					  criteria.addOrder(Order.desc("dateUpdated"));
 			  } 
 	  }
