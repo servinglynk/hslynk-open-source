@@ -120,20 +120,22 @@ public class SearchDaoImpl
 						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn));
 					  else
 						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId));
+					  if(searchRequest.getSort().getOrder().equals("asc"))
+						  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
+					  else
+						  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
+					
+					  ProjectionList projectionList = Projections.projectionList();
+					  projectionList.add(Projections.groupProperty("dedupClientId"));
+					  criteria.setProjection(projectionList); 
+					  criteria.addOrder(Order.desc("dateUpdated"));
 			  } 
 	  }
 		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
 		criteria.add(Restrictions.eq("deleted", false));
-		ProjectionList projectionList = Projections.projectionList();
-		projectionList.add(Projections.groupProperty("dedupClientId"));
-		criteria.setProjection(projectionList);
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
-	  if(searchRequest.getSort().getOrder().equals("asc"))
-		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
-	  else
-		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
-	  criteria.addOrder(Order.desc("dateUpdated"));
+	
 	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
   
