@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class BaseClient extends ClientModel {
 
 	private UUID clientId;	
+	private UUID dedupClientId;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -41,6 +42,13 @@ public class BaseClient extends ClientModel {
 	}
 	public void setClientId(UUID clientId) {
 		this.clientId = clientId;
+	}
+	
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
 	}
 	public String getFirstName() {
 		return firstName;
