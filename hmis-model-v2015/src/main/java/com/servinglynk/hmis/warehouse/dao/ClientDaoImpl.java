@@ -310,10 +310,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			BeanUtils.copyProperties(client, baseClient);
 			baseClient.setSchemaYear("2015");
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			BeanUtils.copyProperties(client, baseClient, new String[] {"enrollments","veteranInfoes"});
 			logger.info("Calling Dedup Service for "+client.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
 			client.setDedupClientId(UUID.fromString(dedupedId));
+			baseClient.setDedupClientId(client.getDedupClientId());
 			insert(client);
 			insert(baseClient);
 		return client;
