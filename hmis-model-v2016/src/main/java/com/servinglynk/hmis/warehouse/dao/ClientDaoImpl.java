@@ -314,6 +314,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			logger.info("Calling Dedup Service for "+client.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
 			client.setDedupClientId(UUID.fromString(dedupedId));
+			baseClient.setDedupClientId(client.getDedupClientId());
 			insert(client);
 			insert(baseClient);
 		return client;
