@@ -34,16 +34,15 @@ public class HouseholdMembershipDTO implements Serializable {
 	@JsonDeserialize(using=JsonDateDeserializer.class)
 	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
-	
-	private String userCreate;
-	
-	private String userUpdate;
+
 	
 	private Boolean inactive;
 
     private String relationshipToHeadOfHousehold;
 
     private UUID globalHouseholdId;
+    
+    private UUID userId;
     
     @JsonProperty(access=Access.WRITE_ONLY)
     private String link;
@@ -100,23 +99,6 @@ public class HouseholdMembershipDTO implements Serializable {
 		this.dateUpdated = dateUpdated;
 	}
 
-	public String getUserCreate() {
-		return userCreate;
-	}
-
-	public void setUserCreate(String userCreate) {
-		this.userCreate = userCreate;
-	}
-
-
-	public String getUserUpdate() {
-		return userUpdate;
-	}
-
-	public void setUserUpdate(String userUpdate) {
-		this.userUpdate = userUpdate;
-	}
-
 	public Boolean getInactive() {
 		return inactive;
 	}
@@ -131,6 +113,14 @@ public class HouseholdMembershipDTO implements Serializable {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 
 	@Override

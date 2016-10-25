@@ -77,33 +77,4 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
 	public void setClientLink(String clientLink) {
 		this.clientLink = clientLink;
 	}
-
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        HouseholdMembership householdMembership = (HouseholdMembership) o;
-        if(householdMembership.householdMembershipId == null || householdMembershipId == null) {
-            return false;
-        }
-        return Objects.equals(householdMembershipId, householdMembership.householdMembershipId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(householdMembershipId);
-    }
-
-    @Override
-    public String toString() {
-        return "HouseholdMembership{" +
-            "householdMembershipId=" + householdMembershipId +
-            ", globalClientId='" + globalClientId + "'" +
-            ", relationshipToHeadOfHousehold='" + relationshipToHeadOfHousehold + "'" +
-            '}';
-    }
 }

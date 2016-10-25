@@ -18,6 +18,7 @@ import com.servinglynk.hmis.household.domain.GlobalHousehold;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapper;
+import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 
 /**
  * Service Implementation for managing GlobalHousehold.
@@ -48,10 +49,6 @@ public class GlobalHouseholdService {
         log.debug("Request to save GlobalHousehold : {}", globalHouseholdDTOs);
         List<GlobalHouseholdDTO> lgolobalHouseholdDTOs=new ArrayList<GlobalHouseholdDTO>();
         for(GlobalHouseholdDTO globalHouseholdDTO: globalHouseholdDTOs){
-        	globalHouseholdDTO.setDateCreated(LocalDateTime.now());
-        	globalHouseholdDTO.setDateUpdated(LocalDateTime.now());
-        	//globalHouseholdDTO.setInactive(false);
-//        	globalHouseholdDTO.setGlobalHouseholdId(UUID.randomUUID());
         	lgolobalHouseholdDTOs.add(globalHouseholdDTO);
         }
         List<GlobalHousehold> globalHouseholds = globalHouseholdMapper.globalHouseholdDTOsToGlobalHouseholds(lgolobalHouseholdDTOs);
@@ -106,7 +103,8 @@ public class GlobalHouseholdService {
     @Transactional(readOnly = true) 
     public Page<GlobalHousehold> findAll(Pageable pageable) {
         log.debug("Request to get all GlobalHouseholds");
-        Page<GlobalHousehold> result = globalHouseholdRepository.findAll(pageable);
+        String projectGroup = SecurityContextUtil.getUserProjectGroup();
+        Page<GlobalHousehold> result = globalHouseholdRepository.findByProjectGroupCode(projectGroup,pageable);
         return result;
     }
 
@@ -119,7 +117,8 @@ public class GlobalHouseholdService {
     @Transactional(readOnly = true) 
     public GlobalHouseholdDTO findOne(UUID id) {
         log.debug("Request to get GlobalHousehold : {}", id);
-        GlobalHousehold globalHousehold = globalHouseholdRepository.findOne(id);
+        String projectGroup = SecurityContextUtil.getUserProjectGroup();
+        GlobalHousehold globalHousehold = globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCode(id,projectGroup);
         if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+id);
         GlobalHouseholdDTO globalHouseholdDTO = globalHouseholdMapper.globalHouseholdToGlobalHouseholdDTO(globalHousehold);
         return globalHouseholdDTO;

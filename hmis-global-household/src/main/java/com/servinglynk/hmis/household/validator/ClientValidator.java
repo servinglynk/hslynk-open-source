@@ -1,10 +1,7 @@
 package com.servinglynk.hmis.household.validator;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
@@ -16,14 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.household.anntation.ValidateClient;
 import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.client.search.ISearchServiceClient;
-import com.servinglynk.hmis.warehouse.client.search.SearchServiceClient;
 import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
-
-import scala.annotation.meta.setter;
 
 public class ClientValidator implements ConstraintValidator<ValidateClient,Object>  {
 	

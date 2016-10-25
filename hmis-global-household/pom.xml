@@ -27,154 +27,115 @@
 
 
 
-
 	<dependencies>
-			<dependency>
+		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.extended</artifactId>
 			<version>3.2.0.GA</version>
 		</dependency>
 		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-
-			<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.0.0.RELEASE</version>
+        </dependency>		
+		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-core-common</artifactId>
+			<artifactId>core-client</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-serialize</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-hateoas</artifactId>
-		</dependency>
-				<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-rest-hal-browser</artifactId>
-		</dependency>
-				<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<exclusions>
 				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-jdbc</artifactId>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-entitymanager</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+		<!--<dependency> -->
+		<!--<groupId>org.springframework.session</groupId> -->
+		<!--<artifactId>spring-session</artifactId> -->
+		<!--</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.3-1101-jdbc41</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-
-
-		<!-- DB Connection Pooling -->
 		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> com.servinglynk.hmis.warehouse.model.stagv2014 <groupId>org.springframework.boot</groupId> 
-			<artifactId>spring-boot-starter-security</artifactId> <version>1.0.2.RELEASE</version> 
-			</dependency> <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-thymeleaf</artifactId> 
-			</dependency> -->
-		<!-- LDAP Dependencies -->
-
-		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-ldap</artifactId> 
-			</dependency> <dependency> <groupId>org.apache.directory.server</groupId> 
-			<artifactId>apacheds-server-jndi</artifactId> <version>1.5.5</version> </dependency> 
-			Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			</dependency>
-
-		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-core</artifactId> 
-			<version>1.2.2</version> </dependency> -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-integration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
- 
-
-		<!-- <dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency> -->
-		<!-- Use this with Java 8 and beyond -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-jdk8</artifactId>
-			<version>${mapstruct.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.11.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>			
-		</dependency>
-		
-		<!-- <dependency> <groupId>org.apache.hadoop</groupId> <artifactId>hadoop-core</artifactId> 
-			<version>1.0.0</version> </dependency> -->
-		<dependency>
-			<groupId>net.minidev</groupId>
-			<artifactId>json-smart</artifactId>
-			<version>2.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>core-client</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -182,40 +143,16 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-<!-- 			<plugin>
-				<groupId>org.bsc.maven</groupId>
-				<artifactId>maven-processor-plugin</artifactId>
-				<version>2.2.4</version>
-				<configuration>
-					<defaultOutputDirectory>
-						${project.build.directory}/generated-sources
-					</defaultOutputDirectory>
-					<processors>
-						<processor>org.mapstruct.ap.MappingProcessor</processor>
-					</processors>
-					<options>
-						<mapstruct.suppressGeneratorTimestamp>true</mapstruct.suppressGeneratorTimestamp>
-						<mapstruct.defaultComponentModel>cdi</mapstruct.defaultComponentModel>
-					</options>
-				</configuration>
-				<executions>
-					<execution>
-						<id>process</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>process</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.mapstruct</groupId>
-						<artifactId>mapstruct-processor</artifactId>
-						<version>${mapstruct.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin> -->
-
+			<!-- <plugin> <groupId>org.bsc.maven</groupId> <artifactId>maven-processor-plugin</artifactId> 
+				<version>2.2.4</version> <configuration> <defaultOutputDirectory> ${project.build.directory}/generated-sources 
+				</defaultOutputDirectory> <processors> <processor>org.mapstruct.ap.MappingProcessor</processor> 
+				</processors> <options> <mapstruct.suppressGeneratorTimestamp>true</mapstruct.suppressGeneratorTimestamp> 
+				<mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel> 
+				</options> </configuration> <executions> <execution> <id>process</id> <phase>generate-sources</phase> 
+				<goals> <goal>process</goal> </goals> </execution> </executions> <dependencies> 
+				<dependency> <groupId>org.mapstruct</groupId> <artifactId>mapstruct-processor</artifactId> 
+				<version>${org.mapstruct.version}</version> </dependency> </dependencies> 
+				</plugin> -->
 		</plugins>
 	</build>
 

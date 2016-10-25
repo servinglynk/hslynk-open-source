@@ -24,11 +24,10 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 			householdMembershipDTO.setDateUpdated(householdMembership.getDateUpdated());
 			householdMembershipDTO.setGlobalClientId(householdMembership.getGlobalClientId());
 			householdMembershipDTO.setGlobalHouseholdId(householdMembership.getGlobalHousehold().getGlobalHouseholdId());
-			householdMembershipDTO.setInactive(householdMembership.getInactive());
+			householdMembershipDTO.setInactive(householdMembership.isInactive());
 			householdMembershipDTO.setRelationshipToHeadOfHousehold(householdMembership.getRelationshipToHeadOfHousehold());
-			householdMembershipDTO.setUserCreate(householdMembership.getUserCreate());
-			householdMembershipDTO.setUserUpdate(householdMembership.getUserUpdate());
 			householdMembershipDTO.setHouseholdMembershipId(householdMembership.getHouseholdMembershipId());
+			householdMembershipDTO.setUserId(householdMembership.getUserId());
 			householdMembershipDTO.setLink(householdMembership.getClientLink());
 		return householdMembershipDTO;
 	}
@@ -57,8 +56,6 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 			householdMembership.setInactive(householdMembershipDTO.getInactive());
 		
 		householdMembership.setRelationshipToHeadOfHousehold(householdMembershipDTO.getRelationshipToHeadOfHousehold());
-		householdMembership.setUserCreate(householdMembershipDTO.getUserCreate());
-		householdMembership.setUserUpdate(householdMembershipDTO.getUserUpdate());
 		householdMembership.setHouseholdMembershipId(householdMembershipDTO.getHouseholdMembershipId());
 		householdMembership.setClientLink(householdMembershipDTO.getLink());
 		return householdMembership;

@@ -37,9 +37,7 @@ public class GlobalHouseholdDTO implements Serializable {
 	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 	
-	private String userCreate;
-	
-	private String userUpdate;
+	private UUID userId;
 	
 	private Boolean inactive;
 
@@ -80,22 +78,13 @@ public class GlobalHouseholdDTO implements Serializable {
 		this.dateUpdated = dateUpdated;
 	}
 
-	public String getUserCreate() {
-		return userCreate;
+
+	public UUID getUserId() {
+		return userId;
 	}
 
-	public void setUserCreate(String userCreate) {
-		this.userCreate = userCreate;
-	}
-
-	
-
-	public String getUserUpdate() {
-		return userUpdate;
-	}
-
-	public void setUserUpdate(String userUpdate) {
-		this.userUpdate = userUpdate;
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 
 	public Boolean getInactive() {

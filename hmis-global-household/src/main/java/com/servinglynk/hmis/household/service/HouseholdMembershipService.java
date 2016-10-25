@@ -23,6 +23,7 @@ import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
+import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 
 /**
  * Service Implementation for managing HouseholdMembership.
@@ -83,7 +84,8 @@ public class HouseholdMembershipService {
     @Transactional(readOnly = true) 
     public Page<HouseholdMembership> getAllHouseholdMembersByHouseholdId(UUID householdId, Pageable pageable) {
         log.debug("Request to get all HouseholdMemberships");
-    	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
+        String projectGroup = SecurityContextUtil.getUserProjectGroup();
+    	GlobalHousehold globalHousehold =		globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCode(householdId,projectGroup);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
     	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHousehold(globalHousehold, pageable);
         return members;
@@ -105,7 +107,8 @@ public class HouseholdMembershipService {
     @Transactional(readOnly = true) 
     public HouseholdMembershipDTO findOne(UUID id) {
         log.debug("Request to get HouseholdMembership : {}", id);
-        HouseholdMembership householdMembership = householdMembershipRepository.findOne(id);
+        String projectGroup = SecurityContextUtil.getUserProjectGroup();
+        HouseholdMembership householdMembership = householdMembershipRepository.findByHouseholdMembershipIdAndProjectGroupCode(id,projectGroup);
         if(householdMembership==null) throw new ResourceNotFoundException("Global household not found "+id);
         HouseholdMembershipDTO householdMembershipDTO = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
         return householdMembershipDTO;
@@ -118,8 +121,9 @@ public class HouseholdMembershipService {
      */
     public void delete(UUID id) {
         log.debug("Request to delete HouseholdMembership : {}", id);
-        HouseholdMembership householdMembership=householdMembershipRepository.findOne(id);
-        if(householdMembership==null) throw new ResourceNotFoundException("Global household membership not found "+id);
+        String projectGroup = SecurityContextUtil.getUserProjectGroup();
+        HouseholdMembership householdMembership = householdMembershipRepository.findByHouseholdMembershipIdAndProjectGroupCode(id,projectGroup);
+        if(householdMembership==null) throw new ResourceNotFoundException("Global household not found "+id);
         householdMembershipRepository.delete(householdMembership);
     }
     
