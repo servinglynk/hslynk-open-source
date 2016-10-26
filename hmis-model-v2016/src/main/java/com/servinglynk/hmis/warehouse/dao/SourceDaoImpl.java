@@ -34,7 +34,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		com.servinglynk.hmis.warehouse.model.v2016.Source sourceModel = null;
 		try {
 			sourceModel = getModelObject(domain, source, data, modelMap);
-			sourceModel.setSoftwarevendor(source.getSoftwareVendor());
+			//sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 			//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
 			sourceModel.setSourcecontactemail(source.getSourceContactEmail());
 			sourceModel.setSourcecontactextension(String.valueOf(source.getSourceContactExtension()));

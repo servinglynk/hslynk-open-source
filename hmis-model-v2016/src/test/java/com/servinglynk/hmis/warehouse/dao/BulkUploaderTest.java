@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -240,7 +241,7 @@ public class BulkUploaderTest {
 	@Test
 	public void testPersistIntoStaging() throws Exception
 	{
-			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
+//				URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload upload = new BulkUpload();
 				FileAppender appender = new FileAppender();
 				appender.setName("" + upload.getId());
@@ -251,7 +252,7 @@ public class BulkUploaderTest {
 				appender.activateOptions();
 			//	upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_70.xml");
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
-				URL path = BulkUploaderTest.class.getResource("2015.xml");
+				URL path = BulkUploadHelperTest.class.getResource("2016.xml");
 				upload.setInputpath(path.getPath());
 				upload.setProjectGroupCode("PG0001");
 				upload.setId(3L);
@@ -261,7 +262,7 @@ public class BulkUploaderTest {
 		@Test
 		public void testCSVZip() throws Exception
 		{
-			URL path = BulkUploaderTest.class.getResource("2015.xml");
+			URL path = BulkUploaderTest.class.getResource("2016.xml");
 			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();

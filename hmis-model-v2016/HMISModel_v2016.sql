@@ -1497,6 +1497,66 @@ INSERT INTO "v2016".hmis_type  (name,value,description,status) values ('asked_of
 
 -- New ENUMS Insert Ends
 
+create table "v2016".source
+(
+id uuid not null,
+  export text,
+  softwarevendor character varying(50),
+  softwareVersion character varying(50),
+  sourceContactEmail	text,
+  sourceContactExtension	text,
+  sourceContactFirst	character varying(50),
+  sourceContactLast	character varying(50),
+  sourceContactPhone	character varying(12),
+  sourceID	text,
+  sourceName	character varying(50),
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,source_system_id text,
+  deleted boolean DEFAULT false,active boolean DEFAULT true,  
+  sync boolean DEFAULT false,
+  constraint "source_pkey" primary key (id)
+     )
+with (
+  oids=false
+);
+
+create table "v2016".export
+(
+  id uuid not null,
+  export_date  timestamp,
+  start_date  timestamp,
+  end_date  timestamp,
+  exportPeriodType text,
+  exportDirective text,
+  source_id uuid,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+    export_id uuid,
+  parent_id uuid,
+  version integer,source_system_id text,
+  deleted boolean DEFAULT false,active boolean DEFAULT true,  
+  sync boolean DEFAULT false,
+   constraint "export_pkey" primary key (id),
+      CONSTRAINT source_fkey FOREIGN KEY (source_id)
+      REFERENCES v2016.source (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+     )
+with (
+  oids=false
+);
+
+
 
 create table "v2016".organization
 (
@@ -2804,9 +2864,9 @@ status_flag char(3)
 );
 
 
---CREATE SEQUENCE "v2015".bulk_upload_id_seq START 1;
+--CREATE SEQUENCE "v2016".bulk_upload_id_seq START 1;
 
-create table "v2015".bulk_upload_activity
+create table "v2016".bulk_upload_activity
 (
  id serial not null,
  bulk_upload_id bigint,
@@ -2825,15 +2885,15 @@ create table "v2015".bulk_upload_activity
   deleted boolean DEFAULT false,active boolean DEFAULT true,  
   sync boolean DEFAULT false,
      CONSTRAINT export_fkey FOREIGN KEY (export_id)
-      REFERENCES v2015.export (id) MATCH SIMPLE
+      REFERENCES v2016.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT bulk_upload_activity_pk PRIMARY KEY ("id")
 );
 
 
-DROP TABLE IF EXISTS v2015.bulk_upload_error;
+DROP TABLE IF EXISTS v2016.bulk_upload_error;
 
-CREATE TABLE v2015.bulk_upload_error
+CREATE TABLE v2016.bulk_upload_error
 (
   id bigint NOT NULL,
   model_id uuid,
@@ -2850,9 +2910,9 @@ WITH (
   OIDS=FALSE
 );
 
--- DROP SEQUENCE v2015.error_sequence;
+-- DROP SEQUENCE v2016.error_sequence;
 
-CREATE SEQUENCE v2015.error_sequence
+CREATE SEQUENCE v2016.error_sequence
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
