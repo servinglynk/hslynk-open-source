@@ -24,7 +24,7 @@ import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
-import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 
 
@@ -74,21 +74,21 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/** Field mapping. */
 	private String vamcStation;
 	private TimeToHousingLossEnum timeToHousingLoss;
-	private NoYesENum zeroincome;
+	private NoYesEnum zeroincome;
 	private AnnualpercentamiEnum annualpercentami;
-	private NoYesENum financialchange;
-	private NoYesENum householdchange;
+	private NoYesEnum financialchange;
+	private NoYesEnum householdchange;
 	private EvictionhistoryEnum evictionhistory;
-	private NoYesENum subsidyatrisk;
+	private NoYesEnum subsidyatrisk;
 	private LiteralHomelessHistoryEnum literalhomelesshistory;
-	private NoYesENum disablehoh;
-	private NoYesENum criminalrecord;
-	private NoYesENum sexoffender;
-	private NoYesENum dependendunder6;
-	private NoYesENum singleparent;
-	private NoYesENum hh5plus;
-	private NoYesENum iraqafghanistan;
-	private NoYesENum femvet;
+	private NoYesEnum disablehoh;
+	private NoYesEnum criminalrecord;
+	private NoYesEnum sexoffender;
+	private NoYesEnum dependendunder6;
+	private NoYesEnum singleparent;
+	private NoYesEnum hh5plus;
+	private NoYesEnum iraqafghanistan;
+	private NoYesEnum femvet;
 	private Integer thresholdscore;
 	private CrisisServicesUseEnum ervisits;
 	private CrisisServicesUseEnum jailnights;
@@ -385,17 +385,17 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the zeroincome
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="zeroincome")
-	public NoYesENum getZeroincome() {
+	public NoYesEnum getZeroincome() {
 		return zeroincome;
 	}
 
 	/**
 	 * @param zeroincome the zeroincome to set
 	 */
-	public void setZeroincome(NoYesENum zeroincome) {
+	public void setZeroincome(NoYesEnum zeroincome) {
 		this.zeroincome = zeroincome;
 	}
 
@@ -419,34 +419,34 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the financialchange
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="financialchange")
-	public NoYesENum getFinancialchange() {
+	public NoYesEnum getFinancialchange() {
 		return financialchange;
 	}
 
 	/**
 	 * @param financialchange the financialchange to set
 	 */
-	public void setFinancialchange(NoYesENum financialchange) {
+	public void setFinancialchange(NoYesEnum financialchange) {
 		this.financialchange = financialchange;
 	}
 
 	/**
 	 * @return the householdchange
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="householdchange")
-	public NoYesENum getHouseholdchange() {
+	public NoYesEnum getHouseholdchange() {
 		return householdchange;
 	}
 
 	/**
 	 * @param householdchange the householdchange to set
 	 */
-	public void setHouseholdchange(NoYesENum householdchange) {
+	public void setHouseholdchange(NoYesEnum householdchange) {
 		this.householdchange = householdchange;
 	}
 
@@ -470,17 +470,17 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the subsidyatrisk
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="subsidyatrisk")
-	public NoYesENum getSubsidyatrisk() {
+	public NoYesEnum getSubsidyatrisk() {
 		return subsidyatrisk;
 	}
 
 	/**
 	 * @param subsidyatrisk the subsidyatrisk to set
 	 */
-	public void setSubsidyatrisk(NoYesENum subsidyatrisk) {
+	public void setSubsidyatrisk(NoYesEnum subsidyatrisk) {
 		this.subsidyatrisk = subsidyatrisk;
 	}
 
@@ -505,143 +505,142 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the disablehoh
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="disablehoh")
-	public NoYesENum getDisablehoh() {
+	public NoYesEnum getDisablehoh() {
 		return disablehoh;
 	}
 
 	/**
 	 * @param disablehoh the disablehoh to set
 	 */
-	public void setDisablehoh(NoYesENum disablehoh) {
+	public void setDisablehoh(NoYesEnum disablehoh) {
 		this.disablehoh = disablehoh;
 	}
 
 	/**
 	 * @return the criminalrecord
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="criminalrecord")
-	public NoYesENum getCriminalrecord() {
+	public NoYesEnum getCriminalrecord() {
 		return criminalrecord;
 	}
 
 	/**
 	 * @param criminalrecord the criminalrecord to set
 	 */
-	public void setCriminalrecord(NoYesENum criminalrecord) {
+	public void setCriminalrecord(NoYesEnum criminalrecord) {
 		this.criminalrecord = criminalrecord;
 	}
 
 	/**
 	 * @return the sexoffender
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="sexoffender")
-	public NoYesENum getSexoffender() {
+	public NoYesEnum getSexoffender() {
 		return sexoffender;
 	}
 
 	/**
 	 * @param sexoffender the sexoffender to set
 	 */
-	public void setSexoffender(NoYesENum sexoffender) {
+	public void setSexoffender(NoYesEnum sexoffender) {
 		this.sexoffender = sexoffender;
 	}
 
 	/**
 	 * @return the dependendunder6
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="dependendunder6")
-	public NoYesENum getDependendunder6() {
+	public NoYesEnum getDependendunder6() {
 		return dependendunder6;
 	}
 
 	/**
 	 * @param dependendunder6 the dependendunder6 to set
 	 */
-	public void setDependendunder6(NoYesENum dependendunder6) {
+	public void setDependendunder6(NoYesEnum dependendunder6) {
 		this.dependendunder6 = dependendunder6;
 	}
 
 	/**
 	 * @return the singleparent
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="singleparent")
-	public NoYesENum getSingleparent() {
+	public NoYesEnum getSingleparent() {
 		return singleparent;
 	}
 
 	/**
 	 * @param singleparent the singleparent to set
 	 */
-	public void setSingleparent(NoYesENum singleparent) {
+	public void setSingleparent(NoYesEnum singleparent) {
 		this.singleparent = singleparent;
 	}
 
 	/**
 	 * @return the hh5plus
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="hh5plus")
-	public NoYesENum getHh5plus() {
+	public NoYesEnum getHh5plus() {
 		return hh5plus;
 	}
 
 	/**
 	 * @param hh5plus the hh5plus to set
 	 */
-	public void setHh5plus(NoYesENum hh5plus) {
+	public void setHh5plus(NoYesEnum hh5plus) {
 		this.hh5plus = hh5plus;
 	}
 
 	/**
 	 * @return the iraqafghanistan
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="iraqafghanistan")
-	public NoYesENum getIraqafghanistan() {
+	public NoYesEnum getIraqafghanistan() {
 		return iraqafghanistan;
 	}
 
 	/**
 	 * @param iraqafghanistan the iraqafghanistan to set
 	 */
-	public void setIraqafghanistan(NoYesENum iraqafghanistan) {
+	public void setIraqafghanistan(NoYesEnum iraqafghanistan) {
 		this.iraqafghanistan = iraqafghanistan;
 	}
 
 	/**
 	 * @return the femvet
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column (name="femvet")
-	public NoYesENum getFemvet() {
+	public NoYesEnum getFemvet() {
 		return femvet;
 	}
 
 	/**
 	 * @param femvet the femvet to set
 	 */
-	public void setFemvet(NoYesENum femvet) {
+	public void setFemvet(NoYesEnum femvet) {
 		this.femvet = femvet;
 	}
 
 	/**
 	 * @return the thresholdscore
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
 	@Basic( optional = true )
 	@Column (name="thresholdscore")
 	public Integer getThresholdscore() {

@@ -34,8 +34,8 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	    com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class, getProjectGroupCode(domain));
-		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
-		if (entryRhsps != null && entryRhsps.size() > 0) {
+//		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
+	/*	if (entryRhsps != null && entryRhsps.size() > 0) {
 			for (EntryRHSP entryRhsp : entryRhsps) {
 				com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entryRhspModel = null;
 				try {
@@ -66,7 +66,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 					logger.error(errorMessage);
 				}
 			}
-	   }
+	   } */
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class.getSimpleName(), domain,exportEntity);
 	}
 

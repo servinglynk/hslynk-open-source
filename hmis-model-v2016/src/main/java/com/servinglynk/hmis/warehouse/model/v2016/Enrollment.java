@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
-import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 
 /**
@@ -145,8 +145,8 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private Set<ServiceFaReferral> serviceFaReferrals = new HashSet<ServiceFaReferral>();
 
 	private boolean chronicHomeless;
-	private NoYesENum losunderthreshold;
-	private NoYesENum previousStreetESSH;
+	private NoYesEnum losunderthreshold;
+	private NoYesEnum previousStreetESSH;
 
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -1079,17 +1079,17 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 /**
 	 * @return the losunderthreshold
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column
-	public NoYesENum getLosunderthreshold() {
+	public NoYesEnum getLosunderthreshold() {
 		return losunderthreshold;
 	}
 
 	/**
 	 * @param losunderthreshold the losunderthreshold to set
 	 */
-	public void setLosunderthreshold(NoYesENum losunderthreshold) {
+	public void setLosunderthreshold(NoYesEnum losunderthreshold) {
 		this.losunderthreshold = losunderthreshold;
 	}
 
@@ -1099,17 +1099,17 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 /**
 	 * @return the losunderthreshold
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column
-	public NoYesENum getPreviousStreetESSH() {
+	public NoYesEnum getPreviousStreetESSH() {
 		return previousStreetESSH;
 	}
 
 	/**
 	 * @param previousStreetESSH the previousStreetESSH to set
 	 */
-	public void setPreviousStreetESSH(NoYesENum previousStreetESSH) {
+	public void setPreviousStreetESSH(NoYesEnum previousStreetESSH) {
 		this.previousStreetESSH = previousStreetESSH;
 	}
 

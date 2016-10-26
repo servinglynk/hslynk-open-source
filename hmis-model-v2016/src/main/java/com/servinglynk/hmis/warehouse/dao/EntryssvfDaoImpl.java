@@ -39,7 +39,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
 					entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
 					entrySsvfModel.setDeleted(false);
-					entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
+//					entrySsvfModel.setHpScreeningScore(new Integer(entrySSVF.getHPScreeningScore()).intValue());
 					entrySsvfModel.setLastPermanentCity(entrySSVF.getLastPermanentCity());
 					entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
 					entrySsvfModel.setLastPermanentStreet(entrySSVF.getLastPermanentStreet());

@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum NoYesENum {
+public enum NoYesEnum {
 
 	/** Enum Constant. */
 	ZERO("0"),
@@ -21,16 +21,16 @@ public enum NoYesENum {
 	 * Enum constructor for ActiveState.
 	 * @param state Value.
 	 */
-	NoYesENum(final String state) {
+	NoYesEnum(final String state) {
 		this.status = state;
 	}
 	
 	/** Construct a map for reverse lookup. */
-	private static Map<String, NoYesENum> valueMap = new HashMap<String, NoYesENum>();
+	private static Map<String, NoYesEnum> valueMap = new HashMap<String, NoYesEnum>();
 
     static {
     	// construct hashmap for later possible use.
-        for (NoYesENum unit : values()) {
+        for (NoYesEnum unit : values()) {
             valueMap.put(unit.getValue(), unit);
         }
     }
@@ -50,7 +50,7 @@ public enum NoYesENum {
      * @param value to search
      * @return Enum object.
      */
-    public static NoYesENum lookupEnum(String value) {
-        return NoYesENum.valueMap.get(value);
+    public static NoYesEnum lookupEnum(String value) {
+        return NoYesEnum.valueMap.get(value);
     }
 }

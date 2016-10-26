@@ -109,7 +109,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 											.getStringValue(client
 													.getNameDataQuality())));
 					clientModel.setNameSuffix(client.getNameSuffix());
-					clientModel.setOtherGender(client.getOtherGender());
+//					clientModel.setOtherGender(client.getOtherGender());
 					clientModel.setRace(ClientRaceEnum
 							.lookupEnum(BasicDataGenerator
 									.getStringValue(client.getRace())));

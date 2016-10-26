@@ -40,7 +40,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 
 		com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-		List<Contact> contact = export.getContact();
+/*		List<Contact> contact = export.getContact();
 		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Contact.class, getProjectGroupCode(domain));
 		Data data = new Data();
@@ -80,6 +80,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Contact.class.getSimpleName(), domain, exportEntity);
+	*/
 	}
 
 

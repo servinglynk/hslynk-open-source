@@ -36,7 +36,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsurancePrivatepayEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
-import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 
 /** 
@@ -93,9 +93,7 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	/** Field mapping. */
 	private HealthinsuranceNovamedreasonEnum novamedreason;
 	/** Field mapping. */
-	private NoYesENum otherInsurance;
-	/** Field mapping. */
-	private String otherInsuranceIdentify;
+	private NoYesEnum otherInsurance;
 	/** Field mapping. */
 	private HealthinsurancePrivatepayEnum privatepay;
 	/** Field mapping. */
@@ -104,7 +102,7 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	private HealthinsuranceStatehealthinsEnum statehealthinadults;
 	/** Field mapping. */
 	private HealthinsuranceVamedicalservicesEnum vamedicalservices;
-	private NoYesENum indianHealthServices;
+	private NoYesEnum indianHealthServices;
 	private HealthinsuranceNomedicaidreasonEnum noIndianHealthServicesReason;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
@@ -294,17 +292,17 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	 /**
 	 * @return the indianHealthServices
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
-	@Column
-	public NoYesENum getIndianHealthServices() {
+	@Column(name="indianhealthservices")
+	public NoYesEnum getIndianHealthServices() {
 		return indianHealthServices;
 	}
 
 	/**
 	 * @param indianHealthServices the indianHealthServices to set
 	 */
-	public void setIndianHealthServices(NoYesENum indianHealthServices) {
+	public void setIndianHealthServices(NoYesEnum indianHealthServices) {
 		this.indianHealthServices = indianHealthServices;
 	}
 
@@ -313,7 +311,7 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.HealthinsuranceNomedicaidreasonEnumType")
 	@Basic( optional = true )
-	@Column
+	@Column(name="noindianhealthservicesreason")
 	public HealthinsuranceNomedicaidreasonEnum getNoIndianHealthServicesReason() {
 		return noIndianHealthServicesReason;
 	}
@@ -534,9 +532,9 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	 * @return A Integer object (this.otherSource)
 	 */
 	@Column( name = "other_insurance"  )
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesENumType")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
-	public NoYesENum getOtherInsurance() {
+	public NoYesEnum getOtherInsurance() {
 		return this.otherInsurance;
 		
 	}
@@ -547,29 +545,8 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	 * Set the value related to the column: otherSource.
 	 * @param otherInsurance the otherSource value you wish to set
 	 */
-	public void setOtherInsurance(final NoYesENum otherInsurance) {
+	public void setOtherInsurance(final NoYesEnum otherInsurance) {
 		this.otherInsurance = otherInsurance;
-	}
-
-	 /**
-	 * Return the value associated with the column: otherSourceIdentify.
-	 * @return A String object (this.otherSourceIdentify)
-	 */
-	@Basic( optional = true )
-	@Column( name = "other_source_identify", length = 100  )
-	public String getOtherInsuranceIdentify() {
-		return this.otherInsuranceIdentify;
-		
-	}
-	
-
-  
-	 /**  
-	 * Set the value related to the column: otherSourceIdentify.
-	 * @param otherSourceIdentify the otherSourceIdentify value you wish to set
-	 */
-	public void setOtherInsuranceIdentify(final String otherSourceIdentify) {
-		this.otherInsuranceIdentify = otherSourceIdentify;
 	}
 
 	 	/**
@@ -718,7 +695,6 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 		copy.setNostatehealthinsreason(this.getNostatehealthinsreason());
 		copy.setNovamedreason(this.getNovamedreason());
 		copy.setOtherInsurance(this.getOtherInsurance());
-		copy.setOtherInsuranceIdentify(this.getOtherInsuranceIdentify());
 		copy.setParentId(this.getParentId());
 		copy.setPrivatepay(this.getPrivatepay());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
@@ -761,7 +737,6 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 		sb.append("nostatehealthinsreason: " + this.getNostatehealthinsreason() + ", ");
 		sb.append("novamedreason: " + this.getNovamedreason() + ", ");
 		sb.append("otherSource: " + this.getOtherInsurance() + ", ");
-		sb.append("otherSourceIdentify: " + this.getOtherInsuranceIdentify() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("privatepay: " + this.getPrivatepay() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
@@ -836,7 +811,6 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 		result = result && (((getNostatehealthinsreason() == null) && (that.getNostatehealthinsreason() == null)) || (getNostatehealthinsreason() != null && getNostatehealthinsreason().equals(that.getNostatehealthinsreason())));
 		result = result && (((getNovamedreason() == null) && (that.getNovamedreason() == null)) || (getNovamedreason() != null && getNovamedreason().equals(that.getNovamedreason())));
 		result = result && (((getOtherInsurance() == null) && (that.getOtherInsurance() == null)) || (getOtherInsurance() != null && getOtherInsurance().equals(that.getOtherInsurance())));
-		result = result && (((getOtherInsuranceIdentify() == null) && (that.getOtherInsuranceIdentify() == null)) || (getOtherInsuranceIdentify() != null && getOtherInsuranceIdentify().equals(that.getOtherInsuranceIdentify())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getPrivatepay() == null) && (that.getPrivatepay() == null)) || (getPrivatepay() != null && getPrivatepay().equals(that.getPrivatepay())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));

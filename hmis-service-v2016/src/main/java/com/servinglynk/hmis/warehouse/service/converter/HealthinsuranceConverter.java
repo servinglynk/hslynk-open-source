@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsurancePrivatepayEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
-import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 public class HealthinsuranceConverter extends BaseConverter {
 
@@ -66,11 +66,11 @@ public class HealthinsuranceConverter extends BaseConverter {
 			entity.setNostatehealthinsreason(
 					HealthinsuranceNostatehealthinsreasonEnum.lookupEnum(model.getNostatehealthinsreason().toString()));
 		if (model.getOtherInsurance() != null)
-		entity.setOtherInsurance(NoYesENum.lookupEnum(model.getOtherInsurance()+""));
+		entity.setOtherInsurance(NoYesEnum.lookupEnum(model.getOtherInsurance()+""));
 		if (model.getOtherInsuranceIdentify() != null)
 		entity.setOtherInsuranceIdentify(model.getOtherInsuranceIdentify());
 		if(model.getIndianHealthServices()!=null)
-			entity.setIndianHealthServices(NoYesENum.lookupEnum(model.getIndianHealthServices()+""));
+			entity.setIndianHealthServices(NoYesEnum.lookupEnum(model.getIndianHealthServices()+""));
 		if(model.getNoIndianHealthServicesReason()!=null)
 			entity.setNoIndianHealthServicesReason(HealthinsuranceNomedicaidreasonEnum.lookupEnum(model.getNoIndianHealthServicesReason()+""));
 		 if(model.getDataCollectionStage() !=null)

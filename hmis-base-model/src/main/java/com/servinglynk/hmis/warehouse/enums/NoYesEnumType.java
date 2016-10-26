@@ -11,9 +11,9 @@ import org.hibernate.engine.spi.SessionImplementor;
 
 import com.servinglynk.hmis.warehouse.util.GenericEnumType;
 
-public class NoYesEnumType   extends GenericEnumType<String, NoYesENum> {
+public class NoYesEnumType   extends GenericEnumType<String, NoYesEnum> {
 	public NoYesEnumType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		super(NoYesENum.class, NoYesENum.values(), "getValue", Types.OTHER);
+		super(NoYesEnum.class, NoYesEnum.values(), "getValue", Types.OTHER);
 	}
 
 	@Override

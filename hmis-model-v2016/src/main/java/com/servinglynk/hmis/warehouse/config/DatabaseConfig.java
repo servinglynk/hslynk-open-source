@@ -140,7 +140,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2015");
+		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2016");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
 		return sessionFactoryBean;
 	}

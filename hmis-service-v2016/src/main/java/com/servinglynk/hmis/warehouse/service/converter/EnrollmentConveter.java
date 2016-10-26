@@ -11,7 +11,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
-import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 public class EnrollmentConveter extends BaseConverter {
 
@@ -51,9 +51,9 @@ public class EnrollmentConveter extends BaseConverter {
 		if(enrollment.getDatetostreetessh()!=null)
 		pEnrollment.setEntryfromstreetessh(enrollment.getDatetostreetessh());
 		if(enrollment.getLosunderthreshold()!=null)
-		pEnrollment.setLosunderthreshold(NoYesENum.lookupEnum(enrollment.getLosunderthreshold().toString()));
+		pEnrollment.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosunderthreshold().toString()));
 		if(enrollment.getPreviousStreetESSH()!=null)
-		pEnrollment.setPreviousStreetESSH(NoYesENum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
+		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
 
 		return pEnrollment;
 	}

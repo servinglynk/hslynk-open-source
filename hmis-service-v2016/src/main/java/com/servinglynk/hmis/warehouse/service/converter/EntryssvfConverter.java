@@ -6,7 +6,7 @@ import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
-import com.servinglynk.hmis.warehouse.enums.NoYesENum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 public class EntryssvfConverter  extends BaseConverter {
 
@@ -33,35 +33,35 @@ public class EntryssvfConverter  extends BaseConverter {
        if(model.getTimeToHousingLoss()!=null)
        entity.setTimeToHousingLoss(TimeToHousingLossEnum.lookupEnum(model.getTimeToHousingLoss()+""));
        if(model.getZeroincome()!=null)
-       entity.setZeroincome(NoYesENum.lookupEnum(model.getZeroincome()+""));
+       entity.setZeroincome(NoYesEnum.lookupEnum(model.getZeroincome()+""));
        if(model.getAnnualpercentami()!=null)
        entity.setAnnualpercentami(AnnualpercentamiEnum.lookupEnum(model.getAnnualpercentami()+""));
        if(model.getFinancialchange()!=null)
-    	   entity.setFinancialchange(NoYesENum.lookupEnum(model.getFinancialchange()+""));
+    	   entity.setFinancialchange(NoYesEnum.lookupEnum(model.getFinancialchange()+""));
        if(model.getHouseholdchange()!=null)
-    	   entity.setHouseholdchange(NoYesENum.lookupEnum(model.getHouseholdchange()+""));
+    	   entity.setHouseholdchange(NoYesEnum.lookupEnum(model.getHouseholdchange()+""));
        if(model.getEvictionhistory()!=null)
     	   entity.setEvictionhistory(EvictionhistoryEnum.lookupEnum(model.getEvictionhistory()+""));
        if(model.getSubsidyatrisk()!=null)
-    	   entity.setSubsidyatrisk(NoYesENum.lookupEnum(model.getSubsidyatrisk()+""));
+    	   entity.setSubsidyatrisk(NoYesEnum.lookupEnum(model.getSubsidyatrisk()+""));
        if(model.getLiteralhomelesshistory()!=null)
     	   entity.setLiteralhomelesshistory(LiteralHomelessHistoryEnum.lookupEnum(model.getLiteralhomelesshistory()+""));
        if(model.getDisablehoh()!=null)
-    	   entity.setDisablehoh(NoYesENum.lookupEnum(model.getDisablehoh()+""));
+    	   entity.setDisablehoh(NoYesEnum.lookupEnum(model.getDisablehoh()+""));
        if(model.getCriminalrecord()!=null)
-    	   entity.setCriminalrecord(NoYesENum.lookupEnum(model.getCriminalrecord()+""));
+    	   entity.setCriminalrecord(NoYesEnum.lookupEnum(model.getCriminalrecord()+""));
        if(model.getSexoffender()!=null)
-    	   entity.setSexoffender(NoYesENum.lookupEnum(model.getSexoffender()+""));
+    	   entity.setSexoffender(NoYesEnum.lookupEnum(model.getSexoffender()+""));
        if(model.getDependendunder6()!=null)
-    	   entity.setDependendunder6(NoYesENum.lookupEnum(model.getDependendunder6()+""));
+    	   entity.setDependendunder6(NoYesEnum.lookupEnum(model.getDependendunder6()+""));
        if(model.getSingleparent()!=null)
-    	   entity.setSingleparent(NoYesENum.lookupEnum(model.getSingleparent()+""));
+    	   entity.setSingleparent(NoYesEnum.lookupEnum(model.getSingleparent()+""));
        if(model.getHh5plus()!=null)
-    	   entity.setHh5plus(NoYesENum.lookupEnum(model.getHh5plus()+""));
+    	   entity.setHh5plus(NoYesEnum.lookupEnum(model.getHh5plus()+""));
        if(model.getIraqafghanistan()!=null)
-    	   entity.setIraqafghanistan(NoYesENum.lookupEnum(model.getIraqafghanistan()+""));
+    	   entity.setIraqafghanistan(NoYesEnum.lookupEnum(model.getIraqafghanistan()+""));
        if(model.getFemvet()!=null)
-    	   entity.setFemvet(NoYesENum.lookupEnum(model.getFemvet()+""));
+    	   entity.setFemvet(NoYesEnum.lookupEnum(model.getFemvet()+""));
        if(model.getThresholdscore()!=null)
     	   entity.setThresholdscore(model.getThresholdscore());
        if(model.getErvisits()!=null)
