@@ -1,0 +1,30 @@
+2016-08-15 22:36:43 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-08-15 22:36:43 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-08-15 22:36:44 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-08-15 22:36:44 main HiveConnection [ERROR] Error opening session
+org.apache.thrift.TApplicationException: Required field 'client_protocol' is unset! Struct:TOpenSessionReq(client_protocol:null, configuration:{use:database=default})
+	at org.apache.thrift.TApplicationException.read(TApplicationException.java:111)
+	at org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:79)
+	at org.apache.hive.service.cli.thrift.TCLIService$Client.recv_OpenSession(TCLIService.java:156)
+	at org.apache.hive.service.cli.thrift.TCLIService$Client.OpenSession(TCLIService.java:143)
+	at org.apache.hive.jdbc.HiveConnection.openSession(HiveConnection.java:583)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:192)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.servinglynk.hmis.warehouse.HiveJdbcClient.main(HiveJdbcClient.java:29)
+2016-08-15 22:37:35 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-08-15 22:37:35 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-08-15 22:37:35 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-08-15 22:37:35 main HiveConnection [ERROR] Error opening session
+org.apache.thrift.TApplicationException: Required field 'client_protocol' is unset! Struct:TOpenSessionReq(client_protocol:null, configuration:{use:database=default})
+	at org.apache.thrift.TApplicationException.read(TApplicationException.java:111)
+	at org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:79)
+	at org.apache.hive.service.cli.thrift.TCLIService$Client.recv_OpenSession(TCLIService.java:156)
+	at org.apache.hive.service.cli.thrift.TCLIService$Client.OpenSession(TCLIService.java:143)
+	at org.apache.hive.jdbc.HiveConnection.openSession(HiveConnection.java:583)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:192)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.servinglynk.hmis.warehouse.HiveJdbcClient.main(HiveJdbcClient.java:29)

@@ -22,9 +22,9 @@ public class HbaseUtil {
         if(conf == null)
         {
             conf = HBaseConfiguration.create();
-            conf.set("hbase.master", Properties.HBASE_MASTER);
-            conf.set("hbase.zookeeper.quorum", Properties.HBASE_ZOOKEEPER_QUORUM);
-            conf.set("hbase.zookeeper.property.clientPort", Properties.HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
+            conf.set("hbase.master", "ec2-52-25-176-93.us-west-2.compute.amazonaws.com");
+            conf.set("hbase.zookeeper.quorum", "ec2-52-25-176-93.us-west-2.compute.amazonaws.com");
+            conf.set("hbase.zookeeper.property.clientPort", "2181");
         }
         return conf;
     }
