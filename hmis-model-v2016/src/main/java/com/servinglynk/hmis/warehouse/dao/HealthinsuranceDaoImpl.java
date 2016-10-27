@@ -32,6 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsurancePrivatepayEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance;
@@ -81,7 +82,10 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					healthinsuranceModel.setVamedicalservices(HealthinsuranceVamedicalservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getVAMedicalServices())));
 					healthinsuranceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateCreated()));
 					healthinsuranceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthInsurance.getDateUpdated()));
-					
+					healthinsuranceModel.setOtherInsurance(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getOtherInsurance())));
+					healthinsuranceModel.setOtherInsuranceIdentify(healthInsurance.getOtherInsuranceIdentify());
+					healthinsuranceModel.setIndianHealthServices(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getIndianHealthServices())));
+					healthinsuranceModel.setNoIndianHealthServicesReason(HealthinsuranceNomedicaidreasonEnum.lookupEnum(healthInsurance.getNoIndianHealthServicesReason()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					healthinsuranceModel.setEnrollmentid(enrollmentModel);
 					healthinsuranceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));

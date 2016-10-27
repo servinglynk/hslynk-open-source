@@ -89,6 +89,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	private NoYesEnum hh5plus;
 	private NoYesEnum iraqafghanistan;
 	private NoYesEnum femvet;
+	private NoYesEnum urgentReferral;
 	private Integer thresholdscore;
 	private CrisisServicesUseEnum ervisits;
 	private CrisisServicesUseEnum jailnights;
@@ -636,6 +637,23 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 */
 	public void setFemvet(NoYesEnum femvet) {
 		this.femvet = femvet;
+	}
+
+	/**
+	 * @return the urgentReferral
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+	@Basic( optional = true )
+	@Column (name="urgent_referral")
+	public NoYesEnum getUrgentReferral() {
+		return urgentReferral;
+	}
+
+	/**
+	 * @param urgentReferral the urgentReferral to set
+	 */
+	public void setUrgentReferral(NoYesEnum urgentReferral) {
+		this.urgentReferral = urgentReferral;
 	}
 
 	/**

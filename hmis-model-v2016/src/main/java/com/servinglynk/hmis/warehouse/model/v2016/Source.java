@@ -42,8 +42,6 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private String softwarevendor;
-	/** Field mapping. */
 	private String softwareversion;
 	/** Field mapping. */
 	private String sourcecontactemail;
@@ -59,6 +57,8 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	private String sourceid;
 	/** Field mapping. */
 	private String sourcename;
+	private String sourcetype;
+	private String softwarename;
 	/** Field mapping. */
 	/** Field mapping. */
 	private String export;
@@ -122,27 +122,6 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 	 /**
-	 * Return the value associated with the column: softwarevendor.
-	 * @return A String object (this.softwarevendor)
-	 */
-	@Basic( optional = true )
-	@Column( length = 50  )
-	public String getSoftwarevendor() {
-		return this.softwarevendor;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: softwarevendor.
-	 * @param softwarevendor the softwarevendor value you wish to set
-	 */
-	public void setSoftwarevendor(final String softwarevendor) {
-		this.softwarevendor = softwarevendor;
-	}
-
-	 /**
 	 * Return the value associated with the column: softwareversion.
 	 * @return A String object (this.softwareversion)
 	 */
@@ -164,6 +143,38 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 	 /**
+	 * @return the sourcetype
+	 */
+	@Basic( optional = true )
+	@Column
+	public String getSourcetype() {
+		return sourcetype;
+	}
+
+	/**
+	 * @param sourcetype the sourcetype to set
+	 */
+	public void setSourcetype(String sourcetype) {
+		this.sourcetype = sourcetype;
+	}
+
+	/**
+	 * @return the softwarename
+	 */
+	@Basic( optional = true )
+	@Column
+	public String getSoftwarename() {
+		return softwarename;
+	}
+
+	/**
+	 * @param softwarename the softwarename to set
+	 */
+	public void setSoftwarename(String softwarename) {
+		this.softwarename = softwarename;
+	}
+
+	/**
 	 * Return the value associated with the column: sourcecontactemail.
 	 * @return A String object (this.sourcecontactemail)
 	 */
@@ -350,7 +361,6 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setId(this.getId());
 		copy.setParentId(this.getParentId());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
-		copy.setSoftwarevendor(this.getSoftwarevendor());
 		copy.setSoftwareversion(this.getSoftwareversion());
 		copy.setSourcecontactemail(this.getSourcecontactemail());
 		copy.setSourcecontactextension(this.getSourcecontactextension());
@@ -382,7 +392,6 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
-		sb.append("softwarevendor: " + this.getSoftwarevendor() + ", ");
 		sb.append("softwareversion: " + this.getSoftwareversion() + ", ");
 		sb.append("sourcecontactemail: " + this.getSourcecontactemail() + ", ");
 		sb.append("sourcecontactextension: " + this.getSourcecontactextension() + ", ");
@@ -446,7 +455,6 @@ public class Source extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().equals(that.getExport())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
-		result = result && (((getSoftwarevendor() == null) && (that.getSoftwarevendor() == null)) || (getSoftwarevendor() != null && getSoftwarevendor().equals(that.getSoftwarevendor())));
 		result = result && (((getSoftwareversion() == null) && (that.getSoftwareversion() == null)) || (getSoftwareversion() != null && getSoftwareversion().equals(that.getSoftwareversion())));
 		result = result && (((getSourcecontactemail() == null) && (that.getSourcecontactemail() == null)) || (getSourcecontactemail() != null && getSourcecontactemail().equals(that.getSourcecontactemail())));
 		result = result && (((getSourcecontactextension() == null) && (that.getSourcecontactextension() == null)) || (getSourcecontactextension() != null && getSourcecontactextension().equals(that.getSourcecontactextension())));

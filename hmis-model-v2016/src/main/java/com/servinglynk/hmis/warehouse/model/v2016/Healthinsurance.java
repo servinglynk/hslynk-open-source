@@ -94,6 +94,8 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	private HealthinsuranceNovamedreasonEnum novamedreason;
 	/** Field mapping. */
 	private NoYesEnum otherInsurance;
+	/** Field mapping */
+	private String otherInsuranceIdentify;
 	/** Field mapping. */
 	private HealthinsurancePrivatepayEnum privatepay;
 	/** Field mapping. */
@@ -550,6 +552,22 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	}
 
 	 	/**
+	 * @return the otherInsuranceIdentify
+	 */
+	@Basic( optional = true )
+	@Column(name = "other_insurance_identify")
+	public String getOtherInsuranceIdentify() {
+		return otherInsuranceIdentify;
+	}
+
+	/**
+	 * @param otherInsuranceIdentify the otherInsuranceIdentify to set
+	 */
+	public void setOtherInsuranceIdentify(String otherInsuranceIdentify) {
+		this.otherInsuranceIdentify = otherInsuranceIdentify;
+	}
+
+		/**
 		 * Return the value associated with the column: privatepay.
 		 * @return A HealthinsurancePrivatepayEnum object (this.privatepay)
 		 */

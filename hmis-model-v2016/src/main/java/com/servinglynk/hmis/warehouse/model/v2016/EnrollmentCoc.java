@@ -49,6 +49,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
 	/** Field mapping. */
 	private String clientCode;
+	private String householdId;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
@@ -98,6 +99,22 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
 	public void setClientCode(String clientCode) {
 		this.clientCode = clientCode;
+	}
+
+	/**
+	 * @return the householdId
+	 */
+	@Basic( optional = true )
+	@Column( name = "householdid" )
+	public String getHouseholdId() {
+		return householdId;
+	}
+
+	/**
+	 * @param householdId the householdId to set
+	 */
+	public void setHouseholdId(String householdId) {
+		this.householdId = householdId;
 	}
 
 	/**

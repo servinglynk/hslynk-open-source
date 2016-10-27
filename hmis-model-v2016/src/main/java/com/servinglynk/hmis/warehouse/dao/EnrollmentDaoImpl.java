@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Project;
@@ -96,12 +97,15 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel
 					.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 							.getMonthsHomelessPastThreeYears())));
+					enrollmentModel.setHouseholdid(enrollment.getHouseholdID());
 //				enrollmentModel
 //						.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
 //								.getStringValue(enrollment
 //										.getMonthsHomelessThisTime())));
 //					enrollmentModel.setOtherresidenceprior(enrollment
 //							.getOtherResidencePrior());
+					enrollmentModel.setLosunderthreshold(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getLosUnderThreshold())));
+					enrollmentModel.setPreviousStreetESSH(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getPreviousStreetESSH())));
 					com.servinglynk.hmis.warehouse.model.v2016.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2016.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					enrollmentModel.setProject(project);
 					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));

@@ -36,6 +36,8 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel = getModelObject(domain, source, data, modelMap);
 			//sourceModel.setSoftwarevendor(source.getSoftwareVendor());
 			//sourceModel.setSoftwareversion(BasicDataGenerator.getStringValue(source.getSoftwareVersion()));
+			sourceModel.setSourcetype(source.getSourceType());
+			sourceModel.setSoftwarename(source.getSoftwareName());
 			sourceModel.setSourcecontactemail(source.getSourceContactEmail());
 			sourceModel.setSourcecontactextension(String.valueOf(source.getSourceContactExtension()));
 			sourceModel.setSourcecontactfirst(source.getSourceContactFirst());
