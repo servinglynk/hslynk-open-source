@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.hadoop.hbase.thrift.generated.Hbase.createTable_args;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
 import org.hibernate.CacheMode;
@@ -24,8 +23,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
@@ -116,10 +113,12 @@ public class SearchDaoImpl
 					  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 					 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 					  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,middle_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
+					  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
 					  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
-						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn));
+						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,fullName,clientName));
 					  else
-						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId));
+						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId,fullName,clientName));
 					  if(searchRequest.getSort().getOrder().equals("asc"))
 						  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
 					  else
