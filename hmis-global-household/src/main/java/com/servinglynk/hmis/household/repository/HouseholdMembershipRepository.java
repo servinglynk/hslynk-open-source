@@ -18,5 +18,7 @@ public interface HouseholdMembershipRepository extends JpaRepository<HouseholdMe
    Page<HouseholdMembership> findByGlobalHousehold(GlobalHousehold globalHousehold,Pageable pageable);
    Page<HouseholdMembership> findByGlobalClientId(UUID globalClientId,Pageable pageable);
 HouseholdMembership findByHouseholdMembershipIdAndProjectGroupCode(UUID id, String projectGroup);
+Page<HouseholdMembership> findByGlobalClientIdAndProjectGroupCode(UUID clientid, String projectGroup,
+		Pageable pageable);
 
 }

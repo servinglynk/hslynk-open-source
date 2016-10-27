@@ -128,7 +128,8 @@ public class HouseholdMembershipService {
     }
     
     public Page<HouseholdMembership> getMemberShipByclientid(UUID clientid,Pageable pageable){
-    	Page<HouseholdMembership> householdMembership =	householdMembershipRepository.findByGlobalClientId(clientid,pageable);
+        String projectGroup = SecurityContextUtil.getUserProjectGroup();
+    	Page<HouseholdMembership> householdMembership =	householdMembershipRepository.findByGlobalClientIdAndProjectGroupCode(clientid,projectGroup,pageable);
     	if(householdMembership.getSize()==0) throw new ResourceNotFoundException("Client not found");
     	return householdMembership;
     }
