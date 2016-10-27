@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <hmis:Sources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://www.hudhdx.info/Resources/Vendors/5_1_0/HUD_HMIS.xsd https://raw.githubusercontent.com/hmis-interop/xml/v5.1.0-rc.1/src/HUD_HMIS.xsd"
+    xsi:schemaLocation="http://www.hudhdx.info/Resources/Vendors/5_1_0/HUD_HMIS.xsd"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
     xmlns:hmis="http://www.hudhdx.info/Resources/Vendors/5_1_0/HUD_HMIS.xsd">
     <hmis:Source>

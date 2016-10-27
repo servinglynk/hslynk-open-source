@@ -67,8 +67,8 @@ public class HealthinsuranceConverter extends BaseConverter {
 					HealthinsuranceNostatehealthinsreasonEnum.lookupEnum(model.getNostatehealthinsreason().toString()));
 		if (model.getOtherInsurance() != null)
 		entity.setOtherInsurance(NoYesEnum.lookupEnum(model.getOtherInsurance()+""));
-		if (model.getOtherInsuranceIdentify() != null)
-		entity.setOtherInsuranceIdentify(model.getOtherInsuranceIdentify());
+//		if (model.getOtherInsuranceIdentify() != null)
+//		entity.setOtherInsuranceIdentify(model.getOtherInsuranceIdentify());
 		if(model.getIndianHealthServices()!=null)
 			entity.setIndianHealthServices(NoYesEnum.lookupEnum(model.getIndianHealthServices()+""));
 		if(model.getNoIndianHealthServicesReason()!=null)
@@ -120,8 +120,8 @@ public class HealthinsuranceConverter extends BaseConverter {
 			model.setNostatehealthinsreason(Integer.parseInt(entity.getNostatehealthinsreason().getValue()));
 		if (entity.getOtherInsurance() != null)
 		model.setOtherInsurance(Integer.parseInt(entity.getOtherInsurance().getValue()));
-		if (entity.getOtherInsuranceIdentify() != null)
-		model.setOtherInsuranceIdentify(entity.getOtherInsuranceIdentify());
+//		if (entity.getOtherInsuranceIdentify() != null)
+//		model.setOtherInsuranceIdentify(entity.getOtherInsuranceIdentify());
 		if(entity.getIndianHealthServices()!=null)
 			model.setIndianHealthServices(Integer.parseInt(entity.getIndianHealthServices().getValue()));
 		if(entity.getNoIndianHealthServicesReason()!=null)
