@@ -154,7 +154,7 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
 			 
 			if($sessionStorage.account!=undefined && $sessionStorage.account.roles !=undefined)
 			{
-				$rootScope.roleName=$sessionStorage.account.roles.role[0].roleName;// data.account.roles.role[0].roleName;
+				$rootScope.roleName=$sessionStorage.account.roles[0].roleName;// data.account.roles.role[0].roleName;
 			}
      		// here we have to check why keep out(isLoggedIn is undefined  when dashbaorad load)
      		//$sessionStorage.isLoggedIn=true;
