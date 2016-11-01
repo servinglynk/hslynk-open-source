@@ -69,14 +69,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
-//					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, project.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap);
-//					if(enrollmentModel !=null)
-//						projectModel.addEnrollment(enrollmentModel);
 					if(projectModel.isRecordToBoInserted()) {
 						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 						BeanUtils.copyProperties(projectModel, baseProject, new String[] {"organizationid"});
-					//	OrganizationEntity organizationEntity = factory.getHmisOrganizationDao().getOrganizationById(organization.getId());
-					//	baseProject.setOrganizationid(organizationEntity);
 						baseProject.setSchemaYear(2015);
 						factory.getBaseProjectDao().createProject(baseProject);
 					}
@@ -132,7 +127,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		   project.setId(UUID.randomUUID());
 		   com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid"});
-		   baseProject.setSchemaYear(2014);
+		   baseProject.setSchemaYear(2015);
 		   insert(project);
 		   factory.getBaseProjectDao().createProject(baseProject);
 		   return project;
@@ -140,7 +135,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	   public com.servinglynk.hmis.warehouse.model.v2015.Project updateProject(com.servinglynk.hmis.warehouse.model.v2015.Project project){
 		   com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid"});
-		   baseProject.setSchemaYear(2014);
+		   baseProject.setSchemaYear(2015);
 		   update(project);
 		   factory.getBaseProjectDao().updateProject(baseProject);
 		   return project;
