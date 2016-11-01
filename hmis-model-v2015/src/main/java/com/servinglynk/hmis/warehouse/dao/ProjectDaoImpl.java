@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -74,10 +74,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 //						projectModel.addEnrollment(enrollmentModel);
 					if(projectModel.isRecordToBoInserted()) {
 						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
-						BeanUtils.copyProperties(baseProject, projectModel);
-						OrganizationEntity organizationEntity = factory.getHmisOrganizationDao().getOrganizationById(organization.getId());
-						baseProject.setOrganizationid(organizationEntity);
-						baseProject.setSchemaYear(2014);
+						BeanUtils.copyProperties(projectModel, baseProject, new String[] {"organizationid"});
+					//	OrganizationEntity organizationEntity = factory.getHmisOrganizationDao().getOrganizationById(organization.getId());
+					//	baseProject.setOrganizationid(organizationEntity);
+						baseProject.setSchemaYear(2015);
 						factory.getBaseProjectDao().createProject(baseProject);
 					}
 					projectModel.setExport(exportEntity);

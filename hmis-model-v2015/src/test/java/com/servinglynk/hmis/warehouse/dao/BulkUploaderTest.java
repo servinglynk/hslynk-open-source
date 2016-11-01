@@ -212,7 +212,7 @@ public class BulkUploaderTest {
 	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
-		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
+		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_79.xml");
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -249,12 +249,12 @@ public class BulkUploaderTest {
 				appender.setAppend(true);
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
-			//	upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_70.xml");
+				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_79.xml");
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
-				URL path = BulkUploaderTest.class.getResource("2015.xml");
-				upload.setInputpath(path.getPath());
+			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
+		//		upload.setInputpath(path.getPath());
 				upload.setProjectGroupCode("PG0001");
-				upload.setId(3L);
+				upload.setId(213L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}

@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
@@ -68,14 +69,12 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					model.setExport(exportEntity);
-//					if(projectModel.isInserted()) {
-//						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
-//						BeanUtils.copyProperties(baseProject, projectModel);
-//						OrganizationEntity organizationEntity = factory.getHmisOrganizationDao().getOrganizationById(organization.getId());
-//						baseProject.setOrganizationid(organizationEntity);
-//						baseProject.setSchemaYear(2014);
-//						factory.getBaseProjectDao().createProject(baseProject);
-//					}
+					if(model.isRecordToBoInserted()) {
+						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
+						BeanUtils.copyProperties(model, baseProject, new String[] {"organizationid"});
+						baseProject.setSchemaYear(2014);
+						factory.getBaseProjectDao().createProject(baseProject);
+					}
 					
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
