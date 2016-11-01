@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.model.base.Project;
 public class ProjectDaoImpl extends QueryExecutorImpl implements ProjectDao {
 
 	   public Project createProject(Project project){
-	       insert(project);
+	       insertOrUpdate(project);
 	       return project;
 	   }
 	   public Project updateProject(Project project){

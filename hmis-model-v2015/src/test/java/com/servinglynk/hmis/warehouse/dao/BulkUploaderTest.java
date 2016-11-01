@@ -253,7 +253,7 @@ public class BulkUploaderTest {
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
 		//		upload.setInputpath(path.getPath());
-				upload.setProjectGroupCode("PG0001");
+				upload.setProjectGroupCode("MO0010");
 				upload.setId(213L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
