@@ -144,7 +144,11 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	       delete(project);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Project getProjectById(UUID projectId){
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Project) get(com.servinglynk.hmis.warehouse.model.v2016.Project.class, projectId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Project.class);
+		      criteria.add(Restrictions.eq("id", projectId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Project> projects = (List<com.servinglynk.hmis.warehouse.model.v2016.Project>) findByCriteria(criteria);
+		      if(!projects.isEmpty()) return projects.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Project> getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Project.class);
