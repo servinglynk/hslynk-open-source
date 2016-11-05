@@ -110,6 +110,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
+			logger.info("Starting processing of Client table");
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
 			logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Client.class, getProjectGroupCode(domain));
@@ -168,6 +169,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			insertOrUpdate(upload); 
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
+			e.printStackTrace();
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
 			saveError(upload);
