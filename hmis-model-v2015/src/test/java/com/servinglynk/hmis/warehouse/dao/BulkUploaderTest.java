@@ -800,8 +800,9 @@ public class BulkUploaderTest {
 	public void softDeleteProjectGroup() throws Exception {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
 		for(BulkUpload upload : uploads) {
-			if(upload !=null && upload.getExportId() !=null) {
-				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
+			if(upload !=null) {
+				if(upload.getProjectGroupCode().equals("MO0010"))
+					dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
 			}
 		}
 		

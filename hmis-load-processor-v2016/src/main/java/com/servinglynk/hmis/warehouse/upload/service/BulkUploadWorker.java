@@ -45,7 +45,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() throws ReportCreationException{
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2015));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2016));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
@@ -57,7 +57,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					appender.activateOptions();
 					/** Perform full refresh base on Project group */
 					if(upload.getProjectGroupCode() !=null) {
-						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2015));
+						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2016));
 						for(BulkUpload  bulkUpload : uploads) {
 						//	factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode(),upload.getExportId());
 							bulkUpload.setStatus("DELETED");

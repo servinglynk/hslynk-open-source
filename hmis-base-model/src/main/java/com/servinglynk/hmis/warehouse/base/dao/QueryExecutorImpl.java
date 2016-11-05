@@ -164,7 +164,7 @@ public class QueryExecutorImpl  implements QueryExecutor{
 	public void deleteFromDB(Object entity) {
           try
           {
-        	  getCurrentSession().delete(entity);
+        	  delete(entity);
           } catch(Exception  e){
         	  e.printStackTrace();
           }
