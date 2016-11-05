@@ -137,7 +137,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 						target.setDateUpdated(LocalDateTime.now());
-						target.setSchemaYear("2015");
+						target.setSchemaYear("2016");
 						insertOrUpdate(target);	
 					}
 //					}
