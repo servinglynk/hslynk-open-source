@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="243"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\workspace\\hudAnnualReport\\src\\main\\resources\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="homePageStartDate" class="java.lang.String">
+		<fieldDescription><![CDATA[homePageStartDate]]></fieldDescription>
+	</field>
+	<field name="homePageEndDate" class="java.lang.String">
+		<fieldDescription><![CDATA[homePageEndDate]]></fieldDescription>
+	</field>
+	<field name="homePageProjects" class="java.lang.String">
+		<fieldDescription><![CDATA[homePageProjects]]></fieldDescription>
+	</field>
+	<field name="homePageHomeLess" class="java.lang.String">
+		<fieldDescription><![CDATA[homePageHomeLess]]></fieldDescription>
+	</field>
+	<field name="homePageGrants" class="java.lang.String">
+		<fieldDescription><![CDATA[homePageGrants]]></fieldDescription>
+	</field>
+	<field name="homePageView" class="java.lang.String">
+		<fieldDescription><![CDATA[homePageView]]></fieldDescription>
+	</field>
+	<field name="q04aOrgName" class="java.lang.String">
+		<fieldDescription><![CDATA[q04aOrgName]]></fieldDescription>
+	</field>
+	<field name="q04aOrgId" class="java.lang.String">
+		<fieldDescription><![CDATA[q04aOrgId]]></fieldDescription>
+	</field>
+	<field name="q04aProjectName" class="java.lang.String">
+		<fieldDescription><![CDATA[q04aProjectName]]></fieldDescription>
+	</field>
+	<field name="q04aProjectId" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q04aProjectId]]></fieldDescription>
+	</field>
+	<field name="q04aHmisProjectType" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q04aHmisProjectType]]></fieldDescription>
+	</field>
+	<field name="q04aMethodOfTracking" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q04aMethodOfTracking]]></fieldDescription>
+	</field>
+	<field name="q04aHmisProjectIdService" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q04aHmisProjectIdService]]></fieldDescription>
+	</field>
+	<field name="q04aIdentityProjectId" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q04aIdentityProjectId]]></fieldDescription>
+	</field>
+	<field name="crtdUpdtdDate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[crtdUpdtdDate]]></fieldDescription>
+	</field>
+	<field name="q05aHMISComparableDBDataQualityDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q05aHMISComparableDBDataQualityDataBean]]></fieldDescription>
+	</field>
+	<field name="q06aReportValidationsTableDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q06aReportValidationsTableDataBean]]></fieldDescription>
+	</field>
+	<field name="q06bNumberOfPersonsServedDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q06bNumberOfPersonsServedDataBean]]></fieldDescription>
+	</field>
+	
+	<field name="q06cPointInTimeCountPersonsLastWednesdayDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q06cPointInTimeCountPersonsLastWednesdayDataBean]]></fieldDescription>
+	</field>
+	<field name="q07aHouseholdsServedDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q07aHouseholdsServedDataBean]]></fieldDescription>
+	</field>
+	<field name="q07bPointInTimeCountHouseholdsLastWednesdayDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q07bPointInTimeCountHouseholdsLastWednesdayDataBean]]></fieldDescription>
+	</field>
+	<field name="qQ09aNumberPersonsContactedDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[qQ09aNumberPersonsContactedDataBean]]></fieldDescription>
+	</field>
+	<field name="q09bNumberofPersonsEngagedDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q09bNumberofPersonsEngagedDataBean]]></fieldDescription>
+	</field>
+	
+	
+	<group name="Group4">
+		<groupHeader>
+			<band height="4"/>
+			<band height="21" splitType="Stretch">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="216" height="21" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Start Date]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="1" width="205" height="20" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{homePageStartDate}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="216" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[   End Date]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="0" width="205" height="20" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{homePageEndDate}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="23">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="216" height="23" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Projects (1 Selected)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="0" width="205" height="23" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{homePageProjects}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="22">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="216" height="22" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Homeless or All Clients]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="0" width="205" height="22" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{homePageHomeLess}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="22">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="216" height="22" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Grant/sub-projectSelected: (all grants)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="0" width="205" height="22" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{homePageGrants}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="21">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="216" height="21" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[   View]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="0" width="205" height="21" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{homePageView}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="1"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="217" height="21" backcolor="#CCCCFF" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Results]]></text>
+				</staticText>
+			</band>
+			<band height="21" splitType="Stretch">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="217" height="21" backcolor="#CCCCFF" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Q04a: Project Identifiers in HMIS]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Organization name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="133" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aOrgName}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Organization ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="133" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aOrgId}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Project name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="133" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aProjectName}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Project ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="133" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aProjectId}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   HMIS Project Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="133" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aHmisProjectType}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Method of tracking ES]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="132" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aMethodOfTracking}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   If HMIS Project ID = 6 (S Only), is the Services Only (HMIS +"\n"+ Project Type 6) affiliated with a residential project?]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="133" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aHmisProjectIdService}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="422" y="0" width="133" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="421" height="20" forecolor="#666666" backcolor="#F2F0F0" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Identify the Project ID's of the housing projects this project is affiliated with]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="0" width="132" height="20" />
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q04aIdentityProjectId}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="4"/>
+			<band height="22">
+				<staticText>
+					<reportElement x="0" y="0" width="421" height="20" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[   Universe of data: Any projects included in this report run.]]></text>
+				</staticText>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q05aHMISComparableDBDataQualityDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q05a_HMIS_Comparable_DB_DataQuality.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q06aReportValidationsTableDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q06a_Report_Validations_Table.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q06bNumberOfPersonsServedDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q06b_Number_of_Persons_Served.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q06cPointInTimeCountPersonsLastWednesdayDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q06c_Point_In_Time_Count_Persons_Last_Wednesday.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q07aHouseholdsServedDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q07a_Households_Served.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q07bPointInTimeCountHouseholdsLastWednesdayDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q07b_Point_In_Time_Count_of_Households_Last_Wednesday.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{qQ09aNumberPersonsContactedDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q09a_Number_Persons_Contacted.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q09bNumberofPersonsEngagedDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q09b_Number_of_Persons_Engaged.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="216" height="21" forecolor="#666666" backcolor="#F2F0F0" />
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="-1" y="-20" width="556" height="92" backcolor="#006699" />
+				<staticText>
+					<reportElement x="1" y="20" width="555" height="43" forecolor="#FFFFFF" />
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HUD - Annual Performance Report 2015 Report]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="7"/>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" />
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" />
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
