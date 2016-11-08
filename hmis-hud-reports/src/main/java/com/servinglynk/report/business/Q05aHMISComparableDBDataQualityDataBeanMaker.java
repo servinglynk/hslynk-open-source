@@ -67,6 +67,7 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 				.filter(client ->  "99".equals(client.getVeteran_status())) 
 					.collect(Collectors.toList());
 		
+		
 		q05aHMISCDDQBean.setQ05aFirstName(BigInteger.valueOf(firstNameCNF != null ? firstNameCNF.size() :0));
 		q05aHMISCDDQBean.setQ05aDNCFirstName(BigInteger.valueOf(firstNameDataNotCollected != null ? firstNameDataNotCollected.size() : 0));
 		q05aHMISCDDQBean.setQ05aLastName(BigInteger.valueOf(firstNameCNF != null ? firstNameCNF.size() :0));
@@ -101,6 +102,44 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
     }
 
 	public static List<ClientModel> getClients(String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<ClientModel>  models = new ArrayList<ClientModel>();
+		try {
+			connection = HiveConnection.getConnection();
+			statement = connection.prepareStatement(ReportQuery.GET_ALL_CLIENTS);
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 ClientModel model = new ClientModel(resultSet.getString("client.personalid"), resultSet.getString("client.dedup_client_id"), 
+					 resultSet.getString("client.name_data_quality"),resultSet.getString("client.name_data_quality_desc"), 
+					 resultSet.getString("client.ssn_data_quality"), resultSet.getString("client.ssn_data_quality_desc"), 
+					 resultSet.getDate("client.dob"),resultSet.getString("client.dob_data_quality"), 
+					 resultSet.getString("client.dob_data_quality_desc"), resultSet.getString("client.gender"), 
+					 resultSet.getString("client.gender_desc"), resultSet.getString("client.other_gender"), resultSet.getString("client.ethnicity"), 
+					 resultSet.getString("client.ethnicity_desc"), resultSet.getString("client.race"), resultSet.getString("client.race_desc"), 
+					 resultSet.getString("client.veteran_status"), resultSet.getString("client.client_source_system_id"));
+			 models.add(model);
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+
+	
+	public static List<ClientModel> getEnrollments(String schema) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;

@@ -5,6 +5,7 @@ app.controller('errormessageCtrl', function ($scope, $location, $routeParams, $r
     }
     $scope.sessionToken = $sessionStorage.sessionToken;
     $scope.id = $routeParams.id;
+    $scope.year = $routeParams.year;
     Service.GetErrorMessage($http,
     	    //success
     	    function (data) {
