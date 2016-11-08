@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="243"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\workspace\\hudAnnualReport\\src\\main\\resources\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:/HMIS/hmis-lynk-open-source/hmis-hud-reports/src/main/resources/"]]></defaultValueExpression>
 	</parameter>
 	<field name="homePageStartDate" class="java.lang.String">
 		<fieldDescription><![CDATA[homePageStartDate]]></fieldDescription>
@@ -33,13 +33,13 @@
 	<field name="q04aProjectName" class="java.lang.String">
 		<fieldDescription><![CDATA[q04aProjectName]]></fieldDescription>
 	</field>
-	<field name="q04aProjectId" class="java.math.BigInteger">
+	<field name="q04aProjectId" class="java.lang.String">
 		<fieldDescription><![CDATA[q04aProjectId]]></fieldDescription>
 	</field>
-	<field name="q04aHmisProjectType" class="java.math.BigInteger">
+	<field name="q04aHmisProjectType" class="java.lang.String">
 		<fieldDescription><![CDATA[q04aHmisProjectType]]></fieldDescription>
 	</field>
-	<field name="q04aMethodOfTracking" class="java.math.BigInteger">
+	<field name="q04aMethodOfTracking" class="java.lang.String">
 		<fieldDescription><![CDATA[q04aMethodOfTracking]]></fieldDescription>
 	</field>
 	<field name="q04aHmisProjectIdService" class="java.math.BigInteger">

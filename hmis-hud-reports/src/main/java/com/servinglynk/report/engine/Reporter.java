@@ -31,12 +31,10 @@ public class Reporter {
         try {                                           
 //        	InputStream inputStream = new FileInputStream ("C:/workspace/hudAnnualReport/src/main/resources/HUD_Annual_Report.jrxml");
         	
-        	InputStream inputStream = new FileInputStream ("C:/Users/sdolia/Downloads/15-10-2016_HUD_COC_BEAN_with_JRXML/hudAnnualReport/src/main/resources/homePage.jrxml");
+        	InputStream inputStream = new FileInputStream ("C:/HMIS/hmis-lynk-open-source/hmis-hud-reports/src/main/resources/homePage.jrxml");
             
-            /*DataBeanMaker dataBeanMaker = new DataBeanMaker();
-            ArrayList<DataBean> dataBeanList = dataBeanMaker.getDataBeanList();*/
         	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList();
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("cp0004","002afe62-5d2a-45f9-bd24-0669d6e69e97");
            
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
             
@@ -45,7 +43,7 @@ public class Reporter {
 		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-		    JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/Users/sdolia/Downloads/15-10-2016_HUD_COC_BEAN_with_JRXML/hudAnnualReport/src/main/resources/homePage.pdf"); 
+		    JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/HMIS/hmis-lynk-open-source/hmis-hud-reports/src/main/resources/homePage.pdf"); 
  
         } catch (Exception e) {
             logger.error(e, e);

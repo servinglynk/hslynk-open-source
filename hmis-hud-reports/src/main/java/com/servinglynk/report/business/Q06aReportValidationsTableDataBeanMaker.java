@@ -8,7 +8,7 @@ import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 
 public class Q06aReportValidationsTableDataBeanMaker {
 	
-	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(){
+	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(String schema){
 	       
 		Q06aReportValidationsTableDataBean q06aReportValidationsTableBean = new Q06aReportValidationsTableDataBean();
 		
