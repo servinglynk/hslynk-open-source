@@ -4,8 +4,10 @@ app.controller('errormessageCtrl', function ($scope, $location, $routeParams, $r
         $("#userDetails").html($sessionStorage.account.emailAddress);
     }
     $scope.sessionToken = $sessionStorage.sessionToken;
-    $scope.id = $routeParams.id;
-    $scope.year = $routeParams.year;
+    var routeParams = $routeParams.id;
+    var params = routeParams.split("-");
+    $scope.id= params[0];
+    $scope.year= params[1];
     Service.GetErrorMessage($http,
     	    //success
     	    function (data) {
