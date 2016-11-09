@@ -145,6 +145,7 @@ public class BaseProcessor<T> extends Logging {
 			if (toInsert.size() > 0) {
 				hBaseImport.insertDataInBatch(table, "CF", toInsert);
 			}
+
 			logger.info("[" + tableName + "] Time taken to run insert in seconds: " +
 					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
 
@@ -152,6 +153,7 @@ public class BaseProcessor<T> extends Logging {
 			if (toUpdate.size() > 0) {
 				hBaseImport.updateDataInBatch(table, toUpdate);
 			}
+
 			logger.info("[" + tableName + "] Time taken to run update in seconds: " +
 					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
 
@@ -159,6 +161,7 @@ public class BaseProcessor<T> extends Logging {
 			if (toDelete.size() > 0) {
 				hBaseImport.deleteDataInBatch(table, toDelete);
 			}
+
 			logger.info("[" + tableName + "] Time taken to run delete in seconds: " +
 					TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) / 1000);
 

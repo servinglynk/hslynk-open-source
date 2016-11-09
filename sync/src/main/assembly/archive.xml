@@ -33,11 +33,19 @@
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-2016.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
             <source>${project.build.directory}/../src/main/scripts/stop-sync-live.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
             <source>${project.build.directory}/../src/main/scripts/stop-sync-staging.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-2016.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
     </files>
