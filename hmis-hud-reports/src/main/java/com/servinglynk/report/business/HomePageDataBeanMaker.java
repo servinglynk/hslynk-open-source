@@ -35,7 +35,7 @@ public class HomePageDataBeanMaker {
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
 			
-			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(schema));
+			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(schema,projectId));
 			homePageDataBean.setQ06aReportValidationsTableDataBean(Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(schema));
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList());
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList());

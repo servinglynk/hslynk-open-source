@@ -34,7 +34,7 @@ public class Reporter {
         	InputStream inputStream = new FileInputStream ("C:/HMIS/hmis-lynk-open-source/hmis-hud-reports/src/main/resources/homePage.jrxml");
             
         	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("cp0004","002afe62-5d2a-45f9-bd24-0669d6e69e97");
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("cp0004","4818782f-46f2-4783-836f-cea1c9b1b7f2");
            
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
             
