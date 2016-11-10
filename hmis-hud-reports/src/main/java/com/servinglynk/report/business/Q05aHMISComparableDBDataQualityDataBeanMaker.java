@@ -1,31 +1,25 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.hive.connection.HiveConnection;
-import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 	
-	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(String schema,String projectId){
+	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(String schema,String projectId,ReportData data){
 	       
 		Q05aHMISComparableDBDataQualityDataBean q05aHMISCDDQBean = new Q05aHMISComparableDBDataQualityDataBean();
-		List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 		
+		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<EnrollmentModel> disablingCondition = enrollments.parallelStream()
 				.filter(enrollment ->  StringUtils.equals("8", enrollment.getDisablingcondition())|| StringUtils.equals("9", enrollment.getDisablingcondition())) 
 				.collect(Collectors.toList());
@@ -45,11 +39,7 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 		List<EnrollmentModel> relationshipToHOHDNC = enrollments.parallelStream()
 				.filter(enrollment ->  StringUtils.equals("99", enrollment.getRelationshiptohoh())) 
 				.collect(Collectors.toList());
-		List<String> clientIds = new ArrayList<String>(); 
-		List<String> enrollmentIds = new ArrayList<String>(); 
-		enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
-		List<ClientModel> allClients = getClients(schema);
-		List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
+		List<ClientModel> clients = data.getClients();
 		List<ClientModel> firstNameCNF = clients.parallelStream()
 				.filter(client -> "8".equals(client.getName_data_quality()) || "9".equals(client.getName_data_quality())) 
 					.collect(Collectors.toList());
@@ -93,8 +83,7 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 		List<ClientModel> veteranStatusDataNotCollected = clients.parallelStream()
 				.filter(client ->  "99".equals(client.getVeteran_status())) 
 					.collect(Collectors.toList());
-		List<ExitModel> allExits = getAllExits(schema);
-		List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
+		List<ExitModel> filteredExits = data.getExits();
 		List<ExitModel> destination = filteredExits.parallelStream()
 				.filter(exit -> StringUtils.equals("8", exit.getDestination())|| StringUtils.equals("9", exit.getDestination())) 
 					.collect(Collectors.toList());
@@ -134,134 +123,5 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
          		
         return Arrays.asList(q05aHMISCDDQBean);
     }
-
-	public static List<ClientModel> getClients(String schema) {
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		List<ClientModel>  models = new ArrayList<ClientModel>();
-		try {
-			connection = HiveConnection.getConnection();
-			statement = connection.prepareStatement(ReportQuery.GET_ALL_CLIENTS);
-			resultSet = statement.executeQuery();
-		 while(resultSet.next()) {
-			 ClientModel model = new ClientModel(resultSet.getString("client.personalid"), resultSet.getString("client.dedup_client_id"), 
-					 resultSet.getString("client.name_data_quality"),resultSet.getString("client.name_data_quality_desc"), 
-					 resultSet.getString("client.ssn_data_quality"), resultSet.getString("client.ssn_data_quality_desc"), 
-					 resultSet.getDate("client.dob"),resultSet.getString("client.dob_data_quality"), 
-					 resultSet.getString("client.dob_data_quality_desc"), resultSet.getString("client.gender"), 
-					 resultSet.getString("client.gender_desc"), resultSet.getString("client.other_gender"), resultSet.getString("client.ethnicity"), 
-					 resultSet.getString("client.ethnicity_desc"), resultSet.getString("client.race"), resultSet.getString("client.race_desc"), 
-					 resultSet.getString("client.veteran_status"), resultSet.getString("client.client_source_system_id"));
-			 models.add(model);
-		 }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return models;
-	}
-
-	
-	public static List<EnrollmentModel> getEnrollmentsByProjectId(String schema,String projectId) {
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
-		try {
-			connection = HiveConnection.getConnection();
-			statement = connection.prepareStatement(ReportQuery.GET_ENROLLMENTS_BY_PROJECT_ID);
-			statement.setString(1, projectId);
-			resultSet = statement.executeQuery();
-		 while(resultSet.next()) {
-			 EnrollmentModel model = new EnrollmentModel(resultSet.getString("enrollment.projectentryid"), 
-					 resultSet.getString("enrollment.continuouslyhomelessoneyear"),
-					 resultSet.getString("enrollment.disablingcondition"), 
-					 null, 
-					 resultSet.getString("enrollment.householdid"), 
-					 resultSet.getString("enrollment.housingstatus"), 
-					 resultSet.getString("enrollment.housingstatus_desc"), 
-					 resultSet.getString("enrollment.monthshomelesspastthreeyears"), 
-					 resultSet.getString("enrollment.monthshomelesspastthreeyears_desc"), 
-					 resultSet.getString("enrollment.monthshomelessthistime"), 
-					 resultSet.getString("enrollment.otherresidenceprior"), 
-					 resultSet.getString("enrollment.projectid"), 
-					 resultSet.getString("enrollment.relationshiptohoh"), 
-					 resultSet.getString("enrollment.relationshiptohoh_desc"), 
-					 resultSet.getString("enrollment.residenceprior"), 
-					 resultSet.getString("enrollment.residenceprior_desc"), 
-					 resultSet.getString("enrollment.residencepriorlengthofstay"), 
-					 resultSet.getString("enrollment.residencepriorlengthofstay_desc"), 
-					 resultSet.getString("enrollment.statusdocumented"), 
-					 resultSet.getString("enrollment.timeshomelesspastthreeyears"), 
-					 resultSet.getString("enrollment.timeshomelesspastthreeyears_desc"), 
-					 resultSet.getString("enrollment.ageatentry"), 
-					 resultSet.getString("enrollment.personalid"), 
-					 resultSet.getInt("enrollment.yearshomeless"), 
-					 (Boolean)resultSet.getBoolean("enrollment.chronichomeless"), 
-					 resultSet.getString("enrollment.enrollment_source_system_id"));
-			 models.add(model);
-		 }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return models;
-	}
-
-	
-	public static List<ExitModel> getAllExits(String schema) {
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		List<ExitModel>  models = new ArrayList<ExitModel>();
-		try {
-			connection = HiveConnection.getConnection();
-			statement = connection.prepareStatement(ReportQuery.GET_ALL_EXITS);
-			resultSet = statement.executeQuery();
-		 while(resultSet.next()) {
-			 ExitModel model = new ExitModel( resultSet.getString("exit.exitid"), resultSet.getString("exit.destination"), 
-					 resultSet.getString("exit.destination_desc"), 
-					 resultSet.getTimestamp("exit.exitdate"), 
-					 resultSet.getString("exit.otherdestination"), 
-					 resultSet.getString("exit.projectEntryID"), resultSet.getString("exit.exit_source_system_id"));
-			 models.add(model);
-		 }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return models;
-	}
 
 }
