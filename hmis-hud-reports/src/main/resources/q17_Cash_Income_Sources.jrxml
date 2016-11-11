@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	
+	<field name="q17EarnedIncomeAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17EarnedIncomeAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17EarnedIncomeAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17EarnedIncomeAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17EarnedIncomeAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17EarnedIncomeAtExitforLeavers]]></fieldDescription>
+	</field>
+	<field name="q17UnemployementInsuranceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17UnemployementInsuranceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17UnemployementInsuranceAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17UnemployementInsuranceAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17UnemployementInsuranceAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17UnemployementInsuranceAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17SSIAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17SSIAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17SSIAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17SSIAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17SSIAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17SSIAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17SSDIAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17SSDIAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17SSDIAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17SSDIAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17SSDIAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17SSDIAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17VAServiceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17VAServiceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17VAServiceAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17VAServiceAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17VAServiceAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17VAServiceAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17VANonServiceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17VANonServiceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17VANonServiceAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17VANonServiceAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17VANonServiceAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17VANonServiceAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17PrivateDisabilityAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17PrivateDisabilityAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17PrivateDisabilityAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17PrivateDisabilityAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17PrivateDisabilityAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17PrivateDisabilityAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17WorkersCompensationAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17WorkersCompensationAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17WorkersCompensationAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17WorkersCompensationAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17WorkersCompensationAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17WorkersCompensationAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17TANFAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17TANFAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17TANFAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17TANFAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17TANFAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17TANFAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17GeneralAssistanceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17GeneralAssistanceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17GeneralAssistanceAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17GeneralAssistanceAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17GeneralAssistanceAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17GeneralAssistanceAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17RetirementAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17RetirementAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17RetirementAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17RetirementAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17RetirementAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17RetirementAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17PensionFormerJobAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17PensionFormerJobAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17PensionFormerJobAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17PensionFormerJobAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17PensionFormerJobAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17PensionFormerJobAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17ChildSupportAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17ChildSupportAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17ChildSupportAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17ChildSupportAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17ChildSupportAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17ChildSupportAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17AlimonyAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17AlimonyAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17AlimonyAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17AlimonyAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17AlimonyAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17AlimonyAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17OtherSourcesAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17OtherSourcesAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17OtherSourcesAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17OtherSourcesAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17OtherSourcesAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17OtherSourcesAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q17AdultsWithIncomeAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17AdultsWithIncomeAtEntry]]></fieldDescription>
+	</field>
+	<field name="q17AdultsWithIncomeAtLatestAnnualAssessmentforStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17AdultsWithIncomeAtLatestAnnualAssessmentforStayers]]></fieldDescription>
+	</field>
+	<field name="q17AdultsWithIncomeAtExitforLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q17AdultsWithIncomeAtExitforLeavers]]></fieldDescription>
+	</field>
+	
+	
+	<group name="Group5">
+		<groupFooter>
+			
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[    Q17: Cash Income - Sources]]></text>
+				</staticText>
+			</band>
+			<band height="49">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" />
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[   Source]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" />
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At entry]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" />
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[  At Latest Annual Assessment for Stayers]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" />
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At Exit for Leavers]]></text>
+				</staticText>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   a. Earned income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   b. Unemployment insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17SSIAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   c. SSI]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17SSIAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17SSIAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17SSDIAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   d. SSDI]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17SSDIAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17SSDIAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17VAServiceAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   e. VA service-connected disability compensation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17VAServiceAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17VAServiceAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17VANonServiceAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   f. VA non-service-connected disability pension]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17VANonServiceAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17VANonServiceAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   g. Private disability insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17WorkersCompensationAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   h. Worker's compensation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17WorkersCompensationAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17WorkersCompensationAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17TANFAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   i. TANF]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17TANFAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17TANFAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   j. General assistance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17RetirementAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   k. Retirement (Social Security)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17RetirementAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17RetirementAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   l. Pension from a former job]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17ChildSupportAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   m. Child support]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17ChildSupportAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17ChildSupportAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17AlimonyAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   n. Alimony (spousal support)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17AlimonyAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17AlimonyAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   o. Other source]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtEntry}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   p. Adults with income information at entry and annual assessment / exit]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" />
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtExitforLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="21">
+				<staticText>
+					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" />
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[ Universe of data: All active adults.]]></text>
+				</staticText>
+			</band>	
+			
+		</groupFooter>
+	</group>
+</jasperReport>

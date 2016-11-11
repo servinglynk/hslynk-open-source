@@ -42,25 +42,41 @@ public class Q06aReportValidationsTableDataBeanMaker {
         return Arrays.asList(q06aReportValidationsTableBean);
     }
 	public static boolean isAdult(Date dob) {
-		LocalDate currentDate = LocalDate.now();
-		@SuppressWarnings("deprecation")
-		LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
-		Period p = Period.between(dateOfBirth, currentDate);
-		if(p.getYears() > 18 )
-			return true;
-		else 
+		try {
+			LocalDate currentDate = LocalDate.now();
+			if(dob !=null) {
+				@SuppressWarnings("deprecation")
+				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
+				Period p = Period.between(dateOfBirth, currentDate);
+				if(p.getYears() > 18 )
+					return true;
+				else 
+					return false;
+			}
 			return false;
+		}catch(Exception e) {
+			return false;
+		}
+	
 	}
 	
 	public static boolean isChild(Date dob) {
-		LocalDate currentDate = LocalDate.now();
-		@SuppressWarnings("deprecation")
-		LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
-		Period p = Period.between(dateOfBirth, currentDate);
-		if(p.getYears() < 18 )
-			return true;
-		else 
+		try {
+			LocalDate currentDate = LocalDate.now();
+			if(dob !=null) {
+				@SuppressWarnings("deprecation")
+				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
+				Period p = Period.between(dateOfBirth, currentDate);
+				if(p.getYears() < 18 )
+					return true;
+				else 
+					return false;
+			}
 			return false;
+		}catch(Exception e) {
+			return false;
+		}
+		
 	}
 
 }

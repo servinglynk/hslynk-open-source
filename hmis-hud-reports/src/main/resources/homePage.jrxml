@@ -76,7 +76,58 @@
 	<field name="q09bNumberofPersonsEngagedDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q09bNumberofPersonsEngagedDataBean]]></fieldDescription>
 	</field>
+	<field name="q10aGenderOfAdultsDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q10aGenderOfAdultsDataBean]]></fieldDescription>
+	</field>
+	<field name="q10bGenderOfChildrenDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q10bGenderOfChildrenDataBean]]></fieldDescription>
+	</field>
+	<field name="q10cGenderOfPersonsMissingAgeInformationDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q10cGenderOfPersonsMissingAgeInformationDataBean]]></fieldDescription>
+	</field>
+	<field name="q11AgeDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q11AgeDataBean]]></fieldDescription>
+	</field>
+	<field name="q12aRaceDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q12aRaceDataBean]]></fieldDescription>
+	</field>
+	<field name="q12bEthnicityDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q12bEthnicityDataBean]]></fieldDescription>
+	</field>
+	<field name="q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean]]></fieldDescription>
+	</field>
+	<field name="q13a2NumberOfConditionsAtEntryDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q13a2NumberOfConditionsAtEntryDataBean]]></fieldDescription>
+	</field>
+	<field name="q13b1PhysicalAndMentalHealthConditionsAtExitDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q13b1PhysicalAndMentalHealthConditionsAtExitDataBean]]></fieldDescription>
+	</field>
+	<field name="q13b2NumberOfConditionsAtExitDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q13b2NumberOfConditionsAtExitDataBean]]></fieldDescription>
+	</field>
+	<field name="q13c1PhysicalAndMentalHealthConditionsForStayersDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q13c1PhysicalAndMentalHealthConditionsForStayersDataBean]]></fieldDescription>
+	</field>
+	<field name="q13c2NumberOfConditionsForStayerDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q13c2NumberOfConditionsForStayerDataBean]]></fieldDescription>
+	</field>
+	<field name="q14aDomesticViolenceHistoryDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q14aDomesticViolenceHistoryDataBean]]></fieldDescription>
+	</field>
+	<field name="q14bPersonsFleeingDomesticViolenceDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q14bPersonsFleeingDomesticViolenceDataBean]]></fieldDescription>
+	</field>
+	<field name="q15ResidencePriorToProgramEntryDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q15ResidencePriorToProgramEntryDataBean]]></fieldDescription>
+	</field>
+	<field name="q16CashIncomeRangesDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q16CashIncomeRangesDataBean]]></fieldDescription>
+	</field>
 	
+	<field name="q17CashIncomeSourcesDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q17CashIncomeSourcesDataBean]]></fieldDescription>
+	</field>
 	
 	<group name="Group4">
 		<groupHeader>
@@ -635,6 +686,126 @@
 					<reportElement x="-14" y="-5" width="39" height="40" />
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q09bNumberofPersonsEngagedDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q09b_Number_of_Persons_Engaged.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q10aGenderOfAdultsDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q10a_Gender_of_Adults.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q10bGenderOfChildrenDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q10b_Gender_of_Children.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q10cGenderOfPersonsMissingAgeInformationDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q10c_Gender_of_Persons_Missing_Age_Information.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q11AgeDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q11_Age.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q12aRaceDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q12a_Race.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q12bEthnicityDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q12b_Ethnicity.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q13a1_Physical_and_Mental_Health_Conditions_at_Entry.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q13a2NumberOfConditionsAtEntryDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q13a2_Number_Of_Conditions_At_Entry.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q13b1PhysicalAndMentalHealthConditionsAtExitDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q13b1_Physical_And_Mental_Health_Conditions_At_Exit.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q13b2NumberOfConditionsAtExitDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q13b2_Number_Of_Conditions_at_Exit.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q13c1PhysicalAndMentalHealthConditionsForStayersDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q13c1_Physical_And_Mental_Health_Conditions_For_Stayers.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q13c2NumberOfConditionsForStayerDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q13c2_Number_Of_Conditions_For_Stayer.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q14aDomesticViolenceHistoryDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q14a_Domestic_Violence_History.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q14bPersonsFleeingDomesticViolenceDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q14b_Persons_Fleeing_Domestic_Violence.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q15ResidencePriorToProgramEntryDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q15_Residence_Prior_To_Program_Entry.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q16CashIncomeRangesDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q16_Cash_Income_Ranges.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			
+			<band height="36">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" />
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q17CashIncomeSourcesDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q17_Cash_Income_Sources.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 			
