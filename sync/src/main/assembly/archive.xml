@@ -25,29 +25,60 @@
     </fileSets>
     <files>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync-staging.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-live-2014.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync-live.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-live-2015.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync-2016.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-live-2016.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2014.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-sync-live.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2015.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-sync-staging.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2016.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+
+
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-2014.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-sync-2016.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-2015.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-2016.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+
+
+
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-staging-2014.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-staging-2015.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-staging-2016.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+
     </files>
 
 </assembly>

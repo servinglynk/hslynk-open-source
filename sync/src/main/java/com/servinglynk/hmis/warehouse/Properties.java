@@ -19,6 +19,16 @@ public class Properties {
     public static String SYNC_2016_EXCLUDE_TABLES;
     public static int SYNC_2016_PERIOD;
 
+    public static String SYNC_2015_SCHEMA;
+    public static String SYNC_2015_INCLUDE_TABLES;
+    public static String SYNC_2015_EXCLUDE_TABLES;
+    public static int SYNC_2015_PERIOD;
+
+    public static String SYNC_2014_SCHEMA;
+    public static String SYNC_2014_INCLUDE_TABLES;
+    public static String SYNC_2014_EXCLUDE_TABLES;
+    public static int SYNC_2014_PERIOD;
+
     public void generatePropValues() throws IOException {
 
         InputStream in = null;
@@ -46,6 +56,17 @@ public class Properties {
             SYNC_2016_INCLUDE_TABLES = prop.getProperty("sync2016.includetables");
             SYNC_2016_EXCLUDE_TABLES = prop.getProperty("sync2016.excludetables");
             SYNC_2016_PERIOD = Integer.valueOf(prop.getProperty("sync2016.period"));
+
+            SYNC_2015_SCHEMA = prop.getProperty("sync2015.schema");
+            SYNC_2015_INCLUDE_TABLES = prop.getProperty("sync2015.includetables");
+            SYNC_2015_EXCLUDE_TABLES = prop.getProperty("sync2015.excludetables");
+            SYNC_2015_PERIOD = Integer.valueOf(prop.getProperty("sync2015.period"));
+
+            SYNC_2014_SCHEMA = prop.getProperty("sync2014.schema");
+            SYNC_2014_INCLUDE_TABLES = prop.getProperty("sync2014.includetables");
+            SYNC_2014_EXCLUDE_TABLES = prop.getProperty("sync2014.excludetables");
+            SYNC_2014_PERIOD = Integer.valueOf(prop.getProperty("sync2014.period"));
+
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);

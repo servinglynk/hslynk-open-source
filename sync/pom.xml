@@ -259,12 +259,29 @@
 
                     <programs>
                         <program>
-                            <mainClass>com.servinglynk.hmis.warehouse.FromPostgresStaging</mainClass>
-                            <name>main-sync-staging.sh</name>
+                            <mainClass>com.servinglynk.hmis.warehouse.SyncLive2014</mainClass>
+                            <name>main-sync-live-2014.sh</name>
                         </program>
                         <program>
-                            <mainClass>com.servinglynk.hmis.warehouse.FromPostgresLive</mainClass>
-                            <name>main-sync-live.sh</name>
+                            <mainClass>com.servinglynk.hmis.warehouse.SyncLive2015</mainClass>
+                            <name>main-sync-live-2015.sh</name>
+                        </program>
+                        <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.SyncLive2016</mainClass>
+                            <name>main-sync-live-2016.sh</name>
+                        </program>
+
+                        <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.SyncStaging2014</mainClass>
+                            <name>main-sync-staging-2014.sh</name>
+                        </program>
+                        <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.SyncStaging2015</mainClass>
+                            <name>main-sync-staging-2015.sh</name>
+                        </program>
+                        <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.SyncStaging2016</mainClass>
+                            <name>main-sync-staging-2016.sh</name>
                         </program>
                     </programs>
 
@@ -299,21 +316,58 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live-2014.sh"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging.bat"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live-2014.bat"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/start-sync-staging.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live-2015.sh"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/stop-sync-staging.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live-2015.bat"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live-2016.sh"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live.bat"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-live-2016.bat"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/start-sync-live.sh"
+
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging-2014.sh"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/stop-sync-live.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging-2014.bat"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging-2015.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging-2015.bat"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging-2016.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/target/temp_build/bin/main-sync-staging-2016.bat"
+                                       perm="ugo+rx"/>
+
+                                <chmod file="${basedir}/src/main/scripts/start-sync-live-2014.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-sync-live-2015.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-sync-live-2016.sh"
+                                       perm="ugo+rx"/>
+
+                                <chmod file="${basedir}/src/main/scripts/start-sync-staging-2014.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-sync-staging-2015.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-sync-staging-2016.sh"
+                                       perm="ugo+rx"/>
+
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-live-2014.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-live-2015.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-live-2016.sh"
+                                       perm="ugo+rx"/>
+
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-staging-2014.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-staging-2015.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-sync-staging-2016.sh"
                                        perm="ugo+rx"/>
                             </tasks>
                         </configuration>
@@ -359,7 +413,5 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
-
 </project>
