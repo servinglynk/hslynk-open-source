@@ -111,7 +111,11 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 	       delete(connectionwithsoar);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar getConnectionwithsoarById(UUID connectionwithsoarId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar) get(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, connectionwithsoarId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class);
+		      criteria.add(Restrictions.eq("id", connectionwithsoarId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   
 	   @SuppressWarnings("unchecked")

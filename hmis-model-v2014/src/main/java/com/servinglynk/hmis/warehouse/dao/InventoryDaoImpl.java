@@ -132,7 +132,11 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	       delete(inventory);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Inventory getInventoryById(UUID inventoryId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Inventory) get(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class, inventoryId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class);
+		      criteria.add(Restrictions.eq("id", inventoryId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Inventory> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Inventory>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }																
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Inventory> getAllProjectCocInventories(UUID projectCocId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class);

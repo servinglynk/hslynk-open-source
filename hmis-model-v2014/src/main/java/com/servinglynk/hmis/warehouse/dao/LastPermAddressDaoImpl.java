@@ -113,7 +113,11 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 			       delete(lastPermanentAddress);
 			   }
 			   public com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress getLastPermanentAddressById(UUID lastPermanentAddressId){ 
-			       return (com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress) get(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class, lastPermanentAddressId);
+				      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class);
+				      criteria.add(Restrictions.eq("id", lastPermanentAddressId));
+				      List<com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress>) findByCriteria(criteria);
+				      if(!entities.isEmpty()) return entities.get(0);
+				      return null;
 			   }
 			   public List<com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress> getAllEnrollmentLastPermanentAddresss(UUID enrollmentId,Integer startIndex, Integer maxItems){
 			       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress.class);

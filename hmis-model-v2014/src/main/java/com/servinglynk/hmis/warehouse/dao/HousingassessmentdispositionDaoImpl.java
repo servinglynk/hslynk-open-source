@@ -108,7 +108,11 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	       delete(housingAssessmentDisposition);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition) get(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, housingAssessmentDispositionId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class);
+		      criteria.add(Restrictions.eq("id", housingAssessmentDispositionId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   
 	   @SuppressWarnings("unchecked")

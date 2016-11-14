@@ -123,7 +123,11 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 	       delete(exitPlansActions);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions getExitPlansActionsById(UUID exitPlansActionsId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions) get(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, exitPlansActionsId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class);
+		      criteria.add(Restrictions.eq("id", exitPlansActionsId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   
 	   @SuppressWarnings("unchecked")

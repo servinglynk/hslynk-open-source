@@ -114,7 +114,11 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 	       delete(HealthStatus);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.HealthStatus getHealthStatusById(UUID HealthStatusId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.HealthStatus) get(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class, HealthStatusId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class);
+		      criteria.add(Restrictions.eq("id", HealthStatusId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.HealthStatus> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.HealthStatus>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.HealthStatus> getAllEnrollmentHealthStatuses(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class);

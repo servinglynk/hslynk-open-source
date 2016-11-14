@@ -144,7 +144,11 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 	       delete(healthInsurance);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance getHealthInsuranceById(UUID healthInsuranceId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance) get(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class, healthInsuranceId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance.class);
+		      criteria.add(Restrictions.eq("id", healthInsuranceId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   
 	   @SuppressWarnings("unchecked")

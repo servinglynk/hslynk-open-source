@@ -102,7 +102,11 @@ public class PercentamiDaoImpl extends ParentDaoImpl implements PercentamiDao {
 	       delete(percentami);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Percentami getPercentamiById(UUID percentamiId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Percentami) get(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class, percentamiId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class);
+		      criteria.add(Restrictions.eq("id", percentamiId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Percentami> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Percentami>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Percentami> getAllEnrollmentPercentamis(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Percentami.class);
