@@ -87,6 +87,10 @@ public class SyncSchema extends Logging {
             }
         }
         List<String> tables = getTablesToSync();
+        if(tables.size() < 1){
+            logger.error("Cannot run sync for schema " + syncSchema + ". No tables found in it");
+            System.exit(1);
+        }
 
         log.info("Upload list size: " + uploads.size());
         for (BulkUpload upload : uploads) {
@@ -169,7 +173,8 @@ public class SyncSchema extends Logging {
             statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable);
             resultSet = statement.executeQuery();
 
-            List<String> existingKeys = syncHBaseImport.getAllKeyRecords(htable);
+            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
+            List<String> existingKeysInPostgres = new ArrayList<>();
 
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
@@ -179,14 +184,14 @@ public class SyncSchema extends Logging {
                 String key = resultSet.getString("id");
 
                 if (markedForDelete) {
-                    if (existingKeys.contains(key)) {
+                    if (existingKeysInHbase.contains(key)) {
                         putsToDelete.add(key);
                         if (putsToDelete.size() > syncHBaseImport.batchSize) {
                             syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
                             putsToDelete.clear();
                         }
                     } else {
-                        log.warn("Skip row with key: " + key);
+                        log.debug("Skip row with key: " + key);
                         continue;
                     }
                 } else {
@@ -201,7 +206,7 @@ public class SyncSchema extends Logging {
                                     Bytes.toBytes(value));
                         }
                     }
-                    if (existingKeys.contains(key)) {
+                    if (existingKeysInHbase.contains(key)) {
                         putsToUpdate.add(p);
                         if (putsToUpdate.size() > syncHBaseImport.batchSize) {
                             htable.put(putsToUpdate);
@@ -215,7 +220,14 @@ public class SyncSchema extends Logging {
                         }
                     }
                 }
+                existingKeysInPostgres.add(key);
             }
+
+            existingKeysInHbase.forEach(key -> {
+                if(!existingKeysInPostgres.contains(key)){
+                    putsToDelete.add(key);
+                }
+            });
 
             if (putsToDelete.size() > 0) {
                 syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
@@ -238,18 +250,39 @@ public class SyncSchema extends Logging {
         log.info("Get tables to sync");
         List<String> tables = new ArrayList<String>();
 
-        if (includeTables.trim().length() < 1) {
-            tables = SyncPostgresProcessor.getAllTablesFromPostgres(syncSchema);
-        } else {
-            for (String table : includeTables.split(",")) {
-                tables.add(table);
+        try {
+            if (includeTables.trim().length() < 1) {
+                try {
+                    tables = SyncPostgresProcessor.getAllTablesFromPostgres(syncSchema);
+                }catch (Exception ex){
+                    logger.warn("No tables found in postgres database:  ", ex);
+                    throw ex;
+                }
+            } else {
+                try {
+                    for (String table : includeTables.split(",")) {
+                        tables.add(table);
+                    }
+                } catch (Exception ex){
+                    logger.warn("Unable to include tables specified in property file", ex);
+                    throw ex;
+                }
+
             }
+        }catch (Exception ex){
+            logger.warn("Unable to get tables", ex);
         }
-        if (excludeTables.trim().length() > 0) {
-            for (String table : excludeTables.split(",")) {
-                tables.remove(table);
+
+        try {
+            if (excludeTables.trim().length() > 0) {
+                for (String table : excludeTables.split(",")) {
+                    tables.remove(table);
+                }
             }
+        }catch (Exception ex){
+            logger.warn("Unable to exclude tables specified in property file", ex);
         }
+
         log.info("Found " + tables.size() + " tables to sync");
         tables.forEach(table -> log.info("Table to sync: " + table));
         return tables;

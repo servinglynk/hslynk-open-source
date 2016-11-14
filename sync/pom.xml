@@ -239,11 +239,27 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.servinglynk.hmis.warehouse.FromPostgresStaging</mainClass>
+                                    <mainClass>com.servinglynk.hmis.warehouse.SyncLive2014</mainClass>
                                 </transformer>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.servinglynk.hmis.warehouse.FromPostgresLive</mainClass>
+                                    <mainClass>com.servinglynk.hmis.warehouse.SyncLive2015</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.servinglynk.hmis.warehouse.SyncLive2016</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.servinglynk.hmis.warehouse.SyncStaging2014</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.servinglynk.hmis.warehouse.SyncStaging2015</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.servinglynk.hmis.warehouse.SyncStaging2016</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
