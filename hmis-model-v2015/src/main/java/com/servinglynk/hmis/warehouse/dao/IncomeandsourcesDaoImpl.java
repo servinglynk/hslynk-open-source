@@ -163,7 +163,11 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 	       delete(incomeAndSource);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources getIncomeAndSourceById(UUID incomeAndSourceId){
-	       return (com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources) get(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class, incomeAndSourceId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources.class);
+		      criteria.add(Restrictions.eq("id", incomeAndSourceId));
+		      List<com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.Incomeandsources>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 
 	   @SuppressWarnings("unchecked")

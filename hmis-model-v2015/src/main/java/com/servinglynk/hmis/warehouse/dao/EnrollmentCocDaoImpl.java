@@ -119,7 +119,11 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 	       delete(enrollmentCoc);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc getEnrollmentCocById(UUID enrollmentCocId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc) get(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class, enrollmentCocId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);
+		      criteria.add(Restrictions.eq("id", enrollmentCocId));
+		      List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc> getAllEnrollmentEnrollmentCocs(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.EnrollmentCoc.class);

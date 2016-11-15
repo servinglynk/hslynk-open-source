@@ -117,7 +117,11 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 	       delete(rhybcpstatus);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus getRhybcpstatusById(UUID rhybcpstatusId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus) get(com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus.class, rhybcpstatusId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus.class);
+		      criteria.add(Restrictions.eq("id", rhybcpstatusId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus> getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus.class);

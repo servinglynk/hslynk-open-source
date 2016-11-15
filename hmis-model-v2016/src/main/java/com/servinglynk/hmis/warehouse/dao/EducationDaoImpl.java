@@ -103,7 +103,11 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 	       delete(education);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Education getEducationById(UUID educationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Education) get(com.servinglynk.hmis.warehouse.model.v2016.Education.class, educationId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Education.class);
+		      criteria.add(Restrictions.eq("id", educationId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Education> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Education>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Education> getAllEnrollmentEducations(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Education.class);

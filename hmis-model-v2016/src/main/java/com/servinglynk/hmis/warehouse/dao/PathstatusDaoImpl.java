@@ -110,7 +110,11 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 	       delete(pathstatus);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Pathstatus getPathstatusById(UUID pathstatusId){
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Pathstatus) get(com.servinglynk.hmis.warehouse.model.v2016.Pathstatus.class, pathstatusId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Pathstatus.class);
+		      criteria.add(Restrictions.eq("id", pathstatusId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Pathstatus> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Pathstatus>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Pathstatus> getAllEnrollmentPathstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Pathstatus.class);

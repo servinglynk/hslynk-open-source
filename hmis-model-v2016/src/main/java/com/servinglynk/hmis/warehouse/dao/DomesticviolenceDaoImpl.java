@@ -108,7 +108,11 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 	       delete(domesticViolence);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence getDomesticViolenceById(UUID domesticViolenceId){
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence) get(com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence.class, domesticViolenceId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence.class);
+		      criteria.add(Restrictions.eq("id", domesticViolenceId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence> getAllEnrollmentDomesticViolences(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence.class);
