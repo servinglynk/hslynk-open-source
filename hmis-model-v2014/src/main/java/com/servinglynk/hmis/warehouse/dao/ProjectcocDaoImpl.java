@@ -141,7 +141,11 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 	       delete(projectcoc);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Projectcoc getProjectcocById(UUID projectcocId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Projectcoc) get(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, projectcocId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class);
+		      criteria.add(Restrictions.eq("id", projectcocId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Projectcoc> getAllProjectProjectcocs(UUID projectId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class);

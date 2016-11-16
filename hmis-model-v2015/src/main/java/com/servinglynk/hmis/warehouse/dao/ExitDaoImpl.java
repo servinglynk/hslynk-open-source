@@ -127,7 +127,11 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	       delete(exit);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.Exit getExitById(UUID exitId){
-	       return (com.servinglynk.hmis.warehouse.model.v2015.Exit) get(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, exitId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exit.class);
+		      criteria.add(Restrictions.eq("id", exitId));
+		      List<com.servinglynk.hmis.warehouse.model.v2015.Exit> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.Exit>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2015.Exit> getAllEnrollmentExits(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Exit.class);

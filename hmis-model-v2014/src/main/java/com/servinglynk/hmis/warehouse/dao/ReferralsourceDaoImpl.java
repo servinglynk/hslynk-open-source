@@ -110,7 +110,11 @@ public class ReferralsourceDaoImpl extends ParentDaoImpl implements
 	       delete(referralsource);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Referralsource getReferralsourceById(UUID referralsourceId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Referralsource) get(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class, referralsourceId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class);
+		      criteria.add(Restrictions.eq("id", referralsourceId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Referralsource> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Referralsource>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Referralsource> getAllEnrollmentReferralsources(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Referralsource.class);

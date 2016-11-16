@@ -110,7 +110,11 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	       delete(organization);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Organization getOrganizationById(UUID organizationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Organization) get(com.servinglynk.hmis.warehouse.model.v2016.Organization.class, organizationId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Organization.class);
+		      criteria.add(Restrictions.eq("id", organizationId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Organization> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Organization>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Organization> getAllOrganizations(String projectGroupCode,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Organization.class);

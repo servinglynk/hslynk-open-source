@@ -109,7 +109,11 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 	       delete(worsthousingsituation);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation getWorsthousingsituationById(UUID worsthousingsituationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation) get(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class, worsthousingsituationId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class);
+		      criteria.add(Restrictions.eq("id", worsthousingsituationId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation> getAllEnrollmentWorsthousingsituations(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation.class);

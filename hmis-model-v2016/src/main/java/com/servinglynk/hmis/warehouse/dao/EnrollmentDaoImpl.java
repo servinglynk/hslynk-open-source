@@ -154,7 +154,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		return model;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2016.Enrollment getEnrollmentById(UUID enrollmentId) {
-	return (com.servinglynk.hmis.warehouse.model.v2016.Enrollment) get(com.servinglynk.hmis.warehouse.model.v2016.Enrollment.class,enrollmentId);
+	      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Enrollment.class);
+	      criteria.add(Restrictions.eq("id", enrollmentId));
+	      List<com.servinglynk.hmis.warehouse.model.v2016.Enrollment> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Enrollment>) findByCriteria(criteria);
+	      if(!entities.isEmpty()) return entities.get(0);
+	      return null;
 	}
 
 

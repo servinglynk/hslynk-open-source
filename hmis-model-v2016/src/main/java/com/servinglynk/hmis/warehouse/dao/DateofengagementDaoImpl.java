@@ -111,7 +111,11 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 	       delete(dateofengagement);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement getDateofengagementById(UUID dateofengagementId){
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement) get(com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement.class, dateofengagementId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement.class);
+		      criteria.add(Restrictions.eq("id", dateofengagementId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement> getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement.class);

@@ -158,7 +158,11 @@ public class VeteranInfoDaoImpl extends ParentDaoImpl implements VeteranInfoDao 
 	       delete(veteranInfo);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo getVeteranInfoById(UUID veteranInfoId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo) get(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class, veteranInfoId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo.class);
+		      criteria.add(Restrictions.eq("id", veteranInfoId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.VeteranInfo>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   
 	   @SuppressWarnings("unchecked")

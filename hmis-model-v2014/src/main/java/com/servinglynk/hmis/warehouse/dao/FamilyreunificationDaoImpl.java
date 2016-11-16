@@ -106,7 +106,11 @@ public class FamilyreunificationDaoImpl extends ParentDaoImpl implements
 	       delete(familyReunification);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Familyreunification getFamilyReunificationById(UUID familyReunificationId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Familyreunification) get(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class, familyReunificationId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Familyreunification.class);
+		      criteria.add(Restrictions.eq("id", familyReunificationId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Familyreunification>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   
 	   @SuppressWarnings("unchecked")

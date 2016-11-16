@@ -124,7 +124,11 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 	       delete(disabilities);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.Disabilities getDisabilitiesById(UUID disabilitiesId){
-	       return (com.servinglynk.hmis.warehouse.model.v2015.Disabilities) get(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class, disabilitiesId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Disabilities.class);
+		      criteria.add(Restrictions.eq("id", disabilitiesId));
+		      List<com.servinglynk.hmis.warehouse.model.v2015.Disabilities> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.Disabilities>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 
 	   @SuppressWarnings("unchecked")

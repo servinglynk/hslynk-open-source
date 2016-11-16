@@ -112,7 +112,11 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 	       delete(services);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Services getServicesById(UUID servicesId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Services) get(com.servinglynk.hmis.warehouse.model.v2014.Services.class, servicesId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Services.class);
+		      criteria.add(Restrictions.eq("id", servicesId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Services> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Services>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Services> getAllEnrollmentServicess(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Services.class);

@@ -160,7 +160,11 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 	       delete(veteranInfo);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo getVeteranInfoById(UUID veteranInfoId){
-	       return (com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo) get(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class, veteranInfoId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo.class);
+		      criteria.add(Restrictions.eq("id", veteranInfoId));
+		      List<com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 
 	   @SuppressWarnings("unchecked")

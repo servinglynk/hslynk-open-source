@@ -159,7 +159,11 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 	       delete(youthCriticalIssues);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues getYouthCriticalIssuesById(UUID youthCriticalIssuesId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues) get(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class, youthCriticalIssuesId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class);
+		      criteria.add(Restrictions.eq("id", youthCriticalIssuesId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues> getAllEnrollmentYouthCriticalIssuess(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues.class);

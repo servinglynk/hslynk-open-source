@@ -128,7 +128,11 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	       delete(noncashbenefits);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits getNoncashbenefitsById(UUID noncashbenefitsId){ 
-	       return (com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits) get(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class, noncashbenefitsId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class);
+		      criteria.add(Restrictions.eq("id", noncashbenefitsId));
+		      List<com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits> getAllEnrollmentNoncashbenefits(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits.class);

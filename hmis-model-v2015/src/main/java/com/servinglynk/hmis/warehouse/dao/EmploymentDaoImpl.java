@@ -116,7 +116,11 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	       delete(employment);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.Employment getEmploymentById(UUID employmentId){
-	       return (com.servinglynk.hmis.warehouse.model.v2015.Employment) get(com.servinglynk.hmis.warehouse.model.v2015.Employment.class, employmentId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Employment.class);
+		      criteria.add(Restrictions.eq("id", employmentId));
+		      List<com.servinglynk.hmis.warehouse.model.v2015.Employment> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.Employment>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2015.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Employment.class);

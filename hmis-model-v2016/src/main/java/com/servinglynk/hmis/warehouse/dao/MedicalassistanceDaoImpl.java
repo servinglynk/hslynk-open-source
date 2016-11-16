@@ -126,7 +126,11 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	       delete(medicalassistance);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance) get(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class, medicalassistanceId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class);
+		      criteria.add(Restrictions.eq("id", medicalassistanceId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance> getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class);

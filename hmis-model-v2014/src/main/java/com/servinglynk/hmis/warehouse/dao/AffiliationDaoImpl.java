@@ -99,7 +99,11 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 		       delete(affiliation);
 		   }
 		   public com.servinglynk.hmis.warehouse.model.v2014.Affiliation getAffiliationById(UUID affiliationId){ 
-		       return (com.servinglynk.hmis.warehouse.model.v2014.Affiliation) get(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, affiliationId);
+			      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class);
+			      criteria.add(Restrictions.eq("id", affiliationId));
+			      List<com.servinglynk.hmis.warehouse.model.v2014.Affiliation> entities = (List<com.servinglynk.hmis.warehouse.model.v2014.Affiliation>) findByCriteria(criteria);
+			      if(!entities.isEmpty()) return entities.get(0);
+			      return null;
 		   }
 		   public List<com.servinglynk.hmis.warehouse.model.v2014.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems){
 		       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class);

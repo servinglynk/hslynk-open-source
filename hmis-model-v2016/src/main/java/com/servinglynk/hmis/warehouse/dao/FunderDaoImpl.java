@@ -114,7 +114,11 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	       delete(funder);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2016.Funder getFunderById(UUID funderId){
-	       return (com.servinglynk.hmis.warehouse.model.v2016.Funder) get(com.servinglynk.hmis.warehouse.model.v2016.Funder.class, funderId);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Funder.class);
+		      criteria.add(Restrictions.eq("id", funderId));
+		      List<com.servinglynk.hmis.warehouse.model.v2016.Funder> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Funder>) findByCriteria(criteria);
+		      if(!entities.isEmpty()) return entities.get(0);
+		      return null;
 	   }
 	   public List<com.servinglynk.hmis.warehouse.model.v2016.Funder> getAllProjectFunders(UUID projectId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Funder.class);
