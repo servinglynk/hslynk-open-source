@@ -21,7 +21,6 @@ public class ProjectConverter extends BaseConverter {
        entity.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(model.getTrackingMethod().toString()));
        if(model.getTargetPopulation()!=null)
        entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
-       entity.setProjectGroupCode(model.getProjectGroup());
        return entity;    
    }
 
