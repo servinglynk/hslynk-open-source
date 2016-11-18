@@ -323,7 +323,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Client updateClient(
 			com.servinglynk.hmis.warehouse.model.v2015.Client client) {
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
+		BeanUtils.copyProperties(client, baseClient);
+		baseClient.setSchemaYear("2015");
 			update(client);
+			update(baseClient);
 		return client;
 	}
 

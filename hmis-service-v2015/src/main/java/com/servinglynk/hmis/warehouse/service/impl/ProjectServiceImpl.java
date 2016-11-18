@@ -5,11 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
-import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
@@ -24,7 +22,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    @Transactional
    public Project createProject(Project project,String caller){
 	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
-	   project.setProjectGroup(user.getProjectGroupEntity().getProjectGroupCode());
+
        com.servinglynk.hmis.warehouse.model.v2015.Project pProject = ProjectConverter.modelToEntity(project, null);
 
 	   if(project.getOrganizationId()!=null){
@@ -32,16 +30,11 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 		   if(pOrganization==null) throw new OrganizationNotFoundException();
 		   pProject.setOrganizationid(pOrganization);
 	   }
+	   pProject.setProjectGroupCode(user.getProjectGroupEntity().getProjectGroupCode());
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pProject.setUserId(user.getId());
        daoFactory.getProjectDao().createProject(pProject);
-       project.setProjectId(pProject.getId());
-       
-       BaseProject baseProject = new BaseProject();
-       BeanUtils.copyProperties(project, baseProject);
-       baseProject.setSchemaYear(2015);
-       serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
-       
+       project.setProjectId(pProject.getId());    
        return project;
    }
 

@@ -24,7 +24,6 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    @Transactional
    public Project createProject(Project project,String caller){
 	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
-	   project.setProjectGroup(user.getProjectGroupEntity().getProjectGroupCode());
        com.servinglynk.hmis.warehouse.model.v2014.Project pProject = ProjectConverter.modelToEntity(project, null);
        if(project.getOrganizationId()!=null) {
     	   com.servinglynk.hmis.warehouse.model.v2014.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(project.getOrganizationId());
@@ -33,13 +32,14 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        }
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pProject.setUserId(user.getId());       
+       pProject.setProjectGroupCode(user.getProjectGroupEntity().getProjectGroupCode());
        daoFactory.getProjectDao().createProject(pProject);
        project.setProjectId(pProject.getId());
        
        BaseProject baseProject = new BaseProject();
        BeanUtils.copyProperties(project, baseProject);
        baseProject.setSchemaYear(2014);
-       serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
+     //  serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
        
        return project;
    }
