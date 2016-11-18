@@ -1,0 +1,621 @@
+2016-11-13 19:13:08 main NativeCodeLoader [WARN] Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2016-11-13 19:13:08 main RecoverableZooKeeper [INFO] Process identifier=hconnection-0x245b4bdc connecting to ZooKeeper ensemble=localhost:2181
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:zookeeper.version=3.4.5-cdh5.7.1--1, built on 06/01/2016 23:20 GMT
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:host.name=flaviuss-mbp
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.version=1.8.0_60
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.vendor=Oracle Corporation
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.class.path=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/lib/tools.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Users/flaviusi/Documents/HADOOP/sync-general-schema/sync/target/classes:/Users/flaviusi/.m2/repository/org/apache/zookeeper/zookeeper/3.4.5-cdh5.7.1/zookeeper-3.4.5-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar:/Users/flaviusi/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar:/Users/flaviusi/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/Users/flaviusi/.m2/repository/jline/jline/2.11/jline-2.11.jar:/Users/flaviusi/.m2/repository/org/jboss/netty/netty/3.2.2.Final/netty-3.2.2.Final.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-common/2.6.0-cdh5.7.1/hadoop-common-2.6.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-annotations/2.6.0-cdh5.7.1/hadoop-annotations-2.6.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/com/google/guava/guava/11.0.2/guava-11.0.2.jar:/Users/flaviusi/.m2/repository/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar:/Users/flaviusi/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/Users/flaviusi/.m2/repository/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar:/Users/flaviusi/.m2/repository/xmlenc/xmlenc/0.52/xmlenc-0.52.jar:/Users/flaviusi/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar:/Users/flaviusi/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar:/Users/flaviusi/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:/Users/flaviusi/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar:/Users/flaviusi/.m2/repository/commons-net/commons-net/3.1/commons-net-3.1.jar:/Users/flaviusi/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/Users/flaviusi/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar:/Users/flaviusi/.m2/repository/org/mortbay/jetty/jetty/6.1.26.cloudera.4/jetty-6.1.26.cloudera.4.jar:/Users/flaviusi/.m2/repository/org/mortbay/jetty/jetty-util/6.1.26.cloudera.4/jetty-util-6.1.26.cloudera.4.jar:/Users/flaviusi/.m2/repository/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar:/Users/flaviusi/.m2/repository/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar:/Users/flaviusi/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar:/Users/flaviusi/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar:/Users/flaviusi/.m2/repository/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar:/Users/flaviusi/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar:/Users/flaviusi/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/flaviusi/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.8.8/jackson-core-asl-1.8.8.jar:/Users/flaviusi/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.8.8/jackson-mapper-asl-1.8.8.jar:/Users/flaviusi/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.8.8/jackson-jaxrs-1.8.8.jar:/Users/flaviusi/.m2/repository/org/codehaus/jackson/jackson-xc/1.8.3/jackson-xc-1.8.3.jar:/Users/flaviusi/.m2/repository/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar:/Users/flaviusi/.m2/repository/asm/asm/3.1/asm-3.1.jar:/Users/flaviusi/.m2/repository/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar:/Users/flaviusi/.m2/repository/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar:/Users/flaviusi/.m2/repository/commons-el/commons-el/1.0/commons-el-1.0.jar:/Users/flaviusi/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar:/Users/flaviusi/.m2/repository/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar:/Users/flaviusi/.m2/repository/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar:/Users/flaviusi/.m2/repository/org/apache/httpcomponents/httpcore/4.4/httpcore-4.4.jar:/Users/flaviusi/.m2/repository/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar:/Users/flaviusi/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/Users/flaviusi/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar:/Users/flaviusi/.m2/repository/commons-digester/commons-digester/1.7/commons-digester-1.7.jar:/Users/flaviusi/.m2/repository/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar:/Users/flaviusi/.m2/repository/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar:/Users/flaviusi/.m2/repository/org/apache/avro/avro/1.7.6-cdh5.7.1/avro-1.7.6-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar:/Users/flaviusi/.m2/repository/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar:/Users/flaviusi/.m2/repository/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar:/Users/flaviusi/.m2/repository/org/tukaani/xz/1.0/xz-1.0.jar:/Users/flaviusi/.m2/repository/com/google/protobuf/protobuf-java/2.5.0/protobuf-java-2.5.0.jar:/Users/flaviusi/.m2/repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-auth/2.6.0-cdh5.7.1/hadoop-auth-2.6.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar:/Users/flaviusi/.m2/repository/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar:/Users/flaviusi/.m2/repository/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar:/Users/flaviusi/.m2/repository/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar:/Users/flaviusi/.m2/repository/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar:/Users/flaviusi/.m2/repository/org/apache/curator/curator-client/2.7.1/curator-client-2.7.1.jar:/Users/flaviusi/.m2/repository/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar:/Users/flaviusi/.m2/repository/org/apache/curator/curator-recipes/2.7.1/curator-recipes-2.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/htrace/htrace-core4/4.0.1-incubating/htrace-core4-4.0.1-incubating.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-common/1.2.0-cdh5.7.1/hbase-common-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-protocol/1.2.0-cdh5.7.1/hbase-protocol-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-annotations/1.2.0-cdh5.7.1/hbase-annotations-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/com/github/stephenc/findbugs/findbugs-annotations/1.3.9-1/findbugs-annotations-1.3.9-1.jar:/Users/flaviusi/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/flaviusi/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/flaviusi/.m2/repository/org/apache/htrace/htrace-core/3.1.0-incubating/htrace-core-3.1.0-incubating.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-core/2.6.0-mr1-cdh5.7.1/hadoop-core-2.6.0-mr1-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar:/Users/flaviusi/.m2/repository/org/eclipse/jdt/core/3.1.1/core-3.1.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-client/1.2.0-cdh5.7.1/hbase-client-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar:/Users/flaviusi/.m2/repository/org/jruby/jcodings/jcodings/1.0.8/jcodings-1.0.8.jar:/Users/flaviusi/.m2/repository/org/jruby/joni/joni/2.1.2/joni-2.1.2.jar:/Users/flaviusi/.m2/repository/com/yammer/metrics/metrics-core/2.2.0/metrics-core-2.2.0.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-hadoop2-compat/1.2.0-cdh5.7.1/hbase-hadoop2-compat-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-hadoop-compat/1.2.0-cdh5.7.1/hbase-hadoop-compat-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/commons/commons-math/2.1/commons-math-2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-it/1.2.0-cdh5.7.1/hbase-it-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-shell/1.2.0-cdh5.7.1/hbase-shell-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-prefix-tree/1.2.0-cdh5.7.1/hbase-prefix-tree-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-common/1.2.0-cdh5.7.1/hbase-common-1.2.0-cdh5.7.1-tests.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-server/1.2.0-cdh5.7.1/hbase-server-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-procedure/1.2.0-cdh5.7.1/hbase-procedure-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/com/github/stephenc/high-scale-lib/high-scale-lib/1.1.1/high-scale-lib-1.1.1.jar:/Users/flaviusi/.m2/repository/org/mortbay/jetty/jetty-sslengine/6.1.26.cloudera.4/jetty-sslengine-6.1.26.cloudera.4.jar:/Users/flaviusi/.m2/repository/org/mortbay/jetty/jsp-2.1/6.1.14/jsp-2.1-6.1.14.jar:/Users/flaviusi/.m2/repository/org/mortbay/jetty/jsp-api-2.1/6.1.14/jsp-api-2.1-6.1.14.jar:/Users/flaviusi/.m2/repository/org/mortbay/jetty/servlet-api-2.5/6.1.14/servlet-api-2.5-6.1.14.jar:/Users/flaviusi/.m2/repository/org/jamon/jamon-runtime/2.4.1/jamon-runtime-2.4.1.jar:/Users/flaviusi/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar:/Users/flaviusi/.m2/repository/org/owasp/esapi/esapi/2.1.0/esapi-2.1.0.jar:/Users/flaviusi/.m2/repository/commons-fileupload/commons-fileupload/1.2/commons-fileupload-1.2.jar:/Users/flaviusi/.m2/repository/xom/xom/1.2.5/xom-1.2.5.jar:/Users/flaviusi/.m2/repository/xml-apis/xml-apis/1.3.02/xml-apis-1.3.02.jar:/Users/flaviusi/.m2/repository/xalan/xalan/2.7.0/xalan-2.7.0.jar:/Users/flaviusi/.m2/repository/org/beanshell/bsh-core/2.0b4/bsh-core-2.0b4.jar:/Users/flaviusi/.m2/repository/org/owasp/antisamy/antisamy/1.4.3/antisamy-1.4.3.jar:/Users/flaviusi/.m2/repository/org/apache/xmlgraphics/batik-css/1.7/batik-css-1.7.jar:/Users/flaviusi/.m2/repository/org/apache/xmlgraphics/batik-ext/1.7/batik-ext-1.7.jar:/Users/flaviusi/.m2/repository/org/apache/xmlgraphics/batik-util/1.7/batik-util-1.7.jar:/Users/flaviusi/.m2/repository/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.jar:/Users/flaviusi/.m2/repository/net/sourceforge/nekohtml/nekohtml/1.9.12/nekohtml-1.9.12.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-hdfs/2.6.0-cdh5.7.1/hadoop-hdfs-2.6.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/commons-daemon/commons-daemon/1.0.13/commons-daemon-1.0.13.jar:/Users/flaviusi/.m2/repository/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.jar:/Users/flaviusi/.m2/repository/org/fusesource/leveldbjni/leveldbjni-all/1.8/leveldbjni-all-1.8.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-hdfs/2.6.0-cdh5.7.1/hadoop-hdfs-2.6.0-cdh5.7.1-tests.jar:/Users/flaviusi/.m2/repository/org/jruby/jruby-cloudera/1.0.0/jruby-cloudera-1.0.0.jar:/Users/flaviusi/.m2/repository/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-examples/1.2.0-cdh5.7.1/hbase-examples-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-thrift/1.2.0-cdh5.7.1/hbase-thrift-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/thrift/libthrift/0.9.3/libthrift-0.9.3.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-rest/1.2.0-cdh5.7.1/hbase-rest-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hbase/hbase-checkstyle/1.2.0-cdh5.7.1/hbase-checkstyle-1.2.0-cdh5.7.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-exec/1.2.1/hive-exec-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-ant/1.2.1/hive-ant-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/ant/ant/1.9.1/ant-1.9.1.jar:/Users/flaviusi/.m2/repository/org/apache/ant/ant-launcher/1.9.1/ant-launcher-1.9.1.jar:/Users/flaviusi/.m2/repository/org/apache/velocity/velocity/1.5/velocity-1.5.jar:/Users/flaviusi/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-metastore/1.2.1/hive-metastore-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-serde/1.2.1/hive-serde-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-common/1.2.1/hive-common-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-shims/1.2.1/hive-shims-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/shims/hive-shims-common/1.2.1/hive-shims-common-1.2.1.jar:/Users/flaviusi/.m2/repository/log4j/apache-log4j-extras/1.2.17/apache-log4j-extras-1.2.17.jar:/Users/flaviusi/.m2/repository/org/apache/hive/shims/hive-shims-0.20S/1.2.1/hive-shims-0.20S-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/shims/hive-shims-0.23/1.2.1/hive-shims-0.23-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-yarn-server-resourcemanager/2.6.0/hadoop-yarn-server-resourcemanager-2.6.0.jar:/Users/flaviusi/.m2/repository/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar:/Users/flaviusi/.m2/repository/com/google/inject/guice/3.0/guice-3.0.jar:/Users/flaviusi/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/flaviusi/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/flaviusi/.m2/repository/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-yarn-server-common/2.6.0/hadoop-yarn-server-common-2.6.0.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-yarn-server-applicationhistoryservice/2.6.0/hadoop-yarn-server-applicationhistoryservice-2.6.0.jar:/Users/flaviusi/.m2/repository/org/apache/hadoop/hadoop-yarn-server-web-proxy/2.6.0/hadoop-yarn-server-web-proxy-2.6.0.jar:/Users/flaviusi/.m2/repository/org/apache/hive/shims/hive-shims-scheduler/1.2.1/hive-shims-scheduler-1.2.1.jar:/Users/flaviusi/.m2/repository/joda-time/joda-time/2.5/joda-time-2.5.jar:/Users/flaviusi/.m2/repository/org/json/json/20090211/json-20090211.jar:/Users/flaviusi/.m2/repository/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar:/Users/flaviusi/.m2/repository/com/twitter/parquet-hadoop-bundle/1.6.0/parquet-hadoop-bundle-1.6.0.jar:/Users/flaviusi/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.jar:/Users/flaviusi/.m2/repository/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar:/Users/flaviusi/.m2/repository/org/datanucleus/datanucleus-api-jdo/3.2.6/datanucleus-api-jdo-3.2.6.jar:/Users/flaviusi/.m2/repository/org/datanucleus/datanucleus-core/3.2.10/datanucleus-core-3.2.10.jar:/Users/flaviusi/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.jar:/Users/flaviusi/.m2/repository/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar:/Users/flaviusi/.m2/repository/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar:/Users/flaviusi/.m2/repository/javax/jdo/jdo-api/3.0.1/jdo-api-3.0.1.jar:/Users/flaviusi/.m2/repository/javax/transaction/jta/1.1/jta-1.1.jar:/Users/flaviusi/.m2/repository/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.jar:/Users/flaviusi/.m2/repository/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar:/Users/flaviusi/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar:/Users/flaviusi/.m2/repository/org/apache/thrift/libfb303/0.9.2/libfb303-0.9.2.jar:/Users/flaviusi/.m2/repository/org/antlr/ST4/4.0.4/ST4-4.0.4.jar:/Users/flaviusi/.m2/repository/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar:/Users/flaviusi/.m2/repository/org/codehaus/groovy/groovy-all/2.1.6/groovy-all-2.1.6.jar:/Users/flaviusi/.m2/repository/org/apache/calcite/calcite-core/1.2.0-incubating/calcite-core-1.2.0-incubating.jar:/Users/flaviusi/.m2/repository/org/apache/calcite/calcite-avatica/1.2.0-incubating/calcite-avatica-1.2.0-incubating.jar:/Users/flaviusi/.m2/repository/org/apache/calcite/calcite-linq4j/1.2.0-incubating/calcite-linq4j-1.2.0-incubating.jar:/Users/flaviusi/.m2/repository/net/hydromatic/eigenbase-properties/1.1.5/eigenbase-properties-1.1.5.jar:/Users/flaviusi/.m2/repository/org/codehaus/janino/janino/2.7.6/janino-2.7.6.jar:/Users/flaviusi/.m2/repository/org/codehaus/janino/commons-compiler/2.7.6/commons-compiler-2.7.6.jar:/Users/flaviusi/.m2/repository/org/pentaho/pentaho-aggdesigner-algorithm/5.1.5-jhyde/pentaho-aggdesigner-algorithm-5.1.5-jhyde.jar:/Users/flaviusi/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-jdbc/1.2.1/hive-jdbc-1.2.1.jar:/Users/flaviusi/.m2/repository/org/apache/hive/hive-service/1.2.1/hive-service-1.2.1.jar:/Users/flaviusi/.m2/repository/net/sf/jpam/jpam/1.1/jpam-1.1.jar:/Users/flaviusi/.m2/repository/org/eclipse/jetty/aggregate/jetty-all/7.6.0.v20120127/jetty-all-7.6.0.v20120127.jar:/Users/flaviusi/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar:/Users/flaviusi/.m2/repository/javax/mail/mail/1.4.4/mail-1.4.4.jar:/Users/flaviusi/.m2/repository/org/apache/geronimo/specs/geronimo-jaspic_1.0_spec/1.0/geronimo-jaspic_1.0_spec-1.0.jar:/Users/flaviusi/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1.jar:/Users/flaviusi/.m2/repository/asm/asm-commons/3.1/asm-commons-3.1.jar:/Users/flaviusi/.m2/repository/asm/asm-tree/3.1/asm-tree-3.1.jar:/Users/flaviusi/.m2/repository/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar:/Users/flaviusi/.m2/repository/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar:/Users/flaviusi/.m2/repository/com/lowagie/itext/2.1.7/itext-2.1.7.jar:/Users/flaviusi/.m2/repository/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar:/Users/flaviusi/.m2/repository/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar:/Users/flaviusi/.m2/repository/org/bouncycastle/bctsp-jdk14/1.38/bctsp-jdk14-1.38.jar:/Users/flaviusi/.m2/repository/org/bouncycastle/bcprov-jdk14/1.38/bcprov-jdk14-1.38.jar:/Users/flaviusi/.m2/repository/org/bouncycastle/bcmail-jdk14/1.38/bcmail-jdk14-1.38.jar:/Users/flaviusi/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar:/Users/flaviusi/.m2/repository/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar:/Users/flaviusi/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/Users/flaviusi/.m2/repository/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar:/Users/flaviusi/.m2/repository/net/sf/jasperreports/jasperreports/3.7.6/jasperreports-3.7.6.jar:/Users/flaviusi/.m2/repository/jfree/jcommon/1.0.15/jcommon-1.0.15.jar:/Users/flaviusi/.m2/repository/jfree/jfreechart/1.0.12/jfreechart-1.0.12.jar:/Users/flaviusi/.m2/repository/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar:/Users/flaviusi/.m2/repository/org/postgresql/postgresql/9.4.1208/postgresql-9.4.1208.jar:/Applications/IntelliJ IDEA 14.app/Contents/lib/idea_rt.jar
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.library.path=/Users/flaviusi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.io.tmpdir=/var/folders/7h/gv09tbmj3cb3ssv_qdct5hwh0000gn/T/
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:java.compiler=<NA>
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:os.name=Mac OS X
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:os.arch=x86_64
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:os.version=10.11.6
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:user.name=flaviusi
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:user.home=/Users/flaviusi
+2016-11-13 19:13:08 main ZooKeeper [INFO] Client environment:user.dir=/Users/flaviusi/Documents/HADOOP/sync-general-schema/sync
+2016-11-13 19:13:08 main ZooKeeper [INFO] Initiating client connection, connectString=localhost:2181 sessionTimeout=90000 watcher=hconnection-0x245b4bdc0x0, quorum=localhost:2181, baseZNode=/hbase
+2016-11-13 19:13:08 main-SendThread(localhost:2181) ClientCnxn [INFO] Opening socket connection to server localhost/0:0:0:0:0:0:0:1:2181. Will not attempt to authenticate using SASL (unknown error)
+2016-11-13 19:13:08 main-SendThread(localhost:2181) ClientCnxn [INFO] Socket connection established, initiating session, client: /0:0:0:0:0:0:0:1:49944, server: localhost/0:0:0:0:0:0:0:1:2181
+2016-11-13 19:13:08 main-SendThread(localhost:2181) ClientCnxn [INFO] Session establishment complete on server localhost/0:0:0:0:0:0:0:1:2181, sessionid = 0x1585eac08790006, negotiated timeout = 40000
+2016-11-13 19:13:09 main SyncSchema [INFO] Start a new sync for schema base
+2016-11-13 19:13:09 main SyncSchema [INFO] Get tables to sync
+2016-11-13 19:13:09 main SyncSchema [INFO] Found 39 tables to sync
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_project_group
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_api_method
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: bulk_upload
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: client
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_account_consent
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_account_data_change
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_account_lockout
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_account_preference
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_api_group
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_consent_message
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_developer_company
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_developer_company_account
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_developer_company_status
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_password_reset
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_permission_set
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_permission_set_acl
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_profile
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_profile_acl
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_project_projectgroup_map
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_property
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_redirect_uri
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_refresh_token
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_release_of_info
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_request_token
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_role
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_service
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_service_api_method
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_service_license
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_service_status
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_session
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_sharing_rule
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_trusted_app
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_trusted_app_status
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_user
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_user_permission_set_acl
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_user_project
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_user_role_map
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: hmis_verification
+2016-11-13 19:13:09 main SyncSchema [INFO] Table to sync: organization
+2016-11-13 19:13:09 main SyncMainAllSchemas [INFO] 
+
+
+
+
+
+Start new sync for id: base
+2016-11-13 19:13:09 main SyncMainAllSchemas [INFO] Create tables in HBASE
+2016-11-13 19:13:09 main deprecation [INFO] hadoop.native.lib is deprecated. Instead, use io.native.lib.available
+2016-11-13 19:13:11 main HBaseAdmin [INFO] Created hmis_project_group_base
+2016-11-13 19:13:11 main SyncHBaseProcessor [INFO] Table ::hmis_project_group_base created.
+2016-11-13 19:13:14 main HBaseAdmin [INFO] Created hmis_api_method_base
+2016-11-13 19:13:14 main SyncHBaseProcessor [INFO] Table ::hmis_api_method_base created.
+2016-11-13 19:13:16 main HBaseAdmin [INFO] Created bulk_upload_base
+2016-11-13 19:13:16 main SyncHBaseProcessor [INFO] Table ::bulk_upload_base created.
+2016-11-13 19:13:18 main HBaseAdmin [INFO] Created client_base
+2016-11-13 19:13:18 main SyncHBaseProcessor [INFO] Table ::client_base created.
+2016-11-13 19:13:20 main HBaseAdmin [INFO] Created hmis_account_consent_base
+2016-11-13 19:13:20 main SyncHBaseProcessor [INFO] Table ::hmis_account_consent_base created.
+2016-11-13 19:13:22 main HBaseAdmin [INFO] Created hmis_account_data_change_base
+2016-11-13 19:13:22 main SyncHBaseProcessor [INFO] Table ::hmis_account_data_change_base created.
+2016-11-13 19:13:25 main HBaseAdmin [INFO] Created hmis_account_lockout_base
+2016-11-13 19:13:25 main SyncHBaseProcessor [INFO] Table ::hmis_account_lockout_base created.
+2016-11-13 19:13:27 main HBaseAdmin [INFO] Created hmis_account_preference_base
+2016-11-13 19:13:27 main SyncHBaseProcessor [INFO] Table ::hmis_account_preference_base created.
+2016-11-13 19:13:29 main HBaseAdmin [INFO] Created hmis_api_group_base
+2016-11-13 19:13:29 main SyncHBaseProcessor [INFO] Table ::hmis_api_group_base created.
+2016-11-13 19:13:31 main HBaseAdmin [INFO] Created hmis_consent_message_base
+2016-11-13 19:13:31 main SyncHBaseProcessor [INFO] Table ::hmis_consent_message_base created.
+2016-11-13 19:13:34 main HBaseAdmin [INFO] Created hmis_developer_company_base
+2016-11-13 19:13:34 main SyncHBaseProcessor [INFO] Table ::hmis_developer_company_base created.
+2016-11-13 19:13:36 main HBaseAdmin [INFO] Created hmis_developer_company_account_base
+2016-11-13 19:13:36 main SyncHBaseProcessor [INFO] Table ::hmis_developer_company_account_base created.
+2016-11-13 19:13:38 main HBaseAdmin [INFO] Created hmis_developer_company_status_base
+2016-11-13 19:13:38 main SyncHBaseProcessor [INFO] Table ::hmis_developer_company_status_base created.
+2016-11-13 19:13:40 main HBaseAdmin [INFO] Created hmis_password_reset_base
+2016-11-13 19:13:40 main SyncHBaseProcessor [INFO] Table ::hmis_password_reset_base created.
+2016-11-13 19:13:43 main HBaseAdmin [INFO] Created hmis_permission_set_base
+2016-11-13 19:13:43 main SyncHBaseProcessor [INFO] Table ::hmis_permission_set_base created.
+2016-11-13 19:13:45 main HBaseAdmin [INFO] Created hmis_permission_set_acl_base
+2016-11-13 19:13:45 main SyncHBaseProcessor [INFO] Table ::hmis_permission_set_acl_base created.
+2016-11-13 19:13:47 main HBaseAdmin [INFO] Created hmis_profile_base
+2016-11-13 19:13:47 main SyncHBaseProcessor [INFO] Table ::hmis_profile_base created.
+2016-11-13 19:13:49 main HBaseAdmin [INFO] Created hmis_profile_acl_base
+2016-11-13 19:13:49 main SyncHBaseProcessor [INFO] Table ::hmis_profile_acl_base created.
+2016-11-13 19:13:52 main HBaseAdmin [INFO] Created hmis_project_projectgroup_map_base
+2016-11-13 19:13:52 main SyncHBaseProcessor [INFO] Table ::hmis_project_projectgroup_map_base created.
+2016-11-13 19:13:54 main HBaseAdmin [INFO] Created hmis_property_base
+2016-11-13 19:13:54 main SyncHBaseProcessor [INFO] Table ::hmis_property_base created.
+2016-11-13 19:13:56 main HBaseAdmin [INFO] Created hmis_redirect_uri_base
+2016-11-13 19:13:56 main SyncHBaseProcessor [INFO] Table ::hmis_redirect_uri_base created.
+2016-11-13 19:13:58 main HBaseAdmin [INFO] Created hmis_refresh_token_base
+2016-11-13 19:13:58 main SyncHBaseProcessor [INFO] Table ::hmis_refresh_token_base created.
+2016-11-13 19:14:01 main HBaseAdmin [INFO] Created hmis_release_of_info_base
+2016-11-13 19:14:01 main SyncHBaseProcessor [INFO] Table ::hmis_release_of_info_base created.
+2016-11-13 19:14:03 main HBaseAdmin [INFO] Created hmis_request_token_base
+2016-11-13 19:14:03 main SyncHBaseProcessor [INFO] Table ::hmis_request_token_base created.
+2016-11-13 19:14:05 main HBaseAdmin [INFO] Created hmis_role_base
+2016-11-13 19:14:05 main SyncHBaseProcessor [INFO] Table ::hmis_role_base created.
+2016-11-13 19:14:07 main HBaseAdmin [INFO] Created hmis_service_base
+2016-11-13 19:14:07 main SyncHBaseProcessor [INFO] Table ::hmis_service_base created.
+2016-11-13 19:14:09 main HBaseAdmin [INFO] Created hmis_service_api_method_base
+2016-11-13 19:14:09 main SyncHBaseProcessor [INFO] Table ::hmis_service_api_method_base created.
+2016-11-13 19:14:12 main HBaseAdmin [INFO] Created hmis_service_license_base
+2016-11-13 19:14:12 main SyncHBaseProcessor [INFO] Table ::hmis_service_license_base created.
+2016-11-13 19:14:14 main HBaseAdmin [INFO] Created hmis_service_status_base
+2016-11-13 19:14:14 main SyncHBaseProcessor [INFO] Table ::hmis_service_status_base created.
+2016-11-13 19:14:16 main HBaseAdmin [INFO] Created hmis_session_base
+2016-11-13 19:14:16 main SyncHBaseProcessor [INFO] Table ::hmis_session_base created.
+2016-11-13 19:14:18 main HBaseAdmin [INFO] Created hmis_sharing_rule_base
+2016-11-13 19:14:18 main SyncHBaseProcessor [INFO] Table ::hmis_sharing_rule_base created.
+2016-11-13 19:14:21 main HBaseAdmin [INFO] Created hmis_trusted_app_base
+2016-11-13 19:14:21 main SyncHBaseProcessor [INFO] Table ::hmis_trusted_app_base created.
+2016-11-13 19:14:23 main HBaseAdmin [INFO] Created hmis_trusted_app_status_base
+2016-11-13 19:14:23 main SyncHBaseProcessor [INFO] Table ::hmis_trusted_app_status_base created.
+2016-11-13 19:14:25 main HBaseAdmin [INFO] Created hmis_user_base
+2016-11-13 19:14:25 main SyncHBaseProcessor [INFO] Table ::hmis_user_base created.
+2016-11-13 19:14:27 main HBaseAdmin [INFO] Created hmis_user_permission_set_acl_base
+2016-11-13 19:14:27 main SyncHBaseProcessor [INFO] Table ::hmis_user_permission_set_acl_base created.
+2016-11-13 19:14:30 main HBaseAdmin [INFO] Created hmis_user_project_base
+2016-11-13 19:14:30 main SyncHBaseProcessor [INFO] Table ::hmis_user_project_base created.
+2016-11-13 19:14:32 main HBaseAdmin [INFO] Created hmis_user_role_map_base
+2016-11-13 19:14:32 main SyncHBaseProcessor [INFO] Table ::hmis_user_role_map_base created.
+2016-11-13 19:14:34 main HBaseAdmin [INFO] Created hmis_verification_base
+2016-11-13 19:14:34 main SyncHBaseProcessor [INFO] Table ::hmis_verification_base created.
+2016-11-13 19:14:36 main HBaseAdmin [INFO] Created organization_base
+2016-11-13 19:14:36 main SyncHBaseProcessor [INFO] Table ::organization_base created.
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] Create tables done
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_project_group] Processing table : hmis_project_group
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_api_method] Processing table : hmis_api_method
+2016-11-13 19:14:36 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_project_group] Start thread  for: hmis_project_group
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [bulk_upload] Processing table : bulk_upload
+2016-11-13 19:14:36 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_api_method] Start thread  for: hmis_api_method
+2016-11-13 19:14:36 pool-2-thread-2 SyncSchema [INFO] Start sync for table: hmis_api_method
+2016-11-13 19:14:36 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_project_group
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [client] Processing table : client
+2016-11-13 19:14:36 pool-2-thread-3 SyncMainAllSchemas [INFO] [bulk_upload] Start thread  for: bulk_upload
+2016-11-13 19:14:36 pool-2-thread-3 SyncSchema [INFO] Start sync for table: bulk_upload
+2016-11-13 19:14:36 pool-2-thread-4 SyncMainAllSchemas [INFO] [client] Start thread  for: client
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_account_consent] Processing table : hmis_account_consent
+2016-11-13 19:14:36 pool-2-thread-4 SyncSchema [INFO] Start sync for table: client
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_account_data_change] Processing table : hmis_account_data_change
+2016-11-13 19:14:36 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_account_consent] Start thread  for: hmis_account_consent
+2016-11-13 19:14:36 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_account_consent
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_account_lockout] Processing table : hmis_account_lockout
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_account_preference] Processing table : hmis_account_preference
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_api_group] Processing table : hmis_api_group
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_consent_message] Processing table : hmis_consent_message
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_developer_company] Processing table : hmis_developer_company
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_developer_company_account] Processing table : hmis_developer_company_account
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_developer_company_status] Processing table : hmis_developer_company_status
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_password_reset] Processing table : hmis_password_reset
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_permission_set] Processing table : hmis_permission_set
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_permission_set_acl] Processing table : hmis_permission_set_acl
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_profile] Processing table : hmis_profile
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_profile_acl] Processing table : hmis_profile_acl
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_project_projectgroup_map] Processing table : hmis_project_projectgroup_map
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_property] Processing table : hmis_property
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_redirect_uri] Processing table : hmis_redirect_uri
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_refresh_token] Processing table : hmis_refresh_token
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_release_of_info] Processing table : hmis_release_of_info
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_request_token] Processing table : hmis_request_token
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_role] Processing table : hmis_role
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_service] Processing table : hmis_service
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_service_api_method] Processing table : hmis_service_api_method
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_service_license] Processing table : hmis_service_license
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_service_status] Processing table : hmis_service_status
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_session] Processing table : hmis_session
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_sharing_rule] Processing table : hmis_sharing_rule
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_trusted_app] Processing table : hmis_trusted_app
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_trusted_app_status] Processing table : hmis_trusted_app_status
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_user] Processing table : hmis_user
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_user_permission_set_acl] Processing table : hmis_user_permission_set_acl
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_user_project] Processing table : hmis_user_project
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_user_role_map] Processing table : hmis_user_role_map
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [hmis_verification] Processing table : hmis_verification
+2016-11-13 19:14:36 main SyncMainAllSchemas [INFO] [organization] Processing table : organization
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 003c0e10-2762-4f03-af05-62abbc3418cb
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 005bb0bb-e62a-49e2-8e97-a9cce4a8cc7d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 037d0c61-0534-44df-b536-16424c2ca46c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 0680efdd-82d3-4352-a099-886a4c948c11
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 07f41388-f90a-4d29-9092-8d22d83d9f12
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_account_consent
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_account_consent]End thread for: hmis_account_consent
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_project_group
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_account_data_change] Start thread  for: hmis_account_data_change
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_account_data_change
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_project_group]End thread for: hmis_project_group
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_account_lockout] Start thread  for: hmis_account_lockout
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_account_lockout
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 0b6be24c-5cc5-45ca-aa0b-a558eb82dea9
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 0cb8cc4f-9a88-4e92-b79b-229d4fbd44d5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 0f93f396-4857-46be-8666-9cefb0a7d632
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 178452f4-209f-42ed-9ba9-a4aec9870bb4
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1b3a72d4-4ffd-499e-b123-7b464eb8129c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1b7247ad-efc1-4dbf-84ae-e0c1f38e2c5f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1e8330d7-93bf-4807-bd90-196e50696ef5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1f4b9e82-fd72-47ce-ba78-0defecaa2c60
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 208ff2b8-e83a-479d-a0fa-90dec877a2db
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 26f9af5a-9478-45dc-bbe5-2c12685c0235
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2942340f-4fba-444d-be23-b590014ef332
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2a7f18a7-581e-429b-aa9d-384b0561f81c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2c3cedc8-378c-4359-9368-dab7e0002d0d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2e6ec2a5-bf8e-42a9-b314-6c91064c944b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 310b71c7-a4b9-44f1-9e96-d3c329ed970f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 32861ca0-3f5e-4b37-b652-c3e0a8b3ccef
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 42
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 32b474e2-4c11-44da-b11e-247d8a75a738
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 43
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 45
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 46
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 47
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 48
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 50
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 36d8d715-74ef-45b0-a62a-7a9cd936f30d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 3b5a9a34-7df3-4ea4-9577-e44c8ad3d35b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 3cfd6977-e591-45c5-b636-061bad297a6c
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 104
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 40353149-486c-4e0a-a0b8-fa635c54ce6d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 4047522a-3b58-4dbb-a3c1-9854f1f88195
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 49
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 43f730df-a0e0-4f11-aca1-36ebac536401
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 4424a983-b768-4878-90b0-8579e22654b0
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 101
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 47f3182d-f368-4ce1-96a2-01ecf254028b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 36ecbb18-6376-42af-acf9-658f7e3d22e4
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 49cbde7e-fdec-40db-94c9-a18685107bcd
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 49cfd4c3-fb38-431f-96f8-5db2648914df
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 4a7161ce-d9c0-40d8-8b86-f7667911c1f8
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 109
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 4e69bd70-cf2f-4887-8157-d0c6fa451a1f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 51f1e380-4961-428a-b06f-ed027ac8275f
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 113
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 53b57395-216a-42df-851a-53d2b2b7794d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 56cb2259-113e-4af7-ba96-304d2b2e055b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 591a7161-f8cd-4f00-989a-bb5f63301a5c
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 111
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 59419536-46d5-4077-9f4d-b148b789d1d9
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 112
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 5d8d822f-164e-4996-b5cb-3b956f530793
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 5df702d6-2261-4eec-8bf7-161411598d4b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 60db3aa9-31f8-43d4-ab38-12b2b5515154
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6119ab65-098f-4144-9cad-6e28cf584812
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 633ddd89-1873-48ee-9f0d-e9199b16673e
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 130
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 64101e19-e172-4dcf-8203-755c4523d6f0
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 126
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 677b4b67-3cbf-4ebd-8f9c-b987f7ee8f1a
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 678b3170-66af-4040-ae69-f86cb75b0516
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6f22d542-36e2-4510-ac2f-9b0eb3c2b4ee
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 70821757-83b3-4f1e-8b1f-2b37cd880fc6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 74ed617d-2d69-45a3-8428-2cfa39c4e8d2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 773b5a7e-472e-48af-9c57-fbb7e66db7d6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 796d931a-b8df-4761-a8d2-322a5819bda4
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7c2e26ba-a202-4475-b001-a1859cb72e79
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 115
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 127
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7dc36880-e241-45e3-a7e8-662170ca06db
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7e4ef719-f086-4948-b720-b9c5e62320b6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 866329e2-14a8-4fae-bddf-9c6e1ce50edd
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 122
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 124
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 128
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 87a94a7e-d2de-40f4-965f-6a13d51103d0
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 87f99c10-4bc5-47a8-8701-4ecf0f1a724f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 889ee14e-02e0-4e44-bd4d-262b31ff7649
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9444ee4c-51d3-41e9-ba06-8d703635fb36
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 97124894-16e0-4eb1-9c01-8d7b694fa890
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 119
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 129
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9a77d069-de6e-40d1-a760-bde6a10d2fe9
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7ad7ca23-236e-4e0e-a39f-da373397699c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 8b197f41-bddc-4b58-a11a-628c849c82df
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9a7f0275-5784-46ea-80d1-7fc7d46854a6
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 142
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9e03ffa8-e575-46bb-8d4c-589583637ba1
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 132
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a028bdba-6116-4ac0-95d1-6635963f6331
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a0a8b06e-85e8-42f3-80ee-c23f0e13abde
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a1f2f9e4-781a-4c5e-921a-c3d934fecad0
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a27ec186-a9c9-492b-a146-60e945a7e40a
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a4a941b8-e564-49c1-96c3-6ffef5b8079e
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a601ad44-4d66-47f4-9205-a06d5ca84e5a
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ab2e4511-df47-47fc-a444-83c9578290d8
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: accb3164-cf02-4cc6-b3ec-7e336abca26e
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b2239f01-93a5-4d70-9886-d01eb01d5811
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b231f780-ce22-4eab-8f96-91b478e27462
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b36acbac-b544-4ecd-ba00-e465627fedf1
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b49db78c-8df9-40b8-a682-1390907a8cfa
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b52a2cf5-9b0a-4161-889e-17359be9706f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ba0ae5b9-1933-43e7-bc9c-246a5d8887bf
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: c105963c-7fb1-4961-a5b4-9ab59db15d96
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 144
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 141
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 150
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: aaba435d-09b9-4f32-a2f1-60a015a6973d
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 152
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 151
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: c8071ad0-f65c-4373-bbcc-2fcdce8896ae
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 145
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: cc2b3ba9-82b1-462d-9930-e97f6eb1146c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: cd5dfeb9-f2a9-411e-8494-98c1b0b5245f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d0ac18ed-a7ef-4253-a12b-0e8ccea8bcc4
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 146
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 157
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 160
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 167
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d428e29f-80c8-474d-87ce-967fe19cca42
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d42de192-290d-47c5-8d30-580c4b79ea8e
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d4c6d7b8-6283-432d-9a01-9db13f3a9a4c
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [WARN] Skip row with key: 158
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d88748d3-ba1a-49fb-b51b-f389a864f56d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: dd757cfd-7917-4101-9043-47e4759b847a
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e2ca1d80-8ba1-4d57-9394-1c2f1b759e2d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e68d897a-8c59-40f2-89fa-ed8dbfa6275e
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e79db168-d42f-415d-bcce-6d63c7acd1fc
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e8eebdb9-08bd-4a57-bf5a-0891452360e7
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e9d01710-e517-4755-b1c1-5e8e6622e9ad
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ea3f3c09-21a8-4134-8b43-1fdfefc654d4
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ea67df5c-553e-48ac-a2d4-b843214fd4c2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: eace4e14-2c17-4293-97c8-d602c3c8f0d0
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: eb4dd045-fb63-47b2-a981-e4bfc3dd67cf
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ee5efea7-a93d-4c37-aed4-1c4f5f3fd76a
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f1d1cabe-7599-4f24-a79d-952a8d2f9ac2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f2575af6-1fc1-4368-875a-16fa79f75856
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f35f08d9-0fca-449a-a530-c9d079124219
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f7fe3c27-49de-4b22-bbd1-d229fb0f5b99
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f93e6afd-6cf0-410b-943d-3bcceead3395
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: fd6e8d2e-84fb-45f6-8cf2-ae3cb07a7365
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: fdaf253f-020a-4ad2-8816-8431bc87d8ab
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a1468246-dd7e-485f-b7aa-ae0092d9bb80
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ed3ab3eb-2861-4bfa-ade4-b73a43747ec2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: fd3e8e58-fac2-4313-9315-bfbc691be3bc
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ec620df9-5740-44c2-a8e2-972dbc633120
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: aba77b7d-0ddf-458a-8471-d42911cbe7c2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2941ab33-a987-4d80-89d1-9e4bdae49af5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f205724e-d976-41ce-b5f8-724eb2916333
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: bb250421-83d7-4e5a-b6c4-63f59d58ed42
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 544c6590-53ad-44d0-baf7-1b025caf2545
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 76655446-2546-4be1-8230-ad90b03e6814
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 88c331a2-849f-4db1-aa39-90918e7b0b89
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d6258614-ee73-46b9-abae-0c1ccbb5f03c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: fbf74d1e-dc7c-45da-83c6-237c128dcff2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1b3d42fb-c6ef-4c68-8c65-3fa13677f3f8
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 5e7c1360-1bb5-4c92-8371-8c6cc35c60ed
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: df59dc7d-6509-4051-b11c-6fc9726ef2a5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e0552296-38c5-407d-bbd9-c28a2579f24c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 30713a8d-1076-433f-9705-b0418e75cbf0
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 54723198-ff49-43cb-bc12-202755774222
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 29a60ea0-c258-4c3e-bd91-54a17ee9ff83
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e207ac65-659d-4c71-97da-0bc253d04475
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 83db9282-0160-465f-acd2-f6509e4ccaec
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 06f17489-7b70-4c5c-ab9f-96e78fd3b8d6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d3ec71ae-00ed-4655-b638-98f1c5ad15e6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 155e3c23-b907-4178-a154-fbeb0743e2e8
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 09f4a440-3c1d-4b7a-8e97-52670c4c9e6f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 77eb7e53-23c6-46a7-9c48-f3528265ae3e
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: aa2c039e-2033-4678-a1d7-ce35634ef3a5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: fb26b807-d090-4c0b-b1c9-ec782f321801
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: c03320ad-109f-49a2-a58b-c0b8cc8050ee
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 34fe9cf6-1d91-4eea-80be-25099b0cd511
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 58d47981-a2c9-4fb7-94fa-373e628a4659
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 54672882-13de-4386-87b8-27fccf377183
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a3fe9b29-0dc9-4a12-be39-9f7df87dccb9
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ccc13a20-d64a-4876-94e7-40fd13880e97
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_account_data_change
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6c340969-b9ef-46b5-bf6f-006db8b36e83
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_account_data_change]End thread for: hmis_account_data_change
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b9f31b1f-dbd0-4ca0-9431-e768b3cfb9ce
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_account_preference] Start thread  for: hmis_account_preference
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_account_preference
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_account_lockout
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_account_lockout]End thread for: hmis_account_lockout
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_api_group] Start thread  for: hmis_api_group
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_api_group
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 3a95c04f-dbe7-4a5c-96e4-68c71d3e97a7
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e4cf7326-c5e7-4c72-bca2-d08bfea9636a
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d869bbf6-06b1-477c-852a-96e296ea96b3
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 73b61834-8ce5-4682-9386-d5a4c00baa75
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6789b373-5f8d-4b99-abea-1337e11ed91c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 864d5733-3b85-4052-8c28-41fbe5746700
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2421d420-09e6-4d5d-908d-7026a7e4b5d2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1cbfa939-a5ff-4b30-b94b-2de4ca4060c2
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: cd87213c-18e2-4040-922e-6d1d4b5a8e3d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6fdabe16-e319-459c-b742-a010b0856595
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6d6aeb5b-6d61-4f30-9f4d-26c31f152ece
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2bd41701-bc79-4d3f-ae9a-48dd0adcf698
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7257f316-3f23-4dbb-b739-046ed69928cd
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 020880b1-7df8-4ff6-a2b8-5e439bc0609e
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: bc748cdd-7adb-4d9d-af79-87393d1ff2a9
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 57dbf807-7447-42d1-8d33-ab3bd17c5c0b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 8d7e3d7c-8939-44c6-ac5f-fe61e4b80f96
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1aea307e-f59e-4d31-9384-fe98c2c56456
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: fffdc900-8e2a-40fc-86a5-5366b0527eb3
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: b80428b1-1fa4-4ad0-840f-86fd4e8cb3e7
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 11331ede-d3a0-4c8d-90cf-13f9db35d342
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 0b421298-9adc-4695-bc2f-18f608d8c153
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 3d6d6b94-366f-4bdb-97cf-d49203ba9c8d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a553b64e-b640-40cc-b26f-e4b547074f09
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9e384162-b55c-481f-b68e-5b1a0eb5ca76
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 5c8ea4a3-a33f-433c-aec9-01230d1604fd
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e98232c0-ef3f-4d7b-a853-baa50ccf7b6f
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 5274030c-e990-4df8-a7fd-0dc8b78fb9ba
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 4f5a5c25-b367-4e0e-b704-adc432ffc9fe
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d15b39fc-21c2-4b1d-b014-e258081997cf
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: edc1ee9f-0d87-49b3-940f-b994218b9284
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: eda1dd13-500a-4557-a48f-92c8b71f2abe
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d6fc4117-515e-4351-8266-ca4a919dc1fa
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e78cfbd9-b179-4a8e-b3ac-f31b1d746c5b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7c593798-e436-4745-b8be-3b50daa121bc
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e74ab748-7016-41ef-a020-5c3916048dae
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: c6bde0e1-f8a9-481f-ad57-4e44c4740547
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 15507a4d-377b-4643-b2d7-c0e58bbff43c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 61fb03ce-a2fc-47c0-ab4e-225fe061e4df
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 09a1cf3e-04b7-4766-9bc8-7c304f043d38
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9dcd3599-7184-45a4-81ec-a8f6675ef5a7
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 1c1793d4-ba5a-478e-babd-57af071a9ebd
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 35537361-5ce1-4d87-bea8-848a34ae0e2d
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 7046d733-25e8-4b48-a284-5abb83a6e1a6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9633db9a-1ff2-4d68-9097-13287da8164c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 96f2de35-d776-4551-b52f-9d83ebbc4a00
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 970bd4f3-13dc-486b-8fa3-150c29de3fd6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9908fab5-f926-42b5-8b07-c046578cf549
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 9f99791f-593d-45bb-a6d8-a159024eb6b6
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: afa64cd6-7cea-41e3-83ec-68bc315fb953
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: c814a68f-b227-4285-9510-e0663f6eb289
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d900c35b-cf76-433c-a5d4-63c03e03c694
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 55869ef7-6042-4e36-83dd-eee08a34ed81
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 020fa32a-ce26-438d-88e8-1f961701191c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 396ba055-3a2e-42ff-8793-17d7d8ccedc1
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: f7834c55-0134-4b3c-9855-5686cca05075
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: cb0d0497-ab25-4433-ac9c-2cdc519bf0f0
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 8e49cd0f-fe9a-4218-8bf5-6f0a06e5e49c
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: cd13dbf3-bb40-4092-ba00-11752a62cb28
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 27e860ef-8a1a-4773-a9d0-159367609019
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: e4d3dfb6-1fd7-4dee-a4ac-5241a9d399f5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 6a665df8-447d-413e-a339-1faa3472c5e3
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 80c96cc8-0c6d-4768-8151-17d4c80477a5
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: d2f17b16-8c1d-484d-b262-1e9fd0914478
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 5fcbc2bb-daea-4a1b-bf01-6fd5d081bc81
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: ad5f8e26-60c9-4612-86b9-5a90672b3bee
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: a616699c-15a1-436b-87a6-a56d1a3578ae
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: c912956a-39f8-43a1-8f1f-6e9a44f254fe
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 2e81080e-7c4d-49a8-83f2-a74531d7355b
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 4ceae632-cd1e-4980-8651-3ca8f8f40b47
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_account_preference
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_account_preference]End thread for: hmis_account_preference
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_consent_message] Start thread  for: hmis_consent_message
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_consent_message
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_consent_message
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_consent_message]End thread for: hmis_consent_message
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_developer_company] Start thread  for: hmis_developer_company
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_developer_company
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [WARN] Skip row with key: 04b3f7d5-f29e-4f38-b785-abfe5bd7727f
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_api_group
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: bulk_upload
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [bulk_upload]End thread for: bulk_upload
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_developer_company_account] Start thread  for: hmis_developer_company_account
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_developer_company_account
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_api_group]End thread for: hmis_api_group
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_developer_company_status] Start thread  for: hmis_developer_company_status
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_developer_company_status
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_developer_company
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_developer_company]End thread for: hmis_developer_company
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_password_reset] Start thread  for: hmis_password_reset
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_password_reset
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_password_reset
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_password_reset]End thread for: hmis_password_reset
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_permission_set] Start thread  for: hmis_permission_set
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_permission_set
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_developer_company_status
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_developer_company_status]End thread for: hmis_developer_company_status
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_permission_set
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_permission_set]End thread for: hmis_permission_set
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_profile] Start thread  for: hmis_profile
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_profile
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_permission_set_acl] Start thread  for: hmis_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_developer_company_account
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_developer_company_account]End thread for: hmis_developer_company_account
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_profile_acl] Start thread  for: hmis_profile_acl
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_profile_acl
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Sync done for table: hmis_api_method
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_api_method]End thread for: hmis_api_method
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_project_projectgroup_map] Start thread  for: hmis_project_projectgroup_map
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Start sync for table: hmis_project_projectgroup_map
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_profile
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_profile]End thread for: hmis_profile
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_property] Start thread  for: hmis_property
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_property
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_property
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_profile_acl
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_profile_acl]End thread for: hmis_profile_acl
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_redirect_uri] Start thread  for: hmis_redirect_uri
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_redirect_uri
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_property]End thread for: hmis_property
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_refresh_token] Start thread  for: hmis_refresh_token
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_refresh_token
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_permission_set_acl]End thread for: hmis_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_release_of_info] Start thread  for: hmis_release_of_info
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_release_of_info
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Sync done for table: hmis_project_projectgroup_map
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_project_projectgroup_map]End thread for: hmis_project_projectgroup_map
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_request_token] Start thread  for: hmis_request_token
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Start sync for table: hmis_request_token
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_release_of_info
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_release_of_info]End thread for: hmis_release_of_info
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_role] Start thread  for: hmis_role
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_role
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_redirect_uri
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_redirect_uri]End thread for: hmis_redirect_uri
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_service] Start thread  for: hmis_service
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_service
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Sync done for table: hmis_request_token
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_request_token]End thread for: hmis_request_token
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_service_api_method] Start thread  for: hmis_service_api_method
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Start sync for table: hmis_service_api_method
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_role
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_role]End thread for: hmis_role
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_service_license] Start thread  for: hmis_service_license
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_service_license
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_service
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_service]End thread for: hmis_service
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_service_status] Start thread  for: hmis_service_status
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_service_status
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_service_license
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_service_license]End thread for: hmis_service_license
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_session] Start thread  for: hmis_session
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_session
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_service_status
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_service_status]End thread for: hmis_service_status
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_sharing_rule] Start thread  for: hmis_sharing_rule
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_sharing_rule
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_refresh_token
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_refresh_token]End thread for: hmis_refresh_token
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_trusted_app] Start thread  for: hmis_trusted_app
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: hmis_trusted_app
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [INFO] Sync done for table: client
+2016-11-13 19:14:37 pool-2-thread-4 SyncMainAllSchemas [INFO] [client]End thread for: client
+2016-11-13 19:14:37 pool-2-thread-4 SyncMainAllSchemas [INFO] [hmis_trusted_app_status] Start thread  for: hmis_trusted_app_status
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [INFO] Start sync for table: hmis_trusted_app_status
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Sync done for table: hmis_service_api_method
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_service_api_method]End thread for: hmis_service_api_method
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_user] Start thread  for: hmis_user
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Start sync for table: hmis_user
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_session
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_session]End thread for: hmis_session
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_user_permission_set_acl] Start thread  for: hmis_user_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Start sync for table: hmis_user_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Sync done for table: hmis_user
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_user]End thread for: hmis_user
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_user_project] Start thread  for: hmis_user_project
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Start sync for table: hmis_user_project
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_sharing_rule
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_sharing_rule]End thread for: hmis_sharing_rule
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_user_role_map] Start thread  for: hmis_user_role_map
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Start sync for table: hmis_user_role_map
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [INFO] Sync done for table: hmis_trusted_app_status
+2016-11-13 19:14:37 pool-2-thread-4 SyncMainAllSchemas [INFO] [hmis_trusted_app_status]End thread for: hmis_trusted_app_status
+2016-11-13 19:14:37 pool-2-thread-4 SyncMainAllSchemas [INFO] [hmis_verification] Start thread  for: hmis_verification
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [INFO] Start sync for table: hmis_verification
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: hmis_trusted_app
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [hmis_trusted_app]End thread for: hmis_trusted_app
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [organization] Start thread  for: organization
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Start sync for table: organization
+2016-11-13 19:14:37 pool-2-thread-1 SyncSchema [INFO] Sync done for table: hmis_user_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-1 SyncMainAllSchemas [INFO] [hmis_user_permission_set_acl]End thread for: hmis_user_permission_set_acl
+2016-11-13 19:14:37 pool-2-thread-2 SyncSchema [INFO] Sync done for table: hmis_user_project
+2016-11-13 19:14:37 pool-2-thread-2 SyncMainAllSchemas [INFO] [hmis_user_project]End thread for: hmis_user_project
+2016-11-13 19:14:37 pool-2-thread-3 SyncSchema [INFO] Sync done for table: hmis_user_role_map
+2016-11-13 19:14:37 pool-2-thread-3 SyncMainAllSchemas [INFO] [hmis_user_role_map]End thread for: hmis_user_role_map
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: 0f8fa91c-4794-4715-89d1-0c4ec9129002
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: 255a320d-0a3a-4a2c-9ad3-342845967b8b
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: 34e05926-5505-424b-a941-3735adb10e13
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: 48a5af3b-3213-4c78-b796-e444811de595
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: 49b5cba9-de8a-470e-b435-085e353b60cd
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: 99bedddb-44e3-43ac-9c8a-203dab0564d3
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: b3be674c-a2c0-46dd-92d2-9dcb84ecb888
+2016-11-13 19:14:37 pool-2-thread-4 SyncSchema [INFO] Sync done for table: hmis_verification
+2016-11-13 19:14:37 pool-2-thread-4 SyncMainAllSchemas [INFO] [hmis_verification]End thread for: hmis_verification
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: e69b14d7-e49b-4e1a-a71e-6cfddbc3d767
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [WARN] Skip row with key: fc2f16e7-fa5a-427d-ab71-0189fd5b1f3c
+2016-11-13 19:14:37 pool-2-thread-5 SyncSchema [INFO] Sync done for table: organization
+2016-11-13 19:14:37 pool-2-thread-5 SyncMainAllSchemas [INFO] [organization]End thread for: organization
+2016-11-13 19:14:38 main SyncSchema [INFO] Start a new sync for schema public
+2016-11-13 19:14:38 main SyncSchema [INFO] Get tables to sync
+2016-11-13 19:14:38 main SyncSchema [INFO] Found 0 tables to sync
+2016-11-13 19:14:38 main SyncMainAllSchemas [INFO] 
+
+
+
+
+
+Start new sync for id: public
+2016-11-13 19:14:38 main SyncMainAllSchemas [INFO] Create tables in HBASE
+2016-11-13 19:14:38 main SyncMainAllSchemas [INFO] Create tables done
+2016-11-13 19:14:39 main SyncSchema [INFO] Sync done. Wait 15 minutes before running next sync
