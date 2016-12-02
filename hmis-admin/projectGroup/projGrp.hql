@@ -47,5 +47,6 @@ CREATE VIEW IF NOT EXISTS veteran_info AS select * from default.veteran_info whe
 CREATE VIEW IF NOT EXISTS worsthousingsituation AS select * from default.worsthousingsituation where project_group_code='${hiveconf:DB}';
 CREATE VIEW IF NOT EXISTS youthcriticalissues AS select * from default.youthcriticalissues where project_group_code='${hiveconf:DB}';
 
+drop role ${hiveconf:DB_ROLE};
 create role ${hiveconf:DB_ROLE};
 grant select on database ${hiveconf:DB} to role ${hiveconf:DB_ROLE};

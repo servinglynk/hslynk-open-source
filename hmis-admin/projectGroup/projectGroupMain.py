@@ -3,6 +3,7 @@ import sys
 import config
 import psycopg2
 import subprocess
+import EncryptDecrypt
 from time import sleep
 
 
@@ -15,19 +16,26 @@ def run_command(command):
                            shell=True)
     #return iter(p.stdout.readline, b'')
     output,error = res.communicate()
+    to_return = True
     if output:
         print "ret> ",res.returncode
         print "OK> output ",output
-        return True
+        if int(res.returncode) is 0:
+            to_return = True
+        else:
+            to_return = False
     if error:
         print "ret> ",res.returncode
         print "Error> error ",error.strip()
-        return False
+    return to_return
 
 
 def set_hive_permissions(username, group_code):
-    cmd = run_command("./setPermissions.sh " + group_code + "_role " + username)
-    if not cmd:
+    command = run_command("./setPermissions.sh " + group_code + "_role " + username +
+                      " " + config.hive_server +
+                      " " + config.hive_principal_username +
+                      " '" + config.hive_principal_password + "'")
+    if not command:
         print "[set_hive_permissions] [ERROR] cannot set permissions"
     else:
         print "[set_hive_permissions] [INFO] permissions set"
@@ -36,7 +44,8 @@ def set_hive_permissions(username, group_code):
 def update_users(conn, cur, group_code_id, group_code):
     print "[update_users] Create users in hive for all users associated with " + group_code
     print "[update_users] get all users for " + group_code
-    cur.execute("select hive_username, hive_password, is_user_in_hive, id  from "+ config.schema + ".hmis_user where project_group_id = '" + group_code_id + "'")
+    cur.execute("select hive_username, hive_password, is_user_in_hive, id  from "+ config.schema + "." +
+                config.user_table + " where project_group_id = '" + group_code_id + "'")
     users = cur.fetchall()
     for user in users:
         list_pair = list(user)
@@ -48,6 +57,9 @@ def update_users(conn, cur, group_code_id, group_code):
         password = str(list_pair[1])
         user_in_hive = bool(list_pair[2])
         user_id = str(list_pair[3])
+        # Add code to decrypt password.
+        encryptedPassword = EncryptDecrypt.decrypt(password);
+        updateHivePassword(user_id,encryptedPassword);
         print "[update_users] Hive username: " + username
         print "[update_users] Hive password: " + password
         print "[update_users] Is user in hive? " + str(user_in_hive)
@@ -58,12 +70,15 @@ def update_users(conn, cur, group_code_id, group_code):
             continue
         if not user_in_hive:
             print "[update_users] Create user " + username
-            cmd = run_command("./createUser.sh " + username + " " + password + " "
-                              + config.kerberos_principal_username + " " + config.kerberos_principal_password)
-            if not cmd:
+            command = run_command("./createUser.sh " + username + " " + password + " " + config.ldap_server_host +
+                              " " + config.ldap_server_port + " '" + config.ldap_admin_passwd + "'")
+            print command
+            if not command:
                 print "[update_users] [ERROR] Cannot create user"
                 continue
-            cur.execute("update " + config.schema + ".hmis_user set is_user_in_hive=True where hive_username = '" + username +"' and id='" + user_id + "'")
+            cur.execute("update " + config.schema + "." + config.user_table +
+                        " set is_user_in_hive=True and password= '"+encryptedPassword+"' where hive_username = '" +
+                        username +"' and id='" + user_id + "'")
             conn.commit()
         else:
             print "[update_users] User already exists. add user read permissions to database"
@@ -73,7 +88,12 @@ def update_users(conn, cur, group_code_id, group_code):
 
 def create_db(conn):
     cur = conn.cursor()
-    cur.execute("select project_group_code, is_project_group_in_hive, id from " + config.schema + ".hmis_project_group")
+    cur.execute("select " +
+                "project_group_code, id, " +
+                "tables_v2015_in_hbase, tables_v2014_in_hbase, " +
+                "is_project_group_v2015_in_hive, is_project_group_v2014_in_hive " +
+                "from "
+                + config.schema + "." + config.project_group_table)
     project_list = cur.fetchall()
     for pair in project_list:
         list_pair = list(pair)
@@ -81,21 +101,59 @@ def create_db(conn):
         print "[create_db] Process new group code " + str(list_pair[0])
         print "[create_db] ########################################################\n"
 
-        #print list_pair
         group_code = str(list_pair[0])
-        hive = bool(list_pair[1])
-        group_code_id = str(list_pair[2])
+        group_code_id = str(list_pair[1])
+        hbase_v2015 = bool(list_pair[2])
+        hbase_v2014 = bool(list_pair[3])
+        hive_v2015 = bool(list_pair[4])
+        hive_v2014 = bool(list_pair[5])
+
         print "[create_db] Group code: " + group_code
-        print "[create_db] Is in hive: " + str(hive)
         print "[create_db] Id: " + group_code_id
-        if hive is False:
-            print "[create_db] create " + group_code + " in hive"
-            cmd = run_command("./projGrp.sh " + group_code)
-            if not cmd:
-                continue
-            cur.execute("update " + config.schema + ".hmis_project_group set is_project_group_in_hive=True where project_group_code = '"+group_code+"' AND id = '" + group_code_id + "'")
-            conn.commit()
-        update_users(conn, cur, group_code_id, group_code)
+        print "[create_db] tables for v2015 in hbase? " + str(hbase_v2015)
+        print "[create_db] tables for v2014 in hbase? " + str(hbase_v2014)
+        print "[create_db] is project group for v2015 in hive? " + str(hive_v2015)
+        print "[create_db] is project group for v2014 in hive? " + str(hive_v2014)
+        do_update = False
+
+        if hive_v2015 is False:
+            if hbase_v2015 is True:
+                print "[create_db] create database " + group_code + " in hive with all v2015 tables"
+                command = run_command("./projGrp.sh " + group_code + " 2015" + " " + config.hive_server + " " +
+                                  config.hive_principal_username + " '" + config.hive_principal_password + "'")
+                print command
+                if not command:
+                    print "[ERROR][create_db] create db " + group_code + " for 2015 failed"
+                    continue
+                print "[create_db] create db " + group_code + " for 2015 is done"
+                cur.execute("update " + config.schema + "." + config.project_group_table +
+                            " set is_project_group_v2015_in_hive=True where project_group_code = '" +
+                            group_code+"' AND id = '" + group_code_id + "'")
+                do_update = True
+        else:
+            do_update = True
+        if hive_v2014 is False:
+            if hbase_v2014 is True:
+                print "[create_db] create database " + group_code + " in hive with all v2014 tables"
+                command = run_command("./projGrp.sh " + group_code + " 2014" + " " + config.hive_server + " " +
+                                  config.hive_principal_username + " '" + config.hive_principal_password + "'")
+                print command
+                if not command:
+                    print "[ERROR][create_db] create db " + group_code + " for 2014 failed"
+                    continue
+                print "[create_db] create db " + group_code + " for 2014 is done"
+                cur.execute("update " + config.schema + "." + config.project_group_table +
+                            " set is_project_group_v2014_in_hive=True where project_group_code = '" +
+                            group_code+"' AND id = '" + group_code_id + "'")
+                do_update = True
+        else:
+            do_update = True
+
+        if do_update is True:
+            print "Update users"
+            update_users(conn, cur, group_code_id, group_code)
+        else:
+            print "skip user update"
 
     conn.commit()
     conn.close()
