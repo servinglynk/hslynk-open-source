@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.apache.solr.analysis.LowerCaseTokenizerFactory;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.annotations.Analyze;
@@ -33,6 +34,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TokenizerDef;
 
+import com.kenai.constantine.Constant;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
@@ -54,6 +56,9 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 @AnalyzerDef(name="clientAnalyzer", tokenizer=@TokenizerDef(factory=LowerCaseTokenizerFactory.class))*/
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
+	public String enc_key=System.getProperty("ssn.encryption.key");
+	
+	
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6304318647555713317L;
 
@@ -181,6 +186,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
+	@ColumnTransformer(
+			read="convert_from(dob_decrypt(dob),'UTF-8')",
+			write="dob_encrypt(?)")
 	public LocalDateTime getDob() {
 		return this.dob;
 		
@@ -458,7 +466,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column
-	@Size(max=12)
+	@ColumnTransformer(
+			read="convert_from(ssn_decrypt(ssn),'UTF-8')",
+			write="ssn_encrypt(?)")
 	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;

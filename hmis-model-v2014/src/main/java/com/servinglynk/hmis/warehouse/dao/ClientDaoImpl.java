@@ -272,7 +272,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
 			logger.info("Calling Dedup Service for "+client.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			client.setDedupClientId(UUID.fromString(dedupedId));
+			if(dedupedId!=null)
+				client.setDedupClientId(UUID.fromString(dedupedId));
 			baseClient.setDedupClientId(client.getDedupClientId());
 			insert(client);
 			insert(baseClient);

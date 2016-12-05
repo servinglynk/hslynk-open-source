@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.solr.analysis.LowerCaseTokenizerFactory;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.annotations.Analyze;
@@ -180,6 +181,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column
+	@ColumnTransformer(
+			read="convert_from(dob_decrypt(dob),'UTF-8')",
+			write="dob_encrypt(?)")
 	public LocalDateTime getDob() {
 		return this.dob;
 		
@@ -453,6 +457,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column
+	@ColumnTransformer(
+			read="convert_from(ssn_decrypt(ssn),'UTF-8')",
+			write="ssn_encrypt(?)")
 	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;

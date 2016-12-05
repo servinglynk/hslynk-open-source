@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.lucene.search.Query;
@@ -95,13 +96,21 @@ public class SearchDaoImpl
   public List<?> searchData(SearchRequest searchRequest){
 
 	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
-		  DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		  Date date=null;
 		  
 		try {
 			date = formatter.parse(searchRequest.getFreeText());
-			  criteria.add(Restrictions.ge("dob", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
-			  criteria.add(Restrictions.lt("dob", LocalDateTime.ofInstant(DateUtils.addDays(date,1).toInstant(), ZoneId.systemDefault())));
+			date.setHours(0);
+			date.setMinutes(0);
+			date.setSeconds(0);
+			
+			criteria.add(Restrictions.sqlRestriction(" convert_from(dob_decrypt(dob),'UTF-8') >= ?" , date,org.hibernate.type.StandardBasicTypes.DATE));
+			criteria.add(Restrictions.sqlRestriction(" convert_from(dob_decrypt(dob),'UTF-8') < ?" , new Date(date.getTime()+TimeUnit.DAYS.toMillis(1)),org.hibernate.type.StandardBasicTypes.DATE));			
+			
+			
+			//  criteria.add(Restrictions.ge(" convert_from(hmis_decrypt(dob,'UTF8')", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
+			//  criteria.add(Restrictions.lt(" convert_from(hmis_decrypt(dob,'UTF8')", LocalDateTime.ofInstant(DateUtils.addDays(date,1).toInstant(), ZoneId.systemDefault())));
 		} catch (ParseException e) {
 			try{
 				  UUID clientId = UUID.fromString(searchRequest.getFreeText());
@@ -112,7 +121,7 @@ public class SearchDaoImpl
 					  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 					  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 					 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-					  Criterion ssn = Restrictions.ilike("ssn",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+					  Criterion ssn = Restrictions.sqlRestriction(" ( convert_from(ssn_decrypt(ssn),'UTF-8') ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
 					  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,middle_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
 					  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
 					  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
