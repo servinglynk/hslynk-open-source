@@ -252,8 +252,33 @@ SaveSetting: function ($http,$scope, success,error) {
             if(success)success(data)
         }).error(error);
   		
-}
-,
+},
+submitHivePasswordForm: function ($http,$scope, success,error) {
+	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
+       console.log('Session Token..'+$scope.sessionToken);
+    
+       $http({
+           method: 'POST',
+           url: apiurl,
+           data : 
+           	{ "account":{
+                   "username": $scope.emailAddress,
+                   "emailAddress":$scope.emailAddress,
+                   "password":$scope.password,
+                   "firstName":$scope.firstName,
+                   "lastName":$scope.lastName,
+                 	"accountId":$scope.accountId
+                }
+          },
+           headers: {
+             'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+               'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+               'Accept': 'application/json;odata=verbose'}
+       }).success(function (data) {
+           if(success)success(data)
+       }).error(error);
+ 		
+},
 SendRequestReport: function ($http,$scope, success,error) {
 	data =$scope.form;
 	 $http.get('/hmis-bulk-loader/mapper/reportMaster?report='+  data.report +'&id='+  data.project.exportID +'&email='+  data.email +'&year='+  data.year +'').success(function(){ success() }).error(error);
@@ -324,7 +349,21 @@ GetProjectGroups: function ($http,$scope, success) {
           if(success)success(data)
       });
 },
-    
+GetEligReq: function ($http,$scope, success) {
+	  var apiurl = "https://www.hmislynk.com/inventory-api/projects/eligibilityrequirements";
+	 console.log('Session Token..'+$scope.sessionToken);
+    $http({
+        method: 'GET',
+        cache:false,
+        url: apiurl,
+        headers: {
+          'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+            'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+            'Accept': 'application/json;odata=verbose'}
+    }).success(function (data) {
+        if(success)success(data)
+    });
+},
     createUser : function ($http, $scope, success, error) {
         var apiurl = "/hmis-user-service/rest/accounts";
         console.log('Session Token..'+$scope.sessionToken);

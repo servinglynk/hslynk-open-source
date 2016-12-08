@@ -53,6 +53,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		  .when('/admin/bulkupload',      's2.bulkupload')
 		   .when('/admin/managesync',      's2.managesync')
 		      .when('/admin/managereport',      's2.managereport')
+		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
 			   
@@ -96,6 +97,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})   
 		   .segment('managereport', {
                 templateUrl: 'templates/partial/managereport.html', controller: 'managereportCtrl'})   
+            .segment('manageeligreq', {
+                templateUrl: 'templates/partial/manageeligreq.html', controller: 'manageeligreqCtrl'})   
 		  .segment('bulkupload', {
 		      templateUrl: 'templates/partial/bulkupload.html', controller: 'bulkUploadCtrl'})   
 		  .segment('managesync', {
