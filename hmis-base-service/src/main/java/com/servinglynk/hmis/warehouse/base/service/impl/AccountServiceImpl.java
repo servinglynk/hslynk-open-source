@@ -213,7 +213,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		notification.setMethod("EMAIL");
 		notification.setType("HMIS_ACCOUNT_PASSWORD_CHANGE");
 		notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
-		notification.getParameters().addParameter(new Parameter("username", account.getFirstName()+" "+account.getLastName()));
+		notification.getParameters().addParameter(new Parameter("username", pAccount.getFirstName()+" "+pAccount.getLastName()));
 		notificationServiceClient.createNotification(notification);
 		
 		return AccountConverter.convertToAccount(pAccount);
