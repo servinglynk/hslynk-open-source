@@ -350,7 +350,7 @@ GetProjectGroups: function ($http,$scope, success) {
       });
 },
 GetEligReq: function ($http,$scope, success) {
-	  var apiurl = "/inventory-api/projects/eligibilityrequirements";
+	  var apiurl = "/inventory-api/rest/projects/eligibilityrequirements";
 	 console.log('Session Token..'+$scope.sessionToken);
     $http({
         method: 'GET',
