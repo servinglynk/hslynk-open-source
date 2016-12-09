@@ -1,0 +1,49 @@
+<html>
+    <head>
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+body
+{
+margin:0px;
+}
+</style></head>
+    <body>
+        <div class="">
+  <!-- appViewSegment: 0 --><div class="anim ng-scope" app-view-segment="0"><div class="container-fluid header ng-scope">
+ </div>
+<div class="container-fluid  ng-scope">
+  <div class="container">
+    
+    <!-- /.row -->
+    <div class="row login">
+      <div class="row bottomSpacer">
+            <div class="col-md-6 text-center">
+            </div>
+				Dear Agency Admin, <br/>
+					<p>
+The Coalition of Homeless Service Providers have identified a possible match for your $aliasName in $projectId. To access the client please enter this ID into the search field $clientId .
+          </p>	
+          <p>
+You have 3 days to make contact to with the client, please update the the client's progress through the process as quickly as possible.
+Time stamp will be collected when each option is pressed, please refer to the CARS policies and procedures  manual if you have questions
+regarding timelines.          </p>    
+Thank you.<p>
+          - CES System
+          </p>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid footerlogin ng-scope">
+  <div class="container">
+    <center>
+     
+    </center>
+  </div>
+</div>
+</div>
+</div>
+    </body>
+    
+</html>
