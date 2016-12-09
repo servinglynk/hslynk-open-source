@@ -10,7 +10,7 @@ public class InvalidCurrentPasswordException  extends RuntimeException{
 	/**
 	 * Default exception message
 	 */
-	public static final String DEFAULT_MESSAGE = "The specified currentPassword does not match with the password stored in the database.";
+	public static final String DEFAULT_MESSAGE = "Invalid current password.";
 
 	public InvalidCurrentPasswordException() {
 		super(DEFAULT_MESSAGE);
