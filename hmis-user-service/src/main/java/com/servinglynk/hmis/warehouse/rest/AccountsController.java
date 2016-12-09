@@ -171,13 +171,13 @@ public class AccountsController extends ControllerBase {
 	}
 				
 	public void validateAccess(Account requestAccount,Account loginUser,String userId) throws Exception {
-		if(userId.equals("self")){
+		if(userId.equalsIgnoreCase("self")){
 			requestAccount.setAccountId(loginUser.getAccountId());
 		}else{
 			try{
 				UUID.fromString(userId);
 			}catch (Exception e) {
-				throw new AccountNotFoundException("Invalida user identification");
+				throw new AccountNotFoundException("Invalid user id format "+userId);
 			}
 			requestAccount.setAccountId(UUID.fromString(userId));
 		}
