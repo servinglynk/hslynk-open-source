@@ -357,7 +357,7 @@ GetEligReq: function ($http,$scope, success) {
         cache:false,
         url: apiurl,
         headers: {
-          'X-HMIS-TrustedApp-Id': '16631CFE-6909-4AC1-B4EB-57902AC7AF0A',
+          'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
             'Accept': 'application/json;odata=verbose'}
     }).success(function (data) {
