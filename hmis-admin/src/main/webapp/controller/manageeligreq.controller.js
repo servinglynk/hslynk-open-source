@@ -23,7 +23,7 @@ app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$htt
 //success
     var modalInstance = $modal.open({
         templateUrl: 'templates/partial/vieweligreq.html',
-        controller: 'ModalInstanceLogCtrl',
+        controller: 'viewEligReqCtrl',
         resolve: {
             datajson: function () {
                 return data.requirements;
@@ -32,4 +32,8 @@ app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$htt
     });
 };
 
+});
+
+app.controller('viewEligReqCtrl', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+    $scope.datajson = datajson;
 });
