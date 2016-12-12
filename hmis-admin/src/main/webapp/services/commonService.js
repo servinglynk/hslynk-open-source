@@ -354,11 +354,13 @@ GetEligReq: function ($http,$scope, success) {
 	 console.log('Session Token..'+$scope.sessionToken);
     $http({
         method: 'GET',
+        data:'',
         cache:false,
         url: apiurl,
         headers: {
           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+            'Accept': 'application/json;odata=verbose',
             'Content-Type': 'application/json'}
     }).success(function (data) {
         if(success)success(data)
