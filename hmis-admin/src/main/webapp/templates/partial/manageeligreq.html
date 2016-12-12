@@ -25,15 +25,13 @@
           <thead>
             <tr>
               <th>Name </th>
-              <th>Description </th>
-              <th>Code </th>
+              <th>Requirements </th>
             </tr>
           </thead>
      <tbody>
             <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-              <td>{{data.projectGroupName}}</td>
-              <td>{{data.projectGroupDesc}}</td>
-              <td>{{data.projectGroupCode}}</td>
+              <td>{{data.eligibilityRequirementId}}</td>
+              <td> <a href="javascript:;" ng-click="viewRequirements(data);"> click here </a></td>
               </tr>
           </tbody>
         </table>

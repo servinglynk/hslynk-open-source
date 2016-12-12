@@ -18,6 +18,18 @@ app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$htt
     $scope.setPage = function (pageNo) {
         $scope.currentPage = pageNo;
     };
-
+    
+    $scope.viewRequirements = function (data) {
+//success
+    var modalInstance = $modal.open({
+        templateUrl: 'templates/partial/vieweligreq.html',
+        controller: 'ModalInstanceLogCtrl',
+        resolve: {
+            datajson: function () {
+                return data.requirements;
+            }
+        }
+    });
+};
 
 });
