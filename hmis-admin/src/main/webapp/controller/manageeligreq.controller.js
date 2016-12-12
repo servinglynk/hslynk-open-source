@@ -1,5 +1,5 @@
 
-app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
