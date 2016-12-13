@@ -36,6 +36,11 @@
                <li ng-class="{active: ('s2.manageuser' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageuser' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage User</a> </li>
             </ul>
           </li> 
+           <li ng-show="roleName === 'CUSTADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo4" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Eligibility<i class="fa fa-fw fa-caret-down"></i></a>
+             <ul id="demo4" class="collapse" style="height: 0px;">
+               <li ng-class="{active: ('s2.manageeligreq' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageeligreq' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Eligibility</a> </li>
+            </ul>
+           </li>
           <li ng-class="{active: ('s2.managefiles' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managefiles' | routeSegmentUrl }}"><i class="fa fa-fw fa-table"></i> Manage Files</a> </li>
           <li ng-class="{active: ('s2.bulkupload' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.bulkupload' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Bulk Upload</a> </li>
           <li ng-class="{active: ('s2.managesync' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managesync' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Sync</a> </li>
