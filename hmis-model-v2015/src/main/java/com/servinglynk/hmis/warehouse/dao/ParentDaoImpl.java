@@ -101,7 +101,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
           }
 	    }
 	    protected void performMatch(ExportDomain domain, HmisBaseModel modelFromDB, HmisBaseModel model, Data data) {
-			if(!isFullRefresh(domain) && !modelFromDB.isRecordToBoInserted()){
+			if(!isFullRefresh(domain) && modelFromDB!=null && !modelFromDB.isRecordToBoInserted()){
 				if(modelFromDB != null) {
 					modelMatch(modelFromDB, model);
 				}	
