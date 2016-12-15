@@ -98,7 +98,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2015.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2015.HealthStatus();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		//org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,healthStatus.getHealthStatusID(),data);

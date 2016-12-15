@@ -102,7 +102,7 @@ public class QueryExecutorImpl  implements QueryExecutor{
 			BeanUtils.copyProperties(cloneObj, obj);
 			BeanUtils.setProperty(cloneObj, "parentId", id );
 			BeanUtils.setProperty(cloneObj, "id", UUID.randomUUID());
-			BeanUtils.setProperty(cloneObj, "version", getVersion(className,id)+1);
+			//BeanUtils.setProperty(cloneObj, "version", getVersion(className,id)+1);
 			getCurrentSession().save(cloneObj);
  		    getCurrentSession().evict(obj);
 	}

@@ -96,7 +96,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance model = new com.servinglynk.hmis.warehouse.model.v2015.Medicalassistance();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		//org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalassistance.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,medicalassistance.getMedicalAssistanceID(),data);

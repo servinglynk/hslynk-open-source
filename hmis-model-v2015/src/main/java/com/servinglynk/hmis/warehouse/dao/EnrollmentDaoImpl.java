@@ -143,7 +143,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2015.Enrollment();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		//org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,enrollment.getProjectEntryID(),data);

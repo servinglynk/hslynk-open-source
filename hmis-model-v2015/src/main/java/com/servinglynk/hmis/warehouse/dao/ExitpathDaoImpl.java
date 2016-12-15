@@ -76,7 +76,7 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2015.Exitpath model = new com.servinglynk.hmis.warehouse.model.v2015.Exitpath();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		//org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitpath.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,exitpath.getExitPATHID(),data);

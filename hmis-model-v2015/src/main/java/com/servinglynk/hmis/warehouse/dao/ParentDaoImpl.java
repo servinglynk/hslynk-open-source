@@ -101,7 +101,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
           }
 	    }
 	    protected void performMatch(ExportDomain domain, HmisBaseModel modelFromDB, HmisBaseModel model, Data data) {
-			if(!isFullRefresh(domain) && StringUtils.isNotBlank(model.getSourceSystemId())){
+			if(!isFullRefresh(domain) && !modelFromDB.isRecordToBoInserted()){
 				if(modelFromDB != null) {
 					modelMatch(modelFromDB, model);
 				}	
@@ -118,6 +118,14 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				}
 			}else {
 				data.i++;
+				model.setRecordToBeInserted(true);
+				UUID id =UUID.randomUUID();
+				try {
+					org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",id);
+				} catch (IllegalAccessException | InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel model) {
@@ -129,18 +137,22 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 					model.setIgnored(true);	
 				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) > 0) {
 					model.setRecordToBeInserted(false); //record already inserted , We need to update this.
+					populateModelId(modelFromDB, model);
 				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) < 0) {
 						 // model = record in the file. modelFromDB = record in DB.
 						// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
 					// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
-					UUID id = UUID.randomUUID();
 					try {
-						Method method = modelFromDB.getClass().getDeclaredMethod("getId");
-						org.apache.commons.beanutils.BeanUtils.copyProperty(model, "parentId",UUID.fromString(method.invoke(modelFromDB).toString()));
-						org.apache.commons.beanutils.BeanUtils.setProperty(model, "id",id);
+						UUID id =UUID.randomUUID();
+						Method methodId = model.getClass().getDeclaredMethod("getId");
+						org.apache.commons.beanutils.BeanUtils.copyProperty(modelFromDB, "parentId",id);
 						getCurrentSession().evict(modelFromDB);
 						getCurrentSession().update(modelFromDB);
+						getCurrentSession().flush();
+				        getCurrentSession().clear();
+				        org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",id);
 					    model.setRecordToBeInserted(true);
+						model.setDeleted(true);
 					} catch (IllegalAccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -158,6 +170,25 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 					
 				}
 		}
+	    
+	    private void populateModelId(com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel model) {
+	    	try {
+				Method methodId = modelFromDB.getClass().getDeclaredMethod("getId");
+		        org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",UUID.fromString(methodId.invoke(modelFromDB).toString()));
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 	/***
 	 * Get a Model object with Source system ID and project group.
 	 * @param className

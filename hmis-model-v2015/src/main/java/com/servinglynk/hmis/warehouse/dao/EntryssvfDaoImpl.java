@@ -85,7 +85,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2015.Entryssvf model = new com.servinglynk.hmis.warehouse.model.v2015.Entryssvf();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		//org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryssvf.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,entryssvf.getEntrySSVFID(),data);
