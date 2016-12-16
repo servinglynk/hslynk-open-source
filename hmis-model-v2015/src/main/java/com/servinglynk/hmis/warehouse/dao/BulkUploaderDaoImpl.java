@@ -104,21 +104,18 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setUpload(upload);
 			domain.setSource(source);
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
-			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
-			logger.info("Staging Source table.........");
-			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
+//			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
+//			logger.info("Staging Source table.........");
+//			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
 			
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
-			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
-			logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
-			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
-			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
-			startNanos = System.nanoTime();
-			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
-			logger.info("Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+		
 
+			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
+			startNanos = System.nanoTime();
+			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			logger.info("Disabilities table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			upload.setExportId(domain.getExportId());
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
