@@ -101,7 +101,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Exit model = new com.servinglynk.hmis.warehouse.model.v2016.Exit();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,exit.getExitID(),data);

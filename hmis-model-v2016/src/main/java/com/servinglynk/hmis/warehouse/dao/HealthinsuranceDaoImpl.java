@@ -124,7 +124,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance model = new com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthinsurance.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,healthinsurance.getHealthInsuranceID(),data);

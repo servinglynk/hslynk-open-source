@@ -98,7 +98,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2016.Disabilities();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,disabilities.getDisabilitiesID(),data);

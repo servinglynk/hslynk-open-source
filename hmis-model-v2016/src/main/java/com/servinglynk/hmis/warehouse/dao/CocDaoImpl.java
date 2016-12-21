@@ -86,7 +86,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Coc model = new com.servinglynk.hmis.warehouse.model.v2016.Coc();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,coc.getCoCCode(),data);

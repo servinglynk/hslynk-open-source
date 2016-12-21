@@ -88,7 +88,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Organization model = new com.servinglynk.hmis.warehouse.model.v2016.Organization();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,organization.getOrganizationID(),data);

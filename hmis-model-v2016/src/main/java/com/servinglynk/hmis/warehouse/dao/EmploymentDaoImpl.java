@@ -92,7 +92,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Employment model = new com.servinglynk.hmis.warehouse.model.v2016.Employment();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,employment.getEmploymentID(),data);

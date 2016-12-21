@@ -135,7 +135,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(clientVeteranInfo.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,clientVeteranInfo.getClientVeteranInfoID(),data);

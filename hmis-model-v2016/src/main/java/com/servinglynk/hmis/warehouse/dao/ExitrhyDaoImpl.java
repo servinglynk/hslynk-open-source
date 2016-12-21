@@ -114,7 +114,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2016.Exitrhy model = new com.servinglynk.hmis.warehouse.model.v2016.Exitrhy();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,exitrhy.getExitRHYID(),data);

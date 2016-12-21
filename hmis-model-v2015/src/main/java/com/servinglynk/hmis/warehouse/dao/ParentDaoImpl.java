@@ -144,7 +144,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 					// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
 					try {
 						UUID id =UUID.randomUUID();
-						Method methodId = model.getClass().getDeclaredMethod("getId");
 						org.apache.commons.beanutils.BeanUtils.copyProperty(modelFromDB, "parentId",id);
 						getCurrentSession().evict(modelFromDB);
 						getCurrentSession().update(modelFromDB);
@@ -159,15 +158,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 					} catch (InvocationTargetException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					} catch (SecurityException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				
-					
 				}
 		}
 	    
