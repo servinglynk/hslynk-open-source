@@ -1,6 +1,8 @@
 package com.servinglynk.hive.connection;
 
-public class ReportQuery {
+public class ViewQuery {
+public static String GET_DISTINCT_SURVEY=	"select distinct(survey_id) from survey.response";
+public static String GET_DISTINCT_QUESTIONS_FOR_SURVEY =	"select distinct(question_id) from survey.response where survey_id = ?";
 public static String GET_PROJECT_BY_ID= "select * from project where projectid = ? ";
 public static String GET_ORG_BY_ID= "select * from organization where organizationid = ?";
 public static String GET_ALL_CLIENTS = "select * from client";
