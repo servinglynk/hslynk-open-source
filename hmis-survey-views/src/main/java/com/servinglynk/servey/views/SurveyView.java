@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +45,7 @@ public class SurveyView {
     		createHiveTable(survey, disinctQuestions);
         	//  create a hive table after getting the questions.    	
         	//Insert the data into the view by clientIds and submission id.
+    		
     		List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId));
     		insertIntoHiveTable(survey,disinctQuestions, responses);	
     	}
@@ -56,8 +59,8 @@ public class SurveyView {
 	      // execute statement
 		 String clientId = null;
 		 int i = 4;
+		 Map<String,Integer> questionMap = new HashMap<String, Integer>();
 		 for (Response response : responses) {
-			 	
 				StringBuilder builder = new StringBuilder();
 			 	builder.append("INSERT INTO ");
 			 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
@@ -69,7 +72,10 @@ public class SurveyView {
 	    		  }
 				  builder.append(" VALUES ");
 				  builder.append(" ?, ?, ?");
+				  int count = 4;
 				  for(String question : disinctQuestions) {
+					  questionMap.put(question, count);
+					  count ++;
 					  builder.append(",?");  
 				  }
 				  builder.append(")");
@@ -77,7 +83,8 @@ public class SurveyView {
 				  preparedStatement.setString(1, response.getClientId());
 				  preparedStatement.setDate(2, survey.getSurveyDate());
 				  preparedStatement.setString(3, response.getSubmissionId());
-				  preparedStatement.setString(i++, response.getResponseText());
+				  
+				  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
 				  // execute insert SQL stetement
 				  if(StringUtils.isNotBlank(clientId) && !StringUtils.equals(clientId, response.getClientId())) {
 					  preparedStatement .executeUpdate();
@@ -172,8 +179,8 @@ public class SurveyView {
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	String submissionId = resultSet.getString("submission_id");
-            	String questionId = resultSet.getString("client_id");
-            	String clientId =  resultSet.getString("question_id");
+            	String clientId  = resultSet.getString("client_id");
+            	String questionId =  resultSet.getString("question_id");
             	String responseText = resultSet.getString("response_text");
             	Response response = new Response(submissionId, questionId, clientId,responseText);
             	responses.add(response);
