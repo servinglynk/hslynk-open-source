@@ -19,7 +19,6 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 			globalHouseholdDTO.setDateUpdated(globalHousehold.getDateUpdated());
 			globalHouseholdDTO.setGlobalHouseholdId(globalHousehold.getGlobalHouseholdId());
 			globalHouseholdDTO.setHeadOfHouseholdId(globalHousehold.getHeadOfHouseholdId());
-			globalHouseholdDTO.setInactive(globalHousehold.isInactive());
 			globalHouseholdDTO.setUserId(globalHousehold.getUserId());
 			globalHouseholdDTO.setLink(globalHousehold.getHeadOfHouseHoldLink());
 		return globalHouseholdDTO;
@@ -38,18 +37,12 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 	public GlobalHousehold globalHouseholdDTOToGlobalHousehold(GlobalHouseholdDTO globalHouseholdDTO) {
 		GlobalHousehold globalHousehold = new GlobalHousehold();
 		globalHousehold.setGlobalHouseholdId(globalHouseholdDTO.getGlobalHouseholdId());
-		globalHousehold.setHeadOfHouseholdId(globalHouseholdDTO.getHeadOfHouseholdId());
-		if(globalHouseholdDTO.getInactive()==null)
-			globalHousehold.setInactive(false);
-		else
-			globalHousehold.setInactive(globalHouseholdDTO.getInactive());
-	
+		globalHousehold.setHeadOfHouseholdId(globalHouseholdDTO.getHeadOfHouseholdId());	
 		globalHousehold.setHeadOfHouseHoldLink(globalHouseholdDTO.getLink());
 		
 		if(globalHouseholdDTO.getGlobalHouseholdId()==null){
 			HouseholdMembership membership = new HouseholdMembership();
 			membership.setGlobalClientId(globalHouseholdDTO.getHeadOfHouseholdId());
-			membership.setInactive(false);
 			membership.setGlobalHousehold(globalHousehold);
 			membership.setClientLink(globalHouseholdDTO.getLink());
 			globalHousehold.getMembers().add(membership);

@@ -35,9 +35,6 @@ public class HouseholdMembershipDTO implements Serializable {
 	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 
-	
-	private Boolean inactive;
-
     private String relationshipToHeadOfHousehold;
 
     private UUID globalHouseholdId;
@@ -97,14 +94,6 @@ public class HouseholdMembershipDTO implements Serializable {
 
 	public void setDateUpdated(LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
-	}
-
-	public Boolean getInactive() {
-		return inactive;
-	}
-
-	public void setInactive(Boolean inactive) {
-		this.inactive = inactive;
 	}
 	
 	public String getLink() {

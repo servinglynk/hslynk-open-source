@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "global_household",schema="housing_inventory")
+@SQLDelete(sql="UPDATE housing_inventory.global_household SET inactive = FALSE WHERE global_household_id = ? ")
 public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1573515448747014869L;

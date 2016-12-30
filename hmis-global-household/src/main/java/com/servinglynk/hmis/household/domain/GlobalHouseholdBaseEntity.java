@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 
 import org.hibernate.annotations.Type;
@@ -41,10 +42,9 @@ public class GlobalHouseholdBaseEntity implements Serializable{
 	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID userId;
 	
-	@Column(name="inactive")
-	private boolean inactive;
-
-
+	@Column(name="deleted")
+	public boolean deleted;
+	
 	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
@@ -83,6 +83,18 @@ public class GlobalHouseholdBaseEntity implements Serializable{
 		}
 	}
 	
+	@PreRemove
+	protected void onDelete(){
+		dateUpdated = LocalDateTime.now();
+		if(SecurityContextUtil.getUserAccount()!=null) {
+			userId = SecurityContextUtil.getUserAccount().getAccountId();
+		}
+		if(SecurityContextUtil.getUserProjectGroup()!=null){
+			projectGroupCode=SecurityContextUtil.getUserProjectGroup();
+		}
+		
+	}
+	
 	public UUID getUserId() {
 		return userId;
 	}
@@ -97,15 +109,13 @@ public class GlobalHouseholdBaseEntity implements Serializable{
 
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}	
-	
-
-	public boolean isInactive() {
-		return inactive;
-	}
-
-	public void setInactive(boolean inactive) {
-		this.inactive = inactive;
-	}
-	
 }

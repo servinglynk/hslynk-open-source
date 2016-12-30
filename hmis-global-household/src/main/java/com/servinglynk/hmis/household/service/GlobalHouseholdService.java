@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.household.domain.GlobalHousehold;
+import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
+import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapper;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
@@ -32,6 +34,9 @@ public class GlobalHouseholdService {
     //@Inject
     @Autowired
     private GlobalHouseholdRepository globalHouseholdRepository;
+    
+    @Autowired
+    private HouseholdMembershipRepository householdMembershipRepository;
     
     //@Inject
     @Autowired
@@ -104,7 +109,7 @@ public class GlobalHouseholdService {
     public Page<GlobalHousehold> findAll(Pageable pageable) {
         log.debug("Request to get all GlobalHouseholds");
         String projectGroup = SecurityContextUtil.getUserProjectGroup();
-        Page<GlobalHousehold> result = globalHouseholdRepository.findByProjectGroupCode(projectGroup,pageable);
+        Page<GlobalHousehold> result = globalHouseholdRepository.findByProjectGroupCodeAndDeleted(projectGroup,pageable,false);
         return result;
     }
 
@@ -118,7 +123,7 @@ public class GlobalHouseholdService {
     public GlobalHouseholdDTO findOne(UUID id) {
         log.debug("Request to get GlobalHousehold : {}", id);
         String projectGroup = SecurityContextUtil.getUserProjectGroup();
-        GlobalHousehold globalHousehold = globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCode(id,projectGroup);
+        GlobalHousehold globalHousehold = globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(id,projectGroup,false);
         if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+id);
         GlobalHouseholdDTO globalHouseholdDTO = globalHouseholdMapper.globalHouseholdToGlobalHouseholdDTO(globalHousehold);
         return globalHouseholdDTO;
@@ -133,6 +138,8 @@ public class GlobalHouseholdService {
         log.debug("Request to delete GlobalHousehold : {}", id);
         GlobalHousehold globalHouseHold=globalHouseholdRepository.findOne(id);
         if(globalHouseHold==null) throw new ResourceNotFoundException("Global household not found "+id);
+        List<HouseholdMembership> members = householdMembershipRepository.findByGlobalHouseholdAndDeleted(globalHouseHold, false);
         globalHouseholdRepository.delete(globalHouseHold);
+        householdMembershipRepository.delete(members);
     }
 }

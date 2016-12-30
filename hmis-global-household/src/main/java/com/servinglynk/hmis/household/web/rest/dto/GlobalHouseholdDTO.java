@@ -39,8 +39,6 @@ public class GlobalHouseholdDTO implements Serializable {
 	
 	private UUID userId;
 	
-	private Boolean inactive;
-
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String link;
 
@@ -86,15 +84,6 @@ public class GlobalHouseholdDTO implements Serializable {
 	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
-
-	public Boolean getInactive() {
-		return inactive;
-	}
-
-	public void setInactive(Boolean inactive) {
-		this.inactive = inactive;
-	}
-
 	public String getLink() {
 		return link;
 	}

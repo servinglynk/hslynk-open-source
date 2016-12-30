@@ -7,10 +7,11 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.household.repository.BaseRepositoryFactoryBean;
 import com.servinglynk.hmis.warehouse.client.config.SpringConfig;
 
 @SpringBootApplication
-@EnableJpaRepositories("com.servinglynk.hmis.household.repository")
+@EnableJpaRepositories(repositoryFactoryBeanClass=BaseRepositoryFactoryBean.class)
 @EnableTransactionManagement
 public class GlobalHouseholdApplication extends SpringBootServletInitializer {
 

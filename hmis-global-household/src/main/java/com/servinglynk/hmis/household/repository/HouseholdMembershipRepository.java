@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.household.repository;
 
+import java.util.List;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -20,5 +21,10 @@ public interface HouseholdMembershipRepository extends JpaRepository<HouseholdMe
 HouseholdMembership findByHouseholdMembershipIdAndProjectGroupCode(UUID id, String projectGroup);
 Page<HouseholdMembership> findByGlobalClientIdAndProjectGroupCode(UUID clientid, String projectGroup,
 		Pageable pageable);
+Page<HouseholdMembership> findByGlobalHouseholdAndDeleted(GlobalHousehold globalHousehold, Pageable pageable,
+		boolean deleted);
+
+List<HouseholdMembership> findByGlobalHouseholdAndDeleted(GlobalHousehold globalHousehold, boolean deleted);
+HouseholdMembership findByHouseholdMembershipIdAndProjectGroupCodeAndDeleted(UUID id, String projectGroup, boolean deleted);
 
 }

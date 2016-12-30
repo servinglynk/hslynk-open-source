@@ -17,4 +17,8 @@ public interface GlobalHouseholdRepository extends JpaRepository<GlobalHousehold
 
 	GlobalHousehold findByGlobalHouseholdIdAndProjectGroupCode(UUID id, String projectGroup);
 
+	Page<GlobalHousehold> findByProjectGroupCodeAndDeleted(String projectGroup, Pageable pageable, boolean deleted);
+
+	GlobalHousehold findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(UUID id, String projectGroup, boolean deleted);
+
 }

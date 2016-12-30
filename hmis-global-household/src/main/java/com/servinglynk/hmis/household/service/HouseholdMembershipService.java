@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,9 +84,9 @@ public class HouseholdMembershipService {
     public Page<HouseholdMembership> getAllHouseholdMembersByHouseholdId(UUID householdId, Pageable pageable) {
         log.debug("Request to get all HouseholdMemberships");
         String projectGroup = SecurityContextUtil.getUserProjectGroup();
-    	GlobalHousehold globalHousehold =		globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCode(householdId,projectGroup);
+    	GlobalHousehold globalHousehold =		globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(householdId,projectGroup,false);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
-    	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHousehold(globalHousehold, pageable);
+    	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHouseholdAndDeleted(globalHousehold, pageable,false);
         return members;
     }
     
@@ -108,7 +107,7 @@ public class HouseholdMembershipService {
     public HouseholdMembershipDTO findOne(UUID id) {
         log.debug("Request to get HouseholdMembership : {}", id);
         String projectGroup = SecurityContextUtil.getUserProjectGroup();
-        HouseholdMembership householdMembership = householdMembershipRepository.findByHouseholdMembershipIdAndProjectGroupCode(id,projectGroup);
+        HouseholdMembership householdMembership = householdMembershipRepository.findByHouseholdMembershipIdAndProjectGroupCodeAndDeleted(id,projectGroup,false);
         if(householdMembership==null) throw new ResourceNotFoundException("Global household not found "+id);
         HouseholdMembershipDTO householdMembershipDTO = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
         return householdMembershipDTO;
