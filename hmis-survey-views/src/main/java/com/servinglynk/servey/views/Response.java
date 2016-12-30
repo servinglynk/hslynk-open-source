@@ -7,6 +7,7 @@ public Response(String submissionId, String questionId, String clientId,String r
 		this.submissionId = submissionId;
 		this.questionId = questionId;
 		this.clientId = clientId;
+		this.responseText = responseText;
 	}
 private String submissionId;
 private String questionId;

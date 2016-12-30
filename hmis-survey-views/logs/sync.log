@@ -1,18 +1,180 @@
-2016-12-25 00:27:49 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:27:49 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:27:49 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
-2016-12-25 00:45:08 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:45:08 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:45:08 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
-2016-12-25 00:49:05 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:49:05 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:49:05 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
-2016-12-25 00:50:18 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:50:18 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:50:18 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
-2016-12-25 00:53:33 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:53:33 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 00:53:33 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
-2016-12-25 01:02:35 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 01:02:35 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
-2016-12-25 01:02:35 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 00:01:26 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:01:26 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:01:27 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 00:08:51 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:08:51 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:08:51 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 00:09:28 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:09:28 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:09:29 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 00:16:26 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:16:26 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 00:16:26 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:06:20 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:06:20 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:06:20 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:07:02 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:07:02 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:07:02 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:17:35 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:17:35 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:17:35 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:39:03 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:39:03 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:39:03 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:39:04 main Shell [ERROR] Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:355)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:370)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:363)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.findHadoopBinary(HiveConf.java:2180)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.<clinit>(HiveConf.java:351)
+	at org.apache.hadoop.hive.ql.ErrorMsg.<clinit>(ErrorMsg.java:487)
+	at org.apache.hadoop.hive.ql.metadata.HiveException.<init>(HiveException.java:31)
+	at org.apache.hadoop.hive.ql.parse.SemanticException.<init>(SemanticException.java:37)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.apache.hive.service.cli.HiveSQLException.newInstance(HiveSQLException.java:243)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:209)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:235)
+	at org.apache.hive.service.cli.HiveSQLException.toCause(HiveSQLException.java:196)
+	at org.apache.hive.service.cli.HiveSQLException.<init>(HiveSQLException.java:108)
+	at org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:231)
+	at org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:217)
+	at org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:254)
+	at org.apache.hive.jdbc.HiveStatement.executeUpdate(HiveStatement.java:406)
+	at org.apache.hive.jdbc.HivePreparedStatement.executeUpdate(HivePreparedStatement.java:119)
+	at com.servinglynk.servey.views.SurveyView.insertIntoHiveTable(SurveyView.java:112)
+	at com.servinglynk.servey.views.SurveyView.createHiveTableForSurvey(SurveyView.java:54)
+	at com.servinglynk.servey.views.SurveyView.main(SurveyView.java:272)
+2016-12-30 01:40:14 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:40:14 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:40:14 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:40:15 main Shell [ERROR] Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:355)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:370)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:363)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.findHadoopBinary(HiveConf.java:2180)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.<clinit>(HiveConf.java:351)
+	at org.apache.hadoop.hive.ql.ErrorMsg.<clinit>(ErrorMsg.java:487)
+	at org.apache.hadoop.hive.ql.metadata.HiveException.<init>(HiveException.java:31)
+	at org.apache.hadoop.hive.ql.parse.SemanticException.<init>(SemanticException.java:37)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.apache.hive.service.cli.HiveSQLException.newInstance(HiveSQLException.java:243)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:209)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:235)
+	at org.apache.hive.service.cli.HiveSQLException.toCause(HiveSQLException.java:196)
+	at org.apache.hive.service.cli.HiveSQLException.<init>(HiveSQLException.java:108)
+	at org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:231)
+	at org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:217)
+	at org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:254)
+	at org.apache.hive.jdbc.HiveStatement.executeUpdate(HiveStatement.java:406)
+	at org.apache.hive.jdbc.HivePreparedStatement.executeUpdate(HivePreparedStatement.java:119)
+	at com.servinglynk.servey.views.SurveyView.insertIntoHiveTable(SurveyView.java:112)
+	at com.servinglynk.servey.views.SurveyView.createHiveTableForSurvey(SurveyView.java:54)
+	at com.servinglynk.servey.views.SurveyView.main(SurveyView.java:275)
+2016-12-30 01:41:07 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:41:07 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:41:07 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:41:09 main Shell [ERROR] Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:355)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:370)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:363)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.findHadoopBinary(HiveConf.java:2180)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.<clinit>(HiveConf.java:351)
+	at org.apache.hadoop.hive.ql.ErrorMsg.<clinit>(ErrorMsg.java:487)
+	at org.apache.hadoop.hive.ql.metadata.HiveException.<init>(HiveException.java:31)
+	at org.apache.hadoop.hive.ql.parse.SemanticException.<init>(SemanticException.java:37)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.apache.hive.service.cli.HiveSQLException.newInstance(HiveSQLException.java:243)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:209)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:235)
+	at org.apache.hive.service.cli.HiveSQLException.toCause(HiveSQLException.java:196)
+	at org.apache.hive.service.cli.HiveSQLException.<init>(HiveSQLException.java:108)
+	at org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:231)
+	at org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:217)
+	at org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:254)
+	at org.apache.hive.jdbc.HiveStatement.executeUpdate(HiveStatement.java:406)
+	at org.apache.hive.jdbc.HivePreparedStatement.executeUpdate(HivePreparedStatement.java:119)
+	at com.servinglynk.servey.views.SurveyView.insertIntoHiveTable(SurveyView.java:112)
+	at com.servinglynk.servey.views.SurveyView.createHiveTableForSurvey(SurveyView.java:54)
+	at com.servinglynk.servey.views.SurveyView.main(SurveyView.java:275)
+2016-12-30 01:41:38 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:41:38 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:41:38 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:42:16 main Shell [ERROR] Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:355)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:370)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:363)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.findHadoopBinary(HiveConf.java:2180)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.<clinit>(HiveConf.java:351)
+	at org.apache.hadoop.hive.ql.ErrorMsg.<clinit>(ErrorMsg.java:487)
+	at org.apache.hadoop.hive.ql.metadata.HiveException.<init>(HiveException.java:31)
+	at org.apache.hadoop.hive.ql.parse.SemanticException.<init>(SemanticException.java:37)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.apache.hive.service.cli.HiveSQLException.newInstance(HiveSQLException.java:243)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:209)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:235)
+	at org.apache.hive.service.cli.HiveSQLException.toCause(HiveSQLException.java:196)
+	at org.apache.hive.service.cli.HiveSQLException.<init>(HiveSQLException.java:108)
+	at org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:231)
+	at org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:217)
+	at org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:254)
+	at org.apache.hive.jdbc.HiveStatement.executeUpdate(HiveStatement.java:406)
+	at org.apache.hive.jdbc.HivePreparedStatement.executeUpdate(HivePreparedStatement.java:119)
+	at com.servinglynk.servey.views.SurveyView.insertIntoHiveTable(SurveyView.java:112)
+	at com.servinglynk.servey.views.SurveyView.createHiveTableForSurvey(SurveyView.java:54)
+	at com.servinglynk.servey.views.SurveyView.main(SurveyView.java:275)
+2016-12-30 01:42:44 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:42:44 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:42:44 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:42:45 main Shell [ERROR] Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:355)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:370)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:363)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.findHadoopBinary(HiveConf.java:2180)
+	at org.apache.hadoop.hive.conf.HiveConf$ConfVars.<clinit>(HiveConf.java:351)
+	at org.apache.hadoop.hive.ql.ErrorMsg.<clinit>(ErrorMsg.java:487)
+	at org.apache.hadoop.hive.ql.metadata.HiveException.<init>(HiveException.java:31)
+	at org.apache.hadoop.hive.ql.parse.SemanticException.<init>(SemanticException.java:37)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.apache.hive.service.cli.HiveSQLException.newInstance(HiveSQLException.java:243)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:209)
+	at org.apache.hive.service.cli.HiveSQLException.toStackTrace(HiveSQLException.java:235)
+	at org.apache.hive.service.cli.HiveSQLException.toCause(HiveSQLException.java:196)
+	at org.apache.hive.service.cli.HiveSQLException.<init>(HiveSQLException.java:108)
+	at org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:231)
+	at org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:217)
+	at org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:254)
+	at org.apache.hive.jdbc.HiveStatement.executeUpdate(HiveStatement.java:406)
+	at org.apache.hive.jdbc.HivePreparedStatement.executeUpdate(HivePreparedStatement.java:119)
+	at com.servinglynk.servey.views.SurveyView.insertIntoHiveTable(SurveyView.java:112)
+	at com.servinglynk.servey.views.SurveyView.createHiveTableForSurvey(SurveyView.java:54)
+	at com.servinglynk.servey.views.SurveyView.main(SurveyView.java:275)
+2016-12-30 01:43:04 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:43:04 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:43:04 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:43:47 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:43:47 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:43:47 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/
+2016-12-30 01:44:22 main Utils [INFO] Supplied authorities: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:44:22 main Utils [INFO] Resolved authority: ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000
+2016-12-30 01:44:23 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/

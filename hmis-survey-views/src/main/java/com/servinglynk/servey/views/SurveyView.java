@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
@@ -45,56 +46,83 @@ public class SurveyView {
     		createHiveTable(survey, disinctQuestions);
         	//  create a hive table after getting the questions.    	
         	//Insert the data into the view by clientIds and submission id.
-    		
-    		List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId));
-    		insertIntoHiveTable(survey,disinctQuestions, responses);	
+    		// Get unique clients for a survey.
+    		List<String>  clients = getClientsForSurvey("survey", UUID.fromString(surveyId));
+    		for(String clientId : clients) {
+    			if(StringUtils.isNotBlank(clientId)) {
+    				List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId),UUID.fromString(clientId));
+            		insertIntoHiveTable(survey,disinctQuestions, responses,clientId);
+    			}
+    		}
     	}
     }
     
-    public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses) {
+    private static List<String> getClientsForSurvey(String schema,
+			UUID surveyId) throws Exception {
+    	 List<String> clientIds = new ArrayList<>();
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement(ViewQuery.GET_DISTICNT_CLIENT_FOR_SURVEY);
+             statement.setObject(1, surveyId);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 clientIds.add(resultSet.getString("client_id"));
+             }
+
+         }catch (Exception ex){
+             throw ex;
+         }
+         return clientIds;
+	}
+
+	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId) {
     	Connection connection;
 		try {
 			connection = HiveConnection.getConnection();
-		 Statement stmt = connection.createStatement();
 	      // execute statement
-		 String clientId = null;
 		 int i = 4;
 		 Map<String,Integer> questionMap = new HashMap<String, Integer>();
+			StringBuilder builder = new StringBuilder();
+		 	builder.append("INSERT INTO ");
+		 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
+		 	builder.append(survey.getProjectGroupCode()+"."+tableName);
+		 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
+			builder.append("  VALUES ( ");
+			builder.append("?, ?, ?");
+			  int count = 4;
+			  for(String question : disinctQuestions) {
+				  questionMap.put(question, count);
+				  count ++;
+				  builder.append(",?");  
+			  }
+			  builder.append(")");
+			  PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
+			  preparedStatement.setString(1, clientId);
+			  preparedStatement.setString(2, String.valueOf(survey.getSurveyDate()));
+			  String submissionId = null;
 		 for (Response response : responses) {
-				StringBuilder builder = new StringBuilder();
-			 	builder.append("INSERT INTO ");
-			 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
-			 	builder.append(survey.getProjectGroupCode()+"."+tableName);
-			 	builder.append("( client_id , survey_date , submission_id  ");
-				  for(String question : disinctQuestions) {
-					  question = question.replaceAll("[^a-zA-Z0-9]", "_");
-					  builder.append(","+question);
-	    		  }
-				  builder.append(" VALUES ");
-				  builder.append(" ?, ?, ?");
-				  int count = 4;
-				  for(String question : disinctQuestions) {
-					  questionMap.put(question, count);
-					  count ++;
-					  builder.append(",?");  
-				  }
-				  builder.append(")");
-				  PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
-				  preparedStatement.setString(1, response.getClientId());
-				  preparedStatement.setDate(2, survey.getSurveyDate());
-				  preparedStatement.setString(3, response.getSubmissionId());
-				  
+			 	  preparedStatement.setString(3, response.getSubmissionId());
 				  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
 				  // execute insert SQL stetement
-				  if(StringUtils.isNotBlank(clientId) && !StringUtils.equals(clientId, response.getClientId())) {
-					  preparedStatement .executeUpdate();
+				  boolean containsOnlyOneColumn = false;
+				  if(CollectionUtils.isNotEmpty(disinctQuestions) &&  disinctQuestions.size()==1) {
+					  preparedStatement.executeUpdate();
+					  containsOnlyOneColumn = true;
 					  i =4;
 				  }
-				  clientId = response.getClientId();
+				  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
+					  preparedStatement.executeUpdate();
+					  i =4;
+				  }
+				  submissionId = response.getSubmissionId();
 		 }
-		 
+		 preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Error inserting into "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_"));
 			e.printStackTrace();
 		}
 	      
@@ -106,17 +134,31 @@ public class SurveyView {
 		 Statement stmt = connection.createStatement();
 	      // execute statement
 		 	StringBuilder builder = new StringBuilder();
+		 	
 		 	builder.append("CREATE TABLE IF NOT EXISTS ");
 		 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
 		 	builder.append(survey.getProjectGroupCode()+"."+tableName);
-		 	builder.append("( client_id string, survey_date date , submission_id string, ");
+		 	builder.append("( client_id string, survey_date string , submission_id string ");
 			  for(String question : disinctQuestions) {
-				  question = question.replaceAll("[^a-zA-Z0-9]", "_");
-				  builder.append(question +" string,");
+				  try {
+					String displayText = getQuestionDisplayTextByQuestionID("survey",UUID.fromString(question));
+					if(StringUtils.isNotBlank(displayText)) {
+						String columnName = displayText;
+						if(displayText.length() > 100) {
+							columnName = displayText.substring(0,100);
+						}
+						columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
+						columnName = columnName.replaceAll(" ", "_");
+						builder.append(" ,"+columnName +" string ");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
     		  }
 			  String query = builder.toString();
-			  query = query.substring(0,query.length() - 1);
 			  query = query +")";
+			  stmt.execute("DROP Table "+survey.getProjectGroupCode()+"."+tableName);
 	      stmt.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -147,7 +189,24 @@ public class SurveyView {
             throw ex;
         }
     }
-    
+    public static String getQuestionDisplayTextByQuestionID(String schemaName,UUID questionId) throws Exception{
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement(ViewQuery.GET_DISPLAY_TEXT_FROM_QUESTION);
+            statement.setObject(1, questionId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+               return (String)resultSet.getString("display_text");
+            }
+
+        }catch (Exception ex){
+            throw ex;
+        }
+        return null;
+    }
     public static List<String> getDisinctSurveys(String schemaName) throws Exception{
         List<String> tables = new ArrayList<>();
         ResultSet resultSet = null;
@@ -167,7 +226,7 @@ public class SurveyView {
         return tables;
     }
     
-    public static List<Response> getResponseBySubmissionClient(String schemaName,UUID surveyId) throws Exception{
+    public static List<Response> getResponseBySubmissionClient(String schemaName,UUID surveyId, UUID clientId) throws Exception{
         List<Response> responses = new ArrayList<>();
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -176,13 +235,14 @@ public class SurveyView {
             connection = getConnection();
             statement = connection.prepareStatement(ViewQuery.GET_CLIENTS_WITH_RESPONSE);
             statement.setObject(1, surveyId);
+            statement.setObject(2, clientId);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	String submissionId = resultSet.getString("submission_id");
-            	String clientId  = resultSet.getString("client_id");
+            	String client  = resultSet.getString("client_id");
             	String questionId =  resultSet.getString("question_id");
             	String responseText = resultSet.getString("response_text");
-            	Response response = new Response(submissionId, questionId, clientId,responseText);
+            	Response response = new Response(submissionId, questionId, client,responseText);
             	responses.add(response);
             }
         }catch (Exception ex){
