@@ -103,6 +103,7 @@ public class SurveyView {
 			  preparedStatement.setString(1, clientId);
 			  preparedStatement.setString(2, String.valueOf(survey.getSurveyDate()));
 			  String submissionId = null;
+			  boolean resonseContainMoreThanOneClient = false;
 		 for (Response response : responses) {
 			 	  preparedStatement.setString(3, response.getSubmissionId());
 				  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
@@ -115,11 +116,13 @@ public class SurveyView {
 				  }
 				  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
 					  preparedStatement.executeUpdate();
+					  resonseContainMoreThanOneClient = true;
 					  i =4;
 				  }
 				  submissionId = response.getSubmissionId();
 		 }
-		 preparedStatement.executeUpdate();
+		 if(!resonseContainMoreThanOneClient)
+			 preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error inserting into "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_"));
