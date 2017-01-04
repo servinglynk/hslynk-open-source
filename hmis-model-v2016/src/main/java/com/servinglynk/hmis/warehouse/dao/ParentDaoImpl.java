@@ -129,7 +129,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			}
 		}
 	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel model) {
-			if(model.getDateUpdatedFromSource() ==null || modelFromDB.getDateUpdatedFromSource() == null) {
+	    	if(model.getDateUpdatedFromSource() ==null || modelFromDB.getDateUpdatedFromSource() == null) {
 				model.setIgnored(true);
 				return;
 			}
@@ -143,7 +143,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 						// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
 					// record to be inserted is older than the record already in DB then we need to update parentID of recordFromDB with ID of model. 
 					try {
-						UUID id = UUID.randomUUID();
+						UUID id =UUID.randomUUID();
 						org.apache.commons.beanutils.BeanUtils.copyProperty(modelFromDB, "parentId",id);
 						getCurrentSession().evict(modelFromDB);
 						getCurrentSession().update(modelFromDB);
@@ -152,7 +152,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				        org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",id);
 					    model.setRecordToBeInserted(true);
 						model.setDeleted(true);
-					}catch (IllegalAccessException e) {
+					} catch (IllegalAccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (InvocationTargetException e) {
@@ -162,8 +162,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				
-					
 				}
 		}
 	    

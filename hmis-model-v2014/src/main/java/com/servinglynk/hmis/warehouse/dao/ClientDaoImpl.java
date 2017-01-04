@@ -73,8 +73,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
 		if (clients != null && clients.size() > 0) {
-			com.servinglynk.hmis.warehouse.model.v2014.Client model = null;
 			for (Client client : clients) {
+				com.servinglynk.hmis.warehouse.model.v2014.Client model = null;
 				try {
 				model = getModelObject(domain, client,data,modelMap,dedupSessionKey,skipClientIdentifier);
 				model.setFirstName(client.getFirstName());
@@ -115,16 +115,15 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
-				performMatch(domain, null , model, data);
 				performSaveOrUpdate(model);		
 				
 				// Inserting client in base schema		
-				if(!model.isIgnored() ){
+				if(!model.isIgnored() && model.isRecordToBoInserted() ){
 					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 					BeanUtils.copyProperties(model, target, new String[] {"enrollments","veteranInfoes"});
 					target.setDateUpdated(LocalDateTime.now());
 					target.setSchemaYear("2014");
-					insertOrUpdate(target);			
+					insert(target);			
 				}
 			
 				} catch(Exception ex ){
