@@ -96,7 +96,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,enrollmentCoc.getEnrollmentCoCID(),data);

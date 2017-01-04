@@ -112,7 +112,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Inventory model = new com.servinglynk.hmis.warehouse.model.v2014.Inventory();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,inventory.getInventoryID(),data);

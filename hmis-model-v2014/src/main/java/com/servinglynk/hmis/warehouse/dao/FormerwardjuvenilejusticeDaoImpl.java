@@ -92,7 +92,7 @@ public class FormerwardjuvenilejusticeDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice model = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardjuvenilejustice();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardJuvenileJustice.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,formerWardJuvenileJustice.getFormerWardJuvenileJusticeID(),data);

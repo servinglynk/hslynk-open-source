@@ -110,7 +110,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Project model = new com.servinglynk.hmis.warehouse.model.v2014.Project();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,project.getProjectID(),data);

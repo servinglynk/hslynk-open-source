@@ -90,7 +90,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Funder model = new com.servinglynk.hmis.warehouse.model.v2014.Funder();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,funder.getFunderID(),data);

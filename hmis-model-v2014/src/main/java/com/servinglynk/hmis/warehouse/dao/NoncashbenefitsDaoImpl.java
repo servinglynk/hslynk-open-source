@@ -107,7 +107,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits model = new com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(noncashbenefits.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,noncashbenefits.getNonCashBenefitsID(),data);

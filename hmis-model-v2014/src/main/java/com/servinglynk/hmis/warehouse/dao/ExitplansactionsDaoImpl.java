@@ -103,7 +103,7 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions model = new com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,exitPlansActions.getExitPlansActionsID(),data);

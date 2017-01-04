@@ -90,7 +90,7 @@ public class ProjectcompletionstatusDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus model = new com.servinglynk.hmis.warehouse.model.v2014.Projectcompletionstatus();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectcompletionstatus.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,projectcompletionstatus.getProjectCompletionStatusID(),data);

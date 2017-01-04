@@ -89,7 +89,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate model = new com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(residentialmoveindate.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,residentialmoveindate.getResidentialMoveInDateID(),data);

@@ -88,7 +88,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition model = new com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,housingAssessmentDisposition.getHousingAssessmentDispositionID(),data);

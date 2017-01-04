@@ -137,7 +137,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				
 			}
 			 com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources model = new com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources();
-			  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 			  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
 			  performMatch(domain, modelFromDB, model, data);
 			hydrateCommonFields(model, domain,incomeAndSources.getIncomeAndSourcesID(),data);

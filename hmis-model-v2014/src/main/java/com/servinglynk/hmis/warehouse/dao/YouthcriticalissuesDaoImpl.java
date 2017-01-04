@@ -140,7 +140,7 @@ public class YouthcriticalissuesDaoImpl extends ParentDaoImpl implements
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues model = new com.servinglynk.hmis.warehouse.model.v2014.Youthcriticalissues();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(youthcriticalissues.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,youthcriticalissues.getYouthCriticalIssuesID(),data);

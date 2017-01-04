@@ -93,7 +93,7 @@ public class ProjectcocDaoImpl extends ParentDaoImpl implements ProjectcocDao {
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Projectcoc model = new com.servinglynk.hmis.warehouse.model.v2014.Projectcoc();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(projectcoc.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,projectcoc.getProjectCoCID(),data);

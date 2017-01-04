@@ -90,7 +90,7 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 			
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar model = new com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar();
-		org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,connectionWithSOAR.getConnectionWithSOARID(),data);

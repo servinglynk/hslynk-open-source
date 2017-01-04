@@ -84,7 +84,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			
 		  }
 		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		  hydrateCommonFields(model, domain,dateOfEngagement.getDateOfEngagementID(),data);

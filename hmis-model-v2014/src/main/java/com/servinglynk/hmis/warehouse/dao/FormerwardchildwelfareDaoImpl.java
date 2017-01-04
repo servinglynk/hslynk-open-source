@@ -95,7 +95,7 @@ public class FormerwardchildwelfareDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare model = new com.servinglynk.hmis.warehouse.model.v2014.Formerwardchildwelfare();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(formerWardChildWelfare.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,formerWardChildWelfare.getFormerWardChildWelfareID(),data);

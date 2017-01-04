@@ -93,7 +93,7 @@ public class LastPermAddressDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress model = new com.servinglynk.hmis.warehouse.model.v2014.LastPermAddress();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(lastPermAddress.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,lastPermAddress.getLastPermanentAddressID(),data);

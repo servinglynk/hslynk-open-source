@@ -87,7 +87,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Pathstatus model = new com.servinglynk.hmis.warehouse.model.v2014.Pathstatus();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathstatus.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,pathstatus.getPathStatusID(),data);

@@ -258,7 +258,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		return resultsMap;
 	}
 	protected void performMatch(ExportDomain domain, HmisBaseModel modelFromDB, HmisBaseModel model, Data data) {
-		if(!isFullRefresh(domain) && StringUtils.isNotBlank(model.getSourceSystemId())){
+		if(!isFullRefresh(domain) && modelFromDB!=null && !modelFromDB.isRecordToBoInserted()){
 			if(modelFromDB != null) {
 				modelMatch(modelFromDB, model);
 			}	
@@ -275,6 +275,14 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			}
 		}else {
 			data.i++;
+			model.setRecordToBeInserted(true);
+			UUID id =UUID.randomUUID();
+			try {
+				org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",id);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	/***

@@ -93,7 +93,7 @@ public class ServicesDaoImpl extends ParentDaoImpl implements ServicesDao {
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Services model = new com.servinglynk.hmis.warehouse.model.v2014.Services();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,services.getServicesID(),data);

@@ -89,7 +89,7 @@ public class WorsthousingsituationDaoImpl extends ParentDaoImpl implements
 			
 		}
 		 com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation model = new com.servinglynk.hmis.warehouse.model.v2014.Worsthousingsituation();
-		  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(worsthousingsituation.getDateUpdated()));
 		  performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,worsthousingsituation.getWorstHousingSituationID(),data);
