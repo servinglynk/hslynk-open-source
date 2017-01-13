@@ -186,72 +186,59 @@ public class AuthorizationsController extends ControllerBase {
 		session.setAccount(account);
 
 		
-		 if (state != null)	{
-			 loginUri = loginUri + "?state=" + urlEncode(state);
-				logger.debug("state is provided {}, append it to the redirect uri", state);
-			}
-			
-			// append access_type if provided
-			if (accessType != null)	{
-				loginUri = loginUri + "&access_type=" + accessType;
-				logger.debug("accessType is provided {}, append it to the redirect uri", accessType);
-			}
-			
-			// append approval_prompt if provided
-			if (approvalPrompt != null)	{
-				loginUri =loginUri + "&approval_prompt=" + approvalPrompt;
-				logger.debug("approvalPrompt is provided {}, append it to the redirect uri", approvalPrompt);
-			}
-			
-
-		
+		String effectiveRedirectUri="";		
 		try {
 			serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
+			 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
+				 effectiveRedirectUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+				 
+			 }else{
+				 effectiveRedirectUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+				 response.addCookie(new Cookie("authentication_token",session.getToken()));
+			 }
+
 		}catch(InvalidTrustedAppException invldException) {
-			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
-			return session;
+			effectiveRedirectUri = loginUri + "?response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri) ;
+		//	response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+//			return session;
 		}catch(MissingParameterException missingParamException) {
-			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+missingParamException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
-			return session;
+			effectiveRedirectUri = loginUri +  "?response_type="+responseType+"&errorMessage="+missingParamException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+		//	response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+missingParamException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+//			return session;
 		}catch(InvalidParameterException invalidException) {
-			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invalidException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
-			return session;
+			effectiveRedirectUri = loginUri +  "?response_type="+responseType+"&errorMessage="+invalidException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+			//			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invalidException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+//			return session;
 		}catch(AccountNotFoundException acctNotFoundException) {
-			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+acctNotFoundException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
-			return session;
+			effectiveRedirectUri = loginUri +  "?response_type="+responseType+"&errorMessage="+acctNotFoundException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+			//			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+acctNotFoundException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+//			return session;
 		}catch(Exception exception) {
-			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+exception.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
-			return session;
+			effectiveRedirectUri = loginUri +  "?response_type="+responseType+"&errorMessage="+exception.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+//			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+exception.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+//			return session;
 		}
 		 
-		 String otpUri="";
-		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
-			  otpUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
-			 
-		 }else{
-			 otpUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
-			 response.addCookie(new Cookie("authentication_token",session.getToken()));
-		 }
 			 
 			 if (state != null)	{
-				 otpUri = otpUri + "&state=" + urlEncode(state);
+				 effectiveRedirectUri = effectiveRedirectUri + "&state=" + urlEncode(state);
 					logger.debug("state is provided {}, append it to the redirect uri", state);
 				}
 				
 				// append access_type if provided
 				if (accessType != null)	{
-					otpUri = otpUri + "&access_type=" + accessType;
+					effectiveRedirectUri = effectiveRedirectUri + "&access_type=" + accessType;
 					logger.debug("accessType is provided {}, append it to the redirect uri", accessType);
 				}
 				
 				// append approval_prompt if provided
 				if (approvalPrompt != null)	{
-					otpUri = otpUri + "&approval_prompt=" + approvalPrompt;
+					effectiveRedirectUri = effectiveRedirectUri + "&approval_prompt=" + approvalPrompt;
 					logger.debug("approvalPrompt is provided {}, append it to the redirect uri", approvalPrompt);
 				}
 				
 			 
-			 response.sendRedirect(otpUri);
+			 response.sendRedirect(effectiveRedirectUri);
 		 
 		// return a session containing the token field to indicate the
 		// successful creation.
