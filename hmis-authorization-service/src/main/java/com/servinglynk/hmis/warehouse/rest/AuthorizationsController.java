@@ -185,7 +185,7 @@ public class AuthorizationsController extends ControllerBase {
 		Session session= new Session();
 		session.setAccount(account);
 
-		
+		Session returnSession = new Session();
 		String effectiveRedirectUri="";		
 		try {
 			serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
@@ -196,7 +196,7 @@ public class AuthorizationsController extends ControllerBase {
 				 effectiveRedirectUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 				 response.addCookie(new Cookie("authentication_token",session.getToken()));
 			 }
-
+				returnSession.setToken(session.getToken());
 		}catch(InvalidTrustedAppException invldException) {
 			effectiveRedirectUri = loginUri + "?response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri) ;
 		//	response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
@@ -242,8 +242,7 @@ public class AuthorizationsController extends ControllerBase {
 		 
 		// return a session containing the token field to indicate the
 		// successful creation.
-		Session returnSession = new Session();
-		returnSession.setToken(session.getToken());
+
 		return returnSession;
 	}
 	
