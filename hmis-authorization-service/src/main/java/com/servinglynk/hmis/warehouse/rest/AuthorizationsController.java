@@ -184,24 +184,43 @@ public class AuthorizationsController extends ControllerBase {
 		account.setPassword(password);
 		Session session= new Session();
 		session.setAccount(account);
+
 		
+		 if (state != null)	{
+			 loginUri = loginUri + "?state=" + urlEncode(state);
+				logger.debug("state is provided {}, append it to the redirect uri", state);
+			}
+			
+			// append access_type if provided
+			if (accessType != null)	{
+				loginUri = loginUri + "&access_type=" + accessType;
+				logger.debug("accessType is provided {}, append it to the redirect uri", accessType);
+			}
+			
+			// append approval_prompt if provided
+			if (approvalPrompt != null)	{
+				loginUri =loginUri + "&approval_prompt=" + approvalPrompt;
+				logger.debug("approvalPrompt is provided {}, append it to the redirect uri", approvalPrompt);
+			}
+			
+
 		
 		try {
 			serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
 		}catch(InvalidTrustedAppException invldException) {
-			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invldException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
 			return session;
 		}catch(MissingParameterException missingParamException) {
-			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+missingParamException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+missingParamException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
 			return session;
 		}catch(InvalidParameterException invalidException) {
-			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+invalidException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+invalidException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
 			return session;
 		}catch(AccountNotFoundException acctNotFoundException) {
-			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+acctNotFoundException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+acctNotFoundException.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
 			return session;
 		}catch(Exception exception) {
-			response.sendRedirect(loginUri + "?response_type="+responseType+"&errorMessage="+exception.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
+			response.sendRedirect(loginUri + "&response_type="+responseType+"&errorMessage="+exception.getMessage()+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri));
 			return session;
 		}
 		 
