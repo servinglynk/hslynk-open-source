@@ -25,4 +25,5 @@ public interface BaseDaoFactory {
 	SearchDao getSearchDao();
 	ProjectDao getBaseProjectDao();
 	HealthDao getHealthDao();	
+	ClientConsentDao getClientConsentDao();
 }

@@ -69,6 +69,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private HealthDao healthDao;
 	
+	@Autowired private ClientConsentDao clientConsentDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -254,5 +256,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setHealthDao(HealthDao healthDao) {
 		this.healthDao = healthDao;
+	}
+	public ClientConsentDao getClientConsentDao() {
+		return clientConsentDao;
+	}
+	public void setClientConsentDao(ClientConsentDao clientConsentDao) {
+		this.clientConsentDao = clientConsentDao;
 	}
 }
