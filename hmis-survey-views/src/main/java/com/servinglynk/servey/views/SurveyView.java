@@ -95,7 +95,7 @@ public class SurveyView {
 		 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 			builder.append("  VALUES ( ");
 			builder.append("?, ?, ?");
-			  int count = 4;
+			  int count = 3;
 			  for(String question : disinctQuestions) {
 				  questionMap.put(question, count);
 				  count ++;
@@ -106,6 +106,9 @@ public class SurveyView {
 			  PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
 			  preparedStatement.setString(1, clientId);
 			  preparedStatement.setString(2, String.valueOf(survey.getSurveyDate()));
+			  for(int loopCount=3; loopCount<= count; loopCount++) {
+				  preparedStatement.setString(loopCount, "");  
+			  }
 			  String submissionId = null;
 			  boolean resonseContainMoreThanOneClient = false;
 		 for (Response response : responses) {
