@@ -72,7 +72,7 @@ public class BulkUploaderTest {
 		BulkUpload	bullkUpload = new BulkUpload();
 	//	bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
 		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_1_4012_93.xml");
-		bullkUpload.setId(3L);
+		bullkUpload.setId(220L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
 		appender.setFile("logs/" + bullkUpload.getId() + ".log");
@@ -80,9 +80,9 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		bullkUpload.setProjectGroupCode("PG0001");
+		bullkUpload.setProjectGroupCode("MO0010");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		projectGrpEntity.setProjectGroupCode("PG0001");
+		projectGrpEntity.setProjectGroupCode("MO0010");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
 	}
 	

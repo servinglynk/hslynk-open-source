@@ -121,8 +121,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
 			exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
 			logger.info(" Bulk Upload Processing client Table Begin.....");
+			startNanos = System.nanoTime();
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DOne
 			logger.info(" Bulk Upload Processing client Table Ends.....");
+			logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done

@@ -187,7 +187,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			model.setId(UUID.randomUUID());
 			model.setRecordToBeInserted(true);
 		}
-		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
+		//model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
 		if(!isFullRefresh(domain)) {
 			if(!model.isIgnored()) {
 				if(!model.isRecordToBoInserted()) {

@@ -42,18 +42,21 @@ public class SurveyView {
     		// Get the Survey details from the survey table and project group code in the survey 
     		Survey survey = getSurveyById("survey", surveyId);
     		// TODO: Below items
-        	// table is the hive database where this hive table needs to be created.
-    		createHiveTable(survey, disinctQuestions);
-        	//  create a hive table after getting the questions.    	
-        	//Insert the data into the view by clientIds and submission id.
-    		// Get unique clients for a survey.
-    		List<String>  clients = getClientsForSurvey("survey", UUID.fromString(surveyId));
-    		for(String clientId : clients) {
-    			if(StringUtils.isNotBlank(clientId)) {
-    				List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId),UUID.fromString(clientId));
-            		insertIntoHiveTable(survey,disinctQuestions, responses,clientId);
-    			}
+    		if(StringUtils.equalsIgnoreCase(survey.getProjectGroupCode(), "MO0010")) {
+    	   		createHiveTable(survey, disinctQuestions);
+            	//  create a hive table after getting the questions.    	
+            	//Insert the data into the view by clientIds and submission id.
+        		// Get unique clients for a survey.
+        		List<String>  clients = getClientsForSurvey("survey", UUID.fromString(surveyId));
+        		for(String clientId : clients) {
+        			if(StringUtils.isNotBlank(clientId)) {
+        				List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId),UUID.fromString(clientId));
+                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId);
+        			}
+        		}	
     		}
+        	// table is the hive database where this hive table needs to be created.
+ 
     	}
     }
     
@@ -99,6 +102,7 @@ public class SurveyView {
 				  builder.append(",?");  
 			  }
 			  builder.append(")");
+			  System.out.println("The Query:::"+builder.toString());
 			  PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
 			  preparedStatement.setString(1, clientId);
 			  preparedStatement.setString(2, String.valueOf(survey.getSurveyDate()));
@@ -115,6 +119,7 @@ public class SurveyView {
 					  i =4;
 				  }
 				  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
+					 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
 					  preparedStatement.executeUpdate();
 					  resonseContainMoreThanOneClient = true;
 					  i =4;
@@ -161,7 +166,7 @@ public class SurveyView {
     		  }
 			  String query = builder.toString();
 			  query = query +")";
-			  stmt.execute("DROP Table "+survey.getProjectGroupCode()+"."+tableName);
+			  stmt.execute("DROP Table  IF EXISTS "+survey.getProjectGroupCode()+"."+tableName);
 	      stmt.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

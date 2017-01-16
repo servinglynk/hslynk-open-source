@@ -4,6 +4,7 @@ import java.util.UUID;
 
 enum Status {
 	STAGING,
+	RESYNC,
 	LIVE,
 	DELETED,
 	ERROR,
@@ -20,6 +21,8 @@ enum Status {
 			return ERROR;
 		}else if (PURGED.name().equals(s.trim())){
 			return PURGED;
+		}else if (RESYNC.name().equals(s.trim())){
+			return RESYNC;
 		}
 		return null;
 	}
