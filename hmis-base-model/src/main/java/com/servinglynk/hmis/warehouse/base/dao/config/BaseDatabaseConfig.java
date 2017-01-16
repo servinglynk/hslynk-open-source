@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.base.dao.config;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,6 +12,8 @@ import com.servinglynk.hmis.warehouse.base.dao.AccountDataChangeDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ApiMethodDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDao;
+import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
@@ -40,6 +45,7 @@ import com.servinglynk.hmis.warehouse.base.dao.TrustedAppDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.VerificationDaoImpl;
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
+import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 
 @Configuration
 public class BaseDatabaseConfig {
@@ -215,6 +221,11 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ProjectDaoImpl baseProjectDao(){
 		return new ProjectDaoImpl();
+	}
+	
+	@Bean
+	public ClientConsentDaoImpl clientConsentDao(){
+		return new ClientConsentDaoImpl();
 	}
 	
 	@Bean

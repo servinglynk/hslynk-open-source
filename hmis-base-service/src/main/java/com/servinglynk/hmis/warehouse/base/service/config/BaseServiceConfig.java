@@ -12,7 +12,6 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
-import com.servinglynk.hmis.warehouse.base.service.ProjectService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
@@ -21,6 +20,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.ClientConsentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.HealthServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
@@ -200,5 +200,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public HealthServiceImpl healthService(){
 		 return new HealthServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ClientConsentServiceImpl clientConsentService(){
+		 return new ClientConsentServiceImpl();
 	 }
 }
