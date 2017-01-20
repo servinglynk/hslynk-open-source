@@ -71,6 +71,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private ClientConsentDao clientConsentDao;
 	
+	@Autowired  private ClientDataElementDao clientDataElementDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -262,5 +264,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setClientConsentDao(ClientConsentDao clientConsentDao) {
 		this.clientConsentDao = clientConsentDao;
+	}
+	public ClientDataElementDao getClientDataElementDao() {
+		return clientDataElementDao;
+	}
+	public void setClientDataElementDao(ClientDataElementDao clientDataElementDao) {
+		this.clientDataElementDao = clientDataElementDao;
 	}
 }

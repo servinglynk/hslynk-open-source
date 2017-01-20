@@ -1,8 +1,11 @@
 package com.servinglynk.hmis.warehouse.base.dao.config;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +18,8 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDao;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDao;
+import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
@@ -46,6 +51,7 @@ import com.servinglynk.hmis.warehouse.base.dao.TrustedAppStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.VerificationDaoImpl;
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
+import com.servinglynk.hmis.warehouse.model.base.ClientDataElementsEntity;
 
 @Configuration
 public class BaseDatabaseConfig {
@@ -231,5 +237,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public HealthDaoImpl healthDao(){
 		return new HealthDaoImpl();
+	}
+	
+	@Bean
+	public ClientDataElementDaoImpl clientDataElementDao(){
+		return new ClientDataElementDaoImpl();
 	}
 }

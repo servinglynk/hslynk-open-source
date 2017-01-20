@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 
@@ -66,5 +67,10 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public ConsentsController consentsController(){
 		 return new ConsentsController();
+	 }
+	 
+	 @Bean
+	 public ClientsController clientsController(){
+		 return new ClientsController();
 	 }
 }

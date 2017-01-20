@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
+import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
@@ -74,6 +75,7 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired private HealthService healthService;
 	
 	@Autowired private ClientConsentService clientConsentService;
+	@Autowired private ClientDataElementsService clientDataElementsService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -221,5 +223,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setClientConsentService(ClientConsentService clientConsentService) {
 		this.clientConsentService = clientConsentService;
+	}
+
+	public ClientDataElementsService getClientDataElementsService() {
+		return clientDataElementsService;
+	}
+
+	public void setClientDataElementsService(ClientDataElementsService clientDataElementsService) {
+		this.clientDataElementsService = clientDataElementsService;
 	}
 }

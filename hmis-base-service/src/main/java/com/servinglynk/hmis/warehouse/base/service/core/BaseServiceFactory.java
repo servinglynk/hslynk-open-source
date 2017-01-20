@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
+import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
@@ -42,4 +43,5 @@ public interface BaseServiceFactory {
 	ProjectService getBaseProjectService();
 	HealthService getHealthService();
 	ClientConsentService getClientConsentService();
+	ClientDataElementsService getClientDataElementsService();
 }
