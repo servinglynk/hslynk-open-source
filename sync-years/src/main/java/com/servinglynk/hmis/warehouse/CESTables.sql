@@ -17,3 +17,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS response(id string ,response_text string ,qu
 section_id string,question_id string,client_id string,survey_id string,refused string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
 ("hbase.columns.mapping" = ":key,CF:response_text,CF:question_score,CF:app_id,CF:effective_date,CF:section_id,CF:question_id,CF:client_id,CF:survey_id,CF:refused,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "response_survey");
 
+
+CREATE EXTERNAL TABLE IF NOT EXISTS match_process_log(id string ,status_message string ,status string,housing_unit_id string,client_id string,
+project_id string,project_group_code string,process_id string,created_at timestamp,updated_at timestamp,user_id string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = ":key,CF:status_message,CF:status,CF:housing_unit_id,CF:client_id,CF:project_id,CF:project_group_code,CF:process_id,CF:created_at,CF:updated_at,CF:user_id") TBLPROPERTIES ("hbase.table.name" = "match_process_log_housing_inventory");
+
+
