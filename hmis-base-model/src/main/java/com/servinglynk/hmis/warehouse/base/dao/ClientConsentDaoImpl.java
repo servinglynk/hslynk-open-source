@@ -7,6 +7,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
+import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntitiesEntity;
+import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntity;
+import com.servinglynk.hmis.warehouse.model.base.ClientConsentStatusEntity;
 
 public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientConsentDao {
 
@@ -43,5 +46,47 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		List<ClientConsentEntity> consents = (List<ClientConsentEntity>) findByCriteria(criteria);
 		return consents;
 	}
+	
+	public void createClientConsentRequest(ClientConsentRequestEntity entity) {
+		insert(entity);
+	}
 
+	public void updateClientConsentRequest(ClientConsentRequestEntity entity) {
+		update(entity);
+	}
+	
+	public void deleteClientConsentRequestEntities(ClientConsentRequestEntitiesEntity entitiesEntity){
+		delete(entitiesEntity);
+	}
+
+	public void deleteClientConsentRequest(ClientConsentRequestEntity entity) {
+		delete(entity);
+	}
+
+	public ClientConsentRequestEntity getClientConsentRequestId(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentRequestEntity.class);
+		criteria.add(Restrictions.eq("id", id));
+		List<ClientConsentRequestEntity> consents = (List<ClientConsentRequestEntity>) findByCriteria(criteria);
+		if(!consents.isEmpty()) return consents.get(0);
+		return null;
+	}
+
+	public List<ClientConsentRequestEntity> getClinetConsentRequests() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentRequestEntity.class);
+		List<ClientConsentRequestEntity> consents = (List<ClientConsentRequestEntity>) findByCriteria(criteria);
+		return consents;
+
+	}
+		
+	public void updateConsentStatus(ClientConsentStatusEntity entity){
+		insertOrUpdate(entity);		
+	}
+
+	public List<ClientConsentStatusEntity> getClientConsentStatusByConsentId(UUID consentRequestId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentStatusEntity.class);
+		criteria.createAlias("clientConsentRequestEntity", "clientConsentRequestEntity");
+		criteria.add(Restrictions.eq("clientConsentRequestEntity.id", consentRequestId));
+		return (List<ClientConsentStatusEntity>) findByCriteria(criteria);
+	}
+	
 }
