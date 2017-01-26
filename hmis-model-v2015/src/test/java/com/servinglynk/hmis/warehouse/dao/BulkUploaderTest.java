@@ -242,6 +242,7 @@ public class BulkUploaderTest {
 	{
 			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload upload = new BulkUpload();
+				upload.setId(221L);
 				FileAppender appender = new FileAppender();
 				appender.setName("" + upload.getId());
 				appender.setFile("logs/" + upload.getId() + ".log");
@@ -249,7 +250,7 @@ public class BulkUploaderTest {
 				appender.setAppend(true);
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
-				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_90.xml");
+				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_97.xml");
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
 		//		upload.setInputpath(path.getPath());

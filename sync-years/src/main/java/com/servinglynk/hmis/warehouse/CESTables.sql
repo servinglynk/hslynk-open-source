@@ -22,4 +22,45 @@ CREATE EXTERNAL TABLE IF NOT EXISTS match_process_log(id string ,status_message 
 project_id string,project_group_code string,process_id string,created_at timestamp,updated_at timestamp,user_id string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
 ("hbase.columns.mapping" = ":key,CF:status_message,CF:status,CF:housing_unit_id,CF:client_id,CF:project_id,CF:project_group_code,CF:process_id,CF:created_at,CF:updated_at,CF:user_id") TBLPROPERTIES ("hbase.table.name" = "match_process_log_housing_inventory");
 
+CREATE EXTERNAL TABLE IF NOT EXISTS global_household(global_household_id string ,inactive string ,head_of_household_id string,head_of_household_link string,
+project_group_code string,user_id string,user_create string,user_update string,date_created timestamp,date_updated timestamp,deleted boolean) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = ":key,CF:inactive,CF:head_of_household_id,CF:head_of_household_link,CF:project_group_code,
+CF:user_id,CF:user_create,CF:user_update,CF:date_created,CF:date_updated,CF:deleted") TBLPROPERTIES ("hbase.table.name" = "global_household_housing_inventory");
 
+CREATE EXTERNAL TABLE IF NOT EXISTS eligible_clients
+(id string,
+client_id	string,
+survey_type	string,		
+survey_score string,	
+program_type	string,			
+matched		string,
+survey_date	 date,
+spdat_label	string,
+zip_code	string,		
+project_group_code	string,		
+coc_score	string,
+client_link	string,
+date_created date,	
+date_updated date,	
+user_id	string,
+deleted boolean,
+ignore_match_process boolean)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = "
+:key
+CF:client_id,	
+CF:survey_type,			
+CF:survey_score,			
+CF:program_type,			
+CF:matched,	
+CF:survey_date,			
+CF:spdat_label,			
+CF:zip_code,			
+CF:project_group_code,			
+CF:coc_score,			
+CF:client_link,			
+CF:date_created,			
+CF:date_updated,			
+CF:user_id,			
+CF:deleted,			
+CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "eligible_clients_housing_inventory");
