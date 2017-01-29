@@ -1,10 +1,12 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 
 import org.apache.log4j.Appender;
@@ -78,36 +80,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if (appender != null) {
 				logger.addAppender(appender);
 			}
+			long startNanos = System.nanoTime();
 			logger.debug("Bulk Uploader Process Begins..........");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			insertOrUpdate(upload);
-			long startNanos = System.nanoTime();
-			Sources sources = null;
-			try {
-				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
-			} catch (UnmarshalException ex) {
-				logger.error("Error executing the bulk upload process:: ", ex);
-				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
-			}
-			logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-
-			Source source = null;
-			try {
-				source = sources.getSource();
-			} catch (Exception ex) {
-				throw new Exception("HUD File Uploaded is in an invalid Format :Unable to get source from sources", ex);
-			}
-			Export export = null;
-			try {
-				export = source.getExport();
-			} catch (Exception ex) {
-				throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
-			}
-			ExportDomain domain = new ExportDomain();
-			domain.setExport(export);
-			domain.setUpload(upload);
-			domain.setSource(source);
-			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+			ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
 			logger.info("Staging Source table.........");
 			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
@@ -143,6 +120,43 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		return upload;
 	}
+	
+	private ExportDomain getDomain(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Boolean isFileFromS3) throws Exception {
+		long startNanos = System.nanoTime();
+		Source source = getSource(upload, projectGroupdEntity, isFileFromS3);
+		Export export = null;
+		try {
+			export = source.getExport();
+		} catch (Exception ex) {
+			throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
+		}
+		logger.info("Time take to read the "+upload.getInputpath()+ " was " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+		ExportDomain domain = new ExportDomain();
+		domain.setExport(export);
+		domain.setUpload(upload);
+		domain.setSource(source);
+		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+		return domain;
+	}
+	
+	private Source getSource(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Boolean isFileFromS3) {
+		long startNanos = System.nanoTime();
+		Sources sources = null;
+		try {
+			sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
+		} catch (UnmarshalException ex) {
+			logger.error("Error executing the bulk upload process:: ", ex);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+
+		return sources.getSource();
+	}
 	/***
 	 * Perform Bulk Upload for processProjectChildren Tables
 	 */
@@ -154,10 +168,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		logger.debug("processProjectChildren Begins..........");
 		long startNanos = System.nanoTime();
-		ExportDomain domain = new ExportDomain();
-		domain.setUpload(upload);
-		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			try {
+				ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 				Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 				Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Project.class, getProjectGroupCode(domain));
 				parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
@@ -183,10 +195,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		logger.debug("processEnrollmentChildrenPart1 Begins..........");
 		long startNanos = System.nanoTime();
-		ExportDomain domain = new ExportDomain();
-		domain.setUpload(upload);
-		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			try {
+				ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 				Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 				parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -212,10 +222,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		logger.debug("processEnrollmentChildrenPart2 Begins..........");
 		long startNanos = System.nanoTime();
-		ExportDomain domain = new ExportDomain();
-		domain.setUpload(upload);
-		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			try {
+				ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 				Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 				parentDaoFactory.getEntryrhspDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -242,10 +250,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		logger.debug("processEnrollmentChildrenPart3 Begins..........");
 		long startNanos = System.nanoTime();
-		ExportDomain domain = new ExportDomain();
-		domain.setUpload(upload);
-		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			try {
+				ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 				Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 				parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
