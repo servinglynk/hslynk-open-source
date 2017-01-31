@@ -3,7 +3,6 @@ import sys
 import config
 import psycopg2
 import subprocess
-import EncryptDecrypt
 from time import sleep
 
 
@@ -57,9 +56,6 @@ def update_users(conn, cur, group_code_id, group_code):
         password = str(list_pair[1])
         user_in_hive = bool(list_pair[2])
         user_id = str(list_pair[3])
-        # Add code to decrypt password.
-        encryptedPassword = EncryptDecrypt.decrypt(password);
-        updateHivePassword(user_id,encryptedPassword);
         print "[update_users] Hive username: " + username
         print "[update_users] Hive password: " + password
         print "[update_users] Is user in hive? " + str(user_in_hive)
@@ -77,7 +73,7 @@ def update_users(conn, cur, group_code_id, group_code):
                 print "[update_users] [ERROR] Cannot create user"
                 continue
             cur.execute("update " + config.schema + "." + config.user_table +
-                        " set is_user_in_hive=True and password= '"+encryptedPassword+"' where hive_username = '" +
+                        " set is_user_in_hive=True where hive_username = '" +
                         username +"' and id='" + user_id + "'")
             conn.commit()
         else:
@@ -166,10 +162,13 @@ if __name__ == '__main__':
         myConnection = psycopg2.connect(host=config.hostname, user=config.username, password=config.password, dbname=config.database)
         create_db(myConnection)
         myConnection.close()
+
+        print("[main] #####################################################################################\n")
+        #cmd = run_command("./syncWithHue.sh")
+        sys.stdout.flush()
+
         print("[main] #####################################################################################")
         print("[main] done")
         print("[main] Sleep for " + str(config.period) + " minutes")
-        print("[main] #####################################################################################\n")
-        cmd = run_command("./syncWithHue.sh")
-        sys.stdout.flush()
+
         sleep(config.period * 60)

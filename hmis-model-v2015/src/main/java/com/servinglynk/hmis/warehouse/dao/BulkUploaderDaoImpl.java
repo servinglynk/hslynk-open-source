@@ -276,10 +276,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		logger.debug("processDisabilities Begins..........");
 		long startNanos = System.nanoTime();
-		ExportDomain domain = new ExportDomain();
-		domain.setUpload(upload);
-		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			try {
+				ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 				Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 				parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap);
@@ -300,10 +298,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		logger.debug("processExitChildrenPart1 Begins..........");
 		long startNanos = System.nanoTime();
-		ExportDomain domain = new ExportDomain();
-		domain.setUpload(upload);
-		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			try {
+				ExportDomain domain = getDomain(upload, projectGroupdEntity, isFileFromS3);
 				Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Export.class, getProjectGroupCode(domain));
 				Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Exit.class, getProjectGroupCode(domain));
 				parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
