@@ -22,7 +22,7 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 	}
 
 	public void deleteClientConsent(ClientConsentEntity entity) {
-		delete(entity);
+		getCurrentSession().update(entity);
 	}
 
 	public ClientConsentEntity getClientConsentId(UUID id) {
@@ -40,11 +40,17 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 
 	}
 
-	public List<ClientConsentEntity> getClinetConsents(UUID clientId) {
+	public List<ClientConsentEntity> getClinetConsents(UUID clientId,Integer startIndex,Integer maxItems) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
 		if(clientId!=null) criteria.add(Restrictions.eq("clientId", clientId));
-		List<ClientConsentEntity> consents = (List<ClientConsentEntity>) findByCriteria(criteria);
+		List<ClientConsentEntity> consents = (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
 		return consents;
+	}
+	
+	public long getClientConsentsCount(UUID clientId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+		if(clientId!=null) criteria.add(Restrictions.eq("clientId", clientId));
+		return countRows(criteria);
 	}
 	
 	public void createClientConsentRequest(ClientConsentRequestEntity entity) {
@@ -60,7 +66,7 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 	}
 
 	public void deleteClientConsentRequest(ClientConsentRequestEntity entity) {
-		delete(entity);
+		getCurrentSession().update(entity);
 	}
 
 	public ClientConsentRequestEntity getClientConsentRequestId(UUID id) {
@@ -71,11 +77,18 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		return null;
 	}
 
-	public List<ClientConsentRequestEntity> getClinetConsentRequests() {
+	public List<ClientConsentRequestEntity> getClinetConsentRequests(UUID clientId,Integer startIndex,Integer maxItems) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentRequestEntity.class);
-		List<ClientConsentRequestEntity> consents = (List<ClientConsentRequestEntity>) findByCriteria(criteria);
+		criteria.add(Restrictions.eq("clientId", clientId));
+		List<ClientConsentRequestEntity> consents = (List<ClientConsentRequestEntity>) findByCriteria(criteria,startIndex,maxItems);
 		return consents;
 
+	}
+	
+	public long getClientConsentRequestsCount(UUID clientId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentRequestEntity.class);
+		criteria.add(Restrictions.eq("clientId", clientId));
+		return countRows(criteria);
 	}
 		
 	public void updateConsentStatus(ClientConsentStatusEntity entity){

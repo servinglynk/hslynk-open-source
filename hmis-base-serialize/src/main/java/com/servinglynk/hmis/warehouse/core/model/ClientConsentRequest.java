@@ -7,23 +7,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.servinglynk.hmis.warehouse.annotations.AllowedValues;
 
-@JsonRootName("clientConsent")
+@JsonRootName("consentRequest")
 public class ClientConsentRequest extends ClientModel {
 	
 	private UUID  consentRequestid;
 	private UUID clientId;
+	
+	@AllowedValues(values={"APPROVED","REJECTED"},message="Allowed values for status value are APPROVED,REJECTED")
 	private String status;
+	
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
+	@JsonProperty("consentRequestedFrom")
 	private LocalDateTime startTime;
+	
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
+	@JsonProperty("consentRequestedTo")
 	private LocalDateTime endTime;
+	
 	private String consentDocumentLink;
 	
-	@JsonProperty("clientConsentEntities")
-	ClientConsentEntities clientConsentEntities= new ClientConsentEntities();
+	@JsonProperty("consentRequestEntities")
+	ClientConsentRequestEntities clientConsentEntities= new ClientConsentRequestEntities();
 	
 	public UUID getConsentRequestid() {
 		return consentRequestid;
@@ -61,10 +69,10 @@ public class ClientConsentRequest extends ClientModel {
 	public void setConsentDocumentLink(String consentDocumentLink) {
 		this.consentDocumentLink = consentDocumentLink;
 	}
-	public ClientConsentEntities getClientConsentEntities() {
+	public ClientConsentRequestEntities getClientConsentEntities() {
 		return clientConsentEntities;
 	}
-	public void setClientConsentEntities(ClientConsentEntities clientConsentEntities) {
+	public void setClientConsentEntities(ClientConsentRequestEntities clientConsentEntities) {
 		this.clientConsentEntities = clientConsentEntities;
 	}
 }

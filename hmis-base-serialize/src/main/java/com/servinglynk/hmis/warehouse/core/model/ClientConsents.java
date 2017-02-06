@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.servinglynk.hmis.warehouse.PaginatedModel;
 
-@JsonRootName("clientConsents")
+@JsonRootName("consents")
 public class ClientConsents extends PaginatedModel {
 
-	@JsonProperty("clientConsents")
+	@JsonProperty("consents")
 	private List<ClientConsent> clientConsents = new ArrayList<ClientConsent>();
 
 	public List<ClientConsent> getClientConsents() {

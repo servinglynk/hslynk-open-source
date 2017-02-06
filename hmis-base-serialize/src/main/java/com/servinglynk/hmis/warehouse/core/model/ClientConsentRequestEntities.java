@@ -6,10 +6,10 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("consentEntities")
-public class ClientConsentEntities {
+@JsonRootName("consentRequestEntities")
+public class ClientConsentRequestEntities {
 
-	@JsonProperty("consentEntities")
+	@JsonProperty("consentRequestEntities")
 	private List<ClientConsentEntityModel> clientConsentEntities = new ArrayList<ClientConsentEntityModel>();
 
 	public List<ClientConsentEntityModel> getClientConsentEntities() {
