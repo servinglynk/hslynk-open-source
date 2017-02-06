@@ -68,13 +68,13 @@ public class Stats {
 	
 	public static void main(String args[]) throws Exception {
 		int count =0;
-		String schema ="survey";
-		String projectGroupCode ="MO0010";
+		String schema ="housing_inventory";
+		String projectGroupCode ="HO0002";
 		List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
 		for(String tableName : allTablesFromPostgres) {
 			count = count + getTableCount(tableName, projectGroupCode, schema);
 		}
-		System.out.println("Count in v2015 schema is:"+count);
+		System.out.println("Count in "+schema+ "schema is:"+count);
 
 
 	}

@@ -66,7 +66,7 @@ public class HiveConnection {
 	        // get connection
 	        System.out.println("connecting to db");
 		if (connection == null) {
-			connection = DriverManager.getConnection("jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/", "hdfs", "hdfs");
+			connection = DriverManager.getConnection("jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/", "hive", "#HIVE#2016%s3cur3");
 	        // create statement
 
 		}

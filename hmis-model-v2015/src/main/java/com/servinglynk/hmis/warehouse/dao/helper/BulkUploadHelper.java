@@ -10,14 +10,9 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -37,44 +32,11 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
-import com.googlecode.jcsv.CSVStrategy;
-import com.googlecode.jcsv.annotations.internal.ValueProcessorProvider;
-import com.googlecode.jcsv.reader.CSVReader;
-import com.googlecode.jcsv.reader.internal.AnnotationEntryParser;
-import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
 import com.servinglynk.hmis.warehouse.AwsS3Client;
-import com.servinglynk.hmis.warehouse.csv.Client;
-import com.servinglynk.hmis.warehouse.csv.Disabilities;
-import com.servinglynk.hmis.warehouse.csv.EmployementEducation;
-import com.servinglynk.hmis.warehouse.csv.EnrollmentCoC;
-import com.servinglynk.hmis.warehouse.csv.Exit;
-import com.servinglynk.hmis.warehouse.csv.Export;
-import com.servinglynk.hmis.warehouse.csv.Funder;
-import com.servinglynk.hmis.warehouse.csv.HealthAndDV;
-import com.servinglynk.hmis.warehouse.csv.Inventory;
-import com.servinglynk.hmis.warehouse.csv.Organization;
-import com.servinglynk.hmis.warehouse.csv.Project;
-import com.servinglynk.hmis.warehouse.csv.ProjectCOC;
-import com.servinglynk.hmis.warehouse.csv.Services;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.FirstName;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2015.ClientVeteranInfo;
 
 @Component
 public class BulkUploadHelper {
@@ -202,9 +164,9 @@ public class BulkUploadHelper {
 			sources.setSource(newSource);
 			newSource.setExport(new Sources.Source.Export());
 		}
-		
+		/*
 		try {
-			ZipFile zf = new ZipFile(fileName);
+			ZipFile zf = new ZipFile(upload.getInputPath());
 		      Enumeration entries = zf.entries();
 		      while (entries.hasMoreElements()) {
 		        ZipEntry ze = (ZipEntry) entries.nextElement();
@@ -272,7 +234,7 @@ public class BulkUploadHelper {
 		    }
 			catch (IOException e) {
 		      e.printStackTrace();
-		    } 
+		    } */
 		return sources;
 	}
 
@@ -282,6 +244,7 @@ public class BulkUploadHelper {
 	 * @param sources
 	 * @throws IOException
 	 */
+	/*
 	  protected void hydradeClient(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -296,9 +259,7 @@ public class BulkUploadHelper {
 	    		   clientModel.setEthnicity(getByte(client.getEthnicity()));
 	    		   clientModel.setDOB(getXMLGregorianCalendar(client.getDob()));
 	    		   clientModel.setDOBDataQuality(getByte(client.getDobDataQuality()));
-	    		   FirstName firstName = new FirstName();
-	    		   firstName.setValue(client.getFirstName());
-	    		   clientModel.setFirstName(firstName);
+	    		   clientModel.setFirstName(client.getFirstName());
 	    		   clientModel.setLastName(client.getLastName());
 	    		   clientModel.setMiddleName(client.getMiddleName());
 	    		   clientModel.setGender(getByte(client.getGender()));
@@ -341,12 +302,13 @@ public class BulkUploadHelper {
 	    	  sources.getSource().getExport().setVeteranInfo(veteranInfoList);
 	      }
 	  }
+	  */
 	  /**
 	   * Hydrate Disabilities with in Sources Object from Disabilities CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeDisabilities(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -375,12 +337,12 @@ public class BulkUploadHelper {
 	      }
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
 	  }
-	/**
+	  **
 	   * Hydrate Employment Education with in Sources Object from Disabilities CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeEmployementEducation(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -408,12 +370,12 @@ public class BulkUploadHelper {
 	    	  }
 	      }
 	  }
-	  /**
+	  **
 	   * Hydrate Enrollment with in Sources Object from Enrollment CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeEnrollment(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -622,6 +584,15 @@ public class BulkUploadHelper {
 	    	  commercialSexualExploitationModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  commercialSexualExploitationModel.setUserID(enroll.getUserID());
 	    	  commercialSexualExploitationList.add(commercialSexualExploitationModel);
+	    	  
+	    	  
+	    	  *
+	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
+	    	   * 
+	    	   * there are more fields which are not available in Enrollment Pojo under Export package comparing with CSV Enrollment POJO.
+	    	   * 
+	    	   * 
+	    	   * *
 	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
 	      	      
@@ -638,12 +609,12 @@ public class BulkUploadHelper {
     	  sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
     	  sources.getSource().getExport().setCommercialSexualExploitation(commercialSexualExploitationList);
 	  }
-	  /**
+	  **
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeEnrollmentCoC(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -664,12 +635,12 @@ public class BulkUploadHelper {
 	      }
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate Exit with in Sources Object from Exit CSV Pojos.
 	   * @param csvFile
 	   * @param sourcesoe
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeExit(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -773,12 +744,12 @@ public class BulkUploadHelper {
 	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate Export with in Sources Object from Export CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -796,14 +767,13 @@ public class BulkUploadHelper {
 	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
 	    	  sources.getSource().getExport().setExportPeriodType(exp.getExportPeriodType());
 	      }
-	  }
 	      
-	  /**
+	  **
 	   * Hydrate Funder with in Sources Object from Funder CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeFunder(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -829,12 +799,12 @@ public class BulkUploadHelper {
 	      
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate HealthAndDV with in Sources Object from HealthAndDV CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeHealthAndDV(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -868,17 +838,26 @@ public class BulkUploadHelper {
 			      domesticViolenceModel.setUserID(healthDV.getUserID());
 			      domesticViolenceModel.setWhenOccurred(getByte(healthDV.getWhenOccurred()));
 			      domesticViolenceList.add(domesticViolenceModel);
+		    	  
+			    
+	    	  **
+	    	   * 
+	    	   * Fields to be compared between pojos in CSV and Export Package.
+	    	   * there are few fields missing in HealthStatus.java pojo in export package when compared with HealthAndDV.java under CSV package.
+	    	   *
+	    	   *
+	    	  
 	      }
 	      sources.getSource().getExport().setHealthStatus(healthStatusList);
 	      sources.getSource().getExport().setDomesticViolence(domesticViolenceList);
 	  }
 	  
-	 /**
+	  **
 	   * Hydrate IncomeBenefits with in Sources Object from IncomeBenefits CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeIncomeBenefits(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -1017,12 +996,12 @@ public class BulkUploadHelper {
 	    	  medicalassistanceModel.setUserID(incomeBnfts.getUserID());
 	    	  medicalAssistanceList.add(medicalassistanceModel);
 	    	  
-//	    	  **
-//	    	   * 
-//	    	   * Fields to be compared between pojos in CSV and Export Package.
-//	    	   * there are few fields missing in Incomebenefits.java pojo in export package.
-//	    	   *
-//	    	   *
+	    	  **
+	    	   * 
+	    	   * Fields to be compared between pojos in CSV and Export Package.
+	    	   * there are few fields missing in Incomebenefits.java pojo in export package.
+	    	   *
+	    	   *
 	    	  incomeBenefitsList.add(incomeBenefitsModel);
 	      }
 	      sources.getSource().getExport().setIncomeAndSources(incomeBenefitsList);
@@ -1030,12 +1009,12 @@ public class BulkUploadHelper {
 	      sources.getSource().getExport().setMedicalAssistance(medicalAssistanceList);
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate Inventory with in Sources Object from Inventory CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeInventory(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -1071,12 +1050,12 @@ public class BulkUploadHelper {
 	    	  bedInventory.setYouthBedInventory(getByte(invntry.getYouthBedInventory()));
 	    	  
 	    	  inventoryModel.setBedInventory(bedInventory);
-//	    	  **
-//	    	   *  Writing comments on missing fields here.
-//	    	   *  Export_ID, Date_Deleted,CoCCode --> these fields are available in Inventory.java POJO which is created using CSV File but not availabel
-//	    	   *  in Inventory.java POJO which is under Export package.
-//	    	   *  
-//	    	   *
+	    	  **
+	    	   *  Writing comments on missing fields here.
+	    	   *  Export_ID, Date_Deleted,CoCCode --> these fields are available in Inventory.java POJO which is created using CSV File but not availabel
+	    	   *  in Inventory.java POJO which is under Export package.
+	    	   *  
+	    	   *
 	    	  
 	    	  inventoryList.add(inventoryModel);
 	      }
@@ -1084,12 +1063,12 @@ public class BulkUploadHelper {
 	      
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate Organization with in Sources Object from Organization CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeOrganization(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -1111,12 +1090,12 @@ public class BulkUploadHelper {
 	      sources.getSource().getExport().setOrganization(organizationList);
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate Project with in Sources Object from Project CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeProject(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -1158,12 +1137,12 @@ public class BulkUploadHelper {
 	      sources.getSource().getExport().setAffiliation(affiliationList);
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate ProjectCOC with in Sources Object from ProjectCOC CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeProjectCOC(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -1188,13 +1167,13 @@ public class BulkUploadHelper {
 	      
 	  }
 	  
-	  /**
+	  **
 	   * Hydrate Services with in Sources Object from Services CSV Pojos.
 	   *
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   */
+	   *
 	  protected void hydradeServices(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -1223,7 +1202,7 @@ public class BulkUploadHelper {
 	      sources.getSource().getExport().setServices(servicesList);
 	  }
 	 
-	  /**
+	  **
 	   * Hydrate Site with in Sources Object from Site CSV Pojos.
 	   * @param csvFile
 	   * @param sources

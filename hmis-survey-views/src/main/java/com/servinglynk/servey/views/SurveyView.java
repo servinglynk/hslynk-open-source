@@ -170,6 +170,7 @@ public class SurveyView {
 			  String query = builder.toString();
 			  query = query +")";
 			  stmt.execute("DROP Table  IF EXISTS "+survey.getProjectGroupCode()+"."+tableName);
+			  System.out.println(" Create Query::"+ query);
 	      stmt.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
