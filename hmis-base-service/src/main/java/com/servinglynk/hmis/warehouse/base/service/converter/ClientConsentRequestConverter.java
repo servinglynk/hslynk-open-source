@@ -71,12 +71,14 @@ public class ClientConsentRequestConverter {
 		return model;
 	}
 	
-	public static ClientConsentEntity consentRequestToConsent(ClientConsentRequestEntity entity){
+	public static ClientConsentEntity consentRequestToConsent(ClientConsentRequestEntity entity, String username){
 		ClientConsentEntity clientConsentEntity = new ClientConsentEntity();
 		clientConsentEntity.setClientId(entity.getClientId());
 		clientConsentEntity.setCreatedAt(new Date());
 		clientConsentEntity.setStartTime(entity.getStartTime());
 		clientConsentEntity.setEndTime(entity.getEndTime());
+		clientConsentEntity.setProjectGroupCode(entity.getProjectGroupCode());
+		clientConsentEntity.setCreatedBy(username);
 		
 		for(ClientConsentRequestEntitiesEntity entitiesEntity : entity.getConsentEntities()){
 			ClientConsentEntitiesEntity entitiesEntity2 = new ClientConsentEntitiesEntity();
@@ -84,6 +86,8 @@ public class ClientConsentRequestConverter {
 			entitiesEntity2.setConsentEntityId(entitiesEntity.getConsentEntityId());
 			entitiesEntity2.setConsentTypeId(entitiesEntity.getConsentTypeId());
 			entitiesEntity2.setCreatedAt(new Date());
+			entitiesEntity2.setCreatedBy(username);
+			clientConsentEntity.addConsentEntities(entitiesEntity2);
 		}
 		return clientConsentEntity;
 	}

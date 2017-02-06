@@ -13,15 +13,20 @@ public class ClientConsentStatus extends ClientModel {
 
 	@JsonProperty("consentRequestId")
 	private UUID consentId;
+	@JsonProperty("status")
 	private String approvalStatus;
 	
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
+	@JsonProperty("statusEffectiveFrom")
 	private LocalDateTime approvalStatusEffectiveFromDate;
 	
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
+	@JsonProperty("statusEffectiveTo")
 	private LocalDateTime approvalStatusEffectiveToDate;
+	
+	private String remarks;
 	
 	public UUID getConsentId() {
 		return consentId;
@@ -46,5 +51,11 @@ public class ClientConsentStatus extends ClientModel {
 	}
 	public void setApprovalStatusEffectiveToDate(LocalDateTime approvalStatusEffectiveToDate) {
 		this.approvalStatusEffectiveToDate = approvalStatusEffectiveToDate;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 }

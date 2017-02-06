@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConsentConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConsentRequestConverter;
@@ -14,6 +15,8 @@ import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequest;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequests;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentStatus;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntity;
@@ -23,8 +26,10 @@ import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundExceptio
 public class ClientConsentServiceImpl extends ServiceBase implements ClientConsentService {
 
 	@Transactional
-	public ClientConsent createClientConsent(ClientConsent clientConsent) {
+	public ClientConsent createClientConsent(ClientConsent clientConsent,Session session) {
 		ClientConsentEntity entity = ClientConsentConverter.modelToEntity(clientConsent, null);
+		entity.setStatus("APPROVED");
+		entity.setProjectGroupCode(session.getAccount().getProjectGroup().getProjectGroupCode());
 		entity.setCreatedAt(new Date());
 		daoFactory.getClientConsentDao().createClientConsent(entity);		
 		clientConsent.setId(entity.getId());
@@ -32,12 +37,12 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	}
 
 	@Transactional
-	public ClientConsent updateClientConsent(ClientConsent clientConsent) {
+	public ClientConsent updateClientConsent(ClientConsent clientConsent,Session session) {
 		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(clientConsent.getId());
 		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+clientConsent.getId());
 		ClientConsentConverter.modelToEntity(clientConsent, entity);
 		entity.setModifiedAt(new Date());
-		daoFactory.getClientConsentDao().createClientConsent(entity);
+		daoFactory.getClientConsentDao().update(entity);
 		clientConsent.setId(entity.getId());
 		return clientConsent;
 	}
@@ -46,7 +51,8 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	public void deleteClientConsent(UUID clientConsentId) {
 		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(clientConsentId);
 		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+clientConsentId);
-		daoFactory.getClientConsentDao().deleteClientConsent(entity);
+		entity.setDeleted(true);
+		daoFactory.getClientConsentDao().deleteClientConsent(entity);;
 	}
 
 	@Transactional
@@ -57,29 +63,40 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	}
 
 	@Transactional
-	public ClientConsents getClientConsents(UUID clientId) {
+	public ClientConsents getClientConsents(UUID clientId,Integer startIndex,Integer maxItems) {
 		ClientConsents consents  = new ClientConsents();
-		List<ClientConsentEntity> entities = daoFactory.getClientConsentDao().getClinetConsents(clientId);
+		long count =  daoFactory.getClientConsentDao().getClientConsentsCount(clientId);
+		List<ClientConsentEntity> entities = daoFactory.getClientConsentDao().getClinetConsents(clientId,startIndex,maxItems);
 		for(ClientConsentEntity entity : entities){
 			ClientConsent model = ClientConsentConverter.entityToModel(entity);
 			consents.addClientConsent(model);
 		}
+		
+		SortedPagination pagination = new SortedPagination();
+		pagination.setFrom(startIndex);
+		pagination.setReturned(entities.size());
+		pagination.setTotal((int) count);
+		consents.setPagination(pagination);
 		return consents;
 	}
 	
 	@Transactional
-	public ClientConsentRequest createClientConsentRequest(ClientConsentRequest clientConsentRequest) {
+	public ClientConsentRequest createClientConsentRequest(ClientConsentRequest clientConsentRequest,Session session) {
 		ClientConsentRequestEntity entity = ClientConsentRequestConverter.modelToEntity(clientConsentRequest, null);
 		entity.setCreatedAt(new Date());
+		entity.setStatus("REQUESTED");
+		entity.setProjectGroupCode(session.getAccount().getProjectGroup().getProjectGroupCode());
 		daoFactory.getClientConsentDao().createClientConsentRequest(entity);
 		clientConsentRequest.setConsentRequestid(entity.getId());
 		return clientConsentRequest;
 	}
 
 	@Transactional
-	public ClientConsentRequest updateClientConsentRequest(ClientConsentRequest clientConsentRequest) {
+	public ClientConsentRequest updateClientConsentRequest(ClientConsentRequest clientConsentRequest,Session session) {
 		ClientConsentRequestEntity entity = daoFactory.getClientConsentDao().getClientConsentRequestId(clientConsentRequest.getConsentRequestid());
 		if(entity==null) throw new ResourceNotFoundException("Client Consent request not found "+clientConsentRequest.getConsentRequestid());
+		if(entity.getStatus().equals("APPROVED") || entity.getStatus().equals("REJECTED")) throw new AccessDeniedException("Consent Request already APPROVED/REJECTED");
+		
 		for(ClientConsentRequestEntitiesEntity entitiesEntity: entity.getConsentEntities()){
 			daoFactory.getClientConsentDao().deleteClientConsentRequestEntities(entitiesEntity);
 		}
@@ -92,6 +109,7 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	public void deleteClientConsentRequest(UUID clientConsentRequestId) {
 		ClientConsentRequestEntity entity = daoFactory.getClientConsentDao().getClientConsentRequestId(clientConsentRequestId);
 		if(entity==null) throw new ResourceNotFoundException("Client Consent request not found "+clientConsentRequestId);
+		entity.setDeleted(true);
 		daoFactory.getClientConsentDao().deleteClientConsentRequest(entity);
 	}
 	
@@ -103,13 +121,26 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	}
 	
 	@Transactional
-	public ClientConsentRequests getAllClientConsentRequests() {
-		return null;
+	public ClientConsentRequests getAllClientConsentRequests(UUID clientId,Integer startIndex,Integer maxItems) {
+		ClientConsentRequests requests = new ClientConsentRequests();
+		long count = daoFactory.getClientConsentDao().getClientConsentRequestsCount(clientId);
+		List<ClientConsentRequestEntity> entities = daoFactory.getClientConsentDao().getClinetConsentRequests(clientId, startIndex, maxItems);
+		for(ClientConsentRequestEntity entity : entities){
+			requests.addClientConsent(ClientConsentRequestConverter.entityToModel(entity));
+		}
+		
+		SortedPagination pagination = new SortedPagination();
+		pagination.setFrom(startIndex);
+		pagination.setReturned(entities.size());
+		pagination.setTotal((int) count);
+		requests.setPagination(pagination);
+		
+		return requests;
 	}
 	
 	
 	@Transactional
-	public ClientConsentStatus updateClientConsentStatus(ClientConsentStatus clientConsentStatus){
+	public ClientConsentStatus updateClientConsentStatus(ClientConsentStatus clientConsentStatus,Session session){
 		
 		List<ClientConsentStatusEntity> entities = daoFactory.getClientConsentDao().getClientConsentStatusByConsentId(clientConsentStatus.getConsentId());
 		ClientConsentStatusEntity entity = null;
@@ -124,7 +155,8 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 			requestEntity.setStartTime(clientConsentStatus.getApprovalStatusEffectiveFromDate());
 			requestEntity.setEndTime(clientConsentStatus.getApprovalStatusEffectiveToDate());
 			daoFactory.getClientConsentDao().updateClientConsentRequest(requestEntity);
-			daoFactory.getClientConsentDao().createClientConsent(ClientConsentRequestConverter.consentRequestToConsent(requestEntity));
+			ClientConsentEntity clientConsentEntity =  ClientConsentRequestConverter.consentRequestToConsent(requestEntity,session.getAccount().getUsername());
+			daoFactory.getClientConsentDao().createClientConsent(clientConsentEntity);
 		}
 		if(clientConsentStatus.getApprovalStatus().equalsIgnoreCase("REJECTED")){
 			ClientConsentRequestEntity requestEntity = daoFactory.getClientConsentDao().getClientConsentRequestId(clientConsentStatus.getConsentId());

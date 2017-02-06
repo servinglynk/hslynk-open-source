@@ -15,14 +15,15 @@ public interface ClientConsentDao  extends QueryExecutor {
 	void deleteClientConsent(ClientConsentEntity entity);
 	ClientConsentEntity getClientConsentId(UUID id);
 	List<ClientConsentEntity> getClinetConsents();
-	List<ClientConsentEntity> getClinetConsents(UUID clientId);
-	
+	List<ClientConsentEntity> getClinetConsents(UUID clientId,Integer startIndex,Integer maxItems);
+	long getClientConsentsCount(UUID clientId);
 	
 	void createClientConsentRequest(ClientConsentRequestEntity entity);
 	void updateClientConsentRequest(ClientConsentRequestEntity entity);
 	void deleteClientConsentRequest(ClientConsentRequestEntity entity);
 	ClientConsentRequestEntity getClientConsentRequestId(UUID id);
-	List<ClientConsentRequestEntity> getClinetConsentRequests();
+	List<ClientConsentRequestEntity> getClinetConsentRequests(UUID clientId,Integer startIndex,Integer maxItems);
+	long getClientConsentRequestsCount(UUID clientId);
 	
 	void deleteClientConsentRequestEntities(ClientConsentRequestEntitiesEntity entitiesEntity);
 	void updateConsentStatus(ClientConsentStatusEntity entity);

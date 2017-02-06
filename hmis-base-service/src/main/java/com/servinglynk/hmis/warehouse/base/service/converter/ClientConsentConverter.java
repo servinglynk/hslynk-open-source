@@ -13,8 +13,6 @@ public class ClientConsentConverter {
 		entity.setStartTime(model.getStartTime());
 		entity.setEndTime(model.getEndTime());
 		entity.setConsentDocument(model.getConsentDocumentLink());
-		entity.setStatus(model.getStatus());
-
 		for(ClientConsentEntityModel entityModel : model.getClientConsentEntities().getClientConsentEntities()){
 			ClientConsentEntitiesEntity consentEntitiesEntity = ClientConsentConverter.modelToEntity(entityModel, null);
 			consentEntitiesEntity.setClientConsentEntity(entity);

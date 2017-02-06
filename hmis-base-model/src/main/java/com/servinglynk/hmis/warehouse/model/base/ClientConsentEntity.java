@@ -47,8 +47,15 @@ public class ClientConsentEntity extends BaseModel {
 	@Column(name="CONSENT_DOCUMENT")
 	private String consentDocument;
 	
-	@Column(name="DELETED")
+	@Column(name="deleted")
 	private boolean deleted;
+	
+	@Column( name = "parent_id", nullable = true  )
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	private UUID parentId;
+	
+	@Column(name="project_group_code")
+	private String projectGroupCode;
 	
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "clientConsentEntity")
 	private List<ClientConsentEntitiesEntity> consentEntities = new ArrayList<ClientConsentEntitiesEntity>();
@@ -104,4 +111,21 @@ public class ClientConsentEntity extends BaseModel {
 	public void addConsentEntities(ClientConsentEntitiesEntity consentEntitiesEntity){
 		this.consentEntities.add(consentEntitiesEntity);
 	}
+
+	public UUID getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(UUID parentId) {
+		this.parentId = parentId;
+	}
+	
+	public String getProjectGroupCode() {
+		return projectGroupCode;
+	}
+	public void setProjectGroupCode(String projectGroupCode) {
+		this.projectGroupCode = projectGroupCode;
+	}
+
+
 }

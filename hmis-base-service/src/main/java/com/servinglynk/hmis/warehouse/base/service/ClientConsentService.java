@@ -7,28 +7,29 @@ import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequest;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequests;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentStatus;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 public interface ClientConsentService {
 
-	ClientConsent createClientConsent(ClientConsent clientConsent);
+	ClientConsent createClientConsent(ClientConsent clientConsent, Session session);
 
-	ClientConsent updateClientConsent(ClientConsent clientConsent);
+	ClientConsent updateClientConsent(ClientConsent clientConsent, Session session);
 
 	void deleteClientConsent(UUID clientConsentId);
 
 	ClientConsent getClientConsentId(UUID clientConsentId);
 
-	ClientConsents getClientConsents(UUID clientId);
+	ClientConsents getClientConsents(UUID clientId,Integer startIndex,Integer maxItems);
 
-	ClientConsentRequest createClientConsentRequest(ClientConsentRequest clientConsentRequest);
+	ClientConsentRequest createClientConsentRequest(ClientConsentRequest clientConsentRequest, Session session);
 
-	ClientConsentRequest updateClientConsentRequest(ClientConsentRequest clientConsentRequest);
+	ClientConsentRequest updateClientConsentRequest(ClientConsentRequest clientConsentRequest, Session session);
 
 	void deleteClientConsentRequest(UUID clientConsentRequestId);
 
 	ClientConsentRequest getClientConsentRequestById(UUID clientConsentRequestId);
 
-	ClientConsentRequests getAllClientConsentRequests();
+	ClientConsentRequests getAllClientConsentRequests(UUID clientId,Integer startIndex,Integer maxItems);
 	
-	ClientConsentStatus updateClientConsentStatus(ClientConsentStatus clientConsentStatus);
+	ClientConsentStatus updateClientConsentStatus(ClientConsentStatus clientConsentStatus,Session session);
 }

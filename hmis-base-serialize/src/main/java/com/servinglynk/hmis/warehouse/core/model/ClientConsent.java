@@ -7,12 +7,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.servinglynk.hmis.warehouse.annotations.AllowedValues;
 
-@JsonRootName("clientConsent")
+@JsonRootName("consent")
 public class ClientConsent extends ClientModel {
 	
+	@JsonProperty("consentId")
 	private UUID id;
 	private UUID clientId;
+	
+	@AllowedValues(values={"APPROVED","REJECTED"},message="Allowed values for status value are APPROVED,REJECTED")
 	private String status;
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
@@ -22,7 +26,7 @@ public class ClientConsent extends ClientModel {
 	private LocalDateTime endTime;
 	private String consentDocumentLink;
 	
-	@JsonProperty("clientConsentEntities")
+	@JsonProperty("consentEntities")
 	ClientConsentEntities clientConsentEntities= new ClientConsentEntities();
 	
 	public UUID getId() {
