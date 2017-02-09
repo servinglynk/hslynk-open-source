@@ -219,7 +219,7 @@
 		</plugins>
 	</build>
 
-	<repositories>
+<!-- 	<repositories>
 		<repository>
 			<id>central</id>
 			<name>Maven Repository Switchboard</name>
@@ -256,7 +256,7 @@
 			<name>Internal Releases</name>
 			<url>http://52.39.104.238:8080/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 	<parent>
 		<groupId>com.servinglynk.hmis.warehouse</groupId>
 		<artifactId>servinglynk-hmis</artifactId>

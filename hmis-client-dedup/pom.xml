@@ -252,7 +252,7 @@
 				</configuration>
 			</plugin>
 			
-<plugin>
+<!-- <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>tomcat-maven-plugin</artifactId>
     <configuration>
@@ -260,12 +260,12 @@
         <server>TomcatServer</server>
         <path>/hhmis-authorization-service</path>
     </configuration>
-</plugin>
+</plugin> -->
 
 
 		</plugins>
 	</build>
-	<repositories>
+<!-- 	<repositories>
     <repository>
       <id>central</id>
       <name>Maven Repository Switchboard</name>
@@ -302,5 +302,5 @@
      <name>Internal Releases</name>
      <url>http://52.39.104.238:8080/nexus/content/repositories/snapshots/</url>
   </snapshotRepository>
-</distributionManagement>
+</distributionManagement> -->
 </project>
