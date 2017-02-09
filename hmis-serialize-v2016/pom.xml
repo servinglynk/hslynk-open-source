@@ -144,7 +144,7 @@
 
 		</plugins>
 	</build>
-	<repositories>
+<!-- 	<repositories>
 		<repository>
 			<id>central</id>
 			<name>Maven Repository Switchboard</name>
@@ -181,5 +181,5 @@
 			<name>Internal Releases</name>
 			<url>http://52.37.76.153:8080/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 </project>
