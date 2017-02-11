@@ -218,7 +218,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processDisabilities() throws ReportCreationException{
 		try {
-			List<BulkUpload> uploadEntities =  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.COMPLETE.getStatus(),new Long(2015));
+			List<BulkUpload> uploadEntities =  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.CORE_COMPLETE.getStatus(),new Long(2015));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
