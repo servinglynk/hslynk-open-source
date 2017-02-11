@@ -10,9 +10,11 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -32,9 +34,36 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
+import com.googlecode.jcsv.CSVStrategy;
+import com.googlecode.jcsv.annotations.internal.ValueProcessorProvider;
+import com.googlecode.jcsv.reader.CSVReader;
+import com.googlecode.jcsv.reader.internal.AnnotationEntryParser;
+import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
 import com.servinglynk.hmis.warehouse.AwsS3Client;
+import com.servinglynk.hmis.warehouse.csv.Client;
+import com.servinglynk.hmis.warehouse.csv.Disabilities;
+import com.servinglynk.hmis.warehouse.csv.EmployementEducation;
+import com.servinglynk.hmis.warehouse.csv.Enrollment;
+import com.servinglynk.hmis.warehouse.csv.EnrollmentCoC;
+import com.servinglynk.hmis.warehouse.csv.Exit;
+import com.servinglynk.hmis.warehouse.csv.Export;
+import com.servinglynk.hmis.warehouse.csv.Services;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.FirstName;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.LastName;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.MiddleName;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.SSN;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
@@ -244,7 +273,6 @@ public class BulkUploadHelper {
 	 * @param sources
 	 * @throws IOException
 	 */
-	/*
 	  protected void hydradeClient(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -259,16 +287,24 @@ public class BulkUploadHelper {
 	    		   clientModel.setEthnicity(getByte(client.getEthnicity()));
 	    		   clientModel.setDOB(getXMLGregorianCalendar(client.getDob()));
 	    		   clientModel.setDOBDataQuality(getByte(client.getDobDataQuality()));
-	    		   clientModel.setFirstName(client.getFirstName());
-	    		   clientModel.setLastName(client.getLastName());
-	    		   clientModel.setMiddleName(client.getMiddleName());
+	    		   FirstName  firstName = new FirstName();
+	    		   firstName.setValue(client.getFirstName());
+	    		   clientModel.setFirstName(firstName);
+	    		   LastName lastName = new LastName();
+	    		   lastName.setValue(client.getLastName());
+	    		   clientModel.setLastName(lastName);
+	    		   MiddleName middleName = new MiddleName();
+	    		   middleName.setValue(client.getMiddleName());
+	    		   clientModel.setMiddleName(middleName);
 	    		   clientModel.setGender(getByte(client.getGender()));
 	    		   clientModel.setNameDataQuality(getByte(client.getNameDataQuality()));
 	    		   clientModel.setNameSuffix(client.getNameSuffix());
 	    		   clientModel.setOtherGender(client.getOtherGender());
 	    		   clientModel.setPersonalID(client.getPersonalID());
 	    		   clientModel.setRace(getByte(client.getRaceNone()));
-	    		   clientModel.setSSN(client.getSsn());
+	    		   SSN ssn = new SSN();
+	    		   ssn.setValue(client.getSsn());
+	    		   clientModel.setSSN(ssn);
 	    		   clientModel.setSSNDataQuality(getByte(client.getSsnDataQuality()));
 	    		   clientModel.setUserID(client.getUserID());
 	    		   clientModel.setVeteranStatus(getByte(client.getVeteranStatus()));
@@ -298,17 +334,16 @@ public class BulkUploadHelper {
 	    		   }
 	    		   veteranInfoList.add(veteranInfoModel);
 	    	  }
-	    	  sources.getSource().getExport().setClient(clientList);
-	    	  sources.getSource().getExport().setVeteranInfo(veteranInfoList);
+	    	  sources.getSource().getExport().setClients(clientList);
+	    	  sources.getSource().getExport().setClientVeteranInfo(veteranInfoList);
 	      }
 	  }
-	  */
 	  /**
 	   * Hydrate Disabilities with in Sources Object from Disabilities CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   *
+	   */
 	  protected void hydradeDisabilities(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -325,7 +360,7 @@ public class BulkUploadHelper {
 	    	  disabilitiesModel.setDisabilityResponse(getByte(disability.getDisabilityResponse()));
 	    	  disabilitiesModel.setDisabilityType(getByte(disability.getDisabilityType()));
 	    	  disabilitiesModel.setDocumentationOnFile(getByte(disability.getDocumentationOnFile()));
-	    	  disabilitiesModel.setIndefiniteAndImpairs(getByte(disability.getIndefiniteAndImpairs()));
+	    	 // disabilitiesModel.setIndefiniteAndImpairs(getByte(disability.getIndefiniteAndImpairs()));
 	    	  disabilitiesModel.setInformationDate(getXMLGregorianCalendar(disability.getInformationDate()));
 	    	  disabilitiesModel.setPATHHowConfirmed(getByte(disability.getPATHHowConfirmed()));
 	    	  disabilitiesModel.setPATHSMIInformation(getByte(disability.getPATHSMIInformation()));
@@ -337,12 +372,12 @@ public class BulkUploadHelper {
 	      }
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
 	  }
-	  **
+	 /**
 	   * Hydrate Employment Education with in Sources Object from Disabilities CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   *
+	   */
 	  protected void hydradeEmployementEducation(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -370,12 +405,12 @@ public class BulkUploadHelper {
 	    	  }
 	      }
 	  }
-	  **
+	  /**
 	   * Hydrate Enrollment with in Sources Object from Enrollment CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   *
+	   */
 	  protected void hydradeEnrollment(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -455,15 +490,6 @@ public class BulkUploadHelper {
 	    	  pathstatusModel.setUserID(enroll.getUserID());
 	    	  pathStatusList.add(pathstatusModel);
 
-	    	  PercentAMI percentamiModel = new PercentAMI();
-	    	  percentamiModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  percentamiModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  percentamiModel.setPercentAMI(getByte(enroll.getPercentAMI()));
-//	    	  percentamiModel.setPercentAMIID(enroll.getperc);
-	    	  percentamiModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  percentamiModel.setUserID(enroll.getUserID());
-	    	  percentAMIList.add(percentamiModel);
-	    	  
 	    	  RHYBCPStatus rhybcpstatusModel = new RHYBCPStatus();
 	    	  rhybcpstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  rhybcpstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
@@ -475,146 +501,27 @@ public class BulkUploadHelper {
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
 	    	  
-	    	  
-	    	  FormerWardChildWelfare formerwardchildwelfareModel = new FormerWardChildWelfare();
-	    	  formerwardchildwelfareModel.setChildWelfareMonths(getByte(enroll.getChildWelfareMonths()));
-	    	  formerwardchildwelfareModel.setChildWelfareYears(getByte(enroll.getChildWelfareYears()));
-//	    	  formerwardchildwelfareModel.setDataCollectionStage(getByte(enroll.getda));
-	    	  formerwardchildwelfareModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  formerwardchildwelfareModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  formerwardchildwelfareModel.setFormerWardChildWelfare(getByte(enroll.getFormerWardChildWelfare()));
-//	    	  formerwardchildwelfareModel.setFormerWardChildWelfareID(enroll.getFormerWardCh);
-//	    	  formerwardchildwelfareModel.setInformationDate(getXMLGregorianCalendar(enroll.getinf));
-	    	  formerwardchildwelfareModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  formerwardchildwelfareModel.setUserID(enroll.getUserID());
-	    	  formerWardChildWelfareList.add(formerwardchildwelfareModel);
-	    	  
-	    	  FormerWardJuvenileJustice formerwardjuvenilejusticeModel = new FormerWardJuvenileJustice();
-//	    	  formerwardjuvenilejusticeModel.setDataCollectionStage(getByte(enroll.getdata));
-	    	  formerwardjuvenilejusticeModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  formerwardjuvenilejusticeModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  formerwardjuvenilejusticeModel.setFormerWardJuvenileJustice(getByte(enroll.getFormer));
-//	    	  formerwardjuvenilejusticeModel.setFormerWardJuvenileJusticeID(enroll.getfor);
-//	    	  formerwardjuvenilejusticeModel.setInformationDate(getXMLGregorianCalendar(enroll.getin));
-	    	  formerwardjuvenilejusticeModel.setJuvenileJusticeMonths(getByte(enroll.getJuvenileJusticeMonths()));
-	    	  formerwardjuvenilejusticeModel.setJuvenileJusticeYears(getByte(enroll.getJuvenileJusticeYears()));
-	    	  formerwardjuvenilejusticeModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  formerwardjuvenilejusticeModel.setUserID(enroll.getUserID());
-	    	  formerwardjuvenilejusticeList.add(formerwardjuvenilejusticeModel);
-	    	  
-	    	  LastPermanentAddress lastpermanentaddressModel = new LastPermanentAddress();
-	    	  lastpermanentaddressModel.setAddressDataQuality(getByte(enroll.getAddressDataQuality()));
-	    	  lastpermanentaddressModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  lastpermanentaddressModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  lastpermanentaddressModel.setLastPermanentAddressID(enroll.getlast);
-	    	  lastpermanentaddressModel.setLastPermanentCity(enroll.getLastPermanentCity());
-	    	  lastpermanentaddressModel.setLastPermanentState(enroll.getLastPermanentState());
-	    	  lastpermanentaddressModel.setLastPermanentStreet(enroll.getLastPermanentStreet());
-	    	  if (enroll.getLastPermanentZIP() != null && !"".equals(enroll.getLastPermanentZIP())) {
-	    		  lastpermanentaddressModel.setLastPermanentZIP(Integer.parseInt(enroll.getLastPermanentZIP()));				
-	    	  }
-	    	  lastpermanentaddressModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  lastpermanentaddressModel.setUserID(enroll.getUserID());
-	    	  lastPermanentAddressList.add(lastpermanentaddressModel);
-	    	  
-	    	  ReferralSource referralsourceModel = new ReferralSource();
-	    	  referralsourceModel.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
-//	    	  referralsourceModel.setDataCollectionStage(getByte(enroll.getdataco));
-	    	  referralsourceModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  referralsourceModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  referralsourceModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  referralsourceModel.setReferralSource(getByte(enroll.getReferralSource()));
-//	    	  referralsourceModel.setReferralSourceID(enroll.getre);
-	    	  referralsourceModel.setUserID(enroll.getUserID());
-	    	  sources.getSource().getExport().setReferralSource(referralsourceModel);
-	    	  
-	    	  SexualOrientation sexualorientationModel = new SexualOrientation();
-//	    	  sexualorientationModel.setDataCollectionStage(getByte(enroll.getC));
-	    	  sexualorientationModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  sexualorientationModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  sexualorientationModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  sexualorientationModel.setSexualOrientation(getByte(enroll.getSexualOrientation()));
-//	    	  sexualorientationModel.setSexualOrientationID(enroll.getse);
-	    	  sexualorientationModel.setUserID(enroll.getUserID());
-	    	  sexualOrientationList.add(sexualorientationModel);
-	    	  
-	    	  
-	    	  YouthCriticalIssues youthcriticalissuesModel = new YouthCriticalIssues();
-	    	  youthcriticalissuesModel.setAbuseAndNeglectFam(getByte(enroll.getAbuseAndNeglectFam()));
-	    	  youthcriticalissuesModel.setAbuseAndNeglectYouth(getByte(enroll.getAbuseAndNeglectYouth()));
-	    	  youthcriticalissuesModel.setActiveMilitaryParent(getByte(enroll.getActiveMilitaryParent()));
-	    	  youthcriticalissuesModel.setAlcoholDrugAbuseFam(getByte(enroll.getAlcoholDrugAbuseFam()));
-	    	  youthcriticalissuesModel.setAlcoholDrugAbuseYouth(getByte(enroll.getAlcoholDrugAbuseYouth()));
-//	    	  youthcriticalissuesModel.setDataCollectionStage(getByte(enroll.getdata));
-	    	  youthcriticalissuesModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  youthcriticalissuesModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  youthcriticalissuesModel.setHealthIssuesFam(getByte(enroll.getHealthIssuesFam()));
-	    	  youthcriticalissuesModel.setHealthIssuesYouth(getByte(enroll.getHealthIssuesYouth()));
-	    	  youthcriticalissuesModel.setHouseholdDynamics(getByte(enroll.getHouseholdDynamics()));
-	    	  youthcriticalissuesModel.setHousingIssuesFam(getByte(enroll.getHousingIssuesFam()));
-	    	  youthcriticalissuesModel.setHousingIssuesYouth(getByte(enroll.getHousingIssuesYouth()));
-	    	  youthcriticalissuesModel.setIncarceratedParent(getByte(enroll.getIncarceratedParent()));
-	    	  youthcriticalissuesModel.setIncarceratedParentStatus(getByte(enroll.getIncarceratedParentStatus()));
-	    	  youthcriticalissuesModel.setInsufficientIncome(getByte(enroll.getInsufficientIncome()));
-	    	  youthcriticalissuesModel.setMentalDisabilityFam(getByte(enroll.getMentalDisabilityFam()));
-	    	  youthcriticalissuesModel.setMentalDisabilityYouth(getByte(enroll.getMentalDisabilityYouth()));
-	    	  youthcriticalissuesModel.setMentalHealthIssuesFam(getByte(enroll.getMentalHealthIssuesFam()));
-	    	  youthcriticalissuesModel.setMentalHealthIssuesYouth(getByte(enroll.getMentalHealthIssuesYouth()));
-	    	  youthcriticalissuesModel.setPhysicalDisabilityFam(getByte(enroll.getPhysicalDisabilityFam()));
-	    	  youthcriticalissuesModel.setPhysicalDisabilityYouth(getByte(enroll.getPhysicalDisabilityYouth()));
-	    	  youthcriticalissuesModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  youthcriticalissuesModel.setSchoolEducationalIssuesFam(getByte(enroll.getSchoolEducationalIssuesFam()));
-	    	  youthcriticalissuesModel.setSchoolEducationalIssuesYouth(getByte(enroll.getSchoolEducationalIssuesYouth()));
-	    	  youthcriticalissuesModel.setSexualOrientationGenderIDFam(getByte(enroll.getSexualOrientationGenderIDFam()));
-	    	  youthcriticalissuesModel.setSexualOrientationGenderIDYouth(getByte(enroll.getSexualOrientationGenderIDYouth()));
-	    	  youthcriticalissuesModel.setUnemploymentFam(getByte(enroll.getUnemploymentFam()));
-	    	  youthcriticalissuesModel.setUnemploymentYouth(getByte(enroll.getUnemploymentYouth()));
-	    	  youthcriticalissuesModel.setUserID(enroll.getUserID());
-//	    	  youthcriticalissuesModel.setYouthCriticalIssuesID(enroll.getyou);
-	    	  youthCriticalIssuesList.add(youthcriticalissuesModel);
-	    	  
-	    	  CommercialSexualExploitation commercialSexualExploitationModel = new CommercialSexualExploitation();
-	    	  commercialSexualExploitationModel.setAskedOrForcedToExchangeForSex(getByte(enroll.getAskedOrForcedToExchangeForSex()));
-//	    	  commercialSexualExploitationModel.setCommercialSexualExploitationID(enroll.getcomm);
-	    	  commercialSexualExploitationModel.setCountOfExchangeForSex(getByte(enroll.getCountOfExchangeForSex()));
-//	    	  commercialSexualExploitationModel.setDataCollectionStage(getByte(enroll.getdata));
-	    	  commercialSexualExploitationModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  commercialSexualExploitationModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  commercialSexualExploitationModel.setExchangeForSexPastThreeMonths(getByte(enroll.getExchangeForSexPastThreeMonths()));
-	    	  commercialSexualExploitationModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  commercialSexualExploitationModel.setUserID(enroll.getUserID());
-	    	  commercialSexualExploitationList.add(commercialSexualExploitationModel);
-	    	  
-	    	  
-	    	  *
+	    	  /**
 	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
 	    	   * 
 	    	   * there are more fields which are not available in Enrollment Pojo under Export package comparing with CSV Enrollment POJO.
 	    	   * 
 	    	   * 
-	    	   * *
+	    	   * */
 	    	  sources.getSource().getExport().getEnrollment().add(enrollmentModel);
 	      }
-	      	      
 		  sources.getSource().getExport().setPATHStatus(pathStatusList);
     	  sources.getSource().getExport().setWorstHousingSituation(worsthousingsituationtList);
-    	  sources.getSource().getExport().setPercentAMI(percentAMIList);
     	  sources.getSource().getExport().setRHYBCPStatus(rhybcpStatusList);
-    	  sources.getSource().getExport().setFormerWardChildWelfare(formerWardChildWelfareList);
-    	  sources.getSource().getExport().setFormerWardJuvenileJustice(formerwardjuvenilejusticeList);
-    	  sources.getSource().getExport().setLastPermanentAddress(lastPermanentAddressList);
     	  sources.getSource().getExport().setDateOfEngagement(dateOfEngagementList);
-    	  sources.getSource().getExport().setSexualOrientation(sexualOrientationList);
-    	  sources.getSource().getExport().setYouthCriticalIssues(youthCriticalIssuesList);
     	  sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
-    	  sources.getSource().getExport().setCommercialSexualExploitation(commercialSexualExploitationList);
 	  }
-	  **
+	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   *
+	   */
 	  protected void hydradeEnrollmentCoC(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -626,21 +533,21 @@ public class BulkUploadHelper {
 	    	  enrollmentCocModel.setDataCollectionStage(getByte(enrollCoC.getDataCollectionStage()));
 	    	  enrollmentCocModel.setDateCreated(getXMLGregorianCalendar(enrollCoC.getDateCreated()));
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
-	    	  enrollmentCocModel.setEnrollmentCoCID(Integer.parseInt(enrollCoC.getEnrollmentCOCID()));
+	    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
 	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
-	    	  enrollmentCocModel.setProjectCoCID(Short.valueOf(enrollCoC.getProjectID()));
+	    	  enrollmentCocModel.setClientCoC(enrollCoC.getCoCCode());
 	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
 	    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
 	    	  sources.getSource().getExport().getEnrollmentCoC().add(enrollmentCocModel);
 	      }
 	  }
 	  
-	  **
+	  /**
 	   * Hydrate Exit with in Sources Object from Exit CSV Pojos.
 	   * @param csvFile
 	   * @param sourcesoe
 	   * @throws IOException
-	   *
+	   */
 	  protected void hydradeExit(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -649,13 +556,7 @@ public class BulkUploadHelper {
 	      List<Exit> exit = exitReader.readAll(); 
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit> exitList = new ArrayList<Sources.Source.Export.Exit>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition> housingAssessmentDispositionList = new ArrayList<Sources.Source.Export.HousingAssessmentDisposition>();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.FamilyReunification> familyReunificationList = new ArrayList<Sources.Source.Export.FamilyReunification>();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPlansActions> exitPlansActionsList = new ArrayList<Sources.Source.Export.ExitPlansActions>();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR> connectionWithSOARList = new ArrayList<Sources.Source.Export.ConnectionWithSOAR>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment> exitHousingAssessmentList = new ArrayList<Sources.Source.Export.ExitHousingAssessment>();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCompletionStatus> projectCompletionStatusList = new ArrayList<Sources.Source.Export.ProjectCompletionStatus>();
-	      
-	          
 	      for(Exit ext : exit) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
 	    	  
@@ -679,42 +580,6 @@ public class BulkUploadHelper {
 	    	  housingAssessmentDispositionModel.setOtherDisposition(ext.getOtherDisposition());
 	    	  housingAssessmentDispositionModel.setUserID(ext.getUserID());
 	    	  housingAssessmentDispositionList.add(housingAssessmentDispositionModel);
-	    	  
-	    	  FamilyReunification familyReunificationModel = new FamilyReunification();
-	    	  familyReunificationModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
-	    	  familyReunificationModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  familyReunificationModel.setExitID(ext.getExitID());
-	    	  familyReunificationModel.setFamilyReunificationAchieved(getByte(ext.getFamilyReunificationAchieved()));
-//	    	  familyReunificationModel.setFamilyReunificationID(ext.get);
-	    	  familyReunificationModel.setUserID(ext.getUserID());
-	    	  sources.getSource().getExport().getFamilyReunification().add(familyReunificationModel);
-	    	  
-	    	  ExitPlansActions exitPlansActionsModel = new ExitPlansActions();
-	    	  exitPlansActionsModel.setAssistanceMainstreamBenefits(getByte(ext.getAssistanceMainstreamBenefits()));
-	    	  exitPlansActionsModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
-	    	  exitPlansActionsModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  exitPlansActionsModel.setExitCounseling(getByte(ext.getExitCounseling()));
-	    	  exitPlansActionsModel.setExitID(ext.getExitID());
-//	    	  exitPlansActionsModel.setExitPlansActionsID(ext.get);
-	    	  exitPlansActionsModel.setFurtherFollowUpServices(getByte(ext.getFurtherFollowUpServices()));
-	    	  exitPlansActionsModel.setOtherAftercarePlanOrAction(getByte(ext.getOtherAftercarePlanOrAction()));
-	    	  exitPlansActionsModel.setPermanentHousingPlacement(getByte(ext.getPermanentHousingPlacement()));
-	    	  exitPlansActionsModel.setResourcePackage(getByte(ext.getResourcePackage()));
-	    	  exitPlansActionsModel.setScheduledFollowUpContacts(getByte(ext.getScheduledFollowupContacts()));
-	    	  exitPlansActionsModel.setTemporaryShelterPlacement(getByte(ext.getTemporaryShelterPlacement()));
-	    	  exitPlansActionsModel.setUserID(ext.getUserID());
-	    	  exitPlansActionsModel.setWrittenAftercarePlan(getByte(ext.getWrittenAftercarePlan()));
-	    	  exitPlansActionsList.add(exitPlansActionsModel);
-	    	  
-	    	  ConnectionWithSOAR connectionWithSOARModel = new ConnectionWithSOAR();
-	    	  connectionWithSOARModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
-//	    	  connectionWithSOARModel.setConnectionWithSOARID(ext.getConn);
-	    	  connectionWithSOARModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
-	    	  connectionWithSOARModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  connectionWithSOARModel.setExitID(ext.getExitID());
-	    	  connectionWithSOARModel.setUserID(ext.getUserID());
-	    	  connectionWithSOARList.add(connectionWithSOARModel);
-	    	  
 	    	  ExitHousingAssessment exitHousingAssessmentModel = new ExitHousingAssessment();
 	    	  exitHousingAssessmentModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitHousingAssessmentModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
@@ -724,32 +589,17 @@ public class BulkUploadHelper {
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
-	    	  
-	    	  
-	    	  ProjectCompletionStatus projectCompletionStatusModel = new ProjectCompletionStatus();
-	    	  projectCompletionStatusModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
-	    	  projectCompletionStatusModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  projectCompletionStatusModel.setEarlyExitReason(getByte(ext.getEarlyExitReason()));
-	    	  projectCompletionStatusModel.setExitID(ext.getExitID());
-	    	  projectCompletionStatusModel.setProjectCompletionStatus(getByte(ext.getProjectCompletionStatus()));
-//	    	  projectCompletionStatusModel.setProjectCompletionStatusID(ext.getpr);
-	    	  projectCompletionStatusModel.setUserID(ext.getUserID());
-	    	  projectCompletionStatusList.add(projectCompletionStatusModel);
-	    	  
 	      }
-	      sources.getSource().getExport().setProjectCompletionStatus(projectCompletionStatusList);
 	      sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
-	      sources.getSource().getExport().setConnectionWithSOAR(connectionWithSOARList);
-	      sources.getSource().getExport().setExitPlansActions(exitPlansActionsList);
 	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
 	  }
 	  
-	  **
+	  /**
 	   * Hydrate Export with in Sources Object from Export CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   *
+	   */
 	  protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
@@ -767,8 +617,9 @@ public class BulkUploadHelper {
 	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
 	    	  sources.getSource().getExport().setExportPeriodType(exp.getExportPeriodType());
 	      }
+	  }
 	      
-	  **
+	  /**
 	   * Hydrate Funder with in Sources Object from Funder CSV Pojos.
 	   * @param csvFile
 	   * @param sources
