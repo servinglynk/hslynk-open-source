@@ -104,7 +104,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			upload.setExportId(domain.getExportId());
-			upload.setStatus(UploadStatus.CORE_COMPLETE.getStatus());
+			upload.setStatus(UploadStatus.CORE.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			insertOrUpdate(upload); 
 			logger.debug("Bulk Upload Staging Process Ends.....");
