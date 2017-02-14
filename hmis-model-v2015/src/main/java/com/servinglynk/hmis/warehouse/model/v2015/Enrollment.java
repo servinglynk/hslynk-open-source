@@ -680,6 +680,43 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.chronicHomeless = chronicHomeless;
 	}
 	 /**
+	 * Return the value associated with the column: yearshomeless.
+	 * @return A Integer object (this.yearshomeless)
+	 */
+	public Integer getYearshomeless() {
+		return this.yearshomeless;
+		
+	}
+	
+
+ 
+	 /**  
+	 * Set the value related to the column: yearshomeless.
+	 * @param yearshomeless the yearshomeless value you wish to set
+	 */
+	public void setYearshomeless(final Integer yearshomeless) {
+		this.yearshomeless = yearshomeless;
+	}
+	
+	 /**
+		 * Return the value associated with the column: yearshomeless.
+		 * @return A Integer object (this.yearshomeless)
+		 */
+		public Integer getAgeAtEntry() {
+			return this.ageAtEntry;
+			
+		}
+		
+
+	  
+		 /**  
+		 * Set the value related to the column: yearshomeless.
+		 * @param yearshomeless the yearshomeless value you wish to set
+		 */
+		public void setAgeAtEntry(final Integer ageAtEntry) {
+			this.ageAtEntry = ageAtEntry;
+		}
+	 /**
 	 * Return the value associated with the column: incomeandsources.
 	 * @return A Set&lt;Incomeandsources&gt; object (this.incomeandsources)
 	 */
