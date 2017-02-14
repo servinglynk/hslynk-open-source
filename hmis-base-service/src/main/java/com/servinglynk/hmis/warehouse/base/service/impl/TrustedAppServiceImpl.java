@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenEx
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundException;
+import com.servinglynk.hmis.warehouse.model.base.APIAccessEntity;
 import com.servinglynk.hmis.warehouse.model.base.AccountConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
@@ -590,10 +592,31 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 					apiAuthCheck.setAccount(serviceFactory.getAccountService().getAccount(account, true));
 				}
 				apiAuthCheck.setTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(trustedAppEntity, logoPath()));
-
+				this.logAPIAccess(pApiMethod, apiAuthCheck.getAccount());
 				return apiAuthCheck;
 	}
 
+	@Transactional
+	@Async
+	public void logAPIAccess(ApiMethodEntity apiMethodEntity, Account account){
+			APIAccessEntity entity = daoFactory.getApiAccessDao().getAPIAccess(account.getProjectGroup().getProjectGroupCode(), new Date(),apiMethodEntity.getApiGroup().getId());
+			if(entity!=null){
+				entity.setAccessCount(entity.getAccessCount()+1);
+				daoFactory.getApiAccessDao().updateAPIAccess(entity);
+			}else{
+				entity = new APIAccessEntity();
+				entity.setAccessCount(1l);
+				entity.setAccessDate(new Date());
+				entity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
+				if(apiMethodEntity.getApiGroup()!=null){
+					entity.setServiceId(apiMethodEntity.getApiGroup().getId());
+					entity.setServiceName(apiMethodEntity.getApiGroup().getFriendlyName());
+				}
+				daoFactory.getApiAccessDao().createAPIAccess(entity);
+			}
+	}
+	
+	
 	@Transactional
 	public List<TrustedApp> getAuthorizedTrustedApps(String username,
 			String caller) {

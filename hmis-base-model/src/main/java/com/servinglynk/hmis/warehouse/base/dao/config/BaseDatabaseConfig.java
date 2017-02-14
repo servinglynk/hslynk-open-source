@@ -9,6 +9,8 @@ import org.hibernate.criterion.ProjectionList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.servinglynk.hmis.warehouse.base.dao.APIAccessDao;
+import com.servinglynk.hmis.warehouse.base.dao.APIAccessDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDataChangeDaoImpl;
@@ -242,5 +244,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ClientDataElementDaoImpl clientDataElementDao(){
 		return new ClientDataElementDaoImpl();
+	}
+	
+	@Bean
+	public APIAccessDaoImpl apiAccessDao(){
+		return new APIAccessDaoImpl();
 	}
 }
