@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -68,6 +70,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Autowired
 	BulkUploadHelper bulkUploadHelper;
+	
+	@Autowired
+	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	
 
 	/***
@@ -156,6 +161,21 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 
 		return sources.getSource();
+	}
+	@Override
+	public void calculateChronicHomelessness(String projectGroupCode) {
+		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, projectGroupCode);
+		if(!enrollmentModelMap.isEmpty()) {
+			Collection<HmisBaseModel> enrollments = enrollmentModelMap.values();
+			for(HmisBaseModel model : enrollments) {
+				Enrollment enrollmentModel = (Enrollment) model;
+				Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
+				enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
+				if(enrollment.isChronicHomeless()) {
+					getCurrentSession().merge(enrollment);
+				}
+			}
+		}
 	}
 	/***
 	 * Perform Bulk Upload for processProjectChildren Tables

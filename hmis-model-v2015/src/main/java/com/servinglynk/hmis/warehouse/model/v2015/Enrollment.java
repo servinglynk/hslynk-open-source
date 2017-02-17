@@ -142,6 +142,10 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private Set<ServiceFaReferral> serviceFaReferrals = new HashSet<ServiceFaReferral>();
 	
+	/** Field mapping. */
+	private Integer yearshomeless;
+	/** Field mapping. */
+	private Integer ageAtEntry;
 	private boolean chronicHomeless;
 
 	/**

@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2015;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
@@ -62,21 +63,21 @@ public class Incomeandsources extends HmisBaseModel implements Cloneable, Serial
 	/** Field mapping. */
 	private IncomeandsourcesAlimonyEnum alimony;
 	/** Field mapping. */
-	private java.math.BigDecimal alimonyamount;
+	private java.math.BigDecimal alimonyamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesChildsupportEnum childsupport;
 	/** Field mapping. */
-	private java.math.BigDecimal childsupportamount;
+	private java.math.BigDecimal childsupportamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesEarnedEnum earned;
 	/** Field mapping. */
-	private java.math.BigDecimal earnedamount;
+	private java.math.BigDecimal earnedamount  = new BigDecimal(0);
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private IncomeandsourcesGaEnum ga;
 	/** Field mapping. */
-	private java.math.BigDecimal gaamount;
+	private java.math.BigDecimal gaamount = new BigDecimal(0);
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
@@ -84,39 +85,39 @@ public class Incomeandsources extends HmisBaseModel implements Cloneable, Serial
 	/** Field mapping. */
 	private IncomeandsourcesOthersourceEnum othersource;
 	/** Field mapping. */
-	private java.math.BigDecimal othersourceamount;
+	private java.math.BigDecimal othersourceamount = new BigDecimal(0);
 	/** Field mapping. */
 	private String othersourceidentify;
 	/** Field mapping. */
 	private IncomeandsourcesPensionEnum pension;
 	/** Field mapping. */
-	private java.math.BigDecimal pensionamount;
+	private java.math.BigDecimal pensionamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesPrivatedisabilityEnum privatedisability;
 	/** Field mapping. */
-	private java.math.BigDecimal privatedisabilityamount;
+	private java.math.BigDecimal privatedisabilityamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesSocsecretirementEnum socsecretirement;
 	/** Field mapping. */
-	private java.math.BigDecimal socsecretirementamount;
+	private java.math.BigDecimal socsecretirementamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesSsdiEnum ssdi;
 	/** Field mapping. */
-	private java.math.BigDecimal ssdiamount;
+	private java.math.BigDecimal ssdiamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesSsiEnum ssi;
 	/** Field mapping. */
-	private java.math.BigDecimal ssiamount;
+	private java.math.BigDecimal ssiamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesTanfEnum tanf;
 	/** Field mapping. */
-	private java.math.BigDecimal tanfamount;
+	private java.math.BigDecimal tanfamount = new BigDecimal(0);
 	/** Field mapping. */
-	private java.math.BigDecimal totalmonthlyincome;
+	private java.math.BigDecimal totalmonthlyincome = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesUnemploymentEnum unemployment;
 	/** Field mapping. */
-	private java.math.BigDecimal unemploymentamount;
+	private java.math.BigDecimal unemploymentamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesVadisabilitynonserviceEnum vadisabilitynonservice;
 	/** Field mapping. */
@@ -124,11 +125,11 @@ public class Incomeandsources extends HmisBaseModel implements Cloneable, Serial
 	/** Field mapping. */
 	private IncomeandsourcesVadisabilityserviceEnum vadisabilityservice;
 	/** Field mapping. */
-	private java.math.BigDecimal vadisabilityserviceamount;
+	private java.math.BigDecimal vadisabilityserviceamount = new BigDecimal(0);
 	/** Field mapping. */
 	private IncomeandsourcesWorkerscompEnum workerscomp;
 	/** Field mapping. */
-	private java.math.BigDecimal workerscompamount;
+	private java.math.BigDecimal workerscompamount = new BigDecimal(0);
 	/** Field mapping. */
 	private LocalDateTime informationDate;
 	private DataCollectionStageEnum dataCollectionStage;

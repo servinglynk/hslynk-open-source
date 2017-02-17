@@ -169,7 +169,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 
 	/** Field mapping. */
 	private Integer yearshomeless;
-	
+	/** Field mapping. */
 	private Integer ageAtEntry;
 	/** Field mapping. */
 	private Set<Youthcriticalissues> youthcriticalissueses = new HashSet<Youthcriticalissues>();

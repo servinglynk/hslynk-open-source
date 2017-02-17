@@ -235,8 +235,35 @@ public class BulkUploaderTest {
 //				assertEquals("",exportEntity.getExportperiodtype());
 	}
 */	
+	@Test
+	public void testCoreTables() throws Exception
+	{
+			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
+				BulkUpload upload = new BulkUpload();
+				upload.setId(221L);
+				FileAppender appender = new FileAppender();
+				appender.setName("" + upload.getId());
+				appender.setFile("logs/" + upload.getId() + ".log");
+				appender.setImmediateFlush(true);
+				appender.setAppend(true);
+				appender.setLayout(new PatternLayout());
+				appender.activateOptions();
+				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_97.xml");
+				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
+			//	URL path = BulkUploaderTest.class.getResource("2015.xml");
+		//		upload.setInputpath(path.getPath());
+				upload.setProjectGroupCode("MO0010");
+				upload.setId(213L);
+				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+				factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
+	}
 	
 	
+	@Test
+	public void calculateChronicHomelessness() throws Exception
+	{
+				factory.getBulkUploaderDao().calculateChronicHomelessness("MO0010");
+	}
 	@Test
 	public void testPersistIntoStaging() throws Exception
 	{
@@ -257,7 +284,7 @@ public class BulkUploaderTest {
 				upload.setProjectGroupCode("MO0010");
 				upload.setId(213L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
+				factory.getBulkUploaderDao().processEnrollmentChildrenPart3(upload,projectGrpEntity,appender,false);
 	}
 		@Test
 		public void testCSVZip() throws Exception

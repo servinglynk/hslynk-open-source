@@ -23,4 +23,5 @@ public interface BulkUploaderDao {
 	public void deleteLiveByExportId(UUID exportId);
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId);
 	public void undoDeleteLiveByExportId(UUID exportId);
+	public void calculateChronicHomelessness(String projectGroupCode);
 }

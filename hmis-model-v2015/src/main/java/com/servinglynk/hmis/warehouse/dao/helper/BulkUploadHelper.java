@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -729,76 +730,76 @@ public class BulkUploadHelper {
 	    	  
 	    	  incomeBenefitsModel.setAlimony(getByte(incomeBnfts.getAlimony()));
 	    	  if(incomeBnfts.getAlimonyAmount()!=null && !"".equals(incomeBnfts.getAlimonyAmount())){
-	    		  incomeBenefitsModel.setAlimonyAmount(Float.valueOf(incomeBnfts.getAlimonyAmount()));
+	    		  incomeBenefitsModel.setAlimonyAmount(incomeBnfts.getAlimonyAmount());
 	    	  }
 	    	  incomeBenefitsModel.setChildSupport(getByte(incomeBnfts.getChildSupport()));
 	    	  if(incomeBnfts.getChildSupportAmount()!=null && !"".equals(incomeBnfts.getChildSupportAmount())){
-	    		  incomeBenefitsModel.setChildSupportAmount(Float.valueOf(incomeBnfts.getChildSupportAmount()));
+	    		  incomeBenefitsModel.setChildSupportAmount(incomeBnfts.getChildSupportAmount());
 	    	  }
 	    	  incomeBenefitsModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
 	    	  incomeBenefitsModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  incomeBenefitsModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
 	    	  incomeBenefitsModel.setEarned(getByte(incomeBnfts.getEarned()));
 	    	  if(incomeBnfts.getEarnedAmount()!=null && !"".equals(incomeBnfts.getEarnedAmount())){
-	    		  incomeBenefitsModel.setEarnedAmount(Float.valueOf(incomeBnfts.getEarnedAmount()));
+	    		  incomeBenefitsModel.setEarnedAmount(incomeBnfts.getEarnedAmount());
 	    	  }
 	    	  incomeBenefitsModel.setGA(getByte(incomeBnfts.getGA()));
 	    	  if(incomeBnfts.getGAAmount()!=null && !"".equals(incomeBnfts.getGAAmount())){
-	    		  incomeBenefitsModel.setGAAmount(Float.valueOf(incomeBnfts.getGAAmount()));
+	    		  incomeBenefitsModel.setGAAmount(incomeBnfts.getGAAmount());
 	    	  }
 	    	  incomeBenefitsModel.setIncomeAndSourcesID(incomeBnfts.getIncomeBenefitsID());
 	    	  incomeBenefitsModel.setIncomeFromAnySource(getByte(incomeBnfts.getIncomeFromAnySource()));
 	    	  incomeBenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  incomeBenefitsModel.setOtherSource(getByte(incomeBnfts.getOtherIncomeSource()));
 	    	  if(incomeBnfts.getOtherIncomeAmount()!=null && !"".equals(incomeBnfts.getOtherIncomeAmount())){
-	    		  incomeBenefitsModel.setOtherAmount(Float.valueOf(incomeBnfts.getOtherIncomeAmount()));
+	    		  incomeBenefitsModel.setOtherAmount(incomeBnfts.getOtherIncomeAmount());
 	    	  }
 	    	  incomeBenefitsModel.setOtherSourceIdentify(incomeBnfts.getOtherIncomeSourceIdentify());
 	    	  incomeBenefitsModel.setPension(getByte(incomeBnfts.getPension()));
 	    	  if(incomeBnfts.getPensionAmount()!=null && !"".equals(incomeBnfts.getPensionAmount())){
-	    		  incomeBenefitsModel.setPensionAmount(Float.valueOf(incomeBnfts.getPensionAmount()));
+	    		  incomeBenefitsModel.setPensionAmount(incomeBnfts.getPensionAmount());
 	    	  }
 	    	  incomeBenefitsModel.setPrivateDisability(getByte(incomeBnfts.getPrivateDisability()));
 	    	  if(incomeBnfts.getPrivateDisabilityAmount()!=null && !"".equals(incomeBnfts.getPrivateDisabilityAmount())){
-	    		  incomeBenefitsModel.setPrivateDisabilityAmount(Float.valueOf(incomeBnfts.getPrivateDisabilityAmount()));
+	    		  incomeBenefitsModel.setPrivateDisabilityAmount(incomeBnfts.getPrivateDisabilityAmount());
 	    	  }
 	    	  incomeBenefitsModel.setProjectEntryID(incomeBnfts.getProjectEntryID());
 	    	  incomeBenefitsModel.setSocSecRetirement(getByte(incomeBnfts.getSocSecRetirement()));
 	    	  if(incomeBnfts.getSocSecRetirementAmount()!=null && !"".equals(incomeBnfts.getSocSecRetirementAmount())){
-	    		  incomeBenefitsModel.setSocSecRetirementAmount(Float.valueOf(incomeBnfts.getSocSecRetirementAmount()));
+	    		  incomeBenefitsModel.setSocSecRetirementAmount(incomeBnfts.getSocSecRetirementAmount());
 	    	  }
 	    	  incomeBenefitsModel.setSSDI(getByte(incomeBnfts.getSSDI()));
 	    	  if(incomeBnfts.getSSDIAmount()!=null && !"".equals(incomeBnfts.getSSDIAmount())){
-	    		  incomeBenefitsModel.setSSDIAmount(Float.valueOf(incomeBnfts.getSSDIAmount()));
+	    		  incomeBenefitsModel.setSSDIAmount(incomeBnfts.getSSDIAmount());
 	    	  }
 	    	  incomeBenefitsModel.setSSI(getByte(incomeBnfts.getSSI()));
 	    	  if(incomeBnfts.getSSIAmount()!=null && !"".equals(incomeBnfts.getSSIAmount())){
-	    		  incomeBenefitsModel.setSSIAmount(Float.valueOf(incomeBnfts.getSSIAmount()));
+	    		  incomeBenefitsModel.setSSIAmount(incomeBnfts.getSSIAmount());
 	    	  }
 	    	  incomeBenefitsModel.setTANF(getByte(incomeBnfts.getTANF()));
 	    	  if(incomeBnfts.getTANFAmount()!=null && !"".equals(incomeBnfts.getTANFAmount())){
-	    		  incomeBenefitsModel.setTANFAmount(Float.valueOf(incomeBnfts.getTANFAmount()));
+	    		  incomeBenefitsModel.setTANFAmount(incomeBnfts.getTANFAmount());
 	    	  }
 	    	  if(incomeBnfts.getTotalMonthlyIncome()!=null && !"".equals(incomeBnfts.getTotalMonthlyIncome())){
-	    		  incomeBenefitsModel.setTotalMonthlyIncome(Float.valueOf(incomeBnfts.getTotalMonthlyIncome()));
+	    		  incomeBenefitsModel.setTotalMonthlyIncome(incomeBnfts.getTotalMonthlyIncome());
 	    	  }
 	    	  incomeBenefitsModel.setUnemployment(getByte(incomeBnfts.getUnemployment()));
 	    	  if(incomeBnfts.getUnemploymentAmount()!=null && !"".equals(incomeBnfts.getUnemploymentAmount())){
-	    		  incomeBenefitsModel.setUnemploymentAmount(Float.valueOf(incomeBnfts.getUnemploymentAmount()));
+	    		  incomeBenefitsModel.setUnemploymentAmount(incomeBnfts.getUnemploymentAmount());
 	    	  }
 	    	  incomeBenefitsModel.setUserID(incomeBnfts.getUserID());
 	    	  incomeBenefitsModel.setVADisabilityNonService(getByte(incomeBnfts.getVADisabilityNonService()));
 	    	  if(incomeBnfts.getVADisabilityNonServiceAmount()!=null && !"".equals(incomeBnfts.getVADisabilityNonServiceAmount())){
-	    		  incomeBenefitsModel.setVADisabilityNonServiceAmount(Float.valueOf(incomeBnfts.getVADisabilityNonServiceAmount()));
+	    		  incomeBenefitsModel.setVADisabilityNonServiceAmount(incomeBnfts.getVADisabilityNonServiceAmount());
 	    	  }
 	    	  incomeBenefitsModel.setVADisabilityService(getByte(incomeBnfts.getVADisabilityService()));
 	    	  if(incomeBnfts.getVADisabilityServiceAmount()!=null && !"".equals(incomeBnfts.getVADisabilityServiceAmount())){
-	    		  incomeBenefitsModel.setVADisabilityServiceAmount(Float.valueOf(incomeBnfts.getVADisabilityServiceAmount()));
+	    		  incomeBenefitsModel.setVADisabilityServiceAmount(incomeBnfts.getVADisabilityServiceAmount());
 	    	  }
 	    	  
 	    	  incomeBenefitsModel.setWorkersComp(getByte(incomeBnfts.getWorkersComp()));
 	    	  if(incomeBnfts.getWorkersCompAmount()!=null && !"".equals(incomeBnfts.getWorkersCompAmount())){
-	    		  incomeBenefitsModel.setWorkersCompAmount(Float.valueOf(incomeBnfts.getWorkersCompAmount()));
+	    		  incomeBenefitsModel.setWorkersCompAmount(incomeBnfts.getWorkersCompAmount());
 	    	  }
 	    	  
 	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();

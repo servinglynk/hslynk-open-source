@@ -9544,67 +9544,67 @@ public class Sources {
                 @XmlElement(name = "IncomeFromAnySource")
                 protected byte incomeFromAnySource;
                 @XmlElement(name = "TotalMonthlyIncome")
-                protected float totalMonthlyIncome;
+                protected String totalMonthlyIncome;
                 @XmlElement(name = "Earned")
                 protected byte earned;
                 @XmlElement(name = "EarnedAmount")
-                protected float earnedAmount;
+                protected String earnedAmount;
                 @XmlElement(name = "Unemployment")
                 protected byte unemployment;
                 @XmlElement(name = "UnemploymentAmount")
-                protected float unemploymentAmount;
+                protected String unemploymentAmount;
                 @XmlElement(name = "SSI")
                 protected byte ssi;
                 @XmlElement(name = "SSIAmount")
-                protected float ssiAmount;
+                protected String ssiAmount;
                 @XmlElement(name = "SSDI")
                 protected byte ssdi;
                 @XmlElement(name = "SSDIAmount")
-                protected float ssdiAmount;
+                protected String ssdiAmount;
                 @XmlElement(name = "VADisabilityService")
                 protected byte vaDisabilityService;
                 @XmlElement(name = "VADisabilityServiceAmount")
-                protected float vaDisabilityServiceAmount;
+                protected String vaDisabilityServiceAmount;
                 @XmlElement(name = "VADisabilityNonService")
                 protected byte vaDisabilityNonService;
                 @XmlElement(name = "VADisabilityNonServiceAmount")
-                protected float vaDisabilityNonServiceAmount;
+                protected String vaDisabilityNonServiceAmount;
                 @XmlElement(name = "PrivateDisability")
                 protected byte privateDisability;
                 @XmlElement(name = "PrivateDisabilityAmount")
-                protected float privateDisabilityAmount;
+                protected String privateDisabilityAmount;
                 @XmlElement(name = "WorkersComp")
                 protected byte workersComp;
                 @XmlElement(name = "WorkersCompAmount")
-                protected float workersCompAmount;
+                protected String workersCompAmount;
                 @XmlElement(name = "TANF")
                 protected byte tanf;
                 @XmlElement(name = "TANFAmount")
-                protected float tanfAmount;
+                protected String tanfAmount;
                 @XmlElement(name = "GA")
                 protected byte ga;
                 @XmlElement(name = "GAAmount")
-                protected float gaAmount;
+                protected String gaAmount;
                 @XmlElement(name = "SocSecRetirement")
                 protected byte socSecRetirement;
                 @XmlElement(name = "SocSecRetirementAmount")
-                protected float socSecRetirementAmount;
+                protected String socSecRetirementAmount;
                 @XmlElement(name = "Pension")
                 protected byte pension;
                 @XmlElement(name = "PensionAmount")
-                protected float pensionAmount;
+                protected String pensionAmount;
                 @XmlElement(name = "ChildSupport")
                 protected byte childSupport;
                 @XmlElement(name = "ChildSupportAmount")
-                protected float childSupportAmount;
+                protected String childSupportAmount;
                 @XmlElement(name = "Alimony")
                 protected byte alimony;
                 @XmlElement(name = "AlimonyAmount")
-                protected float alimonyAmount;
+                protected String alimonyAmount;
                 @XmlElement(name = "OtherSource")
                 protected byte otherSource;
                 @XmlElement(name = "OtherAmount")
-                protected float otherAmount;
+                protected String otherAmount;
                 @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;
                 @XmlAttribute
@@ -9686,7 +9686,7 @@ public class Sources {
                  * Gets the value of the totalMonthlyIncome property.
                  * 
                  */
-                public float getTotalMonthlyIncome() {
+                public String getTotalMonthlyIncome() {
                     return totalMonthlyIncome;
                 }
 
@@ -9694,7 +9694,7 @@ public class Sources {
                  * Sets the value of the totalMonthlyIncome property.
                  * 
                  */
-                public void setTotalMonthlyIncome(float value) {
+                public void setTotalMonthlyIncome(String value) {
                     this.totalMonthlyIncome = value;
                 }
 
@@ -9718,7 +9718,7 @@ public class Sources {
                  * Gets the value of the earnedAmount property.
                  * 
                  */
-                public float getEarnedAmount() {
+                public String getEarnedAmount() {
                     return earnedAmount;
                 }
 
@@ -9726,7 +9726,7 @@ public class Sources {
                  * Sets the value of the earnedAmount property.
                  * 
                  */
-                public void setEarnedAmount(float value) {
+                public void setEarnedAmount(String value) {
                     this.earnedAmount = value;
                 }
 
@@ -9750,7 +9750,7 @@ public class Sources {
                  * Gets the value of the unemploymentAmount property.
                  * 
                  */
-                public float getUnemploymentAmount() {
+                public String getUnemploymentAmount() {
                     return unemploymentAmount;
                 }
 
@@ -9758,7 +9758,7 @@ public class Sources {
                  * Sets the value of the unemploymentAmount property.
                  * 
                  */
-                public void setUnemploymentAmount(float value) {
+                public void setUnemploymentAmount(String value) {
                     this.unemploymentAmount = value;
                 }
 
@@ -9782,7 +9782,7 @@ public class Sources {
                  * Gets the value of the ssiAmount property.
                  * 
                  */
-                public float getSSIAmount() {
+                public String getSSIAmount() {
                     return ssiAmount;
                 }
 
@@ -9790,7 +9790,7 @@ public class Sources {
                  * Sets the value of the ssiAmount property.
                  * 
                  */
-                public void setSSIAmount(float value) {
+                public void setSSIAmount(String value) {
                     this.ssiAmount = value;
                 }
 
@@ -9814,7 +9814,7 @@ public class Sources {
                  * Gets the value of the ssdiAmount property.
                  * 
                  */
-                public float getSSDIAmount() {
+                public String getSSDIAmount() {
                     return ssdiAmount;
                 }
 
@@ -9822,7 +9822,7 @@ public class Sources {
                  * Sets the value of the ssdiAmount property.
                  * 
                  */
-                public void setSSDIAmount(float value) {
+                public void setSSDIAmount(String value) {
                     this.ssdiAmount = value;
                 }
 
@@ -9846,7 +9846,7 @@ public class Sources {
                  * Gets the value of the vaDisabilityServiceAmount property.
                  * 
                  */
-                public float getVADisabilityServiceAmount() {
+                public String getVADisabilityServiceAmount() {
                     return vaDisabilityServiceAmount;
                 }
 
@@ -9854,7 +9854,7 @@ public class Sources {
                  * Sets the value of the vaDisabilityServiceAmount property.
                  * 
                  */
-                public void setVADisabilityServiceAmount(float value) {
+                public void setVADisabilityServiceAmount(String value) {
                     this.vaDisabilityServiceAmount = value;
                 }
 
@@ -9878,7 +9878,7 @@ public class Sources {
                  * Gets the value of the vaDisabilityNonServiceAmount property.
                  * 
                  */
-                public float getVADisabilityNonServiceAmount() {
+                public String getVADisabilityNonServiceAmount() {
                     return vaDisabilityNonServiceAmount;
                 }
 
@@ -9886,7 +9886,7 @@ public class Sources {
                  * Sets the value of the vaDisabilityNonServiceAmount property.
                  * 
                  */
-                public void setVADisabilityNonServiceAmount(float value) {
+                public void setVADisabilityNonServiceAmount(String value) {
                     this.vaDisabilityNonServiceAmount = value;
                 }
 
@@ -9910,7 +9910,7 @@ public class Sources {
                  * Gets the value of the privateDisabilityAmount property.
                  * 
                  */
-                public float getPrivateDisabilityAmount() {
+                public String getPrivateDisabilityAmount() {
                     return privateDisabilityAmount;
                 }
 
@@ -9918,7 +9918,7 @@ public class Sources {
                  * Sets the value of the privateDisabilityAmount property.
                  * 
                  */
-                public void setPrivateDisabilityAmount(float value) {
+                public void setPrivateDisabilityAmount(String value) {
                     this.privateDisabilityAmount = value;
                 }
 
@@ -9942,7 +9942,7 @@ public class Sources {
                  * Gets the value of the workersCompAmount property.
                  * 
                  */
-                public float getWorkersCompAmount() {
+                public String getWorkersCompAmount() {
                     return workersCompAmount;
                 }
 
@@ -9950,7 +9950,7 @@ public class Sources {
                  * Sets the value of the workersCompAmount property.
                  * 
                  */
-                public void setWorkersCompAmount(float value) {
+                public void setWorkersCompAmount(String value) {
                     this.workersCompAmount = value;
                 }
 
@@ -9974,7 +9974,7 @@ public class Sources {
                  * Gets the value of the tanfAmount property.
                  * 
                  */
-                public float getTANFAmount() {
+                public String getTANFAmount() {
                     return tanfAmount;
                 }
 
@@ -9982,7 +9982,7 @@ public class Sources {
                  * Sets the value of the tanfAmount property.
                  * 
                  */
-                public void setTANFAmount(float value) {
+                public void setTANFAmount(String value) {
                     this.tanfAmount = value;
                 }
 
@@ -10006,7 +10006,7 @@ public class Sources {
                  * Gets the value of the gaAmount property.
                  * 
                  */
-                public float getGAAmount() {
+                public String getGAAmount() {
                     return gaAmount;
                 }
 
@@ -10014,7 +10014,7 @@ public class Sources {
                  * Sets the value of the gaAmount property.
                  * 
                  */
-                public void setGAAmount(float value) {
+                public void setGAAmount(String value) {
                     this.gaAmount = value;
                 }
 
@@ -10038,7 +10038,7 @@ public class Sources {
                  * Gets the value of the socSecRetirementAmount property.
                  * 
                  */
-                public float getSocSecRetirementAmount() {
+                public String getSocSecRetirementAmount() {
                     return socSecRetirementAmount;
                 }
 
@@ -10046,7 +10046,7 @@ public class Sources {
                  * Sets the value of the socSecRetirementAmount property.
                  * 
                  */
-                public void setSocSecRetirementAmount(float value) {
+                public void setSocSecRetirementAmount(String value) {
                     this.socSecRetirementAmount = value;
                 }
 
@@ -10070,7 +10070,7 @@ public class Sources {
                  * Gets the value of the pensionAmount property.
                  * 
                  */
-                public float getPensionAmount() {
+                public String getPensionAmount() {
                     return pensionAmount;
                 }
 
@@ -10078,7 +10078,7 @@ public class Sources {
                  * Sets the value of the pensionAmount property.
                  * 
                  */
-                public void setPensionAmount(float value) {
+                public void setPensionAmount(String value) {
                     this.pensionAmount = value;
                 }
 
@@ -10102,7 +10102,7 @@ public class Sources {
                  * Gets the value of the childSupportAmount property.
                  * 
                  */
-                public float getChildSupportAmount() {
+                public String getChildSupportAmount() {
                     return childSupportAmount;
                 }
 
@@ -10110,7 +10110,7 @@ public class Sources {
                  * Sets the value of the childSupportAmount property.
                  * 
                  */
-                public void setChildSupportAmount(float value) {
+                public void setChildSupportAmount(String value) {
                     this.childSupportAmount = value;
                 }
 
@@ -10134,7 +10134,7 @@ public class Sources {
                  * Gets the value of the alimonyAmount property.
                  * 
                  */
-                public float getAlimonyAmount() {
+                public String getAlimonyAmount() {
                     return alimonyAmount;
                 }
 
@@ -10142,7 +10142,7 @@ public class Sources {
                  * Sets the value of the alimonyAmount property.
                  * 
                  */
-                public void setAlimonyAmount(float value) {
+                public void setAlimonyAmount(String value) {
                     this.alimonyAmount = value;
                 }
 
@@ -10166,7 +10166,7 @@ public class Sources {
                  * Gets the value of the otherSourceAmount property.
                  * 
                  */
-                public float getOtherAmount() {
+                public String getOtherAmount() {
                     return otherAmount;
                 }
 
@@ -10174,7 +10174,7 @@ public class Sources {
                  * Sets the value of the otherSourceAmount property.
                  * 
                  */
-                public void setOtherAmount(float value) {
+                public void setOtherAmount(String value) {
                     this.otherAmount = value;
                 }
 

@@ -76,7 +76,8 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 						factory.getBaseProjectDao().createProject(baseProject);
 					}
 					projectModel.setExport(exportEntity);
-					performSaveOrUpdate(projectModel);
+					getCurrentSession().merge(projectModel);
+					//performSaveOrUpdate(projectModel);
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
@@ -111,9 +112,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		com.servinglynk.hmis.warehouse.model.v2015.Project model = new com.servinglynk.hmis.warehouse.model.v2015.Project();
 		////org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
+		//performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,project.getProjectID(),data);
-		return model;
+		return modelFromDB;
 	}
 	
 

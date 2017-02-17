@@ -3,12 +3,15 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -105,10 +108,23 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					com.servinglynk.hmis.warehouse.model.v2015.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2015.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					enrollmentModel.setProject(project);
 					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
-					com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
-					enrollmentModel.setClient(client);
+					if (enrollment.getPersonalID() != null) {
+						com.servinglynk.hmis.warehouse.model.v2015.Client client = (com.servinglynk.hmis.warehouse.model.v2015.Client) getModel(com.servinglynk.hmis.warehouse.model.v2015.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
+						//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
+						// Very important logic needs to come here via a Microservice call.
+						LocalDateTime entryDate = enrollmentModel.getEntrydate();
+						if (client != null) {
+							LocalDateTime dob = client.getDob();
+							if (entryDate != null && dob != null) {
+								LocalDateTime tempDateTime = LocalDateTime.from(dob);
+								long years = tempDateTime.until(entryDate, ChronoUnit.YEARS);
+								enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+							}
+							enrollmentModel.setClient(client);
+						}
+					}
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel);
 				} catch(Exception e) {
@@ -146,7 +162,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		//org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,enrollment.getProjectEntryID(),data);
+		hydrateCommonFields(modelFromDB, domain,enrollment.getProjectEntryID(),data);
 		return model;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Enrollment getEnrollmentById(UUID enrollmentId) {

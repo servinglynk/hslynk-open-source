@@ -1,5 +1,18 @@
 package com.servinglynk.hmis.warehouse;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.client.HTable;
@@ -8,15 +21,6 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 
 public class SyncSchema extends Logging {
@@ -113,12 +117,12 @@ public class SyncSchema extends Logging {
                 tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + upload.getProjectGroupCode(), logger));
                 logger.info("Create tables done");
                 SyncPostgresProcessor.updateCreateFlag(upload.getProjectGroupCode(), version, logger);
-
+                Map<String, String> hmisTypes = loadHmisTypeMap(syncSchema);
                 for (final String tableName : tables) {
                     final String tempName = tableName;
                     logger.info("[" + tempName + "] Processing table : " + tempName);
                         try {
-                            syncTable(tempName, tempName + "_" + upload.getProjectGroupCode());
+                            syncTable(tempName, tempName + "_" + upload.getProjectGroupCode(), hmisTypes, upload);
                         } catch (Exception ex) {
                             logger.error(ex);
                         }
@@ -151,8 +155,45 @@ public class SyncSchema extends Logging {
             log.info("Delete mark is done");
         }
     }
+    /***
+	 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
+	 *
+	 * @return Map<String,String>
+	 */
+	public static Map<String, String> loadHmisTypeMap(String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		Map<String, String> hmisTypeMap = new HashMap<String, String>();
+		try {
+			connection = SyncPostgresProcessor.getConnection();
+			statement = connection.prepareStatement("SELECT name, value,description FROM " + schema + ".hmis_type");
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				String name = resultSet.getString(1);
+				String key = name.toLowerCase().trim() + "_" + resultSet.getString(2).trim();
+				String desc = resultSet.getString(3);
+				hmisTypeMap.put(key, desc);
+			}
+			return hmisTypeMap;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
 
-    private void syncTable(String postgresTable, String hbaseTable) {
+    private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,BulkUpload upload) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -161,7 +202,8 @@ public class SyncSchema extends Logging {
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
-            statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable);
+            statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? ");
+            statement.setString(1,upload.getProjectGroupCode());
             resultSet = statement.executeQuery();
 
             List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
@@ -191,10 +233,20 @@ public class SyncSchema extends Logging {
                     for (int i = 1; i < metaData.getColumnCount(); i++) {
                         String column = metaData.getColumnName(i);
                         String value = resultSet.getString(i);
+                        String columnTypeName = metaData.getColumnTypeName(i);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                             p.addColumn(Bytes.toBytes("CF"),
                                     Bytes.toBytes(column),
                                     Bytes.toBytes(value));
+                            // Add a new column for description for enums
+                            if(columnTypeName.contains(syncSchema)) {
+                            	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
+                            	if(StringUtils.isNotBlank(description)) {
+                            		 p.addColumn(Bytes.toBytes("CF"),
+                                             Bytes.toBytes(column+"_desc"),
+                                             Bytes.toBytes(description));
+                            	}
+                            }
                         }
                     }
                     if (existingKeysInHbase.contains(key)) {
@@ -238,6 +290,10 @@ public class SyncSchema extends Logging {
         }
 
         log.info("Sync done for table: " + postgresTable);
+    }
+    
+    private String getDescriptionForHmisType(final Map<String, String> hmisTypes, String key) {
+    	return hmisTypes.get(key);
     }
 
     private List<String> getTablesToSync() throws Exception {

@@ -9,8 +9,8 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyea
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
-import com.servinglynk.hmis.warehouse.model.v2014.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 
 @Component
 public class ChronicHomelessCalcHelper{
@@ -28,13 +28,12 @@ public class ChronicHomelessCalcHelper{
 	 */
 	public boolean isEnrollmentChronicHomeless(Enrollment enrollment) {
 		if(enrollment !=null) {
-			if(enrollment.getAgeAtEntry() !=null && enrollment.getAgeAtEntry()>=18) {
-				if( (EnrollmentDisablingconditionEnum.ONE.equals(enrollment.getDisablingcondition()) || isChronicDisAbilities(enrollment))
+			if(enrollment.getAgeAtEntry() !=null && enrollment.getAgeAtEntry()>=18 || isChronicDisAbilities(enrollment)) {
+				if( (EnrollmentDisablingconditionEnum.ONE.equals(enrollment.getDisablingcondition()))
 					&& (EnrollmentResidencepriorEnum.ONE.equals(enrollment.getResidenceprior()) || EnrollmentResidencepriorEnum.SIXTEEN.equals(enrollment.getResidenceprior()) || 
 							EnrollmentResidencepriorEnum.EIGHTEEN.equals(enrollment.getResidenceprior())) 
 					&&
-					(EnrollmentContinuouslyhomelessoneyearEnum.ONE.equals(enrollment.getContinuouslyhomelessoneyear())||
-							EnrollmentTimeshomelesspastthreeyearsEnum.FOUR.equals(enrollment.getTimeshomelesspastthreeyears()))){
+					(EnrollmentTimeshomelesspastthreeyearsEnum.FOUR.equals(enrollment.getTimeshomelesspastthreeyears()))){
 					return true;
 				}
 			}
