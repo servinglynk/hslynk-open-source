@@ -112,6 +112,16 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			upload.setStatus(UploadStatus.CORE.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			insertOrUpdate(upload); 
+			processProjectChildren(upload, projectGroupdEntity, appender, isFileFromS3);
+			processEnrollmentChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
+			processEnrollmentChildrenPart2(upload, projectGroupdEntity, appender, isFileFromS3);
+			processEnrollmentChildrenPart3(upload, projectGroupdEntity, appender, isFileFromS3);
+			processExitChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
+			processDisabilities(upload, projectGroupdEntity, appender, isFileFromS3);
+			calculateChronicHomelessness(projectGroupdEntity.getProjectGroupCode());
+			upload.setStatus(UploadStatus.STAGING.getStatus());
+			logger.debug("Chaning status of Bulk_upload table to STAGING");
+			insertOrUpdate(upload); 
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());

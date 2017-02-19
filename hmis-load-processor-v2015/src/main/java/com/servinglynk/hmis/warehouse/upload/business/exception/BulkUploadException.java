@@ -1,22 +1,22 @@
 package com.servinglynk.hmis.warehouse.upload.business.exception;
 
-public class ReportCreationException  extends RuntimeException{
+public class BulkUploadException  extends RuntimeException{
 	
 	public static final String DEFAULT_MESSAGE = "Report Creation Exception";
 	
-	public ReportCreationException() {
+	public BulkUploadException() {
 		super(DEFAULT_MESSAGE);
 	}
 	
-	public ReportCreationException(String message) {
+	public BulkUploadException(String message) {
 		super(message);
 	}
 	
-	public ReportCreationException(Throwable cause) {
+	public BulkUploadException(Throwable cause) {
 		super(DEFAULT_MESSAGE, cause);
 	}
 
-	public ReportCreationException(String message, Throwable cause) {
+	public BulkUploadException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	

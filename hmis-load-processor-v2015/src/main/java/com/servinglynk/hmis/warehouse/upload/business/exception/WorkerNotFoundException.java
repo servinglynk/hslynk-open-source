@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.upload.business.exception;
 
 @SuppressWarnings("serial")
-public class WorkerNotFoundException extends ReportCreationException {
+public class WorkerNotFoundException extends BulkUploadException {
 
 		public static final String DEFAULT_MESSAGE = "The specified worker line does not exists";
 
