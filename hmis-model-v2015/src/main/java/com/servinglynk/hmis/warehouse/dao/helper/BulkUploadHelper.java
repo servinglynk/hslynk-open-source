@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +56,9 @@ import com.servinglynk.hmis.warehouse.csv.IncomeBenefits;
 import com.servinglynk.hmis.warehouse.csv.Inventory;
 import com.servinglynk.hmis.warehouse.csv.Organization;
 import com.servinglynk.hmis.warehouse.csv.Project;
+import com.servinglynk.hmis.warehouse.csv.ProjectCOC;
 import com.servinglynk.hmis.warehouse.csv.Services;
+import com.servinglynk.hmis.warehouse.csv.Site;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
@@ -572,6 +573,8 @@ public class BulkUploadHelper {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit> exitList = new ArrayList<Sources.Source.Export.Exit>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition> housingAssessmentDispositionList = new ArrayList<Sources.Source.Export.HousingAssessmentDisposition>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment> exitHousingAssessmentList = new ArrayList<Sources.Source.Export.ExitHousingAssessment>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY> exitRhyList = new ArrayList<Sources.Source.Export.ExitRHY>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH> exitPATHList = new ArrayList<Sources.Source.Export.ExitPATH>();
 	      for(Exit ext : exit) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
 	    	  
@@ -607,6 +610,9 @@ public class BulkUploadHelper {
 	      }
 	      sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
 	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
+	      sources.getSource().getExport().setExitPATH(exitPATHList);
+	      sources.getSource().getExport().setExitRHY(exitRhyList);
+	      
 	  }
 	  
 	  /**
@@ -982,35 +988,31 @@ public class BulkUploadHelper {
 	  }
 	  
 	  /**
-	   * Hydrate ProjectCOC with in Sources Object from ProjectCOC CSV Pojos.
+	   * Hydrate Coc with in Sources Object from ProjectCOC CSV Pojos.
 	   * @param csvFile
 	   * @param sources
 	   * @throws IOException
-	   *
-	  protected void hydradeProjectCOC(BufferedReader csvFile, Sources sources) throws IOException {
+	   */
+	  protected void hydrateCoc(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<ProjectCOC> projectCOCReader = new CSVReaderBuilder<ProjectCOC>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<ProjectCOC>(ProjectCOC.class, vpp)).build();
 	      List<ProjectCOC> projectCOC = projectCOCReader.readAll();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC> projectCoCList = new ArrayList<Sources.Source.Export.ProjectCoC>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC> projectCoCList = new ArrayList<Sources.Source.Export.CoC>();
 	      for(ProjectCOC prjtCoC : projectCOC) {
-	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC projectCoCModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC();
-	    	 projectCoCModel.setCoCCode(prjtCoC.getCoCCode());
-	    	 projectCoCModel.setDateCreated(getXMLGregorianCalendar(prjtCoC.getDateCreated()));
-	    	 projectCoCModel.setDateUpdated(getXMLGregorianCalendar(prjtCoC.getDateUpdated()));
-	    	 if(prjtCoC.getProjectCocID()!=null && !"".equals(prjtCoC.getProjectCocID())){
-	    		 projectCoCModel.setProjectCoCID(Short.valueOf(prjtCoC.getProjectCocID()));
-	    	 }
-	    	 projectCoCModel.setProjectID(prjtCoC.getProjectID());
-	    	 projectCoCModel.setUserID(prjtCoC.getUserID());
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC cocModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC();
+	    	 cocModel.setCoCCode(prjtCoC.getCoCCode());
+	    	 cocModel.setDateCreated(getXMLGregorianCalendar(prjtCoC.getDateCreated()));
+	    	 cocModel.setDateUpdated(getXMLGregorianCalendar(prjtCoC.getDateUpdated()));
+	    	 cocModel.setProjectID(prjtCoC.getProjectID());
+	    	 cocModel.setUserID(prjtCoC.getUserID());
 	    	  
-	    	  projectCoCList.add(projectCoCModel);
-	    	  sources.getSource().getExport().getProjectCoC().add(projectCoCModel);
+	    	  projectCoCList.add(cocModel);
+	    	  sources.getSource().getExport().getCoC().add(cocModel);
 	      }
 	      
 	  }
-	  */
 	  
 	  /**
 	   * Hydrate Services with in Sources Object from Services CSV Pojos.
@@ -1054,46 +1056,46 @@ public class BulkUploadHelper {
 	   * @throws IOException
 	   */
 	  protected void hydradeSite(BufferedReader csvFile, Sources sources) throws IOException {
-//		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
-//	      ValueProcessorProvider vpp = new ValueProcessorProvider();
-//	      CSVReader<Site> siteReader = new CSVReaderBuilder<Site>(csvFile).strategy(strategy).entryParser(
-//	                      new AnnotationEntryParser<Site>(Site.class, vpp)).build();
-//	      List<Site> site = siteReader.readAll();
-//	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site> siteList = new ArrayList<Sources.Source.Export.Site>();
-//	      for(Site ste : site) {
-//	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site siteModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site();
-//	    	  
-//	    	  siteModel.setAddress(ste.getAddress());
-//	    	  siteModel.setCity(ste.getCity());
-//	    	  siteModel.setDateCreated(getXMLGregorianCalendar(ste.getDateCreated()));
-//	    	  siteModel.setDateUpdated(getXMLGregorianCalendar(ste.getDateUpdated()));
-//	    	  /*
-//	    	   *  Always look to see if something is null before doing a parseIn
-//	    	   *  
-//	    	   *   */
-//	    	  if(ste.getGeocode() !=null && !"".equals(ste.getGeocode())) {
-//	    		  siteModel.setGeocode(parseInt(ste.getGeocode()).intValue());  
-//	    	  }
-//	    	  siteModel.setPrincipalSite(getByte(ste.getPrincipalSite()));
-//	    	  
-//	    	  if(ste.getProjectID()!=null && !"".equals(ste.getProjectID())){
-//	    		  siteModel.setProjectCoCID(Short.valueOf(ste.getProjectID()));
-//	    	  }
-//	    	  
-//	    	  if(ste.getSiteID()!=null && !"".equals(ste.getSiteID())){
-//	    		  siteModel.setSiteID(Short.valueOf(ste.getSiteID()));
-//	    	  }
-//	    	  
-//	    	  siteModel.setState(ste.getState());
-//	    	  siteModel.setUserID(ste.getUserID());
-//	    	  
-//	    	  if(ste.getZIP() !=null && !"".equals(ste.getZIP())) {
-//	    		  siteModel.setZIP((parseInt(ste.getZIP()).intValue()));  
-//	    	  }
-//	    	  
-//	    	  siteList.add(siteModel);
-//	      }
-//	      sources.getSource().getExport().setSite(siteList);
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<Site> siteReader = new CSVReaderBuilder<Site>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<Site>(Site.class, vpp)).build();
+	      List<Site> site = siteReader.readAll();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site> siteList = new ArrayList<Sources.Source.Export.Site>();
+	      for(Site ste : site) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site siteModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site();
+	    	  
+	    	  siteModel.setAddress(ste.getAddress());
+	    	  siteModel.setCity(ste.getCity());
+	    	  siteModel.setDateCreated(getXMLGregorianCalendar(ste.getDateCreated()));
+	    	  siteModel.setDateUpdated(getXMLGregorianCalendar(ste.getDateUpdated()));
+	    	  /*
+	    	   *  Always look to see if something is null before doing a parseIn
+	    	   *  
+	    	   *   */
+	    	  if(ste.getGeocode() !=null && !"".equals(ste.getGeocode())) {
+	    		  siteModel.setGeocode(parseInt(ste.getGeocode()).intValue());  
+	    	  }
+	    	  siteModel.setPrincipalSite(getByte(ste.getPrincipalSite()));
+	    	  
+	    	  if(ste.getCoCCode()!=null && !"".equals(ste.getCoCCode())){
+	    		  siteModel.setCoCCode(ste.getCoCCode());
+	    	  }
+	    	  
+	    	  if(ste.getSiteID()!=null && !"".equals(ste.getSiteID())){
+	    		  siteModel.setSiteID(ste.getSiteID());
+	    	  }
+	    	  
+	    	  siteModel.setState(ste.getState());
+	    	  siteModel.setUserID(ste.getUserID());
+	    	  
+	    	  if(ste.getZIP() !=null && !"".equals(ste.getZIP())) {
+	    		  siteModel.setZIP((parseInt(ste.getZIP()).intValue()));  
+	    	  }
+	    	  
+	    	  siteList.add(siteModel);
+	      }
+	      sources.getSource().getExport().setSite(siteList);
 	  }
 	  
 	  protected Integer parseInt(String value) {
