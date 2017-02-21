@@ -260,7 +260,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					logger.info("======== processDisabilities processing ======");
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().calculateChronicHomelessness(projectGroupEntity.getProjectGroupCode());(
+					factory.getBulkUploaderDao().calculateChronicHomelessness(projectGroupEntity.getProjectGroupCode());
 				}
 			}
 			}catch (Exception e) {
