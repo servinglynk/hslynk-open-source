@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBException;
@@ -73,7 +76,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Autowired
 	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
-	
 
 	/***
 	 * Perform Bulk Upload for Core Tables
@@ -109,19 +111,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			upload.setExportId(domain.getExportId());
-			upload.setStatus(UploadStatus.CORE.getStatus());
+			//upload.setStatus(UploadStatus.CORE.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
-			insertOrUpdate(upload); 
-			processProjectChildren(upload, projectGroupdEntity, appender, isFileFromS3);
-			processEnrollmentChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
-			processEnrollmentChildrenPart2(upload, projectGroupdEntity, appender, isFileFromS3);
-			processEnrollmentChildrenPart3(upload, projectGroupdEntity, appender, isFileFromS3);
-			processExitChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
-			processDisabilities(upload, projectGroupdEntity, appender, isFileFromS3);
-			calculateChronicHomelessness(projectGroupdEntity.getProjectGroupCode());
-			upload.setStatus(UploadStatus.STAGING.getStatus());
-			logger.debug("Chaning status of Bulk_upload table to STAGING");
-			insertOrUpdate(upload); 
+			insertOrUpdate(upload);
+
+			// runChildProcesses will set upload status and description if any
+			runChildProcesses(upload, projectGroupdEntity, appender, isFileFromS3);
+
+			insertOrUpdate(upload);
 			logger.debug("Bulk Upload Staging Process Ends.....");
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
@@ -134,6 +131,143 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 		}
 		return upload;
+	}
+
+	private void runChildProcesses(final BulkUpload upload, final ProjectGroupEntity projectGroupdEntity, final Appender appender, final Boolean isFileFromS3) throws Exception{
+
+		final ConcurrentHashMap<String, String> errorMap = new ConcurrentHashMap<>();
+
+		ExecutorService executor = Executors.newCachedThreadPool();
+
+		String ppcName = "processProjectChildren";
+		String pecp1Name = "processEnrollmentChildrenPart1";
+		String pecp2Name = "processEnrollmentChildrenPart2";
+		String pecp3Name = "processEnrollmentChildrenPart3";
+		String pexcp1Name = "processExitChildrenPart1";
+		String pdName = "processDisabilities";
+		String cchName = "calculateChronicHomelessness";
+
+		Runnable ppc = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					processProjectChildren(upload, projectGroupdEntity, appender, isFileFromS3);
+				}catch (Exception ex){
+					errorMap.put(ppcName, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		Runnable pecp1 = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					processEnrollmentChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
+				}catch (Exception ex){
+					errorMap.put(pecp1Name, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		Runnable pecp2 = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					processEnrollmentChildrenPart2(upload, projectGroupdEntity, appender, isFileFromS3);
+				}catch (Exception ex){
+					errorMap.put(pecp2Name, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		Runnable pecp3 = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					processEnrollmentChildrenPart3(upload, projectGroupdEntity, appender, isFileFromS3);
+				}catch (Exception ex){
+					errorMap.put(pecp3Name, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		Runnable pexcp1 = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					processExitChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
+				}catch (Exception ex){
+					errorMap.put(pexcp1Name, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		Runnable pd = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					processDisabilities(upload, projectGroupdEntity, appender, isFileFromS3);
+				}catch (Exception ex){
+					errorMap.put(pdName, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		Runnable cch = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					calculateChronicHomelessness(projectGroupdEntity.getProjectGroupCode());
+				}catch (Exception ex){
+					errorMap.put(cchName, ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		};
+
+		executor.submit(ppc);
+		executor.submit(pecp1);
+		executor.submit(pecp2);
+		executor.submit(pecp3);
+		executor.submit(pexcp1);
+		executor.submit(pd);
+		executor.submit(cch);
+
+		executor.shutdown();
+
+		while(!executor.isTerminated()){
+			logger.debug("wait for child processes to finish");
+			Thread.sleep(5000);
+		}
+
+		if(errorMap.isEmpty()){
+			upload.setStatus(UploadStatus.STAGING.getStatus());
+			logger.debug("Chaning status of Bulk_upload table to STAGING");
+		}else{
+			String description = "";
+			for(String child : errorMap.keySet()){
+				String error = errorMap.get(child);
+				description += child + ": " + error + "\n";
+			}
+			upload.setStatus(UploadStatus.ERROR.getStatus());
+			upload.setDescription(description);
+			logger.debug("Chaning status of Bulk_upload table to ERROR with description");
+		}
+
+		//processProjectChildren(upload, projectGroupdEntity, appender, isFileFromS3);
+		//processEnrollmentChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
+//		processEnrollmentChildrenPart2(upload, projectGroupdEntity, appender, isFileFromS3);
+//		processEnrollmentChildrenPart3(upload, projectGroupdEntity, appender, isFileFromS3);
+//		processExitChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
+//		processDisabilities(upload, projectGroupdEntity, appender, isFileFromS3);
+//		calculateChronicHomelessness(projectGroupdEntity.getProjectGroupCode());
+
 	}
 	
 	private ExportDomain getDomain(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Boolean isFileFromS3) throws Exception {
@@ -172,6 +306,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 
 		return sources.getSource();
 	}
+
 	@Override
 	public void calculateChronicHomelessness(String projectGroupCode) {
 		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, projectGroupCode);
@@ -191,7 +326,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	 * Perform Bulk Upload for processProjectChildren Tables
 	 */
 	@Override
-	@Transactional
 	public void processProjectChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		if (appender != null) {
 			logger.addAppender(appender);
@@ -218,7 +352,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	 * Perform Bulk Upload for processEnrollmentChildrenPart1 Tables
 	 */
 	@Override
-	@Transactional
 	public void processEnrollmentChildrenPart1(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		if (appender != null) {
 			logger.addAppender(appender);
@@ -245,7 +378,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	 * Perform Bulk Upload for processEnrollmentChildrenPart2 Tables
 	 */
 	@Override
-	@Transactional
 	public void processEnrollmentChildrenPart2(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		if (appender != null) {
 			logger.addAppender(appender);
@@ -273,7 +405,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	 * Perform Bulk Upload for processEnrollmentChildrenPart3 Tables
 	 */
 	@Override
-	@Transactional
 	public void processEnrollmentChildrenPart3(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		if (appender != null) {
 			logger.addAppender(appender);
@@ -321,7 +452,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	 * Perform Bulk Upload for processExitChildrenPart1 Tables
 	 */
 	@Override
-	@Transactional
 	public void processExitChildrenPart1(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
 		if (appender != null) {
 			logger.addAppender(appender);
