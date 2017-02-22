@@ -115,16 +115,18 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
-				performSaveOrUpdate(model);		
 				
+				
+				//performSaveOrUpdate(model);	
+				com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
+				BeanUtils.copyProperties(model, target, new String[] {"enrollments","veteranInfoes"});
+				logger.info("Calling Dedup Service for "+model.getFirstName());
+				String dedupedId = dedupHelper.getDedupedClient(target,dedupSessionKey);
+				model.setDedupClientId(UUID.fromString(dedupedId));
+				target.setDedupClientId(UUID.fromString(dedupedId));
+				getCurrentSession().update(model);
+				getCurrentSession().update(target);
 				// Inserting client in base schema		
-				if(!model.isIgnored() && model.isRecordToBoInserted() ){
-					com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
-					BeanUtils.copyProperties(model, target, new String[] {"enrollments","veteranInfoes"});
-					target.setDateUpdated(LocalDateTime.now());
-					target.setSchemaYear("2014");
-					insert(target);			
-				}
 			
 				} catch(Exception ex ){
 					String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
@@ -212,8 +214,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Client model = new com.servinglynk.hmis.warehouse.model.v2014.Client(); 
 		if(client != null) {
-			model.setFirstName(client.getFirstName());
-			model.setLastName(client.getLastName());
+			model.setFirstName(client.getFirstName() != null ?client.getFirstName():null);
+			model.setLastName(client.getLastName() != null ?client.getLastName():null);
 			model.setDob(BasicDataGenerator.getLocalDateTime(client
 					.getDOB()));
 			model.setGender(ClientGenderEnum.lookupEnum(String
@@ -229,7 +231,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			model.setId(UUID.randomUUID());
 			model.setRecordToBeInserted(true);
 		}
-		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
+		//model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
 		if(!isFullRefresh(domain)) {
 			if(!model.isIgnored()) {
 				if(!model.isRecordToBoInserted()) {
@@ -240,11 +242,10 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				}
 			}
 		}
-		hydrateCommonFields(model, domain,client.getPersonalID(),data);
-		performMatch(domain,modelFromDB,model,data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,client.getPersonalID(),data);
+		//performMatch(domain,modelFromDB,model,data);
+		return modelFromDB;
 	}
-	
 	
 	private Date getDateInFormat(String dob) {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");

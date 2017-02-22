@@ -70,7 +70,11 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteran
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
@@ -439,7 +443,8 @@ public class BulkUploadHelper {
 	      List<WorstHousingSituation> worsthousingsituationtList = new ArrayList<WorstHousingSituation>();
 	      List<RHYBCPStatus> rhybcpStatusList = new ArrayList<RHYBCPStatus>();
 	      List<PATHStatus> pathStatusList = new ArrayList<PATHStatus>();
-	      
+	      List<EntrySSVF>  entrySSVFList= new  ArrayList<EntrySSVF>();
+	      List<EntryRHY> entryRHYList = new ArrayList<Sources.Source.Export.EntryRHY>();
 	      List<Services> servicesList = new ArrayList<Services>();
 	      
 	      for(Enrollment enroll : enrollment) {
@@ -517,6 +522,40 @@ public class BulkUploadHelper {
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
 	    	  
+	    	  EntrySSVF entrySSVFModel = new EntrySSVF();
+	    	  entrySSVFModel.setAddressDataQuality(getByte(enroll.getAddressDataQuality()));
+	    	  entrySSVFModel.setHPScreeningScore(getByte(enroll.getHPScreeningScore()));
+	    	  entrySSVFModel.setLastPermanentCity(enroll.getLastPermanentCity());
+	    	  entrySSVFModel.setLastPermanentState(enroll.getLastPermanentState());
+	    	  entrySSVFModel.setLastPermanentStreet(enroll.getLastPermanentStreet());
+	    	  if(StringUtils.isNotBlank(enroll.getLastPermanentZIP()))
+	    		  entrySSVFModel.setLastPermanentZIP(Integer.parseInt(enroll.getLastPermanentZIP()));
+	    	  entrySSVFModel.setPercentAMI(getByte(enroll.getPercentAMI()));
+	    	  entrySSVFModel.setProjectEntryID(enroll.getProjectEntryID());
+	    	  entrySSVFModel.setVAMCStation(enroll.getVAMCStation());
+	    	  entrySSVFModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  entrySSVFModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  entrySSVFModel.setUserID(enroll.getUserID());
+	    	  entrySSVFList.add(entrySSVFModel);
+	    	  
+	    	  EntryRHY entryRHY = new EntryRHY();
+	    	  entryRHY.setAbuseAndNeglectFam(getByte(enroll.getAbuseAndNeglectFam()));
+	    	  entryRHY.setAbuseAndNeglectYouth(getByte(enroll.getAbuseAndNeglectYouth()));
+	    	  entryRHY.setActiveMilitaryParent(getByte(enroll.getActiveMilitaryParent()));
+	    	  entryRHY.setAlcoholDrugAbuseFam(getByte(enroll.getAlcoholDrugAbuseFam()));
+	    	  entryRHY.setAlcoholDrugAbuseYouth(getByte(enroll.getAlcoholDrugAbuseYouth()));
+	    	  entryRHY.setAskedOrForcedToExchangeForSex(getByte(enroll.getAskedOrForcedToExchangeForSex()));
+	    	  entryRHY.setAskedOrForcedToExchangeForSexPastThreeMonths(getByte(enroll.getAskedOrForcedToExchangeForSexPastThreeMonths()));
+	    	  entryRHY.setChildWelfareMonths(getByte(enroll.getChildWelfareMonths()));
+	    	  entryRHY.setChildWelfareYears(getByte(enroll.getChildWelfareYears()));
+	    	  entryRHY.setCoercedToContinueWork(getByte(enroll.getCoercedToContinueWork()));
+	    	  entryRHY.setCountOfExchangeForSex(getByte(enroll.getCountOfExchangeForSex()));
+	    	  entryRHY.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
+	    	  //entryRHY.setDataCollectionStage(enroll.getDat);
+	    	  //entryRHY.setEntryRHYID(enroll.gete);
+	    	  entryRHY.setExchangeForSex(getByte(enroll.getExchangeForSex()));
+	    	  entryRHYList.add(entryRHY);
+	    	  
 	    	  /**
 	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
 	    	   * 
@@ -531,6 +570,8 @@ public class BulkUploadHelper {
     	  sources.getSource().getExport().setRHYBCPStatus(rhybcpStatusList);
     	  sources.getSource().getExport().setDateOfEngagement(dateOfEngagementList);
     	  sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
+    	  sources.getSource().getExport().setEntrySSVF(entrySSVFList);
+    	  sources.getSource().getExport().setEntryRHY(entryRHYList);
 	  }
 	  /**
 	   * Hydrate EnrollmentCoc with in Sources Object from EnrollmentCoc CSV Pojos.
@@ -607,6 +648,34 @@ public class BulkUploadHelper {
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
+	    	  ExitPATH exitPathModel = new ExitPATH();
+	    	  exitPathModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
+	    	  exitPathModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
+	    	  exitPathModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
+	    	  exitPathModel.setExitPATHID(ext.getExitID());
+	    	  exitPathModel.setUserID(ext.getUserID());
+	    	  exitPathModel.setExitID(ext.getExitID());
+	    	  exitPATHList.add(exitPathModel);
+	    	  
+	    	  ExitRHY exitRHYModel = new ExitRHY();
+	    	  exitRHYModel.setAssistanceMainstreamBenefits(getByte(ext.getAssistanceMainstreamBenefits()));
+	    	  exitRHYModel.setEarlyExitReason(getByte(ext.getEarlyExitReason()));
+	    	  exitRHYModel.setExitCounseling(getByte(ext.getExitCounseling()));
+	    	  exitRHYModel.setExitID(ext.getExitID());
+	    	  exitRHYModel.setFamilyReunificationAchieved(getByte(ext.getFamilyReunificationAchieved()));
+	    	  exitRHYModel.setFurtherFollowUpServices(getByte(ext.getFurtherFollowUpServices()));
+	    	  exitRHYModel.setOtherAftercarePlanOrAction(getByte(ext.getOtherAftercarePlanOrAction()));
+	    	  exitRHYModel.setPermanentHousingPlacement(getByte(ext.getPermanentHousingPlacement()));
+	    	  exitRHYModel.setProjectCompletionStatus(getByte(ext.getProjectCompletionStatus()));
+	    	  exitRHYModel.setResourcePackage(getByte(ext.getResourcePackage()));
+	    	  exitRHYModel.setScheduledFollowUpContacts(getByte(ext.getScheduledFollowupContacts()));
+	    	  exitRHYModel.setTemporaryShelterPlacement(getByte(ext.getTemporaryShelterPlacement()));
+	    	  exitRHYModel.setWrittenAftercarePlan(getByte(ext.getWrittenAftercarePlan()));
+	    	  exitRHYModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
+	    	  exitRHYModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
+	    	  exitRHYModel.setExitRHYID(ext.getExitID());
+	    	  exitRHYModel.setUserID(ext.getUserID());
+	    	  exitRhyList.add(exitRHYModel);
 	      }
 	      sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
 	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
