@@ -70,6 +70,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteran
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
@@ -225,52 +226,52 @@ public class BulkUploadHelper {
 		            
 		            switch(ze.getName()) {
 		            	case "Client.csv":
-		            		hydradeClient(csvFile, sources);
+		            		hydrateClient(csvFile, sources);
 		            		break;
 		            	case "Disabilities.csv":
-		            		hydradeDisabilities(csvFile, sources);
+		            		hydrateDisabilities(csvFile, sources);
 		            		break;
 		            	case "EmploymentEducation.csv":
-		            		hydradeEmployementEducation(csvFile,sources);
+		            		hydrateEmployementEducation(csvFile,sources);
 		            		break;
 		            	case "Enrollment.csv":
-		            		hydradeEnrollment(csvFile, sources);
+		            		hydrateEnrollment(csvFile, sources);
 		            		break;
 		            	case "EnrollmentCOC.csv":
-		            		hydradeEnrollmentCoC(csvFile, sources);
+		            		hydrateEnrollmentCoC(csvFile, sources);
 		            		break;
 		            	case "Exit.csv":
-		            		hydradeExit(csvFile, sources);
+		            		hydrateExit(csvFile, sources);
 		            		break;
 		            	case "Export.csv":
-		            		hydradeExport(csvFile, sources);
+		            		hydrateExport(csvFile, sources);
 		            		break;
 		            	case "Funder.csv":
-		            		hydradeFunder(csvFile, sources);
+		            		hydrateFunder(csvFile, sources);
 		            		break;		            		
 		            	case "HealthAndDV.csv":
-		            		hydradeHealthAndDV(csvFile, sources);
+		            		hydrateHealthAndDV(csvFile, sources);
 		            		break;
 		            	case "IncomeBenefits.csv":
-		            		hydradeIncomeBenefits(csvFile, sources);
+		            		hydrateIncomeBenefits(csvFile, sources);
 		            		break;
 		            	case "Inventory.csv":
-		            		hydradeInventory(csvFile, sources);
+		            		hydrateInventory(csvFile, sources);
 		            		break;
 		            	case "Organization.csv":
-		            		hydradeOrganization(csvFile, sources);
+		            		hydrateOrganization(csvFile, sources);
 		            		break;
 		            	case  "Project.csv" :
-		            		hydradeProject(csvFile, sources);
+		            		hydrateProject(csvFile, sources);
 		            		break;
 		            	case "ProjectCOC.csv":
-		            		//hydradeProjectCOC(csvFile, sources);
+		            		hydrateCoc(csvFile, sources);
 		            		break;
 		            	case "Services.csv":
-		            		hydradeServices(csvFile, sources);
+		            		hydrateServices(csvFile, sources);
 		            		break;
 		            	case "Site.csv":
-		            		hydradeSite(csvFile, sources);
+		            		hydrateSite(csvFile, sources);
 		            		break;
 		            		
 		            	default:
@@ -293,7 +294,7 @@ public class BulkUploadHelper {
 	 * @param sources
 	 * @throws IOException
 	 */
-	  protected void hydradeClient(BufferedReader csvFile,Sources sources) throws IOException {
+	  protected void hydrateClient(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Client> csvReader = new CSVReaderBuilder<Client>(csvFile).strategy(strategy).entryParser(
@@ -364,7 +365,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeDisabilities(BufferedReader csvFile,Sources sources) throws IOException {
+	  protected void hydrateDisabilities(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Disabilities> csvReader = new CSVReaderBuilder<Disabilities>(csvFile).strategy(strategy).entryParser(
@@ -398,7 +399,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeEmployementEducation(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateEmployementEducation(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<EmployementEducation> employementReader = new CSVReaderBuilder<EmployementEducation>(csvFile).strategy(strategy).entryParser(
@@ -431,7 +432,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeEnrollment(BufferedReader csvFile,Sources sources) throws IOException {
+	  protected void hydrateEnrollment(BufferedReader csvFile,Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Enrollment> enrollmentReader = new CSVReaderBuilder<Enrollment>(csvFile).strategy(strategy).entryParser(
@@ -445,11 +446,10 @@ public class BulkUploadHelper {
 	      List<PATHStatus> pathStatusList = new ArrayList<PATHStatus>();
 	      List<EntrySSVF>  entrySSVFList= new  ArrayList<EntrySSVF>();
 	      List<EntryRHY> entryRHYList = new ArrayList<Sources.Source.Export.EntryRHY>();
-	      List<Services> servicesList = new ArrayList<Services>();
+	      List<EntryRHSP> entryRHSPList = new ArrayList<EntryRHSP>();
 	      
 	      for(Enrollment enroll : enrollment) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
-	    	  //enrollmentModel.setContinuouslyHomelessOneYear(enroll.get);
 	    	  enrollmentModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  enrollmentModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	  enrollmentModel.setDisablingCondition(getByte(enroll.getDisablingCondition()));
@@ -457,7 +457,7 @@ public class BulkUploadHelper {
 	    	  enrollmentModel.setHouseholdID(enroll.getHouseholdID());
 	    	  enrollmentModel.setHousingStatus(getByte(enroll.getHousingStatus()));
 	    	  enrollmentModel.setMonthsHomelessPastThreeYears(getByte(enroll.getMonthsHomelessPastThreeYears()));
-//	    	  enrollmentModel.setMonthsHomelessThisTime(getByte(enroll.get));
+	    	  //enrollmentModel.setMonthsHomelessThisTime(getByte(enroll.get));
 	    	  enrollmentModel.setOtherResidencePrior(enroll.getOtherResidencePrior());
 	    	  enrollmentModel.setPersonalID(enroll.getPersonalID());
 	    	  enrollmentModel.setProjectEntryID(enroll.getProjectEntryID());
@@ -475,7 +475,7 @@ public class BulkUploadHelper {
 	    	  DateOfEngagement dateOfEngagementModel = new DateOfEngagement();
 	    	  dateOfEngagementModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  dateOfEngagementModel.setDateOfEngagement(getXMLGregorianCalendar(enroll.getDateOfEngagement()));
-//	    	  dateOfEngagementModel.setDateOfEngagementID(enroll.getdat);
+	    	  dateOfEngagementModel.setDateOfEngagementID(enroll.getProjectEntryID());
 	    	  dateOfEngagementModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	  dateOfEngagementModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  dateOfEngagementModel.setUserID(enroll.getUserID());
@@ -487,7 +487,7 @@ public class BulkUploadHelper {
 	    	  residentialmoveindateModel.setInPermanentHousing(getByte(enroll.getInPermanentHousing()));
 	    	  residentialmoveindateModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  residentialmoveindateModel.setResidentialMoveInDate(getXMLGregorianCalendar(enroll.getResidentialMoveInDate()));
-//	    	  residentialmoveindateModel.setResidentialMoveInDateID(enroll.getresi);
+	    	  residentialmoveindateModel.setResidentialMoveInDateID(enroll.getProjectEntryID());
 	    	  residentialmoveindateModel.setUserID(enroll.getUserID());
 	    	  residentialmoveindateList.add(residentialmoveindateModel);
 	    	  
@@ -497,7 +497,7 @@ public class BulkUploadHelper {
 	    	  worsthousingsituationModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  worsthousingsituationModel.setUserID(enroll.getUserID());
 	    	  worsthousingsituationModel.setWorstHousingSituation(getByte(enroll.getWorstHousingSituation()));
-//	    	  worsthousingsituationModel.setWorstHousingSituationID(enroll.getwo);
+	    	  worsthousingsituationModel.setWorstHousingSituationID(enroll.getProjectEntryID());
 	    	  worsthousingsituationtList.add(worsthousingsituationModel);
 	    	  
 	    	  PATHStatus pathstatusModel = new PATHStatus();;
@@ -505,7 +505,7 @@ public class BulkUploadHelper {
 	    	  pathstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  pathstatusModel.setDateOfStatus(getXMLGregorianCalendar(enroll.getDateOFPATHStatus()));
 	    	  pathstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-//	    	  pathstatusModel.setPathStatusID(enroll.getpat);
+	    	  pathstatusModel.setPathStatusID(enroll.getProjectEntryID());
 	    	  pathstatusModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  pathstatusModel.setReasonNotEnrolled(getByte(enroll.getReasonNotEnrolled()));
 	    	  pathstatusModel.setUserID(enroll.getUserID());
@@ -517,8 +517,8 @@ public class BulkUploadHelper {
 	    	  rhybcpstatusModel.setFYSBYouth(getByte(enroll.getFYSBYouth()));
 	    	  rhybcpstatusModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
-//	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getrhy);
-//	    	  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
+	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getProjectEntryID());
+	    	  //rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
 	    	  
@@ -552,9 +552,18 @@ public class BulkUploadHelper {
 	    	  entryRHY.setCountOfExchangeForSex(getByte(enroll.getCountOfExchangeForSex()));
 	    	  entryRHY.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
 	    	  //entryRHY.setDataCollectionStage(enroll.getDat);
-	    	  //entryRHY.setEntryRHYID(enroll.gete);
+	    	  entryRHY.setEntryRHYID(enroll.getProjectEntryID());
 	    	  entryRHY.setExchangeForSex(getByte(enroll.getExchangeForSex()));
 	    	  entryRHYList.add(entryRHY);
+	    	  
+	    	  EntryRHSP entryRHSP = new EntryRHSP();
+	    	  entryRHSP.setWorstHousingSituation(enroll.getWorstHousingSituation());
+	    	  entryRHSP.setProjectID(enroll.getProjectID());
+	    	  entryRHSP.setEntryRHSPID(enroll.getProjectEntryID());
+	    	  entryRHSP.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
+	    	  entryRHSP.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
+	    	  entryRHSP.setUserID(enroll.getUserID());
+	    	  entryRHSPList.add(entryRHSP);
 	    	  
 	    	  /**
 	    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
@@ -579,7 +588,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeEnrollmentCoC(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateEnrollmentCoC(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<EnrollmentCoC> enrollmentCocReader = new CSVReaderBuilder<EnrollmentCoC>(csvFile).strategy(strategy).entryParser(
@@ -605,7 +614,7 @@ public class BulkUploadHelper {
 	   * @param sourcesoe
 	   * @throws IOException
 	   */
-	  protected void hydradeExit(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateExit(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Exit> exitReader = new CSVReaderBuilder<Exit>(csvFile).strategy(strategy).entryParser(
@@ -642,7 +651,7 @@ public class BulkUploadHelper {
 	    	  ExitHousingAssessment exitHousingAssessmentModel = new ExitHousingAssessment();
 	    	  exitHousingAssessmentModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitHousingAssessmentModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-//	    	  exitHousingAssessmentModel.setExitHousingAssessmentID(Short.valueOf(ext.gete));
+	    	  exitHousingAssessmentModel.setExitHousingAssessmentID(ext.getExitID());
 	    	  exitHousingAssessmentModel.setExitID(ext.getExitID());
 	    	  exitHousingAssessmentModel.setHousingAssessment(getByte(ext.getHousingAssessment()));
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
@@ -690,7 +699,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeExport(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateExport(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Export> exportReader = new CSVReaderBuilder<Export>(csvFile).strategy(strategy).entryParser(
@@ -700,8 +709,7 @@ public class BulkUploadHelper {
 	      for(Export exp : export){
 	    	  sources.getSource().getExport().setExportDate(getXMLGregorianCalendar(exp.getExportDate()));
 	    	  sources.getSource().getExport().setExportDirective(exp.getExportDirective());
-	    	  // Sandeep TODO: Need to change the ExportID to a String verses a byte
-	    	 // exportModel.setExportID(getByte(exp.getExportID()));
+	    	  sources.getSource().getExport().setExportID(exp.getExportID());
 	    	  ExportPeriod exportPeriod = new ExportPeriod();
 	    	  exportPeriod.setEndDate(getXMLGregorianCalendar(exp.getExportEndDate()));
 	    	  exportPeriod.setStartDate(getXMLGregorianCalendar(exp.getExportStartDate()));
@@ -715,7 +723,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeFunder(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateFunder(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Funder> funderReader = new CSVReaderBuilder<Funder>(csvFile).strategy(strategy).entryParser(
@@ -746,7 +754,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeHealthAndDV(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateHealthAndDV(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<HealthAndDV> healthAndDVReader = new CSVReaderBuilder<HealthAndDV>(csvFile).strategy(strategy).entryParser(
@@ -761,8 +769,8 @@ public class BulkUploadHelper {
 	    	  healthStatus.setDateUpdated(getXMLGregorianCalendar(healthDV.getDateUpdated()));
 	    	  healthStatus.setDueDate(getXMLGregorianCalendar(healthDV.getDueDate()));
 	    	  healthStatus.setHealthStatus(getByte(healthDV.getGeneralHealthStatus()));
-//	    	  healthAndDVModel.setHealthStatusID(healthDV.getHea);
-//	    	  healthAndDVModel.setHealthCategory(getByte(healthDV.get));
+	    	  healthStatus.setHealthStatusID(healthDV.getHealthAndDVID());
+	    	//  healthStatus.setHealthCategory(); TODO: Need to fing out Health Category
 	    	  healthStatus.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
 	    	  healthStatus.setProjectEntryID(healthDV.getProjectEntryID());
 	    	  healthStatus.setUserID(healthDV.getUserID());
@@ -791,7 +799,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeIncomeBenefits(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateIncomeBenefits(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<IncomeBenefits> incomeBenefitsReader = new CSVReaderBuilder<IncomeBenefits>(csvFile).strategy(strategy).entryParser(
@@ -883,7 +891,7 @@ public class BulkUploadHelper {
 	    	  noncashbenefitsModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  noncashbenefitsModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
 	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
-//	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getNon);
+	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getIncomeBenefitsID());
 	    	  noncashbenefitsModel.setOtherSource(getByte(incomeBnfts.getOtherBenefitsSource()));
 	    	  nonCashBenefitsList.add(noncashbenefitsModel);
 	    	  
@@ -894,7 +902,7 @@ public class BulkUploadHelper {
 	    	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(incomeBnfts.getDateDeleted()));
 	    	  healthinsuranceModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
 	    	  healthinsuranceModel.setEmployerProvided(getByte(incomeBnfts.getEmployerProvided()));
-//	    	  healthinsuranceModel.setHealthInsuranceID(incomeBnfts.getH);
+	    	  healthinsuranceModel.setHealthInsuranceID(incomeBnfts.getIncomeBenefitsID());
 	    	  healthinsuranceModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  healthinsuranceModel.setInsuranceFromAnySource(getByte(incomeBnfts.getIncomeFromAnySource()));
 	    	  healthinsuranceModel.setMedicaid(getByte(incomeBnfts.getMedicaid()));
@@ -922,7 +930,7 @@ public class BulkUploadHelper {
 	    	  medicalassistanceModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
 	    	  medicalassistanceModel.setHIVAIDSAssistance(getByte(incomeBnfts.getHIVAIDSAssistance()));
 	    	  medicalassistanceModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
-//	    	  medicalassistanceModel.setMedicalAssistanceID(enroll.getmedic);
+	    	  medicalassistanceModel.setMedicalAssistanceID(incomeBnfts.getIncomeBenefitsID());
 	    	  medicalassistanceModel.setNoADAPReason(getByte(incomeBnfts.getNoADAPReason()));
 	    	  medicalassistanceModel.setNoHIVAIDSAssistanceReason(getByte(incomeBnfts.getNoHIVAIDSAssistanceReason()));
 	    	  medicalassistanceModel.setProjectEntryID(incomeBnfts.getProjectEntryID());
@@ -941,7 +949,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeInventory(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateInventory(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Inventory> inventoryReader = new CSVReaderBuilder<Inventory>(csvFile).strategy(strategy).entryParser(
@@ -988,7 +996,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeOrganization(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateOrganization(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Organization> organizationReader = new CSVReaderBuilder<Organization>(csvFile).strategy(strategy).entryParser(
@@ -1000,7 +1008,7 @@ public class BulkUploadHelper {
 	    	  organizationModel.setDateCreated(getXMLGregorianCalendar(orgtn.getDateCreated()));
 	    	  organizationModel.setDateUpdated(getXMLGregorianCalendar(orgtn.getDateUpdated()));
 	    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
-	    	//  organizationModel.setOrganizationID(getByte(orgtn.getOrganizationID()));
+	    	  organizationModel.setOrganizationID(orgtn.getOrganizationID());
 	    	  organizationModel.setOrganizationName(orgtn.getOrganizationName());
 	    	  organizationModel.setUserID(orgtn.getUserID());
 	    	  
@@ -1015,7 +1023,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeProject(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateProject(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Project> projectReader = new CSVReaderBuilder<Project>(csvFile).strategy(strategy).entryParser(
@@ -1090,7 +1098,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeServices(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateServices(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Services> servicesReader = new CSVReaderBuilder<Services>(csvFile).strategy(strategy).entryParser(
@@ -1124,7 +1132,7 @@ public class BulkUploadHelper {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydradeSite(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateSite(BufferedReader csvFile, Sources sources) throws IOException {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Site> siteReader = new CSVReaderBuilder<Site>(csvFile).strategy(strategy).entryParser(
