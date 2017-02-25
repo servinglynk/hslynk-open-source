@@ -5,6 +5,8 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -17,6 +19,7 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -28,6 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -147,6 +151,29 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class.getSimpleName(), domain,exportEntity);
 	}
 
+	
+	@Override
+	@Transactional
+	public void populateAgeAtEntry(String projectGroupCode) {
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class, projectGroupCode);
+		 Iterator<HmisBaseModel> iterator = modelMap.values().iterator();
+		while(iterator.hasNext()){
+		Enrollment enrollmentModel = (Enrollment) iterator.next();
+			if(enrollmentModel != null && enrollmentModel.getClient() !=null && enrollmentModel.getEntrydate()!=null) {
+				com.servinglynk.hmis.warehouse.model.v2015.Client client = enrollmentModel.getClient();
+				LocalDateTime entryDate = enrollmentModel.getEntrydate();
+				if (client != null) {
+					LocalDateTime dob = client.getDob();
+					if (entryDate != null && dob != null) {
+						LocalDateTime tempDateTime = LocalDateTime.from(dob);
+						long years = tempDateTime.until(entryDate, ChronoUnit.YEARS);
+						enrollmentModel.setAgeAtEntry(new Integer(String.valueOf(years)));
+						getCurrentSession().update(enrollmentModel);
+					}
+			}
+		 }
+		}
+	}
 	public com.servinglynk.hmis.warehouse.model.v2015.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh

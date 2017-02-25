@@ -286,6 +286,11 @@ public class BulkUploaderTest {
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				factory.getBulkUploaderDao().processEnrollmentChildrenPart3(upload,projectGrpEntity,appender,false);
 	}
+	
+	@Test
+	public void populateAgeAtEntry() {
+		factory.getEnrollmentDao().populateAgeAtEntry("MO0010");
+	}
 		@Test
 		public void testCSVZip() throws Exception
 		{

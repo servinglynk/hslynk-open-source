@@ -19,4 +19,5 @@ public interface EnrollmentDao extends ParentDao {
 	Enrollment getEnrollmentByClientIdAndEnrollmentId(UUID enrollmentId,UUID clientId);
 	List<Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems);
 	long getEnrollmentCount(UUID clientId);
+	void populateAgeAtEntry(String projectGroupCode);
 }
