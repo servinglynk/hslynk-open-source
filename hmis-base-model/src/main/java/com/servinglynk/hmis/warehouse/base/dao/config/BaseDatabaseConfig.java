@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.dao.AccountConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDataChangeDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ApiMethodDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.BaseClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDao;
@@ -249,5 +250,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public APIAccessDaoImpl apiAccessDao(){
 		return new APIAccessDaoImpl();
+	}
+	
+	@Bean
+	public BaseClientDaoImpl baseClientDao(){
+		return new BaseClientDaoImpl();
 	}
 }

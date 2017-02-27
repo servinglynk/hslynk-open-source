@@ -33,6 +33,9 @@ public class Client extends ClientModel {
 	private String otherGender;
 	private String veteranStatus;
 	private String sourceSystemId;
+	private String phoneNumber;
+	private String emailAddress;
+	
 	public UUID getClientId() {
 		return clientId;
 	}
@@ -164,5 +167,17 @@ public class Client extends ClientModel {
 	}
 	public void setSourceSystemId(String sourceSystemId) {
 		this.sourceSystemId = sourceSystemId;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}	
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
@@ -22,7 +23,12 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = ClientConverter.modelToEntity(client, null);
 		pClient.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getProjectDao().populateUserProjectGroupCode(pClient, caller);
-		daoFactory.getClientDao().createClient(pClient);
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
+		BeanUtils.copyProperties(pClient,baseClient);
+		baseClient.setPhoneNumber(client.getPhoneNumber());
+		baseClient.setEmailAddress(client.getEmailAddress());
+
+		daoFactory.getClientDao().createClient(pClient,baseClient);
 		client.setClientId(pClient.getId());
 		return client;
 	}
@@ -35,7 +41,13 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		if(pClient == null ) throw new ClientNotFoundException();
 
 		ClientConverter.modelToEntity(client, pClient);
-			daoFactory.getClientDao().updateClient(pClient);
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
+		BeanUtils.copyProperties(pClient, baseClient);
+		baseClient.setPhoneNumber(client.getPhoneNumber());
+		baseClient.setEmailAddress(client.getEmailAddress());
+
+
+		daoFactory.getClientDao().updateClient(pClient,baseClient);
 		return client;
 	}
 
@@ -53,11 +65,16 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client getClientById(UUID clientId) {
-		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = daoFactory.getClientDao().getClientById(clientId);
-
+		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+		
 		if(pClient == null ) throw new ClientNotFoundException();
-
-		return ClientConverter.entityToModel(pClient);
+		Client client = ClientConverter.entityToModel(pClient);
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient =	daoFactory.getBaseClientDao().getClient(clientId);
+		if(baseClient!=null){
+			client.setPhoneNumber(baseClient.getPhoneNumber());
+			client.setEmailAddress(baseClient.getEmailAddress());
+		}		
+		return client;
 	}
 
 	@Override
@@ -66,7 +83,13 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		List<com.servinglynk.hmis.warehouse.model.v2016.Client> clientsList = daoFactory.getClientDao().getAllClients(projectGroupCode,startIndex,maxItems);
 		Clients clients= new Clients();
 		for(com.servinglynk.hmis.warehouse.model.v2016.Client pClient : clientsList){
-			clients.addClient(ClientConverter.entityToModel(pClient));
+			Client client = ClientConverter.entityToModel(pClient);
+			com.servinglynk.hmis.warehouse.model.base.Client baseClient =	daoFactory.getBaseClientDao().getClient(pClient.getId());
+			if(baseClient!=null){
+				client.setPhoneNumber(baseClient.getPhoneNumber());
+				client.setEmailAddress(baseClient.getEmailAddress());
+			}		
+			clients.addClient(client);
 		}
 
         long count = daoFactory.getClientDao().getClientsCount(projectGroupCode);

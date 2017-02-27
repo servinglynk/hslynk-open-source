@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.validation.constraints.Pattern;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("client")
@@ -36,6 +35,8 @@ public class BaseClient extends ClientModel {
 	private String sourceSystemId;
 	private String link;
 	private String projectGroupCode;
+	private String phoneNumber;
+	private String emailAddress;
 	
 	public UUID getClientId() {
 		return clientId;
@@ -181,5 +182,17 @@ public class BaseClient extends ClientModel {
 	}
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}	
 }
