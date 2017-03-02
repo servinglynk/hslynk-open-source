@@ -304,11 +304,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2016.Client createClient(
-			com.servinglynk.hmis.warehouse.model.v2016.Client client) {
+			com.servinglynk.hmis.warehouse.model.v2016.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
-			com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
-			BeanUtils.copyProperties(client, baseClient);
-			baseClient.setSchemaYear("2015");
+			baseClient.setSchemaYear("2016");
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
 			BeanUtils.copyProperties(client, baseClient, new String[] {"enrollments","veteranInfoes"});
 			logger.info("Calling Dedup Service for "+client.getFirstName());
@@ -316,6 +314,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			client.setDedupClientId(UUID.fromString(dedupedId));
 			baseClient.setDedupClientId(client.getDedupClientId());
 			insert(client);
+			baseClient.setId(client.getId());
 			insert(baseClient);
 		return client;
 	}
@@ -323,9 +322,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2016.Client updateClient(
-			com.servinglynk.hmis.warehouse.model.v2016.Client client) {
-		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
-		BeanUtils.copyProperties(client, baseClient);
+			com.servinglynk.hmis.warehouse.model.v2016.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 		baseClient.setSchemaYear("2016");
 			update(client);
 			update(baseClient);

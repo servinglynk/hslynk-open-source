@@ -28,4 +28,5 @@ public interface BaseDaoFactory {
 	ClientConsentDao getClientConsentDao();
 	ClientDataElementDao getClientDataElementDao();
 	APIAccessDao getApiAccessDao();
+	BaseClientDao getBaseClientDao();
 }

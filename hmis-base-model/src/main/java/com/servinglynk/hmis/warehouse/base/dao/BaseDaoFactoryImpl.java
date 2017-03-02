@@ -75,6 +75,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private APIAccessDao apiAccessDao;
 	
+	@Autowired private BaseClientDao baseClientDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -278,5 +280,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setApiAccessDao(APIAccessDao apiAccessDao) {
 		this.apiAccessDao = apiAccessDao;
+	}
+	public BaseClientDao getBaseClientDao() {
+		return baseClientDao;
+	}
+	public void setBaseClientDao(BaseClientDao baseClientDao) {
+		this.baseClientDao = baseClientDao;
 	}
 }

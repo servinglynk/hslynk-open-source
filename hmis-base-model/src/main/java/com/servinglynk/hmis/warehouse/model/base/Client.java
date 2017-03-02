@@ -83,6 +83,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	private LocalDateTime dob;
 	private String sourceSystemId;
 	private String schemaYear;
+	private String phoneNumber;
+	private String emailAddress;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -488,6 +491,23 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	public void setSchemaYear(String schemaYear) {
 		this.schemaYear = schemaYear;
+	}
+	@Column(name="phone_number")
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Column(name="email_address")
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 /**

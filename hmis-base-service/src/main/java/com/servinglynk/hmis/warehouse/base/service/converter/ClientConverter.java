@@ -83,6 +83,10 @@ public class ClientConverter {
 	    		client.setLink("/hmis-clientapi/rest/v"+pClient.getSchemaYear()+"/clients/"+pClient.getId());
 	    if(pClient.getDedupClientId()!=null)
 	    		client.setDedupClientId(pClient.getDedupClientId());
+	    if(pClient.getPhoneNumber()!=null)
+	    		client.setPhoneNumber(pClient.getPhoneNumber());
+	    if(pClient.getEmailAddress()!=null)
+	    		client.setEmailAddress(pClient.getEmailAddress());	    
 //		copyBeanProperties(pClient,client);
 	return client;
 	}
