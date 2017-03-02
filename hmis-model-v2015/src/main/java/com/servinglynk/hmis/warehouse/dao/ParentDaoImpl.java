@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -152,6 +153,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				        org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",id);
 					    model.setRecordToBeInserted(true);
 						model.setDeleted(true);
+						model.setDateUpdated(LocalDateTime.now());
 					} catch (IllegalAccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
