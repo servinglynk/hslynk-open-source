@@ -19,4 +19,7 @@ public static String NAME_DATE_QUALITY_DNC ="select count(*) from client where n
 public static String SSN_DATE_QUALITY_DNE_REFUSED ="select count(*) from client where ssn_data_quality in ('8','9')";
 public static String SSN_DATE_QUALITY_DNC ="select count(*) from client where ssn_data_quality in ('99')";
 
+
+public static String GET_ACTIVE_LIST_DATA = "select sum(section_score)as score,survey_id,client_id from survey.section_score group by survey_id,client_id";
+public static String GET_CLIENT_BY_ID="select first_name,last_name from base.client where id = ?";
 }
