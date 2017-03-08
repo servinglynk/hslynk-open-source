@@ -71,7 +71,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
 					entrySsvfModel.setLastPermanentStreet(entrySSVF.getLastPermanentStreet());
 					entrySsvfModel.setLastPermanentZip(new Integer(entrySSVF.getLastPermanentZIP()).toString());
-					entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(BasicDataGenerator.getStringValue(entrySSVF.getPercentAMI())));
+					entrySsvfModel.setPercentami(EntrySSVFPercentAMIEnum.lookupEnum(entrySSVF.getPercentAMI()));
 					entrySsvfModel.setVamcStation(entrySSVF.getVAMCStation());
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entrySSVF.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					entrySsvfModel.setEnrollmentid(enrollmentModel);

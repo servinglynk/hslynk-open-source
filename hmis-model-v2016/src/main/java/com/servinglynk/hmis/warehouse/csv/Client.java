@@ -53,44 +53,42 @@ public class Client {
 	@MapToColumn(column=17)
     protected String Gender;
 	@MapToColumn(column=18)
-    protected String OtherGender;
-	@MapToColumn(column=19)
     protected String VeteranStatus;
-	@MapToColumn(column=20)
+	@MapToColumn(column=19)
     protected String YearEnteredService;
-	@MapToColumn(column=21)
+	@MapToColumn(column=20)
     protected String YearSeparated;
-	@MapToColumn(column=22)
+	@MapToColumn(column=21)
     protected String WorldWarII;
-	@MapToColumn(column=23)
+	@MapToColumn(column=22)
     protected String KoreanWar;
-	@MapToColumn(column=24)
+	@MapToColumn(column=23)
     protected String VietnamWar;
-	@MapToColumn(column=25)
+	@MapToColumn(column=24)
     protected String DesertStorm;
-	@MapToColumn(column=26)
+	@MapToColumn(column=25)
     protected String AfghanistanOEF;
 	//IraqOIF	IraqOND	OtherTheater	MilitaryBranch	DischargeStatus	
 	//DateCreated	DateUpdated	UserID	DateDeleted	ExportID
-	@MapToColumn(column=27)
+	@MapToColumn(column=26)
     protected String IraqOIF;
-	@MapToColumn(column=28)
+	@MapToColumn(column=27)
     protected String IraqOND;
-	@MapToColumn(column=29)
+	@MapToColumn(column=28)
     protected String OtherTheater;
-	@MapToColumn(column=30)
+	@MapToColumn(column=29)
     protected String MilitaryBranch;
-	@MapToColumn(column=31)
+	@MapToColumn(column=30)
     protected String DischargeStatus;
-	@MapToColumn(column=32)
+	@MapToColumn(column=31)
     protected String DateCreated;
-	@MapToColumn(column=33)
+	@MapToColumn(column=32)
     protected String DateUpdated;
-	@MapToColumn(column=34)
+	@MapToColumn(column=33)
     protected String UserID;
-	@MapToColumn(column=35)
+	@MapToColumn(column=34)
     protected String DateDeleted;
-	@MapToColumn(column=36)
+	@MapToColumn(column=35)
     protected String ExportID;
 	public String getPersonalID() {
 		return personalID;
@@ -199,12 +197,6 @@ public class Client {
 	}
 	public void setGender(String gender) {
 		Gender = gender;
-	}
-	public String getOtherGender() {
-		return OtherGender;
-	}
-	public void setOtherGender(String otherGender) {
-		OtherGender = otherGender;
 	}
 	public String getVeteranStatus() {
 		return VeteranStatus;

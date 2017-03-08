@@ -1,7 +1,16 @@
 package com.servinglynk.hmis.warehouse.csv;
 
 import com.googlecode.jcsv.annotations.MapToColumn;
+/***
+ * IncomeBenefitsID	ProjectEntryID	PersonalID	InformationDate	IncomeFromAnySource	
+ * TotalMonthlyIncome	Earned	EarnedAmount	Unemployment	UnemploymentAmount	SSI	SSIAmount	
+ * SSDI	SSDIAmount	VADisabilityService	VADisabilityServiceAmount	VADisabilityNonService	VADisabilityNonServiceAmount	
+ * PrivateDisability	PrivateDisabilityAmount	WorkersComp	WorkersCompAmount	TANF	TANFAmount	GA	GAAmount	SocSecRetirement	SocSecRetirementAmount	
+ * Pension	PensionAmount	ChildSupport	ChildSupportAmount	Alimony	AlimonyAmount	
 										
+ * @author sdolia
+ *
+ */
 public class IncomeBenefits {
 	@MapToColumn(column=0)
 	private String IncomeBenefitsID;
@@ -67,6 +76,12 @@ public class IncomeBenefits {
 	private String ChildSupport;
 	@MapToColumn(column=31)
 	private String ChildSupportAmount;
+	/***
+	 *  * OtherIncomeSource	OtherIncomeAmount	OtherIncomeSourceIdentify	BenefitsFromAnySource	SNAP	WIC	TANFChildCare	TANFTransportation	
+	 *  OtherTANF	RentalAssistanceOngoing	RentalAssistanceTemp	OtherBenefitsSource	OtherBenefitsSourceIdentify	InsuranceFromAnySource	Medicaid	
+	 *  NoMedicaidReason	Medicare	NoMedicareReason	SCHIP	NoSCHIPReason	VAMedicalServices	NoVAMedReason	EmployerProvided	
+	 *  NoEmployerProvidedReason	COBRA	NoCOBRAReason	PrivatePay	NoPrivatePayReason	StateHealthIns	NoStateHealthInsReason	
+	 */
 	@MapToColumn(column=32)
 	private String Alimony;
 	@MapToColumn(column=33)
@@ -131,25 +146,39 @@ public class IncomeBenefits {
 	private String StateHealthIns;
 	@MapToColumn(column=63)
 	private String NoStateHealthInsReason;
+	/***
+	 * 	 *  IndianHealthServices	NoIndianHealthServicesReason	OtherInsurance	OtherInsuranceIdentify	HIVAIDSAssistance	NoHIVAIDSAssistanceReason
+	 * 	ADAP	NoADAPReason	ConnectionWithSOAR	DataCollectionStage	DateCreated	DateUpdated	UserID	DateDeleted	ExportID
+	 */
 	@MapToColumn(column=64)
-	private String HIVAIDSAssistance;
+	private String IndianHealthServices;
 	@MapToColumn(column=65)
-	private String NoHIVAIDSAssistanceReason;
+	private String NoIndianHealthServicesReason;
 	@MapToColumn(column=66)
-	private String ADAP;
+	private String OtherInsurance;
 	@MapToColumn(column=67)
-	private String NoADAPReason;
+	private String OtherInsuranceIdentify;
 	@MapToColumn(column=68)
-	private String DataCollectionStage;
+	private String HIVAIDSAssistance;
 	@MapToColumn(column=69)
-	private String DateCreated;
+	private String NoHIVAIDSAssistanceReason;
 	@MapToColumn(column=70)
-	private String DateUpdated;
+	private String ADAP;
 	@MapToColumn(column=71)
-	private String UserID;
+	private String NoADAPReason;
 	@MapToColumn(column=72)
-	private String DateDeleted;
+	private String ConnectionWithSOAR;
 	@MapToColumn(column=73)
+	private String DataCollectionStage;
+	@MapToColumn(column=74)
+	private String DateCreated;
+	@MapToColumn(column=75)
+	private String DateUpdated;
+	@MapToColumn(column=76)
+	private String UserID;
+	@MapToColumn(column=77)
+	private String DateDeleted;
+	@MapToColumn(column=78)
 	private String ExportID;
 	public String getIncomeBenefitsID() {
 		return IncomeBenefitsID;
@@ -594,6 +623,66 @@ public class IncomeBenefits {
 	}
 	public void setExportID(String exportID) {
 		ExportID = exportID;
+	}
+	/**
+	 * @return the indianHealthServices
+	 */
+	public String getIndianHealthServices() {
+		return IndianHealthServices;
+	}
+	/**
+	 * @param indianHealthServices the indianHealthServices to set
+	 */
+	public void setIndianHealthServices(String indianHealthServices) {
+		IndianHealthServices = indianHealthServices;
+	}
+	/**
+	 * @return the noIndianHealthServicesReason
+	 */
+	public String getNoIndianHealthServicesReason() {
+		return NoIndianHealthServicesReason;
+	}
+	/**
+	 * @param noIndianHealthServicesReason the noIndianHealthServicesReason to set
+	 */
+	public void setNoIndianHealthServicesReason(String noIndianHealthServicesReason) {
+		NoIndianHealthServicesReason = noIndianHealthServicesReason;
+	}
+	/**
+	 * @return the otherInsurance
+	 */
+	public String getOtherInsurance() {
+		return OtherInsurance;
+	}
+	/**
+	 * @param otherInsurance the otherInsurance to set
+	 */
+	public void setOtherInsurance(String otherInsurance) {
+		OtherInsurance = otherInsurance;
+	}
+	/**
+	 * @return the otherInsuranceIdentify
+	 */
+	public String getOtherInsuranceIdentify() {
+		return OtherInsuranceIdentify;
+	}
+	/**
+	 * @param otherInsuranceIdentify the otherInsuranceIdentify to set
+	 */
+	public void setOtherInsuranceIdentify(String otherInsuranceIdentify) {
+		OtherInsuranceIdentify = otherInsuranceIdentify;
+	}
+	/**
+	 * @return the connectionWithSOAR
+	 */
+	public String getConnectionWithSOAR() {
+		return ConnectionWithSOAR;
+	}
+	/**
+	 * @param connectionWithSOAR the connectionWithSOAR to set
+	 */
+	public void setConnectionWithSOAR(String connectionWithSOAR) {
+		ConnectionWithSOAR = connectionWithSOAR;
 	}
 	
 	

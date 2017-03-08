@@ -24,40 +24,38 @@ public class Exit {
 	@MapToColumn(column=9)
 	private String SubsidyInformation;
 	@MapToColumn(column=10)
-	private String ConnectionWithSOAR;
-	@MapToColumn(column=11)
 	private String WrittenAftercarePlan;
-	@MapToColumn(column=12)
+	@MapToColumn(column=11)
 	private String AssistanceMainstreamBenefits;
-	@MapToColumn(column=13)
+	@MapToColumn(column=12)
 	private String PermanentHousingPlacement;
-	@MapToColumn(column=14)
+	@MapToColumn(column=13)
 	private String TemporaryShelterPlacement;
-	@MapToColumn(column=15)
+	@MapToColumn(column=14)
 	private String ExitCounseling;
-	@MapToColumn(column=16)
+	@MapToColumn(column=15)
 	private String FurtherFollowUpServices;
-	@MapToColumn(column=17)
+	@MapToColumn(column=16)
 	private String ScheduledFollowupContacts;
-	@MapToColumn(column=18)
+	@MapToColumn(column=17)
 	private String ResourcePackage;
-	@MapToColumn(column=19)
+	@MapToColumn(column=18)
 	private String OtherAftercarePlanOrAction;
-	@MapToColumn(column=20)
+	@MapToColumn(column=19)
 	private String ProjectCompletionStatus;
-	@MapToColumn(column=21)
+	@MapToColumn(column=20)
 	private String EarlyExitReason;
-	@MapToColumn(column=22)
+	@MapToColumn(column=21)
 	private String FamilyReunificationAchieved;
-	@MapToColumn(column=23)
+	@MapToColumn(column=22)
 	private String DateCreated;
-	@MapToColumn(column=24)
+	@MapToColumn(column=23)
 	private String DateUpdated;
-	@MapToColumn(column=25)
+	@MapToColumn(column=24)
 	private String UserID;
-	@MapToColumn(column=26)
+	@MapToColumn(column=25)
 	private String DateDeleted;
-	@MapToColumn(column=27)
+	@MapToColumn(column=26)
 	private String ExportID;
 	public String getExitID() {
 		return ExitID;
@@ -118,12 +116,6 @@ public class Exit {
 	}
 	public void setSubsidyInformation(String subsidyInformation) {
 		SubsidyInformation = subsidyInformation;
-	}
-	public String getConnectionWithSOAR() {
-		return ConnectionWithSOAR;
-	}
-	public void setConnectionWithSOAR(String connectionWithSOAR) {
-		ConnectionWithSOAR = connectionWithSOAR;
 	}
 	public String getWrittenAftercarePlan() {
 		return WrittenAftercarePlan;

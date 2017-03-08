@@ -107,7 +107,7 @@ public class BulkUploadHelper {
 				AwsS3Client client = new AwsS3Client();
 				tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 			}
-			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
+			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath())) || StringUtils.equals("7z",getFileExtension(upload.getInputpath()))){
 				return getSourcesForZipFile(tempFile);
 			}
 			else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
@@ -530,7 +530,7 @@ public class BulkUploadHelper {
 	    	  entrySSVFModel.setLastPermanentStreet(enroll.getLastPermanentStreet());
 	    	  if(StringUtils.isNotBlank(enroll.getLastPermanentZIP()))
 	    		  entrySSVFModel.setLastPermanentZIP(Integer.parseInt(enroll.getLastPermanentZIP()));
-	    	  entrySSVFModel.setPercentAMI(getByte(enroll.getPercentAMI()));
+	    	  entrySSVFModel.setPercentAMI(enroll.getPercentAMI());
 	    	  entrySSVFModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  entrySSVFModel.setVAMCStation(enroll.getVAMCStation());
 	    	  entrySSVFModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
@@ -658,7 +658,8 @@ public class BulkUploadHelper {
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
 	    	  ExitPATH exitPathModel = new ExitPATH();
-	    	  exitPathModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
+	    	  //TODO :Sandeep need to fix the below problem with ConnectionWithSOAR
+	    	  //exitPathModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
 	    	  exitPathModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitPathModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
 	    	  exitPathModel.setExitPATHID(ext.getExitID());
@@ -897,6 +898,11 @@ public class BulkUploadHelper {
 	    	  
 	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
 	    	  healthinsuranceModel.setCOBRA(getByte(incomeBnfts.getCOBRA()));
+	    	  healthinsuranceModel.setOtherInsurance(getByte(incomeBnfts.getOtherInsurance()));
+	    	  healthinsuranceModel.setOtherInsuranceIdentify(incomeBnfts.getOtherIncomeSourceIdentify());
+	    	  healthinsuranceModel.setIndianHealthServices(getByte(incomeBnfts.getIndianHealthServices()));
+	    	  healthinsuranceModel.setNoIndianHealthServicesReason(incomeBnfts.getNoIndianHealthServicesReason());
+	    	  
 	    	  healthinsuranceModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
 	    	  healthinsuranceModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(incomeBnfts.getDateDeleted()));
@@ -1113,7 +1119,7 @@ public class BulkUploadHelper {
 	    	  }
 	    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
 	    	  servicesModel.setProjectEntryID(srvcs.getProjectEntryID());
-	    	  servicesModel.setRecordType(getByte(srvcs.getRecordType()));
+	    	  servicesModel.setRecordType(srvcs.getRecordType());
 	    	  servicesModel.setReferralOutcome(getByte(srvcs.getReferralOutcome()));
 	    	  servicesModel.setServicesID(srvcs.getServicesID());
 	    	  servicesModel.setSubTypeProvided(getByte(srvcs.getSubTypeProvided()));
@@ -1201,7 +1207,9 @@ public class BulkUploadHelper {
 		  }catch(ParseException ex) {
 			  
 		  }
-		  
+		  if(dob == null){
+			  return null;
+		  }
 		  GregorianCalendar cal = new GregorianCalendar();
 
 		  cal.setTime(dob);

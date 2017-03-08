@@ -250,12 +250,12 @@ public class BulkUploaderTest {
 				appender.setAppend(true);
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
-				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_1_1_4012_79.xml");
+				upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV 5.1.zip");
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 		//		URL path = BulkUploadHelperTest.class.getResource("2016.xml");
 		//		upload.setInputpath(path.getPath());
 				upload.setProjectGroupCode("MO0010");
-				upload.setId(3L);
+				upload.setId(223L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}

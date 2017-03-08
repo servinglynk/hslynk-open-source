@@ -1,7 +1,13 @@
 package com.servinglynk.hmis.warehouse.csv;
 
 import com.googlecode.jcsv.annotations.MapToColumn;
-
+/**
+ * ServicesID	ProjectEntryID	PersonalID	DateProvided	RecordType	
+ * TypeProvided	OtherTypeProvided	SubTypeProvided	FAAmount	
+ * ReferralOutcome	DateCreated	DateUpdated	UserID	DateDeleted	ExportID
+ * @author sdolia
+ *
+ */
 public class Services {
 	@MapToColumn(column=0)
 	private String ServicesID;

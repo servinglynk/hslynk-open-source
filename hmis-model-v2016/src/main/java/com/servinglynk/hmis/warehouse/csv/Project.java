@@ -1,7 +1,14 @@
 package com.servinglynk.hmis.warehouse.csv;
 
 import com.googlecode.jcsv.annotations.MapToColumn;
+/**
+ * ProjectID	OrganizationID	ProjectName	ProjectCommonName	ContinuumProject	
+ * ProjectType	ResidentialAffiliation	TrackingMethod	TargetPopulation	
+ * PITCount	DateCreated	DateUpdated	UserID	DateDeleted	ExportID
 
+ * @author sdolia
+ *
+ */
 public class Project {
 	@MapToColumn(column=0)
 	private String ProjectID;
