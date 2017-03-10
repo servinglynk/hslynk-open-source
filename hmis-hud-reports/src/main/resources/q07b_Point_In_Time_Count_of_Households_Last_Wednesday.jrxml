@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" >
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1e497a1e-cf17-4502-b7a2-5ba01f97d679">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	
 	<field name="hhCountJanUht" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[hhCountJanUht]]></fieldDescription>
 	</field>
@@ -64,14 +63,11 @@
 	<field name="hhCountOctWoc" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[hhCountOctWoc]]></fieldDescription>
 	</field>
-	
-	
 	<group name="Group5">
 		<groupFooter>
-			
 			<band height="25">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCCFF" />
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCCFF" uuid="e6e8a484-97b7-4926-a8a1-3eae35307195"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -87,7 +83,7 @@
 			</band>
 			<band height="38">
 				<staticText>
-					<reportElement mode="Opaque" x="260" y="1" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="260" y="1" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="13e38e5e-287f-47df-adb5-7bcfa7e22f83"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -102,7 +98,7 @@
 and Adults]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="101" height="37" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="0" y="1" width="101" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="7f38c397-fe3a-4fef-99b1-193551036f5b"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -116,7 +112,7 @@ and Adults]]></text>
 					<text><![CDATA[Month]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="458" y="1" width="97" height="37" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="458" y="1" width="97" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="4a01707f-94da-45c3-b0e6-4530f442ccd2"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -130,7 +126,7 @@ and Adults]]></text>
 					<text><![CDATA[Unknown HH Type]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="359" y="1" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="359" y="1" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="d965b246-da3e-4cf1-b7f6-495dfecd5c28"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -145,7 +141,7 @@ and Adults]]></text>
 Children]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="101" y="1" width="75" height="37" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="101" y="1" width="75" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="ca4a8f23-6230-4c09-9795-3901ddeaa55d"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -159,7 +155,7 @@ Children]]></text>
 					<text><![CDATA[Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="175" y="1" width="85" height="37" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="175" y="1" width="85" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="40f12cce-23fb-40e0-9eb4-e0d4871dfa59"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -176,7 +172,7 @@ Children]]></text>
 			</band>
 			<band height="24">
 				<staticText>
-					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" />
+					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" uuid="7a23b539-3ca1-4966-813d-8b3f351ee8a3"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -190,7 +186,7 @@ Children]]></text>
 					<text><![CDATA[   January]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="175" y="0" width="85" height="24" />
+					<reportElement x="175" y="0" width="85" height="24" uuid="377bdc7a-3f3a-4683-9a28-cdb5a0ad42a8"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -202,7 +198,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountJanWc}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="99" height="24" />
+					<reportElement x="260" y="0" width="99" height="24" uuid="1302eea7-e43c-413d-9af8-fab0f596ac09"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -214,7 +210,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountJanWca}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="359" y="0" width="99" height="24" />
+					<reportElement x="359" y="0" width="99" height="24" uuid="85302fa1-c736-4424-97d0-ed576e3d1598"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -226,7 +222,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountJanWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="23" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="101" y="0" width="74" height="23" backcolor="#F5F5F5" uuid="be696e86-de52-44db-9f72-7e2642729ead"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -238,7 +234,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhJanTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="458" y="0" width="97" height="24" />
+					<reportElement x="458" y="0" width="97" height="24" uuid="34349609-eeff-4176-9ba9-94277b4ee2ec"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -252,7 +248,7 @@ Children]]></text>
 			</band>
 			<band height="24">
 				<textField>
-					<reportElement x="175" y="0" width="85" height="24" />
+					<reportElement x="175" y="0" width="85" height="24" uuid="5d884040-5a41-44ec-9550-1c8c03ae56f5"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -264,7 +260,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountAprWc}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="458" y="0" width="97" height="24" />
+					<reportElement x="458" y="0" width="97" height="24" uuid="917ac058-62e9-44f0-b88c-f2f43b395506"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -276,7 +272,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountAprUht}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="99" height="24" />
+					<reportElement x="260" y="0" width="99" height="24" uuid="98289da6-84eb-4a45-b284-cc43f3225fe8"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -288,7 +284,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountAprWca}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="a0bd6315-a2a2-4da9-9534-2ff76076bb87"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -300,7 +296,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhAprTotal}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" />
+					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" uuid="57720b6a-880c-4d99-9c62-2109d24471d2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -314,7 +310,7 @@ Children]]></text>
 					<text><![CDATA[   April]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="359" y="0" width="99" height="24" />
+					<reportElement x="359" y="0" width="99" height="24" uuid="4c9e363b-6dff-4f64-a83b-6e7b5af563d4"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -328,7 +324,7 @@ Children]]></text>
 			</band>
 			<band height="24">
 				<textField>
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="11729c87-1007-432b-9028-f8deb1ec1179"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -340,7 +336,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhJulTotal}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" />
+					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" uuid="a103b742-f319-4b6c-bc5c-983d1cf250bd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -354,7 +350,7 @@ Children]]></text>
 					<text><![CDATA[   July]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="458" y="0" width="97" height="24" />
+					<reportElement x="458" y="0" width="97" height="24" uuid="c8b8b521-529e-40ed-9a09-73063f5a27de"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -366,7 +362,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountJulUht}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="359" y="0" width="99" height="24" />
+					<reportElement x="359" y="0" width="99" height="24" uuid="ea54102f-5761-468b-9e71-c0d9656a95ad"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -378,7 +374,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountJulWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="99" height="24" />
+					<reportElement x="260" y="0" width="99" height="24" uuid="f6d9dad7-8779-4770-8e68-c9e93cd98c5e"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -390,7 +386,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountJulWca}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="175" y="0" width="85" height="24" />
+					<reportElement x="175" y="0" width="85" height="24" uuid="8ac8fb02-5842-4a35-85e4-f8665bc86a1c"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -404,7 +400,7 @@ Children]]></text>
 			</band>
 			<band height="24">
 				<staticText>
-					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" />
+					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" uuid="f44c0261-a6ed-43e9-9cc6-ed6a9e5555e3"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -418,7 +414,7 @@ Children]]></text>
 					<text><![CDATA[   October]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="458" y="0" width="97" height="24" />
+					<reportElement x="458" y="0" width="97" height="24" uuid="370818f2-dcd7-478c-8602-2d482d9d513d"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -430,7 +426,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountOctUht}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="359" y="0" width="99" height="24" />
+					<reportElement x="359" y="0" width="99" height="24" uuid="e45192b2-97bd-4fba-80e7-535479b59b24"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -442,7 +438,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountOctWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="99" height="24" />
+					<reportElement x="260" y="0" width="99" height="24" uuid="395716c4-d50d-48ad-831b-77acfd5ceb1c"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -454,7 +450,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountOctWca}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="175" y="0" width="85" height="24" />
+					<reportElement x="175" y="0" width="85" height="24" uuid="26e72117-fc24-458a-908a-e4fa729d3973"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -466,7 +462,7 @@ Children]]></text>
 					<textFieldExpression><![CDATA[$F{hhCountOctWc}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="b1c16ad6-312f-41af-bab6-5771080b0bb2"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -480,7 +476,7 @@ Children]]></text>
 			</band>
 			<band height="40">
 				<staticText>
-					<reportElement x="2" y="0" width="553" height="39" forecolor="#666666" />
+					<reportElement x="2" y="0" width="553" height="39" forecolor="#666666" uuid="32838959-6a9f-43af-a909-b7ce06e282f5"/>
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.0"/>
@@ -495,7 +491,6 @@ Children]]></text>
 active on the given date, even if exited ON that date.]]></text>
 				</staticText>
 			</band>
-			
 		</groupFooter>
 	</group>
 </jasperReport>

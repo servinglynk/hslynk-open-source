@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" >
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81dafb19-d3d0-4cca-aa7b-8431a5edeea7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -97,7 +97,7 @@
 		<groupFooter>
 			<band height="24">
 				<staticText>
-					<reportElement mode="Opaque" x="1" y="0" width="388" height="24" backcolor="#CCCCFF" />
+					<reportElement mode="Opaque" x="1" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="e04e98c6-5e6d-4422-a88d-d1c9c81ab41f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -113,7 +113,7 @@
 			</band>
 			<band height="63">
 				<staticText>
-					<reportElement mode="Opaque" x="162" y="0" width="98" height="63" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="162" y="0" width="98" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="e618a892-7747-48ad-9a17-ed2f9001ac5f"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -129,7 +129,7 @@ place not meant for human
 habitation]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="459" y="0" width="96" height="63" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="459" y="0" width="96" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="ce7873a2-0912-4181-b297-51dc16928e8b"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -145,7 +145,7 @@ place was
 missing]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="360" y="0" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="360" y="0" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="fe0a822d-ab8c-4ef8-976e-672b271013e5"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -161,7 +161,7 @@ residential service
 setting]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="260" y="0" width="100" height="63" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="260" y="0" width="100" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="ca86b776-6a08-4cad-a093-6efaef5deb55"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -177,7 +177,7 @@ non-residential service
 setting]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="1" y="0" width="101" height="63" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="1" y="0" width="101" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="c51d2efd-3010-4268-89e2-52d0f8071085"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -191,7 +191,7 @@ setting]]></text>
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="63" forecolor="#666666" backcolor="#E6E6E6" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="7c434248-1372-4936-bf49-5b476d74d278"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -207,7 +207,7 @@ setting]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" />
+					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" uuid="368956bd-0fb0-4a4d-8359-4492b7af0093"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -221,7 +221,7 @@ setting]]></text>
 					<text><![CDATA[  b1. Engaged after 1 contact?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="a499ebb6-2992-483d-99f3-c1634850ccd3"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -233,7 +233,7 @@ setting]]></text>
 					<textFieldExpression><![CDATA[$F{totEngagedAfter1Contract}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="100" height="39" />
+					<reportElement x="260" y="0" width="100" height="39" uuid="fa6109a5-f7be-4740-8ce4-b7be1f869b0f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -245,7 +245,7 @@ setting]]></text>
 					<textFieldExpression><![CDATA[$F{engFirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="98" height="39" />
+					<reportElement x="162" y="0" width="98" height="39" uuid="81070aec-9cb8-4f4c-9675-63676a8f7c9c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -257,7 +257,7 @@ setting]]></text>
 					<textFieldExpression><![CDATA[$F{engFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="360" y="0" width="99" height="39" />
+					<reportElement x="360" y="0" width="99" height="39" uuid="94deec5a-48e3-46ef-9dcf-3c88f0e3da45"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -269,7 +269,7 @@ setting]]></text>
 					<textFieldExpression><![CDATA[$F{engFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" />
+					<reportElement x="459" y="0" width="96" height="39" uuid="4780068f-e410-4bcc-8337-a989aac446de"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -283,7 +283,7 @@ setting]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" />
+					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" uuid="2929b07b-cf87-49bc-9a7d-b720c972f4cc"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -298,7 +298,7 @@ setting]]></text>
 contacts?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="9fe81e3e-0d0e-4874-b313-e4e6f6d108dd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -310,7 +310,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{totEngagedAfter2to5Contract}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="100" height="39" />
+					<reportElement x="361" y="0" width="100" height="39" uuid="a6633570-b3e0-42c7-951a-4afd9d25a6b7"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -322,7 +322,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng2to5FirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="98" height="39" />
+					<reportElement x="162" y="0" width="98" height="39" uuid="378b73ed-81b9-4c0a-8d31-0616e63fad3e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -334,7 +334,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng2to5FirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="101" height="39" />
+					<reportElement x="260" y="0" width="101" height="39" uuid="3524c0d1-9b11-4a41-8fd1-a33fa95529aa"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -346,7 +346,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng2to5FirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="461" y="0" width="94" height="39" />
+					<reportElement x="461" y="0" width="94" height="39" uuid="1ae6c6d8-29ca-4382-a2cd-4e26501f4328"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -360,7 +360,7 @@ contacts?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" />
+					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" uuid="81b63de8-cd81-475b-8043-820441c57532"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -375,7 +375,7 @@ contacts?]]></text>
 contacts?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="8d60d550-0627-4872-a45d-c777f228e382"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -387,7 +387,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{totEngagedAfter6to9Contract}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="98" height="39" />
+					<reportElement x="162" y="0" width="98" height="39" uuid="bce9838d-c6cf-49ef-9e6f-9e7e8242ab0b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -399,7 +399,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng6to9FirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="101" height="39" />
+					<reportElement x="260" y="0" width="101" height="39" uuid="10cc1528-ecad-4cac-a44e-778fc9df5b68"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -411,7 +411,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng6to9FirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="100" height="39" />
+					<reportElement x="361" y="0" width="100" height="39" uuid="b7dbb4fa-ac85-44f2-b497-02c575fa5515"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -423,7 +423,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng6to9FirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="461" y="0" width="94" height="39" />
+					<reportElement x="461" y="0" width="94" height="39" uuid="d4550d01-1ca7-4857-a5aa-3369e425c7df"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -437,7 +437,7 @@ contacts?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" />
+					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" uuid="37bba1cb-c25d-46e9-bd1f-54b65a9ed91a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -452,7 +452,7 @@ contacts?]]></text>
 more contacts?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="370088d7-3f47-4ed7-b278-fb0cfafd1a14"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -464,7 +464,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{totEngagedAfter10orMoreContract}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="98" height="39" />
+					<reportElement x="162" y="0" width="98" height="39" uuid="e133d928-c62f-49cf-b15c-60e78f092d38"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -476,7 +476,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng10FirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="102" height="39" />
+					<reportElement x="260" y="0" width="102" height="39" uuid="53b82111-6742-451c-bff5-36402ee8b0c2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -488,7 +488,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng10FirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="362" y="0" width="100" height="39" />
+					<reportElement x="362" y="0" width="100" height="39" uuid="46abcbe0-16c2-474d-a1c0-391e238323dc"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -500,7 +500,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng10FirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="39" />
+					<reportElement x="462" y="0" width="93" height="39" uuid="51fb1919-6b45-4b71-8ed8-3fb6e5b733df"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -514,7 +514,7 @@ more contacts?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" />
+					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" uuid="06180dad-3b57-41d9-93cc-bee940a68819"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -528,7 +528,7 @@ more contacts?]]></text>
 					<text><![CDATA[  bz. Total persons engaged]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="cde7aa0d-d3c0-435d-9c21-bd7d8c071b33"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -540,7 +540,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{totPersonsEngaged}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="98" height="39" />
+					<reportElement x="162" y="0" width="98" height="39" uuid="ecf9d18a-75d2-45b4-b54c-96781569f3a2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -552,7 +552,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{tpeFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="102" height="39" />
+					<reportElement x="260" y="0" width="102" height="39" uuid="20db6dab-8a4b-4895-966a-f39575525482"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -564,7 +564,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{tpeFirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="362" y="0" width="100" height="39" />
+					<reportElement x="362" y="0" width="100" height="39" uuid="069c3673-3f79-4bf3-8cc6-938850687ee8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -576,7 +576,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{tpeFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="39" />
+					<reportElement x="462" y="0" width="93" height="39" uuid="f8f70978-10bb-4df5-859c-ac38ad90054a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -590,7 +590,7 @@ more contacts?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" />
+					<reportElement x="1" y="0" width="101" height="39" forecolor="#000000" uuid="892bc109-5b47-4032-833a-2fdd8eb50a08"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -605,7 +605,7 @@ more contacts?]]></text>
 engagement (%)]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="1d78be9a-33e5-4b63-97a6-f3b9f0c9f014"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -617,7 +617,7 @@ engagement (%)]]></text>
 					<textFieldExpression><![CDATA[$F{totRateOfEngagement}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="102" height="39" />
+					<reportElement x="260" y="0" width="102" height="39" uuid="89ad9ef9-99a0-4bb6-b1de-dd2fd6197de6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -629,7 +629,7 @@ engagement (%)]]></text>
 					<textFieldExpression><![CDATA[$F{roeFirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="362" y="0" width="100" height="39" />
+					<reportElement x="362" y="0" width="100" height="39" uuid="1af53647-ef5e-45bb-96e6-37a698b343e2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -641,7 +641,7 @@ engagement (%)]]></text>
 					<textFieldExpression><![CDATA[$F{roeFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="98" height="39" />
+					<reportElement x="162" y="0" width="98" height="39" uuid="d89dcdb7-1960-4cb4-9725-471ba6dc668a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -653,7 +653,7 @@ engagement (%)]]></text>
 					<textFieldExpression><![CDATA[$F{roeFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="39" />
+					<reportElement x="462" y="0" width="93" height="39" uuid="f7485ef2-8da9-42f5-9529-857fe6c85bd2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -667,7 +667,7 @@ engagement (%)]]></text>
 			</band>
 			<band height="42">
 				<staticText>
-					<reportElement x="2" y="0" width="553" height="39" forecolor="#666666" />
+					<reportElement x="2" y="0" width="553" height="39" forecolor="#666666" uuid="78e0160a-4d66-4002-bf93-02de99582873"/>
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.0"/>
