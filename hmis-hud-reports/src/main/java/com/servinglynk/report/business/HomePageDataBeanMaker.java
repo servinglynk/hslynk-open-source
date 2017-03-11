@@ -40,6 +40,7 @@ public class HomePageDataBeanMaker {
 //			populateProject(schema, projectId, homePageDataBean);
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
+			
 //			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 			ReportData data = new ReportData();
 //			data.setEnrollments(enrollments);
