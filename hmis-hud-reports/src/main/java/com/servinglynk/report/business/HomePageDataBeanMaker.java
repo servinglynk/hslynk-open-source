@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import net.sf.cglib.core.CollectionUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ReportQuery;
@@ -18,12 +21,15 @@ import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.HomePageDataBean;
+import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.csv.Q4aGenerator;
+import com.servinglynk.report.csv.Q5aGenerator;
 
 public class HomePageDataBeanMaker {
 	
 //		public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId){
-			public static List<HomePageDataBean> getHomePageDataList(){
+			public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId,boolean sageReport){
 	       
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
 			
@@ -37,24 +43,32 @@ public class HomePageDataBeanMaker {
 			homePageDataBean.setHomePageGrants("all grants");
 			homePageDataBean.setHomePageView("Aggregate / summary");
 			
-//			populateProject(schema, projectId, homePageDataBean);
+			populateProject(schema, projectId, homePageDataBean);
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			
-//			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
+			if(sageReport) {
+				Q4aGenerator.buildReport(homePageDataBean);
+			}
+			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 			ReportData data = new ReportData();
-//			data.setEnrollments(enrollments);
-//			List<ClientModel> allClients = getClients(schema);
+			data.setEnrollments(enrollments);
+			List<ClientModel> allClients = getClients(schema);
 			List<String> clientIds = new ArrayList<String>(); 
 			List<String> enrollmentIds = new ArrayList<String>(); 
-/*			enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
+			enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
 			List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
 			data.setClients(clients);
-			List<ExitModel> allExits = getAllExits(schema);*/
-			/*List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
-			data.setExits(filteredExits);*/
-			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(/*schema,projectId,*/"","",data));
-			homePageDataBean.setQ06aReportValidationsTableDataBean(Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(/*schema*/"",data));
+			List<ExitModel> allExits = getAllExits(schema);
+			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
+			data.setExits(filteredExits);
+			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(schema,projectId,data);
+			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
+			if(q05aHMISCDDQDataList != null) {
+				Q05aHMISComparableDBDataQualityDataBean q05aHMISComparableDBDataQualityDataBean = q05aHMISCDDQDataList.get(0);
+				Q5aGenerator.buildReport(q05aHMISComparableDBDataQualityDataBean);
+			}
+			
+			homePageDataBean.setQ06aReportValidationsTableDataBean(Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(schema,data));
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList());
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList());
 			homePageDataBean.setQ07aHouseholdsServedDataBean(Q07aHouseHoldsDataBeanMaker.getQ07aHouseholdsServeList());
