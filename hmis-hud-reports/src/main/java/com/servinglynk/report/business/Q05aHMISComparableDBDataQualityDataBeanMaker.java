@@ -16,9 +16,6 @@ import com.servinglynk.report.bean.ReportData;
 public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 	
 	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(String schema,String projectId,ReportData data){
-	       
-		Q05aHMISComparableDBDataQualityDataBean q05aHMISCDDQBean = new Q05aHMISComparableDBDataQualityDataBean();
-		
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<EnrollmentModel> disablingCondition = enrollments.parallelStream()
 				.filter(enrollment ->  StringUtils.equals("8", enrollment.getDisablingcondition())|| StringUtils.equals("9", enrollment.getDisablingcondition())) 
@@ -90,7 +87,7 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 		List<ExitModel> destinationDNC = filteredExits.parallelStream()
 				.filter(exit ->  "99".equals(exit.getDestination())) 
 					.collect(Collectors.toList());
-		
+		Q05aHMISComparableDBDataQualityDataBean q05aHMISCDDQBean = new Q05aHMISComparableDBDataQualityDataBean();
 		q05aHMISCDDQBean.setQ05aFirstName(BigInteger.valueOf(firstNameCNF != null ? firstNameCNF.size() :0));
 		q05aHMISCDDQBean.setQ05aDNCFirstName(BigInteger.valueOf(firstNameDataNotCollected != null ? firstNameDataNotCollected.size() : 0));
 		q05aHMISCDDQBean.setQ05aLastName(BigInteger.valueOf(firstNameCNF != null ? firstNameCNF.size() :0));
@@ -115,6 +112,32 @@ public class Q05aHMISComparableDBDataQualityDataBeanMaker {
 		q05aHMISCDDQBean.setQ05aDNCRelationshipToHH(BigInteger.valueOf(relationshipToHOHDNC !=null ? relationshipToHOHDNC.size() :0));
 		q05aHMISCDDQBean.setQ05aDestination(BigInteger.valueOf(destination !=null ? destination.size() : 0));
 		q05aHMISCDDQBean.setQ05aDNCDestination(BigInteger.valueOf(destinationDNC !=null ? destinationDNC.size() :0));
+		
+		
+		q05aHMISCDDQBean.setQ05aFirstName(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCFirstName(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aLastName(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCLastName(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aSSN(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCSSN(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDoB(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCDoB(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aRace(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCRace(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aEthinicity(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCEthinicity(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aGender(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCGender(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aVeteranStatus(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCVeteranStatus(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDisablingCond(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCDisablingCond(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aResidencePriorEntry(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCResidencePriorEntry(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aRelationshipToHH(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCRelationshipToHH(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDestination(BigInteger.valueOf(0));
+		q05aHMISCDDQBean.setQ05aDNCDestination(BigInteger.valueOf(0));
 		q05aHMISCDDQBean.setQ05aClientLocatorPE(BigInteger.valueOf(0));
 		q05aHMISCDDQBean.setQ05aDNCClientLocatorPE(BigInteger.valueOf(16));
 		q05aHMISCDDQBean.setQ05aLengthOfTime(BigInteger.valueOf(0));

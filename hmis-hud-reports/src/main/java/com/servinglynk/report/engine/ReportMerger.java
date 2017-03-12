@@ -41,9 +41,9 @@ public class ReportMerger {
     
     	private void exportToPDF() {
 		try {                                           
-        	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources2017/HUD_Annual_Report.jrxml");
+        	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.jrxml");
         	
-        	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources2017/q27D_To_q27F_Tables.jrxml");
+        	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/q27D_To_q27F_Tables.jrxml");
         	
             DataBeanMaker dataBeanMaker = new DataBeanMaker();
             ArrayList<DataBean> dataBeanList = dataBeanMaker.getDataBeanList();
@@ -70,7 +70,7 @@ public class ReportMerger {
 
 		    }
 //		    JasperViewer.viewReport(jasperPrint1,false);
-		    JasperExportManager.exportReportToPdfFile(jasperPrint1, "C:/workspace/hmis-hud-reports/src/main/resources2017/HUD_Annual_Report.pdf");    
+		    JasperExportManager.exportReportToPdfFile(jasperPrint1, "C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.pdf");    
         } catch (Exception e) {
             logger.error(e, e);
         }
@@ -78,9 +78,9 @@ public class ReportMerger {
     }
 	private void exportToXLS() {
 	try {                                           
-    	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources2017/HUD_Annual_Report.jrxml");
+    	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.jrxml");
     	
-    	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources2017/q27D_To_q27F_Tables.jrxml");
+    	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/q27D_To_q27F_Tables.jrxml");
     	
         DataBeanMaker dataBeanMaker = new DataBeanMaker();
         ArrayList<DataBean> dataBeanList = dataBeanMaker.getDataBeanList();
@@ -108,7 +108,7 @@ public class ReportMerger {
 	    }
 //	    JasperViewer.viewReport(jasperPrint1,false);
 	    
-	    OutputStream ouputStream  = new FileOutputStream(new File("C:/workspace/hmis-hud-reports/src/main/resources2017/HUD_Annual_Report.xls"));
+	    OutputStream ouputStream  = new FileOutputStream(new File("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.xls"));
 	    ByteArrayOutputStream byteArrayOutputStream   = new ByteArrayOutputStream();
 	    
 	    JRXlsExporter exporterXLS = new JRXlsExporter();
@@ -128,9 +128,9 @@ public class ReportMerger {
     
 	private void exportToCSV() {
 		try {                                           
-	    	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources2017/HUD_Annual_Report.jrxml");
+	    	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.jrxml");
 	    	
-	    	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources2017/q27D_To_q27F_Tables.jrxml");
+	    	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/q27D_To_q27F_Tables.jrxml");
 	    	
 	        DataBeanMaker dataBeanMaker = new DataBeanMaker();
 	        ArrayList<DataBean> dataBeanList = dataBeanMaker.getDataBeanList();
@@ -158,7 +158,7 @@ public class ReportMerger {
 		    }
 //		    JasperViewer.viewReport(jasperPrint1,false);
 		    
-		    OutputStream ouputStream  = new FileOutputStream(new File("C:/workspace/hmis-hud-reports/src/main/resources2017/HUD_Annual_Report.csv"));
+		    OutputStream ouputStream  = new FileOutputStream(new File("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.csv"));
 		    ByteArrayOutputStream byteArrayOutputStream   = new ByteArrayOutputStream();
 		    
 		    JRCsvExporter exporterCSV = new JRCsvExporter();

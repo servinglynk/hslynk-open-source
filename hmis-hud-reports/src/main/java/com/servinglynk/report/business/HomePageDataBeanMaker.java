@@ -13,18 +13,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import net.sf.cglib.core.CollectionUtils;
-
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.HomePageDataBean;
+import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
+import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
+import com.servinglynk.report.bean.Q4aBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.csv.Q4aGenerator;
-import com.servinglynk.report.csv.Q5aGenerator;
+import com.servinglynk.report.csvcontroller.Q04aCSVController;
+import com.servinglynk.report.csvcontroller.Q05aCSVController;
+import com.servinglynk.report.csvcontroller.Q06aCSVController;
 
 public class HomePageDataBeanMaker {
 	
@@ -42,12 +44,12 @@ public class HomePageDataBeanMaker {
 			homePageDataBean.setHomePageHomeLess("Everyone");
 			homePageDataBean.setHomePageGrants("all grants");
 			homePageDataBean.setHomePageView("Aggregate / summary");
-			
 			populateProject(schema, projectId, homePageDataBean);
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
+			List<Q04aDataBean> q04aDataBeanList = Q04aDataBeanMaker.getQ04aDataBeanList(schema,projectId);
 			if(sageReport) {
-				Q4aGenerator.buildReport(homePageDataBean);
+				Q04aCSVController.q04aExportoCSV(q04aDataBeanList);
 			}
 			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 			ReportData data = new ReportData();
@@ -64,11 +66,13 @@ public class HomePageDataBeanMaker {
 			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(schema,projectId,data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
-				Q05aHMISComparableDBDataQualityDataBean q05aHMISComparableDBDataQualityDataBean = q05aHMISCDDQDataList.get(0);
-				Q5aGenerator.buildReport(q05aHMISComparableDBDataQualityDataBean);
+				Q05aCSVController.buildReport(q05aHMISCDDQDataList);
 			}
-			
-			homePageDataBean.setQ06aReportValidationsTableDataBean(Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(schema,data));
+			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(schema,data);
+			if(q06aReportValidationsTableList != null) {
+				Q06aCSVController.buildReport(q06aReportValidationsTableList);
+			}
+			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList());
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList());
 			homePageDataBean.setQ07aHouseholdsServedDataBean(Q07aHouseHoldsDataBeanMaker.getQ07aHouseholdsServeList());
@@ -142,7 +146,7 @@ public class HomePageDataBeanMaker {
 			Connection connection = null;
 			try {
 				connection = HiveConnection.getConnection();
-				statement = connection.prepareStatement(ReportQuery.GET_PROJECT_BY_ID);
+				statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECT_BY_ID,schema));
 				statement.setString(1, id);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
@@ -175,7 +179,7 @@ public class HomePageDataBeanMaker {
 				Connection connection = null;
 				try {
 					connection = HiveConnection.getConnection();
-					statement = connection.prepareStatement(ReportQuery.GET_ORG_BY_ID);
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_ORG_BY_ID,schema));
 					statement.setString(1, id);
 					resultSet = statement.executeQuery();
 //					int count = 0;
@@ -206,7 +210,7 @@ public class HomePageDataBeanMaker {
 				List<ClientModel>  models = new ArrayList<ClientModel>();
 				try {
 					connection = HiveConnection.getConnection();
-					statement = connection.prepareStatement(ReportQuery.GET_ALL_CLIENTS);
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CLIENTS,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
 					 ClientModel model = new ClientModel(resultSet.getString("client.personalid"), resultSet.getString("client.dedup_client_id"), 
@@ -244,7 +248,7 @@ public class HomePageDataBeanMaker {
 				List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 				try {
 					connection = HiveConnection.getConnection();
-					statement = connection.prepareStatement(ReportQuery.GET_ENROLLMENTS_BY_PROJECT_ID);
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_PROJECT_ID,schema));
 					statement.setString(1, projectId);
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
@@ -301,7 +305,7 @@ public class HomePageDataBeanMaker {
 				List<ExitModel>  models = new ArrayList<ExitModel>();
 				try {
 					connection = HiveConnection.getConnection();
-					statement = connection.prepareStatement(ReportQuery.GET_ALL_EXITS);
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
 					 ExitModel model = new ExitModel( resultSet.getString("exit.exitid"), resultSet.getString("exit.destination"), 

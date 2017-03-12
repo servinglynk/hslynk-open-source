@@ -1,6 +1,7 @@
 package com.servinglynk.report.engine;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.business.HomePageDataBeanMaker;
+import com.servinglynk.report.csvcontroller.Q04aCSVController;
 
 public class Reporter {
 	
@@ -30,20 +32,19 @@ public class Reporter {
         
     private void exportToPDF(boolean sageReport) {
         try {         
-//        	InputStream inputStream = new FileInputStream ("C:/workspace/hudAnnualReport/src/main/resources/HUD_Annual_Report_27012017.jrxml");
-        	
-//        	InputStream inputStream = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report_27012017.jrxml");
-        	InputStream inputStream = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/homePage.jrxml");
+        	ClassLoader classLoader = Reporter.class.getClassLoader();
+			File file = new File(classLoader.getResource("homePage.jrxml").getFile());
+	    	InputStream inputStream = new FileInputStream(file);
             
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("cp0004","4818782f-46f2-4783-836f-cea1c9b1b7f2",sageReport);
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport);
         	if(sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
     		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-    		    JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/workspace/hmis-hud-reports/src/main/resources/HMIS_REPORT_27012017.pdf"); 
+    		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMIS_REPORT_27012017.pdf"); 
 
         	}
      

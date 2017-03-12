@@ -17,7 +17,6 @@ import com.servinglynk.report.bean.ReportData;
 public class Q06aReportValidationsTableDataBeanMaker {
 	
 	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(String schema,ReportData data){
-	       
 		Q06aReportValidationsTableDataBean q06aReportValidationsTableBean = new Q06aReportValidationsTableDataBean();
 		List<ClientModel> clients = data.getClients();
 		List<ClientModel> adults = clients.parallelStream().filter(client -> isAdult(client.getDob())).collect(Collectors.toList());
@@ -28,11 +27,17 @@ public class Q06aReportValidationsTableDataBeanMaker {
 		q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
 		q06aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
 		q06aReportValidationsTableBean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(ageUnknown !=null ? ageUnknown.size() :0));
+		
+		q06aReportValidationsTableBean.setTotNumOfPersonServed(BigInteger.valueOf(0));
+		q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(0));
+		q06aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(0));
+		q06aReportValidationsTableBean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(0));
 		q06aReportValidationsTableBean.setTotNoOfLeavers(BigInteger.valueOf(3));
 		q06aReportValidationsTableBean.setTotNoOfAdultLeavers(BigInteger.valueOf(4));
 		q06aReportValidationsTableBean.setTotNoOfStayers(BigInteger.valueOf(13));
 		q06aReportValidationsTableBean.setTotNoOfAdultStayers(BigInteger.valueOf(8));
-		q06aReportValidationsTableBean.setNoOfVeterans(BigInteger.valueOf(veterans !=null ? veterans.size() :0));
+//		q06aReportValidationsTableBean.setNoOfVeterans(BigInteger.valueOf(veterans !=null ? veterans.size() :0));
+		q06aReportValidationsTableBean.setNoOfVeterans(BigInteger.valueOf(0));
 		q06aReportValidationsTableBean.setNoOfChronicallyHomelessPersons(BigInteger.valueOf(11));
 		q06aReportValidationsTableBean.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(1));
 		q06aReportValidationsTableBean.setNoOfChildHeadsOfHousehold(BigInteger.valueOf(1));
