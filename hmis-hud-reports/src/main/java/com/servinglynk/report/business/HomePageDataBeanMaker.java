@@ -22,11 +22,9 @@ import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
 import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
-import com.servinglynk.report.bean.Q4aBean;
+import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.csvcontroller.Q04aCSVController;
-import com.servinglynk.report.csvcontroller.Q05aCSVController;
-import com.servinglynk.report.csvcontroller.Q06aCSVController;
+import com.servinglynk.report.csvcontroller.CSVGenerator;
 
 public class HomePageDataBeanMaker {
 	
@@ -49,7 +47,7 @@ public class HomePageDataBeanMaker {
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
 			List<Q04aDataBean> q04aDataBeanList = Q04aDataBeanMaker.getQ04aDataBeanList(schema,projectId);
 			if(sageReport) {
-				Q04aCSVController.q04aExportoCSV(q04aDataBeanList);
+				CSVGenerator.buildReport(q04aDataBeanList, "q04a.jrxml", "q04a.csv");
 			}
 			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 			ReportData data = new ReportData();
@@ -66,14 +64,15 @@ public class HomePageDataBeanMaker {
 			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(schema,projectId,data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
-				Q05aCSVController.buildReport(q05aHMISCDDQDataList);
+				CSVGenerator.buildReport(q05aHMISCDDQDataList, "q05a.jrxml", "q05a.csv");
 			}
 			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(schema,data);
 			if(q06aReportValidationsTableList != null) {
-				Q06aCSVController.buildReport(q06aReportValidationsTableList);
+				CSVGenerator.buildReport(q06aReportValidationsTableList, "q06a.jrxml", "q06a.csv");
 			}
 			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
-			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList());
+			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList();
+			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(q06bNumberOfPersonsServedTableList);
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList());
 			homePageDataBean.setQ07aHouseholdsServedDataBean(Q07aHouseHoldsDataBeanMaker.getQ07aHouseholdsServeList());
 			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(Q07bPointInTimeCountHouseholdsLastWednesdayDataBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList());

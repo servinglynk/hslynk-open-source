@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q06bNumberOfPersonsServedDataBean {
+public class Q06bNumberOfPersonsServedDataBean extends ReportBean{
 
 	private BigInteger npAdultsUhtTot;
 	private BigInteger npAdultsWcTot;

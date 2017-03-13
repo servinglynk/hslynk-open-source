@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q04aDataBean {
+public class Q04aDataBean extends ReportBean{
 	
 	private BigInteger q04aHmisProjectIdService;
 	private String q04aHmisProjectType;

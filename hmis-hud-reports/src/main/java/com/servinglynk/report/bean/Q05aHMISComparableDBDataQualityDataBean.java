@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q05aHMISComparableDBDataQualityDataBean {
+public class Q05aHMISComparableDBDataQualityDataBean extends ReportBean {
 
 	private BigInteger q05aFirstName;
 	private BigInteger q05aDNCFirstName;
