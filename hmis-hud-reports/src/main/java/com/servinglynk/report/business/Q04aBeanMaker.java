@@ -11,7 +11,7 @@ import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q04aDataBean;
 
-public class Q04aDataBeanMaker {
+public class Q04aBeanMaker {
 	
 			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q09bNumberofPersonsEngagedDataBean;
 
-public class Q09bNumberofPersonsEngagedDataBeanMaker {
+public class Q09bBeanMaker {
 	
 	public static List<Q09bNumberofPersonsEngagedDataBean> getQ09bNumberofPersonsEngagedList(){
 		

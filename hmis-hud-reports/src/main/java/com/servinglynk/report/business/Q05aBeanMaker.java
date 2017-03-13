@@ -13,7 +13,7 @@ import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q05aHMISComparableDBDataQualityDataBeanMaker {
+public class Q05aBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(String schema,String projectId,ReportData data){
 		List<EnrollmentModel> enrollments = data.getEnrollments();

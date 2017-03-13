@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 
-public class Q13c1PhysicalAndMentalHealthConditionsForStayersDataBeanMaker {
+public class Q13c1BeanMaker {
 	
 	public static List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> getQ13c1PhysicalAndMentalHealthConditionsForStayersList(){
 	

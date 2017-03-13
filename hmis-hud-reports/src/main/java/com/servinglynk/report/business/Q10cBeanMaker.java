@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q10cGenderOfPersonsMissingAgeInformationDataBean;
 
-public class Q10cGenderOfPersonsMissingAgeInformationDataBeanMaker {
+public class Q10cBeanMaker {
 	
 	public static List<Q10cGenderOfPersonsMissingAgeInformationDataBean> getQ10CGPMIList(){
 		

@@ -47,7 +47,7 @@ public class HomePageDataBeanMaker {
 			populateProject(schema, projectId, homePageDataBean);
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			List<Q04aDataBean> q04aDataBeanList = Q04aDataBeanMaker.getQ04aDataBeanList(schema,projectId);
+			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projectId);
 			if(sageReport) {
 				CSVGenerator.buildReport(q04aDataBeanList, "q04a.jrxml", "q04a.csv");
 			}
@@ -63,44 +63,44 @@ public class HomePageDataBeanMaker {
 			List<ExitModel> allExits = getAllExits(schema);
 			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 			data.setExits(filteredExits);
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aHMISComparableDBDataQualityDataBeanMaker.getQ05aHMISCDDQDataList(schema,projectId,data);
+			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aHMISCDDQDataList(schema,projectId,data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "q05a.jrxml", "q05a.csv");
 			}
-			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aReportValidationsTableDataBeanMaker.getQ06aReportValidationsTableList(schema,data);
+			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getQ06aReportValidationsTableList(schema,data);
 			if(q06aReportValidationsTableList != null) {
 				CSVGenerator.buildReport(q06aReportValidationsTableList, "q06a.jrxml", "q06a.csv");
 			}
 			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
-			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList(schema,data);
+			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(schema,data);
 			CSVGenerator.buildReport(q06bNumberOfPersonsServedTableList, "q06b.jrxml", "q06b.csv");
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(q06bNumberOfPersonsServedTableList);
-			List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
+			List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(q06cPointInTimeCountPersonsLastWednesdayList);
 			CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "q06c.jrxml", "q06c.csv");
-			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServeList = Q07aHouseHoldsDataBeanMaker.getQ07aHouseholdsServeList();
+			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServeList = Q07aBeanMaker.getQ07aHouseholdsServeList();
 			homePageDataBean.setQ07aHouseholdsServedDataBean(q07aHouseholdsServeList);
 			CSVGenerator.buildReport(q07aHouseholdsServeList, "q07a_Households_Served.jrxml", "q07a.csv");
-			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(Q07bPointInTimeCountHouseholdsLastWednesdayDataBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList());
-			homePageDataBean.setqQ09aNumberPersonsContactedDataBean(Q09aNumberPersonsContactedDataBeanMaker.getQ09aNumberPersonsContactedList());
-			homePageDataBean.setQ09bNumberofPersonsEngagedDataBean(Q09bNumberofPersonsEngagedDataBeanMaker.getQ09bNumberofPersonsEngagedList());
-			homePageDataBean.setQ10aGenderOfAdultsDataBean(Q10aGenderOfAdultsDataBeanMaker.getQ10AGenderOfAdultsList());
-			homePageDataBean.setQ10bGenderOfChildrenDataBean(Q10bGenderOfChildrenDataBeanMaker.getQ10bGenderOfChildrenList());
-			homePageDataBean.setQ10cGenderOfPersonsMissingAgeInformationDataBean(Q10cGenderOfPersonsMissingAgeInformationDataBeanMaker.getQ10CGPMIList());
-			homePageDataBean.setQ11AgeDataBean(Q11AgeDataBeanMaker.getQ11AgeList());
-			homePageDataBean.setQ12aRaceDataBean(Q12aRaceDataBeanMaker.getQ12aRaceList());
-			homePageDataBean.setQ12bEthnicityDataBean(Q12bEthnicityDataBeanMaker.getQ12bEthnicityList());
-			homePageDataBean.setQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean(Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBeanMaker.getQ13a1PhysicalAndMentalHealthConditionsAtEntryList());
-			homePageDataBean.setQ13a2NumberOfConditionsAtEntryDataBean(Q13a2NumberOfConditionsAtEntryDataBeanMaker.getQ13a2NumberOfConditionsAtEntryList());
-			homePageDataBean.setQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean(Q13b1PhysicalAndMentalHealthConditionsAtExitDataBeanMaker.getQ13b1PhysicalAndMentalHealthConditionsAtExitList());
-			homePageDataBean.setQ13b2NumberOfConditionsAtExitDataBean(Q13b2NumberOfConditionsAtExitDataBeanMaker.getQ13b2NumberOfConditionsAtExitList());
-			homePageDataBean.setQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean(Q13c1PhysicalAndMentalHealthConditionsForStayersDataBeanMaker.getQ13c1PhysicalAndMentalHealthConditionsForStayersList());
-			homePageDataBean.setQ13c2NumberOfConditionsForStayerDataBean(Q13c2NumberOfConditionsForStayerDataBeanMaker.getQ13c2NumberOfConditionsForStayerList());
-			homePageDataBean.setQ14aDomesticViolenceHistoryDataBean(Q14aDomesticViolenceHistoryDataBeanMaker.getQ14aDomesticViolenceHistoryList());
-			homePageDataBean.setQ14bPersonsFleeingDomesticViolenceDataBean(Q14bPersonsFleeingDomesticViolenceDataBeanMaker.getQ14bPersonsFleeingDomesticViolenceList());
-			homePageDataBean.setQ15ResidencePriorToProgramEntryDataBean(Q15ResidencePriorToProgramEntryDataBeanMaker.getQ15ResidencePriorToProgramEntryList());
-			homePageDataBean.setQ16CashIncomeRangesDataBean(Q16CashIncomeRangesDataBeanMaker.getQ16CashIncomeRangesList());
+			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(Q07bBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList());
+			homePageDataBean.setqQ09aNumberPersonsContactedDataBean(Q09aDataBeanMaker.getQ09aNumberPersonsContactedList());
+			homePageDataBean.setQ09bNumberofPersonsEngagedDataBean(Q09bBeanMaker.getQ09bNumberofPersonsEngagedList());
+			homePageDataBean.setQ10aGenderOfAdultsDataBean(Q10aBeanMaker.getQ10AGenderOfAdultsList());
+			homePageDataBean.setQ10bGenderOfChildrenDataBean(Q10bBeanMaker.getQ10bGenderOfChildrenList());
+			homePageDataBean.setQ10cGenderOfPersonsMissingAgeInformationDataBean(Q10cBeanMaker.getQ10CGPMIList());
+			homePageDataBean.setQ11AgeDataBean(Q11BeanMaker.getQ11AgeList());
+			homePageDataBean.setQ12aRaceDataBean(Q12aBeanMaker.getQ12aRaceList());
+			homePageDataBean.setQ12bEthnicityDataBean(Q12bBeanMaker.getQ12bEthnicityList());
+			homePageDataBean.setQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean(Q13a1BeanMaker.getQ13a1PhysicalAndMentalHealthConditionsAtEntryList());
+			homePageDataBean.setQ13a2NumberOfConditionsAtEntryDataBean(Q13a2BeanMaker.getQ13a2NumberOfConditionsAtEntryList());
+			homePageDataBean.setQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean(Q13b1BeanMaker.getQ13b1PhysicalAndMentalHealthConditionsAtExitList());
+			homePageDataBean.setQ13b2NumberOfConditionsAtExitDataBean(Q13b2BeanMaker.getQ13b2NumberOfConditionsAtExitList());
+			homePageDataBean.setQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean(Q13c1BeanMaker.getQ13c1PhysicalAndMentalHealthConditionsForStayersList());
+			homePageDataBean.setQ13c2NumberOfConditionsForStayerDataBean(Q13c2BeanMaker.getQ13c2NumberOfConditionsForStayerList());
+			homePageDataBean.setQ14aDomesticViolenceHistoryDataBean(Q14aBeanMaker.getQ14aDomesticViolenceHistoryList());
+			homePageDataBean.setQ14bPersonsFleeingDomesticViolenceDataBean(Q14bBeanMaker.getQ14bPersonsFleeingDomesticViolenceList());
+			homePageDataBean.setQ15ResidencePriorToProgramEntryDataBean(Q15BeanMaker.getQ15ResidencePriorToProgramEntryList());
+			homePageDataBean.setQ16CashIncomeRangesDataBean(Q16BeanMaker.getQ16CashIncomeRangesList());
 			homePageDataBean.setQ17CashIncomeSourcesDataBean(Q17CashIncomeSourcesDataBeanMaker.getQ17CashIncomeSourcesList());
 			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList());
 			homePageDataBean.setQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBean(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList());

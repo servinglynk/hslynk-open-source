@@ -14,7 +14,7 @@ import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q06aReportValidationsTableDataBeanMaker {
+public class Q06aBeanMaker {
 	
 	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(String schema,ReportData data){
 		Q06aReportValidationsTableDataBean q06aReportValidationsTableBean = new Q06aReportValidationsTableDataBean();

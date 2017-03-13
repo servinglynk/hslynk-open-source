@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
 
-public class Q16CashIncomeRangesDataBeanMaker {
+public class Q16BeanMaker {
 	
 	public static List<Q16CashIncomeRangesDataBean> getQ16CashIncomeRangesList(){
 		

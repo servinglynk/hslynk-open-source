@@ -7,11 +7,13 @@ import java.util.List;
 import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q06bNumberOfPersonsServedDataBeanMaker {
+public class Q06bBeanMaker  {
 	
 	public static List<Q06bNumberOfPersonsServedDataBean> getQ06bNumberOfPersonsServedTableList(String schema,ReportData data){
 		Q06bNumberOfPersonsServedDataBean q06bNumberOfPersonsServedDataBean = new Q06bNumberOfPersonsServedDataBean();
 		
+	//	q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
+	//	q06aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
 		q06bNumberOfPersonsServedDataBean.setNpTotalAdults(BigInteger.valueOf(11));
 		q06bNumberOfPersonsServedDataBean.setNpAdultsWcTot(BigInteger.valueOf(1));
 		q06bNumberOfPersonsServedDataBean.setNpAdultsWocTot(BigInteger.valueOf(0));

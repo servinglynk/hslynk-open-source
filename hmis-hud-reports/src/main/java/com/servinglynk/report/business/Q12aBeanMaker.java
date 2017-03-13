@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q12aRaceDataBean;
 
-public class Q12aRaceDataBeanMaker {
+public class Q12aBeanMaker {
 	
 	public static List<Q12aRaceDataBean> getQ12aRaceList(){
 		

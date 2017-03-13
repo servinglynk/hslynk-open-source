@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q15ResidencePriorToProgramEntryDataBean;
 
-public class Q15ResidencePriorToProgramEntryDataBeanMaker {
+public class Q15BeanMaker {
 	
 	public static List<Q15ResidencePriorToProgramEntryDataBean> getQ15ResidencePriorToProgramEntryList() {
 		

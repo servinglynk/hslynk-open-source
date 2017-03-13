@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q11AgeDataBean;
 
-public class Q11AgeDataBeanMaker {
+public class Q11BeanMaker {
 	
 	public static List<Q11AgeDataBean> getQ11AgeList(){
 		

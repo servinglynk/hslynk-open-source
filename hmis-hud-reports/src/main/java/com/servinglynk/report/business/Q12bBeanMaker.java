@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q12bEthnicityDataBean;
 
-public class Q12bEthnicityDataBeanMaker {
+public class Q12bBeanMaker {
 	
 	public static List<Q12bEthnicityDataBean> getQ12bEthnicityList(){
 		

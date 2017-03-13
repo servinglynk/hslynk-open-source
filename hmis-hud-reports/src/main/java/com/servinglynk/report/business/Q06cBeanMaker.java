@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
 
-public class Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker {
+public class Q06cBeanMaker {
 
 	public static List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(){
 		

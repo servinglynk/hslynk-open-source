@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q13b2NumberOfConditionsAtExitDataBean;
 
-public class Q13b2NumberOfConditionsAtExitDataBeanMaker {
+public class Q13b2BeanMaker {
 	
 	public static List<Q13b2NumberOfConditionsAtExitDataBean> getQ13b2NumberOfConditionsAtExitList(){
 		

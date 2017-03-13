@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q10aGenderOfAdultsDataBean;
 
-public class Q10aGenderOfAdultsDataBeanMaker {
+public class Q10aBeanMaker {
 	
 	public static List<Q10aGenderOfAdultsDataBean> getQ10AGenderOfAdultsList(){
 		

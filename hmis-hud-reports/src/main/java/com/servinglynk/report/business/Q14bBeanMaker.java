@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q14bPersonsFleeingDomesticViolenceDataBean;
 
-public class Q14bPersonsFleeingDomesticViolenceDataBeanMaker {
+public class Q14bBeanMaker {
 	
 	public static List<Q14bPersonsFleeingDomesticViolenceDataBean> getQ14bPersonsFleeingDomesticViolenceList(){
 		

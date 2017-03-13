@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
 
-public class Q07aHouseHoldsDataBeanMaker {
+public class Q07aBeanMaker {
 	
         public static List<Q07aHouseholdsServedDataBean> getQ07aHouseholdsServeList() {
     	

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 
-public class Q07bPointInTimeCountHouseholdsLastWednesdayDataBeanMaker {;
+public class Q07bBeanMaker {;
 	
 	public static List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayList(){
 		

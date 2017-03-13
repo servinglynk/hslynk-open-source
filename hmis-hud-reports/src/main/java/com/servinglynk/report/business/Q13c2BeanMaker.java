@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
 
-public class Q13c2NumberOfConditionsForStayerDataBeanMaker {
+public class Q13c2BeanMaker {
 
 	public static List<Q13c2NumberOfConditionsForStayerDataBean> getQ13c2NumberOfConditionsForStayerList(){
 		Q13c2NumberOfConditionsForStayerDataBean q13c2NumberOfConditionsForStayersTableBean = new Q13c2NumberOfConditionsForStayerDataBean();
