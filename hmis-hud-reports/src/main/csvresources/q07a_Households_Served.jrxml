@@ -33,7 +33,6 @@
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Q07a: Households Served]]></text>
 				</staticText>
 			</band>
 			<band height="37">
@@ -49,8 +48,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[With Children
-and Adults]]></text>
+					<text><![CDATA[With Children and Adults]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="101" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="c949227a-bc17-4d4b-a8aa-e4c9b4cafb75"/>
@@ -78,8 +76,7 @@ and Adults]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Without
-Children]]></text>
+					<text><![CDATA[Without Children]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="101" y="0" width="75" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="61bf91de-0de8-4a34-8b51-94d890fa2246"/>
@@ -107,8 +104,7 @@ Children]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[With Only
-Children]]></text>
+					<text><![CDATA[With Only Children]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="458" y="0" width="97" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="d2d1062f-abf0-4878-9485-d797678aa57e"/>
@@ -214,7 +210,6 @@ Children]]></text>
 					<textElement verticalAlignment="Middle" markup="none">
 						<font size="10" isBold="false"/>
 					</textElement>
-					<text><![CDATA[ Universe of data: All active heads of household.]]></text>
 				</staticText>
 			</band>
 		</groupFooter>

@@ -23,6 +23,8 @@ import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
 import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
+import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.csvcontroller.CSVGenerator;
 
@@ -71,10 +73,15 @@ public class HomePageDataBeanMaker {
 				CSVGenerator.buildReport(q06aReportValidationsTableList, "q06a.jrxml", "q06a.csv");
 			}
 			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
-			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList();
+			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bNumberOfPersonsServedDataBeanMaker.getQ06bNumberOfPersonsServedTableList(schema,data);
+			CSVGenerator.buildReport(q06bNumberOfPersonsServedTableList, "q06b.jrxml", "q06b.csv");
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(q06bNumberOfPersonsServedTableList);
-			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList());
-			homePageDataBean.setQ07aHouseholdsServedDataBean(Q07aHouseHoldsDataBeanMaker.getQ07aHouseholdsServeList());
+			List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cPointInTimeCountPersonsLastWednesdayDataBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
+			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(q06cPointInTimeCountPersonsLastWednesdayList);
+			CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "q06c.jrxml", "q06c.csv");
+			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServeList = Q07aHouseHoldsDataBeanMaker.getQ07aHouseholdsServeList();
+			homePageDataBean.setQ07aHouseholdsServedDataBean(q07aHouseholdsServeList);
+			CSVGenerator.buildReport(q07aHouseholdsServeList, "q07a_Households_Served.jrxml", "q07a.csv");
 			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(Q07bPointInTimeCountHouseholdsLastWednesdayDataBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList());
 			homePageDataBean.setqQ09aNumberPersonsContactedDataBean(Q09aNumberPersonsContactedDataBeanMaker.getQ09aNumberPersonsContactedList());
 			homePageDataBean.setQ09bNumberofPersonsEngagedDataBean(Q09bNumberofPersonsEngagedDataBeanMaker.getQ09bNumberofPersonsEngagedList());
