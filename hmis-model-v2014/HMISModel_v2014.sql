@@ -1284,7 +1284,7 @@ CREATE TABLE "v2014".enrollment
  continuouslyHomelessOneYear "v2014".youth_age_group,
 disablingCondition "v2014".five_val_dk_refused,
 entrydate timestamp,
-householdid uuid,
+householdid text,
 housingstatus "v2014".housing_status,
 monthsHomelessPastThreeYears "v2014".months_homeless_past_3_years,
 monthsHomelessThisTime "v2014".months_homeless_this_time,

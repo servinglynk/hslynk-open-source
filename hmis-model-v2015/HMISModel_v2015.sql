@@ -1591,7 +1591,7 @@ CREATE TABLE "v2015".enrollment
  --continuouslyHomelessOneYear "v2015".youth_age_group,
 	projectentryid uuid,
 	entrydate timestamp,
-	householdid uuid,
+	householdid text,
 	relationshiptohoh "v2015".relationship_to_head_of_household,
 	otherresidenceprior text,
 	residencePrior "v2015".residence_prior,

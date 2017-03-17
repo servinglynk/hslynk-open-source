@@ -14,7 +14,7 @@ public class Enrollment extends ClientModel {
 	private Integer continuouslyhomelessoneyear;
 	private Integer  disablingcondition;
 	private Date  entrydate;
-	private UUID  householdid;
+	private String  householdid;
 	private Integer  housingstatus;
 	private Integer  monthshomelesspastthreeyears;
 	private Integer  monthshomelessthistime;
@@ -72,11 +72,11 @@ public class Enrollment extends ClientModel {
 		this.entrydate = entrydate;
 	}
 
-	public UUID getHouseholdid() {
+	public String getHouseholdid() {
 		return householdid;
 	}
 
-	public void setHouseholdid(UUID householdid) {
+	public void setHouseholdid(String householdid) {
 		this.householdid = householdid;
 	}
 

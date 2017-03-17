@@ -66,6 +66,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					model
 							.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 									.getContinuouslyHomelessOneYear())));
+					model.setHouseholdid(enrollment.getHouseholdID());
 					model
 							.setHousingstatus(EnrollmentHousingstatusEnum
 									.lookupEnum(BasicDataGenerator

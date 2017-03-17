@@ -338,7 +338,7 @@ public class TestData {
 			enrollment.setContinuouslyhomelessoneyear(1);
 			enrollment.setDisablingcondition(0);
 			enrollment.setEntrydate(new Date());
-			enrollment.setHouseholdid(UUID.randomUUID());
+			enrollment.setHouseholdid("abc");
 			enrollment.setHousingstatus(0);
 			enrollment.setMonthshomelesspastthreeyears(7);
 			enrollment.setMonthshomelessthistime(1);

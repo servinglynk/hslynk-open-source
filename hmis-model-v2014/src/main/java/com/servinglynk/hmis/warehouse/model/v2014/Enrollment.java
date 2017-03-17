@@ -101,7 +101,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private Set<HealthStatus> healthStatuses = new HashSet<HealthStatus>();
 
 	/** Field mapping. */
-	private java.util.UUID householdid;
+	private String householdid;
 	/** Field mapping. */
 	private EnrollmentHousingstatusEnum housingstatus;
 	/** Field mapping. */
@@ -664,8 +664,8 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	 * @return A java.util.UUID object (this.householdid)
 	 */
 	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getHouseholdid() {
+	@Column( name = "householdid" )
+	public String getHouseholdid() {
 		return this.householdid;
 		
 	}
@@ -676,7 +676,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	 * Set the value related to the column: householdid.
 	 * @param householdid the householdid value you wish to set
 	 */
-	public void setHouseholdid(final java.util.UUID householdid) {
+	public void setHouseholdid(final String householdid) {
 		this.householdid = householdid;
 	}
 
