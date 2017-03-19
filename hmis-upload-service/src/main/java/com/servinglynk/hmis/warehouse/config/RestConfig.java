@@ -3,9 +3,13 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
@@ -17,13 +21,16 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.BulkUploadController;
 import com.servinglynk.hmis.warehouse.rest.FileUploadController;
 
+
 @Configuration
-@Import({ com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
-		com.servinglynk.hmis.warehouse.service.config.AppConfig.class,
-		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+@Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
+		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
+		com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
@@ -62,12 +69,20 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		restTemplate.setMessageConverters(messageConverters);
 		return restTemplate;
 	}
+
+	@Autowired
+	Environment env;
+	
+	@Bean
+	PropertyReaderServiceImpl propertyReaderService(){
+		return new PropertyReaderServiceImpl();
+	}
 	
 	 @Bean(name="multipartResolver")
 	 public CommonsMultipartResolver commonsMultipartResolver(){
 	     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 	     commonsMultipartResolver.setDefaultEncoding("utf-8");
-	     commonsMultipartResolver.setMaxUploadSize(403006744);
+	     commonsMultipartResolver.setMaxUploadSize(605783057);
 	     return commonsMultipartResolver;
 	 }
 	 
@@ -75,4 +90,14 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	public FileUploadController fileUploadController() {
 		return new FileUploadController();
 	}
+	@Bean
+	public BulkUploadController bulkUploadController() {
+		return new BulkUploadController();
+	}
+
+	@PostConstruct
+	 public void initializeDatabasePropertySourceUsage() {
+		 propertyReaderService().loadProperties("HMIS_AUTHORIZATION_SERVICE");
+	 }
+
 }

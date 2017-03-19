@@ -8,11 +8,29 @@ app.filter('startFrom', function() {
         return [];
     }
 });
-app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+
+app.controller('ModalInstanceLogCtrl', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+    $scope.datajson = datajson;
+});
+
+app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
 	$scope.sessionToken = $sessionStorage.sessionToken;
+    Service.GetFilesListRECENT($http,
+    	    //success
+    	    function(data){
+    	        $scope.listRECENT = data;
+    	        $scope.currentPageRECENT = 1; //current page
+    	        $scope.entryLimitRECENT = 10; //max no of items to display in a page
+    	        $scope.filteredItemsRECENT = $scope.listRECENT.length; //Initially for no filter  
+    	        $scope.totalItemsRECENT = $scope.listRECENT.length;
+    	    },$scope)
+    	  
+    	    $scope.setPageRECENT = function (pageNo) {
+    	        $scope.currentPageRECENT = pageNo;
+    	    };
     Service.GetFilesListSTAGING($http,
     //success
     function(data){
@@ -68,4 +86,25 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
     		    $scope.setPageDELETED = function (pageNo) {
     		        $scope.currentPageDELETED = pageNo;
     		    };
+    
+    		    $scope.openlog = function (id,year) {
+    		        $scope.idForLog = id
+    		        $scope.year = year;
+    		Service.GetFilesLogList($http,
+            //success
+            function (data) {
+                var modalInstance = $modal.open({
+                    templateUrl: 'templates/partial/syncfilelogpopopup.html',
+                    controller: 'ModalInstanceLogCtrl',
+                    resolve: {
+                        datajson: function () {
+                            return data.bulkUploadActivities.bulkUploadActivities;
+                        }
+                    }
+                });
+
+            }, $scope)
+
+
+      };
 });

@@ -16,7 +16,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -49,7 +48,7 @@ import com.servinglynk.hmis.warehouse.notification.scheduler.dao.WorkerLineDao;
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.notification.business.service","com.servinglynk.hmis.warehouse.notification.framework","com.servinglynk.hmis.warehouse.notification.rest.endpoint"})
 @EnableScheduling
 @EnableTransactionManagement
-@PropertySource("classpath:com/servinglynk/hmis/warehouse/notification/notification.properties")
+@PropertySource("classpath:notification.properties")
 public class NotificationConfig  {
 	
 	@Autowired
@@ -201,7 +200,7 @@ public class NotificationConfig  {
 		 return new HibernateTransactionManager(sessionFactory);
 	 }
 
-
+/*
 	 
 	 @Bean
 	 public JavaMailSenderImpl mailSender(){
@@ -214,15 +213,15 @@ public class NotificationConfig  {
 		 return mailSender;
 	 }
 	 
-	 
+*/	 
 	 public Properties getJavaMailProperties(){
 		 Properties properties=new Properties();
 		 
 		 properties.put("mail.smtp.auth","true");
+		 //properties.put("mail.smtp.starttls.required","true");
 		 properties.put("mail.smtp.starttls.enable","true");
 		 properties.put("mail.transport.protocol","smtp");
 		 properties.put("mail.debug","true");
-		 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		 properties.put("mail.smtp.ssl.enable","true");
 		 	
 		 return properties;

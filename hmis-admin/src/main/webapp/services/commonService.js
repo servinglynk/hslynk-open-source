@@ -40,6 +40,20 @@ var Service= ({
 				if(success)success(data)
 			});
     },
+    GetFilesListRECENT: function ($http, success, $scope) {
+        var apiurl = "/hmis-upload-service/rest/bulkupload?status=RECENT";
+      	 console.log('Session Token..'+$scope.sessionToken);
+            $http({
+                method: 'GET',
+                url: apiurl,
+                headers: {
+                  'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                    'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                    'Accept': 'application/json;odata=verbose'}
+            }).success(function (data) {
+                if(success)success(data.BulkUploads.bulkUploads)
+            });
+      },
     GetFilesListSTAGING: function ($http, success, $scope) {
         var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
       	 console.log('Session Token..'+$scope.sessionToken);
@@ -82,7 +96,7 @@ var Service= ({
        });
  },        
     GetFilesListERROR: function ($http, success,$scope) {
-    	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
+         var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
        	 console.log('Session Token..'+$scope.sessionToken);
              $http({
                  method: 'GET',
@@ -94,9 +108,39 @@ var Service= ({
              }).success(function (data) {
                  if(success)success(data.BulkUploads.bulkUploads)
              });
-       },        
+    },
+    GetFilesLogList: function ($http,success, $scope) {
+    	var apiurl = "/hmis-clientapi-v"+$scope.year+"/rest/bulkupload/activities/"+$scope.idForLog;
+        console.log('Session Token..' + $scope.sessionToken);
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token=' + $scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'
+            }
+        }).success(function (data) {
+            if (success) success(data)
+        });
+    },
+    GetErrorMessage: function ($http, success, $scope) {
+        var apiurl = "/hmis-clientapi-v"+$scope.year+"/rest/bulkupload/errors/"+$scope.id;
+        console.log('Session Token..' + $scope.sessionToken);
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token=' + $scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'
+            }
+        }).success(function (data) {
+            if (success) success(data.bulkUploadErrors.bulkUploadErrors)
+        });
+    },
  GetSyncFilesList: function ($http, success) {
-        $http.get('/hmis-bulk-loader/sync').success(function (data) {
+        $http.get('/hmis-bulk-loader-v2014/sync').success(function (data) {
 				if(success)success(data)
 			});
     },
@@ -208,8 +252,33 @@ SaveSetting: function ($http,$scope, success,error) {
             if(success)success(data)
         }).error(error);
   		
-}
-,
+},
+submitHivePasswordForm: function ($http,$scope, success,error) {
+	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
+       console.log('Session Token..'+$scope.sessionToken);
+    
+       $http({
+           method: 'POST',
+           url: apiurl,
+           data : 
+           	{ "account":{
+                   "username": $scope.emailAddress,
+                   "emailAddress":$scope.emailAddress,
+                   "password":$scope.password,
+                   "firstName":$scope.firstName,
+                   "lastName":$scope.lastName,
+                 	"accountId":$scope.accountId
+                }
+          },
+           headers: {
+             'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+               'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+               'Accept': 'application/json;odata=verbose'}
+       }).success(function (data) {
+           if(success)success(data)
+       }).error(error);
+ 		
+},
 SendRequestReport: function ($http,$scope, success,error) {
 	data =$scope.form;
 	 $http.get('/hmis-bulk-loader/mapper/reportMaster?report='+  data.report +'&id='+  data.project.exportID +'&email='+  data.email +'&year='+  data.year +'').success(function(){ success() }).error(error);
@@ -219,9 +288,10 @@ SendRequestReport: function ($http,$scope, success,error) {
 bulkupload: function ($http, $scope,file, success, error) {
     var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();
-     formData.append("file", $scope.form.inputfile);
-     formData.append("name", $scope.form.inputfilename);
-
+    // formData.append("file", $scope.form.inputfile);
+     formData.append("year", $scope.form.year);
+     formData.append("fileName", $scope.fileName);
+     formData.append("bucketName", $scope.bucketName);
     $http.post(apiurl, formData, {
          transformRequest: angular.identity,
     headers: {
@@ -279,7 +349,23 @@ GetProjectGroups: function ($http,$scope, success) {
           if(success)success(data)
       });
 },
-    
+GetEligReq: function ($http,$scope, success) {
+	  var apiurl = "/inventory-api/rest/projects/eligibilityrequirements?page=0&size=100";
+	 console.log('Session Token..'+$scope.sessionToken);
+    $http({
+        method: 'GET',
+        data:'',
+        cache:false,
+        url: apiurl,
+        headers: {
+          'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+            'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+            'Accept': 'application/json;odata=verbose',
+            'Content-Type': 'application/json'}
+    }).success(function (data) {
+        if(success)success(data)
+    });
+},
     createUser : function ($http, $scope, success, error) {
         var apiurl = "/hmis-user-service/rest/accounts";
         console.log('Session Token..'+$scope.sessionToken);
@@ -293,11 +379,10 @@ GetProjectGroups: function ($http,$scope, success) {
                     "username": data.username,
                     "emailAddress":data.emailAddress,
                     "password":data.password,
+                    "confirmPassword" : data.confirmPassword,
                     "firstName":data.firstName,
                     "middleName":data.middleName,
                     "lastName":data.lastName,
-                    "gender":data.gender,
-                    "organizationId":"b5598c6c-d021-4f5f-9695-77f7f4685ed2",
                     "role" : {
                     	"id": data.role.id
                     },
@@ -366,7 +451,7 @@ GetProjectGroups: function ($http,$scope, success) {
         }).error(error);
         },
     getToken: function ($http, $scope, success, error) {
-        var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=http://127.0.0.1:8081/hmis-admin/#/admin/dashboard";
+        var apiurl = "/hmis-authorization-service/rest/token?grant_type=authorization_code&code="+$scope.authToken+"&redirect_uri=http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-admin/#/admin/dashboard";
         $http({
             method: 'POST',
             url: apiurl,

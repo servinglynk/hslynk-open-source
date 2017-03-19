@@ -21,10 +21,11 @@ import com.servinglynk.hmis.warehouse.rest.DedupController;
 import com.servinglynk.hmis.warehouse.rest.service.DedupService;
 import com.servinglynk.hmis.warehouse.rest.service.DedupServiceImpl;
 
+
 @Configuration
-@Import({ com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
-		com.servinglynk.hmis.warehouse.service.config.AppConfig.class,
-		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+@Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
+		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
+		com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling

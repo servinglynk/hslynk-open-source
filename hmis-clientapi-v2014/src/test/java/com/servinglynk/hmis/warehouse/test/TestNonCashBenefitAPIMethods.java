@@ -1,0 +1,567 @@
+package com.servinglynk.hmis.warehouse.test;
+
+import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_STATUS_ACCEPTED;
+import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_ACCOUNT_CREATION;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.UUID;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.servinglynk.hmis.warehouse.common.Constants;
+import com.servinglynk.hmis.warehouse.config.ClientAPIConfig;
+import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
+import com.servinglynk.hmis.warehouse.core.model.Client;
+import com.servinglynk.hmis.warehouse.core.model.Enrollment;
+import com.servinglynk.hmis.warehouse.core.model.Errors;
+import com.servinglynk.hmis.warehouse.core.model.NonCashBenefit;
+import com.servinglynk.hmis.warehouse.core.model.NonCashBenefits;
+import com.servinglynk.hmis.warehouse.core.model.Organization;
+import com.servinglynk.hmis.warehouse.core.model.Parameter;
+import com.servinglynk.hmis.warehouse.core.model.PermissionSet;
+import com.servinglynk.hmis.warehouse.core.model.Profile;
+import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
+import com.servinglynk.hmis.warehouse.core.model.Role;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.Verification;
+import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
+import com.servinglynk.hmis.warehouse.test.core.TestData;
+import com.servinglynk.hmis.warehouse.test.core.WebserviceTestExecutor;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {ClientAPIConfig.class})
+@WebAppConfiguration
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
+public class TestNonCashBenefitAPIMethods {
+
+    protected final Log LOG = LogFactory.getLog(getClass());
+
+    @Autowired WebApplicationContext wac;
+
+    @Autowired ParentServiceFactory serviceFactory;
+
+    String[] methods = {"CLIENT_API_CREATE_NONCASHBENEFIT","CLIENT_API_UPDATE_NONCASHBENEFIT","CLIENT_API_DELETE_NONCASHBENEFIT","CLIENT_API_GET_NONCASHBENEFIT_BY_ID","CLIENT_API_GET_ALL_ENROLLMENT_NONCASHBENEFIT"};
+
+
+  	public Session createSession(String username,String pwd) throws Exception {
+		WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+		executor.setAcceptHeaderAsJson();
+		executor.setContentTypeHeaderAsJson();
+		executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+		
+		Session session = new Session();
+		Account account = new Account();
+		account.setUsername(username);
+		account.setPassword(pwd);
+		session.setAccount(account);
+		
+		serviceFactory.getSessionService().createSession(session, "MASTER_TRUSTED_APP",Constants.AUDIT_USER_UNIT_TEST);
+		Assert.assertNotNull(session.getToken());
+		return session;
+	}
+	
+	public void endSession(Session session) throws Exception {
+		WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+		executor.setAcceptHeaderAsJson();
+		executor.setContentTypeHeaderAsJson();
+		executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+		
+		executor.executeDelete("/sessions/"+session.getToken());
+	}
+	
+
+	public Account createAccount() throws Exception {
+		Session session = createSession("superadmin@hmis.com","password");
+		
+		WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+		executor.setAcceptHeaderAsJson();
+		executor.setContentTypeHeaderAsJson();
+		executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+		executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+		
+		Profile standardProfile = TestData.getProfile();
+		standardProfile = serviceFactory.getProfileService().createProfile(standardProfile, Constants.AUDIT_USER_UNIT_TEST);
+		Account account = TestData.getAccountWithoutProfile();
+		account.setProfile(standardProfile);
+		account.setOrganizationId(createOrganization());
+		Role role = new Role();
+		role.setId(UUID.fromString("33f2a166-4316-4e98-8a0a-7130eabce13e"));
+		account.setRole(role);
+		
+		ProjectGroup projectGroup = new ProjectGroup();
+		projectGroup.setProjectGroupName("Project Group 1");
+		projectGroup.setProjectGroupDesc("Project Group 1 Desc");
+		Project project = new Project();
+		project.setProjectId(UUID.fromString("5b89157c-1f00-4948-ab9b-f02215ea3320"));
+	//	projectGroup.addProject(project);
+		projectGroup = serviceFactory.getProjectGroupService().createProjectGroup(projectGroup, "JUNIT Testing");
+		
+		account.setProjectGroup(projectGroup);
+		
+		
+		account = serviceFactory.getAccountService().createAccount(account, Constants.AUDIT_USER_UNIT_TEST,null);
+		
+		Parameter parameter=new Parameter();
+		parameter.setKey("username");
+		parameter.setValue(account.getUsername().toLowerCase());
+		
+		Verification verification = new Verification();
+		verification.setType(VERIFICATION_TYPE_ACCOUNT_CREATION);
+		verification.setStatus(VERIFICATION_STATUS_ACCEPTED);
+		verification.setToken(account.getVerificationToken());
+		verification.addParameter(parameter);
+		
+		serviceFactory.getVerificationService().updateVerificationStatus(verification,Constants.AUDIT_USER_UNIT_TEST);
+		assertNotNull(account.getAccountId());
+		return account;
+	}
+	
+	public UUID createClient() throws Exception{
+		
+		   Account account = createAccount();
+	       String[] methods = {"CLIENT_API_CREATE_CLIENT"};
+	       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+	       Session session = createSession(account.getUsername(),account.getPassword());
+
+	       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+	       executor.setAcceptHeaderAsJson();
+	       executor.setContentTypeHeaderAsJson();
+	       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+	       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+	       
+	       Client client = TestData.getClient();
+	       client = executor.executePost("/clients", client, Client.class);
+	       assertNotNull(client.getClientId());
+		
+		return client.getClientId();
+	}
+	
+	public UUID createEnrollment(UUID clientId) throws Exception{
+
+		   Account account = createAccount();
+	       String[] methods = {"CLIENT_API_CREATE_ENROLLMENT"};
+	       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+	       Session session = createSession(account.getUsername(),account.getPassword());
+
+	       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+	       executor.setAcceptHeaderAsJson();
+	       executor.setContentTypeHeaderAsJson();
+	       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+	       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+	       
+	       Enrollment enrollment = TestData.getEnrollment(clientId);
+	       enrollment = executor.executePost("/clients/"+clientId+"/enrollments", enrollment, Enrollment.class);
+	       assertNotNull(enrollment.getClientId());
+
+		return enrollment.getEnrollmentId();
+	}
+	
+	public void addingMethodAccessUsingPermissionSet(String[] methods,String userName) throws Exception {
+		PermissionSet permissionSet = TestData.getPermissionSet();
+		for(int i=0;i<methods.length;i++){
+			ApiMethod apiMethod= new ApiMethod();
+			apiMethod.setExternalId(methods[i]);
+			permissionSet.addApiMethod(apiMethod);
+		}
+		serviceFactory.getPermissionSetService().createPermissionSet(permissionSet, Constants.AUDIT_USER_UNIT_TEST);
+		serviceFactory.getPermissionSetService().assignPermissionSetTOUser(userName, permissionSet, Constants.AUDIT_USER_UNIT_TEST);
+		
+	}
+    
+	
+	public UUID createOrganization() throws Exception {
+		 Organization organization = TestData.getOrganization();
+		 organization =serviceFactory.getOrganizationService().createOrganization(organization, "UNIT TESTING");
+		 return organization.getOrganizationId();
+	}
+      
+      
+      
+    @Test
+    public void TestNonCashBenefitAPIMethods_1_create_NonCashBenefit_testcase() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_2_update_NonCashBenefit_testcase() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+       // set new values for update the data
+       nonCashBenefit= executor.executePut("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),nonCashBenefit,NonCashBenefit.class);
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_3_delete_NonCashBenefit_testcase() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       nonCashBenefit= executor.executeDelete("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNull(nonCashBenefit.getNonCashBenefitId()); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_4_getById_NonCashBenefit_testcase() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       NonCashBenefit newnonCashBenefit = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),NonCashBenefit.class);
+       Assert.assertEquals(nonCashBenefit.getNonCashBenefitId(),newnonCashBenefit.getNonCashBenefitId()); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_5_getAllEnrollment_NonCashBenefit_testcase() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       NonCashBenefits nonCashBenefits = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",NonCashBenefits.class);
+       Assert.assertEquals(nonCashBenefits.getNonCashBenefits().size(),1); 
+       // creating another record     
+       nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       nonCashBenefits = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",NonCashBenefits.class);
+       Assert.assertEquals(nonCashBenefits.getNonCashBenefits().size(),2); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_6_create_NonCashBenefit_with_unknownClinet() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       clientId = UUID.randomUUID();
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       Errors errors = executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit, Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"CLIENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_7_update_NonCashBenefit_with_unknownClinet() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+       clientId = UUID.randomUUID();
+       // set new values for update the data
+       Errors errors = executor.executePut("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),nonCashBenefit, Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"CLIENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_8_delete_NonCashBenefit_with_unknownClinet() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       clientId = UUID.randomUUID();
+       Errors errors = executor.executeDelete("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),nonCashBenefit,Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"CLIENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_9_getById_NonCashBenefit_with_unknownClinet() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       clientId = UUID.randomUUID();
+       Errors errors = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"CLIENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_10_getAllEnrollment_NonCashBenefit_with_unknowClient() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       // creating another record     
+       nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       clientId = UUID.randomUUID();
+       Errors errors = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"CLIENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_11_create_NonCashBenefit_with_unknownEnrollment() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       enrollmentId = UUID.randomUUID();
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       Errors errors = executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit, Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"ENROLLMENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_12_update_NonCashBenefit_with_unknownEnrollment() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+       enrollmentId = UUID.randomUUID();
+       // set new values for update the data
+       Errors errors = executor.executePut("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),nonCashBenefit, Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"ENROLLMENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_13_delete_NonCashBenefit_with_unknownEnrollment() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       enrollmentId = UUID.randomUUID();
+       Errors errors = executor.executeDelete("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),nonCashBenefit,Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"ENROLLMENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_14_getById_NonCashBenefit_with_unknownEnrollment() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       enrollmentId = UUID.randomUUID();
+       Errors errors = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+nonCashBenefit.getNonCashBenefitId(),Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"ENROLLMENT_NOT_FOUND"); 
+   }
+
+    @Test
+    public void TestNonCashBenefitAPIMethods_15_getAllEnrollment_NonCashBenefit_with_unknowEnrollment() throws Exception {
+       Account account = createAccount();
+       addingMethodAccessUsingPermissionSet(methods, account.getUsername());
+       Session session = createSession(account.getUsername(),account.getPassword());
+
+       WebserviceTestExecutor executor = new WebserviceTestExecutor(wac);
+       executor.setAcceptHeaderAsJson();
+       executor.setContentTypeHeaderAsJson();
+       executor.setHeaderValue("X-HMIS-TrustedApp-Id", "MASTER_TRUSTED_APP");
+       executor.setHeaderValue("Authorization","HMISHNUserAuth session_token="+session.getToken());
+
+       UUID clientId = createClient(); 
+       UUID enrollmentId = createEnrollment(clientId); 
+       NonCashBenefit nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       // creating another record     
+       nonCashBenefit = TestData.getNonCashBenefit();
+
+       nonCashBenefit= executor.executePost("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",nonCashBenefit,NonCashBenefit.class);
+       Assert.assertNotNull(nonCashBenefit.getNonCashBenefitId()); 
+
+       enrollmentId = UUID.randomUUID();
+       Errors errors = executor.executeGet("/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits",Errors.class);
+       Assert.assertNotNull(errors);
+       Assert.assertEquals(errors.getError().get(0).getCode(),"ENROLLMENT_NOT_FOUND"); 
+   }
+
+}

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="q25hSupplementalNutritionalAssistanceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hSupplementalNutritionalAssistanceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25hSupplementalNutritionalAssistanceStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hSupplementalNutritionalAssistanceStayers]]></fieldDescription>
+	</field>
+	<field name="q25hSupplementalNutritionalAssistanceLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hSupplementalNutritionalAssistanceLeavers]]></fieldDescription>
+	</field>
+	<field name="q25hWICAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hWICAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25hWICStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hWICStayers]]></fieldDescription>
+	</field>
+	<field name="q25hWICLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hWICLeavers]]></fieldDescription>
+	</field>
+	<field name="q25hTANFChildCareServicesAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hTANFChildCareServicesAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25hTANFChildCareServicesStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hTANFChildCareServicesStayers]]></fieldDescription>
+	</field>
+	<field name="q25hTANFChildCareServicesLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hTANFChildCareServicesLeavers]]></fieldDescription>
+	</field>
+	<field name="q25hTANFTransportationServicesAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hTANFTransportationServicesAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25hTANFTransportationServicesStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hTANFTransportationServicesStayers]]></fieldDescription>
+	</field>
+	<field name="q25hTANFTransportationServicesLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hTANFTransportationServicesLeavers]]></fieldDescription>
+	</field>
+	<field name="q25hOtherTANFFundedServicesAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hOtherTANFFundedServicesAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25hOtherTANFFundedServicesStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hOtherTANFFundedServicesStayers]]></fieldDescription>
+	</field>
+	<field name="q25hOtherTANFFundedServicesLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hOtherTANFFundedServicesLeavers]]></fieldDescription>
+	</field>
+	<field name="q25hOtherSourceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hOtherSourceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25hOtherSourceStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hOtherSourceStayers]]></fieldDescription>
+	</field>
+	<field name="q25hOtherSourceLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25hOtherSourceLeavers]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="c91e7238-9173-4e1e-801f-1e3d8056579b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[    Q25h: Type of Non-Cash Income Sources - Veterans]]></text>
+				</staticText>
+			</band>
+			<band height="49">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="6393dd53-eac4-4a93-baa7-269237a34da9"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[ Source]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="1a9754b4-3161-4395-8999-bcde7018241d"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At entry]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c2054527-47ec-4aa1-9ad8-aa45cc55e1ea"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At Latest Annual Assessment for Stayers]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="a4a65271-79fb-47ca-9bf5-46894aa4ef53"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At Exit for Leavers]]></text>
+				</staticText>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="ed110bcc-ebb3-4cb0-a608-ba60b511dfa2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   a. Supplemental Nutritional Assistance Program]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="057ae140-3259-4601-a65d-feafd601a2a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hSupplementalNutritionalAssistanceAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db927913-8808-4951-8423-070659fe2440"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hSupplementalNutritionalAssistanceStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5c51eac1-cf7e-4c14-b35a-e439ede2a2fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hSupplementalNutritionalAssistanceLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="ff621e70-6b0b-45b6-a471-a1707e3720c9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   b. WIC]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="057ae140-3259-4601-a65d-feafd601a2a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hWICAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db927913-8808-4951-8423-070659fe2440"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hWICStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5c51eac1-cf7e-4c14-b35a-e439ede2a2fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hWICLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="e6d12778-a8c6-4027-8625-2e1ace12cf96"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   c. TANF Child Care services]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="057ae140-3259-4601-a65d-feafd601a2a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hTANFChildCareServicesAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db927913-8808-4951-8423-070659fe2440"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hTANFChildCareServicesStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5c51eac1-cf7e-4c14-b35a-e439ede2a2fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hTANFChildCareServicesLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="e2f0844b-5062-42f0-85ad-3bff404914af"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   d. TANF transportation services]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="057ae140-3259-4601-a65d-feafd601a2a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hTANFTransportationServicesAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db927913-8808-4951-8423-070659fe2440"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hTANFTransportationServicesStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5c51eac1-cf7e-4c14-b35a-e439ede2a2fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hTANFTransportationServicesLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="eaff6e3c-52c4-4d06-b9c8-fa3d01ab2cb3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   e. Other TANF-funded services]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="057ae140-3259-4601-a65d-feafd601a2a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hOtherTANFFundedServicesAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db927913-8808-4951-8423-070659fe2440"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hOtherTANFFundedServicesStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5c51eac1-cf7e-4c14-b35a-e439ede2a2fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hOtherTANFFundedServicesLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="903cb409-c2ce-4d96-b3c6-31b4b486b991"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   f. Other source]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="057ae140-3259-4601-a65d-feafd601a2a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hOtherSourceAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db927913-8808-4951-8423-070659fe2440"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hOtherSourceStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5c51eac1-cf7e-4c14-b35a-e439ede2a2fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25hOtherSourceLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="21">
+				<staticText>
+					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="d3cfaf86-c4d3-4c1c-a78c-db060512a602"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[ Universe of data: All adult veterans.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+</jasperReport>

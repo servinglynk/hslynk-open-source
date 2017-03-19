@@ -53,6 +53,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		  .when('/admin/bulkupload',      's2.bulkupload')
 		   .when('/admin/managesync',      's2.managesync')
 		      .when('/admin/managereport',      's2.managereport')
+		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
 			   
@@ -70,7 +71,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			   
 			    .when('/admin/createuser',      's2.createuser')
 			   .when('/admin/manageuser',      's2.manageuser')
-			     .when('/admin/onboardfellow',      's2.onboardfellow')
+			     .when('/admin/onboardfellow', 's2.onboardfellow')
+                 .when('/admin/errormessage/:id', 's2.errormessage')
 				 
 				  .when('/admin/onboardfellowgroup',      's2.onboardfellow.onboardfellowgroup')
    			    .when('/admin/onboardfellowuser',      's2.onboardfellow.onboardfellowuser')
@@ -87,10 +89,16 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 templateUrl: 'templates/partial/dashboard.html', controller: 'dashboardCtrl'})   
 		  .segment('managefiles', {
                 templateUrl: 'templates/partial/managefiles.html', controller: 'managefilesCtrl'})
+          .segment('errormessage', {
+              templateUrl: 'templates/partial/errormessage.html', controller: 'errormessageCtrl'
+             
+          } )
                 .segment('manageuser', {
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})   
 		   .segment('managereport', {
                 templateUrl: 'templates/partial/managereport.html', controller: 'managereportCtrl'})   
+            .segment('manageeligreq', {
+                templateUrl: 'templates/partial/manageeligreq.html', controller: 'manageeligreqCtrl'})   
 		  .segment('bulkupload', {
 		      templateUrl: 'templates/partial/bulkupload.html', controller: 'bulkUploadCtrl'})   
 		  .segment('managesync', {
@@ -127,6 +135,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 
                  .segment('onboardfellow', {
                 templateUrl: 'templates/partial/onboardfellow.html', controller: 'onboardfellowCtrl'})
+        
 			
            .within()
 			 // nested states 
@@ -148,7 +157,7 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
 			 
 			if($sessionStorage.account!=undefined && $sessionStorage.account.roles !=undefined)
 			{
-				$rootScope.roleName=$sessionStorage.account.roles.role[0].roleName;// data.account.roles.role[0].roleName;
+				$rootScope.roleName=$sessionStorage.account.roles[0].roleName;// data.account.roles.role[0].roleName;
 			}
      		// here we have to check why keep out(isLoggedIn is undefined  when dashbaorad load)
      		//$sessionStorage.isLoggedIn=true;

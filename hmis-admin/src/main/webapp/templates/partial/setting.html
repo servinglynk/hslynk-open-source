@@ -58,5 +58,25 @@
       </form>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <form id="form" ng-submit="submitHivePasswordForm()" ng-controller="settingCtrl" enctype="multipart/form-data">
+       <ul>
+       <li>
+            <label><span class="required">*</span>Password: </label>
+            <input required ng-model="password" type="password" name="password">
+          </li>
+            <li>
+            <label><span class="required">*</span>Password: </label>
+            <input required ng-model="repassword" type="password" name="repassword">
+          </li>
+           <li>
+            <label> </label>
+            <input type="submit" ngClick="Submit"  value="Save" class="btn btn-lg btn-upload">
+          </li>
+         </ul>
+   	  </form>
+   	 </div>
+   </div>
   <!-- /.row -->
 </div>

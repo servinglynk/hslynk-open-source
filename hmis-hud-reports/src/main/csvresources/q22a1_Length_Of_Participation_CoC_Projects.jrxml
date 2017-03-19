@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f85be7c5-a275-45a5-8b4e-cf42765e139a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="q22a1A30DaysOrLessTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1A30DaysOrLessTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1A30DaysOrLessLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1A30DaysOrLessLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1A30DaysOrLessStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1A30DaysOrLessStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1B31To60DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1A30DaysOrLessTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1B31To60DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1B31To60DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1B31To60DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1B31To60DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1C61To180DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1C61To180DaysTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1C61To180DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1C61To180DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1C61To180DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1C61To180DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1D181To365DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1A30DaysOrLessTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1D181To365DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1D181To365DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1D181To365DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1D181To365DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1E366To730DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1E366To730DaysTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1E366To730DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1E366To730DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1E366To730DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1E366To730DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1F731To1095DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1F731To1095DaysTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1F731To1095DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1F731To1095DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1F731To1095DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1F731To1095DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1G1096To1460DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1G1096To1460DaysTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1G1096To1460DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1G1096To1460DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1G1096To1460DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1G1096To1460DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1H1461To1825DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1H1461To1825DaysTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1H1461To1825DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1H1461To1825DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1H1461To1825DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1H1461To1825DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1IMoreThan1825DaysTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1IMoreThan1825DaysTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1IMoreThan1825DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1IMoreThan1825DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1IMoreThan1825DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1IMoreThan1825DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1JInfoMissingTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1JInfoMissingTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1JInfoMissingLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1JInfoMissingLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1JInfoMissingStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1JInfoMissingStayers]]></fieldDescription>
+	</field>
+	<field name="q22a1KTotTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1KTotTotal]]></fieldDescription>
+	</field>
+	<field name="q22a1KTotLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1KTotLeavers]]></fieldDescription>
+	</field>
+	<field name="q22a1KTotStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q22a1KTotStayers]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="1c8841f5-02b4-48ae-82bf-451831bfdb8d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[    Q22a1: Length of Participation – CoC Projects]]></text>
+				</staticText>
+			</band>
+			<band height="49">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="cd436e12-d557-4fad-b817-5208fd25a3a4"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[   ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="1c1b2569-282a-43d0-8669-0b18e5cf82a8"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c022325b-9754-4320-89f1-f5db78399d70"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[  Leavers]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="30b7064e-3c8e-4d13-b112-529d06819c40"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Stayers]]></text>
+				</staticText>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="df86c8f8-decc-462f-9eb3-a8c1f0234646"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   a. 30 days or less]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="99f6d86f-c003-4499-b560-f2daba628e9e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1A30DaysOrLessTotal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="287c3ae8-588f-4dee-a0bc-6b20a840d653"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1A30DaysOrLessLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5b12c58d-62ab-45c0-8335-332bbb236021"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1A30DaysOrLessStayers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="5a78ada7-05e1-4bdf-8134-6398b01fa85d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1B31To60DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="2c41ff2b-a695-4849-92c8-45467a2d8cfe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   b. 31 to 60 days]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="3e8a101b-d5ee-4d3a-b8d6-5b59aca5f690"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1B31To60DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="a7ae30ee-8343-410c-92ba-c287d5b49d32"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1B31To60DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="18e953eb-f481-4a58-ac80-e6d73526d317"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1C61To180DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a03da58e-81f6-4e67-b21e-263af83b1f90"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   c. 61 to 180 days]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="57d7e0dd-18d7-4068-8343-9a961c3c1738"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1C61To180DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="95520a99-55a7-451d-9995-c6f841f76c07"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1C61To180DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="39a59fef-99f7-40f9-96a0-9cca4a54a068"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1D181To365DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="903f45ee-abd0-4349-8735-c5b8d886e966"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   d. 181 to 365 days]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="1c66c4ac-dcb2-40a3-a255-1e5274851cf1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1D181To365DaysTotal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="c73e4bfd-e25d-4e8a-8955-8ac70389c3b6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1D181To365DaysLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="9b723c68-c593-48a1-9502-e67d5aac08b3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1E366To730DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="77c42eec-65ec-401b-af2c-d734baacc476"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   e. 366 to 730 days (1 – 2 yrs.)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="db50a6c6-273f-4bc9-bef6-c8430411abc4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1E366To730DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="aa4a9168-0b69-460b-8c9f-acfde7d549ca"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1E366To730DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="6680b48e-0521-4bc7-8291-d6e2959487c1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1F731To1095DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="f8dafbaa-0265-459a-a4ba-bbe6bfbcf644"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   f. 731 to 1095 days (2 – 3 yrs.)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="d406a782-ea29-42d7-823e-ce477332f6e7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1F731To1095DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="18ec4bdb-6091-4d6e-88a4-4b82ff615054"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1F731To1095DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="faef39bb-55ea-441a-9252-43fb480da64e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1G1096To1460DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="5f7f7388-6519-4ee4-bf09-1af70f111b62"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   g. 1096 to 1460 days (3 – 4 yrs.)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="f2cbc4a9-693c-457b-aba3-260ef448dab9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1G1096To1460DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="6e3427dc-ce6b-4d47-8949-e2bf2d49c9b7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1G1096To1460DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="56bdb810-6a04-44b8-a943-44f0d66510ca"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1H1461To1825DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="dfb67f0f-911b-490c-bbd2-bc55e9799334"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   h. 1461 to 1825 days (4 – 5 yrs.)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="d16bce3c-2316-4d0f-81a5-007fa96a8534"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1H1461To1825DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="ea798bdf-9198-4dff-a492-d1a84ff94482"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1H1461To1825DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="9bdf4be1-4992-43f1-bdbc-c38397010596"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1IMoreThan1825DaysStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="17ee0934-4328-4b96-bc98-b8cc67ccbd8a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   i. More than 1825 days (>5 yrs.)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="d56a6db1-ec1f-4ea0-9240-633230748952"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1IMoreThan1825DaysLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="164385e4-6798-4ff0-a85c-290b6cea80ad"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1IMoreThan1825DaysTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="0b150f7d-7571-41b4-936d-23759a191eb6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1JInfoMissingStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="f98732dd-2626-4809-a806-f75c181c89c7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   j. Information missing]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="453db621-5fea-45b7-8707-33296ea4a68c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1JInfoMissingLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="83786a87-0a06-48a1-91ee-90f121f23680"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1JInfoMissingTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="beeb8b84-7af0-4c2e-9458-b7e97e95054f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1KTotStayers}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="04963182-f633-4b4b-ab0f-88da6d3f6503"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   k. Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="e46bdb3a-e041-414e-a0ec-44df22629ba7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1KTotLeavers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="e89ff741-21f1-4b77-969a-1d068a7f0218"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q22a1KTotTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="21">
+				<staticText>
+					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="0351aed2-81ce-4dba-9fc5-412cb1f81635"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[ Universe of data: All active clients.
+Night-by-night shelters use a count of bed nights as length of stay. In details mode, intake date will automatically reflect client's Pre-Entry intake date for those clients in RRH projects
+with preceding P-E project stays.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+</jasperReport>

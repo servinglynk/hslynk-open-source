@@ -35,7 +35,6 @@ app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, 
 		$scope.form.username ='';
 		$scope.form.password ='';
 		$scope.form.emailAddress ='';
-		$scope.form.gender ='';
 
 },
 	//error
