@@ -114,7 +114,10 @@ public class SearchDaoImpl
 		} catch (ParseException e) {
 			try{
 				  UUID clientId = UUID.fromString(searchRequest.getFreeText());
-				  criteria.add(Restrictions.eq("id", clientId));
+				  Criterion clientIdCr = Restrictions.eq("id", clientId);
+				  Criterion dedupClientIdCr =Restrictions.eq("dedupClientId", clientId);
+				  criteria.add(Restrictions.or(clientIdCr,dedupClientIdCr));
+				  criteria.addOrder(Order.desc("dateUpdated"));
 			  }catch (Exception ex) {
 					  
 					  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
