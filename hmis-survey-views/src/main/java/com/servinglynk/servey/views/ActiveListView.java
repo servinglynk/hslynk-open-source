@@ -38,12 +38,12 @@ public class ActiveListView {
 		      // execute statement
 			 	StringBuilder builder = new StringBuilder();
 			 	builder.append("CREATE TABLE IF NOT EXISTS ");
-			 	builder.append(projectGroupCode+".survey_active_list");
+			 	builder.append(projectGroupCode+".active_list");
 			 	builder.append("( client_id string,first_name string,last_name string,survey_id string,survey_title string,survey_date timestamp ,score bigint ");
 				  String query = builder.toString();
 				  query = query +")";
 				  System.out.println(" Create Query::"+ query);
-				  stmt.execute("DROP Table  IF EXISTS "+projectGroupCode+".survey_active_list");
+				  stmt.execute("DROP Table  IF EXISTS "+projectGroupCode+".active_list");
 		      stmt.execute(query);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -69,7 +69,7 @@ public class ActiveListView {
 					StringBuilder builder = new StringBuilder();
 				 	builder.append("INSERT INTO ");
 				 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
-				 	builder.append(survey.getProjectGroupCode()+".survey_active_list");
+				 	builder.append(survey.getProjectGroupCode()+".active_list");
 				 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 					builder.append("  VALUES ( ");
 					builder.append("?,?,?,?,?,?,?");
