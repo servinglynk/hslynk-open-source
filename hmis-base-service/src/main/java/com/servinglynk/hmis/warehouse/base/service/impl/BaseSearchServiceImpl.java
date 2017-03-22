@@ -36,6 +36,13 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 			  Integer maxItems,String exclude,Session session)
 	  {
 	    SearchRequest searchVo = new SearchRequest();
+	    boolean dedupIdFilter = false;
+	    try{
+	    	UUID.fromString(freeText);
+	    	dedupIdFilter = false;
+	    }catch (IllegalArgumentException e) {
+	    		dedupIdFilter = true;
+		}
 	    Account account = serviceFactory.getAccountService().getAccount(session.getAccount(),false);
 	    
 	    	searchVo.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
@@ -61,14 +68,19 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	    BaseClients clients = new BaseClients();
 	    int skipCount=0;
 	    for (Client pClient : searchItems) {
-	    	if(pClient!=null && pClient.getDedupClientId()!=null && !distinctDedupIds.contains(pClient.getDedupClientId())) {
+	    	
+	    	if(dedupIdFilter) {
+			    	if(pClient!=null && pClient.getDedupClientId()!=null && !distinctDedupIds.contains(pClient.getDedupClientId())) {
+			    		clients.addClient(ClientConverter.entityToModel(pClient));
+			    	}else {
+			    		skipCount++;
+			    	}
+			    		
+			    	if(pClient.getDedupClientId()!=null) {
+			    		distinctDedupIds.add(pClient.getDedupClientId());
+			    	}
+	    	}else{
 	    		clients.addClient(ClientConverter.entityToModel(pClient));
-	    	}else {
-	    		skipCount++;
-	    	}
-	    		
-	    	if(pClient.getDedupClientId()!=null) {
-	    		distinctDedupIds.add(pClient.getDedupClientId());
 	    	}
 	    }
 	    pagination.setFrom(startIndex);
