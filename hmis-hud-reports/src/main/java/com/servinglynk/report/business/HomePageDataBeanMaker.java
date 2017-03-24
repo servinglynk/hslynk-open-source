@@ -25,6 +25,60 @@ import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
 import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
 import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
+import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q09aNumberPersonsContactedDataBean;
+import com.servinglynk.report.bean.Q09bNumberofPersonsEngagedDataBean;
+import com.servinglynk.report.bean.Q10aGenderOfAdultsDataBean;
+import com.servinglynk.report.bean.Q10bGenderOfChildrenDataBean;
+import com.servinglynk.report.bean.Q10cGenderOfPersonsMissingAgeInformationDataBean;
+import com.servinglynk.report.bean.Q11AgeDataBean;
+import com.servinglynk.report.bean.Q12aRaceDataBean;
+import com.servinglynk.report.bean.Q12bEthnicityDataBean;
+import com.servinglynk.report.bean.Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean;
+import com.servinglynk.report.bean.Q13a2NumberOfConditionsAtEntryDataBean;
+import com.servinglynk.report.bean.Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
+import com.servinglynk.report.bean.Q13b2NumberOfConditionsAtExitDataBean;
+import com.servinglynk.report.bean.Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
+import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
+import com.servinglynk.report.bean.Q14aDomesticViolenceHistoryDataBean;
+import com.servinglynk.report.bean.Q14bPersonsFleeingDomesticViolenceDataBean;
+import com.servinglynk.report.bean.Q15ResidencePriorToProgramEntryDataBean;
+import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
+import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
+import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
+import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
+import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+import com.servinglynk.report.bean.Q20aTypeOfNonCashBenefitSourcesDataBean;
+import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
+import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
+import com.servinglynk.report.bean.Q22a1LengthOfParticipationCoCProjectsDataBean;
+import com.servinglynk.report.bean.Q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
+import com.servinglynk.report.bean.Q23ExitDestinationMoreThan90DaysDataBean;
+import com.servinglynk.report.bean.Q24ExitDestination90DaysOrLessDataBean;
+import com.servinglynk.report.bean.Q25aNumberOfVeteransDataBean;
+import com.servinglynk.report.bean.Q25bNumberOfVeteranHouseholdsDataBean;
+import com.servinglynk.report.bean.Q25cGenderVeteransDataBean;
+import com.servinglynk.report.bean.Q25dAgeVeteransDataBean;
+import com.servinglynk.report.bean.Q25ePhysicalAndMentalHealthConditionsVeteransDataBean;
+import com.servinglynk.report.bean.Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean;
+import com.servinglynk.report.bean.Q25gTypeOfCashIncomeSourcesVeteransDataBean;
+import com.servinglynk.report.bean.Q25hTypeOfNonCashIncomeSourcesVeteransDataBean;
+import com.servinglynk.report.bean.Q25iExitDestinationVeteransDataBean;
+import com.servinglynk.report.bean.Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean;
+import com.servinglynk.report.bean.Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean;
+import com.servinglynk.report.bean.Q26cGenderOfChronicallyHomelessPersonDataBean;
+import com.servinglynk.report.bean.Q26dAgeOfChronicallyHomelessPersonsDataBean;
+import com.servinglynk.report.bean.Q26ePhysicalAndMentalHealthConditionsChronicallyDataBean;
+import com.servinglynk.report.bean.Q26fClientCashIncomeChronicallyHomelessPersonsDataBean;
+import com.servinglynk.report.bean.Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean;
+import com.servinglynk.report.bean.Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean;
+import com.servinglynk.report.bean.Q27aAgeOfYouthDataBean;
+import com.servinglynk.report.bean.Q27bParentingYouthDataBean;
+import com.servinglynk.report.bean.Q27cGenderYouthDataBean;
+import com.servinglynk.report.bean.Q27dResidencePriorToEntryYouthDataBean;
+import com.servinglynk.report.bean.Q27eLengthOfParticipationYouthDataBean;
+import com.servinglynk.report.bean.Q27fExitDestinationYouthDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.csvcontroller.CSVGenerator;
 
@@ -63,84 +117,368 @@ public class HomePageDataBeanMaker {
 			List<ExitModel> allExits = getAllExits(schema);
 			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 			data.setExits(filteredExits);
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aHMISCDDQDataList(schema,projectId,data);
+			
+			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aHMISCDDQDataList(/*schema,projectId,data*/);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "q05a.jrxml", "q05a.csv");
 			}
-			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getQ06aReportValidationsTableList(schema,data);
+			
+			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getQ06aReportValidationsTableList(/*schema,data*/);
 			if(q06aReportValidationsTableList != null) {
 				CSVGenerator.buildReport(q06aReportValidationsTableList, "q06a.jrxml", "q06a.csv");
 			}
 			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
-			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(schema,data);
-			CSVGenerator.buildReport(q06bNumberOfPersonsServedTableList, "q06b.jrxml", "q06b.csv");
+			
+			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(/*schema,data*/);
+			if(q06bNumberOfPersonsServedTableList!=null){
+				CSVGenerator.buildReport(q06bNumberOfPersonsServedTableList, "q06b.jrxml", "q06b.csv");
+			}
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(q06bNumberOfPersonsServedTableList);
+			
 			List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(q06cPointInTimeCountPersonsLastWednesdayList);
-			CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "q06c.jrxml", "q06c.csv");
+			if(q06cPointInTimeCountPersonsLastWednesdayList!=null){
+				CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "q06c.jrxml", "q06c.csv");
+			}
+			
 			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServeList = Q07aBeanMaker.getQ07aHouseholdsServeList();
 			homePageDataBean.setQ07aHouseholdsServedDataBean(q07aHouseholdsServeList);
-			CSVGenerator.buildReport(q07aHouseholdsServeList, "q07a_Households_Served.jrxml", "q07a.csv");
-			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(Q07bBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList());
-			homePageDataBean.setqQ09aNumberPersonsContactedDataBean(Q09aDataBeanMaker.getQ09aNumberPersonsContactedList());
-			homePageDataBean.setQ09bNumberofPersonsEngagedDataBean(Q09bBeanMaker.getQ09bNumberofPersonsEngagedList());
-			homePageDataBean.setQ10aGenderOfAdultsDataBean(Q10aBeanMaker.getQ10AGenderOfAdultsList());
-			homePageDataBean.setQ10bGenderOfChildrenDataBean(Q10bBeanMaker.getQ10bGenderOfChildrenList());
-			homePageDataBean.setQ10cGenderOfPersonsMissingAgeInformationDataBean(Q10cBeanMaker.getQ10CGPMIList());
-			homePageDataBean.setQ11AgeDataBean(Q11BeanMaker.getQ11AgeList());
-			homePageDataBean.setQ12aRaceDataBean(Q12aBeanMaker.getQ12aRaceList());
-			homePageDataBean.setQ12bEthnicityDataBean(Q12bBeanMaker.getQ12bEthnicityList());
-			homePageDataBean.setQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean(Q13a1BeanMaker.getQ13a1PhysicalAndMentalHealthConditionsAtEntryList());
-			homePageDataBean.setQ13a2NumberOfConditionsAtEntryDataBean(Q13a2BeanMaker.getQ13a2NumberOfConditionsAtEntryList());
-			homePageDataBean.setQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean(Q13b1BeanMaker.getQ13b1PhysicalAndMentalHealthConditionsAtExitList());
-			homePageDataBean.setQ13b2NumberOfConditionsAtExitDataBean(Q13b2BeanMaker.getQ13b2NumberOfConditionsAtExitList());
-			homePageDataBean.setQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean(Q13c1BeanMaker.getQ13c1PhysicalAndMentalHealthConditionsForStayersList());
-			homePageDataBean.setQ13c2NumberOfConditionsForStayerDataBean(Q13c2BeanMaker.getQ13c2NumberOfConditionsForStayerList());
-			homePageDataBean.setQ14aDomesticViolenceHistoryDataBean(Q14aBeanMaker.getQ14aDomesticViolenceHistoryList());
-			homePageDataBean.setQ14bPersonsFleeingDomesticViolenceDataBean(Q14bBeanMaker.getQ14bPersonsFleeingDomesticViolenceList());
-			homePageDataBean.setQ15ResidencePriorToProgramEntryDataBean(Q15BeanMaker.getQ15ResidencePriorToProgramEntryList());
-			homePageDataBean.setQ16CashIncomeRangesDataBean(Q16BeanMaker.getQ16CashIncomeRangesList());
-			homePageDataBean.setQ17CashIncomeSourcesDataBean(Q17CashIncomeSourcesDataBeanMaker.getQ17CashIncomeSourcesList());
-			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList());
-			homePageDataBean.setQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBean(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList());
-			homePageDataBean.setQ19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean(Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBeanMaker.getQ19a2ClientCashIncomeChangeIncomeSourceByEntryList());
-	        homePageDataBean.setQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean(Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBeanMaker.getQ19a3ClientCashIncomeChangeIncomeSourceByEntryList());
-			homePageDataBean.setQ20aTypeOfNonCashBenefitSourcesDataBean(Q20aTypeOfNonCashBenefitSourcesDataBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList());
-	        homePageDataBean.setQ20bNumberOfNonCashBenefitSourcesDataBean(Q20bNumberOfNonCashBenefitSourcesDataBeanMaker.getQ20bNumberOfNonCashBenefitSourcesList());
-			homePageDataBean.setQ21HealthInsuranceDataBean(Q21HealthInsuranceDataBeanMaker.getQ21HealthInsuranceList());
-			homePageDataBean.setQ22a1LengthOfParticipationCoCProjectsDataBean(Q22a1LengthOfParticipationCoCProjectsDataBeanMaker.getQ22a1LengthOfParticipationCoCProjectsList());
-			homePageDataBean.setQ22bAverageAndMedianLengthOfParticipationInDaysDataBean(Q22bAverageAndMedianLengthOfParticipationInDaysDataBeanMaker.getQ22bAverageAndMedianLengthOfParticipationInDaysList());
-			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(Q23ExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList());
-			homePageDataBean.setQ24ExitDestination90DaysOrLessDataBean(Q24ExitDestination90DaysOrLessDataBeanMaker.getQ24ExitDestination90DaysOrLessList());
-			homePageDataBean.setQ25aNumberOfVeteransDataBean(Q25aNumberOfVeteransDataBeanMaker.getQ25aNumberOfVeteransList());
-			homePageDataBean.setQ25bNumberOfVeteranHouseholdsDataBean(Q25bNumberOfVeteranHouseholdsDataBeanMaker.getQ25bNumberOfVeteranHouseholdsList());
-			homePageDataBean.setQ25cGenderVeteransDataBean(Q25cGenderVeteransDataBeanMaker.getQ25cGenderVeteransList());
-			homePageDataBean.setQ25dAgeVeteransDataBean(Q25dAgeVeteransDataBeanMaker.getQ25dAgeVeteransList());
-			homePageDataBean.setQ25ePhysicalAndMentalHealthConditionsVeteransDataBean(Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker.getQ25ePhysicalAndMentalHealthConditionsVeteransList());
-			homePageDataBean.setQ25fCashIncomeCategoryIncomeCategoryByEntryDataBean(Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker.getQ25fCashIncomeCategoryIncomeCategoryByEntryList());
-			homePageDataBean.setQ25gTypeOfCashIncomeSourcesVeteransDataBean(Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker.getQ25gTypeOfCashIncomeSourcesVeteranList());
-			homePageDataBean.setQ25hTypeOfNonCashIncomeSourcesVeteransDataBean(Q25hTypeOfNonCashIncomeSourcesVeteransDataBeanMaker.getQ25hTypeOfNonCashIncomeSourcesVeteransList());
-			homePageDataBean.setQ25iExitDestinationVeteransDataBean(Q25iExitDestinationVeteransDataBeanMaker.getQ25iExitDestinationVeteransList());
-			homePageDataBean.setQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean(Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker.getQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList());
-			homePageDataBean.setQ26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean(Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBeanMaker.getQ26bNumberOfChronicallyHomelessPersonsByHouseholdList());
-			homePageDataBean.setQ26cGenderOfChronicallyHomelessPersonDataBean(Q26cGenderOfChronicallyHomelessPersonDataBeanMaker.getQ26cGenderOfChronicallyHomelessPersonList());
-			homePageDataBean.setQ26dAgeOfChronicallyHomelessPersonsDataBean(Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker.getQ26dAgeOfChronicallyHomelessPersonsList());
-			homePageDataBean.setQ26ePhysicalAndMentalHealthConditionsChronicallyDataBean(Q26ePhysicalAndMentalHealthConditionsChronicallyDataBeanMaker.getQ26ePhysicalAndMentalHealthConditionsChronicallyList());
-			homePageDataBean.setQ26fClientCashIncomeChronicallyHomelessPersonsDataBean(Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker.getQ26fClientCashIncomeChronicallyHomelessPersonsList());
-			homePageDataBean.setQ26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean(Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26gTypeOfCashIncomeSourcesChronicallyHomelessList());
-			homePageDataBean.setQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean(Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessList());
-			homePageDataBean.setQ27aAgeOfYouthDataBean(Q27aAgeOfYouthDataBeanMaker.getQ27aAgeOfYouthList());
-			homePageDataBean.setQ27bParentingYouthDataBean(Q27bParentingYouthDataBeanMaker.getQ27bParentingYouthList());
-			homePageDataBean.setQ27cGenderYouthDataBean(Q27cGenderYouthDataBeanMaker.getQ27cGenderYouthList());
-			homePageDataBean.setQ27dResidencePriorToEntryYouthDataBean(Q27dResidencePriorToEntryYouthDataBeanMaker.getQ27dResidencePriorToEntryYouthList());
-			homePageDataBean.setQ27eLengthOfParticipationYouthDataBean(Q27eLengthOfParticipationYouthDataBeanMaker.getQ27eLengthOfParticipationYouthList());
-			homePageDataBean.setQ27fExitDestinationYouthDataBean(Q27fExitDestinationYouthDataBeanMaker.getQ27fExitDestinationYouthList());
-			homePageDataBean.setQ29aPerformanceMeasuresPermanentHousingProgramsDataBean(Q29aPerformanceMeasuresPermanentHousingProgramsDataBeanMaker.getQ29aPerformanceMeasuresPermanentHousingProgramsList());
+			if(q07aHouseholdsServeList!=null){
+				CSVGenerator.buildReport(q07aHouseholdsServeList, "q07a.jrxml", "q07a.csv");
+			}
+			
+			List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> q07bPointInTimeCountHouseholdsLastWednesdayList = Q07bBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList();
+			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(q07bPointInTimeCountHouseholdsLastWednesdayList);
+			if(q07bPointInTimeCountHouseholdsLastWednesdayList!=null){
+				CSVGenerator.buildReport(q07bPointInTimeCountHouseholdsLastWednesdayList, "q07b.jrxml", "q07b.csv");
+			}
+			
+			List<Q09aNumberPersonsContactedDataBean> q09aNumberPersonsContactedList = Q09aDataBeanMaker.getQ09aNumberPersonsContactedList();
+			homePageDataBean.setqQ09aNumberPersonsContactedDataBean(q09aNumberPersonsContactedList);
+			if(q09aNumberPersonsContactedList!=null){
+				CSVGenerator.buildReport(q09aNumberPersonsContactedList, "q09a.jrxml", "q09a.csv");
+			}
+			
+			List<Q09bNumberofPersonsEngagedDataBean> q09bNumberofPersonsEngagedList = Q09bBeanMaker.getQ09bNumberofPersonsEngagedList();
+			homePageDataBean.setQ09bNumberofPersonsEngagedDataBean(q09bNumberofPersonsEngagedList);
+			if(q09bNumberofPersonsEngagedList!=null){
+				CSVGenerator.buildReport(q09bNumberofPersonsEngagedList, "q09b.jrxml", "q09b.csv");
+			}
+			
+			List<Q10aGenderOfAdultsDataBean> q10AGenderOfAdultsList = Q10aBeanMaker.getQ10AGenderOfAdultsList();
+			homePageDataBean.setQ10aGenderOfAdultsDataBean(q10AGenderOfAdultsList);
+			if(q10AGenderOfAdultsList!=null){
+				CSVGenerator.buildReport(q10AGenderOfAdultsList, "q10a.jrxml", "q10a.csv");
+			}				
+			
+			List<Q10bGenderOfChildrenDataBean> q10bGenderOfChildrenList = Q10bBeanMaker.getQ10bGenderOfChildrenList();
+			homePageDataBean.setQ10bGenderOfChildrenDataBean(q10bGenderOfChildrenList);
+			if(q10bGenderOfChildrenList!=null){
+				CSVGenerator.buildReport(q10bGenderOfChildrenList, "q10b.jrxml","q10b.csv");
+			}
+			
+			List<Q10cGenderOfPersonsMissingAgeInformationDataBean> q10CGPMIList= Q10cBeanMaker.getQ10CGPMIList();
+			homePageDataBean.setQ10cGenderOfPersonsMissingAgeInformationDataBean(q10CGPMIList);
+			if(q10CGPMIList!=null){
+				CSVGenerator.buildReport(q10CGPMIList, "q10c.jrxml","q10c.csv");
+			}
+			
+			List<Q11AgeDataBean> q11AgeList = Q11BeanMaker.getQ11AgeList();
+			homePageDataBean.setQ11AgeDataBean(q11AgeList);
+			if(q11AgeList!=null){
+				CSVGenerator.buildReport(q11AgeList, "q11.jrxml", "q11.csv");
+			}
+			
+			List<Q12aRaceDataBean> q12aRaceList = Q12aBeanMaker.getQ12aRaceList();
+			homePageDataBean.setQ12aRaceDataBean(q12aRaceList);
+			if(q12aRaceList!=null){
+				CSVGenerator.buildReport(q12aRaceList, "q12a.jrxml", "q12a.csv");
+			}
+			
+			List<Q12bEthnicityDataBean> q12bEthnicityList = Q12bBeanMaker.getQ12bEthnicityList();
+			homePageDataBean.setQ12bEthnicityDataBean(q12bEthnicityList);
+			if(q12bEthnicityList!=null){
+				CSVGenerator.buildReport(q12bEthnicityList, "q12b.jrxml", "q12b.csv");
+			}
+			
+			List<Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryList= Q13a1BeanMaker.getQ13a1PhysicalAndMentalHealthConditionsAtEntryList();
+			homePageDataBean.setQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean(q13a1PhysicalAndMentalHealthConditionsAtEntryList);
+			if(q13a1PhysicalAndMentalHealthConditionsAtEntryList!=null){
+				CSVGenerator.buildReport(q13a1PhysicalAndMentalHealthConditionsAtEntryList, "q13a1.jrxml", "q13a1.csv");
+			}
+			
+			List<Q13a2NumberOfConditionsAtEntryDataBean> q13a2NumberOfConditionsAtEntryList= Q13a2BeanMaker.getQ13a2NumberOfConditionsAtEntryList();
+			homePageDataBean.setQ13a2NumberOfConditionsAtEntryDataBean(q13a2NumberOfConditionsAtEntryList);
+			if(q13a2NumberOfConditionsAtEntryList!=null){
+				CSVGenerator.buildReport(q13a2NumberOfConditionsAtEntryList, "q13a2.jrxml", "q13a2.csv");
+			}
+			
+			List<Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean> q13b1PhysicalAndMentalHealthConditionsAtExitList = Q13b1BeanMaker.getQ13b1PhysicalAndMentalHealthConditionsAtExitList();
+			homePageDataBean.setQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean(q13b1PhysicalAndMentalHealthConditionsAtExitList);
+			if(q13b1PhysicalAndMentalHealthConditionsAtExitList!=null){
+				CSVGenerator.buildReport(q13b1PhysicalAndMentalHealthConditionsAtExitList, "q13b1.jrxml", "q13b1.csv");
+			}
+			
+			List<Q13b2NumberOfConditionsAtExitDataBean> q13b2NumberOfConditionsAtExitList = Q13b2BeanMaker.getQ13b2NumberOfConditionsAtExitList();
+			homePageDataBean.setQ13b2NumberOfConditionsAtExitDataBean(q13b2NumberOfConditionsAtExitList);
+			if(q13b2NumberOfConditionsAtExitList!=null){
+				CSVGenerator.buildReport(q13b2NumberOfConditionsAtExitList,"q13b2.jrxml","q13b2.csv");
+			}
+			
+			List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersList = Q13c1BeanMaker.getQ13c1PhysicalAndMentalHealthConditionsForStayersList();
+			homePageDataBean.setQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean(q13c1PhysicalAndMentalHealthConditionsForStayersList);
+			if(q13c1PhysicalAndMentalHealthConditionsForStayersList!=null){
+				CSVGenerator.buildReport(q13c1PhysicalAndMentalHealthConditionsForStayersList, "q13c1.jrxml", "q13c1.csv");
+			}
+			
+			List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerList = Q13c2BeanMaker.getQ13c2NumberOfConditionsForStayerList();
+			homePageDataBean.setQ13c2NumberOfConditionsForStayerDataBean(q13c2NumberOfConditionsForStayerList);
+			if(q13c2NumberOfConditionsForStayerList!=null){
+				CSVGenerator.buildReport(q13c2NumberOfConditionsForStayerList, "q13c2.jrxml","q13c2.csv");
+			}
+			
+			List<Q14aDomesticViolenceHistoryDataBean> q14aDomesticViolenceHistoryList= Q14aBeanMaker.getQ14aDomesticViolenceHistoryList();
+			homePageDataBean.setQ14aDomesticViolenceHistoryDataBean(q14aDomesticViolenceHistoryList);
+			if(q14aDomesticViolenceHistoryList!=null){
+				CSVGenerator.buildReport(q14aDomesticViolenceHistoryList, "q14a.jrxml", "q14a.csv");
+			}
+			
+			List<Q14bPersonsFleeingDomesticViolenceDataBean> q14bPersonsFleeingDomesticViolenceList = Q14bBeanMaker.getQ14bPersonsFleeingDomesticViolenceList();
+			homePageDataBean.setQ14bPersonsFleeingDomesticViolenceDataBean(q14bPersonsFleeingDomesticViolenceList);
+			if(q14bPersonsFleeingDomesticViolenceList!=null){
+				CSVGenerator.buildReport(q14bPersonsFleeingDomesticViolenceList, "q14b.jrxml", "q14b.csv");
+			}
+			
+			List<Q15ResidencePriorToProgramEntryDataBean> q15ResidencePriorToProgramEntryList = Q15BeanMaker.getQ15ResidencePriorToProgramEntryList();
+			homePageDataBean.setQ15ResidencePriorToProgramEntryDataBean(q15ResidencePriorToProgramEntryList);
+			if(q15ResidencePriorToProgramEntryList !=null){
+				CSVGenerator.buildReport(q15ResidencePriorToProgramEntryList,"q15.jrxml", "q15.csv");
+			}
+			
+			List<Q16CashIncomeRangesDataBean> q16CashIncomeRangesList = Q16BeanMaker.getQ16CashIncomeRangesList();
+			homePageDataBean.setQ16CashIncomeRangesDataBean(q16CashIncomeRangesList);
+			if(q16CashIncomeRangesList!=null){
+				CSVGenerator.buildReport(q16CashIncomeRangesList, "q16.jrxml", "q16.csv");		
+			}
+			
+			List<Q17CashIncomeSourcesDataBean> q17CashIncomeSourcesList= Q17CashIncomeSourcesDataBeanMaker.getQ17CashIncomeSourcesList();
+			homePageDataBean.setQ17CashIncomeSourcesDataBean(q17CashIncomeSourcesList);
+			if(q17CashIncomeSourcesList!=null){
+				CSVGenerator.buildReport(q17CashIncomeSourcesList, "q17.jrxml","q17.csv");
+			}
+			
+			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeList= Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList();
+			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(q18ClientCashIncomeCategoryEarnedOtherIncomeList);
+			if(q18ClientCashIncomeCategoryEarnedOtherIncomeList!=null){
+				CSVGenerator.buildReport(q18ClientCashIncomeCategoryEarnedOtherIncomeList, "q18.jrxml","q18.csv");
+			}
+			
+			List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList = Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList();
+			homePageDataBean.setQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBean(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList);
+			if(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList!=null){
+				CSVGenerator.buildReport(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList, "q19a1.jrxml", "q19a1.csv");
+			}
+			
+			List<Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a2ClientCashIncomeChangeIncomeSourceByEntryList = Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBeanMaker.getQ19a2ClientCashIncomeChangeIncomeSourceByEntryList();
+			homePageDataBean.setQ19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a2ClientCashIncomeChangeIncomeSourceByEntryList);
+			if(q19a2ClientCashIncomeChangeIncomeSourceByEntryList!=null){
+				CSVGenerator.buildReport(q19a2ClientCashIncomeChangeIncomeSourceByEntryList, "q19a2.jrxml", "q19a2.csv");
+			}
+			
+			List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryList = Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBeanMaker.getQ19a3ClientCashIncomeChangeIncomeSourceByEntryList();
+	        homePageDataBean.setQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a3ClientCashIncomeChangeIncomeSourceByEntryList);
+	        if(q19a3ClientCashIncomeChangeIncomeSourceByEntryList!=null){
+	        	CSVGenerator.buildReport(q19a3ClientCashIncomeChangeIncomeSourceByEntryList, "q19a3.jrxml", "q19a3.csv");
+	        }
+	        
+	        List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aTypeOfNonCashBenefitSourcesDataBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList();
+			homePageDataBean.setQ20aTypeOfNonCashBenefitSourcesDataBean(q20aTypeOfNonCashBenefitSourcesList);
+			if(q20aTypeOfNonCashBenefitSourcesList!=null){
+				CSVGenerator.buildReport(q20aTypeOfNonCashBenefitSourcesList, "q20a.jrxml", "q20a.csv");
+			}
+			
+			List<Q20bNumberOfNonCashBenefitSourcesDataBean> q20bNumberOfNonCashBenefitSourcesList= Q20bNumberOfNonCashBenefitSourcesDataBeanMaker.getQ20bNumberOfNonCashBenefitSourcesList();
+	        homePageDataBean.setQ20bNumberOfNonCashBenefitSourcesDataBean(q20bNumberOfNonCashBenefitSourcesList);
+	        if(q20bNumberOfNonCashBenefitSourcesList!=null){
+	        	CSVGenerator.buildReport(q20bNumberOfNonCashBenefitSourcesList, "q20b.jrxml", "q20b.csv");
+	        }
+			
+	        List<Q21HealthInsuranceDataBean> q21HealthInsuranceList= Q21HealthInsuranceDataBeanMaker.getQ21HealthInsuranceList();
+	        homePageDataBean.setQ21HealthInsuranceDataBean(q21HealthInsuranceList);
+	        if(q21HealthInsuranceList!=null){
+	        	CSVGenerator.buildReport(q21HealthInsuranceList, "q21.jrxml","q21.csv");
+	        }
+	        
+	        List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsList = Q22a1LengthOfParticipationCoCProjectsDataBeanMaker.getQ22a1LengthOfParticipationCoCProjectsList();
+			homePageDataBean.setQ22a1LengthOfParticipationCoCProjectsDataBean(q22a1LengthOfParticipationCoCProjectsList);
+			if(q22a1LengthOfParticipationCoCProjectsList!=null){
+				CSVGenerator.buildReport(q22a1LengthOfParticipationCoCProjectsList,"q22a1.jrxml","q22a1.csv");
+			}
+			
+			List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysList = Q22bAverageAndMedianLengthOfParticipationInDaysDataBeanMaker.getQ22bAverageAndMedianLengthOfParticipationInDaysList();
+			homePageDataBean.setQ22bAverageAndMedianLengthOfParticipationInDaysDataBean(q22bAverageAndMedianLengthOfParticipationInDaysList);
+			if(q22bAverageAndMedianLengthOfParticipationInDaysList!=null){
+				CSVGenerator.buildReport(q22bAverageAndMedianLengthOfParticipationInDaysList,"q22b.jrxml","q22b.csv");
+			}
+			
+			List<Q23ExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23ExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList();
+			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
+			if(q23ExitDestinationMoreThan90DaysList!=null){
+				CSVGenerator.buildReport(q23ExitDestinationMoreThan90DaysList, "q23.jrxml","q23.csv");
+			}
+			
+			List<Q24ExitDestination90DaysOrLessDataBean> q24ExitDestination90DaysOrLessList= Q24ExitDestination90DaysOrLessDataBeanMaker.getQ24ExitDestination90DaysOrLessList();
+			homePageDataBean.setQ24ExitDestination90DaysOrLessDataBean(q24ExitDestination90DaysOrLessList);
+			if(q24ExitDestination90DaysOrLessList!=null){
+				CSVGenerator.buildReport(q24ExitDestination90DaysOrLessList, "q24.jrxml","q24.csv");
+			}
+			
+			List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransList = Q25aNumberOfVeteransDataBeanMaker.getQ25aNumberOfVeteransList();	
+			homePageDataBean.setQ25aNumberOfVeteransDataBean(q25aNumberOfVeteransList);
+			if(q25aNumberOfVeteransList!=null){
+				CSVGenerator.buildReport(q25aNumberOfVeteransList, "q25a.jrxml","q25a.csv");
+			}
+			
+			List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsList= Q25bNumberOfVeteranHouseholdsDataBeanMaker.getQ25bNumberOfVeteranHouseholdsList();
+			homePageDataBean.setQ25bNumberOfVeteranHouseholdsDataBean(q25bNumberOfVeteranHouseholdsList);
+			if(q25bNumberOfVeteranHouseholdsList!=null){
+				CSVGenerator.buildReport(q25bNumberOfVeteranHouseholdsList, "q25b.jrxml","q25b.csv");
+			}
+			
+			List<Q25cGenderVeteransDataBean> q25cGenderVeteransList = Q25cGenderVeteransDataBeanMaker.getQ25cGenderVeteransList();
+			homePageDataBean.setQ25cGenderVeteransDataBean(q25cGenderVeteransList);
+			if(q25cGenderVeteransList!=null){
+				CSVGenerator.buildReport(q25cGenderVeteransList, "q25c.jrxml","q25c.csv");
+			}
+			
+			List<Q25dAgeVeteransDataBean> q25dAgeVeteransList = Q25dAgeVeteransDataBeanMaker.getQ25dAgeVeteransList();
+			homePageDataBean.setQ25dAgeVeteransDataBean(q25dAgeVeteransList);
+			if(q25dAgeVeteransList!=null){
+				CSVGenerator.buildReport(q25dAgeVeteransList, "q25d.jrxml","q25d.csv");
+			}
+			
+			List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> q25ePhysicalAndMentalHealthConditionsVeteransList = Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker.getQ25ePhysicalAndMentalHealthConditionsVeteransList();
+			homePageDataBean.setQ25ePhysicalAndMentalHealthConditionsVeteransDataBean(q25ePhysicalAndMentalHealthConditionsVeteransList);
+			if(q25ePhysicalAndMentalHealthConditionsVeteransList!=null){
+				CSVGenerator.buildReport(q25ePhysicalAndMentalHealthConditionsVeteransList, "q25e.jrxml","q25e.csv");
+			}
+			
+			List<Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean> q25fCashIncomeCategoryIncomeCategoryByEntryList = Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker.getQ25fCashIncomeCategoryIncomeCategoryByEntryList();
+			homePageDataBean.setQ25fCashIncomeCategoryIncomeCategoryByEntryDataBean(q25fCashIncomeCategoryIncomeCategoryByEntryList);
+			if(q25fCashIncomeCategoryIncomeCategoryByEntryList!=null){
+				CSVGenerator.buildReport(q25fCashIncomeCategoryIncomeCategoryByEntryList, "q25f.jrxml","q25f.csv");
+			}
+			
+			List<Q25gTypeOfCashIncomeSourcesVeteransDataBean> q25gTypeOfCashIncomeSourcesVeteranList = Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker.getQ25gTypeOfCashIncomeSourcesVeteranList();
+			homePageDataBean.setQ25gTypeOfCashIncomeSourcesVeteransDataBean(q25gTypeOfCashIncomeSourcesVeteranList);
+			if(q25gTypeOfCashIncomeSourcesVeteranList!=null){
+				CSVGenerator.buildReport(q25gTypeOfCashIncomeSourcesVeteranList, "q25g.jrxml","q25g.csv");
+			}
+			
+			List<Q25hTypeOfNonCashIncomeSourcesVeteransDataBean> q25hTypeOfNonCashIncomeSourcesVeteransList = Q25hTypeOfNonCashIncomeSourcesVeteransDataBeanMaker.getQ25hTypeOfNonCashIncomeSourcesVeteransList();
+			homePageDataBean.setQ25hTypeOfNonCashIncomeSourcesVeteransDataBean(q25hTypeOfNonCashIncomeSourcesVeteransList);
+			if(q25hTypeOfNonCashIncomeSourcesVeteransList!=null){
+				CSVGenerator.buildReport(q25hTypeOfNonCashIncomeSourcesVeteransList, "q25h.jrxml","q25h.csv");
+			}
+			
+			List<Q25iExitDestinationVeteransDataBean> q25iExitDestinationVeteransList = Q25iExitDestinationVeteransDataBeanMaker.getQ25iExitDestinationVeteransList();
+			homePageDataBean.setQ25iExitDestinationVeteransDataBean(q25iExitDestinationVeteransList);
+			if(q25iExitDestinationVeteransList!=null){
+				CSVGenerator.buildReport(q25iExitDestinationVeteransList, "q25i.jrxml","q25i.csv");
+			}
+			
+			List<Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean> q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList = Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker.getQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList();
+			homePageDataBean.setQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean(q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList);
+			if(q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList!=null){
+				CSVGenerator.buildReport(q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList, "q26a.jrxml","q26a.csv");
+			}
+			
+			List<Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean> q26bNumberOfChronicallyHomelessPersonsByHouseholdList = Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBeanMaker.getQ26bNumberOfChronicallyHomelessPersonsByHouseholdList();
+			homePageDataBean.setQ26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean(q26bNumberOfChronicallyHomelessPersonsByHouseholdList);
+			if(q26bNumberOfChronicallyHomelessPersonsByHouseholdList!=null){
+				CSVGenerator.buildReport(q26bNumberOfChronicallyHomelessPersonsByHouseholdList, "q26b.jrxml","q26b.csv");
+			}
+			
+			List<Q26cGenderOfChronicallyHomelessPersonDataBean> q26cGenderOfChronicallyHomelessPersonList = Q26cGenderOfChronicallyHomelessPersonDataBeanMaker.getQ26cGenderOfChronicallyHomelessPersonList();
+			homePageDataBean.setQ26cGenderOfChronicallyHomelessPersonDataBean(q26cGenderOfChronicallyHomelessPersonList);
+			if(q26cGenderOfChronicallyHomelessPersonList!=null){
+				CSVGenerator.buildReport(q26cGenderOfChronicallyHomelessPersonList, "q26c.jrxml","q26c.csv");
+			}
+			
+			List<Q26dAgeOfChronicallyHomelessPersonsDataBean> q26dAgeOfChronicallyHomelessPersonsList = Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker.getQ26dAgeOfChronicallyHomelessPersonsList();
+			homePageDataBean.setQ26dAgeOfChronicallyHomelessPersonsDataBean(q26dAgeOfChronicallyHomelessPersonsList);
+			if(q26dAgeOfChronicallyHomelessPersonsList!=null){
+				CSVGenerator.buildReport(q26dAgeOfChronicallyHomelessPersonsList, "q26d.jrxml","q26d.csv");
+			}
+			
+			List<Q26ePhysicalAndMentalHealthConditionsChronicallyDataBean> q26ePhysicalAndMentalHealthConditionsChronicallyList= Q26ePhysicalAndMentalHealthConditionsChronicallyDataBeanMaker.getQ26ePhysicalAndMentalHealthConditionsChronicallyList();
+			homePageDataBean.setQ26ePhysicalAndMentalHealthConditionsChronicallyDataBean(q26ePhysicalAndMentalHealthConditionsChronicallyList);
+			if(q26ePhysicalAndMentalHealthConditionsChronicallyList!=null){
+				CSVGenerator.buildReport(q26ePhysicalAndMentalHealthConditionsChronicallyList, "q26e.jrxml","q26e.csv");
+			}
+			
+			List<Q26fClientCashIncomeChronicallyHomelessPersonsDataBean> q26fClientCashIncomeChronicallyHomelessPersonsList= Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker.getQ26fClientCashIncomeChronicallyHomelessPersonsList();
+			homePageDataBean.setQ26fClientCashIncomeChronicallyHomelessPersonsDataBean(q26fClientCashIncomeChronicallyHomelessPersonsList);
+			if(q26fClientCashIncomeChronicallyHomelessPersonsList!=null){
+				CSVGenerator.buildReport(q26fClientCashIncomeChronicallyHomelessPersonsList, "q26f.jrxml","q26f.csv");
+			}
+			
+			List<Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean> q26gTypeOfCashIncomeSourcesChronicallyHomelessList = Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26gTypeOfCashIncomeSourcesChronicallyHomelessList();
+			homePageDataBean.setQ26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean(q26gTypeOfCashIncomeSourcesChronicallyHomelessList);
+			if(q26gTypeOfCashIncomeSourcesChronicallyHomelessList!=null){
+				CSVGenerator.buildReport(q26gTypeOfCashIncomeSourcesChronicallyHomelessList, "q26g.jrxml","q26g.csv");
+			}
+			
+			List<Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean> q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList = Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessList();
+			homePageDataBean.setQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean(q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList);
+			if(q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList!=null){
+			
+				
+				CSVGenerator.buildReport(q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList, "q26h.jrxml","q26h.csv");
+			}
+			
+			List<Q27aAgeOfYouthDataBean> q27aAgeOfYouthList = Q27aAgeOfYouthDataBeanMaker.getQ27aAgeOfYouthList();
+			homePageDataBean.setQ27aAgeOfYouthDataBean(q27aAgeOfYouthList);
+			if(q27aAgeOfYouthList!=null){
+				CSVGenerator.buildReport(q27aAgeOfYouthList, "q27a.jrxml","q27a.csv");
+			}
+			
+			List<Q27bParentingYouthDataBean> q27bParentingYouthList= Q27bParentingYouthDataBeanMaker.getQ27bParentingYouthList();
+			homePageDataBean.setQ27bParentingYouthDataBean(q27bParentingYouthList);
+			if(q27bParentingYouthList!=null){
+				CSVGenerator.buildReport(q27bParentingYouthList, "q27b.jrxml","q27b.csv");
+			}
+			
+			List<Q27cGenderYouthDataBean> q27cGenderYouthList = Q27cGenderYouthDataBeanMaker.getQ27cGenderYouthList();
+			homePageDataBean.setQ27cGenderYouthDataBean(q27cGenderYouthList);
+			if(q27cGenderYouthList!=null){
+				CSVGenerator.buildReport(q27cGenderYouthList, "q27c.jrxml","q27c.csv");
+			}
+			
+			List<Q27dResidencePriorToEntryYouthDataBean> q27dResidencePriorToEntryYouthList= Q27dResidencePriorToEntryYouthDataBeanMaker.getQ27dResidencePriorToEntryYouthList();
+			homePageDataBean.setQ27dResidencePriorToEntryYouthDataBean(q27dResidencePriorToEntryYouthList);
+			if(q27dResidencePriorToEntryYouthList!=null){
+				CSVGenerator.buildReport(q27dResidencePriorToEntryYouthList, "q27d.jrxml","q27d.csv");
+			}
+			
+			List<Q27eLengthOfParticipationYouthDataBean> q27eLengthOfParticipationYouthList = Q27eLengthOfParticipationYouthDataBeanMaker.getQ27eLengthOfParticipationYouthList();
+			homePageDataBean.setQ27eLengthOfParticipationYouthDataBean(q27eLengthOfParticipationYouthList);
+			if(q27eLengthOfParticipationYouthList!=null){
+				CSVGenerator.buildReport(q27eLengthOfParticipationYouthList, "q27e.jrxml","q27e.csv");
+			}
+			
+			List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthList = Q27fExitDestinationYouthDataBeanMaker.getQ27fExitDestinationYouthList();
+			homePageDataBean.setQ27fExitDestinationYouthDataBean(q27fExitDestinationYouthList);
+			if(q27fExitDestinationYouthList!=null){
+				CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27f.jrxml","q27f.csv");
+			}
+			
+			/*homePageDataBean.setQ29aPerformanceMeasuresPermanentHousingProgramsDataBean(Q29aPerformanceMeasuresPermanentHousingProgramsDataBeanMaker.getQ29aPerformanceMeasuresPermanentHousingProgramsList());
 			homePageDataBean.setQ29bPerformanceMeasuresTransitionalHousingProgramsDataBean(Q29bPerformanceMeasuresTransitionalHousingProgramsDataBeanMaker.getQ29bPerformanceMeasuresTransitionalHousingProgramsList());
 			homePageDataBean.setQ29cPerformanceMeasuresStreetOutreachProgramsDataBean(Q29cPerformanceMeasuresStreetOutreachProgramsDataBeanMaker.getQ29cPerformanceMeasuresStreetOutreachProgramsList());
 			homePageDataBean.setQ29dPerformanceMeasuresSupportiveServiceOnlyDataBean(Q29dPerformanceMeasuresSupportiveServiceOnlyDataBeanMaker.getQ29dPerformanceMeasuresSupportiveServiceOnlyDataBeanList());
-			homePageDataBean.setQ29ePerformanceMeasuresSafeHavensDataBean(Q29ePerformanceMeasuresSafeHavensDataBeanMaker.getQ29ePerformanceMeasuresSafeHavensDataBeanList());
+			homePageDataBean.setQ29ePerformanceMeasuresSafeHavensDataBean(Q29ePerformanceMeasuresSafeHavensDataBeanMaker.getQ29ePerformanceMeasuresSafeHavensDataBeanList());*/
 			
 			
 			return Arrays.asList(homePageDataBean);

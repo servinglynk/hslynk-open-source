@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc999e7d-ee71-4834-a8c3-3aa1ef3289d6">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" >
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	
 	<field name="totContactedOnce" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContactedOnce]]></fieldDescription>
 	</field>
@@ -30,6 +31,7 @@
 	<field name="c2to5FirstContactedRSS" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[c2to5FirstContactedRSS]]></fieldDescription>
 	</field>
+	
 	<field name="c2to5FirstContactedPlaceMissing" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[c2to5FirstContactedPlaceMissing]]></fieldDescription>
 	</field>
@@ -78,11 +80,13 @@
 	<field name="tpcFirstContactedPlaceMissing" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[tpcFirstContactedPlaceMissing]]></fieldDescription>
 	</field>
+	
 	<group name="Group5">
 		<groupFooter>
+			
 			<band height="24">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="bd8865a5-5994-4c9a-98de-123713264d2a"/>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -98,7 +102,7 @@
 			</band>
 			<band height="64">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="102" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="6040ba5c-cbb4-4676-bfa9-c5be5c3df926"/>
+					<reportElement mode="Opaque" x="0" y="1" width="102" height="63" forecolor="#666666" backcolor="#E6E6E6" />
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -112,7 +116,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="102" y="1" width="60" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="857ef870-c52b-4a4f-9d0c-794aa824de87"/>
+					<reportElement mode="Opaque" x="102" y="1" width="60" height="63" forecolor="#666666" backcolor="#E6E6E6" />
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -126,7 +130,7 @@
 					<text><![CDATA[Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="459" y="1" width="96" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="5ccb859c-c0e0-4602-b997-1e458dfc7093"/>
+					<reportElement mode="Opaque" x="459" y="1" width="96" height="63" forecolor="#666666" backcolor="#E6E6E6" />
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -142,7 +146,7 @@ place was
 missing]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="360" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="856b0dba-0796-4ad8-8bf9-f66df8121f3d"/>
+					<reportElement mode="Opaque" x="360" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" />
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -158,7 +162,7 @@ residential service
 setting]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="261" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="761f5233-52fd-4a11-aa3c-92776245060e"/>
+					<reportElement mode="Opaque" x="261" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" />
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -174,7 +178,7 @@ non-residential service
 setting]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="162" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="3fe2f28a-c25b-41e9-a330-3be4b9c55b49"/>
+					<reportElement mode="Opaque" x="162" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" />
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -192,7 +196,7 @@ habitation]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" uuid="75216694-31a7-44e5-abd5-26c9fc664f08"/>
+					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -206,7 +210,7 @@ habitation]]></text>
 					<text><![CDATA[   a1. Contacted once?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="a96e7128-e9e2-4831-b9d0-3c69e8102e4f"/>
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -218,7 +222,7 @@ habitation]]></text>
 					<textFieldExpression><![CDATA[$F{totContactedOnce}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Transparent" x="162" y="0" width="99" height="39" backcolor="#FFFFFF" uuid="d99547cf-f5e1-4987-b2e3-8a7ec0737371"/>
+					<reportElement mode="Transparent" x="162" y="0" width="99" height="39" backcolor="#FFFFFF" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -230,7 +234,7 @@ habitation]]></text>
 					<textFieldExpression><![CDATA[$F{coFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="c3ad0cee-e4e4-4ff9-a776-e591bb95f06c"/>
+					<reportElement x="261" y="0" width="100" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -242,7 +246,7 @@ habitation]]></text>
 					<textFieldExpression><![CDATA[$F{coFirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="e011e06f-bfee-4acc-b50b-2ea6020975e7"/>
+					<reportElement x="361" y="0" width="98" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -254,7 +258,7 @@ habitation]]></text>
 					<textFieldExpression><![CDATA[$F{coFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" uuid="3ae4fbfb-be87-463f-8dec-fe2b07f9a536"/>
+					<reportElement x="459" y="0" width="96" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -268,7 +272,7 @@ habitation]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" uuid="557175f3-b88f-44fa-982f-ab06ea07f145"/>
+					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -283,7 +287,7 @@ habitation]]></text>
 times?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="8c94afef-17e5-49b7-b077-feb646bf7af2"/>
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -295,7 +299,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted2to5Times}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="99" height="39" uuid="4101235c-fd86-46e6-b0a2-d21135ec970d"/>
+					<reportElement x="162" y="0" width="99" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -307,7 +311,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c2to5FirstContactedHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="b792fc79-3a72-4eec-986e-35d06c8ecd9d"/>
+					<reportElement x="261" y="0" width="100" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -319,7 +323,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c2to5FirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="0623cbd4-642d-48ec-943f-f3f5119b5576"/>
+					<reportElement x="361" y="0" width="98" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -331,7 +335,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c2to5FirstContactedRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" uuid="2ae5c4c2-9e1c-4951-bc20-13b3b193e736"/>
+					<reportElement x="459" y="0" width="96" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -345,7 +349,7 @@ times?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" uuid="e50bb047-5e2d-4fc0-83d7-adc386e4bf89"/>
+					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -360,7 +364,7 @@ times?]]></text>
 times?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="e4d98845-73e3-4ffc-85c2-ea9dd93775a6"/>
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -372,7 +376,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted6to9Times}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="99" height="39" uuid="e14374d4-dc1a-4efd-944d-0b58b6c5dba5"/>
+					<reportElement x="162" y="0" width="99" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -384,7 +388,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c6to9FirstContactedHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="a51e8f92-2bd9-4890-b7b5-3d000bc7d522"/>
+					<reportElement x="261" y="0" width="100" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -396,7 +400,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c6to9FirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="37d04b37-d464-4d76-be0d-7647a2c0d93c"/>
+					<reportElement x="361" y="0" width="98" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -408,7 +412,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c6to9FirstContactedRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" uuid="28f1b8bb-1413-42f4-a219-22b84523edad"/>
+					<reportElement x="459" y="0" width="96" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -422,7 +426,7 @@ times?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" uuid="d568b240-cb04-4838-82c0-72e3aa102a97"/>
+					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -436,7 +440,7 @@ times?]]></text>
 					<text><![CDATA[   a4.Contacted 10 or more times?]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="911ae9e0-c19e-457e-bcbb-6bc3a35d009c"/>
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -448,7 +452,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted10orMore}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="100" height="39" uuid="90c5a67b-d98b-4b3b-9d09-97ff9999bd69"/>
+					<reportElement x="162" y="0" width="100" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -460,7 +464,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="262" y="0" width="99" height="39" uuid="577b7a26-ec1d-4e4d-80b6-21c065fc1bdc"/>
+					<reportElement x="262" y="0" width="99" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -472,7 +476,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="337cecc6-1597-4358-bd8c-b63ff5402bb0"/>
+					<reportElement x="361" y="0" width="98" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -484,7 +488,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" uuid="b72d1ab4-189b-4282-91bc-377d454e00c7"/>
+					<reportElement x="459" y="0" width="96" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -498,7 +502,7 @@ times?]]></text>
 			</band>
 			<band height="39">
 				<staticText>
-					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" uuid="83ebbb79-0527-4407-b627-f66d2b8eb67a"/>
+					<reportElement x="0" y="0" width="102" height="39" forecolor="#000000" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -513,7 +517,7 @@ times?]]></text>
 contacted]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="1e1f5cfa-579a-448b-8005-ec1b36d0fdfe"/>
+					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -525,7 +529,7 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{totPersonsContacted}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="100" height="39" uuid="3225c328-c489-4184-b94d-c346789bdacd"/>
+					<reportElement x="162" y="0" width="100" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -537,7 +541,7 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{tpcFirstContactedHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="193d3f34-e7e1-4808-abe0-5879b66e3fe8"/>
+					<reportElement x="361" y="0" width="98" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -549,7 +553,7 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{tpcFirstContacteRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="262" y="0" width="99" height="39" uuid="892c5321-bc5f-49a2-8c28-5cd4d1b9b5ce"/>
+					<reportElement x="262" y="0" width="99" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -561,7 +565,7 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{tpcFirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" uuid="13e35f01-9c10-4855-937a-5b63aba5aa1e"/>
+					<reportElement x="459" y="0" width="96" height="39" />
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -575,7 +579,7 @@ contacted]]></text>
 			</band>
 			<band height="43">
 				<staticText>
-					<reportElement x="2" y="0" width="553" height="39" forecolor="#666666" uuid="b58f5ff6-cae5-46ef-90b3-cf0e26f9b784"/>
+					<reportElement x="2" y="0" width="553" height="39" forecolor="#666666" />
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.0"/>
@@ -589,6 +593,7 @@ contacted]]></text>
 					<text><![CDATA[   Universe of data: All adults and heads of household with a contact in the report date range, limited to Street Outreach and N ight-by-night Shelter projects.]]></text>
 				</staticText>
 			</band>
+			
 		</groupFooter>
 	</group>
 </jasperReport>

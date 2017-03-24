@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="q25gEarnedIncomeAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gEarnedIncomeAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gEarnedIncomeStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gEarnedIncomeStayers]]></fieldDescription>
+	</field>
+	<field name="q25gEarnedIncomeLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gEarnedIncomeLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gUnemploymentInsuranceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gUnemploymentInsuranceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gUnemploymentInsuranceStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gUnemploymentInsuranceStayers]]></fieldDescription>
+	</field>
+	<field name="q25gUnemploymentInsuranceLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gUnemploymentInsuranceLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gSSIAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gSSIAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gSSIStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gSSIStayers]]></fieldDescription>
+	</field>
+	<field name="q25gSSILeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gSSILeavers]]></fieldDescription>
+	</field>
+	<field name="q25gSSDIAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gSSDIAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gSSDIStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gSSDIStayers]]></fieldDescription>
+	</field>
+	<field name="q25gSSDILeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gSSDILeavers]]></fieldDescription>
+	</field>
+	<field name="q25gVAServiceConnectedDisabilityAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gVAServiceConnectedDisabilityAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gVAServiceConnectedDisabilityStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gVAServiceConnectedDisabilityStayers]]></fieldDescription>
+	</field>
+	<field name="q25gVAServiceConnectedDisabilityLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gVAServiceConnectedDisabilityLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gVANonServiceConnectedDisabilityAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gVANonServiceConnectedDisabilityAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gVANonServiceConnectedDisabilityStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gVANonServiceConnectedDisabilityStayers]]></fieldDescription>
+	</field>
+	<field name="q25gVANonServiceConnectedDisabilityLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gVANonServiceConnectedDisabilityLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gPrivateDisabilityInsuranceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gPrivateDisabilityInsuranceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gPrivateDisabilityInsuranceStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gPrivateDisabilityInsuranceStayers]]></fieldDescription>
+	</field>
+	<field name="q25gPrivateDisabilityInsuranceLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gPrivateDisabilityInsuranceLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gWorkersCompensationAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gWorkersCompensationAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gWorkersCompensationStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gWorkersCompensationStayers]]></fieldDescription>
+	</field>
+	<field name="q25gWorkersCompensationLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gWorkersCompensationLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gTANFAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gTANFAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gTANFStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gTANFStayers]]></fieldDescription>
+	</field>
+	<field name="q25gTANFLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gTANFLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gGeneralAssistanceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gGeneralAssistanceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gGeneralAssistanceStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gGeneralAssistanceStayers]]></fieldDescription>
+	</field>
+	<field name="q25gGeneralAssistanceLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gGeneralAssistanceLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gRetirementAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gRetirementAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gRetirementStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gRetirementStayers]]></fieldDescription>
+	</field>
+	<field name="q25gRetirementLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gRetirementLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gPensionFromFormerJobAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gPensionFromFormerJobAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gPensionFromFormerJobStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gPensionFromFormerJobStayers]]></fieldDescription>
+	</field>
+	<field name="q25gPensionFromFormerJobLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gPensionFromFormerJobLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gChildSupportAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gChildSupportAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gChildSupportStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gChildSupportStayers]]></fieldDescription>
+	</field>
+	<field name="q25gChildSupportLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gChildSupportLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gAlimonyAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gAlimonyAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gAlimonyStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gAlimonyStayers]]></fieldDescription>
+	</field>
+	<field name="q25gAlimonyLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gAlimonyLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gOtherSourceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gOtherSourceAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gOtherSourceStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gOtherSourceStayers]]></fieldDescription>
+	</field>
+	<field name="q25gOtherSourceLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gOtherSourceLeavers]]></fieldDescription>
+	</field>
+	<field name="q25gAdultsWithIncomeInfoAtEntryAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gAdultsWithIncomeInfoAtEntryAtEntry]]></fieldDescription>
+	</field>
+	<field name="q25gAdultsWithIncomeInfoAtEntryStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gAdultsWithIncomeInfoAtEntryStayers]]></fieldDescription>
+	</field>
+	<field name="q25gAdultsWithIncomeInfoAtEntryLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25gAdultsWithIncomeInfoAtEntryLeavers]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="49">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="4da15f89-5897-4633-9ac7-720f9c8b276b"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Source]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="7d6db15c-b9a0-40f2-9b8a-984b69be1c3d"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At entry]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="2b9e8e5f-1481-47bf-bb03-0bf01f93a59a"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At Latest Annual Assessment for Stayers]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="414a27a4-ed30-4e51-8e10-2322147ce846"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[At Exit for Leavers]]></text>
+				</staticText>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="9be8a61f-600c-4113-a274-57b2b62ed953"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   a. Earned income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gEarnedIncomeAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gEarnedIncomeStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gEarnedIncomeLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="c0d9601f-115c-48fd-89a3-05fb5d101967"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   b. Unemployment insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gUnemploymentInsuranceAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gUnemploymentInsuranceStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gUnemploymentInsuranceLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="6139f2a1-2ce9-4f00-8dc8-a8cbc5cac2b3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   c. SSI]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gSSIAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gSSIStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gSSILeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="43f8b571-1651-4643-ac13-4192c391bd63"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   d. SSDI]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gSSDIAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gSSDIStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gSSDILeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="43">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="43" forecolor="#000000" uuid="fbbd22bb-04a5-4a49-a505-e22dd76e7e56"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  e. VA service-connected disability compensation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="43" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gVAServiceConnectedDisabilityAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="43" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gVAServiceConnectedDisabilityStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="43" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gVAServiceConnectedDisabilityLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="39">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="39" forecolor="#000000" uuid="c0479274-52e5-47c8-9a88-be6781040686"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   f. VA non-service-connected disability pension]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="39" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gVANonServiceConnectedDisabilityAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="39" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gVANonServiceConnectedDisabilityStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="39" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gVANonServiceConnectedDisabilityLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="8854d54e-4d9d-44f8-9776-6609e716a9f1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   g. Private disability insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gPrivateDisabilityInsuranceAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gPrivateDisabilityInsuranceStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gPrivateDisabilityInsuranceLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="f5eef091-de51-4f40-a8cf-75fb19ecd860"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   h. Worker's compensation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gWorkersCompensationAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gWorkersCompensationStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gWorkersCompensationLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="477e7b68-df9c-4bf2-9f74-5556c6c7ae1f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  i. TANF or Equivalent]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gTANFAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gTANFStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gTANFLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="9451c65f-1d8c-46de-b205-cf3d8bd5bcfc"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   j. General Assistance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gGeneralAssistanceAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gGeneralAssistanceStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gGeneralAssistanceLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="c92d0495-ad4c-41ae-8bff-4496aebeb3fe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  k. Retirement (Social Security)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gRetirementAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gRetirementStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gRetirementLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="25b19edb-cbe9-4a14-ad5d-2ff417556643"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  l. Pension from a former job]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gPensionFromFormerJobAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gPensionFromFormerJobStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gPensionFromFormerJobLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="749e8f38-6367-4ae8-bbb1-2590f0458e16"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  m. Child support]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gChildSupportAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gChildSupportStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gChildSupportLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="78a1a5b0-1d95-482f-b2ec-2a4c66273f74"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  n. Alimony (spousal support)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gAlimonyAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gAlimonyStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gAlimonyLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a0f2ba1f-fc48-44aa-a11c-80f669cf4bdd"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  o. Other source]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gOtherSourceAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gOtherSourceStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gOtherSourceLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="51">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="51" forecolor="#000000" uuid="ba0f8788-aa74-41ab-bb77-b66f638deb2d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  p. Veterans with Income Information at Entry and Annual
+Assessment/Exit]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="51" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gAdultsWithIncomeInfoAtEntryAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="51" uuid="cda0a951-ead9-40b8-9b84-ed82596d290b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gAdultsWithIncomeInfoAtEntryStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="51" uuid="b2dbabc5-d9a7-4814-acd0-f2991c020c55"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25gAdultsWithIncomeInfoAtEntryLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			
+		</groupFooter>
+	</group>
+</jasperReport>

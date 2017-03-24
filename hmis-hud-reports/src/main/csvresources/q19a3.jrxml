@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec40dad9-919a-43b3-8b24-be7d8316184d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomeTotalAdult" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomeTotalAdult]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomePerformanceMeasures" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomePerformanceMeasures]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdltsWithEarnedIncomePercent" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdltsWithEarnedIncomePercent]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomeTotalAdult" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomeTotalAdult]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomePerformanceMeasures" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomePerformanceMeasures]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInEarnedIncomePercent" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInEarnedIncomePercent]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomeTotalAdult" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomeTotalAdult]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomePerformanceMeasures" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomePerformanceMeasures]]></fieldDescription>
+	</field>
+	<field name="q19a3NoOfAdultsWithOtherIncomePercent" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NoOfAdultsWithOtherIncomePercent]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomeTotalAdult" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomeTotalAdult]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomePerformanceMeasures" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomePerformanceMeasures]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOtherIncomePercent" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOtherIncomePercent]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomeTotalAdult" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomeTotalAdult]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomePerformanceMeasures" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomePerformanceMeasures]]></fieldDescription>
+	</field>
+	<field name="q19a3NumberOfAdultsWithAnyIncomePercent" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3NumberOfAdultsWithAnyIncomePercent]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomeTotalAdult" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomeTotalAdult]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomePerformanceMeasures" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomePerformanceMeasures]]></fieldDescription>
+	</field>
+	<field name="q19a3AverageChangeInOverallIncomePercent" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q19a3AverageChangeInOverallIncomePercent]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="129">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="60" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="cf4c4fb9-15ce-42d7-8f16-57b7281e8dce"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Income change by income category]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="60" y="0" width="58" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="480d930c-892b-4582-8539-1a82e142627c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Had income category at entry and did not have it at followup/exit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="118" y="0" width="60" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="21a92119-6e33-47e8-9b34-39ec1507e3ef"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Retained income category but had less $ at followup/exit than at entry]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="178" y="0" width="55" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="7d72b49b-d14a-40c2-b88c-f9bf1908da7b"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Retained income category and same $ at followup/exit as at entry]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="233" y="0" width="52" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="e0fe4672-c889-45df-aa9d-4c4d1e4bfe3f"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Retained income category and increased $ at followup/exit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="285" y="0" width="59" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="8c411f40-2768-4de5-b14f-4171111e6d42"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Did not have the income category at entry and gained the income category at followup/exit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="344" y="0" width="47" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="9ae625e9-a5c0-4954-b54c-f37297acface"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Did not have the income category at entry or followup/exit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="391" y="0" width="55" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="2c0efb9c-da5e-4dab-98c2-1631eea2d618"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Total adults (including those with no income)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="446" y="0" width="67" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="117d3497-7eb3-4036-be00-0329b2fc93ab"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Performance measures: Adults who gained or increased income from entry to followup/exit; Average gain]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="513" y="0" width="42" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="390b4ef3-2470-48da-b5f4-cf04537610e4"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Percent]]></text>
+				</staticText>
+			</band>
+			<band height="72">
+				<staticText>
+					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="70c9cd3a-741e-4eeb-b7cf-aaeef246e033"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 1.Number of adults with earned income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="58" height="72" uuid="4acd9fe4-f619-4254-841d-f146df5912e3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="60" height="72" uuid="3286f086-ed2c-4776-aa96-7545d5b90a80"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="55" height="72" uuid="bea6b2fc-58e5-4b65-9ab8-b7784d3dca96"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="233" y="0" width="52" height="72" uuid="8a243d28-58e0-4358-b2d0-1644fee48ba6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="59" height="72" uuid="5aba84f4-c5b2-4a84-b5bf-9c168a58b212"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="344" y="0" width="47" height="72" uuid="9f9b0cc6-0314-43fe-97fa-10b22bc550a6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="55" height="72" uuid="100cca4c-6d4b-422f-9b4a-c7ad93c2abd5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomeTotalAdult}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="446" y="0" width="67" height="72" uuid="6f450987-4147-4cf4-9791-827f87ead061"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomePerformanceMeasures}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="513" y="0" width="42" height="72" uuid="6025f4be-68f9-4720-aa5b-c2c6690c2888"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdltsWithEarnedIncomePercent}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="72">
+				<staticText>
+					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="fe7c7079-c630-4b26-9036-886e626e819c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 2. Average change in earned income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="58" height="72" uuid="4fcb70a9-3cf3-4d1f-a85a-5d5f06c4a503"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="60" height="72" uuid="d5fd61e4-043b-4a38-9f12-a2632d70d279"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="55" height="72" uuid="8d66a68d-ec1b-4044-ab95-62bb7e819592"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="233" y="0" width="52" height="72" uuid="694b5103-b683-4fd8-a966-92db5d44658f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="59" height="72" uuid="365acbd2-3e9e-48d1-9514-bc7da2589017"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="344" y="0" width="47" height="72" uuid="17b275e6-ee13-48ca-89dc-edfa4ebd5b9a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="55" height="72" uuid="974d4cb8-6ccd-44a6-afe8-2d91d5b60f83"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomeTotalAdult}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="446" y="0" width="67" height="72" uuid="1f59aec4-7049-4ae1-bbcd-0759c2e8bdf5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomePerformanceMeasures}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="513" y="0" width="42" height="72" uuid="4b5693a2-a8e6-4daa-940d-b25b8155a364"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInEarnedIncomePercent}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="72">
+				<staticText>
+					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="332edeb4-b376-4340-a680-6d23a7044bb9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 3.Number of adults with other income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="58" height="72" uuid="be8df578-3512-4877-b071-c588a6a2e317"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="60" height="72" uuid="7733bbb4-36c3-4c89-9a97-07936db09bc4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="55" height="72" uuid="85e69c1a-46da-4c2a-bd08-7ba1bcc580d6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="233" y="0" width="52" height="72" uuid="7a853537-a3e1-4d99-8cd5-226690df7953"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="59" height="72" uuid="29bb81af-f96a-4bf9-a9ef-c6c5866d7336"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="344" y="0" width="47" height="72" uuid="85d41cca-f702-4d93-9e77-6ea30c75d055"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="55" height="72" uuid="9c6afc36-9d46-491b-93ff-6585112cf19b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomeTotalAdult}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="446" y="0" width="67" height="72" uuid="fc3c77ff-b01a-469b-b3b5-d4916e7bd2af"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomePerformanceMeasures}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="513" y="0" width="42" height="72" uuid="8373dcf9-a3ed-46a7-ac87-077a568c3875"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NoOfAdultsWithOtherIncomePercent}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="72">
+				<staticText>
+					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="273972e2-a5b0-4b82-9ba7-310325bfd300"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 4.Average change in other income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="58" height="72" uuid="f9ca8e3e-d67d-4604-a9b9-20a375995679"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="60" height="72" uuid="d40c83a0-1a26-4eee-b821-1a9cdc66240c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="55" height="72" uuid="517bfaf8-0ed3-4d5c-9764-ad3e3f97c4d8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="233" y="0" width="52" height="72" uuid="3b7f6a0d-892e-4f43-b49b-1d985f4cc1a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="59" height="72" uuid="9a83a4b6-ccb7-4f85-b15d-bad255e3953e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="344" y="0" width="47" height="72" uuid="6ea6bde1-d60d-4722-b8cd-b90fd3ad9043"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="55" height="72" uuid="71723766-50cd-465c-8576-12636d758833"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomeTotalAdult}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="446" y="0" width="67" height="72" uuid="d7459621-de52-4a7e-a82f-60c9a8a80b32"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomePerformanceMeasures}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="513" y="0" width="42" height="72" uuid="6691aa3b-88d7-4697-a194-4e689435f01f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOtherIncomePercent}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="72">
+				<staticText>
+					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="3686da7c-35b9-44f4-9c6d-4068fab7f52a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 5.Number of adults with any income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="58" height="72" uuid="1ee7321a-0dc0-4ba1-abf7-bacf5f93460e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="60" height="72" uuid="7ad6a473-e3d4-47d4-bc61-ad33738a0163"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="55" height="72" uuid="5d9891fc-13c1-4d66-bae7-23aaeb500af2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="233" y="0" width="52" height="72" uuid="fdff1ce9-4a41-4409-a24f-94cb4a3e48ec"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="59" height="72" uuid="4ea67892-4b7a-45b3-8b95-458f2e4c0d3e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="344" y="0" width="47" height="72" uuid="0ed10661-7b38-455c-8dfe-68f1f1d2ed3f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="55" height="72" uuid="28fcd3bf-16b7-45ad-8547-db14b43f4dc3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomeTotalAdult}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="446" y="0" width="67" height="72" uuid="1988d20e-3447-436a-a39c-5a29d5ee647b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomePerformanceMeasures}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="513" y="0" width="42" height="72" uuid="89ec190c-f87e-413c-9dca-abd132462c5b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3NumberOfAdultsWithAnyIncomePercent}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="72">
+				<staticText>
+					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="b9ccdc43-fecd-4dc4-af5f-67481de6fa8a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 6.Average change in overall income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="58" height="72" uuid="cc3b6cfa-1c3d-4be1-98e2-9743a1315e28"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="118" y="0" width="60" height="72" uuid="bfc84420-30ab-4704-84c5-0268cfce74cc"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryButHadLessDollarAtFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="55" height="72" uuid="99b81f4f-bb06-4f0c-a390-70e19c66c5d5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryAndSameDollartFollowupOrExitAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="233" y="0" width="52" height="72" uuid="2aa26608-c845-4672-b66d-616599ec2312"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeRetainedIncomeCategoryAndIncreasedDollarAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="59" height="72" uuid="da2b15b8-47ab-45e5-a9dd-486046daeefa"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeDidNotHaveIncomeCategoryEntryAndGainedIncomeCategoryAtFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="344" y="0" width="47" height="72" uuid="19735ae9-f9e9-4f49-8271-6f45fd7b395a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeDidNotHaveIncomeCategoryAtEntryOrFollowupOrExit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="55" height="72" uuid="020697e7-eb14-4266-9dc1-a8b2dd65f511"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomeTotalAdult}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="446" y="0" width="67" height="72" uuid="d8921e2a-52fb-486d-9528-00cc1d89279e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomePerformanceMeasures}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="513" y="0" width="42" height="72" uuid="5e11a6e1-5b82-44d6-8189-2bc3e4dbf849"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19a3AverageChangeInOverallIncomePercent}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+</jasperReport>

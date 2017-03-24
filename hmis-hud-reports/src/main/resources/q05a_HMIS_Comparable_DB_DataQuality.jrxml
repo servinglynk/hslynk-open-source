@@ -1,100 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab169364-6d76-4e76-96a4-a58dfbbf5321">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="368a69cc-3c8e-4103-8b46-0f202348a3d8">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="85"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\workspace\\hmis-hud-reports\\src\\main\\resources\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\workspace\\hudAnnualReport\\src\\main\\resources\\"]]></defaultValueExpression>
 	</parameter>
-	<field name="q05aFirstName" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aFirstName]]></fieldDescription>
-	</field>
-	<field name="q05aDNCFirstName" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCFirstName]]></fieldDescription>
-	</field>
-	<field name="q05aLastName" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aLastName]]></fieldDescription>
-	</field>
-	<field name="q05aDNCLastName" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCLastName]]></fieldDescription>
-	</field>
-	<field name="q05aSSN" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aSSN]]></fieldDescription>
-	</field>
-	<field name="q05aDNCSSN" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCSSN]]></fieldDescription>
-	</field>
-	<field name="q05aDoB" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDoB]]></fieldDescription>
-	</field>
-	<field name="q05aDNCDoB" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCDoB]]></fieldDescription>
-	</field>
-	<field name="q05aRace" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aRace]]></fieldDescription>
-	</field>
-	<field name="q05aDNCRace" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCRace]]></fieldDescription>
-	</field>
-	<field name="q05aEthinicity" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aEthinicity]]></fieldDescription>
-	</field>
-	<field name="q05aDNCEthinicity" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCEthinicity]]></fieldDescription>
-	</field>
-	<field name="q05aGender" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aGender]]></fieldDescription>
-	</field>
-	<field name="q05aDNCGender" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCGender]]></fieldDescription>
-	</field>
-	<field name="q05aVeteranStatus" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aVeteranStatus]]></fieldDescription>
-	</field>
-	<field name="q05aDNCVeteranStatus" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCVeteranStatus]]></fieldDescription>
-	</field>
-	<field name="q05aDisablingCond" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDisablingCond]]></fieldDescription>
-	</field>
-	<field name="q05aDNCDisablingCond" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCDisablingCond]]></fieldDescription>
-	</field>
-	<field name="q05aResidencePriorEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aResidencePriorEntry]]></fieldDescription>
-	</field>
-	<field name="q05aDNCResidencePriorEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCResidencePriorEntry]]></fieldDescription>
-	</field>
-	<field name="q05aRelationshipToHH" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aRelationshipToHH]]></fieldDescription>
-	</field>
-	<field name="q05aDNCRelationshipToHH" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCRelationshipToHH]]></fieldDescription>
-	</field>
-	<field name="q05aDestination" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDestination]]></fieldDescription>
-	</field>
-	<field name="q05aDNCDestination" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCDestination]]></fieldDescription>
-	</field>
-	<field name="q05aClientLocatorPE" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aClientLocatorPE]]></fieldDescription>
-	</field>
-	<field name="q05aDNCClientLocatorPE" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCClientLocatorPE]]></fieldDescription>
-	</field>
-	<field name="q05aLengthOfTime" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aLengthOfTime]]></fieldDescription>
-	</field>
-	<field name="q05aDNCLengthOfTime" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q05aDNCLengthOfTime]]></fieldDescription>
-	</field>
 	<group name="Group4">
 		<groupFooter>
 			<band height="23" splitType="Stretch">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="304" height="23" backcolor="#CCCCFF" uuid="3f6dd2ba-cdaa-4d68-9b7d-ea5698bb3005"/>
+					<reportElement mode="Opaque" x="0" y="0" width="304" height="23" backcolor="#CCCCFF" uuid="9e81e6e7-cd91-42b7-870b-a97b88bb48cf"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Q5: Report Validations]]></text>
+				</staticText>
+			</band>
+			<band height="23" splitType="Stretch">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="304" height="23" backcolor="#CCCCFF" uuid="1360f680-a687-4642-973e-3bd652a90f58"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -108,613 +40,458 @@
 					<text><![CDATA[   Q05a: HMIS or Comparable Database Data Quality]]></text>
 				</staticText>
 			</band>
-			<band height="20">
+			<band height="23" splitType="Stretch">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="211" height="20" forecolor="#666666" backcolor="#E7E3E3" uuid="5b210121-fcb0-428d-9d51-c1e9e7e8f44b"/>
+					<reportElement mode="Opaque" x="0" y="0" width="304" height="23" backcolor="#CCCC00" uuid="d18bfa30-a606-40cc-a8f4-e1dd78aa3775"/>
 					<box>
-						<pen lineWidth="0.5" lineColor="#000000"/>
-						<topPen lineWidth="0.5" lineColor="#000000"/>
-						<leftPen lineWidth="0.5" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineColor="#000000"/>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Category]]></text>
+					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
 				</staticText>
+			</band>
+			<band height="23" splitType="Stretch">
 				<staticText>
-					<reportElement mode="Opaque" x="416" y="0" width="138" height="20" forecolor="#666666" backcolor="#E7E3E3" uuid="b7dcbe12-785d-490f-8cca-ab3fee248e17"/>
+					<reportElement mode="Opaque" x="0" y="0" width="304" height="23" backcolor="#CCCC00" uuid="5049463a-1524-4747-85b6-93b2e77659cb"/>
 					<box>
-						<pen lineWidth="0.5" lineColor="#000000"/>
-						<topPen lineWidth="0.5" lineColor="#000000"/>
-						<leftPen lineWidth="0.5" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineColor="#000000"/>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Data not collected]]></text>
+					<text><![CDATA[   Changes from APR V5: New; replaces Q6a.]]></text>
 				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="211" y="0" width="205" height="20" forecolor="#666666" backcolor="#E7E3E3" uuid="5d22233b-43bb-40fa-bd75-ab485f106452"/>
-					<box>
-						<pen lineWidth="0.5" lineColor="#000000"/>
-						<topPen lineWidth="0.5" lineColor="#000000"/>
-						<leftPen lineWidth="0.5" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Client Doesn't Know or Client Refused]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="c5275a88-ab9d-4d23-b0ac-f8d826df24c7"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCFirstName}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="51f31779-524a-4def-999b-562238287f60"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   First Name]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="172fb87f-d2cf-4f98-a473-f0dcd2a0c6f2"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aFirstName}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="20">
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="b816d942-c99c-4668-ae33-9862b3bc2bbb"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCLastName}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="dcceaf2d-e4a6-4661-a05f-b4938e1ac0d1"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aLastName}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="4bf1af37-3877-4da9-a2cb-b1933efde5c3"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Last Name]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="0f1a2e1f-02db-4877-b772-1355d9ba97ae"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   SSN]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="afd33910-cb09-4e58-bada-af616e4047d3"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aSSN}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="df8a563a-a994-47f8-8439-444ad32427c2"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCSSN}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="20">
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="05d9d8e7-6a8c-4220-8a1b-00e54d4771e2"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCDoB}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="5450df0e-6201-4e20-ac13-d139c932083b"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDoB}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="932f4407-191e-4ceb-a2c8-c7a463a2ee3d"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Date of Birth]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="b2c01f52-0408-48a5-9e65-de24292565cd"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCRace}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="dc0445d3-d86d-49c8-9cb9-c7ceb7f87df9"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aRace}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="51a10a8b-c51b-4e66-b389-e6b782618c30"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Race]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="c33e3f6f-2b1c-43c8-9010-333341b00da1"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Ethnicity]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="2bb61528-2629-4111-9937-d2b04c1d7392"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCEthinicity}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="720758de-b42c-4b67-bce2-9544a8c15503"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aEthinicity}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="fd2a8941-da81-41e9-977d-02f4afee1837"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Gender]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="a9af6a1b-1e95-4fdf-a28d-cca480173e2f"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aGender}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="4dfdfbcc-4b3f-4d5a-9007-05bae4f41461"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCGender}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="20">
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="bd3452f5-b8ce-42bc-b541-69ead7c5614f"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aVeteranStatus}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="5c56a163-abb9-484b-a3d5-7b991ce06209"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Veteran Status]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="f099ec5f-0d99-4c23-b14b-23394d0742b2"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCVeteranStatus}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="20">
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="2b4ed75b-55a6-4655-8c5e-be435c892247"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCDisablingCond}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="06f38825-0407-474a-9fb5-e2583a2c2aac"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Disabling Condition]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="6c49546f-5817-415e-9000-9692164feb66"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDisablingCond}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="20" forecolor="#666666" uuid="af02f09e-94c6-42f9-aa00-f058bd2342d8"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Residence Prior to Entry]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="20" uuid="1de217b2-ee39-438a-b527-8a86400f25d6"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aResidencePriorEntry}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="20" uuid="3dc4e198-9928-4d2e-b7d5-b9b2e1244c81"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCResidencePriorEntry}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="22">
-				<textField>
-					<reportElement x="416" y="0" width="138" height="22" uuid="562be941-2474-47c1-84d4-fd7a88b39f9f"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCRelationshipToHH}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="22" uuid="c2c75b61-63c6-46c8-93bb-29b7edcff9ce"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aRelationshipToHH}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="22" forecolor="#666666" uuid="0770f360-1e3c-4a7b-8a51-1d2b3cd603bd"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Relationship to Head of Household]]></text>
-				</staticText>
-			</band>
-			<band height="21">
-				<textField>
-					<reportElement x="211" y="0" width="205" height="21" uuid="546f6d0c-d652-49f6-8c9c-43ce630408a5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDestination}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="21" forecolor="#666666" uuid="379c9d92-84c2-4215-bc9c-c407522a8232"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Destination]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="21" uuid="8fea9e0e-a6c1-4530-9f09-cc0621457079"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCDestination}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="23">
-				<textField>
-					<reportElement x="211" y="0" width="205" height="23" uuid="0ba61822-7431-44ca-b672-74c0cdadabc5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aClientLocatorPE}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="23" uuid="646313bc-9231-4619-af09-7c207054a5aa"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCClientLocatorPE}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="23" forecolor="#666666" uuid="dfa0d254-2f1a-493f-af82-806a2d38185a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Client location for project entry]]></text>
-				</staticText>
-			</band>
-			<band height="21">
-				<staticText>
-					<reportElement x="0" y="0" width="211" height="21" forecolor="#666666" uuid="6d26015b-287b-45ef-a863-313148158f26"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[   Length of Time on Street, in ES or SH]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="211" y="0" width="205" height="21" uuid="0d2d1f46-4bf8-4a5b-a409-c24c1a5fb6e5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aLengthOfTime}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="416" y="0" width="138" height="21" uuid="7ba205bd-2914-4980-b635-025946a700cf"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q05aDNCLengthOfTime}]]></textFieldExpression>
-				</textField>
 			</band>
 			<band height="19">
 				<staticText>
-					<reportElement x="0" y="3" width="554" height="16" forecolor="#666666" uuid="e71b0010-4c41-4947-b908-9b50b8cf0aa8"/>
+					<reportElement x="1" y="1" width="353" height="18" uuid="77b2d2da-08e8-474d-a092-ac5793b959ac"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Total number of persons served]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="354" y="1" width="200" height="18" uuid="f3d251c9-1d67-488c-b31b-7ee8b9400a29"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="20" uuid="5ef7d92a-8b67-41a3-b30c-9191d7f5091c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="20" uuid="955ad5c0-62b3-4583-9938-dc0fee47a183"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of adults (age 18 or over)]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="20" uuid="afe53b9b-2c1f-487e-bda9-035eb21b3270"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="20" uuid="89df7cbe-3468-4db1-b252-ca5be9d3eb6d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of children (under age 18)]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="20" uuid="9dad59b0-e4cd-4332-af29-7871fdcec95d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="20" uuid="5674861b-3b6e-4218-b25a-77da93f7b10b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  Number of persons with unknown age]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="20" uuid="a5c77b2b-2dfe-4a7f-91d3-a9ebb0dfc84b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="20" uuid="026ae304-7b39-4556-83f7-76712559772a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of leavers]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="4d4078d3-e40f-4fda-b590-0e8837e9038e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="44a1f966-ffac-49c5-9e9d-ddb4d3a38d0d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of adult leavers]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="52c63e09-591e-407c-91cf-43024cbb7a42"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="621de50b-51e9-41a9-9bcd-437e7d93036d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of adult and head of household leavers]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="20" uuid="7eacb049-d167-45ba-ae2e-d6aecf934459"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="20" uuid="fdafd7a5-67f4-402b-b8b4-7567202efa35"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of stayers]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="18880c15-bae7-413d-a6e6-742e164a3072"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="31764ce0-d266-45a0-8abb-19fedfa3acbe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of adult stayers]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="20" uuid="0c3ad234-f145-470a-9e49-80167368b07f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="20" uuid="230d3f55-16ee-4e50-99d9-5876e5a420da"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of veterans]]></text>
+				</staticText>
+			</band>
+			<band height="24">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="24" uuid="47e51f4e-3297-473b-98c8-ee7082d10c0e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="24" uuid="1a37aa9a-90a4-4be1-94e0-1677a1216e60"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of chronically homeless persons]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="432d90e2-9497-49f9-9494-dd01355956e1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="79408155-46de-4f73-b1e1-7577061d647f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of youth under age 25]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="a75c9a91-309c-4f68-9daa-8b7d839a2763"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="71491ec2-6ac8-4567-9fdd-7890bfdd8b36"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[   Number of parenting youth under age 25 with children]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="1d1c66bf-5e46-4bbc-bfd4-62c501ad24c8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="f197369e-77c7-4ce1-8e58-ef165fd550d6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  Number of adult heads of household]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="1d1c66bf-5e46-4bbc-bfd4-62c501ad24c8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="f197369e-77c7-4ce1-8e58-ef165fd550d6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  Number of child and unknown-age heads of household]]></text>
+				</staticText>
+			</band>
+			<band height="19">
+				<staticText>
+					<reportElement x="354" y="0" width="200" height="19" uuid="1d1c66bf-5e46-4bbc-bfd4-62c501ad24c8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="0" width="353" height="19" uuid="f197369e-77c7-4ce1-8e58-ef165fd550d6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[  Number of adult heads of household]]></text>
+				</staticText>
+			</band>
+			<band height="4"/>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="421" height="20" forecolor="#000000" uuid="7701dc4a-7d44-4b50-a893-6c4fc2f3d0bd"/>
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.0"/>
@@ -722,374 +499,10 @@
 						<bottomPen lineWidth="0.0"/>
 						<rightPen lineWidth="0.0"/>
 					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
 					</textElement>
-					<text><![CDATA[   Universe of data: All active clients, further limited as described below. Street Outreach clients must be engaged to be included. ]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="1" y="1" width="199" height="18" uuid="6e43d232-1ba8-4bb7-a75b-c740b7425c62"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   First Name :]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="200" y="1" width="200" height="18" uuid="cf2e1d73-bb24-4f25-bc9c-04f5f807adc7"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="20" uuid="a187a763-39f5-4918-accc-f6d3847d6ab6"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="20" uuid="4a092404-95dc-4589-a2f3-e5a949a5a17e"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Last Name :]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="20" uuid="a15dff85-1d90-47af-9326-c4a4ac21086b"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="20" uuid="54984ed5-d014-40e0-b522-5ad1261f6aa1"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   SSN :]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="20" uuid="efac9c3e-edf9-4409-8c09-e6d18211822a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="20" uuid="3fea16fa-83fa-4e39-af88-33fb8d4dcb5e"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[  Date of Birth :]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="20" uuid="d5ad15d4-c43a-4793-8035-1765942d1e3c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="20" uuid="d6818152-96ab-4768-9405-3df9449f15d7"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Race :]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="19" uuid="f0d49c01-a732-4003-a968-6a61cc37945f"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="19" uuid="f2177143-0637-479c-9e53-dc4d356931c5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Ethnicity :]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="19" uuid="50630f71-a34c-42df-a01d-ea291d87fa15"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="19" uuid="b533c79c-ccfa-4ae5-98ea-420850443a62"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Gender :]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="20" uuid="1ec76ff4-88a7-4f5a-914e-8249f6169e4b"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="20" uuid="1c504f7a-9b63-4aea-aff2-5fa0b5d87e05"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Veteran Status (Adults) :]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="19" uuid="f69905bd-682e-48ca-b97d-9a418f023f10"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="19" uuid="9bbf3264-40b5-4c65-8657-e0980ed8d987"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Disabling Condition (Adults) :]]></text>
-				</staticText>
-			</band>
-			<band height="20">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="20" uuid="e0274c27-b4f5-4e51-a73d-7926ff557683"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   heads of household and adults]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="20" uuid="d0ef3c3f-6332-45c7-afa5-a49806fedcdb"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Residence Prior to Entry :]]></text>
-				</staticText>
-			</band>
-			<band height="24">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="24" uuid="1c6b75b1-e186-44c6-8b9d-daa1a6d864e5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="24" uuid="7cf6d866-9f57-4e1b-b6b5-c90ce50fdc3c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Relationship to Head of Household :]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="19" uuid="de938059-0a6c-4957-953f-94d08b1fc9e7"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   All Clients]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="19" uuid="d09a57e5-cfd1-4e26-9afc-0c988f27b86e"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Destination :]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="19" uuid="d9c9f1d3-171d-4a07-bc68-609ff11e1328"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   all heads of household]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="19" uuid="56e86cb7-08e1-49cb-9ac0-f7c04b2736ee"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   Client Location for project entry :]]></text>
-				</staticText>
-			</band>
-			<band height="19">
-				<staticText>
-					<reportElement x="200" y="0" width="200" height="19" uuid="878c0a18-012a-4f98-b35d-7e4770dc91ef"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[   heads of household and adults]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="1" y="0" width="199" height="19" uuid="79e7e8a5-cd61-4d6c-b6a8-2cfcfd92558b"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[  Length of Time on Street, in ES or SH :]]></text>
+					<text><![CDATA[   HMIS Reporting Glossary Reference: Data Quality Q1.]]></text>
 				</staticText>
 			</band>
 		</groupFooter>

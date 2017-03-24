@@ -1,0 +1,11 @@
+   Q07b: Point-in-Time Count of Households on the Last Wednesday,,,,,,
+Month,,Total,"Without
+Children","With Children
+and Adults","With Only
+Children",Unknown HH Type
+   January,,0,0,0,0,0
+   April,,0,0,0,0,0
+   July,,0,0,0,0,0
+   October,,0,0,0,0,0
+," Universe of data: All project types except Street Outreach: heads of household active on the given date; client must not be e xited ON that date. Street outreach: heads of household
+active on the given date, even if exited ON that date.",,,,,

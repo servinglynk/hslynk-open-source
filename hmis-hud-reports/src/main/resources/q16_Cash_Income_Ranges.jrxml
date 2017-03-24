@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dda04d03-3982-492d-a438-2a3b2ff407e0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="94719319-76d9-4bd7-9285-7ada360938a1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="215"/>
 	<field name="q16NoIncomeIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q16NoIncomeIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -124,7 +124,7 @@
 		<groupFooter>
 			<band height="24">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="7e918ae0-0b1b-47bb-9126-9c0426d7f053"/>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="508a2646-4d79-4385-bcdb-c4f67eb5fbac"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -138,9 +138,41 @@
 					<text><![CDATA[    Q16: Cash Income - Ranges]]></text>
 				</staticText>
 			</band>
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCC00" uuid="46d236d1-98c2-41ae-b4b4-dd5f6962247d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[    Report Relevance: COC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCC00" uuid="a8830847-4dd8-445d-a0b8-1176f39781c7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[    Changes from APR V5: None]]></text>
+				</staticText>
+			</band>
 			<band height="49">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c43d464f-68ff-4d8f-8cd5-4886af61f810"/>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="82c1db2b-e863-482f-a645-bc8ab4342d8d"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -151,10 +183,10 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Income bracket]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="b27c4f93-0237-4cbc-a55e-67ffce68851a"/>
+					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="40fd658a-0877-4273-adbd-c0d767ac9bce"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -168,7 +200,7 @@
 					<text><![CDATA[Income at entry]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="ab57219c-732b-4431-bcfc-fb722652fdaa"/>
+					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="582fe0dd-dc42-4857-a121-4d8bf303abaf"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -182,7 +214,7 @@
 					<text><![CDATA[  Income at latest follow-up for stayers]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="5495601d-b8e4-496e-8e88-d286eb01c226"/>
+					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="51e4dc49-a5e0-4ead-a452-a524b890f456"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -198,7 +230,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="4945d7de-c938-4747-9919-50237b036653"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="fc3a357c-5b16-4edb-a406-95b077aca8f8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -209,10 +241,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. No Income]]></text>
+					<text><![CDATA[   No Income]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="fc740746-6a61-4c31-83fe-e6b293283b15"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="afcb31d2-59ef-423a-8700-d35f5a10e2a5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -224,7 +256,7 @@
 					<textFieldExpression><![CDATA[$F{q16NoIncomeIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="37552479-24b4-4da7-bce8-68af14e61d13"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="042c4d61-2e6f-40d8-987d-e77448c0703c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -236,7 +268,7 @@
 					<textFieldExpression><![CDATA[$F{q16NoIncomeIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="008fcb5e-1471-4b69-8e40-31d6f87f794c"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="a31ab258-1a19-4bb7-926e-ed6d1bdbd489"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -250,7 +282,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="31927956-68fa-4038-b0b9-2e5673943f7a"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="83d9ba6d-f4a0-4e7a-ac38-196ac2dbf9d6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -261,10 +293,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. $1 - $150]]></text>
+					<text><![CDATA[   $1 - $150]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="6f0d0c0b-9773-4186-9509-f2ca888a0f90"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="a3b9d72e-0119-4b96-acd8-d20e0fad36fa"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -276,7 +308,7 @@
 					<textFieldExpression><![CDATA[$F{q161To150IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="bcfaec32-5ca8-4e75-9e2f-7eef5155ca81"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="4a2a572d-491e-4792-8ba6-642bcf6a631c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -288,7 +320,7 @@
 					<textFieldExpression><![CDATA[$F{q161To150IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="4acd1f72-d709-4d60-8b2a-a2baf3175939"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="36ddfd94-8a58-4e94-961b-c80a07217f9e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -302,7 +334,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="4d69e169-f5e8-4858-991e-de9c8f1f7583"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="9d811793-7c11-45a3-8ef5-e374f0e2f126"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -313,10 +345,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. $151 - $250]]></text>
+					<text><![CDATA[   $151 - $250]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="0e10dd07-67d7-47a8-8d39-32cb4636d335"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="ef09b554-8d74-464c-8756-c11c068c4e6d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -328,7 +360,7 @@
 					<textFieldExpression><![CDATA[$F{q16151To250IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="74c7c2d7-01ba-4954-878c-e7ff512084a4"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="4f57280f-4a18-4321-9afb-083d13172116"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -340,7 +372,7 @@
 					<textFieldExpression><![CDATA[$F{q16151To250IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="f4efc61e-9d84-4b6d-be75-ccad8166317a"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="2c83d4c3-3c61-45d6-9d74-f2bfe52f94c5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -354,7 +386,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="7b733aec-324b-4656-8116-2a1450d49d17"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="2eaa2f40-bf48-4ebd-9fc1-4cef6687cbed"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -365,10 +397,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. $251 - $500]]></text>
+					<text><![CDATA[   $251 - $500]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="23669bfd-cb6f-4970-b885-0524b11d6789"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="1b213bd1-001c-4a08-9a3d-781119b411dd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -380,7 +412,7 @@
 					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="4e6d2b80-e75a-4686-8004-343e39bdd147"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="86756f4b-5c01-4525-9253-e0d6852e5259"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -392,7 +424,7 @@
 					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="c02c154e-66b9-4776-bb98-466a94b04f1c"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="47568c2d-a213-463a-b9b8-b99f90a8d6c2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -406,7 +438,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="efa88d6e-9a8f-48c5-8586-ed4e643d374b"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="9fe9b53d-c119-436a-a00a-103541b712de"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -417,10 +449,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. $501 - $1000]]></text>
+					<text><![CDATA[   $501 - $1000]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="58dd73e2-b61c-4fa1-9722-b163edd037b9"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="9f13c1c4-3372-4af8-a64b-04724e5d74d9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -432,7 +464,7 @@
 					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="ef76ce2a-55e4-425a-be90-2c03ca42b6a3"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="1544fc4b-ca6f-42d3-905a-e7b459e23542"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -444,7 +476,7 @@
 					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="be45aca0-f8b6-4ad7-bb5e-a420ed174cf1"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="da9e0950-3b82-4f30-b70a-bcbf24db561f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -458,7 +490,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="79bbf520-4ca3-4e13-ab85-d37c2aaa291e"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="1b7f16ae-2bb5-43a1-beb5-de79304dded6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -469,10 +501,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. $1,001 - $1,500]]></text>
+					<text><![CDATA[   $1,001 - $1,500]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="3956bd32-e4ee-458d-b234-7f25709c0bf8"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="abcc5897-c658-4698-a5cf-9e4e15ee78a0"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -484,7 +516,7 @@
 					<textFieldExpression><![CDATA[$F{q161001To1500IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="dce66bde-bc73-4b31-905e-68af31d88013"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="c699eeb4-ce52-436f-946e-9f784fbb9441"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -496,7 +528,7 @@
 					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="6ae234ee-bb5e-41eb-93ed-d2b00d1642da"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="e83d5bb9-da56-411d-9478-a2e0a94c77c1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -510,7 +542,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="e76791a6-3e46-454a-b740-f96f46c41c02"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="3c139e41-ff6a-4dbb-a7f6-95dce64389b6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -521,10 +553,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. $1,501 - $2,000]]></text>
+					<text><![CDATA[   $1,501 - $2,000]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="ab491496-8201-404a-a906-ae17a6794caa"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="23f90d2b-0b91-40ae-befa-f04b7e582f9f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -536,7 +568,7 @@
 					<textFieldExpression><![CDATA[$F{q161501To2000IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="5f3bb649-64f2-45df-b864-9fe85794d5fe"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="85f21fb7-bf47-4460-943e-36a47dff1928"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -548,7 +580,7 @@
 					<textFieldExpression><![CDATA[$F{q161501To2000IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="c04227b6-c9d9-4c0e-9be6-888ae8ad68c9"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="7f3e834a-e019-4808-92ca-772a8c599411"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -562,7 +594,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="dfed2478-b97c-400c-81e4-17f33dfe6113"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a69a667c-f6f5-48c5-8334-6560500da7c6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -573,10 +605,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. $2,001+]]></text>
+					<text><![CDATA[   $2,001+]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="1ced2e8a-2df1-4ada-8a60-4c126f96115a"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="d84309eb-0662-4cc8-b7da-a3cf39960fe9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -588,7 +620,7 @@
 					<textFieldExpression><![CDATA[$F{q162000PlusIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="15f21cd1-7451-4b32-b963-79c462958218"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="4842e41b-ae15-463e-bf18-a098759b54f4"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -600,7 +632,7 @@
 					<textFieldExpression><![CDATA[$F{q162000PlusIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="2cf248f3-4bf1-4121-858d-534ed8835d8c"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="de96e95f-9fec-4f6d-a9ed-083e2f82b63e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -614,7 +646,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a8c9e7f5-b6b1-4068-b77a-8995e78357a2"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="2c9d6c92-9acc-49dd-886f-b6cb16acaafc"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -625,10 +657,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. Client Doesn't Know/Client Refused]]></text>
+					<text><![CDATA[   Client Doesn’t Know/Client Refused]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="793c1c0f-a474-47c0-8eff-a39f9b3ecaa4"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="9b0b9f2d-e98b-492b-af68-d639f9e21709"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -640,7 +672,7 @@
 					<textFieldExpression><![CDATA[$F{q16ClientDoesntKnowIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="6dba91c3-2812-4039-a8e5-857dbae95afc"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="650d7149-a0dc-49bb-9f23-7f9acd1235a5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -652,7 +684,7 @@
 					<textFieldExpression><![CDATA[$F{q16ClientDoesntKnowIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="43d7894f-f810-45b0-8e8f-a243511065c6"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="502d0da5-3f7a-4d81-a900-01db08ae66ce"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -666,7 +698,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="13736e1e-4854-4292-8117-4ce17a78e9d2"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="545920df-2fb0-45c8-879f-9b5fd9fd759c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -677,10 +709,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   j. Data Not Collected]]></text>
+					<text><![CDATA[   Data Not Collected]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="5b5af7e2-b2a0-4fe1-a7c4-5ab372717eac"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="8a8e78d4-c79a-4f14-9300-43d6690b2f14"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -692,7 +724,7 @@
 					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="55b85700-2c49-4993-a963-ad19404207c9"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="78fd5397-857a-4207-a9ea-7f0f5a4f731e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -704,7 +736,7 @@
 					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="b20becc9-492f-43c7-ac4c-329386f1ee3b"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="760149ad-daa8-4293-8a0f-45e5957bb8f9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -716,9 +748,9 @@
 					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="62">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="d7d183ae-973b-4110-8acf-2e17ee753cc0"/>
+					<reportElement x="0" y="0" width="117" height="62" forecolor="#000000" uuid="cb592de0-4f65-4d45-aa48-b1bdfab8692b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -729,10 +761,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Number of adult stayers not yet required to have an annual assessment]]></text>
+					<text><![CDATA[   Number of adult stayers not yet required to have an annual assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="c2cc56fb-36b6-44b9-a51e-b730353a7495"/>
+					<reportElement x="182" y="0" width="183" height="62" uuid="a2f0d629-27ba-4c02-a097-c434495af113"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -744,7 +776,7 @@
 					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="2ca1bd4b-65b9-452e-90b4-0de16b1f21c8"/>
+					<reportElement x="117" y="0" width="65" height="62" uuid="15217d42-8314-48c4-8dd9-9cf5058f434c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -756,7 +788,7 @@
 					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="caa926a7-e57e-452f-9e39-a4c32fa0ab9d"/>
+					<reportElement x="365" y="0" width="190" height="62" uuid="c59b9413-0fb8-492a-904f-abb2b2a87666"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -768,9 +800,9 @@
 					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="47">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="cd86c9eb-3951-4182-87fe-373a03908839"/>
+					<reportElement x="0" y="0" width="117" height="47" forecolor="#000000" uuid="f188b653-96bf-4e2c-b049-15090f53b49f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -781,10 +813,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   l. Number of adult stayers without required annual assessment]]></text>
+					<text><![CDATA[  Number of adult stayers without required annual assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="de854b15-b11b-4b6a-ad60-048d3726db77"/>
+					<reportElement x="182" y="0" width="183" height="47" uuid="b3805ef0-f556-49a3-8346-becf1395408a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -796,7 +828,7 @@
 					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersWithoutRequiredIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="b4fcafd9-3493-4870-bdd3-050ec927fcb3"/>
+					<reportElement x="117" y="0" width="65" height="47" uuid="bf69d88b-50a8-4091-9096-1b051f5ff0f7"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -808,7 +840,7 @@
 					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="d95cd9b7-8408-42be-bc9c-73d15aed8fcf"/>
+					<reportElement x="365" y="0" width="190" height="47" uuid="c94f8731-def3-4562-ab28-9fa4aa7c6b5c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -822,7 +854,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="54985f1d-827d-4722-a07a-fc035fba9b5a"/>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="50c8013b-3452-4895-8ac1-f9a1033d8b95"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -831,12 +863,12 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   n. Total adults]]></text>
+					<text><![CDATA[   Total adults]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="93bfd9c6-a893-43b7-bd49-d6c58be79425"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="c20aec48-e306-4359-bf58-1d579d92869d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -848,7 +880,7 @@
 					<textFieldExpression><![CDATA[$F{q16TotalAdultsIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="d91c9b96-b829-4a12-8453-69ede2e473d2"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="f33feefd-198c-498a-93cc-5bd22c0e53a9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -860,7 +892,7 @@
 					<textFieldExpression><![CDATA[$F{q16TotalAdultsIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="c87fd206-8d2c-4eae-a810-d96765c9562c"/>
+					<reportElement x="365" y="0" width="190" height="26" uuid="bcfa5f41-2e98-4b32-bbf1-1f74eaaaa93d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -874,7 +906,7 @@
 			</band>
 			<band height="21">
 				<staticText>
-					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="634cd546-262e-43f8-b0ce-e3a04f26c4d6"/>
+					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="74334d96-dead-4822-93d7-5f88f58d2c6e"/>
 					<box>
 						<pen lineWidth="0.0"/>
 						<topPen lineWidth="0.0"/>
@@ -885,7 +917,7 @@
 					<textElement verticalAlignment="Middle" markup="none">
 						<font size="10" isBold="false"/>
 					</textElement>
-					<text><![CDATA[ Universe of data: All active adults.]]></text>
+					<text><![CDATA[ Universe: Active adults in the report date range]]></text>
 				</staticText>
 			</band>
 		</groupFooter>

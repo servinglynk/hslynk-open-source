@@ -12,12 +12,12 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker {
 		
 		Q27dResidencePriorToEntryYouthDataBean q27dResidencePriorToEntryYouthTable = new Q27dResidencePriorToEntryYouthDataBean();
 		
-		q27dResidencePriorToEntryYouthTable.setQ27dAHomelessSituationsTotal(BigInteger.valueOf(0));
+		/*q27dResidencePriorToEntryYouthTable.setQ27dAHomelessSituationsTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAHomelessSituationsWithoutChild(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAHomelessSituationsWithChildAndAdults(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAHomelessSituationsWithChildOnly(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAHomelessSituationsUnknownHouseHoldtype(BigInteger.valueOf(0));
-
+*/
 		q27dResidencePriorToEntryYouthTable.setQ27dA1EmergencyShelterTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dA1EmergencyShelterWithoutChild(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dA1EmergencyShelterWithChildAndAdults(BigInteger.valueOf(0));
@@ -41,18 +41,24 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker {
 		q27dResidencePriorToEntryYouthTable.setQ27dA4SafeHavenWithChildAndAdults(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dA4SafeHavenWithChildOnly(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dA4SafeHavenUnknownHouseHoldtype(BigInteger.valueOf(0));
-
+		
+		q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingTotal(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingWithChildAndAdults(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingWithChildOnly(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingWithoutChild(BigInteger.valueOf(0));
+		
 		q27dResidencePriorToEntryYouthTable.setQ27dAzTotTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAzTotWithoutChild(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAzTotWithChildAndAdults(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAzTotWithChildOnly(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dAzTotUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsTotal(BigInteger.valueOf(0));
+		/*q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsWithoutChild(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsWithChildAndAdults(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsWithChildOnly(BigInteger.valueOf(0));
-		q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dBInstitutionalSettingsUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27dResidencePriorToEntryYouthTable.setQ27dB1PsychiatricFacilityTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dB1PsychiatricFacilityWithoutChild(BigInteger.valueOf(0));
@@ -102,11 +108,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker {
 		q27dResidencePriorToEntryYouthTable.setQ27dBzTotWithChildOnly(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dBzTotUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsTotal(BigInteger.valueOf(0));
+		/*q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsWithoutChild(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsWithChildAndAdults(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsWithChildOnly(BigInteger.valueOf(0));
-		q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dCOtherLocationsUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27dResidencePriorToEntryYouthTable.setQ27dC1PSHForHomelessPersonsTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dC1PSHForHomelessPersonsWithoutChild(BigInteger.valueOf(0));
@@ -168,11 +174,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker {
 		q27dResidencePriorToEntryYouthTable.setQ27dC10StayingOrLivingWithFamilyWithChildOnly(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dC10StayingOrLivingWithFamilyUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27dResidencePriorToEntryYouthTable.setQ27dC11OtherTotal(BigInteger.valueOf(0));
+		/*q27dResidencePriorToEntryYouthTable.setQ27dC11OtherTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dC11OtherWithoutChild(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dC11OtherWithChildAndAdults(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dC11OtherWithChildOnly(BigInteger.valueOf(0));
-		q27dResidencePriorToEntryYouthTable.setQ27dC11OtherUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27dResidencePriorToEntryYouthTable.setQ27dC11OtherUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27dResidencePriorToEntryYouthTable.setQ27dC12DKRTotal(BigInteger.valueOf(0));
 		q27dResidencePriorToEntryYouthTable.setQ27dC12DKRWithoutChild(BigInteger.valueOf(0));

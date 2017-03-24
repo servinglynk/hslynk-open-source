@@ -15,8 +15,9 @@ import com.servinglynk.report.bean.ReportData;
 
 public class Q05aBeanMaker extends BaseBeanMaker {
 	
-	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(String schema,String projectId,ReportData data){
-		List<EnrollmentModel> enrollments = data.getEnrollments();
+//	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(String schema,String projectId,ReportData data){
+	public static List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISCDDQDataList(){
+/*		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<EnrollmentModel> disablingCondition = enrollments.parallelStream()
 				.filter(enrollment ->  StringUtils.equals("8", enrollment.getDisablingcondition())|| StringUtils.equals("9", enrollment.getDisablingcondition())) 
 				.collect(Collectors.toList());
@@ -111,9 +112,9 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 		q05aHMISCDDQBean.setQ05aRelationshipToHH(BigInteger.valueOf(relationshipToHOH !=null ? relationshipToHOH.size() : 0));
 		q05aHMISCDDQBean.setQ05aDNCRelationshipToHH(BigInteger.valueOf(relationshipToHOHDNC !=null ? relationshipToHOHDNC.size() :0));
 		q05aHMISCDDQBean.setQ05aDestination(BigInteger.valueOf(destination !=null ? destination.size() : 0));
-		q05aHMISCDDQBean.setQ05aDNCDestination(BigInteger.valueOf(destinationDNC !=null ? destinationDNC.size() :0));
+		q05aHMISCDDQBean.setQ05aDNCDestination(BigInteger.valueOf(destinationDNC !=null ? destinationDNC.size() :0));*/
 		
-		
+		Q05aHMISComparableDBDataQualityDataBean q05aHMISCDDQBean = new Q05aHMISComparableDBDataQualityDataBean();
 		q05aHMISCDDQBean.setQ05aFirstName(BigInteger.valueOf(0));
 		q05aHMISCDDQBean.setQ05aDNCFirstName(BigInteger.valueOf(0));
 		q05aHMISCDDQBean.setQ05aLastName(BigInteger.valueOf(0));

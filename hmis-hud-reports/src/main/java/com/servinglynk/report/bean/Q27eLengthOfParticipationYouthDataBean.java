@@ -11,10 +11,14 @@ public class Q27eLengthOfParticipationYouthDataBean {
 	private BigInteger q27e31To60DaysAtEntry;
 	private BigInteger q27e31To60DaysStayers;
 	private BigInteger q27e31To60DaysLeavers;
-		
-	private BigInteger q27e61To180DaysAtEntry;
-	private BigInteger q27e61To180DaysStayers;
-	private BigInteger q27e61To180DaysLeavers;
+	
+	private BigInteger q27e61To90DaysAtEntry;
+	private BigInteger q27e61To90DaysStayers;
+	private BigInteger q27e61To90DaysLeavers;
+	
+	private BigInteger q27e91To180DaysAtEntry;
+	private BigInteger q27e91To180DaysStayers;
+	private BigInteger q27e91To180DaysLeavers;
 		
 	private BigInteger q27e181To365DaysAtEntry;
 	private BigInteger q27e181To365DaysStayers;
@@ -83,23 +87,42 @@ public class Q27eLengthOfParticipationYouthDataBean {
 	public void setQ27e31To60DaysLeavers(BigInteger q27e31To60DaysLeavers) {
 		this.q27e31To60DaysLeavers = q27e31To60DaysLeavers;
 	}
-	public BigInteger getQ27e61To180DaysAtEntry() {
-		return q27e61To180DaysAtEntry;
+	
+	public BigInteger getQ27e61To90DaysAtEntry() {
+		return q27e61To90DaysAtEntry;
 	}
-	public void setQ27e61To180DaysAtEntry(BigInteger q27e61To180DaysAtEntry) {
-		this.q27e61To180DaysAtEntry = q27e61To180DaysAtEntry;
+	public void setQ27e61To90DaysAtEntry(BigInteger q27e61To90DaysAtEntry) {
+		this.q27e61To90DaysAtEntry = q27e61To90DaysAtEntry;
 	}
-	public BigInteger getQ27e61To180DaysStayers() {
-		return q27e61To180DaysStayers;
+	public BigInteger getQ27e61To90DaysStayers() {
+		return q27e61To90DaysStayers;
 	}
-	public void setQ27e61To180DaysStayers(BigInteger q27e61To180DaysStayers) {
-		this.q27e61To180DaysStayers = q27e61To180DaysStayers;
+	public void setQ27e61To90DaysStayers(BigInteger q27e61To90DaysStayers) {
+		this.q27e61To90DaysStayers = q27e61To90DaysStayers;
 	}
-	public BigInteger getQ27e61To180DaysLeavers() {
-		return q27e61To180DaysLeavers;
+	public BigInteger getQ27e61To90DaysLeavers() {
+		return q27e61To90DaysLeavers;
 	}
-	public void setQ27e61To180DaysLeavers(BigInteger q27e61To180DaysLeavers) {
-		this.q27e61To180DaysLeavers = q27e61To180DaysLeavers;
+	public void setQ27e61To90DaysLeavers(BigInteger q27e61To90DaysLeavers) {
+		this.q27e61To90DaysLeavers = q27e61To90DaysLeavers;
+	}
+	public BigInteger getQ27e91To180DaysAtEntry() {
+		return q27e91To180DaysAtEntry;
+	}
+	public void setQ27e91To180DaysAtEntry(BigInteger q27e91To180DaysAtEntry) {
+		this.q27e91To180DaysAtEntry = q27e91To180DaysAtEntry;
+	}
+	public BigInteger getQ27e91To180DaysStayers() {
+		return q27e91To180DaysStayers;
+	}
+	public void setQ27e91To180DaysStayers(BigInteger q27e91To180DaysStayers) {
+		this.q27e91To180DaysStayers = q27e91To180DaysStayers;
+	}
+	public BigInteger getQ27e91To180DaysLeavers() {
+		return q27e91To180DaysLeavers;
+	}
+	public void setQ27e91To180DaysLeavers(BigInteger q27e91To180DaysLeavers) {
+		this.q27e91To180DaysLeavers = q27e91To180DaysLeavers;
 	}
 	public BigInteger getQ27e181To365DaysAtEntry() {
 		return q27e181To365DaysAtEntry;

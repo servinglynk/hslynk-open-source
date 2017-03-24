@@ -84,24 +84,6 @@
 	<field name="q25fTotalAdultsLeavers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25fTotalAdultsLeavers]]></fieldDescription>
 	</field>
-	<field name="q25f1OrMoreSourceOfIncomeAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q25f1OrMoreSourceOfIncomeAtEntry]]></fieldDescription>
-	</field>
-	<field name="q25f1OrMoreSourceOfIncomeStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q25f1OrMoreSourceOfIncomeStayers]]></fieldDescription>
-	</field>
-	<field name="q25f1OrMoreSourceOfIncomeLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q25f1OrMoreSourceOfIncomeLeavers]]></fieldDescription>
-	</field>
-	<field name="q25fAdultsWithIncomeInfoAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q25fAdultsWithIncomeInfoAtEntry]]></fieldDescription>
-	</field>
-	<field name="q25fAdultsWithIncomeInfoStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q25fAdultsWithIncomeInfoStayers]]></fieldDescription>
-	</field>
-	<field name="q25fAdultsWithIncomeInfoLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q25fAdultsWithIncomeInfoLeavers]]></fieldDescription>
-	</field>
 	<group name="Group5">
 		<groupFooter>
 			<band height="24">
@@ -117,7 +99,39 @@
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[    Q25f: Cash Income Category - Income Category - by Entry and Annual /Exit Status - Veterans]]></text>
+					<text><![CDATA[    Q25f: Cash Income Category - Income Category - by Entry and Annual/Exit Status - Veterans]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
 				</staticText>
 			</band>
 			<band height="49">
@@ -133,7 +147,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[ Category]]></text>
+					<text><![CDATA[ Number of Veterans By Income Category]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="2c0ea28a-689a-473a-8610-6fcfb54f90c4"/>
@@ -147,7 +161,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of adults at entry]]></text>
+					<text><![CDATA[Number of Veterans at entry]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="a1d7ec21-0e15-459f-9294-cfc913049a24"/>
@@ -161,7 +175,9 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of adults at followup (stayers)]]></text>
+					<text><![CDATA[Number of Veterans
+at Annual Assessment
+(Stayers)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="e4feb840-8de7-4ed0-9caa-6b7f63fa0c04"/>
@@ -175,12 +191,14 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of adults at exit (leavers)]]></text>
+					<text><![CDATA[Number of
+Veterans at Exit
+(Leavers)]]></text>
 				</staticText>
 			</band>
-			<band height="26">
+			<band height="46">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="45eec061-860a-451b-8327-aecfda384d99"/>
+					<reportElement x="0" y="0" width="117" height="46" forecolor="#000000" uuid="45eec061-860a-451b-8327-aecfda384d99"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -191,10 +209,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Adults with only earned income]]></text>
+					<text><![CDATA[   Veterans with Only Earned Income (i.e., Employment Income)]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="a146af0d-5c56-49bf-8785-f64cd69d777a"/>
+					<reportElement x="182" y="0" width="183" height="46" uuid="a146af0d-5c56-49bf-8785-f64cd69d777a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -206,7 +224,7 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithOnlyEarnedIncomeStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="190fa82c-4c89-443b-9cc3-370a17efc4e0"/>
+					<reportElement x="117" y="0" width="65" height="46" uuid="190fa82c-4c89-443b-9cc3-370a17efc4e0"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -218,7 +236,7 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithOnlyEarnedIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="d729a1cb-5913-43c2-a947-6e18aa3cea1b"/>
+					<reportElement x="365" y="0" width="190" height="46" uuid="d729a1cb-5913-43c2-a947-6e18aa3cea1b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -255,7 +273,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. Adults with only other income]]></text>
+					<text><![CDATA[   Veterans with Only Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5bb79ffb-d19a-4b71-a0e5-86ee988603e7"/>
@@ -307,7 +325,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Adults with both earned and other income]]></text>
+					<text><![CDATA[   Veterans with Both Earned and Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="2355085a-0e25-4340-823e-815416af233f"/>
@@ -359,7 +377,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Adults with no income]]></text>
+					<text><![CDATA[   Veterans with No Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5b74c49b-9dee-4cce-9ae7-66cc3dbac7d0"/>
@@ -386,9 +404,9 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithNoIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="62">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="73dbd1ee-e541-4ab3-97e0-d9d948c86f86"/>
+					<reportElement x="365" y="0" width="190" height="62" uuid="73dbd1ee-e541-4ab3-97e0-d9d948c86f86"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -400,7 +418,7 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithDontRefusedIncomeLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="cdc1a9e1-a314-49ec-ad26-9ba2b7632092"/>
+					<reportElement x="0" y="0" width="117" height="62" forecolor="#000000" uuid="cdc1a9e1-a314-49ec-ad26-9ba2b7632092"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -411,10 +429,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Adults with don't know/refused income]]></text>
+					<text><![CDATA[   Veterans with Client Doesn’t Know/Client Refused Income Information]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="9e9261a0-de49-4556-b2ce-c1e8a1387123"/>
+					<reportElement x="182" y="0" width="183" height="62" uuid="9e9261a0-de49-4556-b2ce-c1e8a1387123"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -426,7 +444,7 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithDontRefusedIncomeStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="94405989-1331-4dc6-bc3e-6112c3d3ef85"/>
+					<reportElement x="117" y="0" width="65" height="62" uuid="94405989-1331-4dc6-bc3e-6112c3d3ef85"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -438,9 +456,9 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithDontRefusedIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="46">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="f6016745-6379-41d2-bcea-e50c0819355d"/>
+					<reportElement x="365" y="0" width="190" height="46" uuid="f6016745-6379-41d2-bcea-e50c0819355d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -452,7 +470,7 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithMissingInomeInfoLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="1894a44d-0bb2-4471-939a-485a0e261482"/>
+					<reportElement x="0" y="0" width="117" height="46" forecolor="#000000" uuid="1894a44d-0bb2-4471-939a-485a0e261482"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -463,10 +481,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. Adults with missing income information]]></text>
+					<text><![CDATA[  Veterans with Missing Income Information]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="c594a1ed-c427-40f5-9bb6-b325879882e1"/>
+					<reportElement x="182" y="0" width="183" height="46" uuid="c594a1ed-c427-40f5-9bb6-b325879882e1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -478,7 +496,7 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithMissingInomeInfoStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="bc5836d9-5b0c-4916-a3a2-453f073e36b1"/>
+					<reportElement x="117" y="0" width="65" height="46" uuid="bc5836d9-5b0c-4916-a3a2-453f073e36b1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -490,9 +508,9 @@
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithMissingInomeInfoAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="40">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="8b6edef3-6f13-4f86-a6a8-e8574feaa073"/>
+					<reportElement x="365" y="0" width="190" height="40" uuid="8b6edef3-6f13-4f86-a6a8-e8574feaa073"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -504,7 +522,7 @@
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersNotYetRequiredLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="519744f1-d852-4e6e-8018-cc4afa73ffae"/>
+					<reportElement x="0" y="0" width="117" height="40" forecolor="#000000" uuid="519744f1-d852-4e6e-8018-cc4afa73ffae"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -515,11 +533,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. Number of adult stayers not yet required to have an annual
-assessment]]></text>
+					<text><![CDATA[   Number of veterans not yet required to have an annual assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="7e98e4da-de7e-4b01-8b39-b91d6859ad99"/>
+					<reportElement x="182" y="0" width="183" height="40" uuid="7e98e4da-de7e-4b01-8b39-b91d6859ad99"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -531,7 +548,7 @@ assessment]]></text>
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersNotYetRequiredStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="83da6870-00be-4cff-b90b-f10451782f21"/>
+					<reportElement x="117" y="0" width="65" height="40" uuid="83da6870-00be-4cff-b90b-f10451782f21"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -543,9 +560,9 @@ assessment]]></text>
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersNotYetRequiredAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="40">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="9322ab85-4968-45d8-ac22-8ccbc619a0ea"/>
+					<reportElement x="365" y="0" width="190" height="40" uuid="9322ab85-4968-45d8-ac22-8ccbc619a0ea"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -557,7 +574,7 @@ assessment]]></text>
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersWithoutRequiredLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a37ccf48-df90-408e-b065-788230522c18"/>
+					<reportElement x="0" y="0" width="117" height="40" forecolor="#000000" uuid="a37ccf48-df90-408e-b065-788230522c18"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -568,10 +585,10 @@ assessment]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. Number of adult stayers without required annual assessment]]></text>
+					<text><![CDATA[   Number of veterans without required annual assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="451cd1c7-d150-4f5d-a5f6-618fbd2f921a"/>
+					<reportElement x="182" y="0" width="183" height="40" uuid="451cd1c7-d150-4f5d-a5f6-618fbd2f921a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -583,7 +600,7 @@ assessment]]></text>
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersWithoutRequiredStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="00e62237-64eb-4c9d-b2c5-70babdf0d744"/>
+					<reportElement x="117" y="0" width="65" height="40" uuid="00e62237-64eb-4c9d-b2c5-70babdf0d744"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -620,7 +637,7 @@ assessment]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. Total adults]]></text>
+					<text><![CDATA[  Total Veterans]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="8ee3030a-f85c-42fa-84fe-cd332d90e244"/>
@@ -647,126 +664,7 @@ assessment]]></text>
 					<textFieldExpression><![CDATA[$F{q25fTotalAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
-				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="ff510faf-7e9d-49bb-bcd7-c95e4003d973"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q25f1OrMoreSourceOfIncomeLeavers}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="38f1fac1-236c-4762-a8cc-25cd3aca1a26"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[   j. 1 or more source of income]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="7c39a845-37c1-4d25-b5ff-0e752f1c8571"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q25f1OrMoreSourceOfIncomeStayers}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="c4b27b4f-eb85-46a7-9a46-07b05929bd32"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q25f1OrMoreSourceOfIncomeAtEntry}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="26">
-				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="0e86d48e-1aa2-4cf6-b87a-81c2e58abf3c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q25fAdultsWithIncomeInfoLeavers}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="aa70de5f-d9cf-45c2-a02d-45a00af4fff4"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[  k. Adults with income information at entry AND followup/exit]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="08ba0a3b-73c1-40a8-823c-b0ff3d0e89ac"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q25fAdultsWithIncomeInfoStayers}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="13e0d4ac-c27c-472e-bf7d-4f5c0434b530"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q25fAdultsWithIncomeInfoStayers}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="21">
-				<staticText>
-					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="d1483f7c-fa8a-48f3-a80a-7d455d499ad0"/>
-					<box>
-						<pen lineWidth="0.0"/>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ Universe of data: All adult veterans.]]></text>
-				</staticText>
-			</band>
+			<band height="10"/>
 		</groupFooter>
 	</group>
 </jasperReport>

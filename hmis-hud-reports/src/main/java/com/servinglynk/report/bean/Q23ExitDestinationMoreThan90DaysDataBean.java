@@ -4,12 +4,12 @@ import java.math.BigInteger;
 
 public class Q23ExitDestinationMoreThan90DaysDataBean {
 	
-	private BigInteger q23APermanentDestinationsTotal;
+/*	private BigInteger q23APermanentDestinationsTotal;
 	private BigInteger q23APermanentDestinationsWithoutChild;
 	private BigInteger q23APermanentDestinationsWithChildAndAdults;
 	private BigInteger q23APermanentDestinationsWithOnlyChild;
 	private BigInteger q23APermanentDestinationsUnknownHouseHold;
-		
+*/		
 	private BigInteger q23A01MovedFromOneHOPWATotal;
 	private BigInteger q23A01MovedFromOneHOPWAWithoutChild;
 	private BigInteger q23A01MovedFromOneHOPWAWithChildAndAdults;
@@ -76,12 +76,12 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	private BigInteger q23AzTotWithOnlyChild;
 	private BigInteger q23AzTotUnknownHouseHold;
 		
-	private BigInteger q23BTemporaryDestinationsTotal;
+/*	private BigInteger q23BTemporaryDestinationsTotal;
 	private BigInteger q23BTemporaryDestinationsWithoutChild;
 	private BigInteger q23BTemporaryDestinationsWithChildAndAdults;
 	private BigInteger q23BTemporaryDestinationsWithOnlyChild;
 	private BigInteger q23BTemporaryDestinationsUnknownHouseHold;
-		
+*/		
 	private BigInteger q23B1EmergencyShelterTotal;
 	private BigInteger q23B1EmergencyShelterWithoutChild;
 	private BigInteger q23B1EmergencyShelterWithChildAndAdults;
@@ -136,12 +136,12 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	private BigInteger q23BzTotWithOnlyChild;
 	private BigInteger q23BzTotUnknownHouseHold;
 		
-	private BigInteger q23CInstitutionalSettingsTotal;
+/*	private BigInteger q23CInstitutionalSettingsTotal;
 	private BigInteger q23CInstitutionalSettingsWithoutChild;
 	private BigInteger q23CInstitutionalSettingsWithChildAndAdults;
 	private BigInteger q23CInstitutionalSettingsWithOnlyChild;
 	private BigInteger q23CInstitutionalSettingsUnknownHouseHold;
-		
+*/		
 	private BigInteger q23C1FosterCareHomeOrGroupFosterCareTotal;
 	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithoutChild;
 	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithChildAndAdults;
@@ -184,12 +184,12 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	private BigInteger q23CzTotWithOnlyChild;
 	private BigInteger q23CzTotUnknownHouseHold;
 		
-	private BigInteger q23DOtherDestinationsTotal;
+/*	private BigInteger q23DOtherDestinationsTotal;
 	private BigInteger q23DOtherDestinationsWithoutChild;
 	private BigInteger q23DOtherDestinationsWithChildAndAdults;
 	private BigInteger q23DOtherDestinationsWithOnlyChild;
 	private BigInteger q23DOtherDestinationsUnknownHouseHold;
-		
+*/		
 	private BigInteger q23D1ResidentialProjectorHalfwayHouseTotal;
 	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithoutChild;
 	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithChildAndAdults;
@@ -231,41 +231,24 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	private BigInteger q23ETotWithChildAndAdults;
 	private BigInteger q23ETotWithOnlyChild;
 	private BigInteger q23ETotUnknownHouseHold;
-	public BigInteger getQ23APermanentDestinationsTotal() {
-		return q23APermanentDestinationsTotal;
-	}
-	public void setQ23APermanentDestinationsTotal(
-			BigInteger q23aPermanentDestinationsTotal) {
-		q23APermanentDestinationsTotal = q23aPermanentDestinationsTotal;
-	}
-	public BigInteger getQ23APermanentDestinationsWithoutChild() {
-		return q23APermanentDestinationsWithoutChild;
-	}
-	public void setQ23APermanentDestinationsWithoutChild(
-			BigInteger q23aPermanentDestinationsWithoutChild) {
-		q23APermanentDestinationsWithoutChild = q23aPermanentDestinationsWithoutChild;
-	}
-	public BigInteger getQ23APermanentDestinationsWithChildAndAdults() {
-		return q23APermanentDestinationsWithChildAndAdults;
-	}
-	public void setQ23APermanentDestinationsWithChildAndAdults(
-			BigInteger q23aPermanentDestinationsWithChildAndAdults) {
-		q23APermanentDestinationsWithChildAndAdults = q23aPermanentDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ23APermanentDestinationsWithOnlyChild() {
-		return q23APermanentDestinationsWithOnlyChild;
-	}
-	public void setQ23APermanentDestinationsWithOnlyChild(
-			BigInteger q23aPermanentDestinationsWithOnlyChild) {
-		q23APermanentDestinationsWithOnlyChild = q23aPermanentDestinationsWithOnlyChild;
-	}
-	public BigInteger getQ23APermanentDestinationsUnknownHouseHold() {
-		return q23APermanentDestinationsUnknownHouseHold;
-	}
-	public void setQ23APermanentDestinationsUnknownHouseHold(
-			BigInteger q23aPermanentDestinationsUnknownHouseHold) {
-		q23APermanentDestinationsUnknownHouseHold = q23aPermanentDestinationsUnknownHouseHold;
-	}
+	
+	private BigInteger q23PercentageWithChildAndAdults;
+	private BigInteger q23PercentageUnknownHouseHold;
+	private BigInteger q23PercentageWithOnlyChild;
+	private BigInteger q23PercentageWithoutChild;
+	private BigInteger q23PercentageTotal;
+
+	private BigInteger q23TotPersonsDstnsWithoutChild;
+	private BigInteger q23TotPersonsDstnsTotal;
+	private BigInteger q23TotPersonsDstnsUnknownHouseHold;
+	private BigInteger q23TotPersonsDstnsWithOnlyChild;
+	private BigInteger q23TotPersonsDstnsWithChildAndAdults;
+
+	private BigInteger q23TotPersonsExistTotal;
+	private BigInteger q23TotPersonsExistWithoutChild;
+	private BigInteger q23TotPersonsExistWithChildAndAdults;
+	private BigInteger q23TotPersonsExistWithOnlyChild;
+	private BigInteger q23TotPersonsExistUnknownHouseHold;
 	public BigInteger getQ23A01MovedFromOneHOPWATotal() {
 		return q23A01MovedFromOneHOPWATotal;
 	}
@@ -646,41 +629,6 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	public void setQ23AzTotUnknownHouseHold(BigInteger q23AzTotUnknownHouseHold) {
 		this.q23AzTotUnknownHouseHold = q23AzTotUnknownHouseHold;
 	}
-	public BigInteger getQ23BTemporaryDestinationsTotal() {
-		return q23BTemporaryDestinationsTotal;
-	}
-	public void setQ23BTemporaryDestinationsTotal(
-			BigInteger q23bTemporaryDestinationsTotal) {
-		q23BTemporaryDestinationsTotal = q23bTemporaryDestinationsTotal;
-	}
-	public BigInteger getQ23BTemporaryDestinationsWithoutChild() {
-		return q23BTemporaryDestinationsWithoutChild;
-	}
-	public void setQ23BTemporaryDestinationsWithoutChild(
-			BigInteger q23bTemporaryDestinationsWithoutChild) {
-		q23BTemporaryDestinationsWithoutChild = q23bTemporaryDestinationsWithoutChild;
-	}
-	public BigInteger getQ23BTemporaryDestinationsWithChildAndAdults() {
-		return q23BTemporaryDestinationsWithChildAndAdults;
-	}
-	public void setQ23BTemporaryDestinationsWithChildAndAdults(
-			BigInteger q23bTemporaryDestinationsWithChildAndAdults) {
-		q23BTemporaryDestinationsWithChildAndAdults = q23bTemporaryDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ23BTemporaryDestinationsWithOnlyChild() {
-		return q23BTemporaryDestinationsWithOnlyChild;
-	}
-	public void setQ23BTemporaryDestinationsWithOnlyChild(
-			BigInteger q23bTemporaryDestinationsWithOnlyChild) {
-		q23BTemporaryDestinationsWithOnlyChild = q23bTemporaryDestinationsWithOnlyChild;
-	}
-	public BigInteger getQ23BTemporaryDestinationsUnknownHouseHold() {
-		return q23BTemporaryDestinationsUnknownHouseHold;
-	}
-	public void setQ23BTemporaryDestinationsUnknownHouseHold(
-			BigInteger q23bTemporaryDestinationsUnknownHouseHold) {
-		q23BTemporaryDestinationsUnknownHouseHold = q23bTemporaryDestinationsUnknownHouseHold;
-	}
 	public BigInteger getQ23B1EmergencyShelterTotal() {
 		return q23B1EmergencyShelterTotal;
 	}
@@ -988,41 +936,6 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	public void setQ23BzTotUnknownHouseHold(BigInteger q23BzTotUnknownHouseHold) {
 		this.q23BzTotUnknownHouseHold = q23BzTotUnknownHouseHold;
 	}
-	public BigInteger getQ23CInstitutionalSettingsTotal() {
-		return q23CInstitutionalSettingsTotal;
-	}
-	public void setQ23CInstitutionalSettingsTotal(
-			BigInteger q23cInstitutionalSettingsTotal) {
-		q23CInstitutionalSettingsTotal = q23cInstitutionalSettingsTotal;
-	}
-	public BigInteger getQ23CInstitutionalSettingsWithoutChild() {
-		return q23CInstitutionalSettingsWithoutChild;
-	}
-	public void setQ23CInstitutionalSettingsWithoutChild(
-			BigInteger q23cInstitutionalSettingsWithoutChild) {
-		q23CInstitutionalSettingsWithoutChild = q23cInstitutionalSettingsWithoutChild;
-	}
-	public BigInteger getQ23CInstitutionalSettingsWithChildAndAdults() {
-		return q23CInstitutionalSettingsWithChildAndAdults;
-	}
-	public void setQ23CInstitutionalSettingsWithChildAndAdults(
-			BigInteger q23cInstitutionalSettingsWithChildAndAdults) {
-		q23CInstitutionalSettingsWithChildAndAdults = q23cInstitutionalSettingsWithChildAndAdults;
-	}
-	public BigInteger getQ23CInstitutionalSettingsWithOnlyChild() {
-		return q23CInstitutionalSettingsWithOnlyChild;
-	}
-	public void setQ23CInstitutionalSettingsWithOnlyChild(
-			BigInteger q23cInstitutionalSettingsWithOnlyChild) {
-		q23CInstitutionalSettingsWithOnlyChild = q23cInstitutionalSettingsWithOnlyChild;
-	}
-	public BigInteger getQ23CInstitutionalSettingsUnknownHouseHold() {
-		return q23CInstitutionalSettingsUnknownHouseHold;
-	}
-	public void setQ23CInstitutionalSettingsUnknownHouseHold(
-			BigInteger q23cInstitutionalSettingsUnknownHouseHold) {
-		q23CInstitutionalSettingsUnknownHouseHold = q23cInstitutionalSettingsUnknownHouseHold;
-	}
 	public BigInteger getQ23C1FosterCareHomeOrGroupFosterCareTotal() {
 		return q23C1FosterCareHomeOrGroupFosterCareTotal;
 	}
@@ -1262,40 +1175,6 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	public void setQ23CzTotUnknownHouseHold(BigInteger q23CzTotUnknownHouseHold) {
 		this.q23CzTotUnknownHouseHold = q23CzTotUnknownHouseHold;
 	}
-	public BigInteger getQ23DOtherDestinationsTotal() {
-		return q23DOtherDestinationsTotal;
-	}
-	public void setQ23DOtherDestinationsTotal(BigInteger q23dOtherDestinationsTotal) {
-		q23DOtherDestinationsTotal = q23dOtherDestinationsTotal;
-	}
-	public BigInteger getQ23DOtherDestinationsWithoutChild() {
-		return q23DOtherDestinationsWithoutChild;
-	}
-	public void setQ23DOtherDestinationsWithoutChild(
-			BigInteger q23dOtherDestinationsWithoutChild) {
-		q23DOtherDestinationsWithoutChild = q23dOtherDestinationsWithoutChild;
-	}
-	public BigInteger getQ23DOtherDestinationsWithChildAndAdults() {
-		return q23DOtherDestinationsWithChildAndAdults;
-	}
-	public void setQ23DOtherDestinationsWithChildAndAdults(
-			BigInteger q23dOtherDestinationsWithChildAndAdults) {
-		q23DOtherDestinationsWithChildAndAdults = q23dOtherDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ23DOtherDestinationsWithOnlyChild() {
-		return q23DOtherDestinationsWithOnlyChild;
-	}
-	public void setQ23DOtherDestinationsWithOnlyChild(
-			BigInteger q23dOtherDestinationsWithOnlyChild) {
-		q23DOtherDestinationsWithOnlyChild = q23dOtherDestinationsWithOnlyChild;
-	}
-	public BigInteger getQ23DOtherDestinationsUnknownHouseHold() {
-		return q23DOtherDestinationsUnknownHouseHold;
-	}
-	public void setQ23DOtherDestinationsUnknownHouseHold(
-			BigInteger q23dOtherDestinationsUnknownHouseHold) {
-		q23DOtherDestinationsUnknownHouseHold = q23dOtherDestinationsUnknownHouseHold;
-	}
 	public BigInteger getQ23D1ResidentialProjectorHalfwayHouseTotal() {
 		return q23D1ResidentialProjectorHalfwayHouseTotal;
 	}
@@ -1518,5 +1397,105 @@ public class Q23ExitDestinationMoreThan90DaysDataBean {
 	public void setQ23ETotUnknownHouseHold(BigInteger q23eTotUnknownHouseHold) {
 		q23ETotUnknownHouseHold = q23eTotUnknownHouseHold;
 	}
-	
+	public BigInteger getQ23PercentageWithChildAndAdults() {
+		return q23PercentageWithChildAndAdults;
+	}
+	public void setQ23PercentageWithChildAndAdults(
+			BigInteger q23PercentageWithChildAndAdults) {
+		this.q23PercentageWithChildAndAdults = q23PercentageWithChildAndAdults;
+	}
+	public BigInteger getQ23PercentageUnknownHouseHold() {
+		return q23PercentageUnknownHouseHold;
+	}
+	public void setQ23PercentageUnknownHouseHold(
+			BigInteger q23PercentageUnknownHouseHold) {
+		this.q23PercentageUnknownHouseHold = q23PercentageUnknownHouseHold;
+	}
+	public BigInteger getQ23PercentageWithOnlyChild() {
+		return q23PercentageWithOnlyChild;
+	}
+	public void setQ23PercentageWithOnlyChild(BigInteger q23PercentageWithOnlyChild) {
+		this.q23PercentageWithOnlyChild = q23PercentageWithOnlyChild;
+	}
+	public BigInteger getQ23PercentageWithoutChild() {
+		return q23PercentageWithoutChild;
+	}
+	public void setQ23PercentageWithoutChild(BigInteger q23PercentageWithoutChild) {
+		this.q23PercentageWithoutChild = q23PercentageWithoutChild;
+	}
+	public BigInteger getQ23PercentageTotal() {
+		return q23PercentageTotal;
+	}
+	public void setQ23PercentageTotal(BigInteger q23PercentageTotal) {
+		this.q23PercentageTotal = q23PercentageTotal;
+	}
+	public BigInteger getQ23TotPersonsDstnsWithoutChild() {
+		return q23TotPersonsDstnsWithoutChild;
+	}
+	public void setQ23TotPersonsDstnsWithoutChild(
+			BigInteger q23TotPersonsDstnsWithoutChild) {
+		this.q23TotPersonsDstnsWithoutChild = q23TotPersonsDstnsWithoutChild;
+	}
+	public BigInteger getQ23TotPersonsDstnsTotal() {
+		return q23TotPersonsDstnsTotal;
+	}
+	public void setQ23TotPersonsDstnsTotal(BigInteger q23TotPersonsDstnsTotal) {
+		this.q23TotPersonsDstnsTotal = q23TotPersonsDstnsTotal;
+	}
+	public BigInteger getQ23TotPersonsDstnsUnknownHouseHold() {
+		return q23TotPersonsDstnsUnknownHouseHold;
+	}
+	public void setQ23TotPersonsDstnsUnknownHouseHold(
+			BigInteger q23TotPersonsDstnsUnknownHouseHold) {
+		this.q23TotPersonsDstnsUnknownHouseHold = q23TotPersonsDstnsUnknownHouseHold;
+	}
+	public BigInteger getQ23TotPersonsDstnsWithOnlyChild() {
+		return q23TotPersonsDstnsWithOnlyChild;
+	}
+	public void setQ23TotPersonsDstnsWithOnlyChild(
+			BigInteger q23TotPersonsDstnsWithOnlyChild) {
+		this.q23TotPersonsDstnsWithOnlyChild = q23TotPersonsDstnsWithOnlyChild;
+	}
+	public BigInteger getQ23TotPersonsDstnsWithChildAndAdults() {
+		return q23TotPersonsDstnsWithChildAndAdults;
+	}
+	public void setQ23TotPersonsDstnsWithChildAndAdults(
+			BigInteger q23TotPersonsDstnsWithChildAndAdults) {
+		this.q23TotPersonsDstnsWithChildAndAdults = q23TotPersonsDstnsWithChildAndAdults;
+	}
+	public BigInteger getQ23TotPersonsExistTotal() {
+		return q23TotPersonsExistTotal;
+	}
+	public void setQ23TotPersonsExistTotal(BigInteger q23TotPersonsExistTotal) {
+		this.q23TotPersonsExistTotal = q23TotPersonsExistTotal;
+	}
+	public BigInteger getQ23TotPersonsExistWithoutChild() {
+		return q23TotPersonsExistWithoutChild;
+	}
+	public void setQ23TotPersonsExistWithoutChild(
+			BigInteger q23TotPersonsExistWithoutChild) {
+		this.q23TotPersonsExistWithoutChild = q23TotPersonsExistWithoutChild;
+	}
+	public BigInteger getQ23TotPersonsExistWithChildAndAdults() {
+		return q23TotPersonsExistWithChildAndAdults;
+	}
+	public void setQ23TotPersonsExistWithChildAndAdults(
+			BigInteger q23TotPersonsExistWithChildAndAdults) {
+		this.q23TotPersonsExistWithChildAndAdults = q23TotPersonsExistWithChildAndAdults;
+	}
+	public BigInteger getQ23TotPersonsExistWithOnlyChild() {
+		return q23TotPersonsExistWithOnlyChild;
+	}
+	public void setQ23TotPersonsExistWithOnlyChild(
+			BigInteger q23TotPersonsExistWithOnlyChild) {
+		this.q23TotPersonsExistWithOnlyChild = q23TotPersonsExistWithOnlyChild;
+	}
+	public BigInteger getQ23TotPersonsExistUnknownHouseHold() {
+		return q23TotPersonsExistUnknownHouseHold;
+	}
+	public void setQ23TotPersonsExistUnknownHouseHold(
+			BigInteger q23TotPersonsExistUnknownHouseHold) {
+		this.q23TotPersonsExistUnknownHouseHold = q23TotPersonsExistUnknownHouseHold;
+	}
+		
 }

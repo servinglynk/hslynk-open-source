@@ -4,12 +4,12 @@ import java.math.BigInteger;
 
 public class Q27fExitDestinationYouthDataBean {
 	
-	private BigInteger q27fAPermanentDestinationsTotal;
+	/*private BigInteger q27fAPermanentDestinationsTotal;
 	private BigInteger q27fAPermanentDestinationsWithoutChild;
 	private BigInteger q27fAPermanentDestinationsWithChildAndAdults;
 	private BigInteger q27fAPermanentDestinationsWithChildOnly;
 	private BigInteger q27fAPermanentDestinationsUnknownHouseHoldtype;
-		
+		*/
 	private BigInteger q27fA1MovedFromOneHOPWAFundedProjectTotal;
 	private BigInteger q27fA1MovedFromOneHOPWAFundedProjectWithoutChild;
 	private BigInteger q27fA1MovedFromOneHOPWAFundedProjectWithChildAndAdults;
@@ -76,11 +76,11 @@ public class Q27fExitDestinationYouthDataBean {
 	private BigInteger q27fAzTotWithChildOnly;
 	private BigInteger q27fAzTotUnknownHouseHoldtype;
 		
-	private BigInteger q27fBTemporaryDestinationsTotal;
+	/*private BigInteger q27fBTemporaryDestinationsTotal;
 	private BigInteger q27fBTemporaryDestinationsWithoutChild;
 	private BigInteger q27fBTemporaryDestinationsWithChildAndAdults;
 	private BigInteger q27fBTemporaryDestinationsWithChildOnly;
-	private BigInteger q27fBTemporaryDestinationsUnknownHouseHoldtype;
+	private BigInteger q27fBTemporaryDestinationsUnknownHouseHoldtype;*/
 		
 	private BigInteger q27fB1EmergencyShelterTotal;
 	private BigInteger q27fB1EmergencyShelterWithoutChild;
@@ -136,11 +136,11 @@ public class Q27fExitDestinationYouthDataBean {
 	private BigInteger q27fBzTotWithChildOnly;
 	private BigInteger q27fBzTotUnknownHouseHoldtype;
 		
-	private BigInteger q27fCInstitutionalSettingsTotal;
+	/*private BigInteger q27fCInstitutionalSettingsTotal;
 	private BigInteger q27fCInstitutionalSettingsWithoutChild;
 	private BigInteger q27fCInstitutionalSettingsWithChildAndAdults;
 	private BigInteger q27fCInstitutionalSettingsWithChildOnly;
-	private BigInteger q27fCInstitutionalSettingsUnknownHouseHoldtype;
+	private BigInteger q27fCInstitutionalSettingsUnknownHouseHoldtype;*/
 		
 	private BigInteger q27fC1FosterCareHomeOrGroupFosterCareTotal;
 	private BigInteger q27fC1FosterCareHomeOrGroupFosterCareWithoutChild;
@@ -184,11 +184,11 @@ public class Q27fExitDestinationYouthDataBean {
 	private BigInteger q27fCzTotWithChildOnly;
 	private BigInteger q27fCzTotUnknownHouseHoldtype;
 		
-	private BigInteger q27fDOtherDestinationsTotal;
+	/*private BigInteger q27fDOtherDestinationsTotal;
 	private BigInteger q27fDOtherDestinationsWithoutChild;
 	private BigInteger q27fDOtherDestinationsWithChildAndAdults;
 	private BigInteger q27fDOtherDestinationsWithChildOnly;
-	private BigInteger q27fDOtherDestinationsUnknownHouseHoldtype;
+	private BigInteger q27fDOtherDestinationsUnknownHouseHoldtype;*/
 		
 	private BigInteger q27fD1ResidentialProjectorHalfwayHouseWithTotal;
 	private BigInteger q27fD1ResidentialProjectorHalfwayHouseWithWithoutChild;
@@ -231,41 +231,24 @@ public class Q27fExitDestinationYouthDataBean {
 	private BigInteger q27fETotWithChildAndAdults;
 	private BigInteger q27fETotWithChildOnly;
 	private BigInteger q27fETotUnknownHouseHoldtype;
-	public BigInteger getQ27fAPermanentDestinationsTotal() {
-		return q27fAPermanentDestinationsTotal;
-	}
-	public void setQ27fAPermanentDestinationsTotal(
-			BigInteger q27fAPermanentDestinationsTotal) {
-		this.q27fAPermanentDestinationsTotal = q27fAPermanentDestinationsTotal;
-	}
-	public BigInteger getQ27fAPermanentDestinationsWithoutChild() {
-		return q27fAPermanentDestinationsWithoutChild;
-	}
-	public void setQ27fAPermanentDestinationsWithoutChild(
-			BigInteger q27fAPermanentDestinationsWithoutChild) {
-		this.q27fAPermanentDestinationsWithoutChild = q27fAPermanentDestinationsWithoutChild;
-	}
-	public BigInteger getQ27fAPermanentDestinationsWithChildAndAdults() {
-		return q27fAPermanentDestinationsWithChildAndAdults;
-	}
-	public void setQ27fAPermanentDestinationsWithChildAndAdults(
-			BigInteger q27fAPermanentDestinationsWithChildAndAdults) {
-		this.q27fAPermanentDestinationsWithChildAndAdults = q27fAPermanentDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ27fAPermanentDestinationsWithChildOnly() {
-		return q27fAPermanentDestinationsWithChildOnly;
-	}
-	public void setQ27fAPermanentDestinationsWithChildOnly(
-			BigInteger q27fAPermanentDestinationsWithChildOnly) {
-		this.q27fAPermanentDestinationsWithChildOnly = q27fAPermanentDestinationsWithChildOnly;
-	}
-	public BigInteger getQ27fAPermanentDestinationsUnknownHouseHoldtype() {
-		return q27fAPermanentDestinationsUnknownHouseHoldtype;
-	}
-	public void setQ27fAPermanentDestinationsUnknownHouseHoldtype(
-			BigInteger q27fAPermanentDestinationsUnknownHouseHoldtype) {
-		this.q27fAPermanentDestinationsUnknownHouseHoldtype = q27fAPermanentDestinationsUnknownHouseHoldtype;
-	}
+	
+	private BigInteger q27fTotalPrsnExitTotal;
+	private BigInteger q27fTotalPrsnExitWithoutChild;
+	private BigInteger q27fTotalPrsnExitWithChildAndAdults;
+	private BigInteger q27fTotalPrsnExitWithChildOnly;
+	private BigInteger q27fTotalPrsnExitUnknownHouseHoldtype;
+
+	private BigInteger q27fTotalPrsnDstnTotal;
+	private BigInteger q27fTotalPrsnDstnWithoutChild;
+	private BigInteger q27fTotalPrsnDstnWithChildAndAdults;
+	private BigInteger q27fTotalPrsnDstnWithChildOnly;
+	private BigInteger q27fTotalPrsnDstnUnknownHouseHoldtype;
+
+	private BigInteger q27fPercentageTotal;
+	private BigInteger q27fPercentageWithoutChild;
+	private BigInteger q27fPercentageWithChildAndAdults;
+	private BigInteger q27fPercentageWithChildOnly;
+	private BigInteger q27fPercentageUnknownHouseHoldtype;
 	public BigInteger getQ27fA1MovedFromOneHOPWAFundedProjectTotal() {
 		return q27fA1MovedFromOneHOPWAFundedProjectTotal;
 	}
@@ -648,41 +631,6 @@ public class Q27fExitDestinationYouthDataBean {
 			BigInteger q27fAzTotUnknownHouseHoldtype) {
 		this.q27fAzTotUnknownHouseHoldtype = q27fAzTotUnknownHouseHoldtype;
 	}
-	public BigInteger getQ27fBTemporaryDestinationsTotal() {
-		return q27fBTemporaryDestinationsTotal;
-	}
-	public void setQ27fBTemporaryDestinationsTotal(
-			BigInteger q27fBTemporaryDestinationsTotal) {
-		this.q27fBTemporaryDestinationsTotal = q27fBTemporaryDestinationsTotal;
-	}
-	public BigInteger getQ27fBTemporaryDestinationsWithoutChild() {
-		return q27fBTemporaryDestinationsWithoutChild;
-	}
-	public void setQ27fBTemporaryDestinationsWithoutChild(
-			BigInteger q27fBTemporaryDestinationsWithoutChild) {
-		this.q27fBTemporaryDestinationsWithoutChild = q27fBTemporaryDestinationsWithoutChild;
-	}
-	public BigInteger getQ27fBTemporaryDestinationsWithChildAndAdults() {
-		return q27fBTemporaryDestinationsWithChildAndAdults;
-	}
-	public void setQ27fBTemporaryDestinationsWithChildAndAdults(
-			BigInteger q27fBTemporaryDestinationsWithChildAndAdults) {
-		this.q27fBTemporaryDestinationsWithChildAndAdults = q27fBTemporaryDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ27fBTemporaryDestinationsWithChildOnly() {
-		return q27fBTemporaryDestinationsWithChildOnly;
-	}
-	public void setQ27fBTemporaryDestinationsWithChildOnly(
-			BigInteger q27fBTemporaryDestinationsWithChildOnly) {
-		this.q27fBTemporaryDestinationsWithChildOnly = q27fBTemporaryDestinationsWithChildOnly;
-	}
-	public BigInteger getQ27fBTemporaryDestinationsUnknownHouseHoldtype() {
-		return q27fBTemporaryDestinationsUnknownHouseHoldtype;
-	}
-	public void setQ27fBTemporaryDestinationsUnknownHouseHoldtype(
-			BigInteger q27fBTemporaryDestinationsUnknownHouseHoldtype) {
-		this.q27fBTemporaryDestinationsUnknownHouseHoldtype = q27fBTemporaryDestinationsUnknownHouseHoldtype;
-	}
 	public BigInteger getQ27fB1EmergencyShelterTotal() {
 		return q27fB1EmergencyShelterTotal;
 	}
@@ -927,7 +875,6 @@ public class Q27fExitDestinationYouthDataBean {
 			BigInteger q27fB7SafeHavenUnknownHouseHoldtype) {
 		this.q27fB7SafeHavenUnknownHouseHoldtype = q27fB7SafeHavenUnknownHouseHoldtype;
 	}
-	
 	public BigInteger getQ27fB8HotelOrMotelPaidByClientTotal() {
 		return q27fB8HotelOrMotelPaidByClientTotal;
 	}
@@ -994,41 +941,6 @@ public class Q27fExitDestinationYouthDataBean {
 	public void setQ27fBzTotUnknownHouseHoldtype(
 			BigInteger q27fBzTotUnknownHouseHoldtype) {
 		this.q27fBzTotUnknownHouseHoldtype = q27fBzTotUnknownHouseHoldtype;
-	}
-	public BigInteger getQ27fCInstitutionalSettingsTotal() {
-		return q27fCInstitutionalSettingsTotal;
-	}
-	public void setQ27fCInstitutionalSettingsTotal(
-			BigInteger q27fCInstitutionalSettingsTotal) {
-		this.q27fCInstitutionalSettingsTotal = q27fCInstitutionalSettingsTotal;
-	}
-	public BigInteger getQ27fCInstitutionalSettingsWithoutChild() {
-		return q27fCInstitutionalSettingsWithoutChild;
-	}
-	public void setQ27fCInstitutionalSettingsWithoutChild(
-			BigInteger q27fCInstitutionalSettingsWithoutChild) {
-		this.q27fCInstitutionalSettingsWithoutChild = q27fCInstitutionalSettingsWithoutChild;
-	}
-	public BigInteger getQ27fCInstitutionalSettingsWithChildAndAdults() {
-		return q27fCInstitutionalSettingsWithChildAndAdults;
-	}
-	public void setQ27fCInstitutionalSettingsWithChildAndAdults(
-			BigInteger q27fCInstitutionalSettingsWithChildAndAdults) {
-		this.q27fCInstitutionalSettingsWithChildAndAdults = q27fCInstitutionalSettingsWithChildAndAdults;
-	}
-	public BigInteger getQ27fCInstitutionalSettingsWithChildOnly() {
-		return q27fCInstitutionalSettingsWithChildOnly;
-	}
-	public void setQ27fCInstitutionalSettingsWithChildOnly(
-			BigInteger q27fCInstitutionalSettingsWithChildOnly) {
-		this.q27fCInstitutionalSettingsWithChildOnly = q27fCInstitutionalSettingsWithChildOnly;
-	}
-	public BigInteger getQ27fCInstitutionalSettingsUnknownHouseHoldtype() {
-		return q27fCInstitutionalSettingsUnknownHouseHoldtype;
-	}
-	public void setQ27fCInstitutionalSettingsUnknownHouseHoldtype(
-			BigInteger q27fCInstitutionalSettingsUnknownHouseHoldtype) {
-		this.q27fCInstitutionalSettingsUnknownHouseHoldtype = q27fCInstitutionalSettingsUnknownHouseHoldtype;
 	}
 	public BigInteger getQ27fC1FosterCareHomeOrGroupFosterCareTotal() {
 		return q27fC1FosterCareHomeOrGroupFosterCareTotal;
@@ -1272,41 +1184,6 @@ public class Q27fExitDestinationYouthDataBean {
 			BigInteger q27fCzTotUnknownHouseHoldtype) {
 		this.q27fCzTotUnknownHouseHoldtype = q27fCzTotUnknownHouseHoldtype;
 	}
-	public BigInteger getQ27fDOtherDestinationsTotal() {
-		return q27fDOtherDestinationsTotal;
-	}
-	public void setQ27fDOtherDestinationsTotal(
-			BigInteger q27fDOtherDestinationsTotal) {
-		this.q27fDOtherDestinationsTotal = q27fDOtherDestinationsTotal;
-	}
-	public BigInteger getQ27fDOtherDestinationsWithoutChild() {
-		return q27fDOtherDestinationsWithoutChild;
-	}
-	public void setQ27fDOtherDestinationsWithoutChild(
-			BigInteger q27fDOtherDestinationsWithoutChild) {
-		this.q27fDOtherDestinationsWithoutChild = q27fDOtherDestinationsWithoutChild;
-	}
-	public BigInteger getQ27fDOtherDestinationsWithChildAndAdults() {
-		return q27fDOtherDestinationsWithChildAndAdults;
-	}
-	public void setQ27fDOtherDestinationsWithChildAndAdults(
-			BigInteger q27fDOtherDestinationsWithChildAndAdults) {
-		this.q27fDOtherDestinationsWithChildAndAdults = q27fDOtherDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ27fDOtherDestinationsWithChildOnly() {
-		return q27fDOtherDestinationsWithChildOnly;
-	}
-	public void setQ27fDOtherDestinationsWithChildOnly(
-			BigInteger q27fDOtherDestinationsWithChildOnly) {
-		this.q27fDOtherDestinationsWithChildOnly = q27fDOtherDestinationsWithChildOnly;
-	}
-	public BigInteger getQ27fDOtherDestinationsUnknownHouseHoldtype() {
-		return q27fDOtherDestinationsUnknownHouseHoldtype;
-	}
-	public void setQ27fDOtherDestinationsUnknownHouseHoldtype(
-			BigInteger q27fDOtherDestinationsUnknownHouseHoldtype) {
-		this.q27fDOtherDestinationsUnknownHouseHoldtype = q27fDOtherDestinationsUnknownHouseHoldtype;
-	}
 	public BigInteger getQ27fD1ResidentialProjectorHalfwayHouseWithTotal() {
 		return q27fD1ResidentialProjectorHalfwayHouseWithTotal;
 	}
@@ -1537,7 +1414,107 @@ public class Q27fExitDestinationYouthDataBean {
 			BigInteger q27fETotUnknownHouseHoldtype) {
 		this.q27fETotUnknownHouseHoldtype = q27fETotUnknownHouseHoldtype;
 	}
+	public BigInteger getQ27fTotalPrsnExitTotal() {
+		return q27fTotalPrsnExitTotal;
+	}
+	public void setQ27fTotalPrsnExitTotal(BigInteger q27fTotalPrsnExitTotal) {
+		this.q27fTotalPrsnExitTotal = q27fTotalPrsnExitTotal;
+	}
+	public BigInteger getQ27fTotalPrsnExitWithoutChild() {
+		return q27fTotalPrsnExitWithoutChild;
+	}
+	public void setQ27fTotalPrsnExitWithoutChild(
+			BigInteger q27fTotalPrsnExitWithoutChild) {
+		this.q27fTotalPrsnExitWithoutChild = q27fTotalPrsnExitWithoutChild;
+	}
+	public BigInteger getQ27fTotalPrsnExitWithChildAndAdults() {
+		return q27fTotalPrsnExitWithChildAndAdults;
+	}
+	public void setQ27fTotalPrsnExitWithChildAndAdults(
+			BigInteger q27fTotalPrsnExitWithChildAndAdults) {
+		this.q27fTotalPrsnExitWithChildAndAdults = q27fTotalPrsnExitWithChildAndAdults;
+	}
+	public BigInteger getQ27fTotalPrsnExitWithChildOnly() {
+		return q27fTotalPrsnExitWithChildOnly;
+	}
+	public void setQ27fTotalPrsnExitWithChildOnly(
+			BigInteger q27fTotalPrsnExitWithChildOnly) {
+		this.q27fTotalPrsnExitWithChildOnly = q27fTotalPrsnExitWithChildOnly;
+	}
+	public BigInteger getQ27fTotalPrsnExitUnknownHouseHoldtype() {
+		return q27fTotalPrsnExitUnknownHouseHoldtype;
+	}
+	public void setQ27fTotalPrsnExitUnknownHouseHoldtype(
+			BigInteger q27fTotalPrsnExitUnknownHouseHoldtype) {
+		this.q27fTotalPrsnExitUnknownHouseHoldtype = q27fTotalPrsnExitUnknownHouseHoldtype;
+	}
+	public BigInteger getQ27fTotalPrsnDstnTotal() {
+		return q27fTotalPrsnDstnTotal;
+	}
+	public void setQ27fTotalPrsnDstnTotal(BigInteger q27fTotalPrsnDstnTotal) {
+		this.q27fTotalPrsnDstnTotal = q27fTotalPrsnDstnTotal;
+	}
+	public BigInteger getQ27fTotalPrsnDstnWithoutChild() {
+		return q27fTotalPrsnDstnWithoutChild;
+	}
+	public void setQ27fTotalPrsnDstnWithoutChild(
+			BigInteger q27fTotalPrsnDstnWithoutChild) {
+		this.q27fTotalPrsnDstnWithoutChild = q27fTotalPrsnDstnWithoutChild;
+	}
+	public BigInteger getQ27fTotalPrsnDstnWithChildAndAdults() {
+		return q27fTotalPrsnDstnWithChildAndAdults;
+	}
+	public void setQ27fTotalPrsnDstnWithChildAndAdults(
+			BigInteger q27fTotalPrsnDstnWithChildAndAdults) {
+		this.q27fTotalPrsnDstnWithChildAndAdults = q27fTotalPrsnDstnWithChildAndAdults;
+	}
+	public BigInteger getQ27fTotalPrsnDstnWithChildOnly() {
+		return q27fTotalPrsnDstnWithChildOnly;
+	}
+	public void setQ27fTotalPrsnDstnWithChildOnly(
+			BigInteger q27fTotalPrsnDstnWithChildOnly) {
+		this.q27fTotalPrsnDstnWithChildOnly = q27fTotalPrsnDstnWithChildOnly;
+	}
+	public BigInteger getQ27fTotalPrsnDstnUnknownHouseHoldtype() {
+		return q27fTotalPrsnDstnUnknownHouseHoldtype;
+	}
+	public void setQ27fTotalPrsnDstnUnknownHouseHoldtype(
+			BigInteger q27fTotalPrsnDstnUnknownHouseHoldtype) {
+		this.q27fTotalPrsnDstnUnknownHouseHoldtype = q27fTotalPrsnDstnUnknownHouseHoldtype;
+	}
+	public BigInteger getQ27fPercentageTotal() {
+		return q27fPercentageTotal;
+	}
+	public void setQ27fPercentageTotal(BigInteger q27fPercentageTotal) {
+		this.q27fPercentageTotal = q27fPercentageTotal;
+	}
+	public BigInteger getQ27fPercentageWithoutChild() {
+		return q27fPercentageWithoutChild;
+	}
+	public void setQ27fPercentageWithoutChild(BigInteger q27fPercentageWithoutChild) {
+		this.q27fPercentageWithoutChild = q27fPercentageWithoutChild;
+	}
+	public BigInteger getQ27fPercentageWithChildAndAdults() {
+		return q27fPercentageWithChildAndAdults;
+	}
+	public void setQ27fPercentageWithChildAndAdults(
+			BigInteger q27fPercentageWithChildAndAdults) {
+		this.q27fPercentageWithChildAndAdults = q27fPercentageWithChildAndAdults;
+	}
+	public BigInteger getQ27fPercentageWithChildOnly() {
+		return q27fPercentageWithChildOnly;
+	}
+	public void setQ27fPercentageWithChildOnly(
+			BigInteger q27fPercentageWithChildOnly) {
+		this.q27fPercentageWithChildOnly = q27fPercentageWithChildOnly;
+	}
+	public BigInteger getQ27fPercentageUnknownHouseHoldtype() {
+		return q27fPercentageUnknownHouseHoldtype;
+	}
+	public void setQ27fPercentageUnknownHouseHoldtype(
+			BigInteger q27fPercentageUnknownHouseHoldtype) {
+		this.q27fPercentageUnknownHouseHoldtype = q27fPercentageUnknownHouseHoldtype;
+	}
 	
 	
-
 }

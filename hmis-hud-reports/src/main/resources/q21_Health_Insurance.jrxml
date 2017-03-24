@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28ecf197-535c-44a3-b9ba-3e372507102f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="268"/>
 	<field name="q21AMedicaidHealthInsuranceAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q21AMedicaidHealthInsuranceAtEntry]]></fieldDescription>
 	</field>
@@ -147,6 +147,38 @@
 					<text><![CDATA[    Q21: Health Insurance]]></text>
 				</staticText>
 			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: COC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
+				</staticText>
+			</band>
 			<band height="49">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="77cd2dbd-d343-44ce-b3ca-d7490a6d87d0"/>
@@ -160,7 +192,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Source]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="081c325f-0764-433f-b7a8-fb7f54b66f8b"/>
@@ -188,7 +220,8 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  At Latest Annual Assessment for Stayers]]></text>
+					<text><![CDATA[At Annual Assessment
+for Stayers]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="55b21e63-3c07-4cc6-b55f-201ae61136ee"/>
@@ -218,7 +251,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. MEDICAID health insurance]]></text>
+					<text><![CDATA[   Medicaid]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="9c5c8e03-95c2-4460-aa2c-c0a7420b3c4d"/>
@@ -270,7 +303,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. MEDICARE health insurance]]></text>
+					<text><![CDATA[   Medicare]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="a10c9629-588e-468a-9809-1a68a489c7ac"/>
@@ -322,7 +355,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. State Children's Health Insurance]]></text>
+					<text><![CDATA[   State Children’s Health Insurance Program]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="7589ee95-c7dd-4b3b-999e-fd4b0ca6ea3f"/>
@@ -374,7 +407,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. VA Medical Services]]></text>
+					<text><![CDATA[   VA Medical Services]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="20374582-d1c3-4cfd-9a9f-9df2935db9d4"/>
@@ -426,7 +459,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Employer-provided health insurance]]></text>
+					<text><![CDATA[   Employer Provided Health Insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="c5367bf9-c77e-4021-a047-50e0181094fb"/>
@@ -478,7 +511,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. Health insurance through COBRA]]></text>
+					<text><![CDATA[   Health Insurance through COBRA]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="c8202275-fe1d-47bd-b4b2-938df795d7bb"/>
@@ -530,7 +563,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. Private pay health insurance]]></text>
+					<text><![CDATA[   Private Pay Health Insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="8ca3ba96-a292-440a-877d-00438892dbdf"/>
@@ -582,7 +615,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. State Health Insurance for Adults]]></text>
+					<text><![CDATA[   State Health Insurance for Adults]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="ea17b279-9ffc-497d-9087-db14f0b9de6d"/>
@@ -634,7 +667,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. No health insurance]]></text>
+					<text><![CDATA[   Indian Health Services Program]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="0573a3b6-8bd3-4069-b84e-2d8984056c2d"/>
@@ -686,7 +719,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   j. Client doesn't know/Client refused]]></text>
+					<text><![CDATA[   Other]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="85abcec7-2f4c-499c-b76f-28f38a2d8c03"/>
@@ -738,7 +771,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Data not collected]]></text>
+					<text><![CDATA[   No Health Insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="f8ad5aeb-80f7-49ba-ba12-d09bb6cb739a"/>
@@ -790,7 +823,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   l. Number of adult stayers not yet required to have an annual assessment]]></text>
+					<text><![CDATA[   Client Doesn’t Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="8ea00fc6-8100-4963-b030-faad7b871fd7"/>
@@ -842,7 +875,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   m. 1 source of health insurance]]></text>
+					<text><![CDATA[   Data not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="6505383e-e570-48ce-b1f5-325e28aaac32"/>
@@ -881,9 +914,9 @@
 					<textFieldExpression><![CDATA[$F{q21M1SourceOfHealthInsuranceAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="81">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="bbc71885-e05c-4f33-89de-d94d6931dff0"/>
+					<reportElement x="0" y="0" width="117" height="81" forecolor="#000000" uuid="bbc71885-e05c-4f33-89de-d94d6931dff0"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -894,10 +927,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   n. More than 1 source of health insurance]]></text>
+					<text><![CDATA[   Number of Stayers not yet Required To Have an Annual Assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="c272f57e-6483-44cb-bb52-946f82bff3f8"/>
+					<reportElement x="117" y="0" width="65" height="81" uuid="c272f57e-6483-44cb-bb52-946f82bff3f8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -909,7 +942,7 @@
 					<textFieldExpression><![CDATA[$F{q21NMoreThan1SourceOfHealthInsuranceAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="3e95dc68-571e-4bfe-b4e8-6aaff92fa446"/>
+					<reportElement x="182" y="0" width="183" height="81" uuid="3e95dc68-571e-4bfe-b4e8-6aaff92fa446"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -921,7 +954,7 @@
 					<textFieldExpression><![CDATA[$F{q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="62a00bcb-5778-4604-b271-11d13ca0f6a5"/>
+					<reportElement x="365" y="0" width="190" height="81" uuid="62a00bcb-5778-4604-b271-11d13ca0f6a5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -931,6 +964,104 @@
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="904444f2-49bc-46e4-9ad3-db095010e052"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   1 Source of Health Insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="6505383e-e570-48ce-b1f5-325e28aaac32"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="43598b38-6a38-4c2b-b968-9fe41118c0b6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="51141712-7836-4ea9-991b-92fe62f13d46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="904444f2-49bc-46e4-9ad3-db095010e052"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   More than 1 Source of Health Insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="6505383e-e570-48ce-b1f5-325e28aaac32"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="43598b38-6a38-4c2b-b968-9fe41118c0b6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="2123260a-06ae-4cc1-a7ba-dafbcf6d13a9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				</textField>
 			</band>
 			<band height="21">
@@ -946,7 +1077,7 @@
 					<textElement verticalAlignment="Middle" markup="none">
 						<font size="10" isBold="false"/>
 					</textElement>
-					<text><![CDATA[ Universe of data: All active clients.]]></text>
+					<text><![CDATA[ Universe of data: Active clients in the report date range]]></text>
 				</staticText>
 			</band>
 		</groupFooter>

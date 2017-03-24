@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="7"/>
+	<property name="ireport.y" value="97"/>
 	<field name="q27e30DaysOrLessAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q27e30DaysOrLessAtEntry]]></fieldDescription>
 	</field>
@@ -21,14 +21,23 @@
 	<field name="q27e31To60DaysLeavers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q27e31To60DaysLeavers]]></fieldDescription>
 	</field>
-	<field name="q27e61To180DaysAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27e61To180DaysAtEntry]]></fieldDescription>
+	<field name="q27e61To90DaysAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27e61To90DaysAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27e61To180DaysStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27e61To180DaysStayers]]></fieldDescription>
+	<field name="q27e61To90DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27e61To90DaysStayers]]></fieldDescription>
 	</field>
-	<field name="q27e61To180DaysLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27e61To180DaysLeavers]]></fieldDescription>
+	<field name="q27e61To90DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27e61To90DaysLeavers]]></fieldDescription>
+	</field>
+	<field name="q27e91To180DaysAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27e91To180DaysAtEntry]]></fieldDescription>
+	</field>
+	<field name="q27e91To180DaysStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27e91To180DaysStayers]]></fieldDescription>
+	</field>
+	<field name="q27e91To180DaysLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27e91To180DaysLeavers]]></fieldDescription>
 	</field>
 	<field name="q27e181To365DaysAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q27e181To365DaysAtEntry]]></fieldDescription>
@@ -120,6 +129,38 @@
 					<text><![CDATA[   Q27e: Length of Participation - Youth]]></text>
 				</staticText>
 			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
+				</staticText>
+			</band>
 			<band height="49">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="914cf832-d334-44e0-a988-bc8644207983"/>
@@ -191,7 +232,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  a. 30 days or less]]></text>
+					<text><![CDATA[  30 days or less]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -243,7 +284,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  b. 31 to 60 days]]></text>
+					<text><![CDATA[  31 to 60 days]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -295,7 +336,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  c. 61 to 180 days]]></text>
+					<text><![CDATA[  61 to 180 days]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -307,7 +348,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27e61To180DaysAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q27e61To90DaysAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="b9fedec0-9d51-4ad5-b58d-912d1c2aeca4"/>
@@ -319,7 +360,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27e61To180DaysStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q27e61To90DaysStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="6a2385b9-e709-409c-a6f5-533e7533cd83"/>
@@ -331,7 +372,59 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27e61To180DaysLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q27e61To90DaysLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="fa301882-a38d-4997-8b7c-7bc7d7581284"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  91 to 180 days]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27e91To180DaysAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="b9fedec0-9d51-4ad5-b58d-912d1c2aeca4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27e91To180DaysStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="6a2385b9-e709-409c-a6f5-533e7533cd83"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27e91To180DaysLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -347,7 +440,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  d. 181 to 365 days]]></text>
+					<text><![CDATA[  181 to 365 days]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -399,7 +492,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  e. 366 to 730 days (1 – 2 yrs.)]]></text>
+					<text><![CDATA[  366 to 730 days (1 – 2 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -451,7 +544,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. 731 to 1095 days (2 – 3 yrs.)]]></text>
+					<text><![CDATA[  731 to 1095 days (2 – 3 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -503,7 +596,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  g. 1096 to 1460 days (3 – 4 yrs.)]]></text>
+					<text><![CDATA[  1096 to 1460 days (3 – 4 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -555,7 +648,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. 1461 to 1825 days (4 – 5 yrs.)]]></text>
+					<text><![CDATA[  1461 to 1825 days (4 – 5 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -607,7 +700,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. More than 1825 days (>5 yrs.)]]></text>
+					<text><![CDATA[  More than 1825 days (>5 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -659,7 +752,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  j. Information missing]]></text>
+					<text><![CDATA[  Data Not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -711,7 +804,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  k. Total]]></text>
+					<text><![CDATA[  Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -750,22 +843,7 @@
 					<textFieldExpression><![CDATA[$F{q27eTotalLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="21">
-				<staticText>
-					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="b01419ff-b960-4cfa-94be-b38f6cb11522"/>
-					<box>
-						<pen lineWidth="0.0"/>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ Universe of data: All active clients age >= 12 and <= 24 provided that not one household member is above that age range. If so, exclude the entire household.]]></text>
-				</staticText>
-			</band>
+			<band height="10"/>
 		</groupFooter>
 	</group>
 </jasperReport>

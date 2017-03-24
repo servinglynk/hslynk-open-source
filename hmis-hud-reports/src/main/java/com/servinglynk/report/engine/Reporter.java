@@ -32,18 +32,19 @@ public class Reporter {
         try {         
         	ClassLoader classLoader = Reporter.class.getClassLoader();
 			File file = new File(classLoader.getResource("homePage.jrxml").getFile());
-	    	InputStream inputStream = new FileInputStream(file);
+//			System.out.println("File Path --> " + file);
+			InputStream inputStream = new FileInputStream(file);
             
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
         	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport);
         	if(sageReport) {
+//        		System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
     		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-    		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMIS_REPORT_27012017.pdf"); 
-
+    		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMIS_REPORT_19032017.pdf"); 
         	}
      
         } catch (Exception e) {

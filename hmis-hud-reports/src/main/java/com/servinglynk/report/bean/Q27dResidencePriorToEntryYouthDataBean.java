@@ -4,12 +4,6 @@ import java.math.BigInteger;
 
 public class Q27dResidencePriorToEntryYouthDataBean {
 	
-	private BigInteger q27dAHomelessSituationsTotal;
-	private BigInteger q27dAHomelessSituationsWithoutChild;
-	private BigInteger q27dAHomelessSituationsWithChildAndAdults;
-	private BigInteger q27dAHomelessSituationsWithChildOnly;
-	private BigInteger q27dAHomelessSituationsUnknownHouseHoldtype;
-		
 	private BigInteger q27dA1EmergencyShelterTotal;
 	private BigInteger q27dA1EmergencyShelterWithoutChild;
 	private BigInteger q27dA1EmergencyShelterWithChildAndAdults;
@@ -33,18 +27,18 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 	private BigInteger q27dA4SafeHavenWithChildAndAdults;
 	private BigInteger q27dA4SafeHavenWithChildOnly;
 	private BigInteger q27dA4SafeHavenUnknownHouseHoldtype;
+	
+	private BigInteger q27dA5InterimHousingTotal;
+	private BigInteger q27dA5InterimHousingWithoutChild;
+	private BigInteger q27dA5InterimHousingWithChildAndAdults;
+	private BigInteger q27dA5InterimHousingWithChildOnly;
+	private BigInteger q27dA5InterimHousingUnknownHouseHoldtype;
 		
 	private BigInteger q27dAzTotTotal;
 	private BigInteger q27dAzTotWithoutChild;
 	private BigInteger q27dAzTotWithChildAndAdults;
 	private BigInteger q27dAzTotWithChildOnly;
 	private BigInteger q27dAzTotUnknownHouseHoldtype;
-		
-	private BigInteger q27dBInstitutionalSettingsTotal;
-	private BigInteger q27dBInstitutionalSettingsWithoutChild;
-	private BigInteger q27dBInstitutionalSettingsWithChildAndAdults;
-	private BigInteger q27dBInstitutionalSettingsWithChildOnly;
-	private BigInteger q27dBInstitutionalSettingsUnknownHouseHoldtype;
 		
 	private BigInteger q27dB1PsychiatricFacilityTotal;
 	private BigInteger q27dB1PsychiatricFacilityWithoutChild;
@@ -93,12 +87,6 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 	private BigInteger q27dBzTotWithChildAndAdults;
 	private BigInteger q27dBzTotWithChildOnly;
 	private BigInteger q27dBzTotUnknownHouseHoldtype;
-		
-	private BigInteger q27dCOtherLocationsTotal;
-	private BigInteger q27dCOtherLocationsWithoutChild;
-	private BigInteger q27dCOtherLocationsWithChildAndAdults;
-	private BigInteger q27dCOtherLocationsWithChildOnly;
-	private BigInteger q27dCOtherLocationsUnknownHouseHoldtype;
 		
 	private BigInteger q27dC1PSHForHomelessPersonsTotal;
 	private BigInteger q27dC1PSHForHomelessPersonsWithoutChild;
@@ -160,12 +148,6 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 	private BigInteger q27dC10StayingOrLivingWithFamilyWithChildOnly;
 	private BigInteger q27dC10StayingOrLivingWithFamilyUnknownHouseHoldtype;
 		
-	private BigInteger q27dC11OtherTotal;
-	private BigInteger q27dC11OtherWithoutChild;
-	private BigInteger q27dC11OtherWithChildAndAdults;
-	private BigInteger q27dC11OtherWithChildOnly;
-	private BigInteger q27dC11OtherUnknownHouseHoldtype;
-		
 	private BigInteger q27dC12DKRTotal;
 	private BigInteger q27dC12DKRWithoutChild;
 	private BigInteger q27dC12DKRWithChildAndAdults;
@@ -189,41 +171,6 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 	private BigInteger q27dDTotWithChildAndAdults;
 	private BigInteger q27dDTotWithChildOnly;
 	private BigInteger q27dDTotUnknownHouseHoldtype;
-	public BigInteger getQ27dAHomelessSituationsTotal() {
-		return q27dAHomelessSituationsTotal;
-	}
-	public void setQ27dAHomelessSituationsTotal(
-			BigInteger q27dAHomelessSituationsTotal) {
-		this.q27dAHomelessSituationsTotal = q27dAHomelessSituationsTotal;
-	}
-	public BigInteger getQ27dAHomelessSituationsWithoutChild() {
-		return q27dAHomelessSituationsWithoutChild;
-	}
-	public void setQ27dAHomelessSituationsWithoutChild(
-			BigInteger q27dAHomelessSituationsWithoutChild) {
-		this.q27dAHomelessSituationsWithoutChild = q27dAHomelessSituationsWithoutChild;
-	}
-	public BigInteger getQ27dAHomelessSituationsWithChildAndAdults() {
-		return q27dAHomelessSituationsWithChildAndAdults;
-	}
-	public void setQ27dAHomelessSituationsWithChildAndAdults(
-			BigInteger q27dAHomelessSituationsWithChildAndAdults) {
-		this.q27dAHomelessSituationsWithChildAndAdults = q27dAHomelessSituationsWithChildAndAdults;
-	}
-	public BigInteger getQ27dAHomelessSituationsWithChildOnly() {
-		return q27dAHomelessSituationsWithChildOnly;
-	}
-	public void setQ27dAHomelessSituationsWithChildOnly(
-			BigInteger q27dAHomelessSituationsWithChildOnly) {
-		this.q27dAHomelessSituationsWithChildOnly = q27dAHomelessSituationsWithChildOnly;
-	}
-	public BigInteger getQ27dAHomelessSituationsUnknownHouseHoldtype() {
-		return q27dAHomelessSituationsUnknownHouseHoldtype;
-	}
-	public void setQ27dAHomelessSituationsUnknownHouseHoldtype(
-			BigInteger q27dAHomelessSituationsUnknownHouseHoldtype) {
-		this.q27dAHomelessSituationsUnknownHouseHoldtype = q27dAHomelessSituationsUnknownHouseHoldtype;
-	}
 	public BigInteger getQ27dA1EmergencyShelterTotal() {
 		return q27dA1EmergencyShelterTotal;
 	}
@@ -363,6 +310,40 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 			BigInteger q27dA4SafeHavenUnknownHouseHoldtype) {
 		this.q27dA4SafeHavenUnknownHouseHoldtype = q27dA4SafeHavenUnknownHouseHoldtype;
 	}
+	public BigInteger getQ27dA5InterimHousingTotal() {
+		return q27dA5InterimHousingTotal;
+	}
+	public void setQ27dA5InterimHousingTotal(BigInteger q27dA5InterimHousingTotal) {
+		this.q27dA5InterimHousingTotal = q27dA5InterimHousingTotal;
+	}
+	public BigInteger getQ27dA5InterimHousingWithoutChild() {
+		return q27dA5InterimHousingWithoutChild;
+	}
+	public void setQ27dA5InterimHousingWithoutChild(
+			BigInteger q27dA5InterimHousingWithoutChild) {
+		this.q27dA5InterimHousingWithoutChild = q27dA5InterimHousingWithoutChild;
+	}
+	public BigInteger getQ27dA5InterimHousingWithChildAndAdults() {
+		return q27dA5InterimHousingWithChildAndAdults;
+	}
+	public void setQ27dA5InterimHousingWithChildAndAdults(
+			BigInteger q27dA5InterimHousingWithChildAndAdults) {
+		this.q27dA5InterimHousingWithChildAndAdults = q27dA5InterimHousingWithChildAndAdults;
+	}
+	public BigInteger getQ27dA5InterimHousingWithChildOnly() {
+		return q27dA5InterimHousingWithChildOnly;
+	}
+	public void setQ27dA5InterimHousingWithChildOnly(
+			BigInteger q27dA5InterimHousingWithChildOnly) {
+		this.q27dA5InterimHousingWithChildOnly = q27dA5InterimHousingWithChildOnly;
+	}
+	public BigInteger getQ27dA5InterimHousingUnknownHouseHoldtype() {
+		return q27dA5InterimHousingUnknownHouseHoldtype;
+	}
+	public void setQ27dA5InterimHousingUnknownHouseHoldtype(
+			BigInteger q27dA5InterimHousingUnknownHouseHoldtype) {
+		this.q27dA5InterimHousingUnknownHouseHoldtype = q27dA5InterimHousingUnknownHouseHoldtype;
+	}
 	public BigInteger getQ27dAzTotTotal() {
 		return q27dAzTotTotal;
 	}
@@ -394,41 +375,6 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 	public void setQ27dAzTotUnknownHouseHoldtype(
 			BigInteger q27dAzTotUnknownHouseHoldtype) {
 		this.q27dAzTotUnknownHouseHoldtype = q27dAzTotUnknownHouseHoldtype;
-	}
-	public BigInteger getQ27dBInstitutionalSettingsTotal() {
-		return q27dBInstitutionalSettingsTotal;
-	}
-	public void setQ27dBInstitutionalSettingsTotal(
-			BigInteger q27dBInstitutionalSettingsTotal) {
-		this.q27dBInstitutionalSettingsTotal = q27dBInstitutionalSettingsTotal;
-	}
-	public BigInteger getQ27dBInstitutionalSettingsWithoutChild() {
-		return q27dBInstitutionalSettingsWithoutChild;
-	}
-	public void setQ27dBInstitutionalSettingsWithoutChild(
-			BigInteger q27dBInstitutionalSettingsWithoutChild) {
-		this.q27dBInstitutionalSettingsWithoutChild = q27dBInstitutionalSettingsWithoutChild;
-	}
-	public BigInteger getQ27dBInstitutionalSettingsWithChildAndAdults() {
-		return q27dBInstitutionalSettingsWithChildAndAdults;
-	}
-	public void setQ27dBInstitutionalSettingsWithChildAndAdults(
-			BigInteger q27dBInstitutionalSettingsWithChildAndAdults) {
-		this.q27dBInstitutionalSettingsWithChildAndAdults = q27dBInstitutionalSettingsWithChildAndAdults;
-	}
-	public BigInteger getQ27dBInstitutionalSettingsWithChildOnly() {
-		return q27dBInstitutionalSettingsWithChildOnly;
-	}
-	public void setQ27dBInstitutionalSettingsWithChildOnly(
-			BigInteger q27dBInstitutionalSettingsWithChildOnly) {
-		this.q27dBInstitutionalSettingsWithChildOnly = q27dBInstitutionalSettingsWithChildOnly;
-	}
-	public BigInteger getQ27dBInstitutionalSettingsUnknownHouseHoldtype() {
-		return q27dBInstitutionalSettingsUnknownHouseHoldtype;
-	}
-	public void setQ27dBInstitutionalSettingsUnknownHouseHoldtype(
-			BigInteger q27dBInstitutionalSettingsUnknownHouseHoldtype) {
-		this.q27dBInstitutionalSettingsUnknownHouseHoldtype = q27dBInstitutionalSettingsUnknownHouseHoldtype;
 	}
 	public BigInteger getQ27dB1PsychiatricFacilityTotal() {
 		return q27dB1PsychiatricFacilityTotal;
@@ -705,40 +651,6 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 	public void setQ27dBzTotUnknownHouseHoldtype(
 			BigInteger q27dBzTotUnknownHouseHoldtype) {
 		this.q27dBzTotUnknownHouseHoldtype = q27dBzTotUnknownHouseHoldtype;
-	}
-	public BigInteger getQ27dCOtherLocationsTotal() {
-		return q27dCOtherLocationsTotal;
-	}
-	public void setQ27dCOtherLocationsTotal(BigInteger q27dCOtherLocationsTotal) {
-		this.q27dCOtherLocationsTotal = q27dCOtherLocationsTotal;
-	}
-	public BigInteger getQ27dCOtherLocationsWithoutChild() {
-		return q27dCOtherLocationsWithoutChild;
-	}
-	public void setQ27dCOtherLocationsWithoutChild(
-			BigInteger q27dCOtherLocationsWithoutChild) {
-		this.q27dCOtherLocationsWithoutChild = q27dCOtherLocationsWithoutChild;
-	}
-	public BigInteger getQ27dCOtherLocationsWithChildAndAdults() {
-		return q27dCOtherLocationsWithChildAndAdults;
-	}
-	public void setQ27dCOtherLocationsWithChildAndAdults(
-			BigInteger q27dCOtherLocationsWithChildAndAdults) {
-		this.q27dCOtherLocationsWithChildAndAdults = q27dCOtherLocationsWithChildAndAdults;
-	}
-	public BigInteger getQ27dCOtherLocationsWithChildOnly() {
-		return q27dCOtherLocationsWithChildOnly;
-	}
-	public void setQ27dCOtherLocationsWithChildOnly(
-			BigInteger q27dCOtherLocationsWithChildOnly) {
-		this.q27dCOtherLocationsWithChildOnly = q27dCOtherLocationsWithChildOnly;
-	}
-	public BigInteger getQ27dCOtherLocationsUnknownHouseHoldtype() {
-		return q27dCOtherLocationsUnknownHouseHoldtype;
-	}
-	public void setQ27dCOtherLocationsUnknownHouseHoldtype(
-			BigInteger q27dCOtherLocationsUnknownHouseHoldtype) {
-		this.q27dCOtherLocationsUnknownHouseHoldtype = q27dCOtherLocationsUnknownHouseHoldtype;
 	}
 	public BigInteger getQ27dC1PSHForHomelessPersonsTotal() {
 		return q27dC1PSHForHomelessPersonsTotal;
@@ -1090,38 +1002,6 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 			BigInteger q27dC10StayingOrLivingWithFamilyUnknownHouseHoldtype) {
 		this.q27dC10StayingOrLivingWithFamilyUnknownHouseHoldtype = q27dC10StayingOrLivingWithFamilyUnknownHouseHoldtype;
 	}
-	public BigInteger getQ27dC11OtherTotal() {
-		return q27dC11OtherTotal;
-	}
-	public void setQ27dC11OtherTotal(BigInteger q27dC11OtherTotal) {
-		this.q27dC11OtherTotal = q27dC11OtherTotal;
-	}
-	public BigInteger getQ27dC11OtherWithoutChild() {
-		return q27dC11OtherWithoutChild;
-	}
-	public void setQ27dC11OtherWithoutChild(BigInteger q27dC11OtherWithoutChild) {
-		this.q27dC11OtherWithoutChild = q27dC11OtherWithoutChild;
-	}
-	public BigInteger getQ27dC11OtherWithChildAndAdults() {
-		return q27dC11OtherWithChildAndAdults;
-	}
-	public void setQ27dC11OtherWithChildAndAdults(
-			BigInteger q27dC11OtherWithChildAndAdults) {
-		this.q27dC11OtherWithChildAndAdults = q27dC11OtherWithChildAndAdults;
-	}
-	public BigInteger getQ27dC11OtherWithChildOnly() {
-		return q27dC11OtherWithChildOnly;
-	}
-	public void setQ27dC11OtherWithChildOnly(BigInteger q27dC11OtherWithChildOnly) {
-		this.q27dC11OtherWithChildOnly = q27dC11OtherWithChildOnly;
-	}
-	public BigInteger getQ27dC11OtherUnknownHouseHoldtype() {
-		return q27dC11OtherUnknownHouseHoldtype;
-	}
-	public void setQ27dC11OtherUnknownHouseHoldtype(
-			BigInteger q27dC11OtherUnknownHouseHoldtype) {
-		this.q27dC11OtherUnknownHouseHoldtype = q27dC11OtherUnknownHouseHoldtype;
-	}
 	public BigInteger getQ27dC12DKRTotal() {
 		return q27dC12DKRTotal;
 	}
@@ -1252,6 +1132,7 @@ public class Q27dResidencePriorToEntryYouthDataBean {
 			BigInteger q27dDTotUnknownHouseHoldtype) {
 		this.q27dDTotUnknownHouseHoldtype = q27dDTotUnknownHouseHoldtype;
 	}
+
 	
 	
 }

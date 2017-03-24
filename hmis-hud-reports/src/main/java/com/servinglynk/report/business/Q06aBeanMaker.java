@@ -16,9 +16,10 @@ import com.servinglynk.report.bean.ReportData;
 
 public class Q06aBeanMaker {
 	
-	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(String schema,ReportData data){
+//	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(String schema,ReportData data){
+	public static List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableList(){
 		Q06aReportValidationsTableDataBean q06aReportValidationsTableBean = new Q06aReportValidationsTableDataBean();
-		List<ClientModel> clients = data.getClients();
+		/*List<ClientModel> clients = data.getClients();
 		List<ClientModel> adults = clients.parallelStream().filter(client -> isAdult(client.getDob())).collect(Collectors.toList());
 		List<ClientModel> children = clients.parallelStream().filter(client -> isChild(client.getDob())).collect(Collectors.toList());
 		List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> client.getDob() == null).collect(Collectors.toList());
@@ -26,7 +27,7 @@ public class Q06aBeanMaker {
 		q06aReportValidationsTableBean.setTotNumOfPersonServed(BigInteger.valueOf(clients !=null ? clients.size() : 0));
 		q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
 		q06aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
-		q06aReportValidationsTableBean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(ageUnknown !=null ? ageUnknown.size() :0));
+		q06aReportValidationsTableBean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(ageUnknown !=null ? ageUnknown.size() :0));*/
 		
 		q06aReportValidationsTableBean.setTotNumOfPersonServed(BigInteger.valueOf(0));
 		q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(0));

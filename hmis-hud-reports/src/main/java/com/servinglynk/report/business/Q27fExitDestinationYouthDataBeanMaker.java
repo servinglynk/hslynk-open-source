@@ -12,11 +12,11 @@ public class Q27fExitDestinationYouthDataBeanMaker {
 		
 		Q27fExitDestinationYouthDataBean q27fExitDestinationYouthTable = new Q27fExitDestinationYouthDataBean();
 		
-		q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsTotal(BigInteger.valueOf(0));
+		/*q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsWithoutChild(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsWithChildAndAdults(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsWithChildOnly(BigInteger.valueOf(0));
-		q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fAPermanentDestinationsUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27fExitDestinationYouthTable.setQ27fA1MovedFromOneHOPWAFundedProjectTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fA1MovedFromOneHOPWAFundedProjectWithoutChild(BigInteger.valueOf(0));
@@ -84,11 +84,11 @@ public class Q27fExitDestinationYouthDataBeanMaker {
 		q27fExitDestinationYouthTable.setQ27fAzTotWithChildOnly(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fAzTotUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsTotal(BigInteger.valueOf(0));
+		/*q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsWithoutChild(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsWithChildAndAdults(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsWithChildOnly(BigInteger.valueOf(0));
-		q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fBTemporaryDestinationsUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27fExitDestinationYouthTable.setQ27fB1EmergencyShelterTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fB1EmergencyShelterWithoutChild(BigInteger.valueOf(0));
@@ -144,11 +144,11 @@ public class Q27fExitDestinationYouthDataBeanMaker {
 		q27fExitDestinationYouthTable.setQ27fBzTotWithChildOnly(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fBzTotUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsTotal(BigInteger.valueOf(0));
+		/*q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsWithoutChild(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsWithChildAndAdults(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsWithChildOnly(BigInteger.valueOf(0));
-		q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fCInstitutionalSettingsUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27fExitDestinationYouthTable.setQ27fC1FosterCareHomeOrGroupFosterCareTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fC1FosterCareHomeOrGroupFosterCareWithoutChild(BigInteger.valueOf(0));
@@ -192,11 +192,11 @@ public class Q27fExitDestinationYouthDataBeanMaker {
 		q27fExitDestinationYouthTable.setQ27fCzTotWithChildOnly(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fCzTotUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27fExitDestinationYouthTable.setQ27fDOtherDestinationsTotal(BigInteger.valueOf(0));
+		/*q27fExitDestinationYouthTable.setQ27fDOtherDestinationsTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fDOtherDestinationsWithoutChild(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fDOtherDestinationsWithChildAndAdults(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fDOtherDestinationsWithChildOnly(BigInteger.valueOf(0));
-		q27fExitDestinationYouthTable.setQ27fDOtherDestinationsUnknownHouseHoldtype(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fDOtherDestinationsUnknownHouseHoldtype(BigInteger.valueOf(0));*/
 
 		q27fExitDestinationYouthTable.setQ27fD1ResidentialProjectorHalfwayHouseWithTotal(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fD1ResidentialProjectorHalfwayHouseWithWithoutChild(BigInteger.valueOf(0));
@@ -239,6 +239,24 @@ public class Q27fExitDestinationYouthDataBeanMaker {
 		q27fExitDestinationYouthTable.setQ27fETotWithChildAndAdults(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fETotWithChildOnly(BigInteger.valueOf(0));
 		q27fExitDestinationYouthTable.setQ27fETotUnknownHouseHoldtype(BigInteger.valueOf(0));
+		
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnExitTotal(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnExitWithoutChild(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnExitWithChildAndAdults(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnExitWithChildOnly(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnExitUnknownHouseHoldtype(BigInteger.valueOf(0));
+		
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnDstnTotal(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnDstnWithoutChild(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnDstnWithChildAndAdults(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnDstnWithChildOnly(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fTotalPrsnDstnUnknownHouseHoldtype(BigInteger.valueOf(0));
+		
+		q27fExitDestinationYouthTable.setQ27fPercentageTotal(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fPercentageWithoutChild(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fPercentageWithChildAndAdults(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fPercentageWithChildOnly(BigInteger.valueOf(0));
+		q27fExitDestinationYouthTable.setQ27fPercentageUnknownHouseHoldtype(BigInteger.valueOf(0));
 		
 		return Arrays.asList(q27fExitDestinationYouthTable);
 		

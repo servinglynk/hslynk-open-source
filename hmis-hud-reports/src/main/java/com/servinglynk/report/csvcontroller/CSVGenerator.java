@@ -38,8 +38,9 @@ public class CSVGenerator {
 	
 	 @SuppressWarnings("unchecked")
 		public static void buildReport(List<?> dataBeanList,String jrxmlFileName,String csvFileName) {
-			try {                                           
-		    	InputStream inputStream1 = getInputStream(jrxmlFileName);
+			try {             
+				
+				InputStream inputStream1 = getInputStream(jrxmlFileName);
 		        Map parameters = new HashMap();
 		        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
 			    JasperDesign jasperDesign1 = JRXmlLoader.load(inputStream1);

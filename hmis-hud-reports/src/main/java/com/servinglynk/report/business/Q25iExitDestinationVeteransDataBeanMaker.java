@@ -12,11 +12,11 @@ public class Q25iExitDestinationVeteransDataBeanMaker {
 		
 		Q25iExitDestinationVeteransDataBean q25iExitDestinationVeteransTable = new Q25iExitDestinationVeteransDataBean();
 		
-				q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsTotal(BigInteger.valueOf(0));
+				/*q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsWithoutChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsWithChildAndAdults(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsWithOnlyChild(BigInteger.valueOf(0));
-				q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsUnknownHouseHold(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iAPermanentDestinationsUnknownHouseHold(BigInteger.valueOf(0));*/
 
 				q25iExitDestinationVeteransTable.setQ25iA01MovedFromOneHOPWATotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iA01MovedFromOneHOPWAWithoutChild(BigInteger.valueOf(0));
@@ -84,12 +84,12 @@ public class Q25iExitDestinationVeteransDataBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iAzTotWithOnlyChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iAzTotUnknownHouseHold(BigInteger.valueOf(0));
 
-				q25iExitDestinationVeteransTable.setQ25iBTemporaryDestinationsTotal(BigInteger.valueOf(0));
+				/*q25iExitDestinationVeteransTable.setQ25iBTemporaryDestinationsTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iBTemporaryDestinationsWithoutChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iBTemporaryDestinationsWithChildAndAdults(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iBTemporaryDestinationsWithOnlyChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iBTemporaryDestinationsUnknownHouseHold(BigInteger.valueOf(0));
-
+*/
 				q25iExitDestinationVeteransTable.setQ25iB1EmergencyShelterTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iB1EmergencyShelterWithoutChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iB1EmergencyShelterWithChildAndAdults(BigInteger.valueOf(0));
@@ -144,11 +144,11 @@ public class Q25iExitDestinationVeteransDataBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iBzTotWithOnlyChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iBzTotUnknownHouseHold(BigInteger.valueOf(0));
 
-				q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsWithOnlyChild(BigInteger.valueOf(0));
+			/*	q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsWithOnlyChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsWithChildAndAdults(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsWithoutChild(BigInteger.valueOf(0));
-				q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsUnknownHouseHold(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iCInstitutionalSettingsUnknownHouseHold(BigInteger.valueOf(0));*/
 
 				q25iExitDestinationVeteransTable.setQ25iC1FosterCareHomeOrGroupFosterCareTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iC1FosterCareHomeOrGroupFosterCareWithoutChild(BigInteger.valueOf(0));
@@ -192,11 +192,11 @@ public class Q25iExitDestinationVeteransDataBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iCzTotWithOnlyChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iCzTotUnknownHouseHold(BigInteger.valueOf(0));
 
-				q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsTotal(BigInteger.valueOf(0));
+				/*q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsWithoutChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsWithChildAndAdults(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsWithOnlyChild(BigInteger.valueOf(0));
-				q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsUnknownHouseHold(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iDOtheDrestinationsUnknownHouseHold(BigInteger.valueOf(0));*/
 
 				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectTotal(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithoutChild(BigInteger.valueOf(0));
@@ -239,10 +239,26 @@ public class Q25iExitDestinationVeteransDataBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iETotWithChildAndAdults(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iETotWithOnlyChild(BigInteger.valueOf(0));
 				q25iExitDestinationVeteransTable.setQ25iETotUnknownHouseHold(BigInteger.valueOf(0));
+				
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsExistTotal(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsExistUnknownHouseHold(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsExistWithChildAndAdults(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsExistWithOnlyChild(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsExistWithoutChild(BigInteger.valueOf(0));
+
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsDstnTotal(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsDstnUnknownHouseHold(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsDstnWithChildAndAdults(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsDstnWithOnlyChild(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iTotPersonsDstnWithoutChild(BigInteger.valueOf(0));
+
+				q25iExitDestinationVeteransTable.setQ25iPercentageTotal(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iPercentageUnknownHouseHold(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iPercentageWithChildAndAdults(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iPercentageWithOnlyChild(BigInteger.valueOf(0));
+				q25iExitDestinationVeteransTable.setQ25iPercentageWithoutChild(BigInteger.valueOf(0));
+
 						
-					
-		
-		
 		return Arrays.asList(q25iExitDestinationVeteransTable);
 		
 	}
