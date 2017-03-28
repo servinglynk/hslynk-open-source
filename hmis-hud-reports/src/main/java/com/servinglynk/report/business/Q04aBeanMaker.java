@@ -13,10 +13,9 @@ import com.servinglynk.report.bean.Q04aDataBean;
 
 public class Q04aBeanMaker {
 	
-			public static List<Q04aDataBean> getQ04aDataBeanList(/*String schema, String projectId*/) {
+			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 
-//				populateProject(schema, projectId, q04aDataBean);
-//				populateProject(q04aDataBean);
+				populateProject(schema, projectId, q04aDataBean);
 				return Arrays.asList(q04aDataBean);
 			}
 			public static void populateProject(String schema,String id, Q04aDataBean q04aDataBean ) {
