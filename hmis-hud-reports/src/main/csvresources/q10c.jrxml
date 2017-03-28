@@ -517,9 +517,9 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{transgenderFMMAIWithOnlyChild}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="41">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="46e3899a-1b37-4bfe-954b-2c360058366a"/>
+					<reportElement x="0" y="0" width="117" height="41" forecolor="#000000" uuid="46e3899a-1b37-4bfe-954b-2c360058366a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -530,10 +530,10 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Other]]></text>
+					<text><![CDATA[   e. Doesn't identify as male, female, or transgender]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="5704ad43-dd82-4880-bd7f-4c4a28021f0f"/>
+					<reportElement x="117" y="0" width="65" height="41" uuid="5704ad43-dd82-4880-bd7f-4c4a28021f0f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -545,7 +545,7 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{totMAIOther}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="275" y="0" width="90" height="26" uuid="afae9c46-1dc4-4a54-8237-8f35d876f7cf"/>
+					<reportElement x="275" y="0" width="90" height="41" uuid="afae9c46-1dc4-4a54-8237-8f35d876f7cf"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -557,7 +557,7 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{otherMAIWCA}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="26" uuid="309a9ea7-c554-4762-87ac-c05671e70e13"/>
+					<reportElement x="462" y="0" width="93" height="41" uuid="309a9ea7-c554-4762-87ac-c05671e70e13"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -569,7 +569,7 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{otherMAIUHHT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="93" height="26" uuid="8c916f8b-d79b-4b0c-a1a5-c8eac3047a2c"/>
+					<reportElement x="182" y="0" width="93" height="41" uuid="8c916f8b-d79b-4b0c-a1a5-c8eac3047a2c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -581,7 +581,7 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{otherMAIWOC}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="97" height="26" uuid="2290f3b1-cd79-40ce-967d-6f9dee277bef"/>
+					<reportElement x="365" y="0" width="97" height="41" uuid="2290f3b1-cd79-40ce-967d-6f9dee277bef"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -618,7 +618,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Don't know/refused]]></text>
+					<text><![CDATA[  f. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="462" y="0" width="93" height="26" uuid="c6c3fe4c-492e-40e5-8696-2a86630ca483"/>
@@ -694,7 +694,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  g. Information missing]]></text>
+					<text><![CDATA[  g. Data Not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="022e784a-ae93-413b-b330-abad94ba76dd"/>
@@ -782,7 +782,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. Subtotal]]></text>
+					<text><![CDATA[  h. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="1fcf0a4f-9f95-4f45-bfdd-a0037135dcea"/>

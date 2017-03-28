@@ -605,7 +605,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. Don't know / refused]]></text>
+					<text><![CDATA[   f. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d5f423f8-8c02-4654-9f94-f80ab02ebc2d"/>
@@ -681,7 +681,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. Information missing]]></text>
+					<text><![CDATA[   g. Data Not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="97028c4c-068d-4eb6-a65f-649e56a35a42"/>

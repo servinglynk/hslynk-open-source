@@ -12,11 +12,9 @@ public class Q22bAverageAndMedianLengthOfParticipationInDaysDataBeanMaker {
 		
 		Q22bAverageAndMedianLengthOfParticipationInDaysDataBean q22bAverageAndMedianLengthOfParticipationInDaysTable =new Q22bAverageAndMedianLengthOfParticipationInDaysDataBean();
 		
-		q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bAverageLengthInDaysTotal(BigInteger.valueOf(0));
 		q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bAverageLengthInDaysLeavers(BigInteger.valueOf(0));
 		q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bAverageLengthInDaysStayers(BigInteger.valueOf(0));
 		
-		q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bMedianLengthInDaysTotal(BigInteger.valueOf(0));
 		q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bMedianLengthInDaysStayers(BigInteger.valueOf(0));
 		q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bMedianLengthInDaysLeavers(BigInteger.valueOf(0));
 		

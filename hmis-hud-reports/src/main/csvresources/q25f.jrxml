@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="124"/>
 	<field name="q25fAdultsWithOnlyEarnedIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25fAdultsWithOnlyEarnedIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -161,7 +161,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Veterans with Only Earned Income (i.e., Employment Income)]]></text>
+					<text><![CDATA[   a. Adults with only earned income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="46" uuid="a146af0d-5c56-49bf-8785-f64cd69d777a"/>
@@ -225,7 +225,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. Veterans with Only Other Income]]></text>
+					<text><![CDATA[   b. Adults with only other income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5bb79ffb-d19a-4b71-a0e5-86ee988603e7"/>
@@ -252,9 +252,9 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithOnlyOtherIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="46">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="13b9ed1b-15b7-44ef-9933-a01ca059187a"/>
+					<reportElement x="365" y="0" width="190" height="46" uuid="13b9ed1b-15b7-44ef-9933-a01ca059187a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -266,7 +266,7 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithBothEarnedAndOtherLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="5bc99dc6-520e-4e9a-8921-c454831c322a"/>
+					<reportElement x="0" y="0" width="117" height="46" forecolor="#000000" uuid="5bc99dc6-520e-4e9a-8921-c454831c322a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -277,10 +277,11 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Veterans with Both Earned and Other Income]]></text>
+					<text><![CDATA[  c. Adults with both earned and other
+income]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="2355085a-0e25-4340-823e-815416af233f"/>
+					<reportElement x="182" y="0" width="183" height="46" uuid="2355085a-0e25-4340-823e-815416af233f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -292,7 +293,7 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithBothEarnedAndOtherStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="6a9d265e-d078-48e3-9f8e-795687d219af"/>
+					<reportElement x="117" y="0" width="65" height="46" uuid="6a9d265e-d078-48e3-9f8e-795687d219af"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -329,7 +330,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Veterans with No Income]]></text>
+					<text><![CDATA[   d. Adults with no income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5b74c49b-9dee-4cce-9ae7-66cc3dbac7d0"/>
@@ -381,7 +382,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Veterans with Client Doesn’t Know/Client Refused Income Information]]></text>
+					<text><![CDATA[   e. Adults with Client Doesn't Know/Client Refused income information]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="62" uuid="9e9261a0-de49-4556-b2ce-c1e8a1387123"/>
@@ -433,7 +434,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Veterans with Missing Income Information]]></text>
+					<text><![CDATA[  f. Adults with missing income information]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="46" uuid="c594a1ed-c427-40f5-9bb6-b325879882e1"/>
@@ -460,9 +461,9 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fAdultsWithMissingInomeInfoAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="40">
+			<band height="55">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="40" uuid="8b6edef3-6f13-4f86-a6a8-e8574feaa073"/>
+					<reportElement x="365" y="0" width="190" height="55" uuid="8b6edef3-6f13-4f86-a6a8-e8574feaa073"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -474,7 +475,7 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersNotYetRequiredLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="40" forecolor="#000000" uuid="519744f1-d852-4e6e-8018-cc4afa73ffae"/>
+					<reportElement x="0" y="0" width="117" height="55" forecolor="#000000" uuid="519744f1-d852-4e6e-8018-cc4afa73ffae"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -485,10 +486,10 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. Number of veterans not yet required to have an annual assessment]]></text>
+					<text><![CDATA[   g. Number of adult stayers not yet required to have an annual assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="40" uuid="7e98e4da-de7e-4b01-8b39-b91d6859ad99"/>
+					<reportElement x="182" y="0" width="183" height="55" uuid="7e98e4da-de7e-4b01-8b39-b91d6859ad99"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -500,7 +501,7 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersNotYetRequiredStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="40" uuid="83da6870-00be-4cff-b90b-f10451782f21"/>
+					<reportElement x="117" y="0" width="65" height="55" uuid="83da6870-00be-4cff-b90b-f10451782f21"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -512,9 +513,9 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersNotYetRequiredAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="40">
+			<band height="54">
 				<textField>
-					<reportElement x="365" y="0" width="190" height="40" uuid="9322ab85-4968-45d8-ac22-8ccbc619a0ea"/>
+					<reportElement x="365" y="0" width="190" height="54" uuid="9322ab85-4968-45d8-ac22-8ccbc619a0ea"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -526,7 +527,7 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersWithoutRequiredLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="40" forecolor="#000000" uuid="a37ccf48-df90-408e-b065-788230522c18"/>
+					<reportElement x="0" y="0" width="117" height="54" forecolor="#000000" uuid="a37ccf48-df90-408e-b065-788230522c18"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -537,10 +538,11 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. Number of veterans without required annual assessment]]></text>
+					<text><![CDATA[  h. Number of adult stayers without required annual
+assessment]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="40" uuid="451cd1c7-d150-4f5d-a5f6-618fbd2f921a"/>
+					<reportElement x="182" y="0" width="183" height="54" uuid="451cd1c7-d150-4f5d-a5f6-618fbd2f921a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -552,7 +554,7 @@ Veterans at Exit
 					<textFieldExpression><![CDATA[$F{q25fNumberOfAdultStayersWithoutRequiredStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="40" uuid="00e62237-64eb-4c9d-b2c5-70babdf0d744"/>
+					<reportElement x="117" y="0" width="65" height="54" uuid="00e62237-64eb-4c9d-b2c5-70babdf0d744"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -589,7 +591,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. Total Veterans]]></text>
+					<text><![CDATA[  i. Total adults]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="8ee3030a-f85c-42fa-84fe-cd332d90e244"/>

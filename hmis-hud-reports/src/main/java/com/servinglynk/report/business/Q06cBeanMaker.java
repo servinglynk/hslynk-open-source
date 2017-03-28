@@ -12,26 +12,14 @@ public class Q06cBeanMaker {
 		
 		Q06cPointInTimeCountPersonsLastWednesdayDataBean q06cPointInTimeCountPersonsLastWednesdayDataBean =new Q06cPointInTimeCountPersonsLastWednesdayDataBean();
 		
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJanWc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJanWca(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJanWoc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJanUht(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setJanTotal(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountAprWc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountAprWca(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountAprWoc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountAprUht(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setAprTotal(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setJulyTotal(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJulWc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJulWca(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJulWoc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountJulUht(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setOctTotal(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountOctUht(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountOctWc(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountOctWca(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setCountOctWoc(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIseErrorCount(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIseErrorRate(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaaErrorCount(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaaErrorRate(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaeErrorCount(BigInteger.valueOf(0));
+		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaeErrorRate(BigInteger.valueOf(0));
 		
 		
 		

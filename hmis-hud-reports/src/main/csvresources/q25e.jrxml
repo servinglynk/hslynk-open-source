@@ -148,7 +148,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Mental Health Problem]]></text>
+					<text><![CDATA[   a. Mental illness]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="7c0dd844-c4f7-40c6-aa6c-74bbb5a21f0c"/>
@@ -408,7 +408,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. HIV/AIDS]]></text>
+					<text><![CDATA[   f. HIV/AIDS and related diseases]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="b65d2f4d-d01d-4db6-942a-10e43dfbe98f"/>

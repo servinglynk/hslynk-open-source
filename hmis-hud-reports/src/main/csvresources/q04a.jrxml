@@ -3,9 +3,6 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:/workspace/hmis-hud-reports/src/main/resources/"]]></defaultValueExpression>
-	</parameter>
 	<field name="q04aOrgName" class="java.lang.String">
 		<fieldDescription><![CDATA[q04aOrgName]]></fieldDescription>
 	</field>

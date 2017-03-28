@@ -2,108 +2,179 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q06aReportValidationsTableDataBean extends ReportBean{
 
-	private BigInteger totNumOfPersonServed;
-	private BigInteger numOfAdults;
-	private BigInteger numOfChildren;
-	private BigInteger numOfPersonsWithUnknownAge;
-	private BigInteger totNoOfLeavers;
-	private BigInteger totNoOfStayers;
-	private BigInteger totNoOfAdultLeavers;
-	private BigInteger totNoOfAdultStayers;
-	private BigInteger noOfVeterans;
-	private BigInteger noOfChronicallyHomelessPersons;
-	private BigInteger noOfAdultHeadsOfHousehold;
-	private BigInteger noOfChildHeadsOfHousehold;
-	private BigInteger numOfUnaccompaniedYouthUnderAge25;
-	private BigInteger numOfParentingYouthUnderAge25WithChildren;
-	public BigInteger getTotNumOfPersonServed() {
-		return totNumOfPersonServed;
+public class Q06aReportValidationsTableDataBean extends ReportBean{
+	
+	private BigInteger nameCDK;
+	private BigInteger nameInfoMissing;
+	private BigInteger nameDataIssue;
+	private BigInteger namePercentageErrorRate;
+	private BigInteger ssnCDK;
+	private BigInteger ssnInfoMissing;
+	private BigInteger ssnDataIssue;
+	private BigInteger ssnPercentageErrorRate;
+	private BigInteger dobCDK;
+	private BigInteger dobInfoMissing;
+	private BigInteger dobDataIssue;
+	private BigInteger dobPercentageErrorRate;
+	private BigInteger raceCDK;
+	private BigInteger raceInfoMissing;
+	private BigInteger raceDataIssue;
+	private BigInteger racePercentageErrorRate;
+	private BigInteger ethnicityCDK;
+	private BigInteger ethnicityInfoMissing;
+	private BigInteger ethnicityDataIssue;
+	private BigInteger ethnicityPercentageErrorRate;
+	private BigInteger genderCDK;
+	private BigInteger genderInfoMissing;
+	private BigInteger genderPercentageErrorRate;
+	private BigInteger overAllPercentage;
+	public BigInteger getNameCDK() {
+		return nameCDK;
 	}
-	public void setTotNumOfPersonServed(BigInteger totNumOfPersonServed) {
-		this.totNumOfPersonServed = totNumOfPersonServed;
+	public void setNameCDK(BigInteger nameCDK) {
+		this.nameCDK = nameCDK;
 	}
-	public BigInteger getNumOfAdults() {
-		return numOfAdults;
+	public BigInteger getNameInfoMissing() {
+		return nameInfoMissing;
 	}
-	public void setNumOfAdults(BigInteger numOfAdults) {
-		this.numOfAdults = numOfAdults;
+	public void setNameInfoMissing(BigInteger nameInfoMissing) {
+		this.nameInfoMissing = nameInfoMissing;
 	}
-	public BigInteger getNumOfChildren() {
-		return numOfChildren;
+	public BigInteger getNameDataIssue() {
+		return nameDataIssue;
 	}
-	public void setNumOfChildren(BigInteger numOfChildren) {
-		this.numOfChildren = numOfChildren;
+	public void setNameDataIssue(BigInteger nameDataIssue) {
+		this.nameDataIssue = nameDataIssue;
 	}
-	public BigInteger getNumOfPersonsWithUnknownAge() {
-		return numOfPersonsWithUnknownAge;
+	public BigInteger getNamePercentageErrorRate() {
+		return namePercentageErrorRate;
 	}
-	public void setNumOfPersonsWithUnknownAge(BigInteger numOfPersonsWithUnknownAge) {
-		this.numOfPersonsWithUnknownAge = numOfPersonsWithUnknownAge;
+	public void setNamePercentageErrorRate(BigInteger namePercentageErrorRate) {
+		this.namePercentageErrorRate = namePercentageErrorRate;
 	}
-	public BigInteger getTotNoOfLeavers() {
-		return totNoOfLeavers;
+	public BigInteger getSsnCDK() {
+		return ssnCDK;
 	}
-	public void setTotNoOfLeavers(BigInteger totNoOfLeavers) {
-		this.totNoOfLeavers = totNoOfLeavers;
+	public void setSsnCDK(BigInteger ssnCDK) {
+		this.ssnCDK = ssnCDK;
 	}
-	public BigInteger getTotNoOfStayers() {
-		return totNoOfStayers;
+	public BigInteger getSsnInfoMissing() {
+		return ssnInfoMissing;
 	}
-	public void setTotNoOfStayers(BigInteger totNoOfStayers) {
-		this.totNoOfStayers = totNoOfStayers;
+	public void setSsnInfoMissing(BigInteger ssnInfoMissing) {
+		this.ssnInfoMissing = ssnInfoMissing;
 	}
-	public BigInteger getTotNoOfAdultLeavers() {
-		return totNoOfAdultLeavers;
+	public BigInteger getSsnDataIssue() {
+		return ssnDataIssue;
 	}
-	public void setTotNoOfAdultLeavers(BigInteger totNoOfAdultLeavers) {
-		this.totNoOfAdultLeavers = totNoOfAdultLeavers;
+	public void setSsnDataIssue(BigInteger ssnDataIssue) {
+		this.ssnDataIssue = ssnDataIssue;
 	}
-	public BigInteger getTotNoOfAdultStayers() {
-		return totNoOfAdultStayers;
+	public BigInteger getSsnPercentageErrorRate() {
+		return ssnPercentageErrorRate;
 	}
-	public void setTotNoOfAdultStayers(BigInteger totNoOfAdultStayers) {
-		this.totNoOfAdultStayers = totNoOfAdultStayers;
+	public void setSsnPercentageErrorRate(BigInteger ssnPercentageErrorRate) {
+		this.ssnPercentageErrorRate = ssnPercentageErrorRate;
 	}
-	public BigInteger getNoOfVeterans() {
-		return noOfVeterans;
+	public BigInteger getDobCDK() {
+		return dobCDK;
 	}
-	public void setNoOfVeterans(BigInteger noOfVeterans) {
-		this.noOfVeterans = noOfVeterans;
+	public void setDobCDK(BigInteger dobCDK) {
+		this.dobCDK = dobCDK;
 	}
-	public BigInteger getNoOfChronicallyHomelessPersons() {
-		return noOfChronicallyHomelessPersons;
+	public BigInteger getDobInfoMissing() {
+		return dobInfoMissing;
 	}
-	public void setNoOfChronicallyHomelessPersons(
-			BigInteger noOfChronicallyHomelessPersons) {
-		this.noOfChronicallyHomelessPersons = noOfChronicallyHomelessPersons;
+	public void setDobInfoMissing(BigInteger dobInfoMissing) {
+		this.dobInfoMissing = dobInfoMissing;
 	}
-	public BigInteger getNoOfAdultHeadsOfHousehold() {
-		return noOfAdultHeadsOfHousehold;
+	public BigInteger getDobDataIssue() {
+		return dobDataIssue;
 	}
-	public void setNoOfAdultHeadsOfHousehold(BigInteger noOfAdultHeadsOfHousehold) {
-		this.noOfAdultHeadsOfHousehold = noOfAdultHeadsOfHousehold;
+	public void setDobDataIssue(BigInteger dobDataIssue) {
+		this.dobDataIssue = dobDataIssue;
 	}
-	public BigInteger getNoOfChildHeadsOfHousehold() {
-		return noOfChildHeadsOfHousehold;
+	public BigInteger getDobPercentageErrorRate() {
+		return dobPercentageErrorRate;
 	}
-	public void setNoOfChildHeadsOfHousehold(BigInteger noOfChildHeadsOfHousehold) {
-		this.noOfChildHeadsOfHousehold = noOfChildHeadsOfHousehold;
+	public void setDobPercentageErrorRate(BigInteger dobPercentageErrorRate) {
+		this.dobPercentageErrorRate = dobPercentageErrorRate;
 	}
-	public BigInteger getNumOfUnaccompaniedYouthUnderAge25() {
-		return numOfUnaccompaniedYouthUnderAge25;
+	public BigInteger getRaceCDK() {
+		return raceCDK;
 	}
-	public void setNumOfUnaccompaniedYouthUnderAge25(
-			BigInteger numOfUnaccompaniedYouthUnderAge25) {
-		this.numOfUnaccompaniedYouthUnderAge25 = numOfUnaccompaniedYouthUnderAge25;
+	public void setRaceCDK(BigInteger raceCDK) {
+		this.raceCDK = raceCDK;
 	}
-	public BigInteger getNumOfParentingYouthUnderAge25WithChildren() {
-		return numOfParentingYouthUnderAge25WithChildren;
+	public BigInteger getRaceInfoMissing() {
+		return raceInfoMissing;
 	}
-	public void setNumOfParentingYouthUnderAge25WithChildren(
-			BigInteger numOfParentingYouthUnderAge25WithChildren) {
-		this.numOfParentingYouthUnderAge25WithChildren = numOfParentingYouthUnderAge25WithChildren;
+	public void setRaceInfoMissing(BigInteger raceInfoMissing) {
+		this.raceInfoMissing = raceInfoMissing;
 	}
+	public BigInteger getRaceDataIssue() {
+		return raceDataIssue;
+	}
+	public void setRaceDataIssue(BigInteger raceDataIssue) {
+		this.raceDataIssue = raceDataIssue;
+	}
+	public BigInteger getRacePercentageErrorRate() {
+		return racePercentageErrorRate;
+	}
+	public void setRacePercentageErrorRate(BigInteger racePercentageErrorRate) {
+		this.racePercentageErrorRate = racePercentageErrorRate;
+	}
+	public BigInteger getEthnicityCDK() {
+		return ethnicityCDK;
+	}
+	public void setEthnicityCDK(BigInteger ethnicityCDK) {
+		this.ethnicityCDK = ethnicityCDK;
+	}
+	public BigInteger getEthnicityInfoMissing() {
+		return ethnicityInfoMissing;
+	}
+	public void setEthnicityInfoMissing(BigInteger ethnicityInfoMissing) {
+		this.ethnicityInfoMissing = ethnicityInfoMissing;
+	}
+	public BigInteger getEthnicityDataIssue() {
+		return ethnicityDataIssue;
+	}
+	public void setEthnicityDataIssue(BigInteger ethnicityDataIssue) {
+		this.ethnicityDataIssue = ethnicityDataIssue;
+	}
+	public BigInteger getEthnicityPercentageErrorRate() {
+		return ethnicityPercentageErrorRate;
+	}
+	public void setEthnicityPercentageErrorRate(
+			BigInteger ethnicityPercentageErrorRate) {
+		this.ethnicityPercentageErrorRate = ethnicityPercentageErrorRate;
+	}
+	public BigInteger getGenderCDK() {
+		return genderCDK;
+	}
+	public void setGenderCDK(BigInteger genderCDK) {
+		this.genderCDK = genderCDK;
+	}
+	public BigInteger getGenderInfoMissing() {
+		return genderInfoMissing;
+	}
+	public void setGenderInfoMissing(BigInteger genderInfoMissing) {
+		this.genderInfoMissing = genderInfoMissing;
+	}
+	public BigInteger getGenderPercentageErrorRate() {
+		return genderPercentageErrorRate;
+	}
+	public void setGenderPercentageErrorRate(BigInteger genderPercentageErrorRate) {
+		this.genderPercentageErrorRate = genderPercentageErrorRate;
+	}
+	public BigInteger getOverAllPercentage() {
+		return overAllPercentage;
+	}
+	public void setOverAllPercentage(BigInteger overAllPercentage) {
+		this.overAllPercentage = overAllPercentage;
+	}
+	
+	
 	
 }

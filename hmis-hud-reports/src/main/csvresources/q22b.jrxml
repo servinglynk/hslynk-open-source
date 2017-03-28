@@ -3,17 +3,11 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<field name="q22bAverageLengthInDaysTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q22bAverageLengthInDaysTotal]]></fieldDescription>
-	</field>
 	<field name="q22bAverageLengthInDaysLeavers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22bAverageLengthInDaysLeavers]]></fieldDescription>
 	</field>
 	<field name="q22bAverageLengthInDaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22bAverageLengthInDaysStayers]]></fieldDescription>
-	</field>
-	<field name="q22bMedianLengthInDaysTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q22bMedianLengthInDaysTotal]]></fieldDescription>
 	</field>
 	<field name="q2bMedianLengthInDaysLeavers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22bMedianLengthInDaysLeavers]]></fieldDescription>
@@ -25,7 +19,7 @@
 		<groupFooter>
 			<band height="49">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="7f033ef3-5ebb-447d-94d2-1ccefaf12fa5"/>
+					<reportElement mode="Opaque" x="0" y="0" width="182" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="7f033ef3-5ebb-447d-94d2-1ccefaf12fa5"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -37,20 +31,6 @@
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[   ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="7cb8964b-3aa2-4f29-8d29-f51c25ccaa4d"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[Total]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="4a882bbe-22c3-4da0-9807-188bd78a5c4f"/>
@@ -83,7 +63,7 @@
 			</band>
 			<band height="26">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="3b15aaf5-55c0-4c9b-bda7-bb8e342b4ede"/>
+					<reportElement x="0" y="0" width="182" height="26" forecolor="#000000" uuid="3b15aaf5-55c0-4c9b-bda7-bb8e342b4ede"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -107,18 +87,6 @@
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q22bAverageLengthInDaysLeavers}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="0184a7be-df78-401b-b6df-86d61a50d069"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q22bAverageLengthInDaysTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="8e0b1318-1b93-4af3-8c68-75a5205a542d"/>
@@ -147,7 +115,7 @@
 					<textFieldExpression><![CDATA[$F{q22bMedianLengthInDaysStayers}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="7d2c361d-1789-403d-bec0-447e62531c44"/>
+					<reportElement x="0" y="0" width="182" height="26" forecolor="#000000" uuid="7d2c361d-1789-403d-bec0-447e62531c44"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -171,18 +139,6 @@
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q2bMedianLengthInDaysLeavers}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="a09ba054-1688-4bfe-892d-26013dbc4d58"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q22bMedianLengthInDaysTotal}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

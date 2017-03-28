@@ -117,7 +117,7 @@ public class HomePageDataBeanMaker_Backup {
 //			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 //			data.setExits(filteredExits);
 			
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aHMISCDDQDataList(/*schema,projectId,data*/);
+			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aReportValidationsTableList(/*schema,projectId,data*/);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "q05a.jrxml", "q05a.csv");

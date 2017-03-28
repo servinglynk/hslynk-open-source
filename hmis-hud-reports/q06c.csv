@@ -1,8 +1,5 @@
-Month,Total,"Without
-Children",,"With Children
-and Adults","With Only
-Children",Unknown HH Type
-   January,0,,0,0,0,0
-   April,0,,0,0,0,0
-   July,0,,0,0,0,0
-   October,0,,0,0,0,0
+Data Element,Error Count,% of Error Rate
+  Destination,0,0
+  Income and Sources at Entry,0,0
+  Income and Sources at Annual Assessment,0,0
+  Income and Sources at Exit,0,0

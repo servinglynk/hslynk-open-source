@@ -75,59 +75,79 @@
 	<field name="q21HStateHealthInsuranceForAdultsAtExitLeavers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q21HStateHealthInsuranceForAdultsAtExitLeavers]]></fieldDescription>
 	</field>
-	<field name="q21INoHealthInsuranceAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21INoHealthInsuranceAtEntry]]></fieldDescription>
+	<field name="q21KNoHealthInsuranceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21KNoHealthInsuranceAtEntry]]></fieldDescription>
 	</field>
-	<field name="q21INoHealthInsuranceAtLatestStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21INoHealthInsuranceAtLatestStayers]]></fieldDescription>
+	<field name="q21KNoHealthInsuranceAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21KNoHealthInsuranceAtLatestStayers]]></fieldDescription>
 	</field>
-	<field name="q21INoHealthInsuranceAtExitLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21INoHealthInsuranceAtExitLeavers]]></fieldDescription>
+	<field name="q21KNoHealthInsuranceAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21KNoHealthInsuranceAtExitLeavers]]></fieldDescription>
 	</field>
-	<field name="q21JClientRefusedAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21JClientRefusedAtEntry]]></fieldDescription>
+	<field name="q21LClientRefusedAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21LClientRefusedAtEntry]]></fieldDescription>
 	</field>
-	<field name="q21JClientRefusedAtLatestStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21JClientRefusedAtLatestStayers]]></fieldDescription>
+	<field name="q21LClientRefusedAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21LClientRefusedAtLatestStayers]]></fieldDescription>
 	</field>
-	<field name="q21JClientRefusedAtExitLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21JClientRefusedAtExitLeavers]]></fieldDescription>
+	<field name="q21LClientRefusedAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21LClientRefusedAtExitLeavers]]></fieldDescription>
 	</field>
-	<field name="q21KDataNotCollectedAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21KDataNotCollectedAtEntry]]></fieldDescription>
+	<field name="q21MDataNotCollectedAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21MDataNotCollectedAtEntry]]></fieldDescription>
 	</field>
-	<field name="q21KDataNotCollectedAtLatestStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21KDataNotCollectedAtLatestStayers]]></fieldDescription>
+	<field name="q21MDataNotCollectedAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21MDataNotCollectedAtLatestStayers]]></fieldDescription>
 	</field>
-	<field name="q21KDataNotCollectedAtExitLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21KDataNotCollectedAtExitLeavers]]></fieldDescription>
+	<field name="q21MDataNotCollectedAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21MDataNotCollectedAtExitLeavers]]></fieldDescription>
 	</field>
-	<field name="q21LNoOfAdultStayersNotRequiredAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21LNoOfAdultStayersNotRequiredAtEntry]]></fieldDescription>
+	<field name="q21NNoOfAdultStayersNotRequiredAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21NNoOfAdultStayersNotRequiredAtEntry]]></fieldDescription>
 	</field>
-	<field name="q21LNoOfAdultStayersNotRequiredAtLatestStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21LNoOfAdultStayersNotRequiredAtLatestStayers]]></fieldDescription>
+	<field name="q21NNoOfAdultStayersNotRequiredAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21NNoOfAdultStayersNotRequiredAtLatestStayers]]></fieldDescription>
 	</field>
-	<field name="q21LNoOfAdultStayersNotRequiredAtExitLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21LNoOfAdultStayersNotRequiredAtExitLeavers]]></fieldDescription>
+	<field name="q21NNoOfAdultStayersNotRequiredAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21NNoOfAdultStayersNotRequiredAtExitLeavers]]></fieldDescription>
 	</field>
-	<field name="q21M1SourceOfHealthInsuranceAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21M1SourceOfHealthInsuranceAtEntry]]></fieldDescription>
+	<field name="q21O1SourceOfHealthInsuranceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21O1SourceOfHealthInsuranceAtEntry]]></fieldDescription>
 	</field>
-	<field name="q21M1SourceOfHealthInsuranceAtLatestStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21M1SourceOfHealthInsuranceAtLatestStayers]]></fieldDescription>
+	<field name="q21O1SourceOfHealthInsuranceAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21O1SourceOfHealthInsuranceAtLatestStayers]]></fieldDescription>
 	</field>
-	<field name="q21M1SourceOfHealthInsuranceAtExitLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21M1SourceOfHealthInsuranceAtExitLeavers]]></fieldDescription>
+	<field name="q21O1SourceOfHealthInsuranceAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21O1SourceOfHealthInsuranceAtExitLeavers]]></fieldDescription>
 	</field>
-	<field name="q21NMoreThan1SourceOfHealthInsuranceAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21NMoreThan1SourceOfHealthInsuranceAtEntry]]></fieldDescription>
+	<field name="q21PMoreThan1SourceOfHealthInsuranceAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21PMoreThan1SourceOfHealthInsuranceAtEntry]]></fieldDescription>
 	</field>
-	<field name="q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers]]></fieldDescription>
+	<field name="q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers]]></fieldDescription>
 	</field>
-	<field name="q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers]]></fieldDescription>
+	<field name="q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q21IIndianHealthServicesProgramAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21IIndianHealthServicesProgramAtEntry]]></fieldDescription>
+	</field>
+	<field name="q21IIndianHealthServicesProgramAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21IIndianHealthServicesProgramAtLatestStayers]]></fieldDescription>
+	</field>
+	<field name="q21IIndianHealthServicesProgramAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21IIndianHealthServicesProgramAtExitLeavers]]></fieldDescription>
+	</field>
+	
+	<field name="q21JOtherAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21JOtherAtEntry]]></fieldDescription>
+	</field>
+	<field name="q21JOtherAtLatestStayers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21JOtherAtLatestStayers]]></fieldDescription>
+	</field>
+	<field name="q21JOtherAtExitLeavers" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q21JOtherAtExitLeavers]]></fieldDescription>
 	</field>
 	<group name="Group5">
 		<groupFooter>
@@ -605,6 +625,113 @@
 					<textFieldExpression><![CDATA[$F{q21HStateHealthInsuranceForAdultsAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
+			
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="92fcab3e-23e8-40a9-9399-a1521975ac70"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   i. Indian Health Services Program]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="ea17b279-9ffc-497d-9087-db14f0b9de6d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q21IIndianHealthServicesProgramAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="e7a11319-8a58-4fdf-88f7-0bff919c1ec0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q21IIndianHealthServicesProgramAtLatestStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="a8e7a4f7-e44a-4c90-bd7f-6389faa4daec"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q21IIndianHealthServicesProgramAtExitLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="92fcab3e-23e8-40a9-9399-a1521975ac70"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   j. Other]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="ea17b279-9ffc-497d-9087-db14f0b9de6d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q21JOtherAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="e7a11319-8a58-4fdf-88f7-0bff919c1ec0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q21JOtherAtLatestStayers}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="a8e7a4f7-e44a-4c90-bd7f-6389faa4daec"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q21JOtherAtExitLeavers}]]></textFieldExpression>
+				</textField>
+			</band>
+			  
 			<band height="26">
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="b9f35c17-c306-4587-9e55-b6a523d7dae8"/>
@@ -618,7 +745,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. No health insurance]]></text>
+					<text><![CDATA[   k. No health insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="0573a3b6-8bd3-4069-b84e-2d8984056c2d"/>
@@ -630,7 +757,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21INoHealthInsuranceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21KNoHealthInsuranceAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="f128e6c6-1c67-4ccd-bffb-6e17eed44b06"/>
@@ -642,7 +769,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21INoHealthInsuranceAtLatestStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21KNoHealthInsuranceAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="28ac4613-c764-4de4-9c42-1cd685d9b117"/>
@@ -654,7 +781,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21INoHealthInsuranceAtExitLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21KNoHealthInsuranceAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -670,7 +797,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   j. Client doesn't know/Client refused]]></text>
+					<text><![CDATA[   l. Client doesn't know/Client refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="85abcec7-2f4c-499c-b76f-28f38a2d8c03"/>
@@ -682,7 +809,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21JClientRefusedAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21LClientRefusedAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="21fb5ec6-bee7-4725-9e5d-2072ed7718d0"/>
@@ -694,7 +821,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21JClientRefusedAtLatestStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21LClientRefusedAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="9b7a5cfe-15c5-4d44-a354-6f72c46ac83e"/>
@@ -706,7 +833,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21JClientRefusedAtExitLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21LClientRefusedAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -722,7 +849,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Data not collected]]></text>
+					<text><![CDATA[   m. Data not collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="f8ad5aeb-80f7-49ba-ba12-d09bb6cb739a"/>
@@ -734,7 +861,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21KDataNotCollectedAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21MDataNotCollectedAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="50c436e8-eef5-4723-b57f-3fe2b400e30b"/>
@@ -746,7 +873,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21KDataNotCollectedAtLatestStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21MDataNotCollectedAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="699002a2-0d33-4a28-851b-a302679ff8d3"/>
@@ -758,7 +885,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21KDataNotCollectedAtExitLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21MDataNotCollectedAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -774,7 +901,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   l. Number of adult stayers not yet required to have an annual assessment]]></text>
+					<text><![CDATA[   n. Number of adult stayers not yet required to have an annual assessment]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="8ea00fc6-8100-4963-b030-faad7b871fd7"/>
@@ -786,7 +913,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21LNoOfAdultStayersNotRequiredAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21NNoOfAdultStayersNotRequiredAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="4b48f2e3-acfc-46ad-9514-258e177b91e1"/>
@@ -798,7 +925,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21LNoOfAdultStayersNotRequiredAtLatestStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21NNoOfAdultStayersNotRequiredAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="2c1a2f13-a9b0-41ce-9e7d-353b19b04f61"/>
@@ -810,7 +937,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21LNoOfAdultStayersNotRequiredAtExitLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21NNoOfAdultStayersNotRequiredAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -826,7 +953,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   m. 1 source of health insurance]]></text>
+					<text><![CDATA[   o. 1 source of health insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="6505383e-e570-48ce-b1f5-325e28aaac32"/>
@@ -838,7 +965,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21M1SourceOfHealthInsuranceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21O1SourceOfHealthInsuranceAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="43598b38-6a38-4c2b-b968-9fe41118c0b6"/>
@@ -850,7 +977,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21M1SourceOfHealthInsuranceAtLatestStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21O1SourceOfHealthInsuranceAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="51141712-7836-4ea9-991b-92fe62f13d46"/>
@@ -862,7 +989,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21M1SourceOfHealthInsuranceAtExitLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21O1SourceOfHealthInsuranceAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -878,7 +1005,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   n. More than 1 source of health insurance]]></text>
+					<text><![CDATA[   p. More than 1 source of health insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="c272f57e-6483-44cb-bb52-946f82bff3f8"/>
@@ -890,7 +1017,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21NMoreThan1SourceOfHealthInsuranceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21PMoreThan1SourceOfHealthInsuranceAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="3e95dc68-571e-4bfe-b4e8-6aaff92fa446"/>
@@ -902,7 +1029,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="62a00bcb-5778-4604-b271-11d13ca0f6a5"/>
@@ -914,7 +1041,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			

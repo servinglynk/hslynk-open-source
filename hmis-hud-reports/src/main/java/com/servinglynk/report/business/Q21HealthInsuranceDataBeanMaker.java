@@ -44,29 +44,37 @@ public class Q21HealthInsuranceDataBeanMaker {
 				q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtLatestStayers(BigInteger.valueOf(0));
 				q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtExitLeavers(BigInteger.valueOf(0));
 
-				q21HealthInsuranceDataBeanTable.setQ21INoHealthInsuranceAtEntry(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21INoHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21INoHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtLatestStayers(BigInteger.valueOf(0));
+				
+				q21HealthInsuranceDataBeanTable.setQ21JOtherAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21JOtherAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21JOtherAtLatestStayers(BigInteger.valueOf(0));
+				
+				q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
 
-				q21HealthInsuranceDataBeanTable.setQ21JClientRefusedAtEntry(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21JClientRefusedAtLatestStayers(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21JClientRefusedAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtLatestStayers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtExitLeavers(BigInteger.valueOf(0));
 
-				q21HealthInsuranceDataBeanTable.setQ21KDataNotCollectedAtEntry(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21KDataNotCollectedAtLatestStayers(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21KDataNotCollectedAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtLatestStayers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtExitLeavers(BigInteger.valueOf(0));
 
-				q21HealthInsuranceDataBeanTable.setQ21LNoOfAdultStayersNotRequiredAtEntry(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21LNoOfAdultStayersNotRequiredAtLatestStayers(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21LNoOfAdultStayersNotRequiredAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtLatestStayers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtExitLeavers(BigInteger.valueOf(0));
 
-				q21HealthInsuranceDataBeanTable.setQ21M1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21M1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21M1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
 
-				q21HealthInsuranceDataBeanTable.setQ21NMoreThan1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21NMoreThan1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
-				q21HealthInsuranceDataBeanTable.setQ21NMoreThan1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
+				q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
 		
 		return Arrays.asList(q21HealthInsuranceDataBeanTable);
 	}

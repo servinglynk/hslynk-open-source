@@ -430,9 +430,9 @@
 					<textFieldExpression><![CDATA[$F{totChildTransgenderFM}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="47">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="03c6089e-653d-4e5a-bef0-d4e3a172d4d6"/>
+					<reportElement x="0" y="0" width="117" height="47" forecolor="#000000" uuid="03c6089e-653d-4e5a-bef0-d4e3a172d4d6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -443,10 +443,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Other]]></text>
+					<text><![CDATA[   e. Doesn't identify as male, female, or transgender]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="309" y="0" width="128" height="26" uuid="cb64d9f7-b892-44c0-91c6-6fe1eb912448"/>
+					<reportElement x="309" y="0" width="128" height="47" uuid="cb64d9f7-b892-44c0-91c6-6fe1eb912448"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -458,7 +458,7 @@
 					<textFieldExpression><![CDATA[$F{childOtherWCA}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="127" height="26" uuid="c130da29-e057-4d94-bd78-e35c4b6fc330"/>
+					<reportElement x="182" y="0" width="127" height="47" uuid="c130da29-e057-4d94-bd78-e35c4b6fc330"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -470,7 +470,7 @@
 					<textFieldExpression><![CDATA[$F{childOtherWOC}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="032a285f-639f-4cd7-b6b7-7f7850e61c9d"/>
+					<reportElement x="117" y="0" width="65" height="47" uuid="032a285f-639f-4cd7-b6b7-7f7850e61c9d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -482,7 +482,7 @@
 					<textFieldExpression><![CDATA[$F{totChildOther}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="437" y="0" width="118" height="26" uuid="18743c05-3280-4dac-aba9-16941caf91c1"/>
+					<reportElement x="437" y="0" width="118" height="47" uuid="18743c05-3280-4dac-aba9-16941caf91c1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -519,7 +519,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Don't know/refused]]></text>
+					<text><![CDATA[  f. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="309" y="0" width="128" height="26" uuid="6c8e5684-b09b-4acb-a99f-faed34b6aa45"/>
@@ -619,7 +619,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  g. Information missing]]></text>
+					<text><![CDATA[  g. Data Not Collected]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -647,7 +647,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. Subtotal]]></text>
+					<text><![CDATA[  h. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="437" y="0" width="118" height="26" uuid="da2db505-e5dd-4540-8932-d2414d403721"/>

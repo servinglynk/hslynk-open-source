@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="65"/>
 	<field name="q25gEarnedIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25gEarnedIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -636,7 +636,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. TANF or Equivalent]]></text>
+					<text><![CDATA[  i. TANF]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="15fa78fa-f24d-4b4a-9029-cb48141b08ef"/>
@@ -1040,7 +1040,6 @@ Assessment/Exit]]></text>
 					<textFieldExpression><![CDATA[$F{q25gAdultsWithIncomeInfoAtEntryLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			
 		</groupFooter>
 	</group>
 </jasperReport>

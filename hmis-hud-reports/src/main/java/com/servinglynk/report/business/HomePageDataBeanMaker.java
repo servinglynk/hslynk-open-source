@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ReportQuery;
@@ -24,8 +23,13 @@ import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
 import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
 import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q06dDataBean;
+import com.servinglynk.report.bean.Q06eDataBean;
+import com.servinglynk.report.bean.Q06fDataBean;
 import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
 import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q08aDataBean;
+import com.servinglynk.report.bean.Q08bDataBean;
 import com.servinglynk.report.bean.Q09aNumberPersonsContactedDataBean;
 import com.servinglynk.report.bean.Q09bNumberofPersonsEngagedDataBean;
 import com.servinglynk.report.bean.Q10aGenderOfAdultsDataBean;
@@ -85,7 +89,7 @@ import com.servinglynk.report.csvcontroller.CSVGenerator;
 public class HomePageDataBeanMaker {
 	
 //		public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId){
-			public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId,boolean sageReport){
+			public static List<HomePageDataBean> getHomePageDataList(/*String schema,String projectId,*/boolean sageReport){
 	       
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
 			
@@ -98,27 +102,27 @@ public class HomePageDataBeanMaker {
 			homePageDataBean.setHomePageHomeLess("Everyone");
 			homePageDataBean.setHomePageGrants("all grants");
 			homePageDataBean.setHomePageView("Aggregate / summary");
-			populateProject(schema, projectId, homePageDataBean);
+//			populateProject(schema, projectId, homePageDataBean);
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projectId);
+			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(/*schema,projectId*/);
 			if(sageReport) {
 				CSVGenerator.buildReport(q04aDataBeanList, "q04a.jrxml", "q04a.csv");
 			}
-			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
+//			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 			ReportData data = new ReportData();
-			data.setEnrollments(enrollments);
-			List<ClientModel> allClients = getClients(schema);
+			/*data.setEnrollments(enrollments);
+			List<ClientModel> allClients = getClients(schema);*/
 			List<String> clientIds = new ArrayList<String>(); 
 			List<String> enrollmentIds = new ArrayList<String>(); 
-			enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
-			List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
-			data.setClients(clients);
-			List<ExitModel> allExits = getAllExits(schema);
-			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
-			data.setExits(filteredExits);
+//			enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
+//			List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
+//			data.setClients(clients);
+//			List<ExitModel> allExits = getAllExits(schema);
+//			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
+//			data.setExits(filteredExits);
 			
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aHMISCDDQDataList(/*schema,projectId,data*/);
+			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aReportValidationsTableList(/*schema,projectId,data*/);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "q05a.jrxml", "q05a.csv");
@@ -142,6 +146,24 @@ public class HomePageDataBeanMaker {
 				CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "q06c.jrxml", "q06c.csv");
 			}
 			
+			List<Q06dDataBean> q06dDataBeanList = Q06dDataBeanMaker.getQ06DataBeanList();
+			homePageDataBean.setQ06dDataBean(q06dDataBeanList);
+			if(q06dDataBeanList!=null){
+				CSVGenerator.buildReport(q06dDataBeanList, "q06d.jrxml", "q06d.csv");
+			}
+			
+			List<Q06eDataBean> q06eDataBeanList = Q06eDataBeanMaker.getQ06eDataBeanList();
+			homePageDataBean.setQ06eDataBean(q06eDataBeanList);
+			if(q06eDataBeanList!=null){
+				CSVGenerator.buildReport(q06eDataBeanList, "q06e.jrxml", "q06e.csv");
+			}
+			
+			List<Q06fDataBean> q06fDataBeanList = Q06fDataBeanMaker.getQ06fDataBeanList();
+			homePageDataBean.setQ06fDataBean(q06fDataBeanList);
+			if(q06fDataBeanList!=null){
+				CSVGenerator.buildReport(q06fDataBeanList, "q06f.jrxml", "q06f.csv");
+			}
+			
 			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServeList = Q07aBeanMaker.getQ07aHouseholdsServeList();
 			homePageDataBean.setQ07aHouseholdsServedDataBean(q07aHouseholdsServeList);
 			if(q07aHouseholdsServeList!=null){
@@ -152,6 +174,18 @@ public class HomePageDataBeanMaker {
 			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(q07bPointInTimeCountHouseholdsLastWednesdayList);
 			if(q07bPointInTimeCountHouseholdsLastWednesdayList!=null){
 				CSVGenerator.buildReport(q07bPointInTimeCountHouseholdsLastWednesdayList, "q07b.jrxml", "q07b.csv");
+			}
+			
+			List<Q08aDataBean> q08aDataBeanList = Q08aDataBeanMaker.getQ08aDataBeanList();
+			homePageDataBean.setQ08aDataBean(q08aDataBeanList);
+			if(q08aDataBeanList!=null){
+				CSVGenerator.buildReport(q08aDataBeanList, "q08a.jrxml", "q08a.csv");
+			}
+			
+			List<Q08bDataBean> q08bDataBeanList = Q08bDataBeanMaker.getQ08bDataBeanList();
+			homePageDataBean.setQ08bDataBean(q08bDataBeanList);
+			if(q08bDataBeanList!=null){
+				CSVGenerator.buildReport(q08bDataBeanList, "q08b.jrxml", "q08b.csv");
 			}
 			
 			List<Q09aNumberPersonsContactedDataBean> q09aNumberPersonsContactedList = Q09aDataBeanMaker.getQ09aNumberPersonsContactedList();
@@ -325,13 +359,13 @@ public class HomePageDataBeanMaker {
 			List<Q23ExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23ExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList();
 			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
 			if(q23ExitDestinationMoreThan90DaysList!=null){
-				CSVGenerator.buildReport(q23ExitDestinationMoreThan90DaysList, "q23.jrxml","q23.csv");
+				CSVGenerator.buildReport(q23ExitDestinationMoreThan90DaysList, "q23a.jrxml","q23a.csv");
 			}
 			
 			List<Q24ExitDestination90DaysOrLessDataBean> q24ExitDestination90DaysOrLessList= Q24ExitDestination90DaysOrLessDataBeanMaker.getQ24ExitDestination90DaysOrLessList();
 			homePageDataBean.setQ24ExitDestination90DaysOrLessDataBean(q24ExitDestination90DaysOrLessList);
 			if(q24ExitDestination90DaysOrLessList!=null){
-				CSVGenerator.buildReport(q24ExitDestination90DaysOrLessList, "q24.jrxml","q24.csv");
+				CSVGenerator.buildReport(q24ExitDestination90DaysOrLessList, "q23b.jrxml","q23b.csv");
 			}
 			
 			List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransList = Q25aNumberOfVeteransDataBeanMaker.getQ25aNumberOfVeteransList();	

@@ -3,12 +3,14 @@ at Annual Assessment
 (Stayers)","Number of
 Veterans at Exit
 (Leavers)"
-"   a. Veterans with Only Earned Income (i.e., Employment Income)",0,0,0
-   b. Veterans with Only Other Income,0,0,0
-   c. Veterans with Both Earned and Other ,0,0,0
-   d. Veterans with No Income,0,0,0
-   e. Veterans with Client Doesn’t Know/Client Refused Income Information,0,0,0
-  f. Veterans with Missing Income Information,0,0,0
-   g. Number of veterans not yet required to have an annual assessment,0,0,0
-   h. Number of veterans without required annual assessment,0,0,0
-  i. Total Veterans,0,0,0
+   a. Adults with only earned income,0,0,0
+   b. Adults with only other income,0,0,0
+"  c. Adults with both earned and other
+income",0,0,0
+   d. Adults with no income,0,0,0
+   e. Adults with Client Doesn't Know/Client Refused income information,0,0,0
+  f. Adults with missing income information,0,0,0
+   g. Number of adult stayers not yet required to have an annual assessment,0,0,0
+"  h. Number of adult stayers without required annual
+assessment",0,0,0
+  i. Total adults,0,0,0

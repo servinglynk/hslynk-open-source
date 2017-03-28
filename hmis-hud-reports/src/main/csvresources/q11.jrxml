@@ -976,7 +976,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   j. Don't know/refused]]></text>
+					<text><![CDATA[   j. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="d885f109-cfd4-42b3-9697-90b17b01b351"/>
@@ -1052,7 +1052,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Information missing]]></text>
+					<text><![CDATA[   k. Data Not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="92e0b238-8f11-41be-a7b0-2b2ceb78f7dd"/>

@@ -114,7 +114,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Parent youth < 18]]></text>
+					<text><![CDATA[   Parent youth less than 18]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="166" y="0" width="109" height="26" uuid="6b9d68a8-efb3-42ad-b875-c70e5a0573f7"/>

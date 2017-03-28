@@ -429,9 +429,9 @@
 					<textFieldExpression><![CDATA[$F{q25cTransgendereFemaleToMaleUnknownHouseHold}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="39">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="d0ca4bc0-ba21-416f-8579-a9613d9003db"/>
+					<reportElement x="0" y="0" width="117" height="39" forecolor="#000000" uuid="d0ca4bc0-ba21-416f-8579-a9613d9003db"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -445,7 +445,7 @@
 					<text><![CDATA[   e. Doesn’t identify as male, female, or transgender]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="49b45953-6506-4656-85cc-705a6372a6b1"/>
+					<reportElement x="117" y="0" width="65" height="39" uuid="49b45953-6506-4656-85cc-705a6372a6b1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -457,7 +457,7 @@
 					<textFieldExpression><![CDATA[$F{q25cOtherTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="127" height="26" uuid="050d0e78-5f12-47c5-b094-305c536ba387"/>
+					<reportElement x="182" y="0" width="127" height="39" uuid="050d0e78-5f12-47c5-b094-305c536ba387"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -469,7 +469,7 @@
 					<textFieldExpression><![CDATA[$F{q25cOtherWithoutChildren}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="309" y="0" width="128" height="26" uuid="54de03cb-dbd4-4dfe-a5f7-35aaea497aca"/>
+					<reportElement x="309" y="0" width="128" height="39" uuid="54de03cb-dbd4-4dfe-a5f7-35aaea497aca"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -481,7 +481,7 @@
 					<textFieldExpression><![CDATA[$F{q25cOtherWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="437" y="0" width="118" height="26" uuid="a19e8a25-7660-45b3-a51c-8a8f28f786c1"/>
+					<reportElement x="437" y="0" width="118" height="39" uuid="a19e8a25-7660-45b3-a51c-8a8f28f786c1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>

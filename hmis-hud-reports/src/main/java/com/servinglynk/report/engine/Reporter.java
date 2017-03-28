@@ -36,8 +36,8 @@ public class Reporter {
 			InputStream inputStream = new FileInputStream(file);
             
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport);
-        	if(sageReport) {
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(/*"mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",*/sageReport);
+        	/*if(sageReport) {
 //        		System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
@@ -45,7 +45,7 @@ public class Reporter {
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
     		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMIS_REPORT_19032017.pdf"); 
-        	}
+        	}*/
      
         } catch (Exception e) {
             logger.error(e, e);

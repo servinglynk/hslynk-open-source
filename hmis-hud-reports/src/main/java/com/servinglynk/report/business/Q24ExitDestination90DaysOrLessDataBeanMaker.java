@@ -239,6 +239,24 @@ public class Q24ExitDestination90DaysOrLessDataBeanMaker {
 			q24ExitDestination90DaysOrLessTable.setQ24ETotWithChildAndAdults(BigInteger.valueOf(0));
 			q24ExitDestination90DaysOrLessTable.setQ24ETotWithOnlyChild(BigInteger.valueOf(0));
 			q24ExitDestination90DaysOrLessTable.setQ24ETotUnknownHouseHold(BigInteger.valueOf(0));
+			
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsExistUnknownHouseHold(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithOnlyChild(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithChildAndAdults(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithoutChild(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsExistTotal(BigInteger.valueOf(0));
+			
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithoutChild(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsTotal(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsUnknownHouseHold(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithOnlyChild(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithChildAndAdults(BigInteger.valueOf(0));
+			
+			q24ExitDestination90DaysOrLessTable.setQ23BPercentageWithChildAndAdults(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BPercentageUnknownHouseHold(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BPercentageWithOnlyChild(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BPercentageWithoutChild(BigInteger.valueOf(0));
+			q24ExitDestination90DaysOrLessTable.setQ23BPercentageTotal(BigInteger.valueOf(0));
 	
 			return Arrays.asList(q24ExitDestination90DaysOrLessTable);
 	

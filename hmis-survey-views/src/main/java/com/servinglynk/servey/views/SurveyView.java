@@ -160,7 +160,7 @@ public class SurveyView {
 						}
 						columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
 						columnName = columnName.replaceAll(" ", "_");
-						builder.append(" ,q_"+columnName +" string ");
+						builder.append(" ,"+columnName +" string ");
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

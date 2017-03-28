@@ -39,7 +39,7 @@ public class ActiveListView {
 			 	StringBuilder builder = new StringBuilder();
 			 	builder.append("CREATE TABLE IF NOT EXISTS ");
 			 	builder.append(projectGroupCode+".active_list");
-			 	builder.append("( client_id string,first_name string,last_name string,survey_id string,survey_title string,survey_date string ,score bigint ");
+			 	builder.append("( client_id string,first_name string,last_name string,survey_id string,survey_title string,survey_date timestamp ,score bigint ");
 				  String query = builder.toString();
 				  query = query +")";
 				  System.out.println(" Create Query::"+ query);
@@ -74,7 +74,7 @@ public class ActiveListView {
 					builder.append("  VALUES ( ");
 					builder.append("?,?,?,?,?,?,?");
 					builder.append(")");
-					System.out.println("The Query:::"+builder.toString() + " Survey :"+surveyId.toString() + " Client:"+clientId.toString());
+					System.out.println("The Query:::"+builder.toString());
 					Client client = getClientByID(clientId.toString());
 					PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
 					preparedStatement.setString(1, clientId.toString());
@@ -82,7 +82,7 @@ public class ActiveListView {
 					preparedStatement.setString(3, client.getLastName());
 					preparedStatement.setString(4, surveyId.toString());
 					preparedStatement.setString(5, survey.getSurveyName());
-					preparedStatement.setString(6, new java.util.Date().toGMTString());
+					preparedStatement.setString(6,"CURRENT_TIMESTAMP");
 					if(survey.getSurveyDate() !=null) {
 						preparedStatement.setString(6,survey.getSurveyDate().toString());
 					}
