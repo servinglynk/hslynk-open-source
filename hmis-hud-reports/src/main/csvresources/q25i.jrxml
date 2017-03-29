@@ -3,7 +3,6 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="1218"/>
-	
 	<field name="q25iA01MovedFromOneHOPWATotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iA01MovedFromOneHOPWATotal]]></fieldDescription>
 	</field>
@@ -169,7 +168,6 @@
 	<field name="q25iAzTotUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iAzTotUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iB1EmergencyShelterTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iB1EmergencyShelterTotal]]></fieldDescription>
 	</field>
@@ -305,7 +303,6 @@
 	<field name="q25iBzTotUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iBzTotUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iC1FosterCareHomeOrGroupFosterCareTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iC1FosterCareHomeOrGroupFosterCareTotal]]></fieldDescription>
 	</field>
@@ -411,7 +408,6 @@
 	<field name="q25iCzTotUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iCzTotUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iD1ResidentialProjectTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iD1ResidentialProjectTotal]]></fieldDescription>
 	</field>
@@ -517,7 +513,6 @@
 	<field name="q25iETotUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iETotUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iTotPersonsExistTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iTotPersonsExistTotal]]></fieldDescription>
 	</field>
@@ -533,7 +528,6 @@
 	<field name="q25iTotPersonsExistUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iTotPersonsExistUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iTotPersonsDstnTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iTotPersonsDstnTotal]]></fieldDescription>
 	</field>
@@ -549,7 +543,6 @@
 	<field name="q25iTotPersonsDstnUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iTotPersonsDstnUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iPercentageTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iPercentageTotal]]></fieldDescription>
 	</field>
@@ -565,57 +558,11 @@
 	<field name="q25iPercentageUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iPercentageUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<group name="Group5">
 		<groupFooter>
-			<band height="24">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="a3fb05f1-d753-4165-bee5-3f635c561cde"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[    Q25i: Exit Destination – Veterans]]></text>
-				</staticText>
-			</band>
-			<band height="25">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
-				</staticText>
-			</band>
-			<band height="25">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[   Changes from APR V5: None]]></text>
-				</staticText>
-			</band>
+			<band height="24"/>
+			<band height="25"/>
+			<band height="25"/>
 			<band height="49">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="74cd5ccb-c2da-4cb2-b965-6834527eeb42"/>
@@ -3582,22 +3529,7 @@ calculation]]></text>
 					<textFieldExpression><![CDATA[$F{q25iPercentageUnknownHouseHold}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="21">
-				<staticText>
-					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="d96d68f4-bcb6-401d-adcd-1c4fc361fde6"/>
-					<box>
-						<pen lineWidth="0.0"/>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ Universe of data: All adult veterans leavers.]]></text>
-				</staticText>
-			</band>
+			<band height="21"/>
 		</groupFooter>
 	</group>
 </jasperReport>

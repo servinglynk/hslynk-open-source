@@ -53,8 +53,8 @@ import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
 import com.servinglynk.report.bean.Q22a1LengthOfParticipationCoCProjectsDataBean;
 import com.servinglynk.report.bean.Q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
-import com.servinglynk.report.bean.Q23ExitDestinationMoreThan90DaysDataBean;
-import com.servinglynk.report.bean.Q24ExitDestination90DaysOrLessDataBean;
+import com.servinglynk.report.bean.Q23aExitDestinationMoreThan90DaysDataBean;
+import com.servinglynk.report.bean.Q23bExitDestination90DaysOrLessDataBean;
 import com.servinglynk.report.bean.Q25aNumberOfVeteransDataBean;
 import com.servinglynk.report.bean.Q25bNumberOfVeteranHouseholdsDataBean;
 import com.servinglynk.report.bean.Q25cGenderVeteransDataBean;
@@ -117,19 +117,19 @@ public class HomePageDataBeanMaker_Backup {
 //			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 //			data.setExits(filteredExits);
 			
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aReportValidationsTableList(data);
+			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aReportValidationsTableList(/*schema,projectId,data*/);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "q05a.jrxml", "q05a.csv");
 			}
 			
-			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getQ06aReportValidationsTableList(data);
+			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getQ06aReportValidationsTableList(/*schema,data*/);
 			if(q06aReportValidationsTableList != null) {
 				CSVGenerator.buildReport(q06aReportValidationsTableList, "q06a.jrxml", "q06a.csv");
 			}
 			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
 			
-			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(data);
+			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(/*schema,data*/);
 			if(q06bNumberOfPersonsServedTableList!=null){
 				CSVGenerator.buildReport(q06bNumberOfPersonsServedTableList, "q06b.jrxml", "q06b.csv");
 			}
@@ -321,16 +321,16 @@ public class HomePageDataBeanMaker_Backup {
 				CSVGenerator.buildReport(q22bAverageAndMedianLengthOfParticipationInDaysList,"q22b.jrxml","q22b.csv");
 			}
 			
-			List<Q23ExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23ExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList();
+			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23ExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList();
 			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
 			if(q23ExitDestinationMoreThan90DaysList!=null){
 				CSVGenerator.buildReport(q23ExitDestinationMoreThan90DaysList, "q23.jrxml","q23.csv");
 			}
 			
-			List<Q24ExitDestination90DaysOrLessDataBean> q24ExitDestination90DaysOrLessList= Q24ExitDestination90DaysOrLessDataBeanMaker.getQ24ExitDestination90DaysOrLessList();
-			homePageDataBean.setQ24ExitDestination90DaysOrLessDataBean(q24ExitDestination90DaysOrLessList);
-			if(q24ExitDestination90DaysOrLessList!=null){
-				CSVGenerator.buildReport(q24ExitDestination90DaysOrLessList, "q24.jrxml","q24.csv");
+			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessList= Q23bExitDestination90DaysOrLessDataBeanMaker.getQ23bExitDestination90DaysOrLessList();
+			homePageDataBean.setQ23bExitDestination90DaysOrLessDataBean(q23bExitDestination90DaysOrLessList);
+			if(q23bExitDestination90DaysOrLessList!=null){
+				CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "q24.jrxml","q24.csv");
 			}
 			
 			List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransList = Q25aNumberOfVeteransDataBeanMaker.getQ25aNumberOfVeteransList();	

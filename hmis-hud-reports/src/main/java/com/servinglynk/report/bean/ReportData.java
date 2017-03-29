@@ -4,35 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportData {
-	private String schema;
-	private String projectId;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
-	/**
-	 * @return the schema
-	 */
-	public String getSchema() {
-		return schema;
-	}
-	/**
-	 * @param schema the schema to set
-	 */
-	public void setSchema(String schema) {
-		this.schema = schema;
-	}
-	/**
-	 * @return the projectId
-	 */
-	public String getProjectId() {
-		return projectId;
-	}
-	/**
-	 * @param projectId the projectId to set
-	 */
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
-	}
 	/**
 	 * @return the clients
 	 */

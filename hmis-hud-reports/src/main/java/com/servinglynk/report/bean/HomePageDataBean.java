@@ -63,8 +63,8 @@ public class HomePageDataBean {
 	private List<Q21HealthInsuranceDataBean> q21HealthInsuranceDataBean;
 	private List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsDataBean;
 	private List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
-	private List<Q23ExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean;
-	private List<Q24ExitDestination90DaysOrLessDataBean> q24ExitDestination90DaysOrLessDataBean;
+	private List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean;
+	private List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean;
 	private List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransDataBean;
 	private List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsDataBean;
 	private List<Q25cGenderVeteransDataBean> q25cGenderVeteransDataBean;
@@ -455,19 +455,21 @@ public class HomePageDataBean {
 			List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysDataBean) {
 		this.q22bAverageAndMedianLengthOfParticipationInDaysDataBean = q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
 	}
-	public List<Q23ExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysDataBean() {
+	public List<Q23aExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysDataBean() {
 		return q23ExitDestinationMoreThan90DaysDataBean;
 	}
 	public void setQ23ExitDestinationMoreThan90DaysDataBean(
-			List<Q23ExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean) {
+			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean) {
 		this.q23ExitDestinationMoreThan90DaysDataBean = q23ExitDestinationMoreThan90DaysDataBean;
 	}
-	public List<Q24ExitDestination90DaysOrLessDataBean> getQ24ExitDestination90DaysOrLessDataBean() {
-		return q24ExitDestination90DaysOrLessDataBean;
+	
+	
+	public List<Q23bExitDestination90DaysOrLessDataBean> getQ23bExitDestination90DaysOrLessDataBean() {
+		return q23bExitDestination90DaysOrLessDataBean;
 	}
-	public void setQ24ExitDestination90DaysOrLessDataBean(
-			List<Q24ExitDestination90DaysOrLessDataBean> q24ExitDestination90DaysOrLessDataBean) {
-		this.q24ExitDestination90DaysOrLessDataBean = q24ExitDestination90DaysOrLessDataBean;
+	public void setQ23bExitDestination90DaysOrLessDataBean(
+			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean) {
+		this.q23bExitDestination90DaysOrLessDataBean = q23bExitDestination90DaysOrLessDataBean;
 	}
 	public List<Q25aNumberOfVeteransDataBean> getQ25aNumberOfVeteransDataBean() {
 		return q25aNumberOfVeteransDataBean;

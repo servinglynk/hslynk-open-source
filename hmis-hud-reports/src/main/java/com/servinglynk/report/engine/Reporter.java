@@ -36,7 +36,7 @@ public class Reporter {
 			InputStream inputStream = new FileInputStream(file);
             
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport);
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(/*"mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",*/sageReport);
         	/*if(sageReport) {
 //        		System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);

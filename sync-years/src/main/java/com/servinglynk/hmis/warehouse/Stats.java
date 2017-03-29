@@ -52,7 +52,7 @@ public class Stats {
         Connection connection = null;
         try{
             connection = getConnection();
-            statement = connection.prepareStatement("SELECT count(*) FROM "+schema+"."+tableName+" WHERE project_group_code='"+projGrpCode+"'");
+            statement = connection.prepareStatement("SELECT count(*) FROM "+schema+"."+tableName+" WHERE project_group_code='"+projGrpCode+"' ");
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	System.out.println("Table Name :"+tableName + " count: "+resultSet.getInt(1));
@@ -68,8 +68,8 @@ public class Stats {
 	
 	public static void main(String args[]) throws Exception {
 		int count =0;
-		String schema ="v2015";
-		String projectGroupCode ="HO0002";
+		String schema ="v2016";
+		String projectGroupCode ="MO0010";
 		List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
 		for(String tableName : allTablesFromPostgres) {
 			count = count + getTableCount(tableName, projectGroupCode, schema);

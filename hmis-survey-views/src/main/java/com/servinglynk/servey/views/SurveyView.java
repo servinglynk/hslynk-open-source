@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.Properties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -95,7 +96,7 @@ public class SurveyView {
 		 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 			builder.append("  VALUES ( ");
 			builder.append("?, ?, ?");
-			  int count = 4;
+			  int count = 3;
 			  for(String question : disinctQuestions) {
 				  questionMap.put(question, count);
 				  count ++;
@@ -284,7 +285,12 @@ public class SurveyView {
     }
     
     public static void main(String args[]) throws Exception {
-    	createHiveTableForSurvey();
+        while(true){
+            createHiveTableForSurvey();
+            Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
+            System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
+            Thread.sleep(1000 * seconds);
+        }
     }
 
 }

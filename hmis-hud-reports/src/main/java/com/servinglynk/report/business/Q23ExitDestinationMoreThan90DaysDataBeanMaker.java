@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q23ExitDestinationMoreThan90DaysDataBean;
+import com.servinglynk.report.bean.Q23aExitDestinationMoreThan90DaysDataBean;
 
 public class Q23ExitDestinationMoreThan90DaysDataBeanMaker {
 	
-	public static List<Q23ExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysList(){
+	public static List<Q23aExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysList(){
 		
-		Q23ExitDestinationMoreThan90DaysDataBean q23ExitDestinationMoreThan90DaysTable = new Q23ExitDestinationMoreThan90DaysDataBean();
+		Q23aExitDestinationMoreThan90DaysDataBean q23ExitDestinationMoreThan90DaysTable = new Q23aExitDestinationMoreThan90DaysDataBean();
 		
 				/*q23ExitDestinationMoreThan90DaysTable.setQ23APermanentDestinationsTotal(BigInteger.valueOf(0));
 				q23ExitDestinationMoreThan90DaysTable.setQ23APermanentDestinationsWithoutChild(BigInteger.valueOf(0));
