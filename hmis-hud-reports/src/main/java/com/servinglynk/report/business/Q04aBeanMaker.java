@@ -1,5 +1,6 @@
 package com.servinglynk.report.business;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +14,9 @@ import com.servinglynk.report.bean.Q04aDataBean;
 
 public class Q04aBeanMaker {
 	
-			public static List<Q04aDataBean> getQ04aDataBeanList(/*String schema, String projectId*/) {
+			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 
-//				populateProject(schema, projectId, q04aDataBean);
-//				populateProject(q04aDataBean);
+				populateProject(schema, projectId, q04aDataBean);
 				return Arrays.asList(q04aDataBean);
 			}
 			public static void populateProject(String schema,String id, Q04aDataBean q04aDataBean ) {
@@ -32,7 +32,6 @@ public class Q04aBeanMaker {
 					 q04aDataBean.setQ04aProjectName(resultSet.getString("project.projectname"));
 					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("project.projecttype_desc"));
 					 q04aDataBean.setQ04aProjectId(resultSet.getString("project.project_source_system_id"));
-//					 homePageDataBean.setQ04aProjectId("");
 					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("project.trackingmethod_desc"));
 					 String organizationId = resultSet.getString("project.organizationid");
 					 populateOranization(schema, organizationId, q04aDataBean);
@@ -41,8 +40,9 @@ public class Q04aBeanMaker {
 					q04aDataBean.setQ04aProjectName("project.projectname");
 					 q04aDataBean.setQ04aHmisProjectType("project.projecttype_desc");
 					 q04aDataBean.setQ04aProjectId("project.project_source_system_id");
-//					 homePageDataBean.setQ04aProjectId("");
 					 q04aDataBean.setQ04aMethodOfTracking("project.trackingmethod_desc");
+					 q04aDataBean.setQ04aIdentityProjectId(BigInteger.ZERO);
+					 q04aDataBean.setQ04aHmisProjectIdService(BigInteger.ZERO);
 					 String organizationId = resultSet.getString("project.organizationid");
 					
 				} catch (SQLException e) {

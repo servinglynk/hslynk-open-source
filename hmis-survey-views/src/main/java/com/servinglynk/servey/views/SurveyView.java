@@ -96,7 +96,7 @@ public class SurveyView {
 		 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 			builder.append("  VALUES ( ");
 			builder.append("?, ?, ?");
-			  int count = 3;
+			  int count = 4;
 			  for(String question : disinctQuestions) {
 				  questionMap.put(question, count);
 				  count ++;

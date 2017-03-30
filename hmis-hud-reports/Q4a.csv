@@ -1,8 +1,8 @@
-Organization name,null
-Organization ID,null
-Project name,null
-Project ID,null
-HMIS Project Type,null
-Method of tracking ES,null
-"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",null
-Identify the Project ID's of the housing projects this project is affiliated with,null
+Organization name,MOSBE Housing Resource 
+Organization ID,p_2119_o
+Project name,project.projectname
+Project ID,project.
+HMIS Project Type,project.projecttype_desc
+Method of tracking ES,project.trackingmethod_desc
+"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",0
+Identify the Project ID's of the housing projects this project is affiliated with,0
