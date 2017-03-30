@@ -12,7 +12,6 @@ public class Q04aDataBean extends ReportBean{
 	private String q04aOrgName;
 	private String q04aProjectId;
 	private String q04aProjectName;
-	
 	public BigInteger getQ04aHmisProjectIdService() {
 		return q04aHmisProjectIdService;
 	}

@@ -110,11 +110,13 @@ public class HomePageDataBeanMaker {
 			}
 			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
 			ReportData data = new ReportData();
+			data.setSchema(schema);
+			data.setProjectId(projectId);
 			data.setEnrollments(enrollments);
 			List<ClientModel> allClients = getClients(schema);
 			List<String> clientIds = new ArrayList<String>(); 
 			List<String> enrollmentIds = new ArrayList<String>(); 
-//			enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
+			enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
 			List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
 			data.setClients(clients);
 			List<ExitModel> allExits = getAllExits(schema);
