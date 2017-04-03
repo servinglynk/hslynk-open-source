@@ -14,9 +14,12 @@ import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequest;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequests;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentStatus;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsentType;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsentTypes;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
+import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntity;
@@ -175,6 +178,27 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		
 		return clientConsentStatus;
 		
+	}
+
+
+	@Transactional
+	public ClientConsentTypes getConsentTypes(Integer startIndex, Integer maxItems) {
+		ClientConsentTypes clientConsentTypes = new ClientConsentTypes();
+		List<String> consentTypes = daoFactory.getClientConsentDao().getConsentTypes();
+		for(String consentType: consentTypes){
+			ClientConsentType type = new ClientConsentType();
+				if(consentType!=null) {
+					type.setConsentType(consentType);
+					clientConsentTypes.addClientConsentType(type);
+				}
+		}	
+		
+		SortedPagination pagination = new SortedPagination();
+		pagination.setFrom(startIndex);
+		pagination.setReturned(consentTypes.size());
+		pagination.setTotal((int) consentTypes.size());
+		clientConsentTypes.setPagination(pagination);
+		return clientConsentTypes;
 	}
 
 }

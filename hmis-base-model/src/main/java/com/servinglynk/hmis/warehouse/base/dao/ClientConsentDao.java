@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.base.dao;
 import java.util.List;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntity;
@@ -29,4 +30,5 @@ public interface ClientConsentDao  extends QueryExecutor {
 	void updateConsentStatus(ClientConsentStatusEntity entity);
 	List<ClientConsentStatusEntity> getClientConsentStatusByConsentId(UUID consentRequestId);
 	boolean checkClientAccess(UUID clientId,String projectGroup,UUID userId,String entityGroup);
+	List<String> getConsentTypes();
 }

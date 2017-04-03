@@ -6,6 +6,7 @@ import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequest;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequests;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentStatus;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsentTypes;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
@@ -32,4 +33,6 @@ public interface ClientConsentService {
 	ClientConsentRequests getAllClientConsentRequests(UUID clientId,Integer startIndex,Integer maxItems);
 	
 	ClientConsentStatus updateClientConsentStatus(ClientConsentStatus clientConsentStatus,Session session);
+
+	ClientConsentTypes getConsentTypes(Integer startIndex, Integer maxItems);
 }

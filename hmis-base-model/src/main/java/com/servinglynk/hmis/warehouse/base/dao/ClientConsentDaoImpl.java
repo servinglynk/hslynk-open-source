@@ -7,8 +7,11 @@ import java.util.UUID;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntity;
@@ -119,5 +122,14 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		if(entities.isEmpty()) return false;
 		return true;
 	}
-
+	
+	public List<String> getConsentTypes() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ApiMethodEntity.class);
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.property("clientConsentGroup"));
+		criteria.setProjection(Projections.distinct(projList));
+		List<String> consentTypes =	(List<String>) findByCriteria(criteria);
+		return consentTypes;
+	}
+	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentStatus;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsentTypes;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequest;
@@ -117,5 +118,14 @@ public class ConsentsController extends ControllerBase {
 		clientConsentStatus.setConsentId(consentId);
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getClientConsentService().updateClientConsentStatus(clientConsentStatus,session);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/clientConsentTypes")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="UPDATE_CLIENT_CONSENT_REQUEST_STATUS")
+	public ClientConsentTypes getConsentTypes(			
+			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
+			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems,
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getClientConsentService().getConsentTypes(startIndex,maxItems);
 	}
 }
