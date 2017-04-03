@@ -29,7 +29,15 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	public ClientConsent createClientConsent(ClientConsent clientConsent,Session session) {
 		ClientConsentEntity entity = ClientConsentConverter.modelToEntity(clientConsent, null);
 		entity.setStatus("APPROVED");
+
+		if(clientConsent.getConsentUserId()==null){
+			entity.setConsentUserId(session.getAccount().getAccountId());
+		}else{
+			entity.setConsentUserId(clientConsent.getConsentUserId());
+		}
+	
 		entity.setProjectGroupCode(session.getAccount().getProjectGroup().getProjectGroupCode());
+		entity.setUserId(session.getAccount().getAccountId());
 		entity.setCreatedAt(new Date());
 		daoFactory.getClientConsentDao().createClientConsent(entity);		
 		clientConsent.setId(entity.getId());
@@ -85,22 +93,23 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		ClientConsentRequestEntity entity = ClientConsentRequestConverter.modelToEntity(clientConsentRequest, null);
 		entity.setCreatedAt(new Date());
 		entity.setStatus("REQUESTED");
+		if(clientConsentRequest.getConsentUserId()==null){
+			entity.setConsentUserId(session.getAccount().getAccountId());
+		}else{
+			entity.setConsentUserId(clientConsentRequest.getConsentUserId());
+		}
 		entity.setProjectGroupCode(session.getAccount().getProjectGroup().getProjectGroupCode());
 		daoFactory.getClientConsentDao().createClientConsentRequest(entity);
-		clientConsentRequest.setConsentRequestid(entity.getId());
+		clientConsentRequest.setId(entity.getId());
 		return clientConsentRequest;
 	}
 
 	@Transactional
 	public ClientConsentRequest updateClientConsentRequest(ClientConsentRequest clientConsentRequest,Session session) {
-		ClientConsentRequestEntity entity = daoFactory.getClientConsentDao().getClientConsentRequestId(clientConsentRequest.getConsentRequestid());
-		if(entity==null) throw new ResourceNotFoundException("Client Consent request not found "+clientConsentRequest.getConsentRequestid());
+		ClientConsentRequestEntity entity = daoFactory.getClientConsentDao().getClientConsentRequestId(clientConsentRequest.getId());
+		if(entity==null) throw new ResourceNotFoundException("Client Consent request not found "+clientConsentRequest.getId());
 		if(entity.getStatus().equals("APPROVED") || entity.getStatus().equals("REJECTED")) throw new AccessDeniedException("Consent Request already APPROVED/REJECTED");
-		
-		for(ClientConsentRequestEntitiesEntity entitiesEntity: entity.getConsentEntities()){
-			daoFactory.getClientConsentDao().deleteClientConsentRequestEntities(entitiesEntity);
-		}
-		ClientConsentRequestConverter.modelToEntity(clientConsentRequest, entity);
+				ClientConsentRequestConverter.modelToEntity(clientConsentRequest, entity);
 		daoFactory.getClientConsentDao().updateClientConsentRequest(entity);
 		return clientConsentRequest;
 	}

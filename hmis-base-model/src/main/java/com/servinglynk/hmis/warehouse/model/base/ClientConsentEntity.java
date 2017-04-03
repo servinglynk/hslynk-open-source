@@ -1,17 +1,13 @@
 package com.servinglynk.hmis.warehouse.model.base;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -50,15 +46,22 @@ public class ClientConsentEntity extends BaseModel {
 	@Column(name="deleted")
 	private boolean deleted;
 	
-	@Column( name = "parent_id", nullable = true  )
+	@Column(name="consent_project_group")
+	private String consentProjectGroup;
+		
+	@Column(name="consent_user_id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-	private UUID parentId;
+	private UUID consentUserId;
+		
+	@Column(name="entity_group")
+	private String entityGroup;
 	
 	@Column(name="project_group_code")
 	private String projectGroupCode;
 	
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "clientConsentEntity")
-	private List<ClientConsentEntitiesEntity> consentEntities = new ArrayList<ClientConsentEntitiesEntity>();
+	@Column(name="user_id")
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	private UUID userId;
 	
 	public UUID getId() {
 		return id;
@@ -101,31 +104,35 @@ public class ClientConsentEntity extends BaseModel {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-	public List<ClientConsentEntitiesEntity> getConsentEntities() {
-		return consentEntities;
-	}
-	public void setConsentEntities(List<ClientConsentEntitiesEntity> consentEntities) {
-		this.consentEntities = consentEntities;
 	}	
-	public void addConsentEntities(ClientConsentEntitiesEntity consentEntitiesEntity){
-		this.consentEntities.add(consentEntitiesEntity);
-	}
-
-	public UUID getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(UUID parentId) {
-		this.parentId = parentId;
-	}
-	
 	public String getProjectGroupCode() {
 		return projectGroupCode;
 	}
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
 	}
-
-
+	public UUID getUserId() {
+		return userId;
+	}
+	public void setUserId(UUID userId) {
+		this.userId = userId;
+	}
+	public String getEntityGroup() {
+		return entityGroup;
+	}
+	public void setEntityGroup(String entityGroup) {
+		this.entityGroup = entityGroup;
+	}
+	public String getConsentProjectGroup() {
+		return consentProjectGroup;
+	}
+	public void setConsentProjectGroup(String consentProjectGroup) {
+		this.consentProjectGroup = consentProjectGroup;
+	}
+	public UUID getConsentUserId() {
+		return consentUserId;
+	}
+	public void setConsentUserId(UUID consentUserId) {
+		this.consentUserId = consentUserId;
+	}	
 }

@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name="CLIENT_CONSENT_REQUESTS",catalog="hmis",schema="base")
+@Table(name="CLIENT_CONSENT_REQUEST",catalog="hmis",schema="base")
 public class ClientConsentRequestEntity extends BaseModel {
 
 	@Id
@@ -44,18 +44,28 @@ public class ClientConsentRequestEntity extends BaseModel {
 	@Column(name="STATUS")
 	private String status;
 	
+	@Column(name="CONSENT_DOCUMENT")
+	private String consentDocument;
+	
 	@Column(name="deleted")
 	private boolean deleted;
 	
-	@Column( name = "parent_id", nullable = true  )
+	@Column(name="consent_project_group")
+	private String consentProjectGroup;
+		
+	@Column(name="consent_user_id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-	private UUID parentId;
+	private UUID consentUserId;
+		
+	@Column(name="entity_group")
+	private String entityGroup;
 	
 	@Column(name="project_group_code")
 	private String projectGroupCode;
 	
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "clientConsentRequestEntity")
-	private List<ClientConsentRequestEntitiesEntity> consentEntities = new ArrayList<ClientConsentRequestEntitiesEntity>();
+	@Column(name="user_id")
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	private UUID userId;
 	
 	public UUID getId() {
 		return id;
@@ -87,34 +97,46 @@ public class ClientConsentRequestEntity extends BaseModel {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getConsentDocument() {
+		return consentDocument;
+	}
+	public void setConsentDocument(String consentDocument) {
+		this.consentDocument = consentDocument;
+	}
 	public boolean isDeleted() {
 		return deleted;
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-	public List<ClientConsentRequestEntitiesEntity> getConsentEntities() {
-		return consentEntities;
-	}
-	public void setConsentEntities(List<ClientConsentRequestEntitiesEntity> consentEntities) {
-		this.consentEntities = consentEntities;
 	}	
-	public void addConsentEntities(ClientConsentRequestEntitiesEntity consentEntitiesEntity){
-		this.consentEntities.add(consentEntitiesEntity);
-	}
-	
-	public UUID getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(UUID parentId) {
-		this.parentId = parentId;
-	}
-	
 	public String getProjectGroupCode() {
 		return projectGroupCode;
 	}
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
 	}
+	public UUID getUserId() {
+		return userId;
+	}
+	public void setUserId(UUID userId) {
+		this.userId = userId;
+	}
+	public String getEntityGroup() {
+		return entityGroup;
+	}
+	public void setEntityGroup(String entityGroup) {
+		this.entityGroup = entityGroup;
+	}
+	public String getConsentProjectGroup() {
+		return consentProjectGroup;
+	}
+	public void setConsentProjectGroup(String consentProjectGroup) {
+		this.consentProjectGroup = consentProjectGroup;
+	}
+	public UUID getConsentUserId() {
+		return consentUserId;
+	}
+	public void setConsentUserId(UUID consentUserId) {
+		this.consentUserId = consentUserId;
+	}	
 }

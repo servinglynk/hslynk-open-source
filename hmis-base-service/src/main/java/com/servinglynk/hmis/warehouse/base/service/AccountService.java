@@ -34,5 +34,7 @@ public interface AccountService {
 	Accounts getUsersByProjectGroup(String projectGroupCode);
 
 	Account getAccount(Account account,boolean onlyBasicInfo);
+	
+	boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid,String apiMethodId);
 
 }

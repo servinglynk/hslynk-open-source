@@ -1,8 +1,11 @@
 package com.servinglynk.hmis.warehouse.base.dao;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -102,4 +105,19 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		return (List<ClientConsentStatusEntity>) findByCriteria(criteria);
 	}
 	
+	
+	public boolean checkClientAccess(UUID clientId,String projectGroup,UUID userId,String entityGroup){
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+		criteria.add(Restrictions.eq("clientId", clientId));
+		criteria.add(Restrictions.eq("entityGroup", entityGroup));
+		Criterion pgCodeCriterion = Restrictions.eq("consentProjectGroup", projectGroup);
+		Criterion userCtiterion = Restrictions.eq("consentUserId", userId);
+		criteria.add(Restrictions.or(pgCodeCriterion,userCtiterion));
+		criteria.add(Restrictions.lt("startTime", LocalDateTime.now()));
+		criteria.add(Restrictions.ge("endTime", LocalDateTime.now()));
+		List<ClientConsentEntity> entities = (List<ClientConsentEntity>) findByCriteria(criteria);
+		if(entities.isEmpty()) return false;
+		return true;
+	}
+
 }

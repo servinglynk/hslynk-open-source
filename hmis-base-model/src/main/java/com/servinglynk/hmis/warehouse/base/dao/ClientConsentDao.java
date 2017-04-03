@@ -28,4 +28,5 @@ public interface ClientConsentDao  extends QueryExecutor {
 	void deleteClientConsentRequestEntities(ClientConsentRequestEntitiesEntity entitiesEntity);
 	void updateConsentStatus(ClientConsentStatusEntity entity);
 	List<ClientConsentStatusEntity> getClientConsentStatusByConsentId(UUID consentRequestId);
+	boolean checkClientAccess(UUID clientId,String projectGroup,UUID userId,String entityGroup);
 }

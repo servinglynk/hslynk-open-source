@@ -19,13 +19,7 @@ public class ClientConsentRequestConverter {
 		entity.setClientId(model.getClientId());
 		entity.setStartTime(model.getStartTime());
 		entity.setEndTime(model.getEndTime());
-		entity.setStatus(model.getStatus());
-			entity.setConsentEntities(new ArrayList<ClientConsentRequestEntitiesEntity>());
-		for(ClientConsentEntityModel entityModel : model.getClientConsentEntities().getClientConsentEntities()){
-			ClientConsentRequestEntitiesEntity consentEntitiesEntity = ClientConsentRequestConverter.modelToEntity(entityModel, null);
-			consentEntitiesEntity.setClientConsentRequestEntity(entity);
-			entity.addConsentEntities(consentEntitiesEntity);
-		}
+		entity.setEntityGroup(model.getEntityGroup());
 		return entity;
 	}
 
@@ -35,10 +29,8 @@ public class ClientConsentRequestConverter {
 		model.setStartTime(entity.getStartTime());
 		model.setEndTime(entity.getEndTime());
 		model.setStatus(entity.getStatus());
-		model.setConsentRequestid(entity.getId());
-		for(ClientConsentRequestEntitiesEntity clientConsentEntitiesEntity : entity.getConsentEntities()){
-			model.getClientConsentEntities().addClientConsentEntity(ClientConsentRequestConverter.entityToModel(clientConsentEntitiesEntity));			
-		}
+		model.setId(entity.getId());
+
 		return model;
 	}
 
@@ -74,21 +66,16 @@ public class ClientConsentRequestConverter {
 	public static ClientConsentEntity consentRequestToConsent(ClientConsentRequestEntity entity, String username){
 		ClientConsentEntity clientConsentEntity = new ClientConsentEntity();
 		clientConsentEntity.setClientId(entity.getClientId());
-		clientConsentEntity.setCreatedAt(new Date());
+		clientConsentEntity.setConsentUserId(entity.getConsentUserId());
 		clientConsentEntity.setStartTime(entity.getStartTime());
 		clientConsentEntity.setEndTime(entity.getEndTime());
+		clientConsentEntity.setConsentUserId(entity.getConsentUserId());
+		clientConsentEntity.setEntityGroup(entity.getEntityGroup());
 		clientConsentEntity.setProjectGroupCode(entity.getProjectGroupCode());
 		clientConsentEntity.setCreatedBy(username);
-		
-		for(ClientConsentRequestEntitiesEntity entitiesEntity : entity.getConsentEntities()){
-			ClientConsentEntitiesEntity entitiesEntity2 = new ClientConsentEntitiesEntity();
-			entitiesEntity2.setClientConsentEntity(clientConsentEntity);
-			entitiesEntity2.setConsentEntityId(entitiesEntity.getConsentEntityId());
-			entitiesEntity2.setConsentTypeId(entitiesEntity.getConsentTypeId());
-			entitiesEntity2.setCreatedAt(new Date());
-			entitiesEntity2.setCreatedBy(username);
-			clientConsentEntity.addConsentEntities(entitiesEntity2);
-		}
+		clientConsentEntity.setStatus("APPROVED");
+		clientConsentEntity.setCreatedAt(new Date());
+		clientConsentEntity.setEntityGroup(entity.getEntityGroup());
 		return clientConsentEntity;
 	}
 }

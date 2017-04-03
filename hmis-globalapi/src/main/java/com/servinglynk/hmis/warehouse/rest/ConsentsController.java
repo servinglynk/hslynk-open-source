@@ -75,7 +75,7 @@ public class ConsentsController extends ControllerBase {
 			@PathVariable("clientid") UUID clientId ,
 			@PathVariable("consentrequestid") UUID clientConsentRequestId,
 			@RequestBody ClientConsentRequest requestClientConsent, HttpServletRequest request) throws Exception {
-		requestClientConsent.setConsentRequestid(clientConsentRequestId);
+		requestClientConsent.setId(clientConsentRequestId);
 		requestClientConsent.setClientId(clientId);
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getClientConsentService().updateClientConsentRequest(requestClientConsent,session);
@@ -109,11 +109,6 @@ public class ConsentsController extends ControllerBase {
 		return serviceFactory.getClientConsentService().getAllClientConsentRequests(clientId,startIndex,maxItems);
 	}
 	
-	
-	
-	
-	
-	
 	@RequestMapping(method=RequestMethod.PUT,value="/clients/{clientid}/consentrequests/{consentrequestid}/statuses")
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="UPDATE_CLIENT_CONSENT_REQUEST_STATUS")
 	public void updateConsentStatus(@PathVariable("clientid") UUID clientId,
@@ -123,5 +118,4 @@ public class ConsentsController extends ControllerBase {
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getClientConsentService().updateClientConsentStatus(clientConsentStatus,session);
 	}
-	
 }
