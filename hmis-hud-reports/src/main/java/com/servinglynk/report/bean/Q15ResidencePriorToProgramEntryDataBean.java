@@ -34,6 +34,12 @@ public class Q15ResidencePriorToProgramEntryDataBean {
 	private BigInteger q15SafeHeavenWithChildOnly;
 	private BigInteger q15SafeHeavenUnknownHouseHold;
 	
+	private BigInteger q15InterimHousingTotal;
+	private BigInteger q15InterimHousingWithoutChildren;
+	private BigInteger q15InterimHousingWithChildAndAdult;
+	private BigInteger q15InterimHousingWithChildOnly;
+	private BigInteger q15InterimHousingUnknownHouseHold;
+	
 	private BigInteger q15AzTotalSummed;
 	private BigInteger q15AzTotalWithoutChildren;
 	private BigInteger q15AzTotalWithChildAndAdult;
@@ -358,6 +364,40 @@ public class Q15ResidencePriorToProgramEntryDataBean {
 	public void setQ15SafeHeavenUnknownHouseHold(
 			BigInteger q15SafeHeavenUnknownHouseHold) {
 		this.q15SafeHeavenUnknownHouseHold = q15SafeHeavenUnknownHouseHold;
+	}
+	public BigInteger getQ15InterimHousingTotal() {
+		return q15InterimHousingTotal;
+	}
+	public void setQ15InterimHousingTotal(BigInteger q15InterimHousingTotal) {
+		this.q15InterimHousingTotal = q15InterimHousingTotal;
+	}
+	public BigInteger getQ15InterimHousingWithoutChildren() {
+		return q15InterimHousingWithoutChildren;
+	}
+	public void setQ15InterimHousingWithoutChildren(
+			BigInteger q15InterimHousingWithoutChildren) {
+		this.q15InterimHousingWithoutChildren = q15InterimHousingWithoutChildren;
+	}
+	public BigInteger getQ15InterimHousingWithChildAndAdult() {
+		return q15InterimHousingWithChildAndAdult;
+	}
+	public void setQ15InterimHousingWithChildAndAdult(
+			BigInteger q15InterimHousingWithChildAndAdult) {
+		this.q15InterimHousingWithChildAndAdult = q15InterimHousingWithChildAndAdult;
+	}
+	public BigInteger getQ15InterimHousingWithChildOnly() {
+		return q15InterimHousingWithChildOnly;
+	}
+	public void setQ15InterimHousingWithChildOnly(
+			BigInteger q15InterimHousingWithChildOnly) {
+		this.q15InterimHousingWithChildOnly = q15InterimHousingWithChildOnly;
+	}
+	public BigInteger getQ15InterimHousingUnknownHouseHold() {
+		return q15InterimHousingUnknownHouseHold;
+	}
+	public void setQ15InterimHousingUnknownHouseHold(
+			BigInteger q15InterimHousingUnknownHouseHold) {
+		this.q15InterimHousingUnknownHouseHold = q15InterimHousingUnknownHouseHold;
 	}
 	public BigInteger getQ15AzTotalSummed() {
 		return q15AzTotalSummed;
@@ -1238,5 +1278,4 @@ public class Q15ResidencePriorToProgramEntryDataBean {
 	}
 	
 	
-
 }

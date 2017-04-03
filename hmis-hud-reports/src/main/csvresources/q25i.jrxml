@@ -560,9 +560,6 @@
 	</field>
 	<group name="Group5">
 		<groupFooter>
-			<band height="24"/>
-			<band height="25"/>
-			<band height="25"/>
 			<band height="49">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="74cd5ccb-c2da-4cb2-b965-6834527eeb42"/>
@@ -663,7 +660,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Permanent Destinations]]></text>
+					<text><![CDATA[   a. Permanent Destinations]]></text>
 				</staticText>
 			</band>
 			<band height="49">
@@ -679,7 +676,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Moved from one HOPWA funded project to HOPWA PH]]></text>
+					<text><![CDATA[   a01. Moved from one HOPWA funded project to HOPWA PH]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="49" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -755,7 +752,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Owned by client, no ongoing subsidy]]></text>
+					<text><![CDATA[   a02. Owned by client, no ongoing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -831,7 +828,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Owned by client, with ongoing subsidy]]></text>
+					<text><![CDATA[   a03. Owned by client, with ongoing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -907,7 +904,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Rental by client, no ongoing subsidy]]></text>
+					<text><![CDATA[   a04. Rental by client, no ongoing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -983,7 +980,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Rental by client, VASH subsidy]]></text>
+					<text><![CDATA[   a05. Rental by client, VASH subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1059,7 +1056,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Rental by client, with GPD TIP housing subsidy]]></text>
+					<text><![CDATA[   a06. Rental by client, with GPD TIP housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1135,7 +1132,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Rental by client, other ongoing subsidy]]></text>
+					<text><![CDATA[  a07. Rental by client, other ongoing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1211,7 +1208,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   PH for formerly homeless persons]]></text>
+					<text><![CDATA[   a08. Permanent housing for homeless persons]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1287,7 +1284,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Staying or living with family, permanent tenure]]></text>
+					<text><![CDATA[   a09. Staying or living with family, permanent tenure]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="42" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1363,7 +1360,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Staying or living with friends, permanent tenure]]></text>
+					<text><![CDATA[   a10. Staying or living with friends, permanent tenure]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="48" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1439,7 +1436,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Subtotal]]></text>
+					<text><![CDATA[   az. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1515,7 +1512,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Temporary Destinations]]></text>
+					<text><![CDATA[   b. Temporary Destinations]]></text>
 				</staticText>
 			</band>
 			<band height="72">
@@ -1531,7 +1528,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Emergency shelter, including hotel or motel paid for with
+					<text><![CDATA[   b1. Emergency shelter, including hotel or motel paid for with
 emergency shelter voucher]]></text>
 				</staticText>
 				<textField>
@@ -1608,7 +1605,7 @@ emergency shelter voucher]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Moved from one HOPWA funded project to HOPWA TH]]></text>
+					<text><![CDATA[   b2. Moved from one HOPWA funded project to HOPWA TH]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="43" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1684,7 +1681,7 @@ emergency shelter voucher]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Transitional housing for homeless persons (including homeless
+					<text><![CDATA[  b3. Transitional housing for homeless persons (including homeless
 youth)]]></text>
 				</staticText>
 				<textField>
@@ -1761,7 +1758,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Staying or living with family,temporary tenure]]></text>
+					<text><![CDATA[   b4. Staying or living with family,temporary tenure]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="56" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1837,7 +1834,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Staying or living with friends,temporary tenure]]></text>
+					<text><![CDATA[   b5. Staying or living with friends,temporary tenure]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="46" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1913,7 +1910,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Place not meant for human habitation]]></text>
+					<text><![CDATA[  b6. Place not meant for human habitation]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -1989,7 +1986,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Safe Haven]]></text>
+					<text><![CDATA[   b7. Safe Haven]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2065,7 +2062,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Hotel or motel paid by client]]></text>
+					<text><![CDATA[   b8. Hotel or motel paid by client]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2141,7 +2138,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Subtotal]]></text>
+					<text><![CDATA[   bz. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2217,7 +2214,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Institutional Settings]]></text>
+					<text><![CDATA[   c. Institutional Settings]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -2233,7 +2230,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Foster care home or group foster care home]]></text>
+					<text><![CDATA[  c1. Foster care home or group foster care home]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2309,7 +2306,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Psychiatric hospital or other psychiatric facility]]></text>
+					<text><![CDATA[  c2. Psychiatric hospital or other psychiatric facility]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="41" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2385,7 +2382,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Substance abuse treatment facility or detox center]]></text>
+					<text><![CDATA[   c3. Substance abuse treatment facility or detox center]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="39" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2461,7 +2458,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Hospital or other residential non-psychiatric medical facility]]></text>
+					<text><![CDATA[   c4. Hospital or other residential non-psychiatric medical facility]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="52" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2537,7 +2534,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Jail,prison or juvenile detention facility]]></text>
+					<text><![CDATA[  c5. Jail,prison or juvenile detention facility]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2613,7 +2610,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Long-term care facility or nursing home]]></text>
+					<text><![CDATA[  c6. Long-term care facility or nursing home]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2689,7 +2686,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Subtotal]]></text>
+					<text><![CDATA[   cz. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2765,7 +2762,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Other Destinations]]></text>
+					<text><![CDATA[   d. Other Destinations]]></text>
 				</staticText>
 			</band>
 			<band height="53">
@@ -2781,7 +2778,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Residential project or halfway house with no homeless criteria]]></text>
+					<text><![CDATA[  d1. Residential project or halfway house with no homeless criteria]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="53" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2857,7 +2854,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Deceased]]></text>
+					<text><![CDATA[   d2. Deceased]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -2933,7 +2930,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Other]]></text>
+					<text><![CDATA[   d3. Other]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -3009,7 +3006,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Client Doesn’t Know/Client Refused]]></text>
+					<text><![CDATA[   d4. Client Doesn’t Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -3085,7 +3082,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Data Not Collected (no exit interview completed)]]></text>
+					<text><![CDATA[   d5. Data Not Collected (no exit interview completed)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -3161,7 +3158,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Subtotal]]></text>
+					<text><![CDATA[  dz. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -3237,7 +3234,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Total]]></text>
+					<text><![CDATA[   e. Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -3313,7 +3310,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Total persons exiting to positive housing destinations]]></text>
+					<text><![CDATA[  f1. Total persons exiting to positive housing destinations]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="46" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
@@ -3389,7 +3386,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Total persons whose destinations excluded them from the
+					<text><![CDATA[  f2. Total persons whose destinations excluded them from the
 calculation]]></text>
 				</staticText>
 				<textField>
@@ -3466,7 +3463,7 @@ calculation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Percentage]]></text>
+					<text><![CDATA[   f3. Percentage]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>

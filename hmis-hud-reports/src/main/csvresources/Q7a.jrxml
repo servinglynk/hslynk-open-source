@@ -82,21 +82,6 @@
 		<groupFooter>
 			<band height="51">
 				<staticText>
-					<reportElement mode="Opaque" x="260" y="0" width="99" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="0b2b5c39-13ab-401d-865e-4793bac4d6c2"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[With Children
-and Adults]]></text>
-				</staticText>
-				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="115" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="fcfe7ef8-31eb-4c9f-ae2b-74a5af931d48"/>
 					<box>
 						<pen lineWidth="0.75"/>
@@ -109,21 +94,6 @@ and Adults]]></text>
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Total number of persons served during the operating year]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="175" y="0" width="85" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="53793545-02d6-4aba-adad-a7c4b0f86d82"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[Without
-Children]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="115" y="0" width="61" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="a830d284-660f-49ef-bb75-0866f96c82c4"/>
@@ -140,6 +110,20 @@ Children]]></text>
 					<text><![CDATA[Total]]></text>
 				</staticText>
 				<staticText>
+					<reportElement mode="Opaque" x="260" y="0" width="99" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="0b2b5c39-13ab-401d-865e-4793bac4d6c2"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[With Children and Adults]]></text>
+				</staticText>
+				<staticText>
 					<reportElement mode="Opaque" x="359" y="0" width="99" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="3473742b-9ee8-418c-8851-3d7096571648"/>
 					<box>
 						<pen lineWidth="0.75"/>
@@ -151,8 +135,7 @@ Children]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[With Only
-Children]]></text>
+					<text><![CDATA[With Only Children]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="458" y="0" width="97" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="6a8dfe98-986b-41fe-bab1-f6956ea81eaf"/>
@@ -167,6 +150,20 @@ Children]]></text>
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Unknown HH Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="176" y="0" width="84" height="51" forecolor="#666666" backcolor="#E6E6E6" uuid="377de170-d62d-4e12-9c2e-993fc718a492"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Without Children]]></text>
 				</staticText>
 			</band>
 			<band height="24">
@@ -184,85 +181,65 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[  Adults]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#F5F5F5" uuid="91dc0b53-1ef0-406c-a8f0-e7a9be2f032a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="176" y="0" width="84" height="24" uuid="876bd5bc-b53b-480f-95a9-a4f9e7f6ce62"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="24" uuid="da59edf4-ffa2-465d-b60b-c13ca0d1c954"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="24" uuid="b946f963-db36-40ff-93e2-a3c92841c225"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="24" uuid="5a29337e-871c-4890-9bad-9d07b4812151"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="115" y="0" width="61" height="24" uuid="fee32fea-c6e5-412c-adba-0810ed41d7eb"/>
+					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#F5F5F5" uuid="fee32fea-c6e5-412c-adba-0810ed41d7eb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{adultsTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="176" y="0" width="84" height="24" uuid="cc37a6cf-8cd3-45b9-93a8-2a157445ad8d"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{adultsWithOutChildren}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="260" y="0" width="99" height="24" uuid="cfc0314d-8e9c-47bd-80e0-9ee1d111c180"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{adultsWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="24" uuid="747ada86-275d-48ca-a2f8-d5f0bc5c4537"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{adultsWithOnlychildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="24" uuid="68b380ee-76c2-4bac-835c-718ef0bea367"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{adultsUnknownHousehold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="176" y="0" width="84" height="24" uuid="c17c5b4f-504b-4ddf-8e3d-575fc9436223"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{adultsWithOutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="24">
@@ -316,18 +293,6 @@ Children]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{childWithChildAndAdults}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="176" y="0" width="84" height="24" uuid="8e9ff781-da32-4ad1-92f7-fad0dc627c8a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{childWithOutChildren}]]></textFieldExpression>
-				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#F5F5F5" uuid="6c3c59b5-c27a-4864-97c3-c65ef613b430"/>
 					<box>
@@ -339,6 +304,18 @@ Children]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{childTotal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="176" y="0" width="84" height="24" uuid="b0b707c8-6245-49ea-9a44-727f7e3d62ba"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childWithOutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="32">
@@ -356,85 +333,65 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[  Client Doesn’t Know/ Client Refused]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="115" y="0" width="61" height="32" backcolor="#F5F5F5" uuid="91dc0b53-1ef0-406c-a8f0-e7a9be2f032a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="176" y="0" width="84" height="32" uuid="876bd5bc-b53b-480f-95a9-a4f9e7f6ce62"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="32" uuid="da59edf4-ffa2-465d-b60b-c13ca0d1c954"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="32" uuid="b946f963-db36-40ff-93e2-a3c92841c225"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="32" uuid="5a29337e-871c-4890-9bad-9d07b4812151"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="115" y="0" width="61" height="32" uuid="0478ee74-c6d3-42be-848e-d09fe49ccbe4"/>
+					<reportElement mode="Opaque" x="115" y="0" width="61" height="32" backcolor="#F5F5F5" uuid="0478ee74-c6d3-42be-848e-d09fe49ccbe4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{clientDKRTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="176" y="0" width="84" height="32" uuid="036e5de5-488d-4c2f-9a97-93316b97b707"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{clientDKRWithOutChildren}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="260" y="0" width="99" height="32" uuid="7adefbe5-f882-4fbd-b020-e203d42a0594"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{clientDKRWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="32" uuid="52badb1a-a8b1-44ce-a748-1ac450af6f9a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{clientDKRWithOnlychildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="32" uuid="6d7d34bc-993d-4123-8113-e4cdc981c8c2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{clientDKRUnknownHousehold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="176" y="0" width="84" height="32" uuid="e0b39063-a83d-48f1-b57f-203920c91c97"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{clientDKRWithOutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="24">
@@ -452,85 +409,65 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[  Data Not Collected]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#F5F5F5" uuid="91dc0b53-1ef0-406c-a8f0-e7a9be2f032a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="176" y="0" width="84" height="24" uuid="876bd5bc-b53b-480f-95a9-a4f9e7f6ce62"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="24" uuid="da59edf4-ffa2-465d-b60b-c13ca0d1c954"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="24" uuid="b946f963-db36-40ff-93e2-a3c92841c225"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="24" uuid="5a29337e-871c-4890-9bad-9d07b4812151"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="115" y="0" width="61" height="24" uuid="a4613aa5-3355-426a-8c1e-11b5f7254226"/>
+					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#F5F5F5" uuid="a4613aa5-3355-426a-8c1e-11b5f7254226"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{dncTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="176" y="0" width="84" height="24" uuid="60cbb0d8-79f1-4b08-a7ab-640293537d7b"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{dncWithOutChildren}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="260" y="0" width="99" height="24" uuid="9a2959a4-3a72-4bba-b274-35a6972f1175"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{dncWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="24" uuid="ee9882f4-e2d8-4ccc-b64c-b36ecf6834f6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{dncWithOnlychildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="24" uuid="6fa916bc-3e0b-4b70-996e-30e60ce932f0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{dncUnknownHousehold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="176" y="0" width="84" height="24" uuid="f3721ebe-0ffa-455b-8b25-55ade427c82f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{dncWithOutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="24">
@@ -548,85 +485,65 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[  Total]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#CCCCCC" uuid="91dc0b53-1ef0-406c-a8f0-e7a9be2f032a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="176" y="0" width="84" height="24" backcolor="#CCCCCC" uuid="876bd5bc-b53b-480f-95a9-a4f9e7f6ce62"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="260" y="0" width="99" height="24" backcolor="#CCCCCC" uuid="da59edf4-ffa2-465d-b60b-c13ca0d1c954"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="359" y="0" width="99" height="24" backcolor="#CCCCCC" uuid="b946f963-db36-40ff-93e2-a3c92841c225"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="458" y="0" width="97" height="24" backcolor="#CCCCCC" uuid="5a29337e-871c-4890-9bad-9d07b4812151"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="115" y="0" width="61" height="24" uuid="171b6889-1e44-4133-9b42-4850a0a8f90b"/>
+					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#CCCCCC" uuid="171b6889-1e44-4133-9b42-4850a0a8f90b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{totTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="176" y="0" width="84" height="24" uuid="b36feda1-4f10-4e8b-9a1e-9cd7236a14b9"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{totWithOutChildren}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="260" y="0" width="99" height="24" uuid="87979b7a-7096-4882-b795-eec13deb68eb"/>
+					<reportElement mode="Opaque" x="260" y="0" width="99" height="24" backcolor="#CCCCCC" uuid="87979b7a-7096-4882-b795-eec13deb68eb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{totWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="359" y="0" width="99" height="24" uuid="35eed267-228b-46b0-9000-8c0fa567ccb9"/>
+					<reportElement mode="Opaque" x="359" y="0" width="99" height="24" backcolor="#CCCCCC" uuid="35eed267-228b-46b0-9000-8c0fa567ccb9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{totWithOnlychildren}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="458" y="0" width="97" height="24" uuid="b7cbf078-c5df-4b87-ad14-b7b5d360ef0c"/>
+					<reportElement mode="Opaque" x="458" y="0" width="97" height="24" backcolor="#CCCCCC" uuid="b7cbf078-c5df-4b87-ad14-b7b5d360ef0c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{totUnknownHousehold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="176" y="0" width="84" height="24" backcolor="#CCCCCC" uuid="40b9f359-ce05-4f03-b6ab-4bf8cb1bec1b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totWithOutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

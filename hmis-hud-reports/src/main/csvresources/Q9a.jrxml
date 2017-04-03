@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc999e7d-ee71-4834-a8c3-3aa1ef3289d6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="4"/>
 	<field name="totContactedOnce" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContactedOnce]]></fieldDescription>
 	</field>
@@ -127,38 +127,6 @@ place was
 missing]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="360" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="856b0dba-0796-4ad8-8bf9-f66df8121f3d"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[  c. First contact was at a
-residential service
-setting]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="261" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="761f5233-52fd-4a11-aa3c-92776245060e"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[  b. First contact was at a
-non-residential service
-setting]]></text>
-				</staticText>
-				<staticText>
 					<reportElement mode="Opaque" x="162" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="3fe2f28a-c25b-41e9-a330-3be4b9c55b49"/>
 					<box>
 						<pen lineWidth="0.75"/>
@@ -173,6 +141,30 @@ setting]]></text>
 					<text><![CDATA[  a. First contact was at a
 place not meant for human
 habitation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="261" y="1" width="100" height="63" backcolor="#E6E6E6" uuid="1db9eb09-a9ec-48f2-853e-9a7e8d259c9b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[b. First contact was at a non-residential service setting]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="361" y="1" width="98" height="63" backcolor="#E6E6E6" uuid="a4ec4788-d57f-4294-a5f0-731c9c235292"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[c. First contact was at residential service setting]]></text>
 				</staticText>
 			</band>
 			<band height="39">
@@ -215,18 +207,6 @@ habitation]]></text>
 					<textFieldExpression><![CDATA[$F{coFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="c3ad0cee-e4e4-4ff9-a776-e591bb95f06c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{coFirstContactNRSS}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="361" y="0" width="98" height="39" uuid="e011e06f-bfee-4acc-b50b-2ea6020975e7"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -249,6 +229,11 @@ habitation]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{coFirstContactPlaceMissing}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="261" y="0" width="100" height="39" uuid="e2c6d0cf-d121-4273-ac05-c1bf482be480"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{coFirstContactNRSS}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -292,18 +277,6 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c2to5FirstContactedHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="b792fc79-3a72-4eec-986e-35d06c8ecd9d"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c2to5FirstContactedNRSS}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="361" y="0" width="98" height="39" uuid="0623cbd4-642d-48ec-943f-f3f5119b5576"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -326,6 +299,11 @@ times?]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{c2to5FirstContactedPlaceMissing}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="261" y="0" width="100" height="39" uuid="459fbf6b-ca14-434a-8e05-5ee114d02892"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{c2to5FirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -369,18 +347,6 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{c6to9FirstContactedHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="a51e8f92-2bd9-4890-b7b5-3d000bc7d522"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c6to9FirstContactedNRSS}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="361" y="0" width="98" height="39" uuid="37d04b37-d464-4d76-be0d-7647a2c0d93c"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -403,6 +369,11 @@ times?]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{c6to9FirstContactedPlaceMissing}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="261" y="0" width="100" height="39" uuid="0fbb2295-a046-4257-8a66-f0bf3125d63a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{c6to9FirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -433,7 +404,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted10orMore}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="100" height="39" uuid="90c5a67b-d98b-4b3b-9d09-97ff9999bd69"/>
+					<reportElement x="162" y="0" width="99" height="39" uuid="90c5a67b-d98b-4b3b-9d09-97ff9999bd69"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -443,18 +414,6 @@ times?]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedHumanHabitation}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="262" y="0" width="99" height="39" uuid="577b7a26-ec1d-4e4d-80b6-21c065fc1bdc"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="361" y="0" width="98" height="39" uuid="337cecc6-1597-4358-bd8c-b63ff5402bb0"/>
@@ -479,6 +438,11 @@ times?]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedPlaceMissing}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="261" y="0" width="100" height="39" uuid="c25e08de-e1a8-43a8-9c3f-06a8f7a9ff29"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -510,7 +474,7 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{totPersonsContacted}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="100" height="39" uuid="3225c328-c489-4184-b94d-c346789bdacd"/>
+					<reportElement x="162" y="0" width="99" height="39" uuid="3225c328-c489-4184-b94d-c346789bdacd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -534,18 +498,6 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{tpcFirstContacteRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="262" y="0" width="99" height="39" uuid="892c5321-bc5f-49a2-8c28-5cd4d1b9b5ce"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{tpcFirstContactedNRSS}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="459" y="0" width="96" height="39" uuid="13e35f01-9c10-4855-937a-5b63aba5aa1e"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -556,6 +508,11 @@ contacted]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{tpcFirstContactedPlaceMissing}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="261" y="0" width="100" height="39" uuid="10ad5741-9053-40ed-b71c-c514f0116114"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tpcFirstContactedNRSS}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="43"/>

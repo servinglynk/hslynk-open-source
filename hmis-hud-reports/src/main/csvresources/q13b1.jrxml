@@ -264,18 +264,6 @@
 					<textFieldExpression><![CDATA[$F{q13b1MentalIllnessWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="93" height="26" uuid="450381d8-763d-4645-90c6-1d9921134997"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q13b1MentalIllnessWithOnlychildren}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="d0be04b1-739a-466d-855f-61e01c9a49a4"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -286,6 +274,18 @@
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q13b1MentalIllnessUnknowHousehold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="93" height="26" uuid="cde4069d-8c84-41da-b920-354356bb96bf"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q13b1MentalIllnessWithoutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">

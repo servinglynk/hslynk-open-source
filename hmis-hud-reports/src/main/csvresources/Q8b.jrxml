@@ -139,7 +139,7 @@ Children]]></text>
 					<text><![CDATA[Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="175" y="1" width="85" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="8a9ae74e-8df2-4063-ad22-f1fd048388af"/>
+					<reportElement mode="Opaque" x="176" y="1" width="84" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="3b92d854-058f-4a1e-af9b-71c004600f8b"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -150,8 +150,7 @@ Children]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Without
-Children]]></text>
+					<text><![CDATA[Without Children]]></text>
 				</staticText>
 			</band>
 			<band height="24">
@@ -169,132 +168,68 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[   January]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="175" y="0" width="85" height="24" uuid="6221fe50-3145-4ff2-99e2-e6a06f4bc3dd"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="24" uuid="e0038c99-ff33-4672-85f9-67362bb76687"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="24" uuid="291cb389-4d1b-4219-b7ec-b53a5e257f8c"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="0afb7ec9-5345-41d5-b0f3-c5844d01397a"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="24" uuid="8ac36813-4a3c-4a43-bfad-78fcae1f7ff6"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="101" y="0" width="74" height="24" uuid="461eac36-d032-4bb6-ae39-e09ca08615ab"/>
+					<reportElement mode="Opaque" x="101" y="0" width="75" height="24" backcolor="#CCCCFF" uuid="461eac36-d032-4bb6-ae39-e09ca08615ab"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhJanTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="176" y="0" width="84" height="24" uuid="0a0223f7-8727-444e-89f5-b170f974c90f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJanWc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="260" y="0" width="99" height="24" uuid="0849ee1a-3566-44a2-9dbf-d7d2ef687e4e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJanWca}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="24" uuid="4278eefc-bc56-44e7-83b5-f5c5ee9eb69a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJanWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="24" uuid="f1503219-c2a8-442b-bfa2-7f52381d5953"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJanUht}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="24">
-				<textField isBlankWhenNull="true">
-					<reportElement x="175" y="0" width="85" height="24" uuid="30663287-905f-4b33-b7ab-a5424abdbbd7"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="24" uuid="e9fd1a25-9e52-4c51-9160-4556b87d00dd"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="24" uuid="651a2df0-03bb-4926-9bcb-4d69d01fd85d"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="3db859a2-a6cf-4816-8652-a3c80ddd53b7"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" uuid="c4cd705a-343b-4828-adb7-503207731498"/>
 					<box>
@@ -309,55 +244,68 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[   April]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="24" uuid="1c9c0326-14d0-4bc0-8d69-172b004e96be"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="101" y="0" width="74" height="24" uuid="d726bae6-5e29-4b68-aea6-5536065e6cc9"/>
+					<reportElement mode="Opaque" x="101" y="0" width="75" height="24" backcolor="#CCCCFF" uuid="d726bae6-5e29-4b68-aea6-5536065e6cc9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhAprTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="176" y="0" width="84" height="24" uuid="e79c0276-a102-47a5-b943-1be118a8ae73"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountAprWc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="260" y="0" width="99" height="24" uuid="c070108b-1d94-434f-ba37-5fc06af6db00"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountAprWca}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="24" uuid="748a00f8-dce1-4975-8992-8b4b073a29b0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountAprWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="24" uuid="16861d45-e90d-4d07-bdca-7cb80959d1e6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountAprUht}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="24">
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="5068154d-8fa2-4b6c-8dc8-32c7a38afb65"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="101" height="24" forecolor="#000000" uuid="5276913e-2ad7-4961-93d2-76a7f4224635"/>
 					<box>
@@ -372,72 +320,63 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[   July]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="24" uuid="b155ee9b-082e-4ecf-bec2-476403bd6c6c"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="24" uuid="39309b74-63fe-44ed-8069-3ff58583a7e8"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="24" uuid="2a602343-9fbe-4c25-8b77-192808f4bce3"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="175" y="0" width="85" height="24" uuid="f33b3858-0454-448f-8f4d-cc7e4a3e19c2"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="101" y="0" width="74" height="24" uuid="eca57afb-49d9-406e-ac7c-20e8d4780b90"/>
+					<reportElement mode="Opaque" x="101" y="0" width="75" height="24" backcolor="#CCCCFF" uuid="eca57afb-49d9-406e-ac7c-20e8d4780b90"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhJulTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="176" y="0" width="84" height="24" uuid="b3d85198-5937-44c0-b8cc-d13f59d8eb50"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJulWc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="260" y="0" width="99" height="24" uuid="b102ddf9-5ac5-4f90-8e91-139a931a14f9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJulWca}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="24" uuid="eea27766-52c7-4de3-af58-706834dbbca4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJulWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="24" uuid="022726ef-8dfb-40a4-a08a-ead8bed163df"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountJulUht}]]></textFieldExpression>
 				</textField>
@@ -457,83 +396,63 @@ Children]]></text>
 					</textElement>
 					<text><![CDATA[   October]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="458" y="0" width="97" height="24" uuid="b24fbf3a-78e5-401e-b6c3-bd33604aa7b4"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="359" y="0" width="99" height="24" uuid="bf5de06a-fcad-4568-b340-795f07047e48"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="260" y="0" width="99" height="24" uuid="92d0c8cd-42e4-4ab9-a929-a39f71cc543a"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="175" y="0" width="85" height="24" uuid="9b58ae37-b946-4c53-9aa0-cafa7435d484"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="101" y="0" width="74" height="24" backcolor="#F5F5F5" uuid="3770c70a-56f2-4887-a315-009b95b55007"/>
-					<box>
-						<pen lineWidth="0.25"/>
-						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				</textField>
 				<textField>
-					<reportElement x="101" y="0" width="75" height="24" uuid="a5e1077a-e006-4271-ac9f-19361d7b9a6f"/>
+					<reportElement mode="Opaque" x="101" y="0" width="75" height="24" backcolor="#CCCCFF" uuid="a5e1077a-e006-4271-ac9f-19361d7b9a6f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhOctTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="176" y="0" width="84" height="24" uuid="16ba0449-ee50-464d-8f59-07e21745729f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountOctWc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="260" y="0" width="99" height="24" uuid="52470dd9-a05d-4513-b6cf-a8186657ce16"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountOctWca}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="359" y="0" width="99" height="24" uuid="eb9a710d-9562-44ed-8864-70fda6240ba6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountOctWoc}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="458" y="0" width="97" height="24" uuid="a8624ef7-907f-436e-9cfa-2e1711ba2ebb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{hhCountOctUht}]]></textFieldExpression>
 				</textField>

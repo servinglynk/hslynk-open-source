@@ -22,20 +22,6 @@
 		<groupFooter>
 			<band height="37">
 				<staticText>
-					<reportElement mode="Opaque" x="260" y="0" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="39d9d33e-1255-482d-a81f-a24c5176469e"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[With Children and Adults]]></text>
-				</staticText>
-				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="101" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="c949227a-bc17-4d4b-a8aa-e4c9b4cafb75"/>
 					<box>
 						<pen lineWidth="0.75"/>
@@ -50,20 +36,6 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="175" y="0" width="85" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="69c0fcb0-7510-4c78-a30b-055c81b18b11"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[Without Children]]></text>
-				</staticText>
-				<staticText>
 					<reportElement mode="Opaque" x="101" y="0" width="75" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="61bf91de-0de8-4a34-8b51-94d890fa2246"/>
 					<box>
 						<pen lineWidth="0.75"/>
@@ -76,6 +48,20 @@
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="260" y="0" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="39d9d33e-1255-482d-a81f-a24c5176469e"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[With Children and Adults]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="359" y="0" width="99" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="6d568c89-3e87-4aa7-82df-d1f2df16ad96"/>
@@ -104,6 +90,20 @@
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Unknown HH Type]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="176" y="0" width="84" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="c908951b-81a5-4dd3-8dbc-2802ab9e7fc4"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Without Children]]></text>
 				</staticText>
 			</band>
 			<band height="24">

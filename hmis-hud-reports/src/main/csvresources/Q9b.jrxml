@@ -242,7 +242,7 @@ setting]]></text>
 					<textFieldExpression><![CDATA[$F{engFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="360" y="0" width="99" height="39" uuid="94deec5a-48e3-46ef-9dcf-3c88f0e3da45"/>
+					<reportElement x="360" y="0" width="99" height="39" uuid="770752ba-3418-4954-acd8-d2776109de89"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -254,7 +254,7 @@ setting]]></text>
 					<textFieldExpression><![CDATA[$F{engFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="459" y="0" width="96" height="39" uuid="4780068f-e410-4bcc-8337-a989aac446de"/>
+					<reportElement x="459" y="0" width="96" height="39" uuid="b134c777-9fcd-4946-b878-03fbba0ea610"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -295,18 +295,6 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{totEngagedAfter2to5Contract}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="100" height="39" uuid="a6633570-b3e0-42c7-951a-4afd9d25a6b7"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{eng2to5FirstContactRSS}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="162" y="0" width="98" height="39" uuid="378b73ed-81b9-4c0a-8d31-0616e63fad3e"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -319,7 +307,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng2to5FirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="101" height="39" uuid="3524c0d1-9b11-4a41-8fd1-a33fa95529aa"/>
+					<reportElement x="260" y="0" width="100" height="39" uuid="3524c0d1-9b11-4a41-8fd1-a33fa95529aa"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -331,7 +319,19 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng2to5FirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="461" y="0" width="94" height="39" uuid="1ae6c6d8-29ca-4382-a2cd-4e26501f4328"/>
+					<reportElement x="360" y="0" width="99" height="39" uuid="f4e7f8b2-be38-4e6a-bee2-aceccdc9ed1d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{eng2to5FirstContactRSS}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="459" y="0" width="96" height="39" uuid="76cca4f6-7108-47ec-994b-5ee8eb15a4cd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -384,7 +384,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng6to9FirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="101" height="39" uuid="10cc1528-ecad-4cac-a44e-778fc9df5b68"/>
+					<reportElement x="260" y="0" width="100" height="39" uuid="10cc1528-ecad-4cac-a44e-778fc9df5b68"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -396,7 +396,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng6to9FirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="100" height="39" uuid="b7dbb4fa-ac85-44f2-b497-02c575fa5515"/>
+					<reportElement x="360" y="0" width="99" height="39" uuid="8fa495c0-0088-449a-b082-27582a28b95f"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -408,7 +408,7 @@ contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng6to9FirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="461" y="0" width="94" height="39" uuid="d4550d01-1ca7-4857-a5aa-3369e425c7df"/>
+					<reportElement x="459" y="0" width="96" height="39" uuid="c24cde77-9cd4-4872-98ba-8012e6c8bbe1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -461,7 +461,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng10FirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="102" height="39" uuid="53b82111-6742-451c-bff5-36402ee8b0c2"/>
+					<reportElement x="260" y="0" width="100" height="39" uuid="53b82111-6742-451c-bff5-36402ee8b0c2"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -473,7 +473,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng10FirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="362" y="0" width="100" height="39" uuid="46abcbe0-16c2-474d-a1c0-391e238323dc"/>
+					<reportElement x="360" y="0" width="99" height="39" uuid="f646b5d6-fe40-4236-b878-97c38ee1deef"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -485,7 +485,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{eng10FirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="39" uuid="51fb1919-6b45-4b71-8ed8-3fb6e5b733df"/>
+					<reportElement x="459" y="0" width="96" height="39" uuid="c8711134-a384-420e-861a-50d36baec0a5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -537,7 +537,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{tpeFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="102" height="39" uuid="20db6dab-8a4b-4895-966a-f39575525482"/>
+					<reportElement x="260" y="0" width="100" height="39" uuid="20db6dab-8a4b-4895-966a-f39575525482"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -549,7 +549,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{tpeFirstContactNRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="362" y="0" width="100" height="39" uuid="069c3673-3f79-4bf3-8cc6-938850687ee8"/>
+					<reportElement x="360" y="0" width="99" height="39" uuid="b7c4a73f-13ed-4967-8a71-2ac24a1f3678"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -561,7 +561,7 @@ more contacts?]]></text>
 					<textFieldExpression><![CDATA[$F{tpeFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="39" uuid="f8f70978-10bb-4df5-859c-ac38ad90054a"/>
+					<reportElement x="459" y="0" width="96" height="39" uuid="9df6536f-14ed-42a4-bb6b-658ef4d5b5fe"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -602,7 +602,7 @@ engagement (%)]]></text>
 					<textFieldExpression><![CDATA[$F{totRateOfEngagement}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="260" y="0" width="102" height="39" uuid="89ad9ef9-99a0-4bb6-b1de-dd2fd6197de6"/>
+					<reportElement x="260" y="0" width="100" height="39" uuid="89ad9ef9-99a0-4bb6-b1de-dd2fd6197de6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -612,18 +612,6 @@ engagement (%)]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{roeFirstContactNRSS}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="362" y="0" width="100" height="39" uuid="1af53647-ef5e-45bb-96e6-37a698b343e2"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{roeFirstContactRSS}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="162" y="0" width="98" height="39" uuid="d89dcdb7-1960-4cb4-9725-471ba6dc668a"/>
@@ -638,7 +626,19 @@ engagement (%)]]></text>
 					<textFieldExpression><![CDATA[$F{roeFirstContactHumanHabitation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="39" uuid="f7485ef2-8da9-42f5-9529-857fe6c85bd2"/>
+					<reportElement x="360" y="0" width="99" height="39" uuid="e2d486d7-b666-443f-aac9-14d2777ddc35"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{roeFirstContactRSS}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="459" y="0" width="96" height="39" uuid="fafbd9f2-cd06-4dd7-a531-90fdbb06ab63"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
