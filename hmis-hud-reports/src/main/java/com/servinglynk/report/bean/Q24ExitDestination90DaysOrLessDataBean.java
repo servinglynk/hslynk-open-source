@@ -231,6 +231,126 @@ public class Q24ExitDestination90DaysOrLessDataBean {
 	private BigInteger q24ETotWithChildAndAdults;
 	private BigInteger q24ETotWithOnlyChild;
 	private BigInteger q24ETotUnknownHouseHold;
+	
+	private BigInteger q23BTotPersonsExistUnknownHouseHold;
+	private BigInteger q23BTotPersonsExistWithOnlyChild;
+	private BigInteger q23BTotPersonsExistWithChildAndAdults;
+	private BigInteger q23BTotPersonsExistWithoutChild;
+	private BigInteger q23BTotPersonsExistTotal;
+	private BigInteger q23BTotPersonsDstnsWithoutChild;
+	private BigInteger q23BTotPersonsDstnsTotal;
+	private BigInteger q23BTotPersonsDstnsUnknownHouseHold;
+	private BigInteger q23BTotPersonsDstnsWithOnlyChild;
+	private BigInteger q23BTotPersonsDstnsWithChildAndAdults;
+	private BigInteger q23BPercentageWithChildAndAdults;
+	private BigInteger q23BPercentageUnknownHouseHold;
+	private BigInteger q23BPercentageWithOnlyChild;
+	private BigInteger q23BPercentageWithoutChild;
+	private BigInteger q23BPercentageTotal;
+	
+	
+	
+	public BigInteger getQ23BTotPersonsExistUnknownHouseHold() {
+		return q23BTotPersonsExistUnknownHouseHold;
+	}
+	public void setQ23BTotPersonsExistUnknownHouseHold(
+			BigInteger q23bTotPersonsExistUnknownHouseHold) {
+		q23BTotPersonsExistUnknownHouseHold = q23bTotPersonsExistUnknownHouseHold;
+	}
+	public BigInteger getQ23BTotPersonsExistWithOnlyChild() {
+		return q23BTotPersonsExistWithOnlyChild;
+	}
+	public void setQ23BTotPersonsExistWithOnlyChild(
+			BigInteger q23bTotPersonsExistWithOnlyChild) {
+		q23BTotPersonsExistWithOnlyChild = q23bTotPersonsExistWithOnlyChild;
+	}
+	public BigInteger getQ23BTotPersonsExistWithChildAndAdults() {
+		return q23BTotPersonsExistWithChildAndAdults;
+	}
+	public void setQ23BTotPersonsExistWithChildAndAdults(
+			BigInteger q23bTotPersonsExistWithChildAndAdults) {
+		q23BTotPersonsExistWithChildAndAdults = q23bTotPersonsExistWithChildAndAdults;
+	}
+	public BigInteger getQ23BTotPersonsExistWithoutChild() {
+		return q23BTotPersonsExistWithoutChild;
+	}
+	public void setQ23BTotPersonsExistWithoutChild(
+			BigInteger q23bTotPersonsExistWithoutChild) {
+		q23BTotPersonsExistWithoutChild = q23bTotPersonsExistWithoutChild;
+	}
+	public BigInteger getQ23BTotPersonsExistTotal() {
+		return q23BTotPersonsExistTotal;
+	}
+	public void setQ23BTotPersonsExistTotal(BigInteger q23bTotPersonsExistTotal) {
+		q23BTotPersonsExistTotal = q23bTotPersonsExistTotal;
+	}
+	public BigInteger getQ23BTotPersonsDstnsWithoutChild() {
+		return q23BTotPersonsDstnsWithoutChild;
+	}
+	public void setQ23BTotPersonsDstnsWithoutChild(
+			BigInteger q23bTotPersonsDstnsWithoutChild) {
+		q23BTotPersonsDstnsWithoutChild = q23bTotPersonsDstnsWithoutChild;
+	}
+	public BigInteger getQ23BTotPersonsDstnsTotal() {
+		return q23BTotPersonsDstnsTotal;
+	}
+	public void setQ23BTotPersonsDstnsTotal(BigInteger q23bTotPersonsDstnsTotal) {
+		q23BTotPersonsDstnsTotal = q23bTotPersonsDstnsTotal;
+	}
+	public BigInteger getQ23BTotPersonsDstnsUnknownHouseHold() {
+		return q23BTotPersonsDstnsUnknownHouseHold;
+	}
+	public void setQ23BTotPersonsDstnsUnknownHouseHold(
+			BigInteger q23bTotPersonsDstnsUnknownHouseHold) {
+		q23BTotPersonsDstnsUnknownHouseHold = q23bTotPersonsDstnsUnknownHouseHold;
+	}
+	public BigInteger getQ23BTotPersonsDstnsWithOnlyChild() {
+		return q23BTotPersonsDstnsWithOnlyChild;
+	}
+	public void setQ23BTotPersonsDstnsWithOnlyChild(
+			BigInteger q23bTotPersonsDstnsWithOnlyChild) {
+		q23BTotPersonsDstnsWithOnlyChild = q23bTotPersonsDstnsWithOnlyChild;
+	}
+	public BigInteger getQ23BTotPersonsDstnsWithChildAndAdults() {
+		return q23BTotPersonsDstnsWithChildAndAdults;
+	}
+	public void setQ23BTotPersonsDstnsWithChildAndAdults(
+			BigInteger q23bTotPersonsDstnsWithChildAndAdults) {
+		q23BTotPersonsDstnsWithChildAndAdults = q23bTotPersonsDstnsWithChildAndAdults;
+	}
+	public BigInteger getQ23BPercentageWithChildAndAdults() {
+		return q23BPercentageWithChildAndAdults;
+	}
+	public void setQ23BPercentageWithChildAndAdults(
+			BigInteger q23bPercentageWithChildAndAdults) {
+		q23BPercentageWithChildAndAdults = q23bPercentageWithChildAndAdults;
+	}
+	public BigInteger getQ23BPercentageUnknownHouseHold() {
+		return q23BPercentageUnknownHouseHold;
+	}
+	public void setQ23BPercentageUnknownHouseHold(
+			BigInteger q23bPercentageUnknownHouseHold) {
+		q23BPercentageUnknownHouseHold = q23bPercentageUnknownHouseHold;
+	}
+	public BigInteger getQ23BPercentageWithOnlyChild() {
+		return q23BPercentageWithOnlyChild;
+	}
+	public void setQ23BPercentageWithOnlyChild(
+			BigInteger q23bPercentageWithOnlyChild) {
+		q23BPercentageWithOnlyChild = q23bPercentageWithOnlyChild;
+	}
+	public BigInteger getQ23BPercentageWithoutChild() {
+		return q23BPercentageWithoutChild;
+	}
+	public void setQ23BPercentageWithoutChild(BigInteger q23bPercentageWithoutChild) {
+		q23BPercentageWithoutChild = q23bPercentageWithoutChild;
+	}
+	public BigInteger getQ23BPercentageTotal() {
+		return q23BPercentageTotal;
+	}
+	public void setQ23BPercentageTotal(BigInteger q23bPercentageTotal) {
+		q23BPercentageTotal = q23bPercentageTotal;
+	}
 	public BigInteger getQ24APermanentDestinationsTotal() {
 		return q24APermanentDestinationsTotal;
 	}

@@ -1,5 +1,6 @@
 package com.servinglynk.report.business;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,15 +28,23 @@ public class Q04aBeanMaker {
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECT_BY_ID,schema));
 					statement.setString(1, id);
 					resultSet = statement.executeQuery();
-				 while(resultSet.next()) {
+					while(resultSet.next()) {
 					 q04aDataBean.setQ04aProjectName(resultSet.getString("project.projectname"));
 					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("project.projecttype_desc"));
 					 q04aDataBean.setQ04aProjectId(resultSet.getString("project.project_source_system_id"));
-//					 homePageDataBean.setQ04aProjectId("");
 					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("project.trackingmethod_desc"));
 					 String organizationId = resultSet.getString("project.organizationid");
 					 populateOranization(schema, organizationId, q04aDataBean);
 				 }
+					
+					q04aDataBean.setQ04aProjectName("project.projectname");
+					 q04aDataBean.setQ04aHmisProjectType("project.projecttype_desc");
+					 q04aDataBean.setQ04aProjectId("project.project_source_system_id");
+					 q04aDataBean.setQ04aMethodOfTracking("project.trackingmethod_desc");
+					 q04aDataBean.setQ04aIdentityProjectId(BigInteger.ZERO);
+					 q04aDataBean.setQ04aHmisProjectIdService(BigInteger.ZERO);
+					 String organizationId = resultSet.getString("project.organizationid");
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

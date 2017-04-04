@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f85be7c5-a275-45a5-8b4e-cf42765e139a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="132"/>
 	<field name="q22a1A30DaysOrLessTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1A30DaysOrLessTotal]]></fieldDescription>
 	</field>
@@ -117,7 +117,55 @@
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
+					<text><![CDATA[    Q22 Length of participation]]></text>
+				</staticText>
+			</band>
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="1c8841f5-02b4-48ae-82bf-451831bfdb8d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
 					<text><![CDATA[    Q22a1: Length of Participation – CoC Projects]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: COC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
 				</staticText>
 			</band>
 			<band height="49">
@@ -191,7 +239,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. 30 days or less]]></text>
+					<text><![CDATA[   30 days or less]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="99f6d86f-c003-4499-b560-f2daba628e9e"/>
@@ -255,7 +303,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. 31 to 60 days]]></text>
+					<text><![CDATA[   31 to 60 days]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="3e8a101b-d5ee-4d3a-b8d6-5b59aca5f690"/>
@@ -307,7 +355,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. 61 to 180 days]]></text>
+					<text><![CDATA[   61 to 180 days]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="57d7e0dd-18d7-4068-8343-9a961c3c1738"/>
@@ -359,7 +407,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. 181 to 365 days]]></text>
+					<text><![CDATA[   181 to 365 days]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="1c66c4ac-dcb2-40a3-a255-1e5274851cf1"/>
@@ -411,7 +459,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. 366 to 730 days (1 – 2 yrs.)]]></text>
+					<text><![CDATA[   366 to 730 days (1-2 Yrs)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="db50a6c6-273f-4bc9-bef6-c8430411abc4"/>
@@ -463,7 +511,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. 731 to 1095 days (2 – 3 yrs.)]]></text>
+					<text><![CDATA[   731 to 1,095 days (2-3 Yrs)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="d406a782-ea29-42d7-823e-ce477332f6e7"/>
@@ -515,7 +563,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. 1096 to 1460 days (3 – 4 yrs.)]]></text>
+					<text><![CDATA[   1,096 to 1,460 days (3-4 Yrs)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="f2cbc4a9-693c-457b-aba3-260ef448dab9"/>
@@ -567,7 +615,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. 1461 to 1825 days (4 – 5 yrs.)]]></text>
+					<text><![CDATA[   1,461 to 1,825 days (4-5 Yrs)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="d16bce3c-2316-4d0f-81a5-007fa96a8534"/>
@@ -619,7 +667,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. More than 1825 days (>5 yrs.)]]></text>
+					<text><![CDATA[   More than 1,825 days (> 5 Yrs)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="d56a6db1-ec1f-4ea0-9240-633230748952"/>
@@ -671,7 +719,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   j. Information missing]]></text>
+					<text><![CDATA[   Data Not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="453db621-5fea-45b7-8707-33296ea4a68c"/>
@@ -721,9 +769,9 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Total]]></text>
+					<text><![CDATA[   Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="e46bdb3a-e041-414e-a0ec-44df22629ba7"/>
@@ -763,9 +811,7 @@
 					<textElement verticalAlignment="Middle" markup="none">
 						<font size="10" isBold="false"/>
 					</textElement>
-					<text><![CDATA[ Universe of data: All active clients.
-Night-by-night shelters use a count of bed nights as length of stay. In details mode, intake date will automatically reflect client's Pre-Entry intake date for those clients in RRH projects
-with preceding P-E project stays.]]></text>
+					<text><![CDATA[ Universe of data: Active clients in the report date range]]></text>
 				</staticText>
 			</band>
 		</groupFooter>

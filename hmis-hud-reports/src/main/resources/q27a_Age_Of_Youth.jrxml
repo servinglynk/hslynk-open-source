@@ -93,7 +93,55 @@
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
+					<text><![CDATA[    Q27: Youth Questions]]></text>
+				</staticText>
+			</band>
+			<band height="24">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="41ab5b51-dd81-4dac-ba7c-ad830fa67e54"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
 					<text><![CDATA[    Q27a: Age of Youth]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
 				</staticText>
 			</band>
 			<band height="49">
@@ -109,7 +157,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  Age ranges]]></text>
+					<text><![CDATA[  ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="7ec9dd7c-535f-464a-817c-f0af60e03fca"/>
@@ -137,7 +185,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  a. Without children]]></text>
+					<text><![CDATA[  Without children]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="275" y="0" width="90" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="be826ef2-e5c4-4040-9bb7-c742a165c1ad"/>
@@ -151,7 +199,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  b. With children and adults]]></text>
+					<text><![CDATA[  With children and adults]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="97" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="99b69518-86a9-4639-b8af-0b05403d8000"/>
@@ -165,8 +213,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[c. With only
-children]]></text>
+					<text><![CDATA[ With only children]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="462" y="0" width="93" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="9bbb178a-1081-429b-a789-74e1a37af804"/>
@@ -180,7 +227,7 @@ children]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  d. Unknown household type]]></text>
+					<text><![CDATA[  Unknown household type]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -196,7 +243,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. 12 - 17]]></text>
+					<text><![CDATA[   12 - 17]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="222134c0-5c18-4699-961f-1db312ea3bcc"/>
@@ -272,7 +319,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. 18 - 24]]></text>
+					<text><![CDATA[   18 - 24]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="222134c0-5c18-4699-961f-1db312ea3bcc"/>
@@ -348,7 +395,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Don't know / refused]]></text>
+					<text><![CDATA[   Client Doesn’t Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="222134c0-5c18-4699-961f-1db312ea3bcc"/>
@@ -424,7 +471,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Information missing]]></text>
+					<text><![CDATA[   Data Not Collected]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="222134c0-5c18-4699-961f-1db312ea3bcc"/>
@@ -498,9 +545,9 @@ children]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Total]]></text>
+					<text><![CDATA[   Total]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="222134c0-5c18-4699-961f-1db312ea3bcc"/>
@@ -563,23 +610,8 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{q27aTotUnknownHouseHoldtype}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="36">
-				<staticText>
-					<reportElement x="1" y="0" width="553" height="36" forecolor="#666666" uuid="7eaaae3a-8c12-4417-8829-e975f0bf1a96"/>
-					<box>
-						<pen lineWidth="0.0"/>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ Universe of data: All active clients age >= 12 and <= 24 provided that not one household member is above that age range.
-					If so, exclude the entire household.]]></text>
-				</staticText>
-			</band>
+			<band height="10" />
+				
 		</groupFooter>
 	</group>
 </jasperReport>

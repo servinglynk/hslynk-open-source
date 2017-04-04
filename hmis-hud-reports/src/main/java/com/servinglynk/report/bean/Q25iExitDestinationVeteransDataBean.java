@@ -4,11 +4,11 @@ import java.math.BigInteger;
 
 public class Q25iExitDestinationVeteransDataBean {
 	
-	private BigInteger q25iAPermanentDestinationsTotal;
+	/*private BigInteger q25iAPermanentDestinationsTotal;
 	private BigInteger q25iAPermanentDestinationsWithoutChild;
 	private BigInteger q25iAPermanentDestinationsWithChildAndAdults;
 	private BigInteger q25iAPermanentDestinationsWithOnlyChild;
-	private BigInteger q25iAPermanentDestinationsUnknownHouseHold;
+	private BigInteger q25iAPermanentDestinationsUnknownHouseHold;*/
 		
 	private BigInteger q25iA01MovedFromOneHOPWATotal;
 	private BigInteger q25iA01MovedFromOneHOPWAWithoutChild;
@@ -76,11 +76,11 @@ public class Q25iExitDestinationVeteransDataBean {
 	private BigInteger q25iAzTotWithOnlyChild;
 	private BigInteger q25iAzTotUnknownHouseHold;
 		
-	private BigInteger q25iBTemporaryDestinationsTotal;
+	/*private BigInteger q25iBTemporaryDestinationsTotal;
 	private BigInteger q25iBTemporaryDestinationsWithoutChild;
 	private BigInteger q25iBTemporaryDestinationsWithChildAndAdults;
 	private BigInteger q25iBTemporaryDestinationsWithOnlyChild;
-	private BigInteger q25iBTemporaryDestinationsUnknownHouseHold;
+	private BigInteger q25iBTemporaryDestinationsUnknownHouseHold;*/
 		
 	private BigInteger q25iB1EmergencyShelterTotal;
 	private BigInteger q25iB1EmergencyShelterWithoutChild;
@@ -136,11 +136,11 @@ public class Q25iExitDestinationVeteransDataBean {
 	private BigInteger q25iBzTotWithOnlyChild;
 	private BigInteger q25iBzTotUnknownHouseHold;
 		
-	private BigInteger q25iCInstitutionalSettingsTotal;
+	/*private BigInteger q25iCInstitutionalSettingsTotal;
 	private BigInteger q25iCInstitutionalSettingsWithoutChild;
 	private BigInteger q25iCInstitutionalSettingsWithChildAndAdults;
 	private BigInteger q25iCInstitutionalSettingsWithOnlyChild;
-	private BigInteger q25iCInstitutionalSettingsUnknownHouseHold;
+	private BigInteger q25iCInstitutionalSettingsUnknownHouseHold;*/
 		
 	private BigInteger q25iC1FosterCareHomeOrGroupFosterCareTotal;
 	private BigInteger q25iC1FosterCareHomeOrGroupFosterCareWithoutChild;
@@ -184,11 +184,11 @@ public class Q25iExitDestinationVeteransDataBean {
 	private BigInteger q25iCzTotWithOnlyChild;
 	private BigInteger q25iCzTotUnknownHouseHold;
 		
-	private BigInteger q25iDOtheDrestinationsTotal;
+	/*private BigInteger q25iDOtheDrestinationsTotal;
 	private BigInteger q25iDOtheDrestinationsWithoutChild;
 	private BigInteger q25iDOtheDrestinationsWithChildAndAdults;
 	private BigInteger q25iDOtheDrestinationsWithOnlyChild;
-	private BigInteger q25iDOtheDrestinationsUnknownHouseHold;
+	private BigInteger q25iDOtheDrestinationsUnknownHouseHold;*/
 		
 	private BigInteger q25iD1ResidentialProjectTotal;
 	private BigInteger q25iD1ResidentialProjectWithoutChild;
@@ -231,41 +231,24 @@ public class Q25iExitDestinationVeteransDataBean {
 	private BigInteger q25iETotWithChildAndAdults;
 	private BigInteger q25iETotWithOnlyChild;
 	private BigInteger q25iETotUnknownHouseHold;
-	public BigInteger getQ25iAPermanentDestinationsTotal() {
-		return q25iAPermanentDestinationsTotal;
-	}
-	public void setQ25iAPermanentDestinationsTotal(
-			BigInteger q25iAPermanentDestinationsTotal) {
-		this.q25iAPermanentDestinationsTotal = q25iAPermanentDestinationsTotal;
-	}
-	public BigInteger getQ25iAPermanentDestinationsWithoutChild() {
-		return q25iAPermanentDestinationsWithoutChild;
-	}
-	public void setQ25iAPermanentDestinationsWithoutChild(
-			BigInteger q25iAPermanentDestinationsWithoutChild) {
-		this.q25iAPermanentDestinationsWithoutChild = q25iAPermanentDestinationsWithoutChild;
-	}
-	public BigInteger getQ25iAPermanentDestinationsWithChildAndAdults() {
-		return q25iAPermanentDestinationsWithChildAndAdults;
-	}
-	public void setQ25iAPermanentDestinationsWithChildAndAdults(
-			BigInteger q25iAPermanentDestinationsWithChildAndAdults) {
-		this.q25iAPermanentDestinationsWithChildAndAdults = q25iAPermanentDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ25iAPermanentDestinationsWithOnlyChild() {
-		return q25iAPermanentDestinationsWithOnlyChild;
-	}
-	public void setQ25iAPermanentDestinationsWithOnlyChild(
-			BigInteger q25iAPermanentDestinationsWithOnlyChild) {
-		this.q25iAPermanentDestinationsWithOnlyChild = q25iAPermanentDestinationsWithOnlyChild;
-	}
-	public BigInteger getQ25iAPermanentDestinationsUnknownHouseHold() {
-		return q25iAPermanentDestinationsUnknownHouseHold;
-	}
-	public void setQ25iAPermanentDestinationsUnknownHouseHold(
-			BigInteger q25iAPermanentDestinationsUnknownHouseHold) {
-		this.q25iAPermanentDestinationsUnknownHouseHold = q25iAPermanentDestinationsUnknownHouseHold;
-	}
+	
+	private BigInteger q25iTotPersonsExistTotal;
+	private BigInteger q25iTotPersonsExistWithoutChild;
+	private BigInteger q25iTotPersonsExistWithChildAndAdults;
+	private BigInteger q25iTotPersonsExistWithOnlyChild;
+	private BigInteger q25iTotPersonsExistUnknownHouseHold;
+		
+	private BigInteger q25iTotPersonsDstnTotal;
+	private BigInteger q25iTotPersonsDstnWithoutChild;
+	private BigInteger q25iTotPersonsDstnWithChildAndAdults;
+	private BigInteger q25iTotPersonsDstnWithOnlyChild;
+	private BigInteger q25iTotPersonsDstnUnknownHouseHold;
+		
+	private BigInteger q25iPercentageTotal;
+	private BigInteger q25iPercentageWithoutChild;
+	private BigInteger q25iPercentageWithChildAndAdults;
+	private BigInteger q25iPercentageWithOnlyChild;
+	private BigInteger q25iPercentageUnknownHouseHold;
 	public BigInteger getQ25iA01MovedFromOneHOPWATotal() {
 		return q25iA01MovedFromOneHOPWATotal;
 	}
@@ -647,41 +630,6 @@ public class Q25iExitDestinationVeteransDataBean {
 	public void setQ25iAzTotUnknownHouseHold(BigInteger q25iAzTotUnknownHouseHold) {
 		this.q25iAzTotUnknownHouseHold = q25iAzTotUnknownHouseHold;
 	}
-	public BigInteger getQ25iBTemporaryDestinationsTotal() {
-		return q25iBTemporaryDestinationsTotal;
-	}
-	public void setQ25iBTemporaryDestinationsTotal(
-			BigInteger q25iBTemporaryDestinationsTotal) {
-		this.q25iBTemporaryDestinationsTotal = q25iBTemporaryDestinationsTotal;
-	}
-	public BigInteger getQ25iBTemporaryDestinationsWithoutChild() {
-		return q25iBTemporaryDestinationsWithoutChild;
-	}
-	public void setQ25iBTemporaryDestinationsWithoutChild(
-			BigInteger q25iBTemporaryDestinationsWithoutChild) {
-		this.q25iBTemporaryDestinationsWithoutChild = q25iBTemporaryDestinationsWithoutChild;
-	}
-	public BigInteger getQ25iBTemporaryDestinationsWithChildAndAdults() {
-		return q25iBTemporaryDestinationsWithChildAndAdults;
-	}
-	public void setQ25iBTemporaryDestinationsWithChildAndAdults(
-			BigInteger q25iBTemporaryDestinationsWithChildAndAdults) {
-		this.q25iBTemporaryDestinationsWithChildAndAdults = q25iBTemporaryDestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ25iBTemporaryDestinationsWithOnlyChild() {
-		return q25iBTemporaryDestinationsWithOnlyChild;
-	}
-	public void setQ25iBTemporaryDestinationsWithOnlyChild(
-			BigInteger q25iBTemporaryDestinationsWithOnlyChild) {
-		this.q25iBTemporaryDestinationsWithOnlyChild = q25iBTemporaryDestinationsWithOnlyChild;
-	}
-	public BigInteger getQ25iBTemporaryDestinationsUnknownHouseHold() {
-		return q25iBTemporaryDestinationsUnknownHouseHold;
-	}
-	public void setQ25iBTemporaryDestinationsUnknownHouseHold(
-			BigInteger q25iBTemporaryDestinationsUnknownHouseHold) {
-		this.q25iBTemporaryDestinationsUnknownHouseHold = q25iBTemporaryDestinationsUnknownHouseHold;
-	}
 	public BigInteger getQ25iB1EmergencyShelterTotal() {
 		return q25iB1EmergencyShelterTotal;
 	}
@@ -992,41 +940,6 @@ public class Q25iExitDestinationVeteransDataBean {
 	public void setQ25iBzTotUnknownHouseHold(BigInteger q25iBzTotUnknownHouseHold) {
 		this.q25iBzTotUnknownHouseHold = q25iBzTotUnknownHouseHold;
 	}
-	public BigInteger getQ25iCInstitutionalSettingsTotal() {
-		return q25iCInstitutionalSettingsTotal;
-	}
-	public void setQ25iCInstitutionalSettingsTotal(
-			BigInteger q25iCInstitutionalSettingsTotal) {
-		this.q25iCInstitutionalSettingsTotal = q25iCInstitutionalSettingsTotal;
-	}
-	public BigInteger getQ25iCInstitutionalSettingsWithoutChild() {
-		return q25iCInstitutionalSettingsWithoutChild;
-	}
-	public void setQ25iCInstitutionalSettingsWithoutChild(
-			BigInteger q25iCInstitutionalSettingsWithoutChild) {
-		this.q25iCInstitutionalSettingsWithoutChild = q25iCInstitutionalSettingsWithoutChild;
-	}
-	public BigInteger getQ25iCInstitutionalSettingsWithChildAndAdults() {
-		return q25iCInstitutionalSettingsWithChildAndAdults;
-	}
-	public void setQ25iCInstitutionalSettingsWithChildAndAdults(
-			BigInteger q25iCInstitutionalSettingsWithChildAndAdults) {
-		this.q25iCInstitutionalSettingsWithChildAndAdults = q25iCInstitutionalSettingsWithChildAndAdults;
-	}
-	public BigInteger getQ25iCInstitutionalSettingsWithOnlyChild() {
-		return q25iCInstitutionalSettingsWithOnlyChild;
-	}
-	public void setQ25iCInstitutionalSettingsWithOnlyChild(
-			BigInteger q25iCInstitutionalSettingsWithOnlyChild) {
-		this.q25iCInstitutionalSettingsWithOnlyChild = q25iCInstitutionalSettingsWithOnlyChild;
-	}
-	public BigInteger getQ25iCInstitutionalSettingsUnknownHouseHold() {
-		return q25iCInstitutionalSettingsUnknownHouseHold;
-	}
-	public void setQ25iCInstitutionalSettingsUnknownHouseHold(
-			BigInteger q25iCInstitutionalSettingsUnknownHouseHold) {
-		this.q25iCInstitutionalSettingsUnknownHouseHold = q25iCInstitutionalSettingsUnknownHouseHold;
-	}
 	public BigInteger getQ25iC1FosterCareHomeOrGroupFosterCareTotal() {
 		return q25iC1FosterCareHomeOrGroupFosterCareTotal;
 	}
@@ -1268,41 +1181,6 @@ public class Q25iExitDestinationVeteransDataBean {
 	public void setQ25iCzTotUnknownHouseHold(BigInteger q25iCzTotUnknownHouseHold) {
 		this.q25iCzTotUnknownHouseHold = q25iCzTotUnknownHouseHold;
 	}
-	public BigInteger getQ25iDOtheDrestinationsTotal() {
-		return q25iDOtheDrestinationsTotal;
-	}
-	public void setQ25iDOtheDrestinationsTotal(
-			BigInteger q25iDOtheDrestinationsTotal) {
-		this.q25iDOtheDrestinationsTotal = q25iDOtheDrestinationsTotal;
-	}
-	public BigInteger getQ25iDOtheDrestinationsWithoutChild() {
-		return q25iDOtheDrestinationsWithoutChild;
-	}
-	public void setQ25iDOtheDrestinationsWithoutChild(
-			BigInteger q25iDOtheDrestinationsWithoutChild) {
-		this.q25iDOtheDrestinationsWithoutChild = q25iDOtheDrestinationsWithoutChild;
-	}
-	public BigInteger getQ25iDOtheDrestinationsWithChildAndAdults() {
-		return q25iDOtheDrestinationsWithChildAndAdults;
-	}
-	public void setQ25iDOtheDrestinationsWithChildAndAdults(
-			BigInteger q25iDOtheDrestinationsWithChildAndAdults) {
-		this.q25iDOtheDrestinationsWithChildAndAdults = q25iDOtheDrestinationsWithChildAndAdults;
-	}
-	public BigInteger getQ25iDOtheDrestinationsWithOnlyChild() {
-		return q25iDOtheDrestinationsWithOnlyChild;
-	}
-	public void setQ25iDOtheDrestinationsWithOnlyChild(
-			BigInteger q25iDOtheDrestinationsWithOnlyChild) {
-		this.q25iDOtheDrestinationsWithOnlyChild = q25iDOtheDrestinationsWithOnlyChild;
-	}
-	public BigInteger getQ25iDOtheDrestinationsUnknownHouseHold() {
-		return q25iDOtheDrestinationsUnknownHouseHold;
-	}
-	public void setQ25iDOtheDrestinationsUnknownHouseHold(
-			BigInteger q25iDOtheDrestinationsUnknownHouseHold) {
-		this.q25iDOtheDrestinationsUnknownHouseHold = q25iDOtheDrestinationsUnknownHouseHold;
-	}
 	public BigInteger getQ25iD1ResidentialProjectTotal() {
 		return q25iD1ResidentialProjectTotal;
 	}
@@ -1533,7 +1411,109 @@ public class Q25iExitDestinationVeteransDataBean {
 	public void setQ25iETotUnknownHouseHold(BigInteger q25iETotUnknownHouseHold) {
 		this.q25iETotUnknownHouseHold = q25iETotUnknownHouseHold;
 	}
+	public BigInteger getQ25iTotPersonsExistTotal() {
+		return q25iTotPersonsExistTotal;
+	}
+	public void setQ25iTotPersonsExistTotal(BigInteger q25iTotPersonsExistTotal) {
+		this.q25iTotPersonsExistTotal = q25iTotPersonsExistTotal;
+	}
+	public BigInteger getQ25iTotPersonsExistWithoutChild() {
+		return q25iTotPersonsExistWithoutChild;
+	}
+	public void setQ25iTotPersonsExistWithoutChild(
+			BigInteger q25iTotPersonsExistWithoutChild) {
+		this.q25iTotPersonsExistWithoutChild = q25iTotPersonsExistWithoutChild;
+	}
+	public BigInteger getQ25iTotPersonsExistWithChildAndAdults() {
+		return q25iTotPersonsExistWithChildAndAdults;
+	}
+	public void setQ25iTotPersonsExistWithChildAndAdults(
+			BigInteger q25iTotPersonsExistWithChildAndAdults) {
+		this.q25iTotPersonsExistWithChildAndAdults = q25iTotPersonsExistWithChildAndAdults;
+	}
+	public BigInteger getQ25iTotPersonsExistWithOnlyChild() {
+		return q25iTotPersonsExistWithOnlyChild;
+	}
+	public void setQ25iTotPersonsExistWithOnlyChild(
+			BigInteger q25iTotPersonsExistWithOnlyChild) {
+		this.q25iTotPersonsExistWithOnlyChild = q25iTotPersonsExistWithOnlyChild;
+	}
+	public BigInteger getQ25iTotPersonsExistUnknownHouseHold() {
+		return q25iTotPersonsExistUnknownHouseHold;
+	}
+	public void setQ25iTotPersonsExistUnknownHouseHold(
+			BigInteger q25iTotPersonsExistUnknownHouseHold) {
+		this.q25iTotPersonsExistUnknownHouseHold = q25iTotPersonsExistUnknownHouseHold;
+	}
+	public BigInteger getQ25iTotPersonsDstnTotal() {
+		return q25iTotPersonsDstnTotal;
+	}
+	public void setQ25iTotPersonsDstnTotal(BigInteger q25iTotPersonsDstnTotal) {
+		this.q25iTotPersonsDstnTotal = q25iTotPersonsDstnTotal;
+	}
+	public BigInteger getQ25iTotPersonsDstnWithoutChild() {
+		return q25iTotPersonsDstnWithoutChild;
+	}
+	public void setQ25iTotPersonsDstnWithoutChild(
+			BigInteger q25iTotPersonsDstnWithoutChild) {
+		this.q25iTotPersonsDstnWithoutChild = q25iTotPersonsDstnWithoutChild;
+	}
+	public BigInteger getQ25iTotPersonsDstnWithChildAndAdults() {
+		return q25iTotPersonsDstnWithChildAndAdults;
+	}
+	public void setQ25iTotPersonsDstnWithChildAndAdults(
+			BigInteger q25iTotPersonsDstnWithChildAndAdults) {
+		this.q25iTotPersonsDstnWithChildAndAdults = q25iTotPersonsDstnWithChildAndAdults;
+	}
+	public BigInteger getQ25iTotPersonsDstnWithOnlyChild() {
+		return q25iTotPersonsDstnWithOnlyChild;
+	}
+	public void setQ25iTotPersonsDstnWithOnlyChild(
+			BigInteger q25iTotPersonsDstnWithOnlyChild) {
+		this.q25iTotPersonsDstnWithOnlyChild = q25iTotPersonsDstnWithOnlyChild;
+	}
+	public BigInteger getQ25iTotPersonsDstnUnknownHouseHold() {
+		return q25iTotPersonsDstnUnknownHouseHold;
+	}
+	public void setQ25iTotPersonsDstnUnknownHouseHold(
+			BigInteger q25iTotPersonsDstnUnknownHouseHold) {
+		this.q25iTotPersonsDstnUnknownHouseHold = q25iTotPersonsDstnUnknownHouseHold;
+	}
+	public BigInteger getQ25iPercentageTotal() {
+		return q25iPercentageTotal;
+	}
+	public void setQ25iPercentageTotal(BigInteger q25iPercentageTotal) {
+		this.q25iPercentageTotal = q25iPercentageTotal;
+	}
+	public BigInteger getQ25iPercentageWithoutChild() {
+		return q25iPercentageWithoutChild;
+	}
+	public void setQ25iPercentageWithoutChild(BigInteger q25iPercentageWithoutChild) {
+		this.q25iPercentageWithoutChild = q25iPercentageWithoutChild;
+	}
+	public BigInteger getQ25iPercentageWithChildAndAdults() {
+		return q25iPercentageWithChildAndAdults;
+	}
+	public void setQ25iPercentageWithChildAndAdults(
+			BigInteger q25iPercentageWithChildAndAdults) {
+		this.q25iPercentageWithChildAndAdults = q25iPercentageWithChildAndAdults;
+	}
+	public BigInteger getQ25iPercentageWithOnlyChild() {
+		return q25iPercentageWithOnlyChild;
+	}
+	public void setQ25iPercentageWithOnlyChild(
+			BigInteger q25iPercentageWithOnlyChild) {
+		this.q25iPercentageWithOnlyChild = q25iPercentageWithOnlyChild;
+	}
+	public BigInteger getQ25iPercentageUnknownHouseHold() {
+		return q25iPercentageUnknownHouseHold;
+	}
+	public void setQ25iPercentageUnknownHouseHold(
+			BigInteger q25iPercentageUnknownHouseHold) {
+		this.q25iPercentageUnknownHouseHold = q25iPercentageUnknownHouseHold;
+	}
 	
 	
+		
 
 }

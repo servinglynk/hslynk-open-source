@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="174"/>
+	<property name="ireport.y" value="326"/>
 	<field name="q26gEarnedIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q26gEarnedIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -165,6 +165,38 @@
 					<text><![CDATA[   Q26g: Type of Cash Income Sources - Chronically Homeless Persons]]></text>
 				</staticText>
 			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
+				</staticText>
+			</band>
 			<band height="49">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="40518619-d31a-471b-8180-a89399193e29"/>
@@ -178,7 +210,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[ Source]]></text>
+					<text><![CDATA[ ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="47bfc478-da28-4be0-9d2d-6819ced0ca23"/>
@@ -192,7 +224,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At entry]]></text>
+					<text><![CDATA[Income at Entry]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="8760c7c0-a135-4e5f-8143-117d84881f3a"/>
@@ -206,8 +238,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At Latest Annual Assessment for
-Stayers]]></text>
+					<text><![CDATA[Income at Latest Annual Assessment for Stayers]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="de968bf5-6dbc-4618-bd8b-1f25da4db6a5"/>
@@ -221,7 +252,7 @@ Stayers]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At Exit for Leavers]]></text>
+					<text><![CDATA[Income at Exit for Leavers]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -237,7 +268,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  a. Earned income]]></text>
+					<text><![CDATA[  Earned Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -289,7 +320,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  b. Unemployment insurance]]></text>
+					<text><![CDATA[  Unemployment Insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -341,7 +372,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  c. SSI]]></text>
+					<text><![CDATA[  SSI]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -393,7 +424,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  d. SSDI]]></text>
+					<text><![CDATA[  SSDI]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -432,9 +463,9 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gSSDILeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="51">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="0e34e5af-8e6a-4912-bdb7-21d8482e4dd5"/>
+					<reportElement x="0" y="0" width="117" height="51" forecolor="#000000" uuid="0e34e5af-8e6a-4912-bdb7-21d8482e4dd5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -445,10 +476,12 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  e. VA service-connected disability compensation]]></text>
+					<text><![CDATA[  VA service-connected
+DisabilityC
+ompensation]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
+					<reportElement x="117" y="0" width="65" height="51" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -460,7 +493,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gSSIAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
+					<reportElement x="182" y="0" width="183" height="51" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -472,7 +505,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gSSIStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
+					<reportElement x="365" y="0" width="190" height="51" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -484,9 +517,9 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gSSILeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="41">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="4c23d164-9142-441f-a04b-583d3ab6c64c"/>
+					<reportElement x="0" y="0" width="117" height="41" forecolor="#000000" uuid="26471ec2-2689-472c-a6ad-278d8342083c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -497,114 +530,10 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  d. SSDI]]></text>
+					<text><![CDATA[  VA Non-Service Connected Disability Pension]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q26gSSDIAtEntry}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q26gSSDIStayers}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q26gSSDILeavers}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="26">
-				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="0e34e5af-8e6a-4912-bdb7-21d8482e4dd5"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[  e. VA service-connected disability compensation]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q26gVAServiceConnectedDisabilityAtEntry}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q26gVAServiceConnectedDisabilityStayers}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q26gVAServiceConnectedDisabilityLeavers}]]></textFieldExpression>
-				</textField>
-			</band>
-			<band height="26">
-				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="26471ec2-2689-472c-a6ad-278d8342083c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[  f. VA non-service-connected disability pension]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
+					<reportElement x="117" y="0" width="65" height="41" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -616,7 +545,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gVANonServiceConnectedDisabilityAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
+					<reportElement x="182" y="0" width="183" height="41" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -628,7 +557,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gVANonServiceConnectedDisabilityStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
+					<reportElement x="365" y="0" width="190" height="41" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -653,7 +582,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  g. Private disability insurance]]></text>
+					<text><![CDATA[  Private Disability Insurance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -705,7 +634,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. Worker's compensation]]></text>
+					<text><![CDATA[  Worker’s Compensation]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -757,7 +686,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. TANF]]></text>
+					<text><![CDATA[  TANF or Equivalent]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -809,7 +738,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  j. General assistance]]></text>
+					<text><![CDATA[  General Assistance]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -861,7 +790,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  k. Retirement (Social Security)]]></text>
+					<text><![CDATA[  Retirement (Social Security)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -913,7 +842,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  l. Pension from a former job]]></text>
+					<text><![CDATA[  Pension from Former Job]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -965,7 +894,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  m. Child support]]></text>
+					<text><![CDATA[  Child Support]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -1017,7 +946,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  n. Alimony (spousal support)]]></text>
+					<text><![CDATA[  Alimony (Spousal Support)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -1069,7 +998,7 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  o. Other source]]></text>
+					<text><![CDATA[  Other Source]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -1108,9 +1037,9 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gOtherSourceLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26">
+			<band height="84">
 				<staticText>
-					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="cbe9fc6f-f0a9-41c5-bf18-dafa0f9165e4"/>
+					<reportElement x="0" y="0" width="117" height="84" forecolor="#000000" uuid="cbe9fc6f-f0a9-41c5-bf18-dafa0f9165e4"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -1121,10 +1050,12 @@ Stayers]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  p. Adults with income information at entry and annual assessment / exit]]></text>
+					<text><![CDATA[Chronically Homeless Persons with Income
+Information at Entry and Annual Assessment/Exit
+]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
+					<reportElement x="117" y="0" width="65" height="84" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -1136,7 +1067,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gAdultsWithIncomeInfoAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
+					<reportElement x="182" y="0" width="183" height="84" uuid="322e55b3-ee12-4401-8d84-f6d93336297a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -1148,7 +1079,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gAdultsWithIncomeInfoStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="0" width="190" height="26" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
+					<reportElement x="365" y="0" width="190" height="84" uuid="4b0cfb28-5c25-4518-931c-9b05493b36ff"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -1160,22 +1091,7 @@ Stayers]]></text>
 					<textFieldExpression><![CDATA[$F{q26gAdultsWithIncomeInfoLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="21">
-				<staticText>
-					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="0d40f5f4-a648-425c-841c-ea47eb60b0d4"/>
-					<box>
-						<pen lineWidth="0.0"/>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ Universe of data: All active chronically homeless adults.]]></text>
-				</staticText>
-			</band>
+			<band height="10"/>
 		</groupFooter>
 	</group>
 </jasperReport>

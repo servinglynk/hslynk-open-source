@@ -42,6 +42,12 @@ public class Q15BeanMaker {
 		q15ResidencePriorToProgramEntrTableBean.setQ15SafeHeavenWithChildOnly(BigInteger.valueOf(0));
 		q15ResidencePriorToProgramEntrTableBean.setQ15SafeHeavenUnknownHouseHold(BigInteger.valueOf(0));
 		
+		q15ResidencePriorToProgramEntrTableBean.setQ15InterimHousingTotal(BigInteger.valueOf(0));
+		q15ResidencePriorToProgramEntrTableBean.setQ15InterimHousingUnknownHouseHold(BigInteger.valueOf(0));
+		q15ResidencePriorToProgramEntrTableBean.setQ15InterimHousingWithChildAndAdult(BigInteger.valueOf(0));
+		q15ResidencePriorToProgramEntrTableBean.setQ15InterimHousingWithChildOnly(BigInteger.valueOf(0));
+		q15ResidencePriorToProgramEntrTableBean.setQ15InterimHousingWithoutChildren(BigInteger.valueOf(0));
+		
 		q15ResidencePriorToProgramEntrTableBean.setQ15AzTotalSummed(BigInteger.valueOf(0));
 		q15ResidencePriorToProgramEntrTableBean.setQ15AzTotalWithoutChildren(BigInteger.valueOf(0));
 		q15ResidencePriorToProgramEntrTableBean.setQ15AzTotalWithChildAndAdult(BigInteger.valueOf(0));

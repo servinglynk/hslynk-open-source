@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="365"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:/workspace/hmis-hud-reports/src/main/resources/"]]></defaultValueExpression>
 	</parameter>
 	<field name="homePageStartDate" class="java.lang.String">
 		<fieldDescription><![CDATA[homePageStartDate]]></fieldDescription>
@@ -228,7 +228,7 @@
 	<field name="q27fExitDestinationYouthDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q27fExitDestinationYouthDataBean]]></fieldDescription>
 	</field>
-	<field name="q29aPerformanceMeasuresPermanentHousingProgramsDataBean" class="java.util.List">
+	<!--<field name="q29aPerformanceMeasuresPermanentHousingProgramsDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q29aPerformanceMeasuresPermanentHousingProgramsDataBean]]></fieldDescription>
 	</field>
 	<field name="q29bPerformanceMeasuresTransitionalHousingProgramsDataBean" class="java.util.List">
@@ -242,7 +242,7 @@
 	</field>
 	<field name="q29ePerformanceMeasuresSafeHavensDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q29ePerformanceMeasuresSafeHavensDataBean]]></fieldDescription>
-	</field>
+	</field>-->
 	<group name="Group4">
 		<groupHeader>
 			<band height="4"/>
@@ -1159,7 +1159,7 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27f_Exit_Destination_Youth.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			<band height="36" splitType="Stretch">
+			<!--<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q29aPerformanceMeasuresPermanentHousingProgramsDataBean})]]></dataSourceExpression>
@@ -1193,7 +1193,7 @@
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q29ePerformanceMeasuresSafeHavensDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q29e_Performance_Measures_Safe_Havens.jasper"]]></subreportExpression>
 				</subreport>
-			</band>
+			</band>-->
 		</groupFooter>
 	</group>
 	<background>

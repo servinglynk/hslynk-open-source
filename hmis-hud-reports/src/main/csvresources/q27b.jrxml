@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="q27bParentYouthLeassThan18TotalParentingYouth" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouthLeassThan18TotalParentingYouth]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouthLeassThan18TotalChildrenOfParentingYouth" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouthLeassThan18TotalChildrenOfParentingYouth]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouthLeassThan18TotalPersons" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouthLeassThan18TotalPersons]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouthLeassThan18TotalHouseholds" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouthLeassThan18TotalHouseholds]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouth18To24TotalParentingYouth" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouth18To24TotalParentingYouth]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouth18To24TotalChildrenOfParentingYouth" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouth18To24TotalChildrenOfParentingYouth]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouth18To24TotalPersons" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouth18To24TotalPersons]]></fieldDescription>
+	</field>
+	<field name="q27bParentYouth18To24TotalHouseholds" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27bParentYouth18To24TotalHouseholds]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="49">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="166" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="bb5d7db3-298a-4e2c-8b8a-8d6a5a50efb3"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[  ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="166" y="0" width="109" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c8fb9db7-b870-45e2-a418-4b907b760595"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[  Total parenting youth]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="275" y="0" width="90" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="9566456a-9a72-4d96-8c23-ff554f16ee4a"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Total children of parenting youth]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="365" y="0" width="97" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="a031b1a3-4be7-45b1-a111-5cd518a90a95"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Total persons]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="462" y="0" width="93" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="b0e03934-15a3-4693-a520-7fd09d7b553c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[  Total households]]></text>
+				</staticText>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="166" height="26" forecolor="#000000" uuid="a036df2d-dcf3-44ae-a931-634b2c8cf326"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Parent youth less than 18]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="166" y="0" width="109" height="26" uuid="6b9d68a8-efb3-42ad-b875-c70e5a0573f7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouthLeassThan18TotalParentingYouth}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="f6e2b632-c142-4ec0-8b4a-c2be0da89eeb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouthLeassThan18TotalChildrenOfParentingYouth}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="ee80c157-a753-40b7-bea3-c7f24e64f053"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouthLeassThan18TotalPersons}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="0d1c1a7e-4402-4f60-bc55-c7368076bbbe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouthLeassThan18TotalHouseholds}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="166" height="26" forecolor="#000000" uuid="14cea74e-7e61-4203-801a-44d66ecc1986"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Parent youth 18 to 24]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="166" y="0" width="109" height="26" uuid="6b9d68a8-efb3-42ad-b875-c70e5a0573f7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouth18To24TotalParentingYouth}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="f6e2b632-c142-4ec0-8b4a-c2be0da89eeb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouth18To24TotalChildrenOfParentingYouth}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="ee80c157-a753-40b7-bea3-c7f24e64f053"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouth18To24TotalPersons}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="0d1c1a7e-4402-4f60-bc55-c7368076bbbe"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27bParentYouth18To24TotalHouseholds}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="21"/>
+		</groupFooter>
+	</group>
+</jasperReport>

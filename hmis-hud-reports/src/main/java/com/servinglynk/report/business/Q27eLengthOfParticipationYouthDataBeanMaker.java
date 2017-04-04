@@ -20,9 +20,13 @@ public class Q27eLengthOfParticipationYouthDataBeanMaker {
 		q27eLengthOfParticipationYouthTable.setQ27e31To60DaysStayers(BigInteger.valueOf(0));
 		q27eLengthOfParticipationYouthTable.setQ27e31To60DaysLeavers(BigInteger.valueOf(0));
 
-		q27eLengthOfParticipationYouthTable.setQ27e61To180DaysAtEntry(BigInteger.valueOf(0));
-		q27eLengthOfParticipationYouthTable.setQ27e61To180DaysStayers(BigInteger.valueOf(0));
-		q27eLengthOfParticipationYouthTable.setQ27e61To180DaysLeavers(BigInteger.valueOf(0));
+		q27eLengthOfParticipationYouthTable.setQ27e61To90DaysAtEntry(BigInteger.valueOf(0));
+		q27eLengthOfParticipationYouthTable.setQ27e61To90DaysStayers(BigInteger.valueOf(0));
+		q27eLengthOfParticipationYouthTable.setQ27e61To90DaysLeavers(BigInteger.valueOf(0));
+
+		q27eLengthOfParticipationYouthTable.setQ27e91To180DaysAtEntry(BigInteger.valueOf(0));
+		q27eLengthOfParticipationYouthTable.setQ27e91To180DaysStayers(BigInteger.valueOf(0));
+		q27eLengthOfParticipationYouthTable.setQ27e91To180DaysLeavers(BigInteger.valueOf(0));
 
 		q27eLengthOfParticipationYouthTable.setQ27e181To365DaysAtEntry(BigInteger.valueOf(0));
 		q27eLengthOfParticipationYouthTable.setQ27e181To365DaysStayers(BigInteger.valueOf(0));

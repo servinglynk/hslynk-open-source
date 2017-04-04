@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2660129-7695-413a-9eb2-2e38dcc9e22b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="398"/>
 	<field name="q19a2NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q19a2NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit]]></fieldDescription>
 	</field>
@@ -169,7 +169,7 @@
 		<groupFooter>
 			<band height="24">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="388" height="24" backcolor="#CCCCFF" uuid="9d5482a9-8f7b-4798-ab2e-5e90c3173adf"/>
+					<reportElement mode="Opaque" x="0" y="0" width="446" height="24" backcolor="#CCCCFF" uuid="9d5482a9-8f7b-4798-ab2e-5e90c3173adf"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -183,9 +183,9 @@
 					<text><![CDATA[    Q19a2: Client Cash Income Change - Income Source - by Entry and Exit]]></text>
 				</staticText>
 			</band>
-			<band height="129">
+			<band height="217">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="60" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="edcebfd0-4c6d-43b9-a441-f1d4390b12ae"/>
+					<reportElement mode="Opaque" x="0" y="0" width="60" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="edcebfd0-4c6d-43b9-a441-f1d4390b12ae"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -196,10 +196,18 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Income change by income category]]></text>
+					<text><![CDATA[Income Change
+by Income
+Category
+(Universe: Adult
+Stayers with
+Income
+Information at
+Entry and Annual
+Assessment)]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="60" y="0" width="58" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="050c474d-3ab5-49bf-a6e9-50d3fb9a7ab4"/>
+					<reportElement mode="Opaque" x="60" y="0" width="58" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="050c474d-3ab5-49bf-a6e9-50d3fb9a7ab4"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -210,10 +218,18 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Had income category at entry and did not have it at exit]]></text>
+					<text><![CDATA[Had
+Income
+Category at
+Entry and
+Did Not
+Have It at
+Annual
+Assessmen
+t]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="118" y="0" width="60" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="482cc524-5aad-4297-8562-d66bd66da6d9"/>
+					<reportElement mode="Opaque" x="118" y="0" width="60" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="482cc524-5aad-4297-8562-d66bd66da6d9"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -224,10 +240,18 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Retained income category but had less $ at exit than at entry]]></text>
+					<text><![CDATA[Retained
+Income
+Category
+But Had
+Less $ at
+Annual
+Assessmen
+t Than at
+Entry]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="178" y="0" width="55" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="8a92a160-7351-4d7d-97ab-536d3e3933d0"/>
+					<reportElement mode="Opaque" x="178" y="0" width="55" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="8a92a160-7351-4d7d-97ab-536d3e3933d0"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -238,10 +262,17 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Retained income category and same $ at exit as at entry]]></text>
+					<text><![CDATA[Retained
+Income
+Category
+and Same $
+at Annual
+Assessmen
+t as at
+Entry]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="233" y="0" width="52" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="786344b6-3e7f-485f-bd0f-f68a0c632d8b"/>
+					<reportElement mode="Opaque" x="233" y="0" width="52" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="786344b6-3e7f-485f-bd0f-f68a0c632d8b"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -252,10 +283,17 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Retained income category and increased $ at exit]]></text>
+					<text><![CDATA[Retained
+Income
+Category
+and
+Increased $
+at Annual
+Assessmen
+t]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="285" y="0" width="59" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="041747e3-aa16-4e27-ab9b-72f52e861096"/>
+					<reportElement mode="Opaque" x="285" y="0" width="59" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="041747e3-aa16-4e27-ab9b-72f52e861096"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -266,10 +304,19 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Did not have the income category at entry and gained the income category at exit]]></text>
+					<text><![CDATA[Did Not
+Have the
+Income
+Category at
+Entry and
+Gained the
+Income
+Category at
+Annual
+Assessment]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="344" y="0" width="47" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="fe6060d1-8607-4985-b17c-be52afdec96d"/>
+					<reportElement mode="Opaque" x="344" y="0" width="47" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="fe6060d1-8607-4985-b17c-be52afdec96d"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -280,10 +327,16 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Did not have the income category at entry or exit]]></text>
+					<text><![CDATA[Did Not
+Have the
+Income
+Category at
+Entry or at
+Annual
+Assessment]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="391" y="0" width="55" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="a33d9675-2edc-4599-9b50-bb4689e3dfd7"/>
+					<reportElement mode="Opaque" x="391" y="0" width="55" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="a33d9675-2edc-4599-9b50-bb4689e3dfd7"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -294,10 +347,15 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Total adults (including those with no income)]]></text>
+					<text><![CDATA[Total
+Adults
+(including
+those with
+No Income
+)]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="446" y="0" width="67" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="1c764fb4-45c1-4042-9462-dafb1694c7fe"/>
+					<reportElement mode="Opaque" x="446" y="0" width="67" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="1c764fb4-45c1-4042-9462-dafb1694c7fe"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -308,10 +366,18 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Performance measures: Adults who gained or increased income from entry to exit; Average gain]]></text>
+					<text><![CDATA[Performance
+Measure:
+Adults who
+Gained or
+Increased
+Income from
+Entry to Annual
+Assessment,
+Average Gain]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="513" y="0" width="42" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="51e9605f-a5b9-4ea2-9e2c-6bba614c9323"/>
+					<reportElement mode="Opaque" x="513" y="0" width="42" height="217" forecolor="#666666" backcolor="#E6E6E6" uuid="51e9605f-a5b9-4ea2-9e2c-6bba614c9323"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -322,12 +388,17 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Percent]]></text>
+					<text><![CDATA[Performance
+measure:
+Percent of
+persons who
+accomplished
+this measure]]></text>
 				</staticText>
 			</band>
-			<band height="72">
+			<band height="98">
 				<staticText>
-					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="1f9e8222-7a3b-4928-8ce1-74bb74de6fa0"/>
+					<reportElement x="0" y="0" width="60" height="98" forecolor="#000000" uuid="1f9e8222-7a3b-4928-8ce1-74bb74de6fa0"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -338,10 +409,14 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ 1.Number of Adults with earned income]]></text>
+					<text><![CDATA[ Number of
+Adults with
+Earned Income
+(i.e., Employment
+Income)]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="60" y="0" width="58" height="72" uuid="0d163cbb-e68a-4dda-846c-41e5cff3a5f0"/>
+					<reportElement x="60" y="0" width="58" height="98" uuid="0d163cbb-e68a-4dda-846c-41e5cff3a5f0"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -353,7 +428,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="118" y="0" width="60" height="72" uuid="4bf3ca2d-b304-46bc-bbfa-5be2163c8cf8"/>
+					<reportElement x="118" y="0" width="60" height="98" uuid="4bf3ca2d-b304-46bc-bbfa-5be2163c8cf8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -365,7 +440,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryButHadLessDollarAtExitThanAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="178" y="0" width="55" height="72" uuid="020a054a-3a87-41d8-b8db-1aa0093508ee"/>
+					<reportElement x="178" y="0" width="55" height="98" uuid="020a054a-3a87-41d8-b8db-1aa0093508ee"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -377,7 +452,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndSameDollarAtExitAsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="233" y="0" width="52" height="72" uuid="a8518019-3689-47e0-906d-3aca96355bdf"/>
+					<reportElement x="233" y="0" width="52" height="98" uuid="a8518019-3689-47e0-906d-3aca96355bdf"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -389,7 +464,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndIncreasedDollarAtExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="285" y="0" width="59" height="72" uuid="9806f242-2450-47d3-b833-d9a0964e8e8c"/>
+					<reportElement x="285" y="0" width="59" height="98" uuid="9806f242-2450-47d3-b833-d9a0964e8e8c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -401,7 +476,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedIncomeCategoryExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="344" y="0" width="47" height="72" uuid="75a419ac-8165-4f5c-96a1-63420c5e80f3"/>
+					<reportElement x="344" y="0" width="47" height="98" uuid="75a419ac-8165-4f5c-96a1-63420c5e80f3"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -413,7 +488,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeDidNotHaveIncomeCategoryAtEntryOrExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="391" y="0" width="55" height="72" uuid="4e5f63fc-c243-43a7-9aa6-c37592bc9765"/>
+					<reportElement x="391" y="0" width="55" height="98" uuid="4e5f63fc-c243-43a7-9aa6-c37592bc9765"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -425,7 +500,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomeTotalAdult}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="446" y="0" width="67" height="72" uuid="ca19a927-7a0d-4188-980d-5f2989f6b728"/>
+					<reportElement x="446" y="0" width="67" height="98" uuid="ca19a927-7a0d-4188-980d-5f2989f6b728"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -437,7 +512,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NoOfAdltsWithEarnedIncomePerformanceMeasures}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="513" y="0" width="42" height="72" uuid="8bf50bd9-e5b5-4c9d-b4c7-388d9b7e6632"/>
+					<reportElement x="513" y="0" width="42" height="98" uuid="8bf50bd9-e5b5-4c9d-b4c7-388d9b7e6632"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -462,7 +537,8 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ 2. Average change in earned income]]></text>
+					<text><![CDATA[ Average Change
+in Earned Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="60" y="0" width="58" height="72" uuid="ac82ccec-c0cb-4400-b830-97784c5e86a3"/>
@@ -586,7 +662,9 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ 3.Number of adults with other income]]></text>
+					<text><![CDATA[ Number of
+Adults with
+Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="60" y="0" width="58" height="72" uuid="b2aaaed7-57c4-4929-ab07-2f0d413d0c11"/>
@@ -710,7 +788,8 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ 4.Average change in other income]]></text>
+					<text><![CDATA[ Average Change
+in Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="60" y="0" width="58" height="72" uuid="3d93965e-9be5-406f-87c2-44528537664a"/>
@@ -821,9 +900,9 @@
 					<textFieldExpression><![CDATA[$F{q19a2AverageChangeInOtherIncomePercent}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="72">
+			<band height="92">
 				<staticText>
-					<reportElement x="0" y="0" width="60" height="72" forecolor="#000000" uuid="ec8373f5-5bd0-4e76-b51d-9494015406e9"/>
+					<reportElement x="0" y="0" width="60" height="92" forecolor="#000000" uuid="ec8373f5-5bd0-4e76-b51d-9494015406e9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -834,10 +913,13 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ 5.Number of adults with any income]]></text>
+					<text><![CDATA[ Number of
+Adults with Any
+Income (i.e.,
+Total Income)]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="60" y="0" width="58" height="72" uuid="1f301256-b5e0-41b1-8071-26c0241d6663"/>
+					<reportElement x="60" y="0" width="58" height="92" uuid="1f301256-b5e0-41b1-8071-26c0241d6663"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -849,7 +931,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="118" y="0" width="60" height="72" uuid="b826ae57-ba7f-46d5-973c-6291795663f5"/>
+					<reportElement x="118" y="0" width="60" height="92" uuid="b826ae57-ba7f-46d5-973c-6291795663f5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -861,7 +943,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollarAtExitThanAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="178" y="0" width="55" height="72" uuid="95f2e8f0-d107-44a6-8940-ed1882794583"/>
+					<reportElement x="178" y="0" width="55" height="92" uuid="95f2e8f0-d107-44a6-8940-ed1882794583"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -873,7 +955,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollarAtExitAsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="233" y="0" width="52" height="72" uuid="e99b34fa-23b7-4350-9a47-80daaf878d8a"/>
+					<reportElement x="233" y="0" width="52" height="92" uuid="e99b34fa-23b7-4350-9a47-80daaf878d8a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -885,7 +967,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndIncreasedDollarAtExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="285" y="0" width="59" height="72" uuid="a3e0e77f-b497-4c94-a932-345170765fe7"/>
+					<reportElement x="285" y="0" width="59" height="92" uuid="a3e0e77f-b497-4c94-a932-345170765fe7"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -897,7 +979,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedIncomeCategoryExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="344" y="0" width="47" height="72" uuid="96394528-1ea9-4d5b-9d2a-df26e2bb6a41"/>
+					<reportElement x="344" y="0" width="47" height="92" uuid="96394528-1ea9-4d5b-9d2a-df26e2bb6a41"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -909,7 +991,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeDidNotHaveIncomeCategoryAtEntryOrExit}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="391" y="0" width="55" height="72" uuid="89b52bac-561d-41de-9dbd-f93517f249dc"/>
+					<reportElement x="391" y="0" width="55" height="92" uuid="89b52bac-561d-41de-9dbd-f93517f249dc"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -921,7 +1003,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomeTotalAdult}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="446" y="0" width="67" height="72" uuid="4891cf2e-a484-44ed-9e42-9f4e5373c99c"/>
+					<reportElement x="446" y="0" width="67" height="92" uuid="4891cf2e-a484-44ed-9e42-9f4e5373c99c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -933,7 +1015,7 @@
 					<textFieldExpression><![CDATA[$F{q19a2NumberOfAdultsWithAnyIncomePerformanceMeasures}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="513" y="0" width="42" height="72" uuid="06cb2f46-2b5a-481d-9952-785d40079e34"/>
+					<reportElement x="513" y="0" width="42" height="92" uuid="06cb2f46-2b5a-481d-9952-785d40079e34"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -958,7 +1040,8 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ 6.Average change in overall income]]></text>
+					<text><![CDATA[ Average Change
+in Overall Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="60" y="0" width="58" height="72" uuid="295f90c4-0b19-4e0b-860e-4b1bf2a3ccfd"/>

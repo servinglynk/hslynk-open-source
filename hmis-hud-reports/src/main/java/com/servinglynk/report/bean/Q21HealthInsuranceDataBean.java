@@ -35,30 +35,38 @@ public class Q21HealthInsuranceDataBean {
 	private BigInteger q21HStateHealthInsuranceForAdultsAtEntry;
 	private BigInteger q21HStateHealthInsuranceForAdultsAtLatestStayers;
 	private BigInteger q21HStateHealthInsuranceForAdultsAtExitLeavers;
+	
+	private BigInteger q21IIndianHealthServicesProgramAtEntry;
+	private BigInteger q21IIndianHealthServicesProgramAtLatestStayers;
+	private BigInteger q21IIndianHealthServicesProgramAtExitLeavers;
+	
+	private BigInteger q21JOtherAtEntry;
+	private BigInteger q21JOtherAtLatestStayers;
+	private BigInteger q21JOtherAtExitLeavers;
+	
+	private BigInteger q21KNoHealthInsuranceAtEntry;
+	private BigInteger q21KNoHealthInsuranceAtLatestStayers;
+	private BigInteger q21KNoHealthInsuranceAtExitLeavers;
 		
-	private BigInteger q21INoHealthInsuranceAtEntry;
-	private BigInteger q21INoHealthInsuranceAtLatestStayers;
-	private BigInteger q21INoHealthInsuranceAtExitLeavers;
+	private BigInteger q21LClientRefusedAtEntry;
+	private BigInteger q21LClientRefusedAtLatestStayers;
+	private BigInteger q21LClientRefusedAtExitLeavers;
 		
-	private BigInteger q21JClientRefusedAtEntry;
-	private BigInteger q21JClientRefusedAtLatestStayers;
-	private BigInteger q21JClientRefusedAtExitLeavers;
-		
-	private BigInteger q21KDataNotCollectedAtEntry;
-	private BigInteger q21KDataNotCollectedAtLatestStayers;
-	private BigInteger q21KDataNotCollectedAtExitLeavers;
+	private BigInteger q21MDataNotCollectedAtEntry;
+	private BigInteger q21MDataNotCollectedAtLatestStayers;
+	private BigInteger q21MDataNotCollectedAtExitLeavers;
 			
-	private BigInteger q21LNoOfAdultStayersNotRequiredAtEntry;
-	private BigInteger q21LNoOfAdultStayersNotRequiredAtLatestStayers;
-	private BigInteger q21LNoOfAdultStayersNotRequiredAtExitLeavers;
+	private BigInteger q21NNoOfAdultStayersNotRequiredAtEntry;
+	private BigInteger q21NNoOfAdultStayersNotRequiredAtLatestStayers;
+	private BigInteger q21NNoOfAdultStayersNotRequiredAtExitLeavers;
 			
-	private BigInteger q21M1SourceOfHealthInsuranceAtEntry;
-	private BigInteger q21M1SourceOfHealthInsuranceAtLatestStayers;
-	private BigInteger q21M1SourceOfHealthInsuranceAtExitLeavers;
+	private BigInteger q21O1SourceOfHealthInsuranceAtEntry;
+	private BigInteger q21O1SourceOfHealthInsuranceAtLatestStayers;
+	private BigInteger q21O1SourceOfHealthInsuranceAtExitLeavers;
 		
-	private BigInteger q21NMoreThan1SourceOfHealthInsuranceAtEntry;
-	private BigInteger q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers;
-	private BigInteger q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers;
+	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtEntry;
+	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers;
+	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers;
 	public BigInteger getQ21AMedicaidHealthInsuranceAtEntry() {
 		return q21AMedicaidHealthInsuranceAtEntry;
 	}
@@ -227,131 +235,171 @@ public class Q21HealthInsuranceDataBean {
 			BigInteger q21hStateHealthInsuranceForAdultsAtExitLeavers) {
 		q21HStateHealthInsuranceForAdultsAtExitLeavers = q21hStateHealthInsuranceForAdultsAtExitLeavers;
 	}
-	public BigInteger getQ21INoHealthInsuranceAtEntry() {
-		return q21INoHealthInsuranceAtEntry;
+	public BigInteger getQ21IIndianHealthServicesProgramAtEntry() {
+		return q21IIndianHealthServicesProgramAtEntry;
 	}
-	public void setQ21INoHealthInsuranceAtEntry(
-			BigInteger q21iNoHealthInsuranceAtEntry) {
-		q21INoHealthInsuranceAtEntry = q21iNoHealthInsuranceAtEntry;
+	public void setQ21IIndianHealthServicesProgramAtEntry(
+			BigInteger q21iIndianHealthServicesProgramAtEntry) {
+		q21IIndianHealthServicesProgramAtEntry = q21iIndianHealthServicesProgramAtEntry;
 	}
-	public BigInteger getQ21INoHealthInsuranceAtLatestStayers() {
-		return q21INoHealthInsuranceAtLatestStayers;
+	public BigInteger getQ21IIndianHealthServicesProgramAtLatestStayers() {
+		return q21IIndianHealthServicesProgramAtLatestStayers;
 	}
-	public void setQ21INoHealthInsuranceAtLatestStayers(
-			BigInteger q21iNoHealthInsuranceAtLatestStayers) {
-		q21INoHealthInsuranceAtLatestStayers = q21iNoHealthInsuranceAtLatestStayers;
+	public void setQ21IIndianHealthServicesProgramAtLatestStayers(
+			BigInteger q21iIndianHealthServicesProgramAtLatestStayers) {
+		q21IIndianHealthServicesProgramAtLatestStayers = q21iIndianHealthServicesProgramAtLatestStayers;
 	}
-	public BigInteger getQ21INoHealthInsuranceAtExitLeavers() {
-		return q21INoHealthInsuranceAtExitLeavers;
+	public BigInteger getQ21IIndianHealthServicesProgramAtExitLeavers() {
+		return q21IIndianHealthServicesProgramAtExitLeavers;
 	}
-	public void setQ21INoHealthInsuranceAtExitLeavers(
-			BigInteger q21iNoHealthInsuranceAtExitLeavers) {
-		q21INoHealthInsuranceAtExitLeavers = q21iNoHealthInsuranceAtExitLeavers;
+	public void setQ21IIndianHealthServicesProgramAtExitLeavers(
+			BigInteger q21iIndianHealthServicesProgramAtExitLeavers) {
+		q21IIndianHealthServicesProgramAtExitLeavers = q21iIndianHealthServicesProgramAtExitLeavers;
 	}
-	public BigInteger getQ21JClientRefusedAtEntry() {
-		return q21JClientRefusedAtEntry;
+	public BigInteger getQ21JOtherAtEntry() {
+		return q21JOtherAtEntry;
 	}
-	public void setQ21JClientRefusedAtEntry(BigInteger q21jClientRefusedAtEntry) {
-		q21JClientRefusedAtEntry = q21jClientRefusedAtEntry;
+	public void setQ21JOtherAtEntry(BigInteger q21jOtherAtEntry) {
+		q21JOtherAtEntry = q21jOtherAtEntry;
 	}
-	public BigInteger getQ21JClientRefusedAtLatestStayers() {
-		return q21JClientRefusedAtLatestStayers;
+	public BigInteger getQ21JOtherAtLatestStayers() {
+		return q21JOtherAtLatestStayers;
 	}
-	public void setQ21JClientRefusedAtLatestStayers(
-			BigInteger q21jClientRefusedAtLatestStayers) {
-		q21JClientRefusedAtLatestStayers = q21jClientRefusedAtLatestStayers;
+	public void setQ21JOtherAtLatestStayers(BigInteger q21jOtherAtLatestStayers) {
+		q21JOtherAtLatestStayers = q21jOtherAtLatestStayers;
 	}
-	public BigInteger getQ21JClientRefusedAtExitLeavers() {
-		return q21JClientRefusedAtExitLeavers;
+	public BigInteger getQ21JOtherAtExitLeavers() {
+		return q21JOtherAtExitLeavers;
 	}
-	public void setQ21JClientRefusedAtExitLeavers(
-			BigInteger q21jClientRefusedAtExitLeavers) {
-		q21JClientRefusedAtExitLeavers = q21jClientRefusedAtExitLeavers;
+	public void setQ21JOtherAtExitLeavers(BigInteger q21jOtherAtExitLeavers) {
+		q21JOtherAtExitLeavers = q21jOtherAtExitLeavers;
 	}
-	public BigInteger getQ21KDataNotCollectedAtEntry() {
-		return q21KDataNotCollectedAtEntry;
+	public BigInteger getQ21KNoHealthInsuranceAtEntry() {
+		return q21KNoHealthInsuranceAtEntry;
 	}
-	public void setQ21KDataNotCollectedAtEntry(
-			BigInteger q21kDataNotCollectedAtEntry) {
-		q21KDataNotCollectedAtEntry = q21kDataNotCollectedAtEntry;
+	public void setQ21KNoHealthInsuranceAtEntry(
+			BigInteger q21kNoHealthInsuranceAtEntry) {
+		q21KNoHealthInsuranceAtEntry = q21kNoHealthInsuranceAtEntry;
 	}
-	public BigInteger getQ21KDataNotCollectedAtLatestStayers() {
-		return q21KDataNotCollectedAtLatestStayers;
+	public BigInteger getQ21KNoHealthInsuranceAtLatestStayers() {
+		return q21KNoHealthInsuranceAtLatestStayers;
 	}
-	public void setQ21KDataNotCollectedAtLatestStayers(
-			BigInteger q21kDataNotCollectedAtLatestStayers) {
-		q21KDataNotCollectedAtLatestStayers = q21kDataNotCollectedAtLatestStayers;
+	public void setQ21KNoHealthInsuranceAtLatestStayers(
+			BigInteger q21kNoHealthInsuranceAtLatestStayers) {
+		q21KNoHealthInsuranceAtLatestStayers = q21kNoHealthInsuranceAtLatestStayers;
 	}
-	public BigInteger getQ21KDataNotCollectedAtExitLeavers() {
-		return q21KDataNotCollectedAtExitLeavers;
+	public BigInteger getQ21KNoHealthInsuranceAtExitLeavers() {
+		return q21KNoHealthInsuranceAtExitLeavers;
 	}
-	public void setQ21KDataNotCollectedAtExitLeavers(
-			BigInteger q21kDataNotCollectedAtExitLeavers) {
-		q21KDataNotCollectedAtExitLeavers = q21kDataNotCollectedAtExitLeavers;
+	public void setQ21KNoHealthInsuranceAtExitLeavers(
+			BigInteger q21kNoHealthInsuranceAtExitLeavers) {
+		q21KNoHealthInsuranceAtExitLeavers = q21kNoHealthInsuranceAtExitLeavers;
 	}
-	public BigInteger getQ21LNoOfAdultStayersNotRequiredAtEntry() {
-		return q21LNoOfAdultStayersNotRequiredAtEntry;
+	public BigInteger getQ21LClientRefusedAtEntry() {
+		return q21LClientRefusedAtEntry;
 	}
-	public void setQ21LNoOfAdultStayersNotRequiredAtEntry(
-			BigInteger q21lNoOfAdultStayersNotRequiredAtEntry) {
-		q21LNoOfAdultStayersNotRequiredAtEntry = q21lNoOfAdultStayersNotRequiredAtEntry;
+	public void setQ21LClientRefusedAtEntry(BigInteger q21lClientRefusedAtEntry) {
+		q21LClientRefusedAtEntry = q21lClientRefusedAtEntry;
 	}
-	public BigInteger getQ21LNoOfAdultStayersNotRequiredAtLatestStayers() {
-		return q21LNoOfAdultStayersNotRequiredAtLatestStayers;
+	public BigInteger getQ21LClientRefusedAtLatestStayers() {
+		return q21LClientRefusedAtLatestStayers;
 	}
-	public void setQ21LNoOfAdultStayersNotRequiredAtLatestStayers(
-			BigInteger q21lNoOfAdultStayersNotRequiredAtLatestStayers) {
-		q21LNoOfAdultStayersNotRequiredAtLatestStayers = q21lNoOfAdultStayersNotRequiredAtLatestStayers;
+	public void setQ21LClientRefusedAtLatestStayers(
+			BigInteger q21lClientRefusedAtLatestStayers) {
+		q21LClientRefusedAtLatestStayers = q21lClientRefusedAtLatestStayers;
 	}
-	public BigInteger getQ21LNoOfAdultStayersNotRequiredAtExitLeavers() {
-		return q21LNoOfAdultStayersNotRequiredAtExitLeavers;
+	public BigInteger getQ21LClientRefusedAtExitLeavers() {
+		return q21LClientRefusedAtExitLeavers;
 	}
-	public void setQ21LNoOfAdultStayersNotRequiredAtExitLeavers(
-			BigInteger q21lNoOfAdultStayersNotRequiredAtExitLeavers) {
-		q21LNoOfAdultStayersNotRequiredAtExitLeavers = q21lNoOfAdultStayersNotRequiredAtExitLeavers;
+	public void setQ21LClientRefusedAtExitLeavers(
+			BigInteger q21lClientRefusedAtExitLeavers) {
+		q21LClientRefusedAtExitLeavers = q21lClientRefusedAtExitLeavers;
 	}
-	public BigInteger getQ21M1SourceOfHealthInsuranceAtEntry() {
-		return q21M1SourceOfHealthInsuranceAtEntry;
+	public BigInteger getQ21MDataNotCollectedAtEntry() {
+		return q21MDataNotCollectedAtEntry;
 	}
-	public void setQ21M1SourceOfHealthInsuranceAtEntry(
-			BigInteger q21m1SourceOfHealthInsuranceAtEntry) {
-		q21M1SourceOfHealthInsuranceAtEntry = q21m1SourceOfHealthInsuranceAtEntry;
+	public void setQ21MDataNotCollectedAtEntry(
+			BigInteger q21mDataNotCollectedAtEntry) {
+		q21MDataNotCollectedAtEntry = q21mDataNotCollectedAtEntry;
 	}
-	public BigInteger getQ21M1SourceOfHealthInsuranceAtLatestStayers() {
-		return q21M1SourceOfHealthInsuranceAtLatestStayers;
+	public BigInteger getQ21MDataNotCollectedAtLatestStayers() {
+		return q21MDataNotCollectedAtLatestStayers;
 	}
-	public void setQ21M1SourceOfHealthInsuranceAtLatestStayers(
-			BigInteger q21m1SourceOfHealthInsuranceAtLatestStayers) {
-		q21M1SourceOfHealthInsuranceAtLatestStayers = q21m1SourceOfHealthInsuranceAtLatestStayers;
+	public void setQ21MDataNotCollectedAtLatestStayers(
+			BigInteger q21mDataNotCollectedAtLatestStayers) {
+		q21MDataNotCollectedAtLatestStayers = q21mDataNotCollectedAtLatestStayers;
 	}
-	public BigInteger getQ21M1SourceOfHealthInsuranceAtExitLeavers() {
-		return q21M1SourceOfHealthInsuranceAtExitLeavers;
+	public BigInteger getQ21MDataNotCollectedAtExitLeavers() {
+		return q21MDataNotCollectedAtExitLeavers;
 	}
-	public void setQ21M1SourceOfHealthInsuranceAtExitLeavers(
-			BigInteger q21m1SourceOfHealthInsuranceAtExitLeavers) {
-		q21M1SourceOfHealthInsuranceAtExitLeavers = q21m1SourceOfHealthInsuranceAtExitLeavers;
+	public void setQ21MDataNotCollectedAtExitLeavers(
+			BigInteger q21mDataNotCollectedAtExitLeavers) {
+		q21MDataNotCollectedAtExitLeavers = q21mDataNotCollectedAtExitLeavers;
 	}
-	public BigInteger getQ21NMoreThan1SourceOfHealthInsuranceAtEntry() {
-		return q21NMoreThan1SourceOfHealthInsuranceAtEntry;
+	public BigInteger getQ21NNoOfAdultStayersNotRequiredAtEntry() {
+		return q21NNoOfAdultStayersNotRequiredAtEntry;
 	}
-	public void setQ21NMoreThan1SourceOfHealthInsuranceAtEntry(
-			BigInteger q21nMoreThan1SourceOfHealthInsuranceAtEntry) {
-		q21NMoreThan1SourceOfHealthInsuranceAtEntry = q21nMoreThan1SourceOfHealthInsuranceAtEntry;
+	public void setQ21NNoOfAdultStayersNotRequiredAtEntry(
+			BigInteger q21nNoOfAdultStayersNotRequiredAtEntry) {
+		q21NNoOfAdultStayersNotRequiredAtEntry = q21nNoOfAdultStayersNotRequiredAtEntry;
 	}
-	public BigInteger getQ21NMoreThan1SourceOfHealthInsuranceAtLatestStayers() {
-		return q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers;
+	public BigInteger getQ21NNoOfAdultStayersNotRequiredAtLatestStayers() {
+		return q21NNoOfAdultStayersNotRequiredAtLatestStayers;
 	}
-	public void setQ21NMoreThan1SourceOfHealthInsuranceAtLatestStayers(
-			BigInteger q21nMoreThan1SourceOfHealthInsuranceAtLatestStayers) {
-		q21NMoreThan1SourceOfHealthInsuranceAtLatestStayers = q21nMoreThan1SourceOfHealthInsuranceAtLatestStayers;
+	public void setQ21NNoOfAdultStayersNotRequiredAtLatestStayers(
+			BigInteger q21nNoOfAdultStayersNotRequiredAtLatestStayers) {
+		q21NNoOfAdultStayersNotRequiredAtLatestStayers = q21nNoOfAdultStayersNotRequiredAtLatestStayers;
 	}
-	public BigInteger getQ21NMoreThan1SourceOfHealthInsuranceAtExitLeavers() {
-		return q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers;
+	public BigInteger getQ21NNoOfAdultStayersNotRequiredAtExitLeavers() {
+		return q21NNoOfAdultStayersNotRequiredAtExitLeavers;
 	}
-	public void setQ21NMoreThan1SourceOfHealthInsuranceAtExitLeavers(
-			BigInteger q21nMoreThan1SourceOfHealthInsuranceAtExitLeavers) {
-		q21NMoreThan1SourceOfHealthInsuranceAtExitLeavers = q21nMoreThan1SourceOfHealthInsuranceAtExitLeavers;
+	public void setQ21NNoOfAdultStayersNotRequiredAtExitLeavers(
+			BigInteger q21nNoOfAdultStayersNotRequiredAtExitLeavers) {
+		q21NNoOfAdultStayersNotRequiredAtExitLeavers = q21nNoOfAdultStayersNotRequiredAtExitLeavers;
 	}
-
+	public BigInteger getQ21O1SourceOfHealthInsuranceAtEntry() {
+		return q21O1SourceOfHealthInsuranceAtEntry;
+	}
+	public void setQ21O1SourceOfHealthInsuranceAtEntry(
+			BigInteger q21o1SourceOfHealthInsuranceAtEntry) {
+		q21O1SourceOfHealthInsuranceAtEntry = q21o1SourceOfHealthInsuranceAtEntry;
+	}
+	public BigInteger getQ21O1SourceOfHealthInsuranceAtLatestStayers() {
+		return q21O1SourceOfHealthInsuranceAtLatestStayers;
+	}
+	public void setQ21O1SourceOfHealthInsuranceAtLatestStayers(
+			BigInteger q21o1SourceOfHealthInsuranceAtLatestStayers) {
+		q21O1SourceOfHealthInsuranceAtLatestStayers = q21o1SourceOfHealthInsuranceAtLatestStayers;
+	}
+	public BigInteger getQ21O1SourceOfHealthInsuranceAtExitLeavers() {
+		return q21O1SourceOfHealthInsuranceAtExitLeavers;
+	}
+	public void setQ21O1SourceOfHealthInsuranceAtExitLeavers(
+			BigInteger q21o1SourceOfHealthInsuranceAtExitLeavers) {
+		q21O1SourceOfHealthInsuranceAtExitLeavers = q21o1SourceOfHealthInsuranceAtExitLeavers;
+	}
+	public BigInteger getQ21PMoreThan1SourceOfHealthInsuranceAtEntry() {
+		return q21PMoreThan1SourceOfHealthInsuranceAtEntry;
+	}
+	public void setQ21PMoreThan1SourceOfHealthInsuranceAtEntry(
+			BigInteger q21pMoreThan1SourceOfHealthInsuranceAtEntry) {
+		q21PMoreThan1SourceOfHealthInsuranceAtEntry = q21pMoreThan1SourceOfHealthInsuranceAtEntry;
+	}
+	public BigInteger getQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers() {
+		return q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers;
+	}
+	public void setQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers(
+			BigInteger q21pMoreThan1SourceOfHealthInsuranceAtLatestStayers) {
+		q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers = q21pMoreThan1SourceOfHealthInsuranceAtLatestStayers;
+	}
+	public BigInteger getQ21PMoreThan1SourceOfHealthInsuranceAtExitLeavers() {
+		return q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers;
+	}
+	public void setQ21PMoreThan1SourceOfHealthInsuranceAtExitLeavers(
+			BigInteger q21pMoreThan1SourceOfHealthInsuranceAtExitLeavers) {
+		q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers = q21pMoreThan1SourceOfHealthInsuranceAtExitLeavers;
+	}
+		
+	
 	
 }

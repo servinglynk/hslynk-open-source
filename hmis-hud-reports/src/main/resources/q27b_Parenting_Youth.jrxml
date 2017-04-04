@@ -45,6 +45,38 @@
 					<text><![CDATA[    Q27b: Parenting Youth]]></text>
 				</staticText>
 			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="2fa68bdb-919f-499f-81ae-87fec78245d4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance: CoC-APR]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="d3ee0b65-ffc8-497f-9d5b-00730e5bbdff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Changes from APR V5: None]]></text>
+				</staticText>
+			</band>
 			<band height="49">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="166" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="bb5d7db3-298a-4e2c-8b8a-8d6a5a50efb3"/>
@@ -258,25 +290,10 @@
 					<textElement verticalAlignment="Middle" markup="none">
 						<font size="10" isBold="false"/>
 					</textElement>
-					<text><![CDATA[ Universe of data: Households with youth head of household who is a parent.]]></text>
+					<text><![CDATA[ Universe: Households with a youth who is a parent]]></text>
 				</staticText>
 			</band>
-			<band height="21">
-				<staticText>
-					<reportElement x="1" y="0" width="553" height="20" forecolor="#666666" uuid="190fe0e9-3e81-4864-a506-e61ff17a768d"/>
-					<box>
-						<pen lineWidth="0.0"/>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[ Unlike other sections reporting on youth, children below age 12 are reported in this section in the "total persons" column provided the parent is age >= 12 and <= 24.]]></text>
-				</staticText>
-			</band>
+			
 		</groupFooter>
 	</group>
 </jasperReport>
