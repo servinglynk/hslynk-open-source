@@ -12,7 +12,8 @@ import com.servinglynk.hmis.warehouse.annotations.AllowedValues;
 @JsonRootName("consentRequest")
 public class ClientConsentRequest extends ClientModel {
 	
-	private UUID  consentRequestid;
+	@JsonProperty("consentRequestId")
+	private UUID id;
 	private UUID clientId;
 	
 	@AllowedValues(values={"APPROVED","REJECTED"},message="Allowed values for status value are APPROVED,REJECTED")
@@ -29,15 +30,15 @@ public class ClientConsentRequest extends ClientModel {
 	private LocalDateTime endTime;
 	
 	private String consentDocumentLink;
+	private String entityGroup;
 	
-	@JsonProperty("consentRequestEntities")
-	ClientConsentRequestEntities clientConsentEntities= new ClientConsentRequestEntities();
+	private UUID consentUserId;
 	
-	public UUID getConsentRequestid() {
-		return consentRequestid;
+	public UUID getId() {
+		return id;
 	}
-	public void setConsentRequestid(UUID consentRequestid) {
-		this.consentRequestid = consentRequestid;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 	public UUID getClientId() {
 		return clientId;
@@ -69,10 +70,17 @@ public class ClientConsentRequest extends ClientModel {
 	public void setConsentDocumentLink(String consentDocumentLink) {
 		this.consentDocumentLink = consentDocumentLink;
 	}
-	public ClientConsentRequestEntities getClientConsentEntities() {
-		return clientConsentEntities;
+	public String getEntityGroup() {
+		return entityGroup;
 	}
-	public void setClientConsentEntities(ClientConsentRequestEntities clientConsentEntities) {
-		this.clientConsentEntities = clientConsentEntities;
+	public void setEntityGroup(String entityGroup) {
+		this.entityGroup = entityGroup;
 	}
+	public UUID getConsentUserId() {
+		return consentUserId;
+	}
+	public void setConsentUserId(UUID consentUserId) {
+		this.consentUserId = consentUserId;
+	}
+	
 }

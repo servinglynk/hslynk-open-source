@@ -1,7 +1,10 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
+
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -18,16 +21,19 @@ public class ClientConsent extends ClientModel {
 	
 	@AllowedValues(values={"APPROVED","REJECTED"},message="Allowed values for status value are APPROVED,REJECTED")
 	private String status;
+	
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
 	private LocalDateTime startTime;
+	
 	@JsonDeserialize(using=JsonTimestampDeserializer.class)
 	@JsonSerialize(using=JsonTimestampSerializer.class)
 	private LocalDateTime endTime;
-	private String consentDocumentLink;
 	
-	@JsonProperty("consentEntities")
-	ClientConsentEntities clientConsentEntities= new ClientConsentEntities();
+	private String consentDocumentLink;
+	private String entityGroup;
+	
+	private UUID consentUserId;
 	
 	public UUID getId() {
 		return id;
@@ -65,10 +71,17 @@ public class ClientConsent extends ClientModel {
 	public void setConsentDocumentLink(String consentDocumentLink) {
 		this.consentDocumentLink = consentDocumentLink;
 	}
-	public ClientConsentEntities getClientConsentEntities() {
-		return clientConsentEntities;
+	public String getEntityGroup() {
+		return entityGroup;
 	}
-	public void setClientConsentEntities(ClientConsentEntities clientConsentEntities) {
-		this.clientConsentEntities = clientConsentEntities;
+	public void setEntityGroup(String entityGroup) {
+		this.entityGroup = entityGroup;
 	}
+	public UUID getConsentUserId() {
+		return consentUserId;
+	}
+	public void setConsentUserId(UUID consentUserId) {
+		this.consentUserId = consentUserId;
+	}
+	
 }
