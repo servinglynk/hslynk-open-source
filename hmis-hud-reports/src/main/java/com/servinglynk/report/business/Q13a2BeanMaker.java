@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q13a2NumberOfConditionsAtEntryDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q13a2BeanMaker {
 	
-	public static List<Q13a2NumberOfConditionsAtEntryDataBean> getQ13a2NumberOfConditionsAtEntryList(){
+	public static List<Q13a2NumberOfConditionsAtEntryDataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
 		
 		Q13a2NumberOfConditionsAtEntryDataBean q13a2NumberofConditioinsTableBean = new Q13a2NumberOfConditionsAtEntryDataBean();
 		
@@ -54,7 +55,7 @@ public class Q13a2BeanMaker {
     	q13a2NumberofConditioinsTableBean.setQ13a2InformationmissingWithOnlychildren(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2InformationmissingUnknowHousehold(BigInteger.valueOf(0));
     	
-    	q13a2NumberofConditioinsTableBean.setQ13a2TotalSummed(BigInteger.valueOf(0));
+    	q13a2NumberofConditioinsTableBean.setQ13a2TotalSummed(BigInteger.valueOf(data.getTotNumOfPersonServed()));
     	q13a2NumberofConditioinsTableBean.setQ13a2TotalWithoutChildren(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2TotalWithChildAndAdults(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2TotalWithOnlychildren(BigInteger.valueOf(0));

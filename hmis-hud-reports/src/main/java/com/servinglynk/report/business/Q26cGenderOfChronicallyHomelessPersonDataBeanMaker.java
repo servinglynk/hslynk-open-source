@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q26cGenderOfChronicallyHomelessPersonDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q26cGenderOfChronicallyHomelessPersonDataBeanMaker {
 	
-	public static List<Q26cGenderOfChronicallyHomelessPersonDataBean> getQ26cGenderOfChronicallyHomelessPersonList(){
+	public static List<Q26cGenderOfChronicallyHomelessPersonDataBean> getQ26cGenderOfChronicallyHomelessPersonList(ReportData data){
 		
 		Q26cGenderOfChronicallyHomelessPersonDataBean q26cGenderOfChronicallyHomelessPersonTable = new Q26cGenderOfChronicallyHomelessPersonDataBean();
 		
@@ -54,7 +55,7 @@ public class Q26cGenderOfChronicallyHomelessPersonDataBeanMaker {
 		q26cGenderOfChronicallyHomelessPersonTable.setQ26cInformationMissingWithOnlyChild(BigInteger.valueOf(0));
 		q26cGenderOfChronicallyHomelessPersonTable.setQ26cInformationMissingUnknownHouseholdType(BigInteger.valueOf(0));
 
-		q26cGenderOfChronicallyHomelessPersonTable.setQ26cSubtotalTotal(BigInteger.valueOf(0));
+		q26cGenderOfChronicallyHomelessPersonTable.setQ26cSubtotalTotal(BigInteger.valueOf(data.getNoOfChronicallyHomelessPersons()));
 		q26cGenderOfChronicallyHomelessPersonTable.setQ26cSubtotalWithoutChild(BigInteger.valueOf(0));
 		q26cGenderOfChronicallyHomelessPersonTable.setQ26cSubtotalWithChildAndAdults(BigInteger.valueOf(0));
 		q26cGenderOfChronicallyHomelessPersonTable.setQ26cSubtotalWithOnlyChild(BigInteger.valueOf(0));

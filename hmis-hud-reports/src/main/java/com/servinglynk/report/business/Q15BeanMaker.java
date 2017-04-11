@@ -5,10 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q15ResidencePriorToProgramEntryDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q15BeanMaker {
 	
-	public static List<Q15ResidencePriorToProgramEntryDataBean> getQ15ResidencePriorToProgramEntryList() {
+	public static List<Q15ResidencePriorToProgramEntryDataBean> getQ15ResidencePriorToProgramEntryList(ReportData data) {
+		
+		int overallTot = data.getNumOfAdults() + data.getNoOfChildHeadsOfHousehold();
 		
 		Q15ResidencePriorToProgramEntryDataBean q15ResidencePriorToProgramEntrTableBean = new Q15ResidencePriorToProgramEntryDataBean();
 		
@@ -198,7 +201,7 @@ public class Q15BeanMaker {
 		q15ResidencePriorToProgramEntrTableBean.setQ15CzTotalWithChildandAdult(BigInteger.valueOf(0));
 		q15ResidencePriorToProgramEntrTableBean.setQ15CzTotalUnknownHousehold(BigInteger.valueOf(0));
 		
-		q15ResidencePriorToProgramEntrTableBean.setQ15DTotalSummed(BigInteger.valueOf(0));
+		q15ResidencePriorToProgramEntrTableBean.setQ15DTotalSummed(BigInteger.valueOf(overallTot));
 		q15ResidencePriorToProgramEntrTableBean.setQ15DTotalWithoutChild(BigInteger.valueOf(0));
 		q15ResidencePriorToProgramEntrTableBean.setQ15DTotalWithChildandAdult(BigInteger.valueOf(0));
 		q15ResidencePriorToProgramEntrTableBean.setQ15DTotalWithChildOnly(BigInteger.valueOf(0));

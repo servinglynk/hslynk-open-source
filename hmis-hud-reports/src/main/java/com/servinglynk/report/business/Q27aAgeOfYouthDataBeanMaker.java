@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q27aAgeOfYouthDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q27aAgeOfYouthDataBeanMaker {
 
-	public static List<Q27aAgeOfYouthDataBean> getQ27aAgeOfYouthList(){
+	public static List<Q27aAgeOfYouthDataBean> getQ27aAgeOfYouthList(ReportData data){
 		
 		Q27aAgeOfYouthDataBean q27aAgeOfYoutTable = new Q27aAgeOfYouthDataBean();
 		
@@ -36,7 +37,7 @@ public class Q27aAgeOfYouthDataBeanMaker {
 				q27aAgeOfYoutTable.setQ27aInformationMissingWithChildOnly(BigInteger.valueOf(0));
 				q27aAgeOfYoutTable.setQ27aInformationMissingUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-				q27aAgeOfYoutTable.setQ27aTotTotal(BigInteger.valueOf(0));
+				q27aAgeOfYoutTable.setQ27aTotTotal(BigInteger.valueOf(data.getNumOfYouthUnderAge25()));
 				q27aAgeOfYoutTable.setQ27aTotWithoutChild(BigInteger.valueOf(0));
 				q27aAgeOfYoutTable.setQ27aTotWithChildAndAdults(BigInteger.valueOf(0));
 				q27aAgeOfYoutTable.setQ27aTotWithChildOnly(BigInteger.valueOf(0));

@@ -3,14 +3,22 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.Q25aNumberOfVeteransDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q25aNumberOfVeteransDataBeanMaker {
 	
-	public static List<Q25aNumberOfVeteransDataBean> getQ25aNumberOfVeteransList(){
+	public static List<Q25aNumberOfVeteransDataBean> getQ25aNumberOfVeteransList(ReportData data){
 		
-		Q25aNumberOfVeteransDataBean q25aNumberOfVeteransTable = new Q25aNumberOfVeteransDataBean();
+				List<ClientModel> clients = data.getClients();
+				List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
+		
+				Q25aNumberOfVeteransDataBean q25aNumberOfVeteransTable = new Q25aNumberOfVeteransDataBean();
 		
 				q25aNumberOfVeteransTable.setQ25aChronicallyHomelessVeteranTotal(BigInteger.valueOf(0));
 				q25aNumberOfVeteransTable.setQ25aChronicallyHomelessVeteranWithoutChildren(BigInteger.valueOf(0));
@@ -37,7 +45,7 @@ public class Q25aNumberOfVeteransDataBeanMaker {
 				q25aNumberOfVeteransTable.setQ25aDataNotCollectedWithChildAndAdults(BigInteger.valueOf(0));
 				q25aNumberOfVeteransTable.setQ25aDataNotCollectedUnknownHouseHold(BigInteger.valueOf(0));
 
-				q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(0));
+				q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(veterans !=null ? veterans.size() : 0));
 				q25aNumberOfVeteransTable.setQ25aTotWithoutChildren(BigInteger.valueOf(0));
 				q25aNumberOfVeteransTable.setQ25aTotWithChildAndAdults(BigInteger.valueOf(0));
 				q25aNumberOfVeteransTable.setQ25aTotUnknownHouseHold(BigInteger.valueOf(0));

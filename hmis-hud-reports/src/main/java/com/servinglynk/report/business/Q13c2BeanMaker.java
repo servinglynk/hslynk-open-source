@@ -4,11 +4,18 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
+import com.servinglynk.report.bean.ClientModel;
+import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q13c2BeanMaker {
 
-	public static List<Q13c2NumberOfConditionsForStayerDataBean> getQ13c2NumberOfConditionsForStayerList(){
+	public static List<Q13c2NumberOfConditionsForStayerDataBean> getQ13c2NumberOfConditionsForStayerList(ReportData data){
+		
+		List<ClientModel> clients = data.getClients();
+		List<ExitModel> exits = data.getExits();
+		
 		Q13c2NumberOfConditionsForStayerDataBean q13c2NumberOfConditionsForStayersTableBean = new Q13c2NumberOfConditionsForStayerDataBean();
 		
 		q13c2NumberOfConditionsForStayersTableBean.setQ13c2NoneTotal(BigInteger.valueOf(0));
@@ -53,7 +60,8 @@ public class Q13c2BeanMaker {
 		q13c2NumberOfConditionsForStayersTableBean.setQ13c2InformationmissingWithOnlychildren(BigInteger.valueOf(0));
 		q13c2NumberOfConditionsForStayersTableBean.setQ13c2InformationmissingUnknowHousehold(BigInteger.valueOf(0));
 		
-		q13c2NumberOfConditionsForStayersTableBean.setQ13c2TotalSummed(BigInteger.valueOf(0));
+		int stayers = clients !=null && exits != null ? clients.size() - exits.size() : 0;
+		q13c2NumberOfConditionsForStayersTableBean.setQ13c2TotalSummed(BigInteger.valueOf(stayers));
 		q13c2NumberOfConditionsForStayersTableBean.setQ13c2TotalWithoutChildren(BigInteger.valueOf(0));
 		q13c2NumberOfConditionsForStayersTableBean.setQ13c2TotalWithChildAndAdults(BigInteger.valueOf(0));
 		q13c2NumberOfConditionsForStayersTableBean.setQ13c2TotalWithOnlychildren(BigInteger.valueOf(0));

@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q11AgeDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q11BeanMaker {
 	
-	public static List<Q11AgeDataBean> getQ11AgeList(){
+	public static List<Q11AgeDataBean> getQ11AgeList(ReportData data){
 		
 				Q11AgeDataBean q11AgeDataBean = new Q11AgeDataBean();
 		      	
@@ -73,7 +74,7 @@ public class Q11BeanMaker {
 	    		q11AgeDataBean.setAge5to12WCA(BigInteger.valueOf(0));
 	    		q11AgeDataBean.setAge5to12WithOnlyChild(BigInteger.valueOf(0));
 	    		q11AgeDataBean.setAge5to12WOC(BigInteger.valueOf(0));
-	    		q11AgeDataBean.setTotMAISubtotal(BigInteger.valueOf(0));
+	    		q11AgeDataBean.setTotMAISubtotal(BigInteger.valueOf(data.getTotNumOfPersonServed()));
 	    		
 	         	return Arrays.asList(q11AgeDataBean);
 		

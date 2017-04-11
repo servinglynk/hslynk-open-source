@@ -3,14 +3,23 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.Q25cGenderVeteransDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q25cGenderVeteransDataBeanMaker {
 	
-	public static List<Q25cGenderVeteransDataBean> getQ25cGenderVeteransList(){
+	public static List<Q25cGenderVeteransDataBean> getQ25cGenderVeteransList(ReportData data){
 		
-		Q25cGenderVeteransDataBean q25cGenderVeteranTable = new Q25cGenderVeteransDataBean();
+				List<ClientModel> clients = data.getClients();
+				List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
+
+		
+				Q25cGenderVeteransDataBean q25cGenderVeteranTable = new Q25cGenderVeteransDataBean();
 		
 				q25cGenderVeteranTable.setQ25cMaleTotal(BigInteger.valueOf(0));
 				q25cGenderVeteranTable.setQ25cMaleWithoutChildren(BigInteger.valueOf(0));
@@ -47,7 +56,7 @@ public class Q25cGenderVeteransDataBeanMaker {
 				q25cGenderVeteranTable.setQ25cInformationMissingWithChildAndAdults(BigInteger.valueOf(0));
 				q25cGenderVeteranTable.setQ25cInformationMissingUnknownHouseHold(BigInteger.valueOf(0));
 							
-				q25cGenderVeteranTable.setQ25cTotTotal(BigInteger.valueOf(0));
+				q25cGenderVeteranTable.setQ25cTotTotal(BigInteger.valueOf(veterans !=null ? veterans.size() : 0));
 				q25cGenderVeteranTable.setQ25cTotWithoutChildren(BigInteger.valueOf(0));
 				q25cGenderVeteranTable.setQ25cTotWithChildAndAdults(BigInteger.valueOf(0));
 				q25cGenderVeteranTable.setQ25cTotUnknownHouseHold(BigInteger.valueOf(0));

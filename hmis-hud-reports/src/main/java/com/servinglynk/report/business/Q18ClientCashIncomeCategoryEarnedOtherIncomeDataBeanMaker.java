@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker {
 
-	public static List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(){
+	public static List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
 		
 		Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean q18ClientCashIncomeCategoryEarnedOtherIncomeTableData = new Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean();
 		
@@ -39,9 +40,9 @@ public class Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker {
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup(BigInteger.valueOf(0));
-		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18TotalAdultsNumberOfAdultsAtEntry(BigInteger.valueOf(0));
-		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18TotalAdultsNumberOfAdultsAtExit(BigInteger.valueOf(0));
-		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18TotalAdultsNumberOfAdultsAtFollowup(BigInteger.valueOf(0));
+		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18TotalAdultsNumberOfAdultsAtEntry(BigInteger.valueOf(data.getNumOfAdults()));
+		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18TotalAdultsNumberOfAdultsAtExit(BigInteger.valueOf(data.getTotNoOfAdultLeavers()));
+		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18TotalAdultsNumberOfAdultsAtFollowup(BigInteger.valueOf(data.getTotNoOfAdultStayers()));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtExit(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup(BigInteger.valueOf(0));

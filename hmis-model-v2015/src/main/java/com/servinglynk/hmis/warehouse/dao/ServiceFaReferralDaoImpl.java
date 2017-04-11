@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral;
@@ -44,7 +45,8 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
 					serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
 					serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
-					
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					serviceFaReferralModel.setEnrollmentid(enrollment);
 					serviceFaReferralModel.setDeleted(false);
 					serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 					serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));

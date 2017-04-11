@@ -14,7 +14,6 @@ import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
-import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 import com.servinglynk.report.bean.ReportData;
 
 public class Q05aBeanMaker extends BaseBeanMaker {
@@ -28,12 +27,13 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 		List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> client.getDob() == null).collect(Collectors.toList());
 		List<ExitModel> exits = data.getExits();
 		List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
+		
 		q05aReportValidationsTableBean.setTotNumOfPersonServed(BigInteger.valueOf(clients !=null ? clients.size() : 0));
 		q05aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
 		q05aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
 		q05aReportValidationsTableBean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(ageUnknown !=null ? ageUnknown.size() :0));
 		
-		q05aReportValidationsTableBean.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(1));
+		q05aReportValidationsTableBean.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(data.getNoOfAdultHeadsOfHousehold()));
 		q05aReportValidationsTableBean.setNoOfChildHeadsOfHousehold(BigInteger.valueOf(1));
 		q05aReportValidationsTableBean.setNoOfChronicallyHomelessPersons(BigInteger.valueOf(1));
 		q05aReportValidationsTableBean.setNoOfVeterans(BigInteger.valueOf(veterans !=null ? veterans.size() : 0));
@@ -43,9 +43,12 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 		q05aReportValidationsTableBean.setNumOfYouthUnderAge25(BigInteger.valueOf(1));
 		q05aReportValidationsTableBean.setTotNoOfAdultLeavers(BigInteger.valueOf(1));
 		q05aReportValidationsTableBean.setTotNoOfAdultStayers(BigInteger.valueOf(1));
+		
 		q05aReportValidationsTableBean.setTotNoOfLeavers(BigInteger.valueOf(exits != null ? exits.size() : 0));
+		
 		int stayers = clients !=null && exits != null ? clients.size() - exits.size() : 0;
 		q05aReportValidationsTableBean.setTotNoOfStayers(BigInteger.valueOf(stayers));
+		
 		q05aReportValidationsTableBean.setTotNumOfPersonServed(BigInteger.valueOf(1));
 		
         return Arrays.asList(q05aReportValidationsTableBean);
