@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.base.service.core.security;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,12 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 	}
 	
 	
-	public boolean checkApiAuthForUser(Session session, String apiMethodId){
+	public boolean checkApiAuthForUser(Session session, String apiMethodId,UUID clientId){
 		boolean flag = serviceFactory.getAccountService().checkApiAuthorizationForUser(session.getAccount(), apiMethodId);
 		if(flag) this.extendUserSession(session.getToken());
+		if(flag) flag = serviceFactory.getAccountService().checkClientConsentAuthorizationForUser(session.getAccount(), clientId,apiMethodId);
 		return flag;
-	}
-	
+	}	
 	public void extendUserSession(String accessToken){
 		serviceFactory.getAccountService().extendUserSession(accessToken);
 	}

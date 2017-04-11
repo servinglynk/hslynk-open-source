@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.core.web.interceptor;
 
+import java.util.Map;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,12 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 
 
 public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter /*implements HandlerInterceptor*/	{
@@ -78,10 +83,21 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter /*impleme
 		session.setToken(apiAuthCheck.getAccessToken());
 		session.setAccount(apiAuthCheck.getAccount());
 		this.sessionHelper.setSession(session, request);
+
+		Map pathVariables = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		
+		UUID clientId = null;
+		
+		if(pathVariables.get("clientid")!=null)
+			clientId = UUID.fromString(pathVariables.get("clientid")+"");
+
+		// Checking client consent permissions
 		// Check User Having Permission
-		if(isSessionTokenCheckRequired)
-			return this.apiAuthChecker.checkApiAuthForUser(session, apiMethodId);
+		if(isSessionTokenCheckRequired){
+			boolean flag = this.apiAuthChecker.checkApiAuthForUser(session, apiMethodId,clientId);
+			if(!flag) throw new AccessDeniedException();
+			return flag;
+		}
 		else
 			return true;
 	}

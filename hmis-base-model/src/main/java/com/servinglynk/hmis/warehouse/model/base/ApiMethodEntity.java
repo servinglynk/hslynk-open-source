@@ -68,6 +68,12 @@ public class ApiMethodEntity extends BaseModel {
 	@JoinColumn(name = "detailed_consent_message_id", referencedColumnName="id")
 	private ConsentMessage detailConsentMessage;
 	
+	@Column(name="client_consent_required")
+	private boolean clientConsentRequired;
+	
+	@Column(name="client_consent_group")
+	private String clientConsentGroup;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -156,4 +162,16 @@ public class ApiMethodEntity extends BaseModel {
 	public void setRequiresCheckTrustedApp(Boolean requiresCheckTrustedApp) {
 		this.requiresCheckTrustedApp = requiresCheckTrustedApp;
 	}
+	public boolean isClientConsentRequired() {
+		return clientConsentRequired;
+	}
+	public void setClientConsentRequired(boolean clientConsentRequired) {
+		this.clientConsentRequired = clientConsentRequired;
+	}
+	public String getClientConsentGroup() {
+		return clientConsentGroup;
+	}
+	public void setClientConsentGroup(String clientConsentGroup) {
+		this.clientConsentGroup = clientConsentGroup;
+	}	
 }

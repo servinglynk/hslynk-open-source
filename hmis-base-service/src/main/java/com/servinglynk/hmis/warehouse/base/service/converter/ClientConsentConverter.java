@@ -1,9 +1,14 @@
 package com.servinglynk.hmis.warehouse.base.service.converter;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentEntityModel;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
+import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
 public class ClientConsentConverter {
 
@@ -13,11 +18,7 @@ public class ClientConsentConverter {
 		entity.setStartTime(model.getStartTime());
 		entity.setEndTime(model.getEndTime());
 		entity.setConsentDocument(model.getConsentDocumentLink());
-		for(ClientConsentEntityModel entityModel : model.getClientConsentEntities().getClientConsentEntities()){
-			ClientConsentEntitiesEntity consentEntitiesEntity = ClientConsentConverter.modelToEntity(entityModel, null);
-			consentEntitiesEntity.setClientConsentEntity(entity);
-			entity.addConsentEntities(consentEntitiesEntity);
-		}
+		entity.setEntityGroup(model.getEntityGroup());
 		return entity;
 	}
 
@@ -29,9 +30,6 @@ public class ClientConsentConverter {
 		model.setConsentDocumentLink(entity.getConsentDocument());
 		model.setStatus(entity.getStatus());
 		model.setId(entity.getId());
-		for(ClientConsentEntitiesEntity clientConsentEntitiesEntity : entity.getConsentEntities()){
-			model.getClientConsentEntities().addClientConsentEntity(ClientConsentConverter.entityToModel(clientConsentEntitiesEntity));			
-		}
 		return model;
 	}
 

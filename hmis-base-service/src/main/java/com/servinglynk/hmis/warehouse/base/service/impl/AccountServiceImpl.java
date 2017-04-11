@@ -333,7 +333,21 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 		return true;
 	}
+	
+	@Transactional
+	public boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid,String apiMethodId) {
+		ApiMethodEntity apiMethodEntity = daoFactory.getApiMethodDao().findByExternalId(apiMethodId);
 
+		if (apiMethodEntity == null)
+			throw new ApiMethodNotFoundException();
+
+		if (!apiMethodEntity.isClientConsentRequired())
+			return true;
+		boolean isAccess = daoFactory.getClientConsentDao().checkClientAccess(clientid, account.getProjectGroup().getProjectGroupCode(), account.getAccountId(),apiMethodEntity.getClientConsentGroup());
+			if(!isAccess) logger.debug("User does not have client consent for requested client ");
+		return isAccess;
+	}
+	
 	@Transactional
 	public void extendUserSession(String accessToken) {
 		SessionEntity sessionEntity = null;

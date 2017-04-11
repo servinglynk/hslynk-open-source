@@ -109,7 +109,6 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 		return false;
 	}
 
-
 	@Override
 	public UserRoleMapEntity createUserRole(UserRoleMapEntity userRoleMapEntity) {
 		insert(userRoleMapEntity);
