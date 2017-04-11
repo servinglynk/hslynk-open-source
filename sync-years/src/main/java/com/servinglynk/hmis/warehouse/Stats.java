@@ -68,8 +68,8 @@ public class Stats {
 	
 	public static void main(String args[]) throws Exception {
 		int count =0;
-		String schema ="v2016";
-		String projectGroupCode ="MO0010";
+		String schema ="v2014";
+		String projectGroupCode ="HO0002";
 		List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
 		for(String tableName : allTablesFromPostgres) {
 			count = count + getTableCount(tableName, projectGroupCode, schema);
