@@ -19,7 +19,7 @@
             <directory>${project.build.directory}</directory>
             <outputDirectory>/target/</outputDirectory>
             <includes>
-                <include>hmis-load-processor-v2014-0.0.2-SNAPSHOT.jar</include>
+                <include>hmis-load-processor-v2014-2.0.jar</include>
             </includes>
         </fileSet>
     </fileSets>

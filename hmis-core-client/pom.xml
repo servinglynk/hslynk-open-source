@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>core-client</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>2.0</version>
 	<name>Core client </name>
 	<description>Core client for inter service calls (REST)</description>
 
@@ -11,7 +11,7 @@
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
 	</scm>
 	<properties>
-		<parent-version>0.0.2-SNAPSHOT</parent-version>
+		<parent-version>2.0</parent-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-serialize</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

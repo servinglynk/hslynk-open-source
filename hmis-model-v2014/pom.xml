@@ -6,12 +6,12 @@
 	<artifactId>hmis-model-v2014</artifactId>
 	<name>hmis-model-v2014</name>
 	<packaging>jar</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>2.0</version>
 	<scm>
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>0.0.2-SNAPSHOT</parent-version>
+		<parent-version>2.0</parent-version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
