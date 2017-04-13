@@ -20,7 +20,7 @@ public class Q10aBeanMaker {
 	q10AGenderOfAdults.setTotOther(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotDontKnowRefused(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotInfoMissing(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setTotSubtotal(BigInteger.valueOf(data.getNumOfAdults()));
+	q10AGenderOfAdults.setTotSubtotal(data.getNumOfAdults());
 	q10AGenderOfAdults.setMaleWOC(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setMaleWCA(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setMaleUHHT(BigInteger.valueOf(0));

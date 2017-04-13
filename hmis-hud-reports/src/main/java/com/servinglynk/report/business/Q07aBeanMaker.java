@@ -33,7 +33,7 @@ public class Q07aBeanMaker {
         	q07aHouseholdsServed.setDncWithChildAndAdults(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setDncWithOnlychildren(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setDncUnknownHousehold(BigInteger.valueOf(0));
-        	q07aHouseholdsServed.setTotTotal(BigInteger.valueOf(data.getTotNumOfPersonServed()));
+        	q07aHouseholdsServed.setTotTotal(data.getTotNumOfPersonServed());
         	q07aHouseholdsServed.setTotWithOutChildren(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setTotWithChildAndAdults(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setTotWithOnlychildren(BigInteger.valueOf(0));

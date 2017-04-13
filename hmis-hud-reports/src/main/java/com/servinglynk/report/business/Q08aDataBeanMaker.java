@@ -13,7 +13,7 @@ public class Q08aDataBeanMaker {
     	
         	Q08aDataBean q08aDataBean = new Q08aDataBean();
         	
-        	int totalHouseHolds = data.getNoOfAdultHeadsOfHousehold()+data.getNoOfChildHeadsOfHousehold();
+        	int totalHouseHolds = data.getNoOfAdultHeadsOfHousehold().intValue()+data.getNoOfChildHeadsOfHousehold().intValue();
         	q08aDataBean.setOverAllTotHouseHolds(BigInteger.valueOf(totalHouseHolds));
         	
         	q08aDataBean.setTotHhWithoutChild(BigInteger.valueOf(0));

@@ -74,7 +74,7 @@ public class Q11BeanMaker {
 	    		q11AgeDataBean.setAge5to12WCA(BigInteger.valueOf(0));
 	    		q11AgeDataBean.setAge5to12WithOnlyChild(BigInteger.valueOf(0));
 	    		q11AgeDataBean.setAge5to12WOC(BigInteger.valueOf(0));
-	    		q11AgeDataBean.setTotMAISubtotal(BigInteger.valueOf(data.getTotNumOfPersonServed()));
+	    		q11AgeDataBean.setTotMAISubtotal(data.getTotNumOfPersonServed());
 	    		
 	         	return Arrays.asList(q11AgeDataBean);
 		

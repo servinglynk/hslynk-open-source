@@ -19,7 +19,7 @@ public class Q10cBeanMaker {
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIOther(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIDontKnowRefused(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIInfoMissing(BigInteger.valueOf(0));
-	q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(BigInteger.valueOf(data.getNumOfPersonsWithUnknownAge()));
+	q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(data.getNumOfPersonsWithUnknownAge());
 	q10cGenderofPersonsMissingAgeInformation.setMaleMAIWOC(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setMaleMAIWCA(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setMaleMAIUHHT(BigInteger.valueOf(0));

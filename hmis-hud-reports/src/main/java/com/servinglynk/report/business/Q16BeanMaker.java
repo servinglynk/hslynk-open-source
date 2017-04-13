@@ -71,9 +71,9 @@ public class Q16BeanMaker {
 		q16CashIncomeRangesTableBean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtExitforLeavers(BigInteger.valueOf(0));
 		q16CashIncomeRangesTableBean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(0));
 
-		q16CashIncomeRangesTableBean.setQ16TotalAdultsIncomeAtEntry(BigInteger.valueOf(data.getNumOfAdults()));
-		q16CashIncomeRangesTableBean.setQ16TotalAdultsIncomeAtExitforLeavers(BigInteger.valueOf(data.getTotNoOfAdultLeavers()));
-		q16CashIncomeRangesTableBean.setQ16TotalAdultsIncomeAtLatestFollowupforStayers(BigInteger.valueOf(data.getTotNoOfAdultStayers()));
+		q16CashIncomeRangesTableBean.setQ16TotalAdultsIncomeAtEntry(data.getNumOfAdults());
+		q16CashIncomeRangesTableBean.setQ16TotalAdultsIncomeAtExitforLeavers(data.getTotNoOfAdultLeavers());
+		q16CashIncomeRangesTableBean.setQ16TotalAdultsIncomeAtLatestFollowupforStayers(data.getTotNoOfAdultStayers());
 		
 		return Arrays.asList(q16CashIncomeRangesTableBean);
 	}

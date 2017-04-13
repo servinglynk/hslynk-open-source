@@ -67,7 +67,7 @@ public class Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker {
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dInformationMissingWithOnlyChild(BigInteger.valueOf(0));
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dInformationMissingUnknownHouseholdType(BigInteger.valueOf(0));
 
-		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalTotal(BigInteger.valueOf(data.getNoOfChronicallyHomelessPersons()));
+		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalTotal(data.getNoOfChronicallyHomelessPersons());
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalWithoutChild(BigInteger.valueOf(0));
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalWithChildAndAdults(BigInteger.valueOf(0));
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalWithOnlyChild(BigInteger.valueOf(0));

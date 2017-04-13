@@ -57,7 +57,7 @@ public class Q27eLengthOfParticipationYouthDataBeanMaker {
 		q27eLengthOfParticipationYouthTable.setQ27eInformationMissingStayers(BigInteger.valueOf(0));
 		q27eLengthOfParticipationYouthTable.setQ27eInformationMissingLeavers(BigInteger.valueOf(0));
 
-		q27eLengthOfParticipationYouthTable.setQ27eTotalAtEntry(BigInteger.valueOf(data.getNumOfYouthUnderAge25()));
+		q27eLengthOfParticipationYouthTable.setQ27eTotalAtEntry(data.getNumOfYouthUnderAge25());
 		q27eLengthOfParticipationYouthTable.setQ27eTotalStayers(BigInteger.valueOf(0));
 		q27eLengthOfParticipationYouthTable.setQ27eTotalLeavers(BigInteger.valueOf(0));
 		

@@ -13,7 +13,7 @@ public static List<Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean> ge
 		
 	Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean q26bNumberOfChronicallyHomelessPersonsByHouseholdTable = new Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean();
 		
-		q26bNumberOfChronicallyHomelessPersonsByHouseholdTable.setQ26bChronicallyHomelessTotal(BigInteger.valueOf(data.getNoOfChronicallyHomelessPersons()));
+		q26bNumberOfChronicallyHomelessPersonsByHouseholdTable.setQ26bChronicallyHomelessTotal(data.getNoOfChronicallyHomelessPersons());
 		q26bNumberOfChronicallyHomelessPersonsByHouseholdTable.setQ26bChronicallyHomelessWithoutChild(BigInteger.valueOf(0));
 		q26bNumberOfChronicallyHomelessPersonsByHouseholdTable.setQ26bChronicallyHomelessWithChildAndAdults(BigInteger.valueOf(0));
 		q26bNumberOfChronicallyHomelessPersonsByHouseholdTable.setQ26bChronicallyHomelessWithOnlyChild(BigInteger.valueOf(0));

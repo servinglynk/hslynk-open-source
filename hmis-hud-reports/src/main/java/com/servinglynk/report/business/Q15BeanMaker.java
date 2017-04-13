@@ -11,7 +11,7 @@ public class Q15BeanMaker {
 	
 	public static List<Q15ResidencePriorToProgramEntryDataBean> getQ15ResidencePriorToProgramEntryList(ReportData data) {
 		
-		int overallTot = data.getNumOfAdults() + data.getNoOfChildHeadsOfHousehold();
+		int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();
 		
 		Q15ResidencePriorToProgramEntryDataBean q15ResidencePriorToProgramEntrTableBean = new Q15ResidencePriorToProgramEntryDataBean();
 		

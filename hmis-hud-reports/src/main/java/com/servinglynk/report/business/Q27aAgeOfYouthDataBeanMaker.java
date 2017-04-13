@@ -37,7 +37,7 @@ public class Q27aAgeOfYouthDataBeanMaker {
 				q27aAgeOfYoutTable.setQ27aInformationMissingWithChildOnly(BigInteger.valueOf(0));
 				q27aAgeOfYoutTable.setQ27aInformationMissingUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-				q27aAgeOfYoutTable.setQ27aTotTotal(BigInteger.valueOf(data.getNumOfYouthUnderAge25()));
+				q27aAgeOfYoutTable.setQ27aTotTotal(data.getNumOfYouthUnderAge25());
 				q27aAgeOfYoutTable.setQ27aTotWithoutChild(BigInteger.valueOf(0));
 				q27aAgeOfYoutTable.setQ27aTotWithChildAndAdults(BigInteger.valueOf(0));
 				q27aAgeOfYoutTable.setQ27aTotWithChildOnly(BigInteger.valueOf(0));

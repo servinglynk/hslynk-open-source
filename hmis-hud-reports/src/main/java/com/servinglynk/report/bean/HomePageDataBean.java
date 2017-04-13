@@ -24,8 +24,8 @@ public class HomePageDataBean {
 	private String q04aProjectId;
 	private String q04aProjectName;
 	
-	private List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISComparableDBDataQualityDataBean;
-	private List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableDataBean;
+	private List<Q05aDataBean> q05aHMISComparableDBDataQualityDataBean;
+	private List<Q06aDataBean> q06aReportValidationsTableDataBean;
 	private List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedDataBean;
 	private List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayDataBean;
 	private List<Q06dDataBean> q06dDataBean;
@@ -189,18 +189,18 @@ public class HomePageDataBean {
 	public void setQ04aProjectName(String q04aProjectName) {
 		this.q04aProjectName = q04aProjectName;
 	}
-	public List<Q05aHMISComparableDBDataQualityDataBean> getQ05aHMISComparableDBDataQualityDataBean() {
+	public List<Q05aDataBean> getQ05aHMISComparableDBDataQualityDataBean() {
 		return q05aHMISComparableDBDataQualityDataBean;
 	}
 	public void setQ05aHMISComparableDBDataQualityDataBean(
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISComparableDBDataQualityDataBean) {
+			List<Q05aDataBean> q05aHMISComparableDBDataQualityDataBean) {
 		this.q05aHMISComparableDBDataQualityDataBean = q05aHMISComparableDBDataQualityDataBean;
 	}
-	public List<Q06aReportValidationsTableDataBean> getQ06aReportValidationsTableDataBean() {
+	public List<Q06aDataBean> getQ06aReportValidationsTableDataBean() {
 		return q06aReportValidationsTableDataBean;
 	}
 	public void setQ06aReportValidationsTableDataBean(
-			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableDataBean) {
+			List<Q06aDataBean> q06aReportValidationsTableDataBean) {
 		this.q06aReportValidationsTableDataBean = q06aReportValidationsTableDataBean;
 	}
 	public List<Q06bNumberOfPersonsServedDataBean> getQ06bNumberOfPersonsServedDataBean() {

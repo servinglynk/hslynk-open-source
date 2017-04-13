@@ -29,9 +29,9 @@ public class Q20bNumberOfNonCashBenefitSourcesDataBeanMaker {
 				q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtLatestStayers(BigInteger.valueOf(0));
 				q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtExitLeavers(BigInteger.valueOf(0));
 
-				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtEntry(BigInteger.valueOf(data.getNumOfAdults()));
-				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtLatestStayers(BigInteger.valueOf(data.getTotNoOfAdultStayers()));
-				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtExitLeavers(BigInteger.valueOf(data.getTotNoOfAdultLeavers()));
+				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtEntry(data.getNumOfAdults());
+				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtLatestStayers(data.getTotNoOfAdultStayers());
+				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtExitLeavers(data.getTotNoOfAdultLeavers());
 						
 		
 		return Arrays.asList(q20bNumberOfNonCashBenefitSourcesTable);

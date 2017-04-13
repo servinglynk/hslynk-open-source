@@ -57,7 +57,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker {
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1KInfoMissingLeavers(BigInteger.valueOf(0));
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1KInfoMissingStayers(BigInteger.valueOf(0));
 
-				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotTotal(BigInteger.valueOf(data.getTotNumOfPersonServed()));
+				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotTotal(data.getTotNumOfPersonServed());
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotLeavers(BigInteger.valueOf(0));
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotStayers(BigInteger.valueOf(0));
 						

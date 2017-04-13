@@ -20,8 +20,8 @@ import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
-import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
-import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
+import com.servinglynk.report.bean.Q05aDataBean;
+import com.servinglynk.report.bean.Q06aDataBean;
 import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
 import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
 import com.servinglynk.report.bean.Q06dDataBean;
@@ -124,27 +124,27 @@ public class HomePageDataBeanMaker {
 			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 			data.setExits(filteredExits);
 			
-			data.setTotNumOfPersonServed(15);  //Refers --> Total number of persons served 
-			data.setNumOfAdults(11); //Refers --> Number of adults (age 18 or over)
-			data.setNumOfChildren(4); //Refers --> Number of children (under age 18)
-			data.setNumOfPersonsWithUnknownAge(0); // Refers --> Number of persons with unknown age
-			data.setTotNoOfAdultLeavers(3); //Refers --> Number of adult leavers
-			data.setNumOfAdultandHeadOfHHLeavers(3); // Refers --> Number of adult and head of household leavers
-			data.setTotNoOfAdultStayers(8); // Refers --> Number of adult stayers
-			data.setNoOfChronicallyHomelessPersons(0); // Refers --> Number of chronically homeless persons
-			data.setNumOfYouthUnderAge25(0); // Refers --> Number of youth under age 25
-			data.setNumOfParentingYouthUnderAge25WithChildren(0); // Refers --> Number of parenting youth under age 25 with children
-			data.setNoOfAdultHeadsOfHousehold(10); //Refers --> Number of adult heads of household
-			data.setNoOfChildHeadsOfHousehold(0); // Refers --> Number of child and unknown-age Heads of household
-			data.setNumOfHeadsOfHHandAdults365Days(1); // Refers --> Heads of households and adult stayers in the project 365 days or more
-			
-			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aReportValidationsTableList(data);
+//			data.setTotNumOfPersonServed(15);  //Refers --> Total number of persons served 
+//			data.setNumOfAdults(11); //Refers --> Number of adults (age 18 or over)
+//			data.setNumOfChildren(4); //Refers --> Number of children (under age 18)
+//			data.setNumOfPersonsWithUnknownAge(0); // Refers --> Number of persons with unknown age
+//			data.setTotNoOfAdultLeavers(3); //Refers --> Number of adult leavers
+//			data.setNumOfAdultandHeadOfHHLeavers(3); // Refers --> Number of adult and head of household leavers
+//			data.setTotNoOfAdultStayers(8); // Refers --> Number of adult stayers
+//			data.setNoOfChronicallyHomelessPersons(0); // Refers --> Number of chronically homeless persons
+//			data.setNumOfYouthUnderAge25(0); // Refers --> Number of youth under age 25
+//			data.setNumOfParentingYouthUnderAge25WithChildren(0); // Refers --> Number of parenting youth under age 25 with children
+//			data.setNoOfAdultHeadsOfHousehold(10); //Refers --> Number of adult heads of household
+//			data.setNoOfChildHeadsOfHousehold(0); // Refers --> Number of child and unknown-age Heads of household
+//			data.setNumOfHeadsOfHHandAdults365Days(1); // Refers --> Heads of households and adult stayers in the project 365 days or more
+//			
+			List<Q05aDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aBeanData(data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "Q5a.jrxml", "Q5a.csv");
 			}
 			
-			List<Q06aReportValidationsTableDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getQ06aReportValidationsTableList(data);
+			List<Q06aDataBean> q06aReportValidationsTableList = Q06aBeanMaker.getBeanData(data);
 			if(q06aReportValidationsTableList != null) {
 				CSVGenerator.buildReport(q06aReportValidationsTableList, "Q6a.jrxml", "Q6a.csv");
 			}

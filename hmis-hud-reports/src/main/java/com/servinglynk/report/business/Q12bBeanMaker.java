@@ -37,7 +37,7 @@ public class Q12bBeanMaker {
 		q12bEthnicityDataBean.setQ12bInformationMissingWithOnlyChildren(BigInteger.valueOf(0));
 		q12bEthnicityDataBean.setQ12bInformationMissingUnkownhouseholdtype(BigInteger.valueOf(0));
 
-		q12bEthnicityDataBean.setQ12bTotalSummed(BigInteger.valueOf(data.getTotNumOfPersonServed()));
+		q12bEthnicityDataBean.setQ12bTotalSummed(data.getTotNumOfPersonServed());
 		q12bEthnicityDataBean.setQ12bTotalWithoutChildren(BigInteger.valueOf(0));
 		q12bEthnicityDataBean.setQ12bTotalWithChildrenAndAdults(BigInteger.valueOf(0));
 		q12bEthnicityDataBean.setQ12bTotalWithOnlyChildren(BigInteger.valueOf(0));

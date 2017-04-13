@@ -55,7 +55,7 @@ public class Q27cGenderYouthDataBeanMaker {
 		q27cGenderYouthTable.setQ27cInformationMissingWithChildOnly(BigInteger.valueOf(0));
 		q27cGenderYouthTable.setQ27cInformationMissingUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27cGenderYouthTable.setQ27cTotTotal(BigInteger.valueOf(data.getNumOfYouthUnderAge25()));
+		q27cGenderYouthTable.setQ27cTotTotal(data.getNumOfYouthUnderAge25());
 		q27cGenderYouthTable.setQ27cTotWithoutChild(BigInteger.valueOf(0));
 		q27cGenderYouthTable.setQ27cTotWithChildAndAdults(BigInteger.valueOf(0));
 		q27cGenderYouthTable.setQ27cTotWithChildOnly(BigInteger.valueOf(0));

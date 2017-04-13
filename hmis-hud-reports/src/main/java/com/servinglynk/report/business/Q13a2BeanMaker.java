@@ -55,7 +55,7 @@ public class Q13a2BeanMaker {
     	q13a2NumberofConditioinsTableBean.setQ13a2InformationmissingWithOnlychildren(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2InformationmissingUnknowHousehold(BigInteger.valueOf(0));
     	
-    	q13a2NumberofConditioinsTableBean.setQ13a2TotalSummed(BigInteger.valueOf(data.getTotNumOfPersonServed()));
+    	q13a2NumberofConditioinsTableBean.setQ13a2TotalSummed(data.getTotNumOfPersonServed());
     	q13a2NumberofConditioinsTableBean.setQ13a2TotalWithoutChildren(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2TotalWithChildAndAdults(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2TotalWithOnlychildren(BigInteger.valueOf(0));

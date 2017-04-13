@@ -11,7 +11,7 @@ public class Q14aBeanMaker {
 	
 	public static List<Q14aDomesticViolenceHistoryDataBean> getQ14aDomesticViolenceHistoryList(ReportData data) {
 		
-		int overallTot = data.getNumOfAdults() + data.getNoOfChildHeadsOfHousehold();
+		int overallTot = data.getNumOfAdults() .intValue()+ data.getNoOfChildHeadsOfHousehold().intValue();
 		
 		Q14aDomesticViolenceHistoryDataBean q14aDomesticViolenceHistoryTableBean= new Q14aDomesticViolenceHistoryDataBean();
 		

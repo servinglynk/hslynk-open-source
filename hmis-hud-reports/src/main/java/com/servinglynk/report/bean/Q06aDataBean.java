@@ -3,7 +3,7 @@ package com.servinglynk.report.bean;
 import java.math.BigInteger;
 
 
-public class Q06aReportValidationsTableDataBean extends ReportBean{
+public class Q06aDataBean extends ReportBean{
 	
 	private BigInteger nameCDK;
 	private BigInteger nameInfoMissing;
