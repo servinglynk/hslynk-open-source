@@ -56,6 +56,9 @@ public class Q06aBeanMaker {
 			if(StringUtil.equals("99", client.getName_data_quality())) {
 				nameInfoMissing++;
 			}
+			if(StringUtil.equals("2", client.getName_data_quality())) {
+				nameDataIssue++;
+			}
 			//Sandeept TODO: What is a name data issue and what is % Error rate.
 			if(StringUtil.equals("8", client.getSsn_data_quality()) || StringUtil.equals("9", client.getSsn_data_quality()))  {
 				ssnCDK++;
@@ -63,11 +66,17 @@ public class Q06aBeanMaker {
 			if(StringUtil.equals("99", client.getSsn_data_quality())) {
 				ssnInfoMissing++;
 			}
+			if(StringUtil.equals("2", client.getSsn_data_quality())) {
+				ssnDataIssue++;
+			}
 			if(StringUtil.equals("8", client.getDob_data_quality()) || StringUtil.equals("9", client.getDob_data_quality()))  {
 				dobCDK++;
 			}
 			if(StringUtil.equals("99", client.getDob_data_quality())) {
 				dobInfoMissing++;
+			}
+			if(StringUtil.equals("2", client.getDob_data_quality())) {
+				dobDataIssue++;
 			}
 			if(StringUtil.equals("8", client.getRace()) || StringUtil.equals("9", client.getRace()))  {
 				raceCDK++;
@@ -75,11 +84,17 @@ public class Q06aBeanMaker {
 			if(StringUtil.equals("99", client.getRace())) {
 				raceInfoMissing++;
 			}
+			if(StringUtil.equals("2", client.getRace())) {
+				raceDataIssue++;
+			}
 			if(StringUtil.equals("8", client.getEthnicity()) || StringUtil.equals("9", client.getEthnicity()))  {
 				ethnicityCDK++;
 			}
 			if(StringUtil.equals("99", client.getEthnicity())) {
 				ethnicityInfoMissing++;
+			}
+			if(StringUtil.equals("2", client.getRace())) {
+				ethnicityDataIssue++;
 			}
 			if(StringUtil.equals("8", client.getGender()) || StringUtil.equals("9", client.getGender()))  {
 				genderCDK++;
