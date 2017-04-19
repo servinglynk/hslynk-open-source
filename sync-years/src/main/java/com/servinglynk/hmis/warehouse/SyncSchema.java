@@ -266,12 +266,6 @@ public class SyncSchema extends Logging {
                 existingKeysInPostgres.add(key);
             }
 
-            existingKeysInHbase.forEach(key -> {
-                if(!existingKeysInPostgres.contains(key)){
-                    putsToDelete.add(key);
-                }
-            });
-
             logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
             if (putsToDelete.size() > 0) {
                 syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
@@ -279,10 +273,12 @@ public class SyncSchema extends Logging {
             logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
             if (putsToInsert.size() > 0) {
                 htable.put(putsToInsert);
+                htable.flushCommits();
             }
             logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
             if (putsToUpdate.size() > 0) {
                 htable.put(putsToUpdate);
+                htable.flushCommits();
             }
 
         } catch (Exception ex) {
