@@ -58,6 +58,7 @@ public class SyncHBaseProcessor extends Logging {
         }
         try {
             table.delete(deletes);
+            table.flushCommits();
         }catch (Exception ex){
             ex.printStackTrace();
         }
