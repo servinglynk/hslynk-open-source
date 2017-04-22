@@ -43,7 +43,7 @@ public class Properties {
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-            POSTGRESQL_DB_HOST = "hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com" ; //prop.getProperty("posgresql.db.host");
+            POSTGRESQL_DB_HOST = "hmis-v2-db.ct16elltavnx.us-west-2.rds.amazonaws.com" ; //prop.getProperty("posgresql.db.host");
             POSTGRESQL_DB_PORT = prop.getProperty("posgresql.db.port");
             POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
             POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
