@@ -14,7 +14,7 @@ public class Stats {
     static Connection getConnection() throws SQLException {
 		if (connection == null) {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://" + "hmis-v2-db.ct16elltavnx.us-west-2.rds.amazonaws.com" + ":" + "5432" + "/" + "hmis",
+					"jdbc:postgresql://" + "localhost" + ":" + "5432" + "/" + "hmis",
 					"hmisdb1",
 					"hmisdb1234");
 

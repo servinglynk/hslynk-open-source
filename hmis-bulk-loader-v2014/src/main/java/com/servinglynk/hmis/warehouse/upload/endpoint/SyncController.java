@@ -51,7 +51,7 @@ public class SyncController {
 	}
 		private Connection getConnection() throws SQLException {
 			Connection connection = DriverManager.getConnection(
-					"jdbc:postgresql://hmis-v2-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis", "hmisdb1",
+					"jdbc:postgresql://localhost:5432/hmis", "hmisdb1",
 					"hmisdb1234");
 			return connection;
 		}

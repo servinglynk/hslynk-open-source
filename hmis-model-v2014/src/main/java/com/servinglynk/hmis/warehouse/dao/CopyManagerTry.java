@@ -21,7 +21,7 @@ public class CopyManagerTry {
         ResultSet rs = null;
         FileReader fr = null;
 
-        String url = "jdbc:postgresql://hmis-v2-db.ct16elltavnx.us-west-2.rds.amazonaws.com:5432/hmis";
+        String url = "jdbc:postgresql://localhost:5432/hmis";
         String user = "hmisdb1";
         String password = "hmisdb1234";
 
