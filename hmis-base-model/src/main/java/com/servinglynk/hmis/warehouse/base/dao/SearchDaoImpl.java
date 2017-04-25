@@ -150,6 +150,7 @@ public class SearchDaoImpl
 	  }
 		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
 		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.isNotNull("dedupClientId"));
 	  searchRequest.getPagination().setTotal((int) countRows(criteria));
 	  
 	
