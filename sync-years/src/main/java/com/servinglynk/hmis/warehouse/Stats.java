@@ -16,7 +16,7 @@ public class Stats {
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://" + "localhost" + ":" + "5432" + "/" + "hmis",
 					"hmisdb1",
-					"hmisdb1234");
+					"good");
 
 		}
 		if (connection.isClosed()) {
