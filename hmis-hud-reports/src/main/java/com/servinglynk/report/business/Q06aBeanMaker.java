@@ -48,6 +48,7 @@ public class Q06aBeanMaker {
 		Q06aDataBean q06aBean = new Q06aDataBean();
 		
 		List<ClientModel> clients = data.getClients();
+		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
 			if(StringUtil.equals("8", client.getName_data_quality()) || StringUtil.equals("9", client.getName_data_quality()))  {
@@ -106,27 +107,27 @@ public class Q06aBeanMaker {
 		);
 		q06aBean.setNameCDK(BigInteger.valueOf(nameCDK));
 		q06aBean.setNameInfoMissing(BigInteger.valueOf(nameInfoMissing));
-		q06aBean.setNameDataIssue(BigInteger.valueOf(1));
-		q06aBean.setNamePercentageErrorRate(BigInteger.valueOf(1));
+		q06aBean.setNameDataIssue(BigInteger.valueOf(nameDataIssue));
+		q06aBean.setNamePercentageErrorRate(BigInteger.valueOf(numOfClients/nameInfoMissing));
 		q06aBean.setSsnCDK(BigInteger.valueOf(ssnCDK));
 		q06aBean.setSsnInfoMissing(BigInteger.valueOf(ssnInfoMissing));
-		q06aBean.setSsnDataIssue(BigInteger.valueOf(1));
-		q06aBean.setSsnPercentageErrorRate(BigInteger.valueOf(1));
+		q06aBean.setSsnDataIssue(BigInteger.valueOf(ssnDataIssue));
+		q06aBean.setSsnPercentageErrorRate(BigInteger.valueOf(numOfClients/ssnInfoMissing));
 		q06aBean.setDobCDK(BigInteger.valueOf(ssnCDK));
 		q06aBean.setDobInfoMissing(BigInteger.valueOf(ssnInfoMissing));
-		q06aBean.setDobDataIssue(BigInteger.valueOf(1));
-		q06aBean.setDobPercentageErrorRate(BigInteger.valueOf(1)); 
+		q06aBean.setDobDataIssue(BigInteger.valueOf(dobDataIssue));
+		q06aBean.setDobPercentageErrorRate(BigInteger.valueOf(numOfClients/dobInfoMissing)); 
 		q06aBean.setRaceCDK(BigInteger.valueOf(raceCDK));
 		q06aBean.setRaceInfoMissing(BigInteger.valueOf(raceInfoMissing));
-		q06aBean.setRaceDataIssue(BigInteger.valueOf(1));
-		q06aBean.setRacePercentageErrorRate(BigInteger.valueOf(1));
+		q06aBean.setRaceDataIssue(BigInteger.valueOf(raceDataIssue));
+		q06aBean.setRacePercentageErrorRate(BigInteger.valueOf(numOfClients/raceInfoMissing));
 		q06aBean.setEthnicityCDK(BigInteger.valueOf(ethnicityCDK));
 		q06aBean.setEthnicityInfoMissing(BigInteger.valueOf(ethnicityInfoMissing));
-		q06aBean.setEthnicityDataIssue(BigInteger.valueOf(1));
-		q06aBean.setEthnicityPercentageErrorRate(BigInteger.valueOf(1));
+		q06aBean.setEthnicityDataIssue(BigInteger.valueOf(ethnicityDataIssue));
+		q06aBean.setEthnicityPercentageErrorRate(BigInteger.valueOf(numOfClients/ethnicityInfoMissing));
 		q06aBean.setGenderCDK(BigInteger.valueOf(genderCDK));
 		q06aBean.setGenderInfoMissing(BigInteger.valueOf(genderInfoMissing));
-		q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf(1));
+		q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf(numOfClients/genderInfoMissing));
 		q06aBean.setOverAllPercentage(BigInteger.valueOf(1));
 
 
