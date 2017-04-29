@@ -5,8 +5,8 @@ bin/*
 .project
 .idea
 *.iml
-*.properties
-*.conf
+#*.properties
+#.conf
 target
 bin
 hmis-userservice/*
