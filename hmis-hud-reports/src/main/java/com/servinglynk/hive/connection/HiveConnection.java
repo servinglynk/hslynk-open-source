@@ -22,11 +22,9 @@ public class HiveConnection {
 	        System.out.println("connecting to db");
 
 	        // with this you connect to hive server specifying a database e.g. default
-	        //Connection con = DriverManager.getConnection("jdbc:hive2://ec2-52-25-176-93.us-west-2.compute.amazonaws.com:10000/default", "hive", "#HIVE#2016%s3cur3");
-
 
 	        // with this you connect to hive server without specifying a database
-	        Connection con = DriverManager.getConnection("jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/", "hdfs", "hdfs");
+	        Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/", "abc", "abc");
 	        // create statement
 	        Statement stmt = con.createStatement();
 
@@ -66,8 +64,9 @@ public class HiveConnection {
 		        // get connection
 		        System.out.println("connecting to db");
 			if (connection == null) {
-				connection = DriverManager.getConnection("jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/", "hive", "#HIVE#2016%s3cur3");
-		        // create statement
+				connection = DriverManager.getConnection("jdbc:hive2://localhost:10000/", "hive", "abc");
+		       
+				 connection = DriverManager.getConnection("jdbc:hive2://localhost:10000/", "abc", "abc");// create statement
 
 			}
 			if (connection.isClosed()) {

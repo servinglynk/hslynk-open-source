@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-hostname = 'hmisdb1.cvvhlvb3ryja.us-west-2.rds.amazonaws.com'
+hostname = 'localhost'
 username = 'hmisdb1'
 password = 'hmisdb1234'
 database = 'hmis'
