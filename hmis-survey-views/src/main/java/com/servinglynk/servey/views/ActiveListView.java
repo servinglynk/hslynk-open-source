@@ -2,33 +2,21 @@ package com.servinglynk.servey.views;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.Properties;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ViewQuery;
+import com.servinglynk.hmis.warehouse.Properties;
 
-public class ActiveListView {
-	private static Connection connection = null;
-	static Connection getConnection() throws SQLException {
-		if (connection == null) {
-			connection = DriverManager.getConnection(
-					"jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com"+ ":5432"+"/hmis",
-					"hmisdb1",
-					"hmisdb1234");
-		}
-		if (connection.isClosed()) {
-			throw new SQLException("connection could not initiated");
-		}
-		return connection;
-	}
+public class ActiveListView extends BaseView {
 
 	public static void createHiveTable(String projectGroupCode) {
 		Connection connection;
@@ -59,7 +47,7 @@ public class ActiveListView {
 	 * @param surveyId
 	 * @param score
 	 */
-	public static void insertIntoHiveTable(UUID surveyId, int score,UUID clientId,String projectGroupCode) {
+	public static void insertIntoHiveTable(String surveyId, int score,String clientId,String projectGroupCode) {
 		Connection connection;
 		try {
 			connection = HiveConnection.getConnection();
@@ -77,10 +65,10 @@ public class ActiveListView {
 				System.out.println("The Query:::"+builder.toString() + " Survey :"+surveyId.toString() + " Client:"+clientId.toString());
 				Client client = getClientByID(clientId.toString());
 				PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
-				preparedStatement.setString(1, clientId.toString());
+				preparedStatement.setString(1, clientId);
 				preparedStatement.setString(2, client.getFirstName());
 				preparedStatement.setString(3, client.getLastName());
-				preparedStatement.setString(4, surveyId.toString());
+				preparedStatement.setString(4, surveyId);
 				preparedStatement.setString(5, survey.getSurveyName());
 				preparedStatement.setString(6, new java.util.Date().toGMTString());
 				if(survey.getSurveyDate() !=null) {
@@ -108,15 +96,47 @@ public class ActiveListView {
 			connection = getConnection();
 			statement = connection.prepareStatement(ViewQuery.GET_ACTIVE_LIST_DATA);
 			resultSet = statement.executeQuery();
-			while(resultSet.next()) {
+			Map<String,String> hiveClientMap = getHiveActiveListClients(projectGroupCode);
+ 			while(resultSet.next()) {
 				int score = resultSet.getInt("score");
-				UUID surveyId =(UUID) resultSet.getObject("survey_id");
-				UUID clientId = (UUID)resultSet.getObject("client_id");
-				insertIntoHiveTable(surveyId, score, clientId,projectGroupCode);
+				String surveyId =(String) resultSet.getString("survey_id");
+				String clientId = (String)resultSet.getString("client_id");
+				String surveyIdFromHive = hiveClientMap.get(clientId);
+				if(StringUtils.isNotBlank(surveyIdFromHive)  && StringUtils.isNotBlank(surveyId) && !StringUtils.equals(surveyId.trim(), surveyIdFromHive.trim())) {
+					insertIntoHiveTable(surveyId, score, clientId,projectGroupCode);
+				}
 			}
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
+	}
+	public static Map<String,String> getHiveActiveListClients(String projectGroupCode) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		Map<String,String> hiveClientMap = new HashMap<>();
+		try {
+			connection = HiveConnection.getConnection();
+			// execute statement
+				StringBuilder builder = new StringBuilder();
+				builder.append("select client_id client,survey_id survey from ");
+				builder.append(projectGroupCode);
+				builder.append(".active_list");
+				statement = connection.prepareStatement(builder.toString());
+				resultSet = statement.executeQuery();
+				while(resultSet.next()) {
+					String clientId = resultSet.getString("client");
+					String surveyId = resultSet.getString("survey");
+					hiveClientMap.put(clientId, surveyId);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hiveClientMap;
 	}
 	public static Client getClientByID(String clientId) throws Exception{
 		ResultSet resultSet = null;
@@ -165,13 +185,15 @@ public class ActiveListView {
 	}
 
 	public static void main(String args[]) throws Exception {
+		Properties props = new Properties();
+		props.generatePropValues();
+		createHiveTable("MO0010");
 		while(true){
-			createHiveTable("MO0010");
 			processActiveList("MO0010");
 			Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
 			System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
 			Thread.sleep(1000 * seconds);
-		}
+		} 
 	}
 
 

@@ -22,7 +22,7 @@ import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aDataBean;
 import com.servinglynk.report.bean.Q06aDataBean;
-import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
+import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
 import com.servinglynk.report.bean.Q06dDataBean;
 import com.servinglynk.report.bean.Q06eDataBean;
@@ -150,7 +150,7 @@ public class HomePageDataBeanMaker {
 			}
 			homePageDataBean.setQ06aReportValidationsTableDataBean(q06aReportValidationsTableList);
 			
-			List<Q06bNumberOfPersonsServedDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(data);
+			List<Q06bDataBean> q06bNumberOfPersonsServedTableList = Q06bBeanMaker.getQ06bNumberOfPersonsServedTableList(data);
 			if(q06bNumberOfPersonsServedTableList!=null){
 				CSVGenerator.buildReport(q06bNumberOfPersonsServedTableList, "Q6b.jrxml", "Q6b.csv");
 			}

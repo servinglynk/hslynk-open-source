@@ -5,41 +5,57 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.ClientModel;
-import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
+import com.servinglynk.report.bean.EnrollmentModel;
+import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
 
 import jodd.util.StringUtil;
 
 public class Q06bBeanMaker  {
 	public static Long veteranStatusErrorCount = 0L;
+	public static Long pedErrorCount;
+	public static Long relationShipHHErrorCount;
+	public static Long clientLocationErrorCount;
+	public static Long disablingCondErrorCount;
 	
-	public static List<Q06bNumberOfPersonsServedDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
-		Q06bNumberOfPersonsServedDataBean q06bNumberOfPersonsServedDataBean = new Q06bNumberOfPersonsServedDataBean();
+	public static List<Q06bDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
+		Q06bDataBean q06bDataBean = new Q06bDataBean();
 		List<ClientModel> clients = data.getClients();
+		List<EnrollmentModel> enrollments = data.getEnrollments();
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtil.equals("99", client.getName_data_quality())) {
+			if(StringUtil.equals("99", client.getVeteran_status())) {
 				veteranStatusErrorCount++;
 			}
 		}
 		);
+		enrollments.parallelStream().forEach(enrollment -> { 
+			if(StringUtil.equals("99", enrollment.getDisablingcondition())) {
+				disablingCondErrorCount++;
+			}
+			if(StringUtil.equals("99", enrollment.getRelationshiptohoh())) {
+				relationShipHHErrorCount++;
+			}
+			if(enrollment.getEntrydate() == null) {
+				pedErrorCount++;
+			}
 		
-	//	q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
-	//	q06aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
+		 }
+		);
 		
-		q06bNumberOfPersonsServedDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(numOfClients/veteranStatusErrorCount));
-		q06bNumberOfPersonsServedDataBean.setPedErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setPedErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setClientLocationErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setClientLocationErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setDisablingCondErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setDisablingCondErrorRate(BigInteger.valueOf(0));
+		q06bDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(0));
+		q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(numOfClients/veteranStatusErrorCount));
+		q06bDataBean.setPedErrorCount(BigInteger.valueOf(pedErrorCount));
+		q06bDataBean.setPedErrorRate(BigInteger.valueOf(numOfClients/pedErrorCount));
+		q06bDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(relationShipHHErrorCount));
+		q06bDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(numOfClients/relationShipHHErrorCount));
+		q06bDataBean.setClientLocationErrorCount(BigInteger.valueOf(0));
+		q06bDataBean.setClientLocationErrorRate(BigInteger.valueOf(0));
+		q06bDataBean.setDisablingCondErrorCount(BigInteger.valueOf(disablingCondErrorCount));
+		q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(numOfClients/disablingCondErrorCount));
 		
-		return Arrays.asList(q06bNumberOfPersonsServedDataBean);
+		return Arrays.asList(q06bDataBean);
 	}
 
 }

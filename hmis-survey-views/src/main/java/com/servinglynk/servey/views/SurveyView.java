@@ -19,20 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ViewQuery;
-public class SurveyView {	
-    private static Connection connection = null;
-    static Connection getConnection() throws SQLException {
-        if (connection == null) {
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com"+ ":5432"+"/hmis",
-                    "hmisdb1",
-                    "hmisdb1234");
-        }
-        if (connection.isClosed()) {
-            throw new SQLException("connection could not initiated");
-        }
-        return connection;
-    }
+public class SurveyView extends BaseView {	
     
     public static void createHiveTableForSurvey() throws Exception {
     	// Get distinct questions for a survey.

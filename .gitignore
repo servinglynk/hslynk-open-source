@@ -10,6 +10,7 @@ bin/*
 target
 bin
 hmis-userservice/*
+hmis-survey-views/src/main/conf/*.conf
 
 hmis-admin/target/*
 hmis-admin/bin/*

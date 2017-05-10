@@ -3,7 +3,7 @@ package com.servinglynk.report.bean;
 import java.math.BigInteger;
 
 
-public class Q06bNumberOfPersonsServedDataBean extends ReportBean{
+public class Q06bDataBean extends ReportBean{
 
 	private BigInteger veteranStatusErrorCount;
 	private BigInteger veteranStatusErrorRate;
