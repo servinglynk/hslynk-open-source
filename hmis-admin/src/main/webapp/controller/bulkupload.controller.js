@@ -11,7 +11,14 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
         $scope.showInfoAlert = true;
    $scope.showSuccessAlert = false;
      $scope.showErrorAlert = false;
-     
+     var bucketRegion = 'us-east-1';
+     var IdentityPoolId = 'us-west-2_tZ0hhpkud';
+     AWS.config.update({
+    	  region: bucketRegion,
+    	  credentials: new AWS.CognitoIdentityCredentials({
+    	    IdentityPoolId: IdentityPoolId
+    	  })
+    	});
   var bucket = new AWS.S3({params: {Bucket: $sessionStorage.account.projectGroup.bucketName.toLocaleLowerCase(),Prefix:'testfolder'}});
     var fileChooser = $("input[type='file'")[0];
     var file1 = fileChooser.files[0];
