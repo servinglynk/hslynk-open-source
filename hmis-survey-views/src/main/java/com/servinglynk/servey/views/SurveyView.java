@@ -2,7 +2,6 @@ package com.servinglynk.servey.views;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,15 +12,50 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.Properties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ViewQuery;
+import com.servinglynk.hmis.warehouse.Properties;
 public class SurveyView extends BaseView {	
     
-    public static void createHiveTableForSurvey() throws Exception {
+	/***
+	 * Get existings submissions so we don't insert them again.
+	 * @param projectGroupCode
+	 * @param tableName
+	 * @return
+	 */
+	public static Map<String,String> getExisingSubmissions(String projectGroupCode,String tableName) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		Map<String,String> hiveSubmissions = new HashMap<>();
+		try {
+			connection = HiveConnection.getConnection();
+			// execute statement
+				StringBuilder builder = new StringBuilder();
+				builder.append("select client_id client,submission_id submission from ");
+				builder.append(projectGroupCode);
+				builder.append(".");
+				builder.append(tableName);
+				statement = connection.prepareStatement(builder.toString());
+				resultSet = statement.executeQuery();
+				while(resultSet.next()) {
+					String clientId = resultSet.getString("client");
+					String submissionId = resultSet.getString("submission");
+					hiveSubmissions.put(submissionId, clientId);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hiveSubmissions;
+	}
+    public static void createHiveTableForSurvey(String projectGroupCode) throws Exception {
     	// Get distinct questions for a survey.
     	List<String> disinctSurveys = getDisinctSurveys("survey");
     	for(String surveyId : disinctSurveys) {
@@ -30,7 +64,10 @@ public class SurveyView extends BaseView {
     		// Get the Survey details from the survey table and project group code in the survey 
     		Survey survey = getSurveyById("survey", surveyId);
     		// TODO: Below items
-    		if(StringUtils.equalsIgnoreCase(survey.getProjectGroupCode(), "MO0010")) {
+    		String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
+    		Map<String, String> exisingSubmissions = getExisingSubmissions(projectGroupCode, tableName);
+    		
+    		if(StringUtils.equalsIgnoreCase(survey.getProjectGroupCode(), projectGroupCode)) {
     	   		createHiveTable(survey, disinctQuestions);
             	//  create a hive table after getting the questions.    	
             	//Insert the data into the view by clientIds and submission id.
@@ -39,7 +76,7 @@ public class SurveyView extends BaseView {
         		for(String clientId : clients) {
         			if(StringUtils.isNotBlank(clientId)) {
         				List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId),UUID.fromString(clientId));
-                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId);
+                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId,exisingSubmissions);
         			}
         		}	
     		}
@@ -69,7 +106,7 @@ public class SurveyView extends BaseView {
          return clientIds;
 	}
 
-	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId) {
+	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId, Map<String,String> existingSubmissions) {
     	Connection connection;
 		try {
 			connection = HiveConnection.getConnection();
@@ -100,22 +137,27 @@ public class SurveyView extends BaseView {
 			  String submissionId = null;
 			  boolean resonseContainMoreThanOneClient = false;
 		 for (Response response : responses) {
-			 	  preparedStatement.setString(3, response.getSubmissionId());
-				  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
-				  // execute insert SQL stetement
-				  boolean containsOnlyOneColumn = false;
-				  if(CollectionUtils.isNotEmpty(disinctQuestions) &&  disinctQuestions.size()==1) {
-					  preparedStatement.executeUpdate();
-					  containsOnlyOneColumn = true;
-					  i =4;
+			 	  String client = existingSubmissions.get(response.getSubmissionId());
+			 	  if(StringUtils.isNotBlank(client)) {
+			 		  continue;
+			 	  }else {
+			 		 preparedStatement.setString(3, response.getSubmissionId());
+					  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
+					  // execute insert SQL stetement
+					  boolean containsOnlyOneColumn = false;
+					  if(CollectionUtils.isNotEmpty(disinctQuestions) &&  disinctQuestions.size()==1) {
+						  preparedStatement.executeUpdate();
+						  containsOnlyOneColumn = true;
+						  i =4;
+					  }
+					  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
+						 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
+						  preparedStatement.executeUpdate();
+						  resonseContainMoreThanOneClient = true;
+						  i =4;
+			 	    }
 				  }
-				  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
-					 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
-					  preparedStatement.executeUpdate();
-					  resonseContainMoreThanOneClient = true;
-					  i =4;
-				  }
-				  submissionId = response.getSubmissionId();
+		       submissionId = response.getSubmissionId();
 		 }
 		 if(!resonseContainMoreThanOneClient)
 			 preparedStatement.executeUpdate();
@@ -157,7 +199,7 @@ public class SurveyView extends BaseView {
     		  }
 			  String query = builder.toString();
 			  query = query +")";
-			  stmt.execute("DROP Table  IF EXISTS "+survey.getProjectGroupCode()+"."+tableName);
+			//  stmt.execute("DROP Table  IF EXISTS "+survey.getProjectGroupCode()+"."+tableName);
 			  System.out.println(" Create Query::"+ query);
 	      stmt.execute(query);
 		} catch (SQLException e) {
@@ -272,12 +314,14 @@ public class SurveyView extends BaseView {
     }
     
     public static void main(String args[]) throws Exception {
-        while(true){
-            createHiveTableForSurvey();
+    	Properties props = new Properties();
+		props.generatePropValues();
+      //  while(true){
+            createHiveTableForSurvey("MO0010");
             Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
             System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
-            Thread.sleep(1000 * seconds);
-        }
+      //      Thread.sleep(1000 * seconds);
+    //    }
     }
 
 }
