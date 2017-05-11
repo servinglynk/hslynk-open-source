@@ -25,16 +25,16 @@ public class Q06bBeanMaker  {
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtil.equals("99", client.getVeteran_status())) {
+			if(StringUtil.equals("8", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status())) {
 				veteranStatusErrorCount++;
 			}
 		}
 		);
 		enrollments.parallelStream().forEach(enrollment -> { 
-			if(StringUtil.equals("99", enrollment.getDisablingcondition())) {
+			if(StringUtil.equals("8", enrollment.getDisablingcondition()) || StringUtil.equals("9", enrollment.getDisablingcondition())) {
 				disablingCondErrorCount++;
 			}
-			if(StringUtil.equals("99", enrollment.getRelationshiptohoh())) {
+			if(StringUtil.equals("8", enrollment.getRelationshiptohoh()) || StringUtil.equals("9", enrollment.getRelationshiptohoh())) {
 				relationShipHHErrorCount++;
 			}
 			if(enrollment.getEntrydate() == null) {

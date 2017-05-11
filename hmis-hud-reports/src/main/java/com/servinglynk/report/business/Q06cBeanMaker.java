@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q06cDataBean;
 
 public class Q06cBeanMaker {
 
-	public static List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(){
+	public static List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(){
 		
-		Q06cPointInTimeCountPersonsLastWednesdayDataBean q06cPointInTimeCountPersonsLastWednesdayDataBean =new Q06cPointInTimeCountPersonsLastWednesdayDataBean();
+		Q06cDataBean q06cPointInTimeCountPersonsLastWednesdayDataBean =new Q06cDataBean();
 		
 		q06cPointInTimeCountPersonsLastWednesdayDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(0));
 		q06cPointInTimeCountPersonsLastWednesdayDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(0));
@@ -20,8 +20,6 @@ public class Q06cBeanMaker {
 		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaaErrorRate(BigInteger.valueOf(0));
 		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaeErrorCount(BigInteger.valueOf(0));
 		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaeErrorRate(BigInteger.valueOf(0));
-		
-		
 		
 		return Arrays.asList(q06cPointInTimeCountPersonsLastWednesdayDataBean);
 	}

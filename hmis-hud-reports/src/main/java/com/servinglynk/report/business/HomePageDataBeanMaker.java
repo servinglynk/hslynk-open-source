@@ -23,7 +23,7 @@ import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aDataBean;
 import com.servinglynk.report.bean.Q06aDataBean;
 import com.servinglynk.report.bean.Q06bDataBean;
-import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q06cDataBean;
 import com.servinglynk.report.bean.Q06dDataBean;
 import com.servinglynk.report.bean.Q06eDataBean;
 import com.servinglynk.report.bean.Q06fDataBean;
@@ -156,7 +156,7 @@ public class HomePageDataBeanMaker {
 			}
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(q06bNumberOfPersonsServedTableList);
 			
-			List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
+			List<Q06cDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(q06cPointInTimeCountPersonsLastWednesdayList);
 			if(q06cPointInTimeCountPersonsLastWednesdayList!=null){
 				CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "Q6c.jrxml", "Q6c.csv");

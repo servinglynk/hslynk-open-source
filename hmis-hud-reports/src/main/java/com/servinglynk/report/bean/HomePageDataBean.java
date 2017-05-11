@@ -27,7 +27,7 @@ public class HomePageDataBean {
 	private List<Q05aDataBean> q05aHMISComparableDBDataQualityDataBean;
 	private List<Q06aDataBean> q06aReportValidationsTableDataBean;
 	private List<Q06bDataBean> q06bNumberOfPersonsServedDataBean;
-	private List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayDataBean;
+	private List<Q06cDataBean> q06cPointInTimeCountPersonsLastWednesdayDataBean;
 	private List<Q06dDataBean> q06dDataBean;
 	private List<Q06eDataBean> q06eDataBean;
 	private List<Q06fDataBean> q06fDataBean;
@@ -210,11 +210,11 @@ public class HomePageDataBean {
 			List<Q06bDataBean> q06bNumberOfPersonsServedDataBean) {
 		this.q06bNumberOfPersonsServedDataBean = q06bNumberOfPersonsServedDataBean;
 	}
-	public List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> getQ06cPointInTimeCountPersonsLastWednesdayDataBean() {
+	public List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayDataBean() {
 		return q06cPointInTimeCountPersonsLastWednesdayDataBean;
 	}
 	public void setQ06cPointInTimeCountPersonsLastWednesdayDataBean(
-			List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> q06cPointInTimeCountPersonsLastWednesdayDataBean) {
+			List<Q06cDataBean> q06cPointInTimeCountPersonsLastWednesdayDataBean) {
 		this.q06cPointInTimeCountPersonsLastWednesdayDataBean = q06cPointInTimeCountPersonsLastWednesdayDataBean;
 	}
 	public List<Q06dDataBean> getQ06dDataBean() {

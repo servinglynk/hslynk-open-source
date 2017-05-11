@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q06cPointInTimeCountPersonsLastWednesdayDataBean {
+public class Q06cDataBean {
 	
 	private BigInteger destinationStatusErrorCount;
 	private BigInteger destinationStatusErrorRate;

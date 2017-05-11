@@ -1153,6 +1153,9 @@ INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connecti
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','1','Place not meant for habitation','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','2','Service setting, non-residential','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','3','Service setting, residential','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','0','No','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','1','Yes','ACTIVE');
