@@ -12,7 +12,6 @@ app.controller('bulkUploadCtrl', function ($scope, $location, $routeSegment, $ht
    $scope.showSuccessAlert = false;
      $scope.showErrorAlert = false;
      
-     AWS.config.loadFromPath('/proj/config/config.json');
   var bucket = new AWS.S3({params: {Bucket: $sessionStorage.account.projectGroup.bucketName.toLocaleLowerCase(),Prefix:'testfolder'}});
     var fileChooser = $("input[type='file'")[0];
     var file1 = fileChooser.files[0];
