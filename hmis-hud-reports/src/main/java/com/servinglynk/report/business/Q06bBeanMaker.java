@@ -43,16 +43,17 @@ public class Q06bBeanMaker  {
 		 }
 		);
 		
-		q06bDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(0));
-		q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(numOfClients/veteranStatusErrorCount));
+		q06bDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(veteranStatusErrorCount));
+		Long numOfAdults = Long.parseLong(String.valueOf(data.getNumOfAdults()));
+		q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(veteranStatusErrorCount/numOfAdults));
 		q06bDataBean.setPedErrorCount(BigInteger.valueOf(pedErrorCount));
-		q06bDataBean.setPedErrorRate(BigInteger.valueOf(numOfClients/pedErrorCount));
+		q06bDataBean.setPedErrorRate(BigInteger.valueOf(pedErrorCount/numOfClients));
 		q06bDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(relationShipHHErrorCount));
-		q06bDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(numOfClients/relationShipHHErrorCount));
+		q06bDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(relationShipHHErrorCount/numOfClients));
 		q06bDataBean.setClientLocationErrorCount(BigInteger.valueOf(0));
 		q06bDataBean.setClientLocationErrorRate(BigInteger.valueOf(0));
 		q06bDataBean.setDisablingCondErrorCount(BigInteger.valueOf(disablingCondErrorCount));
-		q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(numOfClients/disablingCondErrorCount));
+		q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(disablingCondErrorCount/numOfClients));
 		
 		return Arrays.asList(q06bDataBean);
 	}
