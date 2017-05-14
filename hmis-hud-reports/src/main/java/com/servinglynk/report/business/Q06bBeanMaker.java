@@ -8,7 +8,6 @@ import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
-
 import jodd.util.StringUtil;
 
 public class Q06bBeanMaker  {

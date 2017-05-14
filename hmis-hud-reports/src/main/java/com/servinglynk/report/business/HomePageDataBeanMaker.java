@@ -19,6 +19,7 @@ import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.HomePageDataBean;
+import com.servinglynk.report.bean.IncomeAndSourceModel;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aDataBean;
 import com.servinglynk.report.bean.Q06aDataBean;
@@ -123,6 +124,8 @@ public class HomePageDataBeanMaker {
 			List<ExitModel> allExits = getAllExits(schema);
 			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 			data.setExits(filteredExits);
+			List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(schema);
+			data.setIncomeAndSources(incomeAndSources);
 			
 //			data.setTotNumOfPersonServed(15);  //Refers --> Total number of persons served 
 //			data.setNumOfAdults(11); //Refers --> Number of adults (age 18 or over)
@@ -156,7 +159,7 @@ public class HomePageDataBeanMaker {
 			}
 			homePageDataBean.setQ06bNumberOfPersonsServedDataBean(q06bNumberOfPersonsServedTableList);
 			
-			List<Q06cDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList();
+			List<Q06cDataBean> q06cPointInTimeCountPersonsLastWednesdayList = Q06cBeanMaker.getQ06cPointInTimeCountPersonsLastWednesdayList(data);
 			homePageDataBean.setQ06cPointInTimeCountPersonsLastWednesdayDataBean(q06cPointInTimeCountPersonsLastWednesdayList);
 			if(q06cPointInTimeCountPersonsLastWednesdayList!=null){
 				CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "Q6c.jrxml", "Q6c.csv");
@@ -634,7 +637,35 @@ public class HomePageDataBeanMaker {
 				return models;
 			}
 
-			
+			public static List<IncomeAndSourceModel> getIncomeAndSource(String schema) {
+				ResultSet resultSet = null;
+				PreparedStatement statement = null;
+				Connection connection = null;
+				List<IncomeAndSourceModel>  models = new ArrayList<IncomeAndSourceModel>();
+				try {
+					connection = HiveConnection.getConnection();
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
+					resultSet = statement.executeQuery();
+				 while(resultSet.next()) {
+					 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("incomeandsources.datacollectionstage"));
+					 models.add(model);
+				 }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				return models;
+			}
 			public static List<EnrollmentModel> getEnrollmentsByProjectId(String schema,String projectId) {
 				ResultSet resultSet = null;
 				PreparedStatement statement = null;

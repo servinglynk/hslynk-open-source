@@ -4,24 +4,63 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
+import com.servinglynk.report.bean.ExitModel;
+import com.servinglynk.report.bean.IncomeAndSourceModel;
 import com.servinglynk.report.bean.Q06cDataBean;
+import com.servinglynk.report.bean.ReportData;
+
+import jodd.util.StringUtil;
 
 public class Q06cBeanMaker {
 
-	public static List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(){
+	public static Long destinationErroCount;
+	public static Long iseErrorCount;
+	public static Long isaaErrorCount;
+	public static Long isaeErrorCount;
+	
+	public static List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(ReportData data){
 		
-		Q06cDataBean q06cPointInTimeCountPersonsLastWednesdayDataBean =new Q06cDataBean();
+		Q06cDataBean q06cDataBean =new Q06cDataBean();
+		List<ExitModel> exits = data.getExits();
+		exits.parallelStream().forEach(exit -> { 
+			
+			if(StringUtil.equals("8", exit.getDestination()) || StringUtil.equals("9", exit.getDestination())) {
+				destinationErroCount++;
+			}
+		}
+		);
+		List<IncomeAndSourceModel> incomeAndSources = data.getIncomeAndSources();
+		incomeAndSources.parallelStream().forEach(incomeAndSource -> { 
+			
+			if(StringUtil.equals("1", incomeAndSource.getDataCollectionStage()) ) {
+				iseErrorCount++;
+			}
+		}
+		);
+		incomeAndSources.parallelStream().forEach(incomeAndSource -> { 
+			
+			if(StringUtil.equals("3", incomeAndSource.getDataCollectionStage()) ) {
+				isaeErrorCount++;
+			}
+		}
+		);
+		incomeAndSources.parallelStream().forEach(incomeAndSource -> { 
+			
+			if(StringUtil.equals("5", incomeAndSource.getDataCollectionStage()) ) {
+				isaaErrorCount++;
+			}
+		}
+		);
+		q06cDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(destinationErroCount));
+		q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setIseErrorCount(BigInteger.valueOf(iseErrorCount));
+		q06cDataBean.setIseErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setIsaaErrorCount(BigInteger.valueOf(isaaErrorCount));
+		q06cDataBean.setIsaaErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setIsaeErrorCount(BigInteger.valueOf(isaeErrorCount));
+		q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(0));
 		
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIseErrorCount(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIseErrorRate(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaaErrorCount(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaaErrorRate(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaeErrorCount(BigInteger.valueOf(0));
-		q06cPointInTimeCountPersonsLastWednesdayDataBean.setIsaeErrorRate(BigInteger.valueOf(0));
-		
-		return Arrays.asList(q06cPointInTimeCountPersonsLastWednesdayDataBean);
+		return Arrays.asList(q06cDataBean);
 	}
 	
 }

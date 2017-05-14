@@ -10,7 +10,7 @@ public class ReportData {
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
-	
+	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
 	private BigInteger totNumOfPersonServed;
 	private BigInteger numOfAdults;
 	private BigInteger numOfChildren;
@@ -86,6 +86,19 @@ public class ReportData {
 	 */
 	public void setExits(List<ExitModel> exits) {
 		this.exits = exits;
+	}
+	
+	/**
+	 * @return the incomeAndSources
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSources() {
+		return incomeAndSources;
+	}
+	/**
+	 * @param incomeAndSources the incomeAndSources to set
+	 */
+	public void setIncomeAndSources(List<IncomeAndSourceModel> incomeAndSources) {
+		this.incomeAndSources = incomeAndSources;
 	}
 	/**
 	 * @return the totNumOfPersonServed
