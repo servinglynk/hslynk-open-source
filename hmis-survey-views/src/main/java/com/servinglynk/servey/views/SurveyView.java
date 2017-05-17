@@ -139,7 +139,7 @@ public class SurveyView extends BaseView {
 		 for (Response response : responses) {
 			 	  String client = existingSubmissions.get(response.getSubmissionId());
 			 	  if(StringUtils.isNotBlank(client)) {
-			 		  continue;
+			 		  System.out.println("Skipping....Client::"+client+" Submission::"+response.getSubmissionId());
 			 	  }else {
 			 		 preparedStatement.setString(3, response.getSubmissionId());
 					  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");

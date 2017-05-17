@@ -26,8 +26,8 @@ public class ActiveListView extends BaseView {
 			// execute statement
 			StringBuilder builder = new StringBuilder();
 			builder.append("CREATE TABLE IF NOT EXISTS ");
-			builder.append(projectGroupCode+".active_list");
-			builder.append("( client_id string,first_name string,last_name string,survey_id string,survey_title string,survey_date string ,score bigint ");
+			builder.append(projectGroupCode+".active_list_submission");
+			builder.append("( client_id string,first_name string,last_name string,submission_id string,survey_id string,survey_title string,survey_date string ,score bigint ");
 			String query = builder.toString();
 			query = query +")";
 			System.out.println(" Create Query::"+ query);
@@ -47,7 +47,7 @@ public class ActiveListView extends BaseView {
 	 * @param surveyId
 	 * @param score
 	 */
-	public static void insertIntoHiveTable(String surveyId, int score,String clientId,String projectGroupCode) {
+	public static void insertIntoHiveTable(String surveyId, int score,String clientId,String projectGroupCode,String submissionId) {
 		Connection connection;
 		try {
 			connection = HiveConnection.getConnection();
@@ -60,7 +60,7 @@ public class ActiveListView extends BaseView {
 				builder.append(survey.getProjectGroupCode()+".active_list");
 				System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 				builder.append("  VALUES ( ");
-				builder.append("?,?,?,?,?,?,?");
+				builder.append("?,?,?,?,?,?,?,?");
 				builder.append(")");
 				System.out.println("The Query:::"+builder.toString() + " Survey :"+surveyId.toString() + " Client:"+clientId.toString());
 				Client client = getClientByID(clientId.toString());
@@ -68,13 +68,14 @@ public class ActiveListView extends BaseView {
 				preparedStatement.setString(1, clientId);
 				preparedStatement.setString(2, client.getFirstName());
 				preparedStatement.setString(3, client.getLastName());
-				preparedStatement.setString(4, surveyId);
-				preparedStatement.setString(5, survey.getSurveyName());
-				preparedStatement.setString(6, new java.util.Date().toGMTString());
+				preparedStatement.setString(4, submissionId);
+				preparedStatement.setString(5, surveyId);
+				preparedStatement.setString(6, survey.getSurveyName());
+				preparedStatement.setString(7, new java.util.Date().toGMTString());
 				if(survey.getSurveyDate() !=null) {
-					preparedStatement.setString(6,survey.getSurveyDate().toString());
+					preparedStatement.setString(7,survey.getSurveyDate().toString());
 				}
-				preparedStatement.setInt(7, score);
+				preparedStatement.setInt(8, score);
 				preparedStatement.executeUpdate();
 			}
 
@@ -97,15 +98,23 @@ public class ActiveListView extends BaseView {
 			statement = connection.prepareStatement(ViewQuery.GET_ACTIVE_LIST_DATA);
 			resultSet = statement.executeQuery();
 			Map<String,String> hiveClientMap = getHiveActiveListClients(projectGroupCode);
+			int i=0;
+			int score = 0;
+			String surveyId ="";
+			String clientId = "";
+			String previoiusSubmissionId ="";
  			while(resultSet.next()) {
-				int score = resultSet.getInt("score");
-				String surveyId =(String) resultSet.getString("survey_id");
-				String clientId = (String)resultSet.getString("client_id");
-				String surveyIdFromHive = hiveClientMap.get(clientId);
-				if(StringUtils.isNotBlank(surveyIdFromHive)  && StringUtils.isNotBlank(surveyId) && !StringUtils.equals(surveyId.trim(), surveyIdFromHive.trim())) {
-					insertIntoHiveTable(surveyId, score, clientId,projectGroupCode);
+				 score = resultSet.getInt("score");
+				 surveyId =(String) resultSet.getString("survey_id");
+				String submissionId =(String) resultSet.getString("submission_id");
+				clientId = (String)resultSet.getString("client_id");
+				if(StringUtils.isNotBlank(submissionId)  && StringUtils.isNotBlank(surveyId) && !StringUtils.equals(submissionId.trim(), previoiusSubmissionId.trim()) && i!=0) {
+					insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,previoiusSubmissionId);
 				}
+				previoiusSubmissionId = submissionId;
+				i++;
 			}
+ 			insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,previoiusSubmissionId);
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
@@ -121,7 +130,7 @@ public class ActiveListView extends BaseView {
 				StringBuilder builder = new StringBuilder();
 				builder.append("select client_id client,survey_id survey from ");
 				builder.append(projectGroupCode);
-				builder.append(".active_list");
+				builder.append(".active_list_submission");
 				statement = connection.prepareStatement(builder.toString());
 				resultSet = statement.executeQuery();
 				while(resultSet.next()) {
