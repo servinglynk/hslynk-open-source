@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.ClientModel;
-import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.ExitModel;
 
 public class Q13c2BeanMaker {
 

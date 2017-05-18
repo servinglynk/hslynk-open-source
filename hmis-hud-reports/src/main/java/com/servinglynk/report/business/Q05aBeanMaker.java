@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.ClientModel;
-import com.servinglynk.report.bean.EnrollmentModel;
-import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q05aDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ExitModel;
 
 public class Q05aBeanMaker extends BaseBeanMaker {
 	

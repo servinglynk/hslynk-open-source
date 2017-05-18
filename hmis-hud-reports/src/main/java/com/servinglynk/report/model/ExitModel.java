@@ -1,4 +1,4 @@
-package com.servinglynk.report.bean;
+package com.servinglynk.report.model;
 
 import java.sql.Timestamp;
 import java.util.Date;

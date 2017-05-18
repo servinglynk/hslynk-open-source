@@ -1,4 +1,4 @@
-package com.servinglynk.report.bean;
+package com.servinglynk.report.model;
 
 import java.util.Date;
 

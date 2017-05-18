@@ -4,18 +4,8 @@ package com.servinglynk.report.engine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.log4j.Logger;
 
@@ -36,7 +26,7 @@ public class Reporter {
 			InputStream inputStream = new FileInputStream(file);
             
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport);
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport, new Date(), new Date());
         	/*if(sageReport) {
 //        		System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);

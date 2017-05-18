@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.Q13b2NumberOfConditionsAtExitDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ExitModel;
 
 public class Q13b2BeanMaker {
 	

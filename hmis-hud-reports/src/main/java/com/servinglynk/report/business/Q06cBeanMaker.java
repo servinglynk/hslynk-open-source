@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.ExitModel;
-import com.servinglynk.report.bean.IncomeAndSourceModel;
 import com.servinglynk.report.bean.Q06cDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ExitModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 
 import jodd.util.StringUtil;
 
@@ -52,7 +52,7 @@ public class Q06cBeanMaker {
 		}
 		);
 		q06cDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(destinationErroCount));
-		q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(destinationErroCount/exits.size() ));
 		q06cDataBean.setIseErrorCount(BigInteger.valueOf(iseErrorCount));
 		q06cDataBean.setIseErrorRate(BigInteger.valueOf(0));
 		q06cDataBean.setIsaaErrorCount(BigInteger.valueOf(isaaErrorCount));

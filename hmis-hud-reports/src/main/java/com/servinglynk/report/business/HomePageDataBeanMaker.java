@@ -15,11 +15,7 @@ import java.util.stream.Collectors;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ReportQuery;
-import com.servinglynk.report.bean.ClientModel;
-import com.servinglynk.report.bean.EnrollmentModel;
-import com.servinglynk.report.bean.ExitModel;
 import com.servinglynk.report.bean.HomePageDataBean;
-import com.servinglynk.report.bean.IncomeAndSourceModel;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aDataBean;
 import com.servinglynk.report.bean.Q06aDataBean;
@@ -87,31 +83,35 @@ import com.servinglynk.report.bean.Q27eLengthOfParticipationYouthDataBean;
 import com.servinglynk.report.bean.Q27fExitDestinationYouthDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.csvcontroller.CSVGenerator;
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ExitModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class HomePageDataBeanMaker {
 	
-			public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId,boolean sageReport){
+			public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId,boolean sageReport,Date reportStartDate, Date reportEndDate){
+				
 	       
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
 			
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
-             
-			homePageDataBean.setHomePageStartDate(dateFormat.format(date/*"1/1/2015"*/));
-			homePageDataBean.setHomePageEndDate(dateFormat.format(date/*"11/10/2016"*/));
+			ReportData data = new ReportData();
+			homePageDataBean.setHomePageStartDate(dateFormat.format(dateFormat.format(reportStartDate)/*"1/1/2015"*/));
+			homePageDataBean.setHomePageEndDate(dateFormat.format(dateFormat.format(reportEndDate)/*"11/10/2016"*/));
 			homePageDataBean.setHomePageProjects("APR - Services Only");
 			homePageDataBean.setHomePageHomeLess("Everyone");
 			homePageDataBean.setHomePageGrants("all grants");
 			homePageDataBean.setHomePageView("Aggregate / summary");
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projectId);
+			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projectId,data);
 			if(sageReport) {
 				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv");
 			}
 			
 			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
-			ReportData data = new ReportData();
 			data.setSchema(schema);
 			data.setProjectId(projectId);
 			data.setEnrollments(enrollments);

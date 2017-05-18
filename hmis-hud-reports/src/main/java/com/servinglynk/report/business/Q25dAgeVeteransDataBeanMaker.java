@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.ClientModel;
 import com.servinglynk.report.bean.Q25dAgeVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 
 public class Q25dAgeVeteransDataBeanMaker {
 

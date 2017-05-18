@@ -4,10 +4,11 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.ClientModel;
-import com.servinglynk.report.bean.EnrollmentModel;
 import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.EnrollmentModel;
+
 import jodd.util.StringUtil;
 
 public class Q06bBeanMaker  {

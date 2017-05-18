@@ -4,6 +4,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ExitModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
+import com.servinglynk.report.model.ProjectModel;
+
 public class ReportData {
 	private String schema;
 	private String projectId;
@@ -11,6 +17,7 @@ public class ReportData {
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
+	private ProjectModel project;
 	private BigInteger totNumOfPersonServed;
 	private BigInteger numOfAdults;
 	private BigInteger numOfChildren;
@@ -267,6 +274,18 @@ public class ReportData {
 	 */
 	public void setNumOfHeadsOfHHandAdults365Days(BigInteger numOfHeadsOfHHandAdults365Days) {
 		this.numOfHeadsOfHHandAdults365Days = numOfHeadsOfHHandAdults365Days;
+	}
+	/**
+	 * @return the project
+	 */
+	public ProjectModel getProject() {
+		return project;
+	}
+	/**
+	 * @param project the project to set
+	 */
+	public void setProject(ProjectModel project) {
+		this.project = project;
 	}
 	
 }
