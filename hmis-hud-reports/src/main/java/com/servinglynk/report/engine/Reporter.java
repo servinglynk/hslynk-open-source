@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.servinglynk.hmis.warehouse.Properties;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.business.HomePageDataBeanMaker;
 
@@ -20,6 +21,8 @@ public class Reporter {
         
     private void exportToPDF(boolean sageReport) {
         try {         
+        	Properties props = new Properties();
+    		props.generatePropValues();
         	ClassLoader classLoader = Reporter.class.getClassLoader();
 			File file = new File(classLoader.getResource("homePage.jrxml").getFile());
 //			System.out.println("File Path --> " + file);
@@ -68,7 +71,6 @@ public class Reporter {
      public static void main(String[] args) {
     	 boolean sageReport=true;
         Reporter main = new Reporter();
-        
         main.exportToPDF(sageReport);
     }
 	
