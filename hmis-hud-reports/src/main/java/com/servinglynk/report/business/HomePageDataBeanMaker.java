@@ -98,8 +98,8 @@ public class HomePageDataBeanMaker {
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			ReportData data = new ReportData();
-			homePageDataBean.setHomePageStartDate(dateFormat.format(dateFormat.format(reportStartDate)/*"1/1/2015"*/));
-			homePageDataBean.setHomePageEndDate(dateFormat.format(dateFormat.format(reportEndDate)/*"11/10/2016"*/));
+//			homePageDataBean.setHomePageStartDate(dateFormat.format(dateFormat.format(reportStartDate)/*"1/1/2015"*/));
+//			homePageDataBean.setHomePageEndDate(dateFormat.format(dateFormat.format(reportEndDate)/*"11/10/2016"*/));
 			homePageDataBean.setHomePageProjects("APR - Services Only");
 			homePageDataBean.setHomePageHomeLess("Everyone");
 			homePageDataBean.setHomePageGrants("all grants");
@@ -111,7 +111,7 @@ public class HomePageDataBeanMaker {
 				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv");
 			}
 			
-			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId);
+			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId,reportStartDate, reportEndDate);
 			data.setSchema(schema);
 			data.setProjectId(projectId);
 			data.setEnrollments(enrollments);
@@ -125,7 +125,8 @@ public class HomePageDataBeanMaker {
 			List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 			data.setExits(filteredExits);
 			List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(schema);
-			data.setIncomeAndSources(incomeAndSources);
+			List<IncomeAndSourceModel> filtereIncomeAndSources = incomeAndSources.parallelStream().filter(incomeAndSource -> enrollmentIds.contains(incomeAndSource.getProjectEntryId())).collect(Collectors.toList());
+			data.setIncomeAndSources(filtereIncomeAndSources);
 			
 //			data.setTotNumOfPersonServed(15);  //Refers --> Total number of persons served 
 //			data.setNumOfAdults(11); //Refers --> Number of adults (age 18 or over)
@@ -613,7 +614,7 @@ public class HomePageDataBeanMaker {
 					 ClientModel model = new ClientModel(resultSet.getString("client.personalid"), resultSet.getString("client.dedup_client_id"), 
 							 resultSet.getString("client.name_data_quality"),resultSet.getString("client.name_data_quality_desc"), 
 							 resultSet.getString("client.ssn_data_quality"), resultSet.getString("client.ssn_data_quality_desc"), 
-							 resultSet.getDate("client.dob"),resultSet.getString("client.dob_data_quality"), 
+							 null,resultSet.getString("client.dob_data_quality"), 
 							 resultSet.getString("client.dob_data_quality_desc"), resultSet.getString("client.gender"), 
 							 resultSet.getString("client.gender_desc"), resultSet.getString("client.other_gender"), resultSet.getString("client.ethnicity"), 
 							 resultSet.getString("client.ethnicity_desc"), resultSet.getString("client.race"), resultSet.getString("client.race_desc"), 
@@ -647,7 +648,7 @@ public class HomePageDataBeanMaker {
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
-					 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("incomeandsources.datacollectionstage"));
+					 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("incomeandsources.datacollectionstage"),resultSet.getString("incomeandsources.project_entry_id"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
@@ -666,7 +667,7 @@ public class HomePageDataBeanMaker {
 				}
 				return models;
 			}
-			public static List<EnrollmentModel> getEnrollmentsByProjectId(String schema,String projectId) {
+			public static List<EnrollmentModel> getEnrollmentsByProjectId(String schema,String projectId,Date reportStartDate, Date reportEndDate) {
 				ResultSet resultSet = null;
 				PreparedStatement statement = null;
 				Connection connection = null;
@@ -677,8 +678,9 @@ public class HomePageDataBeanMaker {
 					statement.setString(1, projectId);
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
-					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("enrollment.projectentryid"), 
-							 resultSet.getString("enrollment.continuouslyhomelessoneyear"),
+					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("enrollment.project_entry_id"), 
+							// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
+							 null,
 							 resultSet.getString("enrollment.disablingcondition"), 
 							 null, 
 							 resultSet.getString("enrollment.householdid"), 
@@ -686,23 +688,26 @@ public class HomePageDataBeanMaker {
 							 resultSet.getString("enrollment.housingstatus_desc"), 
 							 resultSet.getString("enrollment.monthshomelesspastthreeyears"), 
 							 resultSet.getString("enrollment.monthshomelesspastthreeyears_desc"), 
-							 resultSet.getString("enrollment.monthshomelessthistime"), 
+							// resultSet.getString("enrollment.monthshomelessthistime"), 
+							 null,
 							 resultSet.getString("enrollment.otherresidenceprior"), 
-							 resultSet.getString("enrollment.projectid"), 
+							 resultSet.getString("enrollment.project_id"), 
 							 resultSet.getString("enrollment.relationshiptohoh"), 
 							 resultSet.getString("enrollment.relationshiptohoh_desc"), 
 							 resultSet.getString("enrollment.residenceprior"), 
 							 resultSet.getString("enrollment.residenceprior_desc"), 
 							 resultSet.getString("enrollment.residencepriorlengthofstay"), 
 							 resultSet.getString("enrollment.residencepriorlengthofstay_desc"), 
-							 resultSet.getString("enrollment.statusdocumented"), 
+							// resultSet.getString("enrollment.statusdocumented"), 
+							 null,
 							 resultSet.getString("enrollment.timeshomelesspastthreeyears"), 
 							 resultSet.getString("enrollment.timeshomelesspastthreeyears_desc"), 
 							 resultSet.getString("enrollment.ageatentry"), 
-							 resultSet.getString("enrollment.personalid"), 
-							 resultSet.getInt("enrollment.yearshomeless"), 
+							 resultSet.getString("enrollment.client_id"), 
+							// resultSet.getInt("enrollment.yearshomeless"), 
+							 0,
 							 (Boolean)resultSet.getBoolean("enrollment.chronichomeless"), 
-							 resultSet.getString("enrollment.enrollment_source_system_id"));
+							 resultSet.getString("enrollment.source_system_id"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
@@ -733,11 +738,11 @@ public class HomePageDataBeanMaker {
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
-					 ExitModel model = new ExitModel( resultSet.getString("exit.exitid"), resultSet.getString("exit.destination"), 
+					 ExitModel model = new ExitModel( resultSet.getString("exit.exit_id"), resultSet.getString("exit.destination"), 
 							 resultSet.getString("exit.destination_desc"), 
 							 resultSet.getTimestamp("exit.exitdate"), 
 							 resultSet.getString("exit.otherdestination"), 
-							 resultSet.getString("exit.projectEntryID"), resultSet.getString("exit.exit_source_system_id"));
+							 resultSet.getString("exit.project_entry_id"), resultSet.getString("exit.source_system_id"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {

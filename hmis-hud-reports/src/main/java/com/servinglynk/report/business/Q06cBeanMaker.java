@@ -24,7 +24,9 @@ public class Q06cBeanMaker {
 		List<ExitModel> exits = data.getExits();
 		exits.parallelStream().forEach(exit -> { 
 			
-			if(StringUtil.equals("8", exit.getDestination()) || StringUtil.equals("9", exit.getDestination())) {
+			if(StringUtil.equals("8", exit.getDestination()) || StringUtil.equals("9", exit.getDestination()) || StringUtil.equals("30", exit.getDestination())
+					|| StringUtil.equals("99", exit.getDestination())
+					) {
 				destinationErroCount++;
 			}
 		}

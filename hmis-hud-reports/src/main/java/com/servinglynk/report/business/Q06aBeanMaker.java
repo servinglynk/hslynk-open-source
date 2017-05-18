@@ -67,7 +67,17 @@ public class Q06aBeanMaker {
 			if(StringUtil.equals("99", client.getSsn_data_quality())) {
 				ssnInfoMissing++;
 			}
-			if(StringUtil.equals("2", client.getSsn_data_quality())) {
+			/* TODO Sandeep
+			 *  Cannot contain a non-numeric character.
+				o Must be 9 digits long.
+				o First three digits cannot be “000,” “666,” or in the 900 series.
+				o The second group / 5th and 6th digits cannot be “00”.
+				o The third group / last four digits cannot be “0000”.
+				o There cannot be repetitive (e.g. “333333333”) or sequential (e.g. “345678901” “987654321”)
+				numbers for all 9 digits.
+				• Column B Row 4 – count of clients 
+			 */
+			if(StringUtil.equals("2", client.getSsn_data_quality()) ) {
 				ssnDataIssue++;
 			}
 			if(StringUtil.equals("8", client.getDob_data_quality()) || StringUtil.equals("9", client.getDob_data_quality()))  {
@@ -76,6 +86,11 @@ public class Q06aBeanMaker {
 			if(StringUtil.equals("99", client.getDob_data_quality())) {
 				dobInfoMissing++;
 			}
+			/* TODO: Sandeep
+			 * Prior to 1/1/1915.
+				o After the [date created] for the record.
+				o Equal to or after the [project entry date]. 
+			 */
 			if(StringUtil.equals("2", client.getDob_data_quality())) {
 				dobDataIssue++;
 			}
@@ -108,26 +123,26 @@ public class Q06aBeanMaker {
 		q06aBean.setNameCDK(BigInteger.valueOf(nameCDK));
 		q06aBean.setNameInfoMissing(BigInteger.valueOf(nameInfoMissing));
 		q06aBean.setNameDataIssue(BigInteger.valueOf(nameDataIssue));
-		q06aBean.setNamePercentageErrorRate(BigInteger.valueOf(numOfClients/nameInfoMissing));
+		q06aBean.setNamePercentageErrorRate(BigInteger.valueOf((nameCDK+nameInfoMissing+nameDataIssue)/numOfClients));
 		q06aBean.setSsnCDK(BigInteger.valueOf(ssnCDK));
 		q06aBean.setSsnInfoMissing(BigInteger.valueOf(ssnInfoMissing));
 		q06aBean.setSsnDataIssue(BigInteger.valueOf(ssnDataIssue));
-		q06aBean.setSsnPercentageErrorRate(BigInteger.valueOf(numOfClients/ssnInfoMissing));
+		q06aBean.setSsnPercentageErrorRate(BigInteger.valueOf((ssnCDK+ssnInfoMissing+ssnDataIssue)/numOfClients));
 		q06aBean.setDobCDK(BigInteger.valueOf(ssnCDK));
 		q06aBean.setDobInfoMissing(BigInteger.valueOf(ssnInfoMissing));
 		q06aBean.setDobDataIssue(BigInteger.valueOf(dobDataIssue));
-		q06aBean.setDobPercentageErrorRate(BigInteger.valueOf(numOfClients/dobInfoMissing)); 
+		q06aBean.setDobPercentageErrorRate(BigInteger.valueOf((ssnCDK+ssnInfoMissing+dobDataIssue)/numOfClients)); 
 		q06aBean.setRaceCDK(BigInteger.valueOf(raceCDK));
 		q06aBean.setRaceInfoMissing(BigInteger.valueOf(raceInfoMissing));
 		q06aBean.setRaceDataIssue(BigInteger.valueOf(raceDataIssue));
-		q06aBean.setRacePercentageErrorRate(BigInteger.valueOf(numOfClients/raceInfoMissing));
+		q06aBean.setRacePercentageErrorRate(BigInteger.valueOf((raceCDK+raceInfoMissing+raceDataIssue)/numOfClients));
 		q06aBean.setEthnicityCDK(BigInteger.valueOf(ethnicityCDK));
 		q06aBean.setEthnicityInfoMissing(BigInteger.valueOf(ethnicityInfoMissing));
 		q06aBean.setEthnicityDataIssue(BigInteger.valueOf(ethnicityDataIssue));
-		q06aBean.setEthnicityPercentageErrorRate(BigInteger.valueOf(numOfClients/ethnicityInfoMissing));
+		q06aBean.setEthnicityPercentageErrorRate(BigInteger.valueOf((ethnicityCDK+ethnicityInfoMissing+ethnicityDataIssue)/numOfClients));
 		q06aBean.setGenderCDK(BigInteger.valueOf(genderCDK));
 		q06aBean.setGenderInfoMissing(BigInteger.valueOf(genderInfoMissing));
-		q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf(numOfClients/genderInfoMissing));
+		q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf((genderCDK+genderInfoMissing)/numOfClients));
 		q06aBean.setOverAllPercentage(BigInteger.valueOf(1));
 
 

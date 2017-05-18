@@ -33,7 +33,7 @@ public class Q04aBeanMaker {
 					while(resultSet.next()) {
 					 q04aDataBean.setQ04aProjectName(resultSet.getString("project.projectname"));
 					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("project.projecttype_desc"));
-					 q04aDataBean.setQ04aProjectId(resultSet.getString("project.project_source_system_id"));
+					 q04aDataBean.setQ04aProjectId(resultSet.getString("project.source_system_id"));
 					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("project.trackingmethod_desc"));
 					 String organizationId = resultSet.getString("project.organizationid");
 					 ProjectModel project = new ProjectModel(q04aDataBean.getQ04aProjectName(), q04aDataBean.getQ04aHmisProjectType(), id, q04aDataBean.getQ04aOrgId());
@@ -43,7 +43,7 @@ public class Q04aBeanMaker {
 					
 					q04aDataBean.setQ04aProjectName("project.projectname");
 					 q04aDataBean.setQ04aHmisProjectType("project.projecttype_desc");
-					 q04aDataBean.setQ04aProjectId("project.project_source_system_id");
+					 q04aDataBean.setQ04aProjectId("project.source_system_id");
 					 q04aDataBean.setQ04aMethodOfTracking("project.trackingmethod_desc");
 					 q04aDataBean.setQ04aIdentityProjectId(BigInteger.ZERO);
 					 q04aDataBean.setQ04aHmisProjectIdService(BigInteger.ZERO);
@@ -76,7 +76,7 @@ public class Q04aBeanMaker {
 //						int count = 0;
 					 while(resultSet.next()) {
 						 q04aDataBean.setQ04aOrgName(resultSet.getString("organization.organizationname"));
-						 q04aDataBean.setQ04aOrgId(resultSet.getString("organization.organization_source_system_id"));
+						 q04aDataBean.setQ04aOrgId(resultSet.getString("organization.source_system_id"));
 					 }
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

@@ -2,6 +2,8 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q06bDataBean;
@@ -25,7 +27,8 @@ public class Q06bBeanMaker  {
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtil.equals("8", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status())) {
+			if(StringUtil.equals("8", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status()) || 
+				(StringUtil.equals("1", client.getVeteran_status()) && client.getDob() != null && getAge(client.getDob())  < 18 ) ) {
 				veteranStatusErrorCount++;
 			}
 		}
@@ -40,7 +43,6 @@ public class Q06bBeanMaker  {
 			if(enrollment.getEntrydate() == null) {
 				pedErrorCount++;
 			}
-		
 		 }
 		);
 		
@@ -59,4 +61,21 @@ public class Q06bBeanMaker  {
 		return Arrays.asList(q06bDataBean);
 	}
 
+	public static int getAge(Date dateOfBirth) {
+	    int age = 0;
+	    Calendar born = Calendar.getInstance();
+	    Calendar now = Calendar.getInstance();
+	    if(dateOfBirth!= null) {
+	        now.setTime(new Date());
+	        born.setTime(dateOfBirth);  
+	        if(born.after(now)) {
+	            throw new IllegalArgumentException("Can't be born in the future");
+	        }
+	        age = now.get(Calendar.YEAR) - born.get(Calendar.YEAR);             
+	        if(now.get(Calendar.DAY_OF_YEAR) < born.get(Calendar.DAY_OF_YEAR))  {
+	            age-=1;
+	        }
+	    }  
+	    return age;
+	}
 }
