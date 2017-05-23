@@ -56,11 +56,14 @@ public class Q06cBeanMaker {
 		q06cDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(destinationErroCount));
 		q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(destinationErroCount/exits.size() ));
 		q06cDataBean.setIseErrorCount(BigInteger.valueOf(iseErrorCount));
-		q06cDataBean.setIseErrorRate(BigInteger.valueOf(iseErrorCount/(data.getNoOfAdultHeadsOfHousehold().intValue()+data.getNoOfChildHeadsOfHousehold().intValue())));
+		if(data.getNoOfAdultHeadsOfHousehold() !=null && data.getNoOfChildHeadsOfHousehold()!=null)
+			q06cDataBean.setIseErrorRate(BigInteger.valueOf(iseErrorCount/(data.getNoOfAdultHeadsOfHousehold().intValue()+data.getNoOfChildHeadsOfHousehold().intValue())));
 		q06cDataBean.setIsaaErrorCount(BigInteger.valueOf(isaaErrorCount));
-		q06cDataBean.setIsaaErrorRate(BigInteger.valueOf(isaaErrorCount/data.getNumOfHeadsOfHHandAdults365Days().intValue()));
+		if(data.getNumOfHeadsOfHHandAdults365Days() !=null && data.getNumOfHeadsOfHHandAdults365Days().intValue() != 0)
+			q06cDataBean.setIsaaErrorRate(BigInteger.valueOf(isaaErrorCount/data.getNumOfHeadsOfHHandAdults365Days().intValue()));
 		q06cDataBean.setIsaeErrorCount(BigInteger.valueOf(isaeErrorCount));
-		q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(data.getTotNoOfAdultLeavers().intValue()));
+		if(data.getTotNoOfAdultLeavers() !=null && data.getTotNoOfAdultLeavers().intValue() !=0)
+			q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(data.getTotNoOfAdultLeavers().intValue()));
 		
 		return Arrays.asList(q06cDataBean);
 	}

@@ -1,0 +1,13 @@
+   Category,Number of adults at entry,  Number of adults at followup (Stayers),Number of adults at exit (leavers)
+   a. Adults with only earned income,0,0,0
+   b. Adults with only other income,0,0,0
+   c. Adults with both earned and other income,0,0,0
+   d. Adults with no income,0,0,0
+   e. Adults with Client Doesn't Know/Client Refused income information,0,0,0
+   f. Adults with missing income ,0,0,0
+   g. Number of adult stayers not yet required to have an annual assessment,0,0,0
+"   h. Number of adult stayers
+without required annual assessment",0,0,0
+   i. Total adults,0,0,0
+   j. 1 or more source of income,0,0,0
+   k. Adults with income information at entry AND follow-,0,0,0

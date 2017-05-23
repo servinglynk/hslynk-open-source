@@ -23,9 +23,14 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 public class CSVGenerator {
 
 	protected static InputStream getInputStream(String fileName) {
-		InputStream inputStream1 = null;
-		ClassLoader classLoader = CSVGenerator.class.getClassLoader();
-		return classLoader.getResourceAsStream(fileName);
+		try {
+			InputStream inputStream1 = null;
+			ClassLoader classLoader = CSVGenerator.class.getClassLoader();
+			return classLoader.getResourceAsStream(fileName);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	 @SuppressWarnings("unchecked")
