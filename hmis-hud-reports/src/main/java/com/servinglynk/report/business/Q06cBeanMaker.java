@@ -13,10 +13,10 @@ import jodd.util.StringUtil;
 
 public class Q06cBeanMaker {
 
-	public static Long destinationErroCount;
-	public static Long iseErrorCount;
-	public static Long isaaErrorCount;
-	public static Long isaeErrorCount;
+	public static Long destinationErroCount=0L;
+	public static Long iseErrorCount=0L;
+	public static Long isaaErrorCount=0L;
+	public static Long isaeErrorCount=0L;
 	
 	public static List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(ReportData data){
 		
@@ -56,11 +56,11 @@ public class Q06cBeanMaker {
 		q06cDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(destinationErroCount));
 		q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(destinationErroCount/exits.size() ));
 		q06cDataBean.setIseErrorCount(BigInteger.valueOf(iseErrorCount));
-		q06cDataBean.setIseErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setIseErrorRate(BigInteger.valueOf(iseErrorCount/(data.getNoOfAdultHeadsOfHousehold().intValue()+data.getNoOfChildHeadsOfHousehold().intValue())));
 		q06cDataBean.setIsaaErrorCount(BigInteger.valueOf(isaaErrorCount));
-		q06cDataBean.setIsaaErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setIsaaErrorRate(BigInteger.valueOf(isaaErrorCount/data.getNumOfHeadsOfHHandAdults365Days().intValue()));
 		q06cDataBean.setIsaeErrorCount(BigInteger.valueOf(isaeErrorCount));
-		q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(0));
+		q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(data.getTotNoOfAdultLeavers().intValue()));
 		
 		return Arrays.asList(q06cDataBean);
 	}

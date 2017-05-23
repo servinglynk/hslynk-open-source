@@ -15,10 +15,10 @@ import jodd.util.StringUtil;
 
 public class Q06bBeanMaker  {
 	public static Long veteranStatusErrorCount = 0L;
-	public static Long pedErrorCount;
-	public static Long relationShipHHErrorCount;
-	public static Long clientLocationErrorCount;
-	public static Long disablingCondErrorCount;
+	public static Long pedErrorCount = 0L;
+	public static Long relationShipHHErrorCount = 0L;
+	public static Long clientLocationErrorCount = 0L;
+	public static Long disablingCondErrorCount = 0L;
 	
 	public static List<Q06bDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
 		Q06bDataBean q06bDataBean = new Q06bDataBean();
@@ -40,15 +40,20 @@ public class Q06bBeanMaker  {
 			if(StringUtil.equals("8", enrollment.getRelationshiptohoh()) || StringUtil.equals("9", enrollment.getRelationshiptohoh())) {
 				relationShipHHErrorCount++;
 			}
-			if(enrollment.getEntrydate() == null) {
-				pedErrorCount++;
-			}
+//			if(enrollment.getEntrydate() == null) {
+//				pedErrorCount++;
+//			}
 		 }
 		);
 		
 		q06bDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(veteranStatusErrorCount));
 		Long numOfAdults = Long.parseLong(String.valueOf(data.getNumOfAdults()));
-		q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(veteranStatusErrorCount/numOfAdults));
+		if(numOfAdults !=0) {
+			q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(veteranStatusErrorCount/numOfAdults));
+		}else {
+			q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(0));
+		}
+		
 		q06bDataBean.setPedErrorCount(BigInteger.valueOf(pedErrorCount));
 		q06bDataBean.setPedErrorRate(BigInteger.valueOf(pedErrorCount/numOfClients));
 		q06bDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(relationShipHHErrorCount));
