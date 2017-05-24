@@ -65,13 +65,12 @@ public class SurveyView extends BaseView {
     		Survey survey = getSurveyById("survey", surveyId);
     		// TODO: Below items
     		String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
-    		Map<String, String> exisingSubmissions = getExisingSubmissions(projectGroupCode, tableName);
-    		
     		if(StringUtils.equalsIgnoreCase(survey.getProjectGroupCode(), projectGroupCode)) {
     	   		createHiveTable(survey, disinctQuestions);
             	//  create a hive table after getting the questions.    	
             	//Insert the data into the view by clientIds and submission id.
         		// Get unique clients for a survey.
+    	   		Map<String, String> exisingSubmissions = getExisingSubmissions(projectGroupCode, tableName);
         		List<String>  clients = getClientsForSurvey("survey", UUID.fromString(surveyId));
         		for(String clientId : clients) {
         			if(StringUtils.isNotBlank(clientId)) {
