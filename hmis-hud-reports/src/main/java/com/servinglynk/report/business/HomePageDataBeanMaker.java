@@ -618,7 +618,7 @@ public class HomePageDataBeanMaker {
 							 resultSet.getString("client.dob_data_quality_desc"), resultSet.getString("client.gender"), 
 							 resultSet.getString("client.gender_desc"), resultSet.getString("client.other_gender"), resultSet.getString("client.ethnicity"), 
 							 resultSet.getString("client.ethnicity_desc"), resultSet.getString("client.race"), resultSet.getString("client.race_desc"), 
-							 resultSet.getString("client.veteran_status"), resultSet.getString("client.client_source_system_id"));
+							 resultSet.getString("client.veteran_status"), resultSet.getString("client.source_system_id"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
@@ -682,7 +682,7 @@ public class HomePageDataBeanMaker {
 							// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
 							 null,
 							 resultSet.getString("enrollment.disablingcondition"), 
-							 null, 
+							 resultSet.getDate("enrollment.entrydate"), 
 							 resultSet.getString("enrollment.householdid"), 
 							 resultSet.getString("enrollment.housingstatus"), 
 							 resultSet.getString("enrollment.housingstatus_desc"), 
@@ -707,7 +707,8 @@ public class HomePageDataBeanMaker {
 							// resultSet.getInt("enrollment.yearshomeless"), 
 							 0,
 							 (Boolean)resultSet.getBoolean("enrollment.chronichomeless"), 
-							 resultSet.getString("enrollment.source_system_id"));
+							 resultSet.getString("enrollment.source_system_id"),
+							 resultSet.getDate("enrollment.date_created_from_source"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {

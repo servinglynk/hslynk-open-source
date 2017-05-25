@@ -17,12 +17,13 @@ public class EnrollmentModel {
 			String timeshomelesspastthreeyears,
 			String timeshomelesspastthreeyears_desc, String yearshomeless,
 			String personalID, int ageatentry, boolean chronichomeless,
-			String enrollment_source_system_id) {
+			String enrollment_source_system_id,Date dateCreatedFromSource) {
 		super();
 		this.projectEntryID = projectEntryID;
 		this.continuouslyhomelessoneyear = continuouslyhomelessoneyear;
 		this.disablingcondition = disablingcondition;
 		this.entrydate = entrydate;
+		this.dateCreatedFromSource = dateCreatedFromSource;
 		this.householdid = householdid;
 		this.housingstatus = housingstatus;
 		this.housingstatus_desc = housingstatus_desc;
@@ -50,6 +51,7 @@ public class EnrollmentModel {
 	private String continuouslyhomelessoneyear;
 	private String disablingcondition;  
 	private Date entrydate;
+	private Date dateCreatedFromSource;
 	private String householdid;
 	private String housingstatus;
 	private String housingstatus_desc;
@@ -119,6 +121,12 @@ public class EnrollmentModel {
 	 */
 	public void setEntrydate(Date entrydate) {
 		this.entrydate = entrydate;
+	}
+	public Date getDateCreatedFromSource() {
+		return dateCreatedFromSource;
+	}
+	public void setDateCreatedFromSource(Date dateCreatedFromSource) {
+		this.dateCreatedFromSource = dateCreatedFromSource;
 	}
 	/**
 	 * @return the householdid

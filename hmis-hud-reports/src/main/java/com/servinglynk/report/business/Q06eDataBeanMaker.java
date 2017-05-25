@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q06eDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q06eDataBeanMaker {
