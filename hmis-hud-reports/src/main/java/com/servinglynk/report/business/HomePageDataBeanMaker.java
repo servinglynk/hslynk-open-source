@@ -172,7 +172,7 @@ public class HomePageDataBeanMaker {
 				CSVGenerator.buildReport(q06dDataBeanList, "Q6d.jrxml", "Q6d.csv");
 			}
 			
-			List<Q06eDataBean> q06eDataBeanList = Q06eDataBeanMaker.getQ06eDataBeanList();
+			List<Q06eDataBean> q06eDataBeanList = Q06eDataBeanMaker.getQ06eDataBeanList(data);
 			homePageDataBean.setQ06eDataBean(q06eDataBeanList);
 			if(q06eDataBeanList!=null){
 				CSVGenerator.buildReport(q06eDataBeanList, "Q6e.jrxml", "Q6e.csv");
