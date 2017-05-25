@@ -1,9 +1,0 @@
-2017-05-24 12:18:43 main Utils [INFO] Supplied authorities: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
-2017-05-24 12:18:43 main Utils [INFO] Resolved authority: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
-2017-05-24 12:18:43 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/
-2017-05-24 12:19:56 main Utils [INFO] Supplied authorities: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
-2017-05-24 12:19:56 main Utils [INFO] Resolved authority: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
-2017-05-24 12:19:56 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/
-2017-05-24 13:30:19 main Utils [INFO] Supplied authorities: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
-2017-05-24 13:30:19 main Utils [INFO] Resolved authority: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
-2017-05-24 13:30:19 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/
