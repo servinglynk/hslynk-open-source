@@ -1,22 +1,22 @@
 package com.servinglynk.report.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class ExitModel {
 		private String exitid;
 		private String destination;
 		private String destination_desc;
-		private Timestamp exitdate;
+		private Date exitdate;
+		private Date dateCreatedFromSource;
 		private String otherdestination;
 		private String projectEntryID;
 		private String exit_source_system_id;
 		
 		public ExitModel() {}
 		public ExitModel(String exitid, String destination,
-				String destination_desc, Timestamp exitdate,
+				String destination_desc, Date exitdate,
 				String otherdestination, String projectEntryID,
-				String exit_source_system_id) {
+				String exit_source_system_id,Date dateCreatedFromSource) {
 			super();
 			this.exitid = exitid;
 			this.destination = destination;
@@ -25,6 +25,7 @@ public class ExitModel {
 			this.otherdestination = otherdestination;
 			this.projectEntryID = projectEntryID;
 			this.exit_source_system_id = exit_source_system_id;
+			this.dateCreatedFromSource =dateCreatedFromSource;
 		}
 		/**
 		 * @return the exitid
@@ -71,8 +72,15 @@ public class ExitModel {
 		/**
 		 * @param exitdate the exitdate to set
 		 */
-		public void setExitdate(Timestamp exitdate) {
+		public void setExitdate(Date exitdate) {
 			this.exitdate = exitdate;
+		}
+		
+		public Date getDateCreatedFromSource() {
+			return dateCreatedFromSource;
+		}
+		public void setDateCreatedFromSource(Date dateCreatedFromSource) {
+			this.dateCreatedFromSource = dateCreatedFromSource;
 		}
 		/**
 		 * @return the otherdestination

@@ -741,9 +741,9 @@ public class HomePageDataBeanMaker {
 				 while(resultSet.next()) {
 					 ExitModel model = new ExitModel( resultSet.getString("exit.exit_id"), resultSet.getString("exit.destination"), 
 							 resultSet.getString("exit.destination_desc"), 
-							 resultSet.getTimestamp("exit.exitdate"), 
+							 resultSet.getDate("exit.exitdate"), 
 							 resultSet.getString("exit.otherdestination"), 
-							 resultSet.getString("exit.project_entry_id"), resultSet.getString("exit.source_system_id"));
+							 resultSet.getString("exit.project_entry_id"), resultSet.getString("exit.source_system_id"), resultSet.getDate("exit.date_created_from_source"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
