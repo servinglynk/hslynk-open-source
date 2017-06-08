@@ -34,7 +34,7 @@ public class SearchServiceClient extends CoreClientBase implements ISearchServic
 		HttpEntity entity = new HttpEntity(headers);
 
 		StringBuffer URI = new StringBuffer(
-				"http://52.38.189.237:8080/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
 		for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
 			URI.append("&" + entry.getKey() + "=" + entry.getValue());
 		}
