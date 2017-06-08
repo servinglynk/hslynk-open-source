@@ -30,17 +30,17 @@ import com.servinglynk.hmis.warehouse.client.search.SearchServiceClient;
 @ImportResource({ "classpath:com/notification-service-client-config.xml" })
 @ComponentScan(value = { "com.servinglynk.hmis.warehouse.client.notificationservice",
 		"com.servinglynk.hmis.warehouse.client.reportservice" })
-@PropertySource("classpath:com/core-client.properties")
+//@PropertySource("classpath:com/core-client.properties")
 public class SpringConfig {
 
-	@Bean
+/*	@Bean
 	public static PropertyPlaceholderConfigurer properties() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 		ClassPathResource[] resources = new ClassPathResource[] { new ClassPathResource("com/core-client.properties") };
 		ppc.setLocations(resources);
 		ppc.setIgnoreUnresolvablePlaceholders(true);
 		return ppc;
-	}
+	}*/
 
 	@Autowired
 	Environment env;
