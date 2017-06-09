@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
 	private static final String OPENEMPI_SESSION_KEY_HEADER = "OPENEMPI_SESSION_KEY";
-	private static final String OPENEMPI_HOST = "http://ec2-35-161-97-14.us-west-2.compute.amazonaws.com:8080/openempi-webapp-web-2.2.9/";
+	private static final String OPENEMPI_HOST = "http://openempi.aws.hmislynk.com:8080/openempi-webapp-web-2.2.9/";
 	final static Logger logger = Logger.getLogger(DedupServiceImpl.class);
 	
 	public String authenticate(AuthenticationRequest authRequest) {
