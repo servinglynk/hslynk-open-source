@@ -249,6 +249,9 @@ public class SyncSchema extends Logging {
                             }
                         }
                     }
+                    p.addColumn(Bytes.toBytes("CF"),
+                            Bytes.toBytes("year"),
+                            Bytes.toBytes(upload.getYear()));
                     if (existingKeysInHbase.contains(key)) {
                         putsToUpdate.add(p);
                         if (putsToUpdate.size() > syncHBaseImport.batchSize) {
