@@ -69,12 +69,12 @@ public class SyncSchema extends Logging {
                     logger.info("Create tables in HBASE");
                     tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + schema, logger));
                     logger.info("Create tables done");
-
+                    Map<String, String> hmisTypes = loadHmisTypeMap(schema);
                     for (final String tableName : tables) {
                         final String tempName = tableName;
                         logger.info("[" + tempName + "] Processing table : " + tempName);
                         try {
-                            syncTable(tempName, tempName + "_" + schema, schema);
+                            syncTable(tempName, tempName + "_" + schema, schema,hmisTypes);
                         } catch (Exception ex) {
                            logger.error(ex);
                         }
@@ -92,8 +92,48 @@ public class SyncSchema extends Logging {
         }
     }
 
-    private void
-    syncTable(String postgresTable, String hbaseTable, String syncSchema) {
+    /***
+   	 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
+   	 *
+   	 * @return Map<String,String>
+   	 */
+   	public static Map<String, String> loadHmisTypeMap(String schema) {
+   		ResultSet resultSet = null;
+   		PreparedStatement statement = null;
+   		Connection connection = null;
+   		Map<String, String> hmisTypeMap = new HashMap<String, String>();
+   		try {
+   			connection = SyncPostgresProcessor.getConnection();
+   			statement = connection.prepareStatement("SELECT name, value,description FROM " + schema + ".hmis_type");
+   			resultSet = statement.executeQuery();
+   			while (resultSet.next()) {
+   				String name = resultSet.getString(1);
+   				String key = name.toLowerCase().trim() + "_" + resultSet.getString(2).trim();
+   				String desc = resultSet.getString(3);
+   				hmisTypeMap.put(key, desc);
+   			}
+   			return hmisTypeMap;
+   		} catch (SQLException e) {
+   			// TODO Auto-generated catch block
+   			e.printStackTrace();
+   		} finally {
+   			if (statement != null) {
+   				try {
+   					statement.close();
+   					//connection.close();
+   				} catch (SQLException e) {
+   					// TODO Auto-generated catch block
+   					e.printStackTrace();
+   				}
+   			}
+   		}
+   		return null;
+   	}
+    private String getDescriptionForHmisType(final Map<String, String> hmisTypes, String key) {
+    	return hmisTypes.get(key);
+    }
+    
+    private void syncTable(String postgresTable, String hbaseTable, String syncSchema, Map<String, String> hmisTypes) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -141,10 +181,20 @@ public class SyncSchema extends Logging {
                     for (int i = 1; i < metaData.getColumnCount(); i++) {
                         String column = metaData.getColumnName(i);
                         String value = resultSet.getString(i);
+                        String columnTypeName = metaData.getColumnTypeName(i);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                             p.addColumn(Bytes.toBytes("CF"),
                                     Bytes.toBytes(column),
                                     Bytes.toBytes(value));
+                            // Add a new column for description for enums
+                            if(columnTypeName.contains(syncSchema)) {
+                            	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
+                            	if(StringUtils.isNotBlank(description)) {
+                            		 p.addColumn(Bytes.toBytes("CF"),
+                                             Bytes.toBytes(column+"_desc"),
+                                             Bytes.toBytes(description));
+                            	}
+                            }
                         }
                     }
                     p.addColumn(Bytes.toBytes("CF"),
