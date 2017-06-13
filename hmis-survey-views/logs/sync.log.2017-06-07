@@ -1,0 +1,3 @@
+2017-06-07 14:16:02 main Utils [INFO] Supplied authorities: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
+2017-06-07 14:16:02 main Utils [INFO] Resolved authority: ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000
+2017-06-07 14:16:02 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://ec2-35-166-12-36.us-west-2.compute.amazonaws.com:10000/
