@@ -51,7 +51,7 @@ public class BaseClientServiceImpl extends CoreClientBase implements BaseClientS
 		restTemplate.setMessageConverters(messageConverters);
 
 		HttpEntity entity = new HttpEntity(headers);
-		 ResponseEntity<BaseClients> response = restTemplate.exchange("http://52.38.189.237:8080/hmis-clientapi-v2015/rest/clients",HttpMethod.GET,entity ,BaseClients.class);
+		 ResponseEntity<BaseClients> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v2015/rest/clients",HttpMethod.GET,entity ,BaseClients.class);
 		 return response.getBody();
 	}
 	
