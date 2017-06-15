@@ -13,6 +13,7 @@ public class SyncPostgresProcessor extends Logging{
 
     public static int batchSize = 1000;
     private static Connection connection = null;
+    static final Logger logger = Logger.getLogger(SyncPostgresProcessor.class);
     static Connection getConnection() throws SQLException {
         if (connection == null) {
             connection = DriverManager.getConnection(
@@ -32,6 +33,11 @@ public class SyncPostgresProcessor extends Logging{
         PreparedStatement statement = null;
         Connection connection = null;
         try{
+        	  logger.info("Host name"+Properties.POSTGRESQL_DB_HOST);
+              logger.info("POSTGRESQL_DB_PORT"+Properties.POSTGRESQL_DB_PORT);
+              logger.info("POSTGRESQL_DB_DATABASE"+Properties.POSTGRESQL_DB_DATABASE);
+              logger.info("POSTGRESQL_DB_USERNAME"+Properties.POSTGRESQL_DB_USERNAME);
+              logger.info("POSTGRESQL_DB_PASSWORD"+Properties.POSTGRESQL_DB_PASSWORD);
             connection = getConnection();
             statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
             resultSet = statement.executeQuery();
