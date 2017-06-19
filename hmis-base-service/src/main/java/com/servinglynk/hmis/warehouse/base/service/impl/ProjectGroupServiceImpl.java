@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ProjectConverter;
@@ -31,8 +32,8 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		//projectGroupEntity.setInsertBy(caller);
 		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode()+"-"+UUID.randomUUID());
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
-		
-		
+		AwsS3Client client = new AwsS3Client();
+		client.createBucket(projectGroupEntity.getBucketName(), "testFolder");
 		for(BaseProject baseProject : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
 			entity.setProjectGroupEntity(projectGroupEntity);
