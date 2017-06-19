@@ -35,6 +35,10 @@ public class AwsS3Client {
         s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
     }
 
+    public void createBucket(String bucketName, String prefix) {
+    	s3Client.createBucket(bucketName);
+    }
+    
     /**
      * retrieve the list of keys in a specific bucket with a specific prefix
      * @param bucketName
