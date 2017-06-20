@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -29,15 +27,15 @@ public class AwsS3Client {
     {
         System.setProperty("aws.accessKeyId", accessKey);
         System.setProperty("aws.secretKey", secretKey);
-        AWSCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
-        s3Client = new AmazonS3Client(credentialsProvider);
+        DefaultAWSCredentialsProviderChain credentialProviderChain = new DefaultAWSCredentialsProviderChain();
+        s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
     }
 
     public AwsS3Client()
     {
-    	  AWSCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
-          s3Client = new AmazonS3Client(credentialsProvider);
-          s3Client.setRegion(Region.getRegion(Regions.US_WEST_1));
+        DefaultAWSCredentialsProviderChain credentialProviderChain = new DefaultAWSCredentialsProviderChain();
+        s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
+        s3Client.setRegion(Region.getRegion(Regions.US_WEST_1));
     }
 
     public void createBucket(String bucketName, String prefix) {
