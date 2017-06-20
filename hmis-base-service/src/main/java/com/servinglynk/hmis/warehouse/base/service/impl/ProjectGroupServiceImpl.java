@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.AwsS3Client;
@@ -20,6 +24,9 @@ import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundExce
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 
 public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroupService {
+	
+	@Resource
+	private Environment env;
 
 	@Transactional
 	public ProjectGroup createProjectGroup(ProjectGroup projectGroup, String caller){
@@ -32,7 +39,15 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		//projectGroupEntity.setInsertBy(caller);
 		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode()+"-"+UUID.randomUUID());
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
-		AwsS3Client client = new AwsS3Client();
+		String accessKey = env.getProperty("aws_access_key_id");
+		String secreyKey = env.getProperty("aws_secret_access_key");
+		AwsS3Client client = null;
+		if(StringUtils.isNotBlank(accessKey) && StringUtils.isNotBlank(secreyKey)) {
+			client = new AwsS3Client(accessKey, secreyKey);
+		}else {
+			client = new AwsS3Client();
+		}
+			
 		client.createBucket(projectGroupEntity.getBucketName(), "");
 		for(BaseProject baseProject : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();

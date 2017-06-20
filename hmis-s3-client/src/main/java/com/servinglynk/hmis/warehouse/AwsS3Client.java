@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -27,8 +28,8 @@ public class AwsS3Client {
     {
         System.setProperty("aws.accessKeyId", accessKey);
         System.setProperty("aws.secretKey", secretKey);
-        DefaultAWSCredentialsProviderChain credentialProviderChain = new DefaultAWSCredentialsProviderChain();
-        s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
+        BasicAWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+        s3Client = new AmazonS3Client(credentials);
     }
 
     public AwsS3Client()
