@@ -7,8 +7,8 @@ import java.util.List;
 public class TestClass {
     public static void main(String[] args) throws Exception {
         AwsS3Client client = new AwsS3Client();
-        client.createBucket("sdolia-test-2020", "");
-        List<String> keys = client.listBucket("sdolia-test-2020", "");
+        client.createBucket("sdolia-test-2021", "");
+        List<String> keys = client.listBucket("sdolia-test-2021", "");
         for (String key : keys) {
             System.out.println(key);
         }
