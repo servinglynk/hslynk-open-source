@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -33,6 +35,7 @@ public class AwsS3Client {
     {
         DefaultAWSCredentialsProviderChain credentialProviderChain = new DefaultAWSCredentialsProviderChain();
         s3Client = new AmazonS3Client(credentialProviderChain.getCredentials());
+        s3Client.setRegion(Region.getRegion(Regions.US_WEST_1));
     }
 
     public void createBucket(String bucketName, String prefix) {
