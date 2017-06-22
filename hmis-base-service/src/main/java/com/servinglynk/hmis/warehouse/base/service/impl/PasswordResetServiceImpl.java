@@ -2,12 +2,7 @@ package com.servinglynk.hmis.warehouse.base.service.impl;
 
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_DISABLED;
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PENDING;
-import static com.servinglynk.hmis.warehouse.common.Constants.PASSWORD_RESET_STATUS_CREATED;
-import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_PASSWORD_RESET;
 
-import java.util.Date;
-
-import org.apache.hadoop.yarn.webapp.hamlet.Hamlet.TH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +16,8 @@ import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.base.PasswordResetEntity;
-import com.servinglynk.hmis.warehouse.model.base.VerificationEntity;
 import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.AccountPendingException;
 
 public class PasswordResetServiceImpl extends ServiceBase implements PasswordResetService {
 	
