@@ -39,7 +39,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		//projectGroupEntity.setInsertBy(caller);
 		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode().toLowerCase()+"-"+UUID.randomUUID());
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
-		AwsS3Client client = new AwsS3Client();;
+		AwsS3Client client = new AwsS3Client();
 		client.createBucket(projectGroupEntity.getBucketName(), "");
 		for(BaseProject baseProject : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
