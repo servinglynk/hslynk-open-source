@@ -34,6 +34,7 @@ import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.PermissionSetEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
@@ -42,6 +43,7 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidCurrentPasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 public class AccountServiceImpl extends ServiceBase implements AccountService {
@@ -120,11 +122,16 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		userRoleMapEntity.setAccountEntity(pAccount);
 		userRoleMapEntity.setRoleEntity(pRole);
 
-			if (pAuditUser.getProjectGroupEntity() != null) {
-				pAccount.setProjectGroupEntity(pAuditUser.getProjectGroupEntity());
-			}else{
-				throw new AccessDeniedException("Login user does not have project group.");
-			}
+		if (account.getProjectGroup() != null) {
+			ProjectGroupEntity pProjectGroup = daoFactory.getProjectGroupDao()
+					.getProjectGroupById(account.getProjectGroup().getProjectGroupId());
+			if (pProjectGroup == null)
+				throw new ProjectGroupNotFoundException("Project group selected does not exist.");
+
+			pAccount.setProjectGroupEntity(pProjectGroup);
+		} else {
+			throw new AccessDeniedException("Created user does not have project group.");
+		}
 
 		daoFactory.getAccountDao().createAccount(pAccount);
 		daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
