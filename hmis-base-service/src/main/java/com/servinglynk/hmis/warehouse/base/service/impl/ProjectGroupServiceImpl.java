@@ -37,17 +37,9 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		projectGroupEntity.setProjectGroupCode(generateProjectGroupCode(projectGroup.getProjectGroupName(),pgCount));
 		//projectGroupEntity.setInsertAt(new Date());
 		//projectGroupEntity.setInsertBy(caller);
-		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode()+"-"+UUID.randomUUID());
+		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode().toLowerCase()+"-"+UUID.randomUUID());
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
-		String accessKey = env.getProperty("aws_access_key_id");
-		String secreyKey = env.getProperty("aws_secret_access_key");
-		AwsS3Client client = null;
-		if(StringUtils.isNotBlank(accessKey) && StringUtils.isNotBlank(secreyKey)) {
-			client = new AwsS3Client(accessKey, secreyKey);
-		}else {
-			client = new AwsS3Client();
-		}
-			
+		AwsS3Client client = new AwsS3Client();;
 		client.createBucket(projectGroupEntity.getBucketName(), "");
 		for(BaseProject baseProject : projectGroup.getProjects()){
 			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
