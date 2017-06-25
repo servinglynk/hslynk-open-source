@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +49,7 @@ import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundExce
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 public class AccountServiceImpl extends ServiceBase implements AccountService {
-	
+	private static String SUPER_ADMIN = "SUPERADMIN";
 	@Autowired
 	NotificationServiceClient notificationServiceClient;
 
@@ -121,8 +123,9 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
 		userRoleMapEntity.setAccountEntity(pAccount);
 		userRoleMapEntity.setRoleEntity(pRole);
-
-		if (account.getProjectGroup() != null) {
+		
+		boolean isSuperAdmin = isSuperAdmin(pAuditUser.getId());
+		if (account.getProjectGroup() != null && isSuperAdmin) {
 			ProjectGroupEntity pProjectGroup = daoFactory.getProjectGroupDao()
 					.getProjectGroupById(account.getProjectGroup().getProjectGroupId());
 			if (pProjectGroup == null)
@@ -130,7 +133,11 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 			pAccount.setProjectGroupEntity(pProjectGroup);
 		} else {
-			throw new AccessDeniedException("Created user does not have project group.");
+			if (pAuditUser.getProjectGroupEntity() != null) {
+				pAccount.setProjectGroupEntity(pAuditUser.getProjectGroupEntity());
+			}else{
+				throw new AccessDeniedException("Login user does not have project group.");
+			}
 		}
 
 		daoFactory.getAccountDao().createAccount(pAccount);
@@ -154,7 +161,27 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 		return AccountConverter.convertToAccount(pAccount);
 	}
-
+	/***
+	 * Determines if the logged in user is a super admin
+	 * @param userid
+	 * @return
+	 */
+	private boolean isSuperAdmin(UUID userid) {
+		List<UserRoleMapEntity> userMapByUserId = daoFactory.getAccountDao().getUserMapByUserId(userid);
+		if(CollectionUtils.isNotEmpty(userMapByUserId)) {
+			for(UserRoleMapEntity userRoleMap : userMapByUserId) {
+				if(userRoleMap != null) {
+					RoleEntity roleEntity = userRoleMap.getRoleEntity();
+					if(roleEntity !=null) {
+						if(StringUtils.equals(SUPER_ADMIN,roleEntity.getRoleCode())) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 	@Transactional
 	public Account updateAccount(Account account, String auditUser) {
 
