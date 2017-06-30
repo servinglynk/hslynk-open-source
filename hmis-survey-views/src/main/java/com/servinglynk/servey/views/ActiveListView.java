@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
@@ -98,29 +101,47 @@ public class ActiveListView extends BaseView {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		try{
+			Map<String,List<String>> hiveClientMap = getHiveActiveListClients(projectGroupCode);
 			connection = getConnection();
 			statement = connection.prepareStatement(ViewQuery.GET_ACTIVE_LIST_DATA);
+			statement.setString(1, projectGroupCode);
 			resultSet = statement.executeQuery();
-			Map<String,String> hiveClientMap = getHiveActiveListClients(projectGroupCode);
  			while(resultSet.next()) {
 				int score = resultSet.getInt("score");
 				String surveyId =(String) resultSet.getString("survey_id");
 				String clientId = (String)resultSet.getString("client_id");
 				Date createAt = (Date)resultSet.getDate("created_at");
-				String surveyIdFromHive = hiveClientMap.get(clientId);
-				if(StringUtils.isNotBlank(surveyId) && !StringUtils.equals(surveyId, surveyIdFromHive)) {
-					insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,createAt);
+				List<String> surveyIdsFromHive = hiveClientMap.get(clientId);
+				if(StringUtils.isNotBlank(surveyId)) {
+					if(CollectionUtils.isNotEmpty(surveyIdsFromHive)) {
+						if(!surveyIdsFromHive.contains(surveyId)){
+							insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,createAt);
+						}
+					} else {
+						insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,createAt);
+					}
 				}
 			}
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
 	}
-	public static Map<String,String> getHiveActiveListClients(String projectGroupCode) {
+//	private static List<String> getUniqueSurveysForClient(List<String> surveyIdsFromHive, String surveyId) {
+//		if(CollectionUtils.isNotEmpty(surveyIdsFromHive) && StringUtils.isNotBlank(surveyId)) {
+//			for(String survey : surveyIdsFromHive) {
+//				if(StringUtils.equals(survey, surveyId)) {
+//					surveyIdsFromHive.remove(survey);
+//				}
+//			}
+//		}
+//		return surveyIdsFromHive;
+//	}
+
+	public static Map<String,List<String>> getHiveActiveListClients(String projectGroupCode) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
-		Map<String,String> hiveClientMap = new HashMap<>();
+		Map<String,List<String>> hiveClientMap = new HashMap<>();
 		try {
 			connection = HiveConnection.getConnection();
 			// execute statement
@@ -128,13 +149,23 @@ public class ActiveListView extends BaseView {
 				builder.append("select client_id client,survey_id survey from ");
 				builder.append(projectGroupCode);
 				builder.append(".active_list");
+				builder.append(" group by client_id,survey_id order by client_id ");
 				statement = connection.prepareStatement(builder.toString());
 				resultSet = statement.executeQuery();
+				String previousClient = null;
+				List<String> surveys = new ArrayList<>();
 				while(resultSet.next()) {
 					String clientId = resultSet.getString("client");
 					String surveyId = resultSet.getString("survey");
-					hiveClientMap.put(clientId, surveyId);
+					if(previousClient !=null && !StringUtils.equals(previousClient, clientId)) {
+						hiveClientMap.put(previousClient, surveys);
+						surveys = new ArrayList<>();
+					}
+					if(StringUtils.isNotBlank(surveyId))
+						surveys.add(surveyId.trim());
+					previousClient = clientId;
 				}
+				hiveClientMap.put(previousClient, surveys);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,12 +225,12 @@ public class ActiveListView extends BaseView {
 		Properties props = new Properties();
 		props.generatePropValues();
 		createHiveTable("MO0010");
-	//	while(true){
+		while(true){
 			processActiveList("MO0010");
-			Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
-			System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
-	//		Thread.sleep(1000 * seconds);
-	//	} 
+			Long seconds = Long.valueOf(60) * 60;
+			System.out.println("Sleep for 60 minutes");
+			Thread.sleep(1000 * seconds);
+		} 
 	}
 
 

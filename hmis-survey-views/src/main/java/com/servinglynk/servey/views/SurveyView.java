@@ -60,7 +60,7 @@ public class SurveyView extends BaseView {
     	List<String> disinctSurveys = getDisinctSurveys("survey");
     	for(String surveyId : disinctSurveys) {
     		List<String> disinctQuestions = getDisinctQuestions("survey", UUID.fromString(surveyId));
-    		System.out.println("Quesitons for survey ::"+surveyId+ "  are ::"+disinctQuestions.toString());
+    		//System.out.println("Quesitons for survey ::"+surveyId+ "  are ::"+disinctQuestions.toString());
     		// Get the Survey details from the survey table and project group code in the survey 
     		Survey survey = getSurveyById("survey", surveyId);
     		// TODO: Below items
@@ -116,7 +116,6 @@ public class SurveyView extends BaseView {
 		 	builder.append("INSERT INTO ");
 		 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
 		 	builder.append(survey.getProjectGroupCode()+"."+tableName);
-		 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 			builder.append("  VALUES ( ");
 			builder.append("?, ?, ?");
 			  int count = 4;
@@ -126,7 +125,7 @@ public class SurveyView extends BaseView {
 				  builder.append(",?");  
 			  }
 			  builder.append(")");
-			  System.out.println("The Query:::"+builder.toString());
+			  
 			  PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
 			  preparedStatement.setString(1, clientId);
 			  preparedStatement.setString(2, String.valueOf(survey.getSurveyDate()));
@@ -137,9 +136,7 @@ public class SurveyView extends BaseView {
 			  boolean resonseContainMoreThanOneClient = false;
 		 for (Response response : responses) {
 			 	  String client = existingSubmissions.get(response.getSubmissionId());
-			 	  if(StringUtils.isNotBlank(client)) {
-			 		  System.out.println("Skipping....Client::"+client+" Submission::"+response.getSubmissionId());
-			 	  }else {
+			 	  if(StringUtils.isBlank(client)) {
 			 		 preparedStatement.setString(3, response.getSubmissionId());
 					  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
 					  // execute insert SQL stetement
@@ -151,6 +148,8 @@ public class SurveyView extends BaseView {
 					  }
 					  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
 						 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
+						  System.out.println("The Query:::"+builder.toString());
+						  System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 						  preparedStatement.executeUpdate();
 						  resonseContainMoreThanOneClient = true;
 						  i =4;
@@ -158,8 +157,11 @@ public class SurveyView extends BaseView {
 				  }
 		       submissionId = response.getSubmissionId();
 		 }
-		 if(!resonseContainMoreThanOneClient)
-			 preparedStatement.executeUpdate();
+		 if(!resonseContainMoreThanOneClient) {
+			 System.out.println("The Query:::"+builder.toString());
+			 System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
+			  preparedStatement.executeUpdate();
+		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error inserting into "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_"));
@@ -315,12 +317,12 @@ public class SurveyView extends BaseView {
     public static void main(String args[]) throws Exception {
     	Properties props = new Properties();
 		props.generatePropValues();
-      //  while(true){
+        while(true){
             createHiveTableForSurvey("MO0010");
-            Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
-            System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
-      //      Thread.sleep(1000 * seconds);
-    //    }
+            Long seconds = Long.valueOf(60) * 60;
+            System.out.println("Sleep for 60 minutes");
+            Thread.sleep(1000 * seconds);
+        }
     }
 
 }

@@ -45,8 +45,8 @@ public class Properties {
             HBASE_MASTER = prop.getProperty("hbase.master");
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
-            SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
-            SYNC_SCHEMAS = prop.getProperty("sync.schemas");
+          //  SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
+         //   SYNC_SCHEMAS = prop.getProperty("sync.schemas");
             HIVE_USERNAME = prop.getProperty("hive.username");
             HIVE_PASSWORD = prop.getProperty("hive.password");
             HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
