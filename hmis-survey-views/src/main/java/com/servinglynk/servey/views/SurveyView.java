@@ -134,6 +134,7 @@ public class SurveyView extends BaseView {
 			  }
 			  String submissionId = null;
 			  boolean resonseContainMoreThanOneClient = false;
+			  boolean clientWithSubmissionExist =false;
 		 for (Response response : responses) {
 			 	  String client = existingSubmissions.get(response.getSubmissionId());
 			 	  if(StringUtils.isBlank(client)) {
@@ -154,10 +155,12 @@ public class SurveyView extends BaseView {
 						  resonseContainMoreThanOneClient = true;
 						  i =4;
 			 	    }
+				  }else {
+					  clientWithSubmissionExist = true;
 				  }
 		       submissionId = response.getSubmissionId();
 		 }
-		 if(!resonseContainMoreThanOneClient) {
+		 if(!resonseContainMoreThanOneClient && !clientWithSubmissionExist) {
 			 System.out.println("The Query:::"+builder.toString());
 			 System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 			  preparedStatement.executeUpdate();
