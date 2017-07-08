@@ -42,7 +42,7 @@ import com.googlecode.jcsv.annotations.internal.ValueProcessorProvider;
 import com.googlecode.jcsv.reader.CSVReader;
 import com.googlecode.jcsv.reader.internal.AnnotationEntryParser;
 import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
-import com.servinglynk.hmis.warehouse.AwsS3Client;
+import com.servinglynk.hmis.warehouse.S3Client;
 import com.servinglynk.hmis.warehouse.csv.Client;
 import com.servinglynk.hmis.warehouse.csv.Disabilities;
 import com.servinglynk.hmis.warehouse.csv.EmployementEducation;
@@ -104,8 +104,7 @@ public class BulkUploadHelper {
 			// download file to temp folder
 			String tempFile = upload.getInputpath();
 			if(BooleanUtils.isTrue(isFileFromS3)) {
-				AwsS3Client client = new AwsS3Client();
-				tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
+				S3Client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath());
 			}
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath())) || StringUtils.equals("7z",getFileExtension(upload.getInputpath()))){
 				return getSourcesForZipFile(tempFile);
