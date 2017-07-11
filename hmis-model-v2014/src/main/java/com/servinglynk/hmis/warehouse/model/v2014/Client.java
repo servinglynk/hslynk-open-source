@@ -21,20 +21,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
-import org.apache.solr.analysis.LowerCaseTokenizerFactory;
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.AnalyzerDef;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-import org.hibernate.search.annotations.TokenizerDef;
 
-import com.kenai.constantine.Constant;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
