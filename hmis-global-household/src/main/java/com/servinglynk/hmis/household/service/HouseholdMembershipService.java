@@ -23,6 +23,7 @@ import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 /**
  * Service Implementation for managing HouseholdMembership.
@@ -43,7 +44,7 @@ public class HouseholdMembershipService {
     private HouseholdMembershipMapper householdMembershipMapper;
     
     @Transactional
-    public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs) {
+    public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs, Session session) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTOs);
         GlobalHousehold household =		globalHouseholdRepository.findOne(householdId);
         if(household==null) throw new ResourceNotFoundException("Global household not found "+householdId);
@@ -52,6 +53,7 @@ public class HouseholdMembershipService {
         	dto.setDateCreated(LocalDateTime.now());
         	dto.setDateUpdated(LocalDateTime.now());
         	dto.setGlobalHouseholdId(householdId);
+        	dto.setUserId(session.getAccount().getAccountId());
        // 	dto.setInactive(false);
         	lhouseholdmembersDTOs.add(dto);
         }
@@ -62,13 +64,16 @@ public class HouseholdMembershipService {
     }
     
     @Transactional
-    public HouseholdMembershipDTO update(UUID householdId, HouseholdMembershipDTO householdMembershipDTO) {
+    public HouseholdMembershipDTO update(UUID householdId, HouseholdMembershipDTO householdMembershipDTO, Session session) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTO);
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
+    	householdMembershipDTO.setDateCreated(LocalDateTime.now());
         householdMembershipDTO.setDateUpdated(LocalDateTime.now());
         householdMembershipDTO.setGlobalHouseholdId(householdId);
+        householdMembershipDTO.setUserId(session.getAccount().getAccountId());
         HouseholdMembership householdMember = householdMembershipMapper.householdMembershipDTOToHouseholdMembership(householdMembershipDTO);
+
         householdMember = householdMembershipRepository.save(householdMember);
       //  HouseholdMembershipDTO result = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMember);
         return householdMembershipDTO;
