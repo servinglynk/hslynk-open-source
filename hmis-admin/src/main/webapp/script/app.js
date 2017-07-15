@@ -33,7 +33,7 @@ app.factory("LS", function($window, $rootScope) {
 	    }
 	  };
 	});
-app.config(function($routeSegmentProvider, $routeProvider,$locationProvider) {
+app.config(function($routeSegmentProvider, $routeProvider) {
     
     // Configuring provider options
     
@@ -149,7 +149,7 @@ app.config(function($routeSegmentProvider, $routeProvider,$locationProvider) {
 			})
                 
         .up()
-        $locationProvider.html5Mode(true);
+
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect
     
 }) ;
