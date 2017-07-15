@@ -12,6 +12,7 @@
 <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
 
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 <!--<script src="http://vp:8080/servinglynkv2/demo/angularcode_grid/js/ui-bootstrap-tpls-0.10.0.min.js"></script>-->
@@ -28,8 +29,8 @@ margin:0px;
        <form method="get" style="float:right" action="/hmis-authorization-service/rest/authorize" id="test-app-form">
 				<ul>
 					<input type="hidden" value="code" name="response_type" />
-					<input type="hidden"  name="trustedApp_id" value="MASTER_TRUSTED_APP"/>
-				 <input type="hidden"  name="redirect_uri" value="https://admin.hmislynk.com/hmis-admin/#/admin/dashboard"/>
+					<input type="hidden"  name="trustedApp_id" id="trustedApp_id" value=""/>
+				 <input type="hidden"  name="redirect_uri" value="https://www.hmislynk.com/hmis-admin/#/admin/dashboard"/>
 				  <!--  	<input type="hidden"  name="redirect_uri" value="https://www.hmislynk.com/hmis-admin/#/admin/dashboard"/> --> 
 					<input type="hidden" value="xyzvalue" name="state" />
 					<input type="hidden" name="access_type" value="online"/>
@@ -71,5 +72,12 @@ margin:0px;
 <script src="controller/onboardfellow.controller.js"></script>
  <script src="controller/errormessage.controller.js"></script>
  <script src="controller/manageeligreq.controller.js"></script>
+ <script>
+ $http.get('./config.json').then(function (response) {
+	    var app =  response.data;
+	    var trustedAppId =	app.trustedAppId;
+	    document.getElementById('trustedApp_id').value= trustedAppId;
+ }
+ </script>
 </body>
 </html>
