@@ -33,7 +33,7 @@ app.factory("LS", function($window, $rootScope) {
 	    }
 	  };
 	});
-app.config(function($routeSegmentProvider, $routeProvider) {
+app.config(function($routeSegmentProvider, $routeProvider,$locationProvider) {
     
     // Configuring provider options
     
