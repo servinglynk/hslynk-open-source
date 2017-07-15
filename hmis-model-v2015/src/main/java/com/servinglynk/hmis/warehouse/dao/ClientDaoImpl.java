@@ -72,7 +72,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2015.Client.class, getProjectGroupCode(domain));
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
-		Boolean skipClientIdentifier = projectGroupEntity != null && !projectGroupEntity.isSkipuseridentifers();
+		Boolean skipClientIdentifier = projectGroupEntity != null && projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
@@ -187,7 +187,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			model.setId(UUID.randomUUID());
 			model.setRecordToBeInserted(true);
 		}
-		//model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
+		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
 		if(!isFullRefresh(domain)) {
 			if(!model.isIgnored()) {
 				if(!model.isRecordToBoInserted()) {
