@@ -44,7 +44,7 @@ public class DedupHelper {
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
 	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
 	     //   String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
-	        String url = "http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/dedup";
+	        String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/dedup";
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
@@ -99,7 +99,7 @@ public class DedupHelper {
 	public String getAuthenticationHeader() {
 			RestTemplate restTemplate = new RestTemplate();
 		    //String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
-			String url = "http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
+			String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/authenticate";
 	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");

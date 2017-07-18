@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q07aBeanMaker {
 	
-        public static List<Q07aHouseholdsServedDataBean> getQ07aHouseholdsServeList() {
+        public static List<Q07aHouseholdsServedDataBean> getQ07aHouseholdsServeList(ReportData data) {
     	
         	Q07aHouseholdsServedDataBean q07aHouseholdsServed = new Q07aHouseholdsServedDataBean();
                 
@@ -32,7 +33,7 @@ public class Q07aBeanMaker {
         	q07aHouseholdsServed.setDncWithChildAndAdults(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setDncWithOnlychildren(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setDncUnknownHousehold(BigInteger.valueOf(0));
-        	q07aHouseholdsServed.setTotTotal(BigInteger.valueOf(0));
+        	q07aHouseholdsServed.setTotTotal(data.getTotNumOfPersonServed());
         	q07aHouseholdsServed.setTotWithOutChildren(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setTotWithChildAndAdults(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setTotWithOnlychildren(BigInteger.valueOf(0));

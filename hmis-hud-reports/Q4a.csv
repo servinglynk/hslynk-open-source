@@ -1,8 +1,8 @@
-Organization name,"All Practical Reporting, Inc."
-Organization ID,APR
-Project name,APR - Transitional Housing
-Project ID,242
-HMIS Project Type,2
-Method of tracking ES,1
-"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",1
-Identify the Project ID's of the housing projects this project is affiliated with,1
+Organization name,MOSBE Housing Resource 
+Organization ID,p_2119_o
+Project name,project.projectname
+Project ID,project.source_system_id
+HMIS Project Type,project.projecttype_desc
+Method of tracking ES,project.
+"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",0
+Identify the Project ID's of the housing projects this project is affiliated with,0

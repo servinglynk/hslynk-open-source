@@ -5,20 +5,22 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q10aGenderOfAdultsDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q10aBeanMaker {
 	
-	public static List<Q10aGenderOfAdultsDataBean> getQ10AGenderOfAdultsList(){
+	public static List<Q10aGenderOfAdultsDataBean> getQ10AGenderOfAdultsList(ReportData data){
 		
 		Q10aGenderOfAdultsDataBean q10AGenderOfAdults = new Q10aGenderOfAdultsDataBean();
 	
+		
 	q10AGenderOfAdults.setTotMale(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotFemale(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotTransgenderMF(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotOther(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotDontKnowRefused(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setTotInfoMissing(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setTotSubtotal(BigInteger.valueOf(0));
+	q10AGenderOfAdults.setTotSubtotal(data.getNumOfAdults());
 	q10AGenderOfAdults.setMaleWOC(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setMaleWCA(BigInteger.valueOf(0));
 	q10AGenderOfAdults.setMaleUHHT(BigInteger.valueOf(0));

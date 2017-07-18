@@ -1,8 +1,8 @@
 Data Element,Client Doesn't Know / Refused,Information Missing,Data Issues,% of Error Rate
-  Name,1,1,1,1
-  Social Security Number,1,1,1,1
-  Date of birth,1,1,1,1
-  Race,1,1,1,1
-  Ethnicity,1,1,1,1
-  Gender,1,1,1,1
+  Name,22,0,0,0
+  Social Security Number,5,0,0,1
+  Date of birth,5,0,0,1
+  Race,2,1,0,2
+  Ethnicity,0,0,1,0
+  Gender,0,0,0,0
   Overall Score,,,,1

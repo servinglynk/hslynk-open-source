@@ -130,6 +130,7 @@ public class AuthorizationsController extends ControllerBase {
 		logger.debug("redirect uri: {}", effectiveRedirectUri);
 		
 		// send redirect
+		
 		response.sendRedirect(effectiveRedirectUri);
 	}
 	
@@ -138,9 +139,10 @@ public class AuthorizationsController extends ControllerBase {
 	}
 	
 	private String urlEncode(String s)	{
+		// 07-15-17 vpc deployment
 		try {
-			return URLEncoder.encode(s, "UTF-8");
-		} 
+				return URLEncoder.encode(s, "UTF-8");  // 07-15-17 vpc deployment
+			} 
 		catch (UnsupportedEncodingException e) {
 			logger.debug(null, e);
 		}

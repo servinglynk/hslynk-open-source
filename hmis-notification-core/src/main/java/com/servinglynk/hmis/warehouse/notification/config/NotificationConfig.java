@@ -98,10 +98,10 @@ public class NotificationConfig  {
 	}
 
 	
-	 @Bean
+/*	 @Bean
 	 public NotificationConfig notificationConfig(){
 		 return new NotificationConfig();
-	 }
+	 }*/
 	
 	
 	@Bean

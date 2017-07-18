@@ -839,6 +839,7 @@ INSERT INTO "v2016".hmis_type (name,value,description,status) values ('destinati
  INSERT INTO "v2016".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');
  INSERT INTO "v2016".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','4','Other');
  INSERT INTO "v2016".hmis_type (name,value,description,status) values ('reason_no_services','99','Data not collected','ACTIVE'); 
+ INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','0','Female','ACTIVE');
  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','1','Male','ACTIVE');
  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','2','Transgender male to female','ACTIVE');
  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','3','Transgender female to male','ACTIVE');

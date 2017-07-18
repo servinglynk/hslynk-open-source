@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q10cGenderOfPersonsMissingAgeInformationDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q10cBeanMaker {
 	
-	public static List<Q10cGenderOfPersonsMissingAgeInformationDataBean> getQ10CGPMIList(){
+	public static List<Q10cGenderOfPersonsMissingAgeInformationDataBean> getQ10CGPMIList(ReportData data){
 		
 		Q10cGenderOfPersonsMissingAgeInformationDataBean q10cGenderofPersonsMissingAgeInformation= new Q10cGenderOfPersonsMissingAgeInformationDataBean();
 	
@@ -18,7 +19,7 @@ public class Q10cBeanMaker {
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIOther(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIDontKnowRefused(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIInfoMissing(BigInteger.valueOf(0));
-	q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(BigInteger.valueOf(0));
+	q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(data.getNumOfPersonsWithUnknownAge());
 	q10cGenderofPersonsMissingAgeInformation.setMaleMAIWOC(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setMaleMAIWCA(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setMaleMAIUHHT(BigInteger.valueOf(0));

@@ -727,6 +727,7 @@ INSERT INTO "v2015".hmis_type (name,value,description,status) values ('destinati
  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');
  INSERT INTO "v2015".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','4','Other');
  INSERT INTO "v2015".hmis_type (name,value,description,status) values ('reason_no_services','99','Data not collected','ACTIVE'); 
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('gender','0','Female','ACTIVE');
  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('gender','1','Male','ACTIVE');
  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('gender','2','Transgender male to female','ACTIVE');
  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('gender','3','Transgender female to male','ACTIVE');
@@ -1153,6 +1154,9 @@ INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('connecti
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','1','Place not meant for habitation','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','2','Service setting, non-residential','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','3','Service setting, residential','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','9','Client refused','ACTIVE');
+INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('contact_location','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','0','No','ACTIVE');
 INSERT INTO "v2015".hmis_type  (name,value,description,status) values ('written_after_care_plan','1','Yes','ACTIVE');

@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.amazonaws.util.IOUtils;
-import com.amazonaws.util.StringUtils;
 
 public class AwsS3Client {
     private AmazonS3Client s3Client;
@@ -70,8 +71,7 @@ public class AwsS3Client {
                 new GetObjectRequest(bucketName, keyName));
         InputStream objectData = object.getObjectContent();
         String name = keyName.contains("/") ? keyName.substring(keyName.lastIndexOf('/') + 1) : keyName;
-        
-        String localPath = (StringUtils.isNullOrEmpty(tmpPath) ? "" : tmpPath + "/")+ UUID.randomUUID() + "-" + name;
+        String localPath =  UUID.randomUUID() + "-" + name;
         String path = saveFile(objectData, localPath);
         objectData.close();
         return path;

@@ -3,12 +3,20 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.report.bean.Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean;
+import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 
 public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker {
 	
-	public static List<Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean> getQ25fCashIncomeCategoryIncomeCategoryByEntryList(){
+	public static List<Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean> getQ25fCashIncomeCategoryIncomeCategoryByEntryList(ReportData data){
+		
+		List<ClientModel> clients = data.getClients();
+		List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
 		
 		Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean q25fCashIncomeCategoryIncomeCategoryByEntryTable = new Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean();
 		
@@ -44,7 +52,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker {
 				q25fCashIncomeCategoryIncomeCategoryByEntryTable.setQ25fNumberOfAdultStayersWithoutRequiredStayers(BigInteger.valueOf(0));
 				q25fCashIncomeCategoryIncomeCategoryByEntryTable.setQ25fNumberOfAdultStayersWithoutRequiredLeavers(BigInteger.valueOf(0));
 
-				q25fCashIncomeCategoryIncomeCategoryByEntryTable.setQ25fTotalAdultsAtEntry(BigInteger.valueOf(0));
+				q25fCashIncomeCategoryIncomeCategoryByEntryTable.setQ25fTotalAdultsAtEntry(BigInteger.valueOf(veterans !=null ? veterans.size() : 0));
 				q25fCashIncomeCategoryIncomeCategoryByEntryTable.setQ25fTotalAdultsStayers(BigInteger.valueOf(0));
 				q25fCashIncomeCategoryIncomeCategoryByEntryTable.setQ25fTotalAdultsLeavers(BigInteger.valueOf(0));
 

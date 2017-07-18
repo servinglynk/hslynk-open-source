@@ -18,6 +18,9 @@ public class Properties {
     public static String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT="2181";
     public static int SYNC_PERIOD;
     public static String SYNC_SCHEMAS;
+    public static String HIVE_USERNAME;
+    public static String HIVE_PASSWORD;
+    public static String HIVE_DRIVER_URL;
 
 
     public void generatePropValues() throws Exception {
@@ -34,21 +37,19 @@ public class Properties {
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-            String hostName = prop.getProperty("posgresql.db.host");
-            String port = prop.getProperty("posgresql.db.port");
-            String database = prop.getProperty("posgresql.db.database");
-            String username = prop.getProperty("posgresql.db.username");
-            String password = prop.getProperty("posgresql.db.password");
-            POSTGRESQL_DB_HOST = StringUtils.isNotBlank(hostName) && !StringUtils.equals(hostName, "null") ? hostName : "hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com" ;
-            POSTGRESQL_DB_PORT = StringUtils.isNotBlank(port) && !StringUtils.equals(port, "null") ? hostName : "5432";
-            POSTGRESQL_DB_DATABASE = StringUtils.isNotBlank(database) &&  !StringUtils.equals(database, "null")? hostName : "hmis";
-            POSTGRESQL_DB_USERNAME = StringUtils.isNotBlank(username) &&  !StringUtils.equals(username, "null") ? hostName : "hmisdb1";
-            POSTGRESQL_DB_PASSWORD = StringUtils.isNotBlank(password) &&  !StringUtils.equals(password, "null") ? hostName : "hmisdb1234";
+            POSTGRESQL_DB_HOST = prop.getProperty("posgresql.db.host");
+            POSTGRESQL_DB_PORT = prop.getProperty("posgresql.db.port");
+            POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
+            POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
+            POSTGRESQL_DB_PASSWORD = prop.getProperty("posgresql.db.password");
             HBASE_MASTER = prop.getProperty("hbase.master");
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
-            SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
-            SYNC_SCHEMAS = prop.getProperty("sync.schemas");
+          //  SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
+         //   SYNC_SCHEMAS = prop.getProperty("sync.schemas");
+            HIVE_USERNAME = prop.getProperty("hive.username");
+            HIVE_PASSWORD = prop.getProperty("hive.password");
+            HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);

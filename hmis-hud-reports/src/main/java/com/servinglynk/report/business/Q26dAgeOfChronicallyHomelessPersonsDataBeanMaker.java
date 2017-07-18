@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q26dAgeOfChronicallyHomelessPersonsDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker {
 	
-	public static List<Q26dAgeOfChronicallyHomelessPersonsDataBean> getQ26dAgeOfChronicallyHomelessPersonsList(){
+	public static List<Q26dAgeOfChronicallyHomelessPersonsDataBean> getQ26dAgeOfChronicallyHomelessPersonsList(ReportData data){
 		
 		Q26dAgeOfChronicallyHomelessPersonsDataBean q26dAgeOfChronicallyHomelessPersonsTable = new Q26dAgeOfChronicallyHomelessPersonsDataBean();
 		
@@ -66,7 +67,7 @@ public class Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker {
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dInformationMissingWithOnlyChild(BigInteger.valueOf(0));
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dInformationMissingUnknownHouseholdType(BigInteger.valueOf(0));
 
-		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalTotal(BigInteger.valueOf(0));
+		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalTotal(data.getNoOfChronicallyHomelessPersons());
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalWithoutChild(BigInteger.valueOf(0));
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalWithChildAndAdults(BigInteger.valueOf(0));
 		q26dAgeOfChronicallyHomelessPersonsTable.setQ26dSubtotalWithOnlyChild(BigInteger.valueOf(0));

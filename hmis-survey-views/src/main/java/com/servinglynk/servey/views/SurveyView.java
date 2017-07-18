@@ -2,7 +2,6 @@ package com.servinglynk.servey.views;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,46 +12,70 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.Properties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
 import com.servinglynk.hive.connection.ViewQuery;
-public class SurveyView {	
-    private static Connection connection = null;
-    static Connection getConnection() throws SQLException {
-        if (connection == null) {
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://hmis-multischema-db.ct16elltavnx.us-west-2.rds.amazonaws.com"+ ":5432"+"/hmis",
-                    "hmisdb1",
-                    "hmisdb1234");
-        }
-        if (connection.isClosed()) {
-            throw new SQLException("connection could not initiated");
-        }
-        return connection;
-    }
+import com.servinglynk.hmis.warehouse.Properties;
+public class SurveyView extends BaseView {	
     
-    public static void createHiveTableForSurvey() throws Exception {
+	/***
+	 * Get existings submissions so we don't insert them again.
+	 * @param projectGroupCode
+	 * @param tableName
+	 * @return
+	 */
+	public static Map<String,String> getExisingSubmissions(String projectGroupCode,String tableName) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		Map<String,String> hiveSubmissions = new HashMap<>();
+		try {
+			connection = HiveConnection.getConnection();
+			// execute statement
+				StringBuilder builder = new StringBuilder();
+				builder.append("select client_id client,submission_id submission from ");
+				builder.append(projectGroupCode);
+				builder.append(".");
+				builder.append(tableName);
+				statement = connection.prepareStatement(builder.toString());
+				resultSet = statement.executeQuery();
+				while(resultSet.next()) {
+					String clientId = resultSet.getString("client");
+					String submissionId = resultSet.getString("submission");
+					hiveSubmissions.put(submissionId, clientId);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hiveSubmissions;
+	}
+    public static void createHiveTableForSurvey(String projectGroupCode) throws Exception {
     	// Get distinct questions for a survey.
     	List<String> disinctSurveys = getDisinctSurveys("survey");
     	for(String surveyId : disinctSurveys) {
     		List<String> disinctQuestions = getDisinctQuestions("survey", UUID.fromString(surveyId));
-    		System.out.println("Quesitons for survey ::"+surveyId+ "  are ::"+disinctQuestions.toString());
+    		//System.out.println("Quesitons for survey ::"+surveyId+ "  are ::"+disinctQuestions.toString());
     		// Get the Survey details from the survey table and project group code in the survey 
     		Survey survey = getSurveyById("survey", surveyId);
     		// TODO: Below items
-    		if(StringUtils.equalsIgnoreCase(survey.getProjectGroupCode(), "MO0010")) {
+    		String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
+    		if(StringUtils.equalsIgnoreCase(survey.getProjectGroupCode(), projectGroupCode)) {
     	   		createHiveTable(survey, disinctQuestions);
             	//  create a hive table after getting the questions.    	
             	//Insert the data into the view by clientIds and submission id.
         		// Get unique clients for a survey.
+    	   		Map<String, String> exisingSubmissions = getExisingSubmissions(projectGroupCode, tableName);
         		List<String>  clients = getClientsForSurvey("survey", UUID.fromString(surveyId));
         		for(String clientId : clients) {
         			if(StringUtils.isNotBlank(clientId)) {
         				List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId),UUID.fromString(clientId));
-                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId);
+                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId,exisingSubmissions);
         			}
         		}	
     		}
@@ -82,7 +105,7 @@ public class SurveyView {
          return clientIds;
 	}
 
-	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId) {
+	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId, Map<String,String> existingSubmissions) {
     	Connection connection;
 		try {
 			connection = HiveConnection.getConnection();
@@ -93,7 +116,6 @@ public class SurveyView {
 		 	builder.append("INSERT INTO ");
 		 	String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
 		 	builder.append(survey.getProjectGroupCode()+"."+tableName);
-		 	System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 			builder.append("  VALUES ( ");
 			builder.append("?, ?, ?");
 			  int count = 4;
@@ -103,7 +125,7 @@ public class SurveyView {
 				  builder.append(",?");  
 			  }
 			  builder.append(")");
-			  System.out.println("The Query:::"+builder.toString());
+			  
 			  PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
 			  preparedStatement.setString(1, clientId);
 			  preparedStatement.setString(2, String.valueOf(survey.getSurveyDate()));
@@ -112,26 +134,37 @@ public class SurveyView {
 			  }
 			  String submissionId = null;
 			  boolean resonseContainMoreThanOneClient = false;
+			  boolean clientWithSubmissionExist =false;
 		 for (Response response : responses) {
-			 	  preparedStatement.setString(3, response.getSubmissionId());
-				  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
-				  // execute insert SQL stetement
-				  boolean containsOnlyOneColumn = false;
-				  if(CollectionUtils.isNotEmpty(disinctQuestions) &&  disinctQuestions.size()==1) {
-					  preparedStatement.executeUpdate();
-					  containsOnlyOneColumn = true;
-					  i =4;
+			 	  String client = existingSubmissions.get(response.getSubmissionId());
+			 	  if(StringUtils.isBlank(client)) {
+			 		 preparedStatement.setString(3, response.getSubmissionId());
+					  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");
+					  // execute insert SQL stetement
+					  boolean containsOnlyOneColumn = false;
+					  if(CollectionUtils.isNotEmpty(disinctQuestions) &&  disinctQuestions.size()==1) {
+						  preparedStatement.executeUpdate();
+						  containsOnlyOneColumn = true;
+						  i =4;
+					  }
+					  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
+						 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
+						  System.out.println("The Query:::"+builder.toString());
+						  System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
+						  preparedStatement.executeUpdate();
+						  resonseContainMoreThanOneClient = true;
+						  i =4;
+			 	    }
+				  }else {
+					  clientWithSubmissionExist = true;
 				  }
-				  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
-					 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
-					  preparedStatement.executeUpdate();
-					  resonseContainMoreThanOneClient = true;
-					  i =4;
-				  }
-				  submissionId = response.getSubmissionId();
+		       submissionId = response.getSubmissionId();
 		 }
-		 if(!resonseContainMoreThanOneClient)
-			 preparedStatement.executeUpdate();
+		 if(!resonseContainMoreThanOneClient && !clientWithSubmissionExist) {
+			 System.out.println("The Query:::"+builder.toString());
+			 System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
+			  preparedStatement.executeUpdate();
+		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error inserting into "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_"));
@@ -170,8 +203,8 @@ public class SurveyView {
     		  }
 			  String query = builder.toString();
 			  query = query +")";
-			  stmt.execute("DROP Table  IF EXISTS "+survey.getProjectGroupCode()+"."+tableName);
-			  System.out.println(" Create Query::"+ query);
+			//  stmt.execute("DROP Table  IF EXISTS "+survey.getProjectGroupCode()+"."+tableName);
+			//  System.out.println(" Create Query::"+ query);
 	      stmt.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -285,10 +318,12 @@ public class SurveyView {
     }
     
     public static void main(String args[]) throws Exception {
+    	Properties props = new Properties();
+		props.generatePropValues();
         while(true){
-            createHiveTableForSurvey();
-            Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
-            System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
+            createHiveTableForSurvey("MO0010");
+            Long seconds = Long.valueOf(60) * 60;
+            System.out.println("Sleep for 60 minutes");
             Thread.sleep(1000 * seconds);
         }
     }

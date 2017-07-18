@@ -2,31 +2,85 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
+import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.EnrollmentModel;
+
+import jodd.util.StringUtil;
 
 public class Q06bBeanMaker  {
+	public static Long veteranStatusErrorCount = 0L;
+	public static Long pedErrorCount = 0L;
+	public static Long relationShipHHErrorCount = 0L;
+	public static Long clientLocationErrorCount = 0L;
+	public static Long disablingCondErrorCount = 0L;
 	
-	public static List<Q06bNumberOfPersonsServedDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
-		Q06bNumberOfPersonsServedDataBean q06bNumberOfPersonsServedDataBean = new Q06bNumberOfPersonsServedDataBean();
+	public static List<Q06bDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
+		Q06bDataBean q06bDataBean = new Q06bDataBean();
+		List<ClientModel> clients = data.getClients();
+		List<EnrollmentModel> enrollments = data.getEnrollments();
+		Long numOfClients = Long.valueOf(clients.size());
+		clients.parallelStream().forEach(client -> { 
+			
+			if(StringUtil.equals("8", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status()) || 
+				(StringUtil.equals("1", client.getVeteran_status()) && client.getDob() != null && getAge(client.getDob())  < 18 ) ) {
+				veteranStatusErrorCount++;
+			}
+		}
+		);
+		enrollments.parallelStream().forEach(enrollment -> { 
+			if(StringUtil.equals("8", enrollment.getDisablingcondition()) || StringUtil.equals("9", enrollment.getDisablingcondition())) {
+				disablingCondErrorCount++;
+			}
+			if(StringUtil.equals("8", enrollment.getRelationshiptohoh()) || StringUtil.equals("9", enrollment.getRelationshiptohoh())) {
+				relationShipHHErrorCount++;
+			}
+//			if(enrollment.getEntrydate() == null) {
+//				pedErrorCount++;
+//			}
+		 }
+		);
 		
-	//	q06aReportValidationsTableBean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
-	//	q06aReportValidationsTableBean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
+		q06bDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(veteranStatusErrorCount));
+		Long numOfAdults = Long.parseLong(String.valueOf(data.getNumOfAdults()));
+		if(numOfAdults !=0) {
+			q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(veteranStatusErrorCount/numOfAdults));
+		}else {
+			q06bDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(0));
+		}
 		
-		q06bNumberOfPersonsServedDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setVeteranStatusErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setPedErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setPedErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setClientLocationErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setClientLocationErrorRate(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setDisablingCondErrorCount(BigInteger.valueOf(0));
-		q06bNumberOfPersonsServedDataBean.setDisablingCondErrorRate(BigInteger.valueOf(0));
+		q06bDataBean.setPedErrorCount(BigInteger.valueOf(pedErrorCount));
+		q06bDataBean.setPedErrorRate(BigInteger.valueOf(pedErrorCount/numOfClients));
+		q06bDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(relationShipHHErrorCount));
+		q06bDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(relationShipHHErrorCount/numOfClients));
+		q06bDataBean.setClientLocationErrorCount(BigInteger.valueOf(0));
+		q06bDataBean.setClientLocationErrorRate(BigInteger.valueOf(0));
+		q06bDataBean.setDisablingCondErrorCount(BigInteger.valueOf(disablingCondErrorCount));
+		q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(disablingCondErrorCount/numOfClients));
 		
-		return Arrays.asList(q06bNumberOfPersonsServedDataBean);
+		return Arrays.asList(q06bDataBean);
 	}
 
+	public static int getAge(Date dateOfBirth) {
+	    int age = 0;
+	    Calendar born = Calendar.getInstance();
+	    Calendar now = Calendar.getInstance();
+	    if(dateOfBirth!= null) {
+	        now.setTime(new Date());
+	        born.setTime(dateOfBirth);  
+	        if(born.after(now)) {
+	            throw new IllegalArgumentException("Can't be born in the future");
+	        }
+	        age = now.get(Calendar.YEAR) - born.get(Calendar.YEAR);             
+	        if(now.get(Calendar.DAY_OF_YEAR) < born.get(Calendar.DAY_OF_YEAR))  {
+	            age-=1;
+	        }
+	    }  
+	    return age;
+	}
 }

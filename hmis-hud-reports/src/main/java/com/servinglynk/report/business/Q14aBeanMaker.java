@@ -5,12 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q14aDomesticViolenceHistoryDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q14aBeanMaker {
 	
-	public static List<Q14aDomesticViolenceHistoryDataBean> getQ14aDomesticViolenceHistoryList() {
+	public static List<Q14aDomesticViolenceHistoryDataBean> getQ14aDomesticViolenceHistoryList(ReportData data) {
 		
-		
+		int overallTot = data.getNumOfAdults() .intValue()+ data.getNoOfChildHeadsOfHousehold().intValue();
 		
 		Q14aDomesticViolenceHistoryDataBean q14aDomesticViolenceHistoryTableBean= new Q14aDomesticViolenceHistoryDataBean();
 		
@@ -38,7 +39,7 @@ public class Q14aBeanMaker {
 		q14aDomesticViolenceHistoryTableBean.setQ14aInformationMissingWithOnlyChildren(BigInteger.valueOf(0));
 		q14aDomesticViolenceHistoryTableBean.setQ14aInformationMissingUnknownHouseholdType(BigInteger.valueOf(0));
   		
-		q14aDomesticViolenceHistoryTableBean.setQ14aTotalSummed(BigInteger.valueOf(0));
+		q14aDomesticViolenceHistoryTableBean.setQ14aTotalSummed(BigInteger.valueOf(overallTot));
 		q14aDomesticViolenceHistoryTableBean.setQ14aTotalWithoutChildren(BigInteger.valueOf(0));
 		q14aDomesticViolenceHistoryTableBean.setQ14aTotalWithChildAndAdults(BigInteger.valueOf(0));
 		q14aDomesticViolenceHistoryTableBean.setQ14aTotalWithOnlychildren(BigInteger.valueOf(0));

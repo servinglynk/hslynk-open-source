@@ -149,8 +149,9 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			})
                 
         .up()
-        
+
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect
+    
 }) ;
 app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          function ($rootScope, $location, $sessionStorage, $http) {

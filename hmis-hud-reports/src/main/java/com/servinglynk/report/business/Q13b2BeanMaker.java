@@ -5,10 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q13b2NumberOfConditionsAtExitDataBean;
+import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ExitModel;
 
 public class Q13b2BeanMaker {
 	
-	public static List<Q13b2NumberOfConditionsAtExitDataBean> getQ13b2NumberOfConditionsAtExitList(){
+	public static List<Q13b2NumberOfConditionsAtExitDataBean> getQ13b2NumberOfConditionsAtExitList(ReportData data){
+		
+		List<ExitModel> exits = data.getExits();
 		
 		Q13b2NumberOfConditionsAtExitDataBean q13b2NumberOfConditionsAtExitTableBean = new Q13b2NumberOfConditionsAtExitDataBean();
 		
@@ -54,7 +58,7 @@ public class Q13b2BeanMaker {
     	q13b2NumberOfConditionsAtExitTableBean.setQ13b2InformationmissingWithOnlychildren(BigInteger.valueOf(0));
     	q13b2NumberOfConditionsAtExitTableBean.setQ13b2InformationmissingUnknowHousehold(BigInteger.valueOf(0));
     	
-    	q13b2NumberOfConditionsAtExitTableBean.setQ13b2TotalSummed(BigInteger.valueOf(0));
+    	q13b2NumberOfConditionsAtExitTableBean.setQ13b2TotalSummed(BigInteger.valueOf(exits != null ? exits.size() : 0));
     	q13b2NumberOfConditionsAtExitTableBean.setQ13b2TotalWithoutChildren(BigInteger.valueOf(0));
     	q13b2NumberOfConditionsAtExitTableBean.setQ13b2TotalWithChildAndAdults(BigInteger.valueOf(0));
     	q13b2NumberOfConditionsAtExitTableBean.setQ13b2TotalWithOnlychildren(BigInteger.valueOf(0));

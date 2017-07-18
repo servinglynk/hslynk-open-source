@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q20bNumberOfNonCashBenefitSourcesDataBeanMaker {
 	
-	public static List<Q20bNumberOfNonCashBenefitSourcesDataBean> getQ20bNumberOfNonCashBenefitSourcesList(){
+	public static List<Q20bNumberOfNonCashBenefitSourcesDataBean> getQ20bNumberOfNonCashBenefitSourcesList(ReportData data){
 		
 		Q20bNumberOfNonCashBenefitSourcesDataBean q20bNumberOfNonCashBenefitSourcesTable = new Q20bNumberOfNonCashBenefitSourcesDataBean();
 		
@@ -28,9 +29,9 @@ public class Q20bNumberOfNonCashBenefitSourcesDataBeanMaker {
 				q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtLatestStayers(BigInteger.valueOf(0));
 				q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtExitLeavers(BigInteger.valueOf(0));
 
-				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtEntry(BigInteger.valueOf(0));
-				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtLatestStayers(BigInteger.valueOf(0));
-				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtExitLeavers(BigInteger.valueOf(0));
+				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtEntry(data.getNumOfAdults());
+				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtLatestStayers(data.getTotNoOfAdultStayers());
+				q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtExitLeavers(data.getTotNoOfAdultLeavers());
 						
 		
 		return Arrays.asList(q20bNumberOfNonCashBenefitSourcesTable);

@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q27cGenderYouthDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q27cGenderYouthDataBeanMaker {
 	
-	public static List<Q27cGenderYouthDataBean> getQ27cGenderYouthList(){
+	public static List<Q27cGenderYouthDataBean> getQ27cGenderYouthList(ReportData data){
 		
 		Q27cGenderYouthDataBean q27cGenderYouthTable = new Q27cGenderYouthDataBean();
 		
@@ -54,7 +55,7 @@ public class Q27cGenderYouthDataBeanMaker {
 		q27cGenderYouthTable.setQ27cInformationMissingWithChildOnly(BigInteger.valueOf(0));
 		q27cGenderYouthTable.setQ27cInformationMissingUnknownHouseHoldtype(BigInteger.valueOf(0));
 
-		q27cGenderYouthTable.setQ27cTotTotal(BigInteger.valueOf(0));
+		q27cGenderYouthTable.setQ27cTotTotal(data.getNumOfYouthUnderAge25());
 		q27cGenderYouthTable.setQ27cTotWithoutChild(BigInteger.valueOf(0));
 		q27cGenderYouthTable.setQ27cTotWithChildAndAdults(BigInteger.valueOf(0));
 		q27cGenderYouthTable.setQ27cTotWithChildOnly(BigInteger.valueOf(0));

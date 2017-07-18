@@ -14,8 +14,8 @@ is_copy_question_id string,created_at timestamp,  updated_at timestamp,user_id s
 CF:question_weight,CF:question_group_id,CF:picklist_group_id,CF:is_copy_question_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "question_survey");
 
 CREATE EXTERNAL TABLE IF NOT EXISTS response(response_id string ,response_text string ,question_score string,app_id string,effective_date timestamp,
-section_id string,question_id string,client_id string,survey_id string,refused string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
-("hbase.columns.mapping" = ":key,CF:response_text,CF:question_score,CF:app_id,CF:effective_date,CF:section_id,CF:question_id,CF:client_id,CF:survey_id,CF:refused,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "response_survey");
+section_id string,submission_id string,question_id string,client_id string,survey_id string,refused string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = ":key,CF:response_text,CF:question_score,CF:app_id,CF:effective_date,CF:section_id,CF:submission_id,CF:question_id,CF:client_id,CF:survey_id,CF:refused,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "response_survey");
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS match_process_log(match_process_log_id string ,status_message string ,status string,housing_unit_id string,client_id string,

@@ -19,21 +19,9 @@ import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
 @EnableScheduling
 @EnableTransactionManagement
 @Import({DatabaseConfig.class})
-@ImportResource("classpath:com/servinglynk/hmis/warehouse/upload/property-config.xml")
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.upload.service"})
-@PropertySource("classpath:com/servinglynk/hmis/warehouse/upload/upload.properties")
 
 public class LoadProcessorSpringConfigV2015 {
-
-	@Bean
-    public static PropertyPlaceholderConfigurer properties(){
-        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-        ClassPathResource[] resources = new ClassPathResource[ ]
-                { new ClassPathResource( "com/servinglynk/hmis/warehouse/upload/upload.properties" ) };
-        ppc.setLocations( resources );
-        ppc.setIgnoreUnresolvablePlaceholders( true );
-        return ppc;
-    }
 	
 	@Bean
 	public BulkUploadWorker bulkUploadWorker(){

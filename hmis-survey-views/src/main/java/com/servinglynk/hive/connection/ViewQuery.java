@@ -20,6 +20,6 @@ public static String SSN_DATE_QUALITY_DNE_REFUSED ="select count(*) from client 
 public static String SSN_DATE_QUALITY_DNC ="select count(*) from client where ssn_data_quality in ('99')";
 
 
-public static String GET_ACTIVE_LIST_DATA = "select sum(section_score)as score,survey_id,client_id,created_at from survey.section_score group by survey_id,client_id,created_at";
+public static String GET_ACTIVE_LIST_DATA = "select sum(section_score)as score,ss.survey_id,ss.client_id,ss.created_at from survey.section_score ss,survey.survey s where  ss.survey_id= s.id  and s.project_group_code=? group by ss.survey_id,ss.client_id,ss.created_at order by ss.created_at desc";
 public static String GET_CLIENT_BY_ID="select first_name,last_name from base.client where id = ?";
 }

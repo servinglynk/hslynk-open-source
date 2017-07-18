@@ -2,7 +2,6 @@ package com.servinglynk.report.csvcontroller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,19 +20,17 @@ import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
-import com.servinglynk.report.bean.ReportBean;
-
 public class CSVGenerator {
 
 	protected static InputStream getInputStream(String fileName) {
-		InputStream inputStream1 = null;
 		try {
+			InputStream inputStream1 = null;
 			ClassLoader classLoader = CSVGenerator.class.getClassLoader();
-			File file = new File(classLoader.getResource(fileName).getFile());
-			inputStream1 = new FileInputStream(file);
-		}catch(IOException e) {
+			return classLoader.getResourceAsStream(fileName);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		return inputStream1;
+		return null;
 	}
 	
 	 @SuppressWarnings("unchecked")
@@ -56,13 +53,13 @@ public class CSVGenerator {
 			    exporterCSV.setParameter(JRCsvExporterParameter.JASPER_PRINT,jasperPrint1);
 			    exporterCSV.setParameter(JRCsvExporterParameter.OUTPUT_STREAM,byteArrayOutputStream);
 			    exporterCSV.exportReport();
-			    
+			    System.out.println("Writing File...."+csvFileName);
 			    ouputStream.write(byteArrayOutputStream.toByteArray()); 
 			    ouputStream.flush();
 			    ouputStream.close();
 			    
 		    } catch (Exception e) {
-		      //  logger.error(e, e);
+		        e.printStackTrace();
 		    }
 			
 		}

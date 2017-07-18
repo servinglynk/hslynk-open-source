@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q12aRaceDataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q12aBeanMaker {
 	
-	public static List<Q12aRaceDataBean> getQ12aRaceList(){
+	public static List<Q12aRaceDataBean> getQ12aRaceList(ReportData data){
 		
 		Q12aRaceDataBean q12aRaceDataBean = new Q12aRaceDataBean();
 		
@@ -60,7 +61,7 @@ public class Q12aBeanMaker {
     	q12aRaceDataBean.setQ12aInformationMissingWithOnlyChildren(BigInteger.valueOf(0));
     	q12aRaceDataBean.setQ12aInformationMissingWithoutChildren(BigInteger.valueOf(0));
     	
-    	q12aRaceDataBean.setQ12aTotalSummed(BigInteger.valueOf(0));
+    	q12aRaceDataBean.setQ12aTotalSummed(data.getTotNumOfPersonServed());
     	q12aRaceDataBean.setQ12aTotalUnkownhouseholdtype(BigInteger.valueOf(0));
     	q12aRaceDataBean.setQ12aTotalWithChildrenAndAdults(BigInteger.valueOf(0));
     	q12aRaceDataBean.setQ12aTotalWithOnlyChildren(BigInteger.valueOf(0));

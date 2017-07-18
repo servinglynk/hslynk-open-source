@@ -6,10 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.HiveConnection;
@@ -26,16 +30,16 @@ public class ActiveListView extends BaseView {
 			// execute statement
 			StringBuilder builder = new StringBuilder();
 			builder.append("CREATE TABLE IF NOT EXISTS ");
-			builder.append(projectGroupCode+".active_list_submission");
-			builder.append("( client_id string,first_name string,last_name string,survey_id string,survey_title string,submission_date string ,score bigint ");
+			builder.append(projectGroupCode+".active_list");
+			builder.append("( client_id string,first_name string,last_name string,survey_id string,survey_title string,survey_date string ,score bigint ");
 			String query = builder.toString();
 			query = query +")";
 			System.out.println(" Create Query::"+ query);
-			//  stmt.execute("DROP Table  IF EXISTS "+projectGroupCode+".active_list_submission");
+			//  stmt.execute("DROP Table  IF EXISTS "+projectGroupCode+".active_list");
 			stmt.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
 	}
 
@@ -57,7 +61,7 @@ public class ActiveListView extends BaseView {
 				StringBuilder builder = new StringBuilder();
 				builder.append("INSERT INTO ");
 				String tableName  = survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_");
-				builder.append(survey.getProjectGroupCode()+".active_list_submission");
+				builder.append(survey.getProjectGroupCode()+".active_list");
 				System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
 				builder.append("  VALUES ( ");
 				builder.append("?,?,?,?,?,?,?");
@@ -70,10 +74,14 @@ public class ActiveListView extends BaseView {
 				preparedStatement.setString(3, client.getLastName());
 				preparedStatement.setString(4, surveyId);
 				preparedStatement.setString(5, survey.getSurveyName());
-				preparedStatement.setString(6,	createAt.toGMTString());
-				if(survey.getSurveyDate() !=null) {
-					preparedStatement.setString(6,survey.getSurveyDate().toString());
+				if(createAt !=null) {
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					 String strDate = format.format(createAt);
+					 preparedStatement.setString(6,	strDate);
+				}else {
+					preparedStatement.setString(6,	"");
 				}
+				
 				preparedStatement.setInt(7, score);
 				preparedStatement.executeUpdate();
 			}
@@ -93,43 +101,80 @@ public class ActiveListView extends BaseView {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		try{
+			Map<String,List<String>> hiveClientMap = getHiveActiveListClients(projectGroupCode);
 			connection = getConnection();
 			statement = connection.prepareStatement(ViewQuery.GET_ACTIVE_LIST_DATA);
+			statement.setString(1, projectGroupCode);
 			resultSet = statement.executeQuery();
-			Map<String,String> hiveClientMap = getHiveActiveListClients(projectGroupCode);
  			while(resultSet.next()) {
 				int score = resultSet.getInt("score");
 				String surveyId =(String) resultSet.getString("survey_id");
 				String clientId = (String)resultSet.getString("client_id");
 				Date createAt = (Date)resultSet.getDate("created_at");
-				String surveyIdFromHive = hiveClientMap.get(clientId);
-				if(StringUtils.isNotBlank(surveyId) && !StringUtils.equals(surveyId, surveyIdFromHive)) {
-					insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,createAt);
+				if(StringUtils.isNotBlank(surveyId) && StringUtils.isNotBlank(clientId)) {
+					surveyId = surveyId.trim();
+					clientId = clientId.trim();
+					List<String> surveyIdsFromHive = hiveClientMap.get(clientId.trim());
+					if(StringUtils.isNotBlank(surveyId)) {
+						if(CollectionUtils.isNotEmpty(surveyIdsFromHive)) {
+							if(!surveyIdsFromHive.contains(surveyId)){
+								insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,createAt);
+							}
+						} else {
+							insertIntoHiveTable(surveyId, score, clientId,projectGroupCode,createAt);
+						}
+					}
+
 				}
-			}
+							}
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
 	}
-	public static Map<String,String> getHiveActiveListClients(String projectGroupCode) {
+//	private static List<String> getUniqueSurveysForClient(List<String> surveyIdsFromHive, String surveyId) {
+//		if(CollectionUtils.isNotEmpty(surveyIdsFromHive) && StringUtils.isNotBlank(surveyId)) {
+//			for(String survey : surveyIdsFromHive) {
+//				if(StringUtils.equals(survey, surveyId)) {
+//					surveyIdsFromHive.remove(survey);
+//				}
+//			}
+//		}
+//		return surveyIdsFromHive;
+//	}
+
+	public static Map<String,List<String>> getHiveActiveListClients(String projectGroupCode) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
-		Map<String,String> hiveClientMap = new HashMap<>();
+		Map<String,List<String>> hiveClientMap = new HashMap<>();
 		try {
 			connection = HiveConnection.getConnection();
 			// execute statement
 				StringBuilder builder = new StringBuilder();
-				builder.append("select client_id client,survey_id survey from ");
+				
+				builder.append("select client_id ,survey_id from ");
 				builder.append(projectGroupCode);
-				builder.append(".active_list_submission");
+				builder.append(".active_list");
 				statement = connection.prepareStatement(builder.toString());
 				resultSet = statement.executeQuery();
 				while(resultSet.next()) {
-					String clientId = resultSet.getString("client");
-					String surveyId = resultSet.getString("survey");
-					hiveClientMap.put(clientId, surveyId);
+					String clientId = resultSet.getString("client_id");
+					String surveyId = resultSet.getString("survey_id");
+					if(StringUtils.isNotBlank(clientId) && StringUtils.isNotBlank(surveyId) ) {
+						clientId = clientId.trim();
+						List<String> surveys = hiveClientMap.get(clientId.trim());
+						if(CollectionUtils.isNotEmpty(surveys)) {
+							surveys.add(surveyId.trim());
+							hiveClientMap.put(clientId, surveys);
+						}else {
+							surveys = new ArrayList<>();
+							surveys.add(surveyId.trim());
+							hiveClientMap.put(clientId, surveys);
+						}
+					}
+				
 				}
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,12 +234,12 @@ public class ActiveListView extends BaseView {
 		Properties props = new Properties();
 		props.generatePropValues();
 		createHiveTable("MO0010");
-	//	while(true){
+		while(true){
 			processActiveList("MO0010");
-			Long seconds = Long.valueOf(Properties.SYNC_PERIOD) * 60;
-			System.out.println("Sleep for " + Properties.SYNC_PERIOD + " minutes");
-	//		Thread.sleep(1000 * seconds);
-	//	} 
+			Long seconds = Long.valueOf(1) * 60;
+			System.out.println("Sleep for 60 minutes");
+			Thread.sleep(1000 * seconds);
+		} 
 	}
 
 
