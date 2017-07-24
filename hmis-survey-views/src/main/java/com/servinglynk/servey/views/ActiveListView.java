@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,7 +42,7 @@ public class ActiveListView extends BaseView {
 		}
 	}
 	/***
-	 * Deleting the active list record by client_id
+	 * Updating the active list record by client_id
 	 */
 	private static void updateClient(String clientId,String projectGroupCode, String surveyId,Timestamp surveyDate,int score,boolean ignoreMatchProcess) {
 		Connection connection;
@@ -59,6 +61,26 @@ public class ActiveListView extends BaseView {
 			preparedStatement.setInt(3, score);
 			preparedStatement.setBoolean(4, ignoreMatchProcess);
 			preparedStatement.setString(5, clientId);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}
+	}
+	/***
+	 * Deleting the active list record by client_id
+	 */
+	private static void deleteClient(String clientId,String projectGroupCode) {
+		Connection connection;
+		try {
+			connection = HiveConnection.getConnection();
+			// execute statement
+			StringBuilder builder = new StringBuilder();
+			builder.append("delete from ");
+			builder.append(projectGroupCode+".active_list");
+			builder.append(" where client_id = ?");
+			System.out.println(" Delete Query::"+ builder.toString());
+			PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
+			preparedStatement.setString(1, clientId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();	
@@ -132,7 +154,6 @@ public class ActiveListView extends BaseView {
 			resultSet = statement.executeQuery();
  			while(resultSet.next()) {
 				int score = resultSet.getInt("score");
-				//String surveyId =(String) resultSet.getString("survey_id");
 				String clientId = (String)resultSet.getString("client_id");
 				System.out.println("Processing Client ::"+clientId);
 				Timestamp createAt = (Timestamp)resultSet.getTimestamp("survey_date");
@@ -159,6 +180,14 @@ public class ActiveListView extends BaseView {
 						}
 					}
 			}
+ 			List<String> deletedClients = getDeletedClients(projectGroupCode);
+ 			for(String deletedClient : deletedClients) {
+ 				Timestamp timestamp = hiveClientMap.get(deletedClient);
+ 				if(timestamp !=null) {
+ 					System.out.println("Deleting client::"+deletedClient);
+ 					deleteClient( projectGroupCode, deletedClient);
+ 				}
+ 			}
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
@@ -200,6 +229,28 @@ public class ActiveListView extends BaseView {
 			ex.printStackTrace();
 		}
 		return surveyID;
+	}
+	
+	public static List<String> getDeletedClients(String projectGroupCode) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String> deletdClients = new ArrayList<>();
+		try{
+			connection = getConnection();
+			statement = connection.prepareStatement(ViewQuery.GET_DELETED_ELIG_CLIENTS);
+			statement.setString(1, projectGroupCode);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()) {
+				UUID  clientId = (UUID)resultSet.getObject("client_id");
+				if(clientId !=null) {
+					deletdClients.add(clientId.toString().trim());
+				}
+			}
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+		return deletdClients;
 	}
 	
 	private static boolean clientSurvyedAgain(Timestamp createAt, Timestamp createDateFromHive) {
