@@ -11,6 +11,7 @@ target
 bin
 hmis-userservice/*
 hmis-survey-views/src/main/conf/*.conf
+.DS_Store
 
 hmis-admin/target/*
 hmis-admin/bin/*
