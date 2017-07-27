@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.Properties;
 
 import javax.annotation.Resource;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -84,6 +82,7 @@ import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
+import com.servinglynk.hmis.warehouse.util.EntityInterceptor;
 
 @Configuration
 @EnableTransactionManagement
@@ -128,6 +127,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		properties.put("databasePlatform", "PostgreSQLDialectUuid");
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
+		properties.setProperty("hibernate.ejb.interceptor", "com.servinglynk.hmis.warehouse.dao.helper.EntityInterceptor");
 	//    properties.put("hibernate.search.default.directory_provider", "filesystem");
      //   properties.put("hibernate.search.default.indexBase", this.env.getRequiredProperty(SOLR_SEARCH_INDEXING_LOCATION));
 		return properties;	
@@ -146,7 +146,13 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 		sessionFactoryBean.setDataSource(dataSource());
 		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2015");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
+		sessionFactoryBean.setEntityInterceptor(entityInterceptor());
 		return sessionFactoryBean;
+	}
+	
+	@Bean
+	public EntityInterceptor entityInterceptor() {
+		return new EntityInterceptor();
 	}
 	
 	@Bean
