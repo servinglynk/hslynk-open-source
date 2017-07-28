@@ -17,10 +17,10 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.Exit;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Exit;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -36,9 +36,9 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class, getProjectGroupCode(domain));
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
 		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty())
 		{
@@ -72,21 +72,21 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition getModelObject(ExportDomain domain, HousingAssessmentDisposition housingassessmentdisposition ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition getModelObject(ExportDomain domain, HousingAssessmentDisposition housingassessmentdisposition ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition model = new com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition();
+		com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition model = new com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingassessmentdisposition.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -98,35 +98,35 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		// TODO Auto-generated method stub
 
 	}
-	   public com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition createHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition housingAssessmentDisposition){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition createHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition housingAssessmentDisposition){
 	       housingAssessmentDisposition.setId(UUID.randomUUID());
 	       insert(housingAssessmentDisposition);
 	       return housingAssessmentDisposition;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition updateHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition housingAssessmentDisposition){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition updateHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition housingAssessmentDisposition){
 	       update(housingAssessmentDisposition);
 	       return housingAssessmentDisposition;
 	   }
-	   public void deleteHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition housingAssessmentDisposition){
+	   public void deleteHousingAssessmentDisposition(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition housingAssessmentDisposition){
 	       delete(housingAssessmentDisposition);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition getHousingAssessmentDispositionById(UUID housingAssessmentDispositionId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class);
 		      criteria.add(Restrictions.eq("id", housingAssessmentDispositionId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
 
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition> getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition> getAllExitHousingAssessmentDispositions(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", exitId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitHousingAssessmentDispositionsCount(UUID exitId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);

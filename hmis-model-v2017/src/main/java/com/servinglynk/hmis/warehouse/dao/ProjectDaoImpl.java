@@ -25,9 +25,9 @@ import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2016.Organization;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Organization;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -47,14 +47,14 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 
 		List<Project> projects = domain.getExport().getProject();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Project.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
 		if(projects !=null && projects.size() > 0)
 		{
 			for(Project project : projects)
 			{
-				com.servinglynk.hmis.warehouse.model.v2016.Project projectModel = null;
+				com.servinglynk.hmis.warehouse.model.v2017.Project projectModel = null;
 				try {
 					projectModel = getModelObject(domain, project,data,modelMap);
 					//projectModel.setAffiliations(affiliation);
@@ -94,21 +94,21 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Project.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Project.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Project getModelObject(ExportDomain domain, Project project ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Project modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Project getModelObject(ExportDomain domain, Project project ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Project modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Project) getModel(com.servinglynk.hmis.warehouse.model.v2016.Project.class, project.getProjectID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Project) getModel(com.servinglynk.hmis.warehouse.model.v2017.Project.class, project.getProjectID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Project();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Project();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Project model = new com.servinglynk.hmis.warehouse.model.v2016.Project();
+		com.servinglynk.hmis.warehouse.model.v2017.Project model = new com.servinglynk.hmis.warehouse.model.v2017.Project();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -123,7 +123,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2016.Project createProject(com.servinglynk.hmis.warehouse.model.v2016.Project project){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Project createProject(com.servinglynk.hmis.warehouse.model.v2017.Project project){
 		   project.setId(UUID.randomUUID());
 		   com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid"});
@@ -132,7 +132,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		   factory.getBaseProjectDao().createProject(baseProject);
 		   return project;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Project updateProject(com.servinglynk.hmis.warehouse.model.v2016.Project project){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Project updateProject(com.servinglynk.hmis.warehouse.model.v2017.Project project){
 		   com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
 		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid"});
 		   baseProject.setSchemaYear(2015);
@@ -140,23 +140,23 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		   factory.getBaseProjectDao().updateProject(baseProject);
 		   return project;
 	   }
-	   public void deleteProject(com.servinglynk.hmis.warehouse.model.v2016.Project project){
+	   public void deleteProject(com.servinglynk.hmis.warehouse.model.v2017.Project project){
 	       delete(project);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Project getProjectById(UUID projectId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Project.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.Project getProjectById(UUID projectId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Project.class);
 		      criteria.add(Restrictions.eq("id", projectId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.Project> projects = (List<com.servinglynk.hmis.warehouse.model.v2016.Project>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.Project> projects = (List<com.servinglynk.hmis.warehouse.model.v2017.Project>) findByCriteria(criteria);
 		      if(!projects.isEmpty()) return projects.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Project> getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Project.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Project> getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Project.class);
 	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Project>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Project>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectCount(String projectGroupCode){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Project.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Project.class);
 	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return countRows(criteria);
 	   }

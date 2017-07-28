@@ -5,7 +5,7 @@ import java.util.Map;
 import com.servinglynk.hmis.warehouse.base.dao.BaseDao;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 
 
 public interface ParentDao extends BaseDao{

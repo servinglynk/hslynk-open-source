@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
 
 public interface ServiceFaReferralDao extends ParentDao {
 
@@ -15,7 +15,7 @@ public interface ServiceFaReferralDao extends ParentDao {
 	public ServiceFaReferral getServiceFaReferralByDedupServiceFaReferralId(UUID id,String projectGroupCode);
 	List<ServiceFaReferral> getAllServiceFaReferral(Integer startIndex, Integer maxItems);
 	long getServiceFaReferralCount();
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral serviceFaReferral);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferral);
 	long getEnrollmentServiceFaReferralsCount(UUID enrollmentId);
 	List<ServiceFaReferral> getAllEnrollmentServiceFaReferrals(UUID enrollmentId, Integer startIndex, Integer maxItems);
 }

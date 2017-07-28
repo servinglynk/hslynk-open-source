@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2016.Entryrhy;
+import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
 
 public interface EntryrhyDao extends ParentDao {
 	
@@ -14,7 +14,7 @@ public interface EntryrhyDao extends ParentDao {
 	public Entryrhy getEntryrhyByDedupEntryrhyId(UUID id,String projectGroupCode);
 	List<Entryrhy> getAllEntryrhy(Integer startIndex, Integer maxItems);
 	long getEntryrhyCount();
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2016.Entryrhy entryrhy);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryrhy);
 	
 	   List<Entryrhy> getAllEnrollmentEntryrhys(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentEntryrhysCount(UUID enrollmentId);

@@ -7,7 +7,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
 
 public class BulkUploadErrorDaoImpl extends QueryExecutorImpl implements BulkUploadErrorDao {
 

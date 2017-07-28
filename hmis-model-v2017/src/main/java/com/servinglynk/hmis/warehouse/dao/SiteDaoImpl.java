@@ -15,9 +15,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Coc;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Coc;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
@@ -26,13 +26,13 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<Site> sites = domain.getExport().getSite();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Site.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Site.class, getProjectGroupCode(domain));
 		if(sites !=null && !sites.isEmpty()) {
 			for(Site site :sites) {
 				if(site !=null) {
-					com.servinglynk.hmis.warehouse.model.v2016.Site siteModel = null;
+					com.servinglynk.hmis.warehouse.model.v2017.Site siteModel = null;
 					try{
 						siteModel = getModelObject(domain, site,data,modelMap);
 						siteModel.setAddress(site.getAddress());
@@ -67,21 +67,21 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 			}
 
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Site.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Site.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Site getModelObject(ExportDomain domain, Site site ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Site modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Site getModelObject(ExportDomain domain, Site site ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Site modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Site) getModel(com.servinglynk.hmis.warehouse.model.v2016.Site.class, site.getSiteID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Site) getModel(com.servinglynk.hmis.warehouse.model.v2017.Site.class, site.getSiteID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Site();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Site();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Site model = new com.servinglynk.hmis.warehouse.model.v2016.Site();
+		com.servinglynk.hmis.warehouse.model.v2017.Site model = new com.servinglynk.hmis.warehouse.model.v2017.Site();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(site.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -95,33 +95,33 @@ public class SiteDaoImpl extends ParentDaoImpl implements SiteDao {
 
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2016.Site createSite(com.servinglynk.hmis.warehouse.model.v2016.Site site){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Site createSite(com.servinglynk.hmis.warehouse.model.v2017.Site site){
 	       site.setId(UUID.randomUUID());
 	       insert(site);
 	       return site;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Site updateSite(com.servinglynk.hmis.warehouse.model.v2016.Site site){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Site updateSite(com.servinglynk.hmis.warehouse.model.v2017.Site site){
 	       update(site);
 	       return site;
 	   }
-	   public void deleteSite(com.servinglynk.hmis.warehouse.model.v2016.Site site){
+	   public void deleteSite(com.servinglynk.hmis.warehouse.model.v2017.Site site){
 	       delete(site);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Site getSiteById(UUID siteId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Site.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.Site getSiteById(UUID siteId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Site.class);
 		      criteria.add(Restrictions.eq("id", siteId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.Site> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Site>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.Site> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Site>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Site> getAllProjectCOCSites(UUID projectCocId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Site.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Site> getAllProjectCOCSites(UUID projectCocId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Site.class);
 	       criteria.createAlias("coc", "coc");
 	       criteria.add(Restrictions.eq("coc.id", projectCocId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Site>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Site>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectCOCSitesCount(UUID projectCocId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Site.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Site.class);
 	       criteria.createAlias("coc", "coc");
 	       criteria.add(Restrictions.eq("coc.id", projectCocId));
 	       return countRows(criteria);

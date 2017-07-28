@@ -20,41 +20,41 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2016.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2016.Client;
-import com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo;
-import com.servinglynk.hmis.warehouse.model.v2016.Coc;
-import com.servinglynk.hmis.warehouse.model.v2016.Contact;
-import com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.v2016.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.v2016.Education;
-import com.servinglynk.hmis.warehouse.model.v2016.Employment;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc;
-import com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp;
-import com.servinglynk.hmis.warehouse.model.v2016.Entryrhy;
-import com.servinglynk.hmis.warehouse.model.v2016.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.Exit;
-import com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment;
-import com.servinglynk.hmis.warehouse.model.v2016.Exitrhy;
-import com.servinglynk.hmis.warehouse.model.v2016.Funder;
-import com.servinglynk.hmis.warehouse.model.v2016.HealthStatus;
-import com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition;
-import com.servinglynk.hmis.warehouse.model.v2016.Incomeandsources;
-import com.servinglynk.hmis.warehouse.model.v2016.Inventory;
-import com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance;
-import com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits;
-import com.servinglynk.hmis.warehouse.model.v2016.Organization;
-import com.servinglynk.hmis.warehouse.model.v2016.Pathstatus;
-import com.servinglynk.hmis.warehouse.model.v2016.Project;
-import com.servinglynk.hmis.warehouse.model.v2016.Residentialmoveindate;
-import com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus;
-import com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral;
-import com.servinglynk.hmis.warehouse.model.v2016.Site;
+import com.servinglynk.hmis.warehouse.model.v2017.Affiliation;
+import com.servinglynk.hmis.warehouse.model.v2017.Client;
+import com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo;
+import com.servinglynk.hmis.warehouse.model.v2017.Coc;
+import com.servinglynk.hmis.warehouse.model.v2017.Contact;
+import com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2017.Education;
+import com.servinglynk.hmis.warehouse.model.v2017.Employment;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
+import com.servinglynk.hmis.warehouse.model.v2017.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Exit;
+import com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2017.Exitrhy;
+import com.servinglynk.hmis.warehouse.model.v2017.Funder;
+import com.servinglynk.hmis.warehouse.model.v2017.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2017.Inventory;
+import com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2017.Organization;
+import com.servinglynk.hmis.warehouse.model.v2017.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.v2017.Project;
+import com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate;
+import com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus;
+import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2017.Site;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
@@ -108,22 +108,22 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.info("Staging Source table.........");
 			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
 			
-			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Export.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
 			logger.info("Starting processing of Client table");
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
 			logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Client.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));
 			parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
 			parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
-			Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Organization.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Organization.class, getProjectGroupCode(domain));
 			parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap, orgModelMap); // Done
-			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Project.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
 			parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
-			Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Coc.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
 			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 			startNanos = System.nanoTime();
@@ -131,7 +131,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.info("Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 
 
-			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Enrollment.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -159,7 +159,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			
-			Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Exit.class, getProjectGroupCode(domain));
+			Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, getProjectGroupCode(domain));
 			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 			parentDaoFactory.getExitpathDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 			parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
@@ -214,13 +214,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	public void deleteStagingByExportId(UUID exportId) {
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) get(com.servinglynk.hmis.warehouse.model.v2016.Export.class,exportId);
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class,exportId);
 		deleteFromDB(exportEntity);
 	}
 
 	@Override
 	public void deleteLiveByExportId(UUID exportId) {
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) get(com.servinglynk.hmis.warehouse.model.v2016.Export.class,exportId);
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class,exportId);
 		hardDelete(exportEntity);
 	}
 
@@ -261,7 +261,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId) {
 		softDeleteByProjectGroupCode(Affiliation.class.getName(), projectGroupCode,exportId);
-		softDeleteByProjectGroupCode(com.servinglynk.hmis.warehouse.model.v2016.Client.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(com.servinglynk.hmis.warehouse.model.v2017.Client.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Dateofengagement.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Disabilities.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Domesticviolence.class.getName(), projectGroupCode,exportId);

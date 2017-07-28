@@ -21,10 +21,10 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -41,9 +41,9 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<MedicalAssistance> medicalAssistanceList = domain.getExport().getMedicalAssistance();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance.class, getProjectGroupCode(domain));
 		if(medicalAssistanceList !=null && !medicalAssistanceList.isEmpty())
 		{
 			for(MedicalAssistance medicalAssistance : medicalAssistanceList)
@@ -81,21 +81,21 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance getModelObject(ExportDomain domain, MedicalAssistance medicalassistance ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance getModelObject(ExportDomain domain, MedicalAssistance medicalassistance ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance) getModel(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance) getModel(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance.class, medicalassistance.getMedicalAssistanceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance model = new com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance();
+		com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance model = new com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalassistance.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -113,33 +113,33 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 
 
 
-	   public com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance createMedicalassistance(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance medicalassistance){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance createMedicalassistance(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance medicalassistance){
 	       medicalassistance.setId(UUID.randomUUID());
 	       insert(medicalassistance);
 	       return medicalassistance;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance updateMedicalassistance(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance medicalassistance){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance updateMedicalassistance(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance medicalassistance){
 	       update(medicalassistance);
 	       return medicalassistance;
 	   }
-	   public void deleteMedicalassistance(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance medicalassistance){
+	   public void deleteMedicalassistance(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance medicalassistance){
 	       delete(medicalassistance);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance getMedicalassistanceById(UUID medicalassistanceId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance.class);
 		      criteria.add(Restrictions.eq("id", medicalassistanceId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance> getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance> getAllEnrollmentMedicalassistances(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentMedicalassistancesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Medicalassistance.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

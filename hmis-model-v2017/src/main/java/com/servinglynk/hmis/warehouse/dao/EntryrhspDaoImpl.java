@@ -18,11 +18,11 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
@@ -31,9 +31,9 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class, getProjectGroupCode(domain));
 //		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
 	/*	if (entryRhsps != null && entryRhsps.size() > 0) {
 			for (EntryRHSP entryRhsp : entryRhsps) {
@@ -67,18 +67,18 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				}
 			}
 	   } */
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class.getSimpleName(), domain,exportEntity);
 	}
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entryRshp) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRshp) {
 			if(entryRshp !=null) {
-				com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp target = new com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp();
+				com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp target = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp();
 				BeanUtils.copyProperties(entryRshp, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) get(com.servinglynk.hmis.warehouse.model.v2016.Export.class, entryRshp.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, entryRshp.getExport().getId());
 				exportEntity.addEntryrhsp(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entryRhspByDedupCliendId = getEntryrhspByDedupEntryrhspId(entryRshp.getId(),entryRshp.getProjectGroupCode());
+				com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhspByDedupCliendId = getEntryrhspByDedupEntryrhspId(entryRshp.getId(),entryRshp.getProjectGroupCode());
 				if(entryRhspByDedupCliendId ==null) {
 					insert(target);	
 				}
@@ -86,18 +86,18 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	}
 	
 	
-	public com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp getModelObject(ExportDomain domain, EntryRHSP entryrhsp ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp getModelObject(ExportDomain domain, EntryRHSP entryrhsp ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp model = new com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp();
+		com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp model = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhsp.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -127,7 +127,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	}
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp createEntryrhsp(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entryRhsp) {
+	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp createEntryrhsp(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhsp) {
 		entryRhsp.setId(UUID.randomUUID());
 			insert(entryRhsp);
 		return entryRhsp;
@@ -135,14 +135,14 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 
 
 	@Override
-	public Entryrhsp updateEntryrhsp(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entryRhsp) {
+	public Entryrhsp updateEntryrhsp(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhsp) {
 			update(entryRhsp);
 		return entryRhsp;
 	}
 
 
 	@Override
-	public void deleteEntryrhsp(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entryRhsp) {
+	public void deleteEntryrhsp(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhsp) {
 			delete(entryRhsp);
 		
 	}
@@ -150,21 +150,21 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp getEntryrhspById(UUID entryrhspId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp getEntryrhspById(UUID entryrhspId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class);
 		criteria.add(Restrictions.eq("id", entryrhspId));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp>) findByCriteria(criteria);
 		if(entryrhsp.size()>0) return entryrhsp.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp getEntryrhspByDedupEntryrhspId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp getEntryrhspByDedupEntryrhspId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class);
 		if(id == null || projectGroupCode == null) return null;
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp>) findByCriteria(criteria);
 		if(entryrhsp !=null && entryrhsp.size()>0) return entryrhsp.get(0);
 		return null;
 	}
@@ -178,15 +178,15 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp> getAllEntryrhsp(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp> getAllEntryrhsp(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp> entryrhsp = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp>) findByCriteria(criteria,startIndex,maxItems);
 		return entryrhsp;
 	}
 	
 	
 	public long getEntryrhspCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class);	
 		return countRows(criteria);
 	}
 

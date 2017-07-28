@@ -19,9 +19,9 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -37,15 +37,15 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class, getProjectGroupCode(domain));
 		List<HealthStatus> healthStatuses = domain.getExport().getHealthStatus();
 		if(healthStatuses !=null &&  !healthStatuses.isEmpty())
 		{
 			for(HealthStatus healthStatus : healthStatuses )
 			{
-				com.servinglynk.hmis.warehouse.model.v2016.HealthStatus healthStatusModel = null;
+				com.servinglynk.hmis.warehouse.model.v2017.HealthStatus healthStatusModel = null;
 				try {
 					healthStatusModel = getModelObject(domain, healthStatus,data,modelMap);
 					healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
@@ -77,7 +77,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				}
 			}
       	  }
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.HealthStatus.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class.getSimpleName(), domain, exportEntity);
 		}
 
 
@@ -86,51 +86,51 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		// TODO Auto-generated method stub
 
 	}
-	public com.servinglynk.hmis.warehouse.model.v2016.HealthStatus getModelObject(ExportDomain domain, HealthStatus healthStatus ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.HealthStatus modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.HealthStatus getModelObject(ExportDomain domain, HealthStatus healthStatus ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.HealthStatus modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.HealthStatus();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.HealthStatus();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2016.HealthStatus();
+		com.servinglynk.hmis.warehouse.model.v2017.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2017.HealthStatus();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,healthStatus.getHealthStatusID(),data);
 		return model;
 	}
-	   public com.servinglynk.hmis.warehouse.model.v2016.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus HealthStatus){
+	   public com.servinglynk.hmis.warehouse.model.v2017.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus HealthStatus){
 	       HealthStatus.setId(UUID.randomUUID());
 	       insert(HealthStatus);
 	       return HealthStatus;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.HealthStatus updateHealthStatus(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus HealthStatus){
+	   public com.servinglynk.hmis.warehouse.model.v2017.HealthStatus updateHealthStatus(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus HealthStatus){
 	       update(HealthStatus);
 	       return HealthStatus;
 	   }
-	   public void deleteHealthStatus(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus HealthStatus){
+	   public void deleteHealthStatus(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus HealthStatus){
 	       delete(HealthStatus);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.HealthStatus getHealthStatusById(UUID HealthStatusId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.HealthStatus getHealthStatusById(UUID HealthStatusId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class);
 		      criteria.add(Restrictions.eq("id", HealthStatusId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.HealthStatus> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.HealthStatus>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.HealthStatus> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.HealthStatus>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.HealthStatus> getAllEnrollmentHealthStatuses(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.HealthStatus> getAllEnrollmentHealthStatuses(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.HealthStatus>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.HealthStatus>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentHealthStatusesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

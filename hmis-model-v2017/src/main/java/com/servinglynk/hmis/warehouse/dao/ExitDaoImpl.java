@@ -20,9 +20,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -36,10 +36,10 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	private ParentDaoFactory factory;
 
 
-	public List<com.servinglynk.hmis.warehouse.model.v2016.Exit> findUnProcessedUploads(String status) throws Exception{
-		DetachedCriteria query = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exit.class);
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Exit> findUnProcessedUploads(String status) throws Exception{
+		DetachedCriteria query = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exit.class);
 		query.add(Restrictions.eq("dateCreated", new Date()));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exit> list = (List<com.servinglynk.hmis.warehouse.model.v2016.Exit>) findByCriteria(query);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exit> list = (List<com.servinglynk.hmis.warehouse.model.v2017.Exit>) findByCriteria(query);
 		return list;
 	}
 
@@ -50,14 +50,14 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		Export export = domain.getExport();
 		List<Exit> exits = export.getExit();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Exit.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, getProjectGroupCode(domain));
 		if(exits !=null && exits.size() > 0)
 		{
 			for(Exit exit : exits)
 			{
-				com.servinglynk.hmis.warehouse.model.v2016.Exit exitModel = null;
+				com.servinglynk.hmis.warehouse.model.v2017.Exit exitModel = null;
 				try {
 					exitModel = getModelObject(domain, exit, data, modelMap);
 					exitModel.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
@@ -86,21 +86,21 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				}
 			 }
 			}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Exit.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Exit.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Exit getModelObject(ExportDomain domain, Exit exit ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Exit modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Exit getModelObject(ExportDomain domain, Exit exit ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Exit modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2016.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Exit();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exit();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Exit model = new com.servinglynk.hmis.warehouse.model.v2016.Exit();
+		com.servinglynk.hmis.warehouse.model.v2017.Exit model = new com.servinglynk.hmis.warehouse.model.v2017.Exit();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -114,33 +114,33 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2016.Exit createExit(com.servinglynk.hmis.warehouse.model.v2016.Exit exit){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Exit createExit(com.servinglynk.hmis.warehouse.model.v2017.Exit exit){
 		   exit.setId(UUID.randomUUID());
 		   insert(exit);
 	       return exit;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Exit updateExit(com.servinglynk.hmis.warehouse.model.v2016.Exit exit){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Exit updateExit(com.servinglynk.hmis.warehouse.model.v2017.Exit exit){
 	       update(exit);
 	       return exit;
 	   }
-	   public void deleteExit(com.servinglynk.hmis.warehouse.model.v2016.Exit exit){
+	   public void deleteExit(com.servinglynk.hmis.warehouse.model.v2017.Exit exit){
 	       delete(exit);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Exit getExitById(UUID exitId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exit.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.Exit getExitById(UUID exitId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exit.class);
 		      criteria.add(Restrictions.eq("id", exitId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.Exit> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Exit>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.Exit> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Exit>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Exit> getAllEnrollmentExits(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exit.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Exit> getAllEnrollmentExits(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exit.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Exit>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Exit>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentExitsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exit.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exit.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

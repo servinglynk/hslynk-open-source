@@ -26,10 +26,10 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -46,9 +46,9 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<NonCashBenefits> nonCashBenefitsList = domain.getExport().getNonCashBenefits();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class, getProjectGroupCode(domain));
 		if(nonCashBenefitsList !=null && !nonCashBenefitsList.isEmpty())
 		{
 			for(NonCashBenefits nonCashBenefits : nonCashBenefitsList)
@@ -91,22 +91,22 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class.getSimpleName(), domain,exportEntity);
 
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits getModelObject(ExportDomain domain, NonCashBenefits noncashbenefits ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits getModelObject(ExportDomain domain, NonCashBenefits noncashbenefits ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits) getModel(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits) getModel(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits model = new com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits();
+		com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits model = new com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(noncashbenefits.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -121,33 +121,33 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits noncashbenefits){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits createNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits noncashbenefits){
 	       noncashbenefits.setId(UUID.randomUUID());
 	       insert(noncashbenefits);
 	       return noncashbenefits;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits updateNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits noncashbenefits){
+	   public com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits updateNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits noncashbenefits){
 	       update(noncashbenefits);
 	       return noncashbenefits;
 	   }
-	   public void deleteNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits noncashbenefits){
+	   public void deleteNoncashbenefits(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits noncashbenefits){
 	       delete(noncashbenefits);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits getNoncashbenefitsById(UUID noncashbenefitsId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits.class);
+	   public com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits getNoncashbenefitsById(UUID noncashbenefitsId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class);
 		      criteria.add(Restrictions.eq("id", noncashbenefitsId));
-		      List<com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits> entities = (List<com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits> getAllEnrollmentNoncashbenefits(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits> getAllEnrollmentNoncashbenefits(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentNoncashbenefitsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

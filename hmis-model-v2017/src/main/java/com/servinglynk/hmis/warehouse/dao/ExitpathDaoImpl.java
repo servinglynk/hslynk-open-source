@@ -16,9 +16,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExitPathConnectionWithSOAREnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.Exitpath;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Exitpath;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
@@ -27,17 +27,17 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class, getProjectGroupCode(domain));
 		List<ExitPATH> exitpath = export.getExitPATH();
 		if (exitpath != null && exitpath.size() > 0) {
 			for (ExitPATH exitpaths : exitpath) {
-				com.servinglynk.hmis.warehouse.model.v2016.Exitpath exitpathModel = null;
+				com.servinglynk.hmis.warehouse.model.v2017.Exitpath exitpathModel = null;
 				try {
 					exitpathModel = getModelObject(domain, exitpaths,data,modelMap);
 					exitpathModel.setConnectionWithSoar(ExitPathConnectionWithSOAREnum.lookupEnum(BasicDataGenerator.getStringValue(exitpaths.getConnectionWithSOAR())));
-					com.servinglynk.hmis.warehouse.model.v2016.Exit exit = (com.servinglynk.hmis.warehouse.model.v2016.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2016.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, exitpaths.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitpathModel.setExitid(exit);
 					exitpathModel.setDeleted(false);
 					exitpathModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitpaths.getDateCreated()));
@@ -65,18 +65,18 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 	
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Exitpath getModelObject(ExportDomain domain, ExitPATH exitpath ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Exitpath modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Exitpath getModelObject(ExportDomain domain, ExitPATH exitpath ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Exitpath modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exitpath) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class, exitpath.getExitPATHID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Exitpath();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exitpath();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Exitpath model = new com.servinglynk.hmis.warehouse.model.v2016.Exitpath();
+		com.servinglynk.hmis.warehouse.model.v2017.Exitpath model = new com.servinglynk.hmis.warehouse.model.v2017.Exitpath();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitpath.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -86,14 +86,14 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2016.Exitpath exitpath) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Exitpath exitpath) {
 			if(exitpath !=null) {
-				com.servinglynk.hmis.warehouse.model.v2016.Exitpath target = new com.servinglynk.hmis.warehouse.model.v2016.Exitpath();
+				com.servinglynk.hmis.warehouse.model.v2017.Exitpath target = new com.servinglynk.hmis.warehouse.model.v2017.Exitpath();
 				BeanUtils.copyProperties(exitpath, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) get(com.servinglynk.hmis.warehouse.model.v2016.Export.class, exitpath.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, exitpath.getExport().getId());
 				exportEntity.addExitpath(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2016.Exitpath exitpathByDedupCliendId = getExitpathByDedupExitpathId(exitpath.getId(),exitpath.getProjectGroupCode());
+				com.servinglynk.hmis.warehouse.model.v2017.Exitpath exitpathByDedupCliendId = getExitpathByDedupExitpathId(exitpath.getId(),exitpath.getProjectGroupCode());
 				if(exitpathByDedupCliendId ==null) {
 					insert(target);	
 				}
@@ -117,14 +117,14 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 
 
 	@Override
-	public Exitpath updateExitpath(com.servinglynk.hmis.warehouse.model.v2016.Exitpath exitpath) {
+	public Exitpath updateExitpath(com.servinglynk.hmis.warehouse.model.v2017.Exitpath exitpath) {
 			update(exitpath);
 		return exitpath;
 	}
 
 
 	@Override
-	public void deleteExitpath(com.servinglynk.hmis.warehouse.model.v2016.Exitpath exitpath) {
+	public void deleteExitpath(com.servinglynk.hmis.warehouse.model.v2017.Exitpath exitpath) {
 			delete(exitpath);
 		
 	}
@@ -132,20 +132,20 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Exitpath getExitpathById(UUID exitpathId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Exitpath getExitpathById(UUID exitpathId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class);
 		criteria.add(Restrictions.eq("id", exitpathId));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> exitpath = (List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> exitpath = (List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath>) findByCriteria(criteria);
 		if(exitpath.size()>0) return exitpath.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Exitpath getExitpathByDedupExitpathId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Exitpath getExitpathByDedupExitpathId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> exitpath = (List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> exitpath = (List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath>) findByCriteria(criteria);
 		if(exitpath !=null && exitpath.size()>0) return exitpath.get(0);
 		return null;
 	}
@@ -159,28 +159,28 @@ public class ExitpathDaoImpl extends ParentDaoImpl implements ExitpathDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> getAllExitpath(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> exitpath = (List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> getAllExitpath(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> exitpath = (List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath>) findByCriteria(criteria,startIndex,maxItems);
 		return exitpath;
 	}
 	
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", exitId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	
 	public long getExitExitpathsCount(UUID exitId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);
 	   }
 	
 	public long getExitpathCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exitpath.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitpath.class);	
 		return countRows(criteria);
 	}
 

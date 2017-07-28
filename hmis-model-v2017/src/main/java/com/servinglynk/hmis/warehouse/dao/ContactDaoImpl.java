@@ -23,9 +23,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
@@ -85,32 +85,32 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2016.Contact contact) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Contact contact) {
 			if(contact !=null) {
-				com.servinglynk.hmis.warehouse.model.v2016.Contact target = new com.servinglynk.hmis.warehouse.model.v2016.Contact();
+				com.servinglynk.hmis.warehouse.model.v2017.Contact target = new com.servinglynk.hmis.warehouse.model.v2017.Contact();
 				BeanUtils.copyProperties(contact, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) get(com.servinglynk.hmis.warehouse.model.v2016.Export.class, contact.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, contact.getExport().getId());
 				exportEntity.addContact(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2016.Contact contactByDedupContactId = getContactByDedupContactId(contact.getId(),contact.getProjectGroupCode());
+				com.servinglynk.hmis.warehouse.model.v2017.Contact contactByDedupContactId = getContactByDedupContactId(contact.getId(),contact.getProjectGroupCode());
 				if(contactByDedupContactId ==null) {
 					insert(target);	
 				}
 			}
 	}
 	
-	public  com.servinglynk.hmis.warehouse.model.v2016.Contact getModelObject(ExportDomain domain, Contact contact,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Contact modelFromDB = null;
+	public  com.servinglynk.hmis.warehouse.model.v2017.Contact getModelObject(ExportDomain domain, Contact contact,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Contact modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2016.Contact.class, contact.getContactID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2017.Contact.class, contact.getContactID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Contact();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Contact();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Contact model = new com.servinglynk.hmis.warehouse.model.v2016.Contact();
+		com.servinglynk.hmis.warehouse.model.v2017.Contact model = new com.servinglynk.hmis.warehouse.model.v2017.Contact();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contact.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -142,8 +142,8 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Contact createContact(
-			com.servinglynk.hmis.warehouse.model.v2016.Contact contact) {
+	public com.servinglynk.hmis.warehouse.model.v2017.Contact createContact(
+			com.servinglynk.hmis.warehouse.model.v2017.Contact contact) {
 			contact.setId(UUID.randomUUID());
 			insert(contact);
 		return contact;
@@ -151,8 +151,8 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Contact updateContact(
-			com.servinglynk.hmis.warehouse.model.v2016.Contact contact) {
+	public com.servinglynk.hmis.warehouse.model.v2017.Contact updateContact(
+			com.servinglynk.hmis.warehouse.model.v2017.Contact contact) {
 			update(contact);
 		return contact;
 	}
@@ -160,7 +160,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 	@Override
 	public void deleteContact(
-			com.servinglynk.hmis.warehouse.model.v2016.Contact contact) {
+			com.servinglynk.hmis.warehouse.model.v2017.Contact contact) {
 			delete(contact);
 		
 	}
@@ -168,53 +168,53 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Contact getContactById(UUID contactId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Contact getContactById(UUID contactId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);
 		criteria.add(Restrictions.eq("id", contactId));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2016.Contact>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2017.Contact>) findByCriteria(criteria);
 		if(contact.size()>0) return contact.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Contact getContactByDedupContactId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Contact getContactByDedupContactId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2016.Contact>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2017.Contact>) findByCriteria(criteria);
 		if(contact !=null && contact.size()>0) return contact.get(0);
 		return null;
 	}
-	public com.servinglynk.hmis.warehouse.model.v2016.Contact getContactByDedupContactId(UUID id) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Contact getContactByDedupContactId(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2016.Contact>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2017.Contact>) findByCriteria(criteria);
 		if(contact !=null && contact.size()>0) return contact.get(0);
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2016.Contact> getAllContact(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2016.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2016.Contact>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Contact> getAllContact(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2017.Contact> contact = (List<com.servinglynk.hmis.warehouse.model.v2017.Contact>) findByCriteria(criteria,startIndex,maxItems);
 		return contact;
 	}
 	
 	
 	public long getContactCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);	
 		return countRows(criteria);
 	}
 
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Contact> getAllEnrollmentContacts(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Contact> getAllEnrollmentContacts(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Contact>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Contact>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentContactsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Contact.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Contact.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

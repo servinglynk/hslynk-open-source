@@ -18,10 +18,10 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAs
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessmentEnum;
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2016.Exit;
-import com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment;
-import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Exit;
+import com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -38,9 +38,9 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<ExitHousingAssessment> exitHousingAssessments = domain.getExport().getExitHousingAssessment();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class, getProjectGroupCode(domain));
 		if(exitHousingAssessments !=null && !exitHousingAssessments.isEmpty())
 		{
 				for(ExitHousingAssessment exitHousingAssessment : exitHousingAssessments)
@@ -73,21 +73,21 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					}
 				}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment getModelObject(ExportDomain domain, ExitHousingAssessment exithousingassessment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment getModelObject(ExportDomain domain, ExitHousingAssessment exithousingassessment ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment model = new com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment();
+		com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment model = new com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exithousingassessment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -103,7 +103,7 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment createExithousingassessment(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment exithousingassessment) {
+	public com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment createExithousingassessment(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment exithousingassessment) {
 		exithousingassessment.setId(UUID.randomUUID());
 			insert(exithousingassessment);
 		return exithousingassessment;
@@ -111,14 +111,14 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment updateExithousingassessment(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment exithousingassessment) {
+	public com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment updateExithousingassessment(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment exithousingassessment) {
 			update(exithousingassessment);
 		return exithousingassessment;
 	}
 
 
 	@Override
-	public void deleteExithousingassessment(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment exithousingassessment) {
+	public void deleteExithousingassessment(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment exithousingassessment) {
 			delete(exithousingassessment);
 		
 	}
@@ -126,20 +126,20 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment getExithousingassessmentById(UUID exithousingassessmentId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment getExithousingassessmentById(UUID exithousingassessmentId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class);
 		criteria.add(Restrictions.eq("id", exithousingassessmentId));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment>) findByCriteria(criteria);
 		if(exithousingassessment.size()>0) return exithousingassessment.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment getExithousingassessmentByDedupExithousingassessmentId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment getExithousingassessmentByDedupExithousingassessmentId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment>) findByCriteria(criteria);
 		if(exithousingassessment !=null && exithousingassessment.size()>0) return exithousingassessment.get(0);
 		return null;
 	}
@@ -153,15 +153,15 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment> getAllExithousingassessment(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment> getAllExithousingassessment(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment> exithousingassessment = (List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment>) findByCriteria(criteria,startIndex,maxItems);
 		return exithousingassessment;
 	}
 	
 	
 	public long getExithousingassessmentCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class);	
 		return countRows(criteria);
 	}
 
@@ -171,14 +171,14 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		
 	}
 	
-	   public List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment> getAllExitExithousingassessments(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment> getAllExitExithousingassessments(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getExitExithousingassessmentsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class);
 	       criteria.createAlias("exitid", "exitid");
 	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
 	       return countRows(criteria);

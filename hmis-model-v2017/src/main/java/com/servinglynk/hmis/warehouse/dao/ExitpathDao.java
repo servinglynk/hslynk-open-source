@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2016.Exitpath;
+import com.servinglynk.hmis.warehouse.model.v2017.Exitpath;
 
 public interface ExitpathDao extends ParentDao {
 	Exitpath createExitpath(Exitpath exitpath);
@@ -13,9 +13,9 @@ public interface ExitpathDao extends ParentDao {
 	public Exitpath getExitpathByDedupExitpathId(UUID id,String projectGroupCode);
 	List<Exitpath> getAllExitpath(Integer startIndex, Integer maxItems);
 	long getExitpathCount();
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2016.Exitpath exitpath);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Exitpath exitpath);
 	
-	   List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems);
+	   List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems);
 	   long getExitExitpathsCount(UUID exitId);
 
 }
