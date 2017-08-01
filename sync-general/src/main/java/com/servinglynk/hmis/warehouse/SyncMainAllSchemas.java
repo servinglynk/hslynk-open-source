@@ -13,8 +13,6 @@ public class SyncMainAllSchemas {
 
 		while (true) {
 			new SyncSchema(logger).sync();
-			logger.info("Processing active lists now......###########");
-			new ActiveListView(logger).processActiveList();
 		}
 	}
 }
