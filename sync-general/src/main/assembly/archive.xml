@@ -32,6 +32,14 @@
             <source>${project.build.directory}/../src/main/scripts/stop-sync-schemas.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
+                <file>
+            <source>${project.build.directory}/../src/main/scripts/start-active-list-view.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-active-list-view.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
     </files>
 
 </assembly>
