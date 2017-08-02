@@ -9,7 +9,7 @@ app.filter('startFrom', function() {
     }
 });
 
-app.controller('ModalInstanceLogCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', datajson, function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+app.controller('ModalInstanceLogCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', 'datajson', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
     $scope.datajson = datajson;
 }]);
 
@@ -97,7 +97,7 @@ app.controller('managefilesCtrl',['$scope','$location','$routeSegment','$http', 
                     templateUrl: 'templates/partial/syncfilelogpopopup.html',
                     controller: 'ModalInstanceLogCtrl',
                     resolve: {
-                        datajson: function () {
+                        'datajson': function () {
                             return data.bulkUploadActivities.bulkUploadActivities;
                         }
                     }
