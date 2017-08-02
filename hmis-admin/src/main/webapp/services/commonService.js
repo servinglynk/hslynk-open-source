@@ -1,4 +1,14 @@
 var filesCollection="";
+/*app.service('Calculator',[ function () {
+        this.square = function (a) { return a*a};
+
+    this.GetProjectList = function ($http, success) {
+        $http.get('/hmis-bulk-loader/mapper/projects').success(function (data) {
+            if(success)success(data)
+        });
+    };
+
+}]);*/
 var Service= ({
 	GetProjectList: function ($http, success) {
         $http.get('/hmis-bulk-loader/mapper/projects').success(function (data) {

@@ -1,5 +1,5 @@
 
-app.controller('settingCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('settingCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$scope.sessionToken = $sessionStorage.sessionToken;	
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -44,4 +44,4 @@ $scope.showErrorAlert = true;})
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
-});
+}]);

@@ -9,11 +9,11 @@ app.filter('startFrom', function() {
     }
 });
 
-app.controller('ModalInstanceLogCtrl', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+app.controller('ModalInstanceLogCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', datajson, function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
     $scope.datajson = datajson;
-});
+}]);
 
-app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
+app.controller('managefilesCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$modal', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -107,4 +107,4 @@ app.controller('managefilesCtrl', function($scope,$location,$routeSegment,$http,
 
 
       };
-});
+}]);

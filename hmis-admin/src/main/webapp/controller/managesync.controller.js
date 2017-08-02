@@ -1,7 +1,7 @@
-app.controller('ModalInstanceCtrl', function($scope,$location,$routeSegment,$http, $timeout,datajson) {
+app.controller('ModalInstanceCtrl',['$scope','$location','$routeSegment','$http', '$timeout','datajson', function($scope,$location,$routeSegment,$http, $timeout,datajson) {
 	 $scope.datajson =datajson;
-});
-app.controller('managesyncCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
+}]);
+app.controller('managesyncCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$modal','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -40,5 +40,5 @@ app.controller('managesyncCtrl', function($scope,$location,$routeSegment,$http, 
     };
 
   
-});
+}]);
 

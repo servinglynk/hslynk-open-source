@@ -1,5 +1,5 @@
 
-app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	console.log('Session Token..'+$scope.sessionToken);	
 	if($sessionStorage.isLoggedIn){
@@ -33,4 +33,4 @@ $scope.showErrorAlert = true;})
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
-});
+}]);
