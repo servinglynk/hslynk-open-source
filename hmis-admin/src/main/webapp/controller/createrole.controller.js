@@ -1,7 +1,5 @@
 
 app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
-	//$rootScope.sessionToken = $window.localStorage.getItem('sessionToken');
-	console.log('Session Token..'+$sessionStorage.sessionToken);	
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	

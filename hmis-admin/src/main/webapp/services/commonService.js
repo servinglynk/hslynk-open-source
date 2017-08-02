@@ -17,7 +17,6 @@ var Service= ({
     },
     GetUserInfo: function ($http,$scope, success, error) {
   	  var apiurl = "/hmis-user-service/rest/accounts/self/basicinfo";
-  	 console.log('Session Token..'+$scope.sessionToken);
         $http({
             method: 'GET',
             url: apiurl,
@@ -32,7 +31,6 @@ var Service= ({
   GetUserByOrganization:function ($http,$scope, success, error) {
 	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
   	  var apiurl = "/hmis-user-service/rest/accounts/"+$scope.organizationId+"/users";
-   	 console.log('Session Token..'+$scope.sessionToken);
          $http({
              method: 'GET',
              url: apiurl,
@@ -52,7 +50,6 @@ var Service= ({
     },
     GetFilesListRECENT: function ($http, success, $scope) {
         var apiurl = "/hmis-upload-service/rest/bulkupload?status=RECENT";
-      	 console.log('Session Token..'+$scope.sessionToken);
             $http({
                 method: 'GET',
                 url: apiurl,
@@ -66,7 +63,6 @@ var Service= ({
       },
     GetFilesListSTAGING: function ($http, success, $scope) {
         var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
-      	 console.log('Session Token..'+$scope.sessionToken);
             $http({
                 method: 'GET',
                 url: apiurl,
@@ -79,7 +75,6 @@ var Service= ({
             });
       },  GetFilesListDELETED: function ($http, success, $scope) {
           var apiurl = "/hmis-upload-service/rest/bulkupload?status=DELETED";
-       	 console.log('Session Token..'+$scope.sessionToken);
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -93,7 +88,6 @@ var Service= ({
        },       
     GetFilesListLIVE: function ($http, success,$scope) {
     var apiurl = "/hmis-upload-service/rest/bulkupload?status=LIVE";
- 	 console.log('Session Token..'+$scope.sessionToken);
        $http({
            method: 'GET',
            url: apiurl,
@@ -107,7 +101,6 @@ var Service= ({
  },        
     GetFilesListERROR: function ($http, success,$scope) {
          var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
-       	 console.log('Session Token..'+$scope.sessionToken);
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -121,7 +114,6 @@ var Service= ({
     },
     GetFilesLogList: function ($http,success, $scope) {
     	var apiurl = "/hmis-clientapi-v"+$scope.year+"/rest/bulkupload/activities/"+$scope.idForLog;
-        console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
             url: apiurl,
@@ -136,7 +128,6 @@ var Service= ({
     },
     GetErrorMessage: function ($http, success, $scope) {
         var apiurl = "/hmis-clientapi-v"+$scope.year+"/rest/bulkupload/errors/"+$scope.id;
-        console.log('Session Token..' + $scope.sessionToken);
         $http({
             method: 'GET',
             url: apiurl,
@@ -156,7 +147,6 @@ var Service= ({
     },
     CheckServiceAvailableBulkUpload: function ($http,$scope, success,error) {
     	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
-       	 console.log('Session Token..'+$scope.sessionToken);
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -224,7 +214,6 @@ LoadStatistics: function ($http,$scope, success) {
 },
 logout: function ($http,$scope, success,error) {
 	// need to change url for services
-	console.log('Session Token..'+$scope.sessionToken);
     $http({
         method: 'DELETE',
         url: '/hmis-user-service/rest/sessions/'+$scope.sessionToken,
@@ -239,7 +228,6 @@ logout: function ($http,$scope, success,error) {
 
 SaveSetting: function ($http,$scope, success,error) {
 	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
-        console.log('Session Token..'+$scope.sessionToken);
      
         $http({
             method: 'POST',
@@ -265,8 +253,6 @@ SaveSetting: function ($http,$scope, success,error) {
 },
 submitHivePasswordForm: function ($http,$scope, success,error) {
 	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
-       console.log('Session Token..'+$scope.sessionToken);
-    
        $http({
            method: 'POST',
            url: apiurl,
@@ -320,7 +306,6 @@ bulkupload: function ($http, $scope,file, success, error) {
 //    },
 	GetRoles: function ($http,$scope, success) {
 		  var apiurl = "/hmis-user-service/rest/roles?maxItems=10";
-		 console.log('Session Token..'+$scope.sessionToken);
 	        $http({
 	            method: 'GET',
 	            url: apiurl,
@@ -334,7 +319,6 @@ bulkupload: function ($http, $scope,file, success, error) {
   },
 	GetProfiles: function ($http,$scope, success) {
 		  var apiurl = "/hmis-user-service/rest/profiles?maxItems=10";
-		 console.log('Session Token..'+$scope.sessionToken);
 		 $http.get(apiurl,{
 	            headers: {
 	              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
@@ -346,7 +330,6 @@ bulkupload: function ($http, $scope,file, success, error) {
 }, 
 GetProjectGroups: function ($http,$scope, success) {
 	  var apiurl = "/hmis-user-service/rest/projectgroups?maxItems=100";
-	 console.log('Session Token..'+$scope.sessionToken);
       $http({
           method: 'GET',
           cache:false,
@@ -361,7 +344,6 @@ GetProjectGroups: function ($http,$scope, success) {
 },
 GetEligReq: function ($http,$scope, success) {
 	  var apiurl = "/inventory-api/rest/projects/eligibilityrequirements?page=0&size=100";
-	 console.log('Session Token..'+$scope.sessionToken);
     $http({
         method: 'GET',
         data:'',
@@ -378,8 +360,6 @@ GetEligReq: function ($http,$scope, success) {
 },
     createUser : function ($http, $scope, success, error) {
         var apiurl = "/hmis-user-service/rest/accounts";
-        console.log('Session Token..'+$scope.sessionToken);
-        
         data = $scope.form;
         $http({
             method: 'POST',
@@ -414,7 +394,6 @@ GetEligReq: function ($http,$scope, success) {
         },
     createRole : function ($http, $scope, success, error) {
         var apiurl = "/hmis-user-service/rest/roles";
-        console.log('Session Token..'+$scope.sessionToken);
         
         data = $scope.form;
         $http({
@@ -438,7 +417,6 @@ GetEligReq: function ($http,$scope, success) {
     createProjectGroup: function ($http, $scope, success, error) {
     	console.warn($scope,2);
         var apiurl = "/hmis-user-service/rest/projectgroups";
-        console.log('Session Token..'+$scope.sessionToken);
         
         data = $scope.form;
        

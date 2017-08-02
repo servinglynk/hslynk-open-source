@@ -4,7 +4,6 @@ app.controller('logoutCtrl', ['$scope', '$location', '$routeSegment', '$http', '
     }
 
     $scope.sessionToken = $sessionStorage.sessionToken;
-    console.log('Session Token..' + $scope.sessionToken);
     delete $sessionStorage.sessionToken;
     delete $sessionStorage.sessionToken;
     delete $sessionStorage.expiresIn;
