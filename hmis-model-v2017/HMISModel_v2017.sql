@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS "v2017".rhybcp_status;
 DROP TABLE IF EXISTS "v2017".employment;
 DROP TABLE IF EXISTS "v2017".health_status;
 DROP TABLE IF EXISTS "v2017".affiliation;
-DROP TABLE IF EXISTS "v2017".site;
 DROP TABLE IF EXISTS "v2017".inventory;
 DROP TABLE IF EXISTS "v2017".funder;	
 DROP TABLE IF EXISTS "v2017".enrollment_coc;
@@ -31,7 +30,10 @@ DROP TABLE IF EXISTS "v2017".bulk_upload_activity;
 DROP TABLE IF EXISTS "v2017".export; 
 DROP TABLE IF EXISTS "v2017".source;
 DROP TABLE IF EXISTS v2017.exitRHY;
-DROP TABLE IF EXISTS v2017.exitPath;
+DROP TABLE IF EXISTS v2017.rhyaftercare;
+DROP TABLE IF EXISTS v2017.vashexitreason;
+DROP TABLE IF EXISTS v2017.connectionwithsoar;
+DROP TABLE IF EXISTS v2017.geography;
 
 
 DROP TYPE IF EXISTS "v2017".name_data_quality;
@@ -2148,38 +2150,6 @@ with (
 );
 
 
-create table "v2017".site
-(
-	id uuid not null,
-	address character varying(100),
-	city  character varying(50),
-	geocode  integer, 
-	principal_site "v2017".no_yes,
-	--project_coc_id uuid,
-	coc_id uuid,
-	state "v2017".state, 
-	zip text,
-	"project_group_code" character varying(8),
-	date_created timestamp,
-	"date_created_from_source" timestamp,
-	"date_updated_from_source" timestamp,
-	date_updated timestamp,
-	user_id uuid,
-	export_id uuid,
-	parent_id uuid,
-	version integer,source_system_id text,
-	deleted boolean DEFAULT false,active boolean DEFAULT true, 
-	sync boolean DEFAULT false,
-		constraint "site_pkey" primary key (id),
-		constraint "site_coc_fkey" foreign key (coc_id)
-		references v2017."coc" (id) match simple
-		on update no action on delete no action
-)
-with (
-  oids=false
-);
-
-
 create table "v2017".inventory
 (
    id uuid not null,
@@ -2710,31 +2680,6 @@ with (
   oids=false
 );
 
-create table "v2017".exitPath
-(
-	"id" uuid not null, 
-	"connection_with_soar" "v2017".connection_with_soar,
-	"exitid" uuid,
-	"project_group_code" character varying(8),
-	"date_created" timestamp,
-	"date_created_from_source" timestamp,
-	"date_updated_from_source" timestamp,
-	"date_updated" timestamp,
-	"user_id" uuid,
-	export_id uuid,
-	parent_id uuid,
-	version integer,source_system_id text,
-	deleted boolean DEFAULT false,active boolean DEFAULT true, 
-	sync boolean DEFAULT false,
-		constraint "exit_path_pkey" primary key ("id"),
-		constraint "exit_fkey" foreign key ("exitid")
-		references v2017.exit(id) match simple
-		on update no action on delete no action
-)
-with (
-  oids=false
-);
-
 ---Done--
 create table  "v2017".exithousingassessment
 (
@@ -2799,6 +2744,120 @@ with (
   oids=false
 );
 
+create table "v2017".rhyaftercare
+(
+	"id" uuid not null, 
+	after_care_date timestamp,
+	after_provided integer,
+	email_social_media integer,
+	telephone integer,
+	in_person_individual integer,
+	in_person_group integer,
+	exitid uuid,
+	"project_group_code" character varying(8),
+	"date_created" timestamp,
+	"date_created_from_source" timestamp,
+	"date_updated_from_source" timestamp,
+	"date_updated" timestamp,
+	"user_id" uuid,
+	export_id uuid,
+	parent_id uuid,
+	version integer,source_system_id text,
+	deleted boolean DEFAULT false,active boolean DEFAULT true, 
+	sync boolean DEFAULT false,
+		constraint "rhyaftercare_pkey" primary key ("id"),
+		constraint "rhyaftercare_fkey" foreign key ("exitid")
+		references v2017.exit("id") match simple
+		on update no action on delete no action
+)
+with (
+  oids=false
+);
+
+create table "v2017".vashexitreason
+(
+	"id" uuid not null, 
+	cm_exit_reason integer,
+	exitid uuid,
+	"project_group_code" character varying(8),
+	"date_created" timestamp,
+	"date_created_from_source" timestamp,
+	"date_updated_from_source" timestamp,
+	"date_updated" timestamp,
+	"user_id" uuid,
+	export_id uuid,
+	parent_id uuid,
+	version integer,source_system_id text,
+	deleted boolean DEFAULT false,active boolean DEFAULT true, 
+	sync boolean DEFAULT false,
+		constraint "vashexitreason_pkey" primary key ("id"),
+		constraint "vashexitreason_fkey" foreign key ("exitid")
+		references v2017.exit("id") match simple
+		on update no action on delete no action
+)
+with (
+  oids=false
+);
+
+create table "v2017".connectionwithsoar
+(
+	"id" uuid not null, 
+	information_date timestamp,
+	"connection_with_soar" integer,
+	"enrollmentid" uuid,
+	"project_group_code" character varying(8),
+	"date_created" timestamp,
+	"date_created_from_source" timestamp,
+	"date_updated_from_source" timestamp,
+	"date_updated" timestamp,
+	"user_id" uuid,
+	export_id uuid,
+	parent_id uuid,
+	version integer,source_system_id text,
+	deleted boolean DEFAULT false,active boolean DEFAULT true, 
+	sync boolean DEFAULT false,
+		constraint "connectionwithsoar_pkey" primary key ("id"),
+		constraint "connectionwithsoar_fkey" foreign key ("enrollmentid")
+		references v2017.exit("id") match simple
+		on update no action on delete no action
+)
+with (
+  oids=false
+);
+
+create table "v2017".geography
+(
+	"id" uuid not null, 
+	information_date timestamp,
+	geo_code varchar(10),
+	address1 varchar(100),
+	address2 varchar(100),
+	city varchar(50),
+	state varchar(50),
+	zip varchar(15),
+	geography_type integer,
+	projectid uuid,
+	"project_group_code" character varying(8),
+	"date_created" timestamp,
+	"date_created_from_source" timestamp,
+	"date_updated_from_source" timestamp,
+	"date_updated" timestamp,
+	"user_id" uuid,
+	export_id uuid,
+	parent_id uuid,
+	version integer,source_system_id text,
+	deleted boolean DEFAULT false,active boolean DEFAULT true, 
+	sync boolean DEFAULT false,
+		constraint "geography_pkey" primary key ("id"),
+		constraint "geography_fkey" foreign key ("projectid")
+		references v2017.exit("id") match simple
+		on update no action on delete no action
+)
+with (
+  oids=false
+);
+
+
 
 -- table: "exitplansactions"
 
@@ -2832,42 +2891,7 @@ with (
 );
 
 
-CREATE TABLE "v2017".hud_coc_report_question_7(
-id bigint primary key NOT NULL,
-first_name bigint, 
-last_name bigint ,
-ssn bigint , 
-dob bigint , 
-race bigint ,
-ethnicity bigint ,
-gender bigint ,
-veteran_status bigint ,
-disabling_cond bigint ,
-residence_prior_to_entry bigint ,
-zip_lpa bigint ,
-housing_stat_entry bigint ,
-income_entry bigint ,
-income_exit bigint ,
-non_cash_benefits_entry bigint ,
-non_cash_benefits_exit bigint ,
-physical_disability_entry bigint ,
-devlopmental_disability_entry bigint ,
-chronic_health_condition_entry bigint ,
-hiv_aids_entry bigint ,
-mental_health_entry bigint ,
-substance_abuse_entry bigint ,
-domestic_violence_entry bigint ,
-destination bigint ,
-total_clients bigint ,
-total_adults bigint ,
-total_unaccompanied_youth bigint ,
-total_leavers bigint , 
-del_flag char(3),
-status_flag char(3)
-);
-
-
---CREATE SEQUENCE "v2017".bulk_upload_id_seq START 1;
+CREATE SEQUENCE "v2017".bulk_upload_id_seq START 1;
 
 create table "v2017".bulk_upload_activity
 (
@@ -2913,7 +2937,7 @@ WITH (
   OIDS=FALSE
 );
 
--- DROP SEQUENCE v2017.error_sequence;
+ --DROP SEQUENCE v2017.error_sequence IF EXISTS;
 
 CREATE SEQUENCE v2017.error_sequence
   INCREMENT 1
