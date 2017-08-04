@@ -15,6 +15,7 @@ hmis-survey-views/src/main/conf/*.conf
 
 hmis-admin/target/*
 hmis-admin/bin/*
+hmis-admin/node_modules/*
 hmis-admin/.settings/*
 hmis-admin/.classpath
 hmis-admin/.project
