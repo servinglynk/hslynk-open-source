@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -92,6 +93,12 @@ public class ActiveListView  extends Logging {
 	                	 if(client !=null) {
 	                		 addColumn("first_name",client.getFirstName(), key, p);
 		                	 addColumn("last_name",client.getLastName(), key, p);
+		                	 addColumn("email",client.getEmail(),key,p);
+		                	 addColumn("phone",client.getPhone(),key,p);
+		                	 if(client.getDob() !=null) {
+		                		 int age = getAge(client.getDob());
+			                	 addColumn("age",String.valueOf(age),key,p);
+		                	 }
 	                	 }
 	                	 addColumn("survey_date",getCreatedAtString(resultSet.getTimestamp("date_updated")), key, p);
 	                    if (existingKeysInHbase.contains(key)) {
@@ -145,6 +152,12 @@ public class ActiveListView  extends Logging {
 	                  Bytes.toBytes(column),
 	                  Bytes.toBytes(value));
 		 }
+	 }
+	 
+	 public int getAge(Timestamp dob) {
+			    long ageInMillis =  new java.util.Date().getTime() - dob.getTime();
+			    Date age = new Date(ageInMillis);
+			    return age.getYear();
 	 }
 
 	 private static String getCreatedAtString(Timestamp timestamp) {
@@ -204,11 +217,18 @@ public class ActiveListView  extends Logging {
 			resultSet = statement.executeQuery();
 			String firstName =  null;
 			String lastName =  null;
+			String email = null;
+			String phoneNumber = null;
+			Timestamp dob = null;
 			while(resultSet.next()) {
 				firstName = resultSet.getString("first_name");
 				lastName = resultSet.getString("last_name");
+				email = resultSet.getString("email_address");
+				phoneNumber = resultSet.getString("phone_number");
+				dob = (Timestamp) resultSet.getTimestamp("dob");
+						
 			}
-			Client client = new Client(UUID.fromString(clientId), firstName, lastName);
+			Client client = new Client(UUID.fromString(clientId), firstName, lastName,phoneNumber,email,dob);
 			return client;
 		}catch (Exception ex){
 			throw ex;
@@ -261,7 +281,7 @@ public class ActiveListView  extends Logging {
 		Properties props = new Properties();
 		props.generatePropValues();
 		ActiveListView view = new ActiveListView(logger);
-		view.processActiveList();
+		//view.processActiveList();
 	}
 
 

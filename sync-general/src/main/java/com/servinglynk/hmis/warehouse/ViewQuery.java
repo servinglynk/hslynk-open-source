@@ -23,5 +23,5 @@ public static String HOUSING_INVENTORY_ACTIVE_LIST = "select survey_score as sco
 public static String GET_LASTEST_SURVEY_BY_CLIENT="select survey_id from survey.response where client_id=? order by created_at desc limit 1";
 public static String GET_LASTEST_SURVEY_BY_CLIENT_FROM_SCORE ="select survey_id from survey.section_score where client_id=? order by created_at desc limit 1";
 public static String GET_ACTIVE_LIST_DATA = "select sum(section_score)as score,ss.survey_id,ss.client_id,ss.created_at from survey.section_score ss,survey.survey s where  ss.survey_id= s.id  and s.project_group_code=? group by ss.survey_id,ss.client_id,ss.created_at order by ss.created_at desc";
-public static String GET_CLIENT_BY_ID="select first_name,last_name from base.client where id = ?";
+public static String GET_CLIENT_BY_ID="select first_name,last_name,phone_number,email_address,convert_from(dob_decrypt(dob),'UTF-8') as dob from base.client where id = ?";
 }

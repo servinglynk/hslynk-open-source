@@ -1,17 +1,24 @@
 package com.servinglynk.hmis.warehouse;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public class Client {
 	private UUID id;
 	private String firstName;
 	private String lastName;
-	
-	public Client(UUID id, String firstName, String lastName) {
+	private String phone;
+	private String email;
+	private Timestamp dob;
+
+	public Client(UUID id, String firstName, String lastName, String phone, String email, Timestamp dob) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+		this.phone = phone;
+		this.dob = dob;
 	}
 
 	/**
@@ -22,7 +29,8 @@ public class Client {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(UUID id) {
 		this.id = id;
@@ -36,7 +44,8 @@ public class Client {
 	}
 
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -50,10 +59,34 @@ public class Client {
 	}
 
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Timestamp getDob() {
+		return dob;
+	}
+
+	public void setDob(Timestamp dob) {
+		this.dob = dob;
+	}
 }
