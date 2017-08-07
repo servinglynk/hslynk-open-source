@@ -1,8 +1,10 @@
+
 package com.servinglynk.hmis.warehouse.rest;
 
 import static com.servinglynk.hmis.warehouse.common.Constants.USER_SERVICE;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
@@ -65,6 +67,7 @@ public class AuthorizationsController extends ControllerBase {
 
 		try	{
 			// request authorization
+			redirectUri = this.urldecode(redirectUri);
 			authorization = serviceFactory.getAuthorizationService().requestAuthorization(trustedAppId, 
 																						  redirectUri, 
 																						  responseType, 
@@ -142,6 +145,18 @@ public class AuthorizationsController extends ControllerBase {
 		// 07-15-17 vpc deployment
 		try {
 				return URLEncoder.encode(s, "UTF-8");  // 07-15-17 vpc deployment
+			} 
+		catch (UnsupportedEncodingException e) {
+			logger.debug(null, e);
+		}
+		
+		return s;
+	}
+	
+	private String urldecode(String s)	{
+		// 07-15-17 vpc deployment
+		try {
+				return URLDecoder.decode(s, "UTF-8");  // 07-15-17 vpc deployment
 			} 
 		catch (UnsupportedEncodingException e) {
 			logger.debug(null, e);
