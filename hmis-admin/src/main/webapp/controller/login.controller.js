@@ -1,5 +1,5 @@
 ﻿/* Login */
-app.controller('validateLoginCtrl', function($scope,$location,$routeSegment) {
+app.controller('validateLoginCtrl',['$scope','$location','$routeSegment', function($scope,$location,$routeSegment) {
 	
   $scope.SubmitLogin = function() {
 
@@ -13,4 +13,4 @@ app.controller('validateLoginCtrl', function($scope,$location,$routeSegment) {
 	}
 
   };
-});
+}]);

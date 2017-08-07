@@ -1,5 +1,5 @@
 
-app.controller('manageprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('manageprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -20,4 +20,4 @@ app.controller('manageprojgrpCtrl', function($scope,$location,$routeSegment,$htt
     };
 
 
-});
+}]);
