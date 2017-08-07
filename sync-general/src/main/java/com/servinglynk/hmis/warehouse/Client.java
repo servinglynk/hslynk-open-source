@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.UUID;
 
 public class Client {
@@ -9,9 +9,9 @@ public class Client {
 	private String lastName;
 	private String phone;
 	private String email;
-	private Timestamp dob;
+	private Date dob;
 
-	public Client(UUID id, String firstName, String lastName, String phone, String email, Timestamp dob) {
+	public Client(UUID id, String firstName, String lastName, String phone, String email, Date dob) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -82,11 +82,11 @@ public class Client {
 		this.email = email;
 	}
 
-	public Timestamp getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(Timestamp dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 }

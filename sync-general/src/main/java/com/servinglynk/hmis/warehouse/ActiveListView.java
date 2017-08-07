@@ -154,7 +154,7 @@ public class ActiveListView  extends Logging {
 		 }
 	 }
 	 
-	 public int getAge(Timestamp dob) {
+	 public int getAge(Date dob) {
 			    long ageInMillis =  new java.util.Date().getTime() - dob.getTime();
 			    Date age = new Date(ageInMillis);
 			    return age.getYear();
@@ -219,13 +219,13 @@ public class ActiveListView  extends Logging {
 			String lastName =  null;
 			String email = null;
 			String phoneNumber = null;
-			Timestamp dob = null;
+			Date dob = null;
 			while(resultSet.next()) {
 				firstName = resultSet.getString("first_name");
 				lastName = resultSet.getString("last_name");
 				email = resultSet.getString("email_address");
 				phoneNumber = resultSet.getString("phone_number");
-				dob = (Timestamp) resultSet.getTimestamp("dob");
+				dob = (Date) resultSet.getDate("dob");
 						
 			}
 			Client client = new Client(UUID.fromString(clientId), firstName, lastName,phoneNumber,email,dob);
@@ -281,7 +281,7 @@ public class ActiveListView  extends Logging {
 		Properties props = new Properties();
 		props.generatePropValues();
 		ActiveListView view = new ActiveListView(logger);
-		//view.processActiveList();
+		view.processActiveList();
 	}
 
 
