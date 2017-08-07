@@ -32,7 +32,7 @@
 		</pluginManagement>
 	</build>
 	<modules>
-  		<module>hmis-admin</module>  
+  		<!-- <module>hmis-admin</module>  --> 
 		<module>hmis-core-client</module>
 		<module>hmis-s3-client</module>
 		<module>hmis-core-common</module>
