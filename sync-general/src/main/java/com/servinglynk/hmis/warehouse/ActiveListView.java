@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -96,9 +98,16 @@ public class ActiveListView  extends Logging {
 		                	 addColumn("email",client.getEmail(),key,p);
 		                	 addColumn("phone",client.getPhone(),key,p);
 		                	 if(client.getDob() !=null) {
-		                		 int age = getAge(client.getDob());
+		                		 Date dob = client.getDob();
+		                		 LocalDate birthday = dob.toLocalDate();
+		                		 LocalDate now = LocalDate.now();
+		                		 long age = birthday.until(now, ChronoUnit.YEARS);
 			                	 addColumn("age",String.valueOf(age),key,p);
 		                	 }
+	                	 }
+	                	 String notes = getNotes(key);
+	                	 if(StringUtils.isNotBlank(notes)) {
+	                		 addColumn("notes",notes,key,p);
 	                	 }
 	                	 addColumn("survey_date",getCreatedAtString(resultSet.getTimestamp("date_updated")), key, p);
 	                    if (existingKeysInHbase.contains(key)) {
@@ -146,7 +155,26 @@ public class ActiveListView  extends Logging {
 	        log.info("Sync done for table: " + postgresTable);
 	    }
 	 
-	 public void addColumn(String column, String value,String key,Put p) {
+	 private String getNotes(String key) {
+			ResultSet resultSet = null;
+			PreparedStatement statement = null;
+			Connection connection = null;
+			String notes =null;
+			try{
+			connection = SyncPostgresProcessor.getConnection();
+			statement = connection.prepareStatement(ViewQuery.GET_NOTES);
+			statement.setObject(1, UUID.fromString(key));
+			resultSet = statement.executeQuery();
+				while(resultSet.next()) {
+					notes = (String)resultSet.getString("response_text");
+				}
+			}catch (Exception ex){
+				ex.printStackTrace();
+			}
+			return notes;
+	}
+
+	public void addColumn(String column, String value,String key,Put p) {
 		 if(StringUtils.isNotBlank(value)) {
 			  p.addColumn(Bytes.toBytes("CF"),
 	                  Bytes.toBytes(column),
@@ -154,7 +182,7 @@ public class ActiveListView  extends Logging {
 		 }
 	 }
 	 
-	 public int getAge(Date dob) {
+	 public int getAge(java.util.Date dob) {
 			    long ageInMillis =  new java.util.Date().getTime() - dob.getTime();
 			    Date age = new Date(ageInMillis);
 			    return age.getYear();
@@ -164,7 +192,6 @@ public class ActiveListView  extends Logging {
 		 String pattern = "yyyy-MM-dd HH:mm:ss";
 		    SimpleDateFormat format = new SimpleDateFormat(pattern);
 		    String stringDate = format.format(timestamp);
-		    System.out.println("String Date"+stringDate);
 		    return stringDate;
 	}
 
@@ -283,6 +310,5 @@ public class ActiveListView  extends Logging {
 		ActiveListView view = new ActiveListView(logger);
 		view.processActiveList();
 	}
-
 
 }
