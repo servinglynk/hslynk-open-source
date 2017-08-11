@@ -95,6 +95,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
 			} catch (UnmarshalException ex) {
 				logger.error("Error executing the bulk upload process:: ", ex);
+				upload.setStatus(UploadStatus.ERROR.getStatus());
+				upload.setDescription(!"null".equals(String.valueOf(ex.getCause()))  ? String.valueOf(ex.getCause()) : ex.getMessage());
+				insertOrUpdate(upload);
 				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
 			}
 			logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
@@ -187,6 +190,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		} catch (Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
+			insertOrUpdate(upload);
 			logger.error("Error executing the bulk upload process:: ", e);
 		} finally {
 			if (appender != null) {
