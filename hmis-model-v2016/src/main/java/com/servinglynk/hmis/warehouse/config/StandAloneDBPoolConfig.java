@@ -27,11 +27,11 @@ public class StandAloneDBPoolConfig {
 		
 	    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
 	    private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-	    private static final String PROPERTY_NAME_INITIAL_SIZE = "hibernate.show_sql";
-	    private static final String PROPERTY_NAME_MAX_ACTIVE = "hibernate.show_sql";	   
-	    private static final String PROPERTY_NAME_MIN_IDLE = "hibernate.show_sql";
-	    private static final String PROPERTY_NAME_MAX_IDLE = "hibernate.show_sql";
-	    private static final String PROPERTY_NAME_MAX_WAIT = "hibernate.show_sql";
+	    private static final String PROPERTY_NAME_INITIAL_SIZE = "db.initsize";
+	    private static final String PROPERTY_NAME_MAX_ACTIVE = "db.maxactive";	   
+	    private static final String PROPERTY_NAME_MIN_IDLE = "db.minidle";
+	    private static final String PROPERTY_NAME_MAX_IDLE = "db.maxidle";
+	    private static final String PROPERTY_NAME_MAX_WAIT = "db.maxwait";
 	    
 	    
 	    @SuppressWarnings("unused")
