@@ -115,17 +115,15 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
-				
-				
-				//performSaveOrUpdate(model);	
-				com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
-				BeanUtils.copyProperties(model, target, new String[] {"enrollments","veteranInfoes"});
-				logger.info("Calling Dedup Service for "+model.getFirstName());
-				String dedupedId = dedupHelper.getDedupedClient(target,dedupSessionKey);
-				model.setDedupClientId(UUID.fromString(dedupedId));
-				target.setDedupClientId(UUID.fromString(dedupedId));
-				getCurrentSession().update(model);
-				getCurrentSession().update(target);
+				performSaveOrUpdate(model);	
+				// Inserting client in base schema	
+				if(!model.isIgnored()) {
+					com.servinglynk.hmis.warehouse.model.base.Client base = new com.servinglynk.hmis.warehouse.model.base.Client();
+					BeanUtils.copyProperties(model, base, new String[] {"enrollments","veteranInfoes"});
+					base.setDateUpdated(LocalDateTime.now());
+					base.setSchemaYear("2014");
+					insertOrUpdate(base);	
+				}
 				// Inserting client in base schema		
 			
 				} catch(Exception ex ){
