@@ -15,7 +15,6 @@ public class EntityInterceptor extends EmptyInterceptor {
 	ClientOperationLogger clientOperationLogger;
 
 	public void preFlush(Iterator entities) {
-		SecurityContext context =  SecurityContextHolder.getContext();
-		clientOperationLogger.logClientOperation(entities,context);
+		clientOperationLogger.logClientOperation(entities);
 	}	
 }

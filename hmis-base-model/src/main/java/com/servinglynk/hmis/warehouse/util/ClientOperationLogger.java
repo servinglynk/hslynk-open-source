@@ -25,7 +25,7 @@ public class ClientOperationLogger {
 	ApplicationContext applicationContext;
 		
 	@Async
-	public void logClientOperation(Iterator entities,SecurityContext context) {
+	public void logClientOperation(Iterator entities) {
 		while (entities.hasNext()) {
 			Object object = (Object) entities.next();
 			try {
