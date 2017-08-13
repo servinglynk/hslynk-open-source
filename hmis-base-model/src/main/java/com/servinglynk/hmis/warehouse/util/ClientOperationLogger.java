@@ -25,10 +25,13 @@ public class ClientOperationLogger {
 	ApplicationContext applicationContext;
 		
 	@Async
-	public void logClientOperation(Iterator entities) {
+	public void logClientOperation(Iterator entityObjects) {
+		try {		
+			Iterator entities = (Iterator) BeanUtils.cloneBean(entityObjects);
+ 		
 		while (entities.hasNext()) {
 			Object object = (Object) entities.next();
-			try {
+
 				if((object.getClass().getName().equalsIgnoreCase("com.servinglynk.hmis.warehouse.model.v2014.Client")  
 						|| object.getClass().getName().equalsIgnoreCase("com.servinglynk.hmis.warehouse.model.v2015.Client")
 						|| object.getClass().getName().equalsIgnoreCase("com.servinglynk.hmis.warehouse.model.v2016.Client")
@@ -45,9 +48,10 @@ public class ClientOperationLogger {
 					}
 */					log.debug(object.getClass().getName() + ","+BeanUtils.getProperty(object,"id") +","+applicationContext.getApplicationName() +"," + BeanUtils.getNestedProperty(object, "userId") +","+BeanUtils.getNestedProperty(object, "projectGroupCode"));
 				}
-			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-				System.out.println(e.getMessage());
-			}
+		
+		}
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }
