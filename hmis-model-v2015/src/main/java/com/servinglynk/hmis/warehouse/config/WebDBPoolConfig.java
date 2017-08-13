@@ -71,7 +71,7 @@ public class WebDBPoolConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2014");
+		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2015");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
 		sessionFactoryBean.setEntityInterceptor(entityInterceptor());
 		return sessionFactoryBean;
