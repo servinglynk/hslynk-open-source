@@ -74,7 +74,7 @@ public class WebDBPoolConfig {
 		sessionFactoryBean.setDataSource(dataSource());
 		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2014");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
-		sessionFactoryBean.setEntityInterceptor(entityInterceptor());
+	//	sessionFactoryBean.setEntityInterceptor(entityInterceptor());
 		try {
 			sessionFactoryBean.afterPropertiesSet();
 		} catch (IOException e) {
@@ -84,8 +84,8 @@ public class WebDBPoolConfig {
 		return sessionFactoryBean;
 	}
 	
-	@Bean
-	public EntityInterceptor entityInterceptor() {
-		return new EntityInterceptor();
-	}
+	//@Bean
+	//public EntityInterceptor entityInterceptor() {
+	//	return new EntityInterceptor();
+//	}
 }
