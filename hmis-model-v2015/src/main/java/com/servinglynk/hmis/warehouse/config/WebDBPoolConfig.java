@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 import com.servinglynk.hmis.warehouse.util.EntityInterceptor;
 
+@Configuration
+@EnableTransactionManagement
 public class WebDBPoolConfig {
 	
 
@@ -74,6 +76,12 @@ public class WebDBPoolConfig {
 		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2015");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
 		sessionFactoryBean.setEntityInterceptor(entityInterceptor());
+		try {
+			sessionFactoryBean.afterPropertiesSet();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return sessionFactoryBean;
 	}
 	
