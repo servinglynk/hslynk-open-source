@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.config;
 
+
+
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -11,6 +14,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+
+import com.servinglynk.hmis.warehouse.util.EntityInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
