@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 import com.servinglynk.hmis.warehouse.util.EntityInterceptor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
@@ -59,7 +61,7 @@ public class WebDBPoolConfig {
 		
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
-		properties.setProperty("hibernate.ejb.interceptor", "com.servinglynk.hmis.warehouse.dao.helper.EntityInterceptor");
+		properties.setProperty("hibernate.ejb.interceptor", "com.servinglynk.hmis.warehouse.util.EntityInterceptor");
 		return properties;	
 	}
 	
