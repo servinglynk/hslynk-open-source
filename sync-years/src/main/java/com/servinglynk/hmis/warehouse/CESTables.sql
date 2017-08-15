@@ -47,7 +47,7 @@ deleted boolean,
 ignore_match_process boolean)
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
 ("hbase.columns.mapping" = "
-:key
+:key,
 CF:client_id,	
 CF:survey_type,			
 CF:survey_score,			
@@ -64,3 +64,18 @@ CF:date_updated,
 CF:user_id,			
 CF:deleted,			
 CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "eligible_clients_housing_inventory");
+
+CREATE EXTERNAL TABLE IF NOT EXISTS active_list
+(client_id	string,
+first_name string,
+last_name string,
+survey_id string,
+survey_title string,
+survey_date timestamp,
+score BIGINT,
+phone string,
+email string,
+age BIGINT,
+ignore_match_process boolean)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = ":key,CF:first_name,CF:last_name,CF:survey_id,CF:survey_title,CF:survey_date,CF:survey_score,CF:phone,CF:email,CF:age,CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "active_list_MO0010");

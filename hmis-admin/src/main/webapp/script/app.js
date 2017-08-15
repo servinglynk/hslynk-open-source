@@ -17,7 +17,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
        }
     };
  }]);
-app.factory("LS", function($window, $rootScope) {
+app.factory("LS", [ '$window', '$rootScope', function($window, $rootScope) {
 	  angular.element($window).on('storage', function(event) {
 	    if (event.key === 'my-storage') {
 	      $rootScope.$apply();
@@ -32,8 +32,8 @@ app.factory("LS", function($window, $rootScope) {
 	      return $window.localStorage && $window.localStorage.getItem('my-storage');
 	    }
 	  };
-	});
-app.config(function($routeSegmentProvider, $routeProvider) {
+	}]);
+app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentProvider, $routeProvider) {
     
     // Configuring provider options
     
@@ -152,7 +152,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect
     
-}) ;
+}]) ;
 app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          function ($rootScope, $location, $sessionStorage, $http) {
 			 
@@ -173,7 +173,7 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          }]);
 app.value('loader', { show: false });
 
-app.directive('appFilereader', function ($q) {
+app.directive('appFilereader',['$q', function ($q) {
     var slice = Array.prototype.slice;
 		
     return {
@@ -192,4 +192,4 @@ app.directive('appFilereader', function ($q) {
 
         } //link
     }; //return
-});
+}]);

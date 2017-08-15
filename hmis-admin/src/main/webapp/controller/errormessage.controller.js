@@ -1,5 +1,5 @@
 ﻿
-app.controller('errormessageCtrl', function ($scope, $location, $routeParams, $routeSegment, $http, $timeout, $sessionStorage) {
+app.controller('errormessageCtrl',['$scope', '$location', '$routeParams', '$routeSegment', '$http', '$timeout', '$sessionStorage', function ($scope, $location, $routeParams, $routeSegment, $http, $timeout, $sessionStorage) {
     if ($sessionStorage.isLoggedIn) {
         $("#userDetails").html($sessionStorage.account.emailAddress);
     }
@@ -24,4 +24,4 @@ app.controller('errormessageCtrl', function ($scope, $location, $routeParams, $r
    
 
  
-});
+}]);

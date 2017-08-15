@@ -258,6 +258,10 @@
                             <mainClass>com.servinglynk.hmis.warehouse.SyncMainAllSchemas</mainClass>
                             <name>main-sync-schemas.sh</name>
                         </program>
+                          <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.ActiveListView</mainClass>
+                            <name>main-active-list-view.sh</name>
+                        </program>
                     </programs>
 
                     <useWildcardClassPath>true</useWildcardClassPath>
@@ -298,6 +302,12 @@
                                 <chmod file="${basedir}/src/main/scripts/start-sync-schemas.sh"
                                        perm="ugo+rx"/>
                                 <chmod file="${basedir}/src/main/scripts/stop-sync-schemas.sh"
+                                       perm="ugo+rx"/>
+                               <chmod file="${basedir}/target/temp_build/bin/main-active-list-view.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-active-list-view.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-active-list-view.sh"
                                        perm="ugo+rx"/>
                             </tasks>
                         </configuration>
