@@ -10,16 +10,12 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-
-import com.servinglynk.hmis.warehouse.util.EntityInterceptor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.servinglynk.hmis.warehouse.util.EntityInterceptor;
 
 @Configuration
 @EnableTransactionManagement
@@ -65,7 +61,6 @@ public class WebDBPoolConfig {
 		
 		properties.put("hibernate.default_schema",env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DEFAULT_SCHEMA));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
-		properties.setProperty("hibernate.ejb.interceptor", "com.servinglynk.hmis.warehouse.util.EntityInterceptor");
 		return properties;	
 	}
 	
@@ -82,7 +77,6 @@ public class WebDBPoolConfig {
 		sessionFactoryBean.setDataSource(dataSource());
 		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.v2015");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
-		sessionFactoryBean.setEntityInterceptor(entityInterceptor());
 		try {
 			sessionFactoryBean.afterPropertiesSet();
 		} catch (IOException e) {
@@ -90,10 +84,5 @@ public class WebDBPoolConfig {
 			e.printStackTrace();
 		}
 		return sessionFactoryBean;
-	}
-	
-	@Bean
-	public EntityInterceptor entityInterceptor() {
-		return new EntityInterceptor();
 	}
 }
