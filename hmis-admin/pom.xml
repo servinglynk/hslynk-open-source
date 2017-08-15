@@ -18,74 +18,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-					</additionalBuildcommands>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-		</plugin>
-
-		<plugin>
-			<groupId>pl.allegro</groupId>
-			<artifactId>grunt-maven-plugin</artifactId>
-			<version>1.5.0</version>
-			<configuration>
-
-				<!-- relative to src/main/webapp/, default: static -->
-				<jsSourceDirectory>src/main/webapp</jsSourceDirectory>
-
-				<!-- example options usage to get verbose output in logs -->
-				<gruntOptions>
-					<gruntOption>--verbose</gruntOption>
-				</gruntOptions>
-
-				<!-- example npm install env variable -->
-				<npmEnvironmentVar>
-					<PHANTOMJS_CDNURL>http://cnpmjs.org/downloads</PHANTOMJS_CDNURL>
-				</npmEnvironmentVar>
-
-				<!-- example options usage to filter variables in given resource -->
-				<filteredResources>
-					<filteredResource>maven-properties.json</filteredResource>
-				</filteredResources>
-
-			</configuration>
-			<executions>
-		    		 <execution>
-                        <id>exec-npm-install</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                     <execution>
-                        <id>exec-grunt</id>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                             <arguments>
-                                <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>grunt</goal>
-                        </goals>
-                    </execution>
-			</executions>
-		</plugin>
+  	
 
 <!-- <plugin>
     <groupId>org.codehaus.mojo</groupId>
@@ -97,8 +30,6 @@
     </configuration>
 </plugin> -->
 
-		</plugins>
-	</build>
 <!-- 	<repositories>
     <repository>
       <id>central</id>
