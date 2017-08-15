@@ -43,18 +43,17 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
-		//query.add(Restrictions.eq("user.id", userId));
+		query.add(Restrictions.eq("user.id", userId));
 		if(StringUtils.equals("DELETED", status)) {
 			query.add(Restrictions.eq("deleted",true));
 		}
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
-	public List<BulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
+	public List<BulkUpload> findBulkUploadForCustAdmin(String status,String projectGroup) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
-	//	query.add(Restrictions.eq("user.id", userId));
 		query.add(Restrictions.eq("deleted",false));
 		query.addOrder( Order.desc("dateCreated") );
 		query.addOrder( Order.desc("id") );

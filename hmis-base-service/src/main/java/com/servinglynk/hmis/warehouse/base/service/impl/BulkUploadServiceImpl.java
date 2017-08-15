@@ -54,7 +54,14 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		List<BulkUpload> uploads = null; 
 		if(role != null) {
 			try {
+				if(StringUtils.equalsIgnoreCase("CUSTADMIN",role.getRoleName()))
+					uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForCustAdmin(status,projectGroupCode);
+				else if(StringUtils.equalsIgnoreCase("SUPERADMIN",role.getRoleName())) {
+					uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadFoSuperAdmin(status);
+				}else{
 					uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForDevelopers(status, user.getId(), projectGroupCode);
+				}
+					
 			}catch (Exception e) {
 				logger.error("Some issues trying to get project groups"+e.getMessage());
 				}
