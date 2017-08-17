@@ -58,7 +58,7 @@ public class ExitWorker implements IBulkUploadWorker  {
 					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
+					factory.getBulkUploaderDao().processExit(upload,projectGroupEntity, appender, true);
 					logger.removeAppender(appender);
 				}
 			}
