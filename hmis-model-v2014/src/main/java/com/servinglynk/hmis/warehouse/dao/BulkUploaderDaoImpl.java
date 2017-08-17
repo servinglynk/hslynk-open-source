@@ -363,6 +363,144 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 		}
 	}
+
+	@Override
+	@Transactional
+	public BulkUpload processBase(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
+			Boolean isFileFromS3) {
+		
+			if (appender != null) {
+				logger.addAppender(appender);
+			}
+			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+			saveUpload(upload);
+			try {
+			long startNanos = System.nanoTime();
+			Sources sources = null;
+			try {
+				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
+			} catch (UnmarshalException ex) {
+				logger.error("Error executing the bulk upload process:: ", ex);
+				upload.setStatus(UploadStatus.ERROR.getStatus());
+				upload.setDescription(!"null".equals(String.valueOf(ex.getCause()))  ? String.valueOf(ex.getCause()) : ex.getMessage());
+				insertOrUpdate(upload);
+				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
+			}
+			logger.info( "Base Process:::"+getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+
+			Source source = null;
+			try {
+				source = sources.getSource();
+			} catch (Exception ex) {
+				throw new Exception("HUD File Uploaded is in an invalid Format :Unable to get source from sources", ex);
+			}
+			Export export = null;
+			try {
+				export = source.getExport();
+			} catch (Exception ex) {
+				throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
+			}
+			ExportDomain domain = new ExportDomain();
+			domain.setExport(export);
+			domain.setUpload(upload);
+			domain.setSource(source);
+			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
+			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
+			logger.info("Base Process::: Bulk Upload Processing client Table Begin.....");
+			startNanos = System.nanoTime();
+			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DOne
+			logger.info(" Base Process::: Bulk Upload Processing client Table Ends.....");
+			logger.info("Base Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+			upload.setStatus(UploadStatus.CORE_COMPLETED.getStatus());
+			upload.setExportId(domain.getExportId());
+			insertOrUpdate(upload);
+		}catch(Exception e) {
+			upload.setStatus(UploadStatus.ERROR.getStatus());
+			insertOrUpdate(upload);
+			logger.error(" Base Process:::Error in base process....."+e.getStackTrace());
+		}
+			return upload;
+	
+	}
+
+	@Override
+	public BulkUpload processEnrollment(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
+			Boolean isFileFromS3) {
+		if (appender != null) {
+			logger.addAppender(appender);
+		}
+		upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+		saveUpload(upload);
+		try {
+		long startNanos = System.nanoTime();
+		Sources sources = null;
+		try {
+			sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
+		} catch (UnmarshalException ex) {
+			logger.error("Error executing the bulk upload process:: ", ex);
+			upload.setStatus(UploadStatus.ERROR.getStatus());
+			upload.setDescription(!"null".equals(String.valueOf(ex.getCause()))  ? String.valueOf(ex.getCause()) : ex.getMessage());
+			insertOrUpdate(upload);
+			throw new Exception("HUD File Uploaded is in an invalid Format", ex);
+		}
+		logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+
+		Source source = null;
+		try {
+			source = sources.getSource();
+		} catch (Exception ex) {
+			throw new Exception("HUD File Uploaded is in an invalid Format :Unable to get source from sources", ex);
+		}
+		Export export = null;
+		try {
+			export = source.getExport();
+		} catch (Exception ex) {
+			throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
+		}
+		ExportDomain domain = new ExportDomain();
+		domain.setExport(export);
+		domain.setUpload(upload);
+		domain.setSource(source);
+		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
+		Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
+		parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
+		logger.info(" Enrollment Process::: Bulk Upload Processing client Table Ends.....");
+		logger.info("Enrollment Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+		upload.setStatus(UploadStatus.CORE_COMPLETED.getStatus());
+		upload.setExportId(domain.getExportId());
+		insertOrUpdate(upload);
+		}catch(Exception e) {
+			upload.setStatus(UploadStatus.ERROR.getStatus());
+			insertOrUpdate(upload);
+			logger.error(" Error in base process....."+e.getStackTrace());
+		}
+			return upload;
+		
+	}
+
+	@Override
+	public BulkUpload processDisabilities(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
+			Boolean isFileFromS3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BulkUpload processExit(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
+			Boolean isFileFromS3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BulkUpload processOthers(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
+			Boolean isFileFromS3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
 

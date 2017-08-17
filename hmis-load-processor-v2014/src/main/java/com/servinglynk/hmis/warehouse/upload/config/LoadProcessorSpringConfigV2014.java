@@ -10,7 +10,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
+import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
+import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
+import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ExitWorker;
 
 @Configuration
 @EnableScheduling
@@ -25,6 +29,22 @@ public class LoadProcessorSpringConfigV2014 {
 		return new BulkUploadWorker();
 	}
 	
+	@Bean
+	public BaseWorker baseWorker(){
+		return new BaseWorker();
+	}
+	@Bean
+	public DisabilitiesWorker disabilitiesWorker(){
+		return new DisabilitiesWorker();
+	}
+	@Bean
+	public EnrollmentWorker enrollmentWorker(){
+		return new EnrollmentWorker();
+	}
+	@Bean
+	public ExitWorker exitWorker(){
+		return new ExitWorker();
+	}
 	@Bean
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();

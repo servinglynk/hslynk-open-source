@@ -28,9 +28,9 @@ import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
 
 
 @Component
-public class BulkUploadWorker implements IBulkUploadWorker  {
+public class BaseWorker implements IBulkUploadWorker  {
 	
-	final static Logger logger = Logger.getLogger(BulkUploadWorker.class);
+	final static Logger logger = Logger.getLogger(BaseWorker.class);
 
 	@Autowired
 	Environment env;
@@ -42,7 +42,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.BASE.getStatus(),new Long(2014));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
@@ -54,14 +54,15 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					appender.activateOptions();
 					logger.addAppender(appender);
 					/** Perform full refresh base on Project group */
+					File file = new File(upload.getInputpath());
 					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
+					factory.getBulkUploaderDao().processBase(upload,projectGroupEntity, appender, true);
 					logger.removeAppender(appender);
 				}
 			}
-			logger.info("========Bulk Uploader processed ======");
+			logger.info("========Base Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

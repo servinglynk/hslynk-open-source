@@ -28,9 +28,9 @@ import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
 
 
 @Component
-public class BulkUploadWorker implements IBulkUploadWorker  {
+public class ExitWorker implements IBulkUploadWorker  {
 	
-	final static Logger logger = Logger.getLogger(BulkUploadWorker.class);
+	final static Logger logger = Logger.getLogger(ExitWorker.class);
 
 	@Autowired
 	Environment env;
@@ -42,18 +42,19 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.EXIT.getStatus(),new Long(2014));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
 					appender.setName("" + upload.getId());
-					appender.setFile("logs/base-" + upload.getId() + ".log");
+					appender.setFile("logs/exit-" + upload.getId() + ".log");
 					appender.setImmediateFlush(true);
 					appender.setAppend(true);
 					appender.setLayout(new PatternLayout());
 					appender.activateOptions();
 					logger.addAppender(appender);
 					/** Perform full refresh base on Project group */
+					File file = new File(upload.getInputpath());
 					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
@@ -61,7 +62,7 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 					logger.removeAppender(appender);
 				}
 			}
-			logger.info("========Bulk Uploader processed ======");
+			logger.info("======== Exit Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
