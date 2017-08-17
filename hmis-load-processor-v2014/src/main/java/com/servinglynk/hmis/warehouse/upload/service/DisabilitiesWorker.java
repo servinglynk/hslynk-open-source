@@ -42,7 +42,7 @@ public class DisabilitiesWorker implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=200,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.DISABILITIES.getStatus(),new Long(2014));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.DISAB.getStatus(),new Long(2014));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
@@ -58,7 +58,7 @@ public class DisabilitiesWorker implements IBulkUploadWorker  {
 					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
+					factory.getBulkUploaderDao().processDisabilities(upload,projectGroupEntity, appender, true);
 					logger.removeAppender(appender);
 				}
 			}
