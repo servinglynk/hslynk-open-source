@@ -12,9 +12,12 @@ import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ClientWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
 import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
+import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.ExitWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ExitWorkerChildren;
 
 @Configuration
 @EnableScheduling
@@ -42,9 +45,22 @@ public class LoadProcessorSpringConfigV2014 {
 		return new EnrollmentWorker();
 	}
 	@Bean
+	public ExitWorkerChildren exitWorkerChildrenr(){
+		return new ExitWorkerChildren();
+	}
+	@Bean
+	public EnrollmentWorkerChildren enrollmentWorkerChildren(){
+		return new EnrollmentWorkerChildren();
+	}
+	@Bean
+	public ClientWorkerChildren clientWorkerChildren(){
+		return new ClientWorkerChildren();
+	}
+	@Bean
 	public ExitWorker exitWorker(){
 		return new ExitWorker();
 	}
+	
 	@Bean
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();
