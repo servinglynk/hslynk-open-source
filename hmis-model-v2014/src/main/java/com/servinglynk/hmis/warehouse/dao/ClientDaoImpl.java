@@ -67,8 +67,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		Boolean skipClientIdentifier = projectGroupEntity !=null && projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = (Validator) factory.getValidator();
+//		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//		Validator validator = (Validator) factory.getValidator();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
@@ -115,17 +115,15 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
-				
-				
-				//performSaveOrUpdate(model);	
-				com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
-				BeanUtils.copyProperties(model, target, new String[] {"enrollments","veteranInfoes"});
-				logger.info("Calling Dedup Service for "+model.getFirstName());
-				String dedupedId = dedupHelper.getDedupedClient(target,dedupSessionKey);
-				model.setDedupClientId(UUID.fromString(dedupedId));
-				target.setDedupClientId(UUID.fromString(dedupedId));
-				getCurrentSession().update(model);
-				getCurrentSession().update(target);
+				performSaveOrUpdate(model);	
+				// Inserting client in base schema	
+				if(!model.isIgnored()) {
+					com.servinglynk.hmis.warehouse.model.base.Client base = new com.servinglynk.hmis.warehouse.model.base.Client();
+					BeanUtils.copyProperties(model, base, new String[] {"enrollments","veteranInfoes"});
+					base.setDateUpdated(LocalDateTime.now());
+					base.setSchemaYear("2014");
+					insertOrUpdate(base);	
+				}
 				// Inserting client in base schema		
 			
 				} catch(Exception ex ){
@@ -231,7 +229,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			model.setId(UUID.randomUUID());
 			model.setRecordToBeInserted(true);
 		}
-		//model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
+		model = getUniqueClient(dedupSessionKey, skipClientIdentifier,modelFromDB,model,false);
 		if(!isFullRefresh(domain)) {
 			if(!model.isIgnored()) {
 				if(!model.isRecordToBoInserted()) {
@@ -242,10 +240,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				}
 			}
 		}
-		hydrateCommonFields(modelFromDB, domain,client.getPersonalID(),data);
-		//performMatch(domain,modelFromDB,model,data);
-		return modelFromDB;
+		hydrateCommonFields(model, domain,client.getPersonalID(),data);
+		performMatch(domain,modelFromDB,model,data);
+		return model;
 	}
+	
 	
 	private Date getDateInFormat(String dob) {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");

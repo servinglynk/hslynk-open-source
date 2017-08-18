@@ -50,13 +50,13 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteriaWithOutDelete(query);
 		return list;
 	}
-	public List<BulkUpload> findBulkUploadForCustAdmin(String status,UUID userId,String projectGroup) throws Exception{
+	public List<BulkUpload> findBulkUploadForCustAdmin(String status,String projectGroup) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("status",status));
 		query.createAlias("user", "user");
-		query.add(Restrictions.eq("user.id", userId));
 		query.add(Restrictions.eq("deleted",false));
 		query.addOrder( Order.desc("dateCreated") );
+		query.addOrder( Order.desc("id") );
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
@@ -65,6 +65,7 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		query.add(Restrictions.eq("status",status));
 		query.add(Restrictions.eq("deleted",false));
 		query.addOrder( Order.desc("dateCreated") );
+		query.addOrder( Order.desc("id") );
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
@@ -74,6 +75,7 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		query.add(Restrictions.eq("status","LIVE"));
 		query.add(Restrictions.eq("deleted",false));
 		query.addOrder( Order.desc("dateCreated") );
+		query.addOrder( Order.desc("id") );
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
 	}
@@ -81,9 +83,9 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));
 		query.add(Restrictions.eq("deleted",false));
-		query.createAlias("user", "user");
-		query.add(Restrictions.eq("user.id", userId));
-		query.addOrder( Order.desc("dateCreated") );
+		//query.createAlias("user", "user");
+		//query.add(Restrictions.eq("user.id", userId));
+		query.addOrder( Order.desc("id") );
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query,startIndex,maxItems);
 		return list;
 	}

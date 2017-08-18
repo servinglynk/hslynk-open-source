@@ -1,5 +1,5 @@
 
-app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+app.controller('createuserCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
 		
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
@@ -49,4 +49,4 @@ app.controller('createuserCtrl', function($scope,$location,$routeSegment,$http, 
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
-});
+}]);

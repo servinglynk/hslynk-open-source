@@ -1,15 +1,9 @@
 package com.servinglynk.hmis.warehouse.base.dao.config;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
-
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.ProjectionList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.servinglynk.hmis.warehouse.base.dao.APIAccessDao;
 import com.servinglynk.hmis.warehouse.base.dao.APIAccessDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDaoImpl;
@@ -18,26 +12,21 @@ import com.servinglynk.hmis.warehouse.base.dao.ApiMethodDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.BaseClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDao;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDao;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.HealthDao;
 import com.servinglynk.hmis.warehouse.base.dao.HealthDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisBulkUploadDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
-import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisOrganizationDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PasswordResetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PermissionSetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileAclDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.ProjectDao;
 import com.servinglynk.hmis.warehouse.base.dao.ProjectDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProjectGroupDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PropertyDaoImpl;
@@ -53,10 +42,10 @@ import com.servinglynk.hmis.warehouse.base.dao.TrustedAppDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.VerificationDaoImpl;
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
-import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
-import com.servinglynk.hmis.warehouse.model.base.ClientDataElementsEntity;
+import com.servinglynk.hmis.warehouse.util.ClientOperationLogger;
 
 @Configuration
+@EnableAsync
 public class BaseDatabaseConfig {
 
 
@@ -255,5 +244,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public BaseClientDaoImpl baseClientDao(){
 		return new BaseClientDaoImpl();
+	}
+	
+	@Bean
+	public ClientOperationLogger clientOperationLogger() {
+		return new ClientOperationLogger();
 	}
 }

@@ -12,7 +12,7 @@ public class SyncStaging2014 {
 		props.printProps();
 
 		while(true){
-			new SyncSchema(VERSION.V2014, logger, Status.RESYNC, false).sync();
+			new SyncSchema(VERSION.V2014, logger, Status.STAGING, false).sync();
 		}
 	}
 }

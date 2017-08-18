@@ -1,5 +1,5 @@
 
-app.controller('managereportCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -19,4 +19,4 @@ app.controller('managereportCtrl', function($scope,$location,$routeSegment,$http
     };
 
 
-});
+}]);
