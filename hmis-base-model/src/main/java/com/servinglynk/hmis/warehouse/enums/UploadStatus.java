@@ -15,6 +15,12 @@ public enum UploadStatus {
 	C_EXIT("C_EXIT"),
 	C_CLIENT("C_CLIENT"),
 	ERROR("ERROR"),
+	/** OLD from 2015 **/
+	CORE("CORE"),
+	PROJCHILD("PROJCHILD"),
+	EXITCHILD("EXITCHILD"),
+	ENRLCHILD1("ENRLCHILD1"),
+	ENRLCHILD2("ENRLCHILD2"),
 	DELETED("DELETED");
 	private String status;
 	

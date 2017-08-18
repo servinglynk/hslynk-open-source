@@ -112,7 +112,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			upload.setExportId(domain.getExportId());
 			//upload.setStatus(UploadStatus.CORE.getStatus());
-			upload.setStatus(UploadStatus.CORE.getStatus());
+			upload.setStatus(UploadStatus.BASE.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
 			processProjectChildren(upload, projectGroupdEntity, appender, isFileFromS3);
 			processEnrollmentChildrenPart1(upload, projectGroupdEntity, appender, isFileFromS3);
