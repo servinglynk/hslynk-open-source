@@ -489,6 +489,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
+	@Transactional
 	public BulkUpload processExit(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
 			Boolean isFileFromS3) {
 		long startNanos = System.nanoTime();
@@ -498,7 +499,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		saveUpload(upload);
 		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
 		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+		parentDaoFactory.getExitDao().hydrate(domain,exportModelMap,enrollmentModelMap); // Done
 		logger.info(" Exit Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Exit Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.DISAB.getStatus());
