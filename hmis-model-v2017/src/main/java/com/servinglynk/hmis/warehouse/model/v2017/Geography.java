@@ -9,6 +9,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 
+import com.servinglynk.hmis.warehouse.enums.GeographyEnum;
+
 public class Geography {
 	
 	private java.util.UUID id;
@@ -161,7 +163,7 @@ public class Geography {
 	 * @param zip
 	 * @param geography_type
 	 */
-	public Geography(UUID id, LocalDateTime informationDate, String geoCode,
+	public Geography(UUID id, LocalDateTime informationDate, GeographyEnum geoCode,
 			String address1, String address2, String city, String state,
 			String zip, Integer geography_type) {
 		super();

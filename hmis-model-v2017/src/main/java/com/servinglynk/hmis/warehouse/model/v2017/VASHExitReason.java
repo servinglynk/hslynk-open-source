@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 
+import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
+
 public class VASHExitReason {
 	
 	private java.util.UUID id;
@@ -66,7 +68,7 @@ public class VASHExitReason {
 	 * @param exitId
 	 * @param cmExitReason
 	 */
-	public VASHExitReason(UUID id, UUID exitId, Integer cmExitReason) {
+	public VASHExitReason(UUID id, UUID exitId,CMExitReasonEnum cmExitReason) {
 		super();
 		this.id = id;
 		this.exitId = exitId;

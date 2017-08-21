@@ -88,7 +88,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 	   public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason createVASHExitReason(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReason){
 		   vashExitReason.setId(UUID.randomUUID());
 	       insert(vashExitReason);
-	       VASHExitReasonEntity entity = new VASHExitReasonEntity();
+	       VASHExitReason entity = new VASHExitReason();
 	       BeanUtils.copyProperties(vashExitReason, entity);
 	       insert(entity);
 	       return vashExitReason;
