@@ -7,14 +7,14 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 
 public class BulkUploadErrorDaoImpl extends QueryExecutorImpl implements BulkUploadErrorDao {
 
-	public List<Error2016> getBulkUploadErrorByUploadId(Long bulkUploadId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Error2016.class);
+	public List<Error2017> getBulkUploadErrorByUploadId(Long bulkUploadId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Error2017.class);
 		criteria.add(Restrictions.eq("bulk_upload_ui",bulkUploadId));
 		criteria.addOrder( Order.desc("type") );
-		return (List<Error2016>) findByCriteria(criteria);
+		return (List<Error2017>) findByCriteria(criteria);
 	}
 }

@@ -5,20 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.lang.model.type.ErrorType;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFaReferralDao{
@@ -45,6 +46,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
 					serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
 					serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
+					serviceFaReferralModel.setRecordType(new Integer(serviceFaReferrals.getRecordType()).intValue());
 					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					serviceFaReferralModel.setEnrollmentid(enrollment);
 					serviceFaReferralModel.setDeleted(false);
@@ -56,7 +58,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				} catch (Exception e){
 					String errorMessage = "Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage();
 					if(serviceFaReferralModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = serviceFaReferralModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

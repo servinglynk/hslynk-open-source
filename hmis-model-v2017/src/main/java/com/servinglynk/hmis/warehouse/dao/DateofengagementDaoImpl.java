@@ -16,11 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -54,7 +54,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			 } catch(Exception e) {
 				 String errorMessage = "Exception beause of the Dateofengagement::"+dateOfEngagement.getDateOfEngagementID() +" Exception ::"+e.getMessage();
 				 if(dateOfEngagementModel != null){
-					 Error2016 error = new Error2016();
+					 Error2017 error = new Error2017();
 					 error.model_id = dateOfEngagementModel.getId();
 					 error.bulk_upload_ui = domain.getUpload().getId();
 					 error.project_group_code = domain.getUpload().getProjectGroupCode();

@@ -23,7 +23,7 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2017.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -63,9 +63,9 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setFemvet(NoYesEnum.lookupEnum(entrySSVF.getFemVet()));
 					entrySsvfModel.setHpScreeningScore(Integer.parseInt(entrySSVF.getHpsScreeningScore()));
 					entrySsvfModel.setThresholdscore(Integer.parseInt(entrySSVF.getThresholdScore()));
-					entrySsvfModel.setErvisits(CrisisServicesUseEnum.lookupEnum(entrySSVF.geteRVisits()));
-					entrySsvfModel.setJailnights(CrisisServicesUseEnum.lookupEnum(entrySSVF.getJailNights()));
-					entrySsvfModel.setHospitalnights(CrisisServicesUseEnum.lookupEnum(entrySSVF.getHospitalNights()));
+//					entrySsvfModel.setErvisits(CrisisServicesUseEnum.lookupEnum(entrySSVF.geteRVisits()));
+//					entrySsvfModel.setJailnights(CrisisServicesUseEnum.lookupEnum(entrySSVF.getJailNights()));
+//					entrySsvfModel.setHospitalnights(CrisisServicesUseEnum.lookupEnum(entrySSVF.getHospitalNights()));
 					entrySsvfModel.setUrgentReferral(NoYesEnum.lookupEnum(entrySSVF.getUrgentReferral()));
 					entrySsvfModel.setLastPermanentCity(entrySSVF.getLastPermanentCity());
 					entrySsvfModel.setLastPermanentState(entrySSVF.getLastPermanentState());
@@ -83,7 +83,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage();
 					if(entrySsvfModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = entrySsvfModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

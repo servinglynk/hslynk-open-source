@@ -21,8 +21,8 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
 
    @Transactional
    public Entryssvf createEntryssvf(Entryssvf entryssvf,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryssvf pEntryssvf = EntryssvfConverter.modelToEntity(entryssvf, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryssvf pEntryssvf = EntryssvfConverter.modelToEntity(entryssvf, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEntryssvf.setEnrollmentid(pEnrollment);
        pEntryssvf.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
 
    @Transactional
    public Entryssvf updateEntryssvf(Entryssvf entryssvf,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2016.Entryssvf pEntryssvf = daoFactory.getEntryssvfDao().getEntryssvfById(entryssvf.getEntryssvfId());
+       com.servinglynk.hmis.warehouse.model.v2017.Entryssvf pEntryssvf = daoFactory.getEntryssvfDao().getEntryssvfById(entryssvf.getEntryssvfId());
        if(pEntryssvf==null) throw new EntryssvfNotFoundException();
 
        EntryssvfConverter.modelToEntity(entryssvf, pEntryssvf);
@@ -52,7 +52,7 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
 
    @Transactional
    public Entryssvf deleteEntryssvf(UUID entryssvfId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryssvf pEntryssvf = daoFactory.getEntryssvfDao().getEntryssvfById(entryssvfId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryssvf pEntryssvf = daoFactory.getEntryssvfDao().getEntryssvfById(entryssvfId);
        if(pEntryssvf==null) throw new EntryssvfNotFoundException();
 
        daoFactory.getEntryssvfDao().deleteEntryssvf(pEntryssvf);
@@ -62,7 +62,7 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
 
    @Transactional
    public Entryssvf getEntryssvfById(UUID entryssvfId){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryssvf pEntryssvf = daoFactory.getEntryssvfDao().getEntryssvfById(entryssvfId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryssvf pEntryssvf = daoFactory.getEntryssvfDao().getEntryssvfById(entryssvfId);
        if(pEntryssvf==null) throw new EntryssvfNotFoundException();
 
        return EntryssvfConverter.entityToModel( pEntryssvf );
@@ -72,8 +72,8 @@ public class EntryssvfServiceImpl extends ServiceBase implements EntryssvfServic
    @Transactional
    public Entryssvfs getAllEnrollmentEntryssvfs(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Entryssvfs entryssvfs = new Entryssvfs();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Entryssvf> entities = daoFactory.getEntryssvfDao().getAllEnrollmentEntryssvfs(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Entryssvf entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf> entities = daoFactory.getEntryssvfDao().getAllEnrollmentEntryssvfs(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entity : entities){
            entryssvfs.addEntryssvf(EntryssvfConverter.entityToModel(entity));
         }
         long count = daoFactory.getEntryssvfDao().getEnrollmentEntryssvfsCount(enrollmentId);

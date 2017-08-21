@@ -19,8 +19,8 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
 
    @Transactional
    public Exithousingassessment createExithousingassessment(Exithousingassessment exithousingassessment,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment pExithousingassessment = ExithousingassessmentConverter.modelToEntity(exithousingassessment, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment pExithousingassessment = ExithousingassessmentConverter.modelToEntity(exithousingassessment, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit == null) throw new ExitNotFoundException();
        pExithousingassessment.setExitid(pExit);
        pExithousingassessment.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
 
    @Transactional
    public Exithousingassessment updateExithousingassessment(Exithousingassessment exithousingassessment,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit == null) throw new ExitNotFoundException();
-       com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment pExithousingassessment = daoFactory.getExithousingassessmentDao().getExithousingassessmentById(exithousingassessment.getExithousingassessmentId());
+       com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment pExithousingassessment = daoFactory.getExithousingassessmentDao().getExithousingassessmentById(exithousingassessment.getExithousingassessmentId());
        if(pExithousingassessment==null) throw new ExithousingassessmentNotFoundException();
 
        ExithousingassessmentConverter.modelToEntity(exithousingassessment, pExithousingassessment);
@@ -50,7 +50,7 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
 
    @Transactional
    public Exithousingassessment deleteExithousingassessment(UUID exithousingassessmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment pExithousingassessment = daoFactory.getExithousingassessmentDao().getExithousingassessmentById(exithousingassessmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment pExithousingassessment = daoFactory.getExithousingassessmentDao().getExithousingassessmentById(exithousingassessmentId);
        if(pExithousingassessment==null) throw new ExithousingassessmentNotFoundException();
 
        daoFactory.getExithousingassessmentDao().deleteExithousingassessment(pExithousingassessment);
@@ -60,7 +60,7 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
 
    @Transactional
    public Exithousingassessment getExithousingassessmentById(UUID exithousingassessmentId){
-       com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment pExithousingassessment = daoFactory.getExithousingassessmentDao().getExithousingassessmentById(exithousingassessmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment pExithousingassessment = daoFactory.getExithousingassessmentDao().getExithousingassessmentById(exithousingassessmentId);
        if(pExithousingassessment==null) throw new ExithousingassessmentNotFoundException();
 
        return ExithousingassessmentConverter.entityToModel( pExithousingassessment );
@@ -70,8 +70,8 @@ public class ExithousingassessmentServiceImpl extends ServiceBase implements Exi
    @Transactional
    public Exithousingassessments getAllExitExithousingassessments(UUID exitId,Integer startIndex, Integer maxItems){
        Exithousingassessments exithousingassessments = new Exithousingassessments();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment> entities = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(exitId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment> entities = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(exitId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment entity : entities){
            exithousingassessments.addExithousingassessment(ExithousingassessmentConverter.entityToModel(entity));
         }
         long count = daoFactory.getExithousingassessmentDao().getExitExithousingassessmentsCount(exitId);

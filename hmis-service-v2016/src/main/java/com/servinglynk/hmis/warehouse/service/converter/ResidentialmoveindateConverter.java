@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
 public class ResidentialmoveindateConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Residentialmoveindate modelToEntity (Residentialmoveindate model ,com.servinglynk.hmis.warehouse.model.v2016.Residentialmoveindate entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Residentialmoveindate();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate modelToEntity (Residentialmoveindate model ,com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate();
        entity.setId(model.getResidentialmoveindateId());
  if(model.getInpermanenthousing()!=null)
        entity.setInpermanenthousing(ResidentialmoveindateInpermanenthousingEnum.lookupEnum(model.getInpermanenthousing().toString()));
@@ -14,7 +14,7 @@ public class ResidentialmoveindateConverter  extends BaseConverter {
    }
 
 
-   public static Residentialmoveindate entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Residentialmoveindate entity) {
+   public static Residentialmoveindate entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate entity) {
        Residentialmoveindate model = new Residentialmoveindate();
        model.setResidentialmoveindateId(entity.getId());
 if(entity.getInpermanenthousing()!=null)

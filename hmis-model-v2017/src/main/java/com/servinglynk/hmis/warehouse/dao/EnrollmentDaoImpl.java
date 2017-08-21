@@ -25,7 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -60,11 +60,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //				enrollmentModel
 //						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 //								.getContinuouslyHomelessOneYear())));
-					enrollmentModel
-					.setHousingstatus(EnrollmentHousingstatusEnum
-							.lookupEnum(BasicDataGenerator
-									.getStringValue(enrollment
-											.getHousingStatus())));
+//					enrollmentModel.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getHousingStatus())));
 					enrollmentModel
 					.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
 							.getStringValue(enrollment
@@ -72,22 +68,15 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //				enrollmentModel.setYearshomeless(new Integer(
 //						BasicDataGenerator.getStringValue(enrollment
 //								.getYearsHomeless())));
-					enrollmentModel
-					.setResidenceprior(EnrollmentResidencepriorEnum
-							.lookupEnum(BasicDataGenerator
-									.getStringValue(enrollment
-											.getResidencePrior())));
+					enrollmentModel.setResidenceprior(EnrollmentResidencepriorEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getResidencePrior())));
 //				enrollmentModel
 //						.setStatusdocumented(EnrollmentStatusdocumentedEnum.lookupEnum(BasicDataGenerator
 //								.getStringValue(enrollment
 //										.getStatusDocumented())));
-					enrollmentModel
-					.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
-							.getResidencePriorLengthOfStay())));
-					enrollmentModel
-					.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator
-							.getStringValue(enrollment
-									.getRelationshipToHoH())));
+					//enrollmentModel.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getResidencePriorLengthOfStay())));
+					enrollmentModel.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getRelationshipToHoH())));
+					enrollmentModel.setLivingSituation(0);
+					enrollmentModel.setLengthOfStay(BasicDataGenerator.getLocalDateTime(enrollment.getDateCreated()));
 					enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
 							.getLocalDateTime(enrollment.getDateCreated()));
 					enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator
@@ -118,7 +107,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = enrollmentModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

@@ -50,7 +50,7 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
-	private RhybcpStatusFysbYouthEnum fysbYouth;
+//	private RhybcpStatusFysbYouthEnum fysbYouth;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
@@ -60,6 +60,10 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
+	
+	private Integer eligibleForRhy;
+	private Integer runawayYouth;
+	
 	public RhybcpStatus() {
 		// Default constructor
 	}
@@ -111,13 +115,13 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: fysbYouth.
 	 * @return A RhybcpStatusFysbYouthEnum object (this.fysbYouth)
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnumType")
+	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnumType")
 	@Basic( optional = true )
 	@Column( name = "fysb_youth"  )
 	public RhybcpStatusFysbYouthEnum getFysbYouth() {
 		return this.fysbYouth;
 
-	}
+	}*/
 
 
 
@@ -125,9 +129,9 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	 * Set the value related to the column: fysbYouth.
 	 * @param fysbYouth the fysbYouth value you wish to set
 	 */
-	public void setFysbYouth(final RhybcpStatusFysbYouthEnum fysbYouth) {
+	/*public void setFysbYouth(final RhybcpStatusFysbYouthEnum fysbYouth) {
 		this.fysbYouth = fysbYouth;
-	}
+	}*/
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -142,8 +146,28 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	}
 
 
+	@Basic( optional = true )
+	@Column( name = "eligible_for_rhy")
+	public Integer getEligibleForRhy() {
+		return eligibleForRhy;
+	}
 
-	 /**
+	public void setEligibleForRhy(Integer eligibleForRhy) {
+		this.eligibleForRhy = eligibleForRhy;
+	}
+
+
+	@Basic( optional = true )
+	@Column( name = "runaway_youth")
+	public Integer getRunawayYouth() {
+		return runawayYouth;
+	}
+
+	public void setRunawayYouth(Integer runawayYouth) {
+		this.runawayYouth = runawayYouth;
+	}
+
+	/**
 	 * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
@@ -245,7 +269,7 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 		copy.setDeleted(this.isDeleted());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setExport(this.getExport());
-		copy.setFysbYouth(this.getFysbYouth());
+//		copy.setFysbYouth(this.getFysbYouth());
 		copy.setId(this.getId());
 		copy.setParentId(this.getParentId());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
@@ -272,7 +296,7 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("dateUpdatedFromSource: " + this.getDateUpdatedFromSource() + ", ");
 		sb.append("deleted: " + this.isDeleted() + ", ");
-		sb.append("fysbYouth: " + this.getFysbYouth() + ", ");
+//		sb.append("fysbYouth: " + this.getFysbYouth() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
@@ -332,7 +356,7 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
-		result = result && (((getFysbYouth() == null) && (that.getFysbYouth() == null)) || (getFysbYouth() != null && getFysbYouth().equals(that.getFysbYouth())));
+//		result = result && (((getFysbYouth() == null) && (that.getFysbYouth() == null)) || (getFysbYouth() != null && getFysbYouth().equals(that.getFysbYouth())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getReasonNoServices() == null) && (that.getReasonNoServices() == null)) || (getReasonNoServices() != null && getReasonNoServices().equals(that.getReasonNoServices())));

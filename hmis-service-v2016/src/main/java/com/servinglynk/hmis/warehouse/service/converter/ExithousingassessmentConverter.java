@@ -5,8 +5,8 @@ import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentHousingassessme
 import com.servinglynk.hmis.warehouse.enums.ExithousingassessmentSubsidyinformationEnum;
 public class ExithousingassessmentConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment modelToEntity (Exithousingassessment model ,com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment modelToEntity (Exithousingassessment model ,com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment();
        entity.setId(model.getExithousingassessmentId());
  if(model.getHousingassessment()!=null)
        entity.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(model.getHousingassessment().toString()));
@@ -16,7 +16,7 @@ public class ExithousingassessmentConverter  extends BaseConverter {
    }
 
 
-   public static Exithousingassessment entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Exithousingassessment entity) {
+   public static Exithousingassessment entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment entity) {
        Exithousingassessment model = new Exithousingassessment();
        model.setExithousingassessmentId(entity.getId());
 if(entity.getHousingassessment()!=null)

@@ -19,8 +19,8 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
 
    @Transactional
    public Contact createContact(Contact contact,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Contact pContact = ContactConverter.modelToEntity(contact, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Contact pContact = ContactConverter.modelToEntity(contact, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pContact.setEnrollmentid(pEnrollment);
        pContact.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
 
    @Transactional
    public Contact updateContact(Contact contact,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2016.Contact pContact = daoFactory.getContactDao().getContactById(contact.getContactId());
+       com.servinglynk.hmis.warehouse.model.v2017.Contact pContact = daoFactory.getContactDao().getContactById(contact.getContactId());
        if(pContact==null) throw new ContactNotFoundException();
 
        ContactConverter.modelToEntity(contact, pContact);
@@ -50,7 +50,7 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
 
    @Transactional
    public Contact deleteContact(UUID contactId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Contact pContact = daoFactory.getContactDao().getContactById(contactId);
+       com.servinglynk.hmis.warehouse.model.v2017.Contact pContact = daoFactory.getContactDao().getContactById(contactId);
        if(pContact==null) throw new ContactNotFoundException();
 
        daoFactory.getContactDao().deleteContact(pContact);
@@ -60,7 +60,7 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
 
    @Transactional
    public Contact getContactById(UUID contactId){
-       com.servinglynk.hmis.warehouse.model.v2016.Contact pContact = daoFactory.getContactDao().getContactById(contactId);
+       com.servinglynk.hmis.warehouse.model.v2017.Contact pContact = daoFactory.getContactDao().getContactById(contactId);
        if(pContact==null) throw new ContactNotFoundException();
 
        return ContactConverter.entityToModel( pContact );
@@ -70,8 +70,8 @@ public class ContactServiceImpl extends ServiceBase implements ContactService  {
    @Transactional
    public Contacts getAllEnrollmentContacts(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Contacts contacts = new Contacts();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Contact> entities = daoFactory.getContactDao().getAllEnrollmentContacts(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Contact entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Contact> entities = daoFactory.getContactDao().getAllEnrollmentContacts(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Contact entity : entities){
            contacts.addContact(ContactConverter.entityToModel(entity));
         }
         long count = daoFactory.getContactDao().getEnrollmentContactsCount(enrollmentId);

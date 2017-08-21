@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.Project;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -53,7 +53,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					} catch(Exception e) {
 						String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
 						if(affiliationModel != null){
-							Error2016 error = new Error2016();
+							Error2017 error = new Error2017();
 							error.model_id = affiliationModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

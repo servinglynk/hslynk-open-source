@@ -22,8 +22,8 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
 
    @Transactional
    public Exitrhy createExitrhy(Exitrhy exitrhy,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Exitrhy pExitrhy = ExitrhyConverter.modelToEntity(exitrhy, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = ExitrhyConverter.modelToEntity(exitrhy, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit == null) throw new ExitNotFoundException();
        pExitrhy.setExitid(pExit);
        pExitrhy.setDateCreated(LocalDateTime.now());
@@ -36,9 +36,9 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
 
    @Transactional
    public Exitrhy updateExitrhy(Exitrhy exitrhy,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit == null) throw new ExitNotFoundException();
-       com.servinglynk.hmis.warehouse.model.v2016.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhy.getExitrhyId());
+       com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhy.getExitrhyId());
        if(pExitrhy==null) throw new ExitrhyNotFoundException();
 
        ExitrhyConverter.modelToEntity(exitrhy, pExitrhy);
@@ -53,7 +53,7 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
 
    @Transactional
    public Exitrhy deleteExitrhy(UUID exitrhyId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhyId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhyId);
        if(pExitrhy==null) throw new ExitrhyNotFoundException();
 
        daoFactory.getExitrhyDao().deleteExitrhy(pExitrhy);
@@ -63,7 +63,7 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
 
    @Transactional
    public Exitrhy getExitrhyById(UUID exitrhyId){
-       com.servinglynk.hmis.warehouse.model.v2016.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhyId);
+       com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhyId);
        if(pExitrhy==null) throw new ExitrhyNotFoundException();
 
        return ExitrhyConverter.entityToModel( pExitrhy );
@@ -73,8 +73,8 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
    @Transactional
    public Exitrhys getAllExitExitrhys(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Exitrhys exitrhys = new Exitrhys();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Exitrhy> entities = daoFactory.getExitrhyDao().getAllExitExitrhys(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Exitrhy entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Exitrhy> entities = daoFactory.getExitrhyDao().getAllExitExitrhys(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Exitrhy entity : entities){
            exitrhys.addExitrhy(ExitrhyConverter.entityToModel(entity));
         }
         long count = daoFactory.getExitrhyDao().getExitExitrhysCount(enrollmentId);

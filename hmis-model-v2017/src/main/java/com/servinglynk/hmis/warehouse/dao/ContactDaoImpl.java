@@ -24,7 +24,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -41,12 +41,12 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 
 		com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
 /*		List<Contact> contact = export.getContact();
-		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
-		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Contact.class, getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Contact.class, getProjectGroupCode(domain));
 		Data data = new Data();
 		if (contact != null && contact.size() > 0) {
 			for (Contact contacts : contact) {
-				com.servinglynk.hmis.warehouse.model.v2016.Contact contactModel = null;
+				com.servinglynk.hmis.warehouse.model.v2017.Contact contactModel = null;
 				try {
 					contactModel = getModelObject(domain, contacts, data, modelMap);
 					contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
@@ -79,7 +79,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.Contact.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Contact.class.getSimpleName(), domain, exportEntity);
 	*/
 	}
 

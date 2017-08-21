@@ -31,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
  */
 
 
-@Entity(name = "enrollment_coc__2016")
+@Entity(name = "enrollment_coc__2017")
 @Table(name = "enrollment_coc", catalog = "hmis", schema = "v2017")
 public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializable{
 

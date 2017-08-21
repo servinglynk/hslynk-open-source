@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.Contact;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 public class ContactConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Contact modelToEntity (Contact model ,com.servinglynk.hmis.warehouse.model.v2016.Contact entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Contact();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Contact modelToEntity (Contact model ,com.servinglynk.hmis.warehouse.model.v2017.Contact entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Contact();
        entity.setId(model.getContactId());
  if(model.getContactLocation()!=null)
        entity.setContactLocation(ContactLocationEnum.lookupEnum(model.getContactLocation().toString()));
@@ -14,7 +14,7 @@ public class ContactConverter  extends BaseConverter {
    }
 
 
-   public static Contact entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Contact entity) {
+   public static Contact entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Contact entity) {
        Contact model = new Contact();
        model.setContactId(entity.getId());
        if(entity.getContactLocation()!=null)

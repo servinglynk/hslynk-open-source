@@ -21,8 +21,8 @@ public class HealthstatusServiceImpl extends ServiceBase implements Healthstatus
 
    @Transactional
    public Healthstatus createHealthstatus(Healthstatus healthstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.HealthStatus pHealthstatus = HealthstatusConverter.modelToEntity(healthstatus, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.HealthStatus pHealthstatus = HealthstatusConverter.modelToEntity(healthstatus, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pHealthstatus.setEnrollmentid(pEnrollment);
        pHealthstatus.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class HealthstatusServiceImpl extends ServiceBase implements Healthstatus
 
    @Transactional
    public Healthstatus updateHealthstatus(Healthstatus healthstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2016.HealthStatus pHealthstatus = daoFactory.getHealthStatusDao().getHealthStatusById(healthstatus.getHealthstatusId());
+       com.servinglynk.hmis.warehouse.model.v2017.HealthStatus pHealthstatus = daoFactory.getHealthStatusDao().getHealthStatusById(healthstatus.getHealthstatusId());
        if(pHealthstatus==null) throw new HealthstatusNotFoundException();
 
        HealthstatusConverter.modelToEntity(healthstatus, pHealthstatus);
@@ -52,7 +52,7 @@ public class HealthstatusServiceImpl extends ServiceBase implements Healthstatus
 
    @Transactional
    public Healthstatus deleteHealthstatus(UUID healthstatusId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.HealthStatus pHealthstatus = daoFactory.getHealthStatusDao().getHealthStatusById(healthstatusId);
+       com.servinglynk.hmis.warehouse.model.v2017.HealthStatus pHealthstatus = daoFactory.getHealthStatusDao().getHealthStatusById(healthstatusId);
        if(pHealthstatus==null) throw new HealthstatusNotFoundException();
 
        daoFactory.getHealthStatusDao().deleteHealthStatus(pHealthstatus);
@@ -62,7 +62,7 @@ public class HealthstatusServiceImpl extends ServiceBase implements Healthstatus
 
    @Transactional
    public Healthstatus getHealthstatusById(UUID healthstatusId){
-       com.servinglynk.hmis.warehouse.model.v2016.HealthStatus pHealthstatus = daoFactory.getHealthStatusDao().getHealthStatusById(healthstatusId);
+       com.servinglynk.hmis.warehouse.model.v2017.HealthStatus pHealthstatus = daoFactory.getHealthStatusDao().getHealthStatusById(healthstatusId);
        if(pHealthstatus==null) throw new HealthstatusNotFoundException();
 
        return HealthstatusConverter.entityToModel( pHealthstatus );
@@ -72,8 +72,8 @@ public class HealthstatusServiceImpl extends ServiceBase implements Healthstatus
    @Transactional
    public Healthstatuses getAllEnrollmentHealthstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Healthstatuses healthstatuss = new Healthstatuses();
-        List<com.servinglynk.hmis.warehouse.model.v2016.HealthStatus> entities = daoFactory.getHealthStatusDao().getAllEnrollmentHealthStatuses(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.HealthStatus entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.HealthStatus> entities = daoFactory.getHealthStatusDao().getAllEnrollmentHealthStatuses(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus entity : entities){
            healthstatuss.addHealthstatus(HealthstatusConverter.entityToModel(entity));
         }
         long count = daoFactory.getHealthStatusDao().getEnrollmentHealthStatusesCount(enrollmentId);

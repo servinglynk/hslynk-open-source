@@ -19,7 +19,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -51,7 +51,9 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					rhybcpstatusModel = getModelObject(domain, rhybcpStatus,data,modelMap);
 					rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
 					rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
-					rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
+//					rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
+					rhybcpstatusModel.setEligibleForRhy(0);
+					rhybcpstatusModel.setRunawayYouth(0);
 					rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
 					rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -61,7 +63,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the rhybcpStatus::"+rhybcpStatus.getRHYBCPStatusID() +" Exception ::"+e.getMessage();
 					if(rhybcpstatusModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = rhybcpstatusModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

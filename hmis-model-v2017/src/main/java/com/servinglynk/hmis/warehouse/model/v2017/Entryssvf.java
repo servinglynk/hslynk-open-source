@@ -20,7 +20,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnum;
-import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
@@ -91,9 +90,9 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	private NoYesEnum femvet;
 	private NoYesEnum urgentReferral;
 	private Integer thresholdscore;
-	private CrisisServicesUseEnum ervisits;
+	/*private CrisisServicesUseEnum ervisits;
 	private CrisisServicesUseEnum jailnights;
-	private CrisisServicesUseEnum hospitalnights;
+	private CrisisServicesUseEnum hospitalnights;*/
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -675,53 +674,53 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the ervisits
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
+	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
 	@Basic( optional = true )
 	@Column (name="ervisits")
 	public CrisisServicesUseEnum getErvisits() {
 		return ervisits;
 	}
-
+*/
 	/**
 	 * @param ervisits the ervisits to set
 	 */
-	public void setErvisits(CrisisServicesUseEnum ervisits) {
+	/*public void setErvisits(CrisisServicesUseEnum ervisits) {
 		this.ervisits = ervisits;
-	}
+	}*/
 
 	/**
 	 * @return the jailnights
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
+/*	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
 	@Basic( optional = true )
 	@Column (name="jailnights")
 	public CrisisServicesUseEnum getJailnights() {
 		return jailnights;
 	}
-
+*/
 	/**
 	 * @param jailnights the jailnights to set
 	 */
-	public void setJailnights(CrisisServicesUseEnum jailnights) {
+	/*public void setJailnights(CrisisServicesUseEnum jailnights) {
 		this.jailnights = jailnights;
-	}
+	}*/
 
 	/**
 	 * @return the hospitalnights
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
+	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
 	@Basic( optional = true )
 	@Column (name="hospitalnights")
 	public CrisisServicesUseEnum getHospitalnights() {
 		return hospitalnights;
-	}
+	}*/
 
 	/**
 	 * @param hospitalnights the hospitalnights to set
 	 */
-	public void setHospitalnights(CrisisServicesUseEnum hospitalnights) {
+	/*public void setHospitalnights(CrisisServicesUseEnum hospitalnights) {
 		this.hospitalnights = hospitalnights;
-	}
+	}*/
 
 /**
     * Deep copy.

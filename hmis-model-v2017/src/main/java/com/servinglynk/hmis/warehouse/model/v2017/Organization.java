@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,7 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,8 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 
@@ -35,7 +31,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 
 @Entity(name = "organization")
-@Table(name = "organization", catalog = "hmis", schema = "v2017")
+@Table(name = "organization", catalog = "hmis", schema = "v2016")
 public class Organization extends HmisBaseModel  implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -53,7 +49,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private String organizationcommonname;
+//	private String organizationcommonname;
 	/** Field mapping. */
 	private String organizationname;
 	/** Field mapping. */
@@ -115,20 +111,20 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 	 * Return the value associated with the column: organizationcommonname.
 	 * @return A String object (this.organizationcommonname)
 	 */
-	@Basic( optional = true )
+	/*@Basic( optional = true )
 	@Column
 	public String getOrganizationcommonname() {
 		return this.organizationcommonname;
 
-	}
+	}*/
 
 	 /**
 	 * Set the value related to the column: organizationcommonname.
 	 * @param organizationcommonname the organizationcommonname value you wish to set
 	 */
-	public void setOrganizationcommonname(final String organizationcommonname) {
+	/*public void setOrganizationcommonname(final String organizationcommonname) {
 		this.organizationcommonname = organizationcommonname;
-	}
+	}*/
 
 	 /**
 	 * Return the value associated with the column: organizationname.
@@ -221,7 +217,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setId(this.getId());
-		copy.setOrganizationcommonname(this.getOrganizationcommonname());
+//		copy.setOrganizationcommonname(this.getOrganizationcommonname());
 		copy.setOrganizationname(this.getOrganizationname());
 		copy.setUserId(this.getUserId());
 		return copy;
@@ -240,7 +236,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("id: " + this.getId() + ", ");
-		sb.append("organizationcommonname: " + this.getOrganizationcommonname() + ", ");
+//		sb.append("organizationcommonname: " + this.getOrganizationcommonname() + ", ");
 		sb.append("organizationname: " + this.getOrganizationname() + ", ");
 		return sb.toString();
 	}
@@ -289,7 +285,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
-		result = result && (((getOrganizationcommonname() == null) && (that.getOrganizationcommonname() == null)) || (getOrganizationcommonname() != null && getOrganizationcommonname().equals(that.getOrganizationcommonname())));
+//		result = result && (((getOrganizationcommonname() == null) && (that.getOrganizationcommonname() == null)) || (getOrganizationcommonname() != null && getOrganizationcommonname().equals(that.getOrganizationcommonname())));
 		result = result && (((getOrganizationname() == null) && (that.getOrganizationname() == null)) || (getOrganizationname() != null && getOrganizationname().equals(that.getOrganizationname())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;

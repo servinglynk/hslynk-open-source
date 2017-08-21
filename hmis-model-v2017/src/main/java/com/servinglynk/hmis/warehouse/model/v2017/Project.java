@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -69,8 +70,13 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Organization organizationid;
 	/** Field mapping. */
-	private String projectcommonname;
+//	private String projectcommonname;
 	/** Field mapping. */
+	private Integer residentialaffiliation;
+	  private LocalDateTime operatingStartDate;
+	  private LocalDateTime operatingEndDate;
+	  private Integer victimServiceProvider;
+	  private Integer housingType;
 	private String projectname;
 	/** Field mapping. */
 	private ProjectProjecttypeEnum projecttype;
@@ -267,6 +273,86 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	 /**
+	 * @return the residentialaffiliation
+	 */
+	@Basic( optional = true )
+	@Column( name = "residentialaffiliation" )
+	public Integer getResidentialaffiliation() {
+		return residentialaffiliation;
+	}
+
+	/**
+	 * @param residentialaffiliation the residentialaffiliation to set
+	 */
+	public void setResidentialaffiliation(Integer residentialaffiliation) {
+		this.residentialaffiliation = residentialaffiliation;
+	}
+
+	/**
+	 * @return the operatingStartDate
+	 */
+	@Basic( optional = true )
+	@Column( name = "operatingStartDate" )
+	public LocalDateTime getOperatingStartDate() {
+		return operatingStartDate;
+	}
+
+	/**
+	 * @param operatingStartDate the operatingStartDate to set
+	 */
+	public void setOperatingStartDate(LocalDateTime operatingStartDate) {
+		this.operatingStartDate = operatingStartDate;
+	}
+
+	/**
+	 * @return the operatingEndDate
+	 */
+	@Basic( optional = true )
+	@Column( name = "operatingEndDate" )
+	public LocalDateTime getOperatingEndDate() {
+		return operatingEndDate;
+	}
+
+	/**
+	 * @param operatingEndDate the operatingEndDate to set
+	 */
+	public void setOperatingEndDate(LocalDateTime operatingEndDate) {
+		this.operatingEndDate = operatingEndDate;
+	}
+
+	/**
+	 * @return the victimServiceProvider
+	 */
+	@Basic( optional = true )
+	@Column( name = "victimServiceProvider" )
+	public Integer getVictimServiceProvider() {
+		return victimServiceProvider;
+	}
+
+	/**
+	 * @param victimServiceProvider the victimServiceProvider to set
+	 */
+	public void setVictimServiceProvider(Integer victimServiceProvider) {
+		this.victimServiceProvider = victimServiceProvider;
+	}
+
+	/**
+	 * @return the housingType
+	 */
+	@Basic( optional = true )
+	@Column( name = "housingType" )
+	public Integer getHousingType() {
+		return housingType;
+	}
+
+	/**
+	 * @param housingType the housingType to set
+	 */
+	public void setHousingType(Integer housingType) {
+		this.housingType = housingType;
+	}
+
+	/**
 	 * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
@@ -309,22 +395,22 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: projectcommonname.
 	 * @return A String object (this.projectcommonname)
 	 */
-	@Basic( optional = true )
+	/*@Basic( optional = true )
 	@Column
 	public String getProjectcommonname() {
 		return this.projectcommonname;
 
 	}
-
+*/
 
 
 	 /**
 	 * Set the value related to the column: projectcommonname.
 	 * @param projectcommonname the projectcommonname value you wish to set
 	 */
-	public void setProjectcommonname(final String projectcommonname) {
+	/*public void setProjectcommonname(final String projectcommonname) {
 		this.projectcommonname = projectcommonname;
-	}
+	}*/
 
 	 /**
 	 * Return the value associated with the column: projectname.
@@ -466,7 +552,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setId(this.getId());
 		copy.setOrganizationid(this.getOrganizationid());
 		copy.setParentId(this.getParentId());
-		copy.setProjectcommonname(this.getProjectcommonname());
+//		copy.setProjectcommonname(this.getProjectcommonname());
 		copy.setProjectname(this.getProjectname());
 		copy.setProjecttype(this.getProjecttype());
 		copy.setSync(this.isSync());
@@ -493,7 +579,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("deleted: " + this.isDeleted() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
-		sb.append("projectcommonname: " + this.getProjectcommonname() + ", ");
+//		sb.append("projectcommonname: " + this.getProjectcommonname() + ", ");
 		sb.append("projectname: " + this.getProjectname() + ", ");
 		sb.append("projecttype: " + this.getProjecttype() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
@@ -552,7 +638,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getOrganizationid() == null) && (that.getOrganizationid() == null)) || (getOrganizationid() != null && getOrganizationid().getId().equals(that.getOrganizationid().getId())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
-		result = result && (((getProjectcommonname() == null) && (that.getProjectcommonname() == null)) || (getProjectcommonname() != null && getProjectcommonname().equals(that.getProjectcommonname())));
+//		result = result && (((getProjectcommonname() == null) && (that.getProjectcommonname() == null)) || (getProjectcommonname() != null && getProjectcommonname().equals(that.getProjectcommonname())));
 		result = result && (((getProjectname() == null) && (that.getProjectname() == null)) || (getProjectname() != null && getProjectname().equals(that.getProjectname())));
 		result = result && (((getProjecttype() == null) && (that.getProjecttype() == null)) || (getProjecttype() != null && getProjecttype().equals(that.getProjecttype())));
 		result = result && (((getTargetpopulation() == null) && (that.getTargetpopulation() == null)) || (getTargetpopulation() != null && getTargetpopulation().equals(that.getTargetpopulation())));

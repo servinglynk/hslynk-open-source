@@ -19,8 +19,8 @@ public class SiteServiceImpl extends ServiceBase implements SiteService  {
 
    @Transactional
    public Site createSite(Site site,UUID projectCocId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Site pSite = SiteConverter.modelToEntity(site, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
+       com.servinglynk.hmis.warehouse.model.v2017.Site pSite = SiteConverter.modelToEntity(site, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
        if(pProjectcoc == null) throw new CocNotFoundException();
        pSite.setCoc(pProjectcoc);
        pSite.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class SiteServiceImpl extends ServiceBase implements SiteService  {
 
    @Transactional
    public Site updateSite(Site site,UUID projectCocId,String caller){
-	   com.servinglynk.hmis.warehouse.model.v2016.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
+	   com.servinglynk.hmis.warehouse.model.v2017.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
        if(pProjectcoc == null) throw new CocNotFoundException();
-       com.servinglynk.hmis.warehouse.model.v2016.Site pSite = daoFactory.getSiteDao().getSiteById(site.getSiteId());
+       com.servinglynk.hmis.warehouse.model.v2017.Site pSite = daoFactory.getSiteDao().getSiteById(site.getSiteId());
        if(pSite==null) throw new SiteNotFoundException();
 
        SiteConverter.modelToEntity(site, pSite);
@@ -50,7 +50,7 @@ public class SiteServiceImpl extends ServiceBase implements SiteService  {
 
    @Transactional
    public Site deleteSite(UUID siteId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Site pSite = daoFactory.getSiteDao().getSiteById(siteId);
+       com.servinglynk.hmis.warehouse.model.v2017.Site pSite = daoFactory.getSiteDao().getSiteById(siteId);
        if(pSite==null) throw new SiteNotFoundException();
 
        daoFactory.getSiteDao().deleteSite(pSite);
@@ -60,7 +60,7 @@ public class SiteServiceImpl extends ServiceBase implements SiteService  {
 
    @Transactional
    public Site getSiteById(UUID siteId){
-       com.servinglynk.hmis.warehouse.model.v2016.Site pSite = daoFactory.getSiteDao().getSiteById(siteId);
+       com.servinglynk.hmis.warehouse.model.v2017.Site pSite = daoFactory.getSiteDao().getSiteById(siteId);
        if(pSite==null) throw new SiteNotFoundException();
 
        return SiteConverter.entityToModel( pSite );
@@ -70,8 +70,8 @@ public class SiteServiceImpl extends ServiceBase implements SiteService  {
    @Transactional
    public Sites getAllProjectCocSites(UUID projectCocId,Integer startIndex, Integer maxItems){
        Sites sites = new Sites();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Site> entities = daoFactory.getSiteDao().getAllProjectCOCSites(projectCocId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Site entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Site> entities = daoFactory.getSiteDao().getAllProjectCOCSites(projectCocId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Site entity : entities){
            sites.addSite(SiteConverter.entityToModel(entity));
         }
         long count = daoFactory.getSiteDao().getProjectCOCSitesCount(projectCocId);

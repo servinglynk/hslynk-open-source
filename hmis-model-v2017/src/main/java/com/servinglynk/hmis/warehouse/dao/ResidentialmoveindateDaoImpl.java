@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMo
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -58,7 +58,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the residentialMoveInDate::"+residentialMoveInDate.getResidentialMoveInDateID() +" Exception ::"+e.getMessage();
 					if(residentialmoveindateModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = residentialmoveindateModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

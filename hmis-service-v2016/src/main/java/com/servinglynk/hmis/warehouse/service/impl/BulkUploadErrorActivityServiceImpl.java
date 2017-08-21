@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploadActivities;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploadError;
 import com.servinglynk.hmis.warehouse.core.model.BulkUploadErrors;
-import com.servinglynk.hmis.warehouse.model.v2016.BulkUploadActivity;
-import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.BulkUploadActivity;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 
 public class BulkUploadErrorActivityServiceImpl  extends ServiceBase implements BulkUploadErrorActivityService {

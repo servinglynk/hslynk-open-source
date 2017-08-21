@@ -11,10 +11,6 @@ import java.util.UUID;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.v2017.BulkUploadActivity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
-import com.servinglynk.hmis.warehouse.model.v2017.Export;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +22,10 @@ import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
+import com.servinglynk.hmis.warehouse.model.v2017.BulkUploadActivity;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2017.Export;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
@@ -209,7 +209,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		if (!found) {
 			if (showWarning) {
 				String warnMessage =" A match was not found in "+className+" with SourceSystemId: " + sourceId ;
-				Error2016 error = new Error2016();
+				Error2017 error = new Error2017();
 				error.table_name = className.getSimpleName();
 				error.model_id = null;
 				error.bulk_upload_ui = uploadId;
@@ -298,7 +298,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			getCurrentSession().flush();
 		    getCurrentSession().clear();
 			logger.warn(errorMessage);
-			Error2016 error = new Error2016();
+			Error2017 error = new Error2017();
 			error.table_name = tableName;
 			error.model_id = id;
 			error.bulk_upload_ui = domain.getUpload().getId();

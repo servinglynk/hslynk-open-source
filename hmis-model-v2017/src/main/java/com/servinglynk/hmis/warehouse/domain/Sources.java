@@ -14,6 +14,10 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
+import com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare;
+import com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason;
+
 
 /**
  * <p>Java class for Sources element declaration.
@@ -449,6 +453,14 @@ public class Sources {
             protected List<WorstHousingSituation> worstHousingSituation;
             @XmlElement(name = "EntryRHY", required = true)
             protected List<EntryRHY> entryRHY;
+            @XmlElement(name = "Geography", required = true)
+            protected List<Geography> geography;
+            @XmlElement(name = "ConnectionWithSoar", required = true)
+            protected List<ConnectionWithSoar> connectionWithSoar;
+            @XmlElement(name = "VASHExitReason", required = true)
+            protected List<VASHExitReason> vashExitReason;
+            @XmlElement(name = "RHYAfterCare", required = true)
+            protected List<RHYAfterCare> rhyAfterCare;
             /*@XmlElement(name = "EntryRHSP", required = true)
             protected List<EntryRHSP> entryRHSP;*/
             
@@ -588,6 +600,53 @@ public class Sources {
                 this.affiliation = value;
             }
             /**
+             * Gets the value of the VASHExitReason property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link VASHExitReason }
+             *     
+             */
+            public List<VASHExitReason> getVashExitReason() {
+                return vashExitReason;
+            }
+
+            /**
+             * Sets the value of the VASHExitReason property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link VASHExitReason }
+             *     
+             */
+            public void setVashExitReason(List<VASHExitReason> value) {
+                this.vashExitReason = value;
+            }
+            
+            /**
+             * Gets the value of the RHYAfterCare property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link RHYAfterCare }
+             *     
+             */
+            public List<RHYAfterCare> getRhyAfterCare() {
+                return rhyAfterCare;
+            }
+
+            /**
+             * Sets the value of the RHYAfterCare property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link RHYAfterCare }
+             *     
+             */
+            public void setRhyAfterCaren(List<RHYAfterCare> value) {
+                this.rhyAfterCare = value;
+            }
+            /**
              * Gets the value of the client property.
              * 
              * @return
@@ -645,6 +704,30 @@ public class Sources {
              */
             public List<DateOfEngagement> getDateOfEngagement() {
                 return dateOfEngagement;
+            }
+
+            /**
+             * Sets the value of the ConnectionWithSoar property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link ConnectionWithSoar }
+             *     
+             */
+            public void setConnectionWithSoar(List<ConnectionWithSoar> value) {
+                this.connectionWithSoar = value;
+            }
+            
+            /**
+             * Gets the value of the ConnectionWithSoar property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link ConnectionWithSoar }
+             *     
+             */
+            public List<ConnectionWithSoar> getConnectionWithSoar() {
+                return connectionWithSoar;
             }
 
             /**
@@ -1351,6 +1434,29 @@ public class Sources {
                 this.services = value;
             }
             
+            /**
+             * Gets the value of the site property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Site }
+             *     
+             */
+            public List<Geography> getGeography() {
+                return geography;
+            }
+
+            /**
+             * Sets the value of the site property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Site }
+             *     
+             */
+            public void setGeography(List<Geography> value) {
+                this.geography = value;
+            }
 
             /**
              * Gets the value of the site property.
@@ -13970,9 +14076,179 @@ public class Sources {
                 }
 
             }
+            
+            /**
+             * <p>Java class for anonymous complex type.
+             * 
+             * <p>The following schema fragment specifies the expected content contained within this class.
+             * 
+             * <pre>
+             * &lt;complexType>
+             *   &lt;complexContent>
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+             *       &lt;sequence>
+             *         &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *       &lt;/sequence>
+             *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+             *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+             *       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
+             *     &lt;/restriction>
+             *   &lt;/complexContent>
+             * &lt;/complexType>
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "id",
+                "informationDate",
+                "geoCode",
+                "address1",
+                "address2",
+                "city",
+               "state",
+            	"zip",
+            	"geography_type"
+            })
+            public static class Geography {
+
+                @XmlElement(name = "id", required = true)
+                protected String id;
+                @XmlElement(name = "informationDate", required = true)
+                protected String informationDate;
+                @XmlElement(name = "geoCode")
+                protected byte geoCode;
+                @XmlElement(name = "address1")
+                protected byte address1;
+                @XmlElement(name = "address2")
+                protected byte address2;
+                @XmlElement(name = "city")
+                protected byte city;
+                @XmlElement(name = "state")
+                protected byte state;
+                @XmlElement(name = "zip")
+                protected byte zip;
+                @XmlElement(name = "geography_type")
+                protected byte geography_type;
+				/**
+				 * @return the id
+				 */
+				public String getId() {
+					return id;
+				}
+				/**
+				 * @param id the id to set
+				 */
+				public void setId(String id) {
+					this.id = id;
+				}
+				/**
+				 * @return the informationDate
+				 */
+				public String getInformationDate() {
+					return informationDate;
+				}
+				/**
+				 * @param informationDate the informationDate to set
+				 */
+				public void setInformationDate(String informationDate) {
+					this.informationDate = informationDate;
+				}
+				/**
+				 * @return the geoCode
+				 */
+				public byte getGeoCode() {
+					return geoCode;
+				}
+				/**
+				 * @param geoCode the geoCode to set
+				 */
+				public void setGeoCode(byte geoCode) {
+					this.geoCode = geoCode;
+				}
+				/**
+				 * @return the address1
+				 */
+				public byte getAddress1() {
+					return address1;
+				}
+				/**
+				 * @param address1 the address1 to set
+				 */
+				public void setAddress1(byte address1) {
+					this.address1 = address1;
+				}
+				/**
+				 * @return the address2
+				 */
+				public byte getAddress2() {
+					return address2;
+				}
+				/**
+				 * @param address2 the address2 to set
+				 */
+				public void setAddress2(byte address2) {
+					this.address2 = address2;
+				}
+				/**
+				 * @return the city
+				 */
+				public byte getCity() {
+					return city;
+				}
+				/**
+				 * @param city the city to set
+				 */
+				public void setCity(byte city) {
+					this.city = city;
+				}
+				/**
+				 * @return the state
+				 */
+				public byte getState() {
+					return state;
+				}
+				/**
+				 * @param state the state to set
+				 */
+				public void setState(byte state) {
+					this.state = state;
+				}
+				/**
+				 * @return the zip
+				 */
+				public byte getZip() {
+					return zip;
+				}
+				/**
+				 * @param zip the zip to set
+				 */
+				public void setZip(byte zip) {
+					this.zip = zip;
+				}
+				/**
+				 * @return the geography_type
+				 */
+				public byte getGeography_type() {
+					return geography_type;
+				}
+				/**
+				 * @param geography_type the geography_type to set
+				 */
+				public void setGeography_type(byte geography_type) {
+					this.geography_type = geography_type;
+				}
+               
+                
+            	
+            	}
+
+            }
+
 
         }
 
     }
-
-}

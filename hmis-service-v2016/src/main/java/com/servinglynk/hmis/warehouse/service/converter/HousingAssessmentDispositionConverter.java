@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
 public class HousingAssessmentDispositionConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition modelToEntity (HousingAssessmentDisposition model ,com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition modelToEntity (HousingAssessmentDisposition model ,com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition();
        if(model.getHousingAssessmentDispositionId()!=null)
        entity.setId(model.getHousingAssessmentDispositionId());
        if(model.getAssessmentdisposition()!=null)
@@ -16,7 +16,7 @@ public class HousingAssessmentDispositionConverter extends BaseConverter {
    }
 
 
-   public static HousingAssessmentDisposition entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Housingassessmentdisposition entity) {
+   public static HousingAssessmentDisposition entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition entity) {
        HousingAssessmentDisposition model = new HousingAssessmentDisposition();
        if(entity.getId()!=null)
        model.setHousingAssessmentDispositionId(entity.getId());

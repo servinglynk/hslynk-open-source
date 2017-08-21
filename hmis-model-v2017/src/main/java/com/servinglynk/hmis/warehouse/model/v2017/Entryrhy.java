@@ -43,7 +43,6 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentStatusEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYInsufficientIncomeEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYLaborExploitPastThreeMonthsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnum;
@@ -60,7 +59,6 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 
 /**
  * Object mapping for hibernate-handled table: entryrhy.
@@ -87,15 +85,15 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	/** Field mapping. */
-	private EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr;
+//	private EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth;
+//	private EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth;
 	/** Field mapping. */
-	private EntryRHYActiveMilitaryParentEnum activeMilitaryParent;
+//	private EntryRHYActiveMilitaryParentEnum activeMilitaryParent;
 	/** Field mapping. */
 	private EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth;
+//	private EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth;
 	/** Field mapping. */
 	private EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex;
 	/** Field mapping. */
@@ -117,55 +115,55 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice;
 	/** Field mapping. */
-	private EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr;
+//	private EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYHealthIssuesYouthEnum healthIssuesYouth;
+//	private EntryRHYHealthIssuesYouthEnum healthIssuesYouth;
 	/** Field mapping. */
-	private EntryRHYHouseholdDynamicsEnum houseHoldDynamics;
+//	private EntryRHYHouseholdDynamicsEnum houseHoldDynamics;
 	/** Field mapping. */
-	private EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr;
+//	private EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYHousingIssuesYouthEnum housingIssuesYouth;
+//	private EntryRHYHousingIssuesYouthEnum housingIssuesYouth;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private EntryRHYIncarceratedParentEnum incarceratedParent;
 	/** Field mapping. */
-	private EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus;
+//	private EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus;
 	/** Field mapping. */
 	private EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth;
 	/** Field mapping. */
 	private Integer laborExploitPastThreeMonths;
 	/** Field mapping. */
-	private EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr;
+//	private EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth;
+//	private EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth;
 	/** Field mapping. */
 	private EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth;
+//	private EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth;
 	/** Field mapping. */
-	private Integer monthsChildWelfrForestCare;
+//	private Integer monthsChildWelfrForestCare;
 	/** Field mapping. */
 	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth;
+//	private EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth;
 	/** Field mapping. */
 	private Integer referralSource;
 	/** Field mapping. */
-	private EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr;
+//	private EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth;
+//	private EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth;
 	/** Field mapping. */
-	private EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr;
+//	private EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth;
+//	private EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth;
 	/** Field mapping. */
 	private SexualorientationSexualorientationEnum sexualOrientation;
 	/** Field mapping. */
 	private EntryRHYUnemploymentFamEnum unemployementFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYUnemploymentYouthEnum unemployementYouth;
+//	private EntryRHYUnemploymentYouthEnum unemployementYouth;
 	/** Field mapping. */
 	private EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference;
 	/** Field mapping. */

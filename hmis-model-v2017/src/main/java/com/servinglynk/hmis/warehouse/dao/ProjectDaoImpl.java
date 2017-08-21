@@ -7,25 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.beans.BeanUtils;
+import javax.lang.model.type.ErrorType;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
-import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
-import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
-import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2016;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.Organization;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -62,9 +56,13 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					Organization organization = (Organization) getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					projectModel.setOrganizationid(organization);
 					projectModel.setProjectname(project.getProjectName());
-					projectModel.setProjectcommonname(project.getProjectCommonName());
+//					projectModel.setProjectcommonname(project.getProjectCommonName());
 					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
-					//projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
+					projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
+					projectModel.setOperatingStartDate(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
+					projectModel.setOperatingEndDate(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
+					projectModel.setVictimServiceProvider(0);
+					projectModel.setHousingType(0);
 					projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTargetPopulation())));
 					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getTrackingMethod())));
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
@@ -80,7 +78,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = projectModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

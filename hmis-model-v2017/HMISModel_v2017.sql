@@ -29,11 +29,11 @@ DROP TABLE IF EXISTS "v2017".client;
 DROP TABLE IF EXISTS "v2017".bulk_upload_activity;
 DROP TABLE IF EXISTS "v2017".export; 
 DROP TABLE IF EXISTS "v2017".source;
-DROP TABLE IF EXISTS v2017.exitRHY;
-DROP TABLE IF EXISTS v2017.rhyaftercare;
-DROP TABLE IF EXISTS v2017.vashexitreason;
-DROP TABLE IF EXISTS v2017.connectionwithsoar;
-DROP TABLE IF EXISTS v2017.geography;
+DROP TABLE IF EXISTS "v2017".exitRHY;
+DROP TABLE IF EXISTS "v2017".rhyaftercare;
+DROP TABLE IF EXISTS "v2017".vashexitreason;
+DROP TABLE IF EXISTS "v2017".connectionwithsoar;
+DROP TABLE IF EXISTS "v2017".geography;
 
 
 DROP TYPE IF EXISTS "v2017".name_data_quality;
@@ -506,6 +506,10 @@ CREATE TYPE "v2017".count_of_exchange_for_sex AS ENUM ('1','2','3','4','8','9','
 CREATE TYPE "v2017".asked_of_forced_to_exchange_for_sex AS ENUM ('0','1','8','9','99');
 CREATE TYPE "v2017".datacollectionstage AS ENUM('1','2','3','5');
 CREATE TYPE "v2017".evictionhistory as ENUM('0','1','2','3','99');
+
+CREATE TYPE "v2017".geographyType as ENUM('1','2','3');
+CREATE TYPE "v2017".cmExitReason as ENUM('1','2','3','4','5','6','7','8','9','10','11','12','13','99');
+
 CREATE TABLE "v2017".hmis_type
 (
   "id" serial NOT NULL ,
@@ -1498,6 +1502,25 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','99','Data Not Collected','ACTIVE');
 
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('geography_type','1','Urban','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('geography_type','2','Suburban','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('geography_type','3','Rural','ACTIVE');
+
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','1','Accomplished goals and/or obtained services and no longer needs CM','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','2','Transferred to another HUD-VASH program site','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','3','Found/chose other housing','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','4','Did not comply with HUD-VASH CM','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','5','Eviction and/or other housing related issues','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','6','Unhappy with HUD-VASH housing','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','7','No longer financially eligible for HUD/VASH voucher','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','8','No longer interested in participating in this program','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','9','Veteran cannot be located','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','10','Veteran too ill to participate at this time','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','11','Veteran is incarcerated','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','12','Veteran is deceased','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','13','Other','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','99','Data not collected','ACTIVE');
+
 -- New ENUMS Insert Ends
 
 create table "v2017".source
@@ -1566,7 +1589,7 @@ create table "v2017".organization
 (
 	id uuid not null,  
 	organizationname text,
-	organizationcommonname text,
+	--organizationcommonname text,
    "project_group_code" character varying(8),
    "date_created" timestamp,
    "date_created_from_source" timestamp,
@@ -1592,13 +1615,15 @@ CREATE TABLE  "v2017".project
 	  projectname text,
 	  continuumproject "v2017".no_yes,
 	  projecttype "v2017".project_type,
-	  --residentialaffiliation "v2017".no_yes,
+	  residentialaffiliation integer,
+	  operatingStartDate timestamp,
+	  operatingEndDate timestamp,
 	  trackingmethod "v2017".tracking_method,
 	  targetpopulation "v2017".target_population_type,
-	  projectcommonname text,
+	  victimServiceProvider integer,
+	  housingType integer,
+	  --projectcommonname text,
 	  organizationid uuid,
-	  date_created timestamp,
-	  date_updated timestamp,
 	  "date_created_from_source" timestamp,
       "date_updated_from_source" timestamp,
       "project_group_code" character varying(8),
@@ -1686,8 +1711,6 @@ CREATE TABLE "v2017".client_veteran_info
   deleted boolean DEFAULT false,active boolean DEFAULT true,  
   sync boolean DEFAULT false,  
       
-
-
   	  CONSTRAINT veteran_info_pk PRIMARY KEY ("id"),
   	  CONSTRAINT veteran_info_client_fk FOREIGN KEY ("client_id")
       REFERENCES "v2017".client ("id") MATCH SIMPLE
@@ -1704,14 +1727,16 @@ CREATE TABLE "v2017".enrollment
 	entrydate timestamp,
 	householdid text,
 	relationshiptohoh "v2017".relationship_to_head_of_household,
-	otherresidenceprior text,
-	residencePrior "v2017".residence_prior,
+	--otherresidenceprior text,
+	--residencePrior "v2017".residence_prior,
+	livingSituation integer,
+	lengthOfStay integer,
 	losunderthreshold "v2017".no_yes, 
 	previousStreetESSH "v2017".no_yes,
-	residencePriorlengthofstay "v2017".residence_prior_length_of_stay,
+	--residencePriorlengthofstay "v2017".residence_prior_length_of_stay,
 	disablingCondition "v2017".five_val_dk_refused,
-	housingstatus "v2017".housing_status,
-	entryFromStreetESSH integer,
+	--housingstatus "v2017".housing_status,
+	--entryFromStreetESSH integer,
 	dateToStreetESSH integer,
 	timesHomelesspastthreeyears "v2017".times_homeless_past_3_years,
 	monthsHomelessPastThreeYears "v2017".months_homeless_past_3_years,
@@ -1803,9 +1828,9 @@ CREATE TABLE "v2017".entrySSVF
 	iraqafghanistan "v2017".no_yes,
 	femvet "v2017".no_yes,
 	thresholdscore integer,
-	ervisits "v2017".crisisServicesUse,
-	jailnights "v2017".crisisServicesUse,
-	hospitalnights "v2017".crisisServicesUse,
+	--ervisits "v2017".crisisServicesUse,
+	--jailnights "v2017".crisisServicesUse,
+	--hospitalnights "v2017".crisisServicesUse,
 	hp_screen_score integer,
 	vamc_staction character(50),
 	"project_group_code" character varying(8),
@@ -1819,8 +1844,6 @@ CREATE TABLE "v2017".entrySSVF
   	version integer,source_system_id text,
   	deleted boolean DEFAULT false,active boolean DEFAULT true, 
   	sync boolean DEFAULT false,  
-
-
   	  CONSTRAINT entrySSVF_pk PRIMARY KEY ("id"),
 	  CONSTRAINT "enrollment_entrySSVF_fk_key" FOREIGN KEY ("enrollmentid")
       REFERENCES v2017.enrollment ("id") MATCH SIMPLE
@@ -1837,35 +1860,35 @@ CREATE TABLE "v2017".entryRHY
 	"sexual_orientation" "v2017".sexual_orientation,
 	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
 	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
-	months_child_welfr_forest_care integer,
+	--months_child_welfr_forest_care integer,
 	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
 	"years_juvenile_justice" "v2017".years_juvenile_justice,
 	"months_juvenile_justice" "v2017".years_juvenile_justice, 
-	"house_hold_dynamics" "v2017".house_hold_dynamics,
-	"sexual_orientatiion_gender_identity_youth" "v2017".sexual_orientation_gender_identity_Youth,
-	"sexual_orientatiion_gender_identity_family_mbr" "v2017".sexual_orientatiion_gender_identity_family_mbr,
-	"housing_issues_youth" "v2017".housing_issues_youth,
-	"housing_issues_family_mbrily_mbr" "v2017".housing_issues_family_mbr,
-	"school_education_issues_youth" "v2017".school_educational_issues_youth,
-	"school_education_issues_family_mbr" "v2017".school_education_issues_family_mbr,
-	"unemployement_youth" "v2017".unemployment_youth,
+	--"house_hold_dynamics" "v2017".house_hold_dynamics,
+	--"sexual_orientatiion_gender_identity_youth" "v2017".sexual_orientation_gender_identity_Youth,
+	--"sexual_orientatiion_gender_identity_family_mbr" "v2017".sexual_orientatiion_gender_identity_family_mbr,
+	--"housing_issues_youth" "v2017".housing_issues_youth,
+	--"housing_issues_family_mbrily_mbr" "v2017".housing_issues_family_mbr,
+	--"school_education_issues_youth" "v2017".school_educational_issues_youth,
+	--"school_education_issues_family_mbr" "v2017".school_education_issues_family_mbr,
+	--"unemployement_youth" "v2017".unemployment_youth,
 	"unemployement_family_mbr" "v2017".unemployement_family_mbr,
-	"mental_health_issues_youth" "v2017".mental_health_issues_youth,
+	--"mental_health_issues_youth" "v2017".mental_health_issues_youth,
 	"mental_health_issues_family_mbrily_mbr" "v2017".mental_health_issues_family_mbrily_mbr,
-	"health_issues_youth" "v2017".health_issues_youth,
-	"health_issues_family_mbrily_mbr" "v2017".health_issues_family_mbr,
-	"physical_disability_youth" "v2017".physical_disability_youth,
+	--"health_issues_youth" "v2017".health_issues_youth,
+	--"health_issues_family_mbrily_mbr" "v2017".health_issues_family_mbr,
+	--"physical_disability_youth" "v2017".physical_disability_youth,
 	"physical_disability_family_mbr" "v2017".physical_disability_family_mbr,
-	"mental_disability_youth" "v2017".mental_disability_youth,
-	"mental_disability_family_mbrily_mbr" "v2017".mental_disability_family_mbr,
-	"abuse_and_neglect_youth" "v2017".abuse_and_neglect_youth,
-	"abuse_and_neglect_family_mbr" "v2017".abuse_and_neglect_family_mbr,
-	"alcohol_drug_abuse_youth" "v2017".alcohol_drug_abuse_youth,
+	--"mental_disability_youth" "v2017".mental_disability_youth,
+	--"mental_disability_family_mbrily_mbr" "v2017".mental_disability_family_mbr,
+	--"abuse_and_neglect_youth" "v2017".abuse_and_neglect_youth,
+	--"abuse_and_neglect_family_mbr" "v2017".abuse_and_neglect_family_mbr,
+	--"alcohol_drug_abuse_youth" "v2017".alcohol_drug_abuse_youth,
 	"alcohol_drug_abuse_family_mbr" "v2017".alcohol_drug_abuse_family_mbr,
 	"insufficient_income_to_support_youth" "v2017".insufficient_income_to_support_youth,
-	"active_military_parent" "v2017".active_military_parent,
+	--"active_military_parent" "v2017".active_military_parent,
 	"incarcerated_parent" "v2017".incarcerated_parent,
-	"incarcerated_parent_status" "v2017".incarcerated_parent_status,
+	--"incarcerated_parent_status" "v2017".incarcerated_parent_status,
 	referral_source integer,
 	count_out_reach_referral_approaches integer,
 	exchange_for_sex integer,
@@ -1903,7 +1926,7 @@ CREATE TABLE "v2017".enrollment_coc
 (
 	  id uuid NOT NULL,
   	  enrollmentid uuid,
-	  client_code character(20),
+	  client_coc character(20),
 	  householdid text,
 	  information_date timestamp,
 	  "datacollectionstage" "v2017".datacollectionstage,
@@ -1933,8 +1956,9 @@ CREATE TABLE "v2017".service_fa_referral
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
   dateProvided timestamp,
-  service_category integer,
-  funder_list integer,
+  --service_category integer,
+  --funder_list integer,
+  record_type integer,
   type_provided integer,
   other_type_provided text,
   sub_type_provided integer,
@@ -2013,8 +2037,6 @@ CREATE TABLE "v2017".employment
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
       
-
-
 	  CONSTRAINT employment_pk PRIMARY KEY ("id"),
 	  CONSTRAINT "enrollment_employment_fk_key" FOREIGN KEY ("enrollmentid")
       REFERENCES v2017.enrollment ("id") MATCH SIMPLE
@@ -2045,8 +2067,6 @@ CREATE TABLE "v2017".health_status
   version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,  
-      
-
 
   	  CONSTRAINT health_status_pk PRIMARY KEY ("id"),
       CONSTRAINT "enrollment_health_status_fk_key" FOREIGN KEY ("enrollmentid")
@@ -2075,9 +2095,7 @@ create table "v2017".contact
   	version integer,source_system_id text,
   	deleted boolean DEFAULT false,active boolean DEFAULT true, 
   	sync boolean DEFAULT false,  
-      
-
-
+ 
   	  CONSTRAINT contact_pk PRIMARY KEY ("id"),
       CONSTRAINT "enrollment_health_status_fk_key" FOREIGN KEY ("enrollmentid")
       REFERENCES v2017.enrollment ("id") MATCH SIMPLE
@@ -2137,9 +2155,7 @@ create table "v2017".coc
    version integer,source_system_id text,
    deleted boolean DEFAULT false,active boolean DEFAULT true, 
    sync boolean DEFAULT false,
-      
-
-
+ 
   constraint "coc_pkey" primary key (id),
   constraint "coc_projectid_fkey" foreign key (projectid)
       references v2017.project (id) match simple
@@ -2154,13 +2170,17 @@ create table "v2017".inventory
 (
    id uuid not null,
   householdtype "v2017".house_hold_type,
-  bedtype "v2017".bed_type,
+  --bedtype "v2017".bed_type,
   availabilty "v2017".availability,
   unitinventory integer,
+  bed_inventory integer,
   ch_bed_inventory integer,
   vet_bed_inventory integer,
   youth_bed_inventory integer,
-  youth_age_group integer,
+  --youth_age_group integer,
+  facility_bed_inventory integer,
+  voucher_bed_inventory integer,
+  other_bed_inventory integer,
   inventorystartdate timestamp,
   inventoryenddate timestamp,
   hmisparticipatingbeds integer,
@@ -2214,9 +2234,7 @@ create table  "v2017".funder
   version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
-      
-
-
+  
       constraint "funder_pkey" primary key ("id"),
       constraint "funder_projectid_fkey" foreign key ("projectid")
       references v2017.project (id) match simple
@@ -2231,8 +2249,10 @@ CREATE TABLE "v2017".rhybcp_status
 (
   "id" uuid NOT NULL,
   "status_date" timestamp,
-  "fysb_youth" "v2017".no_yes,
+  --"fysb_youth" "v2017".no_yes,
+  eligible_for_rhy integer,
   "reason_no_services" "v2017".fysb_rsn_not_providing_srvcs,
+  runaway_youth integer,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
   "date_created" timestamp,
@@ -2339,10 +2359,10 @@ create table "v2017".disabilities
   "disabilitytype" "v2017".disability_type,
   "disabilityresponse" integer,
   "indefiniteandimpairs" "v2017".five_val_dk_refused,
-  "documentationonfile" "v2017".no_yes,
-  "receivingservices" "v2017".five_val_dk_refused,
-  "pathhowconfirmed" "v2017".path_how_confirmed,
-  "pathsmiinformation" "v2017".path_smi_info_how_confirmed,
+  --"documentationonfile" "v2017".no_yes,
+  --"receivingservices" "v2017".five_val_dk_refused,
+  --"pathhowconfirmed" "v2017".path_how_confirmed,
+  --"pathsmiinformation" "v2017".path_smi_info_how_confirmed,
   "enrollmentid" uuid,
   tcellcountavailable integer,
   tcellcount integer,
@@ -2363,9 +2383,7 @@ create table "v2017".disabilities
   version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
-      
-
-
+ 
 	  constraint "disabilities_pkey" primary key ("id"),
 	  constraint "disabilities_enrollmentid_fkey" foreign key ("enrollmentid")
       references v2017.enrollment ("id") match simple
@@ -2395,9 +2413,7 @@ create table  "v2017".residentialmoveindate
   	version integer,source_system_id text,
   	deleted boolean DEFAULT false,active boolean DEFAULT true, 
   	sync boolean DEFAULT false,
-      
-
-
+  
   	  constraint "residentialmoveindate_pkey" primary key (id),
       constraint "residentialmoveindate_enrollmentid_fkey" foreign key (enrollmentid)
       references v2017.enrollment ("id") match simple 
@@ -2455,9 +2471,6 @@ create table  "v2017".entryRHSP
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
-      
-
-
   		constraint "entryRHSP_pkey" primary key ("id"),
   		constraint "entryRHSP_enrollmentid_fkey" foreign key ("enrollmentid")
       	references v2017.enrollment ("id") match simple
@@ -2714,16 +2727,35 @@ create table "v2017".exitRHY
 	"exitid" uuid,
 	"project_completion_status" "v2017".project_completion_status,
 	"early_exit_reason" "v2017".early_exit_reason,
-	"family_reunification_achieved" "v2017".family_reunification_achieved,
-	"written_after_care_plan" "v2017".written_after_care_plan,
-	"assistance_main_stream_benefits" "v2017".assistance_main_stream_benefits,
-	"permenant_housing_placement" "v2017".permanent_housing_placement,
-	"temp_shelter_placement" "v2017".temp_shelter_placement,
-	"exit_counseling" "v2017".exit_counseling,
-	"further_followup_services" "v2017".further_followup_services,
-	"scheduled_followup_contacts" "v2017".scheduled_followup_contacts,
-	"resource_package" "v2017".resource_package,
-	"other_aftercare_plan_or_action" "v2017".other_aftercare_plan_or_action,
+	exchage_for_sex integer,
+	exchange_for_sex_past_three_months integer,
+	count_of_exchange_for_sex integer,
+	asked_or_forced_to_exchange_for_sex integer,
+	asked_or_forced_to_exchange_for_sex_past_three_months integer,
+	work_place_violence_threats integer,
+	work_place_promise_difference integer,
+	coerced_to_continue_work integer,
+	labor_exploit_past_three_months integer,
+	counseling_received integer,
+	counseling_type integer,
+	session_count_at_exit integer,
+	sessions_in_plan integer,
+	post_exit_counseling_plan integer,
+	destination_safe_client integer,
+	destination_safe_worker integer,
+	pos_adult_connections integer,
+	pos_peer_connections integer,
+	pos_community_connections integer,
+	--"family_reunification_achieved" "v2017".family_reunification_achieved,
+	--"written_after_care_plan" "v2017".written_after_care_plan,
+	--"assistance_main_stream_benefits" "v2017".assistance_main_stream_benefits,
+	--"permenant_housing_placement" "v2017".permanent_housing_placement,
+	--"temp_shelter_placement" "v2017".temp_shelter_placement,
+	--"exit_counseling" "v2017".exit_counseling,
+	--"further_followup_services" "v2017".further_followup_services,
+	--"scheduled_followup_contacts" "v2017".scheduled_followup_contacts,
+	--"resource_package" "v2017".resource_package,
+	--"other_aftercare_plan_or_action" "v2017".other_aftercare_plan_or_action,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
