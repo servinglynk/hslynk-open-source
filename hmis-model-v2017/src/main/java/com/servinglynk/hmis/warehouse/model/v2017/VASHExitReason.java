@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Basic;
@@ -10,11 +11,22 @@ import org.hibernate.annotations.Type;
 
 import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
 
-public class VASHExitReason {
+public class VASHExitReason extends HmisBaseModel implements Cloneable, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private java.util.UUID id;
 	private java.util.UUID exitId;
 	private CMExitReasonEnum cmExitReason;
+	
+	/**
+	 * Default constructor, mainly for hibernate use.
+	 */
+	public VASHExitReason() {
+		// Default constructor
+	}
 	/**
 	 * @return the id
 	 */

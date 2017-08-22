@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -7,7 +8,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
-public class RHYAfterCare {
+public class RHYAfterCare  extends HmisBaseModel implements Cloneable, Serializable {
 	
 	private java.util.UUID id; 
 	private LocalDateTime afterCareDate;
@@ -16,6 +17,9 @@ public class RHYAfterCare {
 	private Integer telephone;
 	private Integer inPersonIndividual;
 	private Integer inPersonGroup;
+	public RHYAfterCare() {
+		// Default constructor
+	}
 	/**
 	 * @return the id
 	 */

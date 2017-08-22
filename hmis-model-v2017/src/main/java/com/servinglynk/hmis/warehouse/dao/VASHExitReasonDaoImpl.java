@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.lang.model.type.ErrorType;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -13,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason;
@@ -48,7 +48,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					 vashExitReasonModel.setCmExitReason(vashExitReason.getCmExitReason());
 					 performSaveOrUpdate(vashExitReasonModel);
 				 } catch(Exception e){
-					 String errorMessage = "Exception because of the vashExitReasons::"+vashExitReasons.getId() +" Exception ::"+e.getMessage();
+					 String errorMessage = "Exception because of the vashExitReasons::"+vashExitReason.getId() +" Exception ::"+e.getMessage();
 					 if(vashExitReasonModel != null){
 						 Error2017 error = new Error2017();
 						 error.model_id = vashExitReasonModel.getId();
@@ -80,7 +80,8 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 		}
 		com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason model = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(vashExitReasonModel.getCmExitReason());
+		
+		model.setCmExitReason(CMExitReasonEnum.lookupEnum(String.valueOf(vashExitReasonModel.getCmExitReason())));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,vashExitReasonModel.getId(),data);
 		return model;
