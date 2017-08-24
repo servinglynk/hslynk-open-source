@@ -149,8 +149,8 @@ public class SurveyView extends BaseView {
 					  }
 					  if(submissionId !=null && !StringUtils.equals(submissionId, response.getSubmissionId()) && !containsOnlyOneColumn) {
 						 // System.out.println("Insert query metadata:::"+preparedStatement.getParameterMetaData().toString());
-						  System.out.println("The Query:::"+builder.toString());
-						  System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
+						  System.out.println("The Response:::"+response.toString());
+						  System.out.println("Inserting records for client :::"+clientId+ "project group"+survey.getProjectGroupCode()+"."+tableName);
 						  preparedStatement.executeUpdate();
 						  resonseContainMoreThanOneClient = true;
 						  i =4;
@@ -162,7 +162,7 @@ public class SurveyView extends BaseView {
 		 }
 		 if(!resonseContainMoreThanOneClient && !clientWithSubmissionExist) {
 			 System.out.println("The Query:::"+builder.toString());
-			 System.out.println("Inserting records for :::"+survey.getProjectGroupCode()+"."+tableName);
+			 System.out.println("Inserting records for :::"+clientId+ "project group"+survey.getProjectGroupCode()+"."+tableName);
 			  preparedStatement.executeUpdate();
 		 }
 		} catch (SQLException e) {
