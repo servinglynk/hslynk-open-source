@@ -229,7 +229,7 @@ public class BulkUploaderTest {
 				bullkUpload.setInputpath(path.getPath());
 				bullkUpload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+			//	BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			//	com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 				//(com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
 			//	assertNotNull(exportEntity);
