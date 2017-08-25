@@ -106,26 +106,16 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding -->
 		<dependency>
-		    <groupId>net.sf.sevenzipjbinding</groupId>
-		    <artifactId>sevenzipjbinding</artifactId>
-		    <version>9.20-2.00beta</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.14</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding-linux-arm -->
-<dependency>
-    <groupId>net.sf.sevenzipjbinding</groupId>
-    <artifactId>sevenzipjbinding-linux-arm</artifactId>
-    <version>9.20-2.00beta</version>
-</dependency>
-		
-				<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding-all-platforms -->
 		<dependency>
-		    <groupId>net.sf.sevenzipjbinding</groupId>
-		    <artifactId>sevenzipjbinding-all-platforms</artifactId>
-		    <version>9.20-2.00beta</version>
+		  <groupId>org.tukaani</groupId>
+		  <artifactId>xz</artifactId>
+		  <version>1.6</version>
 		</dependency>
-
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
