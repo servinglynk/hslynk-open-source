@@ -221,8 +221,8 @@ public class BulkUploaderTest {
 		factory.getBulkUploaderWorkerDao().insert(upload);
 		//dao.performBulkUpload(upload);
 	}
-	/*@Test
-	public void testCSVZip() throws Exception
+	@Test
+	public void testCSVZipFile() throws Exception
 	{
 				URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload bullkUpload = new BulkUpload();
@@ -235,7 +235,7 @@ public class BulkUploaderTest {
 			//	assertNotNull(exportEntity);
 //				assertEquals("",exportEntity.getExportperiodtype());
 	}
-*/	
+
 	
 	
 	@Test

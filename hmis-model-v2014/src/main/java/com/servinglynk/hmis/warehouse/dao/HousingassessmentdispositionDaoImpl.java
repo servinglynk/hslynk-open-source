@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,45 +35,45 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 	 * @see com.servinglynk.hmis.warehouse.dao.ParentDao#hydrate(com.servinglynk.hmis.warehouse.dao.Sources.Source.Export, java.util.Map)
 	 */
 	@Override
-	
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<HousingAssessmentDisposition> housingAssessmentDispositions = domain.getExport().getHousingAssessmentDisposition();
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Housingassessmentdisposition.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
-		if(housingAssessmentDispositions !=null && !housingAssessmentDispositions.isEmpty()) 
+		if(CollectionUtils.isNotEmpty(housingAssessmentDispositions)) 
 		{
-			for(HousingAssessmentDisposition housingAssessmentDisposition : housingAssessmentDispositions)
-			{
-				Housingassessmentdisposition model = null;
-				try {
-					model = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
-					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
-					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
-					model.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
-					model.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
-					Exit exit = (Exit) getModel(Housingassessmentdisposition.class.getSimpleName(),Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					model.setExitid(exit);
-					model.setExport(exportEntity);
-					
-					performSaveOrUpdate(model);
-				}catch(Exception e) {
-					String errorMessage = "Exception in:"+housingAssessmentDisposition.getHousingAssessmentDispositionID()+  ":: Exception" +e.getLocalizedMessage();
-					if (model != null) {
-						Error2014 error = new Error2014();
-						error.model_id = model.getId();
-						error.bulk_upload_ui = domain.getUpload().getId();
-						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = model.getSourceSystemId();
-						error.type = ErrorType.ERROR;
-						error.error_description = errorMessage;
-						error.date_created = model.getDateCreated();
-						performSave(error);
-					}
-					logger.error(errorMessage);
-				}
-			}
+			housingAssessmentDispositions.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
+	}
+		
+   public void processData(HousingAssessmentDisposition housingAssessmentDisposition,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+	Housingassessmentdisposition model = null;
+	try {
+		model = getModelObject(domain, housingAssessmentDisposition,data,modelMap);
+		model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateCreated()));
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(housingAssessmentDisposition.getDateUpdated()));
+		model.setAssessmentdisposition(HousingassessmentdispositionAssessmentdispositionEnum.lookupEnum(BasicDataGenerator.getStringValue(housingAssessmentDisposition.getAssessmentDisposition())));
+		model.setOtherdisposition(housingAssessmentDisposition.getOtherDisposition());
+		Exit exit = (Exit) getModel(Housingassessmentdisposition.class.getSimpleName(),Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+		model.setExitid(exit);
+		model.setExport(exportEntity);
+		performSaveOrUpdate(model);
+	}catch(Exception e) {
+		String errorMessage = "Exception in:"+housingAssessmentDisposition.getHousingAssessmentDispositionID()+  ":: Exception" +e.getLocalizedMessage();
+		if (model != null) {
+			Error2014 error = new Error2014();
+			error.model_id = model.getId();
+			error.bulk_upload_ui = domain.getUpload().getId();
+			error.project_group_code = domain.getUpload().getProjectGroupCode();
+			error.source_system_id = model.getSourceSystemId();
+			error.type = ErrorType.ERROR;
+			error.error_description = errorMessage;
+			error.date_created = model.getDateCreated();
+			performSave(error);
+		}
+		logger.error(errorMessage);
+	 }
 	}
 	
 	public com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition getModelObject(ExportDomain domain,HousingAssessmentDisposition housingAssessmentDisposition ,Data data, Map<String,HmisBaseModel> modelMap) {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -46,41 +47,39 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Exit.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, getProjectGroupCode(domain));
-		if(exits !=null && exits.size() > 0)
-		{
-			for(Exit exit : exits)
-			{
-				com.servinglynk.hmis.warehouse.model.v2014.Exit model = null;
-				try {
-					model = getModelObject(domain, exit,data,modelMap);
-					model.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
-					model.setOtherdestination(exit.getOtherDestination());
-					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
-					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
-					model.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Exit.class.getSimpleName(),Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					model.setEnrollmentid(enrollmentModel);
-					model.setExport(exportEntity);
-					
-					performSaveOrUpdate(model);
-				}catch(Exception e) {
-					String errorMessage = "Exception in:"+exit.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (model != null) {
-						Error2014 error = new Error2014();
-						error.model_id = model.getId();
-						error.bulk_upload_ui = domain.getUpload().getId();
-						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = model.getSourceSystemId();
-						error.type = ErrorType.ERROR;
-						error.error_description = errorMessage;
-						error.date_created = model.getDateCreated();
-						performSave(error);
-					}
-					logger.error(errorMessage);
-				}
-			}
+		if(CollectionUtils.isNotEmpty(exits)){
+			exits.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Exit.class.getSimpleName(), domain, exportEntity);
+	}
+	public void processData(Exit exit,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+		com.servinglynk.hmis.warehouse.model.v2014.Exit model = null;
+		try {
+			model = getModelObject(domain, exit,data,modelMap);
+			model.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
+			model.setOtherdestination(exit.getOtherDestination());
+			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
+			model.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
+			Enrollment enrollmentModel = (Enrollment) getModel(Exit.class.getSimpleName(),Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+			model.setEnrollmentid(enrollmentModel);
+			model.setExport(exportEntity);
+			performSaveOrUpdate(model);
+		}catch(Exception e) {
+			String errorMessage = "Exception in:"+exit.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
+			if (model != null) {
+				Error2014 error = new Error2014();
+				error.model_id = model.getId();
+				error.bulk_upload_ui = domain.getUpload().getId();
+				error.project_group_code = domain.getUpload().getProjectGroupCode();
+				error.source_system_id = model.getSourceSystemId();
+				error.type = ErrorType.ERROR;
+				error.error_description = errorMessage;
+				error.date_created = model.getDateCreated();
+				performSave(error);
+			}
+			logger.error(errorMessage);
+		}
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Exit getModelObject(ExportDomain domain, Exit exit ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Exit modelFromDB = null;

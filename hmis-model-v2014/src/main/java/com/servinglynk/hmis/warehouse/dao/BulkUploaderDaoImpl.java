@@ -478,11 +478,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setStatus(UploadStatus.EXIT.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
-		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+		logger.info("ExitChildren Process::: Client Children table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in Exit Children process....."+e.getStackTrace());
+			logger.error(" Error in Client Children process....."+e.getStackTrace());
 		}
 			return upload;
 		

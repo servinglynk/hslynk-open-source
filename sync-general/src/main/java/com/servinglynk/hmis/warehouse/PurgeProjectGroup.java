@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -31,25 +33,54 @@ public class PurgeProjectGroup extends Logging {
 	
 	
 	 private void purgeTable(String tableName, String projectGroupCode, String schema) {
-		        PreparedStatement statement = null;
 		        Connection connection = null;
+		        Statement statement =  null;
 		        try{
+		        	statement = connection.createStatement();
 		        	logger.info(" Deleting table: "+tableName +" with in schema ::"+schema +" for projectGroup ::: "+projectGroupCode);
 		            connection = getConnection();
-		            StringBuilder builder = new StringBuilder();
-		            builder.append("Delete FROM "+schema+"."+tableName);
-		            
-		            if(!StringUtils.equals("survey", schema)) {
-		            	builder.append(" WHERE project_group_code='"+projectGroupCode+"'");
+		            final int batchSize = 1000;
+		            int count = 0;
+		            for(String id : getPrimaryKeys(tableName, projectGroupCode, schema)) {
+			            statement.addBatch("Delete FROM "+schema+"."+tableName +" WHERE id='"+id+"'");
+			            if(++count % batchSize == 0) {
+			        		statement.executeBatch();
+			        		connection.commit();
+			        		logger.info("Commit triggered on table :"+tableName +" schema:"+schema);
+			        	}
 		            }
-		            statement = connection.prepareStatement(builder.toString());
-		            statement.executeLargeUpdate(builder.toString());
-		            logger.info(" Deleted table: "+tableName);
+		            statement.executeBatch(); // insert remaining records
+			        logger.info(" Deleted table: "+tableName);
 		        }catch (Exception ex){
-		            //ex.printStackTrace();
+		            ex.printStackTrace();
+		        }finally {
 		        }
 			}
 					
+	 
+	 private List<String> getPrimaryKeys(String tableName, String projectGroupCode, String schema) throws SQLException {
+		 List<String> tables = new ArrayList<>();
+	        ResultSet resultSet = null;
+	        PreparedStatement statement = null;
+	        Connection connection = null;
+	        try{
+	        	StringBuilder builder = new StringBuilder();
+	        	builder.append("select id FROM "+schema+"."+tableName);
+		        if(!StringUtils.equals("survey", schema)) 
+		            builder.append(" WHERE project_group_code='"+projectGroupCode+"'");
+	            connection = getConnection();
+	            statement = connection.prepareStatement(builder.toString());
+	            resultSet = statement.executeQuery();
+	            while (resultSet.next()){
+	                tables.add(resultSet.getString("id"));
+	            }
+	        }catch (Exception ex){
+	            logger.error("Exception while getting primary keys for table "+tableName +"schema:"+schema+ "Exception:"+ex.getMessage());
+	        }finally {
+	        	connection.close();
+	        }
+	        return tables;
+	 }
 
 	private static Connection connection = null;
 	    static Connection getConnection() throws SQLException {

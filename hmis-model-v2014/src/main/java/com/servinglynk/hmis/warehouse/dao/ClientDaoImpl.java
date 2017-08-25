@@ -17,6 +17,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -72,78 +73,80 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
-		if (clients != null && clients.size() > 0) {
-			for (Client client : clients) {
-				com.servinglynk.hmis.warehouse.model.v2014.Client model = null;
-				try {
-				model = getModelObject(domain, client,data,modelMap,dedupSessionKey,skipClientIdentifier);
-				model.setFirstName(client.getFirstName());
-				model.setDob(BasicDataGenerator.getLocalDateTime(client
-						.getDOB()));
-				model
-						.setDobDataQuality(ClientDobDataQualityEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getDOBDataQuality())));
-				model.setEthnicity(ClientEthnicityEnum
-						.lookupEnum(String.valueOf(client.getEthnicity())));
-				model.setGender(ClientGenderEnum.lookupEnum(String
-						.valueOf(client.getGender())));
-				model.setLastName(client.getLastName());
-				model.setMiddleName(client.getMiddleName());
-				model
-						.setNameDataQuality(ClientNameDataQualityEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getNameDataQuality())));
-				model.setNameSuffix(client.getNameSuffix());
-				model.setOtherGender(client.getOtherGender());
-				model.setRace(ClientRaceEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(client.getRace())));
-				model.setSsn(client.getSSN());
-				model
-						.setSsnDataQuality(ClientSsnDataQualityEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getSSNDataQuality())));
-				model
-						.setVeteranStatus(ClientVeteranStatusEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(client
-												.getVeteranStatus())));
-				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
-				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
-				model.setExport(exportEntity);
-				performSaveOrUpdate(model);	
-				// Inserting client in base schema	
-				if(!model.isIgnored()) {
-					com.servinglynk.hmis.warehouse.model.base.Client base = new com.servinglynk.hmis.warehouse.model.base.Client();
-					BeanUtils.copyProperties(model, base, new String[] {"enrollments","veteranInfoes"});
-					base.setDateUpdated(LocalDateTime.now());
-					base.setSchemaYear("2014");
-					insertOrUpdate(base);	
-				}
-				// Inserting client in base schema		
-			
-				} catch(Exception ex ){
-					String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
-					if(model != null){
-						Error2014 error = new Error2014();
-						error.model_id = model.getId();
-						error.bulk_upload_ui = domain.getUpload().getId();
-						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = model.getSourceSystemId();
-						error.type = ErrorType.ERROR;
-						error.error_description = errorMessage;
-						error.date_created = model.getDateCreated();
-						performSave(error);
-					}
-					logger.error(errorMessage);
-				}
+		if (CollectionUtils.isNotEmpty(clients)) {
+			clients.parallelStream().forEach(e->processData(e, domain, data, modelMap, dedupSessionKey, skipClientIdentifier,exportEntity));
 			}
-	}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain, exportEntity);
+	}
+	
+	public void processData(Client client,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,String dedupSessionKey,Boolean skipClientIdentifier,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+			com.servinglynk.hmis.warehouse.model.v2014.Client model = null;
+			try {
+			model = getModelObject(domain, client,data,modelMap,dedupSessionKey,skipClientIdentifier);
+			model.setFirstName(client.getFirstName());
+			model.setDob(BasicDataGenerator.getLocalDateTime(client
+					.getDOB()));
+			model
+					.setDobDataQuality(ClientDobDataQualityEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(client
+											.getDOBDataQuality())));
+			model.setEthnicity(ClientEthnicityEnum
+					.lookupEnum(String.valueOf(client.getEthnicity())));
+			model.setGender(ClientGenderEnum.lookupEnum(String
+					.valueOf(client.getGender())));
+			model.setLastName(client.getLastName());
+			model.setMiddleName(client.getMiddleName());
+			model
+					.setNameDataQuality(ClientNameDataQualityEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(client
+											.getNameDataQuality())));
+			model.setNameSuffix(client.getNameSuffix());
+			model.setOtherGender(client.getOtherGender());
+			model.setRace(ClientRaceEnum
+					.lookupEnum(BasicDataGenerator
+							.getStringValue(client.getRace())));
+			model.setSsn(client.getSSN());
+			model
+					.setSsnDataQuality(ClientSsnDataQualityEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(client
+											.getSSNDataQuality())));
+			model
+					.setVeteranStatus(ClientVeteranStatusEnum
+							.lookupEnum(BasicDataGenerator
+									.getStringValue(client
+											.getVeteranStatus())));
+			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
+			model.setExport(exportEntity);
+			performSaveOrUpdate(model);	
+			// Inserting client in base schema	
+			if(!model.isIgnored()) {
+				com.servinglynk.hmis.warehouse.model.base.Client base = new com.servinglynk.hmis.warehouse.model.base.Client();
+				BeanUtils.copyProperties(model, base, new String[] {"enrollments","veteranInfoes"});
+				base.setDateUpdated(LocalDateTime.now());
+				base.setSchemaYear("2014");
+				insertOrUpdate(base);	
+			}
+			// Inserting client in base schema		
+		
+			} catch(Exception ex ){
+				String errorMessage = "Exception because of the client::"+client.getPersonalID() +" Exception ::"+ex.getMessage();
+				if(model != null){
+					Error2014 error = new Error2014();
+					error.model_id = model.getId();
+					error.bulk_upload_ui = domain.getUpload().getId();
+					error.project_group_code = domain.getUpload().getProjectGroupCode();
+					error.source_system_id = model.getSourceSystemId();
+					error.type = ErrorType.ERROR;
+					error.error_description = errorMessage;
+					error.date_created = model.getDateCreated();
+					performSave(error);
+				}
+				logger.error(errorMessage);
+			}
 	}
 	/**
 	 * This is where the deduping happens We check if a client with the same information exists and

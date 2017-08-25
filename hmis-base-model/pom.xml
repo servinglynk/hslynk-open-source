@@ -106,6 +106,25 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding -->
+		<dependency>
+		    <groupId>net.sf.sevenzipjbinding</groupId>
+		    <artifactId>sevenzipjbinding</artifactId>
+		    <version>9.20-2.00beta</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding-linux-arm -->
+<dependency>
+    <groupId>net.sf.sevenzipjbinding</groupId>
+    <artifactId>sevenzipjbinding-linux-arm</artifactId>
+    <version>9.20-2.00beta</version>
+</dependency>
+		
+				<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding-all-platforms -->
+		<dependency>
+		    <groupId>net.sf.sevenzipjbinding</groupId>
+		    <artifactId>sevenzipjbinding-all-platforms</artifactId>
+		    <version>9.20-2.00beta</version>
+		</dependency>
 
 		<!-- Logging -->
 		<dependency>
