@@ -37,41 +37,41 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Dateofengagement.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
-		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
+		if(dateOfEngagements!=null && !dateOfEngagements.isEmpty())
 		{
-			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
-			{
-				Dateofengagement model = null;
-				try {
-					model = getModelObject(domain, dateOfEngagement,data,modelMap);
-					model.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Dateofengagement.class.getSimpleName(),Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					model.setEnrollmentid(enrollmentModel);
-					model.setExport(exportEntity);
-					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
-					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-					
-					performSaveOrUpdate(model);
-				} catch(Exception e) {
-					String errorMessage = "Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
-					if (model != null) {
-						Error2014 error = new Error2014();
-						error.model_id = model.getId();
-						error.bulk_upload_ui = domain.getUpload().getId();
-						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = model.getSourceSystemId();
-						error.type = ErrorType.ERROR;
-						error.error_description = errorMessage;
-						error.date_created = model.getDateCreated();
-						performSave(error);
-					}
-					logger.error(errorMessage);
-				}
-			}
+			dateOfEngagements.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Dateofengagement.class.getSimpleName(), domain, exportEntity);
 	}
 	
+	    public void processData(DateOfEngagement dateOfEngagement,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+			Dateofengagement model = null;
+			try {
+				model = getModelObject(domain, dateOfEngagement,data,modelMap);
+				model.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
+				Enrollment enrollmentModel = (Enrollment) getModel(Dateofengagement.class.getSimpleName(),Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+				model.setEnrollmentid(enrollmentModel);
+				model.setExport(exportEntity);
+				model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
+				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
+				
+				performSaveOrUpdate(model);
+			} catch(Exception e) {
+				String errorMessage = "Exception in:"+dateOfEngagement.getProjectEntryID()+  ":: Exception" +e.getLocalizedMessage();
+				if (model != null) {
+					Error2014 error = new Error2014();
+					error.model_id = model.getId();
+					error.bulk_upload_ui = domain.getUpload().getId();
+					error.project_group_code = domain.getUpload().getProjectGroupCode();
+					error.source_system_id = model.getSourceSystemId();
+					error.type = ErrorType.ERROR;
+					error.error_description = errorMessage;
+					error.date_created = model.getDateCreated();
+					performSave(error);
+				}
+				logger.error(errorMessage);
+			}
+		}
 	  public com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateOfEngagement,Data data, Map<String,HmisBaseModel> modelMap) {
 		  com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement modelFromDB = null;
 		  if(!isFullRefresh(domain))
