@@ -209,7 +209,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-core-common</artifactId>

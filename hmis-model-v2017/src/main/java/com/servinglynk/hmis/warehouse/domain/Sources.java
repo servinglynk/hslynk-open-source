@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
 import com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare;
 import com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason;
 
@@ -338,7 +337,7 @@ public class Sources {
             "exportDirective",
             "affiliation",
             "client",
-         /*   "contact", */
+            "contact",
             "dateOfEngagement",
             "disabilities",
             "domesticViolence",
@@ -389,8 +388,8 @@ public class Sources {
             protected List<Client> client;
             @XmlElement(name = "Affiliation")
             protected List<Affiliation> affiliation;
-            /*@XmlElement(name = "Contact", required = true)
-            protected List<Contact> contact;*/
+            @XmlElement(name = "Contact", required = true)
+            protected List<Contact> contact;
             @XmlElement(name = "DateOfEngagement", required = true)
             protected List<DateOfEngagement> dateOfEngagement;
             @XmlElement(name = "Disabilities", required = true)
@@ -456,7 +455,7 @@ public class Sources {
             @XmlElement(name = "Geography", required = true)
             protected List<Geography> geography;
             @XmlElement(name = "ConnectionWithSoar", required = true)
-            protected List<ConnectionWithSoar> connectionWithSoar;
+            protected List<ConnectionWithSOAR> connectionWithSOAR;
             @XmlElement(name = "VASHExitReason", required = true)
             protected List<VASHExitReason> vashExitReason;
             @XmlElement(name = "RHYAfterCare", required = true)
@@ -678,9 +677,9 @@ public class Sources {
              *     {@link Contact }
              *     
              */
-           /* public List<Contact> getContact() {
+            public List<Contact> getContact() {
                 return contact;
-            }*/
+            }
 
             /**
              * Sets the value of the contact property.
@@ -690,9 +689,9 @@ public class Sources {
              *     {@link Contact }
              *     
              */
-           /* public void setContact(List<Contact> value) {
+            public void setContact(List<Contact> value) {
                 this.contact = value;
-            }*/
+            }
 
             /**
              * Gets the value of the dateOfEngagement property.
@@ -714,8 +713,8 @@ public class Sources {
              *     {@link ConnectionWithSoar }
              *     
              */
-            public void setConnectionWithSoar(List<ConnectionWithSoar> value) {
-                this.connectionWithSoar = value;
+            public void setConnectionWithSoar(List<ConnectionWithSOAR> value) {
+                this.connectionWithSOAR = value;
             }
             
             /**
@@ -726,8 +725,8 @@ public class Sources {
              *     {@link ConnectionWithSoar }
              *     
              */
-            public List<ConnectionWithSoar> getConnectionWithSoar() {
-                return connectionWithSoar;
+            public List<ConnectionWithSOAR> getConnectionWithSoar() {
+                return connectionWithSOAR;
             }
 
             /**
@@ -3475,6 +3474,189 @@ public class Sources {
 
             }
 
+
+            /**
+             * <p>Java class for anonymous complex type.
+             * 
+             * <p>The following schema fragment specifies the expected content contained within this class.
+             * 
+             * <pre>
+             * &lt;complexType>
+             *   &lt;complexContent>
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+             *       &lt;sequence>
+             *         &lt;element name="ConnectionWithSOARID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *       &lt;/sequence>
+             *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+             *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+             *       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
+             *     &lt;/restriction>
+             *   &lt;/complexContent>
+             * &lt;/complexType>
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "connectionWithSOARID",
+                "enrollmentID",
+                "connectionWithSOAR"
+            })
+            public static class ConnectionWithSOAR {
+
+                @XmlElement(name = "ConnectionWithSOARID" , required = true)
+                protected String connectionWithSOARID;
+                @XmlElement(name = "EnrollmentID" , required = true)
+                protected String enrollmentID;
+                @XmlElement(name = "ConnectionWithSOAR" )
+                protected byte connectionWithSOAR;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+
+                /**
+                 * Gets the value of the connectionWithSOARID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getConnectionWithSOARID() {
+                    return connectionWithSOARID;
+                }
+
+                /**
+                 * Sets the value of the connectionWithSOARID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setConnectionWithSOARID(String value) {
+                    this.connectionWithSOARID = value;
+                }
+
+                /**
+                 * Gets the value of the exitID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getEnrollmentID() {
+                    return enrollmentID;
+                }
+
+                /**
+                 * Sets the value of the exitID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setEnrollmentID(String value) {
+                    this.enrollmentID = value;
+                }
+
+                /**
+                 * Gets the value of the connectionWithSOAR property.
+                 * 
+                 */
+                public byte getConnectionWithSOAR() {
+                    return connectionWithSOAR;
+                }
+
+                /**
+                 * Sets the value of the connectionWithSOAR property.
+                 * 
+                 */
+                public void setConnectionWithSOAR(byte value) {
+                    this.connectionWithSOAR = value;
+                }
+
+                /**
+                 * Gets the value of the dateCreated property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getDateCreated() {
+                    return dateCreated;
+                }
+
+                /**
+                 * Sets the value of the dateCreated property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setDateCreated(XMLGregorianCalendar value) {
+                    this.dateCreated = value;
+                }
+
+                /**
+                 * Gets the value of the dateUpdated property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getDateUpdated() {
+                    return dateUpdated;
+                }
+
+                /**
+                 * Sets the value of the dateUpdated property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setDateUpdated(XMLGregorianCalendar value) {
+                    this.dateUpdated = value;
+                }
+
+                /**
+                 * Gets the value of the userID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getUserID() {
+                    return userID;
+                }
+
+                /**
+                 * Sets the value of the userID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setUserID(String value) {
+                    this.userID = value;
+                }
+
+            }
 
             /**
              * <p>Java class for anonymous complex type.

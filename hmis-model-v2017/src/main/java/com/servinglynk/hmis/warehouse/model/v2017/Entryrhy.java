@@ -21,11 +21,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectYouthEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYActiveMilitaryParentEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYChildWelfareYearsEnum;
@@ -34,27 +30,12 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardChildWelfareEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardJuvenileJusticeEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesYouthEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYHouseholdDynamicsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentStatusEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYInsufficientIncomeEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityYouthEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesYouthEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIDFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIdentityYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
@@ -85,15 +66,15 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	/** Field mapping. */
-	private EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr;
+//	private EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth;
+//	private EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth;
 	/** Field mapping. */
-	private EntryRHYActiveMilitaryParentEnum activeMilitaryParent;
+//	private EntryRHYActiveMilitaryParentEnum activeMilitaryParent;
 	/** Field mapping. */
 	private EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth;
+//	private EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth;
 	/** Field mapping. */
 	private EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex;
 	/** Field mapping. */
@@ -115,55 +96,55 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice;
 	/** Field mapping. */
-	private EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr;
+//	private EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYHealthIssuesYouthEnum healthIssuesYouth;
+//	private EntryRHYHealthIssuesYouthEnum healthIssuesYouth;
 	/** Field mapping. */
-	private EntryRHYHouseholdDynamicsEnum houseHoldDynamics;
+//	private EntryRHYHouseholdDynamicsEnum houseHoldDynamics;
 	/** Field mapping. */
-	private EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr;
+//	private EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYHousingIssuesYouthEnum housingIssuesYouth;
+//	private EntryRHYHousingIssuesYouthEnum housingIssuesYouth;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private EntryRHYIncarceratedParentEnum incarceratedParent;
 	/** Field mapping. */
-	private EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus;
+//	private EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus;
 	/** Field mapping. */
 	private EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth;
 	/** Field mapping. */
 	private Integer laborExploitPastThreeMonths;
 	/** Field mapping. */
-	private EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr;
+//	private EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth;
+//	private EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth;
 	/** Field mapping. */
 	private EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth;
+//	private EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth;
 	/** Field mapping. */
-	private Integer monthsChildWelfrForestCare;
+//	private Integer monthsChildWelfrForestCare;
 	/** Field mapping. */
 	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth;
+//	private EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth;
 	/** Field mapping. */
 	private Integer referralSource;
 	/** Field mapping. */
-	private EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr;
+//	private EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth;
+//	private EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth;
 	/** Field mapping. */
-	private EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr;
+//	private EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth;
+//	private EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth;
 	/** Field mapping. */
 	private SexualorientationSexualorientationEnum sexualOrientation;
 	/** Field mapping. */
 	private EntryRHYUnemploymentFamEnum unemployementFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYUnemploymentYouthEnum unemployementYouth;
+//	private EntryRHYUnemploymentYouthEnum unemployementYouth;
 	/** Field mapping. */
 	private EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference;
 	/** Field mapping. */
@@ -236,73 +217,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 
-	 /**
-	 * Return the value associated with the column: abuseAndNeglectFamilyMbr.
-	 * @return A Integer object (this.abuseAndNeglectFamilyMbr)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectFamEnumType")
-	@Basic( optional = true )
-	@Column(name= "abuse_and_neglect_family_mbr")
-	public EntryRHYAbuseAndNeglectFamEnum getAbuseAndNeglectFamilyMbr() {
-		return this.abuseAndNeglectFamilyMbr;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: abuseAndNeglectFamilyMbr.
-	 * @param abuseAndNeglectFamilyMbr the abuseAndNeglectFamilyMbr value you wish to set
-	 */
-	public void setAbuseAndNeglectFamilyMbr(final EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr) {
-		this.abuseAndNeglectFamilyMbr = abuseAndNeglectFamilyMbr;
-	}
-
-	 /**
-	 * Return the value associated with the column: abuseAndNeglectYouth.
-	 * @return A Integer object (this.abuseAndNeglectYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAbuseAndNeglectYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="abuse_and_neglect_youth")
-	public EntryRHYAbuseAndNeglectYouthEnum getAbuseAndNeglectYouth() {
-		return this.abuseAndNeglectYouth;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: abuseAndNeglectYouth.
-	 * @param abuseAndNeglectYouth the abuseAndNeglectYouth value you wish to set
-	 */
-	public void setAbuseAndNeglectYouth(final EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth) {
-		this.abuseAndNeglectYouth = abuseAndNeglectYouth;
-	}
-
-	 /**
-	 * Return the value associated with the column: activeMilitaryParent.
-	 * @return A Integer object (this.activeMilitaryParent)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYActiveMilitaryParentEnumType")
-	@Basic( optional = true )
-	@Column (name="active_military_parent")
-	public EntryRHYActiveMilitaryParentEnum getActiveMilitaryParent() {
-		return this.activeMilitaryParent;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: activeMilitaryParent.
-	 * @param activeMilitaryParent the activeMilitaryParent value you wish to set
-	 */
-	public void setActiveMilitaryParent(final EntryRHYActiveMilitaryParentEnum activeMilitaryParent) {
-		this.activeMilitaryParent = activeMilitaryParent;
-	}
-
-
 
 	 /**
 	 * Return the value associated with the column: enrollmentid.
@@ -361,29 +275,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	 /**
-	 * Return the value associated with the column: monthsChildWelfrForestCare.
-	 * @return A Integer object (this.monthsChildWelfrForestCare)
-	 */
-	@Basic( optional = true )
-	@Column( name = "months_child_welfr_forest_care"  )
-	public Integer getMonthsChildWelfrForestCare() {
-		return this.monthsChildWelfrForestCare;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: monthsChildWelfrForestCare.
-	 * @param monthsChildWelfrForestCare the monthsChildWelfrForestCare value you wish to set
-	 */
-	public void setMonthsChildWelfrForestCare(final Integer monthsChildWelfrForestCare) {
-		this.monthsChildWelfrForestCare = monthsChildWelfrForestCare;
-	}
-
-
-
-	 /**
 	 * Return the value associated with the column: referralSource.
 	 * @return A Integer object (this.referralSource)
 	 */
@@ -418,22 +309,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setAlcoholDrugAbuseFamilyMbr(
 			EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr) {
 		this.alcoholDrugAbuseFamilyMbr = alcoholDrugAbuseFamilyMbr;
-	}
-
-	/**
-	 * Return the value associated with the column: alcoholDrugAbuseYouth.
-	 * @return A Integer object (this.alcoholDrugAbuseYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="alcohol_drug_abuse_youth")
-	public EntryRHYAlcoholDrugAbuseYouthEnum getAlcoholDrugAbuseYouth() {
-		return alcoholDrugAbuseYouth;
-	}
-
-	public void setAlcoholDrugAbuseYouth(
-			EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth) {
-		this.alcoholDrugAbuseYouth = alcoholDrugAbuseYouth;
 	}
 
 	/**
@@ -573,83 +448,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.formerlyWardOfJuvenileJustice = formerlyWardOfJuvenileJustice;
 	}
 
-	/**
-	 * Return the value associated with the column: healthIssuesFamilyMbr.
-	 * @return A Integer object (this.healthIssuesFamilyMbr)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesFamEnumType")
-	@Basic( optional = true )
-	@Column (name="health_issues_family_mbrily_mbr")
-	public EntryRHYHealthIssuesFamEnum getHealthIssuesFamilyMbr() {
-		return healthIssuesFamilyMbr;
-	}
 
-	public void setHealthIssuesFamilyMbr(
-			EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr) {
-		this.healthIssuesFamilyMbr = healthIssuesFamilyMbr;
-	}
-
-	/**
-	 * Return the value associated with the column: healthIssuesYouth.
-	 * @return A Integer object (this.healthIssuesYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHealthIssuesYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="health_issues_youth")
-	public EntryRHYHealthIssuesYouthEnum getHealthIssuesYouth() {
-		return healthIssuesYouth;
-	}
-
-	public void setHealthIssuesYouth(EntryRHYHealthIssuesYouthEnum healthIssuesYouth) {
-		this.healthIssuesYouth = healthIssuesYouth;
-	}
-
-	/**
-	 * Return the value associated with the column: houseHoldDynamics.
-	 * @return A Integer object (this.houseHoldDynamics)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHouseholdDynamicsEnumType")
-	@Basic( optional = true )
-	@Column (name="house_hold_dynamics")
-	public EntryRHYHouseholdDynamicsEnum getHouseHoldDynamics() {
-		return houseHoldDynamics;
-	}
-
-	public void setHouseHoldDynamics(EntryRHYHouseholdDynamicsEnum houseHoldDynamics) {
-		this.houseHoldDynamics = houseHoldDynamics;
-	}
-
-	/**
-	 * Return the value associated with the column: housingIssuesFamilyMbr.
-	 * @return A Integer object (this.housingIssuesFamilyMbr)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesFamEnumType")
-	@Basic( optional = true )
-	@Column(name="housing_issues_family_mbrily_mbr")
-	public EntryRHYHousingIssuesFamEnum getHousingIssuesFamilyMbr() {
-		return housingIssuesFamilyMbr;
-	}
-
-	public void setHousingIssuesFamilyMbr(
-			EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr) {
-		this.housingIssuesFamilyMbr = housingIssuesFamilyMbr;
-	}
-
-	/**
-	 * Return the value associated with the column: housingIssuesYouth.
-	 * @return A Integer object (this.housingIssuesYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYHousingIssuesYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="housing_issues_youth")
-	public EntryRHYHousingIssuesYouthEnum getHousingIssuesYouth() {
-		return housingIssuesYouth;
-	}
-
-	public void setHousingIssuesYouth(
-			EntryRHYHousingIssuesYouthEnum housingIssuesYouth) {
-		this.housingIssuesYouth = housingIssuesYouth;
-	}
 
 	/**
 	 * Return the value associated with the column: incarceratedParent.
@@ -665,22 +464,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setIncarceratedParent(
 			EntryRHYIncarceratedParentEnum incarceratedParent) {
 		this.incarceratedParent = incarceratedParent;
-	}
-
-	/**
-	 * Return the value associated with the column: incarceratedParentStatus.
-	 * @return A Integer object (this.incarceratedParentStatus)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentStatusEnumType")
-	@Basic( optional = true )
-	@Column (name="incarcerated_parent_status")
-	public EntryRHYIncarceratedParentStatusEnum getIncarceratedParentStatus() {
-		return incarceratedParentStatus;
-	}
-
-	public void setIncarceratedParentStatus(
-			EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus) {
-		this.incarceratedParentStatus = incarceratedParentStatus;
 	}
 
 	/**
@@ -714,37 +497,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
 	}
 
-	/**
-	 * Return the value associated with the column: mentalDisabilityFamilyMbr.
-	 * @return A Integer object (this.mentalDisabilityFamilyMbr)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityFamEnumType")
-	@Basic( optional = true )
-	@Column (name="mental_disability_family_mbrily_mbr")
-	public EntryRHYMentalDisabilityFamEnum getMentalDisabilityFamilyMbr() {
-		return mentalDisabilityFamilyMbr;
-	}
-
-	public void setMentalDisabilityFamilyMbr(
-			EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr) {
-		this.mentalDisabilityFamilyMbr = mentalDisabilityFamilyMbr;
-	}
-
-	/**
-	 * Return the value associated with the column: mentalDisabilityYouth.
-	 * @return A Integer object (this.mentalDisabilityYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalDisabilityYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="mental_disability_youth")
-	public EntryRHYMentalDisabilityYouthEnum getMentalDisabilityYouth() {
-		return mentalDisabilityYouth;
-	}
-
-	public void setMentalDisabilityYouth(
-			EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth) {
-		this.mentalDisabilityYouth = mentalDisabilityYouth;
-	}
 
 	/**
 	 * Return the value associated with the column: mentalHealthIssuesFamilyMbr.
@@ -762,21 +514,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.mentalHealthIssuesFamilyMbr = mentalHealthIssuesFamilyMbr;
 	}
 
-	/**
-	 * Return the value associated with the column: mentalHealthIssuesYouth.
-	 * @return A Integer object (this.mentalHealthIssuesYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="mental_health_issues_youth")
-	public EntryRHYMentalHealthIssuesYouthEnum getMentalHealthIssuesYouth() {
-		return mentalHealthIssuesYouth;
-	}
-
-	public void setMentalHealthIssuesYouth(
-			EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth) {
-		this.mentalHealthIssuesYouth = mentalHealthIssuesYouth;
-	}
 
 	/**
 	 * Return the value associated with the column: physicalDisabilityFamilyMbr.
@@ -794,87 +531,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.physicalDisabilityFamilyMbr = physicalDisabilityFamilyMbr;
 	}
 
-	/**
-	 * Return the value associated with the column: physicalDisabilityYouth.
-	 * @return A Integer object (this.physicalDisabilityYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="physical_disability_youth")
-	public EntryRHYPhysicalDisabilityYouthEnum getPhysicalDisabilityYouth() {
-		return physicalDisabilityYouth;
-	}
 
-	public void setPhysicalDisabilityYouth(
-			EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth) {
-		this.physicalDisabilityYouth = physicalDisabilityYouth;
-	}
-
-	/**
-	 * Return the value associated with the column: schoolEducationIssuesFamilyMbr.
-	 * @return A Integer object (this.schoolEducationIssuesFamilyMbr)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesFamEnumType")
-	@Basic( optional = true )
-	@Column (name="school_education_issues_family_mbr")
-	public EntryRHYSchoolEducationalIssuesFamEnum getSchoolEducationIssuesFamilyMbr() {
-		return schoolEducationIssuesFamilyMbr;
-	}
-
-	public void setSchoolEducationIssuesFamilyMbr(
-			EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr) {
-		this.schoolEducationIssuesFamilyMbr = schoolEducationIssuesFamilyMbr;
-	}
-
-
-	/**
-	 * Return the value associated with the column: schoolEducationIssuesYouth.
-	 * @return A Integer object (this.schoolEducationIssuesYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSchoolEducationalIssuesYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="school_education_issues_youth")
-	public EntryRHYSchoolEducationalIssuesYouthEnum getSchoolEducationIssuesYouth() {
-		return schoolEducationIssuesYouth;
-	}
-
-	public void setSchoolEducationIssuesYouth(
-			EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth) {
-		this.schoolEducationIssuesYouth = schoolEducationIssuesYouth;
-	}
-
-	/**
-	 * Return the value associated with the column: sexualOrientatiionGenderIdentityFamilyMbr.
-	 * @return A Integer object (this.sexualOrientatiionGenderIdentityFamilyMbr)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIDFamEnumType")
-	@Basic( optional = true )
-	@Column (name="sexual_orientatiion_gender_identity_family_mbr")
-	public EntryRHYSexualOrientationGenderIDFamEnum getSexualOrientatiionGenderIdentityFamilyMbr() {
-		return sexualOrientatiionGenderIdentityFamilyMbr;
-	}
-
-	public void setSexualOrientatiionGenderIdentityFamilyMbr(
-			EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr) {
-		this.sexualOrientatiionGenderIdentityFamilyMbr = sexualOrientatiionGenderIdentityFamilyMbr;
-	}
-
-
-	/**
-	 * Return the value associated with the column: sexualOrientatiionGenderIdentityYouth.
-	 * @return A Integer object (this.sexualOrientatiionGenderIdentityYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYSexualOrientationGenderIdentityYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="sexual_orientatiion_gender_identity_youth")
-	public EntryRHYSexualOrientationGenderIdentityYouthEnum getSexualOrientatiionGenderIdentityYouth() {
-		return sexualOrientatiionGenderIdentityYouth;
-	}
-
-	public void setSexualOrientatiionGenderIdentityYouth(
-			EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth) {
-		this.sexualOrientatiionGenderIdentityYouth = sexualOrientatiionGenderIdentityYouth;
-	}
 
 	/**
 	 * Return the value associated with the column: sexualOrientation.
@@ -906,22 +563,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setUnemployementFamilyMbr(
 			EntryRHYUnemploymentFamEnum unemployementFamilyMbr) {
 		this.unemployementFamilyMbr = unemployementFamilyMbr;
-	}
-
-	/**
-	 * Return the value associated with the column: unemployementYouth.
-	 * @return A Integer object (this.unemployementYouth)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentYouthEnumType")
-	@Basic( optional = true )
-	@Column (name="unemployement_youth")
-	public EntryRHYUnemploymentYouthEnum getUnemployementYouth() {
-		return unemployementYouth;
-	}
-
-	public void setUnemployementYouth(
-			EntryRHYUnemploymentYouthEnum unemployementYouth) {
-		this.unemployementYouth = unemployementYouth;
 	}
 
 	/**
@@ -1040,11 +681,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
         final Entryrhy copy = (Entryrhy)super.clone();
 
-		copy.setAbuseAndNeglectFamilyMbr(this.getAbuseAndNeglectFamilyMbr());
-		copy.setAbuseAndNeglectYouth(this.getAbuseAndNeglectYouth());
-		copy.setActiveMilitaryParent(this.getActiveMilitaryParent());
 		copy.setAlcoholDrugAbuseFamilyMbr(this.getAlcoholDrugAbuseFamilyMbr());
-		copy.setAlcoholDrugAbuseYouth(this.getAlcoholDrugAbuseYouth());
 		copy.setAskedOfForcedToExchangeForSex(this.getAskedOfForcedToExchangeForSex());
 		copy.setAskedOfForcedToExchangeForSexPastThreeMonths(this.getAskedOfForcedToExchangeForSexPastThreeMonths());
 		copy.setCoercedToContinueWork(this.getCoercedToContinueWork());
@@ -1061,34 +698,18 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setExport(this.getExport());
 		copy.setFormerlyWardChildWelfrForestCare(this.getFormerlyWardChildWelfrForestCare());
 		copy.setFormerlyWardOfJuvenileJustice(this.getFormerlyWardOfJuvenileJustice());
-		copy.setHealthIssuesFamilyMbr(this.getHealthIssuesFamilyMbr());
-		copy.setHealthIssuesYouth(this.getHealthIssuesYouth());
-		copy.setHouseHoldDynamics(this.getHouseHoldDynamics());
-		copy.setHousingIssuesFamilyMbr(this.getHousingIssuesFamilyMbr());
-		copy.setHousingIssuesYouth(this.getHousingIssuesYouth());
 		copy.setId(this.getId());
 		copy.setIncarceratedParent(this.getIncarceratedParent());
-		copy.setIncarceratedParentStatus(this.getIncarceratedParentStatus());
 		copy.setInsufficientIncomeToSupportYouth(this.getInsufficientIncomeToSupportYouth());
 		copy.setLaborExploitPastThreeMonths(this.getLaborExploitPastThreeMonths());
-		copy.setMentalDisabilityFamilyMbr(this.getMentalDisabilityFamilyMbr());
-		copy.setMentalDisabilityYouth(this.getMentalDisabilityYouth());
 		copy.setMentalHealthIssuesFamilyMbr(this.getMentalHealthIssuesFamilyMbr());
-		copy.setMentalHealthIssuesYouth(this.getMentalHealthIssuesYouth());
-		copy.setMonthsChildWelfrForestCare(this.getMonthsChildWelfrForestCare());
 		copy.setParentId(this.getParentId());
 		copy.setPhysicalDisabilityFamilyMbr(this.getPhysicalDisabilityFamilyMbr());
-		copy.setPhysicalDisabilityYouth(this.getPhysicalDisabilityYouth());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setReferralSource(this.getReferralSource());
-		copy.setSchoolEducationIssuesFamilyMbr(this.getSchoolEducationIssuesFamilyMbr());
-		copy.setSchoolEducationIssuesYouth(this.getSchoolEducationIssuesYouth());
-		copy.setSexualOrientatiionGenderIdentityFamilyMbr(this.getSexualOrientatiionGenderIdentityFamilyMbr());
-		copy.setSexualOrientatiionGenderIdentityYouth(this.getSexualOrientatiionGenderIdentityYouth());
 		copy.setSexualOrientation(this.getSexualOrientation());
 		copy.setSync(this.isSync());
 		copy.setUnemployementFamilyMbr(this.getUnemployementFamilyMbr());
-		copy.setUnemployementYouth(this.getUnemployementYouth());
 		copy.setUserId(this.getUserId());
 		copy.setVersion(this.getVersion());
 		copy.setWorkPlacePromiseDifference(this.getWorkPlacePromiseDifference());
@@ -1108,11 +729,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("abuseAndNeglectFamilyMbr: " + this.getAbuseAndNeglectFamilyMbr() + ", ");
-		sb.append("abuseAndNeglectYouth: " + this.getAbuseAndNeglectYouth() + ", ");
-		sb.append("activeMilitaryParent: " + this.getActiveMilitaryParent() + ", ");
 		sb.append("alcoholDrugAbuseFamilyMbr: " + this.getAlcoholDrugAbuseFamilyMbr() + ", ");
-		sb.append("alcoholDrugAbuseYouth: " + this.getAlcoholDrugAbuseYouth() + ", ");
 		sb.append("askedOfForcedToExchangeForSex: " + this.getAskedOfForcedToExchangeForSex() + ", ");
 		sb.append("askedOfForcedToExchangeForSexPastThreeMonths: " + this.getAskedOfForcedToExchangeForSexPastThreeMonths() + ", ");
 		sb.append("coercedToContinueWork: " + this.getCoercedToContinueWork() + ", ");
@@ -1127,34 +744,17 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("exchangeForSexPastThreeMonths: " + this.getExchangeForSexPastThreeMonths() + ", ");
 		sb.append("formerlyWardChildWelfrForestCare: " + this.getFormerlyWardChildWelfrForestCare() + ", ");
 		sb.append("formerlyWardOfJuvenileJustice: " + this.getFormerlyWardOfJuvenileJustice() + ", ");
-		sb.append("healthIssuesFamilyMbr: " + this.getHealthIssuesFamilyMbr() + ", ");
-		sb.append("healthIssuesYouth: " + this.getHealthIssuesYouth() + ", ");
-		sb.append("houseHoldDynamics: " + this.getHouseHoldDynamics() + ", ");
-		sb.append("housingIssuesFamilyMbr: " + this.getHousingIssuesFamilyMbr() + ", ");
-		sb.append("housingIssuesYouth: " + this.getHousingIssuesYouth() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("incarceratedParent: " + this.getIncarceratedParent() + ", ");
-		sb.append("incarceratedParentStatus: " + this.getIncarceratedParentStatus() + ", ");
 		sb.append("insufficientIncomeToSupportYouth: " + this.getInsufficientIncomeToSupportYouth() + ", ");
 		sb.append("laborExploitPastThreeMonths: " + this.getLaborExploitPastThreeMonths() + ", ");
-		sb.append("mentalDisabilityFamilyMbr: " + this.getMentalDisabilityFamilyMbr() + ", ");
-		sb.append("mentalDisabilityYouth: " + this.getMentalDisabilityYouth() + ", ");
-		sb.append("mentalHealthIssuesFamilyMbr: " + this.getMentalHealthIssuesFamilyMbr() + ", ");
-		sb.append("mentalHealthIssuesYouth: " + this.getMentalHealthIssuesYouth() + ", ");
-		sb.append("monthsChildWelfrForestCare: " + this.getMonthsChildWelfrForestCare() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("physicalDisabilityFamilyMbr: " + this.getPhysicalDisabilityFamilyMbr() + ", ");
-		sb.append("physicalDisabilityYouth: " + this.getPhysicalDisabilityYouth() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
 		sb.append("referralSource: " + this.getReferralSource() + ", ");
-		sb.append("schoolEducationIssuesFamilyMbr: " + this.getSchoolEducationIssuesFamilyMbr() + ", ");
-		sb.append("schoolEducationIssuesYouth: " + this.getSchoolEducationIssuesYouth() + ", ");
-		sb.append("sexualOrientatiionGenderIdentityFamilyMbr: " + this.getSexualOrientatiionGenderIdentityFamilyMbr() + ", ");
-		sb.append("sexualOrientatiionGenderIdentityYouth: " + this.getSexualOrientatiionGenderIdentityYouth() + ", ");
 		sb.append("sexualOrientation: " + this.getSexualOrientation() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
 		sb.append("unemployementFamilyMbr: " + this.getUnemployementFamilyMbr() + ", ");
-		sb.append("unemployementYouth: " + this.getUnemployementYouth() + ", ");
 		sb.append("userId: " + this.getUserId() + ", ");
 		sb.append("version: " + this.getVersion() + ", ");
 		sb.append("workPlacePromiseDifference: " + this.getWorkPlacePromiseDifference() + ", ");
@@ -1206,11 +806,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
-		result = result && (((getAbuseAndNeglectFamilyMbr() == null) && (that.getAbuseAndNeglectFamilyMbr() == null)) || (getAbuseAndNeglectFamilyMbr() != null && getAbuseAndNeglectFamilyMbr().equals(that.getAbuseAndNeglectFamilyMbr())));
-		result = result && (((getAbuseAndNeglectYouth() == null) && (that.getAbuseAndNeglectYouth() == null)) || (getAbuseAndNeglectYouth() != null && getAbuseAndNeglectYouth().equals(that.getAbuseAndNeglectYouth())));
-		result = result && (((getActiveMilitaryParent() == null) && (that.getActiveMilitaryParent() == null)) || (getActiveMilitaryParent() != null && getActiveMilitaryParent().equals(that.getActiveMilitaryParent())));
 		result = result && (((getAlcoholDrugAbuseFamilyMbr() == null) && (that.getAlcoholDrugAbuseFamilyMbr() == null)) || (getAlcoholDrugAbuseFamilyMbr() != null && getAlcoholDrugAbuseFamilyMbr().equals(that.getAlcoholDrugAbuseFamilyMbr())));
-		result = result && (((getAlcoholDrugAbuseYouth() == null) && (that.getAlcoholDrugAbuseYouth() == null)) || (getAlcoholDrugAbuseYouth() != null && getAlcoholDrugAbuseYouth().equals(that.getAlcoholDrugAbuseYouth())));
 		result = result && (((getAskedOfForcedToExchangeForSex() == null) && (that.getAskedOfForcedToExchangeForSex() == null)) || (getAskedOfForcedToExchangeForSex() != null && getAskedOfForcedToExchangeForSex().equals(that.getAskedOfForcedToExchangeForSex())));
 		result = result && (((getAskedOfForcedToExchangeForSexPastThreeMonths() == null) && (that.getAskedOfForcedToExchangeForSexPastThreeMonths() == null)) || (getAskedOfForcedToExchangeForSexPastThreeMonths() != null && getAskedOfForcedToExchangeForSexPastThreeMonths().equals(that.getAskedOfForcedToExchangeForSexPastThreeMonths())));
 		result = result && (((getCoercedToContinueWork() == null) && (that.getCoercedToContinueWork() == null)) || (getCoercedToContinueWork() != null && getCoercedToContinueWork().equals(that.getCoercedToContinueWork())));
@@ -1226,32 +822,15 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getFormerlyWardChildWelfrForestCare() == null) && (that.getFormerlyWardChildWelfrForestCare() == null)) || (getFormerlyWardChildWelfrForestCare() != null && getFormerlyWardChildWelfrForestCare().equals(that.getFormerlyWardChildWelfrForestCare())));
 		result = result && (((getFormerlyWardOfJuvenileJustice() == null) && (that.getFormerlyWardOfJuvenileJustice() == null)) || (getFormerlyWardOfJuvenileJustice() != null && getFormerlyWardOfJuvenileJustice().equals(that.getFormerlyWardOfJuvenileJustice())));
-		result = result && (((getHealthIssuesFamilyMbr() == null) && (that.getHealthIssuesFamilyMbr() == null)) || (getHealthIssuesFamilyMbr() != null && getHealthIssuesFamilyMbr().equals(that.getHealthIssuesFamilyMbr())));
-		result = result && (((getHealthIssuesYouth() == null) && (that.getHealthIssuesYouth() == null)) || (getHealthIssuesYouth() != null && getHealthIssuesYouth().equals(that.getHealthIssuesYouth())));
-		result = result && (((getHouseHoldDynamics() == null) && (that.getHouseHoldDynamics() == null)) || (getHouseHoldDynamics() != null && getHouseHoldDynamics().equals(that.getHouseHoldDynamics())));
-		result = result && (((getHousingIssuesFamilyMbr() == null) && (that.getHousingIssuesFamilyMbr() == null)) || (getHousingIssuesFamilyMbr() != null && getHousingIssuesFamilyMbr().equals(that.getHousingIssuesFamilyMbr())));
-		result = result && (((getHousingIssuesYouth() == null) && (that.getHousingIssuesYouth() == null)) || (getHousingIssuesYouth() != null && getHousingIssuesYouth().equals(that.getHousingIssuesYouth())));
 		result = result && (((getIncarceratedParent() == null) && (that.getIncarceratedParent() == null)) || (getIncarceratedParent() != null && getIncarceratedParent().equals(that.getIncarceratedParent())));
-		result = result && (((getIncarceratedParentStatus() == null) && (that.getIncarceratedParentStatus() == null)) || (getIncarceratedParentStatus() != null && getIncarceratedParentStatus().equals(that.getIncarceratedParentStatus())));
 		result = result && (((getInsufficientIncomeToSupportYouth() == null) && (that.getInsufficientIncomeToSupportYouth() == null)) || (getInsufficientIncomeToSupportYouth() != null && getInsufficientIncomeToSupportYouth().equals(that.getInsufficientIncomeToSupportYouth())));
 		result = result && (((getLaborExploitPastThreeMonths() == null) && (that.getLaborExploitPastThreeMonths() == null)) || (getLaborExploitPastThreeMonths() != null && getLaborExploitPastThreeMonths().equals(that.getLaborExploitPastThreeMonths())));
-		result = result && (((getMentalDisabilityFamilyMbr() == null) && (that.getMentalDisabilityFamilyMbr() == null)) || (getMentalDisabilityFamilyMbr() != null && getMentalDisabilityFamilyMbr().equals(that.getMentalDisabilityFamilyMbr())));
-		result = result && (((getMentalDisabilityYouth() == null) && (that.getMentalDisabilityYouth() == null)) || (getMentalDisabilityYouth() != null && getMentalDisabilityYouth().equals(that.getMentalDisabilityYouth())));
-		result = result && (((getMentalHealthIssuesFamilyMbr() == null) && (that.getMentalHealthIssuesFamilyMbr() == null)) || (getMentalHealthIssuesFamilyMbr() != null && getMentalHealthIssuesFamilyMbr().equals(that.getMentalHealthIssuesFamilyMbr())));
-		result = result && (((getMentalHealthIssuesYouth() == null) && (that.getMentalHealthIssuesYouth() == null)) || (getMentalHealthIssuesYouth() != null && getMentalHealthIssuesYouth().equals(that.getMentalHealthIssuesYouth())));
-		result = result && (((getMonthsChildWelfrForestCare() == null) && (that.getMonthsChildWelfrForestCare() == null)) || (getMonthsChildWelfrForestCare() != null && getMonthsChildWelfrForestCare().equals(that.getMonthsChildWelfrForestCare())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getPhysicalDisabilityFamilyMbr() == null) && (that.getPhysicalDisabilityFamilyMbr() == null)) || (getPhysicalDisabilityFamilyMbr() != null && getPhysicalDisabilityFamilyMbr().equals(that.getPhysicalDisabilityFamilyMbr())));
-		result = result && (((getPhysicalDisabilityYouth() == null) && (that.getPhysicalDisabilityYouth() == null)) || (getPhysicalDisabilityYouth() != null && getPhysicalDisabilityYouth().equals(that.getPhysicalDisabilityYouth())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getReferralSource() == null) && (that.getReferralSource() == null)) || (getReferralSource() != null && getReferralSource().equals(that.getReferralSource())));
-		result = result && (((getSchoolEducationIssuesFamilyMbr() == null) && (that.getSchoolEducationIssuesFamilyMbr() == null)) || (getSchoolEducationIssuesFamilyMbr() != null && getSchoolEducationIssuesFamilyMbr().equals(that.getSchoolEducationIssuesFamilyMbr())));
-		result = result && (((getSchoolEducationIssuesYouth() == null) && (that.getSchoolEducationIssuesYouth() == null)) || (getSchoolEducationIssuesYouth() != null && getSchoolEducationIssuesYouth().equals(that.getSchoolEducationIssuesYouth())));
-		result = result && (((getSexualOrientatiionGenderIdentityFamilyMbr() == null) && (that.getSexualOrientatiionGenderIdentityFamilyMbr() == null)) || (getSexualOrientatiionGenderIdentityFamilyMbr() != null && getSexualOrientatiionGenderIdentityFamilyMbr().equals(that.getSexualOrientatiionGenderIdentityFamilyMbr())));
-		result = result && (((getSexualOrientatiionGenderIdentityYouth() == null) && (that.getSexualOrientatiionGenderIdentityYouth() == null)) || (getSexualOrientatiionGenderIdentityYouth() != null && getSexualOrientatiionGenderIdentityYouth().equals(that.getSexualOrientatiionGenderIdentityYouth())));
 		result = result && (((getSexualOrientation() == null) && (that.getSexualOrientation() == null)) || (getSexualOrientation() != null && getSexualOrientation().equals(that.getSexualOrientation())));
 		result = result && (((getUnemployementFamilyMbr() == null) && (that.getUnemployementFamilyMbr() == null)) || (getUnemployementFamilyMbr() != null && getUnemployementFamilyMbr().equals(that.getUnemployementFamilyMbr())));
-		result = result && (((getUnemployementYouth() == null) && (that.getUnemployementYouth() == null)) || (getUnemployementYouth() != null && getUnemployementYouth().equals(that.getUnemployementYouth())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVersion() == null) && (that.getVersion() == null)) || (getVersion() != null && getVersion().equals(that.getVersion())));
 		result = result && (((getWorkPlacePromiseDifference() == null) && (that.getWorkPlacePromiseDifference() == null)) || (getWorkPlacePromiseDifference() != null && getWorkPlacePromiseDifference().equals(that.getWorkPlacePromiseDifference())));

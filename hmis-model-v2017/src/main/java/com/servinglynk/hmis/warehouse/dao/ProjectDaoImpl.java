@@ -64,7 +64,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setProjectname(project.getProjectName());
 //					projectModel.setProjectcommonname(project.getProjectCommonName());
 					projectModel.setProjecttype(ProjectProjecttypeEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getProjectType())));
-					//projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
+					projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(BasicDataGenerator.getStringValue(project.getResidentialAffiliation())));
 					projectModel.setOperatingStartDate(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setOperatingEndDate(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setVictimServiceProvider(0);

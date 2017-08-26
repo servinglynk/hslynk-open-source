@@ -1,8 +1,12 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 
 @javax.persistence.Entity(name = "bulk_upload_error")
 @Table(name = "bulk_upload_error", catalog = "hmis", schema = "v2017")

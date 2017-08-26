@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -19,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -40,7 +39,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 
 		com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-/*		List<Contact> contact = export.getContact();
+		List<Contact> contact = export.getContact();
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Contact.class, getProjectGroupCode(domain));
 		Data data = new Data();
@@ -65,7 +64,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				} catch (Exception e) {
 					String errorMessage = "Exception beause of the Contact::" + contacts.getContactID() + " Exception ::" + e.getMessage();
 					if (contactModel != null) {
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = contactModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
@@ -80,7 +79,6 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Contact.class.getSimpleName(), domain, exportEntity);
-	*/
 	}
 
 

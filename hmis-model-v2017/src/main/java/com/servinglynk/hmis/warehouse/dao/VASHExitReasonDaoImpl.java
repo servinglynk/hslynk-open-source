@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason;
@@ -48,7 +47,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					 vashExitReasonModel.setCmExitReason(vashExitReason.getCmExitReason());
 					 performSaveOrUpdate(vashExitReasonModel);
 				 } catch(Exception e){
-					 String errorMessage = "Exception because of the vashExitReasons::"+vashExitReason.getId() +" Exception ::"+e.getMessage();
+					 String errorMessage = "Exception because of the vashExitReasons::"+vashExitReasons.getId() +" Exception ::"+e.getMessage();
 					 if(vashExitReasonModel != null){
 						 Error2017 error = new Error2017();
 						 error.model_id = vashExitReasonModel.getId();
@@ -80,8 +79,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 		}
 		com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason model = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		
-		model.setCmExitReason(CMExitReasonEnum.lookupEnum(String.valueOf(vashExitReasonModel.getCmExitReason())));
+		model.setDateUpdatedFromSource(vashExitReasonModel.getCmExitReason());
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,vashExitReasonModel.getId(),data);
 		return model;
@@ -89,7 +87,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 	   public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason createVASHExitReason(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReason){
 		   vashExitReason.setId(UUID.randomUUID());
 	       insert(vashExitReason);
-	       VASHExitReason entity = new VASHExitReason();
+	       VASHExitReasonEntity entity = new VASHExitReasonEntity();
 	       BeanUtils.copyProperties(vashExitReason, entity);
 	       insert(entity);
 	       return vashExitReason;

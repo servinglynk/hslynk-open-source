@@ -5,27 +5,30 @@ import java.util.UUID;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
 import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
-
-public class VASHExitReason extends HmisBaseModel implements Cloneable, Serializable {
+@Entity(name = "vashexitreason_v2017")
+@Table(name = "vashexitreason", catalog = "hmis", schema = "v2017")
+public class VASHExitReason  extends HmisBaseModel implements Cloneable, Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private java.util.UUID id;
 	private java.util.UUID exitId;
 	private CMExitReasonEnum cmExitReason;
 	
-	/**
-	 * Default constructor, mainly for hibernate use.
-	 */
 	public VASHExitReason() {
 		// Default constructor
+	}
+
+	/** Constructor taking a given ID.
+	 * @param id to set
+	 */
+	public VASHExitReason(java.util.UUID id) {
+		this.id = id;
 	}
 	/**
 	 * @return the id
@@ -80,7 +83,7 @@ public class VASHExitReason extends HmisBaseModel implements Cloneable, Serializ
 	 * @param exitId
 	 * @param cmExitReason
 	 */
-	public VASHExitReason(UUID id, UUID exitId,CMExitReasonEnum cmExitReason) {
+	public VASHExitReason(UUID id, UUID exitId, CMExitReasonEnum cmExitReason) {
 		super();
 		this.id = id;
 		this.exitId = exitId;

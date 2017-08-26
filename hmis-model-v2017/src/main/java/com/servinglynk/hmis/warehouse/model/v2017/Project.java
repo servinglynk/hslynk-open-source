@@ -25,6 +25,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 
@@ -72,7 +73,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 //	private String projectcommonname;
 	/** Field mapping. */
-	private Integer residentialaffiliation;
+	private ProjectResidentialaffiliationEnum residentialaffiliation;
 	  private LocalDateTime operatingStartDate;
 	  private LocalDateTime operatingEndDate;
 	  private Integer victimServiceProvider;
@@ -275,16 +276,21 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	 /**
 	 * @return the residentialaffiliation
 	 */
+	/**
+	 * Return the value associated with the column: trackingmethod.
+	 * @return A ProjectTrackingmethodEnum object (this.trackingmethod)
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnumType")
 	@Basic( optional = true )
-	@Column( name = "residentialaffiliation" )
-	public Integer getResidentialaffiliation() {
+	@Column
+	public ProjectResidentialaffiliationEnum getResidentialaffiliation() {
 		return residentialaffiliation;
 	}
 
 	/**
 	 * @param residentialaffiliation the residentialaffiliation to set
 	 */
-	public void setResidentialaffiliation(Integer residentialaffiliation) {
+	public void setResidentialaffiliation(ProjectResidentialaffiliationEnum residentialaffiliation) {
 		this.residentialaffiliation = residentialaffiliation;
 	}
 
