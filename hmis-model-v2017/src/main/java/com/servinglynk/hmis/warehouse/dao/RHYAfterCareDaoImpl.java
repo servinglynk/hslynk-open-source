@@ -59,7 +59,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 						 error.bulk_upload_ui = domain.getUpload().getId();
 						 error.project_group_code = domain.getUpload().getProjectGroupCode();
 						 error.source_system_id = rhyAfterCareModel.getSourceSystemId();
-						 error.type = ErrorType.ERROR;
+						 error.type = com.servinglynk.hmis.warehouse.base.util.ErrorType.ERROR;
 						 error.error_description = errorMessage;
 //						 error.date_created = rhyAfterCareModel.getDateCreated();
 						 performSave(error);
@@ -92,7 +92,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 	   public com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare createRHYAfterCare(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare rhyAfterCare){
 		   rhyAfterCare.setId(UUID.randomUUID());
 	       insert(rhyAfterCare);
-	       RHYAfterCareEntity entity = new RHYAfterCareEntity();
+	       RHYAfterCare entity = new RHYAfterCare();
 	       BeanUtils.copyProperties(rhyAfterCare, entity);
 	       insert(entity);
 	       return rhyAfterCare;
