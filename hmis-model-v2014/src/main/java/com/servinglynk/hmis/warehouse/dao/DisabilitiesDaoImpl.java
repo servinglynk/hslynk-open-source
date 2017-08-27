@@ -67,7 +67,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		PreparedStatement preparedStatement = null;
 		int batchTotal = 0;
 		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
-			disabilitiesList.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity,batchTotal,preparedStatement));
+			for(Disabilities disabilities : disabilitiesList) {
+				processData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity,batchTotal,preparedStatement);
+			}
 		}
 		int[] result = preparedStatement.executeBatch();
 		connection.commit();
@@ -137,13 +139,13 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				preparedStatement = connection.prepareStatement(insertTableSQL);
 			 	connection.setAutoCommit(false);
 		        preparedStatement.setObject(1, UUID.randomUUID());
-		        preparedStatement.setInt(2, model.getDisabilityresponse());
-				preparedStatement.setString(3,model.getDisabilitytype().getValue() );
-				preparedStatement.setString(4, model.getDocumentationonfile().getValue());
-				preparedStatement.setString(5,model.getIndefiniteandimpairs().getValue());
-				preparedStatement.setString(6,model.getPathhowconfirmed().getValue());
-				preparedStatement.setString(7,model.getPathsmiinformation().getValue());
-				preparedStatement.setObject(8,model.getEnrollmentid().getId());
+		        preparedStatement.setInt(2, model.getDisabilityresponse() !=null ? model.getDisabilityresponse() : 0);
+				preparedStatement.setString(3,model.getDisabilitytype() != null ? model.getDisabilitytype().getValue(): "99" );
+				preparedStatement.setString(4,model.getDocumentationonfile() !=null ? model.getDocumentationonfile().getValue():"99" );
+				preparedStatement.setString(5,model.getIndefiniteandimpairs() !=null ? model.getIndefiniteandimpairs().getValue():"99");
+				preparedStatement.setString(6,model.getPathhowconfirmed() !=null ? model.getPathhowconfirmed().getValue():"99");
+				preparedStatement.setString(7,model.getPathsmiinformation() !=null ? model.getPathsmiinformation().getValue(): "99");
+				preparedStatement.setObject(8,model.getEnrollmentid() !=null ? model.getEnrollmentid().getId(): null);
 				preparedStatement.setString(9,model.getReceivingservices().getValue());
 				preparedStatement.setString(10,model.getProjectGroupCode());
 				preparedStatement.setTimestamp(11,getCurrentTimeStamp());
@@ -151,14 +153,14 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				preparedStatement.setTimestamp(13,getTimeStamp(model.getDateUpdatedFromSource()));
 				preparedStatement.setTimestamp(14,getCurrentTimeStamp());
 				preparedStatement.setObject(15,model.getUserId());
-				preparedStatement.setObject(16,model.getExport().getId());
+				preparedStatement.setObject(16,model.getExport() !=null ? model.getExport().getId():null);
 				preparedStatement.setObject(17,null);
 				preparedStatement.setInt(18,0);
 				preparedStatement.setString(19,model.getSourceSystemId());
 				preparedStatement.setBoolean(20,false);
 				preparedStatement.setBoolean(21,true);
 				preparedStatement.setBoolean(22,false);
-				preparedStatement.setString(23,model.getDataCollectionStage().getValue());
+				preparedStatement.setString(23,model.getDataCollectionStage() !=null ? model.getDataCollectionStage().getValue(): "99");
 				preparedStatement.setTimestamp(24,getTimeStamp(model.getInformationDate()));
 		        preparedStatement.addBatch();
 		        if (batchTotal == 4096) {
@@ -169,7 +171,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		        }
 			}
 		     catch (SQLException e) {
-		    	 logger.error("Error in Disabilities table source id"+model.getSourceSystemId()+ "execption:"+e.getMessage());
+		    	 logger.error("Error in Disabilities table source id"+model.getSourceSystemId()+ "execption:"+e.getStackTrace());
 				e.printStackTrace();
 			}
 	}
