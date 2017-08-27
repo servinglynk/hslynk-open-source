@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS  base.hmis_verification;
 DROP TABLE IF EXISTS  base.client;
 DROP TABLE IF EXISTS  base.bulk_upload;
 DROP TABLE IF EXISTS  base.bulk_upload_activity;
+DROP TABLE IF EXISTS  base.client_tracker;
 drop table if exists "base".project;
 
 DROP TYPE IF EXISTS "base".gender;
@@ -1296,6 +1297,21 @@ CREATE TABLE  "base".project
 WITH (
   OIDS=FALSE
 );
+
+
+CREATE TABLE "base"."client_tracker" (
+"id" uuid NOT NULL,
+"client_id" uuid,
+"service_name" varchar(255) COLLATE "default",
+"user_name" varchar(255) COLLATE "default",
+"operation_at" timestamp(6),
+"operation" varchar(20) COLLATE "default",
+"project_group" varchar(255) COLLATE "default",
+"deleted_falg" bool,
+PRIMARY KEY ("id")
+)
+WITH (OIDS=FALSE)
+;
 
 
 ALTER TABLE base.hmis_user ADD COLUMN created_by character varying(256);

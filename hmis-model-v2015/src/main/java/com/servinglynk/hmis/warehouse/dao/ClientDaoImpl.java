@@ -325,6 +325,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		baseClient.setSchemaYear("2015");
 			update(client);
 			update(baseClient);
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE");
 		return client;
 	}
 
@@ -333,7 +334,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.v2015.Client client) {
 			delete(client);
-		
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE");
 	}
 
 

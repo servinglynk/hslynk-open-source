@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ClientTrackerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
@@ -249,5 +250,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ClientOperationLogger clientOperationLogger() {
 		return new ClientOperationLogger();
+	}
+	
+	@Bean
+	public ClientTrackerDaoImpl clientTrackerDao() {
+		return new ClientTrackerDaoImpl();
 	}
 }

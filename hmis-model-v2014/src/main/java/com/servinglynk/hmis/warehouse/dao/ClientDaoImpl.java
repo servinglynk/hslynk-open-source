@@ -284,6 +284,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		baseClient.setSchemaYear("2014");
 			update(client);
 			update(baseClient);
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE");
 		return client;
 	}
 
@@ -292,7 +293,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			delete(client);
-		
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE");
 	}
 
 
