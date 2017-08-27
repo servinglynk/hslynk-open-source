@@ -3,20 +3,28 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CommercialSexualExploitation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
@@ -36,7 +44,14 @@ import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
  */
 public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDao {
 	private static final Logger logger = LoggerFactory.getLogger(DisabilitiesDaoImpl.class);
-
+	private static final String PROPERTY_NAME_DATABASE_DRIVER   = "db.driver";
+    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
+    private static final String PROPERTY_NAME_DATABASE_URL      = "db.url";
+    private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
+    
+	@Resource
+	private Environment env;
+		
 	public void hydrateStaging(ExportDomain domain, Map<String, HmisBaseModel> exportModelMap,
 			Map<String, HmisBaseModel> relatedModelMap) throws Exception {
 		Export export = domain.getExport();
@@ -49,19 +64,25 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
 				String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap,
 				domain.getUpload().getId());
+		PreparedStatement preparedStatement = null;
+		int batchTotal = 0;
 		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
-			disabilitiesList.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			disabilitiesList.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity,batchTotal,preparedStatement));
 		}
+		int[] result = preparedStatement.executeBatch();
+		connection.commit();
+		preparedStatement.close();
 		hydrateBulkUploadActivityStaging(data.i, data.j, data.ignore,
 				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 
 	public void processData(Disabilities disabilities, ExportDomain domain, Data data,
 			Map<String, HmisBaseModel> modelMap, Map<String, HmisBaseModel> relatedModelMap,
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity, int batchTotal,PreparedStatement preparedStatement) {
 
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = getModelObject(domain, disabilities, data,
 				modelMap);
+		
 		try {
 			model = getModelObject(domain, disabilities, data, modelMap);
 			model.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
@@ -88,7 +109,8 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			model.setDataCollectionStage(DataCollectionStageEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
 			model.setExport(exportEntity);
-			performSaveOrUpdate(model);
+			hydrate(model,batchTotal++,preparedStatement);
+			//performSaveOrUpdate(model);
 		} catch (Exception e) {
 			String errorMessage = "Exception in Disabilities :" + disabilities.getProjectEntryID() + ":: Exception"
 					+ e.getLocalizedMessage();
@@ -107,6 +129,62 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		}
 	}
 
+	public void hydrate(com.servinglynk.hmis.warehouse.model.v2014.Disabilities model, int batchTotal, PreparedStatement preparedStatement) {
+		String insertTableSQL = "INSERT INTO v2014.disabilities("+
+	"id, disabilityresponse, disabilitytype, documentationonfile, indefiniteandimpairs, pathhowconfirmed, pathsmiinformation, enrollmentid, receivingservices, project_group_code, date_created, date_created_from_source, date_updated_from_source, date_updated, user_id, export_id, parent_id, version, source_system_id, deleted, active, sync, datacollectionstage, information_date) "+
+	"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+				preparedStatement = connection.prepareStatement(insertTableSQL);
+			 	connection.setAutoCommit(false);
+		        preparedStatement.setObject(1, UUID.randomUUID());
+		        preparedStatement.setInt(2, model.getDisabilityresponse());
+				preparedStatement.setString(3,model.getDisabilitytype().getValue() );
+				preparedStatement.setString(4, model.getDocumentationonfile().getValue());
+				preparedStatement.setString(5,model.getIndefiniteandimpairs().getValue());
+				preparedStatement.setString(6,model.getPathhowconfirmed().getValue());
+				preparedStatement.setString(7,model.getPathsmiinformation().getValue());
+				preparedStatement.setObject(8,model.getEnrollmentid().getId());
+				preparedStatement.setString(9,model.getReceivingservices().getValue());
+				preparedStatement.setString(10,model.getProjectGroupCode());
+				preparedStatement.setTimestamp(11,getCurrentTimeStamp());
+				preparedStatement.setTimestamp(12,getTimeStamp(model.getDateCreatedFromSource()));
+				preparedStatement.setTimestamp(13,getTimeStamp(model.getDateUpdatedFromSource()));
+				preparedStatement.setTimestamp(14,getCurrentTimeStamp());
+				preparedStatement.setObject(15,model.getUserId());
+				preparedStatement.setObject(16,model.getExport().getId());
+				preparedStatement.setObject(17,null);
+				preparedStatement.setInt(18,0);
+				preparedStatement.setString(19,model.getSourceSystemId());
+				preparedStatement.setBoolean(20,false);
+				preparedStatement.setBoolean(21,true);
+				preparedStatement.setBoolean(22,false);
+				preparedStatement.setString(23,model.getDataCollectionStage().getValue());
+				preparedStatement.setTimestamp(24,getTimeStamp(model.getInformationDate()));
+		        preparedStatement.addBatch();
+		        if (batchTotal == 4096) {
+		            int[] result = preparedStatement.executeBatch();
+		            logger.info("Executing batch at ID::"+model.getSourceSystemId());
+		            preparedStatement.clearBatch();
+		            batchTotal=0;                    
+		        }
+			}
+		     catch (SQLException e) {
+		    	 logger.error("Error in Disabilities table source id"+model.getSourceSystemId()+ "execption:"+e.getMessage());
+				e.printStackTrace();
+			}
+	}
+	
+	
+	private  java.sql.Timestamp getTimeStamp(LocalDateTime dateTime) {
+		return Timestamp.valueOf(dateTime);
+	}
+
+	private  java.sql.Timestamp getCurrentTimeStamp() {
+	
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Timestamp(today.getTime());
+	
+	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Disabilities getModelObject(ExportDomain domain,
 			Disabilities disabilities, Data data, Map<String, HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities modelFromDB = null;
@@ -122,7 +200,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
-
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB,
@@ -180,4 +257,20 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 		return countRows(criteria);
 	}
+	
+	
+	
+    public Connection connection = null;
+    public Connection getConnection() throws SQLException {
+        if (connection == null) {
+            connection = DriverManager.getConnection(
+                    env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL),
+                    env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME),
+                    env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+        }
+        if (connection.isClosed()) {
+            throw new SQLException("connection could not initiated");
+        }
+        return connection;
+    }
 }
