@@ -28,11 +28,12 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {DatabaseConfig.class,StandAloneDBPoolConfig.class},loader = AnnotationConfigContextLoader.class)
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager") 
 public class BulkUploaderTest {
 	
@@ -99,12 +100,12 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		upload.setInputpath("C:\\AWS\\HUD_4_0_4012_48.xml");
+		upload.setInputpath("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2014/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
 		upload.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
+		factory.getBulkUploaderDao().processDisabilities(upload,projectGrpEntity,appender,false);
 	}
 	@Test
 	public void testAnotherxmlBigFile() throws Exception

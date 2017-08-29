@@ -218,6 +218,78 @@
             <hmis:DocumentationOnFile>99</hmis:DocumentationOnFile>
             <hmis:ReceivingServices>1</hmis:ReceivingServices>
          </hmis:Disabilities>
+          <hmis:Disabilities hmis:dataCollectionStage="1" hmis:informationDate="2007-04-19"
+                            hmis:dateCreated="2007-04-19T04:00:00Z"
+                            hmis:dateUpdated="2007-04-19T04:00:00Z"
+                            hmis:userID="p_842_user">
+            <hmis:DisabilitiesID>169433disab</hmis:DisabilitiesID>
+            <hmis:ProjectEntryID>ee_29015</hmis:ProjectEntryID>
+            <hmis:DisabilityType>9</hmis:DisabilityType>
+            <hmis:DisabilityResponse>1</hmis:DisabilityResponse>
+            <hmis:IndefiniteAndImpairs>1</hmis:IndefiniteAndImpairs>
+            <hmis:DocumentationOnFile>1</hmis:DocumentationOnFile>
+            <hmis:ReceivingServices>1</hmis:ReceivingServices>
+         </hmis:Disabilities>
+         <hmis:Disabilities hmis:dataCollectionStage="1" hmis:informationDate="2007-04-19"
+                            hmis:dateCreated="2007-04-19T04:00:00Z"
+                            hmis:dateUpdated="2007-04-19T04:00:00Z"
+                            hmis:userID="p_842_user">
+            <hmis:DisabilitiesID>841137disab</hmis:DisabilitiesID>
+            <hmis:ProjectEntryID>ee_29015</hmis:ProjectEntryID>
+            <hmis:DisabilityType>10</hmis:DisabilityType>
+            <hmis:DisabilityResponse>0</hmis:DisabilityResponse>
+            <hmis:IndefiniteAndImpairs>99</hmis:IndefiniteAndImpairs>
+            <hmis:DocumentationOnFile>99</hmis:DocumentationOnFile>
+            <hmis:ReceivingServices>99</hmis:ReceivingServices>
+         </hmis:Disabilities>
+         <hmis:Disabilities hmis:dataCollectionStage="1" hmis:informationDate="2007-04-19"
+                            hmis:dateCreated="2007-04-19T04:00:00Z"
+                            hmis:dateUpdated="2007-04-19T04:00:00Z"
+                            hmis:userID="p_842_user">
+            <hmis:DisabilitiesID>841138disab</hmis:DisabilitiesID>
+            <hmis:ProjectEntryID>ee_29015</hmis:ProjectEntryID>
+            <hmis:DisabilityType>10</hmis:DisabilityType>
+            <hmis:DisabilityResponse>0</hmis:DisabilityResponse>
+            <hmis:IndefiniteAndImpairs>99</hmis:IndefiniteAndImpairs>
+            <hmis:DocumentationOnFile>99</hmis:DocumentationOnFile>
+            <hmis:ReceivingServices>99</hmis:ReceivingServices>
+         </hmis:Disabilities>
+         <hmis:Disabilities hmis:dataCollectionStage="1" hmis:informationDate="2007-04-19"
+                            hmis:dateCreated="2007-04-19T04:00:00Z"
+                            hmis:dateUpdated="2007-04-19T04:00:00Z"
+                            hmis:userID="p_842_user">
+            <hmis:DisabilitiesID>841139disab</hmis:DisabilitiesID>
+            <hmis:ProjectEntryID>ee_29015</hmis:ProjectEntryID>
+            <hmis:DisabilityType>7</hmis:DisabilityType>
+            <hmis:DisabilityResponse>0</hmis:DisabilityResponse>
+            <hmis:IndefiniteAndImpairs>99</hmis:IndefiniteAndImpairs>
+            <hmis:DocumentationOnFile>99</hmis:DocumentationOnFile>
+            <hmis:ReceivingServices>99</hmis:ReceivingServices>
+         </hmis:Disabilities>
+         <hmis:Disabilities hmis:dataCollectionStage="1" hmis:informationDate="2007-04-19"
+                            hmis:dateCreated="2007-04-19T04:00:00Z"
+                            hmis:dateUpdated="2007-04-19T04:00:00Z"
+                            hmis:userID="p_842_user">
+            <hmis:DisabilitiesID>841140disab</hmis:DisabilitiesID>
+            <hmis:ProjectEntryID>ee_29015</hmis:ProjectEntryID>
+            <hmis:DisabilityType>10</hmis:DisabilityType>
+            <hmis:DisabilityResponse>0</hmis:DisabilityResponse>
+            <hmis:IndefiniteAndImpairs>99</hmis:IndefiniteAndImpairs>
+            <hmis:DocumentationOnFile>99</hmis:DocumentationOnFile>
+            <hmis:ReceivingServices>99</hmis:ReceivingServices>
+         </hmis:Disabilities>
+         <hmis:Disabilities hmis:dataCollectionStage="1" hmis:informationDate="2007-04-19"
+                            hmis:dateCreated="2007-04-19T04:00:00Z"
+                            hmis:dateUpdated="2007-04-19T04:00:00Z"
+                            hmis:userID="p_842_user">
+            <hmis:DisabilitiesID>841141disab</hmis:DisabilitiesID>
+            <hmis:ProjectEntryID>ee_29015</hmis:ProjectEntryID>
+            <hmis:DisabilityType>6</hmis:DisabilityType>
+            <hmis:DisabilityResponse>0</hmis:DisabilityResponse>
+            <hmis:IndefiniteAndImpairs>99</hmis:IndefiniteAndImpairs>
+            <hmis:DocumentationOnFile>99</hmis:DocumentationOnFile>
+            <hmis:ReceivingServices>99</hmis:ReceivingServices>
+         </hmis:Disabilities>
          <hmis:Employment hmis:dataCollectionStage="1" hmis:informationDate="2014-01-31"
                           hmis:dateCreated="2014-01-31T18:04:01-06:00"
                           hmis:dateUpdated="2014-01-31T18:04:01-06:00"
