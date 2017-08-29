@@ -66,9 +66,12 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		Boolean skipClientIdentifier = projectGroupEntity !=null && projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
-		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-//		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//		Validator validator = (Validator) factory.getValidator();
+		String dedupSessionKey = "";
+		try {
+			dedupSessionKey = dedupHelper.getAuthenticationHeader();
+		}catch(Exception e) {
+			logger.error("Throwing an error while getting the dedup session id"+e.getStackTrace());
+		}
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
@@ -116,6 +119,13 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 				model.setExport(exportEntity);
 				performSaveOrUpdate(model);	
+				UUID userId = model.getUserId();
+				if(model.isRecordToBoInserted()) {
+					daoFactory.getClientTrackerDao().createTracker(model.getId(), model.getProjectGroupCode(), model.isDeleted(), "INSERT","BULK_UPLOAD",userId != null ? userId.toString() : null);
+				}
+				if(!model.isRecordToBoInserted()){
+					daoFactory.getClientTrackerDao().createTracker(model.getId(), model.getProjectGroupCode(), model.isDeleted(), "UPDATE","BULK_UPLOAD",userId != null ? userId.toString() : null);
+				}
 				// Inserting client in base schema	
 				if(!model.isIgnored()) {
 					com.servinglynk.hmis.warehouse.model.base.Client base = new com.servinglynk.hmis.warehouse.model.base.Client();
@@ -284,7 +294,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		baseClient.setSchemaYear("2014");
 			update(client);
 			update(baseClient);
-			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE");
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE", null, null);
 		return client;
 	}
 
@@ -293,7 +303,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			delete(client);
-			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE");
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE",null,null);
 	}
 
 

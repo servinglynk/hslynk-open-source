@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.math.BigInteger;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -10,11 +11,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.AssertTrue;
-
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Client;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
@@ -25,14 +21,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = { DatabaseConfig.class, StandAloneDBPoolConfig.class},loader = AnnotationConfigContextLoader.class)
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager") 
 public class BulkUploaderTest {
 	
@@ -47,7 +46,7 @@ public class BulkUploaderTest {
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
-	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
 		FileAppender appender = new FileAppender();
@@ -57,7 +56,7 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0.xml");
+		upload.setInputpath(path.getPath());
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -68,11 +67,11 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception                                         
 	{
-	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
 	//	bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_1_4012_93.xml");
-		bullkUpload.setId(220L);
+		bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(1L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
 		appender.setFile("logs/" + bullkUpload.getId() + ".log");
@@ -80,9 +79,9 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		bullkUpload.setProjectGroupCode("MO0010");
+		bullkUpload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		projectGrpEntity.setProjectGroupCode("MO0010");
+		projectGrpEntity.setProjectGroupCode("PG0001");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
 	}
 	

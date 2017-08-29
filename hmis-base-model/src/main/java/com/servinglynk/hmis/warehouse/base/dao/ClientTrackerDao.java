@@ -8,6 +8,6 @@ public interface ClientTrackerDao {
 	
 	ClientTracker insertClientTracker(ClientTracker clientTracker) ;
 	
-	void createTracker(UUID clientId, String projectGroup, boolean deletedFlag,String operation);
+	void createTracker(UUID clientId, String projectGroup, boolean deletedFlag,String operation,String serviceName, String userName);
 
 }

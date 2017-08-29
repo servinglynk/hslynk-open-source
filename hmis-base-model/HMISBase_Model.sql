@@ -1354,3 +1354,7 @@ INSERT INTO base.hmis_user(
 ('2be4334a-ba97-4e12-a695-991752ca0391','Super Admin','Super Admin','Super Admin','Super Admin','','2015-12-10 00:00:00',
 '1','2015-12-10 00:00:00','2015-12-10 00:00:00','MASTER DATA','MASTER DATA',
 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=','superadmin@hmis.com','ACTIVE','admin','ed938948-b73e-4868-940d-371c5bd2d3f8',false);
+
+alter table base.client ADD COLUMN email_address character varying(266);
+alter table base.client ADD COLUMN phone_number character varying(16);
+  

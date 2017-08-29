@@ -23,13 +23,13 @@ public class ClientTrackerDaoImpl extends QueryExecutorImpl implements ClientTra
 		return clientTracker;
 	}
 	
-	public void createTracker(UUID clientId, String projectGroup, boolean deletedFlag,String operation) {
+	public void createTracker(UUID clientId, String projectGroup, boolean deletedFlag,String operation,String serviceName, String userName) {
 		ClientTracker tracker = new ClientTracker();
 		tracker.setId(UUID.randomUUID());
 		tracker.setClientId(clientId);
 		tracker.setDeletedFlag(deletedFlag);
 		tracker.setProjectGroup(projectGroup);
-		tracker.setServiceName(applicationContext.getApplicationName());
+		tracker.setServiceName(serviceName !=null ? serviceName : applicationContext.getApplicationName());
 		tracker.setOperationAt(LocalDateTime.now());
 		tracker.setOperation(operation);
 		SecurityContext context =  SecurityContextHolder.getContext();
@@ -39,6 +39,8 @@ public class ClientTrackerDaoImpl extends QueryExecutorImpl implements ClientTra
 				SessionEntity entity = (SessionEntity) authentication.getPrincipal();
 				if(entity!=null) tracker.setUserName(entity.getAccount().getUsername());
 			}
+		}else {
+			tracker.setUserName(userName);
 		}
 		insert(tracker);	
 	}

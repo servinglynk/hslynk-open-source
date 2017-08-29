@@ -2921,3 +2921,6 @@ CREATE SEQUENCE v2016.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+
+  alter table v2016.client ADD COLUMN email_address character varying(266);
+alter table v2016.client ADD COLUMN phone_number character varying(16);
