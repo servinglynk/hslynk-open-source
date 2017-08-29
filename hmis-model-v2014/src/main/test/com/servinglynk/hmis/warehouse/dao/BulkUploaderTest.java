@@ -93,8 +93,8 @@ public class BulkUploaderTest {
 	{
 		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml.7z");
 		BulkUpload	bullkUpload = new BulkUpload();
-	//	bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
-		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_4_0__6.xml.7z");
+		bullkUpload.setInputpath(path.getPath());
+	//	bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_4_0__6.xml.7z");
 		bullkUpload.setId(1L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
