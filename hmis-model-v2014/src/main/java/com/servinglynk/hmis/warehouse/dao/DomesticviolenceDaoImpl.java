@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -32,9 +33,11 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements Domesticvi
 		Data data=new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Domesticviolence.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
-		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
+		if(CollectionUtils.isNotEmpty(domesticViolenceList))
 		{
-			domesticViolenceList.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			for(DomesticViolence domesticViolence : domesticViolenceList) {
+				processData(domesticViolence, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence.class.getSimpleName(), domain, exportEntity);
 	}

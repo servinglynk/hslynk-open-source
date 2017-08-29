@@ -39,7 +39,9 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Dateofengagement.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(dateOfEngagements!=null && !dateOfEngagements.isEmpty())
 		{
-			dateOfEngagements.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			for(DateOfEngagement e :dateOfEngagements) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Dateofengagement.class.getSimpleName(), domain, exportEntity);
 	}

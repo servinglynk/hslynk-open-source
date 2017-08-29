@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
@@ -78,11 +76,12 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Client.class, getProjectGroupCode(domain));
 		if (CollectionUtils.isNotEmpty(clients)) {
-			clients.parallelStream().forEach(e->processData(e, domain, data, modelMap, dedupSessionKey, skipClientIdentifier,exportEntity));
+			for(Client client : clients) {
+				processData(client, domain, data, modelMap, dedupSessionKey, skipClientIdentifier,exportEntity);
 			}
+		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Client.class.getSimpleName(), domain, exportEntity);
 	}
-	
 	public void processData(Client client,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,String dedupSessionKey,Boolean skipClientIdentifier,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
 			com.servinglynk.hmis.warehouse.model.v2014.Client model = null;
 			try {

@@ -51,7 +51,9 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(CollectionUtils.isNotEmpty(inventories))
 		{
-			inventories.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			for(Inventory e : inventories) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Inventory.class.getSimpleName(), domain,exportEntity);
 	}

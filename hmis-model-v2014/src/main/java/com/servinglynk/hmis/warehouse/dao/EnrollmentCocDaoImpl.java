@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,11 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc.class, getProjectGroupCode(domain));
 		Map<String,HmisBaseModel> projectCocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Projectcoc.class, getProjectGroupCode(domain));
-		if(enrollmentCoCs!=null)
+		if(CollectionUtils.isNotEmpty(enrollmentCoCs))
 		{
-			enrollmentCoCs.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, projectCocModelMap, exportEntity));
+			for(EnrollmentCoC enrollmentCoC: enrollmentCoCs) {
+				processData(enrollmentCoC, domain, data, modelMap, relatedModelMap, projectCocModelMap, exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, EnrollmentCoc.class.getSimpleName(), domain, exportEntity);
 	}

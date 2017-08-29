@@ -41,7 +41,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Funder.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Funder.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		if (CollectionUtils.isNotEmpty(funders)) {
-			funders.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			for(Funder e:funders) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
+			
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Funder.class.getSimpleName(), domain, exportEntity);
 	}

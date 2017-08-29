@@ -42,7 +42,9 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Housingassessmentdisposition.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		if(CollectionUtils.isNotEmpty(housingAssessmentDispositions)) 
 		{
-			housingAssessmentDispositions.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			for(HousingAssessmentDisposition e : housingAssessmentDispositions) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition.class.getSimpleName(), domain,exportEntity);
 	}

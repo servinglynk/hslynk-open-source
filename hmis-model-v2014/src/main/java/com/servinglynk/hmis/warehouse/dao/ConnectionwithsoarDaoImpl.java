@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CommercialSexualExploitation;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
 import com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
@@ -44,7 +43,9 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, getProjectGroupCode(domain));
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
 		{
-			connectionWithSOARList.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+			for(ConnectionWithSOAR e : connectionWithSOARList) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Connectionwithsoar.class.getSimpleName(), domain, exportEntity);
 	}
