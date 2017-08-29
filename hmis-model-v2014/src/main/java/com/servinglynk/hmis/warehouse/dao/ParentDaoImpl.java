@@ -36,8 +36,6 @@ import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	private static final Logger logger = Logger.getLogger(ParentDaoImpl.class);
-	//private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-	//private Validator validator = (Validator) factory.getValidator();
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
 		/***
