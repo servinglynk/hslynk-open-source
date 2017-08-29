@@ -520,7 +520,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.addAppender(appender);
 		}
 		upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-		saveUpload(upload);
+		//saveUpload(upload);
 		try {
 		long startNanos = System.nanoTime();
 		Sources sources = null;

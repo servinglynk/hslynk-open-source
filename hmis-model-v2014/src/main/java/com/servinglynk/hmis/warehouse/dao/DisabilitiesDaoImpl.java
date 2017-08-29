@@ -64,16 +64,20 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
 				String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap,
 				domain.getUpload().getId());
-		PreparedStatement preparedStatement = null;
+		String insertTableSQL = "INSERT INTO v2014.disabilities("+
+				"id, disabilityresponse, disabilitytype, documentationonfile, indefiniteandimpairs, pathhowconfirmed, pathsmiinformation, enrollmentid, receivingservices, project_group_code, date_created, date_created_from_source, date_updated_from_source, date_updated, user_id, export_id, parent_id, version, source_system_id, deleted, active, sync, datacollectionstage, information_date) "+
+				"VALUES (?,?, CAST(? AS v2014.disability_type), CAST(? AS v2014.no_yes), CAST(? AS v2014.five_val_dk_refused), CAST(? AS v2014.path_how_confirmed), CAST(? AS v2014.path_smi_info_how_confirmed), ?, CAST(? AS v2014.five_val_dk_refused), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(? AS v2014.datacollectionstage), ?)"; 
+		PreparedStatement preparedStatement = getConnection().prepareStatement(insertTableSQL);;
 		int batchTotal = 0;
 		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
 			for(Disabilities disabilities : disabilitiesList) {
 				processData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity,batchTotal,preparedStatement);
+				batchTotal++;
 			}
 		}
-		int[] result = preparedStatement.executeBatch();
+		   int[] result = preparedStatement.executeBatch();
+           preparedStatement.clearBatch();
 		connection.commit();
-		preparedStatement.close();
 		hydrateBulkUploadActivityStaging(data.i, data.j, data.ignore,
 				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
@@ -111,11 +115,11 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			model.setDataCollectionStage(DataCollectionStageEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
 			model.setExport(exportEntity);
-			hydrate(model,batchTotal++,preparedStatement);
+			hydrate(model,batchTotal++,preparedStatement,model.getExport().getId(),UUID.randomUUID());
 			//performSaveOrUpdate(model);
 		} catch (Exception e) {
 			String errorMessage = "Exception in Disabilities :" + disabilities.getProjectEntryID() + ":: Exception"
-					+ e.getLocalizedMessage();
+					+ e.getStackTrace();
 			if (model != null) {
 				Error2014 error = new Error2014();
 				error.model_id = model.getId();
@@ -131,39 +135,36 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		}
 	}
 
-	public void hydrate(com.servinglynk.hmis.warehouse.model.v2014.Disabilities model, int batchTotal, PreparedStatement preparedStatement) {
-		String insertTableSQL = "INSERT INTO v2014.disabilities("+
-	"id, disabilityresponse, disabilitytype, documentationonfile, indefiniteandimpairs, pathhowconfirmed, pathsmiinformation, enrollmentid, receivingservices, project_group_code, date_created, date_created_from_source, date_updated_from_source, date_updated, user_id, export_id, parent_id, version, source_system_id, deleted, active, sync, datacollectionstage, information_date) "+
-	"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public void hydrate(com.servinglynk.hmis.warehouse.model.v2014.Disabilities model, int batchTotal, PreparedStatement preparedStatement,UUID exportId,UUID id) {
+			
 		try {
-				preparedStatement = connection.prepareStatement(insertTableSQL);
 			 	connection.setAutoCommit(false);
-		        preparedStatement.setObject(1, UUID.randomUUID());
+		        preparedStatement.setObject(1,id);
 		        preparedStatement.setInt(2, model.getDisabilityresponse() !=null ? model.getDisabilityresponse() : 0);
 				preparedStatement.setString(3,model.getDisabilitytype() != null ? model.getDisabilitytype().getValue(): "99" );
 				preparedStatement.setString(4,model.getDocumentationonfile() !=null ? model.getDocumentationonfile().getValue():"99" );
 				preparedStatement.setString(5,model.getIndefiniteandimpairs() !=null ? model.getIndefiniteandimpairs().getValue():"99");
 				preparedStatement.setString(6,model.getPathhowconfirmed() !=null ? model.getPathhowconfirmed().getValue():"99");
 				preparedStatement.setString(7,model.getPathsmiinformation() !=null ? model.getPathsmiinformation().getValue(): "99");
-				preparedStatement.setObject(8,model.getEnrollmentid() !=null ? model.getEnrollmentid().getId(): null);
-				preparedStatement.setString(9,model.getReceivingservices().getValue());
+				preparedStatement.setObject(8,model.getEnrollmentid() != null ? model.getEnrollmentid().getId(): null);
+				preparedStatement.setString(9,model.getReceivingservices() !=null ? model.getReceivingservices().getValue(): "99");
 				preparedStatement.setString(10,model.getProjectGroupCode());
 				preparedStatement.setTimestamp(11,getCurrentTimeStamp());
 				preparedStatement.setTimestamp(12,getTimeStamp(model.getDateCreatedFromSource()));
 				preparedStatement.setTimestamp(13,getTimeStamp(model.getDateUpdatedFromSource()));
 				preparedStatement.setTimestamp(14,getCurrentTimeStamp());
 				preparedStatement.setObject(15,model.getUserId());
-				preparedStatement.setObject(16,model.getExport() !=null ? model.getExport().getId():null);
+				preparedStatement.setObject(16,exportId != null ? exportId : null);
 				preparedStatement.setObject(17,null);
 				preparedStatement.setInt(18,0);
 				preparedStatement.setString(19,model.getSourceSystemId());
 				preparedStatement.setBoolean(20,false);
 				preparedStatement.setBoolean(21,true);
 				preparedStatement.setBoolean(22,false);
-				preparedStatement.setString(23,model.getDataCollectionStage() !=null ? model.getDataCollectionStage().getValue(): "99");
+				preparedStatement.setString(23,model.getDataCollectionStage() !=null ? model.getDataCollectionStage().getValue(): null);
 				preparedStatement.setTimestamp(24,getTimeStamp(model.getInformationDate()));
 		        preparedStatement.addBatch();
-		        if (batchTotal == 4096) {
+		        if (batchTotal % 1000 == 0 ) {
 		            int[] result = preparedStatement.executeBatch();
 		            logger.info("Executing batch at ID::"+model.getSourceSystemId());
 		            preparedStatement.clearBatch();
