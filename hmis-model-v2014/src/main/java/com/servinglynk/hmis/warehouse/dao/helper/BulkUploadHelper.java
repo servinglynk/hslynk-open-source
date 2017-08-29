@@ -109,13 +109,16 @@ public class BulkUploadHelper {
 			tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 		}
 		String uploadId = String.valueOf(upload.getId());
-			ExtractItemsSimple.extractFiles(tempFile, uploadId);
+			List<String> extractFiles = ExtractItemsSimple.extractFiles(tempFile, uploadId);
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
-				return getSourcesForZipFile("/"+uploadId+"/"+tempFile);
+				return getSourcesForZipFile(tempFile);
 			}
-			else {
-				return getSourcesForXml("/"+uploadId+"/"+tempFile,projectGroupEntity);
+			else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
+				return getSourcesForXml(tempFile,projectGroupEntity);
+			}else if(inputPath !=null && StringUtils.equals("7z",getFileExtension(upload.getInputpath()))) {
+				return getSourcesForXml(uploadId+"/"+extractFiles.get(0),projectGroupEntity);
 			}
+			return null;
 	}
 	/**
 	 * Gets the Sources XML object when the file to be bulk uploaded is an XML file.
@@ -125,15 +128,8 @@ public class BulkUploadHelper {
 	 */
 	public Sources getSourcesForXml(String fileName,ProjectGroupEntity projectGroupEntity) throws JAXBException {
 			File file = new File(fileName);
-//			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
-//				System.out.println("XML is valid");
-//			}else{
-//				System.out.println("XML is NOT valid");
-//			}
-			
 		    File tempFile = new File(fileName + System.currentTimeMillis()+"-temp.xml");
 			try {
-				
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
 				FileInputStream fis = new FileInputStream(file);
 				BufferedReader in = new BufferedReader(new InputStreamReader(fis));
