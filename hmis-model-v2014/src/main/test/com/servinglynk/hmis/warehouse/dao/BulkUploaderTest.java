@@ -87,6 +87,28 @@ public class BulkUploaderTest {
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
 	}
 	
+	
+	@Test
+	public void test7ZFile() throws Exception                                         
+	{
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml.7z");
+		BulkUpload	bullkUpload = new BulkUpload();
+	//	bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_4_0__6.xml.7z");
+		bullkUpload.setId(1L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("PG0001");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("PG0001");
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
+	}
+	
 	@Test
 	public void testxmlBigFile() throws Exception
 	{
