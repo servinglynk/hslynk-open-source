@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -59,8 +60,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 
-		if (enrollments != null && enrollments.size() > 0) {
-			enrollments.parallelStream().forEach(e->processData(e, domain, data,modelMap,relatedModelMap,projectModelMap,exportEntity));
+		if (CollectionUtils.isNotEmpty(enrollments)) {
+			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment : enrollments) {
+				processData(enrollment, domain, data,modelMap,relatedModelMap,projectModelMap,exportEntity);
+			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Enrollment.class.getSimpleName(), domain, exportEntity);
 	}

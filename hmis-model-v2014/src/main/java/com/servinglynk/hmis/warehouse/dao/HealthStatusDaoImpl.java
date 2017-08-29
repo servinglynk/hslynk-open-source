@@ -43,7 +43,9 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class, getProjectGroupCode(domain));
 			if(CollectionUtils.isNotEmpty(healthStatuses)) {
-				healthStatuses.parallelStream().forEach(e->processData(e, domain, data, modelMap, relatedModelMap, exportEntity));
+				for(HealthStatus e :healthStatuses) {
+					processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
+				}
 			}
 			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.HealthStatus.class.getSimpleName(), domain,exportEntity);
 		}
