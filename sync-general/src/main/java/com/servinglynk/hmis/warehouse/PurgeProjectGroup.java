@@ -24,113 +24,227 @@ public class PurgeProjectGroup extends Logging {
 	  * @param projectGroupCode
 	 * @throws Exception 
 	  */
-	public void purge(String projectGroupCode,String schema) throws Exception {
-		List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
-		for(String tableName : allTablesFromPostgres) {
+	public void purge(String projectGroupCode) throws Exception {
+		String schema = "";
+		disableTriggers(schema);
+		logger.info("Purging 2014 schema..."+projectGroupCode);
+		List<String> tables2014 = get2014Tables();
+		for(String tableName : tables2014) {
+			   schema = "v2014";
 				purgeTable(tableName, projectGroupCode, schema);
 		}
+		logger.info("2014 schema purged for ..."+projectGroupCode);
+		logger.info("Purging 2015 schema..."+projectGroupCode);
+		List<String> tables2015 = get2015Tables();
+		for(String tableName : tables2015) {
+				schema = "v2015";
+				purgeTable(tableName, projectGroupCode, schema);
+		}
+		logger.info("2015 schema purged for ..."+projectGroupCode);
+		logger.info("Purging 2016 schema..."+projectGroupCode);
+		List<String> tables2016 = get2016Tables();
+		for(String tableName : tables2016) {
+				schema = "v2016";
+				purgeTable(tableName, projectGroupCode, schema);
+		}
+		logger.info("2016 schema purged for ..."+projectGroupCode);
+		logger.info("Purging base schema..."+projectGroupCode);
+		List<String> baseTables = getBaseTables();
+		for(String tableName : baseTables) {
+				schema = "base";
+				purgeTable(tableName, projectGroupCode, schema);
+		}
+		logger.info("Base schema purged for ..."+projectGroupCode);
 	}
 	
-	
+	//;
+	 private void disableTriggers(String schema) {
+	        Connection connection = null;
+	        Statement statement =  null;
+	        try{
+	        	connection = SyncPostgresProcessor.getConnection();
+	        	statement = connection.createStatement();
+	        	logger.info(" Disabling triggers...");
+		        statement.execute("SET session_replication_role = replica");
+	        }catch (Exception ex){
+	            ex.printStackTrace();
+	        }finally {
+	        }
+		}
 	 private void purgeTable(String tableName, String projectGroupCode, String schema) {
 		        Connection connection = null;
 		        Statement statement =  null;
 		        try{
+		        	connection = SyncPostgresProcessor.getConnection();
 		        	statement = connection.createStatement();
 		        	logger.info(" Deleting table: "+tableName +" with in schema ::"+schema +" for projectGroup ::: "+projectGroupCode);
-		            connection = getConnection();
-		            final int batchSize = 1000;
-		            int count = 0;
-		            for(String id : getPrimaryKeys(tableName, projectGroupCode, schema)) {
-			            statement.addBatch("Delete FROM "+schema+"."+tableName +" WHERE id='"+id+"'");
-			            if(++count % batchSize == 0) {
-			        		statement.executeBatch();
-			        		connection.commit();
-			        		logger.info("Commit triggered on table :"+tableName +" schema:"+schema);
-			        	}
-		            }
-		            statement.executeBatch(); // insert remaining records
+			        statement.execute("Delete FROM "+schema+"."+tableName +" WHERE project_group_code='"+projectGroupCode+"'");
 			        logger.info(" Deleted table: "+tableName);
 		        }catch (Exception ex){
 		            ex.printStackTrace();
 		        }finally {
 		        }
 			}
-					
-	 
-	 private List<String> getPrimaryKeys(String tableName, String projectGroupCode, String schema) throws SQLException {
-		 List<String> tables = new ArrayList<>();
-	        ResultSet resultSet = null;
-	        PreparedStatement statement = null;
-	        Connection connection = null;
-	        try{
-	        	StringBuilder builder = new StringBuilder();
-	        	builder.append("select id FROM "+schema+"."+tableName);
-		        if(!StringUtils.equals("survey", schema)) 
-		            builder.append(" WHERE project_group_code='"+projectGroupCode+"'");
-	            connection = getConnection();
-	            statement = connection.prepareStatement(builder.toString());
-	            resultSet = statement.executeQuery();
-	            while (resultSet.next()){
-	                tables.add(resultSet.getString("id"));
-	            }
-	        }catch (Exception ex){
-	            logger.error("Exception while getting primary keys for table "+tableName +"schema:"+schema+ "Exception:"+ex.getMessage());
-	        }finally {
-	        	connection.close();
-	        }
-	        return tables;
-	 }
 
-	private static Connection connection = null;
-	    static Connection getConnection() throws SQLException {
-	        if (connection == null) {
-	            connection = DriverManager.getConnection(
-	                    "jdbc:postgresql://" + Properties.POSTGRESQL_DB_HOST + ":" + Properties.POSTGRESQL_DB_PORT + "/" + Properties.POSTGRESQL_DB_DATABASE,
-	                    Properties.POSTGRESQL_DB_USERNAME,
-	                    Properties.POSTGRESQL_DB_PASSWORD);
-	        }
-	        if (connection.isClosed()) {
-	            throw new SQLException("connection could not initiated");
-	        }
-	        return connection;
-	    }
 
-		
-		public List<String> getAllTablesFromPostgres(String schemaName) throws Exception{
+		/***
+		 * Get all the tables from the 2014 schema to be purged.
+		 * @return
+		 */
+		public List<String> get2014Tables(){
 	        List<String> tables = new ArrayList<>();
-	        ResultSet resultSet = null;
-	        PreparedStatement statement = null;
-	        Connection connection = null;
-	        try{
-	            connection = getConnection();
-	            statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
-	            resultSet = statement.executeQuery();
-	            while (resultSet.next()){
-	                tables.add(resultSet.getString("table_name"));
-	            }
-
-	        }catch (Exception ex){
-	            throw ex;
-	        }
+	        tables.add("path_status");
+	        tables.add("rhybcp_status");
+	        tables.add("last_perm_address");
+	        tables.add("percent_ami");
+	        tables.add("lastgradecompleted");
+	        tables.add("schoolstatus");
+	        tables.add("employment");
+	        tables.add("health_status");
+	        tables.add("affiliation");
+	        tables.add("site");
+	        tables.add("inventory");
+	        tables.add("funder");
+	        tables.add("enrollment_coc");
+	        tables.add("rhybcpstatus");
+	        tables.add("sexualorientation");
+	        tables.add("formerwardjuvenilejustice");
+	        tables.add("lastpermanentaddress");
+	        tables.add("percentami");
+	        tables.add("medicalassistance");
+	        tables.add("youthcriticalissues");
+	        tables.add("formerwardchildwelfare");
+	        tables.add("referralsource");
+	        tables.add("commercialsexualexploitation");
+	        tables.add("domesticviolence");
+	        tables.add("residentialmoveindate");
+	        tables.add("dateofengagement");
+	        tables.add("services");
+	        tables.add("incomeandsources");
+	        tables.add("noncashbenefits");
+	        tables.add("healthinsurance");
+	        tables.add("exithousingassessment");
+	        tables.add("exitplansactions");
+	        tables.add("housingassessmentdisposition");
+	        tables.add("familyreunification");
+	        tables.add("connectionwithsoar");
+	        tables.add("projectcompletionstatus");
+	        tables.add("worsthousingsituation");
+	        tables.add("exit");
+	        tables.add("projectcoc");
+	        tables.add("disabilities");
+	        tables.add("enrollment");
+	        tables.add("project");
+	        tables.add("organization");
+	        tables.add("sync");
+	        tables.add("veteran_info");
+	        tables.add("client");
+	        tables.add("bulk_upload");
+	        tables.add("export");
+	        tables.add("source");
+	        tables.add("bulk_upload_error");
+	        
 	        return tables;
 	    }
+		/***
+		 * Get all the tables from the 2015 schema to be purged.
+		 * @return
+		 */
+		public List<String> get2015Tables(){
+	        List<String> tables = new ArrayList<>();
+	        tables.add("path_status");
+	        tables.add("rhybcp_status");
+	        tables.add("employment");
+			tables.add("health_status");
+			tables.add("affiliation");
+			tables.add("site");
+			tables.add("inventory");
+			tables.add("funder");	
+			tables.add("enrollment_coc");
+			tables.add("medicalassistance");
+			tables.add("domesticviolence");
+			tables.add("disabilities");
+			tables.add("residentialmoveindate");
+			tables.add("dateofengagement");
+			tables.add("incomeandsources");
+			tables.add("noncashbenefits");
+			tables.add("healthinsurance");
+			tables.add("exithousingassessment");
+			tables.add("housingassessmentdisposition");
+			tables.add("exit");
+			tables.add("coc");
+			tables.add("project"); 
+			tables.add("enrollment");
+			tables.add("organization"); 
+			tables.add("sync");
+			tables.add("client_veteran_info");
+			tables.add("client");
+			tables.add("bulk_upload");
+			tables.add("bulk_upload_activity");
+			tables.add("export"); 
+			tables.add("source");
+			tables.add("exitRHY");
+			tables.add("exitPath");
+	        return tables;
+	    }
+		/***
+		 * Get all the tables from the 2015 schema to be purged.
+		 * @return
+		 */
+		public List<String> get2016Tables(){
+	        List<String> tables = new ArrayList<>();
+	        tables.add("path_status");
+	        tables.add("rhybcp_status");
+	        tables.add("employment");
+	        tables.add("health_status");
+	        tables.add("affiliation");
+	        tables.add("site");
+	        tables.add("inventory");
+	        tables.add("funder");	
+	        tables.add("enrollment_coc");
+	        tables.add("medicalassistance");
+	        tables.add("domesticviolence");
+	        tables.add("disabilities");
+	        tables.add("residentialmoveindate");
+	        tables.add("dateofengagement");
+	        tables.add("incomeandsources");
+	        tables.add("noncashbenefits");
+	        tables.add("healthinsurance");
+	        tables.add("exithousingassessment");
+	        tables.add("housingassessmentdisposition");
+	        tables.add("exit");
+	        tables.add("coc");
+	        tables.add("project"); 
+	        tables.add("enrollment");
+	        tables.add("organization"); 
+	        tables.add("client_veteran_info");
+	        tables.add("client");
+	        tables.add("bulk_upload_activity");
+	        tables.add("bulk_upload_error");
+	        tables.add("export"); 
+	        tables.add("source");
+	        tables.add("exitRHY");
+	        tables.add("exitPath");
+	        return tables;
+	    }
+		/***
+		 * Get all the tables from the base schema to be purged.
+		 * @return
+		 */
+		public List<String> getBaseTables() {
+			List<String> tables = new ArrayList<>();
+			tables.add("client");
+			tables.add("project");
+			return tables;
+		}
 		
 	public static void main(String args[]) throws Exception {
 		Logger logger = Logger.getLogger(PurgeProjectGroup.class.getName());
 		Properties props = new Properties();
 		props.generatePropValues();
-		List<String> schemas = new ArrayList<>();
-		schemas.add("v2014");
-		//schemas.add("v2015");
-		schemas.add("v2016");
-		schemas.add("base");
-		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-		for(String schema : schemas) {
-			logger.info("Starting purge on ::"+schema);
-			view.purge("IL0009",schema);
-		}
 		
+		PurgeProjectGroup view = new PurgeProjectGroup(logger);
+	    view.purge("PG0001");
 	}
 
 }
