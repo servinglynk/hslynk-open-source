@@ -109,13 +109,13 @@ public class BulkUploadHelper {
 			tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 		}
 		String uploadId = String.valueOf(upload.getId());
-			List<String> extractFiles = ExtractItemsSimple.extractFiles(tempFile, uploadId);
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
 				return getSourcesForZipFile(tempFile);
 			}
 			else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
 				return getSourcesForXml(tempFile,projectGroupEntity);
 			}else if(inputPath !=null && StringUtils.equals("7z",getFileExtension(upload.getInputpath()))) {
+				List<String> extractFiles = ExtractItemsSimple.extractFiles(tempFile, uploadId);
 				return getSourcesForXml(uploadId+"/"+extractFiles.get(0),projectGroupEntity);
 			}
 			return null;

@@ -3,9 +3,12 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -18,6 +21,8 @@ import javax.annotation.Resource;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.copy.CopyManager;
+import org.postgresql.core.BaseConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -64,27 +69,91 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
 				String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap,
 				domain.getUpload().getId());
-		String insertTableSQL = "INSERT INTO v2014.disabilities("+
-				"id, disabilityresponse, disabilitytype, documentationonfile, indefiniteandimpairs, pathhowconfirmed, pathsmiinformation, enrollmentid, receivingservices, project_group_code, date_created, date_created_from_source, date_updated_from_source, date_updated, user_id, export_id, parent_id, version, source_system_id, deleted, active, sync, datacollectionstage, information_date) "+
-				"VALUES (?,?, CAST(? AS v2014.disability_type), CAST(? AS v2014.no_yes), CAST(? AS v2014.five_val_dk_refused), CAST(? AS v2014.path_how_confirmed), CAST(? AS v2014.path_smi_info_how_confirmed), ?, CAST(? AS v2014.five_val_dk_refused), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(? AS v2014.datacollectionstage), ?)"; 
-		PreparedStatement preparedStatement = getConnection().prepareStatement(insertTableSQL);;
-		int batchTotal = 0;
 		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
 			for(Disabilities disabilities : disabilitiesList) {
-				processData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity,batchTotal,preparedStatement);
-				batchTotal++;
+				processData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity);
 			}
 		}
-		   int[] result = preparedStatement.executeBatch();
-           preparedStatement.clearBatch();
-		connection.commit();
 		hydrateBulkUploadActivityStaging(data.i, data.j, data.ignore,
 				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
 	}
 
+	public void hydrate(ExportDomain domain, Map<String, HmisBaseModel> exportModelMap,
+			Map<String, HmisBaseModel> relatedModelMap) throws Exception {
+		Export export = domain.getExport();
+		List<Disabilities> disabilitiesList = export.getDisabilities();
+		Data data = new Data();
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class,
+				getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(
+				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),
+				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
+				String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap,
+				domain.getUpload().getId());
+		 String fileName =domain.getUpload().getId()+"-disab.csv";
+		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
+		
+			 BufferedOutputStream bout = null;
+				try {
+		     bout = new BufferedOutputStream( new FileOutputStream(fileName));
+		     int i=1;
+		     int total =1;
+		     
+			for(Disabilities disabilities : disabilitiesList) {
+				processLargeData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity,bout);
+				if(i % 50000 == 0) {
+					logger.info("Writing to file disab-"+total+".csv");
+					bout.close();
+					copyDisabilitiesData(fileName);
+					fileName = domain.getUpload().getId()+"disab-"+total+".csv";
+					bout = new BufferedOutputStream( new FileOutputStream(fileName)) ;
+					total++;
+				}
+				i++;
+			}
+			
+		   }catch (IOException e) {
+	        } finally {
+           if (bout != null) {
+               try {
+                   bout.close();
+                   copyDisabilitiesData(fileName);
+               } catch (Exception e) {
+            	   
+               }
+           }
+	       }
+		}
+		hydrateBulkUploadActivityStaging(data.i, data.j, data.ignore,
+				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), domain, exportEntity);
+	}
+	
+	
+	public void copyDisabilitiesData(String fileName) {
+		FileReader fr = null;
+		try {
+			
+            CopyManager cm = new CopyManager((BaseConnection) getConnection());
+
+             fr = new FileReader(fileName);
+            cm.copyIn("COPY v2014.disabilities FROM STDIN WITH DELIMITER AS ','", fr);
+
+        } catch (SQLException | IOException ex) {
+        	ex.printStackTrace();
+
+        } finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (Exception ex) {
+            	ex.printStackTrace();
+            }
+        }
+	}
 	public void processData(Disabilities disabilities, ExportDomain domain, Data data,
 			Map<String, HmisBaseModel> modelMap, Map<String, HmisBaseModel> relatedModelMap,
-			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity, int batchTotal,PreparedStatement preparedStatement) {
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
 
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = getModelObject(domain, disabilities, data,
 				modelMap);
@@ -115,8 +184,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			model.setDataCollectionStage(DataCollectionStageEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
 			model.setExport(exportEntity);
-			hydrate(model,batchTotal++,preparedStatement,model.getExport().getId(),UUID.randomUUID());
-			//performSaveOrUpdate(model);
+			performSaveOrUpdate(model);
 		} catch (Exception e) {
 			String errorMessage = "Exception in Disabilities :" + disabilities.getProjectEntryID() + ":: Exception"
 					+ e.getStackTrace();
@@ -134,45 +202,127 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			logger.error(errorMessage);
 		}
 	}
+	
+	public void processLargeData(Disabilities disabilities, ExportDomain domain, Data data,
+			Map<String, HmisBaseModel> modelMap, Map<String, HmisBaseModel> relatedModelMap,
+			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity, BufferedOutputStream bout) {
 
-	public void hydrate(com.servinglynk.hmis.warehouse.model.v2014.Disabilities model, int batchTotal, PreparedStatement preparedStatement,UUID exportId,UUID id) {
+		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = getModelObject(domain, disabilities, data,
+				modelMap);
+		
+		try {
+			model = getModelObject(domain, disabilities, data, modelMap);
+			model.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
+			model.setDisabilitytype(DisabilitiesDisabilitytypeEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
+			model.setDocumentationonfile(DisabilitiesDocumentationonfileEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDocumentationOnFile())));
+			model.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairs())));
+			model.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHHowConfirmed())));
+			model.setPathsmiinformation(DisabilitiesPathsmiinformationEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getPATHSMIInformation())));
+			model.setReceivingservices(DisabilitiesReceivingservicesEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
+			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+			Enrollment enrollmentModel = (Enrollment) getModel(
+					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), Enrollment.class,
+					disabilities.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap,
+					domain.getUpload().getId());
+			model.setEnrollmentid(enrollmentModel);
+			model.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
+			model.setDataCollectionStage(DataCollectionStageEnum
+					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
+			model.setExport(exportEntity);
+			hydrate(model,model.getExport().getId(),UUID.randomUUID(),bout);
+		               
+		} catch (Exception e) {
+			String errorMessage = "Exception in Disabilities :" + disabilities.getProjectEntryID() + ":: Exception"
+					+ e.getStackTrace();
+			if (model != null) {
+				Error2014 error = new Error2014();
+				error.model_id = model.getId();
+				error.bulk_upload_ui = domain.getUpload().getId();
+				error.project_group_code = domain.getUpload().getProjectGroupCode();
+				error.source_system_id = model.getSourceSystemId();
+				error.type = ErrorType.ERROR;
+				error.error_description = errorMessage;
+				error.date_created = model.getDateCreated();
+				performSave(error);
+			}
+			logger.error(errorMessage);
+		}
+	}
+	
+	public void hydrate(com.servinglynk.hmis.warehouse.model.v2014.Disabilities model,UUID exportId,UUID id,BufferedOutputStream bout) {
 			
 		try {
-			 	connection.setAutoCommit(false);
-		        preparedStatement.setObject(1,id);
-		        preparedStatement.setInt(2, model.getDisabilityresponse() !=null ? model.getDisabilityresponse() : 0);
-				preparedStatement.setString(3,model.getDisabilitytype() != null ? model.getDisabilitytype().getValue(): "99" );
-				preparedStatement.setString(4,model.getDocumentationonfile() !=null ? model.getDocumentationonfile().getValue():"99" );
-				preparedStatement.setString(5,model.getIndefiniteandimpairs() !=null ? model.getIndefiniteandimpairs().getValue():"99");
-				preparedStatement.setString(6,model.getPathhowconfirmed() !=null ? model.getPathhowconfirmed().getValue():"99");
-				preparedStatement.setString(7,model.getPathsmiinformation() !=null ? model.getPathsmiinformation().getValue(): "99");
-				preparedStatement.setObject(8,model.getEnrollmentid() != null ? model.getEnrollmentid().getId(): null);
-				preparedStatement.setString(9,model.getReceivingservices() !=null ? model.getReceivingservices().getValue(): "99");
-				preparedStatement.setString(10,model.getProjectGroupCode());
-				preparedStatement.setTimestamp(11,getCurrentTimeStamp());
-				preparedStatement.setTimestamp(12,getTimeStamp(model.getDateCreatedFromSource()));
-				preparedStatement.setTimestamp(13,getTimeStamp(model.getDateUpdatedFromSource()));
-				preparedStatement.setTimestamp(14,getCurrentTimeStamp());
-				preparedStatement.setObject(15,model.getUserId());
-				preparedStatement.setObject(16,exportId != null ? exportId : null);
-				preparedStatement.setObject(17,null);
-				preparedStatement.setInt(18,0);
-				preparedStatement.setString(19,model.getSourceSystemId());
-				preparedStatement.setBoolean(20,false);
-				preparedStatement.setBoolean(21,true);
-				preparedStatement.setBoolean(22,false);
-				preparedStatement.setString(23,model.getDataCollectionStage() !=null ? model.getDataCollectionStage().getValue(): null);
-				preparedStatement.setTimestamp(24,getTimeStamp(model.getInformationDate()));
-		        preparedStatement.addBatch();
-		        if (batchTotal % 1000 == 0 ) {
-		            int[] result = preparedStatement.executeBatch();
-		            logger.info("Executing batch at ID::"+model.getSourceSystemId());
-		            preparedStatement.clearBatch();
-		            batchTotal=0;                    
-		        }
+				String commaDemiliter =",";
+				StringBuilder builder = new StringBuilder();
+				builder.append(id);
+				builder.append(commaDemiliter);
+				builder.append( model.getDisabilityresponse() !=null ? model.getDisabilityresponse() : 0);
+				builder.append(commaDemiliter);
+				builder.append(model.getDisabilitytype() != null ? model.getDisabilitytype().getValue(): "99");
+				builder.append(commaDemiliter);
+				builder.append(model.getDocumentationonfile() !=null ? model.getDocumentationonfile().getValue():"99");
+				builder.append(commaDemiliter);
+				builder.append(model.getIndefiniteandimpairs() !=null ? model.getIndefiniteandimpairs().getValue():"99");
+				builder.append(commaDemiliter);
+				builder.append(model.getPathhowconfirmed() !=null ? model.getPathhowconfirmed().getValue():"99");
+				builder.append(commaDemiliter);
+				builder.append(model.getPathsmiinformation() !=null ? model.getPathsmiinformation().getValue(): "99");
+				builder.append(commaDemiliter);
+				builder.append(model.getEnrollmentid() != null ? model.getEnrollmentid().getId(): "00000000-0000-0000-0000-000000000000");
+				builder.append(commaDemiliter);
+				builder.append(model.getReceivingservices() !=null ? model.getReceivingservices().getValue(): "99");
+				builder.append(commaDemiliter);
+				builder.append(model.getProjectGroupCode());
+				builder.append(commaDemiliter);
+				builder.append(getCurrentTimeStamp());
+				builder.append(commaDemiliter);
+				builder.append(getTimeStamp(model.getDateCreatedFromSource()));
+				builder.append(commaDemiliter);
+				builder.append(getTimeStamp(model.getDateUpdatedFromSource()));
+				builder.append(commaDemiliter);
+				builder.append(getCurrentTimeStamp());
+				builder.append(commaDemiliter);
+				builder.append(model.getUserId() !=null ? model.getUserId() :"00000000-0000-0000-0000-000000000000");
+				builder.append(commaDemiliter);
+				builder.append(exportId != null ? exportId : "00000000-0000-0000-0000-000000000000");
+				builder.append(commaDemiliter);
+			    builder.append("00000000-0000-0000-0000-000000000000");
+				builder.append(commaDemiliter);
+				builder.append(0);
+				builder.append(commaDemiliter);
+				builder.append(model.getSourceSystemId());
+				builder.append(commaDemiliter);
+				builder.append(false);
+				builder.append(commaDemiliter);
+				builder.append(true);
+				builder.append(commaDemiliter);
+				builder.append(false);
+				builder.append(commaDemiliter);
+				builder.append(model.getDataCollectionStage() !=null ? model.getDataCollectionStage().getValue(): null);
+				builder.append(commaDemiliter);
+				builder.append(getTimeStamp(model.getInformationDate()));
+//				builder.append(commaDemiliter);
+//				builder.append(
+//				builder.append(commaDemiliter);
+//		        preparedStatement.addBatch();
+//		        if (batchTotal % 1000 == 0 ) {
+//		            int[] result = preparedStatement.executeBatch();
+//		            logger.info("Executing batch at ID::"+model.getSourceSystemId());
+//		            preparedStatement.clearBatch();
+//		            batchTotal=0;                    
+//		        }
+		        bout.write(builder.toString().getBytes());
+		        bout.write("\n".getBytes());
 			}
-		     catch (SQLException e) {
-		    	 logger.error("Error in Disabilities table source id"+model.getSourceSystemId()+ "execption:"+e.getStackTrace());
+		     catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}

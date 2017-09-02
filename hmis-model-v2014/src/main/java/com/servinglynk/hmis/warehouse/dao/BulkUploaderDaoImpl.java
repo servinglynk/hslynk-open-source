@@ -150,7 +150,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getServicesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			//parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -419,7 +419,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Base Process:::Error in base process....."+e.getStackTrace());
+			logger.error(" Base Process:::Base in base process....."+e.getLocalizedMessage() +" Cause"+e.getCause());
 		}
 			return upload;
 	
@@ -447,7 +447,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			logger.error(" Error in Enrollment process....."+e.getLocalizedMessage()+ "cause::"+e.getCause());
 		}
 			return upload;
 		
@@ -482,7 +482,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in Client Children process....."+e.getStackTrace());
+			logger.error(" Error in Client Children process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 		
@@ -502,13 +502,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getExitDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap); // Done
 		logger.info(" Exit Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Exit Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.DISAB.getStatus());
+		upload.setStatus(UploadStatus.C_EMENT.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			logger.error(" Error in Exit process....."+e.getLocalizedMessage()+ " cause::"+e.getCause());
 		}
 			return upload;
 	}
@@ -554,16 +554,17 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
 		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+		parentDaoFactory.getDisabilitiesDao().hydrate(domain,exportModelMap,enrollmentModelMap); // Done
 		logger.info(" Disabilities Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Disabilities Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.C_EMENT.getStatus());
+		upload.setStatus(UploadStatus.STAGING.getStatus());
 		upload.setExportId(domain.getExportId());
-		insertOrUpdate(upload);
+	//	insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			e.printStackTrace();
+			logger.error(" Error in Disabilities process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 	}
@@ -632,13 +633,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getConnectionwithsoarDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 		parentDaoFactory.getProjectcompletionstatusDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.STAGING.getStatus());
+		upload.setStatus(UploadStatus.DISAB.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in Exit Children process....."+e.getStackTrace());
+			logger.error(" Error in Exit Children process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 	}
@@ -690,7 +691,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			logger.error(" Error in ExitChildren process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 	}
