@@ -102,9 +102,10 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			for(Disabilities disabilities : disabilitiesList) {
 				processLargeData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity,bout);
 				if(i % 50000 == 0) {
-					logger.info("Writing to file disab-"+total+".csv");
+					logger.info("Writing to file disab ::"+fileName);
 					bout.close();
 					copyDisabilitiesData(fileName);
+					logger.info("Copy command executed on file ::"+fileName);
 					fileName = domain.getUpload().getId()+"disab-"+total+".csv";
 					bout = new BufferedOutputStream( new FileOutputStream(fileName)) ;
 					total++;

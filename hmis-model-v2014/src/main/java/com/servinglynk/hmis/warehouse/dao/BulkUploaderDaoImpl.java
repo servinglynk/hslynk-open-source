@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
@@ -415,6 +416,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.info("Base Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			upload.setStatus(UploadStatus.ENROLLMENT.getStatus());
 			upload.setExportId(domain.getExportId());
+			if(isFileFromS3) {
+				deleteFile(upload.getInputpath()); 
+			}
+			deleteFile(upload.getInputpath()+"-temp.xml");
 			insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
@@ -443,6 +448,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		logger.info("Enrollment Process::: Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.C_CLIENT.getStatus());
 		upload.setExportId(domain.getExportId());
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
@@ -477,6 +486,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setExportId(domain.getExportId());
 		upload.setStatus(UploadStatus.EXIT.getStatus());
 		upload.setExportId(domain.getExportId());
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		insertOrUpdate(upload);
 		logger.info("ExitChildren Process::: Client Children table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		}catch(Exception e) {
@@ -505,6 +518,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setStatus(UploadStatus.C_EMENT.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
@@ -559,7 +576,12 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		logger.info("Disabilities Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.STAGING.getStatus());
 		upload.setExportId(domain.getExportId());
-	//	insertOrUpdate(upload);
+		//Delete all the files
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
+		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
@@ -567,6 +589,20 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.error(" Error in Disabilities process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
+	}
+	
+	private void deleteFile(String fileName) {
+		try{
+    		File file = new File(fileName);
+    		if(file.delete()){
+    			logger.info(file.getName() + " is deleted!");
+    		}else{
+    			logger.info("Delete operation is failed.");
+    		}
+
+    	}catch(Exception e){
+    		logger.error(" Error in File Deletion ....."+e.getLocalizedMessage() +" cause:"+e.getCause());
+    	}
 	}
 	/***
 	 * Get Source data after reading the file.
@@ -636,6 +672,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setStatus(UploadStatus.DISAB.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
@@ -687,6 +727,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setStatus(UploadStatus.C_EXIT.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());

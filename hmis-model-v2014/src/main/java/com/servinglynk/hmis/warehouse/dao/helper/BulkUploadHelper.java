@@ -128,7 +128,7 @@ public class BulkUploadHelper {
 	 */
 	public Sources getSourcesForXml(String fileName,ProjectGroupEntity projectGroupEntity) throws JAXBException {
 			File file = new File(fileName);
-		    File tempFile = new File(fileName + System.currentTimeMillis()+"-temp.xml");
+		    File tempFile = new File(fileName+"-temp.xml");
 			try {
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
 				FileInputStream fis = new FileInputStream(file);
