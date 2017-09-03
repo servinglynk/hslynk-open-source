@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.APIAccessController;
 import com.servinglynk.hmis.warehouse.rest.AccountsController;
 import com.servinglynk.hmis.warehouse.rest.ApiMethodAuthorizationChecksController;
 import com.servinglynk.hmis.warehouse.rest.ApiMethodController;
@@ -156,5 +157,10 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public HealthController healthController(){
 		 return new HealthController();
+	 }
+	 
+	 @Bean
+	 public APIAccessController accessController() {
+		 return new APIAccessController();
 	 }
 }

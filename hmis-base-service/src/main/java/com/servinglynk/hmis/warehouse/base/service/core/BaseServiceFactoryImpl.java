@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.base.service.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
@@ -76,6 +77,7 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired private ClientConsentService clientConsentService;
 	@Autowired private ClientDataElementsService clientDataElementsService;
+	@Autowired private APIAccessService apiAccessService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -231,5 +233,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setClientDataElementsService(ClientDataElementsService clientDataElementsService) {
 		this.clientDataElementsService = clientDataElementsService;
+	}
+
+	public APIAccessService getApiAccessService() {
+		return apiAccessService;
+	}
+
+	public void setApiAccessService(APIAccessService apiAccessService) {
+		this.apiAccessService = apiAccessService;
 	}
 }
