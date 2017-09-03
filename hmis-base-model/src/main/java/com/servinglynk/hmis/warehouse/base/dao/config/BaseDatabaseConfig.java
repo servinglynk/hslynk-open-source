@@ -139,6 +139,11 @@ public class BaseDatabaseConfig {
 		return new String("/hmis-authorization-service/consent.html");
 	}
 	
+	@Bean
+	public String errorUri() {
+		return new String("/hmis-authorization-service/error.html");
+	}
+	
 	
 	@Bean
 	public ServiceDaoImpl serviceDao(){
