@@ -71,13 +71,11 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Organization organizationid;
 	/** Field mapping. */
-//	private String projectcommonname;
-	/** Field mapping. */
 	private ProjectResidentialaffiliationEnum residentialaffiliation;
-	  private LocalDateTime operatingStartDate;
-	  private LocalDateTime operatingEndDate;
-	  private Integer victimServiceProvider;
-	  private Integer housingType;
+	private LocalDateTime operatingStartDate;
+	private LocalDateTime operatingEndDate;
+	private Integer victimServiceProvider;
+	private Integer housingType;
 	private String projectname;
 	/** Field mapping. */
 	private ProjectProjecttypeEnum projecttype;
@@ -397,27 +395,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		this.organizationid = organizationid;
 	}
 
-	 /**
-	 * Return the value associated with the column: projectcommonname.
-	 * @return A String object (this.projectcommonname)
-	 */
-	/*@Basic( optional = true )
-	@Column
-	public String getProjectcommonname() {
-		return this.projectcommonname;
-
-	}
-*/
-
-
-	 /**
-	 * Set the value related to the column: projectcommonname.
-	 * @param projectcommonname the projectcommonname value you wish to set
-	 */
-	/*public void setProjectcommonname(final String projectcommonname) {
-		this.projectcommonname = projectcommonname;
-	}*/
-
+	 
 	 /**
 	 * Return the value associated with the column: projectname.
 	 * @return A String object (this.projectname)
@@ -558,7 +536,6 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setId(this.getId());
 		copy.setOrganizationid(this.getOrganizationid());
 		copy.setParentId(this.getParentId());
-//		copy.setProjectcommonname(this.getProjectcommonname());
 		copy.setProjectname(this.getProjectname());
 		copy.setProjecttype(this.getProjecttype());
 		copy.setSync(this.isSync());
@@ -585,7 +562,6 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("deleted: " + this.isDeleted() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
-//		sb.append("projectcommonname: " + this.getProjectcommonname() + ", ");
 		sb.append("projectname: " + this.getProjectname() + ", ");
 		sb.append("projecttype: " + this.getProjecttype() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
@@ -644,7 +620,6 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getOrganizationid() == null) && (that.getOrganizationid() == null)) || (getOrganizationid() != null && getOrganizationid().getId().equals(that.getOrganizationid().getId())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
-//		result = result && (((getProjectcommonname() == null) && (that.getProjectcommonname() == null)) || (getProjectcommonname() != null && getProjectcommonname().equals(that.getProjectcommonname())));
 		result = result && (((getProjectname() == null) && (that.getProjectname() == null)) || (getProjectname() != null && getProjectname().equals(that.getProjectname())));
 		result = result && (((getProjecttype() == null) && (that.getProjecttype() == null)) || (getProjecttype() != null && getProjecttype().equals(that.getProjecttype())));
 		result = result && (((getTargetpopulation() == null) && (that.getTargetpopulation() == null)) || (getTargetpopulation() != null && getTargetpopulation().equals(that.getTargetpopulation())));

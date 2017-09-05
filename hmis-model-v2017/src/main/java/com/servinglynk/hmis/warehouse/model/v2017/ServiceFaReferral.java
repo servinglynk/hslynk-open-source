@@ -49,7 +49,6 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	/** Field mapping. */
 	private java.math.BigDecimal faAmount;
 	/** Field mapping. */
-//	private Integer funderList;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
@@ -57,7 +56,6 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	/** Field mapping. */
 	private Integer referralOutcome;
 	/** Field mapping. */
-//	private Integer serviceCategory;
 	private Integer recordType;
 	/** Field mapping. */
 	private Integer subTypeProvided;
@@ -148,31 +146,10 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 		this.dateprovided = dateprovided;
 	}
 
-	/**
-	 * Return the value associated with the column: funderList.
-	 * @return A Integer object (this.funderList)
-	 */
-/*	@Basic( optional = true )
-	@Column( name = "funder_list"  )
-	public Integer getFunderList() {
-		return this.funderList;
-
-	}
-*/
-
-
-	 /**
-	 * Set the value related to the column: funderList.
-	 * @param funderList the funderList value you wish to set
-	 */
-/*	public void setFunderList(final Integer funderList) {
-		this.funderList = funderList;
-	}
-*/
 	
 	/**
-	 * Return the value associated with the column: funderList.
-	 * @return A Integer object (this.funderList)
+	 * Return the value associated with the column: record_type.
+	 * @return A Integer object (this.recordType)
 	 */
 	@Basic( optional = true )
 	@Column( name = "record_type"  )
@@ -184,8 +161,8 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 
 
 	 /**
-	 * Set the value related to the column: funderList.
-	 * @param funderList the funderList value you wish to set
+	 * Set the value related to the column: recordType.
+	 * @param funderList the recordType value you wish to set
 	 */
 	public void setRecordType(final Integer recordType) {
 		this.recordType = recordType;
@@ -197,14 +174,12 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	 * @return A java.util.UUID object (this.id)
 	 */
 	@Id
-	 @Basic( optional = false )
-  @Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	@Basic( optional = false )
+	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
 
 	}
-
-
 
 	 /**
 	 * Set the value related to the column: id.
@@ -343,8 +318,6 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 
 	}
 
-
-
 	 /**
 	 * Set the value related to the column: export.
 	 * @param export the export value you wish to set
@@ -371,13 +344,11 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setExport(this.getExport());
 		copy.setFaAmount(this.getFaAmount());
-//		copy.setFunderList(this.getFunderList());
 		copy.setId(this.getId());
 		copy.setOtherTypeProvided(this.getOtherTypeProvided());
 		copy.setParentId(this.getParentId());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setReferralOutcome(this.getReferralOutcome());
-//		copy.setServiceCategory(this.getServiceCategory());
 		copy.setRecordType(this.getRecordType());
 		copy.setSubTypeProvided(this.getSubTypeProvided());
 		copy.setSync(this.isSync());
@@ -404,14 +375,12 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 		sb.append("dateUpdatedFromSource: " + this.getDateUpdatedFromSource() + ", ");
 		sb.append("deleted: " + this.isDeleted() + ", ");
 		sb.append("faAmount: " + this.getFaAmount() + ", ");
-//		sb.append("funderList: " + this.getFunderList() + ", ");
 		sb.append("recordType: " + this.getRecordType() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("otherTypeProvided: " + this.getOtherTypeProvided() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
 		sb.append("referralOutcome: " + this.getReferralOutcome() + ", ");
-//		sb.append("serviceCategory: " + this.getServiceCategory() + ", ");
 		sb.append("subTypeProvided: " + this.getSubTypeProvided() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
 		sb.append("typeProvided: " + this.getTypeProvided() + ", ");
@@ -470,12 +439,10 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getFaAmount() == null) && (that.getFaAmount() == null)) || (getFaAmount() != null && getFaAmount().equals(that.getFaAmount())));
-//		result = result && (((getFunderList() == null) && (that.getFunderList() == null)) || (getFunderList() != null && getFunderList().equals(that.getFunderList())));
 		result = result && (((getOtherTypeProvided() == null) && (that.getOtherTypeProvided() == null)) || (getOtherTypeProvided() != null && getOtherTypeProvided().equals(that.getOtherTypeProvided())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getReferralOutcome() == null) && (that.getReferralOutcome() == null)) || (getReferralOutcome() != null && getReferralOutcome().equals(that.getReferralOutcome())));
-//		result = result && (((getServiceCategory() == null) && (that.getServiceCategory() == null)) || (getServiceCategory() != null && getServiceCategory().equals(that.getServiceCategory())));
 		result = result && (((getRecordType() == null) && (that.getRecordType() == null)) || (getRecordType() != null && getRecordType().equals(that.getRecordType())));
 		result = result && (((getSubTypeProvided() == null) && (that.getSubTypeProvided() == null)) || (getSubTypeProvided() != null && getSubTypeProvided().equals(that.getSubTypeProvided())));
 		result = result && (((getTypeProvided() == null) && (that.getTypeProvided() == null)) || (getTypeProvided() != null && getTypeProvided().equals(that.getTypeProvided())));

@@ -59,6 +59,7 @@ public class HealthStatus extends HmisBaseModel implements Cloneable, Serializab
 	private java.util.UUID id;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
+	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
@@ -71,7 +72,8 @@ public class HealthStatus extends HmisBaseModel implements Cloneable, Serializab
 	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
 		this.dataCollectionStage = dataCollectionStage;
 	}
-
+	
+	
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.

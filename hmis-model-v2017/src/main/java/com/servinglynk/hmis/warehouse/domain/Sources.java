@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
+import com.servinglynk.hmis.warehouse.model.v2017.Moveindate;
 import com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare;
 import com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason;
 
@@ -362,7 +364,7 @@ public class Sources {
             "entrySSVF",
             "project",
             "coC",
-            "residentialMoveInDate",
+            "moveInDate",
             "rhybcpStatus",
             /*"services",*/
             "services",
@@ -438,8 +440,8 @@ public class Sources {
             protected List<Project> project;
             @XmlElement(name = "CoC", required = true)
             protected List<CoC> coC;
-            @XmlElement(name = "ResidentialMoveInDate", required = true)
-            protected List<ResidentialMoveInDate> residentialMoveInDate;
+            @XmlElement(name = "MoveInDate", required = true)
+            protected List<Moveindate> moveInDate;
             @XmlElement(name = "RHYBCPStatus", required = true)
             protected List<RHYBCPStatus> rhybcpStatus;
             @XmlElement(name = "Services", required = true)
@@ -1355,27 +1357,27 @@ public class Sources {
             }
 
             /**
-             * Gets the value of the residentialMoveInDate property.
+             * Gets the value of the moveInDate property.
              * 
              * @return
              *     possible object is
-             *     {@link ResidentialMoveInDate }
+             *     {@link MoveInDate }
              *     
              */
-            public List<ResidentialMoveInDate> getResidentialMoveInDate() {
-                return residentialMoveInDate;
+            public List<Moveindate> getMoveInDate() {
+                return moveInDate;
             }
 
             /**
-             * Sets the value of the residentialMoveInDate property.
+             * Sets the value of the moveInDate property.
              * 
              * @param value
              *     allowed object is
-             *     {@link ResidentialMoveInDate }
+             *     {@link MoveInDate }
              *     
              */
-            public void setResidentialMoveInDate(List<ResidentialMoveInDate> value) {
-                this.residentialMoveInDate = value;
+            public void setMoveInDate(List<Moveindate> value) {
+                this.moveInDate = value;
             }
 
             /**
@@ -13250,10 +13252,10 @@ public class Sources {
              *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
-             *         &lt;element name="ResidentialMoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="MoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ResidentialMoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+             *         &lt;element name="MoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -13267,21 +13269,19 @@ public class Sources {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-                "residentialMoveInDateID",
+                "moveInDateID",
                 "projectEntryID",
                /* "inPermanentHousing",*/
-                "residentialMoveInDate"
+                "moveInDate"
             })
-            public static class ResidentialMoveInDate {
+            public static class Moveindate {
 
-                @XmlElement(name = "ResidentialMoveInDateID", required = true)
-                protected String residentialMoveInDateID;
+                @XmlElement(name = "MoveInDateID", required = true)
+                protected String moveInDateID;
                 @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-               /* @XmlElement(name = "InPermanentHousing")
-                protected byte inPermanentHousing;*/
-                @XmlElement(name = "ResidentialMoveInDate", required = true)
-                protected XMLGregorianCalendar residentialMoveInDate;
+                @XmlElement(name = "MoveInDate", required = true)
+                protected XMLGregorianCalendar moveInDate;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -13290,27 +13290,27 @@ public class Sources {
                 protected String userID;
 
                 /**
-                 * Gets the value of the residentialMoveInDateID property.
+                 * Gets the value of the moveInDateID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getResidentialMoveInDateID() {
-                    return residentialMoveInDateID;
+                public String getMoveInDateID() {
+                    return moveInDateID;
                 }
 
                 /**
-                 * Sets the value of the residentialMoveInDateID property.
+                 * Sets the value of the moveInDateID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setResidentialMoveInDateID(String value) {
-                    this.residentialMoveInDateID = value;
+                public void setMoveInDateID(String value) {
+                    this.moveInDateID = value;
                 }
 
                 /**
@@ -13354,27 +13354,27 @@ public class Sources {
                 }*/
 
                 /**
-                 * Gets the value of the residentialMoveInDate property.
+                 * Gets the value of the moveInDate property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
                  *     
                  */
-                public XMLGregorianCalendar getResidentialMoveInDate() {
-                    return residentialMoveInDate;
+                public XMLGregorianCalendar getMoveInDate() {
+                    return moveInDate;
                 }
 
                 /**
-                 * Sets the value of the residentialMoveInDate property.
+                 * Sets the value of the roveInDate property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
                  *     
                  */
-                public void setResidentialMoveInDate(XMLGregorianCalendar value) {
-                    this.residentialMoveInDate = value;
+                public void setMoveInDate(XMLGregorianCalendar value) {
+                    this.moveInDate = value;
                 }
 
                 /**

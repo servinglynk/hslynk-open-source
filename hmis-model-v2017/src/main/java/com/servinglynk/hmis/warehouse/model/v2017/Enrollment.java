@@ -82,8 +82,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 
 	/** Field mapping. */
 	private LocalDateTime entrydate;
-	/** Field mapping. */
-//	private Integer entryfromstreetessh;
+	
 	/** Field mapping. */
 	private Set<Entryrhsp> entryrhsps = new HashSet<Entryrhsp>();
 
@@ -105,8 +104,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private String householdid;
 	/** Field mapping. */
-//	private EnrollmentHousingstatusEnum housingstatus;
-	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private Set<Incomeandsources> incomeandsourceses = new HashSet<Incomeandsources>();
@@ -121,8 +118,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private Set<Noncashbenefits> noncashbenefitss = new HashSet<Noncashbenefits>();
 
 	/** Field mapping. */
-//	private String otherresidenceprior;
-	/** Field mapping. */
 	private Set<Pathstatus> pathStatuses = new HashSet<Pathstatus>();
 
 	/** Field mapping. */
@@ -133,10 +128,9 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private EnrollmentRelationshiptohohEnum relationshiptohoh;
 	/** Field mapping. */
 	private EnrollmentResidencepriorEnum residenceprior;
+	
 	/** Field mapping. */
-//	private EnrollmentResidencepriorlengthofstayEnum residencepriorlengthofstay;
-	/** Field mapping. */
-	private Set<Residentialmoveindate> residentialmoveindates = new HashSet<Residentialmoveindate>();
+	private Set<Moveindate> residentialmoveindates = new HashSet<Moveindate>();
 
 	/** Field mapping. */
 	private Set<RhybcpStatus> rhybcpStatuses = new HashSet<RhybcpStatus>();
@@ -164,9 +158,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	public Enrollment(java.util.UUID id) {
 		this.id = id;
 	}
-
-
-
 
 
 	/** Return the type of this class. Useful for when dealing with proxies.
@@ -302,10 +293,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.datetostreetessh = datetostreetessh;
 	}
 
-
-
-
-
 	 /**
 	 * Return the value associated with the column: disabilities.
 	 * @return A Set&lt;Disabilities&gt; object (this.disabilities)
@@ -421,26 +408,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.entrydate = entrydate;
 	}
 
-	 /**
-	 * Return the value associated with the column: entryfromstreetessh.
-	 * @return A Integer object (this.entryfromstreetessh)
-	 */
-	/*public Integer getEntryfromstreetessh() {
-		return this.entryfromstreetessh;
-
-	}*/
-
-
-
-	 /**
-	 * Set the value related to the column: entryfromstreetessh.
-	 * @param entryfromstreetessh the entryfromstreetessh value you wish to set
-	 */
-	/*public void setEntryfromstreetessh(final Integer entryfromstreetessh) {
-		this.entryfromstreetessh = entryfromstreetessh;
-	}*/
-
-	 /**
+	/**
 	 * Return the value associated with the column: entryrhsp.
 	 * @return A Set&lt;Entryrhsp&gt; object (this.entryrhsp)
 	 */
@@ -643,34 +611,13 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.householdid = householdid;
 	}
 
-	 /**
-	 * Return the value associated with the column: housingstatus.
-	 * @return A EnrollmentHousingstatusEnum object (this.housingstatus)
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnumType")
-	@Basic( optional = true )
-	@Column( name = "housingstatus" )
-	public EnrollmentHousingstatusEnum getHousingstatus() {
-		return this.housingstatus;
-
-	}*/
-
-
-
-	 /**
-	 * Set the value related to the column: housingstatus.
-	 * @param housingstatus the housingstatus value you wish to set
-	 */
-	/*public void setHousingstatus(final EnrollmentHousingstatusEnum housingstatus) {
-		this.housingstatus = housingstatus;
-	}*/
-
+	
 	 /**
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */
 	@Id
-	 @Basic( optional = false )
+	@Basic( optional = false )
     @Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
@@ -818,28 +765,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.noncashbenefitss = noncashbenefits;
 	}
 
-	 /**
-	 * Return the value associated with the column: otherresidenceprior.
-	 * @return A String object (this.otherresidenceprior)
-	 */
-	/*@Basic( optional = true )
-	@Column
-	public String getOtherresidenceprior() {
-		return this.otherresidenceprior;
-
-	}*/
-
-
-
-	 /**
-	 * Set the value related to the column: otherresidenceprior.
-	 * @param otherresidenceprior the otherresidenceprior value you wish to set
-	 */
-	/*public void setOtherresidenceprior(final String otherresidenceprior) {
-		this.otherresidenceprior = otherresidenceprior;
-	}*/
-
-
+	
 	 /**
 	 * Return the value associated with the column: pathStatus.
 	 * @return A Set&lt;PathStatus&gt; object (this.pathStatus)
@@ -902,7 +828,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: relationshiptohoh.
 	 * @return A EnrollmentRelationshiptohohEnum object (this.relationshiptohoh)
 	 */
-//	@Type(type = "enumType", parameters = {@Parameter(name = "enum", value = "com.servinglynk.hmis.enums.db.hmis.EnrollmentRelationshiptohohEnumType"), @Parameter(name = "forPgSQL", value = "true")})
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnumType")
 	@Basic( optional = true )
 	@Column( name = "relationshiptohoh" )
@@ -940,29 +865,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 			this.residenceprior = residenceprior;
 		}
 
-		 /**
-		 * Return the value associated with the column: residencepriorlengthofstay.
-		 * @return A EnrollmentResidencepriorlengthofstayEnum object (this.residencepriorlengthofstay)
-		 */
-		/*@Type(type = "com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnumType")
-		@Basic( optional = true )
-		@Column
-		public EnrollmentResidencepriorlengthofstayEnum getResidencepriorlengthofstay() {
-			return this.residencepriorlengthofstay;
-
-		}
-*/
-
-
-		 /**
-		 * Set the value related to the column: residencepriorlengthofstay.
-		 * @param residencepriorlengthofstay the residencepriorlengthofstay value you wish to set
-		 */
-		/*public void setResidencepriorlengthofstay(final EnrollmentResidencepriorlengthofstayEnum residencepriorlengthofstay) {
-			this.residencepriorlengthofstay = residencepriorlengthofstay;
-		}*/
-
-
 
 
 	 /**
@@ -973,7 +875,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Set<Residentialmoveindate> getResidentialmoveindates() {
+	public Set<Moveindate> getResidentialmoveindates() {
 		return this.residentialmoveindates;
 
 	}
@@ -982,7 +884,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Adds a bi-directional link of type Residentialmoveindate to the residentialmoveindates set.
 	 * @param residentialmoveindate item to add
 	 */
-	public void addResidentialmoveindate(Residentialmoveindate residentialmoveindate) {
+	public void addResidentialmoveindate(Moveindate residentialmoveindate) {
 		residentialmoveindate.setEnrollmentid(this);
 		this.residentialmoveindates.add(residentialmoveindate);
 	}
@@ -992,7 +894,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Set the value related to the column: residentialmoveindate.
 	 * @param residentialmoveindate the residentialmoveindate value you wish to set
 	 */
-	public void setResidentialmoveindates(final Set<Residentialmoveindate> residentialmoveindate) {
+	public void setResidentialmoveindates(final Set<Moveindate> residentialmoveindate) {
 		this.residentialmoveindates = residentialmoveindate;
 	}
 
@@ -1112,9 +1014,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.losunderthreshold = losunderthreshold;
 	}
 
-	/**
-	 * @return the previousStreetESSH
-	 */
 	 /**
 	 * @return the losunderthreshold
 	 */
@@ -1174,7 +1073,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 			copy.getEmployments().addAll(this.getEmployments());
 		}
 		copy.setEntrydate(this.getEntrydate());
-//		copy.setEntryfromstreetessh(this.getEntryfromstreetessh());
 		if (this.getEntryrhsps() != null) {
 			copy.getEntryrhsps().addAll(this.getEntryrhsps());
 		}
@@ -1196,7 +1094,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 			copy.getHealthStatuses().addAll(this.getHealthStatuses());
 		}
 		copy.setHouseholdid(this.getHouseholdid());
-//		copy.setHousingstatus(this.getHousingstatus());
 		copy.setId(this.getId());
 		if (this.getIncomeandsourceses() != null) {
 			copy.getIncomeandsourceses().addAll(this.getIncomeandsourceses());
@@ -1209,7 +1106,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		if (this.getNoncashbenefitss() != null) {
 			copy.getNoncashbenefitss().addAll(this.getNoncashbenefitss());
 		}
-//		copy.setOtherresidenceprior(this.getOtherresidenceprior());
 		copy.setParentId(this.getParentId());
 		if (this.getPathStatuses() != null) {
 			copy.getPathStatuses().addAll(this.getPathStatuses());
@@ -1218,7 +1114,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setRelationshiptohoh(this.getRelationshiptohoh());
 		copy.setResidenceprior(this.getResidenceprior());
-//		copy.setResidencepriorlengthofstay(this.getResidencepriorlengthofstay());
 		if (this.getResidentialmoveindates() != null) {
 			copy.getResidentialmoveindates().addAll(this.getResidentialmoveindates());
 		}
@@ -1253,17 +1148,13 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		sb.append("deleted: " + this.isDeleted() + ", ");
 		sb.append("disablingcondition: " + this.getDisablingcondition() + ", ");
 		sb.append("entrydate: " + this.getEntrydate() + ", ");
-//		sb.append("entryfromstreetessh: " + this.getEntryfromstreetessh() + ", ");
 		sb.append("householdid: " + this.getHouseholdid() + ", ");
-//		sb.append("housingstatus: " + this.getHousingstatus() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("monthshomelesspastthreeyears: " + this.getMonthshomelesspastthreeyears() + ", ");
-//		sb.append("otherresidenceprior: " + this.getOtherresidenceprior() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
 		sb.append("relationshiptohoh: " + this.getRelationshiptohoh() + ", ");
 		sb.append("residenceprior: " + this.getResidenceprior() + ", ");
-//		sb.append("residencepriorlengthofstay: " + this.getResidencepriorlengthofstay() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
 		sb.append("timeshomelesspastthreeyears: " + this.getTimeshomelesspastthreeyears() + ", ");
 		sb.append("userId: " + this.getUserId() + ", ");
@@ -1332,18 +1223,14 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getDisablingcondition() == null) && (that.getDisablingcondition() == null)) || (getDisablingcondition() != null && getDisablingcondition().equals(that.getDisablingcondition())));
 		result = result && (((getEntrydate() == null) && (that.getEntrydate() == null)) || (getEntrydate() != null && getEntrydate().equals(that.getEntrydate())));
-//		result = result && (((getEntryfromstreetessh() == null) && (that.getEntryfromstreetessh() == null)) || (getEntryfromstreetessh() != null && getEntryfromstreetessh().equals(that.getEntryfromstreetessh())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getHouseholdid() == null) && (that.getHouseholdid() == null)) || (getHouseholdid() != null && getHouseholdid().equals(that.getHouseholdid())));
-//		result = result && (((getHousingstatus() == null) && (that.getHousingstatus() == null)) || (getHousingstatus() != null && getHousingstatus().equals(that.getHousingstatus())));
 		result = result && (((getMonthshomelesspastthreeyears() == null) && (that.getMonthshomelesspastthreeyears() == null)) || (getMonthshomelesspastthreeyears() != null && getMonthshomelesspastthreeyears().equals(that.getMonthshomelesspastthreeyears())));
-//		result = result && (((getOtherresidenceprior() == null) && (that.getOtherresidenceprior() == null)) || (getOtherresidenceprior() != null && getOtherresidenceprior().equals(that.getOtherresidenceprior())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getProject() == null) && (that.getProject() == null)) || (getProject() != null && getProject().getId().equals(that.getProject().getId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getRelationshiptohoh() == null) && (that.getRelationshiptohoh() == null)) || (getRelationshiptohoh() != null && getRelationshiptohoh().equals(that.getRelationshiptohoh())));
 		result = result && (((getResidenceprior() == null) && (that.getResidenceprior() == null)) || (getResidenceprior() != null && getResidenceprior().equals(that.getResidenceprior())));
-//		result = result && (((getResidencepriorlengthofstay() == null) && (that.getResidencepriorlengthofstay() == null)) || (getResidencepriorlengthofstay() != null && getResidencepriorlengthofstay().equals(that.getResidencepriorlengthofstay())));
 		result = result && (((getTimeshomelesspastthreeyears() == null) && (that.getTimeshomelesspastthreeyears() == null)) || (getTimeshomelesspastthreeyears() != null && getTimeshomelesspastthreeyears().equals(that.getTimeshomelesspastthreeyears())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVersion() == null) && (that.getVersion() == null)) || (getVersion() != null && getVersion().equals(that.getVersion())));

@@ -48,8 +48,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 
 	/** Field mapping. */
 	private java.util.UUID id;
-	/** Field mapping. */
-//	private String organizationcommonname;
+	
 	/** Field mapping. */
 	private String organizationname;
 	/** Field mapping. */
@@ -107,25 +106,7 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		this.id = id;
 	}
 
-	 /**
-	 * Return the value associated with the column: organizationcommonname.
-	 * @return A String object (this.organizationcommonname)
-	 */
-	/*@Basic( optional = true )
-	@Column
-	public String getOrganizationcommonname() {
-		return this.organizationcommonname;
-
-	}*/
-
-	 /**
-	 * Set the value related to the column: organizationcommonname.
-	 * @param organizationcommonname the organizationcommonname value you wish to set
-	 */
-	/*public void setOrganizationcommonname(final String organizationcommonname) {
-		this.organizationcommonname = organizationcommonname;
-	}*/
-
+	
 	 /**
 	 * Return the value associated with the column: organizationname.
 	 * @return A String object (this.organizationname)
@@ -217,7 +198,6 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setId(this.getId());
-//		copy.setOrganizationcommonname(this.getOrganizationcommonname());
 		copy.setOrganizationname(this.getOrganizationname());
 		copy.setUserId(this.getUserId());
 		return copy;
@@ -236,7 +216,6 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("id: " + this.getId() + ", ");
-//		sb.append("organizationcommonname: " + this.getOrganizationcommonname() + ", ");
 		sb.append("organizationname: " + this.getOrganizationname() + ", ");
 		return sb.toString();
 	}
@@ -285,7 +264,6 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
-//		result = result && (((getOrganizationcommonname() == null) && (that.getOrganizationcommonname() == null)) || (getOrganizationcommonname() != null && getOrganizationcommonname().equals(that.getOrganizationcommonname())));
 		result = result && (((getOrganizationname() == null) && (that.getOrganizationname() == null)) || (getOrganizationname() != null && getOrganizationname().equals(that.getOrganizationname())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		return result;

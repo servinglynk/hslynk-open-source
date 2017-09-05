@@ -7,7 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
-public class RHYAfterCare {
+public class RHYAfterCare extends HmisBaseModel{
 	
 	private java.util.UUID id; 
 	private LocalDateTime afterCareDate;
@@ -16,6 +16,8 @@ public class RHYAfterCare {
 	private Integer telephone;
 	private Integer inPersonIndividual;
 	private Integer inPersonGroup;
+	public RHYAfterCare() {
+	}
 	/**
 	 * @return the id
 	 */

@@ -50,8 +50,6 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
-//	private RhybcpStatusFysbYouthEnum fysbYouth;
-	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private RhybcpStatusReasonNoServicesEnum reasonNoServices;
@@ -111,35 +109,14 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	}
 
 
-	/**
-	 * Return the value associated with the column: fysbYouth.
-	 * @return A RhybcpStatusFysbYouthEnum object (this.fysbYouth)
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnumType")
-	@Basic( optional = true )
-	@Column( name = "fysb_youth"  )
-	public RhybcpStatusFysbYouthEnum getFysbYouth() {
-		return this.fysbYouth;
-
-	}*/
-
-
-
-	 /**
-	 * Set the value related to the column: fysbYouth.
-	 * @param fysbYouth the fysbYouth value you wish to set
-	 */
-	/*public void setFysbYouth(final RhybcpStatusFysbYouthEnum fysbYouth) {
-		this.fysbYouth = fysbYouth;
-	}*/
-
+	
 	 /**
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */
 	@Id
-	 @Basic( optional = false )
-  @Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	@Basic( optional = false )
+	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
 
@@ -269,12 +246,13 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 		copy.setDeleted(this.isDeleted());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setExport(this.getExport());
-//		copy.setFysbYouth(this.getFysbYouth());
 		copy.setId(this.getId());
 		copy.setParentId(this.getParentId());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setReasonNoServices(this.getReasonNoServices());
 		copy.setStatusDate(this.getStatusDate());
+		copy.setEligibleForRhy(this.getEligibleForRhy());
+		copy.setRunawayYouth(this.getRunawayYouth());
 		copy.setSync(this.isSync());
 		copy.setUserId(this.getUserId());
 		copy.setVersion(this.getVersion());
@@ -296,12 +274,13 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("dateUpdatedFromSource: " + this.getDateUpdatedFromSource() + ", ");
 		sb.append("deleted: " + this.isDeleted() + ", ");
-//		sb.append("fysbYouth: " + this.getFysbYouth() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
 		sb.append("reasonNoServices: " + this.getReasonNoServices() + ", ");
 		sb.append("statusDate: " + this.getStatusDate() + ", ");
+		sb.append("eligibleForRhy: " + this.getEligibleForRhy() + ", " );
+		sb.append("runawayYouth: " + this.getRunawayYouth() + ", " );
 		sb.append("sync: " + this.isSync() + ", ");
 		sb.append("userId: " + this.getUserId() + ", ");
 		sb.append("version: " + this.getVersion());
@@ -356,10 +335,11 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
-//		result = result && (((getFysbYouth() == null) && (that.getFysbYouth() == null)) || (getFysbYouth() != null && getFysbYouth().equals(that.getFysbYouth())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getReasonNoServices() == null) && (that.getReasonNoServices() == null)) || (getReasonNoServices() != null && getReasonNoServices().equals(that.getReasonNoServices())));
+		result = result && (((getEligibleForRhy() == null) && (that.getEligibleForRhy() == null)) || (getEligibleForRhy() != null && getEligibleForRhy().equals(that.getEligibleForRhy())));
+		result = result && (((getRunawayYouth() == null) && (that.getRunawayYouth() == null)) || (getRunawayYouth() != null && getRunawayYouth().equals(that.getRunawayYouth())));
 		result = result && (((getStatusDate() == null) && (that.getStatusDate() == null)) || (getStatusDate() != null && getStatusDate().equals(that.getStatusDate())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVersion() == null) && (that.getVersion() == null)) || (getVersion() != null && getVersion().equals(that.getVersion())));

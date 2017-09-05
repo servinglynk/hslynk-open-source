@@ -82,7 +82,7 @@
                           <xs:element type="xs:date" name="DOB"/>
                           <xs:element type="xs:byte" name="DOBDataQuality"/>
                           <xs:element type="xs:byte" name="Gender"/>
-                          <xs:element type="xs:string" name="OtherGender"/>
+                          <!--<xs:element type="xs:string" name="OtherGender"/>-->
                           <xs:element type="xs:byte" name="Ethnicity"/>
                           <xs:element type="xs:byte" name="Race"/>
                           <xs:element type="xs:byte" name="VeteranStatus"/>
@@ -167,7 +167,7 @@
                           <xs:element type="xs:byte" name="LastGradeCompleted"/>
                           <xs:element type="xs:byte" name="SchoolStatus"/>
                         </xs:sequence>
-                        <xs:attribute type="xs:byte" name="dataCollectionStage"/>
+                        <!--<xs:attribute type="xs:byte" name="dataCollectionStage"/>-->
                         <xs:attribute type="xs:date" name="informationDate"/>
                         <xs:attribute type="xs:dateTime" name="dateCreated"/>
                         <xs:attribute type="xs:dateTime" name="dateUpdated"/>
@@ -486,7 +486,7 @@
                         <xs:sequence>
                           <xs:element type="xs:byte" name="OrganizationID"/>
                           <xs:element type="xs:string" name="OrganizationName"/>
-                          <xs:element type="xs:string" name="OrganizationCommonName"/>
+                          <!--<xs:element type="xs:string" name="OrganizationCommonName"/>-->
                         </xs:sequence>
                         <xs:attribute type="xs:dateTime" name="dateCreated"/>
                         <xs:attribute type="xs:dateTime" name="dateUpdated"/>
@@ -528,8 +528,8 @@
                     </xs:element>
                     <xs:element name="Project" maxOccurs="unbounded" minOccurs="0">
                       <xs:complexType>
-                        <xs:sequence>
                           <xs:element type="xs:string" name="ProjectID"/>
+                        <xs:sequence>
                           <xs:element type="xs:byte" name="OrganizationID"/>
                           <xs:element type="xs:string" name="ProjectName"/>
                           <xs:element type="xs:byte" name="ContinuumProject"/>
@@ -555,13 +555,13 @@
                         <xs:attribute type="xs:string" name="userID" use="optional"/>
                       </xs:complexType>
                     </xs:element>
-                    <xs:element name="ResidentialMoveInDate">
+                    <xs:element name="MoveInDate">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element type="xs:string" name="ResidentialMoveInDateID"/>
                           <xs:element type="xs:string" name="ProjectEntryID"/>
-                          <xs:element type="xs:byte" name="InPermanentHousing"/>
-                          <xs:element type="xs:date" name="ResidentialMoveInDate"/>
+                          <!--<xs:element type="xs:byte" name="InPermanentHousing"/>-->
+                          <xs:element type="xs:date" name="MoveInDate"/>
                         </xs:sequence>
                         <xs:attribute type="xs:dateTime" name="dateCreated"/>
                         <xs:attribute type="xs:dateTime" name="dateUpdated"/>
@@ -652,37 +652,56 @@
                         <xs:attribute type="xs:string" name="userID"/>
                       </xs:complexType>
                     </xs:element>
+					 <xs:element name="Geography">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="ID"/>
+                          <xs:element type="xs:string" name="GeoCode"/>
+                          <xs:element type="xs:string" name="Address1"/>
+                          <xs:element type="xs:string" name="Address2"/>
+						  <xs:element type="xs:string" name="City"/>
+						  <xs:element type="xs:string" name="State"/>
+						  <xs:element type="xs:string" name="Zip"/>
+						  <xs:element type="xs:string" name="GeographyType"/>
+                        </xs:sequence>
+                        <!--<xs:attribute type="xs:byte" name="dataCollectionStage"/>-->
+                        <xs:attribute type="xs:date" name="informationDate"/>
+                        <xs:attribute type="xs:dateTime" name="dateCreated"/>
+                        <xs:attribute type="xs:dateTime" name="dateUpdated"/>
+                        <xs:attribute type="xs:string" name="userID"/>
+                      </xs:complexType>
+                    </xs:element>
                     <xs:element name="EntryRHY">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element type="xs:string" name="EntryRHYID"/>
                           <xs:element type="xs:string" name="ProjectEntryID"/>
-                          <xs:element type="xs:byte" name="HouseholdDynamics"/>
+                         <!-- <xs:element type="xs:byte" name="HouseholdDynamics"/>-->
                           <xs:element type="xs:byte" name="SexualOrientation"/>
-                          <xs:element type="xs:byte" name="SexualOrientationGenderIdentityYouth"/>
+                          <!--<xs:element type="xs:byte" name="SexualOrientationGenderIdentityYouth"/>
                           <xs:element type="xs:byte" name="SexualOrientationGenderIDFam"/>
                           <xs:element type="xs:byte" name="HousingIssuesYouth"/>
                           <xs:element type="xs:byte" name="HousingIssuesFam"/>
                           <xs:element type="xs:byte" name="SchoolEducationalIssuesYouth"/>
                           <xs:element type="xs:byte" name="SchoolEducationalIssuesFam"/>
-                          <xs:element type="xs:byte" name="UnemploymentYouth"/>
+                          <xs:element type="xs:byte" name="UnemploymentYouth"/>-->
                           <xs:element type="xs:byte" name="UnemploymentFam"/>
-                          <xs:element type="xs:byte" name="MentalHealthIssuesYouth"/>
+                          <!--<xs:element type="xs:byte" name="MentalHealthIssuesYouth"/>-->
                           <xs:element type="xs:byte" name="MentalHealthIssuesFam"/>
-                          <xs:element type="xs:byte" name="HealthIssuesYouth"/>
+                          <!--<xs:element type="xs:byte" name="HealthIssuesYouth"/>
                           <xs:element type="xs:byte" name="HealthIssuesFam"/>
-                          <xs:element type="xs:byte" name="PhysicalDisabilityYouth"/>
+                          <xs:element type="xs:byte" name="PhysicalDisabilityYouth"/>-->
                           <xs:element type="xs:byte" name="PhysicalDisabilityFam"/>
-                          <xs:element type="xs:byte" name="MentalDisabilityYouth"/>
+                          <!--<xs:element type="xs:byte" name="MentalDisabilityYouth"/>
                           <xs:element type="xs:byte" name="MentalDisabilityFam"/>
                           <xs:element type="xs:byte" name="AbuseAndNeglectYouth"/>
                           <xs:element type="xs:byte" name="AbuseAndNeglectFam"/>
-                          <xs:element type="xs:byte" name="AlcoholDrugAbuseYouth"/>
+                          <xs:element type="xs:byte" name="AlcoholDrugAbuseYouth"/>-->
                           <xs:element type="xs:byte" name="AlcoholDrugAbuseFam"/>
                           <xs:element type="xs:byte" name="InsufficientIncome"/>
-                          <xs:element type="xs:byte" name="ActiveMilitaryParent"/>
+                          <!--<xs:element type="xs:byte" name="ActiveMilitaryParent"/>-->
                           <xs:element type="xs:byte" name="IncarceratedParent"/>
-                          <xs:element type="xs:byte" name="IncarceratedParentStatus"/>
+                          <!--<xs:element type="xs:byte" name="IncarceratedParentStatus"/>
                           <xs:element type="xs:byte" name="WorkPlaceViolenceThreats"/>
                           <xs:element type="xs:byte" name="WorkplacePromiseDifference"/>
                           <xs:element type="xs:byte" name="CoercedToContinueWork"/>
@@ -691,7 +710,7 @@
                           <xs:element type="xs:byte" name="ExchangeForSexPastThreeMonths"/>
                           <xs:element type="xs:byte" name="CountOfExchangeForSex"/>
                           <xs:element type="xs:byte" name="AskedOrForcedToExchangeForSex"/>
-                          <xs:element type="xs:byte" name="AskedOrForcedToExchangeForSexPastThreeMonths"/>
+                          <xs:element type="xs:byte" name="AskedOrForcedToExchangeForSexPastThreeMonths"/>-->
                           <xs:element type="xs:byte" name="FormerWardJuvenileJustice"/>
                           <xs:element type="xs:byte" name="JuvenileJusticeYears"/>
                           <xs:element type="xs:byte" name="JuvenileJusticeMonths"/>

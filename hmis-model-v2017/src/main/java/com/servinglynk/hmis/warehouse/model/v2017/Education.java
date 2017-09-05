@@ -55,6 +55,7 @@ public class Education extends HmisBaseModel implements Cloneable, Serializable 
 	private SchoolStatusEnum schoolStatus;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
+	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
@@ -67,6 +68,7 @@ public class Education extends HmisBaseModel implements Cloneable, Serializable 
 	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
 		this.dataCollectionStage = dataCollectionStage;
 	}
+
 	/**
 	 * Return the value associated with the column: informationDate.
 	 * @return A LocalDateTime object (this.informationDate)

@@ -66,15 +66,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 
 
 	/** Field mapping. */
-//	private EntryRHYAbuseAndNeglectFamEnum abuseAndNeglectFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYAbuseAndNeglectYouthEnum abuseAndNeglectYouth;
-	/** Field mapping. */
-//	private EntryRHYActiveMilitaryParentEnum activeMilitaryParent;
-	/** Field mapping. */
 	private EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYAlcoholDrugAbuseYouthEnum alcoholDrugAbuseYouth;
 	/** Field mapping. */
 	private EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex;
 	/** Field mapping. */
@@ -96,55 +88,23 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice;
 	/** Field mapping. */
-//	private EntryRHYHealthIssuesFamEnum healthIssuesFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYHealthIssuesYouthEnum healthIssuesYouth;
-	/** Field mapping. */
-//	private EntryRHYHouseholdDynamicsEnum houseHoldDynamics;
-	/** Field mapping. */
-//	private EntryRHYHousingIssuesFamEnum housingIssuesFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYHousingIssuesYouthEnum housingIssuesYouth;
-	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private EntryRHYIncarceratedParentEnum incarceratedParent;
-	/** Field mapping. */
-//	private EntryRHYIncarceratedParentStatusEnum incarceratedParentStatus;
 	/** Field mapping. */
 	private EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth;
 	/** Field mapping. */
 	private Integer laborExploitPastThreeMonths;
 	/** Field mapping. */
-//	private EntryRHYMentalDisabilityFamEnum mentalDisabilityFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYMentalDisabilityYouthEnum mentalDisabilityYouth;
-	/** Field mapping. */
 	private EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYMentalHealthIssuesYouthEnum mentalHealthIssuesYouth;
-	/** Field mapping. */
-//	private Integer monthsChildWelfrForestCare;
 	/** Field mapping. */
 	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
 	/** Field mapping. */
-//	private EntryRHYPhysicalDisabilityYouthEnum physicalDisabilityYouth;
-	/** Field mapping. */
 	private Integer referralSource;
-	/** Field mapping. */
-//	private EntryRHYSchoolEducationalIssuesFamEnum schoolEducationIssuesFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYSchoolEducationalIssuesYouthEnum schoolEducationIssuesYouth;
-	/** Field mapping. */
-//	private EntryRHYSexualOrientationGenderIDFamEnum sexualOrientatiionGenderIdentityFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYSexualOrientationGenderIdentityYouthEnum sexualOrientatiionGenderIdentityYouth;
 	/** Field mapping. */
 	private SexualorientationSexualorientationEnum sexualOrientation;
 	/** Field mapping. */
 	private EntryRHYUnemploymentFamEnum unemployementFamilyMbr;
-	/** Field mapping. */
-//	private EntryRHYUnemploymentYouthEnum unemployementYouth;
 	/** Field mapping. */
 	private EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference;
 	/** Field mapping. */
@@ -422,7 +382,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardChildWelfareEnumType")
 	@Basic( optional = true )
-	@Column (name="formerly_ward_child_welfr_forest_care")
+	@Column (name="FormerWardChildWelfare")
 	public EntryRHYFormerWardChildWelfareEnum getFormerlyWardChildWelfrForestCare() {
 		return formerlyWardChildWelfrForestCare;
 	}
@@ -438,7 +398,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardJuvenileJusticeEnumType")
 	@Basic( optional = true )
-	@Column (name="formerly_ward_of_juvenile_justice")
+	@Column (name="FormerWardJuvenileJustice")
 	public EntryRHYFormerWardJuvenileJusticeEnum getFormerlyWardOfJuvenileJustice() {
 		return formerlyWardOfJuvenileJustice;
 	}
@@ -504,7 +464,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnumType")
 	@Basic( optional = true )
-	@Column (name="mental_health_issues_family_mbrily_mbr")
+	@Column (name="MentalHealthIssuesFam")
 	public EntryRHYMentalHealthIssuesFamEnum getMentalHealthIssuesFamilyMbr() {
 		return mentalHealthIssuesFamilyMbr;
 	}
@@ -521,7 +481,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnumType")
 	@Basic( optional = true )
-	@Column (name="physical_disability_family_mbr")
+	@Column (name="PhysicalDisabilityFam")
 	public EntryRHYPhysicalDisabilityFamEnum getPhysicalDisabilityFamilyMbr() {
 		return physicalDisabilityFamilyMbr;
 	}
@@ -555,7 +515,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnumType")
 	@Basic( optional = true )
-	@Column (name="unemployement_family_mbr")
+	@Column (name="UnemploymentFam")
 	public EntryRHYUnemploymentFamEnum getUnemployementFamilyMbr() {
 		return unemployementFamilyMbr;
 	}
@@ -603,7 +563,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYChildWelfareYearsEnumType")
 	@Basic( optional = true )
-	@Column (name="years_child_welfr_forest_care")
+	@Column (name="ChildWelfareYears")
 	public EntryRHYChildWelfareYearsEnum getYearsChildWelfrForestCare() {
 		return yearsChildWelfrForestCare;
 	}
@@ -619,7 +579,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnumType")
 	@Basic( optional = true )
-	@Column (name="years_juvenile_justice")
+	@Column (name="JuvenileJusticeYears")
 	public EntryRHYJuvenileJusticeYearsEnum getYearsJuvenileJustice() {
 		return yearsJuvenileJustice;
 	}

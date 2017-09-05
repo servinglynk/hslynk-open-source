@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.Properties;
 
 import javax.annotation.Resource;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -73,8 +71,6 @@ import com.servinglynk.hmis.warehouse.dao.PathstatusDao;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ProjectDao;
 import com.servinglynk.hmis.warehouse.dao.ProjectDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.ResidentialmoveindateDao;
-import com.servinglynk.hmis.warehouse.dao.ResidentialmoveindateDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDao;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ServiceFaReferralDaoImpl;
@@ -253,10 +249,7 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	public ProjectDao projectDao() { 
 		return new ProjectDaoImpl();
 	}
-	@Bean
-	public ResidentialmoveindateDao residentialmoveindateDao() { 
-		return new ResidentialmoveindateDaoImpl();
-	}
+
 	@Bean
 	public SiteDao siteDao() { 
 		return new SiteDaoImpl();

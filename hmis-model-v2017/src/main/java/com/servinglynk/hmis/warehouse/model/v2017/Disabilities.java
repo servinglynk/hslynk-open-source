@@ -55,8 +55,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private DisabilitiesDisabilitytypeEnum disabilitytype;
 	/** Field mapping. */
-//	private DisabilitiesDocumentationonfileEnum documentationonfile;
-	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
@@ -64,12 +62,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	private DisabilitiesIndefiniteandimpairsEnum indefiniteandimpairs;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
-	/** Field mapping. */
-//	private DisabilitiesPathhowconfirmedEnum pathhowconfirmed;
-	/** Field mapping. */
-//	private DisabilitiesPathsmiinformationEnum pathsmiinformation;
-	/** Field mapping. */
-//	private DisabilitiesReceivingservicesEnum receivingservices;
 	/** Field mapping. */
 	private Integer tcellcount;
 	/** Field mapping. */
@@ -209,29 +201,8 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
 		this.dataCollectionStage = dataCollectionStage;
 	}
-	 /**
-	 * Return the value associated with the column: documentationonfile.
-	 * @return A DisabilitiesDocumentationonfileEnum object (this.documentationonfile)
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnumType")
-	@Basic( optional = true )
-	@Column
-	public DisabilitiesDocumentationonfileEnum getDocumentationonfile() {
-		return this.documentationonfile;
-
-	}
-*/
-
-
-	 /**
-	 * Set the value related to the column: documentationonfile.
-	 * @param documentationonfile the documentationonfile value you wish to set
-	 */
-	/*public void setDocumentationonfile(final DisabilitiesDocumentationonfileEnum documentationonfile) {
-		this.documentationonfile = documentationonfile;
-	}*/
-
-	 /**
+	 
+	/**
 	 * Return the value associated with the column: enrollmentid.
 	 * @return A Enrollment object (this.enrollmentid)
 	 */
@@ -243,8 +214,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		return this.enrollmentid;
 
 	}
-
-
 
 	 /**
 	 * Set the value related to the column: enrollmentid.
@@ -320,71 +289,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	}
 
 
-	 /**
-	 * Return the value associated with the column: pathhowconfirmed.
-	 * @return A DisabilitiesPathhowconfirmedEnum object (this.pathhowconfirmed)
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnumType")
-	@Basic( optional = true )
-	@Column
-	public DisabilitiesPathhowconfirmedEnum getPathhowconfirmed() {
-		return this.pathhowconfirmed;
-
-	}*/
-
-	 /**
-	 * Set the value related to the column: pathhowconfirmed.
-	 * @param pathhowconfirmed the pathhowconfirmed value you wish to set
-	 */
-	/*public void setPathhowconfirmed(final DisabilitiesPathhowconfirmedEnum pathhowconfirmed) {
-		this.pathhowconfirmed = pathhowconfirmed;
-	}*/
-
-	 /**
-	 * Return the value associated with the column: pathsmiinformation.
-	 * @return A DisabilitiesPathsmiinformationEnum object (this.pathsmiinformation)
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnumType")
-	@Basic( optional = true )
-	@Column
-	public DisabilitiesPathsmiinformationEnum getPathsmiinformation() {
-		return this.pathsmiinformation;
-
-	}*/
-
-
-
-	 /**
-	 * Set the value related to the column: pathsmiinformation.
-	 * @param pathsmiinformation the pathsmiinformation value you wish to set
-	 */
-	/*public void setPathsmiinformation(final DisabilitiesPathsmiinformationEnum pathsmiinformation) {
-		this.pathsmiinformation = pathsmiinformation;
-	}*/
-
-
-	/**
-	 * Return the value associated with the column: receivingservices.
-	 * @return A DisabilitiesReceivingservicesEnum object (this.receivingservices)
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnumType")
-	@Basic( optional = true )
-	@Column
-	public DisabilitiesReceivingservicesEnum getReceivingservices() {
-		return this.receivingservices;
-
-	}
-*/
-
-
-	 /**
-	 * Set the value related to the column: receivingservices.
-	 * @param receivingservices the receivingservices value you wish to set
-	 */
-	/*public void setReceivingservices(final DisabilitiesReceivingservicesEnum receivingservices) {
-		this.receivingservices = receivingservices;
-	}*/
-
 
 	 /**
 	 * Return the value associated with the column: tcellcount.
@@ -395,9 +299,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 
 	}
 
-
-
-	 /**
+	/**
 	 * Set the value related to the column: tcellcount.
 	 * @param tcellcount the tcellcount value you wish to set
 	 */
@@ -413,8 +315,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		return this.tcellcountavailable;
 
 	}
-
-
 
 	 /**
 	 * Set the value related to the column: tcellcountavailable.
@@ -549,17 +449,13 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		copy.setDeleted(this.isDeleted());
 		copy.setDisabilityresponse(this.getDisabilityresponse());
 		copy.setDisabilitytype(this.getDisabilitytype());
-//		copy.setDocumentationonfile(this.getDocumentationonfile());
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setExport(this.getExport());
 		copy.setId(this.getId());
 		copy.setIndefiniteandimpairs(this.getIndefiniteandimpairs());
 		copy.setInformationDate(this.getInformationDate());
 		copy.setParentId(this.getParentId());
-//		copy.setPathhowconfirmed(this.getPathhowconfirmed());
-//		copy.setPathsmiinformation(this.getPathsmiinformation());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
-//		copy.setReceivingservices(this.getReceivingservices());
 		copy.setSync(this.isSync());
 		copy.setTcellcount(this.getTcellcount());
 		copy.setTcellcountavailable(this.getTcellcountavailable());
@@ -589,15 +485,11 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		sb.append("deleted: " + this.isDeleted() + ", ");
 		sb.append("disabilityresponse: " + this.getDisabilityresponse() + ", ");
 		sb.append("disabilitytype: " + this.getDisabilitytype() + ", ");
-//		sb.append("documentationonfile: " + this.getDocumentationonfile() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("indefiniteAndImpairsIndependence: " + this.getIndefiniteandimpairs() + ", ");
 		sb.append("informationDate: " + this.getInformationDate() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
-//		sb.append("pathhowconfirmed: " + this.getPathhowconfirmed() + ", ");
-//		sb.append("pathsmiinformation: " + this.getPathsmiinformation() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
-//		sb.append("receivingservices: " + this.getReceivingservices() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
 		sb.append("tcellcount: " + this.getTcellcount() + ", ");
 		sb.append("tcellcountavailable: " + this.getTcellcountavailable() + ", ");
@@ -658,16 +550,12 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getDisabilityresponse() == null) && (that.getDisabilityresponse() == null)) || (getDisabilityresponse() != null && getDisabilityresponse().equals(that.getDisabilityresponse())));
 		result = result && (((getDisabilitytype() == null) && (that.getDisabilitytype() == null)) || (getDisabilitytype() != null && getDisabilitytype().equals(that.getDisabilitytype())));
-//		result = result && (((getDocumentationonfile() == null) && (that.getDocumentationonfile() == null)) || (getDocumentationonfile() != null && getDocumentationonfile().equals(that.getDocumentationonfile())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getIndefiniteandimpairs() == null) && (that.getIndefiniteandimpairs() == null)) || (getIndefiniteandimpairs() != null && getIndefiniteandimpairs().equals(that.getIndefiniteandimpairs())));
 		result = result && (((getInformationDate() == null) && (that.getInformationDate() == null)) || (getInformationDate() != null && getInformationDate().equals(that.getInformationDate())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
-//		result = result && (((getPathhowconfirmed() == null) && (that.getPathhowconfirmed() == null)) || (getPathhowconfirmed() != null && getPathhowconfirmed().equals(that.getPathhowconfirmed())));
-//		result = result && (((getPathsmiinformation() == null) && (that.getPathsmiinformation() == null)) || (getPathsmiinformation() != null && getPathsmiinformation().equals(that.getPathsmiinformation())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
-//		result = result && (((getReceivingservices() == null) && (that.getReceivingservices() == null)) || (getReceivingservices() != null && getReceivingservices().equals(that.getReceivingservices())));
 		result = result && (((getTcellcount() == null) && (that.getTcellcount() == null)) || (getTcellcount() != null && getTcellcount().equals(that.getTcellcount())));
 		result = result && (((getTcellcountavailable() == null) && (that.getTcellcountavailable() == null)) || (getTcellcountavailable() != null && getTcellcountavailable().equals(that.getTcellcountavailable())));
 		result = result && (((getTcellcountsource() == null) && (that.getTcellcountsource() == null)) || (getTcellcountsource() != null && getTcellcountsource().equals(that.getTcellcountsource())));

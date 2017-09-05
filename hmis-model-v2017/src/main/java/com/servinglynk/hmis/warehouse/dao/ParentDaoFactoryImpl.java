@@ -50,7 +50,7 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private ProjectDao projectDao;
 	@Autowired
-	private ResidentialmoveindateDao residentialmoveindateDao;
+	private MoveindateDao moveindateDao;
 	@Autowired
 	private RhybcpstatusDao rhybcpstatusDao;
 	@Autowired
@@ -399,22 +399,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 
 	/**
-	 * @return the residentialmoveindateDao
-	 */
-	public ResidentialmoveindateDao getResidentialmoveindateDao() {
-		return residentialmoveindateDao;
-	}
-
-	/**
-	 * @param residentialmoveindateDao
-	 *            the residentialmoveindateDao to set
-	 */
-	public void setResidentialmoveindateDao(
-			ResidentialmoveindateDao residentialmoveindateDao) {
-		this.residentialmoveindateDao = residentialmoveindateDao;
-	}
-
-	/**
 	 * @return the rhybcpstatusDao
 	 */
 	public RhybcpstatusDao getRhybcpstatusDao() {
@@ -585,5 +569,13 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setBulkUploadErrorDao(BulkUploadErrorDao bulkUploadErrorDao) {
 		this.bulkUploadErrorDao = bulkUploadErrorDao;
 	}
-	
+
+	public MoveindateDao getMoveindateDao() {
+		return moveindateDao;
+	}
+
+	public void setMoveindateDao(MoveindateDao moveindateDao) {
+		this.moveindateDao = moveindateDao;
+	}
+
 }

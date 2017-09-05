@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -25,7 +24,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
-import com.servinglynk.hmis.warehouse.model.v2017.Organization;
 
 
 
@@ -158,7 +156,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Project> projects = new HashSet<Project>();
 
 	/** Field mapping. */
-	private Set<Residentialmoveindate> residentialmoveindates = new HashSet<Residentialmoveindate>();
+	private Set<Moveindate> moveindates = new HashSet<Moveindate>();
 
 	/** Field mapping. */
 	private Set<RhybcpStatus> rhybcpStatuses = new HashSet<RhybcpStatus>();
@@ -1267,8 +1265,8 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Set<Residentialmoveindate> getResidentialmoveindates() {
-		return this.residentialmoveindates;
+	public Set<Moveindate> getResidentialmoveindates() {
+		return this.moveindates;
 
 	}
 
@@ -1276,9 +1274,9 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	 * Adds a bi-directional link of type Residentialmoveindate to the residentialmoveindates set.
 	 * @param residentialmoveindate item to add
 	 */
-	public void addResidentialmoveindate(Residentialmoveindate residentialmoveindate) {
+	public void addResidentialmoveindate(Moveindate residentialmoveindate) {
 		residentialmoveindate.setExport(this);
-		this.residentialmoveindates.add(residentialmoveindate);
+		this.moveindates.add(residentialmoveindate);
 	}
 
 
@@ -1286,8 +1284,8 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: residentialmoveindate.
 	 * @param residentialmoveindate the residentialmoveindate value you wish to set
 	 */
-	public void setResidentialmoveindates(final Set<Residentialmoveindate> residentialmoveindate) {
-		this.residentialmoveindates = residentialmoveindate;
+	public void setResidentialmoveindates(final Set<Moveindate> residentialmoveindate) {
+		this.moveindates = residentialmoveindate;
 	}
 
 	 /**

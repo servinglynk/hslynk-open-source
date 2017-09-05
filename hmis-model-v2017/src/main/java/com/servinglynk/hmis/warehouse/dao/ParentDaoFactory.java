@@ -26,7 +26,7 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	MedicalassistanceDao getMedicalassistanceDao();
 	NoncashbenefitsDao getNoncashbenefitsDao();
 	PathstatusDao getPathstatusDao();
-	ResidentialmoveindateDao getResidentialmoveindateDao();
+	MoveindateDao getMoveindateDao();
 	RhybcpstatusDao getRhybcpstatusDao();
 	SiteDao getSiteDao();
 	SourceDao getSourceDao();

@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
@@ -51,7 +52,6 @@ import com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.model.v2017.Organization;
 import com.servinglynk.hmis.warehouse.model.v2017.Pathstatus;
 import com.servinglynk.hmis.warehouse.model.v2017.Project;
-import com.servinglynk.hmis.warehouse.model.v2017.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.model.v2017.Site;
@@ -134,7 +134,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
 			parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getMoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			startNanos = System.nanoTime();
 			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			logger.info("Disabilities table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
@@ -250,7 +250,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		undoSoftDeleteByExportId(Noncashbenefits.class.getName(), exportId);
 		undoSoftDeleteByExportId(Organization.class.getName(), exportId);
 		undoSoftDeleteByExportId(Project.class.getName(), exportId);
-		undoSoftDeleteByExportId(Residentialmoveindate.class.getName(), exportId);
+		undoSoftDeleteByExportId(Moveindate.class.getName(), exportId);
 		undoSoftDeleteByExportId(RhybcpStatus.class.getName(), exportId);
 		undoSoftDeleteByExportId(Site.class.getName(), exportId);
 		undoSoftDeleteByExportId(Source.class.getName(), exportId);
@@ -282,7 +282,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		softDeleteByProjectGroupCode(Organization.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Pathstatus.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Project.class.getName(), projectGroupCode,exportId);
-		softDeleteByProjectGroupCode(Residentialmoveindate.class.getName(), projectGroupCode,exportId);
+		softDeleteByProjectGroupCode(Moveindate.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(RhybcpStatus.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode,exportId);

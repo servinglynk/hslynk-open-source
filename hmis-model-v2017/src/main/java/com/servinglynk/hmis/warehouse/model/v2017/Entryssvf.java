@@ -90,9 +90,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	private NoYesEnum femvet;
 	private NoYesEnum urgentReferral;
 	private Integer thresholdscore;
-	/*private CrisisServicesUseEnum ervisits;
-	private CrisisServicesUseEnum jailnights;
-	private CrisisServicesUseEnum hospitalnights;*/
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -671,57 +669,8 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 		this.thresholdscore = thresholdscore;
 	}
 
-	/**
-	 * @return the ervisits
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
-	@Basic( optional = true )
-	@Column (name="ervisits")
-	public CrisisServicesUseEnum getErvisits() {
-		return ervisits;
-	}
-*/
-	/**
-	 * @param ervisits the ervisits to set
-	 */
-	/*public void setErvisits(CrisisServicesUseEnum ervisits) {
-		this.ervisits = ervisits;
-	}*/
-
-	/**
-	 * @return the jailnights
-	 */
-/*	@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
-	@Basic( optional = true )
-	@Column (name="jailnights")
-	public CrisisServicesUseEnum getJailnights() {
-		return jailnights;
-	}
-*/
-	/**
-	 * @param jailnights the jailnights to set
-	 */
-	/*public void setJailnights(CrisisServicesUseEnum jailnights) {
-		this.jailnights = jailnights;
-	}*/
-
-	/**
-	 * @return the hospitalnights
-	 */
-	/*@Type(type = "com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnumType")
-	@Basic( optional = true )
-	@Column (name="hospitalnights")
-	public CrisisServicesUseEnum getHospitalnights() {
-		return hospitalnights;
-	}*/
-
-	/**
-	 * @param hospitalnights the hospitalnights to set
-	 */
-	/*public void setHospitalnights(CrisisServicesUseEnum hospitalnights) {
-		this.hospitalnights = hospitalnights;
-	}*/
-
+	
+	
 /**
     * Deep copy.
 	* @return cloned object

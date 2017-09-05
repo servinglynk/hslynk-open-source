@@ -64,7 +64,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
-
 	/** Field mapping. */
 	private java.util.UUID dedupClientId;
 	/** Field mapping. */
@@ -88,15 +87,11 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private String nameSuffix;
 	/** Field mapping. */
-	private String otherGender;
-	/** Field mapping. */
 	private ClientRaceEnum race;
 	/** Field mapping. */
 	private String ssn;
 	/** Field mapping. */
 	private ClientSsnDataQualityEnum ssnDataQuality;
-
-	//private String sourceSystemId;
 
 	/** Field mapping. */
 	private Set<ClientVeteranInfo> veteranInfoes = new HashSet<ClientVeteranInfo>();
@@ -119,6 +114,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		this.id = id;
 	}
 
+
 	 /**
 		 * Return the value associated with the column: dedupClientId.
 		 * @return A java.util.UUID object (this.dedupClientId)
@@ -139,7 +135,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		public void setDedupClientId(final java.util.UUID dedupClientId) {
 			this.dedupClientId = dedupClientId;
 		}
-
 
 		/** Field mapping. */
 		protected Export export;
@@ -249,7 +244,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "first_name", length = 50  )
-//	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getFirstName() {
 		return this.firstName;
 
@@ -292,13 +286,9 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A java.util.UUID object (this.id)
 	 */
 
-	/*@Id
+    @Id
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-	*/
-	   @Id
-		@Basic( optional = false )
-		@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public java.util.UUID getId() {
 		return this.id;
 
@@ -328,7 +318,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "last_name", length = 50  )
-//	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getLastName() {
 		return this.lastName;
 
@@ -350,7 +339,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Basic( optional = true )
 	@Column( name = "middle_name", length = 50  )
-	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getMiddleName() {
 		return this.middleName;
 
@@ -409,28 +397,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		this.nameSuffix = nameSuffix;
 	}
 
-	 /**
-	 * Return the value associated with the column: otherGender.
-	 * @return A String object (this.otherGender)
-	 */
-	@Basic( optional = true )
-	@Column( name = "other_gender"  )
-	public String getOtherGender() {
-		return this.otherGender;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: otherGender.
-	 * @param otherGender the otherGender value you wish to set
-	 */
-	public void setOtherGender(final String otherGender) {
-		this.otherGender = otherGender;
-	}
-
-	 /**
+	/**
 	 * Return the value associated with the column: race.
 	 * @return A ClientRaceEnum object (this.race)
 	 */
@@ -460,7 +427,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	@ColumnTransformer(
 			read="convert_from(ssn_decrypt(ssn),'UTF-8')",
 			write="ssn_encrypt(?)")
-	//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
 	public String getSsn() {
 		return this.ssn;
 
@@ -583,16 +549,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		}
 
 
-/*		@Column(name="source_system_id")
-		//@Field(index=Index.YES, analyze=Analyze.NO, store=Store.YES, analyzer=@Analyzer(definition="clientAnalyzer"))
-		public String getSourceSystemId() {
-			return sourceSystemId;
-		}
-
-		public void setSourceSystemId(String sourceSystemId) {
-			this.sourceSystemId = sourceSystemId;
-		}*/
-
 /**
     * Deep copy.
 	* @return cloned object
@@ -615,7 +571,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setMiddleName(this.getMiddleName());
 		copy.setNameDataQuality(this.getNameDataQuality());
 		copy.setNameSuffix(this.getNameSuffix());
-		copy.setOtherGender(this.getOtherGender());
 		copy.setRace(this.getRace());
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
@@ -652,7 +607,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("middleName: " + this.getMiddleName() + ", ");
 		sb.append("nameDataQuality: " + this.getNameDataQuality() + ", ");
 		sb.append("nameSuffix: " + this.getNameSuffix() + ", ");
-		sb.append("otherGender: " + this.getOtherGender() + ", ");
 		sb.append("race: " + this.getRace() + ", ");
 		sb.append("ssn: " + this.getSsn() + ", ");
 		sb.append("ssnDataQuality: " + this.getSsnDataQuality() + ", ");
@@ -714,7 +668,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getMiddleName() == null) && (that.getMiddleName() == null)) || (getMiddleName() != null && getMiddleName().equals(that.getMiddleName())));
 		result = result && (((getNameDataQuality() == null) && (that.getNameDataQuality() == null)) || (getNameDataQuality() != null && getNameDataQuality().equals(that.getNameDataQuality())));
 		result = result && (((getNameSuffix() == null) && (that.getNameSuffix() == null)) || (getNameSuffix() != null && getNameSuffix().equals(that.getNameSuffix())));
-		result = result && (((getOtherGender() == null) && (that.getOtherGender() == null)) || (getOtherGender() != null && getOtherGender().equals(that.getOtherGender())));
 		result = result && (((getRace() == null) && (that.getRace() == null)) || (getRace() != null && getRace().equals(that.getRace())));
 		result = result && (((getSsn() == null) && (that.getSsn() == null)) || (getSsn() != null && getSsn().equals(that.getSsn())));
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));

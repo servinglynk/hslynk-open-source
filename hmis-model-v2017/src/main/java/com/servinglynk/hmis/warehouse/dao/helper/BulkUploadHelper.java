@@ -81,10 +81,10 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsuran
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.MedicalAssistance;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
@@ -440,7 +440,7 @@ public class BulkUploadHelper {
 	      List<Enrollment> enrollment = enrollmentReader.readAll();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollmentList = new ArrayList<Sources.Source.Export.Enrollment>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement> dateOfEngagementList = new ArrayList<Sources.Source.Export.DateOfEngagement>();
-	      List<ResidentialMoveInDate> residentialmoveindateList = new ArrayList<ResidentialMoveInDate>();
+	      List<Moveindate> residentialmoveindateList = new ArrayList<Moveindate>();
 	      List<WorstHousingSituation> worsthousingsituationtList = new ArrayList<WorstHousingSituation>();
 	      List<RHYBCPStatus> rhybcpStatusList = new ArrayList<RHYBCPStatus>();
 	      List<PATHStatus> pathStatusList = new ArrayList<PATHStatus>();
@@ -481,13 +481,13 @@ public class BulkUploadHelper {
 	    	  dateOfEngagementModel.setUserID(enroll.getUserID());
 	    	  dateOfEngagementList.add(dateOfEngagementModel);
 	    	  
-	    	  ResidentialMoveInDate residentialmoveindateModel = new ResidentialMoveInDate();
+	    	  Moveindate residentialmoveindateModel = new Moveindate();
 	    	  residentialmoveindateModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  residentialmoveindateModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	//  residentialmoveindateModel.setInPermanentHousing(getByte(enroll.getInPermanentHousing()));
 	    	  residentialmoveindateModel.setProjectEntryID(enroll.getProjectEntryID());
-	    	  residentialmoveindateModel.setResidentialMoveInDate(getXMLGregorianCalendar(enroll.getResidentialMoveInDate()));
-	    	  residentialmoveindateModel.setResidentialMoveInDateID(enroll.getProjectEntryID());
+	    	  residentialmoveindateModel.setMoveInDate(getXMLGregorianCalendar(enroll.getResidentialMoveInDate()));
+	    	  residentialmoveindateModel.setMoveInDateID(enroll.getProjectEntryID());
 	    	  residentialmoveindateModel.setUserID(enroll.getUserID());
 	    	  residentialmoveindateList.add(residentialmoveindateModel);
 	    	  
@@ -578,7 +578,7 @@ public class BulkUploadHelper {
     	  sources.getSource().getExport().setWorstHousingSituation(worsthousingsituationtList);
     	  sources.getSource().getExport().setRHYBCPStatus(rhybcpStatusList);
     	  sources.getSource().getExport().setDateOfEngagement(dateOfEngagementList);
-    	  sources.getSource().getExport().setResidentialMoveInDate(residentialmoveindateList);
+    	  sources.getSource().getExport().setMoveInDate(residentialmoveindateList);
     	  sources.getSource().getExport().setEntrySSVF(entrySSVFList);
     	  sources.getSource().getExport().setEntryRHY(entryRHYList);
 	  }

@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.lang.model.type.ErrorType;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -13,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
@@ -92,7 +91,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 	   public com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare createRHYAfterCare(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare rhyAfterCare){
 		   rhyAfterCare.setId(UUID.randomUUID());
 	       insert(rhyAfterCare);
-	       RHYAfterCareEntity entity = new RHYAfterCareEntity();
+	       RHYAfterCare entity = new RHYAfterCare();
 	       BeanUtils.copyProperties(rhyAfterCare, entity);
 	       insert(entity);
 	       return rhyAfterCare;
@@ -126,6 +125,12 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public long getRHYAfterCareCount(String inPersonGroup) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
