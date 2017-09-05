@@ -31,13 +31,13 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		List<Moveindate> moveindates = domain.getExport().getMoveInDate();
+		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate> moveInDates = domain.getExport().getMoveInDate();
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Moveindate.class, getProjectGroupCode(domain));
-		if(moveindates != null && !moveindates.isEmpty())
+		if(moveInDates != null && !moveInDates.isEmpty())
 		{
-			for( Moveindate moveindate : moveindates)
+			for( com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate moveindate : moveInDates)
 			{
 				Moveindate moveindateModel = null;
 				try {

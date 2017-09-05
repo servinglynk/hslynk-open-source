@@ -31,13 +31,13 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		 List<VASHExitReason> vashExitReasons = domain.getExport().getVashExitReason();
+		 List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason> vashExitReasons = domain.getExport().getVashExitReason();
 		 com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		 Data data =new Data();
 		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class, getProjectGroupCode(domain));
 		 if(vashExitReasons != null && !vashExitReasons.isEmpty())
 		 {
-			 for(VASHExitReason vashExitReason : vashExitReasons)
+			 for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason vashExitReason : vashExitReasons)
 			 {
 				 com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReasonModel = null;
 				 try {
@@ -47,7 +47,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					 vashExitReasonModel.setCmExitReason(vashExitReason.getCmExitReason());
 					 performSaveOrUpdate(vashExitReasonModel);
 				 } catch(Exception e){
-					 String errorMessage = "Exception because of the vashExitReasons::"+vashExitReasons.getId() +" Exception ::"+e.getMessage();
+					 String errorMessage = "Exception because of the vashExitReasons::"+vashExitReason.getId() +" Exception ::"+e.getMessage();
 					 if(vashExitReasonModel != null){
 						 Error2017 error = new Error2017();
 						 error.model_id = vashExitReasonModel.getId();

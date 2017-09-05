@@ -14,12 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
-import com.servinglynk.hmis.warehouse.model.v2017.Moveindate;
-import com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare;
-import com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason;
-
-
 /**
  * <p>Java class for Sources element declaration.
  * 
@@ -65,7 +59,6 @@ public class Sources {
         "sourceID",
         "sourceType",
         "softwareName",
-        /*"softwareVendor",*/
         "softwareVersion",
         "sourceContactEmail",
         "sourceContactExtension",
@@ -79,9 +72,7 @@ public class Sources {
 
         @XmlElement(name = "SourceID")
         protected String sourceID;
-       /* @XmlElement(name = "SoftwareVendor", required = true)
-        protected String softwareVendor;*/
-        
+       
         @XmlElement(name = "SourceType")
         protected String sourceType;
         @XmlElement(name = "SoftwareName")
@@ -120,30 +111,6 @@ public class Sources {
             this.sourceID = value;
         }
 
-        /**
-         * Gets the value of the softwareVendor property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-       /* public String getSoftwareVendor() {
-            return softwareVendor;
-        }*/
-
-        /**
-         * Sets the value of the softwareVendor property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-       /* public void setSoftwareVendor(String value) {
-            this.softwareVendor = value;
-        }*/
-        
         
         /**
          * Gets the value of the softwareVersion property.
@@ -366,13 +333,16 @@ public class Sources {
             "coC",
             "moveInDate",
             "rhybcpStatus",
-            /*"services",*/
             "services",
             "site",
             "clientVeteranInfo",
             "worstHousingSituation",
             "entryRHY",
-            /*"entryRHSP"*/
+            "entryRHSP",
+            "geography",
+            "connectionWithSOAR",
+            "VASHExitReason",
+            "rhyafterCare",
         })
         public static class Export {
 
@@ -462,8 +432,8 @@ public class Sources {
             protected List<VASHExitReason> vashExitReason;
             @XmlElement(name = "RHYAfterCare", required = true)
             protected List<RHYAfterCare> rhyAfterCare;
-            /*@XmlElement(name = "EntryRHSP", required = true)
-            protected List<EntryRHSP> entryRHSP;*/
+            @XmlElement(name = "EntryRHSP", required = true)
+            protected List<EntryRHSP> entryRHSP;
             
             
             /**
@@ -1186,9 +1156,9 @@ public class Sources {
              *     {@link EntryRHSP }
              *     
              */
-            /*public List<EntryRHSP> getEntryRHSP() {
+            public List<EntryRHSP> getEntryRHSP() {
                 return entryRHSP;
-            }*/
+            }
 
             /**
              * Sets the value of the EntryRHSP property.
@@ -1198,9 +1168,9 @@ public class Sources {
              *     {@link EntryRHSP }
              *     
              */
-            /*public void setEntryRHSP(List<EntryRHSP> value) {
+            public void setEntryRHSP(List<EntryRHSP> value) {
                 this.entryRHSP = value;
-            }*/
+            }
             
             /**
              * Gets the value of the nonCashBenefits property.
@@ -1428,9 +1398,6 @@ public class Sources {
              *     {@link Services }
              *     
              */
-            /*public void setServices(List<Services> value) {
-                this.services = value;
-            }*/
             public void setServices(List<Services> value) {
                 this.services = value;
             }
@@ -1459,6 +1426,7 @@ public class Sources {
                 this.geography = value;
             }
 
+            
             /**
              * Gets the value of the site property.
              * 
@@ -1554,6 +1522,8 @@ public class Sources {
             public void setEntryRHY(List<EntryRHY> value) {
                 this.entryRHY = value;
             }
+            
+            
 
             /**
              * <p>Java class for anonymous complex type.
@@ -1958,7 +1928,6 @@ public class Sources {
                 "dob",
                 "dobDataQuality",
                 "gender",
-                /*"otherGender",*/
                 "ethnicity",
                 "race",
                 "veteranStatus"
@@ -1987,8 +1956,6 @@ public class Sources {
                 protected byte dobDataQuality;
                 @XmlElement(name = "Gender")
                 protected byte gender;
-               /* @XmlElement(name = "OtherGender", required = true)
-                protected String otherGender;*/
                 @XmlElement(name = "Ethnicity")
                 protected byte ethnicity;
                 @XmlElement(name = "Race")
@@ -2234,31 +2201,7 @@ public class Sources {
                     this.gender = value;
                 }
 
-                /**
-                 * Gets the value of the otherGender property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                /*public String getOtherGender() {
-                    return otherGender;
-                }*/
-
-                /**
-                 * Sets the value of the otherGender property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-               /* public void setOtherGender(String value) {
-                    this.otherGender = value;
-                }*/
-
-                /**
+               /**
                  * Gets the value of the ethnicity property.
                  * 
                  */
@@ -3133,8 +3076,8 @@ public class Sources {
 
                 @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
-               /* @XmlElement(name = "ProjectID", required = true)
-                protected String projectID;*/
+                @XmlElement(name = "ProjectID", required = true)
+                protected String projectID;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3174,9 +3117,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                /*public String getProjectID() {
+                public String getProjectID() {
                     return projectID;
-                }*/
+                }
 
                 /**
                  * Sets the value of the projectID property.
@@ -3186,9 +3129,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-               /* public void setProjectID(String value) {
+                public void setProjectID(String value) {
                     this.projectID = value;
-                }*/
+                }
 
                 /**
                  * Gets the value of the dateCreated property.
@@ -3503,161 +3446,62 @@ public class Sources {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-                "connectionWithSOARID",
-                "enrollmentID",
-                "connectionWithSOAR"
+                "id",
+                "enrollmentid",
+                "connectionwithsoar"
             })
             public static class ConnectionWithSOAR {
 
-                @XmlElement(name = "ConnectionWithSOARID" , required = true)
-                protected String connectionWithSOARID;
-                @XmlElement(name = "EnrollmentID" , required = true)
-                protected String enrollmentID;
-                @XmlElement(name = "ConnectionWithSOAR" )
-                protected byte connectionWithSOAR;
+                @XmlElement(name = "id" , required = true)
+                protected String id;
+                @XmlElement(name = "enrollmentid" , required = true)
+                protected String enrollmentid;
+                @XmlElement(name = "connectionwithsoar" )
+                protected byte connectionwithsoar;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
                 protected String userID;
+				public String getId() {
+					return id;
+				}
+				public void setId(String id) {
+					this.id = id;
+				}
+				public String getEnrollmentid() {
+					return enrollmentid;
+				}
+				public void setEnrollmentid(String enrollmentid) {
+					this.enrollmentid = enrollmentid;
+				}
+				public byte getConnectionwithsoar() {
+					return connectionwithsoar;
+				}
+				public void setConnectionwithsoar(byte connectionwithsoar) {
+					this.connectionwithsoar = connectionwithsoar;
+				}
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
+				}
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+				public XMLGregorianCalendar getDateUpdated() {
+					return dateUpdated;
+				}
+				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+					this.dateUpdated = dateUpdated;
+				}
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
 
-                /**
-                 * Gets the value of the connectionWithSOARID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getConnectionWithSOARID() {
-                    return connectionWithSOARID;
-                }
-
-                /**
-                 * Sets the value of the connectionWithSOARID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setConnectionWithSOARID(String value) {
-                    this.connectionWithSOARID = value;
-                }
-
-                /**
-                 * Gets the value of the exitID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getEnrollmentID() {
-                    return enrollmentID;
-                }
-
-                /**
-                 * Sets the value of the exitID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setEnrollmentID(String value) {
-                    this.enrollmentID = value;
-                }
-
-                /**
-                 * Gets the value of the connectionWithSOAR property.
-                 * 
-                 */
-                public byte getConnectionWithSOAR() {
-                    return connectionWithSOAR;
-                }
-
-                /**
-                 * Sets the value of the connectionWithSOAR property.
-                 * 
-                 */
-                public void setConnectionWithSOAR(byte value) {
-                    this.connectionWithSOAR = value;
-                }
-
-                /**
-                 * Gets the value of the dateCreated property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateCreated() {
-                    return dateCreated;
-                }
-
-                /**
-                 * Sets the value of the dateCreated property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateCreated(XMLGregorianCalendar value) {
-                    this.dateCreated = value;
-                }
-
-                /**
-                 * Gets the value of the dateUpdated property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateUpdated() {
-                    return dateUpdated;
-                }
-
-                /**
-                 * Sets the value of the dateUpdated property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateUpdated(XMLGregorianCalendar value) {
-                    this.dateUpdated = value;
-                }
-
-                /**
-                 * Gets the value of the userID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getUserID() {
-                    return userID;
-                }
-
-                /**
-                 * Sets the value of the userID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setUserID(String value) {
-                    this.userID = value;
-                }
-
+                
             }
 
             /**
@@ -3897,10 +3741,10 @@ public class Sources {
                 "disabilityType",
                 "disabilityResponse",
                 "indefiniteAndImpairsIndependence",
-                "documentationOnFile",
-                "receivingServices",
-                "pathHowConfirmed",
-                "pathsmiInformation",
+                //"documentationOnFile",
+                //"receivingServices",
+                //"pathHowConfirmed",
+                //"pathsmiInformation",
                 "tCellCountAvailable",
                 "tCellCount",
                 "tCellSource",
@@ -3920,14 +3764,14 @@ public class Sources {
                 protected byte disabilityResponse;
                 @XmlElement(name = "IndefiniteAndImpairsIndependence")
                 protected byte indefiniteAndImpairsIndependence;
-                @XmlElement(name = "DocumentationOnFile")
+               /* @XmlElement(name = "DocumentationOnFile")
                 protected byte documentationOnFile;
                 @XmlElement(name = "ReceivingServices")
                 protected byte receivingServices;
                 @XmlElement(name = "PATHHowConfirmed")
                 protected byte pathHowConfirmed;
                 @XmlElement(name = "PATHSMIInformation")
-                protected byte pathsmiInformation;
+                protected byte pathsmiInformation;*/
                 @XmlElement(name = "TCellCountAvailable")
                 protected byte tCellCountAvailable;
                 @XmlElement(name = "TCellCount")
@@ -4051,65 +3895,65 @@ public class Sources {
                  * Gets the value of the documentationOnFile property.
                  * 
                  */
-                public byte getDocumentationOnFile() {
+                /*public byte getDocumentationOnFile() {
                     return documentationOnFile;
-                }
+                }*/
 
                 /**
                  * Sets the value of the documentationOnFile property.
                  * 
                  */
-                public void setDocumentationOnFile(byte value) {
+                /*public void setDocumentationOnFile(byte value) {
                     this.documentationOnFile = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the receivingServices property.
                  * 
                  */
-                public byte getReceivingServices() {
+               /* public byte getReceivingServices() {
                     return receivingServices;
-                }
+                }*/
 
                 /**
                  * Sets the value of the receivingServices property.
                  * 
                  */
-                public void setReceivingServices(byte value) {
+               /* public void setReceivingServices(byte value) {
                     this.receivingServices = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the pathHowConfirmed property.
                  * 
                  */
-                public byte getPATHHowConfirmed() {
+               /* public byte getPATHHowConfirmed() {
                     return pathHowConfirmed;
-                }
+                }*/
 
                 /**
                  * Sets the value of the pathHowConfirmed property.
                  * 
                  */
-                public void setPATHHowConfirmed(byte value) {
+                /*public void setPATHHowConfirmed(byte value) {
                     this.pathHowConfirmed = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the pathsmiInformation property.
                  * 
                  */
-                public byte getPATHSMIInformation() {
+                /*public byte getPATHSMIInformation() {
                     return pathsmiInformation;
-                }
+                }*/
 
                 /**
                  * Sets the value of the pathsmiInformation property.
                  * 
                  */
-                public void setPATHSMIInformation(byte value) {
+               /* public void setPATHSMIInformation(byte value) {
                     this.pathsmiInformation = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the tCellCountAvailable property.
@@ -5190,15 +5034,17 @@ public class Sources {
                 "relationshipToHoH",
                 "residencePrior",
                 /*"otherResidencePrior",*/
-                "residencePriorLengthOfStay",
+                //"residencePriorLengthOfStay",
                 /*"entryFromStreetESSH",*/
                 "dateToStreetESSH",
                 "timesHomelessPastThreeYears",
                 "monthsHomelessPastThreeYears",
                 "disablingCondition",
-                "housingStatus",
+                //"housingStatus",
                 "losUnderThreshold",
-                "previousStreetESSH"
+                "previousStreetESSH",
+                "livingSituation",
+                "lengthOfStay"
             })
             public static class Enrollment {
 
@@ -5218,8 +5064,8 @@ public class Sources {
                 protected byte residencePrior;
                 /*@XmlElement(name = "OtherResidencePrior", required = true)
                 protected String otherResidencePrior;*/
-                @XmlElement(name = "ResidencePriorLengthOfStay")
-                protected byte residencePriorLengthOfStay;
+                /*@XmlElement(name = "ResidencePriorLengthOfStay")
+                protected byte residencePriorLengthOfStay;*/
                 /*@XmlElement(name = "EntryFromStreetESSH")
                 protected byte entryFromStreetESSH;*/
                 @XmlElement(name="LOSUnderThreshold")
@@ -5234,8 +5080,8 @@ public class Sources {
                 protected byte monthsHomelessPastThreeYears;
                 @XmlElement(name = "DisablingCondition")
                 protected byte disablingCondition;
-                @XmlElement(name = "HousingStatus")
-                protected byte housingStatus;
+               /* @XmlElement(name = "HousingStatus")
+                protected byte housingStatus;*/
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -5423,17 +5269,17 @@ public class Sources {
                  * Gets the value of the residencePriorLengthOfStay property.
                  * 
                  */
-                public byte getResidencePriorLengthOfStay() {
+                /*public byte getResidencePriorLengthOfStay() {
                     return residencePriorLengthOfStay;
-                }
+                }*/
 
                 /**
                  * Sets the value of the residencePriorLengthOfStay property.
                  * 
                  */
-                public void setResidencePriorLengthOfStay(byte value) {
+               /* public void setResidencePriorLengthOfStay(byte value) {
                     this.residencePriorLengthOfStay = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the entryFromStreetESSH property.
@@ -5554,17 +5400,17 @@ public class Sources {
                  * Gets the value of the housingStatus property.
                  * 
                  */
-                public byte getHousingStatus() {
+                /*public byte getHousingStatus() {
                     return housingStatus;
-                }
+                }*/
 
                 /**
                  * Sets the value of the housingStatus property.
                  * 
                  */
-                public void setHousingStatus(byte value) {
+                /*public void setHousingStatus(byte value) {
                     this.housingStatus = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the dateCreated property.
@@ -5671,9 +5517,9 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "enrollmentCoCID",
                 "projectEntryID",
-                /*"clientCoC",*/
-                "cocCode",
-                "householdID"
+                "clientCoC",
+                "householdID",
+                "informationDate"
             })
             public static class EnrollmentCoC {
 
@@ -5681,12 +5527,10 @@ public class Sources {
                 protected String enrollmentCoCID;
                 @XmlElement(name = "ProjectEntryID", required = true)
                 protected String projectEntryID;
-               /* @XmlElement(name = "clientCoC", required = true)
-                protected String clientCoC;*/
+                @XmlElement(name = "clientCoC", required = true)
+                protected String clientCoC;
                 @XmlElement(name="HouseholdID")
                 protected String householdID;
-                @XmlElement(name="CoCCode", required = true)
-                protected String cocCode;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
                 @XmlAttribute
@@ -5746,9 +5590,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-              /*  public String getClientCoC() {
+                public String getClientCoC() {
                     return clientCoC;
-                }*/
+                }
 
                 /**
                  * Sets the value of the coCCode property.
@@ -5758,9 +5602,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                /*public void setClientCoC(String value) {
+                public void setClientCoC(String value) {
                     this.clientCoC = value;
-                }*/
+                }
                 
                 public String getHouseholdID() {
 					return householdID;
@@ -5788,9 +5632,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-				public String getCocCode() {
+				/*public String getCocCode() {
 					return cocCode;
-				}
+				}*/
 
 				/**
                  * Sets the value of the coCCode property.
@@ -5800,9 +5644,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */ 
-				public void setCocCode(String cocCode) {
+				/*public void setCocCode(String cocCode) {
 					this.cocCode = cocCode;
-				}
+				}*/
 
 				/**
                  * Gets the value of the dataCollectionStage property.
@@ -5998,32 +5842,32 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "entryRHYID",
                 "projectEntryID",
-                "householdDynamics",
-                "sexualOrientation",
+                /*"householdDynamics",
                 "sexualOrientationGenderIdentityYouth",
                 "sexualOrientationGenderIDFam",
                 "housingIssuesYouth",
                 "housingIssuesFam",
                 "schoolEducationalIssuesYouth",
                 "schoolEducationalIssuesFam",
-                "unemploymentYouth",
-                "unemploymentFam",
-                "mentalHealthIssuesYouth",
-                "mentalHealthIssuesFam",
+				"unemploymentYouth",
+				"mentalHealthIssuesYouth",
                 "healthIssuesYouth",
                 "healthIssuesFam",
                 "physicalDisabilityYouth",
-                "physicalDisabilityFam",
                 "mentalDisabilityYouth",
                 "mentalDisabilityFam",
                 "abuseAndNeglectYouth",
                 "abuseAndNeglectFam",
                 "alcoholDrugAbuseYouth",
+                "activeMilitaryParent",
+                "incarceratedParentStatus",*/
+                "sexualOrientation",
+                "unemploymentFam",
+                "mentalHealthIssuesFam",
+                "physicalDisabilityFam",
                 "alcoholDrugAbuseFam",
                 "insufficientIncome",
-                "activeMilitaryParent",
                 "incarceratedParent",
-                "incarceratedParentStatus",
                 "workPlaceViolenceThreats",
                 "workplacePromiseDifference",
                 "coercedToContinueWork",
@@ -7014,7 +6858,7 @@ public class Sources {
                 "entrySSVFID",
                 "projectEntryID",
                 "percentAMI",
-                /*"hpScreeningScore",*/
+                "hpScreeningScore",
                 "vamcStation",
                 "lastPermanentStreet",
                 "lastPermanentCity",
@@ -7052,8 +6896,8 @@ public class Sources {
                 protected String projectEntryID;
                 @XmlElement(name = "PercentAMI")
                 protected String percentAMI;
-                /*@XmlElement(name = "HPScreeningScore")
-                protected byte hpScreeningScore;*/
+                @XmlElement(name = "HPScreeningScore")
+                protected byte hpScreeningScore;
                 @XmlElement(name = "VAMCStation", required = true)
                 protected String vamcStation;
                 @XmlElement(name = "LastPermanentStreet", required = true)
@@ -7186,17 +7030,17 @@ public class Sources {
                  * Gets the value of the hpScreeningScore property.
                  * 
                  */
-                /*public byte getHPScreeningScore() {
+                public byte getHPScreeningScore() {
                     return hpScreeningScore;
-                }*/
+                }
 
                 /**
                  * Sets the value of the hpScreeningScore property.
                  * 
                  */
-                /*public void setHPScreeningScore(byte value) {
+                public void setHPScreeningScore(byte value) {
                     this.hpScreeningScore = value;
-                }*/
+                }
                 
                 
 
@@ -12318,7 +12162,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "organizationID",
                 "organizationName",
-                "organizationCommonName"
+//                "organizationCommonName"
             })
             public static class Organization {
 
@@ -12326,8 +12170,8 @@ public class Sources {
                 protected String organizationID;
                 @XmlElement(name = "OrganizationName", required = true)
                 protected String organizationName;
-                @XmlElement(name = "OrganizationCommonName", required = true)
-                protected String organizationCommonName;
+                /*@XmlElement(name = "OrganizationCommonName", required = true)
+                protected String organizationCommonName;*/
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -12383,9 +12227,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getOrganizationCommonName() {
+               /* public String getOrganizationCommonName() {
                     return organizationCommonName;
-                }
+                }*/
 
                 /**
                  * Sets the value of the organizationCommonName property.
@@ -12395,9 +12239,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setOrganizationCommonName(String value) {
+                /*public void setOrganizationCommonName(String value) {
                     this.organizationCommonName = value;
-                }
+                }*/
 
                 /**
                  * Gets the value of the dateCreated property.
@@ -14424,9 +14268,116 @@ public class Sources {
 					this.geography_type = geography_type;
 				}
                
-                
-            	
-            	}
+            }
+            
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+            		"id",
+            		"exitId",
+            		"cmExitReason"
+            })
+
+            public static class VASHExitReason {
+	            @XmlElement(name = "id", required = true)
+	            protected String id;
+	            @XmlElement(name = "exitId")
+	            protected String exitId;
+	            @XmlElement(name = "cmExitReason")
+	            protected Integer cmExitReason;
+	            
+	            
+				public String getId() {
+					return id;
+				}
+				public void setId(String id) {
+					this.id = id;
+				}
+				public String getExitId() {
+					return exitId;
+				}
+				public void setExitId(String exitId) {
+					this.exitId = exitId;
+				}
+				public Integer getCmExitReason() {
+					return cmExitReason;
+				}
+				public void setCmExitReason(Integer cmExitReason) {
+					this.cmExitReason = cmExitReason;
+				}
+	
+	         }
+            
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+            		"id", 
+            		"afterCareDate",
+            		"afterProvided",
+            		"emailSocialMedia",
+            		"telephone",
+            		"inPersonIndividual",
+            		"inPersonGroup"
+            })
+
+            public static class RHYAfterCare {
+	            @XmlElement(name = "id", required = true)
+	            protected String id;
+	            @XmlElement(name = "afterCareDate")
+	            protected XMLGregorianCalendar afterCareDate;
+	            @XmlElement(name = "afterProvided")
+	            protected Integer afterProvided;
+	            @XmlElement(name = "emailSocialMedia")
+	            protected Integer emailSocialMedia;
+	            @XmlElement(name = "telephone")
+	            protected Integer telephone;
+	            @XmlElement(name = "inPersonIndividual")
+	            protected Integer inPersonIndividual;
+	            @XmlElement(name = "inPersonGroup")
+	            protected Integer inPersonGroup;
+				public String getId() {
+					return id;
+				}
+				public void setId(String id) {
+					this.id = id;
+				}
+				public XMLGregorianCalendar getAfterCareDate() {
+					return afterCareDate;
+				}
+				public void setAfterCareDate(XMLGregorianCalendar afterCareDate) {
+					this.afterCareDate = afterCareDate;
+				}
+				public Integer getAfterProvided() {
+					return afterProvided;
+				}
+				public void setAfterProvided(Integer afterProvided) {
+					this.afterProvided = afterProvided;
+				}
+				public Integer getEmailSocialMedia() {
+					return emailSocialMedia;
+				}
+				public void setEmailSocialMedia(Integer emailSocialMedia) {
+					this.emailSocialMedia = emailSocialMedia;
+				}
+				public Integer getTelephone() {
+					return telephone;
+				}
+				public void setTelephone(Integer telephone) {
+					this.telephone = telephone;
+				}
+				public Integer getInPersonIndividual() {
+					return inPersonIndividual;
+				}
+				public void setInPersonIndividual(Integer inPersonIndividual) {
+					this.inPersonIndividual = inPersonIndividual;
+				}
+				public Integer getInPersonGroup() {
+					return inPersonGroup;
+				}
+				public void setInPersonGroup(Integer inPersonGroup) {
+					this.inPersonGroup = inPersonGroup;
+				}
+	            
+				
+	         }
 
             }
 

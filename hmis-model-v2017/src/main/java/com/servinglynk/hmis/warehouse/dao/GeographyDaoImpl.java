@@ -32,13 +32,13 @@ public class GeographyDaoImpl  extends ParentDaoImpl implements GeographyDao {
 	 */
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		 List<Geography> geography = domain.getExport().getGeography());
+		 List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography> geography = domain.getExport().getGeography();
 		 com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		 Data data =new Data();
 		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Geography.class, getProjectGroupCode(domain));
 		 if(geography != null && !geography.isEmpty())
 		 {
-			 for(Geography geo : geography)
+			 for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography geo : geography)
 			 {
 				 com.servinglynk.hmis.warehouse.model.v2017.Geography geographyModel = null;
 				 try {
