@@ -52,7 +52,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				EnrollmentCoc enrollmentCocModel = null;
 				try {
 					enrollmentCocModel = getModelObject(domain, enrollmentCoc,data,modelMap);
-					enrollmentCocModel.setClientCoc(enrollmentCoc.getCocCode());
+					enrollmentCocModel.setClientCoc(enrollmentCoc.getClientCoC());
 					enrollmentCocModel.setHouseholdId(enrollmentCoc.getHouseholdID());
 					enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
 					enrollmentCocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
