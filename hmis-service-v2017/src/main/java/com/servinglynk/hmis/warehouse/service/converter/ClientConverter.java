@@ -14,8 +14,8 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 
 public class ClientConverter {
 
-	public static com.servinglynk.hmis.warehouse.model.v2016.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.v2016.Client pClient){
-		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.v2016.Client();
+	public static com.servinglynk.hmis.warehouse.model.v2017.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.v2017.Client pClient){
+		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.v2017.Client();
 	    if(client.getDob()!=null)
 		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 	    if(client.getDobDataQuality()!=null)
@@ -34,8 +34,6 @@ public class ClientConverter {
 		pClient.setNameDataQuality(ClientNameDataQualityEnum.lookupEnum(client.getNameDataQuality()+""));
 	    if(client.getNameSuffix()!=null)
 		pClient.setNameSuffix(client.getNameSuffix());
-	    if(client.getOtherGender()!=null)
-		pClient.setOtherGender(client.getOtherGender());
 	    if(client.getRace()!=null)
 		pClient.setRace(ClientRaceEnum.lookupEnum(client.getRace()+""));
 	    if(client.getSsn()!=null)
@@ -49,7 +47,7 @@ public class ClientConverter {
 		return pClient;
 	}
 
-	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.v2016.Client pClient){
+	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.v2017.Client pClient){
 		Client client = new Client();
 	    if(pClient.getDob()!=null)
 		client.setDob(Date.from(pClient.getDob().atZone(ZoneId.systemDefault()).toInstant()));
@@ -69,8 +67,6 @@ public class ClientConverter {
 		client.setNameDataQuality(Integer.parseInt(pClient.getNameDataQuality().getValue()));
 	    if(pClient.getNameSuffix()!=null)
 		client.setNameSuffix(pClient.getNameSuffix());
-	    if(pClient.getOtherGender()!=null)
-		client.setOtherGender(pClient.getOtherGender());
 	    if(pClient.getRace()!=null)
 		client.setRace(Integer.parseInt(pClient.getRace().getValue()));
 	    if(pClient.getSsn()!=null)

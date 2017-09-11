@@ -21,8 +21,8 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
 
    @Transactional
    public Entryrhy createEntryrhy(Entryrhy entryrhy,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhy pEntryrhy = EntryrhyConverter.modelToEntity(entryrhy, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhy pEntryrhy = EntryrhyConverter.modelToEntity(entryrhy, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEntryrhy.setEnrollmentid(pEnrollment);
        pEntryrhy.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
 
    @Transactional
    public Entryrhy updateEntryrhy(Entryrhy entryrhy,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhy pEntryrhy = daoFactory.getEntryrhyDao().getEntryrhyById(entryrhy.getEntryrhyId());
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhy pEntryrhy = daoFactory.getEntryrhyDao().getEntryrhyById(entryrhy.getEntryrhyId());
        if(pEntryrhy==null) throw new EntryrhyNotFoundException();
 
        EntryrhyConverter.modelToEntity(entryrhy, pEntryrhy);
@@ -52,7 +52,7 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
 
    @Transactional
    public Entryrhy deleteEntryrhy(UUID entryrhyId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhy pEntryrhy = daoFactory.getEntryrhyDao().getEntryrhyById(entryrhyId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhy pEntryrhy = daoFactory.getEntryrhyDao().getEntryrhyById(entryrhyId);
        if(pEntryrhy==null) throw new EntryrhyNotFoundException();
 
        daoFactory.getEntryrhyDao().deleteEntryrhy(pEntryrhy);
@@ -62,7 +62,7 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
 
    @Transactional
    public Entryrhy getEntryrhyById(UUID entryrhyId){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhy pEntryrhy = daoFactory.getEntryrhyDao().getEntryrhyById(entryrhyId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhy pEntryrhy = daoFactory.getEntryrhyDao().getEntryrhyById(entryrhyId);
        if(pEntryrhy==null) throw new EntryrhyNotFoundException();
 
        return EntryrhyConverter.entityToModel( pEntryrhy );
@@ -72,8 +72,8 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
    @Transactional
    public Entryrhys getAllEnrollmentEntryrhys(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Entryrhys entryrhys = new Entryrhys();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhy> entities = daoFactory.getEntryrhyDao().getAllEnrollmentEntryrhys(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Entryrhy entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy> entities = daoFactory.getEntryrhyDao().getAllEnrollmentEntryrhys(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entity : entities){
            entryrhys.addEntryrhy(EntryrhyConverter.entityToModel(entity));
         }
         long count = daoFactory.getEntryrhyDao().getEnrollmentEntryrhysCount(enrollmentId);

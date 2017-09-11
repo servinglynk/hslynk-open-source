@@ -42,8 +42,8 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 public class EntryrhyConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Entryrhy modelToEntity (Entryrhy model ,com.servinglynk.hmis.warehouse.model.v2016.Entryrhy entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Entryrhy();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Entryrhy modelToEntity (Entryrhy model ,com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhy();
        if(model.getEntryrhyId()!=null)
        entity.setId(model.getEntryrhyId());
        if(model.getSexualOrientation()!=null)
@@ -140,7 +140,7 @@ public class EntryrhyConverter  extends BaseConverter {
    }
 
 
-   public static Entryrhy entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Entryrhy entity) {
+   public static Entryrhy entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entity) {
        Entryrhy model = new Entryrhy();
        if(entity.getId()!=null)
        model.setEntryrhyId(entity.getId());

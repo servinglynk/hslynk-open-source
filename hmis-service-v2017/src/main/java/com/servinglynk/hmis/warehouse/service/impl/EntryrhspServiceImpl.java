@@ -19,8 +19,8 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
 
    @Transactional
    public Entryrhsp createEntryrhsp(Entryrhsp entryrhsp,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp pEntryrhsp = EntryrhspConverter.modelToEntity(entryrhsp, null);
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp pEntryrhsp = EntryrhspConverter.modelToEntity(entryrhsp, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEntryrhsp.setEnrollmentid(pEnrollment);
        pEntryrhsp.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
 
    @Transactional
    public Entryrhsp updateEntryrhsp(Entryrhsp entryrhsp,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp pEntryrhsp = daoFactory.getEntryrhspDao().getEntryrhspById(entryrhsp.getEntryrhspId());
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp pEntryrhsp = daoFactory.getEntryrhspDao().getEntryrhspById(entryrhsp.getEntryrhspId());
        if(pEntryrhsp==null) throw new EntryrhspNotFoundException();
 
        EntryrhspConverter.modelToEntity(entryrhsp, pEntryrhsp);
@@ -50,7 +50,7 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
 
    @Transactional
    public Entryrhsp deleteEntryrhsp(UUID entryrhspId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp pEntryrhsp = daoFactory.getEntryrhspDao().getEntryrhspById(entryrhspId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp pEntryrhsp = daoFactory.getEntryrhspDao().getEntryrhspById(entryrhspId);
        if(pEntryrhsp==null) throw new EntryrhspNotFoundException();
 
        daoFactory.getEntryrhspDao().deleteEntryrhsp(pEntryrhsp);
@@ -60,7 +60,7 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
 
    @Transactional
    public Entryrhsp getEntryrhspById(UUID entryrhspId){
-       com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp pEntryrhsp = daoFactory.getEntryrhspDao().getEntryrhspById(entryrhspId);
+       com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp pEntryrhsp = daoFactory.getEntryrhspDao().getEntryrhspById(entryrhspId);
        if(pEntryrhsp==null) throw new EntryrhspNotFoundException();
 
        return EntryrhspConverter.entityToModel( pEntryrhsp );
@@ -70,8 +70,8 @@ public class EntryrhspServiceImpl extends ServiceBase implements EntryrhspServic
    @Transactional
    public Entryrhsps getAllEnrollmentEntryrhsps(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Entryrhsps entryrhsps = new Entryrhsps();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp> entities = daoFactory.getEntryrhspDao().getAllEnrollmentEntryrhsps(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Entryrhsp entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp> entities = daoFactory.getEntryrhspDao().getAllEnrollmentEntryrhsps(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entity : entities){
            entryrhsps.addEntryrhsp(EntryrhspConverter.entityToModel(entity));
         }
         long count = daoFactory.getEntryrhspDao().getEnrollmentEntryrhspsCount(enrollmentId);

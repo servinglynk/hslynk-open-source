@@ -30,7 +30,6 @@ public class Client extends ClientModel {
 	private Integer race;
 	private Integer ethnicity;
 	private Integer gender;
-	private String otherGender;
 	private String veteranStatus;
 	private String sourceSystemId;
 	private String phoneNumber;
@@ -149,12 +148,6 @@ public class Client extends ClientModel {
 	}
 	public void setGender(Integer gender) {
 		this.gender = gender;
-	}
-	public String getOtherGender() {
-		return otherGender;
-	}
-	public void setOtherGender(String otherGender) {
-		this.otherGender = otherGender;
 	}
 	public String getVeteranStatus() {
 		return veteranStatus;

@@ -15,8 +15,8 @@ import com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 public class ExitrhyConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Exitrhy modelToEntity (Exitrhy model ,com.servinglynk.hmis.warehouse.model.v2016.Exitrhy entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Exitrhy();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Exitrhy modelToEntity (Exitrhy model ,com.servinglynk.hmis.warehouse.model.v2017.Exitrhy entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Exitrhy();
        entity.setId(model.getExitrhyId());
        if(model.getProjectCompletionStatus()!=null)
        entity.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(model.getProjectCompletionStatus()+""));
@@ -46,7 +46,7 @@ public class ExitrhyConverter  extends BaseConverter {
    }
 
 
-   public static Exitrhy entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Exitrhy entity) {
+   public static Exitrhy entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Exitrhy entity) {
        Exitrhy model = new Exitrhy();
        model.setExitrhyId(entity.getId());
        if(entity.getProjectCompletionStatus()!=null)

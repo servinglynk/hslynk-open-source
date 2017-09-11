@@ -3,8 +3,8 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import com.servinglynk.hmis.warehouse.core.model.Servicefareferral;
 public class ServicefareferralConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral modelToEntity (Servicefareferral model ,com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral();
+   public static com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral modelToEntity (Servicefareferral model ,com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
        entity.setId(model.getServicefareferralId());
        entity.setDateprovided(model.getDateprovided());
        entity.setServiceCategory(model.getServiceCategory());
@@ -18,7 +18,7 @@ public class ServicefareferralConverter  extends BaseConverter {
    }
 
 
-   public static Servicefareferral entityToModel (com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral entity) {
+   public static Servicefareferral entityToModel (com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral entity) {
        Servicefareferral model = new Servicefareferral();
        model.setServicefareferralId(entity.getId());
        model.setDateprovided(entity.getDateprovided());

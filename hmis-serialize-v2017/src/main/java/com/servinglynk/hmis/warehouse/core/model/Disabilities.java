@@ -25,14 +25,6 @@ public class Disabilities extends ClientModel{
 
       private Integer indefiniteandimpairs;
 
-      private Integer documentationonfile;
-
-      private Integer receivingservices;
-
-      private Integer pathhowconfirmed;
-
-      private Integer pathsmiinformation;
-
       private Integer tcellcountavailable;
 
       private Integer tcellcount;
@@ -78,30 +70,6 @@ public class Disabilities extends ClientModel{
       }
       public void setIndefiniteandimpairs(Integer indefiniteandimpairs){
           this.indefiniteandimpairs = indefiniteandimpairs;
-      }
-      public Integer getDocumentationonfile(){
-          return documentationonfile;
-      }
-      public void setDocumentationonfile(Integer documentationonfile){
-          this.documentationonfile = documentationonfile;
-      }
-      public Integer getReceivingservices(){
-          return receivingservices;
-      }
-      public void setReceivingservices(Integer receivingservices){
-          this.receivingservices = receivingservices;
-      }
-      public Integer getPathhowconfirmed(){
-          return pathhowconfirmed;
-      }
-      public void setPathhowconfirmed(Integer pathhowconfirmed){
-          this.pathhowconfirmed = pathhowconfirmed;
-      }
-      public Integer getPathsmiinformation(){
-          return pathsmiinformation;
-      }
-      public void setPathsmiinformation(Integer pathsmiinformation){
-          this.pathsmiinformation = pathsmiinformation;
       }
       public Integer getTcellcountavailable(){
           return tcellcountavailable;

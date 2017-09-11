@@ -11,7 +11,7 @@ import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.model.v2016.Client;
+import com.servinglynk.hmis.warehouse.model.v2017.Client;
 import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 
 public class SearchServiceImpl extends ServiceBase implements SearchService {
@@ -20,7 +20,7 @@ public class SearchServiceImpl extends ServiceBase implements SearchService {
   public void indexing()
   {
 
-	  String indexClassList = "com.servinglynk.hmis.warehouse.model.v2016.Client";
+	  String indexClassList = "com.servinglynk.hmis.warehouse.model.v2017.Client";
     this.daoFactory.getSearchDao().indexing(indexClassList);
   }
 

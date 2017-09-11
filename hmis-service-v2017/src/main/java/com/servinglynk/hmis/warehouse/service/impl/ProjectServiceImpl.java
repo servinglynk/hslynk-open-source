@@ -22,10 +22,10 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    @Transactional
    public Project createProject(Project project,String caller){
 	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
-       com.servinglynk.hmis.warehouse.model.v2016.Project pProject = ProjectConverter.modelToEntity(project, null);
+       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = ProjectConverter.modelToEntity(project, null);
 
 	   if(project.getOrganizationId()!=null){
-		   com.servinglynk.hmis.warehouse.model.v2016.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(project.getOrganizationId());
+		   com.servinglynk.hmis.warehouse.model.v2017.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(project.getOrganizationId());
 		   if(pOrganization==null) throw new OrganizationNotFoundException();
 		   pProject.setOrganizationid(pOrganization);
 	   }
@@ -39,7 +39,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project updateProject(Project project,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
        if(pProject==null) throw new ProjectNotFoundException();
 
        ProjectConverter.modelToEntity(project, pProject);
@@ -52,7 +52,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project deleteProject(UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2016.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject==null) throw new ProjectNotFoundException();
 
        daoFactory.getProjectDao().deleteProject(pProject);
@@ -61,7 +61,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project getProjectById(UUID projectId){
-       com.servinglynk.hmis.warehouse.model.v2016.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject==null) throw new ProjectNotFoundException();
 
        return ProjectConverter.entityToModel( pProject );
@@ -70,8 +70,8 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    @Transactional
    public Projects getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
        Projects projects = new Projects();
-        List<com.servinglynk.hmis.warehouse.model.v2016.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2016.Project entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2017.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2017.Project entity : entities){
            projects.addProject(ProjectConverter.entityToModel(entity));
         }
         long count = daoFactory.getProjectDao().getProjectCount(projectGroupCode);

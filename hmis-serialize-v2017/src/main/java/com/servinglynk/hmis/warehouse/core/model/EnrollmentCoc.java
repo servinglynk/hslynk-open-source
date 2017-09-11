@@ -19,7 +19,7 @@ public class EnrollmentCoc extends ClientModel{
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
-      private String clientCode;
+      private String clientCoc;
 
       public UUID getEnrollmentCocId(){
           return enrollmentCocId;
@@ -30,20 +30,8 @@ public class EnrollmentCoc extends ClientModel{
       public LocalDateTime getInformationDate(){
           return informationDate;
       }
-      public void setInformationDate(LocalDateTime informationDate){
-          this.informationDate = informationDate;
-      }
-      public Integer getDataCollectionStage() {
-		return dataCollectionStage;
+      public void setInformationDate(LocalDa3ataCollectionStage;
 	}
-	public void setDataCollectionStage(Integer dataCollectionStage) {
-		this.dataCollectionStage = dataCollectionStage;
-	}
-	public String getClientCode(){
-          return clientCode;
-      }
-      public void setClientCode(String clientCode){
-          this.clientCode = clientCode;
-      }
+	
 
  }

@@ -18,8 +18,8 @@ public class EnrollmentConveter extends BaseConverter {
 
 
 
-	public static com.servinglynk.hmis.warehouse.model.v2016.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment){
-		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.v2016.Enrollment();
+	public static com.servinglynk.hmis.warehouse.model.v2017.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment){
+		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
 		if(enrollment.getDisablingcondition()!=null)
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
 		if(enrollment.getEntrydate()!=null)
@@ -59,7 +59,7 @@ public class EnrollmentConveter extends BaseConverter {
 	}
 
 
-	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment){
+	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
 		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));

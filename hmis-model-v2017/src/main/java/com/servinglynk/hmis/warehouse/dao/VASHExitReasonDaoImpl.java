@@ -42,7 +42,6 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 				 com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReasonModel = null;
 				 try {
 					 vashExitReasonModel = getModelObject(domain, vashExitReasonModel,data,modelMap);
-					 vashExitReasonModel.setId(vashExitReason.getId());
 					 vashExitReasonModel.setExitId(vashExitReason.getExitId());
 					 vashExitReasonModel.setCmExitReason(vashExitReason.getCmExitReason());
 					 performSaveOrUpdate(vashExitReasonModel);

@@ -10,8 +10,8 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 public class DisabilitiesConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.v2016.Disabilities entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Disabilities();
+   public static com.servinglynk.hmis.warehouse.model.v2017.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.v2017.Disabilities entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Disabilities();
        entity.setId(model.getDisabilitiesId());
        if(model.getInformationDate()!=null)
        entity.setInformationDate(model.getInformationDate());
@@ -20,14 +20,6 @@ public class DisabilitiesConverter  extends BaseConverter {
        entity.setDisabilityresponse(model.getDisabilityresponse());
  if(model.getIndefiniteandimpairs()!=null)
        entity.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(model.getIndefiniteandimpairs().toString()));
- if(model.getDocumentationonfile()!=null)
-       entity.setDocumentationonfile(DisabilitiesDocumentationonfileEnum.lookupEnum(model.getDocumentationonfile().toString()));
- if(model.getReceivingservices()!=null)
-       entity.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(model.getReceivingservices().toString()));
- if(model.getPathhowconfirmed()!=null)
-       entity.setPathhowconfirmed(DisabilitiesPathhowconfirmedEnum.lookupEnum(model.getPathhowconfirmed().toString()));
- if(model.getPathsmiinformation()!=null)
-       entity.setPathsmiinformation(DisabilitiesPathsmiinformationEnum.lookupEnum(model.getPathsmiinformation().toString()));
  if(model.getTcellcountavailable()!=null)
  	   entity.setTcellcountavailable(model.getTcellcountavailable());
  if(model.getTcellcount()!=null)
@@ -48,7 +40,7 @@ public class DisabilitiesConverter  extends BaseConverter {
    }
 
 
-   public static Disabilities entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Disabilities entity) {
+   public static Disabilities entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Disabilities entity) {
        Disabilities model = new Disabilities();
        model.setDisabilitiesId(entity.getId());
        if(entity.getInformationDate()!=null)
@@ -60,14 +52,6 @@ if(entity.getDisabilitytype()!=null)
        model.setDisabilityresponse(entity.getDisabilityresponse());
 if(entity.getIndefiniteandimpairs()!=null)
        model.setIndefiniteandimpairs(Integer.parseInt(entity.getIndefiniteandimpairs().getValue()));
-if(entity.getDocumentationonfile()!=null)
-       model.setDocumentationonfile(Integer.parseInt(entity.getDocumentationonfile().getValue()));
-if(entity.getReceivingservices()!=null)
-       model.setReceivingservices(Integer.parseInt(entity.getReceivingservices().getValue()));
-if(entity.getPathhowconfirmed()!=null)
-       model.setPathhowconfirmed(Integer.parseInt(entity.getPathhowconfirmed().getValue()));
-if(entity.getPathsmiinformation()!=null)
-       model.setPathsmiinformation(Integer.parseInt(entity.getPathsmiinformation().getValue()));
 if(entity.getTcellcountavailable()!=null)
        model.setTcellcountavailable(entity.getTcellcountavailable());
 if(entity.getTcellcount()!=null)

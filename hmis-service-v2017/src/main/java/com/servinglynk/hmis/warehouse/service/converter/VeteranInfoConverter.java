@@ -13,8 +13,8 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
 public class VeteranInfoConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo modelToEntity (VeteranInfo model ,com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo();
+   public static com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo modelToEntity (VeteranInfo model ,com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo();
 
 /*       entity.setAfghanistanOef(VeteranInfoAfghanistanOefEnum.valueOf(model.getAfghanistanOef()));
        entity.setDesertStorm(VeteranInfoDesertStormEnum.valueOf(model.getDesertStorm()));
@@ -56,7 +56,7 @@ public class VeteranInfoConverter extends BaseConverter {
    }
 
 
-   public static VeteranInfo entityToModel (com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo entity) {
+   public static VeteranInfo entityToModel (com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo entity) {
 /*       VeteranInfo veteranInfo= new VeteranInfo();
 
 
