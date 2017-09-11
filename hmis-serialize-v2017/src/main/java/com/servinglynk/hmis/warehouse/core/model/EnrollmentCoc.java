@@ -30,8 +30,19 @@ public class EnrollmentCoc extends ClientModel{
       public LocalDateTime getInformationDate(){
           return informationDate;
       }
-      public void setInformationDate(LocalDa3ataCollectionStage;
+      public void setInformationDate(LocalDateTime informationDate){
+          this.informationDate = informationDate;
+      }
+      public Integer getDataCollectionStage() {
+		return dataCollectionStage;
 	}
-	
-
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+	public String getClientCoc() {
+		return clientCoc;
+	}
+	public void setClientCoc(String clientCoc) {
+		this.clientCoc = clientCoc;
+	}
  }

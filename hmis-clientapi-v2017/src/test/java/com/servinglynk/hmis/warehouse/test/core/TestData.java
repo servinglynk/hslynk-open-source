@@ -372,7 +372,6 @@ public class TestData {
 			client.setNameDataQuality(1);
 			client.setNameSuffix("NS");
 			client.setNativeHIOtherPacific("");
-			client.setOtherGender("Test");
 			client.setRace(1);
 			client.setSsn("ssn");
 			client.setSsnDataQuality(1);
@@ -430,10 +429,6 @@ public class TestData {
 	       disabilities.setDisabilitytype(getRandamFromEnum("DisabilitiesDisabilitytypeEnum"));
 	       disabilities.setDisabilityresponse(random.nextInt());
 	       disabilities.setIndefiniteandimpairs(getRandamFromEnum("DisabilitiesIndefiniteandimpairsEnum"));
-	       disabilities.setDocumentationonfile(getRandamFromEnum("DisabilitiesDocumentationonfileEnum"));
-	       disabilities.setReceivingservices(getRandamFromEnum("DisabilitiesReceivingservicesEnum"));
-	       disabilities.setPathhowconfirmed(getRandamFromEnum("DisabilitiesPathhowconfirmedEnum"));
-	       disabilities.setPathsmiinformation(getRandamFromEnum("DisabilitiesPathsmiinformationEnum"));
 	       disabilities.setTcellcountavailable(random.nextInt());
 	       disabilities.setTcellcount(random.nextInt());
 	       disabilities.setViralLoadAvailable(random.nextInt());
