@@ -2783,3 +2783,6 @@ alter table v2014.nonCashBenefits add column information_date  timestamp;
 alter table v2014.referralSource add column information_date  timestamp;
 alter table v2014.sexualOrientation add column information_date  timestamp;
 alter table v2014.youthCriticalIssues add column information_date  timestamp;
+
+CREATE INDEX disab_proj_grp
+ON v2014.disabilities (project_group_code);

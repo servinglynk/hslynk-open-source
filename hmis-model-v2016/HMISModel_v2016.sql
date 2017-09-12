@@ -2921,3 +2921,5 @@ CREATE SEQUENCE v2016.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+CREATE INDEX disab_proj_grp
+ON v2016.disabilities (project_group_code);
