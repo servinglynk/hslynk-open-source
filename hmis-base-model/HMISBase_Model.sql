@@ -1358,3 +1358,4 @@ INSERT INTO base.hmis_user(
 alter table base.client ADD COLUMN email_address character varying(266);
 alter table base.client ADD COLUMN phone_number character varying(16);
   
+alter table base.hmis_project_group ADD COLUMN purge_data boolean default(false);
