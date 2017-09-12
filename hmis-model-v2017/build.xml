@@ -1,0 +1,25 @@
+<project name="Database creation" basedir=".">
+   <property name="sql.driver" value="org.postgresql.Driver"/>
+	<!--	
+	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
+   <property name="sql.user" value="hmisdb1"/>
+   <property name="sql.pass" value="hmisdb1234"/>
+		
+	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
+   <property name="sql.user" value="hmisdb1"/>
+   <property name="sql.pass" value="abc"/>
+ -->
+	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
+	   <property name="sql.user" value="postgres"/>
+	   <property name="sql.pass" value=""/>
+	  
+	<property name="sql.driver" value="org.postgresql.Driver"/>
+	   <target name="setupDB2016">
+	      <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}" >
+	           <classpath>
+	            <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
+	           </classpath>   
+	           <transaction src="HMISModel_v2016.sql"/>
+	      </sql>
+	   </target>
+	</project>
