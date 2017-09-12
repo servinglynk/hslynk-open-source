@@ -85,7 +85,7 @@ public class ActiveListView  extends Logging {
 	                	 if(survey !=null && survey.getSurveyId() !=null) {
 	                		 survey = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
 	                	 }
-	                	 if(survey.getSurveyId() !=null) {
+	                	 if(survey !=null && survey.getSurveyId() !=null) {
 	                		 String surveyId =  String.valueOf(survey.getSurveyId());
 	                		 addColumn("survey_id",surveyId, key, p);
 	                		 addColumn("survey_title",survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", " "), key, p);
