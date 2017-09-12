@@ -15,8 +15,8 @@ public class RedirectExceptionMapper extends OAuthExceptionMapper {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	private String errorUri;
+	//@Autowired
+	private String errorUri="";
 	
 	public String mapRedirect(Throwable th, HttpServletRequest request) {
 
@@ -36,9 +36,10 @@ public class RedirectExceptionMapper extends OAuthExceptionMapper {
 		} catch (Throwable t) {
 
 			r = map(t, request);
+			redirectUri = errorUri +"?error="+r.getError().getErrorDescription();
 		}
 
-		// use HASH for IMPLICIT GRANT FLOWS
+/*		// use HASH for IMPLICIT GRANT FLOWS
 		String hashOrQM = Constants.OAUTH_RESPONSE_TYPE_TOKEN.equals(request.getParameter("response_type")) ? "#" : "?";
 		// append the error code
 		redirectUri = redirectUri + hashOrQM + "error="+r.getError().getError();
@@ -51,7 +52,7 @@ public class RedirectExceptionMapper extends OAuthExceptionMapper {
 		// append state if any
 		if (!StringUtils.isBlank(request.getParameter("state")))	{
 			redirectUri = redirectUri + "&state=" + request.getParameter("state");
-		}
+		}*/
 		
 		return redirectUri;
 	}

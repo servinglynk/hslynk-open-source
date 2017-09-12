@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.core.model.OAuthError;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
+import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountConsentNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AuthCodeAlreadyUsedException;
@@ -134,7 +135,16 @@ public class OAuthExceptionMapper {
 			r.setErrorCode(ERR_CODE_INVALID_GRANT);
 			r.setErrorMessage(ex.getMessage());
 
-		} /*catch (AccountPendingException ex) {
+		}catch (TrustedAppNotFoundException ex) {	
+		logger.info("AccountDisabledException: " + ex.getMessage(), ex);
+		r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+		r.setErrorCode(ERR_CODE_INVALID_GRANT);
+		r.setErrorMessage(ex.getMessage());
+		
+		}
+
+		
+		/*catch (AccountPendingException ex) {
 
 			logger.info("AccountPendingException: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
